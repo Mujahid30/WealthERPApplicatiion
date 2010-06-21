@@ -64,32 +64,33 @@ namespace WealthERP.SuperAdmin
                     {
                         try
                         {
-                            btnAddLOB.Visible = true;
-                            btnSendLoginId.Visible = true;
-                            lblIFFAdd.Text = "Edit IFF";
-                            btnSubmit.Text = "Update";
-                            Deactivation.Visible = false;
-                            lblDeactivation.Visible = false;
-                            advisorVo = (AdvisorVo)Session["advisorVo"];
-                            userVo = (UserVo)Session["userVo"];
-                            //advisorVo = advisorBo.GetAdvisor(advisorVo.advisorId);
-                            txtDeactivationDate.Text = advisorVo.DeactivationDate.ToShortDateString();
-                            txtAddressLine1.Text = advisorVo.AddressLine1;
-                            txtAddressLine2.Text = advisorVo.AddressLine2;
-                            txtAddressLine3.Text = advisorVo.AddressLine3;
-                            txtCity.Text = advisorVo.City;
-                            txtContactPerson.Text = advisorVo.ContactPersonFirstName;
-                            txtCountry.Text = advisorVo.Country;
-                            txtEmailId.Text = advisorVo.Email;
-                            txtLoginId.Text = advisorVo.LoginId;
-                            txtMobileNo.Text = advisorVo.MobileNumber.ToString();
-                            txtNameofIFF.Text = advisorVo.OrganizationName;
-                            txtPinCode.Text = advisorVo.PinCode.ToString();
-                            txtTelephoneNumber.Text = advisorVo.Phone1Number.ToString();
-                          
+                                btnAddLOB.Visible = true;
+                                btnSendLoginId.Visible = true;
+                                lblIFFAdd.Text = "Edit IFF";
+                                btnSubmit.Text = "Update";
+                                Deactivation.Visible = false;
+                                lblDeactivation.Visible = false;
+                                advisorVo = (AdvisorVo)Session["advisorVo"];
+                                userVo = (UserVo)Session["iffUserVo"];
+                                //advisorVo = advisorBo.GetAdvisor(advisorVo.advisorId);
+                                txtDeactivationDate.Text = advisorVo.DeactivationDate.ToShortDateString();
+                                txtAddressLine1.Text = advisorVo.AddressLine1;
+                                txtAddressLine2.Text = advisorVo.AddressLine2;
+                                txtAddressLine3.Text = advisorVo.AddressLine3;
+                                txtCity.Text = advisorVo.City;
+                                txtContactPerson.Text = advisorVo.ContactPersonFirstName;
+                                txtCountry.Text = advisorVo.Country;
+                                txtEmailId.Text = advisorVo.Email;
+                                txtLoginId.Text = advisorVo.LoginId;
+                                txtMobileNo.Text = advisorVo.MobileNumber.ToString();
+                                txtNameofIFF.Text = advisorVo.OrganizationName;
+                                txtPinCode.Text = advisorVo.PinCode.ToString();
+                                txtTelephoneNumber.Text = advisorVo.Phone1Number.ToString();
+                                btnSendLoginId.Text = "Reset/Send Login Id";
                                 if (advisorVo.IsActive == 1)
                                 {
                                     ddlStatus.SelectedIndex = 0;
+                                    
 
                                 }
                                 else
@@ -97,51 +98,65 @@ namespace WealthERP.SuperAdmin
                                     ddlStatus.SelectedIndex = 1;
                                     Deactivation.Visible = true;
                                     lblDeactivation.Visible = true;
-                                   
-
+                                    
                                 }
-                            
-                            if (advisorVo.Category != null)
-                            {
 
-                                for (int i = 0; i < ddlCategory.Items.Count; i++)
+                                if (advisorVo.Category != null)
                                 {
-                                    if (ddlCategory.Items[i].Text == advisorVo.Category)
+
+                                    for (int i = 0; i < ddlCategory.Items.Count; i++)
                                     {
-                                        ddlCategory.Items[i].Selected = true;
+                                        if (ddlCategory.Items[i].Text == advisorVo.Category)
+                                        {
+                                            ddlCategory.Items[i].Selected = true;
+                                        }
+                                        else
+                                            ddlCategory.Items[i].Selected = false;
                                     }
-                                    else
-                                        ddlCategory.Items[i].Selected = false;
-                                }
-                           
-                            }
-                            else
-                            {
-                                ddlCategory.SelectedIndex = 0;
-                            }
-                            
-                            DataSet dsadvisorLOB = advisorLOBBo.GetAdvisorLOBs(advisorVo.advisorId, null, null);
 
-                            showLOBList(advisorVo.advisorId);
-                            if (dsadvisorLOB != null)
-                            {
-                                for (int i = 0; i < dsadvisorLOB.Tables[0].Rows.Count; i++)
+                                }
+                                else
                                 {
-                                    if (dsadvisorLOB.Tables[0].Rows[i]["AL_IsDependent"].ToString() == "1")
+                                    ddlCategory.SelectedIndex = 0;
+                                }
+
+                                DataSet dsadvisorLOB = advisorLOBBo.GetAdvisorLOBs(advisorVo.advisorId, null, null);
+
+                                showLOBList(advisorVo.advisorId);
+                                if (dsadvisorLOB != null)
+                                {
+                                    for (int i = 0; i < dsadvisorLOB.Tables[0].Rows.Count; i++)
                                     {
-                                        GridValidationForIsDependent(i);
+                                        if (dsadvisorLOB.Tables[0].Rows[i]["AL_IsDependent"].ToString() == "1")
+                                        {
+                                            GridValidationForIsDependent(i);
+                                        }
+                                    }
+                                }
+                                txtActivationDate.Text = advisorVo.ActivationDate.ToShortDateString();                                
+                                txtActivationHidden.Text = advisorVo.ActivationDate.ToShortDateString();
+                                dateCompareValidator.EnableClientScript = false;
+                                dateCompareValidator.ControlToCompare = "txtActivationHidden";
+                                dateCompareValidator.ControlToValidate = "txtDeactivationDate";
+                                dateCompareValidator.Type = ValidationDataType.Date;
+                                dateCompareValidator.Operator = ValidationCompareOperator.GreaterThan;
+                                dateCompareValidator.ErrorMessage = "Deactivation Date should not be less than Activation Date";    
+                                if (advisorVo.IsActive == 1)
+                                {
+                                    if (txtDeactivationDate.Text == "01/01/1900")
+                                    {
+                                        calExeDeactivationDate.SelectedDate = DateTime.Now;
+                                    }
+                                }
+                                else
+                                {
+                                    if (txtActivationDate.Text == "01/01/1900")
+                                    {
+                                        calExeActivationDate.SelectedDate = DateTime.Now;
                                     }
                                 }
                             }
-                            txtActivationDate.Text = advisorVo.ActivationDate.ToShortDateString();
-                            if (advisorVo.IsActive == 1)
-                            {
-                                if (txtDeactivationDate.Text == "01/01/1900")
-                                {
-                                    calExeDeactivationDate.SelectedDate = DateTime.Now;
-                                }
-                            }
-                        }
+                        
                         catch (Exception ex)
                         {
                             throw ex;
@@ -220,7 +235,7 @@ namespace WealthERP.SuperAdmin
                             advisor = 1000;
                             rm = 1001;
                             advisorVo = (AdvisorVo)Session["advisorVo"];
-                            userVo = (UserVo)Session["userVo"];
+                            userVo = (UserVo)Session["iffUserVo"];
                             advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
                             rmVo = (RMVo)Session["rmVo"];
                             DataPopulating();
@@ -275,6 +290,8 @@ namespace WealthERP.SuperAdmin
                         {
                             CreationSuccessMessage.Visible = true;
                             btnAddLOB.Visible = true;
+                            btnSendLoginId.Visible = true;
+                            advisorVo = (AdvisorVo)Session["advisorVo"];
                         }
                         catch (Exception ex)
                         {
@@ -466,7 +483,7 @@ namespace WealthERP.SuperAdmin
         {
             Emailer emailer = new Emailer();
             EmailMessage email = new EmailMessage();
-            userVo = (UserVo)Session["userVo"];
+            userVo = (UserVo)Session["iffUserVo"];
             bool isMailSent = false;
             try
             {
@@ -703,12 +720,44 @@ namespace WealthERP.SuperAdmin
 
         protected void btnSendLoginId_Click(object sender, EventArgs e)
         {
+            bool isSuccess = false;
+            
             try
-            {
-                Session["RegistrationMailSent"] = null;
-                bool isEmailSent = SendMail(userVo);
-                Session["RegistrationMailSent"] = isEmailSent;
-                MailSentSuccessMessage.Visible = true;
+            {               
+                if (btnSendLoginId.Text == "Reset/Send Login Id")
+                {
+                    userVo = (UserVo)Session["iffUserVo"];
+                    if (userVo != null)
+                    {
+                        userVo.Password = r.Next(20000, 100000).ToString();
+                        userVo.IsTempPassword = 1;
+                        userVo.Password = Encryption.Encrypt(userVo.Password);
+                        isSuccess = userBo.UpdateUser(userVo);
+                    }
+                    if (isSuccess)
+                    {
+                        MailSentSuccessMessage.Visible=true;
+                        bool isEmailSent = SendMail(userVo);
+                        Session["RegistrationMailSent"] = isEmailSent;
+                        loginIdSendMsg.Text = "Password has been reset and Sent successfully...";
+                    }
+                    else
+                    {
+                        MailSentSuccessMessage.Visible = true;
+                        loginIdSendMsg.Text = "An error occurred while reseting password.";
+
+                    }
+                }
+                else
+                {
+                    Ids = (List<int>)Session["IDs"];
+                    userVo = userBo.GetUserDetails(Ids[0]);
+                    Session["RegistrationMailSent"] = null;                    
+                    bool isEmailSent = SendMail(userVo);
+                    Session["RegistrationMailSent"] = isEmailSent;
+                    MailSentSuccessMessage.Visible = true;
+                    loginIdSendMsg.Text = "Login ID Sent Successfully....";
+                }
             }
             catch (Exception ex)
             {
@@ -769,7 +818,7 @@ namespace WealthERP.SuperAdmin
             {
                 
                 //Session["advisorVo"] = advisorVo;
-                userVo = (UserVo)Session["userVo"];
+                userVo = (UserVo)Session["iffUserVo"];
                 
                 Session["ADDLOBadvisorVo"] = advisorBo.GetAdvisorUser(userid);
                 Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userid);

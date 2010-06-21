@@ -77,7 +77,7 @@
 
         });
     }
-    function Validation() {   
+    function Validation() {
 
         if (document.getElementById('<%= ddlStatus.ClientID %>').value == 'IA') {
             var r = confirm("You have selected Deactivation for this IFF. Are you sure you want to Deactivate this IFF!");
@@ -112,7 +112,7 @@
         <td align="center">
             <div class="success-msg" id="MailSentSuccessMessage" runat="server" visible="false"
                 align="center">
-                Login Id sent successfully....
+                <asp:Label ID="loginIdSendMsg" runat="server" Visible="true"></asp:Label>
             </div>
         </td>
     </tr>
@@ -306,7 +306,8 @@
                 runat="server"></asp:Label>
         </td>
         <td runat="server" id="Deactivation">
-            <asp:TextBox ID="txtDeactivationDate" CssClass="txtField" runat="server" Width="175px"></asp:TextBox>
+            <asp:TextBox ID="txtDeactivationDate" CssClass="txtField" runat="server" Width="175px"
+                ></asp:TextBox>
             <ajaxToolKit:CalendarExtender runat="server" Format="dd/MM/yyyy" TargetControlID="txtDeactivationDate"
                 ID="calExeDeactivationDate" Enabled="true">
             </ajaxToolKit:CalendarExtender>
@@ -316,6 +317,8 @@
             <span id="Span10" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtDeactivationDate"
                 ErrorMessage="DeActivationDate Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
+            <asp:CompareValidator CssClass="cvPCG" Display="Dynamic" ID="dateCompareValidator" 
+                runat="server" ></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -333,10 +336,13 @@
     </tr>
     <tr>
         <td>
-        <div class="failure-msg" id="lblMsg" runat="server" visible="false"
-                align="center">
+        <table width="100%">
+        <tr><td align="center">
+            <div class="failure-msg" id="lblMsg" runat="server" visible="false" align="center">
                 LOB List is Empty..
             </div>
+            </td></tr>
+            </table>
             <%--<asp:Label ID="lblMsg" runat="server" CssClass="Error"></asp:Label>--%>
         </td>
     </tr>
@@ -398,3 +404,4 @@
     </tr>
     <input type="hidden" id="hidValid" />
 </table>
+<asp:TextBox ID="txtActivationHidden" runat="server" style="display:none" />
