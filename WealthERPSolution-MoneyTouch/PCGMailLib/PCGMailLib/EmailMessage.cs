@@ -37,24 +37,24 @@ namespace PCGMailLib
             switch (emailTypes)
             {
                 case EmailTypes.AdviserRegistration:
-                    this.From = new MailAddress("admin@werp.com", "WealthERP Adviser Registration");
-                    this.Subject = "WERP Adviser Registration";
+                    this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch Adviser Registration");
+                    this.Subject = "MoneyTouch Adviser Registration";
                     break;
                 case EmailTypes.AdviserRMAccount:
-                    this.From = new MailAddress("admin@werp.com", "WealthERP");
-                    this.Subject = "WealthERP Account Details";
+                    this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch");
+                    this.Subject = "MoneyTouch Account Details";
                     break;
                 case EmailTypes.ForgotPassword:
-                    this.From = new MailAddress("admin@werp.com", "WealthERP");
-                    this.Subject = "WealthERP Forgot Password";
+                    this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch");
+                    this.Subject = "MoneyTouch Forgot Password";
                     break;
                 case EmailTypes.CustomerCredentials:
-                    this.From = new MailAddress("admin@werp.com", "WealthERP");
-                    this.Subject = "WealthERP Customer Account Credentials";
+                    this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch");
+                    this.Subject = "MoneyTouch Customer Account Credentials";
                     break;
                 case EmailTypes.ResetPassword:
-                    this.From = new MailAddress("admin@werp.com", "WealthERP");
-                    this.Subject = "WealthERP Reset Password";
+                    this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch");
+                    this.Subject = "MoneyTouch Reset Password";
                     break;
                 case EmailTypes.AdviserRegistrationNotification:
                     this.To.Clear();
@@ -73,8 +73,8 @@ namespace PCGMailLib
                         this.CC.Add(mailId);
                     }
 
-                    this.From = new MailAddress("admin@werp.com", "WealthERP");
-                    this.Subject = "WealthERP Adviser Registration";
+                    this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch");
+                    this.Subject = "MoneyTouch Adviser Registration";
                     break;
             }
             this.Body = body;
