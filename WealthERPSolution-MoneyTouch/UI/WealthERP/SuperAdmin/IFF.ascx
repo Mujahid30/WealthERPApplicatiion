@@ -1,6 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewRM.ascx.cs" Inherits="WealthERP.SuperAdmin.IFF"
     Debug="false" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<script>
+
+</script>
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">

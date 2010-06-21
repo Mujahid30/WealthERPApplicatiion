@@ -820,7 +820,6 @@ namespace WealthERP.SuperAdmin
                                 {
                                     if (advisorlobvo.IsDependent == 1)
                                     {
-
                                         drAdvisor[14] = "DE";
                                     }
                                     else
@@ -925,18 +924,19 @@ namespace WealthERP.SuperAdmin
                 GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
                 int selectedRow = gvr.RowIndex;
                 userId = int.Parse(gvAdvisorList.DataKeys[selectedRow].Value.ToString());
-                Session["userId"] = userId;
+                //Session["userId"] = userId;
                 rmVo = advisorStaffBo.GetAdvisorStaff(userId);
                 Session["rmVo"] = rmVo;
                 menu = MyDropDownList.SelectedItem.Value.ToString();
                 if (menu == "View Dashboard")
                 {
-                    AdvisorDashboardValidation();                    
+                    
+                    AdvisorDashboardValidation(userId);                    
                 }
                 if (menu == "Edit profile")
                 {
                     Session["advisorVo"] = advisorBo.GetAdvisorUser(userId);
-                    Session["userVo"] = userBo.GetUserDetails(userId);
+                    Session["iffUserVo"] = userBo.GetUserDetails(userId);
                     Session["IFFAdd"] = "Edit";
                     Session.Remove("IDs");
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFFAdd','none');", true);
@@ -975,11 +975,12 @@ namespace WealthERP.SuperAdmin
 
 
         }
-        protected void AdvisorDashboardValidation()
+        protected void AdvisorDashboardValidation(int userId)
         {
             try
             {
-                userVo.UserId = int.Parse(Session["userId"].ToString());
+                Session["userVo"] = userBo.GetUserDetails(userId);
+                userVo.UserId = userId;
                 Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
                 Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                 advisorVo = (AdvisorVo)Session["advisorVo"];
