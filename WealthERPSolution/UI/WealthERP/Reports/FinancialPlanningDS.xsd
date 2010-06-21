@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="FinancialPlanningDS" targetNamespace="http://tempuri.org/FinancialPlanningDS.xsd" xmlns:mstns="http://tempuri.org/FinancialPlanningDS.xsd" xmlns="http://tempuri.org/FinancialPlanningDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="FinancialPlanningDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="FinancialPlanningDS" msprop:Generator_DataSetName="FinancialPlanningDS" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Goal" msprop:Generator_UserTableName="Goal" msprop:Generator_RowDeletedName="GoalRowDeleted" msprop:Generator_RowChangedName="GoalRowChanged" msprop:Generator_RowClassName="GoalRow" msprop:Generator_RowChangingName="GoalRowChanging" msprop:Generator_RowEvArgName="GoalRowChangeEvent" msprop:Generator_RowEvHandlerName="GoalRowChangeEventHandler" msprop:Generator_TableClassName="GoalDataTable" msprop:Generator_TableVarName="tableGoal" msprop:Generator_RowDeletingName="GoalRowDeleting" msprop:Generator_TablePropName="Goal">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="GoalId" msprop:Generator_UserColumnName="GoalId" msprop:Generator_ColumnPropNameInRow="GoalId" msprop:Generator_ColumnVarNameInTable="columnGoalId" msprop:Generator_ColumnPropNameInTable="GoalIdColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="GoalName" msprop:Generator_UserColumnName="GoalName" msprop:Generator_ColumnPropNameInRow="GoalName" msprop:Generator_ColumnVarNameInTable="columnGoalName" msprop:Generator_ColumnPropNameInTable="GoalNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="ChildName" msprop:Generator_UserColumnName="ChildName" msprop:Generator_ColumnPropNameInRow="ChildName" msprop:Generator_ColumnVarNameInTable="columnChildName" msprop:Generator_ColumnPropNameInTable="ChildNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CostToday" msprop:Generator_UserColumnName="CostToday" msprop:Generator_ColumnPropNameInRow="CostToday" msprop:Generator_ColumnVarNameInTable="columnCostToday" msprop:Generator_ColumnPropNameInTable="CostTodayColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="MonthlySavingsRequired" msprop:Generator_UserColumnName="MonthlySavingsRequired" msprop:Generator_ColumnPropNameInRow="MonthlySavingsRequired" msprop:Generator_ColumnVarNameInTable="columnMonthlySavingsRequired" msprop:Generator_ColumnPropNameInTable="MonthlySavingsRequiredColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="CalculatedOn" msprop:Generator_UserColumnName="CalculatedOn" msprop:Generator_ColumnPropNameInRow="CalculatedOn" msprop:Generator_ColumnVarNameInTable="columnCalculatedOn" msprop:Generator_ColumnPropNameInTable="CalculatedOnColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Year" msprop:Generator_UserColumnName="Year" msprop:Generator_ColumnVarNameInTable="columnYear" msprop:Generator_ColumnPropNameInRow="Year" msprop:Generator_ColumnPropNameInTable="YearColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RiskProfile" msprop:Generator_UserTableName="RiskProfile" msprop:Generator_RowDeletedName="RiskProfileRowDeleted" msprop:Generator_RowChangedName="RiskProfileRowChanged" msprop:Generator_RowClassName="RiskProfileRow" msprop:Generator_RowChangingName="RiskProfileRowChanging" msprop:Generator_RowEvArgName="RiskProfileRowChangeEvent" msprop:Generator_RowEvHandlerName="RiskProfileRowChangeEventHandler" msprop:Generator_TableClassName="RiskProfileDataTable" msprop:Generator_TableVarName="tableRiskProfile" msprop:Generator_RowDeletingName="RiskProfileRowDeleting" msprop:Generator_TablePropName="RiskProfile">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RiskProfileId" msprop:Generator_UserColumnName="RiskProfileId" msprop:Generator_ColumnPropNameInRow="RiskProfileId" msprop:Generator_ColumnVarNameInTable="columnRiskProfileId" msprop:Generator_ColumnPropNameInTable="RiskProfileIdColumn" type="xs:long" minOccurs="0" />
+              <xs:element name="RiskScore" msprop:Generator_UserColumnName="RiskScore" msprop:Generator_ColumnPropNameInRow="RiskScore" msprop:Generator_ColumnVarNameInTable="columnRiskScore" msprop:Generator_ColumnPropNameInTable="RiskScoreColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="RiskClass" msprop:Generator_UserColumnName="RiskClass" msprop:Generator_ColumnPropNameInRow="RiskClass" msprop:Generator_ColumnVarNameInTable="columnRiskClass" msprop:Generator_ColumnPropNameInTable="RiskClassColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="RiskProfileDate" msprop:Generator_UserColumnName="RiskProfileDate" msprop:Generator_ColumnPropNameInRow="RiskProfileDate" msprop:Generator_ColumnVarNameInTable="columnRiskProfileDate" msprop:Generator_ColumnPropNameInTable="RiskProfileDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CashPer" msprop:Generator_UserColumnName="CashPer" msprop:Generator_ColumnPropNameInRow="CashPer" msprop:Generator_ColumnVarNameInTable="columnCashPer" msprop:Generator_ColumnPropNameInTable="CashPerColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="EquityPer" msprop:Generator_UserColumnName="EquityPer" msprop:Generator_ColumnPropNameInRow="EquityPer" msprop:Generator_ColumnVarNameInTable="columnEquityPer" msprop:Generator_ColumnPropNameInTable="EquityPerColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="DebtPer" msprop:Generator_UserColumnName="DebtPer" msprop:Generator_ColumnPropNameInRow="DebtPer" msprop:Generator_ColumnVarNameInTable="columnDebtPer" msprop:Generator_ColumnPropNameInTable="DebtPerColumn" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FamilyDetails" msprop:Generator_UserTableName="FamilyDetails" msprop:Generator_RowDeletedName="FamilyDetailsRowDeleted" msprop:Generator_RowChangedName="FamilyDetailsRowChanged" msprop:Generator_RowClassName="FamilyDetailsRow" msprop:Generator_RowChangingName="FamilyDetailsRowChanging" msprop:Generator_RowEvArgName="FamilyDetailsRowChangeEvent" msprop:Generator_RowEvHandlerName="FamilyDetailsRowChangeEventHandler" msprop:Generator_TableClassName="FamilyDetailsDataTable" msprop:Generator_TableVarName="tableFamilyDetails" msprop:Generator_RowDeletingName="FamilyDetailsRowDeleting" msprop:Generator_TablePropName="FamilyDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="RelationShipCode" msprop:Generator_UserColumnName="RelationShipCode" msprop:Generator_ColumnVarNameInTable="columnRelationShipCode" msprop:Generator_ColumnPropNameInRow="RelationShipCode" msprop:Generator_ColumnPropNameInTable="RelationShipCodeColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="DOB" msprop:Generator_UserColumnName="DOB" msprop:Generator_ColumnVarNameInTable="columnDOB" msprop:Generator_ColumnPropNameInRow="DOB" msprop:Generator_ColumnPropNameInTable="DOBColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="GoalCode" msprop:Generator_UserColumnName="GoalCode" msprop:Generator_ColumnVarNameInTable="columnGoalCode" msprop:Generator_ColumnPropNameInRow="GoalCode" msprop:Generator_ColumnPropNameInTable="GoalCodeColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="GoalYear" msprop:Generator_UserColumnName="GoalYear" msprop:Generator_ColumnVarNameInTable="columnGoalYear" msprop:Generator_ColumnPropNameInRow="GoalYear" msprop:Generator_ColumnPropNameInTable="GoalYearColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="YearOfMarriage" msprop:Generator_UserColumnName="YearOfMarriage" msprop:Generator_ColumnVarNameInTable="columnYearOfMarriage" msprop:Generator_ColumnPropNameInRow="YearOfMarriage" msprop:Generator_ColumnPropNameInTable="YearOfMarriageColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="YearOfEducation" msprop:Generator_UserColumnName="YearOfEducation" msprop:Generator_ColumnVarNameInTable="columnYearOfEducation" msprop:Generator_ColumnPropNameInRow="YearOfEducation" msprop:Generator_ColumnPropNameInTable="YearOfEducationColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="IsGoalActive" msprop:Generator_UserColumnName="IsGoalActive" msprop:Generator_ColumnPropNameInRow="IsGoalActive" msprop:Generator_ColumnVarNameInTable="columnIsGoalActive" msprop:Generator_ColumnPropNameInTable="IsGoalActiveColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

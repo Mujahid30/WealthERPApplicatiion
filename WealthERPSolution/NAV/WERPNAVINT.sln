@@ -1,0 +1,60 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0ED20BF1-AC76-443E-9CA2-004A15B452A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_NAVAPP", "WERP_NAVAPP\WERP_NAVAPP.csproj", "{DEE28FF1-B036-4E3B-B918-F072EAD23DA9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC6BAD47-31F2-4D74-ADC4-84326C6632DC} = {DC6BAD47-31F2-4D74-ADC4-84326C6632DC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_NAVLIB", "WERP_NAVLIB\WERP_NAVLIB.csproj", "{C1D81E96-A54F-4AB4-8FAB-2250A6B9D441}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC6BAD47-31F2-4D74-ADC4-84326C6632DC} = {DC6BAD47-31F2-4D74-ADC4-84326C6632DC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WerpNavUploadLib", "WerpNavUploadLib\WerpNavUploadLib.csproj", "{BC5B407E-ECDB-4CB2-B173-0058F2EEDBD0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC6BAD47-31F2-4D74-ADC4-84326C6632DC} = {DC6BAD47-31F2-4D74-ADC4-84326C6632DC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_COMMON", "WERP_COMMON\WERP_COMMON.csproj", "{DC6BAD47-31F2-4D74-ADC4-84326C6632DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_NAV_UPLOAD", "WERP_NAV_UPLOAD\WERP_NAV_UPLOAD.csproj", "{3C891F8A-FFD6-47F1-9F8C-05561BC83BEF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC6BAD47-31F2-4D74-ADC4-84326C6632DC} = {DC6BAD47-31F2-4D74-ADC4-84326C6632DC}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEE28FF1-B036-4E3B-B918-F072EAD23DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEE28FF1-B036-4E3B-B918-F072EAD23DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEE28FF1-B036-4E3B-B918-F072EAD23DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEE28FF1-B036-4E3B-B918-F072EAD23DA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D81E96-A54F-4AB4-8FAB-2250A6B9D441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D81E96-A54F-4AB4-8FAB-2250A6B9D441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D81E96-A54F-4AB4-8FAB-2250A6B9D441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D81E96-A54F-4AB4-8FAB-2250A6B9D441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC5B407E-ECDB-4CB2-B173-0058F2EEDBD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC5B407E-ECDB-4CB2-B173-0058F2EEDBD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC5B407E-ECDB-4CB2-B173-0058F2EEDBD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC5B407E-ECDB-4CB2-B173-0058F2EEDBD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC6BAD47-31F2-4D74-ADC4-84326C6632DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC6BAD47-31F2-4D74-ADC4-84326C6632DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC6BAD47-31F2-4D74-ADC4-84326C6632DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC6BAD47-31F2-4D74-ADC4-84326C6632DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C891F8A-FFD6-47F1-9F8C-05561BC83BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C891F8A-FFD6-47F1-9F8C-05561BC83BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C891F8A-FFD6-47F1-9F8C-05561BC83BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C891F8A-FFD6-47F1-9F8C-05561BC83BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {7ED1BD6E-F965-49DE-AC44-0FC8F9EA1E54}
+	EndGlobalSection
+EndGlobal

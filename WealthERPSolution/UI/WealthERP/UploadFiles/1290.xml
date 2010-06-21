@@ -1,0 +1,447 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ProductCode" type="xs:string" minOccurs="0" />
+                <xs:element name="Fund" type="xs:string" minOccurs="0" />
+                <xs:element name="Folio" type="xs:string" minOccurs="0" />
+                <xs:element name="DividendOption" type="xs:string" minOccurs="0" />
+                <xs:element name="FundDescription" type="xs:string" minOccurs="0" />
+                <xs:element name="InvestorName" type="xs:string" minOccurs="0" />
+                <xs:element name="JointName1" type="xs:string" minOccurs="0" />
+                <xs:element name="JointName2" type="xs:string" minOccurs="0" />
+                <xs:element name="Address1" type="xs:string" minOccurs="0" />
+                <xs:element name="Address2" type="xs:string" minOccurs="0" />
+                <xs:element name="Address3" type="xs:string" minOccurs="0" />
+                <xs:element name="City" type="xs:string" minOccurs="0" />
+                <xs:element name="Pincode" type="xs:string" minOccurs="0" />
+                <xs:element name="State" type="xs:string" minOccurs="0" />
+                <xs:element name="Country" type="xs:string" minOccurs="0" />
+                <xs:element name="TPIN" type="xs:string" minOccurs="0" />
+                <xs:element name="DateofBirth" type="xs:string" minOccurs="0" />
+                <xs:element name="FName" type="xs:string" minOccurs="0" />
+                <xs:element name="MName" type="xs:string" minOccurs="0" />
+                <xs:element name="PhoneResidence" type="xs:string" minOccurs="0" />
+                <xs:element name="PhoneRes1" type="xs:string" minOccurs="0" />
+                <xs:element name="PhoneRes2" type="xs:string" minOccurs="0" />
+                <xs:element name="PhoneOffice" type="xs:string" minOccurs="0" />
+                <xs:element name="PhoneOff1" type="xs:string" minOccurs="0" />
+                <xs:element name="PhoneOff2" type="xs:string" minOccurs="0" />
+                <xs:element name="FaxResidence" type="xs:string" minOccurs="0" />
+                <xs:element name="FaxOffice" type="xs:string" minOccurs="0" />
+                <xs:element name="TaxStatus" type="xs:string" minOccurs="0" />
+                <xs:element name="OccCode" type="xs:string" minOccurs="0" />
+                <xs:element name="Email" type="xs:string" minOccurs="0" />
+                <xs:element name="BankAccno" type="xs:string" minOccurs="0" />
+                <xs:element name="BankName" type="xs:string" minOccurs="0" />
+                <xs:element name="AccountType" type="xs:string" minOccurs="0" />
+                <xs:element name="Branch" type="xs:string" minOccurs="0" />
+                <xs:element name="BankAddress1" type="xs:string" minOccurs="0" />
+                <xs:element name="BankAddress2" type="xs:string" minOccurs="0" />
+                <xs:element name="BankAddress3" type="xs:string" minOccurs="0" />
+                <xs:element name="BankCity" type="xs:string" minOccurs="0" />
+                <xs:element name="BankPhone" type="xs:string" minOccurs="0" />
+                <xs:element name="BankState" type="xs:string" minOccurs="0" />
+                <xs:element name="BankCountry" type="xs:string" minOccurs="0" />
+                <xs:element name="InvestorID" type="xs:string" minOccurs="0" />
+                <xs:element name="BrokerCode" type="xs:string" minOccurs="0" />
+                <xs:element name="PANNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="Mobile" type="xs:string" minOccurs="0" />
+                <xs:element name="ReportDate" type="xs:string" minOccurs="0" />
+                <xs:element name="ReportTime" type="xs:string" minOccurs="0" />
+                <xs:element name="OccupationDescription" type="xs:string" minOccurs="0" />
+                <xs:element name="ModeofHolding" type="xs:string" minOccurs="0" />
+                <xs:element name="ModeofHoldingDescription" type="xs:string" minOccurs="0" />
+                <xs:element name="MapinId" type="xs:string" minOccurs="0" />
+                <xs:element name="ProcessId" type="xs:string" minOccurs="0" />
+                <xs:element name="AdviserId" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedOn" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedOn" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table1>
+    <ProductCode>RC01</ProductCode>
+    <Fund>RMF </Fund>
+    <Folio>4192288146</Folio>
+    <DividendOption>G</DividendOption>
+    <FundDescription>RELIANCE VISION FUND GROWTH PLAN</FundDescription>
+    <InvestorName>RAMA VENKATESH</InvestorName>
+    <JointName1>NARSIPUR VENKATESH</JointName1>
+    <JointName2>AMRIT VENKITESH</JointName2>
+    <Address1>10 CHURCH ROAD</Address1>
+    <Address2>SHANTI NAGAR</Address2>
+    <Address3 xml:space="preserve"> </Address3>
+    <City>BANGALORE</City>
+    <Pincode>560027</Pincode>
+    <State>KARNATAKA</State>
+    <TPIN xml:space="preserve">          </TPIN>
+    <DateofBirth>3/19/1956 12:00:00 AM</DateofBirth>
+    <FName xml:space="preserve">          </FName>
+    <MName xml:space="preserve">          </MName>
+    <PhoneResidence>080-2224379</PhoneResidence>
+    <PhoneRes1 xml:space="preserve">          </PhoneRes1>
+    <PhoneRes2 xml:space="preserve">          </PhoneRes2>
+    <PhoneOffice xml:space="preserve"> </PhoneOffice>
+    <PhoneOff1 xml:space="preserve">          </PhoneOff1>
+    <PhoneOff2 xml:space="preserve">          </PhoneOff2>
+    <FaxResidence xml:space="preserve"> </FaxResidence>
+    <FaxOffice xml:space="preserve">          </FaxOffice>
+    <TaxStatus>1</TaxStatus>
+    <OccCode>4</OccCode>
+    <Email xml:space="preserve"> </Email>
+    <BankAccno>23493</BankAccno>
+    <BankName>VIJAYA BANK</BankName>
+    <AccountType>SAVINGS</AccountType>
+    <Branch xml:space="preserve">          </Branch>
+    <BankAddress1>SHANTI NAGAR</BankAddress1>
+    <BankAddress2>K H ROAD</BankAddress2>
+    <BankCity>BANGALORE</BankCity>
+    <BankPhone xml:space="preserve">          </BankPhone>
+    <BankState>KARNATAKA</BankState>
+    <InvestorID xml:space="preserve">          </InvestorID>
+    <BrokerCode>ARN-27305</BrokerCode>
+    <PANNumber>ABDPR6503K</PANNumber>
+    <ReportDate>2/16/2009 4:20:27 PM</ReportDate>
+    <ReportTime>162027</ReportTime>
+    <OccupationDescription>HOUSEHOLD</OccupationDescription>
+    <ModeofHolding>2</ModeofHolding>
+    <ModeofHoldingDescription>JOINTLY</ModeofHoldingDescription>
+    <ProcessId>1290</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 6:55:13 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 6:55:13 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC02</ProductCode>
+    <Fund>RMF </Fund>
+    <Folio>4194631245</Folio>
+    <DividendOption>D</DividendOption>
+    <FundDescription>RELIANCE VISION FUND DIVIDEND PLAN</FundDescription>
+    <InvestorName>P N SRIDHAR</InvestorName>
+    <JointName1>ROHINI SRIDHAR</JointName1>
+    <JointName2 xml:space="preserve"> </JointName2>
+    <Address1>C - 002 ADARSH NIVAS</Address1>
+    <Address2>70 KANAKAPURA ROAD</Address2>
+    <Address3 xml:space="preserve"> </Address3>
+    <City>BANGALORE</City>
+    <Pincode>560078</Pincode>
+    <State>KARNATAKA</State>
+    <TPIN xml:space="preserve">          </TPIN>
+    <FName xml:space="preserve">          </FName>
+    <MName xml:space="preserve">          </MName>
+    <PhoneResidence>26348226</PhoneResidence>
+    <PhoneRes1 xml:space="preserve">          </PhoneRes1>
+    <PhoneRes2 xml:space="preserve">          </PhoneRes2>
+    <PhoneOffice xml:space="preserve"> </PhoneOffice>
+    <PhoneOff1 xml:space="preserve">          </PhoneOff1>
+    <PhoneOff2 xml:space="preserve">          </PhoneOff2>
+    <FaxResidence xml:space="preserve"> </FaxResidence>
+    <FaxOffice xml:space="preserve">          </FaxOffice>
+    <TaxStatus>1</TaxStatus>
+    <OccCode>7</OccCode>
+    <Email xml:space="preserve"> </Email>
+    <BankAccno>1331000057974</BankAccno>
+    <BankName>HDFC BANK LTD</BankName>
+    <AccountType>SAVINGS</AccountType>
+    <Branch xml:space="preserve">          </Branch>
+    <BankAddress1>J P NAGAR BRANCH</BankAddress1>
+    <BankAddress2 xml:space="preserve"> </BankAddress2>
+    <BankAddress3 xml:space="preserve"> </BankAddress3>
+    <BankCity xml:space="preserve"> </BankCity>
+    <BankPhone xml:space="preserve">          </BankPhone>
+    <InvestorID xml:space="preserve">          </InvestorID>
+    <BrokerCode>ARN-27305</BrokerCode>
+    <PANNumber>ADMPS0948D</PANNumber>
+    <ReportDate>2/16/2009 4:20:27 PM</ReportDate>
+    <ReportTime>162027</ReportTime>
+    <OccupationDescription>RETIRED</OccupationDescription>
+    <ModeofHolding>4</ModeofHolding>
+    <ModeofHoldingDescription>ANYONE OR SURVIVOR</ModeofHoldingDescription>
+    <MapinId xml:space="preserve"> </MapinId>
+    <ProcessId>1290</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 6:55:13 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 6:55:13 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC03</ProductCode>
+    <Fund>RMF </Fund>
+    <Folio>4194613136</Folio>
+    <DividendOption>D</DividendOption>
+    <FundDescription>RELIANCE GROWTH FUND DIVIDEND PLAN</FundDescription>
+    <InvestorName>P N SRIDHAR</InvestorName>
+    <JointName1>ROHINI SRIDHAR</JointName1>
+    <JointName2 xml:space="preserve"> </JointName2>
+    <Address1>C - 002 ADARSH NIVAS APTS</Address1>
+    <Address2>70 KANAKAPURA ROAD</Address2>
+    <Address3 xml:space="preserve"> </Address3>
+    <City>BANGALORE</City>
+    <Pincode>560078</Pincode>
+    <State>KARNATAKA</State>
+    <TPIN xml:space="preserve">          </TPIN>
+    <FName xml:space="preserve">          </FName>
+    <MName xml:space="preserve">          </MName>
+    <PhoneResidence xml:space="preserve"> </PhoneResidence>
+    <PhoneRes1 xml:space="preserve">          </PhoneRes1>
+    <PhoneRes2 xml:space="preserve">          </PhoneRes2>
+    <PhoneOffice xml:space="preserve"> </PhoneOffice>
+    <PhoneOff1 xml:space="preserve">          </PhoneOff1>
+    <PhoneOff2 xml:space="preserve">          </PhoneOff2>
+    <FaxResidence xml:space="preserve"> </FaxResidence>
+    <FaxOffice xml:space="preserve">          </FaxOffice>
+    <TaxStatus>1</TaxStatus>
+    <OccCode>7</OccCode>
+    <Email xml:space="preserve"> </Email>
+    <BankAccno>1331000057974</BankAccno>
+    <BankName>HDFC BANK LTD</BankName>
+    <AccountType>SAVINGS</AccountType>
+    <Branch xml:space="preserve">          </Branch>
+    <BankAddress1>J P NAGAR</BankAddress1>
+    <BankAddress2 xml:space="preserve"> </BankAddress2>
+    <BankAddress3 xml:space="preserve"> </BankAddress3>
+    <BankCity xml:space="preserve"> </BankCity>
+    <BankPhone xml:space="preserve">          </BankPhone>
+    <InvestorID xml:space="preserve">          </InvestorID>
+    <BrokerCode>ARN-27305</BrokerCode>
+    <PANNumber>ADMPS 0948 D</PANNumber>
+    <ReportDate>2/16/2009 4:20:27 PM</ReportDate>
+    <ReportTime>162027</ReportTime>
+    <OccupationDescription>RETIRED</OccupationDescription>
+    <ModeofHolding>4</ModeofHolding>
+    <ModeofHoldingDescription>ANYONE OR SURVIVOR</ModeofHoldingDescription>
+    <MapinId xml:space="preserve"> </MapinId>
+    <ProcessId>1290</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 6:55:13 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 6:55:13 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC03</ProductCode>
+    <Fund>RMF </Fund>
+    <Folio>4195340012</Folio>
+    <DividendOption>R</DividendOption>
+    <FundDescription>RELIANCE GROWTH FUND DIVIDEND PLAN</FundDescription>
+    <InvestorName>P R SHIVASHANKAR</InvestorName>
+    <JointName1>P RAJARAM RAO</JointName1>
+    <JointName2 xml:space="preserve"> </JointName2>
+    <Address1>FLAT NO 003 PARESH APTS</Address1>
+    <Address2>4TH MAIN MALLESHWARAM</Address2>
+    <Address3 xml:space="preserve"> </Address3>
+    <City>BANGALORE</City>
+    <Pincode>560003</Pincode>
+    <State>KARNATAKA</State>
+    <TPIN xml:space="preserve">          </TPIN>
+    <FName xml:space="preserve">          </FName>
+    <MName xml:space="preserve">          </MName>
+    <PhoneResidence xml:space="preserve"> </PhoneResidence>
+    <PhoneRes1 xml:space="preserve">          </PhoneRes1>
+    <PhoneRes2 xml:space="preserve">          </PhoneRes2>
+    <PhoneOffice xml:space="preserve"> </PhoneOffice>
+    <PhoneOff1 xml:space="preserve">          </PhoneOff1>
+    <PhoneOff2 xml:space="preserve">          </PhoneOff2>
+    <FaxResidence xml:space="preserve"> </FaxResidence>
+    <FaxOffice xml:space="preserve">          </FaxOffice>
+    <TaxStatus>1</TaxStatus>
+    <OccCode>2</OccCode>
+    <Email xml:space="preserve"> </Email>
+    <BankAccno>09269</BankAccno>
+    <BankName>BANK OF INDIA</BankName>
+    <AccountType>SAVINGS</AccountType>
+    <Branch xml:space="preserve">          </Branch>
+    <BankAddress1>MALLESHWARAM</BankAddress1>
+    <BankAddress2 xml:space="preserve"> </BankAddress2>
+    <BankCity>BANGALORE</BankCity>
+    <BankPhone xml:space="preserve">          </BankPhone>
+    <InvestorID xml:space="preserve">          </InvestorID>
+    <BrokerCode>ARN-27305</BrokerCode>
+    <PANNumber xml:space="preserve"> </PANNumber>
+    <ReportDate>2/16/2009 4:20:27 PM</ReportDate>
+    <ReportTime>162027</ReportTime>
+    <OccupationDescription>BUSINESS</OccupationDescription>
+    <ModeofHolding>3</ModeofHolding>
+    <ModeofHoldingDescription>EITHER OR SURVIVOR</ModeofHoldingDescription>
+    <ProcessId>1290</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 6:55:13 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 6:55:13 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC04</ProductCode>
+    <Fund>RMF </Fund>
+    <Folio>4192288135</Folio>
+    <DividendOption>G</DividendOption>
+    <FundDescription>RELIANCE GROWTH FUND GROWTH PLAN</FundDescription>
+    <InvestorName>RAMA VENKATESH</InvestorName>
+    <JointName1>NARSIPUR VENKATESH</JointName1>
+    <JointName2>AMRIT VENKATESH</JointName2>
+    <Address1>10 CHURCH ROAD</Address1>
+    <Address2>SHANTI NAGAR</Address2>
+    <City>BANGALORE</City>
+    <Pincode>560027</Pincode>
+    <State>KARNATAKA</State>
+    <TPIN xml:space="preserve">          </TPIN>
+    <DateofBirth>3/19/1956 12:00:00 AM</DateofBirth>
+    <FName xml:space="preserve">          </FName>
+    <MName xml:space="preserve">          </MName>
+    <PhoneResidence>2224379</PhoneResidence>
+    <PhoneRes1 xml:space="preserve">          </PhoneRes1>
+    <PhoneRes2 xml:space="preserve">          </PhoneRes2>
+    <PhoneOff1 xml:space="preserve">          </PhoneOff1>
+    <PhoneOff2 xml:space="preserve">          </PhoneOff2>
+    <FaxOffice xml:space="preserve">          </FaxOffice>
+    <TaxStatus>1</TaxStatus>
+    <OccCode>4</OccCode>
+    <Email>n_venkat@vsnl.net</Email>
+    <BankAccno>23493</BankAccno>
+    <BankName>VIJAYA BANK</BankName>
+    <AccountType>SAVINGS</AccountType>
+    <Branch xml:space="preserve">          </Branch>
+    <BankAddress1>SHANTI NAGAR</BankAddress1>
+    <BankAddress2>K H ROAD</BankAddress2>
+    <BankCity>BANGALORE</BankCity>
+    <BankPhone xml:space="preserve">          </BankPhone>
+    <InvestorID xml:space="preserve">          </InvestorID>
+    <BrokerCode>ARN-27305</BrokerCode>
+    <PANNumber>ABDPR6503K</PANNumber>
+    <ReportDate>2/16/2009 4:20:27 PM</ReportDate>
+    <ReportTime>162027</ReportTime>
+    <OccupationDescription>HOUSEHOLD</OccupationDescription>
+    <ModeofHolding>4</ModeofHolding>
+    <ModeofHoldingDescription>ANYONE OR SURVIVOR</ModeofHoldingDescription>
+    <ProcessId>1290</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 6:55:13 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 6:55:13 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC04</ProductCode>
+    <Fund>RMF </Fund>
+    <Folio>4194594994</Folio>
+    <DividendOption>G</DividendOption>
+    <FundDescription>RELIANCE GROWTH FUND GROWTH PLAN</FundDescription>
+    <InvestorName>ABISHEK LAXMINARAYAN</InvestorName>
+    <JointName1 xml:space="preserve"> </JointName1>
+    <JointName2 xml:space="preserve"> </JointName2>
+    <Address1>10 1ST MAIN 6TH CROSS</Address1>
+    <Address2>VERSOVA LAYOUT</Address2>
+    <Address3>C V RAMAN NAGAR</Address3>
+    <City>BANGALORE</City>
+    <Pincode>560093</Pincode>
+    <State>KARNATAKA</State>
+    <TPIN xml:space="preserve">          </TPIN>
+    <DateofBirth>9/6/1980 12:00:00 AM</DateofBirth>
+    <FName xml:space="preserve">          </FName>
+    <MName xml:space="preserve">          </MName>
+    <PhoneResidence>25244880</PhoneResidence>
+    <PhoneRes1 xml:space="preserve">          </PhoneRes1>
+    <PhoneRes2 xml:space="preserve">          </PhoneRes2>
+    <PhoneOffice>51385962</PhoneOffice>
+    <PhoneOff1 xml:space="preserve">          </PhoneOff1>
+    <PhoneOff2 xml:space="preserve">          </PhoneOff2>
+    <FaxResidence xml:space="preserve"> </FaxResidence>
+    <FaxOffice xml:space="preserve">          </FaxOffice>
+    <TaxStatus>1</TaxStatus>
+    <OccCode>8</OccCode>
+    <Email>abilax@hotmail.com</Email>
+    <BankAccno>1129</BankAccno>
+    <BankName>BANK OF BARODA</BankName>
+    <AccountType>SAVINGS</AccountType>
+    <Branch xml:space="preserve">          </Branch>
+    <BankAddress1>PERSONAL BANKING BRANCH</BankAddress1>
+    <BankAddress2 xml:space="preserve"> </BankAddress2>
+    <BankAddress3 xml:space="preserve"> </BankAddress3>
+    <BankCity>BANGALORE</BankCity>
+    <BankPhone xml:space="preserve">          </BankPhone>
+    <InvestorID xml:space="preserve">          </InvestorID>
+    <BrokerCode>ARN-27305</BrokerCode>
+    <PANNumber>ABIPA8053E</PANNumber>
+    <ReportDate>2/16/2009 4:20:27 PM</ReportDate>
+    <ReportTime>162027</ReportTime>
+    <OccupationDescription>OTHERS</OccupationDescription>
+    <ModeofHolding>1</ModeofHolding>
+    <ModeofHoldingDescription>SINGLY</ModeofHoldingDescription>
+    <MapinId xml:space="preserve"> </MapinId>
+    <ProcessId>1290</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 6:55:13 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 6:55:13 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC37</ProductCode>
+    <Fund>RMF </Fund>
+    <Folio>4194631245</Folio>
+    <DividendOption>D</DividendOption>
+    <FundDescription>RELIANCE BANKING FUND-DIVIDEND PLAN</FundDescription>
+    <InvestorName>P N SRIDHAR</InvestorName>
+    <JointName1>ROHINI SRIDHAR</JointName1>
+    <JointName2 xml:space="preserve"> </JointName2>
+    <Address1>C - 002 ADARSH NIVAS</Address1>
+    <Address2>70 KANAKAPURA ROAD</Address2>
+    <Address3 xml:space="preserve"> </Address3>
+    <City>BANGALORE</City>
+    <Pincode>560078</Pincode>
+    <State>KARNATAKA</State>
+    <TPIN xml:space="preserve">          </TPIN>
+    <FName xml:space="preserve">          </FName>
+    <MName xml:space="preserve">          </MName>
+    <PhoneResidence>26348226</PhoneResidence>
+    <PhoneRes1 xml:space="preserve">          </PhoneRes1>
+    <PhoneRes2 xml:space="preserve">          </PhoneRes2>
+    <PhoneOffice xml:space="preserve"> </PhoneOffice>
+    <PhoneOff1 xml:space="preserve">          </PhoneOff1>
+    <PhoneOff2 xml:space="preserve">          </PhoneOff2>
+    <FaxResidence xml:space="preserve"> </FaxResidence>
+    <FaxOffice xml:space="preserve">          </FaxOffice>
+    <TaxStatus>1</TaxStatus>
+    <OccCode>7</OccCode>
+    <Email xml:space="preserve"> </Email>
+    <BankAccno>1331000057974</BankAccno>
+    <BankName>HDFC BANK LTD</BankName>
+    <AccountType>SAVINGS</AccountType>
+    <Branch xml:space="preserve">          </Branch>
+    <BankAddress1>J P NAGAR BRANCH</BankAddress1>
+    <BankAddress2 xml:space="preserve"> </BankAddress2>
+    <BankAddress3 xml:space="preserve"> </BankAddress3>
+    <BankCity xml:space="preserve"> </BankCity>
+    <BankPhone xml:space="preserve">          </BankPhone>
+    <InvestorID xml:space="preserve">          </InvestorID>
+    <BrokerCode>ARN-27305</BrokerCode>
+    <PANNumber>ADMPS0948D</PANNumber>
+    <ReportDate>2/16/2009 4:20:27 PM</ReportDate>
+    <ReportTime>162027</ReportTime>
+    <OccupationDescription>RETIRED</OccupationDescription>
+    <ModeofHolding>4</ModeofHolding>
+    <ModeofHoldingDescription>ANYONE OR SURVIVOR</ModeofHoldingDescription>
+    <MapinId xml:space="preserve"> </MapinId>
+    <ProcessId>1290</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 6:55:13 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 6:55:13 PM</ModifiedOn>
+  </Table1>
+</NewDataSet>

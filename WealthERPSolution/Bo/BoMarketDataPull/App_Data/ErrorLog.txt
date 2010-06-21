@@ -1,0 +1,104 @@
+
+Failed to insert the data into BSEEquities: The Market Data for the date -3/24/2009 12:00:00 AM- is already exists in the database: 3/25/2009 4:18:25 PM;
+
+Failed to insert the data into BSEEquities: The Market Data for the date -3/24/2009 12:00:00 AM- is already exists in the database: 3/25/2009 4:19:28 PM;
+
+Failed to insert the data into BSEEquities: The Market Data for the date -3/24/2009 12:00:00 AM- is already exists in the database// Execution time:3/25/2009 4:21:11 PM;
+
+Failed to insert the data into BSEEquities: The Market Data for the date -3/24/2009 12:00:00 AM- is already exists in the database// Execution Date and time:3/25/2009 4:22:47 PM;
+
+Failed to insert the data into BSEEquities: The Market Data for the date -3/24/2009 12:00:00 AM- is already exists in the database// Execution Date and time:3/25/2009 4:27:03 PM;
+
+Data Successfully inserted into BSEEquities Table// Execution Date and time:3/25/2009 6:45:22 PM;
+
+Failed to insert the data into BSEEquities: The Market Data for the date: 3/25/2009 12:00:00 AM already exists in the database// Execution Date and time:3/26/2009 10:49:03 AM; Number of records inserted: 0
+
+Failed to insert the data into BSEEquities: The Market Data for the date: 3/25/2009 12:00:00 AM already exists in the database// Execution Date and time:3/26/2009 10:52:03 AM; Number of records inserted: 0
+
+Data Successfully inserted into BSEEquities Table// Execution Date and time:3/26/2009 10:59:14 AM; Number of records inserted: 2603
+
+Data Successfully inserted into BSEEquities Table// Execution Date and time:3/26/2009 11:04:09 AM; Number of records inserted: 2603
+
+Failed to insert the data into BSEEquities: The Market Data for the date: 3/25/2009 12:00:00 AM already exists in the database// Execution Date and time:3/26/2009 11:04:25 AM; Number of records inserted: 0
+
+Failed to insert the data into BSEEquities: The Market Data for the date: 3/25/2009 12:00:00 AM already exists in the database// Execution Date and time:3/26/2009 11:05:52 AM; Number of records inserted: 0
+
+Failed to insert the data into BSEEquities: The Market Data for the date: 3/25/2009 12:00:00 AM already exists in the database// Execution Date and time:3/26/2009 11:13:48 AM; Number of records inserted: 0
+
+Data Successfully inserted into BSEEquities Table// Execution Date and time:3/26/2009 6:45:24 PM; Number of records inserted: 2656
+
+The remote server returned an error: (401) Unauthorized.// Execution Date and time:3/31/2009 6:45:01 PM; Number of records inserted: -1
+
+Failed to insert the data into BSEEquities: The Market Data for the date: 4/1/2009 12:00:00 AM already exists in the database// Execution Date and time:4/2/2009 11:36:01 AM; Number of records inserted: 0
+
+// Execution Date and time:4/2/2009 1:02:20 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 4:11:40 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 4:56:47 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 4:57:04 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 5:01:42 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 5:11:46 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 5:11:55 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 5:12:14 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 5:12:24 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 5:17:48 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 5:20:29 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 5:22:05 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 5:25:18 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 5:29:44 PM; Number of records inserted: -1
+
+// Execution Date and time:4/2/2009 6:32:25 PM; Number of records inserted: -1
+
+// Execution Date and time:4/3/2009 11:16:55 AM; Number of records inserted: -1
+
+// Execution Date and time:4/3/2009 11:22:04 AM; Number of records inserted: -1
+
+// Execution Date and time:4/3/2009 11:37:11 AM; Number of records inserted: -1
+
+BSE Equities Downloadn Status: Failed to insert the data into BSEEquities: The Market Data for the date: 4/2/2009 12:00:00 AM already exists in the database// Execution Date and time:4/3/2009 4:49:25 PM; Number of records inserted: 0
+
+NSE Corporate Actions Download Status: Downloading file error: The remote server returned an error: (404) Not Found.// Execution Date and time:4/3/2009 4:49:25 PM; Number of records inserted: -1
+
+BSE Equities Downloadn Status: Failed to insert the data into BSEEquities: The Market Data for the date: 4/2/2009 12:00:00 AM already exists in the database// Execution Date and time:4/3/2009 4:50:55 PM; Number of records inserted: 0
+
+NSE Corporate Actions Download Status: Downloading file error: The remote server returned an error: (404) Not Found.// Execution Date and time:4/3/2009 4:50:55 PM; Number of records inserted: 0
+
+BSE Equities Downloadn Status: // Execution Date and time:4/7/2009 1:00:55 PM; Number of records inserted: -1
+
+NSE Corporate Actions Download Status: Failed to insert the data into BSEEquities: The Market Data for the date: 4/6/2009 12:00:00 AM already exists in the database// Execution Date and time:4/7/2009 1:00:55 PM; Number of records inserted: 0
+
+BSE Equities Downloadn Status: Failed to insert the data into BSEEquities: The Market Data for the date: 5/12/2009 12:00:00 AM already exists in the database// Execution Date and time:5/13/2009 1:28:10 PM; Number of records inserted: 0
+
+NSE Corporate Actions Download Status: Failed to insert the data into NSE_Corporate_Actions: The Market Data for the date: 5/12/2009 12:00:00 AM already exists in the database// Execution Date and time:5/13/2009 1:28:10 PM; Number of records inserted: 0
+
+BSE Equities Downloadn Status: // Execution Date and time:5/13/2009 7:10:54 PM; Number of records inserted: -1
+
+NSE Corporate Actions Download Status: // Execution Date and time:5/13/2009 7:10:54 PM; Number of records inserted: -1
+
+BSE Equities Downloadn Status: // Execution Date and time:5/13/2009 7:16:21 PM; Number of records inserted: -1
+
+NSE Corporate Actions Download Status: // Execution Date and time:5/13/2009 7:16:21 PM; Number of records inserted: -1
+
+BSE Equities Downloadn Status: Failed to insert the data into BSEEquities: The Market Data for the date: 5/13/2009 12:00:00 AM already exists in the database// Execution Date and time:5/13/2009 9:53:55 PM; Number of records inserted: 0
+
+NSE Corporate Actions Download Status: Failed to insert the data into NSE_Corporate_Actions: The Market Data for the date: 5/13/2009 12:00:00 AM already exists in the database// Execution Date and time:5/13/2009 9:53:55 PM; Number of records inserted: 0
+
+Amfi Data download status: Data inserted successfully into the table// Execution Date and time:5/13/2009 9:53:55 PM; Number of records inserted: 6036
+
+BSE Equities Downloadn Status: Failed to insert the data into BSEEquities: The Market Data for the date: 5/13/2009 12:00:00 AM already exists in the database// Execution Date and time:5/13/2009 10:12:14 PM; Number of records inserted: 0
+
+NSE Corporate Actions Download Status: Failed to insert the data into NSE_Corporate_Actions: The Market Data for the date: 5/13/2009 12:00:00 AM already exists in the database// Execution Date and time:5/13/2009 10:12:14 PM; Number of records inserted: 0
+
+Amfi Data download status: Failed to insert data into Amfi tableThe Market Data for the date: 5/13/2009 12:00:00 AM already exists in the database// Execution Date and time:5/13/2009 10:12:14 PM; Number of records inserted: 6945

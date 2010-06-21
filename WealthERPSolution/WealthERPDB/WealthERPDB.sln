@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{4F174C21-8C12-11D0-8340-0000F80270F8}") = "WealthERPDB", "WealthERPDB\WealthERPDB.dbp", "{9280E29B-3E2A-48A6-BCEA-C4DC941D4918}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://122.166.49.39:8080/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = WealthERPDB\\WealthERPDB.dbp
+		SccProjectName1 = WealthERPDB
+		SccLocalPath1 = WealthERPDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

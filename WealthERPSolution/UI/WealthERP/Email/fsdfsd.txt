@@ -1,0 +1,46 @@
+packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadTransactionDataFromCAMSFileToXtrnlTransactionInput.dtsx");
+                        bool camsTranInputResult = camsUploadsBo.CAMSInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
+                        if (camsTranInputResult)
+                        {
+                            processlogVo.IsInsertionToInputComplete = 1;
+                            processlogVo.EndTime = DateTime.Now;
+                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            processlogVo.IsInsertionToXtrnlComplete = 1;
+                            processlogVo.EndTime = DateTime.Now;
+                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        }
+
+                        packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadXtrnlTransactionInputToXtrnlTransactionStaging.dtsx");
+                        bool camsTranStagingResult = camsUploadsBo.CAMSInsertToStagingTrans(UploadProcessId, packagePath, configPath);
+                        if (camsTranStagingResult)
+                        {
+                            processlogVo.IsInsertionToFirstStagingComplete = 1;
+                            processlogVo.EndTime = DateTime.Now;
+                            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        }
+
+                        packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadChecksCAMSTransactionStaging.dtsx");
+                        bool camsTranStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingTrans(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                        if (camsTranStagingCheckResult)
+                        {
+                            processlogVo.IsInsertionToSecondStagingComplete = 1;
+                            processlogVo.EndTime = DateTime.Now;
+                            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        }
+
+
+                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+                        bool CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath);
+                        
+
+                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+                        bool camsTranWerpResult = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
+                        if (camsTranWerpResult)
+                        {
+                            processlogVo.IsInsertionToWERPComplete = 1;
+                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPMF");
+                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeCAMS);
+                            processlogVo.EndTime = DateTime.Now;
+                            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        }

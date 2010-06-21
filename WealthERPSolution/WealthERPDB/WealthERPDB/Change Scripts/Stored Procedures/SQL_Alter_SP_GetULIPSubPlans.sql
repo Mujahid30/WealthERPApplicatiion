@@ -1,0 +1,5 @@
+﻿
+ALTER PROCEDURE [dbo].[SP_GetULIPSubPlans]
+@WUP_ULIPPlanCode INT
+AS 
+SELECT * FROM dbo.WerpULIPSubPlan WHERE WUP_ULIPPlanCode = @WUP_ULIPPlanCode 

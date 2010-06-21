@@ -1,0 +1,5 @@
+﻿
+ALTER PROCEDURE [dbo].[SP_GetInsuranceULIP]
+@CIUP_ULIPPlanId INT
+AS
+SELECT * FROM CustomerInsurabceULIPPlan WHERE @CIUP_ULIPPlanId=CIUP_ULIPPlanId 

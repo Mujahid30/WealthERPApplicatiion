@@ -1,0 +1,904 @@
+<WERPLookUpTables>
+  <BusinessType>
+    <AdvisorBusinessType BusinessTypeCode="IND" BusinessType="Individual" Deleted="False"/>
+    <AdvisorBusinessType BusinessTypeCode="PRP" BusinessType="Proprietorship" Deleted="False"/>
+    <AdvisorBusinessType BusinessTypeCode="PTR" BusinessType="Partnership" Deleted="False"/>
+    <AdvisorBusinessType BusinessTypeCode="PUB" BusinessType="Public Limited Co." Deleted="False"/>
+    <AdvisorBusinessType BusinessTypeCode="PVT" BusinessType="Pvt. Ltd Co." Deleted="False"/>
+  </BusinessType>
+
+  <LOBAssetGroup>
+    <AdvisorLOBAssetGroups LOBAssetGroupCode="EQ" LOBAssetGroup="Equity" Deleted="False" />
+    <AdvisorLOBAssetGroups LOBAssetGroupCode="MF" LOBAssetGroup="Mutual Fund" Deleted="False" />
+    <AdvisorLOBAssetGroups LOBAssetGroupCode="CM" LOBAssetGroup="Commodities" Deleted="False" />
+    <AdvisorLOBAssetGroups LOBAssetGroupCode="DSP" LOBAssetGroup="Liabilities:DirectSaleProducts" Deleted="False" />
+    <AdvisorLOBAssetGroups LOBAssetGroupCode="FI" LOBAssetGroup="Fixed Income" Deleted="False" />
+    <AdvisorLOBAssetGroups LOBAssetGroupCode="INS" LOBAssetGroup="Insurance" Deleted="False" />
+    <AdvisorLOBAssetGroups LOBAssetGroupCode="PS" LOBAssetGroup="Postal Savings" Deleted="False" />
+    <AdvisorLOBAssetGroups LOBAssetGroupCode="PMS" LOBAssetGroup="PMS" Deleted="False" />
+    <AdvisorLOBAssetGroups LOBAssetGroupCode="RE" LOBAssetGroup="Real Estate" Deleted="False" />
+  </LOBAssetGroup>
+
+  <LOBCategory>
+    <AdvisorLOBCategory LOBCategoryCode="BKR" LOBCategory="Broker" Deleted="False" />
+    <AdvisorLOBCategory LOBCategoryCode="INT" LOBCategory="Intermediary" Deleted="False" />
+    <AdvisorLOBCategory LOBCategoryCode="REM" LOBCategory="Remissary" Deleted="False" />
+    <AdvisorLOBCategory LOBCategoryCode="SBR" LOBCategory="Sub Broker" Deleted="False" />
+    <AdvisorLOBCategory LOBCategoryCode="AGN" LOBCategory="Agent" Deleted="False" />
+  </LOBCategory>
+
+  <LOBClassification>
+    <AdvisorLOBClassification LOBClassificationCode="LEBC" LOBAssetGroupCode="EQ" LOBCategoryCode="BKR" SegmentCode="CSH" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LEBD" LOBAssetGroupCode="EQ" LOBCategoryCode="BKR" SegmentCode="DER" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LERC" LOBAssetGroupCode="EQ" LOBCategoryCode="REM" SegmentCode="CSH" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LERD" LOBAssetGroupCode="EQ" LOBCategoryCode="REM" SegmentCode="DER" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LESC" LOBAssetGroupCode="EQ" LOBCategoryCode="SBR" SegmentCode="CSH" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LESD" LOBAssetGroupCode="EQ" LOBCategoryCode="SBR" SegmentCode="DER" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LMIT" LOBAssetGroupCode="MF" LOBCategoryCode="INT" SegmentCode="" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LCBC" LOBAssetGroupCode="CM" LOBCategoryCode="BKR" SegmentCode="CSH" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LCBD" LOBAssetGroupCode="CM" LOBCategoryCode="BKR" SegmentCode="DER" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LCRC" LOBAssetGroupCode="CM" LOBCategoryCode="REM" SegmentCode="CSH" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LCRD" LOBAssetGroupCode="CM" LOBCategoryCode="REM" SegmentCode="DER" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LCSC" LOBAssetGroupCode="CM" LOBCategoryCode="SBR" SegmentCode="CSH" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LCSD" LOBAssetGroupCode="CM" LOBCategoryCode="SBR" SegmentCode="DER" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LPBC" LOBAssetGroupCode="PMS" LOBCategoryCode="BKR" SegmentCode="CSH" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LPBD" LOBAssetGroupCode="PMS" LOBCategoryCode="BKR" SegmentCode="DER" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LPRC" LOBAssetGroupCode="PMS" LOBCategoryCode="REM" SegmentCode="CSH" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LPRD" LOBAssetGroupCode="PMS" LOBCategoryCode="REM" SegmentCode="DER" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LPSC" LOBAssetGroupCode="PMS" LOBCategoryCode="SBR" SegmentCode="CSH" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LPSD" LOBAssetGroupCode="PMS" LOBCategoryCode="SBR" SegmentCode="DER" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LDSA" LOBAssetGroupCode="DSP" LOBCategoryCode="AGN" SegmentCode="" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LFIA" LOBAssetGroupCode="FI" LOBCategoryCode="AGN" SegmentCode="" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LIAG" LOBAssetGroupCode="INS" LOBCategoryCode="AGN" SegmentCode="" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LPAG" LOBAssetGroupCode="PS" LOBCategoryCode="AGN" SegmentCode="" Deleted="False" />
+    <AdvisorLOBClassification LOBClassificationCode="LREA" LOBAssetGroupCode="RE" LOBCategoryCode="AGN" SegmentCode="" Deleted="False" />
+  </LOBClassification>
+
+  <LOBEquitySegment>
+    <AdvisorLOBEquitySegment SegmentCode="" SegmentName="" Deleted="False" />
+    <AdvisorLOBEquitySegment SegmentCode="CSH" SegmentName="Cash" Deleted="False" />
+    <AdvisorLOBEquitySegment SegmentCode="DER" SegmentName="Derivative" Deleted="False" />
+  </LOBEquitySegment>
+
+  <LOBIdentifierType>
+    <AdvisorLOBIdentifierType IdentifierTypeCode="ARN" IdentifierTypeName="AMFI ARN" Deleted="False" />
+    <AdvisorLOBIdentifierType IdentifierTypeCode="BSE" IdentifierTypeName="BSE" Deleted="False" />
+    <AdvisorLOBIdentifierType IdentifierTypeCode="NSE" IdentifierTypeName="NSE" Deleted="False" />
+    <AdvisorLOBIdentifierType IdentifierTypeCode="BNE" IdentifierTypeName="Both BSE NSE" Deleted="False" />
+    <AdvisorLOBIdentifierType IdentifierTypeCode="IRD" IdentifierTypeName="IRDA" Deleted="False" />
+  </LOBIdentifierType>
+
+  <BankAccount>
+    <BankAccountTypes BankAccountTypeCode="CC" BankAccountType="C.C." Deleted="False" />
+    <BankAccountTypes BankAccountTypeCode="CR" BankAccountType="Current" Deleted="False" />
+    <BankAccountTypes BankAccountTypeCode="FR" BankAccountType="F.C.N.R." Deleted="False" />
+    <BankAccountTypes BankAccountTypeCode="NE" BankAccountType="NRE" Deleted="False" />
+    <BankAccountTypes BankAccountTypeCode="NO" BankAccountType="NRO" Deleted="False" />
+    <BankAccountTypes BankAccountTypeCode="OD" BankAccountType="O.D." Deleted="False" />
+    <BankAccountTypes BankAccountTypeCode="SV" BankAccountType="Savings" Deleted="False" />
+    <BankAccountTypes BankAccountTypeCode="OT" BankAccountType="Other" Deleted="False" />
+    <BankAccountTypes BankAccountTypeCode="TBC" BankAccountType="To Be Categorized" Deleted="False" />
+  </BankAccount>
+
+  <CustomerSubTypes>
+    <CustomerSubType CustomerSubTypeCode="RES" CustomerTypeCode="IND" CustomerTypeName="Resident" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="NRI" CustomerTypeCode="IND" CustomerTypeName="NRI" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="NRE" CustomerTypeCode="IND" CustomerTypeName="NRI-NRE" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="NRO" CustomerTypeCode="IND" CustomerTypeName="NRI-NRO" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="MNR" CustomerTypeCode="IND" CustomerTypeName="Minor Through Guardian" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="IOTH" CustomerTypeCode="IND" CustomerTypeName="Other" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="BANK" CustomerTypeCode="NIND" CustomerTypeName="Bank" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="COMP" CustomerTypeCode="NIND" CustomerTypeName="Company/Body Corporate" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="HUF" CustomerTypeCode="NIND" CustomerTypeName="HUF" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="PROP" CustomerTypeCode="NIND" CustomerTypeName="Proprietorship" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="PRTNR" CustomerTypeCode="NIND" CustomerTypeName="Partnership Firm" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="SCTY" CustomerTypeCode="NIND" CustomerTypeName="Society" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="TRST" CustomerTypeCode="NIND" CustomerTypeName="Trust" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="NOTH" CustomerTypeCode="NIND" CustomerTypeName="Other" Deleted="False" />
+    <CustomerSubType CustomerSubTypeCode="TBC" CustomerTypeCode="TBC" CustomerTypeName="To Be Categorized" Deleted="False" />
+    
+  </CustomerSubTypes>
+
+  <CustomerTypes>
+    <CustomerType CustomerTypeCode="IND" CustomerTypeName="Individual" Deleted="False" />
+    <CustomerType CustomerTypeCode="NIND" CustomerTypeName="Non Individual" Deleted="False" />
+    <CustomerType CustomerTypeCode="TBC" CustomerTypeName="To be Categorized" Deleted="False" />
+  </CustomerTypes>
+
+  <Currencies>
+    <Currency CurrencyCode ="1" CurrencyName="INR" CurrencySymbol="INR" Deleted="False" />
+    <Currency CurrencyCode ="2" CurrencyName="GBP" CurrencySymbol="GBP" Deleted="False" />
+    <Currency CurrencyCode ="3" CurrencyName="USD" CurrencySymbol="USD" Deleted="False" />
+    <Currency CurrencyCode ="4" CurrencyName="EUR" CurrencySymbol="EUR" Deleted="False" />
+  </Currencies>
+
+  <BrokerC>
+    <Broker BrokerCode="AAAEL" Broker="A B N Amro Asia Equities (India) Ltd." Deleted="False" />
+    <Broker BrokerCode="AASPL" Broker="A B N Amro Securities (India) Pvt. Ltd." Deleted="False" />
+    <Broker BrokerCode="ACML" Broker="Arihant Capital Markets Ltd. " Deleted="False" />
+    <Broker BrokerCode="AFL" Broker="Apollo Finvest (India) Ltd." Deleted="False" />
+    <Broker BrokerCode="AGSL" Broker="Almondz Global Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="AKCML" Broker="A K Capital Markets Ltd." Deleted="False" />
+    <Broker BrokerCode="AKFSL" Broker="A S K Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="AKFSP" Broker="A S K Financial Services Pvt. Ltd." Deleted="False" />
+    <Broker BrokerCode="AMFSL" Broker="Asit C. Mehta Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="AMIIL" Broker="Asit C Mehta Invst. Interrmediates Ltd." Deleted="False" />
+    <Broker BrokerCode="APIL" Broker="Amco Properties &amp; Invsts. Ltd." Deleted="False" />
+    <Broker BrokerCode="ASBL" Broker="Antique Stock Broking Ltd." Deleted="False" />
+    <Broker BrokerCode="ASL" Broker="Alka Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="AZSL" Broker="A To Z Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="BCIL" Broker="Blue Chip India Ltd." Deleted="False" />
+    <Broker BrokerCode="BFSL" Broker="Bhoruka Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="BSL" Broker="Brics Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="BSPL" Broker="B P L Securities Pvt. Ltd." Deleted="False" />
+    <Broker BrokerCode="CBIL" Broker="Citicorp Brokerage (India) Ltd." Deleted="False" />
+    <Broker BrokerCode="CCML" Broker="Citicorp Capital Markets Ltd." Deleted="False" />
+    <Broker BrokerCode="CISL" Broker="C D Integrated Services Ltd." Deleted="False" />
+    <Broker BrokerCode="CLIL" Broker="C L S A India Ltd." Deleted="False" />
+    <Broker BrokerCode="CRAMC" Broker="Canara Rebeco Asset Mngt. Co. Ltd." Deleted="False" />
+    <Broker BrokerCode="DCPL" Broker="Darashaw &amp;Co. Pvt. Ltd." Deleted="False" />
+    <Broker BrokerCode="DFSL" Broker="Devon Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="DIL" Broker="Dolat Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="DMLCL" Broker="D S P Merrill Lynch Capital Ltd." Deleted="False" />
+    <Broker BrokerCode="DMLL" Broker="D S P Merrill Lynch Ltd." Deleted="False" />
+    <Broker BrokerCode="DSL" Broker="Daulat Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="DSPL" Broker="Deutsche Securities (India) Pvt. Ltd." Deleted="False" />
+    <Broker BrokerCode="DVFL" Broker="Dil Vikas Finance Ltd." Deleted="False" />
+    <Broker BrokerCode="ECML" Broker="Ekdant Capital Markets Ltd." Deleted="False" />
+    <Broker BrokerCode="EGFSL" Broker="Emkay Global Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="EMIL" Broker="Equitymaster India Ltd." Deleted="False" />
+    <Broker BrokerCode="ESL" Broker="Edelweiss Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="FEBL" Broker="Fortune Equity Brokers (India) Ltd." Deleted="False" />
+    <Broker BrokerCode="FITL" Broker="Fortune Investors &amp; Traders Ltd." Deleted="False" />
+    <Broker BrokerCode="FPICL" Broker="F Pudumjee Investment Co. Ltd." Deleted="False" />
+    <Broker BrokerCode="FSCPL" Broker="Fame Securities &amp; Credits Pvt. Ltd." Deleted="False" />
+    <Broker BrokerCode="GCL" Broker="Geojit Commodities Ltd." Deleted="False" />
+    <Broker BrokerCode="GCML" Broker="Globe Capital Market Ltd." Deleted="False" />
+    <Broker BrokerCode="GFML" Broker="Global Financial Markets Ltd." Deleted="False" />
+    <Broker BrokerCode="GFSL" Broker="Geojit Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="GHL" Broker="Graphite Holdings Ltd. [Merged]" Deleted="False" />
+    <Broker BrokerCode="GSL" Broker="Global Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="GSSL" Broker="Gajanan Securities Services Ltd." Deleted="False" />
+    <Broker BrokerCode="HDSL" Broker="H D F C Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="HFSL" Broker="Harita Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="HSBL" Broker="Hem Share Brokers Ltd." Deleted="False" />
+    <Broker BrokerCode="HSIML" Broker="Hanover Securities &amp; Invst. Mngt. Ltd." Deleted="False" />
+    <Broker BrokerCode="HSL" Broker="Hem Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="IASL" Broker="India Advantage Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="IBCPL" Broker="Indiabulls Commodities Pvt. Ltd." Deleted="False" />
+    <Broker BrokerCode="IBFSL" Broker="Indiabulls Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="IBL" Broker="India Broking Ltd." Deleted="False" />
+    <Broker BrokerCode="IBRL" Broker="Interface Brokerage &amp; Research Ltd." Deleted="False" />
+    <Broker BrokerCode="IBSL" Broker="Indiabulls Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="ICCL" Broker="I D F C Capital Co. Ltd." Deleted="False" />
+    <Broker BrokerCode="ICIL" Broker="Indian Capital &amp; Invst. (Coimbatore) Ltd." Deleted="False" />
+    <Broker BrokerCode="ICMSL" Broker="I D B I Capital Market Services Ltd." Deleted="False" />
+    <Broker BrokerCode="ICSL" Broker="Integrated Capital Services Ltd." Deleted="False" />
+    <Broker BrokerCode="IFSL" Broker="I F C I Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="IGIL" Broker="Indigo Investment Ltd." Deleted="False" />
+    <Broker BrokerCode="IHL" Broker="Indsec Holdings Ltd." Deleted="False" />
+    <Broker BrokerCode="IIFCL" Broker="I C C Investment &amp; Finance Consultants Ltd." Deleted="False" />
+    <Broker BrokerCode="IIL" Broker="India Infoline Ltd." Deleted="False" />
+    <Broker BrokerCode="IIMCL" Broker="I C I C I Investment Mngt. Co. Ltd." Deleted="False" />
+    <Broker BrokerCode="IISL" Broker="I L &amp; F S Investsmart Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="IISPL" Broker="India Infoline Securities Pvt. Ltd. [Merged]" Deleted="False" />
+    <Broker BrokerCode="IMBS" Broker="Indbank Merchant Banking Services Ltd." Deleted="False" />
+    <Broker BrokerCode="IMBSL" Broker="I L &amp; F S Merchant Banking Services Ltd. [Merged]" Deleted="False" />
+    <Broker BrokerCode="INIL" Broker="Integral Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="INSL" Broker="India Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="IPTL" Broker="I C I C I Prudential Trust Ltd." Deleted="False" />
+    <Broker BrokerCode="ISL" Broker="Inani Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="ISPDL" Broker="I C I C I Securities Primary Dealership Ltd." Deleted="False" />
+    <Broker BrokerCode="ISPL" Broker="I D F C - S S K I Pvt. Ltd." Deleted="False" />
+    <Broker BrokerCode="ISSL" Broker="I D F C - S S K I Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="ITFSL" Broker="Interface Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="IVFSL" Broker="I N G Vysya Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="IWTL" Broker="I C I C I Web Trade Ltd." Deleted="False" />
+    <Broker BrokerCode="JBSL" Broker="J S B Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="JFSL" Broker="Javeri Fiscal Services Ltd." Deleted="False" />
+    <Broker BrokerCode="JIL" Broker="Jatayu Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="JMFL" Broker="J M Financial Ltd." Deleted="False" />
+    <Broker BrokerCode="JPFSL" Broker="Jaypee Financial Services Ltd." Deleted="False" />
+    <Broker BrokerCode="JSL" Broker="Janki Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="JYSL" Broker="Jaydeep Sharefin Ltd." Deleted="False" />
+    <Broker BrokerCode="KENSL" Broker="K E N Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="KFL" Broker="Kalptaru Fincap Ltd." Deleted="False" />
+    <Broker BrokerCode="KGML" Broker="K J M C Global Market (India) Ltd." Deleted="False" />
+    <Broker BrokerCode="KHSL" Broker="Khandwala Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="KIAL" Broker="Kotak Investment Advisors Ltd." Deleted="False" />
+    <Broker BrokerCode="KIL" Broker="Kabirdas Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="KITL" Broker="Kartik Investments Trust Ltd." Deleted="False" />
+    <Broker BrokerCode="KJIL" Broker="Kshitij Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="KMCCL" Broker="Kotak Mahindra Capital Co. Ltd." Deleted="False" />
+    <Broker BrokerCode="KMIL" Broker="Kotak Mahindra Invsts. Ltd." Deleted="False" />
+    <Broker BrokerCode="KSIL" Broker="Kshemya Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="KSL" Broker="Kashyap Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="KSSL" Broker="K J M C Shares &amp; Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="LFL" Broker="L K P Finance Ltd." Deleted="False" />
+    <Broker BrokerCode="LPL" Broker="L P Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="LPSL" Broker="L P S Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="LSL" Broker="L K P Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="LVIHL" Broker="Lucky Valley Invsts. &amp; Holdings Ltd." Deleted="False" />
+    <Broker BrokerCode="MHL" Broker="Mcdowell Holdings Ltd." Deleted="False" />
+    <Broker BrokerCode="MHPL" Broker="Malpani Holdings Private Limited" Deleted="False" />
+    <Broker BrokerCode="MIFL" Broker="M C M Investments &amp; Finance Ltd." Deleted="False" />
+    <Broker BrokerCode="MKCL" Broker="M D Kothari &amp; Co. Ltd." Deleted="False" />
+    <Broker BrokerCode="MLIL" Broker="M B L Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="MMSL" Broker="Mangalam Services Ltd." Deleted="False" />
+    <Broker BrokerCode="MO" Broker="Motilal Oswal Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="MPFL" Broker="M B Parikh Finstocks Ltd." Deleted="False" />
+    <Broker BrokerCode="MSL" Broker="M H D Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="NIL" Broker="Nandanvan Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="NSBL" Broker="Networth Stock Broking Ltd." Deleted="False" />
+    <Broker BrokerCode="PGL" Broker="P N B Gilts Ltd." Deleted="False" />
+    <Broker BrokerCode="PIL" Broker="Pioneer Investcorp Ltd." Deleted="False" />
+    <Broker BrokerCode="PSBSL" Broker="Pooja Stock Broking Services Ltd." Deleted="False" />
+    <Broker BrokerCode="RSL" Broker="Raj Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="RELC" Broker="Reliance Capital" Deleted="False" />
+    <Broker BrokerCode="SAIL" Broker="Sierra Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="SBIL" Broker="Shriyam Broking Intermediary Ltd." Deleted="False" />
+    <Broker BrokerCode="SCDTL" Broker="S H C I L Commodities &amp; Derivatives Trdg. Ltd." Deleted="False" />
+    <Broker BrokerCode="SCML" Broker="S M I F S Capital Markets Ltd." Deleted="False" />
+    <Broker BrokerCode="SCSL" Broker="S P A Capital Services Ltd." Deleted="False" />
+    <Broker BrokerCode="SFL" Broker="Shruti Finstock Ltd." Deleted="False" />
+    <Broker BrokerCode="SFTCL" Broker="Suchitra Finance &amp; Trading Co. Ltd." Deleted="False" />
+    <Broker BrokerCode="SGL" Broker="S B I Gilts Ltd. [Merged]" Deleted="False" />
+    <Broker BrokerCode="SGSL" Broker="S M C Global Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="SHSL" Broker="S H C I L Services Ltd." Deleted="False" />
+    <Broker BrokerCode="SIFCL" Broker="Stable Investments &amp; Finance Co. Ltd." Deleted="False" />
+    <Broker BrokerCode="SIL" Broker="Sharp Investments Ltd." Deleted="False" />
+    <Broker BrokerCode="SKL" Broker="Sharekhan Ltd." Deleted="False" />
+    <Broker BrokerCode="SLIL" Broker="Shubh Labh Invsts. Ltd." Deleted="False" />
+    <Broker BrokerCode="SLSL" Broker="Shardul Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="SMSL" Broker="S M I F S Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="SNSL" Broker="Sivan Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="SPASL" Broker="S P A Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="SSL" Broker="S B I Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="TCL" Broker="Tata Capital Ltd." Deleted="False" />
+    <Broker BrokerCode="TCML" Broker="Tata Capital Markets Ltd." Deleted="False" />
+    <Broker BrokerCode="VSL" Broker="Videocon Securities Ltd." Deleted="False" />
+    <Broker BrokerCode="WWBPL" Broker="Way2Wealth Brokers Pvt. Ltd." Deleted="False" />
+    <Broker BrokerCode="WWSPL" Broker="Way2Wealth Securities Pvt. Ltd." Deleted="False" />
+  </BrokerC>
+
+  <DebtIssue>
+    <DebtIssuer DebtIssuerCode="BK" DebtIssuerName="Bank" Deleted="False" />
+    <DebtIssuer DebtIssuerCode="CG" DebtIssuerName="Central Govt" Deleted="False" />
+    <DebtIssuer DebtIssuerCode="CO" DebtIssuerName="Company" Deleted="False" />
+    <DebtIssuer DebtIssuerCode="NC" DebtIssuerName="NBFC" Deleted="False" />
+    <DebtIssuer DebtIssuerCode="PS" DebtIssuerName="PSU" Deleted="False" />
+    <DebtIssuer DebtIssuerCode="SG" DebtIssuerName="State Govt" Deleted="False" />
+  </DebtIssue>
+
+  <ExtSource>
+    <ExternalSource SourceCode="CA" SourceName="CAMS" Deleted="False" />
+    <ExternalSource SourceCode="KA" SourceName="Karvy" Deleted="False" />
+    <ExternalSource SourceCode="OD" SourceName="Odin" Deleted="False" />
+    <ExternalSource SourceCode="TN" SourceName="Templeton" Deleted="False" />
+    <ExternalSource SourceCode="WP" SourceName="WERP" Deleted="False" />
+  </ExtSource>
+
+  <Fiscal>
+    <FiscalYear FiscalYearCode="0102" FiscalYear="2001-2002" Deleted="False" />
+    <FiscalYear FiscalYearCode="0203" FiscalYear="2002-2003" Deleted="False" />
+    <FiscalYear FiscalYearCode="0304" FiscalYear="2003-2004" Deleted="False" />
+    <FiscalYear FiscalYearCode="0405" FiscalYear="2004-2005" Deleted="False" />
+    <FiscalYear FiscalYearCode="0506" FiscalYear="2005-2006" Deleted="False" />
+    <FiscalYear FiscalYearCode="0607" FiscalYear="2006-2007" Deleted="False" />
+    <FiscalYear FiscalYearCode="0708" FiscalYear="2007-2008" Deleted="False" />
+    <FiscalYear FiscalYearCode="0809" FiscalYear="2008-2009" Deleted="False" />
+    <FiscalYear FiscalYearCode="0910" FiscalYear="2009-2010" Deleted="False" />
+  </Fiscal>
+
+  <Freq>
+
+    <Frequency FrequencyCode="DA" Frequency="Daily" Deleted="False" />
+    <Frequency FrequencyCode="FN" Frequency="FortNightly" Deleted="False" />
+    <Frequency FrequencyCode="HY" Frequency="HalfYearly" Deleted="False" />
+    <Frequency FrequencyCode="MN" Frequency="Monthly" Deleted="False" />
+    <Frequency FrequencyCode="QT" Frequency="Quaterly" Deleted="False" />
+    <Frequency FrequencyCode="WK" Frequency="Weekly" Deleted="False" />
+    <Frequency FrequencyCode="YR" Frequency="Yearly" Deleted="False" />
+    <Frequency FrequencyCode="AM" Frequency="At Maturity" Deleted="False" />
+  </Freq>
+
+  <IntBasis>
+    <InterestBasis InterestBasisCode="SI" InterestBasisType="Simple Interest" Deleted="False" />
+    <InterestBasis InterestBasisCode="CI" InterestBasisType="Compound Interest" Deleted="False" />
+  </IntBasis>
+
+  <MaritalStat>
+    <MaritalStatus MaritalStatusCode="MA" MaritalStatus="Married" Deleted="False" />
+    <MaritalStatus MaritalStatusCode="SI" MaritalStatus="Single" Deleted="False" />
+    <MaritalStatus MaritalStatusCode="TBC" MaritalStatus="To Be Categorized" Deleted="False" />
+
+
+  </MaritalStat>
+
+  <Measure>
+    <MeasureCode MeasureCode="GR" Measure="Gram" AssetGroup="GD" Deleted="False" />
+    <MeasureCode MeasureCode="KG" Measure="Kilogram" AssetGroup="GD" Deleted="False" />
+    <MeasureCode MeasureCode="OU" Measure="Ounce" AssetGroup="GD" Deleted="False" />
+    <MeasureCode MeasureCode="SF" Measure="SquareFeet" AssetGroup="PR" Deleted="False" />
+    <MeasureCode MeasureCode="YD" Measure="Yard" AssetGroup="PR" Deleted="False" />
+  </Measure>
+
+  <ModeOfHoldings>
+    <ModeOfHolding ModeOfHoldingCode="SO" ModeOfHolding="Self Only" Deleted="False" />
+    <ModeOfHolding ModeOfHoldingCode="SI" ModeOfHolding="Singly" Deleted="False" />
+    <ModeOfHolding ModeOfHoldingCode="SE" ModeOfHolding="Severaly" Deleted="False" />
+    <ModeOfHolding ModeOfHoldingCode="JO" ModeOfHolding="Jointly" Deleted="False" />
+    <ModeOfHolding ModeOfHoldingCode="AS" ModeOfHolding="Anyone or Survivor" Deleted="False" />
+    <ModeOfHolding ModeOfHoldingCode="BR" ModeOfHolding="As pr Board Resolution" Deleted="False" />
+    <ModeOfHolding ModeOfHoldingCode="ES" ModeOfHolding="Either or Survivor" Deleted="False" />
+    <ModeOfHolding ModeOfHoldingCode="FS" ModeOfHolding="Former or Survivor" Deleted="False" />
+    <ModeOfHolding ModeOfHoldingCode="TBC" ModeOfHolding="To Be Categorized" Deleted="False" />
+  </ModeOfHoldings>
+
+  <CustomerNationality>
+    <Nationality NationalityCode="IN" Nationality="Indian" Deleted="False" />
+    <Nationality NationalityCode="OT" Nationality="Other" Deleted="False" />
+    <Nationality NationalityCode="TBC" Nationality="To Be Categorized" Deleted="False" />
+
+  </CustomerNationality>
+
+  <CustomerOccupation>
+    <Occupation OccupationCode="AG" Occupation="Agriculturist" Deleted="False" />
+    <Occupation OccupationCode="BS" Occupation="Business" Deleted="False" />
+    <Occupation OccupationCode="DF" Occupation="Defence" Deleted="False" />
+    <Occupation OccupationCode="HW" Occupation="House Wife" Deleted="False" />
+    <Occupation OccupationCode="LL" Occupation="Land Lord" Deleted="False" />
+    <Occupation OccupationCode="PR" Occupation="Professional" Deleted="False" />
+    <Occupation OccupationCode="RT" Occupation="Retires" Deleted="False" />
+    <Occupation OccupationCode="SR" Occupation="Service" Deleted="False" />
+    <Occupation OccupationCode="ST" Occupation="Student" Deleted="False" />
+    <Occupation OccupationCode="OT" Occupation="Other" Deleted="False" />
+    <Occupation OccupationCode="TBC" Occupation="To Be Categorized" Deleted="False" />
+
+
+  </CustomerOccupation>
+
+  <CustomerPaymentMode>
+    <PaymentMode PaymentModeCode="CQ" PaymentMode="Cheque" Deleted="False" />
+    <PaymentMode PaymentModeCode="DF" PaymentMode="Draft" Deleted="False" />
+    <PaymentMode PaymentModeCode="ES" PaymentMode="ECS" Deleted="False" />
+  </CustomerPaymentMode>
+
+  <CustomerQualification>
+    <Qualification QualificationCode="DM" Qualification="Diploma" Deleted="False" />
+    <Qualification QualificationCode="GR" Qualification="Graduate" Deleted="False" />
+    <Qualification QualificationCode="PG" Qualification="Post Graduate" Deleted="False" />
+    <Qualification QualificationCode="TBC" Qualification="To Be Categorized" Deleted="False" />
+
+
+  </CustomerQualification>
+
+  <SystematicTransaction>
+    <SystematicTransactionType SystemationTypeCode="SIP" SystematicType="Systematic InvestmentPlan" Deleted="False" />
+    <SystematicTransactionType SystemationTypeCode="SWP" SystematicType="Systematic Withdrawal Plan" Deleted="False" />
+    <SystematicTransactionType SystemationTypeCode="STP" SystematicType="Systematic Transfer Plan" Deleted="False" />
+  </SystematicTransaction>
+
+  <CustomerProof>
+    <Proof ProofCode="1" ProofName="Passport" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="2" ProofName="Passport" ProofCategory="Id" Deleted="False" />
+    <Proof ProofCode="3" ProofName="Driving Licence" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="4" ProofName="Driving Licence" ProofCategory="Id" Deleted="False" />
+    <Proof ProofCode="5" ProofName="Voter's Id" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="6" ProofName="Voter's Id" ProofCategory="Id" Deleted="False" />
+    <Proof ProofCode="7" ProofName="PAN Card" ProofCategory="Id" Deleted="False" />
+    <Proof ProofCode="8" ProofName="MAPIN UID Card" ProofCategory="Id" Deleted="False" />
+    <Proof ProofCode="9" ProofName="Incorporation Certificate" ProofCategory="ID" Deleted="False" />
+    <Proof ProofCode="10" ProofName="Certificate of Commencement of Business" ProofCategory="ID" Deleted="False" />
+    <Proof ProofCode="11" ProofName="Ration Card" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="12" ProofName="Bank Passbook" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="13" ProofName="Rent Agreement/Registered Lease / Sale Agreement of Residence" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="14" ProofName="Bank Account Statement" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="15" ProofName="Telephone Bill  (not more than 2 months old)  " ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="16" ProofName="Electricity Bill (not more than 2 months old)" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="17" ProofName="Latest Demat Account Statement  " ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="18" ProofName="IT Return" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="19" ProofName="Leave and Licence Agreement" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="20" ProofName="Any Document Registered with Registrar of the Company" ProofCategory="Address" Deleted="False" />
+    <Proof ProofCode="21" ProofName="Resolution/Authorisation to Invest" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="22" ProofName="Board/Committee Resolution/Authority Letter" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="23" ProofName="Bye-Law" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="24" ProofName="List of Authorised Signatories with Names,Designation &amp; specimen signature" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="25" ProofName="Memorandum &amp; article of association" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="26" ProofName="Certificate of Registration" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="27" ProofName="Proof of Existence / Constitution Document" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="28" ProofName="Overseas Auditor's Certificate" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="29" ProofName="Deed of Declaration" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="30" ProofName="Power of Attorney" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="31" ProofName="Partnership Deed" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="32" ProofName="Trust Deed" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="33" ProofName="Photograph with sign across it" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="34" ProofName="Cheque Leaf" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="35" ProofName="Check Leaf along with Bank Statement or Bank Passbook" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="36" ProofName="Certified Copy of Balance Sheet for last two years" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="37" ProofName="Photographs of Partners/Whole time Directors,Individual Promoters holding 5% or more,either directly or indirectly,in the share holding of the Company" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="38" ProofName="Certified copy of latest share holding pattern including those hoding more than 5 % in the share capital of the Company" ProofCategory="Other" Deleted="False" />
+    <Proof ProofCode="39" ProofName="Certified copy of MOA and AOA" ProofCategory="Other" Deleted="False" />
+  </CustomerProof>
+
+  <InsuranceIssuers>
+    <InsuranceIssuer InsuranceIssuerCode="AL" InsuranceIsserName="Aviva Life Insurance Company India Limited" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="ARL" InsuranceIsserName="Aegon Religare Life Insurance Company Limited" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="BAL" InsuranceIsserName="Bajaj Allianz Life Insurance Company Limited" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="BHL" InsuranceIsserName="Bharti AXA Life Insurance Company Ltd." Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="BSL" InsuranceIsserName="Birla Sun Life Insurance Co. Ltd" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="CHOL" InsuranceIsserName="Canara HSBC Oriental Bank of Commerce Life Insuran" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="DPL" InsuranceIsserName="DLF Pramerica Life Insurance Company Limited" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="FGL" InsuranceIsserName="Future Generali India Life Insurance Company Limit" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="HSL" InsuranceIsserName="HDFC Standard Life Insurance Co. Ltd" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="IFL" InsuranceIsserName="IDBI Fortis Life Insurance Company Ltd." Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="IPL" InsuranceIsserName="ICICI Prudential Life Insurance Co. Ltd" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="IVL" InsuranceIsserName="ING Vysya Life Insurance Company Ltd." Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="KML" InsuranceIsserName="Kotak Mahindra Old Mutual Life Insurance Limited" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="LIC" InsuranceIsserName="Life Insurance Corporation of India" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="MLI" InsuranceIsserName="Met Life India Insurance Company Ltd." Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="MNYL" InsuranceIsserName="Max New York Life Insurance Co. Ltd" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="RL" InsuranceIsserName="Reliance Life Insurance Company Limited." Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="SBIL" InsuranceIsserName="SBI Life Insurance Co. Ltd" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="SHRL" InsuranceIsserName="Sahara India Life Insurance Co, Ltd." Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="SRML" InsuranceIsserName="Shriram Life Insurance Co, Ltd." Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="SUDL" InsuranceIsserName="Star Union Dai-Ichi Life Insurance Company Limited" Deleted="False" />
+    <InsuranceIssuer InsuranceIssuerCode="TAL" InsuranceIsserName="Tata AIG Life Insurance Company Limited" Deleted="False" />
+  </InsuranceIssuers>
+
+  <ExchangeType>
+    <Exchange ExchangeCode="BSE" ExchangeName="BSE" Deleted="False"/>
+    <Exchange ExchangeCode="NSE" ExchangeName="NSE" Deleted="False"/>
+
+  </ExchangeType>
+
+  <TransactionType>
+
+    <Transaction TransactionCode="PUR" TransactionName="Purchase" Deleted="False"/>
+    <Transaction TransactionCode="SELL" TransactionName="Sell" Deleted="False"/>
+  </TransactionType>
+
+  <CustomerRelationship>
+    <Relationship RelationshipCode="CH" Type="IND" Relationship="Child" Deleted="False" />
+    <Relationship RelationshipCode="SP" Type="IND" Relationship="Spouse" Deleted="False" />
+    <Relationship RelationshipCode="FA" Type="IND" Relationship="Father" Deleted="False" />
+    <Relationship RelationshipCode="MO" Type="IND" Relationship="Mother" Deleted="False" />
+    <Relationship RelationshipCode="BR" Type="IND" Relationship="Brother" Deleted="False" />
+    <Relationship RelationshipCode="SI" Type="IND" Relationship="Sister" Deleted="False" />
+    <Relationship RelationshipCode="IOTH" Type="IND" Relationship="Other" Deleted="False" />
+    <Relationship RelationshipCode="MEM" Type="NIND" Relationship="Member" Deleted="False" />
+    <Relationship RelationshipCode="PRT" Type="NIND" Relationship="Partner" Deleted="False" />
+    <Relationship RelationshipCode="CLT" Type="NIND" Relationship="Client" Deleted="False" />
+    <Relationship RelationshipCode="NOTH" Type="NIND" Relationship="Other" Deleted="False" />
+  </CustomerRelationship>
+
+  <States>
+    <State StateCode="ANI" StateName="Andaman and Nicobar Islands" Deleted="False" />
+    <State StateCode="AP" StateName="Andhra Pradesh" Deleted="False" />
+    <State StateCode="ARP" StateName="Arunachal Pradesh" Deleted="False" />
+    <State StateCode="ASS" StateName="Assam" Deleted="False" />
+    <State StateCode="BIH" StateName="Bihar" Deleted="False" />
+    <State StateCode="CHA" StateName="Chandigarh" Deleted="False" />
+    <State StateCode="CHAT" StateName="Chhattisgarh" Deleted="False" />
+    <State StateCode="DNH" StateName="Dadra and Nagar Haveli" Deleted="False" />
+    <State StateCode="DD" StateName="Daman and Diu" Deleted="False" />
+    <State StateCode="DEL" StateName="Delhi" Deleted="False" />
+    <State StateCode="GOA" StateName="Goa" Deleted="False" />
+    <State StateCode="GUJ" StateName="Gujarat" Deleted="False" />
+    <State StateCode="HAR" StateName="Haryana" Deleted="False" />
+    <State StateCode="HIM" StateName="Himachal Pradesh" Deleted="False" />
+    <State StateCode="JK" StateName="Jammu and Kashmir" Deleted="False" />
+    <State StateCode="JHA" StateName="Jharkhand" Deleted="False" />
+    <State StateCode="KAR" StateName="Karnataka" Deleted="False" />
+    <State StateCode="KER" StateName="Kerala" Deleted="False" />
+    <State StateCode="LAK" StateName="Lakshadweep" Deleted="False" />
+    <State StateCode="MP" StateName="Madhya Pradesh" Deleted="False" />
+    <State StateCode="MAH" StateName="Maharashtra" Deleted="False" />
+    <State StateCode="MAN" StateName="Manipur" Deleted="False" />
+    <State StateCode="MEG" StateName="Meghalaya" Deleted="False" />
+    <State StateCode="MIZ" StateName="Mizoram" Deleted="False" />
+    <State StateCode="NAG" StateName="Nagaland" Deleted="False" />
+    <State StateCode="ORI" StateName="Orissa" Deleted="False" />
+    <State StateCode="PON" StateName="Pondicherry" Deleted="False" />
+    <State StateCode="PUN" StateName="Punjab" Deleted="False" />
+    <State StateCode="RAJ" StateName="Rajasthan" Deleted="False" />
+    <State StateCode="SIK" StateName="Sikkim" Deleted="False" />
+    <State StateCode="TRI" StateName="Tripura" Deleted="False" />
+    <State StateCode="TN" StateName="Tamil Nadu" Deleted="False" />
+    <State StateCode="UP" StateName="Uttar Pradesh" Deleted="False" />
+    <State StateCode="UTT" StateName="Uttarakhand" Deleted="False" />
+    <State StateCode="WB" StateName="West Bengal" Deleted="False" />
+  </States>
+
+  <Cities>
+    <City CityCode="GUN" CityName="Guntur" StateCode="AP" Deleted="False" />
+    <City CityCode="HYD" CityName="Hyderabad" StateCode="AP" Deleted="False" />
+    <City CityCode="NEL" CityName="Nellore" StateCode="AP" Deleted="False" />
+    <City CityCode="SEC" CityName="Secunderabad" StateCode="AP" Deleted="False" />
+    <City CityCode="TIR" CityName="Tirupati" StateCode="AP" Deleted="False" />
+    <City CityCode="VIJ" CityName="Vijayawada" StateCode="AP" Deleted="False" />
+    <City CityCode="VIS" CityName="Vishakhapatnam" StateCode="AP" Deleted="False" />
+    <City CityCode="VIZ" CityName="Vizag" StateCode="AP" Deleted="False" />
+    <City CityCode="GUW" CityName="Guwahati" StateCode="ASS" Deleted="False" />
+    <City CityCode="AUR" CityName="Aurangabad" StateCode="BIH" Deleted="False" />
+    <City CityCode="GAY" CityName="Gaya" StateCode="BIH" Deleted="False" />
+    <City CityCode="PAT" CityName="Patna" StateCode="BIH" Deleted="False" />
+    <City CityCode="BHI" CityName="Bhilai" StateCode="CHAT" Deleted="False" />
+    <City CityCode="BIL" CityName="Bilaspur" StateCode="CHAT" Deleted="False" />
+    <City CityCode="RAI" CityName="Raipur" StateCode="CHAT" Deleted="False" />
+    <City CityCode="NDL" CityName="New Delhi" StateCode="DEL" Deleted="False" />
+    <City CityCode="PAN" CityName="Panaji" StateCode="GOA" Deleted="False" />
+    <City CityCode="PON" CityName="Ponda" StateCode="GOA" Deleted="False" />
+    <City CityCode="AHM" CityName="Ahmedabad" StateCode="GUJ" Deleted="False" />
+    <City CityCode="AND" CityName="Anand" StateCode="GUJ" Deleted="False" />
+    <City CityCode="BAR" CityName="Baroda" StateCode="GUJ" Deleted="False" />
+    <City CityCode="BHA" CityName="Bhavnagar" StateCode="GUJ" Deleted="False" />
+    <City CityCode="GAN" CityName="Gandhinagar" StateCode="GUJ" Deleted="False" />
+    <City CityCode="JAM" CityName="Jamnagar" StateCode="GUJ" Deleted="False" />
+    <City CityCode="MEH" CityName="Mehsana" StateCode="GUJ" Deleted="False" />
+    <City CityCode="PAT" CityName="Patan" StateCode="GUJ" Deleted="False" />
+    <City CityCode="RAJ" CityName="Rajkot" StateCode="GUJ" Deleted="False" />
+    <City CityCode="SUR" CityName="Surat" StateCode="GUJ" Deleted="False" />
+    <City CityCode="VAD" CityName="Vadodara" StateCode="GUJ" Deleted="False" />
+    <City CityCode="VAL" CityName="Valsad" StateCode="GUJ" Deleted="False" />
+    <City CityCode="VAP" CityName="Vapi" StateCode="GUJ" Deleted="False" />
+    <City CityCode="CHA" CityName="Chandigarh" StateCode="CHA" Deleted="False" />
+    <City CityCode="FAR" CityName="Faridabad" StateCode="HAR" Deleted="False" />
+    <City CityCode="GUR" CityName="Gurgaon (Gurgawa)" StateCode="HAR" Deleted="False" />
+    <City CityCode="HIS" CityName="Hissar (Hisar)" StateCode="HAR" Deleted="False" />
+    <City CityCode="KAR" CityName="Karnal" StateCode="HAR" Deleted="False" />
+    <City CityCode="PNCH" CityName="Panchkula" StateCode="HAR" Deleted="False" />
+    <City CityCode="PANI" CityName="Panipat" StateCode="HAR" Deleted="False" />
+    <City CityCode="REW" CityName="Rewari" StateCode="HAR" Deleted="False" />
+    <City CityCode="ROH" CityName="Rohtak" StateCode="HAR" Deleted="False" />
+    <City CityCode="SOH" CityName="Sohna" StateCode="HAR" Deleted="False" />
+    <City CityCode="SON" CityName="Sonipat (Sonepat)" StateCode="HAR" Deleted="False" />
+    <City CityCode="YAM" CityName="Yamunanagar" StateCode="HAR" Deleted="False" />
+    <City CityCode="KUL" CityName="Kullu" StateCode="HIM" Deleted="False" />
+    <City CityCode="MAN" CityName="Manali" StateCode="HIM" Deleted="False" />
+    <City CityCode="NAH" CityName="Nahan" StateCode="HIM" Deleted="False" />
+    <City CityCode="SHI" CityName="Shimla" StateCode="HIM" Deleted="False" />
+    <City CityCode="SOL" CityName="Solan" StateCode="HIM" Deleted="False" />
+    <City CityCode="JAMM" CityName="Jammu" StateCode="JK" Deleted="False" />
+    <City CityCode="SRI" CityName="Srinagar" StateCode="JK" Deleted="False" />
+    <City CityCode="BOK" CityName="Bokaro" StateCode="JHA" Deleted="False" />
+    <City CityCode="HAZ" CityName="Hazaribag" StateCode="JHA" Deleted="False" />
+    <City CityCode="JAMS" CityName="Jamshedpur" StateCode="JHA" Deleted="False" />
+    <City CityCode="RAN" CityName="Ranchi" StateCode="JHA" Deleted="False" />
+    <City CityCode="BLR" CityName="Bangalore" StateCode="KAR" Deleted="False" />
+    <City CityCode="BELG" CityName="Belgaum" StateCode="KAR" Deleted="False" />
+    <City CityCode="BELL" CityName="Bellary" StateCode="KAR" Deleted="False" />
+    <City CityCode="GUL" CityName="Gulbarga" StateCode="KAR" Deleted="False" />
+    <City CityCode="HUB" CityName="Hubli" StateCode="KAR" Deleted="False" />
+    <City CityCode="MAN" CityName="Mangalore" StateCode="KAR" Deleted="False" />
+    <City CityCode="MYS" CityName="Mysore" StateCode="KAR" Deleted="False" />
+    <City CityCode="RAI" CityName="Raichur" StateCode="KAR" Deleted="False" />
+    <City CityCode="SHI" CityName="Shimoga" StateCode="KAR" Deleted="False" />
+    <City CityCode="UDU" CityName="Udupi" StateCode="KAR" Deleted="False" />
+    <City CityCode="VIJ" CityName="Vijayanagar" StateCode="KAR" Deleted="False" />
+    <City CityCode="" CityName="Ernakulam" StateCode="KER" Deleted="False" />
+    <City CityCode="" CityName="Kasaragod" StateCode="KER" Deleted="False" />
+    <City CityCode="" CityName="Kochi" StateCode="KER" Deleted="False" />
+    <City CityCode="" CityName="Kottayam" StateCode="KER" Deleted="False" />
+    <City CityCode="" CityName="Kozhikode" StateCode="KER" Deleted="False" />
+    <City CityCode="" CityName="Pathanamthitta" StateCode="KER" Deleted="False" />
+    <City CityCode="" CityName="Thiruvananthapuram" StateCode="KER" Deleted="False" />
+    <City CityCode="" CityName="Thrissur" StateCode="KER" Deleted="False" />
+    <City CityCode="" CityName="Wayanad" StateCode="KER" Deleted="False" />
+    <City CityCode="" CityName="Bhopal" StateCode="MP" Deleted="False" />
+    <City CityCode="" CityName="Dewas" StateCode="MP" Deleted="False" />
+    <City CityCode="" CityName="Gwalior" StateCode="MP" Deleted="False" />
+    <City CityCode="" CityName="Indore" StateCode="MP" Deleted="False" />
+    <City CityCode="" CityName="Jabalpur" StateCode="MP" Deleted="False" />
+    <City CityCode="" CityName="Ujjain" StateCode="MP" Deleted="False" />
+    <City CityCode="" CityName="Akola" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Ambala" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Andheri East" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Andheri West" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Bhusawal" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Jalgaon" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Khandala" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Kolhapur" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Lonavala" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Mumbai" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Nagpur" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Nasik" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Navi Mumbai" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Pune" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Pimpri" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Solapur" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Thane" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Ulhasnagar" StateCode="MAH" Deleted="False" />
+    <City CityCode="" CityName="Shillong" StateCode="MEG" Deleted="False" />
+    <City CityCode="" CityName="Bhubaneswar" StateCode="ORI" Deleted="False" />
+    <City CityCode="" CityName="Cuttack" StateCode="ORI" Deleted="False" />
+    <City CityCode="" CityName="Puri" StateCode="ORI" Deleted="False" />
+    <City CityCode="" CityName="Rourkela" StateCode="ORI" Deleted="False" />
+    <City CityCode="PON" CityName="Pondicherry" StateCode="PON" Deleted="False" />
+    <City CityCode="" CityName="Abhohar" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Amritsar" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Bhatinda" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Jalandhar" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Ludhiana" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Mohali" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Patiala" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Phagwara" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Rajpura" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Ropar" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Rupnagar" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Zirakpur" StateCode="PUN" Deleted="False" />
+    <City CityCode="" CityName="Ajmer" StateCode="RAJ" Deleted="False" />
+    <City CityCode="" CityName="Alwar" StateCode="RAJ" Deleted="False" />
+    <City CityCode="" CityName="Bharatpur" StateCode="RAJ" Deleted="False" />
+    <City CityCode="" CityName="Bikaner" StateCode="RAJ" Deleted="False" />
+    <City CityCode="" CityName="Jaipur" StateCode="RAJ" Deleted="False" />
+    <City CityCode="" CityName="Jaisalmer" StateCode="RAJ" Deleted="False" />
+    <City CityCode="" CityName="Jodhpur" StateCode="RAJ" Deleted="False" />
+    <City CityCode="" CityName="Kota" StateCode="RAJ" Deleted="False" />
+    <City CityCode="" CityName="Udaipur" StateCode="RAJ" Deleted="False" />
+    <City CityCode="" CityName="Chennai" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Coimbatore" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Erode" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Kodaikanal" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Madurai" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Namakkal" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Salem" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Sivakasi" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Tanjore" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Tirupur" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Trichy" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Tuticorin" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Vellore" StateCode="TN" Deleted="False" />
+    <City CityCode="" CityName="Agra" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Aligarh" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Allahabad" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Bareilly" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Ferozabad" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Ghaziabad" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Gorakhpur" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Hapur" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Hathras" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Jhansi" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Kanpur" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Lucknow" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Mathura" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Meerut" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Moradabad" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Muzzafarnagar" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Noida" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Saharanpur" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Varanasi" StateCode="UP" Deleted="False" />
+    <City CityCode="" CityName="Dehradun" StateCode="UTT" Deleted="False" />
+    <City CityCode="" CityName="Haridwar" StateCode="UTT" Deleted="False" />
+    <City CityCode="" CityName="Mussoorie" StateCode="UTT" Deleted="False" />
+    <City CityCode="" CityName="Rishikesh" StateCode="UTT" Deleted="False" />
+    <City CityCode="" CityName="Roorkee" StateCode="UTT" Deleted="False" />
+    <City CityCode="" CityName="Rudrapur" StateCode="UTT" Deleted="False" />
+    <City CityCode="" CityName="Dhanbad" StateCode="WB" Deleted="False" />
+    <City CityCode="" CityName="Hawrah" StateCode="WB" Deleted="False" />
+    <City CityCode="" CityName="Jalpaiguri" StateCode="WB" Deleted="False" />
+    <City CityCode="" CityName="Kolkata" StateCode="WB" Deleted="False" />
+    <City CityCode="" CityName="Siliguri" StateCode="WB" Deleted="False" />
+  </Cities>
+
+  <Upload_Fileype>
+    <XMLExternalSourceFileType XESFT_FileTypeId="1" XESFT_AssetGroup="MF" XESFT_FileType="Transaction" XESFT_FileExtension="dbf" XES_SourceCode="CA" WUXFT_XMLFileTypeId="1" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="2" XESFT_AssetGroup="MF" XESFT_FileType="Profile" XESFT_FileExtension="dbf" XES_SourceCode="CA" WUXFT_XMLFileTypeId="2" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="3" XESFT_AssetGroup="MF" XESFT_FileType="Transaction" XESFT_FileExtension="dbf" XES_SourceCode="KA" WUXFT_XMLFileTypeId="3" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="4" XESFT_AssetGroup="MF" XESFT_FileType="Transaction" XESFT_FileExtension="xls" XES_SourceCode="KA" WUXFT_XMLFileTypeId="3" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="5" XESFT_AssetGroup="MF" XESFT_FileType="Profile" XESFT_FileExtension="dbf" XES_SourceCode="KA" WUXFT_XMLFileTypeId="4" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="6" XESFT_AssetGroup="MF" XESFT_FileType="Profile" XESFT_FileExtension="xls" XES_SourceCode="KA" WUXFT_XMLFileTypeId="4" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="7" XESFT_AssetGroup="MF" XESFT_FileType="Combination" XESFT_FileExtension="xls" XES_SourceCode="KA" WUXFT_XMLFileTypeId="5" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="8" XESFT_AssetGroup="MF" XESFT_FileType="Combination" XESFT_FileExtension="dbf" XES_SourceCode="KA" WUXFT_XMLFileTypeId="5" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="9" XESFT_AssetGroup="MF" XESFT_FileType="Transaction" XESFT_FileExtension="xls" XES_SourceCode="WP" WUXFT_XMLFileTypeId="6" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="10" XESFT_AssetGroup="" XESFT_FileType="Profile" XESFT_FileExtension="xls" XES_SourceCode="WP" WUXFT_XMLFileTypeId="7" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="12" XESFT_AssetGroup="EQ" XESFT_FileType="Transaction" XESFT_FileExtension="csv" XES_SourceCode="ODNSE" WUXFT_XMLFileTypeId="10" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="13" XESFT_AssetGroup="EQ" XESFT_FileType="Transaction" XESFT_FileExtension="txt" XES_SourceCode="ODBSE" WUXFT_XMLFileTypeId="11" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="14" XESFT_AssetGroup="EQ" XESFT_FileType="Transaction" XESFT_FileExtension="xls" XES_SourceCode="WP" WUXFT_XMLFileTypeId="8" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="15" XESFT_AssetGroup="MF" XESFT_FileType="Systematic" XESFT_FileExtension="xls" XES_SourceCode="WP" WUXFT_XMLFileTypeId="9" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="16" XESFT_AssetGroup="MF" XESFT_FileType="Profile" XESFT_FileExtension="xls" XES_SourceCode="CA" WUXFT_XMLFileTypeId="2" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="17" XESFT_AssetGroup="MF" XESFT_FileType="Transaction" XESFT_FileExtension="xls" XES_SourceCode="CA" WUXFT_XMLFileTypeId="1" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="18" XESFT_AssetGroup="MF" XESFT_FileType="Folio" XESFT_FileExtension="xls" XES_SourceCode="WP" WUXFT_XMLFileTypeId="14" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="19" XESFT_AssetGroup="EQ" XESFT_FileType="Trade Account" XESFT_FileExtension="xls" XES_SourceCode="WP" WUXFT_XMLFileTypeId="13" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="20" XESFT_AssetGroup="EQ" XESFT_FileType="Demat Account" XESFT_FileExtension="xls" XES_SourceCode="WP" WUXFT_XMLFileTypeId="12" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="21" XESFT_AssetGroup="MF" XESFT_FileType="Transaction" XESFT_FileExtension="dbf" XES_SourceCode="TN" WUXFT_XMLFileTypeId="15" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="22" XESFT_AssetGroup="MF" XESFT_FileType="Profile" XESFT_FileExtension="dbf" XES_SourceCode="TN" WUXFT_XMLFileTypeId="16" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="23" XESFT_AssetGroup="MF" XESFT_FileType="Transaction" XESFT_FileExtension="dbf" XES_SourceCode="DT" WUXFT_XMLFileTypeId="17" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="24" XESFT_AssetGroup="MF" XESFT_FileType="Profile" XESFT_FileExtension="dbf" XES_SourceCode="DT" WUXFT_XMLFileTypeId="18" Deleted="False"/>
+  </Upload_Fileype>
+
+  <WERPPortfolioTypes>
+    <PortfolioTypes  PortfolioType="NPS" PortfolioTypeCode="NPS" Deleted="False"/>
+    <PortfolioTypes  PortfolioType="PMS" PortfolioTypeCode="PMS" Deleted="False"/>
+    <PortfolioTypes  PortfolioType="Regular" PortfolioTypeCode="RGL" Deleted="False"/>
+  </WERPPortfolioTypes>
+
+  <WERPUploadExtractType>
+    <UploadExtractType XUET_ExtractTypeCode="PO" XUET_ExtractType="Profile Only" Deleted="False"/>
+    <UploadExtractType XUET_ExtractTypeCode="FO" XUET_ExtractType="Folio Only" Deleted="False"/>
+    <UploadExtractType XUET_ExtractTypeCode="PAF" XUET_ExtractType="Profile and folio" Deleted="False"/>
+    <UploadExtractType XUET_ExtractTypeCode="TAO" XUET_ExtractType="Trade Account Only" Deleted="False"/>
+    <UploadExtractType XUET_ExtractTypeCode="DAO" XUET_ExtractType="Demat Account only" Deleted="False"/>
+    <UploadExtractType XUET_ExtractTypeCode="MFT" XUET_ExtractType="MF transaction" Deleted="False"/>
+    <UploadExtractType XUET_ExtractTypeCode="ET" XUET_ExtractType="Equity Transaction" Deleted="False"/>
+    <UploadExtractType XUET_ExtractTypeCode="PFT" XUET_ExtractType="Profile,Folio and Transaction" Deleted="False" />
+    <UploadExtractType XUET_ExtractTypeCode="PETT" XUET_ExtractType="Profile, Trade Account and Eq Transaction" Deleted="False" />
+    <UploadExtractType XUET_ExtractTypeCode="SS" XUET_ExtractType="Systematic Setup" Deleted="False"/>
+  </WERPUploadExtractType>
+
+  <WERPDatePeriod>
+    <DatePeriod PeriodType="Last 7 days" PeriodCode="1" Deleted="False"/>
+    <DatePeriod PeriodType="Last 14 days" PeriodCode="2" Deleted="False"/>
+    <DatePeriod PeriodType="Last 30 days" PeriodCode="3" Deleted="False"/>
+    <DatePeriod PeriodType="Last 90 days" PeriodCode="4" Deleted="False"/>
+    <DatePeriod PeriodType="Last 182 days" PeriodCode="5" Deleted="False"/>
+    <DatePeriod PeriodType="Last 365 days" PeriodCode="6" Deleted="False"/>
+    <DatePeriod PeriodType="Last 2 years" PeriodCode="7" Deleted="False"/>
+    <DatePeriod PeriodType="Last 3 years" PeriodCode="8" Deleted="False"/>
+    <DatePeriod PeriodType="Last 5 years" PeriodCode="9" Deleted="False"/>
+    <DatePeriod PeriodType="Previous week" PeriodCode="10" Deleted="False"/>
+    <DatePeriod PeriodType="Previous month" PeriodCode="11" Deleted="False"/>
+    <DatePeriod PeriodType="Previous half year" PeriodCode="12" Deleted="False"/>
+    <DatePeriod PeriodType="Previous fiscal year" PeriodCode="13" Deleted="False"/>
+    <DatePeriod PeriodType="Previous Calendar year" PeriodCode="14" Deleted="False"/>
+    <!--<DatePeriod PeriodType="Since Investment" PeriodCode="15" />-->
+  </WERPDatePeriod>
+
+  <WERPAdviserBranchType>
+    <AdviserBranchType XABRT_BranchTypeCode="1" XABRT_BranchType="Internal" Deleted="False"/>
+    <AdviserBranchType XABRT_BranchTypeCode="2" XABRT_BranchType="Associate" Deleted="False"/>
+  </WERPAdviserBranchType>
+  
+  <WERPLoanType>
+    <LoanType XLT_LoanTypeCode="1" XLT_LoanType="Home Loan" Deleted="False"></LoanType>
+    <LoanType XLT_LoanTypeCode="2" XLT_LoanType="Auto Loan" Deleted="False"></LoanType>
+    <LoanType XLT_LoanTypeCode="3" XLT_LoanType="Loan Against Property" Deleted="False"></LoanType>
+    <LoanType XLT_LoanTypeCode="4" XLT_LoanType="Loan Against Share" Deleted="False"></LoanType>
+    <LoanType XLT_LoanTypeCode="5" XLT_LoanType="Education Loan" Deleted="False"></LoanType>
+    <LoanType XLT_LoanTypeCode="6" XLT_LoanType="Personal Loan" Deleted="False"></LoanType>
+    <LoanType XLT_LoanTypeCode="7" XLT_LoanType="Business Loan" Deleted="False"></LoanType>
+    <LoanType XLT_LoanTypeCode="8" XLT_LoanType="Commercial Property Loan" Deleted="False"></LoanType>
+  </WERPLoanType>
+
+  <WERPLoanAssociateType>
+    <LoanAssociateType XLAT_LoanAssociateCode="CB" XLAT_LoanAssociationDescription="Co Borrower" Deleted="False"/>
+    <LoanAssociateType XLAT_LoanAssociateCode="GR" XLAT_LoanAssociationDescription="Guarantor" Deleted="False"/>
+    <LoanAssociateType XLAT_LoanAssociateCode="MC" XLAT_LoanAssociationDescription="Main Customer" Deleted="False"/>
+  </WERPLoanAssociateType>
+
+  <WERPEditType>
+    <EditType XLET_EditTypeCode="1" XLET_EditTypeName="Cheque Bounce" Deleted="False"/>
+    <EditType XLET_EditTypeCode="2" XLET_EditTypeName="Prepayment" Deleted="False"/>
+    <EditType XLET_EditTypeCode="3" XLET_EditTypeName="ROI change" Deleted="False"/>
+  </WERPEditType>
+
+  <WERPLoanPartner>
+    <LoanPartner XLP_LoanPartnerCode="1" XLP_LoanPartner="HDFC Bank" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="2" XLP_LoanPartner="ABN AMRO Bank" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="3" XLP_LoanPartner="Barclays Bank" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="4" XLP_LoanPartner="Citi Financials Ltd." Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="5" XLP_LoanPartner="Future Money" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="6" XLP_LoanPartner="Fullerton India Ltd." Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="7" XLP_LoanPartner="Bajaj Auto Finance Ltd." Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="8" XLP_LoanPartner="Standard Chartered Ltd." Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="9" XLP_LoanPartner="India Bulls Ltd." Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="10" XLP_LoanPartner="Deutsche Bank" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="11" XLP_LoanPartner="ICICI Bank" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="12" XLP_LoanPartner="SCB" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="13" XLP_LoanPartner="HSBC" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="14" XLP_LoanPartner="Citibank" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="15" XLP_LoanPartner="Others" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="16" XLP_LoanPartner="Reliance Consumer Finance" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="17" XLP_LoanPartner="Deutsche Postbank" Deleted="False" />
+    <LoanPartner XLP_LoanPartnerCode="18" XLP_LoanPartner="Tata Finance" Deleted="False" />
+  </WERPLoanPartner>
+  <WERPRepaymentType>
+    <RepaymentType XRT_RepaymentTypeCode="ECS" XRT_RepaymentType="ECS" Deleted="False"/>
+    <RepaymentType XRT_RepaymentTypeCode="PDC" XRT_RepaymentType="PDC" Deleted="False"/>
+  </WERPRepaymentType>
+  <WERPCustomerCategory>
+    <CustomerCategory XCC_CustomerCategoryCode="1" XCC_CustomerCategory="Individual Resident" Deleted="False"/>
+    <CustomerCategory XCC_CustomerCategoryCode="2" XCC_CustomerCategory="Individual NRI" Deleted="False"/>
+    <CustomerCategory XCC_CustomerCategoryCode="3" XCC_CustomerCategory="Individual Resident Salaried" Deleted="False"/>
+    <CustomerCategory XCC_CustomerCategoryCode="4" XCC_CustomerCategory="Company" Deleted="False"/>
+    <CustomerCategory XCC_CustomerCategoryCode="5" XCC_CustomerCategory="Individual Resident Self Employed" Deleted="False"/>
+    <CustomerCategory XCC_CustomerCategoryCode="6" XCC_CustomerCategory="Partnership firm" Deleted="False"/>
+  </WERPCustomerCategory>
+
+  <WERPDeclineReason>
+    <DeclineReason XDR_DeclineReasonCode="1" XDR_DeclineReason="Name in Adviser's black list" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="2" XDR_DeclineReason="Name in Bank's black list" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="3" XDR_DeclineReason="Name in CIBIL black list" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="4" XDR_DeclineReason="Income norms" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="5" XDR_DeclineReason="Negative occupation list" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="6" XDR_DeclineReason="High debt service ratio" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="7" XDR_DeclineReason="Cheque bounces in bank statement" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="8" XDR_DeclineReason="Insufficient balances in SB" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="9" XDR_DeclineReason="Less than min period in present job" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="10" XDR_DeclineReason="Less than min period in present residence" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="11" XDR_DeclineReason="Bad credit card payment history" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="12" XDR_DeclineReason="Bad other loan repayment history" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="13" XDR_DeclineReason="Low credit score" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="14" XDR_DeclineReason="Poor IT return" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="15" XDR_DeclineReason="Losses in business" Deleted="False" />
+    <DeclineReason XDR_DeclineReasonCode="16" XDR_DeclineReason="Negative cash flow" Deleted="False" />
+  </WERPDeclineReason>
+
+  <DocumentCopyType>
+    <CopyType XPCT_ProofCopyTypeCode="AC" XPCT_ProofCopyType="Attested copy" Deleted="False" />
+    <CopyType XPCT_ProofCopyTypeCode="ORG" XPCT_ProofCopyType="Original" Deleted="False" />
+    <CopyType XPCT_ProofCopyTypeCode="PC" XPCT_ProofCopyType="Photo Copy" Deleted="False" />
+    <CopyType XPCT_ProofCopyTypeCode="SA" XPCT_ProofCopyType="Self attested" Deleted="False" />
+    <CopyType XPCT_ProofCopyTypeCode="SC" XPCT_ProofCopyType="Scanned copy" Deleted="False" />
+  </DocumentCopyType>
+
+  <DocumentProofType>
+    <ProofType XPRT_ProofTypeCode="1" XPRT_ProofType="Address" Deleted="False" />
+    <ProofType XPRT_ProofTypeCode="2" XPRT_ProofType="Identity" Deleted="False" />
+    <ProofType XPRT_ProofTypeCode="3" XPRT_ProofType="Age" Deleted="False" />
+    <ProofType XPRT_ProofTypeCode="4" XPRT_ProofType="Income" Deleted="False" />
+    <ProofType XPRT_ProofTypeCode="5" XPRT_ProofType="Investment" Deleted="False" />
+    <ProofType XPRT_ProofTypeCode="6" XPRT_ProofType="Liability" Deleted="False" />
+    <ProofType XPRT_ProofTypeCode="7" XPRT_ProofType="Other" Deleted="False" />
+    <ProofType XPRT_ProofTypeCode="8" XPRT_ProofType="Employment" Deleted="False" />
+    <ProofType XPRT_ProofTypeCode="9" XPRT_ProofType="Disbursal" Deleted="False" />
+  </DocumentProofType>
+
+  <CAMSTransactionInputValidation>
+    <CAMSValidationColumn ColumnName ="INVNAME" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <CAMSValidationColumn ColumnName ="FOLIO_NO" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <CAMSValidationColumn ColumnName ="SCHEME" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <CAMSValidationColumn ColumnName ="PRODCODE" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <CAMSValidationColumn ColumnName ="TRXNTYPE" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <CAMSValidationColumn ColumnName ="AMOUNT" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <CAMSValidationColumn ColumnName ="PRICE" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <CAMSValidationColumn ColumnName ="UNITS" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <CAMSValidationColumn ColumnName ="STT" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <CAMSValidationColumn ColumnName ="VALUE_DATE" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
+  </CAMSTransactionInputValidation>
+
+  <KarvyTransactionInputValidation>
+    <KarvyValidationColumn ColumnName ="InvestorName" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <KarvyValidationColumn ColumnName ="FolioNumber" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <KarvyValidationColumn ColumnName ="FundDescription" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <KarvyValidationColumn ColumnName ="ProductCode" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <KarvyValidationColumn ColumnName ="TransactionType" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <KarvyValidationColumn ColumnName ="Amount" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <KarvyValidationColumn ColumnName ="Price" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <KarvyValidationColumn ColumnName ="Units" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <KarvyValidationColumn ColumnName ="STT" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <KarvyValidationColumn ColumnName ="Nav" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <KarvyValidationColumn ColumnName ="TransactionDate" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
+  </KarvyTransactionInputValidation>
+
+  <DeutscheTransactionInputValidation>
+    <DeutscheValidationColumn ColumnName ="INV_NAME" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <DeutscheValidationColumn ColumnName ="FOLIO_NO" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <DeutscheValidationColumn ColumnName ="SCHEME" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <DeutscheValidationColumn ColumnName ="PRODCODE" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <DeutscheValidationColumn ColumnName ="TRXNTYPE" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <DeutscheValidationColumn ColumnName ="AMOUNT" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <DeutscheValidationColumn ColumnName ="PURPRICE" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <DeutscheValidationColumn ColumnName ="UNITS" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <DeutscheValidationColumn ColumnName ="STT" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <DeutscheValidationColumn ColumnName ="BROKCOMM" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <DeutscheValidationColumn ColumnName ="BROKPERC" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="6" />
+    <DeutscheValidationColumn ColumnName ="TRADDATE" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
+  </DeutscheTransactionInputValidation>
+
+  <TempletonTransactionInputValidation>
+    <TempletonValidationColumn ColumnName ="TRXN_NAME" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <TempletonValidationColumn ColumnName ="FOLIO_NO" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <TempletonValidationColumn ColumnName ="PRODUCT_CO" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <TempletonValidationColumn ColumnName ="TR_TYPE" CheckNull="0" CheckNumeric="0" CheckDate="0" CheckLengthVal="0" />
+    <TempletonValidationColumn ColumnName ="AMOUNT" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <TempletonValidationColumn ColumnName ="PRICE" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <TempletonValidationColumn ColumnName ="UNITS" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <TempletonValidationColumn ColumnName ="STT" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <TempletonValidationColumn ColumnName ="TRXN_DATE" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
+  </TempletonTransactionInputValidation>
+  
+
+</WERPLookUpTables>
+
+

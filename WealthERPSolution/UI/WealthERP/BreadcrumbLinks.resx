@@ -1,0 +1,594 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBankDetails" xml:space="preserve">
+    <value>ViewBankDetails,AddBankDetails</value>
+  </data>
+  <data name="AddBranch" xml:space="preserve">
+    <value>AdvisorHome,ViewBranches,AddBranch</value>
+  </data>
+  <data name="AddLOB" xml:space="preserve">
+    <value>AdvisorHome,ViewLOB,AddLOB</value>
+  </data>
+  <data name="AddRM" xml:space="preserve">
+    <value>AdvisorHome,ViewRM,AddRM</value>
+  </data>
+  <data name="AdminDownload" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdminMaintenance" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdminMapping" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdminPriceList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdminUpload" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvisorBMDashBoard" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdvisorDashBoard" xml:space="preserve">
+    <value>AdvisorDashBoard</value>
+  </data>
+  <data name="AdvisorProfile" xml:space="preserve">
+    <value>AdvisorHome,AdvisorProfile</value>
+  </data>
+  <data name="AdvisorRegistration" xml:space="preserve">
+    <value>Home,AdvisorRegistration</value>
+  </data>
+  <data name="AdvisorRMBMDashBoard" xml:space="preserve">
+    <value>AdvisorRMBMDashBoard</value>
+  </data>
+  <data name="AdvisorRMCustIndiDashboard" xml:space="preserve">
+    <value>AdvisorRMCustIndiDashboard</value>
+  </data>
+  <data name="AdvisorRMDashBoard" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AlertServicesExecution" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BMBranchAssociation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BMDashBoard" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BMRMDashBoard" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BranchDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangeLoginId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CustomerAccountAdd" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CustomerConditionalAlertManage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CustomerDateAlertManage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CustomerEQAccountAdd" xml:space="preserve">
+    <value>PortfolioDashboard,ViewEquityPortfolios,CustomerEQAccountAdd</value>
+  </data>
+  <data name="CustomerIndividualAdd" xml:space="preserve">
+    <value>RMDashBoard,RMCustomer,CustomerType,CustomerIndividualAdd</value>
+  </data>
+  <data name="CustomerIndividualDashboard" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CustomerMFAccountAdd" xml:space="preserve">
+    <value>PortfolioDashboard,ViewMutualFundPortfolio,CustomerMFAccountAdd</value>
+  </data>
+  <data name="CustomerNonIndividualAdd" xml:space="preserve">
+    <value>RMDashBoard,RMCustomer,CustomerType,CustomerNonIndividualAdd</value>
+  </data>
+  <data name="CustomerNonIndividualDashboard" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CustomerProofsAdd" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CustomerTransactionalAlertManage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CustomerType" xml:space="preserve">
+    <value>RMDashBoard,RMCustomer,CustomerType</value>
+  </data>
+  <data name="CustomerUpload" xml:space="preserve">
+    <value>AdvisorHome,CustomerUpload</value>
+  </data>
+  <data name="EditAdvisorProfile" xml:space="preserve">
+    <value>AdvisorHome,AdvisorProfile,EditAdvisorProfile</value>
+  </data>
+  <data name="EditBranchDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditCustomerIndividualProfile" xml:space="preserve">
+    <value>RMCustomerIndividualDashboard,EditCustomerIndividualProfile</value>
+  </data>
+  <data name="EditCustomerNonIndividualProfile" xml:space="preserve">
+    <value>EditCustomerNonIndividualProfile</value>
+  </data>
+  <data name="EditLOB" xml:space="preserve">
+    <value>AdvisorHome,ViewLOB,EditLOB</value>
+  </data>
+  <data name="EditRMDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditUserDetails" xml:space="preserve">
+    <value>AdvisorHome,AdvisorProfile,EditUserDetails</value>
+  </data>
+  <data name="EquityBrokerage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EquityManualMultipleTransaction" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EquityManualSingleTransaction" xml:space="preserve">
+    <value>PortfolioDashboard,ViewEquityPortfolios,EquityManualSingleTransaction</value>
+  </data>
+  <data name="EquityProrate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EquityTransactionsView" xml:space="preserve">
+    <value>PortfolioDashboard,ViewEquityPortfolios,EquityTransactionsView</value>
+  </data>
+  <data name="FamilyDetails" xml:space="preserve">
+    <value>ViewCustomerFamily,FamilyDetails</value>
+  </data>
+  <data name="FamilyDetailsChild" xml:space="preserve">
+    <value>ViewCustomerFamily,FamilyDetails,FamilyDetailsChild</value>
+  </data>
+  <data name="FamilyDetailsOther" xml:space="preserve">
+    <value>ViewCustomerFamily,FamilyDetails,FamilyDetailsOther</value>
+  </data>
+  <data name="FamilyDetailsSpouse" xml:space="preserve">
+    <value>ViewCustomerFamily,FamilyDetails,FamilyDetailsSpouse</value>
+  </data>
+  <data name="IFAAdminMainDashboard" xml:space="preserve">
+    <value>AdvisorHome</value>
+  </data>
+  <data name="LOB" xml:space="preserve">
+    <value>Home,AdvisorRegistration,LOB</value>
+  </data>
+  <data name="LOBDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MFManualMultipleTran" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MFManualSingleTran" xml:space="preserve">
+    <value>PortfolioDashboard,ViewMutualFundPortfolio,MFManualSingleTran</value>
+  </data>
+  <data name="PensionPortfolio" xml:space="preserve">
+    <value>PortfolioDashboard,PensionPortfolio</value>
+  </data>
+  <data name="PortfolioCashSavingsEdit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PortfolioCashSavingsEntry_CS" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioCashSavingsView,CustomerAccountAdd_CS,PortfolioCashSavingsEntry_CS</value>
+  </data>
+  <data name="PortfolioCashSavingsView" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioCashSavingsView</value>
+  </data>
+  <data name="PortfolioDashboard" xml:space="preserve">
+    <value>PortfolioDashboard</value>
+  </data>
+  <data name="PortfolioEquityEntry" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PortfolioFixedIncomeEntry" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PortfolioFixedIncomeView" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioFixedIncomeView</value>
+  </data>
+  <data name="PortfolioInsuranceEntry_edit" xml:space="preserve">
+    <value>PortfolioDashboard,ViewInsuranceDetails,PortfolioInsuranceEntry_edit</value>
+  </data>
+  <data name="PortfolioMFEntry" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PortfolioPersonal" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioPersonal</value>
+  </data>
+  <data name="PortfolioPersonalEntry" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioPersonal,PortfolioPersonalEntry</value>
+  </data>
+  <data name="PortfolioProperty" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioProperty</value>
+  </data>
+  <data name="PortfolioPropertyEntry" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RMAlertDashBoard" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RMAlertNotifications" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RMBranchAssociation" xml:space="preserve">
+    <value>AdvisorHome,ViewBranches,RMBranchAssociation</value>
+  </data>
+  <data name="RMCustomer" xml:space="preserve">
+    <value>RMDashBoard,RMCustomer</value>
+  </data>
+  <data name="RMCustomerIndividualDashboard" xml:space="preserve">
+    <value>RMCustomerIndividualDashboard</value>
+  </data>
+  <data name="RMCustomerNonIndividualDashboard" xml:space="preserve">
+    <value>RMCustomerNonIndividualDashboard</value>
+  </data>
+  <data name="RMCustomerUserDetails" xml:space="preserve">
+    <value>AdvisorHome,UserManagement,RMCustomerUserDetails</value>
+  </data>
+  <data name="RMDashBoard" xml:space="preserve">
+    <value>RMDashBoard</value>
+  </data>
+  <data name="RMDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RMEditProfile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RMProfile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RMUserDetails" xml:space="preserve">
+    <value>AdvisorHome,UserManagement,RMUserDetails</value>
+  </data>
+  <data name="TransactionsView" xml:space="preserve">
+    <value>PortfolioDashboard,ViewMutualFundPortfolio,TransactionsView</value>
+  </data>
+  <data name="UserLoginMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewAllBankDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewAssociation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewBankDetails" xml:space="preserve">
+    <value>ViewBankDetails</value>
+  </data>
+  <data name="ViewBMProfile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewBranchAssociation" xml:space="preserve">
+    <value>AdvisorHome,ViewBranches,ViewBranchAssociation</value>
+  </data>
+  <data name="ViewBranchDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewBranches" xml:space="preserve">
+    <value>AdvisorHome,ViewBranches</value>
+  </data>
+  <data name="ViewCollectiblesPortfolio" xml:space="preserve">
+    <value>PortfolioDashboard,ViewCollectiblesPortfolio</value>
+  </data>
+  <data name="ViewCustomerAllBankDetails" xml:space="preserve">
+    <value>ViewBankDetails,ViewCustomerAllBankDetails</value>
+  </data>
+  <data name="ViewCustomerFamily" xml:space="preserve">
+    <value>ViewCustomerFamily</value>
+  </data>
+  <data name="ViewCustomerIndividualProfile" xml:space="preserve">
+    <value>RMCustomerIndividualDashboard,ViewCustomerIndividualProfile</value>
+  </data>
+  <data name="ViewCustomerProfile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewCustomerProofs" xml:space="preserve">
+    <value>RMCustomerIndividualDashboard,ViewCustomerProofs</value>
+  </data>
+  <data name="ViewEquityPortfolios" xml:space="preserve">
+    <value>PortfolioDashboard,ViewEquityPortfolios</value>
+  </data>
+  <data name="ViewEquityPortfolioTransactions" xml:space="preserve">
+    <value>PortfolioDashboard,ViewEquityPortfolios,ViewEquityPortfolioTransactions</value>
+  </data>
+  <data name="ViewEquityTransactions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewGoldPortfolio" xml:space="preserve">
+    <value>PortfolioDashboard,ViewGoldPortfolio</value>
+  </data>
+  <data name="ViewGovtSavings" xml:space="preserve">
+    <value>PortfolioDashboard,ViewGovtSavings</value>
+  </data>
+  <data name="ViewInsuranceDetails" xml:space="preserve">
+    <value>PortfolioDashboard,ViewInsuranceDetails</value>
+  </data>
+  <data name="ViewLOB" xml:space="preserve">
+    <value>AdvisorHome,ViewLOB</value>
+  </data>
+  <data name="ViewLOBDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewMutualFundPortfolio" xml:space="preserve">
+    <value>PortfolioDashboard,ViewMutualFundPortfolio</value>
+  </data>
+  <data name="ViewMutualFundPortfolioTransactions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewMutualFundTransaction" xml:space="preserve">
+    <value>PortfolioDashboard,ViewMutualFundPortfolio,TransactionsView,ViewMutualFundTransaction</value>
+  </data>
+  <data name="ViewNonIndividualProfile" xml:space="preserve">
+    <value>ViewNonIndividualProfile</value>
+  </data>
+  <data name="ViewPensionDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ViewRM" xml:space="preserve">
+    <value>AdvisorHome,ViewRM</value>
+  </data>
+  <data name="ViewRMDetails" xml:space="preserve">
+    <value>RMDashBoard,ViewRMDetails</value>
+  </data>
+  <data name="CustomerAccountAdd_CS" xml:space="preserve">
+    <value>PortfolioDashboard,CustomerAccountAdd_CS</value>
+  </data>
+  <data name="CustomerAccountAdd_FI" xml:space="preserve">
+    <value>PortfolioDashboard,CustomerAccountAdd_FI</value>
+  </data>
+  <data name="CustomerAccountAdd_GS" xml:space="preserve">
+    <value>PortfolioDashboard,CustomerAccountAdd_GS</value>
+  </data>
+  <data name="CustomerAccountAdd_IN" xml:space="preserve">
+    <value>PortfolioDashboard,CustomerAccountAdd_IN</value>
+  </data>
+  <data name="CustomerAccountAdd_PG" xml:space="preserve">
+    <value>PortfolioDashboard,CustomerAccountAdd_PG</value>
+  </data>
+  <data name="CustomerAccountAdd_PR" xml:space="preserve">
+    <value>PortfolioDashboard,CustomerAccountAdd_PR</value>
+  </data>
+  <data name="CustomerAssociatesAdd" xml:space="preserve">
+    <value>ViewCustomerFamily,CustomerAssociatesAdd</value>
+  </data>
+  <data name="PensionAndGratuities_edit" xml:space="preserve">
+    <value>PortfolioDashboard,PensionPortfolio,PensionAndGratuities_edit</value>
+  </data>
+  <data name="PensionAndGratuities_entry" xml:space="preserve">
+    <value>PortfolioDashboard,PensionPortfolio,CustomerAccountAdd_PG,PensionAndGratuities_entry</value>
+  </data>
+  <data name="PensionAndGratuities_view" xml:space="preserve">
+    <value>PortfolioDashboard,PensionPortfolio,PensionAndGratuities_view</value>
+  </data>
+  <data name="PortfolioCollectiblesEntry_Col" xml:space="preserve">
+    <value>PortfolioDashboard,ViewCollectiblesPortfolio,PortfolioCollectiblesEntry_Col</value>
+  </data>
+  <data name="PortfolioCollectiblesEntry_EditCol" xml:space="preserve">
+    <value>PortfolioDashboard,ViewCollectiblesPortfolio,PortfolioCollectiblesEntry_EditCol</value>
+  </data>
+  <data name="PortfolioCollectiblesEntry_ViewCol" xml:space="preserve">
+    <value>PortfolioDashboard,ViewCollectiblesPortfolio,PortfolioCollectiblesEntry_ViewCol</value>
+  </data>
+  <data name="PortfolioGoldEntry_EditGold" xml:space="preserve">
+    <value>PortfolioDashboard,ViewGoldPortfolio,PortfolioGoldEntry_EditGold</value>
+  </data>
+  <data name="PortfolioGoldEntry_GoldEntry" xml:space="preserve">
+    <value>PortfolioDashboard,ViewGoldPortfolio,PortfolioGoldEntry_GoldEntry</value>
+  </data>
+  <data name="PortfolioGoldEntry_ViewGold" xml:space="preserve">
+    <value>PortfolioDashboard,ViewGoldPortfolio,PortfolioGoldEntry_ViewGold</value>
+  </data>
+  <data name="PortfolioInsuranceEntry_entry" xml:space="preserve">
+    <value>PortfolioDashboard,ViewInsuranceDetails,CustomerAccountAdd_IN,PortfolioInsuranceEntry_entry</value>
+  </data>
+  <data name="PortfolioInsuranceEntry_view" xml:space="preserve">
+    <value>PortfolioDashboard,ViewInsuranceDetails,PortfolioInsuranceEntry_view</value>
+  </data>
+  <data name="PortfolioFixedIncomeEntry_EditFI" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioFixedIncomeView,PortfolioFixedIncomeEntry_EditFI</value>
+  </data>
+  <data name="PortfolioFixedIncomeEntry_FI" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioFixedIncomeView,CustomerAccountAdd_FI,PortfolioFixedIncomeEntry_FI</value>
+  </data>
+  <data name="PortfolioFixedIncomeEntry_ViewFI" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioFixedIncomeView,PortfolioFixedIncomeEntry_ViewFI</value>
+  </data>
+  <data name="PortfolioGovtSavingsEntry_EditGS" xml:space="preserve">
+    <value>PortfolioDashboard,ViewGovtSavings,PortfolioGovtSavingsEntry_EditGS</value>
+  </data>
+  <data name="PortfolioGovtSavingsEntry_GS" xml:space="preserve">
+    <value>PortfolioDashboard,ViewGovtSavings,CustomerAccountAdd_GS,PortfolioGovtSavingsEntry_GS</value>
+  </data>
+  <data name="PortfolioGovtSavingsEntry_ViewGS" xml:space="preserve">
+    <value>PortfolioDashboard,ViewGovtSavings,PortfolioGovtSavingsEntry_ViewGS</value>
+  </data>
+  <data name="PortfolioPersonalEntry_edit" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioPersonal,PortfolioPersonalEntry_edit</value>
+  </data>
+  <data name="PortfolioPersonalEntry_view" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioPersonal,PortfolioPersonalEntry_view</value>
+  </data>
+  <data name="PortfolioPropertyEntry_edit" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioProperty,PortfolioPropertyEntry_edit</value>
+  </data>
+  <data name="PortfolioPropertyEntry_entry" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioProperty,CustomerAccountAdd_PR,PortfolioPropertyEntry_entry</value>
+  </data>
+  <data name="PortfolioPropertyEntry_view" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioProperty,PortfolioPropertyEntry_view</value>
+  </data>
+  <data name="PortfolioCashSavingsEntry_EditCS" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioCashSavingsView,PortfolioCashSavingsEntry_EditCS</value>
+  </data>
+  <data name="PortfolioCashSavingsEntry_ViewCS" xml:space="preserve">
+    <value>PortfolioDashboard,PortfolioCashSavingsView,PortfolioCashSavingsEntry_ViewCS</value>
+  </data>
+  <data name="ViewEquityTransaction" xml:space="preserve">
+    <value>PortfolioDashboard,ViewEquityPortfolios,EquityTransactionsView,ViewEquityTransaction</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>AdvisorHome,UserManagement</value>
+  </data>
+  <data name="ViewUploadProcessLog" xml:space="preserve">
+    <value>AdvisorHome,CustomerUpload,ViewUploadProcessLog</value>
+  </data>
+  <data name="RejectedCAMSProfile" xml:space="preserve">
+    <value>AdvisorHome,CustomerUpload,ViewUploadProcessLog,RejectedCAMSProfile</value>
+  </data>
+  <data name="DailyValuation" xml:space="preserve">
+    <value>AdvisorHome,DailyValuation</value>
+  </data>
+  <data name="RejectedCAMSTransaction" xml:space="preserve">
+    <value>AdvisorHome,CustomerUpload,ViewUploadProcessLog,RejectedCAMSTransaction</value>
+  </data>
+  <data name="RejectedKarvyProfle" xml:space="preserve">
+    <value>AdvisorHome,CustomerUpload,ViewUploadProcessLog,RejectedKarvyProfle</value>
+  </data>
+  <data name="RejectedKarvyTransaction" xml:space="preserve">
+    <value>AdvisorHome,CustomerUpload,ViewUploadProcessLog,RejectedKarvyTransaction</value>
+  </data>
+  <data name="RejectedWERPProfile" xml:space="preserve">
+    <value>AdvisorHome,CustomerUpload,ViewUploadProcessLog,RejectedWERPProfile</value>
+  </data>
+  <data name="RejectedWERPTransaction" xml:space="preserve">
+    <value>AdvisorHome,CustomerUpload,ViewUploadProcessLog,RejectedWERPTransaction</value>
+  </data>
+  <data name="AdviserCustomer" xml:space="preserve">
+    <value>AdvisorHome,AdviserCustomer</value>
+  </data>
+  <data name="PortfolioSystematicEntry_edit" xml:space="preserve">
+    <value>PortfolioDashboard,ViewMutualFundPortfolio,PortfolioSystematicEntry_edit</value>
+  </data>
+  <data name="PortfolioSystematicEntry_entry" xml:space="preserve">
+    <value>PortfolioDashboard,ViewMutualFundPortfolio,PortfolioSystematicEntry_entry</value>
+  </data>
+  <data name="PortfolioSystematicEntry_view" xml:space="preserve">
+    <value>PortfolioDashboard,ViewMutualFundPortfolio,PortfolioSystematicEntry_view</value>
+  </data>
+</root>

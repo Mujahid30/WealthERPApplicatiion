@@ -1,0 +1,3086 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4FD5B7DC-0CBA-41A6-82F9-6D14BE2F44C0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WealthERP</RootNamespace>
+    <AssemblyName>WealthERP</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.20820.16598, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="BoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoCustomerAnalytics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoCustomerGoalProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoCustomerPortfolio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoCustomerReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoMarketDataPull, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoSupportData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoUploads, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoWerpAdmin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\CrystalDecisions.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="DaoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoCustomerAnalytics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoCustomerGoalProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoCustomerPortfolio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoCustomerReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoMarketDataPull, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoSupportData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoUploads, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoWerpAdmin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Financial, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
+      <HintPath>bin\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data.SqlCe, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SQLServer.ManagedDTS, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="PCGMailLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.DataVisualization.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="VoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoCustomerAnalytics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoCustomerGoalProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoCustomerPortfolio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoCustomerReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoEmailSMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoSupportData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoUploads, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoWerpAdmin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\Download.ascx" />
+    <Content Include="Admin\Maintenance.ascx" />
+    <Content Include="Admin\Mapping.ascx" />
+    <Content Include="Admin\PriceList.ascx" />
+    <Content Include="Admin\Upload.ascx" />
+    <Content Include="Advisor\AddBranch.ascx" />
+    <Content Include="Advisor\AddLOB.ascx" />
+    <Content Include="Advisor\AdviserRMCustNonIndiDashboard.ascx" />
+    <Content Include="Advisor\AdvisorCustomerAccounts.ascx" />
+    <Content Include="Advisor\AdvisorDashBoard.ascx" />
+    <Content Include="Advisor\AdvisorHeader.ascx" />
+    <Content Include="Advisor\AdvisorHomeLinks.ascx" />
+    <Content Include="Advisor\AdvisorLeftPane.ascx" />
+    <Content Include="Advisor\AdvisorProfile.ascx" />
+    <Content Include="Advisor\AdvisorRegistration.ascx" />
+    <Content Include="Advisor\AdvisorRMCustIndiDashboard.ascx" />
+    <Content Include="Advisor\BMBranchAssociation.ascx" />
+    <Content Include="Advisor\BranchManagerLeftPane.ascx" />
+    <Content Include="Advisor\ChangePassword.ascx" />
+    <Content Include="Advisor\CustomerUserDetails.ascx" />
+    <Content Include="Advisor\DailyValuation.ascx" />
+    <Content Include="Advisor\DirectInvestorRegistration.ascx" />
+    <Content Include="Advisor\EditAdvisorProfile.ascx" />
+    <Content Include="Advisor\EditBranchDetails.ascx" />
+    <Content Include="Advisor\EditLOB.ascx" />
+    <Content Include="Advisor\EditUserDetails.ascx" />
+    <Content Include="Advisor\GenerateLoginPassword.ascx" />
+    <Content Include="Advisor\IFAAdminMainDashboard.ascx" />
+    <Content Include="Advisor\LOB.ascx" />
+    <Content Include="Advisor\PopUp.aspx" />
+    <Content Include="Advisor\RegistrationType.ascx" />
+    <Content Include="Advisor\RMBranchAssociation.ascx" />
+    <Content Include="Advisor\RMCustomerIndividualDashboard.ascx" />
+    <Content Include="Advisor\RMCustomerIndividualLeftPane.ascx" />
+    <Content Include="Advisor\RMCustomerNonIndividualDashboard.ascx" />
+    <Content Include="Advisor\RMCustomerNonIndividualLeftPane.ascx" />
+    <Content Include="Advisor\RMCustomerUserDetails.ascx" />
+    <Content Include="Advisor\RMDashBoard.ascx" />
+    <Content Include="Advisor\RMEditProfile.ascx" />
+    <Content Include="Advisor\RMLeftPane.ascx" />
+    <Content Include="Advisor\RMUserDetails.ascx" />
+    <Content Include="Advisor\UserLoginMessage.ascx" />
+    <Content Include="Advisor\ViewBMProfile.ascx" />
+    <Content Include="Advisor\ViewBranchAssociation.ascx" />
+    <Content Include="Advisor\ViewBranchDetails.ascx" />
+    <Content Include="Advisor\ViewBranches.ascx" />
+    <Content Include="Advisor\ViewLOB.ascx" />
+    <Content Include="Advisor\ViewLOBDetails.ascx" />
+    <Content Include="Advisor\ViewRM.ascx" />
+    <Content Include="Advisor\ViewRMDetails.ascx" />
+    <Content Include="Advisor\ChangeLoginId.ascx" />
+    <Content Include="Alerts\AlertServicesExecution.ascx" />
+    <Content Include="Alerts\AlertsLeftPane.ascx" />
+    <Content Include="Alerts\CustomerDataAlertManagement.ascx" />
+    <Content Include="Alerts\CustomerDateAlertManagement.ascx" />
+    <Content Include="Alerts\NotificationDashboard.ascx" />
+    <Content Include="ControlHost.aspx" />
+    <Content Include="ControlLeftHost.aspx" />
+    <Content Include="CSS\AjaxCSS.css" />
+    <Content Include="CSS\ControlsStyleSheet.css" />
+    <Content Include="CSS\default.advanced.css" />
+    <Content Include="CSS\default.css" />
+    <Content Include="CSS\default.ultimate.css" />
+    <Content Include="CSS\dropdown.css" />
+    <Content Include="CSS\grid.css" />
+    <Content Include="CSS\GridViewCss.css" />
+    <Content Include="CSS\Images\calendar.jpg" />
+    <Content Include="CSS\Images\calendar2.jpg" />
+    <Content Include="CSS\Images\calendar3.jpg" />
+    <Content Include="CSS\Images\coming soon.jpeg" />
+    <Content Include="CSS\Images\HeaderChromeBlack.jpg" />
+    <Content Include="CSS\Images\HeaderGlassBlack.jpg" />
+    <Content Include="CSS\Images\ImgFirstMD.gif" />
+    <Content Include="CSS\Images\ImgFirstMN.gif" />
+    <Content Include="CSS\Images\ImgLastMD.gif" />
+    <Content Include="CSS\Images\ImgLastMN.gif" />
+    <Content Include="CSS\Images\ImgNextMD.gif" />
+    <Content Include="CSS\Images\ImgPrevMD.gif" />
+    <Content Include="CSS\Images\ImgPrevMN.gif" />
+    <Content Include="CSS\Images\MenuSeparator.jpg" />
+    <Content Include="CSS\Images\PCGGridViewHeaderGlass.jpg" />
+    <Content Include="CSS\Images\PCGGridViewHeaderGlass2.jpg" />
+    <Content Include="CSS\Images\PCG_Buttons.png" />
+    <Content Include="CSS\Images\PCG_Buttons_New.png" />
+    <Content Include="CSS\Images\PCG_gradient_button.jpg" />
+    <Content Include="CSS\Images\PCG_gradient_button.png" />
+    <Content Include="CSS\Images\PCG_gradient_button1.jpg" />
+    <Content Include="CSS\Images\PCG_gradient_button1.png" />
+    <Content Include="CSS\Images\PCG_gradient_button2.png" />
+    <Content Include="CSS\Images\PCG_gradient_button3.png" />
+    <Content Include="CSS\Images\PCG_gradient_button_long.jpg" />
+    <Content Include="CSS\Images\PCG_gradient_button_long_hover.jpg" />
+    <Content Include="CSS\Images\PCG_gradient_button_medium.jpg" />
+    <Content Include="CSS\Images\PCG_gradient_button_medium_hover.jpg" />
+    <Content Include="CSS\Images\PCG_gradient_hover_button.png" />
+    <Content Include="CSS\Images\Search_Image_1.jpg" />
+    <Content Include="CSS\Images\TBGridViewHeaderGlass2.jpg" />
+    <Content Include="CSS\tabs.css" />
+    <Content Include="CSS\TabStyle.css" />
+    <Content Include="CustomerPortfolio\AutoComplete.asmx" />
+    <Content Include="CustomerPortfolio\CustomerAccountAdd.ascx" />
+    <Content Include="CustomerPortfolio\CustomerEQAccountAdd.ascx" />
+    <Content Include="CustomerPortfolio\CustomerLeftPane.ascx" />
+    <Content Include="CustomerPortfolio\CustomerMFAccountAdd.ascx" />
+    <Content Include="CustomerPortfolio\CustomerPortfolio.ascx" />
+    <Content Include="CustomerPortfolio\CustomerPortfolioDashboard.ascx" />
+    <Content Include="CustomerPortfolio\EquityManualMultipleTransaction.ascx" />
+    <Content Include="CustomerPortfolio\EquityManualSingleTransaction.ascx" />
+    <Content Include="CustomerPortfolio\EquityProrate.aspx" />
+    <Content Include="CustomerPortfolio\EquityTransactionsView.ascx" />
+    <Content Include="CustomerPortfolio\InsuranceAccountEntry.ascx" />
+    <Content Include="CustomerPortfolio\MFManualMultipleTran.ascx" />
+    <Content Include="CustomerPortfolio\MFManualSingleTran.ascx" />
+    <Content Include="CustomerPortfolio\MFNewFolioEntry.ascx" />
+    <Content Include="CustomerPortfolio\MFSIPDetails.aspx" />
+    <Content Include="CustomerPortfolio\MFSTPDetails.aspx" />
+    <Content Include="CustomerPortfolio\MFSWPDetails.aspx" />
+    <Content Include="CustomerPortfolio\MoneyBackEpisodeAdd.aspx" />
+    <Content Include="CustomerPortfolio\NewDPAccountEntry.ascx" />
+    <Content Include="CustomerPortfolio\Pension.aspx" />
+    <Content Include="CustomerPortfolio\PensionAndGratuities.ascx" />
+    <Content Include="CustomerPortfolio\PensionPortfolio.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioAccountCreation.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioCashSavingsEdit.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioCashSavingsEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioCashSavingsView.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioCollectibles.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioCollectiblesEdit.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioCollectiblesEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioCollectiblesView.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioDashboard.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioEquityEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioFixedIncomeEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioFixedIncomeView.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioGoldEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioGoldView.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioGovtSavingsEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioGovtSavingsView.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioInsuranceEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioLeftPane.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioMFEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioPersonal.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioPersonalEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioPersonalView.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioProperty.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioPropertyEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioSystematicEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioSystematicView.ascx" />
+    <Content Include="CustomerPortfolio\TransactionsView.ascx" />
+    <Content Include="CustomerPortfolio\ULIPPlanAdd.ascx" />
+    <Content Include="CustomerPortfolio\ViewCollectiblesPortfolio.ascx" />
+    <Content Include="CustomerPortfolio\ViewEquityPortfolios.ascx" />
+    <Content Include="CustomerPortfolio\ViewEquityPortfolioTransactions.ascx" />
+    <Content Include="CustomerPortfolio\ViewEquityTransaction.ascx" />
+    <Content Include="CustomerPortfolio\ViewGoldPortfolio.ascx" />
+    <Content Include="CustomerPortfolio\ViewGovtSavings.ascx" />
+    <Content Include="CustomerPortfolio\ViewInsuranceDetails.ascx" />
+    <Content Include="CustomerPortfolio\ViewMFTransaction.ascx" />
+    <Content Include="CustomerPortfolio\ViewMutualFundPortfolio.ascx" />
+    <Content Include="CustomerPortfolio\ViewMutualFundPortfolioTransactions.ascx" />
+    <Content Include="Customer\AddBankDetails.ascx" />
+    <Content Include="Customer\CustomerAssociatesAdd.ascx" />
+    <Content Include="Customer\CustomerNonIndividualDashboard.ascx" />
+    <Content Include="Customer\CustomerNonIndividualLeftPane.ascx" />
+    <Content Include="Customer\EditCustomerIndividualProfile.ascx" />
+    <Content Include="Customer\EditCustomerNonIndividualProfile.ascx" />
+    <Content Include="General\BreadCrumbs.ascx" />
+    <Content Include="General\ChangeTempPassword.ascx" />
+    <Content Include="General\error3.aspx" />
+    <Content Include="General\ForgotPassword.ascx" />
+    <Content Include="General\Pager.ascx" />
+    <Content Include="General\SessionExpired.ascx" />
+    <Content Include="General\UnderConstruction.ascx" />
+    <Content Include="Images\3DSYRW_4009.jpg" />
+    <Content Include="Images\ABC Corporation Private Limited_FINAL LOGO_without_punch.jpg" />
+    <Content Include="Images\ajax_loader.gif" />
+    <Content Include="Images\arrow-down-double.jpg" />
+    <Content Include="CSS\Images\comnav-arrowon.png" />
+    <Content Include="CSS\Images\comnav-arrowover.png" />
+    <Content Include="CSS\Images\comnav-arrowover2.png" />
+    <Content Include="CSS\Images\grad1.png" />
+    <Content Include="CSS\Images\nav-arrow-right.png" />
+    <Content Include="CSS\Images\nav-arrow-right2.png" />
+    <Content Include="CSS\Images\nav-sub-press.png" />
+    <Content Include="CSS\StyleSheet.css" />
+    <Content Include="Customer\CustomerIndividualAdd.ascx" />
+    <Content Include="Customer\CustomerIndividualDashboard.ascx" />
+    <Content Include="Customer\CustomerIndividualLeftPane.ascx" />
+    <Content Include="Customer\CustomerNonIndividualAdd.ascx" />
+    <Content Include="Customer\CustomerProofsAdd.ascx" />
+    <Content Include="Customer\CustomerType.ascx" />
+    <Content Include="Customer\EditCustomerBankAccount.ascx" />
+    <Content Include="Customer\FamilyDetails.ascx" />
+    <Content Include="Customer\FamilyDetailsChild.ascx" />
+    <Content Include="Customer\FamilyDetailsOther.ascx" />
+    <Content Include="Customer\FamilyDetailsSpouse.ascx" />
+    <Content Include="Customer\ViewAllBankDetails.ascx" />
+    <Content Include="Customer\ViewBankDetails.ascx" />
+    <Content Include="Customer\ViewCustomerAllBankDetails.ascx" />
+    <Content Include="Customer\ViewCustomerFamily.ascx" />
+    <Content Include="Customer\ViewCustomerIndividualProfile.ascx" />
+    <Content Include="Customer\ViewCustomerProfile.ascx" />
+    <Content Include="Customer\ViewCustomerProofs.ascx" />
+    <Content Include="Customer\ViewNonIndividualProfile.ascx" />
+    <Content Include="Default.aspx" />
+    <Content Include="General\AdvisorHeader.ascx" />
+    <Content Include="General\GeneralHome.ascx" />
+    <Content Include="General\Header.ascx" />
+    <Content Include="General\LeftPanel_Links.ascx" />
+    <Content Include="General\RightPanel_Advst.ascx" />
+    <Content Include="General\UserLogin.ascx" />
+    <Content Include="General\UserLogout.ascx" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\arrow_double_down_7.gif" />
+    <Content Include="Images\asdf_punch_line.jpg" />
+    <Content Include="Images\baby.jpg" />
+    <Content Include="Images\baby2.jpg" />
+    <Content Include="Images\Ben Nov 6 003.jpg" />
+    <Content Include="Images\Blue.jpg" />
+    <Content Include="Images\Bret_logo_main.jpg" />
+    <Content Include="Images\Bret_Logo_without_punchline.jpg" />
+    <Content Include="Images\check.jpg" />
+    <Content Include="Images\Creek.jpg" />
+    <Content Include="Images\cross.jpg" />
+    <Content Include="Images\DoubleArrowUP+noshadow=yes+bg=#7e0517+font=Garamond_Bold+size=15+color=#FFFFCC.gif" />
+    <Content Include="Images\FINAL LOGO_Latest3.jpg" />
+    <Content Include="Images\FINAL LOGO_without_punch.jpg" />
+    <Content Include="Images\FINAL_LOGO_3.jpg" />
+    <Content Include="Images\gdfgdf.jpg" />
+    <Content Include="Images\gf.jpg" />
+    <Content Include="Images\Header1.jpg" />
+    <Content Include="Images\Header2.jpg" />
+    <Content Include="Images\images.jpg" />
+    <Content Include="Images\images5.jpg" />
+    <Content Include="Images\images6.jpg" />
+    <Content Include="Images\ImgFirstMD.gif" />
+    <Content Include="Images\ImgFirstMN.gif" />
+    <Content Include="Images\ImgLastMD.gif" />
+    <Content Include="Images\ImgLastMN.gif" />
+    <Content Include="Images\ImgNextMD.gif" />
+    <Content Include="Images\ImgNextMN.gif" />
+    <Content Include="Images\ImgPrevMD.gif" />
+    <Content Include="Images\ImgPrevMN.gif" />
+    <Content Include="Images\in_ch_bg2.jpg" />
+    <Content Include="Images\jijiji_FINAL LOGO_Latest3.jpg" />
+    <Content Include="Images\jik_FINAL LOGO_Latest3.jpg" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Advisor\RMProfile.ascx" />
+    <Content Include="Advisor\RMCustomer.ascx" />
+    <Content Include="Images\logo2.jpg" />
+    <Content Include="Images\logo3.jpg" />
+    <Content Include="Images\logo6.jpg" />
+    <Content Include="Images\punch_line.jpg" />
+    <Content Include="Images\sdg_FINAL LOGO_Latest3.jpg" />
+    <Content Include="Images\skeleton.jpg" />
+    <Content Include="Images\tik_FINAL LOGO_Latest3.jpg" />
+    <Content Include="Images\_MG_0267.jpg" />
+    <Content Include="LookUps\lookup.xml" />
+    <Content Include="LookUps\WERPLookups.xml" />
+    <Content Include="Scripts\Calender\calendar-setup.js" />
+    <Content Include="Scripts\Calender\calendar.js" />
+    <Content Include="Scripts\Calender\lang\calendar-en.js" />
+    <Content Include="Scripts\Calender\skins\aqua\active-bg.gif" />
+    <Content Include="Scripts\Calender\skins\aqua\dark-bg.gif" />
+    <Content Include="Scripts\Calender\skins\aqua\hover-bg.gif" />
+    <Content Include="Scripts\Calender\skins\aqua\menuarrow.gif" />
+    <Content Include="Scripts\Calender\skins\aqua\normal-bg.gif" />
+    <Content Include="Scripts\Calender\skins\aqua\rowhover-bg.gif" />
+    <Content Include="Scripts\Calender\skins\aqua\status-bg.gif" />
+    <Content Include="Scripts\Calender\skins\aqua\theme.css" />
+    <Content Include="Scripts\Calender\skins\aqua\title-bg.gif" />
+    <Content Include="Scripts\Calender\skins\aqua\today-bg.gif" />
+    <Content Include="Scripts\JScript.js" />
+    <Content Include="Scripts\tabber.js" />
+    <Content Include="UploadConfigurationFile\DevConfigurationFile.dtsConfig" />
+    <Content Include="UploadFiles\1094.xml" />
+    <Content Include="UploadFiles\1095.xml" />
+    <Content Include="UploadFiles\1096.xml" />
+    <Content Include="UploadFiles\1097.xml" />
+    <Content Include="UploadFiles\1098.xml" />
+    <Content Include="UploadFiles\1168.xml" />
+    <Content Include="UploadFiles\1216.xml" />
+    <Content Include="UploadFiles\1217.xml" />
+    <Content Include="UploadFiles\1218.xml" />
+    <Content Include="UploadFiles\1219.xml" />
+    <Content Include="UploadFiles\1222.xml" />
+    <Content Include="UploadFiles\1230.xml" />
+    <Content Include="UploadFiles\1231.xml" />
+    <Content Include="UploadFiles\1283.xml" />
+    <Content Include="UploadFiles\1284.xml" />
+    <Content Include="UploadFiles\1285.xml" />
+    <Content Include="UploadFiles\1287.xml" />
+    <Content Include="UploadFiles\1290.xml" />
+    <Content Include="UploadFiles\1291.xml" />
+    <Content Include="UploadFiles\1294.xml" />
+    <Content Include="UploadFiles\1295.xml" />
+    <Content Include="UploadFiles\1302.xml" />
+    <Content Include="UploadFiles\1305.xml" />
+    <Content Include="UploadFiles\1306.xml" />
+    <Content Include="UploadFiles\1314.xml" />
+    <Content Include="UploadFiles\1316.xml" />
+    <Content Include="UploadFiles\1318.xml" />
+    <Content Include="UploadFiles\1320.xml" />
+    <Content Include="UploadFiles\camsprofxml_1004_28_4_2009.xml" />
+    <Content Include="UploadFiles\camstranxml_1004_29_4_2009.xml" />
+    <Content Include="UploadFiles\cpx_1004.xml" />
+    <Content Include="UploadFiles\ctx_1004.xml" />
+    <Content Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew.sln" />
+    <Content Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew.sln" />
+    <Content Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew.sln" />
+    <Content Include="UploadPackages\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage.sln" />
+    <Content Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage.dtproj.user" />
+    <Content Include="UploadPackages\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage.sln" />
+    <Content Include="UploadPackages\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage.dtproj.user" />
+    <Content Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage.sln" />
+    <Content Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage.dtproj.user" />
+    <Content Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew.sln" />
+    <Content Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew.sln" />
+    <Content Include="UploadPackages\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.sln" />
+    <Content Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew.sln" />
+    <Content Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.sln" />
+    <Content Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage.sln" />
+    <Content Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage.dtproj.user" />
+    <Content Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew.sln" />
+    <Content Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew.sln" />
+    <Content Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew.dtproj.user" />
+    <Content Include="Uploads\CustomerUpload.ascx" />
+    <Content Include="Uploads\RejectedEquityTransactionStaging.ascx" />
+    <Content Include="Uploads\RejectedMFFolio.ascx" />
+    <Content Include="Uploads\RejectedMFTransactionStaging.ascx" />
+    <Content Include="Uploads\RejectedTradeAccountStaging.ascx" />
+    <Content Include="Uploads\RejectedWERPProfile.ascx" />
+    <Content Include="Uploads\ViewUploadProcessLog.ascx" />
+    <Content Include="Uploads\WerpUploadRules.aspx" />
+    <Content Include="UserManagement\AdvisorBMDashBoard.ascx" />
+    <Content Include="UserManagement\AdvisorBMLeftpane.ascx" />
+    <Content Include="UserManagement\AdvisorRM.ascx" />
+    <Content Include="UserManagement\AdvisorRMBMDashBoard.ascx" />
+    <Content Include="UserManagement\AdvisorRMBMLeftpane.ascx" />
+    <Content Include="UserManagement\AdvisorRMDashboard.ascx" />
+    <Content Include="UserManagement\AdvisorRMLeftpane.ascx" />
+    <Content Include="UserManagement\BMDashBoard.ascx" />
+    <Content Include="UserManagement\BMLeftpane.ascx" />
+    <Content Include="UserManagement\BMRMDashBoard.ascx" />
+    <Content Include="UserManagement\BMRMLeftpane.ascx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\Download.ascx.cs">
+      <DependentUpon>Download.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Download.ascx.designer.cs">
+      <DependentUpon>Download.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Maintenance.ascx.cs">
+      <DependentUpon>Maintenance.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Maintenance.ascx.designer.cs">
+      <DependentUpon>Maintenance.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Mapping.ascx.cs">
+      <DependentUpon>Mapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Mapping.ascx.designer.cs">
+      <DependentUpon>Mapping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PriceList.ascx.cs">
+      <DependentUpon>PriceList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PriceList.ascx.designer.cs">
+      <DependentUpon>PriceList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Upload.ascx.cs">
+      <DependentUpon>Upload.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Upload.ascx.designer.cs">
+      <DependentUpon>Upload.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UploadProcessLog.ascx.cs">
+      <DependentUpon>UploadProcessLog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UploadProcessLog.ascx.designer.cs">
+      <DependentUpon>UploadProcessLog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UploadRejects.ascx.cs">
+      <DependentUpon>UploadRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UploadRejects.ascx.designer.cs">
+      <DependentUpon>UploadRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\WERPAdminDownloadProcessLog.ascx.cs">
+      <DependentUpon>WERPAdminDownloadProcessLog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\WERPAdminDownloadProcessLog.ascx.designer.cs">
+      <DependentUpon>WERPAdminDownloadProcessLog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AddBranch.ascx.cs">
+      <DependentUpon>AddBranch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AddBranch.ascx.designer.cs">
+      <DependentUpon>AddBranch.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AddCustomerFinancialPlanningGoalSetup.ascx.cs">
+      <DependentUpon>AddCustomerFinancialPlanningGoalSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AddCustomerFinancialPlanningGoalSetup.ascx.designer.cs">
+      <DependentUpon>AddCustomerFinancialPlanningGoalSetup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AddLOB.ascx.cs">
+      <DependentUpon>AddLOB.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AddLOB.ascx.designer.cs">
+      <DependentUpon>AddLOB.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AddRM.ascx.cs">
+      <DependentUpon>AddRM.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AddRM.ascx.designer.cs">
+      <DependentUpon>AddRM.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserAssociateCategorySetup.ascx.cs">
+      <DependentUpon>AdviserAssociateCategorySetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserAssociateCategorySetup.ascx.designer.cs">
+      <DependentUpon>AdviserAssociateCategorySetup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserCustomer.ascx.cs">
+      <DependentUpon>AdviserCustomer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserCustomer.ascx.designer.cs">
+      <DependentUpon>AdviserCustomer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserCustomerManualSMS.ascx.cs">
+      <DependentUpon>AdviserCustomerManualSMS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserCustomerManualSMS.ascx.designer.cs">
+      <DependentUpon>AdviserCustomerManualSMS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserCustomerSMSAlerts.ascx.cs">
+      <DependentUpon>AdviserCustomerSMSAlerts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserCustomerSMSAlerts.ascx.designer.cs">
+      <DependentUpon>AdviserCustomerSMSAlerts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserEQMIS.ascx.cs">
+      <DependentUpon>AdviserEQMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserEQMIS.ascx.designer.cs">
+      <DependentUpon>AdviserEQMIS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserLoanCommsnStrucWithLoanPartner.ascx.cs">
+      <DependentUpon>AdviserLoanCommsnStrucWithLoanPartner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserLoanCommsnStrucWithLoanPartner.ascx.designer.cs">
+      <DependentUpon>AdviserLoanCommsnStrucWithLoanPartner.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserLoanMIS.ascx.cs">
+      <DependentUpon>AdviserLoanMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserLoanMIS.ascx.designer.cs">
+      <DependentUpon>AdviserLoanMIS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserMFMIS.ascx.cs">
+      <DependentUpon>AdviserMFMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserMFMIS.ascx.designer.cs">
+      <DependentUpon>AdviserMFMIS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserRMCustNonIndiDashboard.ascx.cs">
+      <DependentUpon>AdviserRMCustNonIndiDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserRMCustNonIndiDashboard.ascx.designer.cs">
+      <DependentUpon>AdviserRMCustNonIndiDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserStaffSMTP.ascx.cs">
+      <DependentUpon>AdviserStaffSMTP.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserStaffSMTP.ascx.designer.cs">
+      <DependentUpon>AdviserStaffSMTP.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdvisorCustomerAccounts.ascx.cs">
+      <DependentUpon>AdvisorCustomerAccounts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdvisorCustomerAccounts.ascx.designer.cs">
+      <DependentUpon>AdvisorCustomerAccounts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdvisorDashBoard.ascx.cs">
+      <DependentUpon>AdvisorDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdvisorDashBoard.ascx.designer.cs">
+      <DependentUpon>AdvisorDashBoard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdvisorHeader.ascx.cs">
+      <DependentUpon>AdvisorHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdvisorHeader.ascx.designer.cs">
+      <DependentUpon>AdvisorHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdvisorHomeLinks.ascx.cs">
+      <DependentUpon>AdvisorHomeLinks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdvisorHomeLinks.ascx.designer.cs">
+      <DependentUpon>AdvisorHomeLinks.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdvisorLeftPane.ascx.cs">
+      <DependentUpon>AdvisorLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdvisorLeftPane.ascx.designer.cs">
+      <DependentUpon>AdvisorLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdvisorProfile.ascx.cs">
+      <DependentUpon>AdvisorProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdvisorProfile.ascx.designer.cs">
+      <DependentUpon>AdvisorProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdvisorRegistration.ascx.cs">
+      <DependentUpon>AdvisorRegistration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdvisorRegistration.ascx.designer.cs">
+      <DependentUpon>AdvisorRegistration.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdvisorRMCustIndiDashboard.ascx.cs">
+      <DependentUpon>AdvisorRMCustIndiDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdvisorRMCustIndiDashboard.ascx.designer.cs">
+      <DependentUpon>AdvisorRMCustIndiDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AssociateCategory.ascx.cs">
+      <DependentUpon>AssociateCategory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AssociateCategory.ascx.designer.cs">
+      <DependentUpon>AssociateCategory.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\BMBranchAssociation.ascx.cs">
+      <DependentUpon>BMBranchAssociation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\BMBranchAssociation.ascx.designer.cs">
+      <DependentUpon>BMBranchAssociation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\BMCustomer.ascx.cs">
+      <DependentUpon>BMCustomer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\BMCustomer.ascx.designer.cs">
+      <DependentUpon>BMCustomer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\BMStaffView.ascx.cs">
+      <DependentUpon>BMStaffView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\BMStaffView.ascx.designer.cs">
+      <DependentUpon>BMStaffView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\BranchManagerLeftPane.ascx.cs">
+      <DependentUpon>BranchManagerLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\BranchManagerLeftPane.ascx.designer.cs">
+      <DependentUpon>BranchManagerLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\ChangePassword.ascx.cs">
+      <DependentUpon>ChangePassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ChangePassword.ascx.designer.cs">
+      <DependentUpon>ChangePassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\CustomerUserDetails.ascx.cs">
+      <DependentUpon>CustomerUserDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\CustomerUserDetails.ascx.designer.cs">
+      <DependentUpon>CustomerUserDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\DailyValuation.ascx.cs">
+      <DependentUpon>DailyValuation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\DailyValuation.ascx.designer.cs">
+      <DependentUpon>DailyValuation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\DirectInvestorRegistration.ascx.cs">
+      <DependentUpon>DirectInvestorRegistration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\DirectInvestorRegistration.ascx.designer.cs">
+      <DependentUpon>DirectInvestorRegistration.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\EditAdvisorProfile.ascx.cs">
+      <DependentUpon>EditAdvisorProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\EditAdvisorProfile.ascx.designer.cs">
+      <DependentUpon>EditAdvisorProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\EditBranchDetails.ascx.cs">
+      <DependentUpon>EditBranchDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\EditBranchDetails.ascx.designer.cs">
+      <DependentUpon>EditBranchDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\EditLOB.ascx.cs">
+      <DependentUpon>EditLOB.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\EditLOB.ascx.designer.cs">
+      <DependentUpon>EditLOB.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\EditRMDetails.ascx.cs">
+      <DependentUpon>EditRMDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\EditRMDetails.ascx.designer.cs">
+      <DependentUpon>EditRMDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\EditUserDetails.ascx.cs">
+      <DependentUpon>EditUserDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\EditUserDetails.ascx.designer.cs">
+      <DependentUpon>EditUserDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\FinancialPlanning.ascx.cs">
+      <DependentUpon>FinancialPlanning.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\FinancialPlanning.ascx.designer.cs">
+      <DependentUpon>FinancialPlanning.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\FinancialPlanningLeftPane.ascx.cs">
+      <DependentUpon>FinancialPlanningLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\FinancialPlanningLeftPane.ascx.designer.cs">
+      <DependentUpon>FinancialPlanningLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\FPGoalProfiling.ascx.cs">
+      <DependentUpon>FPGoalProfiling.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\FPGoalProfiling.ascx.designer.cs">
+      <DependentUpon>FPGoalProfiling.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\FPReports.ascx.cs">
+      <DependentUpon>FPReports.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\FPReports.ascx.designer.cs">
+      <DependentUpon>FPReports.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\GenerateLoginPassword.ascx.cs">
+      <DependentUpon>GenerateLoginPassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\GenerateLoginPassword.ascx.designer.cs">
+      <DependentUpon>GenerateLoginPassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\IFAAdminMainDashboard.ascx.cs">
+      <DependentUpon>IFAAdminMainDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\IFAAdminMainDashboard.ascx.designer.cs">
+      <DependentUpon>IFAAdminMainDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\LeadManagement.ascx.cs">
+      <DependentUpon>LeadManagement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\LeadManagement.ascx.designer.cs">
+      <DependentUpon>LeadManagement.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\LeadManagementAdd.ascx.cs">
+      <DependentUpon>LeadManagementAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\LeadManagementAdd.ascx.designer.cs">
+      <DependentUpon>LeadManagementAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\LoanTrackingGrid.ascx.cs">
+      <DependentUpon>LoanTrackingGrid.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\LoanTrackingGrid.ascx.designer.cs">
+      <DependentUpon>LoanTrackingGrid.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\LOB.ascx.cs">
+      <DependentUpon>LOB.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\LOB.ascx.designer.cs">
+      <DependentUpon>LOB.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\PopUp.aspx.cs">
+      <DependentUpon>PopUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\PopUp.aspx.designer.cs">
+      <DependentUpon>PopUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RegistrationType.ascx.cs">
+      <DependentUpon>RegistrationType.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RegistrationType.ascx.designer.cs">
+      <DependentUpon>RegistrationType.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMAMCSchemewiseMIS.ascx.cs">
+      <DependentUpon>RMAMCSchemewiseMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMAMCSchemewiseMIS.ascx.designer.cs">
+      <DependentUpon>RMAMCSchemewiseMIS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMAMCWiseMIS.ascx.cs">
+      <DependentUpon>RMAMCWiseMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMAMCWiseMIS.ascx.designer.cs">
+      <DependentUpon>RMAMCWiseMIS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMBranchAssociation.ascx.cs">
+      <DependentUpon>RMBranchAssociation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMBranchAssociation.ascx.designer.cs">
+      <DependentUpon>RMBranchAssociation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerAMCSchemewiseMIS.ascx.cs">
+      <DependentUpon>RMCustomerAMCSchemewiseMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerAMCSchemewiseMIS.ascx.designer.cs">
+      <DependentUpon>RMCustomerAMCSchemewiseMIS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerIndividualDashboard.ascx.cs">
+      <DependentUpon>RMCustomerIndividualDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerIndividualDashboard.ascx.designer.cs">
+      <DependentUpon>RMCustomerIndividualDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerIndividualLeftPane.ascx.cs">
+      <DependentUpon>RMCustomerIndividualLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerIndividualLeftPane.ascx.designer.cs">
+      <DependentUpon>RMCustomerIndividualLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerNonIndividualDashboard.ascx.cs">
+      <DependentUpon>RMCustomerNonIndividualDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerNonIndividualDashboard.ascx.designer.cs">
+      <DependentUpon>RMCustomerNonIndividualDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerNonIndividualLeftPane.ascx.cs">
+      <DependentUpon>RMCustomerNonIndividualLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerNonIndividualLeftPane.ascx.designer.cs">
+      <DependentUpon>RMCustomerNonIndividualLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerUserDetails.ascx.cs">
+      <DependentUpon>RMCustomerUserDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMCustomerUserDetails.ascx.designer.cs">
+      <DependentUpon>RMCustomerUserDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMDashBoard.ascx.cs">
+      <DependentUpon>RMDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMDashBoard.ascx.designer.cs">
+      <DependentUpon>RMDashBoard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMEditProfile.ascx.cs">
+      <DependentUpon>RMEditProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMEditProfile.ascx.designer.cs">
+      <DependentUpon>RMEditProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMLeftPane.ascx.cs">
+      <DependentUpon>RMLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMLeftPane.ascx.designer.cs">
+      <DependentUpon>RMLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMUserDetails.ascx.cs">
+      <DependentUpon>RMUserDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMUserDetails.ascx.designer.cs">
+      <DependentUpon>RMUserDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\UserLoginMessage.ascx.cs">
+      <DependentUpon>UserLoginMessage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\UserLoginMessage.ascx.designer.cs">
+      <DependentUpon>UserLoginMessage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\ViewBMProfile.ascx.cs">
+      <DependentUpon>ViewBMProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ViewBMProfile.ascx.designer.cs">
+      <DependentUpon>ViewBMProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\ViewBranchAssociation.ascx.cs">
+      <DependentUpon>ViewBranchAssociation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ViewBranchAssociation.ascx.designer.cs">
+      <DependentUpon>ViewBranchAssociation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\ViewBranchDetails.ascx.cs">
+      <DependentUpon>ViewBranchDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ViewBranchDetails.ascx.designer.cs">
+      <DependentUpon>ViewBranchDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\ViewBranches.ascx.cs">
+      <DependentUpon>ViewBranches.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ViewBranches.ascx.designer.cs">
+      <DependentUpon>ViewBranches.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\ViewLOB.ascx.cs">
+      <DependentUpon>ViewLOB.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ViewLOB.ascx.designer.cs">
+      <DependentUpon>ViewLOB.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\ViewLOBDetails.ascx.cs">
+      <DependentUpon>ViewLOBDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ViewLOBDetails.ascx.designer.cs">
+      <DependentUpon>ViewLOBDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\ViewRM.ascx.cs">
+      <DependentUpon>ViewRM.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ViewRM.ascx.designer.cs">
+      <DependentUpon>ViewRM.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\ViewRMDetails.ascx.cs">
+      <DependentUpon>ViewRMDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ViewRMDetails.ascx.designer.cs">
+      <DependentUpon>ViewRMDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\AlertDashboard.ascx.cs">
+      <DependentUpon>AlertDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\AlertDashboard.ascx.designer.cs">
+      <DependentUpon>AlertDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\AlertServicesExecution.ascx.cs">
+      <DependentUpon>AlertServicesExecution.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\AlertServicesExecution.ascx.designer.cs">
+      <DependentUpon>AlertServicesExecution.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\AlertsLeftPane.ascx.cs">
+      <DependentUpon>AlertsLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\AlertsLeftPane.ascx.designer.cs">
+      <DependentUpon>AlertsLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\CustomerDataAlertManagement.ascx.cs">
+      <DependentUpon>CustomerDataAlertManagement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\CustomerDataAlertManagement.ascx.designer.cs">
+      <DependentUpon>CustomerDataAlertManagement.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\CustomerDateAlertManagement.ascx.cs">
+      <DependentUpon>CustomerDateAlertManagement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\CustomerDateAlertManagement.ascx.designer.cs">
+      <DependentUpon>CustomerDateAlertManagement.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\CustomerEQAlerts.ascx.cs">
+      <DependentUpon>CustomerEQAlerts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\CustomerEQAlerts.ascx.designer.cs">
+      <DependentUpon>CustomerEQAlerts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\CustomerFIAlerts.ascx.cs">
+      <DependentUpon>CustomerFIAlerts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\CustomerFIAlerts.ascx.designer.cs">
+      <DependentUpon>CustomerFIAlerts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\CustomerInsuranceAlerts.ascx.cs">
+      <DependentUpon>CustomerInsuranceAlerts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\CustomerInsuranceAlerts.ascx.designer.cs">
+      <DependentUpon>CustomerInsuranceAlerts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\CustomerMFAlert.ascx.cs">
+      <DependentUpon>CustomerMFAlert.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\CustomerMFAlert.ascx.designer.cs">
+      <DependentUpon>CustomerMFAlert.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\CustomerTransactionalAlertManagement.ascx.cs">
+      <DependentUpon>CustomerTransactionalAlertManagement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\CustomerTransactionalAlertManagement.ascx.designer.cs">
+      <DependentUpon>CustomerTransactionalAlertManagement.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Alerts\NotificationDashboard.ascx.cs">
+      <DependentUpon>NotificationDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\NotificationDashboard.ascx.designer.cs">
+      <DependentUpon>NotificationDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Base\Contants.cs" />
+    <Compile Include="Advisor\ChangeLoginId.ascx.cs">
+      <DependentUpon>ChangeLoginId.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ChangeLoginId.ascx.designer.cs">
+      <DependentUpon>ChangeLoginId.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BreadcrumbLinks.Designer.cs" />
+    <Compile Include="BreadCrumbScripts.Designer.cs" />
+    <Compile Include="ControlHost.aspx.cs">
+      <DependentUpon>ControlHost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlHost.aspx.designer.cs">
+      <DependentUpon>ControlHost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlLeftHost.aspx.cs">
+      <DependentUpon>ControlLeftHost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlLeftHost.aspx.designer.cs">
+      <DependentUpon>ControlLeftHost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlMapping.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControlMapping.resx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\AdviserLoanScheme.ascx.cs">
+      <DependentUpon>AdviserLoanScheme.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\AdviserLoanScheme.ascx.designer.cs">
+      <DependentUpon>AdviserLoanScheme.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\AdviserLoanSchemeView.ascx.cs">
+      <DependentUpon>AdviserLoanSchemeView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\AdviserLoanSchemeView.ascx.designer.cs">
+      <DependentUpon>AdviserLoanSchemeView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\AutoComplete.asmx.cs">
+      <DependentUpon>AutoComplete.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CommonClass.cs" />
+    <Compile Include="CustomerPortfolio\CustomerAccountAdd.ascx.cs">
+      <DependentUpon>CustomerAccountAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerAccountAdd.ascx.designer.cs">
+      <DependentUpon>CustomerAccountAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerEQAccountAdd.ascx.cs">
+      <DependentUpon>CustomerEQAccountAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerEQAccountAdd.ascx.designer.cs">
+      <DependentUpon>CustomerEQAccountAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerEQAccountView.ascx.cs">
+      <DependentUpon>CustomerEQAccountView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerEQAccountView.ascx.designer.cs">
+      <DependentUpon>CustomerEQAccountView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerLeftPane.ascx.cs">
+      <DependentUpon>CustomerLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerLeftPane.ascx.designer.cs">
+      <DependentUpon>CustomerLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerMFAccountAdd.ascx.cs">
+      <DependentUpon>CustomerMFAccountAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerMFAccountAdd.ascx.designer.cs">
+      <DependentUpon>CustomerMFAccountAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerMFFolioView.ascx.cs">
+      <DependentUpon>CustomerMFFolioView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerMFFolioView.ascx.designer.cs">
+      <DependentUpon>CustomerMFFolioView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerMFSystematicTransactionReport.ascx.cs">
+      <DependentUpon>CustomerMFSystematicTransactionReport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerMFSystematicTransactionReport.ascx.designer.cs">
+      <DependentUpon>CustomerMFSystematicTransactionReport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerPortfolio.ascx.cs">
+      <DependentUpon>CustomerPortfolio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerPortfolio.ascx.designer.cs">
+      <DependentUpon>CustomerPortfolio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerPortfolioDashboard.ascx.cs">
+      <DependentUpon>CustomerPortfolioDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerPortfolioDashboard.ascx.designer.cs">
+      <DependentUpon>CustomerPortfolioDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerPortfolioSetup.ascx.cs">
+      <DependentUpon>CustomerPortfolioSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerPortfolioSetup.ascx.designer.cs">
+      <DependentUpon>CustomerPortfolioSetup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\EquityManualMultipleTransaction.ascx.cs">
+      <DependentUpon>EquityManualMultipleTransaction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\EquityManualMultipleTransaction.ascx.designer.cs">
+      <DependentUpon>EquityManualMultipleTransaction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\EquityManualSingleTransaction.ascx.cs">
+      <DependentUpon>EquityManualSingleTransaction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\EquityManualSingleTransaction.ascx.designer.cs">
+      <DependentUpon>EquityManualSingleTransaction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\EquityProrate.aspx.cs">
+      <DependentUpon>EquityProrate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\EquityProrate.aspx.designer.cs">
+      <DependentUpon>EquityProrate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\EquityTransactionsView.ascx.cs">
+      <DependentUpon>EquityTransactionsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\EquityTransactionsView.ascx.designer.cs">
+      <DependentUpon>EquityTransactionsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\InsuranceAccountEntry.ascx.cs">
+      <DependentUpon>InsuranceAccountEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\InsuranceAccountEntry.ascx.designer.cs">
+      <DependentUpon>InsuranceAccountEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\LiabilitiesMaintenanceForm.ascx.cs">
+      <DependentUpon>LiabilitiesMaintenanceForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\LiabilitiesMaintenanceForm.ascx.designer.cs">
+      <DependentUpon>LiabilitiesMaintenanceForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\LiabilityView.ascx.cs">
+      <DependentUpon>LiabilityView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\LiabilityView.ascx.designer.cs">
+      <DependentUpon>LiabilityView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\LoanProcessTracking.ascx.cs">
+      <DependentUpon>LoanProcessTracking.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\LoanProcessTracking.ascx.designer.cs">
+      <DependentUpon>LoanProcessTracking.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFManualMultipleTran.ascx.cs">
+      <DependentUpon>MFManualMultipleTran.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFManualMultipleTran.ascx.designer.cs">
+      <DependentUpon>MFManualMultipleTran.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFManualSingleTran.ascx.cs">
+      <DependentUpon>MFManualSingleTran.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFManualSingleTran.ascx.designer.cs">
+      <DependentUpon>MFManualSingleTran.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFNewFolioEntry.ascx.cs">
+      <DependentUpon>MFNewFolioEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFNewFolioEntry.ascx.designer.cs">
+      <DependentUpon>MFNewFolioEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFSIPDetails.aspx.cs">
+      <DependentUpon>MFSIPDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFSIPDetails.aspx.designer.cs">
+      <DependentUpon>MFSIPDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFSTPDetails.aspx.cs">
+      <DependentUpon>MFSTPDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFSTPDetails.aspx.designer.cs">
+      <DependentUpon>MFSTPDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFSWPDetails.aspx.cs">
+      <DependentUpon>MFSWPDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MFSWPDetails.aspx.designer.cs">
+      <DependentUpon>MFSWPDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MoneyBackEpisodeAdd.aspx.cs">
+      <DependentUpon>MoneyBackEpisodeAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\MoneyBackEpisodeAdd.aspx.designer.cs">
+      <DependentUpon>MoneyBackEpisodeAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\NewDPAccountEntry.ascx.cs">
+      <DependentUpon>NewDPAccountEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\NewDPAccountEntry.ascx.designer.cs">
+      <DependentUpon>NewDPAccountEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\Pension.aspx.cs">
+      <DependentUpon>Pension.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\Pension.aspx.designer.cs">
+      <DependentUpon>Pension.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PensionAndGratuities.ascx.cs">
+      <DependentUpon>PensionAndGratuities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PensionAndGratuities.ascx.designer.cs">
+      <DependentUpon>PensionAndGratuities.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PensionPortfolio.ascx.cs">
+      <DependentUpon>PensionPortfolio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PensionPortfolio.ascx.designer.cs">
+      <DependentUpon>PensionPortfolio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioAccountCreation.ascx.cs">
+      <DependentUpon>PortfolioAccountCreation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioAccountCreation.ascx.designer.cs">
+      <DependentUpon>PortfolioAccountCreation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCashSavingsEdit.ascx.cs">
+      <DependentUpon>PortfolioCashSavingsEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCashSavingsEdit.ascx.designer.cs">
+      <DependentUpon>PortfolioCashSavingsEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCashSavingsEntry.ascx.cs">
+      <DependentUpon>PortfolioCashSavingsEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCashSavingsEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioCashSavingsEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCashSavingsView.ascx.cs">
+      <DependentUpon>PortfolioCashSavingsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCashSavingsView.ascx.designer.cs">
+      <DependentUpon>PortfolioCashSavingsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCollectibles.ascx.cs">
+      <DependentUpon>PortfolioCollectibles.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCollectibles.ascx.designer.cs">
+      <DependentUpon>PortfolioCollectibles.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCollectiblesEdit.ascx.cs">
+      <DependentUpon>PortfolioCollectiblesEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCollectiblesEdit.ascx.designer.cs">
+      <DependentUpon>PortfolioCollectiblesEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCollectiblesEntry.ascx.cs">
+      <DependentUpon>PortfolioCollectiblesEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCollectiblesEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioCollectiblesEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCollectiblesView.ascx.cs">
+      <DependentUpon>PortfolioCollectiblesView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioCollectiblesView.ascx.designer.cs">
+      <DependentUpon>PortfolioCollectiblesView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioDashboard.ascx.cs">
+      <DependentUpon>PortfolioDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioDashboard.ascx.designer.cs">
+      <DependentUpon>PortfolioDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioEquityEntry.ascx.cs">
+      <DependentUpon>PortfolioEquityEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioEquityEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioEquityEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioFixedIncomeEntry.ascx.cs">
+      <DependentUpon>PortfolioFixedIncomeEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioFixedIncomeEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioFixedIncomeEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioFixedIncomeView.ascx.cs">
+      <DependentUpon>PortfolioFixedIncomeView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioFixedIncomeView.ascx.designer.cs">
+      <DependentUpon>PortfolioFixedIncomeView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGeneralInsuranceAccountAdd.ascx.cs">
+      <DependentUpon>PortfolioGeneralInsuranceAccountAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGeneralInsuranceAccountAdd.ascx.designer.cs">
+      <DependentUpon>PortfolioGeneralInsuranceAccountAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGeneralInsuranceEntry.ascx.cs">
+      <DependentUpon>PortfolioGeneralInsuranceEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGeneralInsuranceEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioGeneralInsuranceEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGoldEntry.ascx.cs">
+      <DependentUpon>PortfolioGoldEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGoldEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioGoldEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGoldView.ascx.cs">
+      <DependentUpon>PortfolioGoldView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGoldView.ascx.designer.cs">
+      <DependentUpon>PortfolioGoldView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGovtSavingsEntry.ascx.cs">
+      <DependentUpon>PortfolioGovtSavingsEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGovtSavingsEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioGovtSavingsEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGovtSavingsView.ascx.cs">
+      <DependentUpon>PortfolioGovtSavingsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioGovtSavingsView.ascx.designer.cs">
+      <DependentUpon>PortfolioGovtSavingsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioInsuranceEntry.ascx.cs">
+      <DependentUpon>PortfolioInsuranceEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioInsuranceEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioInsuranceEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioLeftPane.ascx.cs">
+      <DependentUpon>PortfolioLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioLeftPane.ascx.designer.cs">
+      <DependentUpon>PortfolioLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioMFEntry.ascx.cs">
+      <DependentUpon>PortfolioMFEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioMFEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioMFEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPensionAndGratuitiesView.ascx.cs">
+      <DependentUpon>PortfolioPensionAndGratuitiesView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPensionAndGratuitiesView.ascx.designer.cs">
+      <DependentUpon>PortfolioPensionAndGratuitiesView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPensionAndGratutiesEdit.ascx.cs">
+      <DependentUpon>PortfolioPensionAndGratutiesEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPensionAndGratutiesEdit.ascx.designer.cs">
+      <DependentUpon>PortfolioPensionAndGratutiesEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPersonal.ascx.cs">
+      <DependentUpon>PortfolioPersonal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPersonal.ascx.designer.cs">
+      <DependentUpon>PortfolioPersonal.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPersonalEntry.ascx.cs">
+      <DependentUpon>PortfolioPersonalEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPersonalEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioPersonalEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPersonalView.ascx.cs">
+      <DependentUpon>PortfolioPersonalView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPersonalView.ascx.designer.cs">
+      <DependentUpon>PortfolioPersonalView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioProperty.ascx.cs">
+      <DependentUpon>PortfolioProperty.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioProperty.ascx.designer.cs">
+      <DependentUpon>PortfolioProperty.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPropertyEntry.ascx.cs">
+      <DependentUpon>PortfolioPropertyEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioPropertyEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioPropertyEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioSystematicEntry.ascx.cs">
+      <DependentUpon>PortfolioSystematicEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioSystematicEntry.ascx.designer.cs">
+      <DependentUpon>PortfolioSystematicEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioSystematicView.ascx.cs">
+      <DependentUpon>PortfolioSystematicView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\PortfolioSystematicView.ascx.designer.cs">
+      <DependentUpon>PortfolioSystematicView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ReverseTransactionExceptionHandling.ascx.cs">
+      <DependentUpon>ReverseTransactionExceptionHandling.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ReverseTransactionExceptionHandling.ascx.designer.cs">
+      <DependentUpon>ReverseTransactionExceptionHandling.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\RMMultipleEqTransactionsEntry.ascx.cs">
+      <DependentUpon>RMMultipleEqTransactionsEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\RMMultipleEqTransactionsEntry.ascx.designer.cs">
+      <DependentUpon>RMMultipleEqTransactionsEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\RMMultipleEqTransactionsView.ascx.cs">
+      <DependentUpon>RMMultipleEqTransactionsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\RMMultipleEqTransactionsView.ascx.designer.cs">
+      <DependentUpon>RMMultipleEqTransactionsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\RMMultipleTransactionView.ascx.cs">
+      <DependentUpon>RMMultipleTransactionView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\RMMultipleTransactionView.ascx.designer.cs">
+      <DependentUpon>RMMultipleTransactionView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\TransactionsView.ascx.cs">
+      <DependentUpon>TransactionsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\TransactionsView.ascx.designer.cs">
+      <DependentUpon>TransactionsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ULIPPlanAdd.ascx.cs">
+      <DependentUpon>ULIPPlanAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ULIPPlanAdd.ascx.designer.cs">
+      <DependentUpon>ULIPPlanAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewCollectiblesPortfolio.ascx.cs">
+      <DependentUpon>ViewCollectiblesPortfolio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewCollectiblesPortfolio.ascx.designer.cs">
+      <DependentUpon>ViewCollectiblesPortfolio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewEquityPortfolios.ascx.cs">
+      <DependentUpon>ViewEquityPortfolios.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewEquityPortfolios.ascx.designer.cs">
+      <DependentUpon>ViewEquityPortfolios.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewEquityPortfolioTransactions.ascx.cs">
+      <DependentUpon>ViewEquityPortfolioTransactions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewEquityPortfolioTransactions.ascx.designer.cs">
+      <DependentUpon>ViewEquityPortfolioTransactions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewEquityTransaction.ascx.cs">
+      <DependentUpon>ViewEquityTransaction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewEquityTransaction.ascx.designer.cs">
+      <DependentUpon>ViewEquityTransaction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewGeneralInsuranceDetails.ascx.cs">
+      <DependentUpon>ViewGeneralInsuranceDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewGeneralInsuranceDetails.ascx.designer.cs">
+      <DependentUpon>ViewGeneralInsuranceDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewGoldPortfolio.ascx.cs">
+      <DependentUpon>ViewGoldPortfolio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewGoldPortfolio.ascx.designer.cs">
+      <DependentUpon>ViewGoldPortfolio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewGovtSavings.ascx.cs">
+      <DependentUpon>ViewGovtSavings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewGovtSavings.ascx.designer.cs">
+      <DependentUpon>ViewGovtSavings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewInsuranceDetails.ascx.cs">
+      <DependentUpon>ViewInsuranceDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewInsuranceDetails.ascx.designer.cs">
+      <DependentUpon>ViewInsuranceDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewMFTransaction.ascx.cs">
+      <DependentUpon>ViewMFTransaction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewMFTransaction.ascx.designer.cs">
+      <DependentUpon>ViewMFTransaction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewMutualFundPortfolio.ascx.cs">
+      <DependentUpon>ViewMutualFundPortfolio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewMutualFundPortfolio.ascx.designer.cs">
+      <DependentUpon>ViewMutualFundPortfolio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewMutualFundPortfolioTransactions.ascx.cs">
+      <DependentUpon>ViewMutualFundPortfolioTransactions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewMutualFundPortfolioTransactions.ascx.designer.cs">
+      <DependentUpon>ViewMutualFundPortfolioTransactions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\AddBankDetails.ascx.cs">
+      <DependentUpon>AddBankDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\AddBankDetails.ascx.designer.cs">
+      <DependentUpon>AddBankDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\AddDematAccountDetails.ascx.cs">
+      <DependentUpon>AddDematAccountDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\AddDematAccountDetails.ascx.designer.cs">
+      <DependentUpon>AddDematAccountDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerAssociatesAdd.ascx.cs">
+      <DependentUpon>CustomerAssociatesAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerAssociatesAdd.ascx.designer.cs">
+      <DependentUpon>CustomerAssociatesAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerExpense.ascx.cs">
+      <DependentUpon>CustomerExpense.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerExpense.ascx.designer.cs">
+      <DependentUpon>CustomerExpense.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerIncome.ascx.cs">
+      <DependentUpon>CustomerIncome.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerIncome.ascx.designer.cs">
+      <DependentUpon>CustomerIncome.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerIndividualAdd.ascx.cs">
+      <DependentUpon>CustomerIndividualAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerIndividualAdd.ascx.designer.cs">
+      <DependentUpon>CustomerIndividualAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerIndividualDashboard.ascx.cs">
+      <DependentUpon>CustomerIndividualDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerIndividualDashboard.ascx.designer.cs">
+      <DependentUpon>CustomerIndividualDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerIndividualLeftPane.ascx.cs">
+      <DependentUpon>CustomerIndividualLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerIndividualLeftPane.ascx.designer.cs">
+      <DependentUpon>CustomerIndividualLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerNonIndividualAdd.ascx.cs">
+      <DependentUpon>CustomerNonIndividualAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerNonIndividualAdd.ascx.designer.cs">
+      <DependentUpon>CustomerNonIndividualAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerNonIndividualDashboard.ascx.cs">
+      <DependentUpon>CustomerNonIndividualDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerNonIndividualDashboard.ascx.designer.cs">
+      <DependentUpon>CustomerNonIndividualDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerNonIndividualLeftPane.ascx.cs">
+      <DependentUpon>CustomerNonIndividualLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerNonIndividualLeftPane.ascx.designer.cs">
+      <DependentUpon>CustomerNonIndividualLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerProofsAdd.ascx.cs">
+      <DependentUpon>CustomerProofsAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerProofsAdd.ascx.designer.cs">
+      <DependentUpon>CustomerProofsAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerType.ascx.cs">
+      <DependentUpon>CustomerType.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerType.ascx.designer.cs">
+      <DependentUpon>CustomerType.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\DematAccountDetails.ascx.cs">
+      <DependentUpon>DematAccountDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\DematAccountDetails.ascx.designer.cs">
+      <DependentUpon>DematAccountDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\EditCustomerBankAccount.ascx.cs">
+      <DependentUpon>EditCustomerBankAccount.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\EditCustomerBankAccount.ascx.designer.cs">
+      <DependentUpon>EditCustomerBankAccount.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\EditCustomerIndividualProfile.ascx.cs">
+      <DependentUpon>EditCustomerIndividualProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\EditCustomerIndividualProfile.ascx.designer.cs">
+      <DependentUpon>EditCustomerIndividualProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\EditCustomerNonIndividualProfile.ascx.cs">
+      <DependentUpon>EditCustomerNonIndividualProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\EditCustomerNonIndividualProfile.ascx.designer.cs">
+      <DependentUpon>EditCustomerNonIndividualProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\FamilyDetails.ascx.cs">
+      <DependentUpon>FamilyDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\FamilyDetails.ascx.designer.cs">
+      <DependentUpon>FamilyDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\FamilyDetailsChild.ascx.cs">
+      <DependentUpon>FamilyDetailsChild.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\FamilyDetailsChild.ascx.designer.cs">
+      <DependentUpon>FamilyDetailsChild.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\FamilyDetailsOther.ascx.cs">
+      <DependentUpon>FamilyDetailsOther.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\FamilyDetailsOther.ascx.designer.cs">
+      <DependentUpon>FamilyDetailsOther.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\FamilyDetailsSpouse.ascx.cs">
+      <DependentUpon>FamilyDetailsSpouse.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\FamilyDetailsSpouse.ascx.designer.cs">
+      <DependentUpon>FamilyDetailsSpouse.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\GroupAccountSetup.ascx.cs">
+      <DependentUpon>GroupAccountSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\GroupAccountSetup.ascx.designer.cs">
+      <DependentUpon>GroupAccountSetup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\ViewAllBankDetails.ascx.cs">
+      <DependentUpon>ViewAllBankDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\ViewAllBankDetails.ascx.designer.cs">
+      <DependentUpon>ViewAllBankDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\ViewBankDetails.ascx.cs">
+      <DependentUpon>ViewBankDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\ViewBankDetails.ascx.designer.cs">
+      <DependentUpon>ViewBankDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\ViewCustomerAllBankDetails.ascx.cs">
+      <DependentUpon>ViewCustomerAllBankDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\ViewCustomerAllBankDetails.ascx.designer.cs">
+      <DependentUpon>ViewCustomerAllBankDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\ViewCustomerFamily.ascx.cs">
+      <DependentUpon>ViewCustomerFamily.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\ViewCustomerFamily.ascx.designer.cs">
+      <DependentUpon>ViewCustomerFamily.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\ViewCustomerIndividualProfile.ascx.cs">
+      <DependentUpon>ViewCustomerIndividualProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\ViewCustomerIndividualProfile.ascx.designer.cs">
+      <DependentUpon>ViewCustomerIndividualProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\ViewCustomerProfile.ascx.cs">
+      <DependentUpon>ViewCustomerProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\ViewCustomerProfile.ascx.designer.cs">
+      <DependentUpon>ViewCustomerProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\ViewCustomerProofs.ascx.cs">
+      <DependentUpon>ViewCustomerProofs.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\ViewCustomerProofs.ascx.designer.cs">
+      <DependentUpon>ViewCustomerProofs.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\ViewNonIndividualProfile.ascx.cs">
+      <DependentUpon>ViewNonIndividualProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\ViewNonIndividualProfile.ascx.designer.cs">
+      <DependentUpon>ViewNonIndividualProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="General\AdvisorHeader.ascx.cs">
+      <DependentUpon>AdvisorHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\AdvisorHeader.ascx.designer.cs">
+      <DependentUpon>AdvisorHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\BreadCrumbs.ascx.cs">
+      <DependentUpon>BreadCrumbs.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\BreadCrumbs.ascx.designer.cs">
+      <DependentUpon>BreadCrumbs.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\ChangeTempPassword.ascx.cs">
+      <DependentUpon>ChangeTempPassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\ChangeTempPassword.ascx.designer.cs">
+      <DependentUpon>ChangeTempPassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\error3.aspx.cs">
+      <DependentUpon>error3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\error3.aspx.designer.cs">
+      <DependentUpon>error3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="General\ForgotPassword.ascx.cs">
+      <DependentUpon>ForgotPassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\ForgotPassword.ascx.designer.cs">
+      <DependentUpon>ForgotPassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\GeneralHome.ascx.cs">
+      <DependentUpon>GeneralHome.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\GeneralHome.ascx.designer.cs">
+      <DependentUpon>GeneralHome.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\Header.ascx.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\Header.ascx.designer.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\LeftPanel_Links.ascx.cs">
+      <DependentUpon>LeftPanel_Links.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\LeftPanel_Links.ascx.designer.cs">
+      <DependentUpon>LeftPanel_Links.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\Pager.ascx.cs">
+      <DependentUpon>Pager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\Pager.ascx.designer.cs">
+      <DependentUpon>Pager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\RightPanel_Advst.ascx.cs">
+      <DependentUpon>RightPanel_Advst.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\RightPanel_Advst.ascx.designer.cs">
+      <DependentUpon>RightPanel_Advst.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\SessionExpired.ascx.cs">
+      <DependentUpon>SessionExpired.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\SessionExpired.ascx.designer.cs">
+      <DependentUpon>SessionExpired.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\SetTheme.ascx.cs">
+      <DependentUpon>SetTheme.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\SetTheme.ascx.designer.cs">
+      <DependentUpon>SetTheme.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\UnderConstruction.ascx.cs">
+      <DependentUpon>UnderConstruction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\UnderConstruction.ascx.designer.cs">
+      <DependentUpon>UnderConstruction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\UserLogin.ascx.cs">
+      <DependentUpon>UserLogin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\UserLogin.ascx.designer.cs">
+      <DependentUpon>UserLogin.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\UserLogout.ascx.cs">
+      <DependentUpon>UserLogout.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\UserLogout.ascx.designer.cs">
+      <DependentUpon>UserLogout.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\UserSettings.ascx.cs">
+      <DependentUpon>UserSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\UserSettings.ascx.designer.cs">
+      <DependentUpon>UserSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\UserSettingsLeftPane.ascx.cs">
+      <DependentUpon>UserSettingsLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\UserSettingsLeftPane.ascx.designer.cs">
+      <DependentUpon>UserSettingsLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Advisor\RMProfile.ascx.cs">
+      <DependentUpon>RMProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMProfile.ascx.designer.cs">
+      <DependentUpon>RMProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\RMCustomer.ascx.cs">
+      <DependentUpon>RMCustomer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\RMCustomer.ascx.designer.cs">
+      <DependentUpon>RMCustomer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrationConfirmation.aspx.cs">
+      <DependentUpon>RegistrationConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistrationConfirmation.aspx.designer.cs">
+      <DependentUpon>RegistrationConfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CapitalGainDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CapitalGainDetailsDs.Designer.cs" />
+    <Compile Include="Reports\CapitalGainSummary.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CapitalGainSummaryDS.Designer.cs" />
+    <Compile Include="Reports\Display.aspx.cs">
+      <DependentUpon>Display.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Display.aspx.designer.cs">
+      <DependentUpon>Display.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\EmailReport.aspx.cs">
+      <DependentUpon>EmailReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\EmailReport.aspx.designer.cs">
+      <DependentUpon>EmailReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\EqSectorwise1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\EqSectorwiseDS.Designer.cs" />
+    <Compile Include="Reports\EqTransactionAll1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\EqTransactionAllDS1.Designer.cs" />
+    <Compile Include="Reports\EquityReports.ascx.cs">
+      <DependentUpon>EquityReports.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\EquityReports.ascx.designer.cs">
+      <DependentUpon>EquityReports.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\FinancialPlanning.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\FinancialPlanningDS.Designer.cs" />
+    <Compile Include="Reports\FPReports.ascx.cs">
+      <DependentUpon>FPReports.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\FPReports.ascx.designer.cs">
+      <DependentUpon>FPReports.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Images.Designer.cs" />
+    <Compile Include="Reports\MFDividend.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFFundSummary.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFFundSummaryDS.cs">
+      <DependentUpon>MFFundSummaryDS.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFFundSummaryDS.Designer.cs">
+      <DependentUpon>MFFundSummaryDS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MFReports.ascx.cs">
+      <DependentUpon>MFReports.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MFReports.ascx.designer.cs">
+      <DependentUpon>MFReports.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MFReportsDS.cs">
+      <DependentUpon>MFReportsDS.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFReportsDS.Designer.cs">
+      <DependentUpon>MFReportsDS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MFReturns.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFReturnsDS.cs">
+      <DependentUpon>MFReturnsDS.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFReturnsDS.Designer.cs">
+      <DependentUpon>MFReturnsDS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MFReturnsTransactions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFReturnsTransactionsDS.Designer.cs" />
+    <Compile Include="Reports\MFSummary.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFTransactionDS.cs">
+      <DependentUpon>MFTransactionDS.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFTransactionDS.Designer.cs">
+      <DependentUpon>MFTransactionDS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MFTransactions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MultiAssetReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MultiAssetReportDS.Designer.cs" />
+    <Compile Include="Reports\PortfolioReports.ascx.cs">
+      <DependentUpon>PortfolioReports.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\PortfolioReports.ascx.designer.cs">
+      <DependentUpon>PortfolioReports.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SessionExpired.aspx.cs">
+      <DependentUpon>SessionExpired.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SessionExpired.aspx.designer.cs">
+      <DependentUpon>SessionExpired.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\CAMSProfileFolioInputRejects.ascx.cs">
+      <DependentUpon>CAMSProfileFolioInputRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\CAMSProfileFolioInputRejects.ascx.designer.cs">
+      <DependentUpon>CAMSProfileFolioInputRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\CAMSTransInputRejects.ascx.cs">
+      <DependentUpon>CAMSTransInputRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\CAMSTransInputRejects.ascx.designer.cs">
+      <DependentUpon>CAMSTransInputRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\CustomerUpload.ascx.cs">
+      <DependentUpon>CustomerUpload.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\CustomerUpload.ascx.designer.cs">
+      <DependentUpon>CustomerUpload.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\DeutscheProfileFolioInputRejects.ascx.cs">
+      <DependentUpon>DeutscheProfileFolioInputRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\DeutscheProfileFolioInputRejects.ascx.designer.cs">
+      <DependentUpon>DeutscheProfileFolioInputRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\DeutscheTransInputRejects.ascx.cs">
+      <DependentUpon>DeutscheTransInputRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\DeutscheTransInputRejects.ascx.designer.cs">
+      <DependentUpon>DeutscheTransInputRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\EquityMapToCustomers.aspx.cs">
+      <DependentUpon>EquityMapToCustomers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\EquityMapToCustomers.aspx.designer.cs">
+      <DependentUpon>EquityMapToCustomers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\KarvyProfileFolioInputRejects.ascx.cs">
+      <DependentUpon>KarvyProfileFolioInputRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\KarvyProfileFolioInputRejects.ascx.designer.cs">
+      <DependentUpon>KarvyProfileFolioInputRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\KarvyTransInputRejects.ascx.cs">
+      <DependentUpon>KarvyTransInputRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\KarvyTransInputRejects.ascx.designer.cs">
+      <DependentUpon>KarvyTransInputRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\MapToCustomers.aspx.cs">
+      <DependentUpon>MapToCustomers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\MapToCustomers.aspx.designer.cs">
+      <DependentUpon>MapToCustomers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\RejectedEquityTransactionStaging.ascx.cs">
+      <DependentUpon>RejectedEquityTransactionStaging.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\RejectedEquityTransactionStaging.ascx.designer.cs">
+      <DependentUpon>RejectedEquityTransactionStaging.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\RejectedFoliosTransactionUpload.ascx.cs">
+      <DependentUpon>RejectedFoliosTransactionUpload.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\RejectedFoliosTransactionUpload.ascx.designer.cs">
+      <DependentUpon>RejectedFoliosTransactionUpload.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\RejectedMFFolio.ascx.cs">
+      <DependentUpon>RejectedMFFolio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\RejectedMFFolio.ascx.designer.cs">
+      <DependentUpon>RejectedMFFolio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\RejectedMFTransactionStaging.ascx.cs">
+      <DependentUpon>RejectedMFTransactionStaging.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\RejectedMFTransactionStaging.ascx.designer.cs">
+      <DependentUpon>RejectedMFTransactionStaging.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\RejectedTradeAccountStaging.ascx.cs">
+      <DependentUpon>RejectedTradeAccountStaging.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\RejectedTradeAccountStaging.ascx.designer.cs">
+      <DependentUpon>RejectedTradeAccountStaging.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\RejectedWERPProfile.ascx.cs">
+      <DependentUpon>RejectedWERPProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\RejectedWERPProfile.ascx.designer.cs">
+      <DependentUpon>RejectedWERPProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\StandardProfileInputRejects.ascx.cs">
+      <DependentUpon>StandardProfileInputRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\StandardProfileInputRejects.ascx.designer.cs">
+      <DependentUpon>StandardProfileInputRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\TempletonProfileFolioInputRejects.ascx.cs">
+      <DependentUpon>TempletonProfileFolioInputRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\TempletonProfileFolioInputRejects.ascx.designer.cs">
+      <DependentUpon>TempletonProfileFolioInputRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\TempletonTransInputRejects.ascx.cs">
+      <DependentUpon>TempletonTransInputRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\TempletonTransInputRejects.ascx.designer.cs">
+      <DependentUpon>TempletonTransInputRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\ViewUploadProcessLog.ascx.cs">
+      <DependentUpon>ViewUploadProcessLog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\ViewUploadProcessLog.ascx.designer.cs">
+      <DependentUpon>ViewUploadProcessLog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Uploads\WerpUploadRules.aspx.cs">
+      <DependentUpon>WerpUploadRules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\WerpUploadRules.aspx.designer.cs">
+      <DependentUpon>WerpUploadRules.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorBMDashBoard.ascx.cs">
+      <DependentUpon>AdvisorBMDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorBMDashBoard.ascx.designer.cs">
+      <DependentUpon>AdvisorBMDashBoard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorBMLeftpane.ascx.cs">
+      <DependentUpon>AdvisorBMLeftpane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorBMLeftpane.ascx.designer.cs">
+      <DependentUpon>AdvisorBMLeftpane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorRM.ascx.cs">
+      <DependentUpon>AdvisorRM.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorRM.ascx.designer.cs">
+      <DependentUpon>AdvisorRM.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorRMBMDashBoard.ascx.cs">
+      <DependentUpon>AdvisorRMBMDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorRMBMDashBoard.ascx.designer.cs">
+      <DependentUpon>AdvisorRMBMDashBoard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorRMBMLeftpane.ascx.cs">
+      <DependentUpon>AdvisorRMBMLeftpane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorRMBMLeftpane.ascx.designer.cs">
+      <DependentUpon>AdvisorRMBMLeftpane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorRMDashboard.ascx.cs">
+      <DependentUpon>AdvisorRMDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorRMDashboard.ascx.designer.cs">
+      <DependentUpon>AdvisorRMDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorRMLeftpane.ascx.cs">
+      <DependentUpon>AdvisorRMLeftpane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\AdvisorRMLeftpane.ascx.designer.cs">
+      <DependentUpon>AdvisorRMLeftpane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\BMDashBoard.ascx.cs">
+      <DependentUpon>BMDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\BMDashBoard.ascx.designer.cs">
+      <DependentUpon>BMDashBoard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\BMLeftpane.ascx.cs">
+      <DependentUpon>BMLeftpane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\BMLeftpane.ascx.designer.cs">
+      <DependentUpon>BMLeftpane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\BMRMDashBoard.ascx.cs">
+      <DependentUpon>BMRMDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\BMRMDashBoard.ascx.designer.cs">
+      <DependentUpon>BMRMDashBoard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\BMRMLeftpane.ascx.cs">
+      <DependentUpon>BMRMLeftpane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\BMRMLeftpane.ascx.designer.cs">
+      <DependentUpon>BMRMLeftpane.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BreadcrumbLinks.resx" />
+    <EmbeddedResource Include="BreadCrumbScripts.resx" />
+    <EmbeddedResource Include="ControlMapping.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ControlMapping.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CapitalGainDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CapitalGainDetails1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CapitalGainSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CapitalGainSummary1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\EqSectorwise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EqSectorwise.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\EqTransactionAll.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EqTransactionAll.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\FinancialPlanning.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFDividend.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFDividend1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFDividendSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFDividendSummary.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFFundSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFFundSummary1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFReturns.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFReturns1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFReturnsTransactions.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFReturnsTransactions1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFTransactions.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFTransactions1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MultiAssetReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MultiAssetReport1.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
+      <Project>{CA477068-2337-4E11-B066-AC5B1ED36CCF}</Project>
+      <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\UploadProcessLog.ascx" />
+    <Content Include="Admin\UploadRejects.ascx" />
+    <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />
+    <Content Include="Advisor\AddCustomerFinancialPlanningGoalSetup.ascx" />
+    <Content Include="Advisor\AddRM.ascx" />
+    <Content Include="Advisor\AdviserAssociateCategorySetup.ascx" />
+    <Content Include="Advisor\AdviserCustomer.ascx" />
+    <Content Include="Advisor\AdviserCustomerManualSMS.ascx" />
+    <Content Include="Advisor\AdviserCustomerSMSAlerts.ascx" />
+    <Content Include="Advisor\AdviserEQMIS.ascx" />
+    <Content Include="Advisor\AdviserLoanCommsnStrucWithLoanPartner.ascx" />
+    <Content Include="Advisor\AdviserLoanMIS.ascx" />
+    <Content Include="Advisor\AdviserMFMIS.ascx" />
+    <Content Include="Advisor\AdviserStaffSMTP.ascx" />
+    <Content Include="Advisor\AssociateCategory.ascx" />
+    <Content Include="Advisor\BMCustomer.ascx" />
+    <Content Include="Advisor\BMStaffView.ascx" />
+    <Content Include="Advisor\EditRMDetails.ascx" />
+    <Content Include="Advisor\FinancialPlanning.ascx" />
+    <Content Include="Advisor\FinancialPlanningLeftPane.ascx" />
+    <Content Include="Advisor\FPGoalProfiling.ascx" />
+    <Content Include="Advisor\FPReports.ascx" />
+    <Content Include="Advisor\LeadManagement.ascx" />
+    <Content Include="Advisor\LeadManagementAdd.ascx" />
+    <Content Include="Advisor\LoanTrackingGrid.ascx" />
+    <Content Include="Advisor\RMAMCSchemewiseMIS.ascx" />
+    <Content Include="Advisor\RMAMCWiseMIS.ascx" />
+    <Content Include="Advisor\RMCustomerAMCSchemewiseMIS.ascx" />
+    <Content Include="Alerts\AlertDashboard.ascx" />
+    <Content Include="Alerts\CustomerEQAlerts.ascx" />
+    <Content Include="Alerts\CustomerFIAlerts.ascx" />
+    <Content Include="Alerts\CustomerInsuranceAlerts.ascx" />
+    <Content Include="Alerts\CustomerMFAlert.ascx" />
+    <Content Include="Alerts\CustomerTransactionalAlertManagement.ascx" />
+    <Content Include="App_Themes\Maroon\GridViewCss.css" />
+    <Content Include="App_Themes\Maroon\Images\alert.png" />
+    <Content Include="App_Themes\Maroon\Images\calendar.jpg" />
+    <Content Include="App_Themes\Maroon\Images\calendar2.jpg" />
+    <Content Include="App_Themes\Maroon\Images\calendar3.jpg" />
+    <Content Include="App_Themes\Maroon\Images\coming soon.jpeg" />
+    <Content Include="App_Themes\Maroon\Images\comnav-arrowon.png" />
+    <Content Include="App_Themes\Maroon\Images\comnav-arrowover.png" />
+    <Content Include="App_Themes\Maroon\Images\comnav-arrowover2.png" />
+    <Content Include="App_Themes\Maroon\Images\Export_Excel.png" />
+    <Content Include="App_Themes\Maroon\Images\Export_Pdf.gif" />
+    <Content Include="App_Themes\Maroon\Images\Export_Word.jpg" />
+    <Content Include="App_Themes\Maroon\Images\grad1.png" />
+    <Content Include="App_Themes\Maroon\Images\greenStatus.png" />
+    <Content Include="App_Themes\Maroon\Images\Header2.jpg" />
+    <Content Include="App_Themes\Maroon\Images\HeaderChromeBlack.jpg" />
+    <Content Include="App_Themes\Maroon\Images\HeaderGlassBlack.jpg" />
+    <Content Include="App_Themes\Maroon\Images\ImgFirstMD.gif" />
+    <Content Include="App_Themes\Maroon\Images\ImgFirstMN.gif" />
+    <Content Include="App_Themes\Maroon\Images\ImgLastMD.gif" />
+    <Content Include="App_Themes\Maroon\Images\ImgLastMN.gif" />
+    <Content Include="App_Themes\Maroon\Images\ImgNextMD.gif" />
+    <Content Include="App_Themes\Maroon\Images\ImgPrevMD.gif" />
+    <Content Include="App_Themes\Maroon\Images\ImgPrevMN.gif" />
+    <Content Include="App_Themes\Maroon\Images\MenuSeparator.jpg" />
+    <Content Include="App_Themes\Maroon\Images\nav-arrow-right.png" />
+    <Content Include="App_Themes\Maroon\Images\nav-arrow-right2.png" />
+    <Content Include="App_Themes\Maroon\Images\nav-sub-press.png" />
+    <Content Include="App_Themes\Maroon\Images\PCGGridViewHeaderGlass.jpg" />
+    <Content Include="App_Themes\Maroon\Images\PCGGridViewHeaderGlass2.jpg" />
+    <Content Include="App_Themes\Maroon\Images\PCG_Buttons.png" />
+    <Content Include="App_Themes\Maroon\Images\PCG_Buttons_New.png" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_button.jpg" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_button.png" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_button1.jpg" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_button1.png" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_button2.png" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_button3.png" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_button_long.jpg" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_button_long_hover.jpg" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_button_medium.jpg" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_button_medium_hover.jpg" />
+    <Content Include="App_Themes\Maroon\Images\PCG_gradient_hover_button.png" />
+    <Content Include="App_Themes\Maroon\Images\Print.gif" />
+    <Content Include="App_Themes\Maroon\Images\redStatus.png" />
+    <Content Include="App_Themes\Maroon\Images\Search_Image_1.jpg" />
+    <Content Include="App_Themes\Maroon\Images\splitter_bar_left_pointer.jpg" />
+    <Content Include="App_Themes\Maroon\Images\splitter_bar_right_pointer.jpg" />
+    <Content Include="App_Themes\Maroon\Images\success.png" />
+    <Content Include="App_Themes\Maroon\Images\TBGridViewHeaderGlass2.jpg" />
+    <Content Include="App_Themes\Maroon\Images\warning.png" />
+    <Content Include="App_Themes\Maroon\StyleSheet.css" />
+    <Content Include="App_Themes\Purple\GridViewCss.css" />
+    <Content Include="App_Themes\Purple\Images\alert.png" />
+    <Content Include="App_Themes\Purple\Images\calendar.jpg" />
+    <Content Include="App_Themes\Purple\Images\calendar2.jpg" />
+    <Content Include="App_Themes\Purple\Images\calendar3.jpg" />
+    <Content Include="App_Themes\Purple\Images\coming soon.jpeg" />
+    <Content Include="App_Themes\Purple\Images\comnav-arrowon.png" />
+    <Content Include="App_Themes\Purple\Images\comnav-arrowover.png" />
+    <Content Include="App_Themes\Purple\Images\comnav-arrowover2.png" />
+    <Content Include="App_Themes\Purple\Images\Export_Excel.png" />
+    <Content Include="App_Themes\Purple\Images\Export_Pdf.gif" />
+    <Content Include="App_Themes\Purple\Images\Export_Word.jpg" />
+    <Content Include="App_Themes\Purple\Images\grad1.png" />
+    <Content Include="App_Themes\Purple\Images\greenStatus.png" />
+    <Content Include="App_Themes\Purple\Images\Header2.jpg" />
+    <Content Include="App_Themes\Purple\Images\HeaderChromeBlack.jpg" />
+    <Content Include="App_Themes\Purple\Images\HeaderGlassBlack.jpg" />
+    <Content Include="App_Themes\Purple\Images\HeaderTB.jpg" />
+    <Content Include="App_Themes\Purple\Images\ImgFirstMD.gif" />
+    <Content Include="App_Themes\Purple\Images\ImgFirstMN.gif" />
+    <Content Include="App_Themes\Purple\Images\ImgLastMD.gif" />
+    <Content Include="App_Themes\Purple\Images\ImgLastMN.gif" />
+    <Content Include="App_Themes\Purple\Images\ImgNextMD.gif" />
+    <Content Include="App_Themes\Purple\Images\ImgPrevMD.gif" />
+    <Content Include="App_Themes\Purple\Images\ImgPrevMN.gif" />
+    <Content Include="App_Themes\Purple\Images\MenuSeparator.jpg" />
+    <Content Include="App_Themes\Purple\Images\nav-arrow-right.png" />
+    <Content Include="App_Themes\Purple\Images\nav-arrow-right2.png" />
+    <Content Include="App_Themes\Purple\Images\nav-sub-press.png" />
+    <Content Include="App_Themes\Purple\Images\PCGGridViewHeaderGlass.jpg" />
+    <Content Include="App_Themes\Purple\Images\PCGGridViewHeaderGlass2.jpg" />
+    <Content Include="App_Themes\Purple\Images\PCG_Buttons.png" />
+    <Content Include="App_Themes\Purple\Images\PCG_Buttons_New.png" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_button.jpg" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_button.png" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_button1.jpg" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_button1.png" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_button2.png" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_button3.png" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_button_long.jpg" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_button_long_hover.jpg" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_button_medium.jpg" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_button_medium_hover.jpg" />
+    <Content Include="App_Themes\Purple\Images\PCG_gradient_hover_button.png" />
+    <Content Include="App_Themes\Purple\Images\Print.gif" />
+    <Content Include="App_Themes\Purple\Images\redStatus.png" />
+    <Content Include="App_Themes\Purple\Images\Search_Image_1.jpg" />
+    <Content Include="App_Themes\Purple\Images\splitter_bar_left_pointer.jpg" />
+    <Content Include="App_Themes\Purple\Images\splitter_bar_right_pointer.jpg" />
+    <Content Include="App_Themes\Purple\Images\success.png" />
+    <Content Include="App_Themes\Purple\Images\TBGridViewHeaderGlass2.jpg" />
+    <Content Include="App_Themes\Purple\Images\warning.png" />
+    <Content Include="App_Themes\Purple\StyleSheet.css" />
+    <Content Include="bin\AjaxControlToolkit.dll" />
+    <Content Include="bin\AjaxControlToolkit.pdb" />
+    <Content Include="CSS\Images\splitter_bar_left_pointer.jpg" />
+    <Content Include="CSS\Images\splitter_bar_right_pointer.jpg" />
+    <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
+    <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />
+    <Content Include="CustomerPortfolio\CustomerEQAccountView.ascx" />
+    <Content Include="CustomerPortfolio\CustomerMFFolioView.ascx" />
+    <Content Include="CustomerPortfolio\CustomerMFSystematicTransactionReport.ascx" />
+    <Content Include="CustomerPortfolio\CustomerPortfolioSetup.ascx" />
+    <Content Include="CustomerPortfolio\LiabilitiesMaintenanceForm.ascx" />
+    <Content Include="CustomerPortfolio\LiabilityView.ascx" />
+    <Content Include="CustomerPortfolio\LoanProcessTracking.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioGeneralInsuranceAccountAdd.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioGeneralInsuranceEntry.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioPensionAndGratuitiesView.ascx" />
+    <Content Include="CustomerPortfolio\PortfolioPensionAndGratutiesEdit.ascx" />
+    <Content Include="CustomerPortfolio\ReverseTransactionExceptionHandling.ascx" />
+    <Content Include="CustomerPortfolio\RMMultipleEqTransactionsEntry.ascx" />
+    <Content Include="CustomerPortfolio\RMMultipleEqTransactionsView.ascx" />
+    <Content Include="CustomerPortfolio\RMMultipleTransactionView.ascx" />
+    <Content Include="CustomerPortfolio\ViewGeneralInsuranceDetails.ascx" />
+    <Content Include="Customer\AddDematAccountDetails.ascx" />
+    <Content Include="Customer\CustomerExpense.ascx" />
+    <Content Include="Customer\CustomerIncome.ascx" />
+    <Content Include="Customer\DematAccountDetails.ascx" />
+    <Content Include="Customer\GroupAccountSetup.ascx" />
+    <Content Include="Emails\Templates\AdviserRegistration.html" />
+    <Content Include="Emails\Templates\AdviserRegistrationNotification.html" />
+    <Content Include="Emails\Templates\AdviserRMAccounts.html" />
+    <Content Include="General\SetTheme.ascx" />
+    <Content Include="General\UserSettings.ascx" />
+    <Content Include="General\UserSettingsLeftPane.ascx" />
+    <Content Include="Help.htm" />
+    <Content Include="Images\arrow_double_up_7.gif" />
+    <Content Include="Images\Export_Excel.png" />
+    <Content Include="Images\Export_Pdf.gif" />
+    <Content Include="Images\Export_Word.jpg" />
+    <Content Include="Images\greenStatus.png" />
+    <Content Include="Images\h2_trigger_a.gif" />
+    <Content Include="Images\loader.gif" />
+    <Content Include="Images\Loading.gif" />
+    <Content Include="Images\MenuSeparator.jpg" />
+    <Content Include="Images\Portfolios.jpg" />
+    <Content Include="Images\Print.gif" />
+    <Content Include="Images\redStatus.png" />
+    <Content Include="Images\spacer.png" />
+    <Content Include="Images\submit.png" />
+    <Content Include="Images\toggle_block_btm.gif" />
+    <Content Include="Images\toggle_block_stretch.gif" />
+    <Content Include="Images\Trans.png" />
+    <Content Include="Images\undermain.jpg" />
+    <Content Include="Images\WealthERP_logo.png" />
+    <Content Include="Images\werplogo.jpg" />
+    <Content Include="LookUps\Questions.xml" />
+    <Content Include="Register.aspx" />
+    <Content Include="RegistrationConfirmation.aspx" />
+    <Content Include="Releases.html" />
+    <Content Include="Reports\Colorbox\colorbox.css" />
+    <Content Include="Reports\Colorbox\jquery.colorbox-min.js" />
+    <Content Include="Reports\Display.aspx" />
+    <Content Include="Reports\EmailReport.aspx" />
+    <Content Include="Reports\EquityReports.ascx" />
+    <Content Include="Reports\FPReports.ascx" />
+    <Content Include="Reports\images\controls.png" />
+    <Content Include="Reports\images\loading.gif" />
+    <Content Include="Reports\MFReports.ascx" />
+    <Content Include="Reports\PortfolioReports.ascx" />
+    <Content Include="Scripts\Dashboard.js" />
+    <Content Include="Scripts\jquery-1.4.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.7.2.custom.min.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="SessionExpired.aspx" />
+    <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />
+    <Content Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.sln" />
+    <Content Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.dtproj.user" />
+    <Content Include="Uploads\CAMSProfileFolioInputRejects.ascx" />
+    <Content Include="Uploads\CAMSTransInputRejects.ascx" />
+    <Content Include="Uploads\DeutscheProfileFolioInputRejects.ascx" />
+    <Content Include="Uploads\DeutscheTransInputRejects.ascx" />
+    <Content Include="Uploads\EquityMapToCustomers.aspx" />
+    <Content Include="Uploads\KarvyProfileFolioInputRejects.ascx" />
+    <Content Include="Uploads\KarvyTransInputRejects.ascx" />
+    <Content Include="Uploads\MapToCustomers.aspx" />
+    <Content Include="App_Themes\Maroon\PCG.skin" />
+    <Content Include="App_Themes\Purple\TB.skin" />
+    <Content Include="Uploads\RejectedFoliosTransactionUpload.ascx" />
+    <Content Include="Uploads\StandardProfileInputRejects.ascx" />
+    <Content Include="Uploads\TempletonProfileFolioInputRejects.ascx" />
+    <Content Include="Uploads\TempletonTransInputRejects.ascx" />
+    <None Include="Reports\CapitalGainDetailsDs.xsc">
+      <DependentUpon>CapitalGainDetailsDs.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\CapitalGainDetailsDs.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CapitalGainDetailsDs1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\CapitalGainDetailsDs.xss">
+      <DependentUpon>CapitalGainDetailsDs.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\CapitalGainSummaryDS.xsc">
+      <DependentUpon>CapitalGainSummaryDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\CapitalGainSummaryDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CapitalGainSummaryDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\CapitalGainSummaryDS.xss">
+      <DependentUpon>CapitalGainSummaryDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EqSectorwiseDS.xsc">
+      <DependentUpon>EqSectorwiseDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EqSectorwiseDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EqSectorwiseDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\EqSectorwiseDS.xss">
+      <DependentUpon>EqSectorwiseDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EqTransactionAllDS.xsc">
+      <DependentUpon>EqTransactionAllDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EqTransactionAllDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EqTransactionAllDS.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\EqTransactionAllDS.xss">
+      <DependentUpon>EqTransactionAllDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\FinancialPlanningDS.xsc">
+      <DependentUpon>FinancialPlanningDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\FinancialPlanningDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FinancialPlanningDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\FinancialPlanningDS.xss">
+      <DependentUpon>FinancialPlanningDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\Images.xsc">
+      <DependentUpon>Images.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\Images.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Images1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\Images.xss">
+      <DependentUpon>Images.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFDividendDS.xsc">
+      <DependentUpon>MFDividendDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFDividendDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFDividendDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\MFDividendDS.xss">
+      <DependentUpon>MFDividendDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFFundSummaryDS.xsc">
+      <DependentUpon>MFFundSummaryDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFFundSummaryDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFFundSummaryDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\MFFundSummaryDS.xss">
+      <DependentUpon>MFFundSummaryDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFReportsDS.xsc">
+      <DependentUpon>MFReportsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFReportsDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFReportsDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\MFReportsDS.xss">
+      <DependentUpon>MFReportsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFReturnsDS.xsc">
+      <DependentUpon>MFReturnsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFReturnsDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFReturnsDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\MFReturnsDS.xss">
+      <DependentUpon>MFReturnsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFReturnsTransactionsDS.xsc">
+      <DependentUpon>MFReturnsTransactionsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFReturnsTransactionsDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFReturnsTransactionsDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\MFReturnsTransactionsDS.xss">
+      <DependentUpon>MFReturnsTransactionsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFTransactionDS.xsc">
+      <DependentUpon>MFTransactionDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFTransactionDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFTransactionDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\MFTransactionDS.xss">
+      <DependentUpon>MFTransactionDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MultiAssetReportDS.xsc">
+      <DependentUpon>MultiAssetReportDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MultiAssetReportDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MultiAssetReportDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\MultiAssetReportDS.xss">
+      <DependentUpon>MultiAssetReportDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\TempReports\MFReports_634040161522846026.pdf" />
+    <None Include="Reports\TempReports\MFReports_634042746966961210.pdf" />
+    <None Include="Reports\TempReports\MFReports_634042779746287030.pdf" />
+    <None Include="Reports\TempReports\MFReports_634044430020884287.pdf" />
+    <None Include="Reports\TempReports\MFReports_634044430685103037.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044413360643130.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044414872176608.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044416120134757.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044416785286750.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044432671196787.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044434627603037.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044435305259287.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044435857446787.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044436146978037.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044436396821787.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044452301064447.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044463554070187.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044466546257687.pdf" />
+    <None Include="Reports\TempReports\PortfolioReports_634044469450163937.pdf" />
+    <None Include="UploadFiles\CAMSProfileXls.xls" />
+    <None Include="UploadFiles\CPD.dbf" />
+    <None Include="UploadFiles\cp_1004.dbf" />
+    <None Include="UploadFiles\CTD.dbf" />
+    <None Include="UploadFiles\ct_1004.dbf" />
+    <None Include="UploadFiles\KarvyProfileXls.xls" />
+    <None Include="UploadFiles\kp_1004.xls" />
+    <None Include="UploadFiles\kp_1022.xls" />
+    <None Include="UploadFiles\kt_1004.xls" />
+    <None Include="UploadFiles\kt_1022.xls" />
+    <None Include="UploadFiles\WERPMFProf.xls" />
+    <None Include="UploadFiles\WERPMFTans.xls" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew.database" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\UploadChecksCAMSProfileStaging.dtsx" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\UploadDataTranslationChecksFirstStaging.dtsx" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\UploadFolioDataFromCAMSStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\UploadProfileDataFromCAMSFileToXtrnlProfileInput.dtsx" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\UploadProfileDataFromCAMSStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\UploadProfileStagingToXtrnlProfile.dtsx" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\UploadXtrnlProfileInputToXtrnlProfileStaging.dtsx" />
+    <None Include="UploadPackages\CAMSSIPUploadPackage\UploadCAMSSIPDataFromFileToCAMSXtrnlSystematicSetupInput.dtsx" />
+    <None Include="UploadPackages\CAMSSIPUploadPackage\UploadCAMSXtrnlSystematicSetupInputToSystematicSetupStaging.dtsx" />
+    <None Include="UploadPackages\CAMSSIPUploadPackage\UploadCAMSXtrnlSystematicSetupStagingToWERPSystematicSetup.dtsx" />
+    <None Include="UploadPackages\CAMSSIPUploadPackage\UploadCAMSXtrnlSystematicSetupStagingToXtrnlSystematicSetup.dtsx" />
+    <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew.database" />
+    <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\UploadCAMSTransStgToMFTransStg.dtsx" />
+    <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\UploadCAMSXtrnlTransactionStagingToCAMSXtrnlTransaction.dtsx" />
+    <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\UploadChecksCAMSTransactionStaging.dtsx" />
+    <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\UploadTransactionDataFromCAMSFileToXtrnlTransactionInput.dtsx" />
+    <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\UploadXtrnlTransactionInputToXtrnlTransactionStaging.dtsx" />
+    <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\UploadXtrnlTransactionStagingToWerpTransactionTable.dtsx" />
+    <None Include="UploadPackages\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew.database" />
+    <None Include="UploadPackages\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew\UploadDeutscheDataTranslationChecksFirstStaging.dtsx" />
+    <None Include="UploadPackages\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew\UploadDeutscheProfileDataFromFileToInput.dtsx" />
+    <None Include="UploadPackages\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew\UploadDeutscheXtrnlProfileInputToXtrnlProfileStaging.dtsx" />
+    <None Include="UploadPackages\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew\UploadFolioDataFromDeutscheStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\DeutscheProfileUploadPackageNew\DeutscheProfileUploadPackageNew\UploadProfileDataFromDeutscheStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\bin\UploadDeutscheTransactionChecksOnInput.dtsx" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\bin\UploadDeutscheTransactionFirstStagingtoSecondStaging.dtsx" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\bin\UploadDeutscheTransactionInputToFirstStaging.dtsx" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\bin\UploadDeutscheTransactionXMLFileToInputTable.dtsx" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\bin\UploadsDeutscheTransactionChecksFirstStaging.dtsx" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage.database" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage.dtproj" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\UploadDeutscheTransactionFirstStagingtoSecondStaging.dtsx" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\UploadDeutscheTransactionInputToFirstStaging.dtsx" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\UploadDeutscheTransactionXMLFileToInputTable.dtsx" />
+    <None Include="UploadPackages\DeutscheTransactionUploadPackage\DeutscheTransactionUploadPackage\UploadsDeutscheTransactionChecksFirstStaging.dtsx" />
+    <None Include="UploadPackages\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage.database" />
+    <None Include="UploadPackages\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage.dtproj" />
+    <None Include="UploadPackages\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\UploadChecksOnEQStdTradeAccStaging.dtsx" />
+    <None Include="UploadPackages\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\UploadChecksOnEQTradeStaging.dtsx" />
+    <None Include="UploadPackages\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\UploadEQStdTradeStagingToEQTradeStaging.dtsx" />
+    <None Include="UploadPackages\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\UploadEQTradeAccInputToEQStdTradeAccStaging.dtsx" />
+    <None Include="UploadPackages\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\UploadEQTradeStagingToWerp.dtsx" />
+    <None Include="UploadPackages\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\EQTradeAccountUploadPackage\UploadTradeAccDataFromEQStdFileToEQStdTradeAccInput.dtsx" />
+    <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage.database" />
+    <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage.dtproj" />
+    <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadChecksOnEQStdTranStaging.dtsx" />
+    <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadChecksOnEQTranStaging.dtsx" />
+    <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadEQStdTranStagingToEQTranStaging.dtsx" />
+    <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadEQTransactionInputToEQStdTranStaging.dtsx" />
+    <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadEQTranStagingToWerp.dtsx" />
+    <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadEQTranStagingToWerpEQTranTable.dtsx" />
+    <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadTransactionDataFromEQStdFileToEQStdTranInput.dtsx" />
+    <None Include="UploadPackages\KarvyCombinationUploadPackage\UploadCombinationKarvyFileToXtrnlCombinationInput.dtsx" />
+    <None Include="UploadPackages\KarvyCombinationUploadPackage\UploadCombinationXtrnlStagingToWerpTransactionTable.dtsx" />
+    <None Include="UploadPackages\KarvyCombinationUploadPackage\UploadCombinationXtrnlStagingToXtrnlProfile.dtsx" />
+    <None Include="UploadPackages\KarvyCombinationUploadPackage\UploadCombinationXtrnlStagingToXtrnlTransaction.dtsx" />
+    <None Include="UploadPackages\KarvyCombinationUploadPackage\UploadXtrnlCombinationInputToXtrnlCombinationStaging.dtsx" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew.database" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\UploadChecksCAMSProfileStaging.dtsx" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\UploadChecksKarvyProfileStaging.dtsx" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\UploadDataTranslationKarvyProfileStaging.dtsx" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\UploadKarvyProfileNewBankAccountCreation.dtsx" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\UploadKarvyXtrnlProfileInputToKarvyXtrnlProfile.dtsx" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\UploadKarvyXtrnlProfileInputToKarvyXtrnlProfileStaging .dtsx" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\UploadKarvyXtrnlProfileStagingToFolioStaging.dtsx" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\UploadKarvyXtrnlProfileStagingToKarvyXtrnlProfile.dtsx" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\UploadKarvyXtrnlProfileStagingToProfileStaging.dtsx" />
+    <None Include="UploadPackages\KarvyProfileUploadPackageNew\KarvyProfileUploadPackageNew\UploadProfileDataFromKarvyProfileFileToXtrnlProfileInput.dtsx" />
+    <None Include="UploadPackages\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew.database" />
+    <None Include="UploadPackages\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew\UploadChecksKarvyTransactionStaging.dtsx" />
+    <None Include="UploadPackages\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew\UploadKarvyXtrnlTransactionInputToKarvyXtrnlTransactionStaging.dtsx" />
+    <None Include="UploadPackages\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew\UploadKarvyXtrnlTransactionStagingToKarvyXtrnlTransaction.dtsx" />
+    <None Include="UploadPackages\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew\UploadKarvyXtrnlTransactionStagingToWerpTransactionTable.dtsx" />
+    <None Include="UploadPackages\KarvyTransactionUploadPackageNew\KarvyTransactionUploadPackageNew\UploadTransactionDataFromKarvyFileToXtrnlTransactionInput.dtsx" />
+    <None Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\bin\ChecksCommonUploadPackage.dtsx" />
+    <None Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\bin\InsertTransactionIntoWERP.dtsx" />
+    <None Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\ChecksCommonUploadPackage.dtsx" />
+    <None Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\InsertTransactionIntoWERP.dtsx" />
+    <None Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.database" />
+    <None Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj" />
+    <None Include="UploadPackages\OdinBSEUploadPackage\UploadDataFromOdinFileToCustomerEquityOdinBSEXtrnlTransactionInput.dtsx" />
+    <None Include="UploadPackages\OdinBSEUploadPackage\UploadOdinBSETransactionStagingToOdinBSEXtrnlTransaction.dtsx" />
+    <None Include="UploadPackages\OdinBSEUploadPackage\UploadOdinBSETransactionStagingToWerpEquityTransactionTable.dtsx" />
+    <None Include="UploadPackages\OdinBSEUploadPackage\UploadOdinBSEXtrnlTransactionInputToOdinBSEXtrnlTransactionStaging.dtsx" />
+    <None Include="UploadPackages\OdinNSEUploadPackage\UploadDataFromOdinFileToCustomerEquityOdinNSEXtrnlTransactionInput.dtsx" />
+    <None Include="UploadPackages\OdinNSEUploadPackage\UploadOdinNSETransactionStagingToOdinNSEXtrnlTransaction.dtsx" />
+    <None Include="UploadPackages\OdinNSEUploadPackage\UploadOdinNSETransactionStagingToWerpEquityTransactionTable.dtsx" />
+    <None Include="UploadPackages\OdinNSEUploadPackage\UploadOdinNSEXtrnlTransactionInputToOdinNSEXtrnlTransactionStaging.dtsx" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadsCommonFolioChecksInFolioStaging.dtsx" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadStdFolioFromFolioStagingToWerpTable.dtsx" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.database" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadsCommonFolioChecksInFolioStaging.dtsx" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadStdFolioFromFolioStagingToWerpTable.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadsCommonProfileChecksInProfileStaging.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadsDataTranslationChecksInStdProfileMainStaging.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadStdProfileDataFromFileToInput.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadStdProfileFirstStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadStdProfileInputDataToFirstStaging.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew.database" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\UploadCreateNewBankAccount.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\UploadCustomerProfileStagingDataTranslationChecks.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\UploadsCommonProfileChecksInProfileStaging.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\UploadsDataTranslationChecksInStdProfileMainStaging.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\UploadStdProfileDataFromFileToInput.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\UploadStdProfileFirstStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\UploadStdProfileInputDataToFirstStaging.dtsx" />
+    <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.database" />
+    <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadFolioDataFromTempStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadProfileDataFromTempStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadTempDataTranslationChecksFirstStaging.dtsx" />
+    <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadTempletonProfileDataFromFileToInput.dtsx" />
+    <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadTempXtrnlProfileInputToXtrnlProfileStaging.dtsx" />
+    <None Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage.database" />
+    <None Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage.dtproj" />
+    <None Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\UploadChecksOnTempletonStaging.dtsx" />
+    <None Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\UploadTempletonTransStagingToTransStaging.dtsx" />
+    <None Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\UploadTempletonTransToStagingTable.dtsx" />
+    <None Include="UploadPackages\TempletonTransactionUploadPackage\TempletonTransactionUploadPackage\UploadTransactionFromXmlFileToInputTable.dtsx" />
+    <None Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\UploadChecksWerpEquityProfileStaging.dtsx" />
+    <None Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\UploadDataFromWERPEquityFileToXtrnlProfileInput.dtsx" />
+    <None Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\UploadWerpEquityProfileDematAccountCreation.dtsx" />
+    <None Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\UploadWerpEquityProfileNewBankAccountCreation.dtsx" />
+    <None Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\UploadWerpEquityXtrnlProfileInputToXtrnlProfileStaging.dtsx" />
+    <None Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.database" />
+    <None Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\WerpEquityProfileUploadPackage\CreateNewTradeAccountsAndBankAccounts.dtsx" />
+    <None Include="UploadPackages\WerpEquityProfileUploadPackage\UploadProfileDataFromWERPFileToXtrnlProfileInput.dtsx" />
+    <None Include="UploadPackages\WerpEquityProfileUploadPackage\UploadWERPXtrnlProfileInputToWERPXtrnlProfileStaging.dtsx" />
+    <None Include="UploadPackages\WerpEquityTransactionUploadPackage\UploadTransactionDataFromWERPFileToXtrnlTransactionInput.dtsx" />
+    <None Include="UploadPackages\WerpEquityTransactionUploadPackage\UploadWERPTransactionStagingToWerpEquityTransactionTable.dtsx" />
+    <None Include="UploadPackages\WerpEquityTransactionUploadPackage\UploadWERPXtrnlTransactionInputToXtrnlTransactionStaging.dtsx" />
+    <None Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\bin\UploadChecksWerpMFProfileStaging.dtsx" />
+    <None Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\bin\UploadProfileDataFromWerpMFProfileFileToWerpMFXtrnlProfileInput.dtsx" />
+    <None Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\bin\UploadWerpMFProfileNewBankAccountCreation.dtsx" />
+    <None Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\bin\UploadWerpMFXtrnlProfileInputToXtrnlProfileStaging.dtsx" />
+    <None Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\UploadChecksWerpMFProfileStaging.dtsx" />
+    <None Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\UploadProfileDataFromWerpMFProfileFileToWerpMFXtrnlProfileInput.dtsx" />
+    <None Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\UploadWerpMFProfileNewBankAccountCreation.dtsx" />
+    <None Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\UploadWerpMFXtrnlProfileInputToXtrnlProfileStaging.dtsx" />
+    <None Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew.database" />
+    <None Include="UploadPackages\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew\WerpMFProfileUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew\CheckTransactionDataFromWERPMFStaging.dtsx" />
+    <None Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew\UploadTransactionDataFromWERPMFFileToXtrnlTransactionInput.dtsx" />
+    <None Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew\UploadTransactionDataFromWERPMFInputToStagingTransactionInput.dtsx" />
+    <None Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew\UploadTransactionDataFromWERPMFStagingToWERPTable.dtsx" />
+    <None Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew.database" />
+    <None Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew.dtproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Email\" />
+    <Folder Include="Images\QuestionImage\" />
+    <Folder Include="MarketDataDownloadFiles\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53958</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

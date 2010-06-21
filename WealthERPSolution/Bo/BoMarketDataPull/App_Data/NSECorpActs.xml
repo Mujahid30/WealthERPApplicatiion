@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="yes"?>
+<File>
+  <NSE_Corporate_Actions>
+    <Symbol>BOC</Symbol>
+    <Series>BT</Series>
+    <Bc_Start_Date>2009-05-20T00:00:00+05:30</Bc_Start_Date>
+    <Bc_End_Date>2009-05-28T00:00:00+05:30</Bc_End_Date>
+    <Ex_Date>2009-05-13T00:00:00+05:30</Ex_Date>
+    <No_Delivery_Start_Date>2009-05-13T00:00:00+05:30</No_Delivery_Start_Date>
+    <No_Delivery_End_Date>2009-05-19T00:00:00+05:30</No_Delivery_End_Date>
+    <Purpose>AGM/DIVIDEND - 15%</Purpose>
+    <Date>2009-05-13T00:00:00+05:30</Date>
+  </NSE_Corporate_Actions>
+  <NSE_Corporate_Actions>
+    <Symbol>GESHIP</Symbol>
+    <Series>BE</Series>
+    <Record_Date>2009-05-14T00:00:00+05:30</Record_Date>
+    <Ex_Date>2009-05-13T00:00:00+05:30</Ex_Date>
+    <Purpose>3RD INT DIV-RS.3/- PER SHPURPOSE REVISED</Purpose>
+    <Date>2009-05-13T00:00:00+05:30</Date>
+  </NSE_Corporate_Actions>
+  <NSE_Corporate_Actions>
+    <Symbol>GESHIP</Symbol>
+    <Series>EQ</Series>
+    <Record_Date>2009-05-14T00:00:00+05:30</Record_Date>
+    <Ex_Date>2009-05-13T00:00:00+05:30</Ex_Date>
+    <Purpose>3RD INT DIV-RS.3/- PER SHPURPOSE REVISED</Purpose>
+    <Date>2009-05-13T00:00:00+05:30</Date>
+  </NSE_Corporate_Actions>
+  <NSE_Corporate_Actions>
+    <Symbol>GESHIP</Symbol>
+    <Series>BL</Series>
+    <Record_Date>2009-05-14T00:00:00+05:30</Record_Date>
+    <Ex_Date>2009-05-13T00:00:00+05:30</Ex_Date>
+    <Purpose>3RD INT DIV-RS.3/- PER SHPURPOSE REVISED</Purpose>
+    <Date>2009-05-13T00:00:00+05:30</Date>
+  </NSE_Corporate_Actions>
+</File>
