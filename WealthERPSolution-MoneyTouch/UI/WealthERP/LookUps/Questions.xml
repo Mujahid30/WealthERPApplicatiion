@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Definition>
+  <RPQuestion>
+    <question>When you think of the word Risk in a financial context, which of the following words come to mind first?</question>
+    <a>Danger|0</a>
+    <b>Uncertainity|3</b>
+    <c>Oppurtunity|7</c>
+    <d>Thrill|10</d>    
+  </RPQuestion>
+  <RPQuestion>
+    <question>How do you rate your knowledge of investments?</question>
+    <a>Expert|10</a>
+    <b>Very Good|8</b>
+    <c>Good|5</c>
+    <d>Moderate|2</d>
+    <e>I know Nothing|0</e>
+  </RPQuestion>
+  <RPQuestion>
+    <question>Given a chance to participate in a contest with the following prize options, which one would you choose?</question>
+    <a>Guaranteed prize of Rs 10000|2</a>
+    <b>50 Percent chance of winning Rs.50000 or you lose all|5</b>
+    <c>30 Percent  chance of winning Rs.100000 or you lose all|7</c>
+    <d>20 Percent  chance of winning Rs.200000 or you lose all|10</d>    
+  </RPQuestion>
+  <RPQuestion>
+    <question>Last month you purchased some shares, which has since then gone down by 25 Percent. What will you do?</question>
+    <a>Sell all of my shares|2</a>
+    <b>Sell some of my shares|5</b>
+    <c>Do nothing|7</c>
+    <d>Buy more shares|10</d>
+  </RPQuestion>
+  <RPQuestion>
+    <question>Suppose you receive a tip that some shares are going to rise the next day, what will you do?</question>
+    <a>Will invest immediately|10</a>
+    <b>Will invest if the source is an expert market player|8</b>
+    <c>Will invest after doing some analysis and investigation|6</c>
+    <d>Want to invest, but can’t decide|4</d>
+    <e>You don't rely on such tips|2</e>
+  </RPQuestion>
+  <RPQuestion>
+    <question>What is the maximum downside risk you can take in equity investments in any one year?</question>
+    <a>Zero|0</a>
+    <b>Upto 5%|2</b>
+    <c>5-10%|4</c>
+    <d>10-15%|6</d>
+    <e>15-20%|8</e>
+    <f>Above 20%|10</f>
+  </RPQuestion>
+  <RPQuestion>
+    <question>Select the portfolio from below which suits your interest the most.</question>
+    <a>Portfolio A|10</a>
+    <b>Portfolio B|8</b>
+    <c>Portfolio C|6</c>
+    <d>Portfolio D|4</d>
+    <e>Portfolio E|2</e>
+  </RPQuestion>
+  <RPQuestion>
+    <question>How many dependents you have?</question>
+    <a>2 or Less|10</a>
+    <b>Between 2 and 4|7</b>
+    <c>Between 4 and 6|4</c>
+    <d>More Than 6|0</d>
+  </RPQuestion>
+  <RPQuestion>
+    <question>Insurance can cover a wide variety of life’s major risks – theft, fire, illness, death etc. How much cover do you have?</question>
+    <a>Some|5</a>
+    <b>Considerable|7</b>
+    <c>Complete|10</c>    
+  </RPQuestion>
+  <RPQuestion>
+    <question>How much is your pay/income per annum?</question>
+    <a> Less than 3 Lacs|2</a>
+    <b>3 Lacs to 5 Lacs|5</b>
+    <c>5 Lacs to 10 Lacs|7</c>
+    <d>More Than 10 Lacs|10</d>
+  </RPQuestion>
+  <RPQuestion>
+    <question> What percentage of your annual income have you been able to save in recent years?</question>
+    <a>None|2</a>
+    <b>1 to 5%|4</b>
+    <c>5 to 10%|6</c>
+    <d>10 to 15%|8</d>
+    <e>More Than 15%|10</e>
+  </RPQuestion>
+  <RPQuestion>
+    <question>How do you feel your current financial situation is?</question>
+    <a>Very Secure|2</a>
+    <b>Relatively Secure|5</b>
+    <c>Secure|7</c>
+    <d>Somewhat Secure|10</d>
+    <e>Not Secure|10</e>
+  </RPQuestion>
+  
+</Definition>

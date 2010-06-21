@@ -1,0 +1,403 @@
+<LookupTables>
+<CustomerAsset>
+  <Asset Code="AC_Equ_Cd" Name="Equity"  Deleted="false"/> 
+  <Asset Code="AC_Hybrid_Cd" Name="Hybrid"  Deleted="false" /> 
+  <Asset Code="AC_Debt_Cd" Name="Debt"  Deleted="false" /> 
+  <Asset Code="AC_Ins_Cd" Name="Insurance"  Deleted="false" /> 
+  <Asset Code="AC_RE_Cd" Name="Real Estate"  Deleted="false" /> 
+  <Asset Code="AC_GJ_Cd" Name="Gems and Jewellery"  Deleted="false" /> 
+  <Asset Code="AC_Collectible_Cd" Name="Collectibles"  Deleted="false" /> 
+  <Asset Code="AC_Prsnl_Use_Cd" Name="Personal Use"  Deleted="false" /> 
+  </CustomerAsset>
+
+<CustomerExpense>
+  <Expense Code="Exp_HH_Groceries_Cd" Name="Groceries/Milk Expense" Category="House Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_HH_Tution_Fees_Cd" Name="Tution fees" Category="House Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_HH_Schl_Van_Cd" Name="School Van" Category="House Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_HH_Electricity_Cd" Name="Electricity" Category="House Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_HH_Water_Cd" Name="Water" Category="House Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_HH_Fuel_Cd" Name="Petrol/Fuel" Category="House Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_HH_Servant_Cd" Name="Maid/Servant expense" Category="House Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_HH_House_Rent_Cd" Name="House Rent" Category="House Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_HH_Mobile_Cd" Name="Mobile/Landline/Internet" Category="House Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_HH_Othr_Cd" Name="House Hold other Expenses" Category="House Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_Othr_Medical_Cd" Name="Doctors, medicine expenses" Category="Other Expenses" Deleted="false" /> 
+  <Expense Code="Exp_Othr_Misc_Cd" Name="Miscellaneous/Contigency expenses" Category="Other Expenses" Deleted="false" /> 
+  <Expense Code="Exp_Othr_Entertainment_Cd" Name="Entertainment" Category="Other Hold Expenses" Deleted="false" /> 
+  <Expense Code="Exp_Anl_Vacation_Cd" Name="Vacation and Travel expenses" Category="Annual Expenses" Deleted="false" /> 
+  <Expense Code="Exp_Anl_Gift_Cd" Name="Function Gifts Expenses" Category="Annual Expenses" Deleted="false" /> 
+  <Expense Code="Exp_Anl_Othr_Cd" Name="Other Annual Expenses" Category="Annual Expenses" Deleted="false" /> 
+  </CustomerExpense>
+
+ <CustomerIncome>
+  <Income Code="Incm_Salary_Basic_Cd" Name="Basic Salary" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_DA_Cd" Name="Dearness Allowance" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_HRA_Cd" Name="House Rent Allowance" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_Medical_Cd" Name="Medical Allowance" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_Conveyance_Cd" Name="Conveyance Allowance" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_LTA_Cd" Name="Leave travel/encashment allowance" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_Lunch_Coupon_Cd" Name="Lunch coupons" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_Gift_Coupon_Cd" Name="Gift coupons" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_Education_Cd" Name="Educational allowance" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_Special_Cd" Name="Special Allowance" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_PF_Contri_Cd" Name="PF Contribution" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_Bonus_Cd" Name="Bonus(Annual)" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_Superannuation_Cd" Name="Superannuation" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Salary_Gratuity_Cd" Name="Gratuity" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Rental_Cd" Name="Rental Income Received" Category="Salary Income" Deleted="false" /> 
+  <Income Code="Incm_Othr_FD_Intrst_Cd" Name="Interest on fixed deposit" Category="Income from other sources" Deleted="false" /> 
+  <Income Code="Incm_Othr_NSC_Intrst_Cd" Name="Accured Interest On NSC's" Category="Income from other sources" Deleted="false" /> 
+  <Income Code="Incm_Othr_dividents_Cd" Name="Dividends" Category="Income from other sources" Deleted="false" /> 
+  </CustomerIncome>
+
+<CustomerLoan>
+  <Loan Code="Loan_House_Cd" Name="House Loan"  Deleted="false" /> 
+  <Loan Code="Loan_Personal_Cd" Name="Personal Loan"  Deleted="false" /> 
+  <Loan Code="Loan_Business_Cd" Name="Business Loan"  Deleted="false" /> 
+  <Loan Code="Loan_Education_Cd" Name="Education Loan"  Deleted="false" /> 
+  <Loan Code="Loan_Car_Cd" Name="Car Loan"  Deleted="false"  /> 
+  <Loan Code="Loan_Othr_Cd" Name="Other Loan"  Deleted="false" /> 
+  </CustomerLoan>
+
+ <Asset_Category>
+  <AssetCat Code="ACTGRY_Stock_CD" Name="Stocks" AssetClassCode="AC_EQU_CD"  Deleted="false" /> 
+  <AssetCat Code="ACTGRY_Equ_CMF" Name="Mutual Funds" AssetClassCode="AC_EQU_CD"  Deleted="false" /> 
+  <AssetCat Code="ACTGRY_Hybrid_MF" Name="Mutual Funds" AssetClassCode="AC_Hybrid_Cd"  Deleted="false" /> 
+  <AssetCat Code="ACTGRY_Debt_MF" Name="Mutual Funds" AssetClassCode="AC_Debt_Cd"  Deleted="false" /> 
+  <AssetCat Code="ACTGRY_Hybrid_Ins" Name="Insurance" AssetClassCode="AC_Hybrid_Cd"  Deleted="false" /> 
+  <AssetCat Code="ACTGRY_FI" Name="Fixed Interest" AssetClassCode="AC_Debt_Cd"  Deleted="false" /> 
+  <AssetCat Code="ACTGRY_Mrkt_Based" Name="Market Based" AssetClassCode="AC_Debt_Cd"  Deleted="false" /> 
+  <AssetCat Code="ACTGRY_Commercial" Name="Commercial" AssetClassCode="AC_RE_Cd"  Deleted="false" /> 
+  </Asset_Category>
+
+<Asset_SubCategory>
+  <AssetSubCat Code="ASUBCTGRY_Direct" Name="Direct" AssetCategoryCode="ACTGRY_Stock_Cd"  Deleted="false" /> 
+  <AssetSubCat Code="ASUBCTGRY_Sector" Name="Sector" AssetCategoryCode="ACTGRY_Equ_MF"  Deleted="false" /> 
+  <AssetSubCat Code="ASUBCTGRY_Bank" Name="Bank" AssetCategoryCode="ACTGRY_F1"  Deleted="false" /> 
+  <AssetSubCat Code="ASUBCTGRY_GOI_Bonds" Name="GOI Bonds" AssetCategoryCode="ACTGRY_F1"  Deleted="false" /> 
+  <AssetSubCat Code="ASUBCTGRY_GOI_Securities" Name="GOI Securities" AssetCategoryCode="ACTGRY_F1"  Deleted="false" /> 
+  </Asset_SubCategory>
+
+<Investment_Type>
+  <Investment Code="INV_Share_Cd" Name="Share" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Stock_Cd" AssetSubCategoryCode="ASUBCTGRY_Direct"  Deleted="false" /> 
+  <Investment Code="INV_Preference_Cd" Name="Preference" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Stock_Cd" AssetSubCategoryCode="ASUBCTGRY_Direct"  Deleted="false" /> 
+  <Investment Code="INV_Debenture_Cd" Name="Convertible debenture" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Stock_Cd" AssetSubCategoryCode="ASUBCTGRY_Direct"  Deleted="false" /> 
+  <Investment Code="INV_Derivative_Cd" Name="Derivatives" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Stock_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Diversified_Cd" Name="Diversified" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Equ_MF"  Deleted="false" /> 
+  <Investment Code="INV_Index_Cd" Name="Index" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Equ_MF"  Deleted="false" /> 
+  <Investment Code="INV_TaxPlanning_Cd" Name="Tax Planning" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Equ_MF"  Deleted="false" /> 
+  <Investment Code="INV_AutoSector_Cd" Name="Auto" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Equ_MF" AssetSubCategoryCode="ASUBCTGRY_Sector"  Deleted="false" /> 
+  <Investment Code="INV_BankSector_Cd" Name="Bank" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Equ_MF" AssetSubCategoryCode="ASUBCTGRY_Sector"  Deleted="false" /> 
+  <Investment Code="INV_FMCG_Cd" Name="FMCG" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Equ_MF" AssetSubCategoryCode="ASUBCTGRY_Sector"  Deleted="false" /> 
+  <Investment Code="INV_PetroleumSector_Cd" Name="Petroleum" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Equ_MF" AssetSubCategoryCode="ASUBCTGRY_Sector"  Deleted="false" /> 
+  <Investment Code="INV_PharmaSector_Cd" Name="Pharma" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Equ_MF" AssetSubCategoryCode="ASUBCTGRY_Sector"  Deleted="false" /> 
+  <Investment Code="INV_EquSpeciality_Cd" Name="Speciality" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Equ_MF" AssetSubCategoryCode="ASUBCTGRY_Sector"  Deleted="false" /> 
+  <Investment Code="INV_TechSector_Cd" Name="Technology" AssetClassCode="AC_Equ_Cd" AssetCategoryCode="ACTGRY_Equ_MF" AssetSubCategoryCode="ASUBCTGRY_Sector"  Deleted="false" /> 
+  <Investment Code="INV_HedgeFund_Cd" Name="Hedge Funds" AssetClassCode="AC_Equ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_VC_Cd" Name="Venture Capital" AssetClassCode="AC_Equ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_PrivateEqu_Cd" Name="Private equity" AssetClassCode="AC_Equ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_AngelFund_Cd" Name="Angel Fund" AssetClassCode="AC_Equ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_SeedFund_Cd" Name="Seed Funds" AssetClassCode="AC_Equ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_EquOthr_Cd" Name="Equity Others" AssetClassCode="AC_Equ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_EquOriented_Cd" Name="Equity Oriented" AssetClassCode="AC_Hybrid_Cd" AssetCategoryCode="ACTGRY_Hybrid_MF"  Deleted="false" /> 
+  <Investment Code="INV_DebtOriented_Cd" Name="Debt Oriented" AssetClassCode="AC_Hybrid_Cd" AssetCategoryCode="ACTGRY_Hybrid_MF"  Deleted="false" /> 
+  <Investment Code="INV_AssetAllctn_Cd" Name="Asset Allocation" AssetClassCode="AC_Hybrid_Cd" AssetCategoryCode="ACTGRY_Hybrid_MF"  Deleted="false" /> 
+  <Investment Code="INV_MnthlyIncm_Cd" Name="Monthly Income" AssetClassCode="AC_Hybrid_Cd" AssetCategoryCode="ACTGRY_Hybrid_MF"  Deleted="false" /> 
+  <Investment Code="INV_ULIP_Cd" Name="ULIP" AssetClassCode="AC_Hybrid_Cd" AssetCategoryCode="ACTGRY_Hybrid_Ins"  Deleted="false" /> 
+  <Investment Code="INV_Balanced_Cd" Name="Balanced" AssetClassCode="AC_Hybrid_Cd"  Deleted="false" /> 
+  <Investment Code="INV_FMP_Cd" Name="FMP (Close End)" AssetClassCode="AC_Hybrid_Cd"  Deleted="false" /> 
+  <Investment Code="INV_HybridOthr_Cd" Name="Hybrid Others" AssetClassCode="AC_Hybrid_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Savings_Cd" Name="Savings Account" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_Bank"  Deleted="false" /> 
+  <Investment Code="INV_Current_Cd" Name="Current Account" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_Bank"  Deleted="false" /> 
+  <Investment Code="INV_FD_Cd" Name="Fixed Deposit" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_Bank"  Deleted="false" /> 
+  <Investment Code="INV_Term_Cd" Name="Term Deposit" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_Bank"  Deleted="false" /> 
+  <Investment Code="INV_RD_Cd" Name="Recurring Deposit" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_Bank"  Deleted="false" /> 
+  <Investment Code="INV_Superannuation_Cd" Name="Superannuation" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_GOI_Bond"  Deleted="false" /> 
+  <Investment Code="INV_Pension_Cd" Name="Pension" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_GOI_Bond"  Deleted="false" /> 
+  <Investment Code="INV_Gratuity_Cd" Name="Gratuity" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_GOI_Bond"  Deleted="false"/> 
+  <Investment Code="INV_CapitalGain_Cd" Name="Capital Gain Bonds" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_GOI_Bond"  Deleted="false" /> 
+  <Investment Code="INV_NSS_Cd" Name="NSS" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_GOI_Bond"  Deleted="false" /> 
+  <Investment Code="INV_NCS_Cd" Name="NSC" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_GOI_Bond"  Deleted="false" /> 
+  <Investment Code="INV_PPF_Cd" Name="PPF" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_GOI_Bond"  Deleted="false" /> 
+  <Investment Code="INV_PO_Cd" Name="PO" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_GOI_Bond"  Deleted="false" /> 
+  <Investment Code="INV_PF_Cd" Name="PF" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_GOI_Bond"  Deleted="false" /> 
+  <Investment Code="INV_GOIOthr_Cd" Name="GOI Others" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_FI" AssetSubCategoryCode="ASUBCTGRY_GOI_Bond"  Deleted="false" /> 
+  <Investment Code="INV_CashLoan_Cd" Name="Cash Loans" AssetClassCode="AC_Debt_Cd"  Deleted="false" /> 
+  <Investment Code="INV_HDFCHousing_Cd" Name="HDFC, housing" AssetClassCode="AC_Debt_Cd"  Deleted="false" /> 
+  <Investment Code="INV_CmpnyBond_Cd" Name="Company Bonds" AssetClassCode="AC_Debt_Cd"  Deleted="false" /> 
+  <Investment Code="INV_FloatingRate_Cd" Name="Floating Rate" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Debt_MF"  Deleted="false" /> 
+  <Investment Code="INV_DebtSchemes_Cd" Name="Debt Schemes" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Debt_MF"  Deleted="false" /> 
+  <Investment Code="INV_LiquidPlus_Cd" Name="Liquid Plus" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Debt_MF"  Deleted="false" /> 
+  <Investment Code="INV_Debt_speciality_Cd" Name="Speciality" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Debt_MF"  Deleted="false" /> 
+  <Investment Code="INV_1yrSecurity_Cd" Name="1 year Security" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Mrkt_Based" AssetSubCategoryCode="ASUBCTGRY_GOI_Securities"  Deleted="false" /> 
+  <Investment Code="INV_2yrSecurity_Cd" Name="2 years Security" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Mrkt_Based" AssetSubCategoryCode="ASUBCTGRY_GOI_Securities"  Deleted="false" /> 
+  <Investment Code="INV_3yrSecurity_Cd" Name="3 years Security" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Mrkt_Based" AssetSubCategoryCode="ASUBCTGRY_GOI_Securities"  Deleted="false" /> 
+  <Investment Code="INV_4yrSecurity_Cd" Name="4 years Security" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Mrkt_Based" AssetSubCategoryCode="ASUBCTGRY_GOI_Securities"  Deleted="false" /> 
+  <Investment Code="INV_5yrSecurity_Cd" Name="5 years Security" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Mrkt_Based" AssetSubCategoryCode="ASUBCTGRY_GOI_Securities"  Deleted="false" /> 
+  <Investment Code="INV_6yrSecurity_Cd" Name="6 years Security" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Mrkt_Based" AssetSubCategoryCode="ASUBCTGRY_GOI_Securities"  Deleted="false" /> 
+  <Investment Code="INV_7yrSecurity_Cd" Name="7 years Security" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Mrkt_Based" AssetSubCategoryCode="ASUBCTGRY_GOI_Securities"  Deleted="false" /> 
+  <Investment Code="INV_8yrSecurity_Cd" Name="8 years Security" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Mrkt_Based" AssetSubCategoryCode="ASUBCTGRY_GOI_Securities"  Deleted="false" /> 
+  <Investment Code="INV_9yrSecurity_Cd" Name="9 years Security" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Mrkt_Based" AssetSubCategoryCode="ASUBCTGRY_GOI_Securities"  Deleted="false" /> 
+  <Investment Code="INV_10yrSecurity_Cd" Name="10 years Security" AssetClassCode="AC_Debt_Cd" AssetCategoryCode="ACTGRY_Mrkt_Based" AssetSubCategoryCode="ASUBCTGRY_GOI_Securities"  Deleted="false" /> 
+  <Investment Code="INV_DebtOthr_Cd" Name="Debt Others" AssetClassCode="AC_Debt_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Endowment_Cd" Name="Endowment" AssetClassCode="AC_Ins_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Wholelife_Cd" Name="Wholelife" AssetClassCode="AC_Ins_Cd"  Deleted="false" /> 
+  <Investment Code="INV_MoneyBack_Cd" Name="Money Bank" AssetClassCode="AC_Ins_Cd"  Deleted="false" /> 
+  <Investment Code="INV_InsOthr_Cd" Name="Insurance Others" AssetClassCode="AC_Ins_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Land_Cd" Name="Land" AssetClassCode="AC_RE_Cd"  Deleted="false" /> 
+  <Investment Code="INV_HouseSelf_Cd" Name="House Self Occupied" AssetClassCode="AC_RE_Cd"  Deleted="false" /> 
+  <Investment Code="INV_HouseRented_Cd" Name="House Rented" AssetClassCode="AC_RE_Cd"  Deleted="false" /> 
+  <Investment Code="INV_FlatSelf_Cd" Name="Flat Self Occupied" AssetClassCode="AC_RE_Cd"  Deleted="false" /> 
+  <Investment Code="INV_FlatRented_Cd" Name="Flat Rented" AssetClassCode="AC_RE_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Godowns_Cd" Name="Godowns" AssetClassCode="AC_RE_Cd"  Deleted="false" /> 
+  <Investment Code="INV_REOthr_Cd" Name="Real Estate Others" AssetClassCode="AC_RE_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Gold_Cd" Name="Gold" AssetClassCode="AC_GJ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Gems_Cd" Name="Gems" AssetClassCode="AC_GJ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Silver_Cd" Name="Silver" AssetClassCode="AC_GJ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Platinum_Cd" Name="Platinum" AssetClassCode="AC_GJ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_GJOthr_Cd" Name="Gems and Jewellery Others" AssetClassCode="AC_GJ_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Art_Cd" Name="Art" AssetClassCode="AC_Collectible_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Personal_Cd" Name="Personal" AssetClassCode="AC_Collectible_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Decorative_Cd" Name="Decorative" AssetClassCode="AC_Collectible_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Yatch_Cd" Name="Yatch" AssetClassCode="AC_Collectible_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Curios_Cd" Name="Curios" AssetClassCode="AC_Collectible_Cd"  Deleted="false" /> 
+  <Investment Code="INV_CollectibleOthr_Cd" Name="Collectible Others" AssetClassCode="AC_Collectible_Cd"  Deleted="false" /> 
+  <Investment Code="INV_Car_Cd" Name="Car" AssetClassCode="AC_Prsnl_Use_Cd"  Deleted="false" /> 
+  <Investment Code="INV_HouseHold_Cd" Name="Household items" AssetClassCode="AC_Prsnl_Use_Cd"  Deleted="false" /> 
+  <Investment Code="INV_PersonalUseOthr_Cd" Name="Personal Use Others" AssetClassCode="AC_Prsnl_Use_Cd"  Deleted="false" /> 
+  </Investment_Type>
+
+<MF_Transactions>
+  <Transaction Code="MF_Trans_Pur_Cd" Name="Purchase" Type="Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_Switch_Cd" Name="Switch Units" Type="Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_Redemption_Cd" Name="Redemption" Type="Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_Loan_Cd" Name="Applying for Loan/Lien" Type="Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_Dividend_Cd" Name="Dividend Paid" Type="Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_SIP_Cd" Name="SIP" Type="Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_TDS_Cd" Name="TDS Deduction" Type="Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_SWP_Cd" Name="Systematic Withdrawal Plan" Type="Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_STP_Cd" Name="Systematic Transfer Plan" Type="Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_DDChrg_Cd" Name="Demand Draft charges" Type="Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_AdrChng_Cd" Name="Change in Address" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_NominationChng_Cd" Name="Change in Nomination" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_HoldingMode_Cd" Name="Change in Mode of holding" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_POA_Cd" Name="Signing Power Of Attorney" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_ECS_Cd" Name="Availing ECS" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_TkOvrChng_Cd" Name="Effect Change in event of Amalgamation and Take over" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_DuplicateDividendWarrant_Cd" Name="Reissue of duplicate dividend warrant" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_DuplicateRedemptionWarrant_Cd" Name="Reissue of duplicate redemption warrant" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_KartaChng_Cd" Name="Change of Karta under HUF" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Code="MF_Trans_NameChng_Cd" Name="Effect Change in name consequent to marriage" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Name="From Proprietary firm to Company" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Name="Change of Companies/Trusts" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Name="From Resident to NRI" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Name="From NRI to Resident" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Name="Issue of duplicate TDS Certificate" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Name="Cancel Power of Attorney" Type="Non Financial"  Deleted="false" /> 
+  <Transaction Name="Change in bank account" Type="Non Financial"  Deleted="false" /> 
+  </MF_Transactions>
+
+<AdvBusinessType>
+	<AdvisorBusinessType Code="Prop" Name="Proprietorship"  Deleted="false" />
+	<AdvisorBusinessType Code="Partnership" Name="Partnership"  Deleted="false" />
+	<AdvisorBusinessType Code="Individual" Name="Individual"  Deleted="false" />
+	<AdvisorBusinessType Code="Pvt" Name="Pvt Ltd. Co"  Deleted="false" />
+	<AdvisorBusinessType Code="Public" Name="Public Limited Co"  Deleted="false" />
+</AdvBusinessType>
+
+<AdvAssetClass>
+	<AdvisorAssetClass Code="MF" Name="MF"  Deleted="false" />
+	<AdvisorAssetClass Code="Equity" Name="Equity"  Deleted="false" />
+	<AdvisorAssetClass Code="Insurance" Name="Insurance"  Deleted="false" />
+</AdvAssetClass>
+
+<AdvCategory>
+	<AdvisorCategory Code="Intermediary" Name="Intermediary"  Deleted="false" />
+	<AdvisorCategory Code="Broker" Name="Broker"  Deleted="false" />
+	<AdvisorCategory Code="SubBrker" Name="Sub Broker"  Deleted="false" />
+	<AdvisorCategory Code="Remissary" Name="Remissary"  Deleted="false" />
+</AdvCategory>
+
+<AdvSegment>
+	<AdvisorSegment Code="AMFI" Name="AMFI"  Deleted="false" />
+	<AdvisorSegment Code="Cash" Name="Cash"  Deleted="false" />
+	<AdvisorSegment Code="Derivative" Name="Derivative"  Deleted="false" />
+</AdvSegment>
+
+<AdvIdentifierType>
+	<AdvisorIdentifierType Code="ARN" Name="AMFI ARN Code" Deleted="false" />
+	<AdvisorIdentifierType Code="BSE" Name="BSE" Deleted="false" />
+	<AdvisorIdentifierType Code="NSE" Name="NSE" Deleted="false" />
+</AdvIdentifierType>
+
+
+<FilCategory>
+	
+	<FilterCategory Code="MFKYC_I" Name="MF KYC Individual" AssetClass="MF" CustomerType= "Individual" KYCFlag="Yes" />
+	<FilterCategory Code="MFKYC_NI" Name="MF KYC NonIndividual" AssetClass="MF" CustomerType="Non Individual" KYCFlag="Yes" />
+	<FilterCategory Code="EQ_I" Name="Equity Individual" AssetClass="Equity" CustomerType="Individual" KYCFlag="No" />
+	<FilterCategory Code="EQ_NI" Name="Equity NonIndividual" AssetClass="Equity" CustomerType="Non Individual" KYCFlag="No" />	
+	<FilterCategory Code="MF_I" Name="MF Individual" AssetClass="MF" CustomerType="Individual" KYCFlag="No" />
+	<FilterCategory Code="MF_NI" Name="MF Individual" AssetClass="MF" CustomerType="Non Individual" KYCFlag="No" />
+</FilCategory>
+
+<LOBClassCode>
+	<LOBCode Code="LOBMF" AssetClass="MF" Category="Intermediary" Segment="" />
+	<LOBCode Code="LOBEQBC" AssetClass="Equity" Category="Broker" Segment="Cash" />
+	<LOBCode Code="LOBEQBD" AssetClass="Equity" Category="Broker" Segment="Derivative" />
+	<LOBCode Code="LOBEQSBC" AssetClass="Equity" Category="SubBroker" Segment="Cash" />
+	<LOBCode Code="LOBEQSBD" AssetClass="Equity" Category="SubBroker" Segment="Derivative" />
+	<LOBCode Code="LOBEQRC" AssetClass="Equity" Category="Remissary" Segment="Cash" />
+	<LOBCode Code="LOBEQRD" AssetClass="Equity" Category="Remissary" Segment="Derivative" />
+</LOBClassCode>
+
+<MandatoryMaster>
+	<Mandatory Code="PassportAdr" MandatoryIdentifier="Passport" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="PassportId" MandatoryIdentifier="Passport" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="DLAdr" MandatoryIdentifier="Driving Licence" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="DLID" MandatoryIdentifier="Driving Licence" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="VoterAdr" MandatoryIdentifier="Voter's Id" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="VoterId" MandatoryIdentifier="Voter's Id" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="PANCard" MandatoryIdentifier="PAN Card" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="MAPINID" MandatoryIdentifier="MAPIN UID Card" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="IncorporationCertificate" MandatoryIdentifier="Incorporation certificate" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="CommencementCertificate" MandatoryIdentifier="Certificate ofcomencement of business" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="RationCard" MandatoryIdentifier="Ration Card" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="BankPsbk" MandatoryIdentifier="bank passbook" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="RentAgreement" MandatoryIdentifier="Rent Agreement/Registered Lease / Sale Agreement of residence" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="BankStmnt" MandatoryIdentifier="Bank account statement" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="TelephoneBill" MandatoryIdentifier="Telephone bill  (not more than 2 months old)" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="ElectricityBill" MandatoryIdentifier="electicity bill (not more than 2 months old)" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="DematStmnt" MandatoryIdentifier="Latest Demat Account statement    " MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="ITReturn" MandatoryIdentifier="IT Return" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="LeaveAgreement" MandatoryIdentifier="Leave and Licence agreement" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="RegisteredDos" MandatoryIdentifier="Any document registered with registrar of the company" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="InverstResolution" MandatoryIdentifier="Resolution/authorisation to invest" MandatoryType="Proof" ProofCategory="Address" Deleted="False" />
+	<Mandatory Code="BoardResolution" MandatoryIdentifier="Board/Committee resolution/authority Letter" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="ByeLaw" MandatoryIdentifier="Bye-Law" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="AuthorisedSignatories" MandatoryIdentifier="List of Authorised Signatories with names,designation and specimen signature" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="AssociationArticle" MandatoryIdentifier="Memorandum and article of association" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="RegistrationCertificate" MandatoryIdentifier="Certificate of registration" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="ExistenceProof" MandatoryIdentifier="Proof of Existence / Constitution Document" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="DeclarationDeed" MandatoryIdentifier="Deed of Declaration" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="POA" MandatoryIdentifier="Power of Attorney" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="PartnershipDeed" MandatoryIdentifier="PartnershipDeed" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="TrustDeed" MandatoryIdentifier="Trust deed" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="Photograph" MandatoryIdentifier="Photograph with sign across it" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="ChequeLeaf" MandatoryIdentifier="Check Leaf along with bank statement or bank passbook" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="ChequeLeafPsBk" MandatoryIdentifier="Certified copy of balance sheet for last two years" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="BalanceSheet" MandatoryIdentifier="Photographs of partners/whole time directors,individual promoters holding 5% or more,either directly or indirectly,in the share holding of the company" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="PartnerPhotograph" MandatoryIdentifier="Certified copy of latest share holding pattern including those hoding more than 5 % in the share capital of the company" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="ShareHoldingPattern" MandatoryIdentifier="Passport" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+	<Mandatory Code="MOAandAOA" MandatoryIdentifier="Certified copy of MOA and AOA" MandatoryType="Proof" ProofCategory="Id" Deleted="False" />
+</MandatoryMaster>
+  
+  <WerpDebtIssuer>
+    <DebtIssuerCode WDI_DebtIssuerName="Bank"  WDI_DebtIssuerCode="Bank"/>
+    <DebtIssuerCode WDI_DebtIssuerName="Central Govt" WDI_DebtIssuerCode="CGovt"/>
+    <DebtIssuerCode WDI_DebtIssuerName="Company" WDI_DebtIssuerCode="Comp"/>
+    <DebtIssuerCode WDI_DebtIssuerName="NBFC" WDI_DebtIssuerCode="NBFC"/>
+    <DebtIssuerCode WDI_DebtIssuerName="PSU" WDI_DebtIssuerCode="PSU"/>
+    <DebtIssuerCode WDI_DebtIssuerName="State Govt" WDI_DebtIssuerCode="SGovt"/>   
+  </WerpDebtIssuer>
+  
+  <WerpEquityTransactionType>
+    <EquityTransactionType  ETT_TransactionCode="Buy" ETT_TransactionType="Buy"/>
+    <EquityTransactionType  ETT_TransactionCode="Sell" ETT_TransactionType="Sell"/>
+  </WerpEquityTransactionType>
+  
+  <WerpFiscalYear>
+    <FiscalYear WFY_FiscalYearCode="0102" WFY_FiscalYear="2001-2002"/>
+    <FiscalYear WFY_FiscalYearCode="0203" WFY_FiscalYear="2002-2003"/>
+    <FiscalYear WFY_FiscalYearCode="0304" WFY_FiscalYear="2003-2004"/>
+    <FiscalYear WFY_FiscalYearCode="0405" WFY_FiscalYear="2004-2005"/>
+    <FiscalYear WFY_FiscalYearCode="0506" WFY_FiscalYear="2005-2006"/>
+    <FiscalYear WFY_FiscalYearCode="0607" WFY_FiscalYear="2006-2007"/>
+    <FiscalYear WFY_FiscalYearCode="0708" WFY_FiscalYear="2007-2008"/>
+    <FiscalYear WFY_FiscalYearCode="0809" WFY_FiscalYear="2008-2009"/>
+    <FiscalYear WFY_FiscalYearCode="0910" WFY_FiscalYear="2009-2010"/>
+  </WerpFiscalYear>
+  
+  <WerpFrequency>
+    <Frequency  WF_FrequencyCode="Daily" WF_Frequency="Daily"/>
+    <Frequency  WF_FrequencyCode="Fort" WF_Frequency="Fortnightly"/>
+    <Frequency  WF_FrequencyCode="HYear" WF_Frequency="Half Yearly"/>
+    <Frequency  WF_FrequencyCode="Mon" WF_Frequency="Monthly"/>
+    <Frequency  WF_FrequencyCode="Quat" WF_Frequency="Quaterly"/>  
+    <Frequency  WF_FrequencyCode="Week" WF_Frequency="Weekly"/>
+    <Frequency  WF_FrequencyCode="Year" WF_Frequency="Yearly"/>
+    <Frequency  WF_FrequencyCode="AtMat" WF_Frequency="At Maturity"/>
+  </WerpFrequency>
+  
+  <WerpInterestBasis>
+    <InterestBasis WIB_InterestBasisCode="SI" WIB_InterestBasis="Simple Interest"/>
+    <InterestBasis WIB_InterestBasisCode="CI" WIB_InterestBasis="Compound Interest" />
+  </WerpInterestBasis>
+  
+  <WerpInvestmentCategory>
+    <InvestmentCategory IC_InvestmentCategoryCode="Commercial" IC_InvestmentCategoryName="Commercial" IM_InvestmentCode="RealEstate" />
+    <InvestmentCategory IC_InvestmentCategoryCode="DebtMF" IC_InvestmentCategoryName="Debt MF" IM_InvestmentCode="Debt"/>
+    <InvestmentCategory IC_InvestmentCategoryCode="EquityMF" IC_InvestmentCategoryName="Equity MF" IM_InvestmentCode="Equity"/>
+    <InvestmentCategory IC_InvestmentCategoryCode="FixedInterest" IC_InvestmentCategoryName="Fixed Interest" IM_InvestmentCode="Debt"/>
+    <InvestmentCategory IC_InvestmentCategoryCode="HybridInsurance" IC_InvestmentCategoryName="Hybrid Insurance" IM_InvestmentCode="Hybrid"/>
+    <InvestmentCategory IC_InvestmentCategoryCode="HybridMF" IC_InvestmentCategoryName="Hybrid MF" IM_InvestmentCode="Hybrid"/>
+    <InvestmentCategory IC_InvestmentCategoryCode="MarketBased" IC_InvestmentCategoryName="Market Based" IM_InvestmentCode=""/>
+    <InvestmentCategory IC_InvestmentCategoryCode="Stock" IC_InvestmentCategoryName="Stock" IM_InvestmentCode="Equity"/>  
+  </WerpInvestmentCategory>
+  
+  <WerpInvestmentClass>
+    <InvestmentClass IM_InvestmentCode="Collectibles" IM_InvestmentName="Collectibles"/>
+    <InvestmentClass IM_InvestmentCode="Debt" IM_InvestmentName="Debt"/>
+    <InvestmentClass IM_InvestmentCode="Equity" IM_InvestmentName="Equity"/>
+    <InvestmentClass IM_InvestmentCode="Gem" IM_InvestmentName="Gems And Jewellery"/>
+    <InvestmentClass IM_InvestmentCode="Hybrid" IM_InvestmentName="Hybrid"/>
+    <InvestmentClass IM_InvestmentCode="Insurance" IM_InvestmentName="Insurance"/>
+    <InvestmentClass IM_InvestmentCode="Personal" IM_InvestmentName="Personal Use"/>
+    <InvestmentClass IM_InvestmentCode="RealEstate" IM_InvestmentName="Real Estate"/>
+  </WerpInvestmentClass>
+  
+  <WerpMeasureCode>
+    <MeasureCode WMC_MeasureCode="G" WMC_Measure="Grams" WMC_AssetGroup="Gold"/>
+    <MeasureCode WMC_MeasureCode="KG" WMC_Measure="Kilograms" WMC_AssetGroup="Gold"/>
+    <MeasureCode WMC_MeasureCode="SF" WMC_Measure="SquareFeet" WMC_AssetGroup="Property"/>
+    <MeasureCode WMC_MeasureCode="Yard" WMC_Measure="Yard" WMC_AssetGroup="Property"/>
+    <MeasureCode WMC_MeasureCode="Ounce" WMC_Measure="Ounce" WMC_AssetGroup="Gold"/>
+    <MeasureCode WMC_MeasureCode="Acres" WMC_Measure="Acres" WMC_AssetGroup="Property"/>
+    <MeasureCode WMC_MeasureCode="Cent" WMC_Measure="Cent" WMC_AssetGroup="Property"/>
+  </WerpMeasureCode>
+  <WerpModeOfHolding>
+    <ModeOfHolding WMH_ModeOfHoldingCode="SO" WMH_ModeOfHolding="Self Only"/>
+    <ModeOfHolding WMH_ModeOfHoldingCode="ES" WMH_ModeOfHolding="Either or Survivor"/>
+    <ModeOfHolding WMH_ModeOfHoldingCode="FS" WMH_ModeOfHolding="Former or Survivor"/>
+    <ModeOfHolding WMH_ModeOfHoldingCode="AS" WMH_ModeOfHolding="Anyone or Survivor"/>
+    <ModeOfHolding WMH_ModeOfHoldingCode="J" WMH_ModeOfHolding="Jointly"/>
+    <ModeOfHolding WMH_ModeOfHoldingCode="Si" WMH_ModeOfHolding="Singly"/>
+    <ModeOfHolding WMH_ModeOfHoldingCode="Se" WMH_ModeOfHolding="Severaly"/>
+    <ModeOfHolding WMH_ModeOfHoldingCode="O" WMH_ModeOfHolding="Others"/>
+    <ModeOfHolding WMH_ModeOfHoldingCode="BR" WMH_ModeOfHolding="As Per Board Resolution"/>    	
+  </WerpModeOfHolding>
+  <WerpInsuranceIssuerCode>
+    <InsuranceIssuerCode Code="BAL" Name="Bajaj Allianz Life Insurance"/>
+    <InsuranceIssuerCode Code="BSL" Name="Birla Sun Life Insurance"/>
+    <InsuranceIssuerCode Code="HSL" Name="HDFC Standard Life Insurance"/>
+    <InsuranceIssuerCode Code="IPL" Name="ICICI Prudential Life Insurance"/>
+    <InsuranceIssuerCode Code="IVL" Name="ING Vysya Life Insurance"/>
+    <InsuranceIssuerCode Code="LIC" Name="Life Insurance Corporation of India"/>
+    <InsuranceIssuerCode Code="MNYL" Name="Max New York Life Insurance"/>
+    <InsuranceIssuerCode Code="MLI" Name="Met Life India Insurance"/>
+    <InsuranceIssuerCode Code="KML" Name="Kotak Mahindra Old Mutual Life Insurance"/>
+    <InsuranceIssuerCode Code="SBIL" Name="SBI Life Insurance"/>
+    <InsuranceIssuerCode Code="TAL" Name="Tata AIG Life Insurance"/>
+    <InsuranceIssuerCode Code="RL" Name="Reliance Life Insurance"/>
+    <InsuranceIssuerCode Code="AL" Name="Aviva Life Insurance Company India Limited"/>
+    <InsuranceIssuerCode Code="ShrL" Name="Sahara India Life Insurance Co, Ltd."/>
+    <InsuranceIssuerCode Code="SrmL" Name="Shriram Life Insurance Co, Ltd."/>
+    <InsuranceIssuerCode Code="BhL" Name="Bharti AXA Life Insurance Company Ltd."/>
+    <InsuranceIssuerCode Code="FGL" Name="Future Generali India Life Insurance"/>
+    <InsuranceIssuerCode Code="IFL" Name="IDBI Fortis Life Insurance"/>
+    <InsuranceIssuerCode Code="CHOL" Name="Canara HSBC Oriental Bank of Commerce Life Insurance"/>
+    <InsuranceIssuerCode Code="ARL" Name="Aegon Religare Life Insurance"/>
+    <InsuranceIssuerCode Code="DPL" Name="DLF Pramerica Life Insurance"/>
+    <InsuranceIssuerCode Code="SUDL" Name="Star Union Dai-Ichi Life Insurance"/>      	
+  </WerpInsuranceIssuerCode>
+</LookupTables>

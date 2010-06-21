@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{D183A3D8-5FD8-494B-B014-37F57B35E655}") = "WERPMFUploadTransactionNew", "WERPMFUploadTransactionNew\WERPMFUploadTransactionNew.dtproj", "{6216F68B-F4B9-4CD1-932F-B3E25652301D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6216F68B-F4B9-4CD1-932F-B3E25652301D}.Development|Default.ActiveCfg = Development
+		{6216F68B-F4B9-4CD1-932F-B3E25652301D}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

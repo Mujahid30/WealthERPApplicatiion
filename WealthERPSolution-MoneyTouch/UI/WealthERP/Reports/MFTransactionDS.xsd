@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MFTransactionDS" targetNamespace="http://tempuri.org/MFTransactionDS.xsd" xmlns:mstns="http://tempuri.org/MFTransactionDS.xsd" xmlns="http://tempuri.org/MFTransactionDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="MFTransactionDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="MFTransactionDS" msprop:Generator_DataSetName="MFTransactionDS" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="CustomerMutualFundTransactions" msprop:Generator_UserTableName="CustomerMutualFundTransactions" msprop:Generator_RowDeletedName="CustomerMutualFundTransactionsRowDeleted" msprop:Generator_TableClassName="CustomerMutualFundTransactionsDataTable" msprop:Generator_RowChangedName="CustomerMutualFundTransactionsRowChanged" msprop:Generator_RowClassName="CustomerMutualFundTransactionsRow" msprop:Generator_RowChangingName="CustomerMutualFundTransactionsRowChanging" msprop:Generator_RowEvArgName="CustomerMutualFundTransactionsRowChangeEvent" msprop:Generator_RowEvHandlerName="CustomerMutualFundTransactionsRowChangeEventHandler" msprop:Generator_TablePropName="CustomerMutualFundTransactions" msprop:Generator_TableVarName="tableCustomerMutualFundTransactions" msprop:Generator_RowDeletingName="CustomerMutualFundTransactionsRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CMFA_AccountID" msprop:Generator_UserColumnName="CMFA_AccountID" msprop:Generator_ColumnPropNameInRow="CMFA_AccountID" msprop:Generator_ColumnVarNameInTable="columnCMFA_AccountID" msprop:Generator_ColumnPropNameInTable="CMFA_AccountIDColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CMFT_TransactionDate" msprop:Generator_UserColumnName="CMFT_TransactionDate" msprop:Generator_ColumnPropNameInRow="CMFT_TransactionDate" msprop:Generator_ColumnVarNameInTable="columnCMFT_TransactionDate" msprop:Generator_ColumnPropNameInTable="CMFT_TransactionDateColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PASP_SchemePlanName" msprop:Generator_UserColumnName="PASP_SchemePlanName" msprop:Generator_ColumnPropNameInRow="PASP_SchemePlanName" msprop:Generator_ColumnVarNameInTable="columnPASP_SchemePlanName" msprop:Generator_ColumnPropNameInTable="PASP_SchemePlanNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CustomerName" msprop:Generator_UserColumnName="CustomerName" msprop:Generator_ColumnPropNameInRow="CustomerName" msprop:Generator_ColumnVarNameInTable="columnCustomerName" msprop:Generator_ColumnPropNameInTable="CustomerNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CMFA_AccountId" msprop:Generator_UserColumnName="CMFA_AccountId" msprop:Generator_ColumnPropNameInRow="CMFA_AccountId" msprop:Generator_ColumnVarNameInTable="columnCMFA_AccountId" msprop:Generator_ColumnPropNameInTable="CMFA_AccountIdColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PASP_SchemePlanCode" msprop:Generator_UserColumnName="PASP_SchemePlanCode" msprop:Generator_ColumnPropNameInRow="PASP_SchemePlanCode" msprop:Generator_ColumnVarNameInTable="columnPASP_SchemePlanCode" msprop:Generator_ColumnPropNameInTable="PASP_SchemePlanCodeColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="TranType" msprop:Generator_UserColumnName="TranType" msprop:Generator_ColumnPropNameInRow="TranType" msprop:Generator_ColumnVarNameInTable="columnTranType" msprop:Generator_ColumnPropNameInTable="TranTypeColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CMFT_Price" msprop:Generator_UserColumnName="CMFT_Price" msprop:Generator_ColumnPropNameInRow="CMFT_Price" msprop:Generator_ColumnVarNameInTable="columnCMFT_Price" msprop:Generator_ColumnPropNameInTable="CMFT_PriceColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="CMFT_Amount" msprop:Generator_UserColumnName="CMFT_Amount" msprop:Generator_ColumnPropNameInRow="CMFT_Amount" msprop:Generator_ColumnVarNameInTable="columnCMFT_Amount" msprop:Generator_ColumnPropNameInTable="CMFT_AmountColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="CMFT_Units" msprop:Generator_UserColumnName="CMFT_Units" msprop:Generator_ColumnPropNameInRow="CMFT_Units" msprop:Generator_ColumnVarNameInTable="columnCMFT_Units" msprop:Generator_ColumnPropNameInTable="CMFT_UnitsColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="CMFA_FolioNum" msprop:Generator_UserColumnName="CMFA_FolioNum" msprop:Generator_ColumnPropNameInRow="CMFA_FolioNum" msprop:Generator_ColumnVarNameInTable="columnCMFA_FolioNum" msprop:Generator_ColumnPropNameInTable="CMFA_FolioNumColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CustomerId" msprop:Generator_UserColumnName="CustomerId" msprop:Generator_ColumnPropNameInRow="CustomerId" msprop:Generator_ColumnVarNameInTable="columnCustomerId" msprop:Generator_ColumnPropNameInTable="CustomerIdColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PortfolioName" msprop:Generator_UserColumnName="PortfolioName" msprop:Generator_ColumnPropNameInRow="PortfolioName" msprop:Generator_ColumnVarNameInTable="columnPortfolioName" msprop:Generator_ColumnPropNameInTable="PortfolioNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PortfolioId" msprop:Generator_UserColumnName="PortfolioId" msprop:Generator_ColumnPropNameInRow="PortfolioId" msprop:Generator_ColumnVarNameInTable="columnPortfolioId" msprop:Generator_ColumnPropNameInTable="PortfolioIdColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Category" msprop:Generator_UserColumnName="Category" msprop:Generator_ColumnPropNameInRow="Category" msprop:Generator_ColumnVarNameInTable="columnCategory" msprop:Generator_ColumnPropNameInTable="CategoryColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

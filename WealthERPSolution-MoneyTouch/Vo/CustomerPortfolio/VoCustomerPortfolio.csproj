@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8250E435-88E6-4C95-824E-1BF111361708}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VoCustomerPortfolio</RootNamespace>
+    <AssemblyName>VoCustomerPortfolio</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\UI\WealthERP\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\UI\WealthERP\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdviserDailyLOGVo.cs" />
+    <Compile Include="AssetAssociationVo.cs" />
+    <Compile Include="BorrowerLoanEligilityVo.cs" />
+    <Compile Include="BorrowerOwnershipVo.cs" />
+    <Compile Include="CashAndSavingsVo.cs" />
+    <Compile Include="CollectiblesVo.cs" />
+    <Compile Include="CustomerAccountAssociationVo.cs" />
+    <Compile Include="CustomerAccountsVo.cs" />
+    <Compile Include="CustomerPortfolioVo.cs" />
+    <Compile Include="DematAccountVo.cs" />
+    <Compile Include="EditLogVo.cs" />
+    <Compile Include="EQPortfolioTransactionVo.cs" />
+    <Compile Include="EQPortfolioVo.cs" />
+    <Compile Include="EQSpeculativeVo.cs" />
+    <Compile Include="EQTransactionVo.cs" />
+    <Compile Include="EquityBrokerageVo.cs" />
+    <Compile Include="FixedIncomeVo.cs" />
+    <Compile Include="GeneralInsuranceVo.cs" />
+    <Compile Include="GoldVo.cs" />
+    <Compile Include="GovtSavingsVo.cs" />
+    <Compile Include="InsuranceULIPVo.cs" />
+    <Compile Include="InsuranceVo.cs" />
+    <Compile Include="LiabilitiesVo.cs" />
+    <Compile Include="LiabilityAssociateVo.cs" />
+    <Compile Include="LoanApplicationEntryVo.cs" />
+    <Compile Include="LoanClosureVo.cs" />
+    <Compile Include="LoanDisbursalVo.cs" />
+    <Compile Include="LoanEligibilityStatusVo.cs" />
+    <Compile Include="LoanProposalDocVo.cs" />
+    <Compile Include="LoanProposalStageLogVo.cs" />
+    <Compile Include="LoanProposalStageVo.cs" />
+    <Compile Include="LoanProposalVo.cs" />
+    <Compile Include="LoanSanctionVo.cs" />
+    <Compile Include="LoanSchemeInterestVo.cs" />
+    <Compile Include="MFPortfolioBuyTransactionVo.cs" />
+    <Compile Include="MFPortfolioDivPayoutTransactionVo.cs" />
+    <Compile Include="MFPortfolioSellTransactionVo.cs" />
+    <Compile Include="MFPortfolioTransactionVo.cs" />
+    <Compile Include="MFPortfolioVo.cs" />
+    <Compile Include="MFSystematicTransactionReportVo.cs" />
+    <Compile Include="MFSystematicTransactionVo.cs" />
+    <Compile Include="MFSystematicVo.cs" />
+    <Compile Include="MFTransactionVo.cs" />
+    <Compile Include="MoneyBackEpisodeVo.cs" />
+    <Compile Include="OtherInvestmentVo.cs" />
+    <Compile Include="PensionAndGratuitiesVo.cs" />
+    <Compile Include="PersonalVo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyVo.cs" />
+    <Compile Include="RealEstateVo.cs" />
+    <Compile Include="SchemeDetailsVo.cs" />
+    <Compile Include="SchemeInterestRateVo.cs" />
+    <Compile Include="SystematicSetupVo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
