@@ -163,7 +163,7 @@ namespace WealthERP.Advisor
             {
                 SessionBo.CheckSession();
                 advisorVo = (AdvisorVo)Session["advisorVo"];
-                userVo = (UserVo)Session["UserVo"];
+                userVo = (UserVo)Session["iffUserVo"];
                 LOBId = Session["LOBId"].ToString();
                 cvMFExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
                 cvInsExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
