@@ -13,10 +13,22 @@ namespace WealthERP.UserManagement
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            if (Session["role"] != null)
+            {
+                if (Session["role"].ToString() == "SUPER_ADMIN")
+                {
+                    TreeNode parentNode = new TreeNode();
+                    parentNode = TreeView1.FindNode("Roles");
+                    TreeNode tnSuperAdmin = new TreeNode("SuperAdmin", "SuperAdmin");
+                    parentNode.ChildNodes.AddAt(0, tnSuperAdmin);
+
+                }
+            }
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
+            
             if (TreeView1.SelectedNode.Value == "Advisor")
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFAAdminMainDashboard','login');", true);
@@ -24,6 +36,10 @@ namespace WealthERP.UserManagement
             else if (TreeView1.SelectedNode.Value == "RM")
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "SuperAdmin")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
             }
         }
     }
