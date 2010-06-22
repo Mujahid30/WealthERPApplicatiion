@@ -176,7 +176,7 @@
         </td>
         <td>
             <asp:RadioButtonList ID="rdoFloatingRate" runat="server" RepeatDirection="Horizontal"
-                AutoPostBack="true" OnSelectedIndexChanged="rdoFloatingRate_SelectedIndexChanged">
+                AutoPostBack="true" OnSelectedIndexChanged="rdoFloatingRate_SelectedIndexChanged" CssClass="cmbField">
                 <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                 <asp:ListItem Text="No" Value="0" Selected="True"></asp:ListItem>
             </asp:RadioButtonList>
