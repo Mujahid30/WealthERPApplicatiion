@@ -502,7 +502,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getAdvisorCmd, "@A_AdviserId", DbType.Int32, advisorId);
                 db.AddInParameter(getAdvisorCmd, "@CurrentPage", DbType.Int32, currentPage);
                 db.AddInParameter(getAdvisorCmd, "@SortOrder", DbType.String, sortOrder);
-                db.AddInParameter(getAdvisorCmd, "@nameSrch", DbType.String, nameSrch);
+                //db.AddInParameter(getAdvisorCmd, "@nameSrch", DbType.String, nameSrch);
                 getAdvisorDs = db.ExecuteDataSet(getAdvisorCmd);
                 Count = Int32.Parse(getAdvisorDs.Tables[1].Rows[0][0].ToString());
                 if (getAdvisorDs.Tables[0].Rows.Count > 0)
