@@ -752,6 +752,7 @@ namespace WealthERP.SuperAdmin
                 {
                     Ids = (List<int>)Session["IDs"];
                     userVo = userBo.GetUserDetails(Ids[0]);
+                    Session["iffUserVo"] = userVo;
                     Session["RegistrationMailSent"] = null;                    
                     bool isEmailSent = SendMail(userVo);
                     Session["RegistrationMailSent"] = isEmailSent;
