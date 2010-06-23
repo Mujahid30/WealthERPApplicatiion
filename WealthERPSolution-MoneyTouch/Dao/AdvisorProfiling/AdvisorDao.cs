@@ -67,8 +67,8 @@ namespace DaoAdvisorProfiling
                 //db.AddInParameter(createCompleteAdvisorCmd, "@A_ContactPersonLastName", DbType.String, advisorVo.ContactPersonLastName);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_ContactPersonMobile", DbType.Int64, advisorVo.MobileNumber);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_IsMultiBranch", DbType.Int32, advisorVo.MultiBranch);
-                 db.AddInParameter(createCompleteAdvisorCmd, "@A_IsActive", DbType.Int16, advisorVo.IsActive);
-                 db.AddInParameter(createCompleteAdvisorCmd, "@A_ActivationDate", DbType.DateTime, advisorVo.ActivationDate);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_IsActive", DbType.Int16, advisorVo.IsActive);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_ActivationDate", DbType.DateTime, advisorVo.ActivationDate);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_DeactivateDate", DbType.DateTime, advisorVo.DeactivationDate);
                 db.AddInParameter(createCompleteAdvisorCmd, "@XAC_AdviserCategoryCode", DbType.String, advisorVo.Category);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_IsAssociateModel", DbType.Int32, advisorVo.Associates);
@@ -252,7 +252,7 @@ namespace DaoAdvisorProfiling
         public List<CustomerVo> GetAdviserCustomersForSMS(int adviserId, string namefilter)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
-            CustomerVo customerVo=new CustomerVo();
+            CustomerVo customerVo = new CustomerVo();
             Database db;
             DbCommand getAdviserCustomersForSMSCmd;
             DataSet getCustomerDs;
@@ -262,7 +262,7 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdviserCustomersForSMSCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerForSMS");
                 db.AddInParameter(getAdviserCustomersForSMSCmd, "@A_AdviserId", DbType.Int32, adviserId);
-                if(namefilter!="")
+                if (namefilter != "")
                     db.AddInParameter(getAdviserCustomersForSMSCmd, "@namefilter", DbType.String, namefilter);
                 else
                     db.AddInParameter(getAdviserCustomersForSMSCmd, "@namefilter", DbType.String, DBNull.Value);
@@ -483,7 +483,7 @@ namespace DaoAdvisorProfiling
                 GetAdviserSubscriptionDetailsCmd = db.GetStoredProcCommand("SP_GetAdviserSubscriptionDetails");
                 db.AddInParameter(GetAdviserSubscriptionDetailsCmd, "@A_AdviserId", DbType.Int32, adviserId);
 
-                dsAdviserSubscriptionDetails = db.ExecuteDataSet(GetAdviserSubscriptionDetailsCmd);            
+                dsAdviserSubscriptionDetails = db.ExecuteDataSet(GetAdviserSubscriptionDetailsCmd);
 
 
             }
@@ -505,7 +505,7 @@ namespace DaoAdvisorProfiling
                 throw exBase;
             }
             return dsAdviserSubscriptionDetails;
-        
+
         }
 
         public bool AddToAdviserSMSLog(SMSVo smsVo, int adviserId, string smsType)
@@ -1331,9 +1331,9 @@ namespace DaoAdvisorProfiling
                     if (dr["A_Phone2Number"] != DBNull.Value && dr["A_Phone2Number"].ToString() != string.Empty)
                         advisorVo.Phone2Number = int.Parse(dr["A_Phone2Number"].ToString());
                     if (dr["A_PinCode"] != DBNull.Value)
-                    advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
+                        advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
                     if (dr["A_State"] != DBNull.Value)
-                    advisorVo.State = dr["A_State"].ToString();
+                        advisorVo.State = dr["A_State"].ToString();
                     if (dr["A_AdviserLogo"] != DBNull.Value)
                         advisorVo.LogoPath = dr["A_AdviserLogo"].ToString();
                     if (dr["XAC_AdviserCategory"] != null && dr["XAC_AdviserCategory"].ToString() != "")
@@ -1344,7 +1344,7 @@ namespace DaoAdvisorProfiling
                     advisorVo.Password = dr["U_Password"].ToString();
                     advisorVo.Email = dr["A_Email"].ToString();
                     advisorVo.IsActive = Int16.Parse(dr["A_IsActive"].ToString());
-                    if(dr["A_ActivationDate"] != null && dr["A_ActivationDate"].ToString() != "")
+                    if (dr["A_ActivationDate"] != null && dr["A_ActivationDate"].ToString() != "")
                         advisorVo.ActivationDate = DateTime.Parse(dr["A_ActivationDate"].ToString());
                     if (dr["A_DeactivateDate"] != null && dr["A_DeactivateDate"].ToString() != "")
                         advisorVo.DeactivationDate = DateTime.Parse(dr["A_DeactivateDate"].ToString());
@@ -1457,7 +1457,7 @@ namespace DaoAdvisorProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetXMLAdvisorCategorycmd = db.GetStoredProcCommand("SP_GetXMLAdvisorCategory");   
+                GetXMLAdvisorCategorycmd = db.GetStoredProcCommand("SP_GetXMLAdvisorCategory");
                 dsGetXMLAdvisorCategory = db.ExecuteDataSet(GetXMLAdvisorCategorycmd);
 
 
@@ -1486,13 +1486,13 @@ namespace DaoAdvisorProfiling
         public void UpdateCompleteAdviser(UserVo userVo, AdvisorVo advisorVo, RMVo rmVo)
         {
             Database db;
-            DbCommand createCompleteAdvisorCmd;           
-           
+            DbCommand createCompleteAdvisorCmd;
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCompleteAdvisorCmd = db.GetStoredProcCommand("SP_UpdateCompleteAdviser");
-                db.AddInParameter(createCompleteAdvisorCmd, "@U_Password", DbType.String, userVo.Password);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@U_Password", DbType.String, userVo.Password);
                 db.AddInParameter(createCompleteAdvisorCmd, "@U_FirstName ", DbType.String, userVo.FirstName);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@U_MiddleName", DbType.String, userVo.MiddleName);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@U_Lastname", DbType.String, userVo.LastName);
@@ -1554,9 +1554,9 @@ namespace DaoAdvisorProfiling
                 //db.AddInParameter(createCompleteAdvisorCmd, "@AR_CTC", DbType.Double, 0);                             
 
                 db.AddInParameter(createCompleteAdvisorCmd, "@U_UserId", DbType.Int32, userVo.UserId);
-                db.AddInParameter(createCompleteAdvisorCmd, "@AR_RMId", DbType.Int32,rmVo.RMId);
+                db.AddInParameter(createCompleteAdvisorCmd, "@AR_RMId", DbType.Int32, rmVo.RMId);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_AdviserId", DbType.Int32, advisorVo.advisorId);
-                db.ExecuteNonQuery(createCompleteAdvisorCmd);                
+                db.ExecuteNonQuery(createCompleteAdvisorCmd);
 
             }
 
@@ -1578,7 +1578,7 @@ namespace DaoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
 
-            }            
+            }
         }
 
         public List<AdvisorLOBVo> GetAdvisorLOBs(int advisorId)
