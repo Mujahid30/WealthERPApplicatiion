@@ -208,25 +208,27 @@ namespace DaoAdvisorProfiling
 
                 if (db.ExecuteDataSet(getBranchAssociationCmd).Tables[0].Rows.Count > 0)
                     ds = db.ExecuteDataSet(getBranchAssociationCmd);
-
-                if (ds.Tables[1].Rows.Count > 0)
-                    Count = Int32.Parse(ds.Tables[1].Rows[0]["CNT"].ToString());
-
-                if (ds.Tables[2].Rows.Count > 0)
+                if (ds != null)
                 {
-                    foreach (DataRow dr in ds.Tables[2].Rows)
-                    {
-                        genDictBranch.Add(dr["BranchName"].ToString(), dr["BranchName"].ToString());
-                    }
-                }
+                    if (ds.Tables[1].Rows.Count > 0)
+                        Count = Int32.Parse(ds.Tables[1].Rows[0]["CNT"].ToString());
 
-                if (ds.Tables[3].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in ds.Tables[3].Rows)
+                    if (ds.Tables[2].Rows.Count > 0)
                     {
-                        if (dr["RMName"].ToString().Trim() != "")
+                        foreach (DataRow dr in ds.Tables[2].Rows)
                         {
-                            genDictRM.Add(dr["RMName"].ToString(), dr["RMName"].ToString());
+                            genDictBranch.Add(dr["BranchName"].ToString(), dr["BranchName"].ToString());
+                        }
+                    }
+
+                    if (ds.Tables[3].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in ds.Tables[3].Rows)
+                        {
+                            if (dr["RMName"].ToString().Trim() != "")
+                            {
+                                genDictRM.Add(dr["RMName"].ToString(), dr["RMName"].ToString());
+                            }
                         }
                     }
                 }
