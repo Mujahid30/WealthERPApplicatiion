@@ -36,6 +36,10 @@ namespace WealthERP.UserManagement
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
             }
+            else if (TreeView1.SelectedNode.Value == "SuperAdmin")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
+            }
         }
     }
 }
