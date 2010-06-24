@@ -31,16 +31,20 @@ namespace WealthERP.UserManagement
             
             if (TreeView1.SelectedNode.Value == "Advisor")
             {
+                Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFAAdminMainDashboard','login');", true);
             }
             else if (TreeView1.SelectedNode.Value == "RM")
             {
+                Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
             }
             else if (TreeView1.SelectedNode.Value == "SuperAdmin")
             {
                 Session["userVo"] = Session["SuperAdminRetain"];
+                Session.Remove("advisorVo");
                 Session["refreshTheme"] = true;
+                
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
                 
             }
