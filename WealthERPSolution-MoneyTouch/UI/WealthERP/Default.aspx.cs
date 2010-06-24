@@ -33,7 +33,7 @@ namespace WealthERP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            UserVo userVo = new UserVo();
+           UserVo userVo = new UserVo();
             RMVo rmVo = new RMVo();
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             try
