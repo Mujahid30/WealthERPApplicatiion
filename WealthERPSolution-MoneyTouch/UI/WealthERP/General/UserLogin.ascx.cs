@@ -276,6 +276,7 @@ namespace WealthERP.General
                 if (userVo != null)
                 {
                     Session["UserVo"] = userVo;
+                    Session["SuperAdminRetain"] = userVo;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFF');", true);
                     if (userVo.theme != null)
                     {
