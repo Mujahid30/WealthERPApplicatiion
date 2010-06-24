@@ -210,10 +210,10 @@ namespace WealthERP.Advisor
             //{
             //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','login');", true);
             //}
-            else if (TreeView1.SelectedNode.Value.ToString() == "Set Theme")
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
-            }
+            //else if (TreeView1.SelectedNode.Value.ToString() == "Set Theme")
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
+            //}
             else if (TreeView1.SelectedNode.Value.ToString() == "LeadManagement")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LeadManagement','login');", true);

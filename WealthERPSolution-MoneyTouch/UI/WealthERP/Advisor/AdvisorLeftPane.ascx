@@ -55,7 +55,7 @@
                             <asp:TreeNode Text="Preferences" Value="Preferences">
                                 <asp:TreeNode Text="Setup Associate Category" Value="SetupAssociateCategory"></asp:TreeNode>
                                 <asp:TreeNode Text=" Setup Advisor Staff SMTP" Value="AdviserStaffSMTP"></asp:TreeNode>
-                                <asp:TreeNode Text="Set Theme" Value="Set Theme" />
+                                <%--<asp:TreeNode Text="Set Theme" Value="Set Theme" />--%>
                             </asp:TreeNode>
                             <asp:TreeNode Text="LOB" Value="LOB">
                                 <%--<asp:TreeNode Text="Add LOB" Value="Add LOB"></asp:TreeNode>--%>
