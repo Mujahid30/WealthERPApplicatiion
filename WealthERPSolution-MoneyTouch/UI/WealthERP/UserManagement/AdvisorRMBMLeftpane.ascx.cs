@@ -68,6 +68,7 @@ namespace WealthERP.UserManagement
             else if (TreeView1.SelectedNode.Value == "SuperAdmin")
             {
                 Session["userVo"] = Session["SuperAdminRetain"];
+                Session.Remove("advisorVo");
                 Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
             }
