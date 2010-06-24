@@ -13,6 +13,17 @@ namespace WealthERP.UserManagement
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            if (Session["role"] != null)
+            {
+                if (Session["role"].ToString() == "SUPER_ADMIN")
+                {
+                    TreeNode parentNode = new TreeNode();
+                    parentNode = TreeView1.FindNode("Roles");
+                    TreeNode tnSuperAdmin = new TreeNode("SuperAdmin", "SuperAdmin");
+                    parentNode.ChildNodes.AddAt(0, tnSuperAdmin);
+
+                }
+            }
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
@@ -24,6 +35,10 @@ namespace WealthERP.UserManagement
             else if (TreeView1.SelectedNode.Value == "Branch Manager")
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('BMDashBoard','login');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "SuperAdmin")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
             }
         }
     }
