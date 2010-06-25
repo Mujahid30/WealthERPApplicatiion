@@ -31,38 +31,58 @@ namespace WealthERP.General
             string strNodeValue = null;
             try
             {
-                if (TreeView1.SelectedNode.Value.ToString() == "Home")
+                if (Session["role"] != null)
                 {
-                    roleList = userBo.GetUserRoles(userVo.UserId);
-                    count = roleList.Count;
-                    if (count == 3)
+                    if (Session["role"].ToString() == "SUPER_ADMIN")
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
-                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFAAdminDashboard','login','" + UserName + "','" + sourcePath + "');", true);
-                    }
-                    else if (count == 2)
-                    {
-                        if (roleList.Contains("RM") && roleList.Contains("BM"))
-                        {
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
-                        }
-                        else if (roleList.Contains("RM") && roleList.Contains("Admin"))
-                        {
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
-                        }
+                        TreeNode tnHome = new TreeNode();
+                        TreeNode tnChangePassword = new TreeNode();
+                        TreeNode tnChangeLoginId = new TreeNode();
+                        tnHome=TreeView1.FindNode("Home");
+                        tnChangePassword = TreeView1.FindNode("Change Password");
+                        tnChangeLoginId = TreeView1.FindNode("Change Login Id");
+                        tnHome.SelectAction = TreeNodeSelectAction.None;
+                        tnChangePassword.SelectAction = TreeNodeSelectAction.None;
+                        tnChangeLoginId.SelectAction = TreeNodeSelectAction.None;
 
                     }
-                    else
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerIndividualDashboard','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Change Password")
+                else
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ChangePassword','none');", true);
+                    if (TreeView1.SelectedNode.Value.ToString() == "Home")
+                    {
+                        roleList = userBo.GetUserRoles(userVo.UserId);
+                        count = roleList.Count;
+                        if (count == 3)
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
+                            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFAAdminDashboard','login','" + UserName + "','" + sourcePath + "');", true);
+                        }
+                        else if (count == 2)
+                        {
+                            if (roleList.Contains("RM") && roleList.Contains("BM"))
+                            {
+                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
+                            }
+                            else if (roleList.Contains("RM") && roleList.Contains("Admin"))
+                            {
+                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
+                            }
+
+                        }
+                        else
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerIndividualDashboard','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value.ToString() == "Change Password")
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ChangePassword','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value.ToString() == "Change Login Id")
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ChangeLoginId','none');", true);
+                    }
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Change Login Id")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ChangeLoginId','none');", true);
-                }
+                
             }
             catch (BaseApplicationException Ex)
             {
