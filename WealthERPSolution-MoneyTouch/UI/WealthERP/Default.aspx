@@ -99,8 +99,9 @@
                                     <br />
                                                                         
                                     <div style="position: absolute; right: 10px; z-index: 2500px;">
-                                        &nbsp; <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
-                                            class="LinkButtons" href="#">Settings</a>&nbsp;
+                                        &nbsp;
+                                        <asp:LinkButton ID="LinkButtonUserSettings" runat="server" Text="Settings" OnClientClick="javascript:loadcontrol('UserSettings','none'); return false;"
+                                            CssClass="LinkButtons"></asp:LinkButton>&nbsp;
                                         <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign In" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
                                             CssClass="LinkButtons"></asp:LinkButton>
                                         &nbsp;

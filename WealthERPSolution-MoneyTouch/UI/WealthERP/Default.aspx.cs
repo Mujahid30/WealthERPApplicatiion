@@ -42,7 +42,17 @@ namespace WealthERP
 
                 AdvisorLogo.Visible = true;
                 BranchLogo.Visible = true;
-
+                if (Session["role"] != null)
+                {
+                    if (Session["role"].ToString() == "SUPER_ADMIN")
+                    {
+                        LinkButtonUserSettings.Visible = false;
+                    }
+                    else
+                    {
+                        LinkButtonUserSettings.Visible = true;
+                    }
+                }
                 if (Session["userVo"] != null)
                 {
                     userVo = (UserVo)(Session["userVo"]);
