@@ -13,6 +13,9 @@ namespace WealthERP.UserManagement
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            TreeNode tnRoles = new TreeNode();
+            tnRoles = TreeView1.FindNode("Roles");
+            tnRoles.SelectAction = TreeNodeSelectAction.None;
             if (Session["role"] != null)
             {
                 if (Session["role"].ToString() == "SUPER_ADMIN")
@@ -21,7 +24,6 @@ namespace WealthERP.UserManagement
                     parentNode = TreeView1.FindNode("Roles");
                     TreeNode tnSuperAdmin = new TreeNode("SuperAdmin", "SuperAdmin");
                     parentNode.ChildNodes.AddAt(0, tnSuperAdmin);
-
                 }
             }
         }
