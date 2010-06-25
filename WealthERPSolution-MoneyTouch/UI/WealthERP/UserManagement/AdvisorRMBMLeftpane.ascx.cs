@@ -22,6 +22,9 @@ namespace WealthERP.UserManagement
         int bmBranchId;
         protected void Page_Load(object sender, EventArgs e)
         {
+            TreeNode tnRoles = new TreeNode();
+            tnRoles = TreeView1.FindNode("Roles");
+            tnRoles.SelectAction = TreeNodeSelectAction.None;
             SessionBo.CheckSession();
             userVo = (UserVo)Session["UserVo"];
             rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
@@ -35,7 +38,7 @@ namespace WealthERP.UserManagement
             {
                 advisorBranchVo = advisorBranchBo.GetBranch(bmBranchId);
                 Session["advisorBranchVo"] = advisorBranchVo;
-            }
+            }           
             if (Session["role"] != null)
             {
                 if (Session["role"].ToString() == "SUPER_ADMIN")
@@ -43,8 +46,7 @@ namespace WealthERP.UserManagement
                     TreeNode parentNode = new TreeNode();
                     parentNode = TreeView1.FindNode("Roles");
                     TreeNode tnSuperAdmin = new TreeNode("SuperAdmin", "SuperAdmin");
-                    parentNode.ChildNodes.AddAt(0, tnSuperAdmin);
-
+                    parentNode.ChildNodes.AddAt(0, tnSuperAdmin);                  
                 }
             }
           
