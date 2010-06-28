@@ -1,10 +1,31 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SuperAdminMessageBroadcast.ascx.cs"
     Inherits="WealthERP.SuperAdmin.SuperAdminMessageBroadcast" %>
 
-<script type="text/javascript" src="../Scripts/jquery-1.js"></script>
-
+<script type="text/javascript" src="../Scripts/jquery.js"></script>
+<script type="text/javascript" src="../Scripts/jquery.js"></script>
 <script type="text/javascript">
-   
+jQuery("#list19").jqGrid({
+   	url: 'books.xml',
+	datatype: "xml",
+   	colNames:["Author","Title", "Price", "Published Date"],
+   	colModel:[
+   		{name:"Author",index:"Author", width:120, xmlmap:"ItemAttributes>Author"},
+   		{name:"Title",index:"Title", width:180,xmlmap:"ItemAttributes>Title"},
+   		{name:"Price",index:"Manufacturer", width:100, align:"right",xmlmap:"ItemAttributes>Price", sorttype:"float"},
+   		{name:"DatePub",index:"ProductGroup", width:130,xmlmap:"ItemAttributes>DatePub",sorttype:"date"}
+   	],
+	height:250,
+   	rowNum:10,
+   	rowList:[10,20,30],
+    viewrecords: true,
+	loadonce: true,
+	xmlReader: {
+			root : "Items",
+			row: "Item",
+			repeatitems: false,
+			id: "ASIN"
+	},
+	caption: "XML Mapping example"   
 </script>
 
 <table width="100%">
@@ -60,3 +81,6 @@
         </td>
     </tr>
 </table>
+<table id="list19"></table>
+
+
