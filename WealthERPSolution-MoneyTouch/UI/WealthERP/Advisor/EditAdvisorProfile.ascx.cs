@@ -47,7 +47,7 @@ namespace WealthERP.Advisor
                 SessionBo.CheckSession();
                 string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
 
-                userVo = (UserVo)Session["UserVo"];
+                userVo = (UserVo)Session["userVo"];
                 advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
                 rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                 //RegularExpressionValidator3.Controls.Add(
