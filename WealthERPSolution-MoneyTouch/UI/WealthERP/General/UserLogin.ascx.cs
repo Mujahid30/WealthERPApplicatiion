@@ -161,6 +161,7 @@ namespace WealthERP.General
                                     {
                                         advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                         Session["advisorBranchVo"] = advisorBranchVo;
+
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                         Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                         //login user role Type
@@ -173,6 +174,7 @@ namespace WealthERP.General
                                     {
                                         Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
                                         //Session["advisorVo"]=advisorBo.GetAdvisor(
+                                        Session["S_CurrentUserRole"] = "RM";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                         sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
                                         Session[SessionContents.LogoPath] = sourcePath;
