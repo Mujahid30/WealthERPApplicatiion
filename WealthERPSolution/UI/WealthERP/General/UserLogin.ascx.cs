@@ -195,6 +195,8 @@ namespace WealthERP.General
                                     sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
                                     Session[SessionContents.LogoPath] = sourcePath;
                                     Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                    //login user role Type Issue Reported by Ajay on July 1 2010
+                                    Session["S_CurrentUserRole"] = "RM";
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
 
                                 }
@@ -204,6 +206,8 @@ namespace WealthERP.General
                                     Session["advisorBranchVo"] = advisorBranchVo;
                                     branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                     Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                    //login user role Type Issue Reported by Ajay on July 1 2010
+                                    Session["S_CurrentUserRole"] = "BM";
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
 
                                 }
