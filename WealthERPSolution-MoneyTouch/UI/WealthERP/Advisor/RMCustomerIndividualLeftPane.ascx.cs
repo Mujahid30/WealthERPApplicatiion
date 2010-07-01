@@ -177,10 +177,12 @@ namespace WealthERP.Advisor
                 }
                 else if (TreeView1.SelectedNode.Value == "Proof")
                 {
+                    
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewCustomerProofs','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Proof")
                 {
+                    Session["FlagProof"] = 1;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProofsAdd','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Bank Details")
