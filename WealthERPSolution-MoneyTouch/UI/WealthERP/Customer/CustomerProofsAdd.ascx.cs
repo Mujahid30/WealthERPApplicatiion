@@ -153,6 +153,9 @@ namespace WealthERP.Customer
                         customerBo.SaveCustomerProofs(customerId, proofCode, rmId);
                     }
                 }
+                if (Session["FlagProof"] != null && int.Parse(Session["FlagProof"].ToString())==1)
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCustomerProofs','none');", true);
+                else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
             }
             catch (BaseApplicationException Ex)
