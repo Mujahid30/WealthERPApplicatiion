@@ -30,6 +30,7 @@ namespace WealthERP.Customer
             customerVo = (CustomerVo)Session["CustomerVo"];
             if (!IsPostBack)
             {
+                Session.Remove("FlagProof");
                 BindProofGrid();
             }
         }
