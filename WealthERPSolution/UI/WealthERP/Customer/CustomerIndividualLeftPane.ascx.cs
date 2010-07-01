@@ -237,6 +237,7 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Proof")
                 {
+                    Session["FlagProof"] = 1;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerProofsAdd','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Bank Details")
