@@ -179,7 +179,7 @@ namespace WealthERP
                         }
                         else
                         {
-                            if (rmVo.UserType == "RM")
+                            if (rmVo.RMRole == "RM")
                             {
                                 GeneralMenu.Style.Add("display", "none");
                                 AdvisorHeader.Style.Add("display", "none");
@@ -190,7 +190,7 @@ namespace WealthERP
                                 RMCLientHeaderNonIndividual.Style.Add("display", "none");
                                 BMHeader.Style.Add("display", "none");
                             }
-                            else if (rmVo.UserType == "Branch Man")
+                            else if (rmVo.RMRole == "Branch Man")
                             {
                                 GeneralMenu.Style.Add("display", "none");
                                 AdvisorHeader.Style.Add("display", "none");
