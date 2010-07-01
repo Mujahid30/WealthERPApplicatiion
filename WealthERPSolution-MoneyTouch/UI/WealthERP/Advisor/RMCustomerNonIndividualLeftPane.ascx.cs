@@ -159,6 +159,7 @@ namespace WealthERP.Advisor
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Proof")
                 {
+                    Session["FlagProof"] = 1;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerProofsAdd','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value.ToString() == "Group Accounts")
