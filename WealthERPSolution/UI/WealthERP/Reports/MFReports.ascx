@@ -206,7 +206,7 @@
         arr["CAPITAL_GAIN_DETAILS"] = "DATE_RANGE";
         var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
         selectedReport = dropdown.options[dropdown.selectedIndex].value
-
+                     
         DisplayDates(arr[selectedReport]);
 
     }
@@ -454,7 +454,8 @@
                 <tr>
                     <td>
                         <ajaxToolkit:TabContainer ID="tabViewAndEmailReports" runat="server" ActiveTabIndex="1"
-                            Width="100%" Style="visibility: visible" OnClientActiveTabChanged="OnChanged">
+                            Width="100%" Style="visibility: visible" 
+                            OnClientActiveTabChanged="OnChanged">
                             <ajaxToolkit:TabPanel ID="tabpnlViewReports" runat="server" HeaderText="View Reports"
                                 Width="100%">
                                 <HeaderTemplate>
@@ -464,17 +465,22 @@
                                     <table width="100%">
                                         <tr>
                                             <td class="style1">
-                                                <table width="100%" class="tblSection" cellpadding="10" border="0">
+                                                <table width="100%" class="tblSection" cellpadding="5" border="0">
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="3">
                                                             <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                                                 Text="Select Report Type "></asp:Label>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            <asp:Label ID="Label4" runat="server" CssClass="FieldName">Report Type:</asp:Label><asp:DropDownList
-                                                                ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">
+                                                        <td width="13%" align="right">
+                                                            <asp:Label ID="Label4" runat="server" Text="Report Type:" CssClass="FieldName"></asp:Label>
+                                                         </td>
+                                                        <td colspan="2" align="left" width="77%">
+                                                            <asp:DropDownList
+                                                                ID="ddlReportSubType" runat="server" CssClass="cmbField" 
+                                                                onChange="ChangeDates()" AutoPostBack="True"
+                                                                onselectedindexchanged="ddlReportSubType_SelectedIndexChanged">
                                                                 <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE" Selected="True"></asp:ListItem>
                                                                 <asp:ListItem Text="Portfolio Returns" Value="RETURNS_PORTFOLIO"></asp:ListItem>
                                                                 <asp:ListItem Text="Transaction Report" Value="TRANSACTION_REPORT"></asp:ListItem>
@@ -484,6 +490,23 @@
                                                                 <asp:ListItem Text="Capital Gain Details" Value="CAPITAL_GAIN_DETAILS"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </td>
+                                                    </tr>
+                                                    <tr id="trTranFilter1" runat="server">
+                                                    <td align="right" width="13%" runat="server"> 
+                                                    <asp:Label ID="lblsortby" Text="Sort by:" runat="server" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td align="left" width="77%" runat="server">
+                                                    <asp:RadioButton ID="rddate" runat="server" GroupName="Transation" Text="Date" CssClass="cmbField" />
+                                                    <asp:RadioButton ID="rdScheme" runat="server" GroupName="Transation" Text="Scheme/Folio" CssClass="cmbField" />
+                                                    </td>
+                                                    </tr>
+                                                    <tr id="trTranFilter2" runat="server">
+                                                    <td align="right" width="13%" runat="server"> 
+                                                    <asp:Label ID="lblFilterBy" Text="Filter by:" runat="server" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td colspan="2" align="left" width="77%" runat="server">
+                                                    <asp:DropDownList ID="ddlMFTransactionType" runat="server" CssClass="cmbField"></asp:DropDownList>
+                                                    </td>
                                                     </tr>
                                                 </table>
                                             </td>

@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using System.Text;
 using System.Web.UI;
 using VoReports;
+using BoReports;
 using CrystalDecisions.CrystalReports.Engine;
 
 namespace WealthERP.Reports
@@ -64,6 +65,9 @@ namespace WealthERP.Reports
                         txtEmailFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                         txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                     }
+                    //Transaction Subreport search invissible intitialy..
+                    trTranFilter1.Visible = false;
+                    trTranFilter2.Visible = false;
                     tabViewAndEmailReports.ActiveTabIndex = 0;
                 }
 
@@ -303,5 +307,34 @@ namespace WealthERP.Reports
             }
             return checkbox.ToString();
         }
+
+        protected void ddlReportSubType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlReportSubType.SelectedValue == "TRANSACTION_REPORT")
+            {
+                MFReportsBo mfReportBo = new MFReportsBo();
+                DataSet ds=new DataSet();
+                ds = mfReportBo.GetMFTransactionType();
+                trTranFilter1.Visible = true;
+                trTranFilter2.Visible = true;
+                ddlMFTransactionType.DataSource = ds;
+                ddlMFTransactionType.DataValueField = "TransCode";
+                ddlMFTransactionType.DataTextField = "TransName";
+                ddlMFTransactionType.DataBind();
+                ddlMFTransactionType.Items.Insert(0, new ListItem("ALL", "0"));
+                ddlMFTransactionType.SelectedIndex = 0;
+                rddate.Checked = true;
+            }
+            else 
+            {
+                if (trTranFilter1.Visible == true)
+                    trTranFilter1.Visible = false;
+                if (trTranFilter2.Visible == true)
+                    trTranFilter2.Visible = false;
+             }
+            
+        }
+
+
     }
 }
