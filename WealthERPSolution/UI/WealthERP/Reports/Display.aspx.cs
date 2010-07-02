@@ -623,7 +623,17 @@ namespace WealthERP.Reports
             {
                 mfReport.SubType = Request.Form[ctrlPrefix + "ddlReportSubType"];
                 mfReport.PortfolioIds = GetPortfolios();
-
+                //MF Transaction report Fiter Creiteria 
+                mfReport.FilterBy= Request.Form[ctrlPrefix + "ddlMFTransactionType"];
+                if (Request.Form[ctrlPrefix + "Transation"] == "rdScheme")
+                 {
+                    mfReport.OrderBy = "Scheme";
+                 }
+                 else
+                 {
+                    mfReport.OrderBy = "Date";
+                 }
+                
                 mfReport.FromDate = dtFrom;
                 mfReport.ToDate = dtTo;
 
@@ -631,6 +641,7 @@ namespace WealthERP.Reports
                 {
                     mfReport.CustomerIds = Request.Form["ctrl_MFReports$hdnCustomerId1"];
                     mfReport.GroupHead = Request.Form["ctrl_MFReports$hdnCustomerId1"];
+                    
                 }
 
                 //if (!String.IsNullOrEmpty(Request.Form[ctrlPrefix + "TabContainer1$TabPanel1$txtParentCustomerId"]))
