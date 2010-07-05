@@ -11,7 +11,7 @@ namespace WealthERP.General
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Theme"] != "PCG")
+            if (Session["Theme"].ToString() != "PCG")
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "window.parent.location.href = window.parent.location.href;", true);
             }
