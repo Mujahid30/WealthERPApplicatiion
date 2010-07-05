@@ -32,16 +32,19 @@ namespace WealthERP.UserManagement
         {
             if (TreeView1.SelectedNode.Value == "Branch Manager")
             {
+                Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('BMDashBoard','login');", true);
             }
             else if (TreeView1.SelectedNode.Value == "RM")
             {
+                Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
             }
             else if (TreeView1.SelectedNode.Value == "SuperAdmin")
             {
                 Session["userVo"] = Session["SuperAdminRetain"];
                 Session.Remove("advisorVo");
+                Session.Remove("rmVo");
                 Session["refreshTheme"] = true;
 
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
