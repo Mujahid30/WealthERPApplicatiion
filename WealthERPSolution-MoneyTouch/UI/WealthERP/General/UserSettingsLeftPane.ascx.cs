@@ -70,6 +70,14 @@ namespace WealthERP.General
                             }
 
                         }
+                        else if (count == 1)
+                        {
+                            if (roleList.Contains("RM"))
+                            {
+                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
+                            }
+                        }
+
                         else
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerIndividualDashboard','none');", true);
                     }
