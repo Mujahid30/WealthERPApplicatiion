@@ -46,18 +46,17 @@ namespace WealthERP
                 {
                     if (Session["role"].ToString() == "SUPER_ADMIN")
                     {
-                        LinkButtonUserSettings.Visible = false;
+                        LinkButtonUserSettings.Style.Add("display", "none");
                     }
                     else
                     {
-                        LinkButtonUserSettings.Visible = true;
+                        LinkButtonUserSettings.Style.Add("display", "block");
                     }
                 }
                 if (Session["userVo"] != null)
                 {
                     userVo = (UserVo)(Session["userVo"]);
-                    rmVo = (RMVo)(Session[SessionContents.RmVo]);
-
+                    rmVo = (RMVo)(Session[SessionContents.RmVo]);                    
                     lblUserName.Text = "Welcome " + " " + userVo.FirstName + " " + userVo.LastName;
                     lblSignOut.Text = "SignOut";
                     LinkButtonSignIn.Text = "";
@@ -85,6 +84,8 @@ namespace WealthERP
                         BranchLogo.Src = branchLogoPath;
 
                     }
+                    
+                    
                     if (Session["advisorVo"] != null)
                     {
                         //GeneralMenu.Visible = false;
@@ -159,7 +160,7 @@ namespace WealthERP
                                 RMHeader.Style.Add("display", "none");
                                 RMCLientHeaderIndividual.Style.Add("display", "none");
                                 RMCLientHeaderNonIndividual.Style.Add("display", "none");
-                                
+
                                 BMHeader.Style.Add("display", "none");
 
                                 CustomerVo customerVo = new CustomerVo();
@@ -168,7 +169,7 @@ namespace WealthERP
                                 if (customerVo.Type == "IND")
                                 {
                                     CustomerIndividualHeader.Style.Add("display", "block");
-                                    CustomerNonIndividualHeader.Style.Add("display", "none"); 
+                                    CustomerNonIndividualHeader.Style.Add("display", "none");
                                 }
                                 else if (customerVo.Type == "NIND")
                                 {
@@ -203,6 +204,41 @@ namespace WealthERP
                             }
                         }
                     }
+
+                    // Here we need to write a code for SuperAdmin
+
+                    if (Session["role"] != null)
+                    {
+                        if (Session["role"].ToString() == "SUPER_ADMIN")
+                        {
+
+                            GeneralMenu.Style.Add("display", "none");
+                            AdvisorHeader.Style.Add("display", "none");
+                            RMHeader.Style.Add("display", "none");
+                            CustomerIndividualHeader.Style.Add("display", "none");
+                            CustomerNonIndividualHeader.Style.Add("display", "none");
+                            RMCLientHeaderIndividual.Style.Add("display", "none");
+                            RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                            BMHeader.Style.Add("display", "none");
+                            GetHeaderDetails(rmVo, userVo);
+
+
+                        }
+                        if (Session["SuperAdmin_Status_Check"] != null)
+                        {
+                            if (Session["SuperAdmin_Status_Check"].ToString() == "1")
+                            {
+                                GeneralMenu.Style.Add("display", "none");
+                                AdvisorHeader.Style.Add("display", "none");
+                                RMHeader.Style.Add("display", "none");
+                                CustomerIndividualHeader.Style.Add("display", "none");
+                                CustomerNonIndividualHeader.Style.Add("display", "none");
+                                RMCLientHeaderIndividual.Style.Add("display", "none");
+                                RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                                BMHeader.Style.Add("display", "none");
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -230,6 +266,7 @@ namespace WealthERP
                 {
                     BranchLogo.Visible = false;
                 }
+               // Session.Remove("SuperAdmin_Status_Check");
             }
             catch (BaseApplicationException Ex)
             {
@@ -290,7 +327,7 @@ namespace WealthERP
 
             return CustType;
         }
-
+        # region junk
         //protected void GeneralHeaderMenu_MenuItemClick(object sender, MenuEventArgs e)
         //{
         //    if (GeneralHeaderMenu.SelectedValue.ToString() == "KnowldgeCenterHome")
@@ -467,5 +504,148 @@ namespace WealthERP
 
         //    }
         //}
+        # endregion
+        public void GetHeaderDetails(RMVo rmVo, UserVo userVo)
+        {
+            if (Session["advisorVo"] != null)
+            {
+                if (Session["SuperAdmin_Status_Check"].ToString() == "2")
+                {
+                    //GeneralMenu.Visible = false;
+                    //AdvisorHeader.Visible = true;
+                    GeneralMenu.Style.Add("display", "none");
+                    AdvisorHeader.Style.Add("display", "block");
+                    RMHeader.Style.Add("display", "none");
+                    CustomerIndividualHeader.Style.Add("display", "none");
+                    CustomerNonIndividualHeader.Style.Add("display", "none");
+                    RMCLientHeaderIndividual.Style.Add("display", "none");
+                    RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                    BMHeader.Style.Add("display", "none");
+                }
+
+            }
+            if (Session["CustomerVo"] != null && Session["rmVo"] == null)
+            {
+                //GeneralMenu.Visible = false;
+                //AdvisorHeader.Visible = true;
+                GeneralMenu.Style.Add("display", "none");
+                AdvisorHeader.Style.Add("display", "none");
+                RMHeader.Style.Add("display", "none");
+
+                CustomerVo customerVo = new CustomerVo();
+                customerVo = (CustomerVo)(Session["CustomerVo"]);
+
+                if (customerVo.Type == "IND")
+                {
+                    CustomerIndividualHeader.Style.Add("display", "block");
+                    CustomerNonIndividualHeader.Style.Add("display", "none");
+                }
+                else if (customerVo.Type == "NIND")
+                {
+                    CustomerIndividualHeader.Style.Add("display", "none");
+                    CustomerNonIndividualHeader.Style.Add("display", "block");
+                }
+
+                RMCLientHeaderIndividual.Style.Add("display", "none");
+                RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                BMHeader.Style.Add("display", "none");
+            }
+            if (Session["rmVo"] != null)
+            {
+                if (Session["CustomerVo"] != null)
+                {
+                    if (userVo.UserType != "Customer")
+                    {
+                        GeneralMenu.Style.Add("display", "none");
+                        AdvisorHeader.Style.Add("display", "none");
+                        RMHeader.Style.Add("display", "none");
+                        CustomerIndividualHeader.Style.Add("display", "none");
+                        CustomerNonIndividualHeader.Style.Add("display", "none");
+                        BMHeader.Style.Add("display", "none");
+
+                        CustomerVo customerVo = new CustomerVo();
+                        customerVo = (CustomerVo)(Session["CustomerVo"]);
+
+                        if (customerVo.Type == "IND")
+                        {
+                            RMCLientHeaderIndividual.Style.Add("display", "block");
+                            RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                        }
+                        else if (customerVo.Type == "NIND")
+                        {
+                            RMCLientHeaderIndividual.Style.Add("display", "none");
+                            RMCLientHeaderNonIndividual.Style.Add("display", "block");
+                        }
+                    }
+                    else
+                    {
+                        GeneralMenu.Style.Add("display", "none");
+                        AdvisorHeader.Style.Add("display", "none");
+                        RMHeader.Style.Add("display", "none");
+                        RMCLientHeaderIndividual.Style.Add("display", "none");
+                        RMCLientHeaderNonIndividual.Style.Add("display", "none");
+
+                        BMHeader.Style.Add("display", "none");
+
+                        CustomerVo customerVo = new CustomerVo();
+                        customerVo = (CustomerVo)(Session["CustomerVo"]);
+
+                        if (customerVo.Type == "IND")
+                        {
+                            CustomerIndividualHeader.Style.Add("display", "block");
+                            CustomerNonIndividualHeader.Style.Add("display", "none");
+                        }
+                        else if (customerVo.Type == "NIND")
+                        {
+                            CustomerIndividualHeader.Style.Add("display", "none");
+                            CustomerNonIndividualHeader.Style.Add("display", "block");
+                        }
+                    }
+                }
+                else
+                {
+                    if (rmVo != null)
+                    {
+                        if (rmVo.RMRole == "RM")
+                        {
+                            GeneralMenu.Style.Add("display", "none");
+                            AdvisorHeader.Style.Add("display", "none");
+                            RMHeader.Style.Add("display", "block");
+                            CustomerIndividualHeader.Style.Add("display", "none");
+                            CustomerNonIndividualHeader.Style.Add("display", "none");
+                            RMCLientHeaderIndividual.Style.Add("display", "none");
+                            RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                            BMHeader.Style.Add("display", "none");
+                        }
+                        else if (rmVo.RMRole == "Branch Man")
+                        {
+                            GeneralMenu.Style.Add("display", "none");
+                            AdvisorHeader.Style.Add("display", "none");
+                            RMHeader.Style.Add("display", "none");
+                            CustomerIndividualHeader.Style.Add("display", "none");
+                            CustomerNonIndividualHeader.Style.Add("display", "none");
+                            RMCLientHeaderIndividual.Style.Add("display", "none");
+                            RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                            BMHeader.Style.Add("display", "block");
+                        }
+                        else
+                        {
+                            if (Session["SuperAdmin_Status_Check"].ToString() == "3")
+                            {
+                                GeneralMenu.Style.Add("display", "none");
+                                AdvisorHeader.Style.Add("display", "none");
+                                RMHeader.Style.Add("display", "block");
+                                CustomerIndividualHeader.Style.Add("display", "none");
+                                CustomerNonIndividualHeader.Style.Add("display", "none");
+                                RMCLientHeaderIndividual.Style.Add("display", "none");
+                                RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                                BMHeader.Style.Add("display", "none");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
