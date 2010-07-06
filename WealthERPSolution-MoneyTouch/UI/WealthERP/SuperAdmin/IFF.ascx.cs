@@ -1004,6 +1004,7 @@ namespace WealthERP.SuperAdmin
                     branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                     Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                     Session["refreshTheme"] = true;
+                    Session["SuperAdmin_Status_Check"] = "1";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                     //login user role Type
                     Session["S_CurrentUserRole"] = "Admin";
@@ -1019,6 +1020,7 @@ namespace WealthERP.SuperAdmin
                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                         Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                         Session["refreshTheme"] = true;
+                        Session["SuperAdmin_Status_Check"] = "1";
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
                     }
                     else if (roleList.Contains("RM") && roleList.Contains("Admin"))
@@ -1030,6 +1032,7 @@ namespace WealthERP.SuperAdmin
                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                         Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                         Session["refreshTheme"] = true;
+                        Session["SuperAdmin_Status_Check"] = "1";
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                     }
                     else if (roleList.Contains("BM") && roleList.Contains("Admin"))

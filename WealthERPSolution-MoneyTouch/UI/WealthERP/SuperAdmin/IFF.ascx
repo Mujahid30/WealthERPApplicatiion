@@ -53,7 +53,7 @@
                                     OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
                                     <asp:ListItem>Select </asp:ListItem>
                                     <asp:ListItem Text="View Dashboard" Value="View Dashboard">View Dashboard  </asp:ListItem>
-                                    <asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>
+                                    <asp:ListItem Text="Edit profile" Value="Edit profile">View/Edit profile </asp:ListItem>
                                     <%--<asp:ListItem Text="User Management" Value="User Management">User Management</asp:ListItem>--%>
                                 </asp:DropDownList>
                             </ItemTemplate>
