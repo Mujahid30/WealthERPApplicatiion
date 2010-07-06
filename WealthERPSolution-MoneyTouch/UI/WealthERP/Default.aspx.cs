@@ -202,6 +202,17 @@ namespace WealthERP
                                 RMCLientHeaderNonIndividual.Style.Add("display", "none");
                                 BMHeader.Style.Add("display", "block");
                             }
+                            else
+                            {
+                                GeneralMenu.Style.Add("display", "none");
+                                AdvisorHeader.Style.Add("display", "none");
+                                RMHeader.Style.Add("display", "block");
+                                CustomerIndividualHeader.Style.Add("display", "none");
+                                CustomerNonIndividualHeader.Style.Add("display", "none");
+                                RMCLientHeaderIndividual.Style.Add("display", "none");
+                                RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                                BMHeader.Style.Add("display", "none");
+                            }
                         }
                     }
 
@@ -509,18 +520,21 @@ namespace WealthERP
         {
             if (Session["advisorVo"] != null)
             {
-                if (Session["SuperAdmin_Status_Check"].ToString() == "2")
+                if (Session["SuperAdmin_Status_Check"] != null)
                 {
-                    //GeneralMenu.Visible = false;
-                    //AdvisorHeader.Visible = true;
-                    GeneralMenu.Style.Add("display", "none");
-                    AdvisorHeader.Style.Add("display", "block");
-                    RMHeader.Style.Add("display", "none");
-                    CustomerIndividualHeader.Style.Add("display", "none");
-                    CustomerNonIndividualHeader.Style.Add("display", "none");
-                    RMCLientHeaderIndividual.Style.Add("display", "none");
-                    RMCLientHeaderNonIndividual.Style.Add("display", "none");
-                    BMHeader.Style.Add("display", "none");
+                    if (Session["SuperAdmin_Status_Check"].ToString() == "2")
+                    {
+                        //GeneralMenu.Visible = false;
+                        //AdvisorHeader.Visible = true;
+                        GeneralMenu.Style.Add("display", "none");
+                        AdvisorHeader.Style.Add("display", "block");
+                        RMHeader.Style.Add("display", "none");
+                        CustomerIndividualHeader.Style.Add("display", "none");
+                        CustomerNonIndividualHeader.Style.Add("display", "none");
+                        RMCLientHeaderIndividual.Style.Add("display", "none");
+                        RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                        BMHeader.Style.Add("display", "none");
+                    }
                 }
 
             }
