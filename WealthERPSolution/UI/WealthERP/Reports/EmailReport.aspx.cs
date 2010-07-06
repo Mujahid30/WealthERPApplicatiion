@@ -31,7 +31,7 @@ namespace WealthERP.Reports
         DateTime dtFrom = new DateTime();
         string ctrlPrefix = "ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$";
         public string isMail = "0";
-        
+        int CountReport = 0;
 
         MFReportVo mfReport = new MFReportVo();
         EquityReportVo equityReport = new EquityReportVo();
@@ -41,6 +41,7 @@ namespace WealthERP.Reports
         RMVo rmVo = null;
         CustomerVo customerVo;
         ReportType CurrentReportType;
+
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -78,6 +79,7 @@ namespace WealthERP.Reports
             {
                 if (Request.Form[ctrlPrefix + "chkMFSummary"] == "on")
                 {
+                    CountReport = CountReport + 1;
                     crmain = new ReportDocument();
                     GetReportParameters("CATEGORY_WISE");
                     DisplayReport(mfReport);
@@ -85,6 +87,7 @@ namespace WealthERP.Reports
                 }
                 if (Request.Form[ctrlPrefix + "chkPortfolioReturns"] == "on")
                 {
+                    CountReport = CountReport + 1;
                     crmain = new ReportDocument();
                     GetReportParameters("RETURNS_PORTFOLIO");
                     DisplayReport(mfReport);
@@ -92,6 +95,7 @@ namespace WealthERP.Reports
                 }
                 if (Request.Form[ctrlPrefix + "chkDividendDetail"] == "on")
                 {
+                    CountReport = CountReport + 1;
                     crmain = new ReportDocument();
                     GetReportParameters("DIVIDEND_STATEMENT");
                     DisplayReport(mfReport);
@@ -99,24 +103,28 @@ namespace WealthERP.Reports
                 }
                 if (Request.Form[ctrlPrefix + "chkTransactionReport"] == "on")
                 {
+                    CountReport = CountReport + 1;
                     crmain = new ReportDocument();
                     GetReportParameters("TRANSACTION_REPORT");
                     DisplayReport(mfReport);
                 }
                 if (Request.Form[ctrlPrefix + "chkDividendSummary"] == "on")
                 {
+                    CountReport = CountReport + 1;
                     crmain = new ReportDocument();
                     GetReportParameters("DIVIDEND_SUMMARY");
                     DisplayReport(mfReport);
                 }
                 if (Request.Form[ctrlPrefix + "chkCapitalGainDetails"] == "on")
                 {
+                    CountReport = CountReport + 1;
                     crmain = new ReportDocument();
                     GetReportParameters("CAPITAL_GAIN_DETAILS");
                     DisplayReport(mfReport);
                 }
                 if (Request.Form[ctrlPrefix + "chkCapitalGainSummary"] == "on")
                 {
+                    CountReport = CountReport + 1;
                     crmain = new ReportDocument();
                     GetReportParameters("CAPITAL_GAIN_SUMMARY");
                     DisplayReport(mfReport);
@@ -528,14 +536,67 @@ namespace WealthERP.Reports
         private string GetReportSubject(string reportType, DateTime start, DateTime end)
         {
             string subject = string.Empty;
-            if (CurrentReportType == ReportType.EquityReports)
-                subject = "Equity Report - ";
-            else if (CurrentReportType == ReportType.MFReports)
-                subject = "MF Report - ";
-            else if (CurrentReportType == ReportType.PortfolioReports)
-                subject = "Portfolio Report - ";
-            else if (CurrentReportType == ReportType.FinancialPlanning)
-                subject = "Financial Planning Report";
+            switch (CurrentReportType)
+            {
+                case ReportType.EquityReports:
+                    subject = "Equity Report - ";
+                    break;
+                case ReportType.MFReports:
+                    {
+                        //subject = "MF Report - ";
+                        if (CountReport==1)
+                        {
+                            switch (reportType)
+                            {
+                                case "CATEGORY_WISE":
+                                    subject = "Mutual Fund Summary Report - ";
+                                    break;
+                                case "RETURNS_PORTFOLIO":
+                                    subject = "Portfolio Returns - ";
+                                    break;
+                                case "TRANSACTION_REPORT":
+                                    subject = "Transaction Report - ";
+                                    break;
+                                case "DIVIDEND_STATEMENT":
+                                    subject = "Dividend Statement - ";
+                                    break;
+                                case "DIVIDEND_SUMMARY":
+                                    subject = "Dividend Summary - ";
+                                    break;
+                                case "CAPITAL_GAIN_SUMMARY":
+                                    subject = "Capital Gain Summary - ";
+                                    break;
+                                case "CAPITAL_GAIN_DETAILS":
+                                    subject = "Capital Gain Details - ";
+                                    break;
+                            }
+                        }
+                        else
+                            subject = "MF Report - ";
+                    }
+                    CountReport = 0;
+                    break;
+                case ReportType.PortfolioReports:
+                    subject = "Portfolio Report - ";
+                    break;
+                case ReportType.FinancialPlanning:
+                    subject = "Financial Planning Report";
+                    break;
+            }
+
+
+
+
+
+            //string subject = string.Empty;
+            //if (CurrentReportType == ReportType.EquityReports)
+            //    subject = "Equity Report - ";
+            //else if (CurrentReportType == ReportType.MFReports)
+            //    subject = "MF Report - ";
+            //else if (CurrentReportType == ReportType.PortfolioReports)
+            //    subject = "Portfolio Report - ";
+            //else if (CurrentReportType == ReportType.FinancialPlanning)
+            //    subject = "Financial Planning Report";
 
             if (start.CompareTo(end) == 0)
                 subject = subject + start.ToShortDateString();
