@@ -36,6 +36,7 @@ namespace WealthERP.UserManagement
             if (TreeView1.SelectedNode.Value == "Advisor")
             {
                 Session.Remove("customerVo");
+                Session.Remove("rmVo");
                 Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFAAdminMainDashboard','login');", true);
                 Session["SuperAdmin_Status_Check"] = "2";
