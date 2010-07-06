@@ -847,7 +847,7 @@ namespace WealthERP.Reports
 
             strMail.Append("Dear " + customerName + ",<br/>");
             strMail.Append("<br/>Please find attached " + subject + ".");
-            strMail.Append("<br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName);
+            strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo:" + rmVo.Mobile + "<br/>Ph:+" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber);
 
             return strMail.ToString();
 
