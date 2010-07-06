@@ -90,12 +90,16 @@ namespace WealthERP.SuperAdmin
                                 if (advisorVo.IsActive == 1)
                                 {
                                     ddlStatus.SelectedIndex = 0;
-                                    
+                                    Activation.Visible = true;
+                                    lblActivation.Visible = true;
+                                    //lblActivation.Style.Add("display", "block");
 
                                 }
                                 else
                                 {
                                     ddlStatus.SelectedIndex = 1;
+                                    Activation.Visible = false;
+                                    lblActivation.Visible = false;
                                     Deactivation.Visible = true;
                                     lblDeactivation.Visible = true;
                                     
@@ -147,6 +151,7 @@ namespace WealthERP.SuperAdmin
                                     {
                                         calExeDeactivationDate.SelectedDate = DateTime.Now;
                                     }
+
                                 }
                                 else
                                 {
@@ -189,6 +194,8 @@ namespace WealthERP.SuperAdmin
                         {
                             btnAddLOB.Visible = true;
                             btnSendLoginId.Visible = true;
+                            btnSubmit.Text = "Update";
+                            ddlStatus.Items[1].Enabled = true;
                             advisorVo = (AdvisorVo)Session["advisorVo"];
                             DataRepopulating();
                         }
@@ -196,6 +203,7 @@ namespace WealthERP.SuperAdmin
                         {
                             btnAddLOB.Visible = false;
                             btnSendLoginId.Visible = false;
+                            ddlStatus.Items[1].Enabled = false;
                         }
                         if (advisorVo != null)
                         {
@@ -528,6 +536,7 @@ namespace WealthERP.SuperAdmin
                 lblDeactivation.Visible = false;
                 Activation.Visible = true;
                 lblActivation.Visible = true;
+
             }
             else
             {

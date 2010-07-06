@@ -96,7 +96,7 @@
     </Services>
 </asp:ScriptManager>
 <div>
-    <asp:Label ID="lblIFFAdd" runat="server" Text="ADD IFF" CssClass="HeaderTextBig"></asp:Label>
+    <asp:Label ID="lblIFFAdd" runat="server" Text="Add IFF" CssClass="HeaderTextBig"></asp:Label>
     <hr />
 </div>
 <table width="100%">
@@ -133,7 +133,7 @@
                 ErrorMessage="Name Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
-            <asp:Label ID="lblContactPerson" Text="ContactPerson:" CssClass="FieldName" runat="server"></asp:Label>
+            <asp:Label ID="lblContactPerson" Text="Contact Person:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtContactPerson" CssClass="txtField" runat="server" Width="175px"></asp:TextBox>
@@ -391,7 +391,7 @@
             &nbsp;
         </td>
         <td>
-            <asp:Button ID="btnAddLOB" runat="server" Text="AddLob" CssClass="PCGMediumButton"
+            <asp:Button ID="btnAddLOB" runat="server" Text="Add Lob" CssClass="PCGMediumButton"
                 OnClick="btnAddLOB_Click" Width="112px" />
         </td>
         <td>
