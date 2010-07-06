@@ -806,7 +806,12 @@ namespace WealthERP.Reports
                 Session["hidCC"] = txtCC.Text;
                 Session["hidTo"] = txtTo.Text = cust.Email;
                 Session["hidSubject"] = txtSubject.Text = GetReportSubject(subType, fromDate, toDate);
-                Session["hidBody"] = txtBody.Text = GetReportBody(cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r","");
+                if (cust.Salutation == string.Empty || cust.Salutation == "")
+                {
+                    Session["hidBody"] = txtBody.Text = GetReportBody(cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
+ 
+                }
+                    Session["hidBody"] = txtBody.Text = GetReportBody(cust.Salutation + "." + " " +  cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r","");
 
             }
             else
