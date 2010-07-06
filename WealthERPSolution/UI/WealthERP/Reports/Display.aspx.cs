@@ -854,14 +854,58 @@ namespace WealthERP.Reports
         private string GetReportSubject(string reportType, DateTime start, DateTime end)
         {
             string subject = string.Empty;
-            if (CurrentReportType == ReportType.EquityReports)
-                subject = "Equity Report - ";
-            else if (CurrentReportType == ReportType.MFReports)
-                subject = "MF Report - ";
-            else if (CurrentReportType == ReportType.PortfolioReports)
-                subject = "Portfolio Report - ";
-            else if (CurrentReportType == ReportType.FinancialPlanning)
-                subject = "Financial Planning Report";
+
+            switch (CurrentReportType)
+            {
+                case ReportType.EquityReports:
+                    subject = "Equity Report - ";
+                    break;
+                case ReportType.MFReports:
+                    {
+                        //subject = "MF Report - ";
+                        switch (reportType)
+                        {
+                            case "CATEGORY_WISE":
+                                subject = "Mutual Fund Summary Report - ";
+                                break;
+                            case "RETURNS_PORTFOLIO":
+                                subject = "Portfolio Returns - ";
+                                break;
+                            case "TRANSACTION_REPORT":
+                                subject = "Transaction Report - ";
+                                break;
+                            case "DIVIDEND_STATEMENT":
+                                subject = "Dividend Statement - ";
+                                break;
+                            case "DIVIDEND_SUMMARY":
+                                subject = "Dividend Summary - ";
+                                break;
+                            case "CAPITAL_GAIN_SUMMARY":
+                                subject = "Capital Gain Summary - ";
+                                break;
+                            case "CAPITAL_GAIN_DETAILS":
+                                subject = "Capital Gain Details - ";
+                                break;
+                        }
+                    }
+                    break;
+                case ReportType.PortfolioReports:
+                    subject = "Portfolio Report - ";
+                    break;
+                case ReportType.FinancialPlanning:
+                    subject = "Financial Planning Report";
+                    break;
+            }
+
+
+            //if (CurrentReportType == ReportType.EquityReports)
+            //    subject = "Equity Report - ";
+            //else if (CurrentReportType == ReportType.MFReports)
+            //    subject = "MF Report - ";
+            //else if (CurrentReportType == ReportType.PortfolioReports)
+            //    subject = "Portfolio Report - ";
+            //else if (CurrentReportType == ReportType.FinancialPlanning)
+            //    subject = "Financial Planning Report";
 
             if (start.CompareTo(end) == 0)
                 subject = subject + start.ToShortDateString();
