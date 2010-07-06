@@ -299,6 +299,8 @@ namespace WealthERP.SuperAdmin
                             CreationSuccessMessage.Visible = true;
                             btnAddLOB.Visible = true;
                             btnSendLoginId.Visible = true;
+                            lblMsg.Visible = true;
+                            btnSubmit.Text = "Update";
                             advisorVo = (AdvisorVo)Session["advisorVo"];
                         }
                         catch (Exception ex)

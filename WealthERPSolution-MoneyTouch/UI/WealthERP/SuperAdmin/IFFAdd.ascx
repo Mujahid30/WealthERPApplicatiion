@@ -153,7 +153,7 @@
             <asp:Label ID="lblAddressLine1" Text="Address Line 1:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtAddressLine1" CssClass="txtField" runat="server" Width="175px"></asp:TextBox>
+            <asp:TextBox ID="txtAddressLine1" CssClass="txtField" runat="server" Width="175px" MaxLength="25"></asp:TextBox>
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="AddressLine1RequiredFieldValidator" runat="server"
                 ControlToValidate="txtAddressLine1" ErrorMessage="Atleast Address Line 1 Required"
@@ -163,7 +163,7 @@
             <asp:Label ID="lblAddressLine2" Text="Address Line 2:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtAddressLine2" CssClass="txtField" runat="server" Width="175px"></asp:TextBox>
+            <asp:TextBox ID="txtAddressLine2" CssClass="txtField" runat="server" Width="175px" MaxLength="25"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -171,7 +171,7 @@
             <asp:Label ID="lblAddressLine3" Text="Area:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtAddressLine3" CssClass="txtField" runat="server" Width="175px"></asp:TextBox>
+            <asp:TextBox ID="txtAddressLine3" CssClass="txtField" runat="server" Width="175px" MaxLength="25"></asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblCountry" Text="Country:" CssClass="FieldName" runat="server"></asp:Label>
