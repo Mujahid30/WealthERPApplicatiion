@@ -129,6 +129,7 @@ namespace WealthERP.General
                                 {
                                     advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                     Session["advisorBranchVo"] = advisorBranchVo;
+                                    Session["FromUserLogin"] = "true";
                                     branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                     Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
@@ -141,6 +142,7 @@ namespace WealthERP.General
                                     {
                                         advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                         Session["advisorBranchVo"] = advisorBranchVo;
+                                        Session["FromUserLogin"] = "true";
                                         //login user role Type
                                         Session["S_CurrentUserRole"] = "RM";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
@@ -151,6 +153,7 @@ namespace WealthERP.General
                                     {
                                         advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                         Session["advisorBranchVo"] = advisorBranchVo;
+                                        Session["FromUserLogin"] = "true";
                                         //login user role Type
                                         Session["S_CurrentUserRole"] = "Admin";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
@@ -161,7 +164,7 @@ namespace WealthERP.General
                                     {
                                         advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                         Session["advisorBranchVo"] = advisorBranchVo;
-
+                                        Session["FromUserLogin"] = "true";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                         Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                         //login user role Type
@@ -175,6 +178,7 @@ namespace WealthERP.General
                                         Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
                                         //Session["advisorVo"]=advisorBo.GetAdvisor(
                                         Session["S_CurrentUserRole"] = "RM";
+                                        Session["FromUserLogin"] = "true";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                         sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
                                         Session[SessionContents.LogoPath] = sourcePath;
@@ -186,6 +190,7 @@ namespace WealthERP.General
                                     {
                                         advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                         Session["advisorBranchVo"] = advisorBranchVo;
+                                        Session["FromUserLogin"] = "true";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                         Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
@@ -193,7 +198,7 @@ namespace WealthERP.General
                                     }
                                     else
                                     {
-
+                                        Session["FromUserLogin"] = "true";
                                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                                     }
                                 }
@@ -217,6 +222,7 @@ namespace WealthERP.General
                                 customerVo = customerBo.GetCustomerInfo(userVo.UserId);
                                 //Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
                                 Session["CustomerVo"] = customerVo;
+                                Session["FromUserLogin"] = "true";
                                 customerVo = (CustomerVo)Session["CustomerVo"];
 
                                 advisorVo = advisorBo.GetAdvisor(advisorBranchBo.GetBranch(customerVo.BranchId).AdviserId);
