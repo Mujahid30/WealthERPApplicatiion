@@ -23,11 +23,15 @@ namespace WealthERP.UserManagement
                     TreeNode parentNode = new TreeNode();
                     parentNode = TreeView1.FindNode("Roles");
                     TreeNode tnSuperAdmin = new TreeNode("SuperAdmin", "SuperAdmin");
-                    parentNode.ChildNodes.AddAt(0, tnSuperAdmin);
+                    if (!parentNode.ChildNodes.Contains(new TreeNode("SuperAdmin", "SuperAdmin")))
+                    {
+                        parentNode.ChildNodes.AddAt(0, tnSuperAdmin);
+                    } 
                     Session["SuperAdmin_Status_Check"]= "1";
                           
                 }
             }
+
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
@@ -35,18 +39,20 @@ namespace WealthERP.UserManagement
             
             if (TreeView1.SelectedNode.Value == "Advisor")
             {
-                Session.Remove("customerVo");
-                Session.Remove("rmVo");
+                //Session.Remove("customerVo");
+                //Session.Remove("rmVo");
                 Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFAAdminMainDashboard','login');", true);
                 Session["SuperAdmin_Status_Check"] = "2";
+                Session["FromUserLogin"] = "false";
             }
             else if (TreeView1.SelectedNode.Value == "RM")
             {
-                Session.Remove("customerVo");
+                //Session.Remove("customerVo");
                 Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
                 Session["SuperAdmin_Status_Check"] = "3";
+                Session["FromUserLogin"] = "false";
             }
             else if (TreeView1.SelectedNode.Value == "SuperAdmin")
             {
