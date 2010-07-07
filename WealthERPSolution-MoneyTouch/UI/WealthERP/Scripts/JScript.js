@@ -31,8 +31,8 @@ function loadcontrol(controlid, logintrue) {
     
 
 
-    //setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
-    parent.document.getElementById("mainframe").src = url;
+    setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
+    //parent.document.getElementById("mainframe").src = url;
 
     if (controlid == "IFAAdminMainDashboard") {
 
@@ -337,8 +337,8 @@ function loadsearchcontrol(controlid, searchtype, searchstring) {
     var url = c_src + controlid;
 
 
-    // setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
-    parent.document.getElementById("mainframe").src = url;
+    setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
+    //parent.document.getElementById("mainframe").src = url;
 }
 
 
@@ -365,8 +365,8 @@ function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogo
     }
     else                // If another browser
     {
-        //setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
-        parent.document.getElementById("mainframe").src = url;
+        setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
+        //parent.document.getElementById("mainframe").src = url;
     }
     if (controlid == "IFF") {
         parent.document.getElementById("GeneralMenu").style.display = "none";
@@ -422,7 +422,7 @@ function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogo
     }
     else if (controlid == "AdvisorRMDashBoard" && logintrue == "login") {
         parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("SwitchRolesHeader").style.display = "block";
+        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -440,7 +440,7 @@ function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogo
     else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "login") {
         parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("SwitchRolesHeader").style.display = "block";
+        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
         parent.document.getElementById("RMHeader").style.display = "none";
@@ -670,8 +670,8 @@ function loadlinks(controlid) {
     }
     else                // If another browser
     {
-        //setTimeout('parent.document.getElementById("leftframe").src="' + url + '"', 25);
-        parent.document.getElementById("leftframe").src = url;
+        setTimeout('parent.document.getElementById("leftframe").src="' + url + '"', 25);
+        //parent.document.getElementById("leftframe").src = url;
     }
 
 }
@@ -956,8 +956,8 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
     }
     else                // If another browser
     {
-        //setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
-        parent.document.getElementById("mainframe").src = url;
+        setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
+        //parent.document.getElementById("mainframe").src = url;
 
         if (controlid == "IFAAdminMainDashboard" && logintrue == "login") {
 
@@ -1212,6 +1212,7 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
 }
 
 function logoutloadcontrol(controlid, logoPath, branchLogoPath) {
+    debugger;
 
     if (controlid != null)
         PageMethods.AjaxSetSession("Current_PageID", controlid);
@@ -1219,8 +1220,8 @@ function logoutloadcontrol(controlid, logoPath, branchLogoPath) {
     var c_src = "ControlHost.aspx?pageid=";
     var url = c_src + controlid;
 
-    //setTimeout('document.getElementById("mainframe").src="' + url + '"', 25);
-    parent.document.getElementById("mainframe").src = url;
+    setTimeout('document.getElementById("mainframe").src="' + url + '"', 25);
+    //parent.document.getElementById("mainframe").src = url;
 
     setHeaderLinksFromControl("", "", "Sign In", "true");
 
@@ -1250,8 +1251,8 @@ function loginloadcontrolfromDefault(controlid, logintrue, UserName) {
     var c_src = "ControlHost.aspx?pageid=";
     var url = c_src + controlid;
 
-    //setTimeout('document.getElementById("mainframe").src="' + url + '"', 25);
-    document.getElementById("mainframe").src = url;
+    setTimeout('document.getElementById("mainframe").src="' + url + '"', 25);
+    //document.getElementById("mainframe").src = url;
 
     if (controlid == "AdvisorDashBoard") {
         document.getElementById("GeneralMenu").style.display = "none";
@@ -1368,8 +1369,8 @@ function loadlinksfromDefault(controlid) {
     var c_src = "ControlLeftHost.aspx?pageid=";
     var url = c_src + controlid;
     
-    //setTimeout('document.getElementById("leftframe").src="' + url + '"', 25);
-    document.getElementById("leftframe").src = url;
+    setTimeout('document.getElementById("leftframe").src="' + url + '"', 25);
+    //document.getElementById("leftframe").src = url;
 
 }
 
@@ -1423,12 +1424,12 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
         }
         else                // If another browser
         {
-            //setTimeout('parent.document.getElementById("lblUserName").textContent ="' + username + '"', 25);
-            parent.document.getElementById("lblUserName").textContent = username;
-            //setTimeout('parent.document.getElementById("lblSignOut").textContent ="' + signOutText + '"', 25);
-            parent.document.getElementById("lblSignOut").textContent = signOutText;
-            //setTimeout('parent.document.getElementById("LinkButtonSignIn").textContent ="' + signInText + '"', 25);
-            parent.document.getElementById("LinkButtonSignIn").textContent = signInText;
+            setTimeout('parent.document.getElementById("lblUserName").textContent ="' + username + '"', 25);
+            //parent.document.getElementById("lblUserName").textContent = username;
+            setTimeout('parent.document.getElementById("lblSignOut").textContent ="' + signOutText + '"', 25);
+           // parent.document.getElementById("lblSignOut").textContent = signOutText;
+            setTimeout('parent.document.getElementById("LinkButtonSignIn").textContent ="' + signInText + '"', 25);
+            //parent.document.getElementById("LinkButtonSignIn").textContent = signInText;
 
         }
     }   
@@ -1494,8 +1495,8 @@ function loadcontrolCustomer(controlid, logintrue) {
     var url = c_src + controlid;
 
 
-    //setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
-    parent.document.getElementById("mainframe").src = url;
+    setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
+    //parent.document.getElementById("mainframe").src = url;
     if (controlid == "LoanSchemeView") {
         parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
