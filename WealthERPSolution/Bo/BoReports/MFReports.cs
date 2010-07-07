@@ -233,7 +233,11 @@ namespace BoReports
             return mfReports.GetCapitalGainDetailsReport(reports);
         }
 
-
+        public DataSet GetMFTransactionType()
+        {
+            MFReportsDao mfReports = new MFReportsDao();
+            return mfReports.GetMFTransactionType();
+        }
 
     }
 }
