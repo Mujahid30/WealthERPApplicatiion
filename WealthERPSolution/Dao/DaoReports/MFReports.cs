@@ -101,6 +101,8 @@ namespace DaoReports
                 db.AddInParameter(getCustomerNPListCmd, "@PortfolioIds", DbType.String, reports.PortfolioIds); //35437
                 db.AddInParameter(getCustomerNPListCmd, "@FromDate", DbType.DateTime, reports.FromDate);
                 db.AddInParameter(getCustomerNPListCmd, "@Todate", DbType.DateTime, reports.ToDate);
+                db.AddInParameter(getCustomerNPListCmd, "@TransType", DbType.String, reports.FilterBy);
+                db.AddInParameter(getCustomerNPListCmd, "@OrderBy", DbType.String, reports.OrderBy);
 
                 //getCustomerNPListCmd = db.GetSqlStringCommand("select top 20 CMFA_AccountID,CMFT_TransactionDate,PASP_SchemePlanName from CustomerMutualfundtransaction  CustomerMutualfundtransaction inner join ProductAMCSchemePlan AS ProductAMCSchemePlan ON CustomerMutualfundtransaction.PASP_SchemePlanCode = ProductAMCSchemePlan.PASP_SchemePlanCode;");  //db.GetStoredProcCommand("SP_GetAdviser");
                 //db.AddInParameter(getCustomerNPListCmd, "@A_AdviserId", DbType.Int32, 1049);
@@ -466,6 +468,26 @@ namespace DaoReports
 
 
 
+        }
+
+        public DataSet GetMFTransactionType()
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand MFTransactionTypeCmd;
+            DataSet dsMFTransactionType;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                MFTransactionTypeCmd = db.GetStoredProcCommand("RPT_SP_GetTransactionType");
+                dsMFTransactionType = db.ExecuteDataSet(MFTransactionTypeCmd);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return dsMFTransactionType;
         }
 
     }
