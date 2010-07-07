@@ -23,9 +23,13 @@ namespace WealthERP.UserManagement
                     TreeNode parentNode = new TreeNode();
                     parentNode = TreeView1.FindNode("Roles");
                     TreeNode tnSuperAdmin = new TreeNode("SuperAdmin", "SuperAdmin");
-                    parentNode.ChildNodes.AddAt(0, tnSuperAdmin);            
+                    if (!parentNode.ChildNodes.Contains(new TreeNode("SuperAdmin", "SuperAdmin")))
+                    {
+                        parentNode.ChildNodes.AddAt(0, tnSuperAdmin);
+                    }            
                 }
             }
+           
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
@@ -33,11 +37,15 @@ namespace WealthERP.UserManagement
             if (TreeView1.SelectedNode.Value == "Branch Manager")
             {
                 Session["refreshTheme"] = true;
+                Session["FromUserLogin"] = "false";
+                Session["SuperAdmin_Status_Check"] = "4";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('BMDashBoard','login');", true);
             }
             else if (TreeView1.SelectedNode.Value == "RM")
             {
                 Session["refreshTheme"] = true;
+                Session["FromUserLogin"] = "false";
+                Session["SuperAdmin_Status_Check"] = "3";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
             }
             else if (TreeView1.SelectedNode.Value == "SuperAdmin")
@@ -46,7 +54,6 @@ namespace WealthERP.UserManagement
                 Session.Remove("advisorVo");
                 Session.Remove("rmVo");
                 Session["refreshTheme"] = true;
-
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
             }
         }
