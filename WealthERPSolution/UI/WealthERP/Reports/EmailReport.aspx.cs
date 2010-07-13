@@ -19,6 +19,7 @@ using System.Data;
 using BoReports;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Collections;
+using System.Net.Mime;
 
 namespace WealthERP.Reports
 {
@@ -529,9 +530,10 @@ namespace WealthERP.Reports
                 subject = "Financial Planning Report";
 
             strMail.Append("Dear " + customerName + ",<br/>");
-            strMail.Append("<br/>Please find attached " + subject + ".");
+            
+            strMail.Append("<br/>&nbsp;&nbsp;&nbsp;&nbsp Please find attached " + subject + ".");
             //strMail.Append("<br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName);
-            strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo:" + rmVo.Mobile + "<br/>Ph:+" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber);
+            strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo:" + rmVo.Mobile + "<br/>Ph:+" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "</i></b>");
 
             return strMail.ToString();
 
@@ -624,7 +626,7 @@ namespace WealthERP.Reports
             Attachment attachment = null;
             bool isMailSent = false;
             RMVo rmVo = (RMVo)Session["rmVo"];
-
+            string logoPath = "";
             string senderName = rmVo.FirstName + " " + rmVo.LastName;
 
             try
@@ -679,12 +681,47 @@ namespace WealthERP.Reports
                     email.Attachments.Add(attachment);
                 }
 
-                email.Subject = hidSubject.Value;
-                hidSubject.Value = string.Empty;
-                email.IsBodyHtml = true;
-                email.Body = hidBody.Value.Replace("\n", "<br/>");
+                //email.Subject = hidSubject.Value;
+                //hidSubject.Value = string.Empty;
+                //email.IsBodyHtml = true;
+                //email.Body = hidBody.Value.Replace("\n", "<br/>");
 
-                isMailSent = emailer.SendMail(email);
+                //isMailSent = emailer.SendMail(email);
+
+
+
+
+                //Embaded Advisor Logo Along with mail..Modified by ******Pramoda Sahoo*******
+
+                //Create two views, one text, one HTML.
+                string MailBody = hidBody.Value.Replace("\n", "<br/>");
+
+                System.Net.Mail.AlternateView htmlView;
+                System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
+                //System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(hidBody.Value.Trim() + "<image src=cid:HDIImage>", null, "text/html");
+                htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + MailBody + "</p>'<img src='cid:HDIImage'></body></html>", null, "text/html");
+                //Add image to HTML version
+                if (Session["advisorVo"] != null)
+                    logoPath = "Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
+                //System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("~/Images/") + @"\3DSYRW_4009.JPG", "image/jpeg");
+                System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(logoPath, "image/jpeg");
+                imageResource.ContentId = "HDIImage";
+                htmlView.LinkedResources.Add(imageResource);
+                //Add two views to message.
+                email.AlternateViews.Add(plainTextView);
+                email.AlternateViews.Add(htmlView);
+                //Send message
+                System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
+                smtpClient.Send(email);
+
+
+
+                //email.Body = hidBody.Value.Replace("\n", "<br/>");
+                //SmtpClient smtp = new SmtpClient();
+                //smtpClient.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
+
+                //isMailSent = emailer.SendMail(email);
+
 
 
             }
