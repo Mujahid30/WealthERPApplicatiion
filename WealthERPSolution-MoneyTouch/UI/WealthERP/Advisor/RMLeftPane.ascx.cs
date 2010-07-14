@@ -129,21 +129,21 @@ namespace WealthERP.Advisor
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertDashBoard','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
-                {
-                    Session["UserType"] = "rm";
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanMIS','login');", true);
-                }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Loan Proposal")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanTrackingGrid','login');", true);
-                }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Add Loan Proposal")
-                {
-                    Session["LoanProcessAction"] = "add";
-                    Session[SessionContents.LoanProcessTracking] = null;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanProcessTracking','login');", true);
-                }
+                //else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
+                //{
+                //    Session["UserType"] = "rm";
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanMIS','login');", true);
+                //}
+                //else if (TreeView1.SelectedNode.Value.ToString() == "Loan Proposal")
+                //{
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanTrackingGrid','login');", true);
+                //}
+                //else if (TreeView1.SelectedNode.Value.ToString() == "Add Loan Proposal")
+                //{
+                //    Session["LoanProcessAction"] = "add";
+                //    Session[SessionContents.LoanProcessTracking] = null;
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanProcessTracking','login');", true);
+                //}
                 else if (TreeView1.SelectedNode.Value.ToString() == "MFReports")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFReports','none');", true);

@@ -51,11 +51,11 @@
 
                         
                     </asp:TreeNode>
-                    <asp:TreeNode Text="Loan" Value="Loan">
+<%--                    <asp:TreeNode Text="Loan" Value="Loan">
                         <asp:TreeNode Text="Loan Proposal" Value="Loan Proposal"></asp:TreeNode>
                         <asp:TreeNode Text="Add Loan Proposal" Value="Add Loan Proposal"></asp:TreeNode>
                         <asp:TreeNode Text="LoanMIS" Value="LoanMIS"></asp:TreeNode>
-                    </asp:TreeNode>
+                    </asp:TreeNode>--%>
                     <asp:TreeNode Text="MF" Value="MF">
                         <asp:TreeNode Text="MIS" Value="MMIS"></asp:TreeNode>
                         <asp:TreeNode Text="View Transactions" Value="MView Transactions"></asp:TreeNode>
