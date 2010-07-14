@@ -130,8 +130,10 @@
 </table>
 <table width="100%">
 <tr><td align="center">
-<div class="warning-msg" id="MessageReceived" runat="server" visible="false">
+<div class="information-msg" id="MessageReceived" runat="server" visible="false" align="center">
+<br />
     <asp:Label ID="lblSuperAdmnMessage" runat="server"></asp:Label>
+    <br />
 </div>
 </td></tr>
 </table>
