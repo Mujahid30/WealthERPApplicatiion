@@ -39,31 +39,85 @@
            
             document.getElementById('btnSend').value ="Sending Email.Please wait..";
             document.getElementById('btnSend').disabled = true;
-            
-        }
-        function sendMail() {
 
+        }
+        function echeck(str) {
+
+            var at = "@"
+            var dot = "."
+            var lat = str.indexOf(at)
+            var lstr = str.length
+            var ldot = str.indexOf(dot)
+            if (str.indexOf(at) == -1) {
+                alert("Invalid E-mail ID")
+                document.getElementById("txtTo").focus();
+                return false
+            }
+
+            if (str.indexOf(at) == -1 || str.indexOf(at) == 0 || str.indexOf(at) == lstr) {
+                alert("Invalid E-mail ID")
+                document.getElementById("txtTo").focus();
+                return false
+            }
+
+            if (str.indexOf(dot) == -1 || str.indexOf(dot) == 0 || str.indexOf(dot) == lstr) {
+                alert("Invalid E-mail ID")
+                document.getElementById("txtTo").focus();
+                return false
+            }
+
+            if (str.indexOf(at, (lat + 1)) != -1) {
+                alert("Invalid E-mail ID")
+                document.getElementById("txtTo").focus();
+                return false
+            }
+
+            if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot) {
+                alert("Invalid E-mail ID")
+                document.getElementById("txtTo").focus();
+                return false
+            }
+
+            if (str.indexOf(dot, (lat + 2)) == -1) {
+                alert("Invalid E-mail ID")
+                document.getElementById("txtTo").focus();
+                return false
+            }
+
+            if (str.indexOf(" ") != -1) {
+                alert("Invalid E-mail ID")
+                document.getElementById("txtTo").focus();
+                return false
+            }
+            return true; 
+        }
+        function sendMail() {   
             if (document.getElementById("txtTo").value == "") {
                 alert("Please enter To Email Address.");
                 return false;
             }
-            if (document.getElementById("txtTo").value.indexOf("@") < 2 || document.getElementById("txtTo").value.indexOf(".") < 4) {
-                alert("Please enter  a valid To Email Address.");
-                document.getElementById("txtTo").focus();
+//            if (document.getElementById("txtTo").value.indexOf("@") < 2 || document.getElementById("txtTo").value.indexOf(".") < 4) {
+//                alert("Please enter  a valid To Email Address.");
+//                document.getElementById("txtTo").focus();
+//                return false;
+//            }
+            if (echeck(document.getElementById("txtTo").value)) {
+                document.getElementById("hidTo").value = document.getElementById("txtTo").value
+                document.getElementById("hidSubject").value = document.getElementById("txtSubject").value
+                document.getElementById("hidFormat").value = document.getElementById("ddlFormat").options[document.getElementById("ddlFormat").selectedIndex].value
+                document.getElementById("hidCC").value = document.getElementById("txtCC").value
+                document.getElementById("hidBody").value = document.getElementById("txtBody").value
+                // alert(document.getElementById("txtBody").value)
+
+                document.getElementById("hidCCMe").value = document.getElementById("chkCopy").checked
+                window.document.forms[0].action = "Display.aspx?mail=0";
+                //ConvertnlTobr();
+                document.getElementById("btnSendEmail").click()
+            }
+            else {
                 return false;
             }
-            
-            document.getElementById("hidTo").value = document.getElementById("txtTo").value
-            document.getElementById("hidSubject").value = document.getElementById("txtSubject").value
-            document.getElementById("hidFormat").value = document.getElementById("ddlFormat").options[document.getElementById("ddlFormat").selectedIndex].value
-            document.getElementById("hidCC").value = document.getElementById("txtCC").value
-            document.getElementById("hidBody").value = document.getElementById("txtBody").value
-           // alert(document.getElementById("txtBody").value)
-            
-            document.getElementById("hidCCMe").value = document.getElementById("chkCopy").checked
-            window.document.forms[0].action = "Display.aspx?mail=0";
-            //ConvertnlTobr();
-            document.getElementById("btnSendEmail").click()
+
 
         }
         function replaceSpecialChars() {
