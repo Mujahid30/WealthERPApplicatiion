@@ -986,14 +986,17 @@ namespace WealthERP.SuperAdmin
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 rmVo = (RMVo)Session["rmVo"];
                 Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
-                if (advisorVo.LogoPath == null || advisorVo.LogoPath=="")
+                if (advisorVo != null)
                 {
-                    advisorVo.LogoPath = "";
+                    if (advisorVo.LogoPath == null || advisorVo.LogoPath == "")
+                    {
+                        advisorVo.LogoPath = "";
+                    }
+
+                    sourcePath = "Images/" + advisorVo.LogoPath.ToString();
+
+                    Session[SessionContents.LogoPath] = sourcePath;
                 }
-                sourcePath = "Images/" + advisorVo.LogoPath.ToString();
-
-                Session[SessionContents.LogoPath] = sourcePath;
-
                 roleList = userBo.GetUserRoles(userVo.UserId);
                 count = roleList.Count;
                 string UserName = userVo.FirstName + " " + userVo.LastName;
