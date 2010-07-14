@@ -237,10 +237,12 @@ namespace WealthERP.General
                                 GetLatestValuationDate();
                                 if (customerVo.Type == "IND")
                                 {
+                                    Session["FromUserLogin"] = "false";
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                                 }
-                                if (customerVo.Type == "NonIndividual")
+                                if (customerVo.Type == "NIND")
                                 {
+                                    Session["FromUserLogin"] = "false";
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                                 }
                             }
