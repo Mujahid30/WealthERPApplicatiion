@@ -48,6 +48,7 @@ namespace WealthERP.SuperAdmin
         DataSet advisorLOBListCheck=new DataSet();
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
+        private bool IsAddUpdate=false;
         protected void Page_Load(object sender, EventArgs e)
         {
             //btnSubmit.Attributes.Add("onclick", "Validation('" + ddlStatus.ClientID + "');");
@@ -58,7 +59,7 @@ namespace WealthERP.SuperAdmin
                 BindStatus();
             }
 
-                if (Session["IFFAdd"].ToString() != null)
+                if (Session["IFFAdd"] != null)
                 {
                     if (Session["IFFAdd"].ToString() == "Edit")
                     {
@@ -195,6 +196,7 @@ namespace WealthERP.SuperAdmin
                             btnAddLOB.Visible = true;
                             btnSendLoginId.Visible = true;
                             btnSubmit.Text = "Update";
+                            IsAddUpdate = true;
                             ddlStatus.Items[1].Enabled = true;
                             advisorVo = (AdvisorVo)Session["advisorVo"];
                             DataRepopulating();
@@ -243,9 +245,20 @@ namespace WealthERP.SuperAdmin
                             advisor = 1000;
                             rm = 1001;
                             advisorVo = (AdvisorVo)Session["advisorVo"];
-                            userVo = (UserVo)Session["iffUserVo"];
-                            advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
-                            rmVo = (RMVo)Session["rmVo"];
+                            
+                            if (!IsAddUpdate)
+                            {
+
+                                userVo = (UserVo)Session["iffUserVo"];
+                                advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                                rmVo = (RMVo)Session["rmVo"];
+                            }
+                            else
+                            {
+                                Ids=(List<int>)Session["IDs"];
+
+                                userVo.UserId = Ids[0];
+                            }
                             DataPopulating();
                             advisorBo.UpdateCompleteAdviser(userVo, advisorVo, rmVo);
                             
