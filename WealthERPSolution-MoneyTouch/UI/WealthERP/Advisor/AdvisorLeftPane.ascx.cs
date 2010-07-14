@@ -169,11 +169,11 @@ namespace WealthERP.Advisor
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedTransactions','login');", true);
             }
-            else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
-            {
-                Session["UserType"] = "adviser";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanMIS','login');", true);
-            }
+            //else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
+            //{
+            //    Session["UserType"] = "adviser";
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanMIS','login');", true);
+            //}
             else if (TreeView1.SelectedNode.Value.ToString() == "SetupAssociateCategory")
             {
                 Session["UserType"] = "adviser";
@@ -181,19 +181,19 @@ namespace WealthERP.Advisor
 
             }
 
-            else if (TreeView1.SelectedNode.Value.ToString() == "AdviserLoanCommsnStrucWithLoanPartner")
-            {
-                Session["UserType"] = "adviser";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanCommsnStrucWithLoanPartner','login');", true);
+            //else if (TreeView1.SelectedNode.Value.ToString() == "AdviserLoanCommsnStrucWithLoanPartner")
+            //{
+            //    Session["UserType"] = "adviser";
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanCommsnStrucWithLoanPartner','login');", true);
 
-            }
+            //}
 
-            else if (TreeView1.SelectedNode.Value.ToString() == "AdviserLoanCommsnStrucWithLoanPartner")
-            {
-                Session["UserType"] = "adviser";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanCommsnStrucWithLoanPartner','login');", true);
+            //else if (TreeView1.SelectedNode.Value.ToString() == "AdviserLoanCommsnStrucWithLoanPartner")
+            //{
+            //    Session["UserType"] = "adviser";
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanCommsnStrucWithLoanPartner','login');", true);
 
-            }
+            //}
             else if (TreeView1.SelectedNode.Value.ToString() == "AdviserStaffSMTP")
             {
                 Session["UserType"] = "adviser";
@@ -201,11 +201,11 @@ namespace WealthERP.Advisor
 
             }
 
-            else if (TreeView1.SelectedNode.Value.ToString() == "Schemes")
-            {
-                Session["LoanSchemeView"] = "Advisor";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanSchemeView','login');", true);
-            }
+            //else if (TreeView1.SelectedNode.Value.ToString() == "Schemes")
+            //{
+            //    Session["LoanSchemeView"] = "Advisor";
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanSchemeView','login');", true);
+            //}
             //else if (TreeView1.SelectedNode.Value.ToString() == "Add Schemes")
             //{
             //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','login');", true);
