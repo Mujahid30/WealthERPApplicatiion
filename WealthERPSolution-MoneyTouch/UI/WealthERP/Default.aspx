@@ -108,7 +108,8 @@
                                         <asp:LinkButton ID="LinkButtonContactUs" runat="server" OnClientClick="javascript:loadcontrol('GeneralHome','none'); return false;"
                                             CssClass="LinkButtons">Contact Us</asp:LinkButton>
                                         &nbsp; <a href="Demo/Demo.html" class="LinkButtons" target="_blank">Demo</a> &nbsp;
-                                        <a id="lnkHelp" name="lnkHelp" href="help/Index.htm" class="LinkButtons" target="_blank">
+
+                                        <a id="lnkHelp" name="lnkHelp" href="help/Index.htm" class="LinkButtons" target="_blank" runat="server">
                                             Help</a>
                                         <%--<asp:LinkButton ID="LinkButtonHelp" runat="server" CssClass="LinkButtons" PostBackUrl="Help.htm">Help</asp:LinkButton>--%>
                                         &nbsp;
