@@ -50,6 +50,11 @@ namespace WealthERP.Advisor
 
                     lblEmailIdValue.Text = customerVo.Email.ToString();
 
+                    if (customerVo.RelationShip == "SELF")
+                    {
+                        TreeView1.Nodes.AddAt(1, new TreeNode("Group Dashboard"));
+                    }
+
 
                     string IsDashboard = string.Empty;
 
@@ -59,8 +64,22 @@ namespace WealthERP.Advisor
                     {
                         TreeView1.CollapseAll();
 
-                        TreeView1.FindNode("Customer Dashboard").Selected = true;
+                        if (customerVo.RelationShip == "SELF")
+                        {
+                            TreeView1.FindNode("Group Dashboard").Selected = true;
+                        }
+                        else
+                        {
+                            TreeView1.FindNode("Customer Dashboard").Selected = true;
+                        }
                         Session["IsDashboard"] = "false";
+
+                        
+                    }
+                    else if (IsDashboard == "CustDashboard")
+                    {
+                        TreeView1.CollapseAll();
+                        TreeView1.FindNode("Customer Dashboard").Selected = true;
                     }
                     else
                     {
@@ -135,9 +154,14 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
+                else if (TreeView1.SelectedNode.Value == "Group Dashboard")
                 {
                     Session["IsDashboard"] = "true";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+                }
+                else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
+                {
+                    Session["IsDashboard"] = "CustDashboard";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Portfolio Dashboard")
