@@ -1063,4 +1063,8 @@
     <value>Reports//FPReports.ascx</value>
     <comment>Reports//FPReports.ascx</comment>
   </data>
+  <data name="AdvisorRMCustGroupDashboard" xml:space="preserve">
+    <value>Advisor//AdvisorRMCustGroupDashboard.ascx</value>
+    <comment>Advisor//AdvisorRMCustGroupDashboard.ascx</comment>
+  </data>
 </root>

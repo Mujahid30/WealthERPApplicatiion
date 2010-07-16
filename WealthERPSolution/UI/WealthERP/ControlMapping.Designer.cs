@@ -367,6 +367,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//AdvisorRMCustGroupDashboard.ascx.
+        /// </summary>
+        internal static string AdvisorRMCustGroupDashboard {
+            get {
+                return ResourceManager.GetString("AdvisorRMCustGroupDashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//AdvisorRMCustIndiDashboard.ascx.
         /// </summary>
         internal static string AdvisorRMCustIndiDashboard {
