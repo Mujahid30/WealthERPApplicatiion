@@ -2155,6 +2155,38 @@ namespace BoAlerts
             return dsCustomerAlerts;
         }
 
+        public DataSet GetCustomerGrpDashboardAlerts(int customerId)
+        {
+            AlertsDao alertsDao = new AlertsDao();
+            DataSet dsCustomerGrpAlerts;
+
+            try
+            {
+                dsCustomerGrpAlerts = alertsDao.GetCustomerGrpDashboardAlerts(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AlertsBo.cs:GetCustomerGrpDashboardAlerts()");
+
+                object[] objects = new object[4];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsCustomerGrpAlerts;
+        }
+
         public DataSet GetRMCustomerDashboardAlerts(int rmId)
         {
             AlertsDao alertsDao = new AlertsDao();
