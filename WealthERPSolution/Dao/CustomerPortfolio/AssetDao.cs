@@ -930,6 +930,42 @@ namespace DaoCustomerPortfolio
             return getAssetMaturityDatesDs;
         }
 
+        /// <summary>
+        /// Function to get the Top 5 Asset Maturity Dates of a Group (including the Group Head and all its member customers)
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public DataSet GetGrpAssetMaturityDates(int customerId)
+        {
+            DataSet getGrpAssetMaturityDatesDs = null;
+            Database db;
+            DbCommand getGrpAssetMaturityDatesCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGrpAssetMaturityDatesCmd = db.GetStoredProcCommand("SP_GetGrpAssetMaturityDates");
+                db.AddInParameter(getGrpAssetMaturityDatesCmd, "@C_CustomerId", DbType.Int32, customerId);
+                getGrpAssetMaturityDatesDs = db.ExecuteDataSet(getGrpAssetMaturityDatesCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "Asset.cs:GetAssetMaturityDates()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getGrpAssetMaturityDatesDs;
+        }
+
         public string GetAssetCategoryName(string Code)
         {
             Database db;
@@ -1003,6 +1039,41 @@ namespace DaoCustomerPortfolio
                 throw exBase;
             }
             return getAssetOwnerShipDs;
+        }
+
+        //Retrieve all the member customers Net Holdings for Group Dashboard
+        public DataSet GetGrpAssetNetHoldings(int CustomerId)
+        {
+            Database db;
+            DbCommand getGrpAssetNetHoldingsCmd;
+            DataSet assetGrpNetHoldings = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGrpAssetNetHoldingsCmd = db.GetStoredProcCommand("SP_GrpDashBoard_GetGroupHoldings");
+                db.AddInParameter(getGrpAssetNetHoldingsCmd, "CustomerId", DbType.Int32, CustomerId);
+                assetGrpNetHoldings = db.ExecuteDataSet(getGrpAssetNetHoldingsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssetDao.cs:GetGrpAssetNetHoldings()");
+
+                object[] objects = new object[1];
+                objects[0] = CustomerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return assetGrpNetHoldings;
         }
 
     }
