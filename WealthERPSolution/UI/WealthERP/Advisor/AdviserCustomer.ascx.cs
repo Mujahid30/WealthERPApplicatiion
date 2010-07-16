@@ -488,8 +488,10 @@ namespace WealthERP.Advisor
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+                    if (customerVo.RelationShip == "SELF")
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+                    else
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
