@@ -44,8 +44,7 @@
                 Class="HeaderTextSmall">
             </asp:Label>
             <asp:GridView ID="gvCustomerFamily" runat="server" CellPadding="4" HorizontalAlign="Center"
-                CssClass="GridViewStyle" Width="100%" DataKeyNames="CustomerId" 
-                AutoGenerateColumns="False">
+                CssClass="GridViewStyle" Width="100%" DataKeyNames="CustomerId" AutoGenerateColumns="False">
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -54,14 +53,14 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                <asp:TemplateField HeaderText="Member Name">
-                    <itemtemplate>
+                    <asp:TemplateField HeaderText="Member Name">
+                        <ItemTemplate>
                             <asp:LinkButton ID="lnkCustomerName" runat="server" CssClass="GridViewCmbField" OnClick="lnkCustomerNameFamilyGrid_Click"
                                 Text='<%# Eval("Member Name") %>'>
                             </asp:LinkButton>
-                        </itemtemplate>
-                </asp:TemplateField>
-                <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
                 </Columns>
             </asp:GridView>
         </td>
@@ -71,51 +70,53 @@
             <br />
             <asp:Label runat="server" CssClass="HeaderTextSmall" Text="No details to display.."
                 ID="lblAssetDetailsMsg"></asp:Label>
-            <asp:GridView ID="gvAssetAggrCurrentValue" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" HorizontalAlign="Center"
-                Width="100%" DataKeyNames="CustomerId">
-                <RowStyle CssClass="RowStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>
-                    <asp:TemplateField HeaderText="Goal Type">
-                        <ItemTemplate>
-                            <asp:LinkButton ID="lnkCustomerName" runat="server" CssClass="GridViewCmbField" OnClick="lnkCustomerNameAssetsGrid_Click"
-                                Text='<%# Eval("Customer_Name") %>'>
-                            </asp:LinkButton>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <%--<asp:BoundField DataField="Customer_Name" HeaderText="Customer Name" />--%>
-                    <asp:BoundField DataField="Equity" HeaderText="Equity" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Mutual_Fund" HeaderText="Mutual Fund" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Fixed_Income" HeaderText="Fixed Income" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Government_Savings" HeaderText="Government Savings" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Property" HeaderText="Property" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Pension_and_Gratuity" HeaderText="Pension and Gratuity"
-                        DataFormatString="{0:n2}" HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Personal_Assets" HeaderText="Personal Assets" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Gold_Assets" HeaderText="Gold Assets" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Collectibles" HeaderText="Collectibles" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Cash_and_Savings" HeaderText="Cash and Savings" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Assets_Total" HeaderText="Assets Total" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Liabilities_Total" HeaderText="Liabilities Total" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Net_Worth" HeaderText="Net Worth" DataFormatString="{0:n2}"
-                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                </Columns>
-            </asp:GridView>
+            <%--<div style="height: 375px; overflow: auto; width: 100%">--%>
+                <asp:GridView ID="gvAssetAggrCurrentValue" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                    CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" HorizontalAlign="Center"
+                    Width="100%" DataKeyNames="CustomerId">
+                    <RowStyle CssClass="RowStyle" />
+                    <SelectedRowStyle CssClass="SelectedRowStyle" />
+                    <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
+                    <HeaderStyle CssClass="HeaderStyle" />
+                    <AlternatingRowStyle CssClass="AltRowStyle" />
+                    <Columns>
+                        <asp:TemplateField HeaderText="Goal Type">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkCustomerName" runat="server" CssClass="GridViewCmbField" OnClick="lnkCustomerNameAssetsGrid_Click"
+                                    Text='<%# Eval("Customer_Name") %>'>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <%--<asp:BoundField DataField="Customer_Name" HeaderText="Customer Name" />--%>
+                        <asp:BoundField DataField="Equity" HeaderText="Equity" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Mutual_Fund" HeaderText="Mutual Fund" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Fixed_Income" HeaderText="Fixed Income" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Government_Savings" HeaderText="Government Savings" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Property" HeaderText="Property" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Pension_and_Gratuity" HeaderText="Pension and Gratuity"
+                            DataFormatString="{0:n2}" HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Personal_Assets" HeaderText="Personal Assets" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Gold_Assets" HeaderText="Gold Assets" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Collectibles" HeaderText="Collectibles" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Cash_and_Savings" HeaderText="Cash and Savings" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Assets_Total" HeaderText="Assets Total" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Liabilities_Total" HeaderText="Liabilities Total" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Net_Worth" HeaderText="Net Worth" DataFormatString="{0:n2}"
+                            HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                    </Columns>
+                </asp:GridView>
+            <%--</div>--%>
         </td>
     </tr>
     <tr>
