@@ -249,14 +249,12 @@ namespace WealthERP.General
                             sourcePath = "Images/" + userBo.GetCustomerLogo(customerVo.CustomerId);
                             Session[SessionContents.LogoPath] = sourcePath;
                             GetLatestValuationDate();
-                            if (customerVo.Type == "IND")
-                            {
+                            
+                            if (customerVo.RelationShip == "SELF")
+                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustGroupDashboard','login','" + UserName + "','" + sourcePath + "');", true);
+                            else
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
-                            }
-                            if (customerVo.Type == "NonIndividual")
-                            {
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
-                            }
+
                         }
 
                         else if (userVo.UserType == "Admin")
