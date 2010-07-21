@@ -230,6 +230,20 @@ function loadcontrol(controlid, logintrue) {
 
         loadlinks("RMCustomerIndividualLeftPane");
     }
+    else if (controlid == "AdvisorRMCustGroupDashboard") {
+        parent.document.getElementById("GeneralMenu").style.display = "none";
+        parent.document.getElementById("AdvisorHeader").style.display = "none";
+        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+        parent.document.getElementById("RMHeader").style.display = "none";
+        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "block";
+        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+        parent.document.getElementById("BMHeader").style.display = "none";
+        parent.document.getElementById("AdminHeader").style.display = "none";
+        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+        loadlinks("RMCustomerIndividualLeftPane");
+    }
     else if (controlid == "AdviserRMCustNonIndiDashboard") {
         parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
@@ -487,6 +501,23 @@ function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogo
     else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
         parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";        
+        parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+        parent.document.getElementById("RMHeader").style.display = "none";
+        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+        parent.document.getElementById("BMHeader").style.display = "none";
+        parent.document.getElementById("AdminHeader").style.display = "none";
+        if (SourcePath != "") {
+            //parent.document.getElementById("AdvisorLogo").src = SourcePath;
+        }
+        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+        loadlinks("CustomerIndividualLeftPane");
+    }
+    else if (controlid == "AdvisorRMCustGroupDashboard" && logintrue == "login") {
+        parent.document.getElementById("GeneralMenu").style.display = "none";
+        parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
         parent.document.getElementById("RMHeader").style.display = "none";
