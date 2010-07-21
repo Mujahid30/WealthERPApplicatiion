@@ -473,6 +473,8 @@ namespace DaoCustomerProfiling
                     customerVo.MothersMaidenName = dr["C_MothersMaidenName"].ToString();
                     if (dr["AB_BranchId"].ToString() != string.Empty)
                         customerVo.BranchId = int.Parse(dr["AB_BranchId"].ToString());
+                    if (dr["XR_RelationshipCode"].ToString() != string.Empty)
+                        customerVo.RelationShip = dr["XR_RelationshipCode"].ToString();
                 }
             }
             catch (BaseApplicationException Ex)
