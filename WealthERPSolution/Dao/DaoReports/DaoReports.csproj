@@ -12,9 +12,9 @@
     <AssemblyName>DaoReports</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>%24/WealthERPWebsite/WERP/WealthERPSolution/Dao/DaoReports</SccProjectName>
+    <SccProjectName>%24/WealthERPApplication/WealthERPSolution/Dao/DaoReports</SccProjectName>
     <SccLocalPath>.</SccLocalPath>
-    <SccAuxPath>http://122.166.49.39:8080</SccAuxPath>
+    <SccAuxPath>http://moon:8080/tfs/Ampsys%2520WealthERP</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
