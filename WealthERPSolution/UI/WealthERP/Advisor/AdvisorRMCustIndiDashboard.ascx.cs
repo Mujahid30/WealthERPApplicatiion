@@ -63,10 +63,9 @@ namespace WealthERP.Advisor
                 customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                 portfolioId = customerPortfolioVo.PortfolioId;
                 Session[SessionContents.PortfolioId] = portfolioId;
-                lblMessage.Visible = false;
+                //lblMessage.Visible = false;
                 //trlblerrormsg.Visible = false;
                 lblMaturityMsg.Visible = false;
-                BindCustomerFamilyGrid();
                 BindCustomerAssetMaturityDates();
                 BindAssetInvestments();
                 BindAssetCurrentValChart();
@@ -105,76 +104,6 @@ namespace WealthERP.Advisor
 
             }
 
-        }
-        //Function to populate the Customer Family Member details in the Grid
-        public void BindCustomerFamilyGrid()
-        {
-            DataTable dtCustomerFamily = new DataTable();
-            DataRow drCustomerFamily;
-            try
-            {
-                customerFamilyList = customerFamilyBo.GetCustomerFamily(customerId);
-                if (customerFamilyList == null)
-                {
-                    lblMessage.Visible = true;
-                    //trlblerrormsg.Visible = true;
-                    lblFamilyMembersNum.Text = "0";
-                }
-                else
-                {
-                    lblMessage.Visible = false;
-                    //trlblerrormsg.Visible = false;
-                   
-                    dtCustomerFamily.Columns.Add("Member Name");
-                    dtCustomerFamily.Columns.Add("Relationship");
-                    lblFamilyMembersNum.Text = customerFamilyList.Count.ToString();
-
-                    
-                    for (int i = 0; i < customerFamilyList.Count; i++)
-                    {
-                        drCustomerFamily = dtCustomerFamily.NewRow();
-
-                        customerFamilyVo = customerFamilyList[i];
-                        memberCustomerId = customerFamilyVo.AssociateCustomerId;
-                        customerMemberVo = customerBo.GetCustomer(memberCustomerId);
-                        drCustomerFamily[0] = customerMemberVo.FirstName.ToString() + " " + customerMemberVo.MiddleName.ToString() + " " + customerMemberVo.LastName.ToString();
-                        drCustomerFamily[1] = customerFamilyVo.Relationship.ToString();
-
-                        dtCustomerFamily.Rows.Add(drCustomerFamily);
-
-                    }
-
-                    gvCustomerFamily.DataSource = dtCustomerFamily;
-                    gvCustomerFamily.DataBind();
-                    gvCustomerFamily.Visible = true; 
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "AdvisorRMCustIndiDashboard.ascx:BindCustomerFamilyGrid()");
-
-
-                object[] objects = new object[4];
-
-                objects[0] = customerVo;                
-                objects[2] = customerMemberVo;                
-                objects[4] = customerFamilyVo;
-                objects[5] = customerFamilyList;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
         }
 
         //function to populate the maturity dates in the grid
@@ -252,7 +181,7 @@ namespace WealthERP.Advisor
             {
                 dsAssetAggrCurrentValues = assetBo.GetPortfolioAssetAggregateCurrentValues(portfolioId);
                 liabilityValue = assetBo.GetCustomerPortfolioLiability(portfolioId);
-                if (dsAssetAggrCurrentValues.Tables[0].Rows.Count == 0)
+                if (dsAssetAggrCurrentValues.Tables[0].Rows.Count == 0 && liabilityValue == 0)
                 {
                     lblAssetDetailsMsg.Visible = true;
                 }
@@ -266,22 +195,46 @@ namespace WealthERP.Advisor
 
                     foreach (DataRow dr in dsAssetAggrCurrentValues.Tables[0].Rows)
                     {
-                        drCurrentValues = dtAssetAggrCurrentValues.NewRow();
+                        if (double.Parse(dr["AggrCurrentValue"].ToString()) != 0)
+                        {
 
-                        drCurrentValues[0] = dr["AssetType"].ToString();
-                        drCurrentValues[1] = String.Format("{0:n2}", double.Parse(dr["AggrCurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                            drCurrentValues = dtAssetAggrCurrentValues.NewRow();
 
-                        dtAssetAggrCurrentValues.Rows.Add(drCurrentValues);
+                            drCurrentValues[0] = dr["AssetType"].ToString();
+                            drCurrentValues[1] = double.Parse(dr["AggrCurrentValue"].ToString()).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
-                        sum=sum+double.Parse(dr["AggrCurrentValue"].ToString());
+                            dtAssetAggrCurrentValues.Rows.Add(drCurrentValues);
+
+                            sum = sum + double.Parse(dr["AggrCurrentValue"].ToString());
+                        }
                     }
+                    //Adding Assets total to the data table to display in the gridview
+                    drCurrentValues = dtAssetAggrCurrentValues.NewRow();
+                    drCurrentValues[0] = "Assets Total";
+                    drCurrentValues[1] = double.Parse(sum.ToString()).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")); ;
+                    dtAssetAggrCurrentValues.Rows.Add(drCurrentValues);
+
+                    //Adding Liabilities to the data table to display in the gridview
+                    drCurrentValues = dtAssetAggrCurrentValues.NewRow();
+                    drCurrentValues[0] = "Liabilities";
+                    drCurrentValues[1] = double.Parse(liabilityValue.ToString()).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")); ;
+                    dtAssetAggrCurrentValues.Rows.Add(drCurrentValues);
+
+                    //Adding Net Worth to the data table to display in the gridview
+                    drCurrentValues = dtAssetAggrCurrentValues.NewRow();
+                    drCurrentValues[0] = "Net Worth";
+                    networth = sum - liabilityValue;
+                    drCurrentValues[1] = double.Parse(networth.ToString()).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")); ;
+                    dtAssetAggrCurrentValues.Rows.Add(drCurrentValues);
+
                     gvAssetAggrCurrentValue.DataSource = dtAssetAggrCurrentValues;
                     gvAssetAggrCurrentValue.DataBind();
                     gvAssetAggrCurrentValue.Visible = true;
-                    networth = sum - liabilityValue;
-                    lblAssets.Text = String.Format("{0:n2}", double.Parse(sum.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    lblLiabilityValue.Text = String.Format("{0:n2}", double.Parse(liabilityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    lblNetWorth.Text = String.Format("{0:n2}", double.Parse(networth.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    
+                    //networth = sum - liabilityValue;
+                    //lblAssets.Text = String.Format("{0:n2}", double.Parse(sum.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    //lblLiabilityValue.Text = String.Format("{0:n2}", double.Parse(liabilityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    //lblNetWorth.Text = String.Format("{0:n2}", double.Parse(networth.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 }
             }
             catch (BaseApplicationException Ex)
