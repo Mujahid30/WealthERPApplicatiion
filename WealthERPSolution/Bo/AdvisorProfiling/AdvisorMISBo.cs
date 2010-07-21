@@ -11,6 +11,14 @@ namespace BoAdvisorProfiling
 {
     public class AdvisorMISBo
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userType"></param>
+        /// <param name="Id"></param>
+        /// <param name="dtFrom"></param>
+        /// <param name="dtTo"></param>
+        /// <returns></returns>
         public DataSet GetMFMIS(string userType, int Id, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsAdvisorMIS;
@@ -41,7 +49,14 @@ namespace BoAdvisorProfiling
 
             return dsAdvisorMIS;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userType"></param>
+        /// <param name="Id"></param>
+        /// <param name="dtFrom"></param>
+        /// <param name="dtTo"></param>
+        /// <returns></returns>
         public DataSet GetEQMIS(string userType, int Id, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsMIS;
@@ -75,7 +90,12 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userType"></param>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public DataSet GetLoanMIS(string userType, int Id)
         {
             DataSet dsMIS;
@@ -107,7 +127,7 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-
+        
         /// <summary>
         /// For getting the AMC/Scheme wise MIS for RM for a valuation date
         /// </summary>
@@ -185,7 +205,13 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmid"></param>
+        /// <param name="valuationDate"></param>
+        /// <param name="AMCSearchVal"></param>
+        /// <returns></returns>
         public DataSet GetAMCwiseMISForRM(int rmid, DateTime valuationDate, string AMCSearchVal)
         {
             DataSet dsMIS;
@@ -217,7 +243,21 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserid"></param>
+        /// <param name="branchid"></param>
+        /// <param name="rmid"></param>
+        /// <param name="valuationDate"></param>
+        /// <param name="amcCode"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="AMCSearchVal"></param>
+        /// <param name="SchemeSearchVal"></param>
+        /// <param name="CategoryFilterVal"></param>
+        /// <param name="Count"></param>
+        /// <param name="AllPageExportCount"></param>
+        /// <returns></returns>
         public DataSet GetAMCSchemewiseMISForAdviser(int adviserid,int branchid,int rmid, DateTime valuationDate,int amcCode, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CategoryFilterVal, out int Count,int AllPageExportCount)
         {
             DataSet dsMIS;
@@ -249,7 +289,22 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserid"></param>
+        /// <param name="branchid"></param>
+        /// <param name="rmid"></param>
+        /// <param name="valuationDate"></param>
+        /// <param name="schemeplanid"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="AMCSearchVal"></param>
+        /// <param name="SchemeSearchVal"></param>
+        /// <param name="CustomerName"></param>
+        /// <param name="FolioNum"></param>
+        /// <param name="Count"></param>
+        /// <param name="AllPageExportCount"></param>
+        /// <returns></returns>
         public DataSet GetCustomerAMCSchemewiseMISForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int schemeplanid, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CustomerName, string FolioNum, out int Count,int AllPageExportCount)
         {
             DataSet dsMIS;
@@ -282,7 +337,15 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserid"></param>
+        /// <param name="branchid"></param>
+        /// <param name="rmid"></param>
+        /// <param name="dtFrom"></param>
+        /// <param name="dtTo"></param>
+        /// <returns></returns>
         public DataSet GetMFMISAdviser(int adviserid, int branchid, int rmid, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsAdvisorMIS;
@@ -313,7 +376,15 @@ namespace BoAdvisorProfiling
 
             return dsAdvisorMIS;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserid"></param>
+        /// <param name="branchid"></param>
+        /// <param name="rmid"></param>
+        /// <param name="valuationDate"></param>
+        /// <param name="AMCSearchVal"></param>
+        /// <returns></returns>
         public DataSet GetAMCwiseMISForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, string AMCSearchVal)
         {
             DataSet dsMIS;

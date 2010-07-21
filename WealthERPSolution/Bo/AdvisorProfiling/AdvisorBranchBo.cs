@@ -20,6 +20,13 @@ namespace BoAdvisorProfiling
 {
     public class AdvisorBranchBo
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorBranchVo"></param>
+        /// <param name="advisorId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public int CreateAdvisorBranch(AdvisorBranchVo advisorBranchVo, int advisorId,int userId)
         {
             int branchId;         
@@ -54,7 +61,11 @@ namespace BoAdvisorProfiling
             }
             return branchId;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmid"></param>
+        /// <returns></returns>
         public int GetBranchId(int rmid)
         {
             int branchId=0;
@@ -69,7 +80,11 @@ namespace BoAdvisorProfiling
             }
             return branchId;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public bool ChkBranchManagerAvail(int branchId)
         {
             bool bResult = false;
@@ -84,7 +99,14 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="IsMainBranch"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool AssociateBranch(int rmId, int branchId,int IsMainBranch,int userId)
         {
             bool bResult = false;
@@ -118,7 +140,14 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="IsMainBranch"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool UpdateAssociateBranch(int rmId, int branchId, int IsMainBranch, int userId)
         {
             bool bResult = false;
@@ -152,7 +181,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public bool DeleteBranch(int branchId)
         {
             bool bResult = false;
@@ -183,7 +216,13 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <param name="terminalId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool AddBranchTerminal(int branchId, int terminalId,int userId)
         {
             bool bResult = false;
@@ -217,7 +256,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public AdvisorBranchVo GetBranch(int branchId)
         {
             AdvisorBranchVo advisorBranchVo = null;
@@ -249,7 +292,11 @@ namespace BoAdvisorProfiling
             }
             return advisorBranchVo;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorBranchVo"></param>
+        /// <returns></returns>
         public bool UpdateAdvisorBranch(AdvisorBranchVo advisorBranchVo)
         {
             bool bResult = false;
@@ -281,7 +328,15 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchName"></param>
+        /// <param name="advisorId"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public List<int> FindBranch(string branchName,int advisorId,int CurrentPage, string sortOrder, out int count)
         {
             List<int> branchList = new List<int>();
@@ -309,7 +364,14 @@ namespace BoAdvisorProfiling
             }
             return branchList;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
         public List<AdvisorBranchVo> GetAdvisorBranches(int advisorId, string sortOrder, int CurrentPage , out int Count)
         {
             List<AdvisorBranchVo> branchList = null;
@@ -344,7 +406,12 @@ namespace BoAdvisorProfiling
             }
             return branchList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <param name="IsExternal"></param>
+        /// <returns></returns>
         public List<AdvisorBranchVo> GetAdvisorBranches(int advisorId, string IsExternal)
         {
             List<AdvisorBranchVo> branchList = null;
@@ -375,7 +442,11 @@ namespace BoAdvisorProfiling
             }
             return branchList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="terminalId"></param>
+        /// <returns></returns>
         public bool DeleteBranchTerminal(int terminalId)
         {
             bool bResult = false;
@@ -402,7 +473,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public DataSet GetBranchTerminals(int branchId)
         {
             DataSet ds = new DataSet();
@@ -429,7 +504,13 @@ namespace BoAdvisorProfiling
             }
             return ds;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="userid"></param>
+        /// <param name="IsMainBranch"></param>
         public void UpdateRMBranchAssociation(int rmId, int branchId, int userid,Int16 IsMainBranch)
         {
             bool bResult = false;
@@ -457,7 +538,10 @@ namespace BoAdvisorProfiling
             }
             
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
         public void DeleteRMBranchAssociation1(int rmId)
         {
             bool bResult = false;
@@ -485,7 +569,13 @@ namespace BoAdvisorProfiling
             }
 
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="Flag"></param>
+        /// <returns></returns>
         public DataSet GetRMBranchAssociation(int rmId,int adviserId,string Flag)
         {
             DataSet ds = new DataSet();
@@ -513,7 +603,18 @@ namespace BoAdvisorProfiling
             }
             return ds;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="Count"></param>
+        /// <param name="BranchFilter"></param>
+        /// <param name="RMFilter"></param>
+        /// <param name="SortExpression"></param>
+        /// <param name="genDictBranch"></param>
+        /// <param name="genDictRM"></param>
+        /// <returns></returns>
         public DataSet GetBranchAssociation(int userId, int currentPage, out int Count, string BranchFilter, string RMFilter, string SortExpression, out Dictionary<string, string> genDictBranch, out Dictionary<string, string> genDictRM)
         {
             DataSet ds = new DataSet();
@@ -550,7 +651,11 @@ namespace BoAdvisorProfiling
             }
             return ds;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ArrayList GetBranchName(int id)
         {         
           
@@ -582,7 +687,11 @@ namespace BoAdvisorProfiling
               }
               return branchList;
           }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public bool CheckInternalBranchAssociations(int rmId)
         {
             bool blResult = false;
@@ -611,7 +720,11 @@ namespace BoAdvisorProfiling
 
             return blResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public bool CheckBranchMgrRole(int rmId)
         {
             bool blResult = false;
@@ -640,7 +753,11 @@ namespace BoAdvisorProfiling
 
             return blResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public bool CheckExternalBranchAssociations(int rmId)
         {
             bool blResult = false;
@@ -669,7 +786,12 @@ namespace BoAdvisorProfiling
 
             return blResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="asscCategoryId"></param>
+        /// <returns></returns>
         public DataTable GetAsscCommissionDetails(int adviserId, int asscCategoryId) 
         {
             DataTable dt = new DataTable();
@@ -698,7 +820,11 @@ namespace BoAdvisorProfiling
             }
             return dt;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
         public DataTable GetAdviserAssetGroups(int adviserId)
         {
             DataTable dt = new DataTable();
@@ -726,7 +852,12 @@ namespace BoAdvisorProfiling
             }
             return dt;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="advisorAssociateCommissionVo"></param>
+        /// <returns></returns>
         public bool AddAssociateCommission(int userid,AdvisorAssociateCommissionVo advisorAssociateCommissionVo)
         {
             bool bResult = false;
@@ -757,7 +888,12 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="advisorAssociateCommissionVo"></param>
+        /// <returns></returns>
         public bool UpdateAssociateCommission(int userid, AdvisorAssociateCommissionVo advisorAssociateCommissionVo)
         {
             bool bResult = false;
@@ -788,7 +924,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public DataTable GetBranchAssociateCommission(int branchId)
         {
             DataTable dt = new DataTable();

@@ -16,7 +16,13 @@ namespace BoAdvisorProfiling
 {
     public class AdvisorBo
     {
-
+        /// <summary>
+        /// Registers a New Adviser
+        /// </summary>
+        /// <param name="userVo"></param>
+        /// <param name="advisorVo"></param>
+        /// <param name="rmVo"></param>
+        /// <returns>List<int></returns>
         public List<int> RegisterAdviser(UserVo userVo, AdvisorVo advisorVo, RMVo rmVo)
         {
             List<int> Ids = new List<int>();
@@ -46,6 +52,13 @@ namespace BoAdvisorProfiling
             }
             return Ids;
         }
+        /// <summary>
+        /// To Create Complete Adviser (UserAccount, AdviserAccount and AdviserStaff Account)
+        /// </summary>
+        /// <param name="userVo"></param>
+        /// <param name="adviserVo"></param>
+        /// <param name="rmVo"></param>
+        /// <returns>List<int></returns>
         public List<int> CreateCompleteAdviser(UserVo userVo, AdvisorVo adviserVo, RMVo rmVo)
         {
             List<int> Ids = new List<int>();
@@ -75,6 +88,11 @@ namespace BoAdvisorProfiling
             }
             return Ids;
         }
+        /// <summary>
+        /// Create Single Adviser
+        /// </summary>
+        /// <param name="advisorVo"></param>
+        /// <returns>advisorId</returns>
         public int CreateAdvisor(AdvisorVo advisorVo)
         {
 
@@ -113,7 +131,13 @@ namespace BoAdvisorProfiling
 
         }
 
-
+        /// <summary>
+        /// Returns list of Adviser's Customers based on the Adviser Id with Paging
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="sortOrder"></param>
+        /// <returns>List of CustomerIds</returns>
         public List<int> GetAdviserCustomer(int adviserId, int currentPage, string sortOrder)
         {
             List<int> customerList = new List<int>();
@@ -140,7 +164,13 @@ namespace BoAdvisorProfiling
             }
             return customerList;
         }
-
+        /// <summary>
+        /// Creates User Account for an Adviser
+        /// </summary>
+        /// <param name="advisorVo"></param>
+        /// <param name="userId"></param>
+        /// <param name="password"></param>
+        /// <returns>bool result</returns>
         public bool CreateAdvisorUser(AdvisorVo advisorVo, int userId, string password)
         {
             bool bResult = false;
@@ -185,7 +215,22 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// Returns Adviser's Customer Object List based on Adviser Id and the filters
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="Count"></param>
+        /// <param name="SortExpression"></param>
+        /// <param name="NameFilter"></param>
+        /// <param name="AreaFilter"></param>
+        /// <param name="PincodeFilter"></param>
+        /// <param name="ParentFilter"></param>
+        /// <param name="RMFilter"></param>
+        /// <param name="genDictParent"></param>
+        /// <param name="genDictRM"></param>
+        /// <param name="genDictReassignRM"></param>
+        /// <returns>List of CustomerVo</returns>
         public List<CustomerVo> GetAdviserCustomerList(int adviserId, int CurrentPage, out int Count, string SortExpression, string NameFilter, string AreaFilter, string PincodeFilter, string ParentFilter, string RMFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> customerList = null;
@@ -230,7 +275,11 @@ namespace BoAdvisorProfiling
             }
             return customerList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns>List of CustomerVo</returns>
         public List<CustomerVo> GetAdviserAllCustomerList(int adviserId)
         {
             List<CustomerVo> customerList = null;
@@ -263,6 +312,13 @@ namespace BoAdvisorProfiling
             return customerList;
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="smsVoList"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="smsType"></param>
+        /// <returns>bool Result</returns>
         public bool AddToAdviserSMSLog(List<SMSVo> smsVoList, int adviserId, string smsType)
         {
             bool bResult = false;
@@ -299,7 +355,13 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="smsVo"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="smsType"></param>
+        /// <returns>bool Result</returns>
         public bool AddToAdviserSMSLog(SMSVo smsVo, int adviserId, string smsType)
         {
             bool bResult = false;
@@ -332,6 +394,12 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="namefilter"></param>
+        /// <returns>List of CustomerVo</returns>
         public List<CustomerVo> GetAdviserCustomersForSMS(int adviserId, string namefilter)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
@@ -365,6 +433,12 @@ namespace BoAdvisorProfiling
             }
             return customerList;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="smsLincence"></param>
+        /// <returns>bool Result</returns>
         public bool UpdateAdviserSMSLicence(int adviserId, int smsLincence)
         {
             bool bResult = false;
@@ -397,6 +471,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns>Dataset of AdviserSubscription Details</returns>
         public DataSet GetAdviserSubscriptionDetails(int adviserId)
         {
             DataSet dsAdviserSubscriptionDetails;
@@ -428,6 +507,11 @@ namespace BoAdvisorProfiling
             }
             return dsAdviserSubscriptionDetails;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <returns>AdviserVo</returns>
         public AdvisorVo GetAdvisor(int advisorId)
         {
             AdvisorVo advisorVo = null;
@@ -461,7 +545,11 @@ namespace BoAdvisorProfiling
             }
             return advisorVo;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns>AdviserId</returns>
         public int GetRMAdviserId(int rmId)
         {
             int adviserId;
@@ -492,6 +580,12 @@ namespace BoAdvisorProfiling
             }
             return adviserId;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="Flag"></param>
+        /// <returns>int count</returns>
         public int GetAdviserCustomerList(int adviserId, string Flag)
         {
             AdvisorDao advisorDao = new AdvisorDao();
@@ -524,6 +618,11 @@ namespace BoAdvisorProfiling
             }
             return count;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns>Advisers Customer Dataset</returns>
         public DataSet GetAdviserCustomerListDataSet(int adviserId)
         {
             DataSet ds = new DataSet();
@@ -558,6 +657,11 @@ namespace BoAdvisorProfiling
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <returns>UserVo</returns>
         public UserVo GetAdvisorUserInfo(int advisorId)
         {
             UserVo userVo = null;
@@ -595,7 +699,23 @@ namespace BoAdvisorProfiling
             return userVo;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CustomerName"></param>
+        /// <param name="advisorId"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="Count"></param>
+        /// <param name="SortExpression"></param>
+        /// <param name="NameFilter"></param>
+        /// <param name="AreaFilter"></param>
+        /// <param name="PincodeFilter"></param>
+        /// <param name="ParentFilter"></param>
+        /// <param name="RMFilter"></param>
+        /// <param name="genDictParent"></param>
+        /// <param name="genDictRM"></param>
+        /// <param name="genDictReassignRM"></param>
+        /// <returns></returns>
         public List<CustomerVo> FindCustomer(string CustomerName, int advisorId, int CurrentPage, out int Count, string SortExpression, string NameFilter, string AreaFilter, string PincodeFilter, string ParentFilter, string RMFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> CustomerList = new List<CustomerVo>();
@@ -630,7 +750,11 @@ namespace BoAdvisorProfiling
             }
             return CustomerList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public AdvisorVo GetAdvisorUser(int userId)
         {
 
@@ -701,6 +825,11 @@ namespace BoAdvisorProfiling
         //    return bCode;  
 
         //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorVo"></param>
+        /// <returns></returns>
         public bool UpdateAdvisorUser(AdvisorVo advisorVo)
         {
             bool bResult = false;
@@ -733,6 +862,10 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string getId()
         {
             Guid id;

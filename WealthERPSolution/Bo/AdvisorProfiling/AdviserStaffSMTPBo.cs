@@ -11,6 +11,11 @@ namespace BoAdvisorProfiling
 {
     public class AdviserStaffSMTPBo
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserStaffSMTPvo"></param>
+        /// <returns></returns>
         public bool InsertAdviserStaffSMTP(AdviserStaffSMTPVo adviserStaffSMTPvo)
         {
             bool result = false;
@@ -46,7 +51,11 @@ namespace BoAdvisorProfiling
 
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="RMId"></param>
+        /// <returns></returns>
         public AdviserStaffSMTPVo GetSMTPCredentials(int RMId)
         {
             AdviserStaffSMTPDao adviserStaffSMTdao = new AdviserStaffSMTPDao();

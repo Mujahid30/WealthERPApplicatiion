@@ -7,8 +7,16 @@ using VoAdvisorProfiling;
 
 namespace BoAdvisorProfiling
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AdviserAssociateCategorySetupBo
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AdviserId"></param>
+        /// <returns></returns>
         public DataSet GetAdviserAssociateCategory(int AdviserId)
         {
             DataSet ds = null;
@@ -41,7 +49,11 @@ namespace BoAdvisorProfiling
             return ds;
         }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AssociateCategory"></param>
+        /// <returns></returns>
         public bool UpdateAdviserAssociateCategory(AssociateCategoryVo AssociateCategory )
         {
             bool result  = false;
@@ -74,7 +86,11 @@ namespace BoAdvisorProfiling
             return result;
         }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AssociateCategory"></param>
+        /// <returns></returns>
 
         public bool InsertAdviserAssociateCategory(AssociateCategoryVo AssociateCategory )
         {
@@ -107,7 +123,11 @@ namespace BoAdvisorProfiling
 
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AssociateCategoryId"></param>
+        /// <returns></returns>
         public bool DeleteAdviserAssociateCategory(int AssociateCategoryId)
         {
             bool result = false;

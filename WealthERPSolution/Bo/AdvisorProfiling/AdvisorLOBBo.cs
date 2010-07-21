@@ -15,7 +15,13 @@ namespace BoAdvisorProfiling
 {
     public class AdvisorLOBBo
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorLOBVo"></param>
+        /// <param name="advisorId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool CreateAdvisorLOB(AdvisorLOBVo advisorLOBVo, int advisorId,int userId)
         {
             bool result = false;
@@ -52,6 +58,13 @@ namespace BoAdvisorProfiling
             }
             return result;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorLOBVo"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool UpdateLOB(AdvisorLOBVo advisorLOBVo,int adviserId,int userId)
         {
             bool bResult = false;
@@ -85,7 +98,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lobId"></param>
+        /// <returns></returns>
         public bool DeleteLOB(int lobId)
         {
             AdvisorLOBDao advisorLOBDao = new AdvisorLOBDao();
@@ -112,6 +129,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="LOBId"></param>
+        /// <returns></returns>
         public AdvisorLOBVo GetLOB(int LOBId)
         {
             AdvisorLOBDao advisorLOBDao = new AdvisorLOBDao();
@@ -144,6 +166,13 @@ namespace BoAdvisorProfiling
             }
             return advisorLOBVo;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <param name="NameFilter"></param>
+        /// <param name="BusinessTypeFilter"></param>
+        /// <returns></returns>
         public DataSet GetAdvisorLOBs(int advisorId, string NameFilter, string BusinessTypeFilter)
         {
             DataSet dsAdvisorLOBList;
@@ -175,7 +204,14 @@ namespace BoAdvisorProfiling
 
             return dsAdvisorLOBList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="assetClass"></param>
+        /// <param name="category"></param>
+        /// <param name="segment"></param>
+        /// <returns></returns>
         public string GetLOBCode(string path,string assetClass, string category, string segment)
         {
 
@@ -213,6 +249,12 @@ namespace BoAdvisorProfiling
             return LOBCode;
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="LOBCode"></param>
+        /// <returns></returns>
         public string GetBusinessType(string path,string LOBCode)
         {
 
@@ -248,7 +290,12 @@ namespace BoAdvisorProfiling
             }
             return businessType;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <param name="classificationCode"></param>
+        /// <returns></returns>
         public bool CheckLOBExistence(int advisorId, string classificationCode)
         {
             bool result = false;
