@@ -71,5 +71,40 @@ namespace BoCommon
             }
             return smsVoList;
         }
+        /// <summary>
+        /// Method to Add Email Log Infor to the Table
+        /// </summary>
+        /// <param name="emailVo">EmailVo Object with the Details of the Email Sent</param>
+        /// <returns name="EmailLogId">The Unique Id created for the email Log Entry</returns>
+        /// 
+        public int AddToEmailLog(EmailVo emailVo)
+        {
+            int emailLogId = 0;
+            EmailSMSDao emailSMSDao = new EmailSMSDao();
+        
+            try
+            {
+                emailLogId = emailSMSDao.AddToEmailLog(emailVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "EmailSMSBo.cs:AddToEmailLog(EmailVo emailVo)");
+                object[] objects = new object[1];
+                objects[0] = emailVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return emailLogId;
+        }
     }
 }
