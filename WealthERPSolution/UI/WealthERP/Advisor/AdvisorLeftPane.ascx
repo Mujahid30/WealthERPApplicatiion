@@ -98,7 +98,7 @@
                                 <asp:TreeNode Text="Add Transactions" Value="MAddTransactions"></asp:TreeNode>
                                 <asp:TreeNode Text="MF Reports" Value="MFReports"></asp:TreeNode>
                                 <asp:TreeNode Text="Systematic Recon" Value="CustomerMFSystematicTransactionReport"></asp:TreeNode>
-                                <asp:TreeNode Text="Reversal Trxn Exception Handling" Value="MFReversal"></asp:TreeNode>
+                                <asp:TreeNode Text="Reversal Trxn Handling" Value="MFReversal"></asp:TreeNode>
                             </asp:TreeNode>
                             <asp:TreeNode Text="Equity" Value="Equity">
                                 <asp:TreeNode Text="MIS" Value="EMIS"></asp:TreeNode>
