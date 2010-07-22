@@ -113,7 +113,7 @@
                                         ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
                                         ValidationGroup="MFSubmit">
                                     </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
-                                        few characters of customer name.</span>
+                                        few characters of Scheme name.</span>
                     
                 </td>
             </tr>
