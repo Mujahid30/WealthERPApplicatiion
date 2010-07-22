@@ -108,7 +108,13 @@ namespace PCGMailLib
                 mail.Subject = email.Subject;
                 mail.IsBodyHtml = true;
                 mail.Body = email.Body;
-
+                if (email.AlternateViews.Count != 0)
+                {
+                    foreach (AlternateView altrView in email.AlternateViews)
+                    {
+                        mail.AlternateViews.Add(altrView);
+                    }
+                }
                
                 SaveMail(mail);
 
