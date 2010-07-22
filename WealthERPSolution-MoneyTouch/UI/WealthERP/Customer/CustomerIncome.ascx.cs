@@ -76,7 +76,10 @@ namespace WealthERP.Customer
                 throw exBase;
             }
         }
-
+        /// <summary>
+        /// Bind all the Drop down for Customer Income Screen
+        /// </summary>
+        /// <param name="path"></param>
         public void BindDropDowns(string path)
         {
             dtCurrency = XMLBo.GetCurrency(path);
@@ -212,7 +215,10 @@ namespace WealthERP.Customer
             txttotal.Text = (decimal.Parse(txtGSMonthly.Text) + decimal.Parse(txtRIMonthly.Text) + decimal.Parse(txtPIMonthly.Text) + decimal.Parse(txtAIMonthly.Text) + decimal.Parse(txtBIMonthly.Text) + decimal.Parse(txtOSIMonthly.Text)).ToString();
             txttotalyear.Text = (decimal.Parse(txtGSYearly.Text) + decimal.Parse(txtRIYearly.Text) + decimal.Parse(txtPIYearly.Text) + decimal.Parse(txtAIYearly.Text) + decimal.Parse(txtBIYearly.Text) + decimal.Parse(txtOSIYearly.Text)).ToString();
         }
-
+        /// <summary>
+        /// It will get the Customer Details and returns their Expense details based on that Customer
+        /// </summary>
+        /// <param name="customerId"></param>
         public void GetCustomerIncomeDetails(int customerId)
         {
             try
