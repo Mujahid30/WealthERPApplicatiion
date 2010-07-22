@@ -19,6 +19,7 @@ using System.Data;
 using BoReports;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Collections;
+using VoEmailSMS;
 using System.Net.Mime;
 
 namespace WealthERP.Reports
@@ -531,7 +532,7 @@ namespace WealthERP.Reports
 
             strMail.Append("Dear " + customerName + ",<br/>");
             
-            strMail.Append("<br/>&nbsp;&nbsp;&nbsp;&nbsp Please find attached " + subject + ".");
+            strMail.Append("<br/> Please find attached " + subject + ".");
             //strMail.Append("<br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName);
             strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo:" + rmVo.Mobile + "<br/>Ph:+" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "</i></b>");
 
@@ -626,6 +627,7 @@ namespace WealthERP.Reports
             Attachment attachment = null;
             bool isMailSent = false;
             RMVo rmVo = (RMVo)Session["rmVo"];
+            AdvisorVo advisorVo = (AdvisorVo)Session["advisorVo"];
             string logoPath = "";
             string senderName = rmVo.FirstName + " " + rmVo.LastName;
 
@@ -675,13 +677,17 @@ namespace WealthERP.Reports
                 }
 
                 DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
+                string attPath=Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/";
+                string fileNames="";
                 foreach (FileInfo f in di.GetFiles())
                 {
                     attachment = new Attachment(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + f.Name);
                     email.Attachments.Add(attachment);
+                    
+                    fileNames=fileNames+f.Name+";";
                 }
 
-                //email.Subject = hidSubject.Value;
+                email.Subject = hidSubject.Value;
                 //hidSubject.Value = string.Empty;
                 //email.IsBodyHtml = true;
                 //email.Body = hidBody.Value.Replace("\n", "<br/>");
@@ -702,9 +708,9 @@ namespace WealthERP.Reports
                 htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + MailBody + "</p>'<img src='cid:HDIImage'></body></html>", null, "text/html");
                 //Add image to HTML version
                 if (Session["advisorVo"] != null)
-                    logoPath = "Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
+                    logoPath = "~/Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
                 //System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("~/Images/") + @"\3DSYRW_4009.JPG", "image/jpeg");
-                System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(logoPath, "image/jpeg");
+                System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logoPath), "image/jpeg");
                 imageResource.ContentId = "HDIImage";
                 htmlView.LinkedResources.Add(imageResource);
                 //Add two views to message.
@@ -712,7 +718,7 @@ namespace WealthERP.Reports
                 email.AlternateViews.Add(htmlView);
                 //Send message
                 System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
-                smtpClient.Send(email);
+                //smtpClient.Send(email);
 
 
 
@@ -720,14 +726,31 @@ namespace WealthERP.Reports
                 //SmtpClient smtp = new SmtpClient();
                 //smtpClient.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
 
-                //isMailSent = emailer.SendMail(email);
-
+                isMailSent = emailer.SendMail(email);
+                
+                    EmailSMSBo emailSMSBo = new EmailSMSBo();
+                    EmailVo emailVo = new EmailVo();
+                    emailVo.AdviserId = advisorVo.advisorId;
+                    emailVo.AttachmentPath = attPath;
+                    if (Session["CusVo"] != null)
+                        emailVo.CustomerId = ((CustomerVo)Session["CusVo"]).CustomerId;
+                    else
+                        emailVo.CustomerId = 0;
+                    emailVo.EmailQueueId = 0;
+                    emailVo.EmailType = "Report";
+                    emailVo.FileName = fileNames;
+                    emailVo.HasAttachment = 1;
+                    emailVo.ReportCode = 0;
+                    emailVo.SentDate = DateTime.Today;
+                    emailVo.Status = 1;
+                    emailSMSBo.AddToEmailLog(emailVo);
+                
 
 
             }
             catch (Exception ex)
             {
-
+                string str = ex.ToString();
             }
             finally
             {
