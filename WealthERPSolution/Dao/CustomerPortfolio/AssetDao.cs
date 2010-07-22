@@ -1041,7 +1041,11 @@ namespace DaoCustomerPortfolio
             return getAssetOwnerShipDs;
         }
 
-        //Retrieve all the member customers Net Holdings for Group Dashboard
+        /// <summary>
+        /// Retrieve all the member customers Net Holdings for Group Dashboard
+        /// </summary>
+        /// <param name="CustomerId">Customer ID of the group head</param>
+        /// <returns></returns>
         public DataSet GetGrpAssetNetHoldings(int CustomerId)
         {
             Database db;
