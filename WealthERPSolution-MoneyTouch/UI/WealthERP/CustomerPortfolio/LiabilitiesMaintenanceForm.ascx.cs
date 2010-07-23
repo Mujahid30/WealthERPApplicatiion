@@ -126,7 +126,7 @@ namespace WealthERP.CustomerPortfolio
                         trLoanExceptionsTitle.Visible = false;
                         // Session.Remove("propertyVo");
                         BindDropDowns();
-                        BindAllClientsDropDownForGuarantor();
+                        //BindAllClientsDropDownForGuarantor();
                     }
                 }
                 RestorePreviousState();
@@ -150,26 +150,26 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        private void BindAllClientsDropDownForGuarantor()
-        {
-            DataSet ds = new DataSet();
-            LiabilitiesBo liabilitiesBo = new LiabilitiesBo();
+        //private void BindAllClientsDropDownForGuarantor()
+        //{
+        //    DataSet ds = new DataSet();
+        //    LiabilitiesBo liabilitiesBo = new LiabilitiesBo();
 
-            ds = liabilitiesBo.GetRMClientList(rmVo.RMId);
+        //    ds = liabilitiesBo.GetRMClientList(rmVo.RMId);
 
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                ddlGuarantor.DataSource = ds.Tables[0];
-                ddlGuarantor.DataTextField = "CustomerName";
-                ddlGuarantor.DataValueField = "C_CustomerId";
-                ddlGuarantor.DataBind();
-                ddlGuarantor.Items.Insert(0, new ListItem("Select a Guarantor", "Select a Guarantor"));
-            }
-            else
-            {
-                ddlGuarantor.Items.Clear();
-            }
-        }
+        //    if (ds.Tables[0].Rows.Count > 0)
+        //    {
+        //        ddlGuarantor.DataSource = ds.Tables[0];
+        //        ddlGuarantor.DataTextField = "CustomerName";
+        //        ddlGuarantor.DataValueField = "C_CustomerId";
+        //        ddlGuarantor.DataBind();
+        //        ddlGuarantor.Items.Insert(0, new ListItem("Select a Guarantor", "Select a Guarantor"));
+        //    }
+        //    else
+        //    {
+        //        ddlGuarantor.Items.Clear();
+        //    }
+        //}
 
         protected void BindDropDowns()
         {
@@ -646,6 +646,15 @@ namespace WealthERP.CustomerPortfolio
                     liabilitiesVo.FrequencyCodeEMI = ddlEMIFrequency.SelectedItem.Value.ToString();
                     liabilitiesVo.InstallmentEndDate = DateTime.Parse(txtInstallmentEndDt.Text);
                     liabilitiesVo.InstallmentStartDate = DateTime.Parse(txtInstallmentStartDt.Text);
+                    liabilitiesVo.Guarantor = txtGuarantor.Text;
+                    if (txtTenture.Text != null || txtTenture.Text != "")
+                    {
+                        liabilityVo.Tenure = int.Parse(txtTenture.Text);
+                    }
+                    else
+                    {
+                        liabilityVo.Tenure = 0;
+                    }
                     if (rbtnFloatYes.Checked)
                     {
                         liabilitiesVo.IsFloatingRateInterest = 1;
@@ -730,6 +739,7 @@ namespace WealthERP.CustomerPortfolio
                             assetAssociationVo.CreatedBy = userVo.UserId;
                             assetAssociationVo.ModifiedBy = userVo.UserId;
                             assetAssociationVo.LiabilitiesId = LiabilityId;
+                           
                             liabilitiesBo.CreatLiabilityAssetAssociation(assetAssociationVo);
                         }
 
@@ -881,7 +891,17 @@ namespace WealthERP.CustomerPortfolio
                 txtInterestRate.Text = liabilityVo.RateOfInterest.ToString();
                 txtInterestRate.Enabled = false;
                 txtLoanAmount.Text = liabilityVo.LoanAmount.ToString();
+                txtGuarantor.Text = liabilityVo.Guarantor.ToString();
+                txtGuarantor.Enabled = false;
                 txtLoanAmount.Enabled = false;
+                if (liabilityVo.Tenure != null)
+                {
+                    txtTenture.Text = liabilityVo.Tenure.ToString();
+                }
+                else
+                {
+                    txtTenture.Text = "0";
+                }
                 txtTenture.Enabled = false;
 
 
@@ -889,8 +909,7 @@ namespace WealthERP.CustomerPortfolio
                 txtNoOfInstallments.Text = liabilityVo.NoOfInstallments.ToString();
                 txtNoOfInstallments.Enabled = false;
 
-                // Doubt on tenure
-                //txtTenture.Text=liabilitiesVo.t
+
                 if (liabilityVo.IsFloatingRateInterest == 1)
                 {
                     rbtnFloatYes.Checked = true;
@@ -970,20 +989,20 @@ namespace WealthERP.CustomerPortfolio
                     ddlEMIFrequency.Enabled = false;
                 }
 
-                DataTable dtGuarantor = customerFamilyBo.GetCustomerAssociates(customerVo.CustomerId);
-                if (dtGuarantor != null)
-                {
-                    ddlGuarantor.DataSource = dtGuarantor;
-                    ddlGuarantor.DataValueField = dtGuarantor.Columns["CA_AssociationId"].ToString();
-                    ddlGuarantor.DataTextField = dtGuarantor.Columns["CustomerName"].ToString();
-                    ddlGuarantor.DataBind();
-                    ddlGuarantor.Enabled = false;
-                }
-                else
-                {
-                    //ddlGuarantor.Items.Insert(0, new ListItem("Select a Guarantor", "Select a Guarantor"));
-                    ddlGuarantor.Enabled = false;
-                }
+                //DataTable dtGuarantor = customerFamilyBo.GetCustomerAssociates(customerVo.CustomerId);
+                //if (dtGuarantor != null)
+                //{
+                //    ddlGuarantor.DataSource = dtGuarantor;
+                //    ddlGuarantor.DataValueField = dtGuarantor.Columns["CA_AssociationId"].ToString();
+                //    ddlGuarantor.DataTextField = dtGuarantor.Columns["CustomerName"].ToString();
+                //    ddlGuarantor.DataBind();
+                //    ddlGuarantor.Enabled = false;
+                //}
+                //else
+                //{
+                //    //ddlGuarantor.Items.Insert(0, new ListItem("Select a Guarantor", "Select a Guarantor"));
+                //    ddlGuarantor.Enabled = false;
+                //}
 
                 ddlEMIDate.SelectedValue = liabilityVo.EMIDate.ToString();
                 ddlEMIDate.Enabled = false;
@@ -1029,7 +1048,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     if (dtLiabilityAssociates.Rows[i]["XLAT_LoanAssociateCode"].ToString() == "GR")
                     {
-                        ddlGuarantor.SelectedValue = dtLiabilityAssociates.Rows[i]["CA_AssociationId"].ToString();
+                        //ddlGuarantor.SelectedValue = dtLiabilityAssociates.Rows[i]["CA_AssociationId"].ToString();
                     }
 
                     else
@@ -1135,6 +1154,8 @@ namespace WealthERP.CustomerPortfolio
             txtLoanAmount.Text = liabilitiesVo.LoanAmount.ToString();
             txtLoanAmount.Enabled = true;
             btnCoborrowers.Visible = true;
+            txtGuarantor.Text = liabilityVo.Guarantor.ToString();
+            txtGuarantor.Enabled = true;
             // Write fn for getting the co borrowers
 
             //txtNoCoBorrowers.Text=liabilitiesVo.
@@ -1142,8 +1163,15 @@ namespace WealthERP.CustomerPortfolio
             txtNoOfInstallments.Text = liabilitiesVo.NoOfInstallments.ToString();
             txtNoOfInstallments.Enabled = true;
 
-            // Doubt on tenure
-            //txtTenture.Text=liabilitiesVo.t
+            txtTenture.Enabled = true;
+            if (liabilityVo.Tenure != null)
+            {
+                txtTenture.Text = liabilityVo.Tenure.ToString();
+            }
+            else
+            {
+                txtTenture.Text = "0";
+            }
             if (liabilitiesVo.IsFloatingRateInterest == 1)
             {
                 rbtnFloatYes.Checked = true;
@@ -1200,13 +1228,6 @@ namespace WealthERP.CustomerPortfolio
             }
 
             DataTable dtGuarantor = customerFamilyBo.GetCustomerAssociates(customerVo.CustomerId);
-            if (dtGuarantor != null)
-            {
-                ddlGuarantor.DataSource = dtGuarantor;
-                ddlGuarantor.DataValueField = dtGuarantor.Columns["CA_AssociationId"].ToString();
-                ddlGuarantor.DataTextField = dtGuarantor.Columns["CustomerName"].ToString();
-                ddlGuarantor.DataBind();
-            }
 
             ddlEMIDate.SelectedValue = liabilitiesVo.EMIDate.ToString();
             ddlEMIDate.Enabled = true;
@@ -1214,7 +1235,6 @@ namespace WealthERP.CustomerPortfolio
             BindCoBorrowerGridView(liabilitiesVo.LiabilitiesId);
             txtNoCoBorrowers.Enabled = true;
 
-            ddlGuarantor.Enabled = true;
             ddlEMIFrequency.Enabled = true;
             ddlRepaymentType.Enabled = true;
             ddlLender.Enabled = true;
@@ -1319,7 +1339,7 @@ namespace WealthERP.CustomerPortfolio
             hashtable.Add("Lender", ddlLender.SelectedIndex);
             hashtable.Add("FloatYes", rbtnFloatYes.Checked);
 
-            hashtable.Add("Guaranter", ddlGuarantor.SelectedIndex);
+            hashtable.Add("Guaranter", txtGuarantor.Text);
 
             Session["LiabilitiesMaintenanceHT"] = hashtable;
         }
@@ -1341,7 +1361,7 @@ namespace WealthERP.CustomerPortfolio
                 if (hashtable["Guaranter"] != null)
                 {
 
-                    ddlGuarantor.SelectedIndex = (int)hashtable["Guaranter"];
+                    txtGuarantor.Text = hashtable["Guaranter"].ToString();
                 }
                 LoanTypeChange();
                 BindAssetsDropDown();
@@ -1422,7 +1442,15 @@ namespace WealthERP.CustomerPortfolio
                     newLiabilitiesVo.RateOfInterest = float.Parse(txtInterestRate.Text);
                     newLiabilitiesVo.RepaymentTypeCode = ddlRepaymentType.SelectedItem.Value.ToString();
                     newLiabilitiesVo.LiabilitiesId = liabilitiesVo.LiabilitiesId;
-
+                    newLiabilitiesVo.Guarantor = txtGuarantor.Text;
+                    if (txtTenture.Text != null || txtTenture.Text != "")
+                    {
+                        newLiabilitiesVo.Tenure = int.Parse(txtTenture.Text);
+                    }
+                    else
+                    {
+                        newLiabilitiesVo.Tenure = 0;
+                    }
                     dtLiabilityAssetAssociation = liabilitiesBo.GetLiabilityAssetAssociation(liabilitiesVo.LiabilitiesId);
 
                     if (liabilitiesBo.UpdateLiabilities(newLiabilitiesVo))
@@ -1790,12 +1818,12 @@ namespace WealthERP.CustomerPortfolio
                 {
                     if (int.Parse(txtNoCoBorrowers.Text) > 0)
                     {
-                        if (int.Parse(txtNoCoBorrowers.Text) > ddlGuarantor.Items.Count)
-                        {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Check the number of Co-Borrowers..!');", true);
-                        }
-                        else
-                        {
+                        //if (int.Parse(txtNoCoBorrowers.Text) > ddlGuarantor.Items.Count)
+                        //{
+                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Check the number of Co-Borrowers..!');", true);
+                        //}
+                        //else
+                        //{
                             DataTable dt = new DataTable();
                             DataRow dr;
                             dt.Columns.Add("CLA_LiabilitiesAssociationId");
@@ -1820,7 +1848,7 @@ namespace WealthERP.CustomerPortfolio
                             gvCoBorrower.DataBind();
                             BindGridDroDown();
                             gvCoBorrower.Visible = true;
-                        }
+                        //}
                     }
                     else
                         gvCoBorrower.Visible = false;

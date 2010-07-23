@@ -123,12 +123,7 @@
                     <asp:Label ID="lblGuarantor" runat="server" Text="Guarantor :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:DropDownList ID="ddlGuarantor" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                    <span id="Span7" class="spnRequiredField">*</span>
-                    <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Please select a Guarantor"
-                        ValidationGroup="btnSubmit" ControlToValidate="ddlGuarantor" Operator="NotEqual"
-                        ValueToCompare="Select the Guarantor" Display="Dynamic" CssClass="rfvPCG"></asp:CompareValidator>
+                    <asp:TextBox ID="txtGuarantor" runat="server" CssClass="txtField"></asp:TextBox>                    
                 </td>
             </tr>
             <tr>
@@ -137,14 +132,8 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtNoCoBorrowers" runat="server" CssClass="txtField" AutoPostBack="true"></asp:TextBox>
-                    <span id="Span8" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtNoCoBorrowers"
-                        ErrorMessage="<br />Please enter the number of co-borrowers" Display="Dynamic"
-                        CssClass="rfvPCG" runat="server" InitialValue="" ValidationGroup="btnSubmit">
-                    </asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtNoCoBorrowers"
-                        ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                        Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                    
+                    
                 </td>
                 <td>
                     <asp:Button ID="btnCoborrowers" runat="server" Text="Go" CssClass="PCGButton" OnClick="btnCoborrowers_Click"
@@ -357,15 +346,7 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtNoOfInstallments" runat="server" CssClass="txtField" MaxLength="8"></asp:TextBox>
-                    <span id="Span13" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtNoOfInstallments"
-                        ErrorMessage="<br />Please enter the number of instalments" Display="Dynamic"
-                        CssClass="rfvPCG" runat="server" InitialValue="" ValidationGroup="btnSubmit">
-                    </asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtNoOfInstallments"
-                        ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                        Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-                </td>
+                    &nbsp;</td>
                 <td class="leftField">
                     <asp:Label ID="lblAmountPrepaid" runat="server" Text="Amount Prepaid :" CssClass="FieldName"></asp:Label>
                 </td>
@@ -388,7 +369,6 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtInstallmentStartDt" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span15" class="spnRequiredField">*</span>
                     <cc1:CalendarExtender ID="txtInstallmentStartDt_CalendarExtender" runat="server"
                         TargetControlID="txtInstallmentStartDt" Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
@@ -404,8 +384,7 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtInstallmentEndDt" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span16" class="spnRequiredField">*</span>
-                    <cc1:CalendarExtender ID="txtInstallmentEndDt_CalendarExtender" runat="server" TargetControlID="txtInstallmentEndDt"
+                    &nbsp;<cc1:CalendarExtender ID="txtInstallmentEndDt_CalendarExtender" runat="server" TargetControlID="txtInstallmentEndDt"
                         Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
                     <cc1:TextBoxWatermarkExtender ID="txtInstallmentEndDt_TextBoxWatermarkExtender" runat="server"
@@ -424,8 +403,7 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtTenture" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span17" class="spnRequiredField">*</span>
-                </td>
+                    &nbsp;</td>
                 <td class="leftField">
                 </td>
                 <td class="rightField">
