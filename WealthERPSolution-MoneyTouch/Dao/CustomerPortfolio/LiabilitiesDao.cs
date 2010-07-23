@@ -2193,7 +2193,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdCreateLiability, "@CL_ModifiedBy", DbType.Int32, liabilitiesVo.ModifiedBy);
                 db.AddInParameter(cmdCreateLiability, "@CL_CommissionAmount", DbType.Double, liabilitiesVo.CommissionAmount);
                 db.AddInParameter(cmdCreateLiability, "@CL_CommissionPer", DbType.Decimal, liabilitiesVo.CommissionPer);
-
+                db.AddInParameter(cmdCreateLiability, "@CL_Guarantor", DbType.Decimal, liabilitiesVo.Guarantor);
 
                 db.AddOutParameter(cmdCreateLiability, "@LiabilityId", DbType.Int32, 100);
                 if (db.ExecuteNonQuery(cmdCreateLiability) != 0)
@@ -2358,7 +2358,7 @@ namespace DaoCustomerPortfolio
                     liabilitiesVo.InstallmentStartDate = DateTime.Parse(dr["CL_InstallmentStartDate"].ToString());
                     liabilitiesVo.InstallmentEndDate = DateTime.Parse(dr["CL_InstallmentEndDate"].ToString());
                     liabilitiesVo.IsInProcess = int.Parse(dr["CL_IsInProcess"].ToString());
-
+                    liabilitiesVo.Guarantor = dr["CL_Guarantor"].ToString();
                 }
 
             }
@@ -2508,7 +2508,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdUpdateLiability, "@CL_CommissionAmount", DbType.Double, liabilitiesVo.CommissionAmount);
                 db.AddInParameter(cmdUpdateLiability, "@CL_CommissionPer", DbType.Decimal, liabilitiesVo.CommissionPer);
                 db.AddInParameter(cmdUpdateLiability, "@CL_LiabilitiesId", DbType.Decimal, liabilitiesVo.LiabilitiesId);
-
+                db.AddInParameter(cmdUpdateLiability, "@CL_Guarantor", DbType.Decimal, liabilitiesVo.Guarantor);
                 if (db.ExecuteNonQuery(cmdUpdateLiability) != 0)
                 {
                     bResult = true;
