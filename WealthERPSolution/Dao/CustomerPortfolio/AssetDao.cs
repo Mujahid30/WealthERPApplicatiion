@@ -385,6 +385,7 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAssetAggregateCurrentValuesCmd = db.GetStoredProcCommand("SP_GetAssetCurrentValuesRM");
                 db.AddInParameter(getAssetAggregateCurrentValuesCmd, "RMID", DbType.Int32, RMId);
+                getAssetAggregateCurrentValuesCmd.CommandTimeout = 60 * 60;
                 assetAggrCurrValues = db.ExecuteDataSet(getAssetAggregateCurrentValuesCmd);
             }
             catch (BaseApplicationException Ex)
