@@ -16,6 +16,13 @@ namespace DaoCustomerPortfolio
 {
     public class LiabilitiesDao
     {
+        /// <summary>
+        /// Contains Parameter and Functions related to Loan Schemes and liabilities
+        /// </summary>
+        /// <param name="loanTypeId"></param>
+        /// <param name="loanPartnerId"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         #region Joshan Code - Created 16/9/2009
 
         public DataSet GetLoanScheme(int loanTypeId, int loanPartnerId, int rmId)
@@ -2783,7 +2790,7 @@ namespace DaoCustomerPortfolio
         }
         #endregion SV's COde
 
-
+                
 
 
 
