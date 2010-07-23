@@ -13,6 +13,9 @@ using VoCustomerPortfolio;
 using VoUser;
 namespace DaoCustomerPortfolio
 {
+    /// <summary>
+    /// alteration in the stored procedure --- SP_GetCustomerMFFolios
+    /// </summary>
     public class CustomerTransactionDao
     {
         #region Equity Transactions
@@ -2464,6 +2467,7 @@ namespace DaoCustomerPortfolio
                             AccountVo.AccountOpeningDate = DateTime.MinValue;
                         AccountVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
                         AccountVo.AMCName = dr["PA_AMCName"].ToString();
+                        AccountVo.Name = dr["CMFA_INV_NAME"].ToString(); // to capture the original cosumer name
                         AccountVo.ModeOfHolding = dr["XMOH_ModeOfHolding"].ToString();
                         AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
 
