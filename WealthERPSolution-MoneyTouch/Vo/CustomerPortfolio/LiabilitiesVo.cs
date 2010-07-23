@@ -31,6 +31,7 @@ namespace VoCustomerPortfolio
         private int m_ModifiedBy;
         private double m_CommissionAmount;
         private float m_CommissionPer;
+        private string m_Guarantor;       
         #endregion Fields
 
         #region Properties
@@ -177,6 +178,11 @@ namespace VoCustomerPortfolio
         {
             get { return m_CommissionPer; }
             set { m_CommissionPer = value; }
+        }
+        public string Guarantor
+        {
+            get { return m_Guarantor; }
+            set { m_Guarantor = value; }
         }
 
         #endregion Properties
