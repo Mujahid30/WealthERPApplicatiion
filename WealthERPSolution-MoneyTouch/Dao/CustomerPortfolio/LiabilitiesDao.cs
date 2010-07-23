@@ -2200,8 +2200,15 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdCreateLiability, "@CL_ModifiedBy", DbType.Int32, liabilitiesVo.ModifiedBy);
                 db.AddInParameter(cmdCreateLiability, "@CL_CommissionAmount", DbType.Double, liabilitiesVo.CommissionAmount);
                 db.AddInParameter(cmdCreateLiability, "@CL_CommissionPer", DbType.Decimal, liabilitiesVo.CommissionPer);
-                db.AddInParameter(cmdCreateLiability, "@CL_Guarantor", DbType.Decimal, liabilitiesVo.Guarantor);
-
+                db.AddInParameter(cmdCreateLiability, "@CL_Guarantor", DbType.String, liabilitiesVo.Guarantor);
+                if (liabilitiesVo.Tenure != null)
+                {
+                    db.AddInParameter(cmdCreateLiability, "@CL_Tenure", DbType.Int32, liabilitiesVo.Tenure);
+                }
+                else
+                {
+                    db.AddInParameter(cmdCreateLiability, "@CL_Tenure", DbType.Int32, 0);
+                }
                 db.AddOutParameter(cmdCreateLiability, "@LiabilityId", DbType.Int32, 100);
                 if (db.ExecuteNonQuery(cmdCreateLiability) != 0)
                 {
@@ -2515,7 +2522,15 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdUpdateLiability, "@CL_CommissionAmount", DbType.Double, liabilitiesVo.CommissionAmount);
                 db.AddInParameter(cmdUpdateLiability, "@CL_CommissionPer", DbType.Decimal, liabilitiesVo.CommissionPer);
                 db.AddInParameter(cmdUpdateLiability, "@CL_LiabilitiesId", DbType.Decimal, liabilitiesVo.LiabilitiesId);
-                db.AddInParameter(cmdUpdateLiability, "@CL_Guarantor", DbType.Decimal, liabilitiesVo.Guarantor);
+                db.AddInParameter(cmdUpdateLiability, "@CL_Guarantor", DbType.String, liabilitiesVo.Guarantor);
+                if (liabilitiesVo.Tenure != null)
+                {
+                    db.AddInParameter(cmdUpdateLiability, "@CL_Guarantor", DbType.Int32, liabilitiesVo.Tenure);
+                }
+                else
+                {
+                    db.AddInParameter(cmdUpdateLiability, "@CL_Guarantor", DbType.Int32, 0);
+                }
                 if (db.ExecuteNonQuery(cmdUpdateLiability) != 0)
                 {
                     bResult = true;
