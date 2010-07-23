@@ -108,6 +108,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFFolio.Columns.Add("FolioId");
                     dtMFFolio.Columns.Add("Folio No");
                     dtMFFolio.Columns.Add("AMC Name");
+                    dtMFFolio.Columns.Add("Name");// original costumer name from folio uploads
                     dtMFFolio.Columns.Add("Mode Of Holding");
                     dtMFFolio.Columns.Add("A/C Opening Date");
 
@@ -122,11 +123,12 @@ namespace WealthERP.CustomerPortfolio
                         drMFFolio[0] = FolioVo.AccountId.ToString();
                         drMFFolio[1] = FolioVo.AccountNum.ToString();
                         drMFFolio[2] = FolioVo.AMCName.ToString();
-                        drMFFolio[3] = FolioVo.ModeOfHolding.ToString();
+                        drMFFolio[3] = FolioVo.Name.ToString();
+                        drMFFolio[4] = FolioVo.ModeOfHolding.ToString();
                         if (FolioVo.AccountOpeningDate != DateTime.MinValue)
-                            drMFFolio[4] = FolioVo.AccountOpeningDate.ToShortDateString();
+                            drMFFolio[5] = FolioVo.AccountOpeningDate.ToShortDateString();
                         else
-                            drMFFolio[4] = string.Empty;
+                            drMFFolio[5] = string.Empty;
                         dtMFFolio.Rows.Add(drMFFolio);
                     }
                     gvMFFolio.DataSource = dtMFFolio;
