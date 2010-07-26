@@ -13,14 +13,14 @@ namespace BoWerpAdmin
 {
     public class AdviserMaintenanceBo
     {
-        public List<AdvisorVo> GetAdviserListWithPager(int CurrentPage, out int Count, string SortExpression)
+        public List<AdvisorVo> GetAdviserListWithPager(int CurrentPage, out int Count, string SortExpression,string filterExpression)
         {
 
             List<AdvisorVo> adviserVoList = new List<AdvisorVo>();
             AdviserMaintenanceDao adviserMaintenanceDao = new AdviserMaintenanceDao();
             try
             {
-                adviserVoList = adviserMaintenanceDao.GetAdviserListWithPager(CurrentPage, out Count, SortExpression);
+                adviserVoList = adviserMaintenanceDao.GetAdviserListWithPager(CurrentPage, out Count, SortExpression,filterExpression);
             }
             catch (BaseApplicationException Ex)
             {
