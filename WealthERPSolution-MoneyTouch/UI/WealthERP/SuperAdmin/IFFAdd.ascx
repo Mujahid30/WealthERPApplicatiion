@@ -153,7 +153,8 @@
             <asp:Label ID="lblAddressLine1" Text="Address Line 1:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtAddressLine1" CssClass="txtField" runat="server" Width="175px" MaxLength="25"></asp:TextBox>
+            <asp:TextBox ID="txtAddressLine1" CssClass="txtField" runat="server" Width="175px"
+                MaxLength="25"></asp:TextBox>
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="AddressLine1RequiredFieldValidator" runat="server"
                 ControlToValidate="txtAddressLine1" ErrorMessage="Atleast Address Line 1 Required"
@@ -163,7 +164,8 @@
             <asp:Label ID="lblAddressLine2" Text="Address Line 2:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtAddressLine2" CssClass="txtField" runat="server" Width="175px" MaxLength="25"></asp:TextBox>
+            <asp:TextBox ID="txtAddressLine2" CssClass="txtField" runat="server" Width="175px"
+                MaxLength="25"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -171,7 +173,8 @@
             <asp:Label ID="lblAddressLine3" Text="Area:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtAddressLine3" CssClass="txtField" runat="server" Width="175px" MaxLength="25"></asp:TextBox>
+            <asp:TextBox ID="txtAddressLine3" CssClass="txtField" runat="server" Width="175px"
+                MaxLength="25"></asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblCountry" Text="Country:" CssClass="FieldName" runat="server"></asp:Label>
@@ -195,9 +198,12 @@
             <span id="Span8" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtPinCode"
                 ErrorMessage="Pincode Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="pincodeCompare" CssClass="cvPCG" ControlToValidate="txtPinCode"
+            <%--            <asp:CompareValidator ID="pincodeCompare" CssClass="cvPCG" ControlToValidate="txtPinCode"
                 runat="server" Display="Dynamic" ErrorMessage="Please give only numbers" Operator="DataTypeCheck"
-                Type="Integer"></asp:CompareValidator>
+                Type="Integer"></asp:CompareValidator>--%>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="cvPCG"
+                ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtPinCode"
+                Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -227,9 +233,12 @@
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtMobileNo"
                 ErrorMessage="Mobile No Required" CssClass="cvPCG" Display="Dynamic" ToolTip="Enter "></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="mobileCompareValidator" CssClass="cvPCG" ControlToValidate="txtMobileNo"
+            <%--            <asp:CompareValidator ID="mobileCompareValidator" CssClass="cvPCG" ControlToValidate="txtMobileNo"
                 runat="server" Display="Dynamic" ErrorMessage="Please give only numbers" Operator="DataTypeCheck"
-                Type="Double"></asp:CompareValidator>
+                Type="Double"></asp:CompareValidator>--%>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG"
+                ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtMobileNo"
+                Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -252,9 +261,12 @@
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtTelephoneNumber"
                 ErrorMessage="Telephone No Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="telephoneValidator" ControlToValidate="txtTelephoneNumber"
+            <%--            <asp:CompareValidator ID="telephoneValidator" ControlToValidate="txtTelephoneNumber"
                 runat="server" Display="Dynamic" ErrorMessage="Please give only numbers" Operator="DataTypeCheck"
-                Type="Integer"></asp:CompareValidator>
+                Type="Integer"></asp:CompareValidator>--%>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG"
+                ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtTelephoneNumber"
+                Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -306,8 +318,7 @@
                 runat="server"></asp:Label>
         </td>
         <td runat="server" id="Deactivation">
-            <asp:TextBox ID="txtDeactivationDate" CssClass="txtField" runat="server" Width="175px"
-                ></asp:TextBox>
+            <asp:TextBox ID="txtDeactivationDate" CssClass="txtField" runat="server" Width="175px"></asp:TextBox>
             <ajaxToolKit:CalendarExtender runat="server" Format="dd/MM/yyyy" TargetControlID="txtDeactivationDate"
                 ID="calExeDeactivationDate" Enabled="true">
             </ajaxToolKit:CalendarExtender>
@@ -317,8 +328,8 @@
             <span id="Span10" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtDeactivationDate"
                 ErrorMessage="DeActivationDate Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
-            <asp:CompareValidator CssClass="cvPCG" Display="Dynamic" ID="dateCompareValidator" 
-                runat="server" ></asp:CompareValidator>
+            <asp:CompareValidator CssClass="cvPCG" Display="Dynamic" ID="dateCompareValidator"
+                runat="server"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -336,12 +347,14 @@
     </tr>
     <tr>
         <td>
-        <table width="100%">
-        <tr><td align="center">
-            <div class="failure-msg" id="lblMsg" runat="server" visible="false" align="center">
-                LOB List is Empty..
-            </div>
-            </td></tr>
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                        <div class="failure-msg" id="lblMsg" runat="server" visible="false" align="center">
+                            LOB List is Empty..
+                        </div>
+                    </td>
+                </tr>
             </table>
             <%--<asp:Label ID="lblMsg" runat="server" CssClass="Error"></asp:Label>--%>
         </td>
@@ -404,4 +417,4 @@
     </tr>
     <input type="hidden" id="hidValid" />
 </table>
-<asp:TextBox ID="txtActivationHidden" runat="server" style="display:none" />
+<asp:TextBox ID="txtActivationHidden" runat="server" Style="display: none" />
