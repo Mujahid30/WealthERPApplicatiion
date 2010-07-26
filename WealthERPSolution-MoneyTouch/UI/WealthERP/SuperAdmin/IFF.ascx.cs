@@ -175,7 +175,7 @@ namespace WealthERP.SuperAdmin
                 //if (Session["RM"] != null)
                 //{
 
-                    ShowAdvisor();
+                    ShowAdvisor("");
                 //    Session.Remove("RM");
 
                 //}
@@ -239,7 +239,7 @@ namespace WealthERP.SuperAdmin
         }
 
        
-        private void ShowAdvisor()
+        private void ShowAdvisor(string filterexpression)
         {
             string rm = "";
             DataTable dtAdvisor = new DataTable();
@@ -252,7 +252,7 @@ namespace WealthERP.SuperAdmin
             try
             {
 
-                advisorvolist = advisormaintanancebo.GetAdviserListWithPager(mypager.CurrentPage, out count, hdnSort.Value);
+                advisorvolist = advisormaintanancebo.GetAdviserListWithPager(mypager.CurrentPage, out count, hdnSort.Value, filterexpression);
                 Session["IFFAdvisorVoList"] = advisorvolist;
                 lblTotalRows.Text = hdnCount.Value = count.ToString();
                 if (advisorvolist.Count != 0)
@@ -685,225 +685,9 @@ namespace WealthERP.SuperAdmin
                 {   // Bind the Grid with Only Selected Values
                     hdnCategory.Value = ddlCategory.SelectedItem.Text.ToString() ;
                     advisorvolist = advisormaintanancebo.GetAdviserList();
-
                     lblTotalRows.Text = hdnCount.Value = count.ToString();
-                    if (advisorvolist.Count != 0)
-                    {
-                        ErrorMessage.Visible = false;
-                        dtAdvisor.Columns.Add("AdviserId");
-                        dtAdvisor.Columns.Add("UserId");
-                        dtAdvisor.Columns.Add("IFFName");
-                        //dtAdvisorStaff.Columns.Add("RM Main Branch");
-                        dtAdvisor.Columns.Add("Category");
-                        dtAdvisor.Columns.Add("IFFAddress");
-                        dtAdvisor.Columns.Add("IFFCity");
-                        dtAdvisor.Columns.Add("IFFContactPerson");
-                        dtAdvisor.Columns.Add("IFFMobileNumber");
-                        dtAdvisor.Columns.Add("IFFEmailId");
-                        dtAdvisor.Columns.Add("imgIFFComodities");
-                        dtAdvisor.Columns.Add("imgIFFLiabilities");
-                        dtAdvisor.Columns.Add("imgIFFEquity");
-                        dtAdvisor.Columns.Add("imgIFFFixedIncome");
-                        dtAdvisor.Columns.Add("imgIFFInsurance");
-                        dtAdvisor.Columns.Add("imgIFFMutualfund");
-                        dtAdvisor.Columns.Add("imgIFFPMS");
-                        dtAdvisor.Columns.Add("imgIFFPostalSavings");
-                        dtAdvisor.Columns.Add("imgIFFRealEstate");
-                        dtAdvisor.Columns.Add("imgIFFIsActive");
-                        //dtAdvisor.Columns.Add("MFDependent");
-                        //dtAdvisor.Columns.Add("EQDependent");
-                        //dtAdvisor.Columns.Add("InsDependent");
-                        //dtAdvisor.Columns.Add("PsDependent");
-                        //dtAdvisor.Columns.Add("LiabilitiesDependent");
-                        //dtAdvisor.Columns.Add("PMSDependent");
-                        //dtAdvisor.Columns.Add("RealEstateDependent");
-                        //dtAdvisor.Columns.Add("ComoditiesDependent");
-                        //dtAdvisor.Columns.Add("FIDependent");
-                        //dtAdvisor.Columns.Add("IsDependent");
-                        //dtAdvisorStaff.Columns.Add("Branch Name");
-                        DataRow dr;
-
-                        for (int i = 0; i < advisorvolist.Count; i++)
-                        {
-                            advisorVo = advisorvolist[i];
-                            drAdvisor = dtAdvisor.NewRow();
-                            //dr = dt.Rows[i];
-                            rmVo = new RMVo();
-
-                            drAdvisor[0] = advisorVo.advisorId;
-                            drAdvisor[1] = advisorVo.UserId;
-                            drAdvisor[2] = advisorVo.OrganizationName;
-                            drAdvisor[3] = advisorVo.Category;
-                            drAdvisor[4] = advisorVo.AddressLine1; ;
-                            drAdvisor[5] = advisorVo.City;
-                            drAdvisor[6] = advisorVo.ContactPersonFirstName;
-                            drAdvisor[7] = advisorVo.MobileNumber;
-                            drAdvisor[8] = advisorVo.Email1;
-                            drAdvisor[9] = "";
-                            drAdvisor[10] = "";
-                            drAdvisor[11] = "";
-                            drAdvisor[12] = "";
-                            drAdvisor[13] = "";
-                            drAdvisor[14] = "";
-                            drAdvisor[15] = "";
-                            drAdvisor[16] = "";
-                            drAdvisor[17] = "";
-                            drAdvisor[18] = "";
-                            for (int j = 0; j < advisorVo.AdvisorLOBVoList.Count; j++)
-                            {
-                                advisorlobvo = advisorVo.AdvisorLOBVoList[j];
-
-                                if (advisorlobvo.LOBClassificationType == "Commodities")
-                                {
-                                    if (advisorlobvo.IsDependent == 1)
-                                    {
-
-                                        drAdvisor[9] = "DE";
-                                    }
-                                    else
-                                    {
-                                        drAdvisor[9] = "IN";
-                                    }
-                                }
-                                else if (advisorlobvo.LOBClassificationType == "Liabilities:DirectSaleProducts")
-                                {
-                                    if (advisorlobvo.IsDependent == 1)
-                                    {
-
-                                        drAdvisor[10] = "DE";
-                                    }
-                                    else
-                                    {
-                                        drAdvisor[10] = "IN";
-                                    }
-                                }
-                                else if (advisorlobvo.LOBClassificationType == "Equity")
-                                {
-                                    if (advisorlobvo.IsDependent == 1)
-                                    {
-
-                                        drAdvisor[11] = "DE";
-                                    }
-                                    else
-                                    {
-                                        drAdvisor[11] = "IN";
-                                    }
-
-                                }
-                                else if (advisorlobvo.LOBClassificationType == "Fixed Income")
-                                {
-                                    if (advisorlobvo.IsDependent == 1)
-                                    {
-
-                                        drAdvisor[12] = "DE";
-                                    }
-                                    else
-                                    {
-                                        drAdvisor[12] = "IN";
-                                    }
-
-                                }
-                                else if (advisorlobvo.LOBClassificationType == "Insurance")
-                                {
-                                    if (advisorlobvo.IsDependent == 1)
-                                    {
-
-                                        drAdvisor[13] = "DE";
-                                    }
-                                    else
-                                    {
-                                        drAdvisor[13] = "IN";
-                                    }
-
-                                }
-                                else if (advisorlobvo.LOBClassificationType == "Mutual Fund")
-                                {
-                                    if (advisorlobvo.IsDependent == 1)
-                                    {
-                                        drAdvisor[14] = "DE";
-                                    }
-                                    else
-                                    {
-                                        drAdvisor[14] = "IN";
-                                    }
-
-                                }
-                                else if (advisorlobvo.LOBClassificationType == "PMS")
-                                {
-                                    if (advisorlobvo.IsDependent == 1)
-                                    {
-
-                                        drAdvisor[15] = "DE";
-                                    }
-                                    else
-                                    {
-                                        drAdvisor[15] = "IN";
-                                    }
-
-                                }
-                                else if (advisorlobvo.LOBClassificationType == "Postal Savings")
-                                {
-                                    if (advisorlobvo.IsDependent == 1)
-                                    {
-
-                                        drAdvisor[16] = "DE";
-                                    }
-                                    else
-                                    {
-                                        drAdvisor[16] = "IN";
-                                    }
-
-                                }
-                                else if (advisorlobvo.LOBClassificationType == "Real Estate")
-                                {
-                                    if (advisorlobvo.IsDependent == 1)
-                                    {
-
-                                        drAdvisor[17] = "DE";
-                                    }
-                                    else
-                                    {
-                                        drAdvisor[17] = "IN";
-                                    }
-
-                                }
-
-                            }
-                            if (advisorVo.IsActive == 1)
-                            {
-                                drAdvisor[18] = "Y";
-                            }
-                            else
-                            {
-                                drAdvisor[18] = "N";
-                            }
-                            
-                            if (advisorVo.Category == hdnCategory.Value)
-                            {
-                                dtAdvisor.Rows.Add(drAdvisor);
-                            }
-                        }
-
-                        if (dtAdvisor.Rows.Count != 0)
-                        {
-                            gvAdvisorList.DataSource = dtAdvisor;
-                            gvAdvisorList.DataBind();
-                            this.GetPageCount();
-                        }
-                        else
-                        {
-                            ErrorMessage.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        gvAdvisorList.DataSource = null;
-                        gvAdvisorList.DataBind();
-                        DivPager.Visible = false;
-                        lblCurrentPage.Visible = false;
-                        lblTotalRows.Visible = false;
-                        ErrorMessage.Visible = true;
-                    }
+                    ShowAdvisor(hdnCategory.Value);                    
+                    
                 }
                 else
                 {   // Bind the Grid with Only All Values
