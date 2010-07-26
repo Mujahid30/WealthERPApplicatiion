@@ -2523,13 +2523,14 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdUpdateLiability, "@CL_CommissionPer", DbType.Decimal, liabilitiesVo.CommissionPer);
                 db.AddInParameter(cmdUpdateLiability, "@CL_LiabilitiesId", DbType.Decimal, liabilitiesVo.LiabilitiesId);
                 db.AddInParameter(cmdUpdateLiability, "@CL_Guarantor", DbType.String, liabilitiesVo.Guarantor);
+                //db.AddInParameter(cmdUpdateLiability, "@CL_Tenure", DbType.String, liabilitiesVo.Tenure);
                 if (liabilitiesVo.Tenure != null)
                 {
-                    db.AddInParameter(cmdUpdateLiability, "@CL_Guarantor", DbType.Int32, liabilitiesVo.Tenure);
+                    db.AddInParameter(cmdUpdateLiability, "@CL_Tenure", DbType.Int32, liabilitiesVo.Tenure);
                 }
                 else
                 {
-                    db.AddInParameter(cmdUpdateLiability, "@CL_Guarantor", DbType.Int32, 0);
+                    db.AddInParameter(cmdUpdateLiability, "@CL_Tenure", DbType.Int32, 0);
                 }
                 if (db.ExecuteNonQuery(cmdUpdateLiability) != 0)
                 {
