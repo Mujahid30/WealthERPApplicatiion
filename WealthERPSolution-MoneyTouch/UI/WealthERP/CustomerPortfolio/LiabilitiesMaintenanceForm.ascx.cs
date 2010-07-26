@@ -614,8 +614,14 @@ namespace WealthERP.CustomerPortfolio
             {
                 return 1;
             }
+            else if (txtNoCoBorrowers.Text == "")
+            {
+                return 1;
+            }
             else
+            {
                 return 2;
+            }
 
         }
 
@@ -636,6 +642,10 @@ namespace WealthERP.CustomerPortfolio
                 gvValidationResult = GridViewValidation();
                 if (gvValidationResult == 1)
                 {
+                    //if (txtNoCoBorrowers.Text == "" && txtNoCoBorrowers.Text == null)
+                    //{
+                        
+                    //}
                     liabilitiesVo = new LiabilitiesVo();
                     liabilitiesVo.AmountPrepaid = double.Parse(txtAmountPrepaid.Text);
                     liabilitiesVo.CommissionAmount = 0;
@@ -644,10 +654,24 @@ namespace WealthERP.CustomerPortfolio
                     liabilitiesVo.EMIAmount = double.Parse(txtEMIAmount.Text);
                     liabilitiesVo.EMIDate = int.Parse(ddlEMIDate.SelectedItem.Value.ToString());
                     liabilitiesVo.FrequencyCodeEMI = ddlEMIFrequency.SelectedItem.Value.ToString();
-                    liabilitiesVo.InstallmentEndDate = DateTime.Parse(txtInstallmentEndDt.Text);
-                    liabilitiesVo.InstallmentStartDate = DateTime.Parse(txtInstallmentStartDt.Text);
+                    if (txtInstallmentEndDt.Text != null && txtInstallmentEndDt.Text != "")
+                    {
+                        liabilitiesVo.InstallmentEndDate = DateTime.Parse(txtInstallmentEndDt.Text);
+                    }
+                    else
+                    {
+                        liabilitiesVo.InstallmentEndDate=DateTime.Parse("1/1/1753 12:00:00");
+                    }
+                    if (txtInstallmentStartDt.Text != null && txtInstallmentStartDt.Text != "")
+                    {
+                        liabilitiesVo.InstallmentStartDate = DateTime.Parse(txtInstallmentStartDt.Text);
+                    }
+                    else
+                    {
+                        liabilitiesVo.InstallmentStartDate = DateTime.Parse("1/1/1753 12:00:00");
+                    }
                     liabilitiesVo.Guarantor = txtGuarantor.Text;
-                    if (txtTenture.Text != null || txtTenture.Text != "")
+                    if (txtTenture.Text != null && txtTenture.Text != "")
                     {
                         liabilityVo.Tenure = int.Parse(txtTenture.Text);
                     }
@@ -668,7 +692,14 @@ namespace WealthERP.CustomerPortfolio
                     liabilitiesVo.LoanPartnerCode = int.Parse(ddlLender.SelectedItem.Value.ToString());
                     liabilitiesVo.LoanTypeCode = int.Parse(ddlLoanType.SelectedItem.Value.ToString());
                     liabilitiesVo.ModifiedBy = userVo.UserId;
-                    liabilitiesVo.NoOfInstallments = int.Parse(txtNoOfInstallments.Text);
+                    if (txtNoOfInstallments.Text != null && txtNoOfInstallments.Text != "")
+                    {
+                        liabilitiesVo.NoOfInstallments = int.Parse(txtNoOfInstallments.Text);
+                    }
+                    else
+                    {
+                        liabilitiesVo.NoOfInstallments = 0;
+                    }
                     liabilitiesVo.RateOfInterest = float.Parse(txtInterestRate.Text);
                     liabilitiesVo.RepaymentTypeCode = ddlRepaymentType.SelectedItem.Value.ToString();
                     LiabilityId = liabilitiesBo.CreateLiabilities(liabilitiesVo);
@@ -726,7 +757,10 @@ namespace WealthERP.CustomerPortfolio
                                 }
                                 else
                                 {
-                                    assetAssociationVo.AssetId = int.Parse(ddlExistingAssets.SelectedValue.ToString());
+                                    if (ddlExistingAssets.SelectedValue.ToString() != "Pick One")
+                                    {
+                                        assetAssociationVo.AssetId = int.Parse(ddlExistingAssets.SelectedValue.ToString());
+                                    }
                                 }
                             }
                             else if (liabilitiesVo.LoanTypeCode.ToString() == "2")
@@ -884,9 +918,15 @@ namespace WealthERP.CustomerPortfolio
                 txtAmountPrepaid.Enabled = false;
                 txtEMIAmount.Text = liabilityVo.EMIAmount.ToString();
                 txtEMIAmount.Enabled = false;
-                txtInstallmentEndDt.Text = liabilityVo.InstallmentEndDate.ToShortDateString();
+                if (liabilityVo.InstallmentEndDate != DateTime.Parse("01/01/1753 12:00:00"))
+                {
+                    txtInstallmentEndDt.Text = liabilityVo.InstallmentEndDate.ToShortDateString();
+                }
                 txtInstallmentEndDt.Enabled = false;
-                txtInstallmentStartDt.Text = liabilityVo.InstallmentStartDate.ToShortDateString();
+                if (liabilityVo.InstallmentStartDate != DateTime.Parse("01/01/1753 12:00:00"))
+                {
+                    txtInstallmentStartDt.Text = liabilityVo.InstallmentStartDate.ToShortDateString();
+                }
                 txtInstallmentStartDt.Enabled = false;
                 txtInterestRate.Text = liabilityVo.RateOfInterest.ToString();
                 txtInterestRate.Enabled = false;
@@ -1061,7 +1101,7 @@ namespace WealthERP.CustomerPortfolio
                         dtTempCoBorrower.Rows.Add(drTemp);
                     }
                 }
-                txtNoCoBorrowers.Text = dtTempCoBorrower.Rows.Count.ToString();
+                txtNoCoBorrowers.Text = (dtTempCoBorrower.Rows.Count-1).ToString();
                 DataTable dtCoborrower = new DataTable();
                 DataRow drCoborrower;
                 dtCoborrower.Columns.Add("CLA_LiabilitiesAssociationId");
@@ -1142,11 +1182,16 @@ namespace WealthERP.CustomerPortfolio
             txtAmountPrepaid.Enabled = true;
             txtEMIAmount.Text = liabilitiesVo.EMIAmount.ToString();
             txtEMIAmount.Enabled = true;
-            txtInstallmentEndDt.Text = liabilitiesVo.InstallmentEndDate.ToShortDateString();
+            if (liabilityVo.InstallmentEndDate != DateTime.Parse("01/01/1753 12:00:00"))
+            {
+                txtInstallmentEndDt.Text = liabilityVo.InstallmentEndDate.ToShortDateString();
+            }
             txtInstallmentEndDt.Enabled = true;
             txtInstallmentEndDt_CalendarExtender.Enabled = true;
-            txtInstallmentStartDt.Text = liabilitiesVo.InstallmentStartDate.ToShortDateString();
-
+            if (liabilityVo.InstallmentStartDate != DateTime.Parse("01/01/1753 12:00:00"))
+            {
+                txtInstallmentStartDt.Text = liabilityVo.InstallmentStartDate.ToShortDateString();
+            }
             txtInstallmentStartDt.Enabled = true;
             txtInstallmentStartDt_CalendarExtender.Enabled = true;
             txtInterestRate.Text = liabilitiesVo.RateOfInterest.ToString();
@@ -1423,8 +1468,22 @@ namespace WealthERP.CustomerPortfolio
                     newLiabilitiesVo.EMIAmount = double.Parse(txtEMIAmount.Text);
                     newLiabilitiesVo.EMIDate = int.Parse(ddlEMIDate.SelectedItem.Value.ToString());
                     newLiabilitiesVo.FrequencyCodeEMI = ddlEMIFrequency.SelectedItem.Value.ToString();
-                    newLiabilitiesVo.InstallmentEndDate = DateTime.Parse(txtInstallmentEndDt.Text);
-                    newLiabilitiesVo.InstallmentStartDate = DateTime.Parse(txtInstallmentStartDt.Text);
+                    if (txtInstallmentEndDt.Text != null && txtInstallmentEndDt.Text != "")
+                    {
+                        newLiabilitiesVo.InstallmentEndDate = DateTime.Parse(txtInstallmentEndDt.Text);
+                    }
+                    else
+                    {
+                        newLiabilitiesVo.InstallmentEndDate = DateTime.Parse("01/01/1753 12:00:00");
+                    }
+                    if (txtInstallmentEndDt.Text != null && txtInstallmentEndDt.Text != "")
+                    {
+                        newLiabilitiesVo.InstallmentStartDate = DateTime.Parse(txtInstallmentStartDt.Text);
+                    }
+                    else
+                    {
+                        newLiabilitiesVo.InstallmentStartDate = DateTime.Parse("01/01/1753 12:00:00");
+                    }
                     if (rbtnFloatYes.Checked)
                     {
                         newLiabilitiesVo.IsFloatingRateInterest = 1;
@@ -1443,7 +1502,7 @@ namespace WealthERP.CustomerPortfolio
                     newLiabilitiesVo.RepaymentTypeCode = ddlRepaymentType.SelectedItem.Value.ToString();
                     newLiabilitiesVo.LiabilitiesId = liabilitiesVo.LiabilitiesId;
                     newLiabilitiesVo.Guarantor = txtGuarantor.Text;
-                    if (txtTenture.Text != null || txtTenture.Text != "")
+                    if (txtTenture.Text != null && txtTenture.Text != "")
                     {
                         newLiabilitiesVo.Tenure = int.Parse(txtTenture.Text);
                     }
