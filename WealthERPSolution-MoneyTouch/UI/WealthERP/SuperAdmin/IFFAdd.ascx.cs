@@ -57,112 +57,112 @@ namespace WealthERP.SuperAdmin
             {
                 BindCategory();
                 BindStatus();
-            }
 
+            }
                 if (Session["IFFAdd"] != null)
                 {
                     if (Session["IFFAdd"].ToString() == "Edit")
                     {
                         try
                         {
-                                btnAddLOB.Visible = true;
-                                btnSendLoginId.Visible = true;
-                                lblIFFAdd.Text = "Edit IFF";
-                                btnSubmit.Text = "Update";
-                                Deactivation.Visible = false;
-                                lblDeactivation.Visible = false;
-                                advisorVo = (AdvisorVo)Session["advisorVo"];
-                                userVo = (UserVo)Session["iffUserVo"];
-                                //advisorVo = advisorBo.GetAdvisor(advisorVo.advisorId);
-                                txtDeactivationDate.Text = advisorVo.DeactivationDate.ToShortDateString();
-                                txtAddressLine1.Text = advisorVo.AddressLine1;
-                                txtAddressLine2.Text = advisorVo.AddressLine2;
-                                txtAddressLine3.Text = advisorVo.AddressLine3;
-                                txtCity.Text = advisorVo.City;
-                                txtContactPerson.Text = advisorVo.ContactPersonFirstName;
-                                txtCountry.Text = advisorVo.Country;
-                                txtEmailId.Text = advisorVo.Email;
-                                txtLoginId.Text = advisorVo.LoginId;
-                                txtMobileNo.Text = advisorVo.MobileNumber.ToString();
-                                txtNameofIFF.Text = advisorVo.OrganizationName;
-                                txtPinCode.Text = advisorVo.PinCode.ToString();
-                                txtTelephoneNumber.Text = advisorVo.Phone1Number.ToString();
-                                btnSendLoginId.Text = "Reset/Send Login Id";
-                                if (advisorVo.IsActive == 1)
-                                {
-                                    ddlStatus.SelectedIndex = 0;
-                                    Activation.Visible = true;
-                                    lblActivation.Visible = true;
-                                    //lblActivation.Style.Add("display", "block");
+                            btnAddLOB.Visible = true;
+                            btnSendLoginId.Visible = true;
+                            lblIFFAdd.Text = "Edit IFF";
+                            btnSubmit.Text = "Update";
+                            Deactivation.Visible = false;
+                            lblDeactivation.Visible = false;
+                            advisorVo = (AdvisorVo)Session["advisorVo"];
+                            userVo = (UserVo)Session["iffUserVo"];
+                            //advisorVo = advisorBo.GetAdvisor(advisorVo.advisorId);
+                            txtDeactivationDate.Text = advisorVo.DeactivationDate.ToShortDateString();
+                            txtAddressLine1.Text = advisorVo.AddressLine1;
+                            txtAddressLine2.Text = advisorVo.AddressLine2;
+                            txtAddressLine3.Text = advisorVo.AddressLine3;
+                            txtCity.Text = advisorVo.City;
+                            txtContactPerson.Text = advisorVo.ContactPersonFirstName;
+                            txtCountry.Text = advisorVo.Country;
+                            txtEmailId.Text = advisorVo.Email;
+                            txtLoginId.Text = advisorVo.LoginId;
+                            txtMobileNo.Text = advisorVo.MobileNumber.ToString();
+                            txtNameofIFF.Text = advisorVo.OrganizationName;
+                            txtPinCode.Text = advisorVo.PinCode.ToString();
+                            txtTelephoneNumber.Text = advisorVo.Phone1Number.ToString();
+                            btnSendLoginId.Text = "Reset/Send Login Id";
+                            if (advisorVo.IsActive == 1)
+                            {
+                                ddlStatus.SelectedIndex = 0;
+                                Activation.Visible = true;
+                                lblActivation.Visible = true;
+                                //lblActivation.Style.Add("display", "block");
 
-                                }
-                                else
-                                {
-                                    ddlStatus.SelectedIndex = 1;
-                                    Activation.Visible = false;
-                                    lblActivation.Visible = false;
-                                    Deactivation.Visible = true;
-                                    lblDeactivation.Visible = true;
-                                    
-                                }
+                            }
+                            else
+                            {
+                                ddlStatus.SelectedIndex = 1;
+                                Activation.Visible = false;
+                                lblActivation.Visible = false;
+                                Deactivation.Visible = true;
+                                lblDeactivation.Visible = true;
 
-                                if (advisorVo.Category != null)
-                                {
+                            }
 
-                                    for (int i = 0; i < ddlCategory.Items.Count; i++)
+                            if (advisorVo.Category != null)
+                            {
+
+                                for (int i = 0; i < ddlCategory.Items.Count; i++)
+                                {
+                                    if (ddlCategory.Items[i].Text == advisorVo.Category)
                                     {
-                                        if (ddlCategory.Items[i].Text == advisorVo.Category)
-                                        {
-                                            ddlCategory.Items[i].Selected = true;
-                                        }
-                                        else
-                                            ddlCategory.Items[i].Selected = false;
+                                        ddlCategory.Items[i].Selected = true;
                                     }
-
-                                }
-                                else
-                                {
-                                    ddlCategory.SelectedIndex = 0;
+                                    else
+                                        ddlCategory.Items[i].Selected = false;
                                 }
 
-                                DataSet dsadvisorLOB = advisorLOBBo.GetAdvisorLOBs(advisorVo.advisorId, null, null);
+                            }
+                            else
+                            {
+                                ddlCategory.SelectedIndex = 0;
+                            }
 
-                                showLOBList(advisorVo.advisorId);
-                                if (dsadvisorLOB != null)
+                            DataSet dsadvisorLOB = advisorLOBBo.GetAdvisorLOBs(advisorVo.advisorId, null, null);
+
+                            showLOBList(advisorVo.advisorId);
+                            if (dsadvisorLOB != null)
+                            {
+                                for (int i = 0; i < dsadvisorLOB.Tables[0].Rows.Count; i++)
                                 {
-                                    for (int i = 0; i < dsadvisorLOB.Tables[0].Rows.Count; i++)
+                                    if (dsadvisorLOB.Tables[0].Rows[i]["AL_IsDependent"].ToString() == "1")
                                     {
-                                        if (dsadvisorLOB.Tables[0].Rows[i]["AL_IsDependent"].ToString() == "1")
-                                        {
-                                            GridValidationForIsDependent(i);
-                                        }
-                                    }
-                                }
-                                txtActivationDate.Text = advisorVo.ActivationDate.ToShortDateString();                                
-                                txtActivationHidden.Text = advisorVo.ActivationDate.ToShortDateString();
-                                dateCompareValidator.EnableClientScript = false;
-                                dateCompareValidator.ControlToCompare = "txtActivationHidden";
-                                dateCompareValidator.ControlToValidate = "txtDeactivationDate";
-                                dateCompareValidator.Type = ValidationDataType.Date;
-                                dateCompareValidator.Operator = ValidationCompareOperator.GreaterThan;
-                                dateCompareValidator.ErrorMessage = "Deactivation Date should not be less than Activation Date";    
-                                if (advisorVo.IsActive == 1)
-                                {
-                                    if (txtDeactivationDate.Text == "01/01/1900")
-                                    {
-                                        calExeDeactivationDate.SelectedDate = DateTime.Now;
-                                    }
-
-                                }
-                                else
-                                {
-                                    if (txtActivationDate.Text == "01/01/1900")
-                                    {
-                                        calExeActivationDate.SelectedDate = DateTime.Now;
+                                        GridValidationForIsDependent(i);
                                     }
                                 }
                             }
-                        
+                            txtActivationDate.Text = advisorVo.ActivationDate.ToShortDateString();
+                            txtActivationHidden.Text = advisorVo.ActivationDate.ToShortDateString();
+                            dateCompareValidator.EnableClientScript = false;
+                            dateCompareValidator.ControlToCompare = "txtActivationHidden";
+                            dateCompareValidator.ControlToValidate = "txtDeactivationDate";
+                            dateCompareValidator.Type = ValidationDataType.Date;
+                            dateCompareValidator.Operator = ValidationCompareOperator.GreaterThan;
+                            dateCompareValidator.ErrorMessage = "Deactivation Date should not be less than Activation Date";
+                            if (advisorVo.IsActive == 1)
+                            {
+                                if (txtDeactivationDate.Text == "01/01/1900")
+                                {
+                                    calExeDeactivationDate.SelectedDate = DateTime.Now;
+                                }
+
+                            }
+                            else
+                            {
+                                if (txtActivationDate.Text == "01/01/1900")
+                                {
+                                    calExeActivationDate.SelectedDate = DateTime.Now;
+                                }
+                            }
+                        }
+
                         catch (Exception ex)
                         {
                             throw ex;
@@ -170,7 +170,7 @@ namespace WealthERP.SuperAdmin
                     }
                     else if (Session["IFFAdd"].ToString() == "Add")
                     {
-                       
+
                         Deactivation.Visible = false;
                         lblDeactivation.Visible = false;
                         txtDeactivationDate.Text = "";
@@ -188,8 +188,7 @@ namespace WealthERP.SuperAdmin
                         Deactivation.Visible = false;
                         lblDeactivation.Visible = false;
                         txtTelephoneNumber.Text = "";
-                        calExeActivationDate.SelectedDate = DateTime.Now;
-                        calExeDeactivationDate.SelectedDate = DateTime.Now;
+                       
                         //advisorVo = (AdvisorVo)Session["LOBAdvisorVo"];
                         if (Session["IDs"] != null)
                         {
@@ -206,6 +205,8 @@ namespace WealthERP.SuperAdmin
                             btnAddLOB.Visible = false;
                             btnSendLoginId.Visible = false;
                             ddlStatus.Items[1].Enabled = false;
+                            calExeActivationDate.SelectedDate = DateTime.Now;
+                            calExeDeactivationDate.SelectedDate = DateTime.Now;
                         }
                         if (advisorVo != null)
                         {
