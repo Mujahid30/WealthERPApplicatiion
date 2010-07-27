@@ -2,7 +2,6 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
-<script type="text/javascript" src="../Scripts/jquery-1.js"></script>
 
 <script type="text/javascript" language="javascript">
     function checkSelection() {
