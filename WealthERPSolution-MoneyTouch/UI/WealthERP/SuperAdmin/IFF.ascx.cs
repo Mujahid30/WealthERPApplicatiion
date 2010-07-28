@@ -652,6 +652,8 @@ namespace WealthERP.SuperAdmin
             ddlCategory.DataValueField = "AdviserCategoryCode";
             ddlCategory.DataBind();
             ddlCategory.Items.Insert(0, "Select");
+            ListItem li=new ListItem("All","All");
+            ddlCategory.Items.Insert(1, li);
         }
         private DropDownList GetCategoryDDL()
         {            
@@ -683,10 +685,18 @@ namespace WealthERP.SuperAdmin
             {
                 if (ddlCategory.SelectedIndex != 0)
                 {   // Bind the Grid with Only Selected Values
-                    hdnCategory.Value = ddlCategory.SelectedItem.Text.ToString() ;
                     advisorvolist = advisormaintanancebo.GetAdviserList();
                     lblTotalRows.Text = hdnCount.Value = count.ToString();
-                    ShowAdvisor(hdnCategory.Value);                    
+                    if (ddlCategory.SelectedIndex == 1)
+                    {
+                        ShowAdvisor(""); 
+                    }
+                    else
+                    {
+                        hdnCategory.Value = ddlCategory.SelectedItem.Text.ToString();
+                        ShowAdvisor(hdnCategory.Value); 
+                    }
+                                       
                     
                 }
                 else
