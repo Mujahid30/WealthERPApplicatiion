@@ -471,6 +471,7 @@ namespace DaoCustomerProfiling
                     customerVo.ContactFirstName = dr["C_ContactGuardianFirstName"].ToString();
                     customerVo.ContactLastName = dr["C_ContactGuardianLastName"].ToString();
                     customerVo.MothersMaidenName = dr["C_MothersMaidenName"].ToString();
+                    customerVo.AssociationId = int.Parse(dr["CA_AssociationId"].ToString());
                     if (dr["AB_BranchId"].ToString() != string.Empty)
                         customerVo.BranchId = int.Parse(dr["AB_BranchId"].ToString());
                     if (dr["AB_BranchName"].ToString() != null && dr["AB_BranchName"].ToString() != "")
