@@ -2,14 +2,15 @@
     Inherits="WealthERP.Uploads.CustomerUpload" %>
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
-
 <link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
 <link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
 
 <script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
 
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
+
 <!--This script is used for Progress bar -->
+
 <script type="text/javascript">
     function pageLoad() {
         InitDialogs();
@@ -52,6 +53,15 @@
     </tr>
     <tr>
     </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgUploadComplete" runat="server" class="success-msg" align="center" visible="false">
+            Uploading successfully Completed
+        </td>
+    </tr>
+    </div>
 </table>
 <table class="TableBackground" style="width: 100%;">
     <tr>
@@ -183,7 +193,8 @@
         <td class="SubmitCell" colspan="4">
             <asp:Button ID="btn_Upload" runat="server" Text="Upload" OnClick="btn_Upload_Click"
                 ValidationGroup="btn_Upload" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerUpload_btn_Upload','S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerUpload_btn_Upload','S');" OnClientClick="Page_ClientValidate();Loading(true);"/>
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerUpload_btn_Upload','S');"
+                OnClientClick="Page_ClientValidate();Loading(true);" />
             &nbsp;
         </td>
     </tr>

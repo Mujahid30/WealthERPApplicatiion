@@ -32,6 +32,15 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.Label lblView;
         
         /// <summary>
+        /// msgUploadComplete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgUploadComplete;
+        
+        /// <summary>
         /// trError control.
         /// </summary>
         /// <remarks>
