@@ -14,6 +14,15 @@ namespace WealthERP.Uploads {
     public partial class RejectedMFTransactionStaging {
         
         /// <summary>
+        /// scptMgr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager scptMgr;
+        
+        /// <summary>
         /// lblHeader control.
         /// </summary>
         /// <remarks>

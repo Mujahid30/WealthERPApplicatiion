@@ -5,44 +5,46 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
-<%--<script>
-    function ShowPopup() {
-    
-        var form = document.forms[0];
-        var transactionId = 0;
-        var count = 0
-        for (var i = 0; i < form.elements.length; i++) {
-            if (form.elements[i].type == 'checkbox') {
-                if (form.elements[i].checked == true) {
-                    count++;
-//                    hiddenField = form.elements[i].id.replace("chk","hdn");
-//                    transactionId = document.getElementById(hiddenField).value;
+<asp:ScriptManager ID="scptMgr" runat="server">
+</asp:ScriptManager>
 
+<link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
+<link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
 
-                    hiddenField = form.elements[i].id.replace("chk", "hdn");
-                    hiddenFieldValues = document.getElementById(hiddenField).value;
-                    var splittedValues = hiddenFieldValues.split("-");
-                    transactionId = splittedValues[0];
-                    rejectReasonCode = splittedValues[1];
-                    if (rejectReasonCode != 22) {
-                        alert("Select transaction with reject reason 'WERP Account id not found for Folio'")
-                        return false;
-                    }
-                }
-            }
-        }
-        if (count > 1) {
-            alert("You can select only one record at a time.")
-            return false;    
-        }
-        else if (count == 0) {
-            alert("Please select one record.")
-            return false;
-        }
-        window.open('Uploads/MapToCustomers.aspx?id=' + transactionId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
-        return false;
+<script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
+
+<script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
+<!--This script is used for Progress bar -->
+<script type="text/javascript">
+    function pageLoad() {
+        InitDialogs();
+        Loading(false);
     }
-</script>--%>
+
+    function UpdateImg(ctrl, imgsrc) {
+        var img = document.getElementById(ctrl);
+        img.src = imgsrc;
+    }
+
+    // sets up all of the YUI dialog boxes
+    function InitDialogs() {
+        DialogBox_Loading = new YAHOO.widget.Panel("waitBox",
+	{ fixedcenter: true, modal: true, visible: false,
+	    width: "230px", close: false, draggable: true
+	});
+        DialogBox_Loading.setHeader("Processing, please wait...");
+        DialogBox_Loading.setBody('<div style="text-align:center;"><img src="/Images/Wait.gif" id="Image1" /></div>');
+        DialogBox_Loading.render(document.body);
+    }
+    function Loading(b) {
+        if (b == true && Page_IsValid == true) {
+            DialogBox_Loading.show();
+        }
+        else {
+            DialogBox_Loading.hide();
+        }
+    }
+</script>
 
 <table style="width: 100%" class="TableBackground">
     <tr>
@@ -181,7 +183,7 @@
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
-                CssClass="PCGButton"  />
+                CssClass="PCGButton" OnClientClick="Page_ClientValidate();Loading(true);" />
             
             <asp:Button ID="btnMapFolios" runat="server" CssClass="PCGButton" Text="Map Folios"
                  onclick="btnMapFolios_Click" />

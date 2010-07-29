@@ -81,6 +81,8 @@ namespace WealthERP.Uploads
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            btnReprocess.Attributes.Add("onclick",
+   "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
