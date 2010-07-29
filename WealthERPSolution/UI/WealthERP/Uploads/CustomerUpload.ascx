@@ -2,15 +2,14 @@
     Inherits="WealthERP.Uploads.CustomerUpload" %>
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
-<%--<asp:UpdatePanel ID="up1" runat="server">
-    <ContentTemplate>--%>
+
 <link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
 <link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
 
 <script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
 
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
-
+<!--This script is used for Progress bar -->
 <script type="text/javascript">
     function pageLoad() {
         InitDialogs();
