@@ -86,6 +86,7 @@ namespace WealthERP.Uploads
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string lastUploadDate = "";
             btn_Upload.Attributes.Add("onclick",
     "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             this.Page.Culture = "en-US";
@@ -95,8 +96,15 @@ namespace WealthERP.Uploads
             adviserVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["UserVo"];
 
+            
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
-
+            lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
+            if (lastUploadDate != "")
+            {
+                lblLastUploadDateText.Visible = true;
+                lblLastUploadDate.Visible = true;
+                lblLastUploadDate.Text = lastUploadDate;
+            }
             if (Session["userVo"] != null)
             {
 

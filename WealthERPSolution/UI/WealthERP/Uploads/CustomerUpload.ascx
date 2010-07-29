@@ -65,8 +65,9 @@
 </table>
 <table class="TableBackground" style="width: 100%;">
     <tr>
-        <td colspan="4">
-            &nbsp;
+        <td colspan="4" align="right" runat="server">
+            <asp:Label ID="lblLastUploadDateText" runat="server" Text="Last Upload Date:" CssClass="Error" Visible="false"></asp:Label>
+            <asp:Label ID="lblLastUploadDate" runat="server" Text="" CssClass="Error" Visible="false"></asp:Label>
         </td>
     </tr>
     <tr id="trError" visible="false" runat="server">
