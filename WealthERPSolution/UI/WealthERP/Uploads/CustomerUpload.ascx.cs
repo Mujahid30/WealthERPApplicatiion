@@ -2087,6 +2087,10 @@ namespace WealthERP.Uploads
                 lblError.Text = "The file format does not match the selection made!";
             }
             # endregion
+            if (processlogVo.NoOfRejectedRecords == 0)
+            {
+                btn_ViewRjects.Visible = false;
+            }
             msgUploadComplete.Visible = true;
         }
 
