@@ -81,7 +81,7 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -92,7 +92,7 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
-                            <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged" >
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -103,7 +103,7 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrFileName" runat="server" Text="File Name"></asp:Label>
-                            <asp:DropDownList ID="ddlFileName" AutoPostBack="true" runat="server" OnSelectedIndexChanged ="ddlFileName_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlFileName" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged ="ddlFileName_SelectedIndexChanged" >
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -114,7 +114,7 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrSourceType" runat="server" Text="Source Type"></asp:Label>
-                            <asp:DropDownList ID="ddlSourceType" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlSourceType_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlSourceType" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlSourceType_SelectedIndexChanged" >
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -125,7 +125,7 @@
                     <asp:TemplateField HeaderStyle-Wrap="false">
                         <HeaderTemplate>
                             <asp:Label ID="lblInvName" runat="server" Text="Investor Name"></asp:Label><br />
-                            <asp:DropDownList ID="ddlInvName" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlInvName_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlInvName" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlInvName_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -135,7 +135,7 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrFolioNumber" runat="server" Text="Folio Number"></asp:Label>
-                            <asp:DropDownList ID="ddlFolioNumber" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlFolioNumber" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged" >
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -150,7 +150,7 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrSchemeName" runat="server" Text="Scheme Name"></asp:Label>
-                            <asp:DropDownList ID="ddlSchemeName" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlSchemeName_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlSchemeName" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlSchemeName_SelectedIndexChanged" >
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -162,7 +162,7 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrTransactionType" runat="server" Text="Traansation Type"></asp:Label>
-                            <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged" >
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
