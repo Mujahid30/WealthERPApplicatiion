@@ -2,19 +2,19 @@
     Inherits="WealthERP.Uploads.RejectedMFTransactionStaging" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
-
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
-
 <link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
 <link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
 
 <script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
 
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
+
 <!--This script is used for Progress bar -->
+
 <script type="text/javascript">
     function pageLoad() {
         InitDialogs();
@@ -52,6 +52,17 @@
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="MF Transaction Staging Rejects"></asp:Label>
         </td>
     </tr>
+</table>
+<table width="100%">
+<tr>
+<td align="center">
+<div id="msgReprocessComplete" runat="server" class="success-msg" align="center" visible="false">
+Reprocess successfully Completed
+</td>
+</tr>
+</div>
+</table>
+<table style="width: 100%" class="TableBackground">
     <tr>
         <td>
             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
@@ -77,55 +88,55 @@
                 <HeaderStyle CssClass="HeaderStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                            <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true"
+                                runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
-                            <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="cmbLongField" runat="server"
+                                OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("ProcessId").ToString() %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrFileName" runat="server" Text="File Name"></asp:Label>
-                            <asp:DropDownList ID="ddlFileName" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged ="ddlFileName_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlFileName" AutoPostBack="true" CssClass="cmbLongField" runat="server"
+                                OnSelectedIndexChanged="ddlFileName_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblFileName" runat="server" Text='<%# Eval("ExternalFileName").ToString() %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrSourceType" runat="server" Text="Source Type"></asp:Label>
-                            <asp:DropDownList ID="ddlSourceType" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlSourceType_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlSourceType" AutoPostBack="true" CssClass="cmbLongField"
+                                runat="server" OnSelectedIndexChanged="ddlSourceType_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblSourceType" runat="server" Text='<%# Eval("SourceType").ToString() %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
                     <asp:TemplateField HeaderStyle-Wrap="false">
                         <HeaderTemplate>
                             <asp:Label ID="lblInvName" runat="server" Text="Investor Name"></asp:Label><br />
-                            <asp:DropDownList ID="ddlInvName" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlInvName_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlInvName" AutoPostBack="true" CssClass="cmbLongField" runat="server"
+                                OnSelectedIndexChanged="ddlInvName_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -135,47 +146,42 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrFolioNumber" runat="server" Text="Folio Number"></asp:Label>
-                            <asp:DropDownList ID="ddlFolioNumber" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlFolioNumber" AutoPostBack="true" CssClass="cmbLongField"
+                                runat="server" OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblFolioNumber" runat="server" Text='<%# Bind("FolioNumber") %>'></asp:Label>
                         </ItemTemplate>
-                        
                     </asp:TemplateField>
-                    
                     <asp:BoundField DataField="Scheme" HeaderText="Scheme" DataFormatString="{0:f4}"
                         ItemStyle-Wrap="false" />
-                        
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrSchemeName" runat="server" Text="Scheme Name"></asp:Label>
-                            <asp:DropDownList ID="ddlSchemeName" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlSchemeName_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlSchemeName" AutoPostBack="true" CssClass="cmbLongField"
+                                runat="server" OnSelectedIndexChanged="ddlSchemeName_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblSchemeName" runat="server" Text='<%# Bind("SchemeName") %>'></asp:Label>
                         </ItemTemplate>
-                        
                     </asp:TemplateField>
-                    
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrTransactionType" runat="server" Text="Traansation Type"></asp:Label>
-                            <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged" >
+                            <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbLongField"
+                                runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblTransactionType" runat="server" Text='<%# Bind("TransactionType") %>'></asp:Label>
                         </ItemTemplate>
-                        
                     </asp:TemplateField>
-                                        
                     <asp:BoundField DataField="TransactionDate" HeaderText="Transaction Date" />
                     <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:f4}" />
                     <asp:BoundField DataField="Units" HeaderText="Units" DataFormatString="{0:f4}" />
                     <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:f4}" />
-                    
                 </Columns>
             </asp:GridView>
         </td>
@@ -184,9 +190,8 @@
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
                 CssClass="PCGButton" OnClientClick="Page_ClientValidate();Loading(true);" />
-            
             <asp:Button ID="btnMapFolios" runat="server" CssClass="PCGButton" Text="Map Folios"
-                 onclick="btnMapFolios_Click" />
+                OnClick="btnMapFolios_Click" />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">

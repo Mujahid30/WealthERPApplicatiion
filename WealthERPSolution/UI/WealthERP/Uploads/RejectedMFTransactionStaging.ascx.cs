@@ -80,6 +80,7 @@ namespace WealthERP.Uploads
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             SessionBo.CheckSession();
             btnReprocess.Attributes.Add("onclick",
    "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
@@ -154,7 +155,10 @@ namespace WealthERP.Uploads
                     // Get the Reject Reason Codes Available into Generic Dictionary
                     foreach (DataRow dr in dsRejectedRecords.Tables[2].Rows)
                     {
-                        genDictRejectReason.Add(dr["RejectReason"].ToString(), dr["RejectReasonCode"].ToString());
+                        if (dr["RejectReasonCode"].ToString() != "7")
+                        {
+                            genDictRejectReason.Add(dr["RejectReason"].ToString(), dr["RejectReasonCode"].ToString());
+                        }
                     }
 
                     DropDownList ddlRejectReason = GetRejectReasonDDL();
@@ -757,8 +761,8 @@ namespace WealthERP.Uploads
              }
 
              BindEquityTransactionGrid(ProcessId);
-             
-            
+            //used to display alert msg after completion of reprocessing
+             msgReprocessComplete.Visible = true;
         }
 
         private bool MFWERPTransactionWERPInsertion(int ProcessId, out int countTransactionsInserted, out int countRejectedRecords, int fileTypeId)
