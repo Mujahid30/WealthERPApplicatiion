@@ -323,10 +323,12 @@ namespace WealthERP.Customer
                         ddlMisCurrency.SelectedValue = dtExpenseDetails.Rows[0]["XC_CurrencyCodeMiscellaneous"].ToString();
                     }
 
-                    txttotal.Text = (double.Parse(txtTranMonthly.Text) + double.Parse(txtFoodMonthly.Text) + double.Parse(txtCloMonthly.Text) + double.Parse(txtHomeMonthly.Text) + double.Parse(txtUtiMonthly.Text) + double.Parse(txtSCMonthly.Text) + double.Parse(txtHCMonthly.Text) + double.Parse(txtEduMonthly.Text) + double.Parse(txtPetsMonthly.Text) + double.Parse(txtEntMonthly.Text) + double.Parse(txtMisMonthly.Text)).ToString();
+                    
+                    String totalMonth = (double.Parse(txtFoodMonthly.Text) + double.Parse(txtCloMonthly.Text) + double.Parse(txtHomeMonthly.Text) + double.Parse(txtUtiMonthly.Text) + double.Parse(txtSCMonthly.Text) + double.Parse(txtHCMonthly.Text) + double.Parse(txtEduMonthly.Text) + double.Parse(txtPetsMonthly.Text) + double.Parse(txtEntMonthly.Text) + double.Parse(txtMisMonthly.Text)).ToString();
+                    txttotal.Text = String.Format("{0:n2}", double.Parse(totalMonth).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
-
-                    txttotalyear.Text = (double.Parse(txtTranYearly.Text) + double.Parse(txtFoodYearly.Text) + double.Parse(txtCloYearly.Text) + double.Parse(txtHomeYearly.Text) + double.Parse(txtUtiYearly.Text) + double.Parse(txtSCYearly.Text) + double.Parse(txtHCYearly.Text) + double.Parse(txtEduYearly.Text) + double.Parse(txtPetsYearly.Text) + double.Parse(txtEntYearly.Text) + double.Parse(txtMisYearly.Text)).ToString();
+                    String totalYear = (double.Parse(txtTranYearly.Text) + double.Parse(txtFoodYearly.Text) + double.Parse(txtCloYearly.Text) + double.Parse(txtHomeYearly.Text) + double.Parse(txtUtiYearly.Text) + double.Parse(txtSCYearly.Text) + double.Parse(txtHCYearly.Text) + double.Parse(txtEduYearly.Text) + double.Parse(txtPetsYearly.Text) + double.Parse(txtEntYearly.Text) + double.Parse(txtMisYearly.Text)).ToString();
+                    txttotalyear.Text = String.Format("{0:n2}", double.Parse(totalYear).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
 
                     if (dtExpenseDetails.Rows[0]["CE_DateOfEntry"].ToString() != "")
