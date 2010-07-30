@@ -287,6 +287,7 @@ namespace DaoCustomerProfiling
                         customerVo.AssociationId = int.Parse(dr["CA_AssociationId"].ToString());
                     if (dr["XR_RelationshipCode"].ToString() != string.Empty)
                         customerVo.RelationShip = dr["XR_RelationshipCode"].ToString();
+                    customerVo.ParentCustomer = dr["ParentCustomer"].ToString();
                 }
             }
 
@@ -475,6 +476,7 @@ namespace DaoCustomerProfiling
                         customerVo.BranchId = int.Parse(dr["AB_BranchId"].ToString());
                     if (dr["XR_RelationshipCode"].ToString() != string.Empty)
                         customerVo.RelationShip = dr["XR_RelationshipCode"].ToString();
+                    customerVo.ParentCustomer = dr["ParentCustomer"].ToString();
                 }
             }
             catch (BaseApplicationException Ex)
