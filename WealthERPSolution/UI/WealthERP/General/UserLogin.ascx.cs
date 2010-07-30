@@ -248,6 +248,7 @@ namespace WealthERP.General
 
                             sourcePath = "Images/" + userBo.GetCustomerLogo(customerVo.CustomerId);
                             Session[SessionContents.LogoPath] = sourcePath;
+                            Session["S_CurrentUserRole"] = "Customer";
                             GetLatestValuationDate();
                             
                             if (customerVo.RelationShip == "SELF")
