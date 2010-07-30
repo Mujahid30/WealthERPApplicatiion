@@ -32,10 +32,13 @@ namespace WealthERP
         List<CustomerVo> customerList = null;
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         int customerId;
+        bool GridViewCultureFlag = true;
+        bool AllPageExport = false;
         AdvisorVo adviserVo = new AdvisorVo();
         AdvisorBo advisorBo = new AdvisorBo();
         static string user = "";
         UserVo userVo = new UserVo();
+        
 
         private SortDirection GridViewSortDirection
         {
@@ -149,14 +152,14 @@ namespace WealthERP
 
                 if (customerList == null)
                 {
-                    ErrorMessage.Visible = true;                    
-                    tblGv.Visible = false;
+                    ErrorMessage.Visible = true;
+                    tbl.Visible = false;
                     mypager.Visible = false;
                 }
                 else
                 {
                     ErrorMessage.Visible = false;                    
-                    tblGv.Visible = true;
+                    tbl.Visible = true;
                     mypager.Visible = true;
                     DataTable dtRMCustomer = new DataTable();
 
@@ -457,7 +460,7 @@ namespace WealthERP
                     ErrorMessage.Visible = true;                    
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
-                    tblGv.Visible = false;
+                    tbl.Visible = false;
 
                 }
                 else
@@ -466,7 +469,7 @@ namespace WealthERP
                     trPager.Visible = true;
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
-                    tblGv.Visible = true;
+                    tbl.Visible = true;
                     DataTable dtRMCustomer = new DataTable();
 
                     //dtRMCustomer.Columns.Add("S.No");
@@ -795,34 +798,46 @@ namespace WealthERP
 
         }
 
-        protected void btnExport_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Fuction to show the modal pop-up controller when clicking the export image button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
+        {
+            ModalPopupExtender1.TargetControlID = "imgBtnExport";
+            ModalPopupExtender1.Show();
+        }
+
+        /// <summary>
+        /// Function called when we click on the Export OK button.This function to control the export options(single and multiple page)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnExportExcel_Click(object sender, EventArgs e)
         {
             gvCustomers.Columns[0].Visible = false;
-            if (rbtnMultiple.Checked)
+            gvCustomers.HeaderRow.Visible = true;
+
+            if(hdnDownloadPageType.Value == "single")
             {
-                BindGrid(mypager.CurrentPage, 1);
+                GridViewCultureFlag = false;
+                BindGrid(mypager.CurrentPage, 0);
+                PrepareGridViewForExport(gvCustomers);
+                GridViewCultureFlag = true;
             }
             else
             {
-                BindGrid(mypager.CurrentPage, 0);
+                GridViewCultureFlag = false;
+                AllPageExport = true;
+                BindGrid(mypager.CurrentPage, 1);
+                PrepareGridViewForExport(gvCustomers);
+                GridViewCultureFlag = true;
+                AllPageExport = false;
             }
-            PrepareGridViewForExport(gvCustomers);
-            if (rbtnExcel.Checked)
-            {
-                ExportGridView("Excel");
-            }
-            else if (rbtnPDF.Checked)
-            {
 
-                ExportGridView("PDF");
-            }
-            else if (rbtnWord.Checked)
-            {
-                ExportGridView("Word");
-            }
-            BindGrid(mypager.CurrentPage, 0);
+            ExportGridView("Excel");
             gvCustomers.Columns[0].Visible = true;
-
         }
 
         private void ExportGridView(string Filetype)
@@ -1135,33 +1150,33 @@ namespace WealthERP
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "AferExportAll('ctrl_RMCustomer_btnPrintGrid');", true);
         }
 
-        protected void btnPrint_Click(object sender, EventArgs e)
-        {
-            gvCustomers.Columns[0].Visible = false;
-            if (rbtnMultiple.Checked)
-            {
-                BindGrid(mypager.CurrentPage, 1);
-            }
-            else
-            {
-                BindGrid(mypager.CurrentPage, 0);
-            }
+        //protected void btnPrint_Click(object sender, EventArgs e)
+        //{
+        //    gvCustomers.Columns[0].Visible = false;
+        //    if (rbtnMultiple.Checked)
+        //    {
+        //        BindGrid(mypager.CurrentPage, 1);
+        //    }
+        //    else
+        //    {
+        //        BindGrid(mypager.CurrentPage, 0);
+        //    }
 
-            if (gvCustomers.HeaderRow != null)
-            {
-                PrepareGridViewForExport(gvCustomers.HeaderRow);
-            }
-            foreach (GridViewRow row in gvCustomers.Rows)
-            {
-                PrepareGridViewForExport(row);
-            }
-            if (gvCustomers.FooterRow != null)
-            {
-                PrepareGridViewForExport(gvCustomers.FooterRow);
-            }
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_RMCustomer_tbl','ctrl_RMCustomer_btnGridSearch');", true);
+        //    if (gvCustomers.HeaderRow != null)
+        //    {
+        //        PrepareGridViewForExport(gvCustomers.HeaderRow);
+        //    }
+        //    foreach (GridViewRow row in gvCustomers.Rows)
+        //    {
+        //        PrepareGridViewForExport(row);
+        //    }
+        //    if (gvCustomers.FooterRow != null)
+        //    {
+        //        PrepareGridViewForExport(gvCustomers.FooterRow);
+        //    }
+        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_RMCustomer_tbl','ctrl_RMCustomer_btnGridSearch');", true);
 
-        }
+        //}
 
         protected void btnPrintGrid_Click(object sender, EventArgs e)
         {
