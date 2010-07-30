@@ -1867,6 +1867,86 @@ namespace DaoCustomerPortfolio
             }
             return ds;
         }
+
+        /// <summary>
+        /// Function to retrieve all the Life Insurance and General Insurance of a Group for Group Dashboard
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public DataSet GetGrpInsuranceDetails(int customerId)
+        {
+            Database db;
+            DbCommand getGrpInsuranceDetails;
+            DataSet insuranceGrpDetails = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGrpInsuranceDetails = db.GetStoredProcCommand("SP_GrpDashBoard_GetInsuranceDetails");
+                db.AddInParameter(getGrpInsuranceDetails, "CustomerId", DbType.Int32, customerId);
+                insuranceGrpDetails = db.ExecuteDataSet(getGrpInsuranceDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssetDao.cs:GetGrpInsuranceDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return insuranceGrpDetails;
+        }
+
+        /// <summary>
+        /// Function to retrieve all the Life Insurance and General Insurance of a Customer for Customer Dashboard
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public DataSet GetCustomerDashboardInsuranceDetails(int customerId)
+        {
+            Database db;
+            DbCommand getCustInsuranceDetails;
+            DataSet insuranceCustDetails = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustInsuranceDetails = db.GetStoredProcCommand("SP_CustomerDashBoard_GetInsuranceDetails");
+                db.AddInParameter(getCustInsuranceDetails, "CustomerId", DbType.Int32, customerId);
+                insuranceCustDetails = db.ExecuteDataSet(getCustInsuranceDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssetDao.cs:GetCustomerDashboardInsuranceDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return insuranceCustDetails;
+        }
+
+
     }
 
 }
