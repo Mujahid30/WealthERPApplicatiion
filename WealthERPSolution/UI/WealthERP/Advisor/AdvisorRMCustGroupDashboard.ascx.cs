@@ -35,22 +35,26 @@ namespace WealthERP.Advisor
         CustomerBo customerBo = new CustomerBo();
         UserVo userVo = new UserVo();
         AssetBo assetBo = new AssetBo();
+        InsuranceBo insuranceBo = new InsuranceBo();
         PortfolioBo portfolioBo = new PortfolioBo();
         DataSet dsCustomerAssetMaturityDates = new DataSet();
         DataSet dsAssetAggrCurrentValues = new DataSet();
         DataSet dsGrpAssetNetHoldings = new DataSet();
         DataSet dsCustomerAlerts = new DataSet();
+        DataSet dsInsuranceDetails = new DataSet();
         DataTable dtGrpAssetNetHoldings = new DataTable();
         DataRow drMaturityDates;
         DataRow drNetHoldings;
         DataRow drCustomerAlerts;
+        DataRow drLifeInsurance;
+        DataRow drGeneralInsurance;
         int customerId;
         int portfolioId;
         int memberCustomerId;
         int userId;
         string metatablePrimaryKey;
         double sum = 0;
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -67,9 +71,12 @@ namespace WealthERP.Advisor
                 lblMessage.Visible = false;
                 //trlblerrormsg.Visible = false;
                 lblMaturityMsg.Visible = false;
+                lblLifeInsurance.Visible = false;
+                lblGeneralInsurance.Visible = false;
                 BindCustomerFamilyGrid();
                 BindAssetInvestments();
                 BindAssetCurrentValChart();
+                BindGroupInsuranceDetails();
                 BindCustomerAssetMaturityDates();
                 BindCustomerAlerts();
             }
@@ -250,10 +257,107 @@ namespace WealthERP.Advisor
 
         }
 
-        //function to populate the Asset Class wise Investments in the grid
+        //function to populate the Life Insurance and General Insurance Grids  
+        public void BindGroupInsuranceDetails()
+        {
+            DataTable dtLifeInsDetails = new DataTable();
+            DataTable dtGenInsDetails = new DataTable();
+            try
+            {
+                //Binding the Life Insurance Gid
+                dsInsuranceDetails = insuranceBo.GetGrpInsuranceDetails(customerId);
+                if (dsInsuranceDetails.Tables[0].Rows.Count == 0)
+                {
+                    lblLifeInsurance.Visible = true;
+                }
+                else
+                {
+                    dtLifeInsDetails.Columns.Add("CustomerName");
+                    dtLifeInsDetails.Columns.Add("Policy");
+                    dtLifeInsDetails.Columns.Add("InsuranceType");
+                    dtLifeInsDetails.Columns.Add("SumAssured");
+                    dtLifeInsDetails.Columns.Add("PremiumAmount");
+                    dtLifeInsDetails.Columns.Add("PremiumFrequency");
+                    dtLifeInsDetails.Columns.Add("CustomerId");
+
+                    foreach (DataRow dr in dsInsuranceDetails.Tables[0].Rows)
+                    {
+                        drLifeInsurance = dtLifeInsDetails.NewRow();
+
+                        drLifeInsurance[0] = dr["CustomerName"].ToString();
+                        drLifeInsurance[1] = dr["Policy"].ToString();
+                        drLifeInsurance[2] = dr["InsuranceType"].ToString();
+                        drLifeInsurance[3] = dr["SumAssured"].ToString();
+                        drLifeInsurance[4] = dr["PremiumAmount"].ToString();
+                        drLifeInsurance[5] = dr["PremiumFrequency"].ToString();
+                        drLifeInsurance[6] = dr["CustomerId"].ToString();
+
+                        dtLifeInsDetails.Rows.Add(drLifeInsurance);
+                    }
+                    gvLifeInsurance.DataSource = dtLifeInsDetails;
+                    gvLifeInsurance.DataBind();
+                    gvLifeInsurance.Visible = true;
+
+                    //Binding the General Insurance Gid
+                    if (dsInsuranceDetails.Tables[1].Rows.Count == 0)
+                    {
+                        lblGeneralInsurance.Visible = true;
+                    }
+                    else
+                    {
+                        dtGenInsDetails.Columns.Add("CustomerName");
+                        dtGenInsDetails.Columns.Add("PolicyIssuer");
+                        dtGenInsDetails.Columns.Add("InsuranceType");
+                        dtGenInsDetails.Columns.Add("SumAssured");
+                        dtGenInsDetails.Columns.Add("PremiumAmount");
+                        dtGenInsDetails.Columns.Add("CustomerId");
+
+                        foreach (DataRow dr in dsInsuranceDetails.Tables[1].Rows)
+                        {
+                            drGeneralInsurance = dtGenInsDetails.NewRow();
+
+                            drGeneralInsurance[0] = dr["CustomerName"].ToString();
+                            drGeneralInsurance[1] = dr["PolicyIssuer"].ToString();
+                            drGeneralInsurance[2] = dr["InsuranceType"].ToString();
+                            drGeneralInsurance[3] = dr["SumAssured"].ToString();
+                            drGeneralInsurance[4] = dr["PremiumAmount"].ToString();
+                            drGeneralInsurance[5] = dr["CustomerId"].ToString();
+
+                            dtGenInsDetails.Rows.Add(drGeneralInsurance);
+                        }
+                        gvGeneralInsurance.DataSource = dtGenInsDetails;
+                        gvGeneralInsurance.DataBind();
+                        gvGeneralInsurance.Visible = true;
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorRMCustIndiDashboard.ascx:BindGroupInsuranceDetails()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        /// <summary>
+        ///function to populate the Asset Class wise Investments in the grid 
+        /// </summary>
         public void BindAssetInvestments()
         {
-            
+
             int tempCustId = 0;
 
             try
@@ -268,7 +372,7 @@ namespace WealthERP.Advisor
                 {
                     lblAssetDetailsMsg.Visible = false;
 
-                    
+
                     dtGrpAssetNetHoldings.Columns.Add("Customer_Name");
                     dtGrpAssetNetHoldings.Columns.Add("Equity");
                     dtGrpAssetNetHoldings.Columns.Add("Mutual_Fund");
@@ -307,8 +411,8 @@ namespace WealthERP.Advisor
                             if (tempCustId != 0)
                             {
                                 drNetHoldings[11] = double.Parse(drNetHoldings[1].ToString()) + double.Parse(drNetHoldings[2].ToString()) +
-                                    double.Parse(drNetHoldings[3].ToString()) + double.Parse(drNetHoldings[4].ToString()) + double.Parse(drNetHoldings[5].ToString()) + 
-                                    double.Parse(drNetHoldings[6].ToString()) + double.Parse(drNetHoldings[7].ToString()) + double.Parse(drNetHoldings[8].ToString()) + 
+                                    double.Parse(drNetHoldings[3].ToString()) + double.Parse(drNetHoldings[4].ToString()) + double.Parse(drNetHoldings[5].ToString()) +
+                                    double.Parse(drNetHoldings[6].ToString()) + double.Parse(drNetHoldings[7].ToString()) + double.Parse(drNetHoldings[8].ToString()) +
                                     double.Parse(drNetHoldings[9].ToString()) + double.Parse(drNetHoldings[10].ToString());
                                 drNetHoldings[13] = double.Parse(drNetHoldings[11].ToString()) - double.Parse(drNetHoldings[12].ToString());
                                 dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);
@@ -422,6 +526,9 @@ namespace WealthERP.Advisor
 
         }
 
+        /// <summary>
+        /// function to assign the data to the chart
+        /// </summary>
         public void BindAssetCurrentValChart()
         {
             Series seriesAssets = null;
@@ -442,12 +549,12 @@ namespace WealthERP.Advisor
 
                 seriesAssets.ChartType = SeriesChartType.Pie;
 
-                cnt= dtGrpAssetNetHoldings.Rows.Count - 1;
+                cnt = dtGrpAssetNetHoldings.Rows.Count - 1;
 
-                for(i=1;i<=10;i++)
+                for (i = 1; i <= 10; i++)
                 {
-                    XValues[i-1] = dtGrpAssetNetHoldings.Columns[i].ColumnName;
-                    YValues[i-1] = double.Parse(dtGrpAssetNetHoldings.Rows[cnt][i].ToString());
+                    XValues[i - 1] = dtGrpAssetNetHoldings.Columns[i].ColumnName;
+                    YValues[i - 1] = double.Parse(dtGrpAssetNetHoldings.Rows[cnt][i].ToString());
                 }
 
                 seriesAssets.Points.DataBindXY(XValues, YValues);
@@ -529,6 +636,9 @@ namespace WealthERP.Advisor
             }
         }
 
+        /// <summary>
+        /// function to populate the Customer Alerts grid 
+        /// </summary>
         public void BindCustomerAlerts()
         {
             try
@@ -591,6 +701,12 @@ namespace WealthERP.Advisor
             }
         }
 
+        /// <summary>
+        /// Function to get the Alert scheme name
+        /// </summary>
+        /// <param name="alertType"></param>
+        /// <param name="SchemeID"></param>
+        /// <returns></returns>
         protected string GetSchemeName(string alertType, int SchemeID)
         {
             string schemeName = "";
@@ -660,10 +776,6 @@ namespace WealthERP.Advisor
             return schemeName;
         }
 
-        protected void lnkCustomerName_Click(object sender, EventArgs e)
-        {
-
-        }
         /// <summary>
         /// Goes to the Customer Dashboard when we click on the Member name on the Customer Family Grid
         /// </summary>
@@ -678,8 +790,11 @@ namespace WealthERP.Advisor
 
             customerVo = customerBo.GetCustomer(customerId);
             Session["CustomerVo"] = customerVo;
-            
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+
+            if (Session["S_CurrentUserRole"] == "Customer")
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustIndiDashboard','none');", true);
+            else
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
         }
 
         /// <summary>
@@ -696,10 +811,18 @@ namespace WealthERP.Advisor
 
             customerVo = customerBo.GetCustomer(customerId);
             Session["CustomerVo"] = customerVo;
-            
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+
+            if (Session["S_CurrentUserRole"] == "Customer")
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustIndiDashboard','none');", true);
+            else
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
         }
 
+        /// <summary>
+        /// Goes to the Portfolio Dashboard when we click on the Member name on the Assets Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void lnkCustomerNameAssetsGrid_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
@@ -709,9 +832,18 @@ namespace WealthERP.Advisor
 
             customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
             Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','none');", true);
+
+            if (Session["S_CurrentUserRole"] == "Customer")
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioDashboard','none');", true);
+            else
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','none');", true);
         }
 
+        /// <summary>
+        /// Goes to the Alerts Dashboard when we click on the Member name on the Alerts Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void lnkCustomerNameAlertsGrid_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
@@ -721,8 +853,53 @@ namespace WealthERP.Advisor
 
             customerVo = customerBo.GetCustomer(customerId);
             Session["CustomerVo"] = customerVo;
-            
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
+
+            if (Session["S_CurrentUserRole"] == "Customer")
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('RMAlertNotifications','none');", true);
+            else
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
+        }
+
+        /// <summary>
+        /// Goes to the Life Insurance Dashboard when we click on the Member name on the Life Insurance Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lnkCustomerNameLifeInsuranceGrid_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvLifeInsurance.DataKeys[rowIndex];
+            int customerId = Convert.ToInt32(dk.Value);
+
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+
+            if (Session["S_CurrentUserRole"] == "Customer")
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewInsuranceDetails','none');", true);
+            else
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','none');", true);
+        }
+
+        /// <summary>
+        /// Goes to the General Insurance Dashboard when we click on the Member name on the General Insurance Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lnkCustomerNameGeneralInsuranceGrid_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvGeneralInsurance.DataKeys[rowIndex];
+            int customerId = Convert.ToInt32(dk.Value);
+
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+
+            if (Session["S_CurrentUserRole"] == "Customer")
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewGeneralInsuranceDetails','none');", true);
+            else
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','none');", true);
         }
     }
 }
