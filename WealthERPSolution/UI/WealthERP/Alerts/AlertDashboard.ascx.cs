@@ -529,11 +529,11 @@ namespace WealthERP.Alerts
                     if (Session[SessionContents.CustomerVo] != null)
                     {
                         customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
-                        BindSystemAlertsGrid();
                         pnlDashboardGrid.Visible = true;
                         //ddlRMCustList.Visible = false;
                         //trChooseCustomer.Visible = false;
                     }
+                    BindSystemAlertsGrid();
                     //else
                     //{
                     //    BindCustomerListDropDown(rmId);
@@ -587,10 +587,8 @@ namespace WealthERP.Alerts
                     dtSystemAlerts.Columns.Add("Alert");
                     dtSystemAlerts.Columns.Add("Default");
 
-
                     foreach (DataRow dr in dsSystemAlerts.Tables[0].Rows)
                     {
-
                         drAlertType = dtSystemAlerts.NewRow();
 
                         drAlertType[0] = dr["AEL_EventID"].ToString();
@@ -663,14 +661,12 @@ namespace WealthERP.Alerts
 
                         dtSystemAlerts.Rows.Add(drAlertType);
                     }
-
+                    pnlDashboardGrid.Visible = true;
                     gvSystemAlerts.DataSource = dtSystemAlerts;
                     gvSystemAlerts.DataBind();
                     gvSystemAlerts.Visible = true;
                     this.GetPageCount();
                 }
-
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -772,7 +768,7 @@ namespace WealthERP.Alerts
                 rmVo = (RMVo)Session[SessionContents.RmVo];
                 rmId = rmVo.RMId;
                 userId = userVo.UserId;
-                
+
                 foreach (GridViewRow gvr in this.gvSystemAlerts.Rows)
                 {
                     if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
@@ -811,7 +807,7 @@ namespace WealthERP.Alerts
                                 alertsBo.SaveAdviserSIPConfirmationAlert(rmId, 0, 0, 0, 1, userId);
                             else
                             {
-                                lblError.Text = lblError.Text + "<br>" + eventCode.ToString()+ " Confirmation";
+                                lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Confirmation";
                                 lblError.Visible = true;
                                 lblSolution.Visible = true;
                             }
@@ -910,7 +906,7 @@ namespace WealthERP.Alerts
                                 alertsBo.SaveAdviserPropertyOccurrenceAlert(rmId, 0, 0, 0, 1, userId, propertyCondition, propertyOccurrence);
                             else
                             {
-                                lblError.Text = lblError.Text + "<br>" + eventCode.ToString()+ " Occurrence";
+                                lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Occurrence";
                                 lblError.Visible = true;
                                 lblSolution.Visible = true;
                             }

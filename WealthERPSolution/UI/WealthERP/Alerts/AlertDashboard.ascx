@@ -6,8 +6,7 @@
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
             <td colspan="2" class="rightField">
-                <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Alert Setup Screen">
-                </asp:Label>
+                <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Alert Setup Screen"> </asp:Label>
                 <hr />
             </td>
         </tr>
@@ -104,14 +103,12 @@
             </tr>
             <tr>
             <td class="Message">
-            <asp:Label ID="lblError" runat="server" CssClass="Error" Text="You have already subcribed for the following Alerts">
-                </asp:Label>
+            <asp:Label ID="lblError" runat="server" CssClass="Error" Text="You have already subcribed for the following Alerts"> </asp:Label>
             </td>
             </tr>
             <tr>
             <td class="Message">
-            <asp:Label ID="lblSolution" runat="server" CssClass="Error" Text="To Resubscribe please Reset and subscribe again">
-                </asp:Label>
+            <asp:Label ID="lblSolution" runat="server" CssClass="Error" Text="To Resubscribe please Reset and subscribe again"> </asp:Label>
             </td>
             </tr>
         </table>
