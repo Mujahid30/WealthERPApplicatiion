@@ -4,10 +4,10 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
-<table class="TableBackground">
+<table id="Table1" class="TableBackground" width="100%" runat="server">
     <tr>
-        <td colspan="2">
-            <asp:Label ID="lblInsuranceHeader" class="HeaderTextBig" runat="server" Text="Insurance Portfolio"></asp:Label>
+        <td class="HeaderCell">
+            <asp:Label ID="Label1" class="HeaderTextBig" runat="server" Text="Life Insurance Portfolio"></asp:Label>
             <hr />
         </td>
     </tr>
@@ -19,11 +19,22 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr id="trNoRecords" runat="server">
-        <td class="rightField">
-            <asp:Label ID="lblMsg" class="Error" runat="server" Text="No Records Found..!"></asp:Label>
+    <tr>
+        <td>
+            <br />
         </td>
     </tr>
+</table>
+<table id="ErrorMessage" align="center" runat="server">
+    <tr>
+        <td>
+            <div class="failure-msg" align="center">
+                No Records found.....
+            </div>
+        </td>
+    </tr>
+</table>
+<table class="TableBackground" width="100%">
     <tr id="trPager" runat="server">
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
@@ -34,7 +45,8 @@
         <td colspan="3">
             <asp:GridView ID="gvrLifeInsurance" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" DataKeyNames="InsuranceId" EnableViewState="true" CssClass="GridViewStyle"
-                OnSorting="gvrLifeInsurance_Sorting" OnDataBound="gvrLifeInsurance_DataBound" ShowFooter="True">
+                OnSorting="gvrLifeInsurance_Sorting" OnDataBound="gvrLifeInsurance_DataBound"
+                ShowFooter="True">
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />

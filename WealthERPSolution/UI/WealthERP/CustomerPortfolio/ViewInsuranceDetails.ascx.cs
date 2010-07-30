@@ -158,7 +158,7 @@ namespace WealthERP.CustomerPortfolio
 
                 if (!IsPostBack)
                 {
-                    lblMsg.Visible = false;
+                    ErrorMessage.Visible = false;
                     BindPortfolioDropDown();
                     LoadGridview(portfolioId);
                 }
@@ -199,7 +199,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    lblMsg.Visible = true;
+                    ErrorMessage.Visible = true;
                     tblPager.Visible = false;
                     trPager.Visible = false;
                 }
@@ -212,7 +212,7 @@ namespace WealthERP.CustomerPortfolio
 
                 if (RecordsCount > 0)
                 {
-                    trNoRecords.Visible = false;
+                    ErrorMessage.Visible = false;
                     trPager.Visible = true;
                     InsuranceVo insuranceVo;
                     DataTable dtInsurance = new DataTable();
@@ -389,7 +389,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     gvrLifeInsurance.DataSource = null;
                     gvrLifeInsurance.DataBind();
-                    trNoRecords.Visible = true;
+                    ErrorMessage.Visible = true;
                     trPager.Visible = false;
                 }
             }
