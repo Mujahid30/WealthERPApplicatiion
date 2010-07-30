@@ -60,13 +60,13 @@
         #left_menu
         {
             float: left;
-            width: 22%;
+            width: 18%;
             display: block;
         }
         #content
         {
             float: left;
-            width: 76.50%;
+            width: 80.50%;
         }
         #UpdateProgress1 
         {
