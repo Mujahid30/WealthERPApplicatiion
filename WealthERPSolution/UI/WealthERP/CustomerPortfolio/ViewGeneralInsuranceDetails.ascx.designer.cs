@@ -14,6 +14,15 @@ namespace WealthERP.CustomerPortfolio {
     public partial class ViewGeneralInsuranceDetails {
         
         /// <summary>
+        /// Table1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table1;
+        
+        /// <summary>
         /// lblInsuranceHeader control.
         /// </summary>
         /// <remarks>
@@ -23,22 +32,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblInsuranceHeader;
         
         /// <summary>
-        /// trNoRecords control.
+        /// ErrorMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRecords;
-        
-        /// <summary>
-        /// lblMsg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlTable ErrorMessage;
         
         /// <summary>
         /// trPager control.

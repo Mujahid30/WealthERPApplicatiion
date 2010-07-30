@@ -4,26 +4,25 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
-<table class="TableBackground">
+<table id="Table1" class="TableBackground" width="100%" runat="server">
     <tr>
-        <td colspan="2">
+        <td class="HeaderCell">
             <asp:Label ID="lblInsuranceHeader" class="HeaderTextBig" runat="server" Text="General Insurance Portfolio"></asp:Label>
             <hr />
         </td>
     </tr>
-    <%--<tr>
+</table>
+<table id="ErrorMessage" align="center" runat="server">
+    <tr>
         <td>
-            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
-            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
-            </asp:DropDownList>
-        </td>
-    </tr>--%>
-    <tr id="trNoRecords" runat="server">
-        <td class="rightField">
-            <asp:Label ID="lblMsg" class="Error" runat="server" Text="No Records Found..!"></asp:Label>
+            <div class="failure-msg" align="center">
+                No Records found.....
+            </div>
         </td>
     </tr>
+</table>
+
+<table class="TableBackground" width="100%">
     <tr id="trPager" runat="server">
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>

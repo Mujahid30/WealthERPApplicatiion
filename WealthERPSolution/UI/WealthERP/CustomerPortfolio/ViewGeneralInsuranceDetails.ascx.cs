@@ -101,12 +101,12 @@ namespace WealthERP.CustomerPortfolio
                 dt = insuranceBo.GetCustomerGIDetails(customerVo.CustomerId);
                 if (dt.Rows.Count > 0)
                 {
-                    trNoRecords.Visible = false;
+                    ErrorMessage.Visible = false;
                     gvGeneralInsurance.DataSource = dt;
                     gvGeneralInsurance.DataBind();
                 }
                 else
-                    trNoRecords.Visible = true;
+                    ErrorMessage.Visible = true;
 
             }
             catch (BaseApplicationException Ex)
