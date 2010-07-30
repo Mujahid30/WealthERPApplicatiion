@@ -10,12 +10,14 @@ using WealthERP.Base;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
+using BoCustomerProfiling;
 
 namespace WealthERP.Customer
 {
     public partial class CustomerLeftPane : System.Web.UI.UserControl
     {
         CustomerVo customerVo = new CustomerVo();
+        CustomerBo customerBo = new CustomerBo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -88,8 +90,14 @@ namespace WealthERP.Customer
             {
                 if (TreeView1.SelectedNode.Value == "Group Home")
                 {
+                    if (customerVo.RelationShip != "SELF")
+                    {
+                        customerVo = customerBo.GetCustomer(int.Parse(customerVo.ParentCustomer));
+                        Session["CustomerVo"] = customerVo;
+                    }
+
                     Session["IsDashboard"] = "true";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustGroupDashboard','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
                 {
