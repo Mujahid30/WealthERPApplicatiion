@@ -86,7 +86,7 @@ namespace WealthERP.Advisor
                 else
                 {
                     DataTable dtCustomerFamilyList = new DataTable();
-                    dtCustomerFamilyList.Columns.Add("AssociationId");
+                    dtCustomerFamilyList.Columns.Add("CustomerId");
                     dtCustomerFamilyList.Columns.Add("Name");
                     dtCustomerFamilyList.Columns.Add("Relationship");
 
@@ -96,7 +96,7 @@ namespace WealthERP.Advisor
                         drCustomerFamily = dtCustomerFamilyList.NewRow();
                         CustomerFamilyVo customerFamilyVo = new CustomerFamilyVo();
                         customerFamilyVo = customerFamilyList[i];
-                        drCustomerFamily[0] = customerFamilyVo.AssociationId.ToString();
+                        drCustomerFamily[0] = customerFamilyVo.AssociateCustomerId.ToString();
                         drCustomerFamily[1] = customerFamilyVo.AssociateCustomerName.ToString();
                         drCustomerFamily[2] = customerFamilyVo.Relationship;
                         dtCustomerFamilyList.Rows.Add(drCustomerFamily);
@@ -116,6 +116,7 @@ namespace WealthERP.Advisor
                 }
 
                 //Call the function to bind the Bank Details
+                lblBankDetailsMsg.Visible = false;
                 BindBankDetails();
             }
             catch (BaseApplicationException Ex)
@@ -145,6 +146,9 @@ namespace WealthERP.Advisor
             gvFamilyMembers.DataBind();
         }
 
+        /// <summary>
+        /// Function to bind the Details to the Bank Grid
+        /// </summary>
         public void BindBankDetails()
         {
             try
@@ -162,7 +166,7 @@ namespace WealthERP.Advisor
 
 
                     DataRow drCustomerBankAccount;
-                    for (int i = 0; i < customerBankAccountList.Count; i++)
+                    for (int i = 0; i < 2; i++)
                     {
                         drCustomerBankAccount = dtCustomerBankAccounts.NewRow();
                         customerBankAccountVo = new CustomerBankAccountVo();
@@ -183,8 +187,9 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    tdBankDetailsHeader.Visible = false;
-                    tdBankDetailsGrid.Visible = false;
+                    gvBankDetails.Visible = false;
+                    lblBankDetailsMsg.Visible = true;
+                    lnkMoreBankDetails.Visible = false;
                     gvBankDetails.DataSource = null;
                     gvBankDetails.DataBind();
                 }
@@ -211,5 +216,39 @@ namespace WealthERP.Advisor
             }
         }
 
+        /// <summary>
+        /// Goes to the Bank Details Dashboard when we click on the Member name on the Bank Details Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lnkMoreBankDetails_Click(object sender, EventArgs e)
+        {
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
+        }
+
+        /// <summary>
+        /// Goes to the Customer Dashboard when we click on the Member name on the Customer Family Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lnkCustomerNameFamilyGrid_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvFamilyMembers.DataKeys[rowIndex];
+            int customerId = Convert.ToInt32(dk.Value);
+
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+
+            if(Session["S_CurrentUserRole"] == "Customer")
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustIndiDashboard','none');", true);
+            else
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+
+        }
     }
 }

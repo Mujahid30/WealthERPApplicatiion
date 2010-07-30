@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMCustomerIndividualDashboard.ascx.cs"
     Inherits="WealthERP.Advisor.RMCustomerDashboard" %>
 <style type="text/css">
-    .style5
+    .style6
     {
-        width: 270px;
+        width: 268px;
     }
 </style>
 <table width="100%" class="TableBackground">
@@ -25,13 +25,13 @@
             <asp:Label ID="lblPersonalDetails" runat="server" Text="Personal Details" Class="HeaderTextSmall"></asp:Label>
             <hr />
         </td>
-        <td width="50%" id="tdBankDetailsHeader" runat="server">
+        <td width="50%">
             <asp:Label ID="lblBankDetails" runat="server" Text="Bank Details" Class="HeaderTextSmall"></asp:Label>
             <hr />
         </td>
     </tr>
     <tr>
-        <td width="50%">
+        <td width="50%" valign="top">
             <table style="width: 457px; height: 100px; margin-top: 0px">
                 <tr>
                     <td class="leftField">
@@ -51,7 +51,8 @@
                 </tr>
             </table>
         </td>
-        <td width="50%" id="tdBankDetailsGrid" runat="server">
+        <td width="50%" runat="server" valign="top">
+            <asp:Label runat="server" CssClass="FieldName" Text="No details to display.." ID="lblBankDetailsMsg"></asp:Label>
             <asp:GridView ID="gvBankDetails" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" EnableViewState="false" CssClass="GridViewStyle">
                 <RowStyle CssClass="RowStyle" />
@@ -67,6 +68,14 @@
                     <asp:BoundField DataField="Account Number" HeaderText="A/C Number" />
                 </Columns>
             </asp:GridView>
+            <br />
+            <table>
+                <tr>
+                    <td align="right">
+                        <asp:LinkButton ID="lnkMoreBankDetails" runat="server" Text=">>More" ForeColor="Blue" Font-Size="X-Small" Font-Bold="true" OnClick="lnkMoreBankDetails_Click"></asp:LinkButton>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
     <tr>
@@ -85,10 +94,10 @@
         </td>
     </tr>
     <tr>
-        <td width="50%">
-            <table style="width: 457px; height: 100px; margin-top: 0px">
+        <td width="50%" valign="top">
+            <table style="width: 456px; height: 100px; margin-top: 0px">
                 <tr>
-                    <td class="leftField">
+                    <td class="style6">
                         <asp:Label ID="Label4" runat="server" Text="Phone Number:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
@@ -96,7 +105,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="leftField">
+                    <td class="style6">
                         <asp:Label ID="Label6" runat="server" Text="Email:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
@@ -105,9 +114,9 @@
                 </tr>
             </table>
         </td>
-        <td width="50%" id="tdFamilyDetailsGrid" runat="server">
+        <td width="50%" id="tdFamilyDetailsGrid" runat="server" valign="top">
             <asp:GridView ID="gvFamilyMembers" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle" DataKeyNames="AssociationId">
+                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle" DataKeyNames="CustomerId">
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -116,17 +125,14 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:BoundField DataField="Name" HeaderText="Name" />
-                    <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
-                    <%--<asp:TemplateField>
+                    <asp:TemplateField HeaderText="Member Name">
                         <ItemTemplate>
-                            <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged">
-                                <asp:ListItem>Select </asp:ListItem>
-                                <asp:ListItem Text="Edit" Value="Edit">Edit</asp:ListItem>
-                                <asp:ListItem Text="View" Value="View">View</asp:ListItem>
-                            </asp:DropDownList>
+                            <asp:LinkButton ID="lnkCustomerName" runat="server" CssClass="GridViewCmbField" OnClick="lnkCustomerNameFamilyGrid_Click"
+                                Text='<%# Eval("Name") %>'>
+                            </asp:LinkButton>
                         </ItemTemplate>
-                    </asp:TemplateField>--%>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
                 </Columns>
             </asp:GridView>
         </td>
