@@ -58,19 +58,22 @@
                     <asp:Label runat="server" CssClass="FieldName" Text="Account Opening Date:" ID="lblAccOpeningDate"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtAccOpenDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
-                    <%--<span id="Span13" class="spnRequiredField">*</span>
+                    <asp:TextBox ID="txtAccOpenDate" runat="server" CssClass="txtField"></asp:TextBox>
+                    <span id="Span13" class="spnRequiredField">*</span>
                     
                     <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAccOpenDate" 
                     Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
+                    <cc1:TextBoxWatermarkExtender ID="txtAccOpenDate_TextBoxWatermarkExtender" runat="server"
+                        TargetControlID="txtAccOpenDate" WatermarkText="dd/mm/yyyy">
+                    </cc1:TextBoxWatermarkExtender>
                     <asp:RequiredFieldValidator ID="rfvAccOpenDate" ControlToValidate="txtAccOpenDate"
                         ErrorMessage="<br />Please select a Date" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="cvAccOpenDate" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtAccOpenDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                        Display="Dynamic"></asp:CompareValidator>--%>
+                        Display="Dynamic"></asp:CompareValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label runat="server" CssClass="FieldName" Text="Account with:" ID="lblAccountwith"></asp:Label>

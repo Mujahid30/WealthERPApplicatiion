@@ -686,6 +686,7 @@ namespace WealthERP.CustomerPortfolio
 
             govtSavingsVo = GetValuesFromFields();
             bool bResult = govtSavingsBo.CreateGovtSavingsNP(govtSavingsVo, userVo.UserId);
+            UpdateAccountDetails(customerAccountsVo);
             if (bResult)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewGovtSavings','none');", true);
@@ -750,9 +751,13 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
+
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGovtSavings', 'none')", true);
+            if(mode==Mode.Edit || mode == Mode.View)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGovtSavings', 'none')", true);
+            else
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=GS')", true);
         }
         #endregion Events
     }
