@@ -32,6 +32,11 @@ namespace WealthERP.Alerts
                     Middle = customerVo.MiddleName.ToString();
                     Last = customerVo.LastName.ToString();
 
+                    if (customerVo.RelationShip == "SELF")
+                    {
+                        TreeView1.Nodes.AddAt(1, new TreeNode("Group Dashboard"));
+                    }
+
                     if (Middle != "")
                     {
                         lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
@@ -81,6 +86,11 @@ namespace WealthERP.Alerts
               if (TreeView1.SelectedNode.Value == "RM Home")
               {
                   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMDashBoard','none');", true);
+              }
+              else if (TreeView1.SelectedNode.Value == "Group Dashboard")
+              {
+                  Session["IsDashboard"] = "true";
+                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
               }
               else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
               {
