@@ -57,6 +57,7 @@ namespace WealthERP.Uploads
             ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
             mypager.EnableViewState = true;
             base.OnInit(e);
+            
         }
 
         public void HandlePagerEvent(object sender, ItemClickEventArgs e)
@@ -92,6 +93,7 @@ namespace WealthERP.Uploads
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -117,7 +119,8 @@ namespace WealthERP.Uploads
                 trError.Visible = false;
                 trTransactionMessage.Visible = false;
                 BindProcessHistoryGrid();
-            }
+            }      
+            
         }
 
         private void BindProcessHistoryGrid()
@@ -173,8 +176,9 @@ namespace WealthERP.Uploads
         protected void ddlAction_OnSelectedIndexChange(object sender, EventArgs e)
         {
             try
-            {
+            {                
                 DropDownList ddlAction = (DropDownList)sender;
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "Page_ClientValidate();Loading(true);", true); 
                 GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
                 int selectedRow = gvr.RowIndex;
                 processID = int.Parse(gvProcessLog.DataKeys[selectedRow].Values["ADUL_ProcessId"].ToString());
@@ -3889,6 +3893,17 @@ namespace WealthERP.Uploads
                 throw exBase;
             }
 
+        }
+
+        protected void gvProcessLog_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DropDownList ddl = (DropDownList)e.Row.FindControl("ddlAction");
+                ddl.Attributes.Add("onChange", "Loading(true);setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
+            }
+    //        btn_Upload.Attributes.Add("onclick",
+    //"setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
         }
 
     }

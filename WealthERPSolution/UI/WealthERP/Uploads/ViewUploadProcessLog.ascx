@@ -1,7 +1,48 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewUploadProcessLog.ascx.cs"
     Inherits="WealthERP.Uploads.ViewUploadProcessLog" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<%--This is for Progress bar. Those reference pointing to Yahoo User Interface--%>
+<%--Script manager is needed in order to have ajax based Page loading event triggerer that is bounded to that progress  bar--%>
+<asp:ScriptManager ID="scptMgr" runat="server">
+</asp:ScriptManager>
 
+<link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
+<link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
+
+<script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
+
+<script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
+<%--This script is used to add Progress bar--%>
+<script type="text/javascript">
+//    function pageLoad() {
+//        InitDialogs();
+//        Loading(false);
+//    }
+
+//    function UpdateImg(ctrl, imgsrc) {
+//        var img = document.getElementById(ctrl);
+//        img.src = imgsrc;
+//    }
+
+//    // sets up all of the YUI dialog boxes
+//    function InitDialogs() {
+//        DialogBox_Loading = new YAHOO.widget.Panel("waitBox",
+//	{ fixedcenter: true, modal: true, visible: false,
+//	    width: "230px", close: false, draggable: true
+//	});
+//        DialogBox_Loading.setHeader("Processing, please wait...");
+//        DialogBox_Loading.setBody('<div style="text-align:center;"><img src="/Images/Wait.gif" id="Image1" /></div>');
+//        DialogBox_Loading.render(document.body);
+//    }
+//    function Loading(b) {
+//        if (b == true && (typeof (Page_IsValid) == "undefined" || Page_IsValid == true)) {
+//            DialogBox_Loading.show();
+//        }
+//        else {
+//            DialogBox_Loading.hide();
+//        }
+//    }
+</script>
 <table width="100%" class="TableBackground">
 <tr>
         <td class="HeaderCell">
@@ -22,7 +63,7 @@
         <td>
             <asp:GridView ID="gvProcessLog" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 CssClass="GridViewStyle" DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode" AllowSorting="true"
-                OnSorting="gvProcessLog_Sort" ShowFooter="true">
+                OnSorting="gvProcessLog_Sort" ShowFooter="true" OnRowDataBound="gvProcessLog_RowDataBound">
                 <FooterStyle CssClass="FieldName" />
                 <RowStyle CssClass="RowStyle" />
                 <EditRowStyle HorizontalAlign="Left" CssClass="EditRowStyle" />
@@ -57,13 +98,13 @@
                     <asp:BoundField DataField="ADUL_NoOfTransactionDuplicate" HeaderText="No of Duplicate Transactions" />
                     <asp:BoundField DataField="ADUL_NoOfRejectRecords" HeaderText="No of Rejected Records" />
                     <asp:BoundField DataField="ADUL_NoOfRecordsInserted" HeaderText="No of Records Inserted" />
-                    <asp:BoundField DataField="ADUL_NoOfInputRejects" HeaderText="No of Input Rejects" />
+                    <%--<asp:BoundField DataField="ADUL_NoOfInputRejects" HeaderText="No of Input Rejects" />
                     <asp:BoundField DataField="ADUL_IsXMLConvesionComplete" HeaderText="XML Conversion Status" />
                     <asp:BoundField DataField="ADUL_IsInsertionToInputComplete" HeaderText="Input Insertion Status" />
                     <asp:BoundField DataField="ADUL_IsInsertionToFirstStagingComplete" HeaderText="First Staging Status" />
                     <asp:BoundField DataField="ADUL_IsInsertionToSecondStagingComplete" HeaderText="Second Staging Status" />
-                    <asp:BoundField DataField="ADUL_IsInsertionToWerpComplete" HeaderText="WERP Insertion Status" />
-                    <asp:BoundField DataField="ADUL_IsInsertionToXtrnlComplete" HeaderText="External Insertion Status" />
+                    <asp:BoundField DataField="ADUL_IsInsertionToWerpComplete" HeaderText="WERP Insertion Status" />--%>
+                    <%--<asp:BoundField DataField="ADUL_IsInsertionToXtrnlComplete" HeaderText="External Insertion Status" />--%>
                 </Columns>
             </asp:GridView>
         </td>
