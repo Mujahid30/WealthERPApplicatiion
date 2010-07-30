@@ -199,9 +199,14 @@ namespace WealthERP.Advisor
             return dsCurrentValues;
         }
 
+        /// <summary>
+        /// Modified the function to add total field to the Client List Grid
+        /// </summary>
+        /// <param name="RMId"></param>
         public void getCustomerListforRM(int RMId)
         {
             DataSet dsCurrentValues=null;
+            double total = 0.00;
 
             try
             {
@@ -214,6 +219,7 @@ namespace WealthERP.Advisor
                     dtCurrentValusForRM.Columns.Add("Customer_Name");
                     dtCurrentValusForRM.Columns.Add("EQCurrentVal");
                     dtCurrentValusForRM.Columns.Add("MFCurrentVal");
+                    dtCurrentValusForRM.Columns.Add("Total");
                     DataRow drCurrentValuesForRM;
 
                     for (int i = 0; i < dsCurrentValues.Tables[0].Rows.Count; i++)
@@ -222,8 +228,9 @@ namespace WealthERP.Advisor
                         drCurrentValuesForRM[0] = dsCurrentValues.Tables[0].Rows[i]["CustomerId"].ToString();
                         drCurrentValuesForRM[1] = dsCurrentValues.Tables[0].Rows[i]["Customer_Name"].ToString();
                         drCurrentValuesForRM[2] = String.Format("{0:n2}", decimal.Parse(dsCurrentValues.Tables[0].Rows[i]["EQCurrentVal"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-
                         drCurrentValuesForRM[3] = String.Format("{0:n2}", decimal.Parse(dsCurrentValues.Tables[0].Rows[i]["MFCurrentVal"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        total  = double.Parse(dsCurrentValues.Tables[0].Rows[i]["EQCurrentVal"].ToString()) + double.Parse(dsCurrentValues.Tables[0].Rows[i]["MFCurrentVal"].ToString());
+                        drCurrentValuesForRM[4] = String.Format("{0:n2}", total.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                         dtCurrentValusForRM.Rows.Add(drCurrentValuesForRM);
                     }
@@ -360,6 +367,23 @@ namespace WealthERP.Advisor
         //    }
         //}
 
+        /// <summary>
+        /// Goes to the Customer Dashboard when we click on the Member name on the Client List Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lnkCustomerNameClientListGrid_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvrRMClinetList.DataKeys[rowIndex];
+            int customerId = Convert.ToInt32(dk.Value);
 
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+            
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+        }
+        
     }
 }

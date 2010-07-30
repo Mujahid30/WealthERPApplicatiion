@@ -169,9 +169,9 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <asp:GridView ID="gvrRMClinetList" runat="server" AllowSorting="True" AutoGenerateColumns="False" ShowFooter="true"
-                            CellPadding="4" DataKeyNames="CustomerId" EnableViewState="false" EmptyDataText="There are no records"
-                            Width="90%" CssClass="GridViewStyle" PageSize="5">
+                        <asp:GridView ID="gvrRMClinetList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                            ShowFooter="true" CellPadding="4" DataKeyNames="CustomerId" EnableViewState="false"
+                            EmptyDataText="There are no records" Width="90%" CssClass="GridViewStyle" PageSize="5">
                             <RowStyle CssClass="RowStyle" />
                             <FooterStyle CssClass="FooterStyle" />
                             <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -180,10 +180,18 @@
                             <EditRowStyle CssClass="EditRowStyle" />
                             <AlternatingRowStyle CssClass="AltRowStyle" />
                             <Columns>
-                                <asp:BoundField DataField="Customer_Name" HeaderText="Customer Name" />
+                                <asp:TemplateField HeaderText="Customer Name">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkCustomerName" runat="server" CssClass="GridViewCmbField" OnClick="lnkCustomerNameClientListGrid_Click"
+                                            Text='<%# Eval("Customer_Name") %>'>
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:BoundField DataField="EQCurrentVal" HeaderText="Equity Cur Value" ItemStyle-HorizontalAlign="Right"
                                     DataFormatString="{0:n2}" HtmlEncode="false" />
                                 <asp:BoundField DataField="MFCurrentVal" HeaderText="MF Cur Value" ItemStyle-HorizontalAlign="Right"
+                                    DataFormatString="{0:n2}" HtmlEncode="false" />
+                                <asp:BoundField DataField="Total" HeaderText="Total" ItemStyle-HorizontalAlign="Right"
                                     DataFormatString="{0:n2}" HtmlEncode="false" />
                             </Columns>
                         </asp:GridView>
