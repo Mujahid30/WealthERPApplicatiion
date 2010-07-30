@@ -92,17 +92,45 @@
     </tr>
     <tr id="Tr1" runat="server">
         <td>
-            <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" Width="150px">
-                <input type="radio" id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" />
-                <label for="rbtnSin" class="cmbField">Current Page</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-                <input type="radio" id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')" />
-                <label for="Radio1" class="cmbField">All Pages</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-                <div align="center">
-                    <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
-                </div>
+            <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup">
+                <br />
+                <table width="100%">
+                    <tr>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td align="right">
+                            <input id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" type="radio" />
+                        </td>
+                        <td align="left">
+                            <label for="rbtnSin" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
+                                Current Page</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td align="right">
+                            <input id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')"
+                                type="radio" />
+                        </td>
+                        <td align="left">
+                            <label for="Radio1" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
+                                All Pages</label>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td align="right">
+                            <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
+                        </td>
+                        <td align="left">
+                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                        </td>
+                    </tr>
+                </table>
             </asp:Panel>
             <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
                 OnClick="btnExportExcel_Click" Height="31px" Width="35px" />
@@ -262,4 +290,3 @@
 <asp:HiddenField ID="hdnReassignRM" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
-
