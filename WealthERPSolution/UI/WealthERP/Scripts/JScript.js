@@ -702,8 +702,8 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
     if (msie > 0)      // If Internet Explorer
     {
         if (document.readyState == "complete") {
-
-            //document.getElementById("mainframe").src = url;
+            
+            document.getElementById("mainframe").src = url;
 
             if (controlid == "IFAAdminMainDashboard" && logintrue == "login") {
 
@@ -863,7 +863,7 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
                 document.getElementById("BMHeader").style.display = "none";
                 document.getElementById("AdminHeader").style.display = "none";
                 document.getElementById("SwitchRolesHeader").style.display = "none";
-                alert('Hello');
+                
 
                 loadlinksfromDefault("CustomerIndividualLeftPane");
             }
