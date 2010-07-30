@@ -54,6 +54,7 @@
                         DataFormatString="{0:c}" HtmlEncode="false" ItemStyle-HorizontalAlign="Right">
                         <ItemStyle HorizontalAlign="Right"></ItemStyle>
                     </asp:BoundField>
+                    <asp:BoundField DataField="NoOfCustomers" HeaderText="No. of Customers" HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
                 </Columns>
             </asp:GridView>
         </td>

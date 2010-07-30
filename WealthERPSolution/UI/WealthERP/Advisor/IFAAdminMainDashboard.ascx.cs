@@ -38,8 +38,6 @@ namespace WealthERP.Advisor
                 LoadAdminBranchPerformance();
                 LoadBranchPerfomanceChart();
                 LoadRMPerformanceChart();
-
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -62,7 +60,9 @@ namespace WealthERP.Advisor
 
         }
 
-
+        /// <summary>
+        /// Modified this function to add a new column(No. of customers) to the Branch AUM grid 
+        /// </summary>
         private void LoadAdminBranchPerformance()
         {
             List<AdvisorBranchVo> branchList = new List<AdvisorBranchVo>();
@@ -90,6 +90,7 @@ namespace WealthERP.Advisor
                     dt.Columns.Add("Equity");
                     dt.Columns.Add("MF");
                     dt.Columns.Add("Insurance");
+                    dt.Columns.Add("NoOfCustomers");
                     //dt.Columns.Add(new DataColumn("Equity", typeof(decimal)));
                     //dt.Columns.Add(new DataColumn("MF", typeof(decimal)));
                     //dt.Columns.Add(new DataColumn("Insurance", typeof(decimal)));
@@ -120,6 +121,9 @@ namespace WealthERP.Advisor
                             dr[5] = "0";
                         else
                             dr[5] = decimal.Parse(drResult["InsuranceAggr"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+
+                        dr[6] = drResult["NoOfCustomers"].ToString();
+
                         insuranceTotal = insuranceTotal + Convert.ToDecimal(drResult["InsuranceAggr"].ToString());
 
                         dt.Rows.Add(dr);
@@ -259,7 +263,6 @@ namespace WealthERP.Advisor
 
         }
 
-
         private void LoadBranchPerfomanceChart()
         {
             double tempEq = 0, tempMf = 0, tempIns = 0;
@@ -354,6 +357,7 @@ namespace WealthERP.Advisor
 
             }
         }
+        
         private void LoadRMPerformanceChart()
         {
             double tempAggr = 0;
