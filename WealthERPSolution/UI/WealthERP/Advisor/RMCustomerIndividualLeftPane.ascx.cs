@@ -80,6 +80,7 @@ namespace WealthERP.Advisor
                     {
                         TreeView1.CollapseAll();
                         TreeView1.FindNode("Customer Dashboard").Selected = true;
+                        Session["IsDashboard"] = "false";
                     }
                     else
                     {
