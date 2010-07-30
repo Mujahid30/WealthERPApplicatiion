@@ -30,6 +30,11 @@ namespace WealthERP.CustomerPortfolio
                         string Middle = customerVo.MiddleName.ToString();
                         string Last = customerVo.LastName.ToString();
 
+                        if (customerVo.RelationShip == "SELF")
+                        {
+                            TreeView1.Nodes.AddAt(1, new TreeNode("Group Dashboard"));
+                        }
+
                         if (Middle != "")
                         {
                             lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
@@ -43,8 +48,6 @@ namespace WealthERP.CustomerPortfolio
                     }
                     TreeView1.CollapseAll();
                     TreeView1.FindNode("Portfolio Dashboard").Expand();
-
-                   
                 }
             }
             catch (BaseApplicationException Ex)
@@ -76,6 +79,11 @@ namespace WealthERP.CustomerPortfolio
                 if (TreeView1.SelectedNode.Value == "RM Home")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('RMDashBoard', 'none')", true);
+                }
+                else if (TreeView1.SelectedNode.Value == "Group Dashboard")
+                {
+                    Session["IsDashboard"] = "true";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Profile Dashboard")
                 {
