@@ -1269,5 +1269,76 @@ namespace BoCustomerPortfolio
             }
             return ds;
         }
+
+        /// <summary>
+        /// Function to retrieve all the Life Insurance and General Insurance of a Group for Group Dashboard
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public DataSet GetGrpInsuranceDetails(int customerId)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = insuranceDao.GetGrpInsuranceDetails(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceBo.cs:GetGrpInsuranceDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        /// <summary>
+        /// Function to retrieve all the Life Insurance and General Insurance of a Customer for Customer Dashboard
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public DataSet GetCustomerDashboardInsuranceDetails(int customerId)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = insuranceDao.GetCustomerDashboardInsuranceDetails(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceBo.cs:GetCustomerDashboardInsuranceDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
     }
 }
