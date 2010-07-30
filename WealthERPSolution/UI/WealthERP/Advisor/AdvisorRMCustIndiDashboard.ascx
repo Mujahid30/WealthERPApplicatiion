@@ -25,7 +25,7 @@
         </td>
     </tr>
     <tr>
-        <td width="50%">
+        <td width="50%" valign="top">
             <br />
             <asp:Chart ID="Chart1" runat="server" Height="250px" Palette="SemiTransparent" Width="400px">
                 <Series>
@@ -38,12 +38,10 @@
                 </ChartAreas>
             </asp:Chart>
         </td>
-        <td width="50%">
-            <asp:Label runat="server" CssClass="HeaderTextSmall" Text="You have not Added any Asset Details.."
-                ID="lblAssetDetailsMsg"></asp:Label>
+        <td width="50%" valign="top">
+            <asp:Label runat="server" CssClass="FieldName" Text="You have not Added any Asset Details.." ID="lblAssetDetailsMsg"></asp:Label>
             <asp:GridView ID="gvAssetAggrCurrentValue" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" HorizontalAlign="Center"
-                Width="100%">
+                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
                 <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
                 <RowStyle CssClass="RowStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -64,6 +62,64 @@
     </tr>
     <tr>
         <td width="50%">
+            <asp:Label ID="Label3" runat="server" CssClass="HeaderTextSmall" Text="Life Insurance"></asp:Label>
+            <hr />
+        </td>
+        <td width="50%">
+            <asp:Label runat="server" CssClass="HeaderTextSmall" Text="General Insurance" ID="Label6"></asp:Label>
+            <hr />
+        </td>
+    </tr>
+    <tr>
+        <td width="50%" valign="top">
+            <asp:Label ID="lblLifeInsurance" runat="server" CssClass="FieldName" Text="No Details to display..."></asp:Label>
+            <asp:GridView ID="gvLifeInsurance" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="97%">
+                <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
+                <RowStyle CssClass="RowStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <PagerStyle CssClass="PagerStyle" HorizontalAlign="center" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+                <Columns>
+                    <asp:BoundField DataField="Policy" HeaderText="Policy" />
+                    <asp:BoundField DataField="InsuranceType" HeaderText="Type" />
+                    <asp:BoundField DataField="SumAssured" HeaderText="Sum Assured" />
+                    <asp:BoundField DataField="PremiumAmount" HeaderText="Premium Amount" />
+                    <asp:BoundField DataField="PremiumFrequency" HeaderText="Premium Frequency" />
+                </Columns>
+            </asp:GridView>
+        </td>
+        <td width="50%" valign="top">
+            <asp:Label ID="lblGeneralInsurance" runat="server" CssClass="FieldName" Text="No Details to display..."></asp:Label>
+            <asp:GridView ID="gvGeneralInsurance" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
+                <RowStyle CssClass="RowStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+                <Columns>
+                    <asp:BoundField DataField="PolicyIssuer" HeaderText="Policy Issuer" />
+                    <asp:BoundField DataField="InsuranceType" HeaderText="Type" />
+                    <asp:BoundField DataField="SumAssured" HeaderText="Sum Assured" />
+                    <asp:BoundField DataField="PremiumAmount" HeaderText="Premium Amount" />
+                </Columns>
+            </asp:GridView>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            &nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            &nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td width="50%">
             <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Alerts"></asp:Label>
             <hr />
         </td>
@@ -75,8 +131,7 @@
     </tr>
     <tr>
         <td width="50%" valign="top">
-            <br />
-            <asp:Label ID="lblAlertsMessage" runat="server" CssClass="HeaderTextSmall" Text="No Alerts..."></asp:Label>
+            <asp:Label ID="lblAlertsMessage" runat="server" CssClass="FieldName" Text="No Alerts..."></asp:Label>
             <asp:GridView ID="gvCustomerAlerts" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
                 <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
@@ -91,9 +146,8 @@
                 </Columns>
             </asp:GridView>
         </td>
-        <td width="50%">
-            <br />
-            <asp:Label ID="lblMaturityMsg" runat="server" CssClass="HeaderTextSmall" Text="No Upcoming Maturity Dates.."></asp:Label>
+        <td width="50%" valign="top">
+            <asp:Label ID="lblMaturityMsg" runat="server" CssClass="FieldName" Text="No Upcoming Maturity Dates.."></asp:Label>
             <asp:GridView ID="gvMaturitySchedule" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
                 <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>

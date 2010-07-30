@@ -35,19 +35,23 @@ namespace WealthERP.Advisor
         CustomerBo customerBo = new CustomerBo();
         UserVo userVo = new UserVo();
         AssetBo assetBo = new AssetBo();
+        InsuranceBo insuranceBo = new InsuranceBo();
         PortfolioBo portfolioBo = new PortfolioBo();
         DataSet dsCustomerAssetMaturityDates = new DataSet();
         DataSet dsAssetAggrCurrentValues = new DataSet();
         DataSet dsCustomerAlerts = new DataSet();
+        DataSet dsInsuranceDetails = new DataSet();
         DataRow drMaturityDates;
         DataRow drCurrentValues;
         DataRow drCustomerAlerts;
+        DataRow drLifeInsurance;
+        DataRow drGeneralInsurance;
         int customerId;
         int portfolioId;
         int memberCustomerId;
         int userId;
         string metatablePrimaryKey;
-        double sum=0;
+        double sum = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -66,9 +70,12 @@ namespace WealthERP.Advisor
                 //lblMessage.Visible = false;
                 //trlblerrormsg.Visible = false;
                 lblMaturityMsg.Visible = false;
+                lblLifeInsurance.Visible = false;
+                lblGeneralInsurance.Visible = false;
                 BindCustomerAssetMaturityDates();
                 BindAssetInvestments();
                 BindAssetCurrentValChart();
+                BindCustInsuranceDetails();
                 BindCustomerAlerts();
             }
 
@@ -119,7 +126,7 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    
+
                     dtMaturityDates.Columns.Add("Asset Group");
                     dtMaturityDates.Columns.Add("Asset Particulars");
                     dtMaturityDates.Columns.Add("Maturity Date");
@@ -188,7 +195,7 @@ namespace WealthERP.Advisor
                 else
                 {
                     lblAssetDetailsMsg.Visible = false;
-                    
+
                     dtAssetAggrCurrentValues.Columns.Add("Asset Class");
                     dtAssetAggrCurrentValues.Columns.Add("Current Value");
 
@@ -230,7 +237,7 @@ namespace WealthERP.Advisor
                     gvAssetAggrCurrentValue.DataSource = dtAssetAggrCurrentValues;
                     gvAssetAggrCurrentValue.DataBind();
                     gvAssetAggrCurrentValue.Visible = true;
-                    
+
                     //networth = sum - liabilityValue;
                     //lblAssets.Text = String.Format("{0:n2}", double.Parse(sum.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     //lblLiabilityValue.Text = String.Format("{0:n2}", double.Parse(liabilityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
@@ -262,11 +269,11 @@ namespace WealthERP.Advisor
 
         public void BindAssetCurrentValChart()
         {
-              Series seriesAssets=null;
-              Legend legend = null;
-              int i = 0;
-              string[] XValues = null;
-              double[] YValues = null;
+            Series seriesAssets = null;
+            Legend legend = null;
+            int i = 0;
+            string[] XValues = null;
+            double[] YValues = null;
             try
             {
 
@@ -276,7 +283,7 @@ namespace WealthERP.Advisor
                 legend.Enabled = true;
                 XValues = new string[dsAssetAggrCurrentValues.Tables[0].Rows.Count];
                 YValues = new double[dsAssetAggrCurrentValues.Tables[0].Rows.Count];
-               
+
                 seriesAssets.ChartType = SeriesChartType.Pie;
 
 
@@ -387,7 +394,7 @@ namespace WealthERP.Advisor
                     {
                         drCustomerAlerts = dtCustomerAlerts.NewRow();
 
-                        drCustomerAlerts[0] = dr["EventCode"].ToString() +" : "+ dr["Name"].ToString();
+                        drCustomerAlerts[0] = dr["EventCode"].ToString() + " : " + dr["Name"].ToString();
                         drCustomerAlerts[1] = dr["EventMessage"].ToString();
 
                         dtCustomerAlerts.Rows.Add(drCustomerAlerts);
@@ -426,12 +433,12 @@ namespace WealthERP.Advisor
 
         protected string GetSchemeName(string alertType, int SchemeID)
         {
-            string schemeName="";
+            string schemeName = "";
 
-            DataSet dsmetatableDetails=null;
-            DataSet dsSchemeName=null;
-            string tableName="";
-            string description="";
+            DataSet dsmetatableDetails = null;
+            DataSet dsSchemeName = null;
+            string tableName = "";
+            string description = "";
 
 
             try
@@ -462,7 +469,7 @@ namespace WealthERP.Advisor
                 {
                     schemeName = "N/A";
                 }
-               
+
 
             }
             catch (BaseApplicationException Ex)
@@ -502,5 +509,96 @@ namespace WealthERP.Advisor
 
         //    }
         //}
+
+        //function to populate the Life Insurance and General Insurance Grids  
+
+        /// <summary>
+        /// function to Bind the Life Insurance and General Insurance of the Customer to the grids
+        /// </summary>
+        public void BindCustInsuranceDetails()
+        {
+            DataTable dtLifeInsDetails = new DataTable();
+            DataTable dtGenInsDetails = new DataTable();
+            try
+            {
+                //Binding the Life Insurance Gid
+                dsInsuranceDetails = insuranceBo.GetCustomerDashboardInsuranceDetails(customerId);
+                if (dsInsuranceDetails.Tables[0].Rows.Count == 0)
+                {
+                    lblLifeInsurance.Visible = true;
+                }
+                else
+                {
+                    dtLifeInsDetails.Columns.Add("Policy");
+                    dtLifeInsDetails.Columns.Add("InsuranceType");
+                    dtLifeInsDetails.Columns.Add("SumAssured");
+                    dtLifeInsDetails.Columns.Add("PremiumAmount");
+                    dtLifeInsDetails.Columns.Add("PremiumFrequency");
+
+                    foreach (DataRow dr in dsInsuranceDetails.Tables[0].Rows)
+                    {
+                        drLifeInsurance = dtLifeInsDetails.NewRow();
+
+                        drLifeInsurance[0] = dr["Policy"].ToString();
+                        drLifeInsurance[1] = dr["InsuranceType"].ToString();
+                        drLifeInsurance[2] = dr["SumAssured"].ToString();
+                        drLifeInsurance[3] = dr["PremiumAmount"].ToString();
+                        drLifeInsurance[4] = dr["PremiumFrequency"].ToString();
+
+                        dtLifeInsDetails.Rows.Add(drLifeInsurance);
+                    }
+                    gvLifeInsurance.DataSource = dtLifeInsDetails;
+                    gvLifeInsurance.DataBind();
+                    gvLifeInsurance.Visible = true;
+                }
+
+                //Binding the General Insurance Gid
+                if (dsInsuranceDetails.Tables[1].Rows.Count == 0)
+                {
+                    lblGeneralInsurance.Visible = true;
+                }
+                else
+                {
+                    dtGenInsDetails.Columns.Add("PolicyIssuer");
+                    dtGenInsDetails.Columns.Add("InsuranceType");
+                    dtGenInsDetails.Columns.Add("SumAssured");
+                    dtGenInsDetails.Columns.Add("PremiumAmount");
+
+                    foreach (DataRow dr in dsInsuranceDetails.Tables[1].Rows)
+                    {
+                        drGeneralInsurance = dtGenInsDetails.NewRow();
+
+                        drGeneralInsurance[0] = dr["PolicyIssuer"].ToString();
+                        drGeneralInsurance[1] = dr["InsuranceType"].ToString();
+                        drGeneralInsurance[2] = dr["SumAssured"].ToString();
+                        drGeneralInsurance[3] = dr["PremiumAmount"].ToString();
+
+                        dtGenInsDetails.Rows.Add(drGeneralInsurance);
+                    }
+                    gvGeneralInsurance.DataSource = dtGenInsDetails;
+                    gvGeneralInsurance.DataBind();
+                    gvGeneralInsurance.Visible = true;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorRMCustIndiDashboard.ascx:BindCustInsuranceDetails()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
     }
 }
