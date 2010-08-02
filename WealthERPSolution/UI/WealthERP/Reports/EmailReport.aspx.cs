@@ -21,6 +21,10 @@ using CrystalDecisions.CrystalReports.Engine;
 using System.Collections;
 using VoEmailSMS;
 using System.Net.Mime;
+using DanLudwig;
+using BoCustomerPortfolio;
+using VoCustomerPortfolio;
+
 
 namespace WealthERP.Reports
 {
@@ -41,98 +45,192 @@ namespace WealthERP.Reports
         FinancialPlanningVo financialPlanning = new FinancialPlanningVo();
         AdvisorVo advisorVo = null;
         RMVo rmVo = null;
-        CustomerVo customerVo;
+        //CustomerVo customerVo;
         ReportType CurrentReportType;
-
+        int CustomerId = 0;
+        int GroupCustometId = 0;
+        CustomerBo customerBo = new CustomerBo();
+        CustomerVo customerVo = new CustomerVo();
+        bool GroupCustomer = true;
 
         protected void Page_Init(object sender, EventArgs e)
         {
+            Page.Response.BufferOutput = false;        
             if (Session["advisorVo"] != null)
                 Session["newAdvisorVo"] = Session["advisorVo"];
             if (Session["rmVo"] != null)
                 Session["newRmVo"] = Session["rmVo"];
-
-
+                                   
             advisorVo = (AdvisorVo)Session["newAdvisorVo"];
             rmVo = (RMVo)Session["newRmVo"];
 
             if (!IsPostBack)
             {
                 if (Request.QueryString["mail"] == "1")
-                    isMail = "1";
-
-                if (Directory.Exists(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId))
                 {
-                    DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
+                    //Setting ClientId of EmailTab and report type as MFReports.
+                    ctrlPrefix = "ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$";
+                    CurrentReportType = ReportType.MFReports;
+
+                  
+                    //Getting all Selected CustomerID For Sending BULK E-Mail
+
+                    String AllCustomerId = Request.Form["ctrl_MFReports$SelectedCustomets4Email"];
                     
-                    foreach (FileInfo f in di.GetFiles())
-                    {
-                        f.Delete();
-                    }
-                }
-                else
-                    Directory.CreateDirectory(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
-            }
-            ctrlPrefix = "ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$";
-            CurrentReportType = ReportType.MFReports;
-            
+                    char[] separator = new char[] { ',' };
 
-            if (PreviousPage != null)
-            {
-                if (Request.Form[ctrlPrefix + "chkMFSummary"] == "on")
-                {
-                    CountReport = CountReport + 1;
-                    crmain = new ReportDocument();
-                    GetReportParameters("CATEGORY_WISE");
-                    DisplayReport(mfReport);
-                    //FillEmailValues();
+                    string[] strSplitArr = AllCustomerId.Split(separator);
+                    DataTable dtCustomerList = new DataTable();
+                    dtCustomerList.Columns.Add("CustometName");
+                    DataRow drcustomer;
+
+                    foreach (string arrStr in strSplitArr)
+                    {
+
+                        if (Directory.Exists(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId))
+                        {
+                            DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
+
+                            foreach (FileInfo f in di.GetFiles())
+                            {
+                                f.Delete();
+                            }
+                        }
+                        else
+                            Directory.CreateDirectory(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
+
+                        if (!String.IsNullOrEmpty(arrStr))
+                        {
+                            CustomerId = int.Parse(arrStr);
+                            //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
+                            if (Request.Form[ctrlPrefix + "rbnGroup"] == "on")
+                                GroupCustometId = int.Parse(arrStr);
+                            else
+                                GroupCustomer = false;
+
+                            customerVo = customerBo.GetCustomer(CustomerId);
+
+                            if (!string.IsNullOrEmpty(customerVo.Email))
+                            {
+                                ExportTODisk();
+                                MailSending();
+                            }
+                            else
+                            {
+                                drcustomer = dtCustomerList.NewRow();
+                                string CustometName=customerVo.FirstName+ " " + customerVo.MiddleName + " " + customerVo.LastName;
+                                drcustomer["CustometName"] = CustometName;
+                                dtCustomerList.Rows.Add(drcustomer);
+                                
+                            }
+
+                        }
+
+                    }
+                    if (dtCustomerList.Rows.Count>1)
+                    {
+                        trCustomerlist.Visible=true;
+                        gvEmailCustomerList.DataSource = dtCustomerList;
+                        gvEmailCustomerList.DataBind();
+                    }
+                    else
+                        trCustomerlist.Visible = false;
+                    isMail = "0";
+
+
                 }
-                if (Request.Form[ctrlPrefix + "chkPortfolioReturns"] == "on")
-                {
-                    CountReport = CountReport + 1;
-                    crmain = new ReportDocument();
-                    GetReportParameters("RETURNS_PORTFOLIO");
-                    DisplayReport(mfReport);
-                    //FillEmailValues();
-                }
-                if (Request.Form[ctrlPrefix + "chkDividendDetail"] == "on")
-                {
-                    CountReport = CountReport + 1;
-                    crmain = new ReportDocument();
-                    GetReportParameters("DIVIDEND_STATEMENT");
-                    DisplayReport(mfReport);
-                    //FillEmailValues();
-                }
-                if (Request.Form[ctrlPrefix + "chkTransactionReport"] == "on")
-                {
-                    CountReport = CountReport + 1;
-                    crmain = new ReportDocument();
-                    GetReportParameters("TRANSACTION_REPORT");
-                    DisplayReport(mfReport);
-                }
-                if (Request.Form[ctrlPrefix + "chkDividendSummary"] == "on")
-                {
-                    CountReport = CountReport + 1;
-                    crmain = new ReportDocument();
-                    GetReportParameters("DIVIDEND_SUMMARY");
-                    DisplayReport(mfReport);
-                }
-                if (Request.Form[ctrlPrefix + "chkCapitalGainDetails"] == "on")
-                {
-                    CountReport = CountReport + 1;
-                    crmain = new ReportDocument();
-                    GetReportParameters("CAPITAL_GAIN_DETAILS");
-                    DisplayReport(mfReport);
-                }
-                if (Request.Form[ctrlPrefix + "chkCapitalGainSummary"] == "on")
-                {
-                    CountReport = CountReport + 1;
-                    crmain = new ReportDocument();
-                    GetReportParameters("CAPITAL_GAIN_SUMMARY");
-                    DisplayReport(mfReport);
-                }
-                FillEmailValues();
+
             }
+           
+
+            
+        }
+
+        /// <summary>
+        /// This will Export report into disk based on CheckBox Selected from UI For Bulk-Email.
+        /// </summary>
+        private void ExportTODisk()
+        {
+            if (Request.Form[ctrlPrefix + "chkMFSummary"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("CATEGORY_WISE");
+                DisplayReport(mfReport);
+                //FillEmailValues();
+            }
+
+            if (Request.Form[ctrlPrefix + "chkPortfolioReturns"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("RETURNS_PORTFOLIO");
+                DisplayReport(mfReport);
+                //FillEmailValues();
+            }
+            //Add For three more new Report :Author:--pramod
+            if (Request.Form[ctrlPrefix + "chkPortfolioReturnRE"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("RETURNS_PORTFOLIO_REALIZED");
+                DisplayReport(mfReport);
+                //FillEmailValues();
+            }
+            if (Request.Form[ctrlPrefix + "chkEligibleCapitalgainsDetail"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("ELIGIBLE_CAPITAL_GAIN_DETAILS");
+                DisplayReport(mfReport);
+                //FillEmailValues();
+            }
+            if (Request.Form[ctrlPrefix + "chkEligibleCapitalGainsSummary"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("ELIGIBLE_CAPITAL_GAIN_SUMMARY");
+                DisplayReport(mfReport);
+                //FillEmailValues();
+            }
+
+            if (Request.Form[ctrlPrefix + "chkDividendDetail"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("DIVIDEND_STATEMENT");
+                DisplayReport(mfReport);
+                //FillEmailValues();
+            }
+            if (Request.Form[ctrlPrefix + "chkTransactionReport"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("TRANSACTION_REPORT");
+                DisplayReport(mfReport);
+            }
+            if (Request.Form[ctrlPrefix + "chkDividendSummary"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("DIVIDEND_SUMMARY");
+                DisplayReport(mfReport);
+            }
+            if (Request.Form[ctrlPrefix + "chkCapitalGainDetails"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("CAPITAL_GAIN_DETAILS");
+                DisplayReport(mfReport);
+            }
+            if (Request.Form[ctrlPrefix + "chkCapitalGainSummary"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("CAPITAL_GAIN_SUMMARY");
+                DisplayReport(mfReport);
+            }
+            FillEmailValues();
         }
 
         //*************************************Code for Emailing reports********************************************
@@ -150,7 +248,7 @@ namespace WealthERP.Reports
             {
                 MFReportsBo mfReports = new MFReportsBo();
                 report = (MFReportVo)Session["reportParams"];
-                customerVo = (CustomerVo)Session["CusVo"];
+                //customerVo = (CustomerVo)Session["CusVo"];
                 string fileExtension = ".pdf";
                 string exportFilename = string.Empty;
                 
@@ -298,8 +396,59 @@ namespace WealthERP.Reports
                         else
                             SetNoRecords();
                         break;
-
+                    //Added Three more cases for Display three new report : Author-Pramod
+                    case "RETURNS_PORTFOLIO_REALIZED":
+                        crmain.Load(Server.MapPath("MFReturnsRealized.rpt"));
+                        DataTable dtReturnsREPortfolio = mfReports.GetMFReturnRESummaryReport(report, advisorVo.advisorId);
+                        if (dtReturnsREPortfolio.Rows.Count > 0)
+                        {
+                            crmain.SetDataSource(dtReturnsREPortfolio);
+                            setLogo();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            AssignReportViewerProperties();
+                            exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
+                            crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
+                        }
+                        else
+                            SetNoRecords();
+                        break;
                        
+
+                    case "ELIGIBLE_CAPITAL_GAIN_DETAILS":
+                        crmain.Load(Server.MapPath("EligibleCapitalGainsDetails.rpt"));
+                        DataTable dtEligibleCapitalGainsDetails = mfReports.GetEligibleCapitalGainDetailsReport(report);
+                        if (dtEligibleCapitalGainsDetails.Rows.Count > 0)
+                        {
+                            crmain.SetDataSource(dtEligibleCapitalGainsDetails);
+                            setLogo();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            AssignReportViewerProperties();
+                            exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
+                            crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
+                        }
+                        else
+                            SetNoRecords();
+                        break;
+                      
+                    case "ELIGIBLE_CAPITAL_GAIN_SUMMARY":
+                        crmain.Load(Server.MapPath("EligibleCapitalGainsDetails.rpt"));
+                        DataTable dtEligibleCapitalGainsSummary = mfReports.GetEligibleCapitalGainDetailsReport(report);
+                        if (dtEligibleCapitalGainsSummary.Rows.Count > 0)
+                        {
+                            crmain.SetDataSource(dtEligibleCapitalGainsSummary);
+                            setLogo();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            AssignReportViewerProperties();
+                            exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
+                            crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
+                        }
+                        else
+                            SetNoRecords();
+                        break;
+                                                                      
                 }
                 //Filling Emails
             }
@@ -328,7 +477,7 @@ namespace WealthERP.Reports
         private void AssignReportViewerProperties()
         {
             RMVo rmVo = (RMVo)Session["rmVo"];
-            customerVo = (CustomerVo)Session["CusVo"];
+            //customerVo = (CustomerVo)Session["CusVo"];
 
             try
             {
@@ -360,9 +509,18 @@ namespace WealthERP.Reports
             CalculateDateRange(reportSubType, out dtFrom, out dtTo);
         
             mfReport.SubType = reportSubType;
-            mfReport.PortfolioIds = GetPortfolios();
+            //pramod
+            //mfReport.PortfolioIds = GetPortfolios();
+            if (GroupCustomer == true)
+                mfReport.PortfolioIds = GetAllPortfolioIds();
+            else
+            {
+                string PortFolioIds = GetAllPortfolioOfCustomer(CustomerId);
+                PortFolioIds = PortFolioIds.Substring(0, PortFolioIds.Length - 1);
+                mfReport.PortfolioIds = PortFolioIds;
+            }
 
-            if (reportSubType == "CATEGORY_WISE" || reportSubType == "RETURNS_PORTFOLIO")
+            if (reportSubType == "CATEGORY_WISE" || reportSubType == "RETURNS_PORTFOLIO" || reportSubType == "RETURNS_PORTFOLIO_REALIZED" || reportSubType == "ELIGIBLE_CAPITAL_GAIN_DETAILS" || reportSubType == "ELIGIBLE_CAPITAL_GAIN_SUMMARY")
             {
                 mfReport.FromDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
                 mfReport.ToDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
@@ -376,14 +534,92 @@ namespace WealthERP.Reports
 
             if (!String.IsNullOrEmpty(Request.Form["ctrl_MFReports$hdnCustomerId1"]))
             {
-                mfReport.CustomerIds = Request.Form["ctrl_MFReports$hdnCustomerId1"];
-                mfReport.GroupHead = Request.Form["ctrl_MFReports$hdnCustomerId1"];
+                //comented by pramod
+                //mfReport.CustomerIds = Request.Form["ctrl_MFReports$hdnCustomerId1"];
+                //mfReport.GroupHead = Request.Form["ctrl_MFReports$hdnCustomerId1"];
+
+                mfReport.CustomerIds =CustomerId.ToString();
+                mfReport.GroupHead = GroupCustometId.ToString();
+
+
+            }
+            else if (Request.QueryString["mail"] == "1")
+            {
+                mfReport.CustomerIds = CustomerId.ToString();
+                if(GroupCustomer==true)
+                 mfReport.GroupHead = GroupCustometId.ToString();
+ 
             }
             Session["reportParams"] = mfReport;
         }
 
         /// <summary>
-        /// Get all the selected portfolio Ids and return it as a comma separated string.
+        /// This Returns all portfolio Id of all customers of One Group Head Author:Pramod
+        /// </summary>
+        /// <returns></returns>
+
+        private string GetAllPortfolioIds()
+        {
+            string AllFolioIds = "";
+            CustomerBo customerBo = new CustomerBo();
+            CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
+            
+                DataTable dt = customerFamilyBo.GetAllCustomerAssociates(CustomerId);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+
+
+
+                        AllFolioIds = AllFolioIds + GetAllPortfolioOfCustomer(Convert.ToInt32(dr["C_AssociateCustomerId"]));
+
+
+
+                    }
+                }
+                AllFolioIds = AllFolioIds.Substring(0, AllFolioIds.Length - 1);
+            
+            return AllFolioIds;
+        }
+
+        /// <summary>
+        /// This Returns all portfolio Id of a particular customer. Author:Pramod
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        private string GetAllPortfolioOfCustomer(int customerId)
+        {
+            string portfolioIDs = "";
+            PortfolioBo portfolioBo = new PortfolioBo();
+            if (!String.IsNullOrEmpty(customerId.ToString())) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            {
+                //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
+                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
+                {
+                    
+                    foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
+                    {
+                        if (custPortfolio.PortfolioName == "MyPortfolio")
+                        {
+                            portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
+                            portfolioIDs = portfolioIDs + ",";
+                        }
+                        //checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
+                        //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
+                    }
+                    
+                }
+              
+            }
+
+            return portfolioIDs;
+        }
+
+        /// <summary>
+        /// Get all the selected portfolio Ids and return it as a comma separated string. Author:Pramod
         /// </summary>
         private string GetPortfolios()
         {
@@ -409,7 +645,7 @@ namespace WealthERP.Reports
         /// </summary>
         private void CalculateDateRange(string reportType,out DateTime fromDate, out DateTime toDate)
         {
-            if (reportType == "RETURNS_PORTFOLIO" || reportType == "CATEGORY_WISE")
+            if (reportType == "RETURNS_PORTFOLIO" || reportType == "CATEGORY_WISE" || reportType == "RETURNS_PORTFOLIO_REALIZED" || reportType == "ELIGIBLE_CAPITAL_GAIN_DETAILS" || reportType == "ELIGIBLE_CAPITAL_GAIN_SUMMARY")
             {
                 fromDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
                 toDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
@@ -440,7 +676,7 @@ namespace WealthERP.Reports
 
             if (!IsPostBack)
             {
-                CustomerBo customerBo = new CustomerBo();
+               
                 CustomerVo cust = null;
 
                 string subType = string.Empty;
@@ -452,11 +688,12 @@ namespace WealthERP.Reports
                     subType = mfReport.SubType;
                     fromDate = mfReport.FromDate;
                     toDate = mfReport.ToDate;
+                    cust = customerVo;
 
-                    if (!String.IsNullOrEmpty(mfReport.GroupHead))
-                        cust = customerBo.GetCustomer(Convert.ToInt32(mfReport.GroupHead));
-                    else
-                        cust = customerBo.GetCustomer(Convert.ToInt32(mfReport.CustomerIds));
+                    //if (!String.IsNullOrEmpty(mfReport.GroupHead))
+                    //    cust = customerBo.GetCustomer(Convert.ToInt32(mfReport.GroupHead));
+                    //else
+                    //    cust = customerBo.GetCustomer(Convert.ToInt32(mfReport.CustomerIds));
                 }
                 else if (CurrentReportType == ReportType.EquityReports)
                 {
@@ -488,13 +725,21 @@ namespace WealthERP.Reports
                     cust = customerBo.GetCustomer(Convert.ToInt32(financialPlanning.CustomerId));
                 }
                 Session["hidCC"] = txtCC.Text;
-                Session["hidTo"] = txtTo.Text = cust.Email;
+                if(!string.IsNullOrEmpty(cust.Email))
+                {
+                    Session["hidTo"] = txtTo.Text = cust.Email;
+                }
+                //if (!string.IsNullOrEmpty(customerVo.Email))
+                //{
+                //    Session["hidTo"] = customerVo.Email;
+                //}
                 Session["hidSubject"] = txtSubject.Text = GetReportSubject(subType, fromDate, toDate);
                 if (cust.Salutation == string.Empty || cust.Salutation == "")
                 {
                     Session["hidBody"] = txtBody.Text = GetReportBody(cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
 
                 }
+                else
                 Session["hidBody"] = txtBody.Text = GetReportBody(cust.Salutation + "." + " " + cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
                 //Session["hidBody"] = txtBody.Text = GetReportBody(cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
 
@@ -563,6 +808,15 @@ namespace WealthERP.Reports
                                     break;
                                 case "RETURNS_PORTFOLIO":
                                     subject = "Portfolio Returns - ";
+                                    break;
+                                case "RETURNS_PORTFOLIO_REALIZED":
+                                    subject = "Portfolio Returns Realized - ";
+                                    break;
+                                case "ELIGIBLE_CAPITAL_GAIN_DETAILS":
+                                    subject = "Eligible Capital Gain Details - ";
+                                    break;
+                                case "ELIGIBLE_CAPITAL_GAIN_SUMMARY":
+                                    subject = "Eligible Capital Gain Summary - ";
                                     break;
                                 case "TRANSACTION_REPORT":
                                     subject = "Transaction Report - ";
@@ -633,9 +887,12 @@ namespace WealthERP.Reports
 
             try
             {
-                string[] toAddresses = hidTo.Value.Split(new char[] { ',' });
-                foreach (string toEmail in toAddresses)
-                    email.To.Add(toEmail);
+                //string[] toAddresses = hidTo.Value.Split(new char[] { ',' });
+                //foreach (string toEmail in toAddresses)
+                //    email.To.Add(toEmail);
+                if (!string.IsNullOrEmpty(Session["hidto"].ToString()))
+                 email.To.Add(Session["hidto"].ToString());
+
 
                 if (hidCC.Value != string.Empty)
                 {
@@ -687,7 +944,7 @@ namespace WealthERP.Reports
                     fileNames=fileNames+f.Name+";";
                 }
 
-                email.Subject = hidSubject.Value;
+                email.Subject = Session["hidSubject"].ToString();
                 //hidSubject.Value = string.Empty;
                 //email.IsBodyHtml = true;
                 //email.Body = hidBody.Value.Replace("\n", "<br/>");
@@ -700,7 +957,7 @@ namespace WealthERP.Reports
                 //Embaded Advisor Logo Along with mail..Modified by ******Pramoda Sahoo*******
 
                 //Create two views, one text, one HTML.
-                string MailBody = hidBody.Value.Replace("\n", "<br/>");
+                string MailBody = Session["hidBody"].ToString().Replace("\n", "<br/>");
 
                 System.Net.Mail.AlternateView htmlView;
                 System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
@@ -745,7 +1002,7 @@ namespace WealthERP.Reports
                     emailVo.Status = 1;
                     emailSMSBo.AddToEmailLog(emailVo);
                 
-
+              
 
             }
             catch (Exception ex)
@@ -757,10 +1014,11 @@ namespace WealthERP.Reports
                 email.Dispose();
             }
             return isMailSent;
+                
         }
 
         /// <summary>
-        /// Convert the report to selected format and save it to disk(Reports/TempReports folder).
+        /// Convert the report to selected format and save it to disk(Reports/TempReports folder).It is calling when Mail Sending From report Viewer.
         /// </summary>
         /// <returns></returns>
         private string ExportToDisk()
@@ -814,6 +1072,48 @@ namespace WealthERP.Reports
 
         }
 
+        /// <summary>
+        /// Mail Sending Functinality
+        /// </summary>
+        private void MailSending()
+        {
+            DirectoryInfo di = null;
+            int reportExistFlag = 0;
+            //string reportFileName = ExportToDisk();
+            divMessage.Visible = true;
+            if (Directory.Exists(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId))
+            {
+                di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
+                foreach (FileInfo f in di.GetFiles())
+                {
+                    reportExistFlag = 1;
+                }
+            }
+
+
+
+            if (di.GetFiles().Length != 0)
+            {
+                bool isMailSent = SendMail();
+                if (isMailSent)
+                {
+                    lblEmailStatus.Text = "Email sent successfully";
+                    lblEmailStatus.CssClass = "SuccessMsg";
+                }
+                else
+                {
+                    lblEmailStatus.Text = "An error occurred while sending mail.";
+                    lblEmailStatus.CssClass = "Error";
+                }
+            }
+            else
+            {
+                lblEmailStatus.Text = "No Report Created.Email not sent.";
+                lblEmailStatus.CssClass = "Error";
+            }
+ 
+        }
+
         #endregion
 
 
@@ -864,5 +1164,10 @@ namespace WealthERP.Reports
             return data;
         }
         #endregion
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread.Sleep(5000);
+        }
     }
 }

@@ -1,9 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EmailReport.aspx.cs" Inherits="WealthERP.Reports.EmailReport" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Buffer="false" CodeBehind="EmailReport.aspx.cs" Inherits="WealthERP.Reports.EmailReport" %>
 
 <%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<link href="../App_Themes/Maroon/GridViewCss.css" rel="stylesheet" type="text/css" />
 <head id="Head1" runat="server">
     <title>WealthERP Reports</title>
     <style>
@@ -37,6 +38,11 @@
         function ShowProcesssing(btn) {
             document.getElementById('btnSend').value = "Sending Email.Please wait..";
             document.getElementById('btnSend').disabled = true;
+
+        }
+        function ShowProcesss() {
+            document.getElementById('Button1').value = "Sending Email.Please wait..";
+            document.getElementById('Button1').disabled = true;
 
         }
         function sendMail() {
@@ -99,9 +105,45 @@
         });
         
     </script>
+    
+    <script language="JavaScript">
+
+        var Page;
+
+        var postBackElement;
+
+        function pageLoad() {
+
+            Page = Sys.WebForms.PageRequestManager.getInstance();
+
+            Page.add_beginRequest(OnBeginRequest);
+
+            Page.add_endRequest(endRequest);
+
+        }
+
+        function OnBeginRequest(sender, args) {
+
+            $get("IMGDIV").style.display = "";
+
+        }
+
+        function endRequest(sender, args) {
+
+            $get("IMGDIV").style.display = "none";
+
+        }
+      
+        function hideProcessImage(){
+        
+        $get("abc").style.display = "none";
+        }
+ 
+
+  </script>
 
 </head>
-<body>
+<body onload="hideProcessImage();">
     <form id="form1" runat="server">
     <table width="100%" border="0">
         <tr>
@@ -110,8 +152,7 @@
                     <tr>
                         <td align="center">
                             <asp:Button ID="btnSendEmail" runat="server" class='sendEmail ButtonField' Text="Send Report by Email" style="display:none" />
-                        </td>
-                        <td align="right" valign="bottom">
+                            
                             <div style="display: none">
                                 <div id='divEmail' style='padding: 10px; background: #fff;'>
                                     <table border="0">
@@ -163,14 +204,41 @@
                                     </table>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
                             <div runat="server" id="divMessage" class="yellow-box" visible="false" enableviewstate="false">
                                 <asp:Label ID="lblEmailStatus" runat="server" Text="" EnableViewState="false" Style="font-weight: bolder;
                                     color: Green;"></asp:Label>
                             </div>
+                        </td>
+                    </tr>
+                    <tr id="trCustomerlist" runat="server">
+                    <td align="center">
+                    <div runat="server" id="divCustomerlist" class="yellow-box" visible="true" enableviewstate="false">
+                                <asp:Label ID="Label1" runat="server" Text="List of customer E-mail not send" EnableViewState="false" Style="color: Red;text-align:center"></asp:Label>
+                    </div>
+                    
+                    </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <asp:GridView ID="gvEmailCustomerList" runat="server" AllowSorting="True" 
+                            AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" 
+                            HorizontalAlign="Center" ShowFooter="True" EnableViewState="true" Width="200px">
+                             <FooterStyle CssClass="FooterStyle" />
+                             <Columns>
+                             <asp:TemplateField HeaderText="Customer Name">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCustomerName" runat="server" CssClass="GridViewCmbField" 
+                                            Text='<%#Eval("CustometName") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                             </Columns>
+                             <HeaderStyle CssClass="HeaderStyle" />
+                            <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
+                            <RowStyle CssClass="RowStyle" />
+                            <SelectedRowStyle CssClass="SelectedRowStyle" />
+                            </asp:GridView>
                         </td>
                     </tr>
                 </table>
@@ -180,6 +248,15 @@
             <td align="center">
                 <asp:Label ID="lblNoRecords" runat="server" CssClass="HeaderTextSmall" Text="No records found."
                     Visible="false" EnableViewState="false"></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <DIV id="IMGDIV" style="display:none;position:absolute;left: 35%;top: 25%;vertical-align:middle;border-style:inset;border-color:black;background-color:White;z-index:40;">
+                   
+                    <img src="images/loading.gif" />               
+
+                </DIV>
             </td>
         </tr>
     </table>
@@ -194,8 +271,16 @@
     </form>
 </body>
 
+           
+
 <script>
     ConvertnlTobr();
 </script>
+
+
+   
+        <img id="abc" src="images/loading.gif" />               
+
+  
 
 </html>
