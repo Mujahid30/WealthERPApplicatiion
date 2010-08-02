@@ -190,6 +190,40 @@ namespace DaoReports
         }
 
 
+        /// <summary>
+        /// Created Dtaa Table For "Portfolio Returns Realized" Report --Author:Pramod
+        /// </summary>
+        /// <param name="reports">"reports" is a object of "MFReportVo" Contails report parameters</param>
+        /// <param name="adviserId">Get the data of all the customer belong to This Id</param>
+        /// <returns>DataTable</returns>
+        public DataTable GetMFReturnRESummaryReport(MFReportVo reports, int adviserId)
+        {
+
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdCustomerMFReturns;
+            DataSet dsCustomerMFReturns;
+                       
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCustomerMFReturns = db.GetStoredProcCommand("SP_RPT_GetCustomerMFReturnsRESummary");
+                db.AddInParameter(cmdCustomerMFReturns, "@PortfolioIds", DbType.String, reports.PortfolioIds); //35437
+                db.AddInParameter(cmdCustomerMFReturns, "@FromDate", DbType.DateTime, reports.FromDate);
+                //db.AddInParameter(cmdCustomerMFReturns, "@AdviserId", DbType.Int32, adviserId);
+
+
+                dsCustomerMFReturns = db.ExecuteDataSet(cmdCustomerMFReturns);
+                //ds = dsCustomerMFReturns;
+                return dsCustomerMFReturns.Tables[0];
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
         public DataTable GetReturnTransactionSummaryReport(MFReportVo reports)
         {
             
@@ -435,7 +469,7 @@ namespace DaoReports
                                     drCapitalGainDetails["Units"] = mFPortfolioTransaction.BuyQuantity;
                                     drCapitalGainDetails["RedDate"] = mFPortfolioTransaction.SellDate.ToShortDateString();
                                     drCapitalGainDetails["RedAmount"] = mFPortfolioTransaction.NetSalesProceed;
-
+                                    
                                     drCapitalGainDetails["DaysInvestedFor"] = mFPortfolioTransaction.AgeOfInvestment;
 
                                     drCapitalGainDetails["PurchaseDate"] = mFPortfolioTransaction.BuyDate.ToShortDateString();
@@ -470,6 +504,116 @@ namespace DaoReports
 
         }
 
+
+        /// <summary>
+        /// Creating Data Table For "ELIGIBLE CAPITAL GAIN DETAILS & SUMMARY" Report : "Author:Pramod"
+        /// </summary>
+        /// <param name="reports">"reports" is a object of "MFReportVo" Contails report parameters </param>
+        /// <returns> DataTable</returns>
+        public DataTable GetEligibleCapitalGainDetailsReport(MFReportVo reports)
+        {
+            DataTable dtEligibleCapitalGainDetails = new DataTable();
+
+            dtEligibleCapitalGainDetails.Columns.Add("CustomerName");
+            dtEligibleCapitalGainDetails.Columns.Add("CustomerId");
+            dtEligibleCapitalGainDetails.Columns.Add("PortfolioName");
+            dtEligibleCapitalGainDetails.Columns.Add("PortfolioId");
+            dtEligibleCapitalGainDetails.Columns.Add("GainOrLoss", System.Type.GetType("System.Double"));
+
+            dtEligibleCapitalGainDetails.Columns.Add("Units", System.Type.GetType("System.Double"));
+            dtEligibleCapitalGainDetails.Columns.Add("RedDate");
+            dtEligibleCapitalGainDetails.Columns.Add("RedAmount", System.Type.GetType("System.Double"));
+            dtEligibleCapitalGainDetails.Columns.Add("DaysInvestedFor");
+            dtEligibleCapitalGainDetails.Columns.Add("PurchaseDate");
+            dtEligibleCapitalGainDetails.Columns.Add("PurchaseAmount", System.Type.GetType("System.Double"));
+
+            dtEligibleCapitalGainDetails.Columns.Add("FolioNum");
+            dtEligibleCapitalGainDetails.Columns.Add("SchemePlanCode");
+            dtEligibleCapitalGainDetails.Columns.Add("SchemePlanName");
+
+            dtEligibleCapitalGainDetails.Columns.Add("STCGTax", System.Type.GetType("System.Double"));
+            dtEligibleCapitalGainDetails.Columns.Add("LTCGTax", System.Type.GetType("System.Double"));
+            dtEligibleCapitalGainDetails.Columns.Add("Category");
+            dtEligibleCapitalGainDetails.Columns.Add("CurrNAV", System.Type.GetType("System.Double"));
+            dtEligibleCapitalGainDetails.Columns.Add("CurrVALUE", System.Type.GetType("System.Double"));
+
+            PortfolioBo portfolioBo = new PortfolioBo();
+            CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
+            DataSet dsReturnsTransactions = new DataSet();
+            List<MFPortfolioVo> mfPortfolioVoList = new List<MFPortfolioVo>();
+
+
+            try
+            {
+
+                String[] portfolioIds = reports.PortfolioIds.Split(',');
+                foreach (string strPortfoliioId in portfolioIds)
+                {
+                    mfPortfolioVoList = new List<MFPortfolioVo>();
+                    Int32 portfoliioId = Convert.ToInt32(strPortfoliioId);
+                    DataSet dsPortfolioCustomer = portfolioBo.GetCustomerPortfolioDetails(portfoliioId);
+                    DataRow drPortfolioCustomer = dsPortfolioCustomer.Tables[0].Rows[0];
+                    mfPortfolioVoList = customerPortfolioBo.GetCustomerMFPortfolio(int.Parse(drPortfolioCustomer["C_CustomerId"].ToString()), portfoliioId, reports.ToDate, "", "", "");
+                    if (mfPortfolioVoList != null && mfPortfolioVoList.Count > 0)
+                    {
+                        foreach (MFPortfolioVo mFPortfolioVo in mfPortfolioVoList)
+                        {
+                            foreach (MFPortfolioTransactionVo mFPortfolioTransaction in mFPortfolioVo.MFPortfolioTransactionVoList)
+                            {
+                                if (mFPortfolioTransaction.Closed == false &&  mFPortfolioTransaction.BuyDate < reports.ToDate)
+                                {
+                                    DataRow drEligibleCapitalGainDetails = dtEligibleCapitalGainDetails.NewRow();
+
+                                    drEligibleCapitalGainDetails["CustomerName"] = drPortfolioCustomer["C_FirstName"].ToString();
+                                    drEligibleCapitalGainDetails["CustomerId"] = mFPortfolioVo.CustomerId;
+                                    if (drPortfolioCustomer["CP_PortfolioName"] != null)
+                                        drEligibleCapitalGainDetails["PortfolioName"] = drPortfolioCustomer["CP_PortfolioName"].ToString();
+                                    drEligibleCapitalGainDetails["PortfolioId"] = portfoliioId;
+
+                                    drEligibleCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.RealizedProfitLoss;
+                                    drEligibleCapitalGainDetails["Units"] = mFPortfolioTransaction.BuyQuantity;
+                                    drEligibleCapitalGainDetails["RedDate"] = mFPortfolioTransaction.SellDate.ToShortDateString();
+                                    drEligibleCapitalGainDetails["RedAmount"] = mFPortfolioTransaction.NetSalesProceed;
+
+                                    drEligibleCapitalGainDetails["DaysInvestedFor"] = mFPortfolioTransaction.AgeOfInvestment;
+
+                                    drEligibleCapitalGainDetails["PurchaseDate"] = mFPortfolioTransaction.BuyDate.ToShortDateString();
+                                    drEligibleCapitalGainDetails["PurchaseAmount"] = mFPortfolioTransaction.CostOfAcquisition;
+
+                                    drEligibleCapitalGainDetails["FolioNum"] = mFPortfolioVo.Folio;
+                                    drEligibleCapitalGainDetails["SchemePlanCode"] = mFPortfolioVo.MFCode;
+                                    drEligibleCapitalGainDetails["SchemePlanName"] = mFPortfolioVo.SchemePlan;
+
+                                    drEligibleCapitalGainDetails["STCGTax"] = mFPortfolioTransaction.STCGTax;
+                                    drEligibleCapitalGainDetails["LTCGTax"] = mFPortfolioTransaction.LTCGTax;
+                                    drEligibleCapitalGainDetails["Category"] = mFPortfolioVo.Category;
+
+                                    drEligibleCapitalGainDetails["CurrNAV"] = mFPortfolioTransaction.CurrentNAV;
+                                    drEligibleCapitalGainDetails["CurrVALUE"] = mFPortfolioTransaction.CurrentValue;
+
+
+                                    dtEligibleCapitalGainDetails.Rows.Add(drEligibleCapitalGainDetails);
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return dtEligibleCapitalGainDetails;
+
+
+
+
+        }
+
+        
         public DataSet GetMFTransactionType()
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
