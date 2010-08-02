@@ -71,6 +71,10 @@ namespace WealthERP.Advisor
 
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMCustomerIndividualLeftPane');", true);
                 }
+                if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+                {
+                    SetNode();
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -99,6 +103,10 @@ namespace WealthERP.Advisor
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            SetNode();
+        }
+        public void SetNode()
         {
             string strNodeValue = null;
             try
@@ -179,7 +187,7 @@ namespace WealthERP.Advisor
                 }
                 else if (TreeView1.SelectedNode.Value == "Proof")
                 {
-                    
+
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewCustomerProofs','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Proof")
@@ -382,7 +390,6 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
         }
     }
 }
