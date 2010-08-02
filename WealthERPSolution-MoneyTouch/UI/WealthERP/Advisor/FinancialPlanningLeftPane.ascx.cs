@@ -16,9 +16,17 @@ namespace WealthERP.Advisor
                 Session.Remove("FP_UserName");
                 Session.Remove("FP_UserID");
             }
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
 
         }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            SetNode();
+        }
+        public void SetNode()
         {
             if (TreeView1.SelectedNode.Value == "RiskProfileAssetAllocation")
             {
