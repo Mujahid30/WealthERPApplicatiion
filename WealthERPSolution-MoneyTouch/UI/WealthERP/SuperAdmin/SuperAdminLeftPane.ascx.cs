@@ -38,6 +38,7 @@ namespace WealthERP.SuperAdmin
             //    lblEmailIdValue.Text = customerVo.Email.ToString();
             //}
             SessionBo.CheckSession();
+            Session["LoanSchemeView"] = "SuperAdmin";
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             if (!IsPostBack)
             {
@@ -93,7 +94,6 @@ namespace WealthERP.SuperAdmin
                 //}
                 else if (SuperAdminTreeView.SelectedNode.Value == "LoanScheme")
                 {
-                    Session["LoanSchemeView"] = "SuperAdmin";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('LoanSchemeView', 'none')", true);
                 }
                 else if (SuperAdminTreeView.SelectedNode.Value == "AddLoanScheme")
