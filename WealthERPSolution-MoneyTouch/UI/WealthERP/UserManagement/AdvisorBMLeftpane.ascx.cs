@@ -23,13 +23,18 @@ namespace WealthERP.UserManagement
                     TreeNode parentNode = new TreeNode();
                     parentNode = TreeView1.FindNode("Roles");
                     TreeNode tnSuperAdmin = new TreeNode("SuperAdmin", "SuperAdmin");
-                    if (!parentNode.ChildNodes.Contains(new TreeNode("SuperAdmin", "SuperAdmin")))
+                    if (parentNode.ChildNodes[0].Value.ToString() != "SuperAdmin")
                     {
                         parentNode.ChildNodes.AddAt(0, tnSuperAdmin);
                     }  
-                    Session["SuperAdmin_Status_Check"] = "1";
+                    //Session["SuperAdmin_Status_Check"] = "1";
 
                 }
+            }
+            if (!IsPostBack)
+            {
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorBMLeftpane');", true);
             }
             
         }
@@ -43,7 +48,7 @@ namespace WealthERP.UserManagement
                 Session["refreshTheme"] = true;
                 Session["FromUserLogin"] = "false";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFAAdminMainDashboard','login');", true);
-                Session["SuperAdmin_Status_Check"] = "2";
+                //Session["SuperAdmin_Status_Check"] = "2";
             }
             else if (TreeView1.SelectedNode.Value == "Branch Manager")
             {
@@ -51,7 +56,7 @@ namespace WealthERP.UserManagement
                 Session["refreshTheme"] = true;
                 Session["FromUserLogin"] = "false";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('BMDashBoard','login');", true);
-                Session["SuperAdmin_Status_Check"] = "4";
+                //Session["SuperAdmin_Status_Check"] = "4";
             }
             else if (TreeView1.SelectedNode.Value == "SuperAdmin")
             {
@@ -61,7 +66,7 @@ namespace WealthERP.UserManagement
                 Session.Remove("customerVo");
                 Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
-                Session["SuperAdmin_Status_Check"] = "0";
+                //Session["SuperAdmin_Status_Check"] = "0";
             }
         }
     }
