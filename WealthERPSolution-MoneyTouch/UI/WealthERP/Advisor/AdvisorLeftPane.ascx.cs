@@ -41,7 +41,12 @@ namespace WealthERP.Advisor
                 }
                 TreeView1.CollapseAll();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('IFAAdminMainDashboard');", true);
-            }  
+            }
+
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
 
         }
 
@@ -51,6 +56,10 @@ namespace WealthERP.Advisor
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            SetNode();
+        }
+        public void SetNode()
         {
             string strNodeValue = null;
             if (TreeView1.SelectedNode.Value == "Switch Roles")
@@ -227,7 +236,7 @@ namespace WealthERP.Advisor
             else if (TreeView1.SelectedNode.Value.ToString() == "MFReports")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFReports','login');", true);
-                
+
             }
             else if (TreeView1.SelectedNode.Value.ToString() == "EquityReports")
             {
@@ -344,27 +353,8 @@ namespace WealthERP.Advisor
                     }
                 }
             }
-            //if (TreeView1.SelectedNode.Parent == null)
-            //{
-            //    foreach (TreeNode node in TreeView1.Nodes)
-            //    {
-            //        if (node.Value != TreeView1.SelectedNode.Value)
-            //            node.Collapse();
-            //        else
-            //            node.Expand();
-            //    }
-            //}
-            //else
-            //{
-            //    string strNodeValue = TreeView1.SelectedNode.Parent.Value;
+      
 
-            //    foreach (TreeNode node in TreeView1.Nodes)
-            //    {
-            //        if (node.Value != strNodeValue)
-            //            node.Collapse();
-            //    }
-
-            //}
         }
     }
 }
