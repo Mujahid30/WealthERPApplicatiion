@@ -25,8 +25,16 @@ namespace WealthERP.General
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session["userVo"];
+            if (Page.Request.Params.Get("__EVENTTARGET")!=null &&(Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
         }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            SetNode();
+        }
+        public void SetNode()
         {
             string strNodeValue = null;
             try
@@ -49,6 +57,8 @@ namespace WealthERP.General
                 //}
                 //else
                 //{
+                if (TreeView1.SelectedNode != null)
+                {
                     if (TreeView1.SelectedNode.Value.ToString() == "Home")
                     {
                         roleList = userBo.GetUserRoles(userVo.UserId);
@@ -92,8 +102,9 @@ namespace WealthERP.General
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ChangeLoginId','none');", true);
                     }
-                //}
-                
+                    //}
+                }
+
             }
             catch (BaseApplicationException Ex)
             {
