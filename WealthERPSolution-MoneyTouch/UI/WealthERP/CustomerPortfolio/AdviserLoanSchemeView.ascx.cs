@@ -128,6 +128,8 @@ namespace WealthERP.Loans
                     if (Session["LoanSchemeView"].ToString() == "SuperAdmin")
                     {
                         string url = "?schemeId=" + schemeId + "&mode=Edit";
+                        Session["LoanSchemeId"] = schemeId;
+                        Session["LoanSchemeViewStatus"] = "Edit";
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','" + url + "');", true);
                     }
                     else
@@ -139,6 +141,8 @@ namespace WealthERP.Loans
                 else if (ddlAction.SelectedValue == "View")
                 {
                     string url = "?schemeId=" + schemeId + "&mode=View";
+                    Session["LoanSchemeId"] = schemeId;
+                    Session["LoanSchemeViewStatus"] = "View";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','" + url + "');", true);
                 }
 
