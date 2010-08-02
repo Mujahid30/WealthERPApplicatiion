@@ -45,9 +45,17 @@ namespace WealthERP.Customer
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerIndividualLeftPane');", true);
 
             }
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            SetNode();
+        }
+        public void SetNode()
         {
             string strNodeValue = null;
             try
