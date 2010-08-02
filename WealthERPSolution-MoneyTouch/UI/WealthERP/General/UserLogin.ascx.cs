@@ -108,7 +108,7 @@ namespace WealthERP.General
                             //}
                             if (userVo.UserType == "Advisor")
                             {
-
+                                
                                 Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
                                 Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -277,14 +277,17 @@ namespace WealthERP.General
             UserVo userVo = new UserVo();
             UserBo userBo = new UserBo();
 
-            if (txtLoginId.Text.ToLower() == "superadmin" && txtPassword.Text.ToLower() == "superadmin")
+            if (userBo.ValidateUser(txtLoginId.Text, txtPassword.Text))
             {
+                userVo = userBo.GetUser(txtLoginId.Text);
+                AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
                 Session[SessionContents.LogoPath] = "";
                 Session[SessionContents.BranchLogoPath] = "";
-                Session["role"] = "SUPER_ADMIN";
-                userVo = userBo.GetUser(txtLoginId.Text);
-                if (userVo != null)
+
+
+                if (userVo != null && userVo.UserType == "SuperAdmin")
                 {
+                    Session["role"] = "SUPER_ADMIN";
                     Session["UserVo"] = userVo;
                     Session["SuperAdminRetain"] = userVo;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFF');", true);
@@ -300,111 +303,116 @@ namespace WealthERP.General
                     }
                     return true;
                 }
-                else if (txtLoginId.Text.ToLower() == "mfadmin" && txtPassword.Text.ToLower() == "mfadmin")
-                {
-                    Session[SessionContents.LogoPath] = "Images/abc_MF.jpg";
-                    Session[SessionContents.BranchLogoPath] = "Images/abc_MF.jpg";
-                    Session["role"] = "MF_ADMIN";
-                    userVo = userBo.GetUser(txtLoginId.Text);
-                    Session["UserVo"] = userVo;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
-                    if (userVo.theme != null)
-                    {
-                        Session["Theme"] = userVo.theme;
-                        Session["refreshTheme"] = true;
-                    }
-                    else
-                    {
-                        Session["Theme"] = "Purple";
-                        Session["refreshTheme"] = true;
-                    }
-                    return true;
-                }
-                else if (txtLoginId.Text.ToLower() == "eqadmin" && txtPassword.Text.ToLower() == "eqadmin")
-                {
-                    Session[SessionContents.LogoPath] = "Images/abc_securities.jpg";
-                    Session[SessionContents.BranchLogoPath] = "Images/abc_securities.jpg";
-                    Session["role"] = "EQ_ADMIN";
-                    userVo = userBo.GetUser(txtLoginId.Text);
-                    Session["UserVo"] = userVo;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
-                    if (userVo.theme != null)
-                    {
-                        Session["Theme"] = userVo.theme.ToString();
-                        Session["refreshTheme"] = true;
-                    }
-                    else
-                    {
-                        Session["Theme"] = "Purple";
-                        Session["refreshTheme"] = true;
-                    }
-                    return true;
-                }
-                else if (txtLoginId.Text.ToLower() == "liadmin" && txtPassword.Text.ToLower() == "liadmin")
-                {
-                    Session[SessionContents.LogoPath] = "Images/abc_life_insurance.jpg";
-                    Session[SessionContents.BranchLogoPath] = "Images/abc_life_insurance.jpg";
-                    Session["role"] = "LI_ADMIN";
-                    userVo = userBo.GetUser(txtLoginId.Text);
-                    Session["UserVo"] = userVo;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
-                    if (userVo.theme != null)
-                    {
-                        Session["Theme"] = userVo.theme.ToString();
-                        Session["refreshTheme"] = true;
-                    }
-                    else
-                    {
-                        Session["Theme"] = "Purple";
-                        Session["refreshTheme"] = true;
-                    }
-                    return true;
-                }
-                else if (txtLoginId.Text.ToLower() == "giadmin" && txtPassword.Text.ToLower() == "giadmin")
-                {
-                    Session[SessionContents.LogoPath] = "Images/abc_general_insurance.jpg";
-                    Session[SessionContents.BranchLogoPath] = "Images/abc_general_insurance.jpg";
-                    Session["role"] = "GI_ADMIN";
-                    userVo = userBo.GetUser(txtLoginId.Text);
-                    Session["UserVo"] = userVo;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
-                    if (userVo.theme != null)
-                    {
-                        Session["Theme"] = userVo.theme.ToString();
-                        Session["refreshTheme"] = true;
-                    }
-                    else
-                    {
-                        Session["Theme"] = "Purple";
-                        Session["refreshTheme"] = true;
-                    }
-                    return true;
-                }
-                else if (txtLoginId.Text.ToLower() == "cfadmin" && txtPassword.Text.ToLower() == "cfadmin")
-                {
-                    Session[SessionContents.LogoPath] = "Images/abc_consumer_finance.jpg";
-                    Session[SessionContents.BranchLogoPath] = "Images/abc_consumer_finance.jpg";
-                    Session["role"] = "CF_ADMIN";
-                    userVo = userBo.GetUser(txtLoginId.Text);
-                    Session["UserVo"] = userVo;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
-                    if (userVo.theme != null)
-                    {
-                        Session["Theme"] = userVo.theme.ToString();
-                        Session["refreshTheme"] = true;
-                    }
-                    else
-                    {
-                        Session["Theme"] = "Purple";
-                        Session["refreshTheme"] = true;
-                    }
-                    return true;
-                }
+                //else if (txtLoginId.Text.ToLower() == "mfadmin" && txtPassword.Text.ToLower() == "mfadmin")
+                //{
+                //    Session[SessionContents.LogoPath] = "Images/abc_MF.jpg";
+                //    Session[SessionContents.BranchLogoPath] = "Images/abc_MF.jpg";
+                //    Session["role"] = "MF_ADMIN";
+                //    userVo = userBo.GetUser(txtLoginId.Text);
+                //    Session["UserVo"] = userVo;
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
+                //    if (userVo.theme != null)
+                //    {
+                //        Session["Theme"] = userVo.theme;
+                //        Session["refreshTheme"] = true;
+                //    }
+                //    else
+                //    {
+                //        Session["Theme"] = "Purple";
+                //        Session["refreshTheme"] = true;
+                //    }
+                //    return true;
+                //}
+                //else if (txtLoginId.Text.ToLower() == "eqadmin" && txtPassword.Text.ToLower() == "eqadmin")
+                //{
+                //    Session[SessionContents.LogoPath] = "Images/abc_securities.jpg";
+                //    Session[SessionContents.BranchLogoPath] = "Images/abc_securities.jpg";
+                //    Session["role"] = "EQ_ADMIN";
+                //    userVo = userBo.GetUser(txtLoginId.Text);
+                //    Session["UserVo"] = userVo;
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
+                //    if (userVo.theme != null)
+                //    {
+                //        Session["Theme"] = userVo.theme.ToString();
+                //        Session["refreshTheme"] = true;
+                //    }
+                //    else
+                //    {
+                //        Session["Theme"] = "Purple";
+                //        Session["refreshTheme"] = true;
+                //    }
+                //    return true;
+                //}
+                //else if (txtLoginId.Text.ToLower() == "liadmin" && txtPassword.Text.ToLower() == "liadmin")
+                //{
+                //    Session[SessionContents.LogoPath] = "Images/abc_life_insurance.jpg";
+                //    Session[SessionContents.BranchLogoPath] = "Images/abc_life_insurance.jpg";
+                //    Session["role"] = "LI_ADMIN";
+                //    userVo = userBo.GetUser(txtLoginId.Text);
+                //    Session["UserVo"] = userVo;
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
+                //    if (userVo.theme != null)
+                //    {
+                //        Session["Theme"] = userVo.theme.ToString();
+                //        Session["refreshTheme"] = true;
+                //    }
+                //    else
+                //    {
+                //        Session["Theme"] = "Purple";
+                //        Session["refreshTheme"] = true;
+                //    }
+                //    return true;
+                //}
+                //else if (txtLoginId.Text.ToLower() == "giadmin" && txtPassword.Text.ToLower() == "giadmin")
+                //{
+                //    Session[SessionContents.LogoPath] = "Images/abc_general_insurance.jpg";
+                //    Session[SessionContents.BranchLogoPath] = "Images/abc_general_insurance.jpg";
+                //    Session["role"] = "GI_ADMIN";
+                //    userVo = userBo.GetUser(txtLoginId.Text);
+                //    Session["UserVo"] = userVo;
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
+                //    if (userVo.theme != null)
+                //    {
+                //        Session["Theme"] = userVo.theme.ToString();
+                //        Session["refreshTheme"] = true;
+                //    }
+                //    else
+                //    {
+                //        Session["Theme"] = "Purple";
+                //        Session["refreshTheme"] = true;
+                //    }
+                //    return true;
+                //}
+                //else if (txtLoginId.Text.ToLower() == "cfadmin" && txtPassword.Text.ToLower() == "cfadmin")
+                //{
+                //    Session[SessionContents.LogoPath] = "Images/abc_consumer_finance.jpg";
+                //    Session[SessionContents.BranchLogoPath] = "Images/abc_consumer_finance.jpg";
+                //    Session["role"] = "CF_ADMIN";
+                //    userVo = userBo.GetUser(txtLoginId.Text);
+                //    Session["UserVo"] = userVo;
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
+                //    if (userVo.theme != null)
+                //    {
+                //        Session["Theme"] = userVo.theme.ToString();
+                //        Session["refreshTheme"] = true;
+                //    }
+                //    else
+                //    {
+                //        Session["Theme"] = "Purple";
+                //        Session["refreshTheme"] = true;
+                //    }
+                //    return true;
+                //}
                 else
                     return false;
             }
             else
+            {
+                lblIllegal.Visible = true;
+                lblIllegal.Text = "Username and Password does not match";
+                AddLoginTrack(txtLoginId.Text, txtPassword.Text, false, 0);
                 return false;
+            }
         }
         private void GetLatestValuationDate()
         {
