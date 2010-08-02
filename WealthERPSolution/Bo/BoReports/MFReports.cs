@@ -214,6 +214,18 @@ namespace BoReports
             return mfReports.GetReturnSummaryReport(reports, adviserId);
         }
 
+        /// <summary>
+        /// Returns DataTable For "Portfolio Returns Realized" Report --Author:Pramod
+        /// </summary>
+        /// <param name="reports"> "reports" is a object of "MFReportVo" Contails report parameters</param>
+        /// <param name="adviserId">Get the data of all the customer belong to This Id</param>
+        /// <returns>DataTable </returns>
+        public DataTable GetMFReturnRESummaryReport(MFReportVo reports, int adviserId)
+        {
+            MFReportsDao mfReports = new MFReportsDao();
+            return mfReports.GetMFReturnRESummaryReport(reports, adviserId);
+        }
+
         public DataTable GetReturnTransactionSummaryReport(MFReportVo reports)
         {
             MFReportsDao mfReports = new MFReportsDao();
@@ -231,6 +243,18 @@ namespace BoReports
         {
             MFReportsDao mfReports = new MFReportsDao();
             return mfReports.GetCapitalGainDetailsReport(reports);
+        }
+
+
+        /// <summary>
+        /// Returns DataTable For "Eligible Capital Gain Details & Summary" Report --Author:Pramod
+        /// </summary>
+        /// <param name="reports">"reports" is a object of "MFReportVo" Contails report parameters</param>
+        /// <returns>DataTable</returns>
+        public DataTable GetEligibleCapitalGainDetailsReport(MFReportVo reports)
+        {
+            MFReportsDao mfReports = new MFReportsDao();
+            return mfReports.GetEligibleCapitalGainDetailsReport(reports);
         }
 
         public DataSet GetMFTransactionType()
