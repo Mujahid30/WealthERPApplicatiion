@@ -42,6 +42,7 @@ namespace WealthERP.Alerts
                     }
 
                     lblEmailIdValue.Text = customerVo.Email.ToString();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AlertsLeftPane');", true);
                 }
             }
             catch (BaseApplicationException Ex)
