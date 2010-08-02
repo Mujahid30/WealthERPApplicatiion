@@ -23,11 +23,16 @@ namespace WealthERP.UserManagement
                     TreeNode parentNode = new TreeNode();
                     parentNode = TreeView1.FindNode("Roles");
                     TreeNode tnSuperAdmin = new TreeNode("SuperAdmin", "SuperAdmin");
-                    if (!parentNode.ChildNodes.Contains(new TreeNode("SuperAdmin", "SuperAdmin")))
+                    if (parentNode.ChildNodes[0].Value.ToString() != "SuperAdmin")
                     {
                         parentNode.ChildNodes.AddAt(0, tnSuperAdmin);
                     }            
                 }
+            }
+            if (!IsPostBack)
+            {
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('BMRMLeftpane');", true);
             }
            
         }
