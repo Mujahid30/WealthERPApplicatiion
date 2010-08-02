@@ -56,11 +56,19 @@ namespace WealthERP.UserManagement
             if (!IsPostBack)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorRMBMLeftpane');", true);
-            }       
-
+            }
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            
+           SetNode()
+        }
+        public void SetNode()
         {
             if (TreeView1.SelectedNode.Value == "Advisor")
             {
@@ -97,7 +105,6 @@ namespace WealthERP.UserManagement
                 //Session["SuperAdmin_Status_Check"] = "0";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
             }
-           
         }
     }
 }
