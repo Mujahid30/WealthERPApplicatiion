@@ -43,10 +43,10 @@ namespace WealthERP.Advisor
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('IFAAdminMainDashboard');", true);
             }
 
-            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
-            {
-                SetNode();
-            }
+            //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            //{
+            //    SetNode();
+            //}
 
         }
 
@@ -62,6 +62,8 @@ namespace WealthERP.Advisor
         public void SetNode()
         {
             string strNodeValue = null;
+            if(TreeView1.SelectedNode!=null)
+            {
             if (TreeView1.SelectedNode.Value == "Switch Roles")
             {
                 logoPath = Session[SessionContents.LogoPath].ToString();
@@ -353,7 +355,7 @@ namespace WealthERP.Advisor
                     }
                 }
             }
-      
+      }
 
         }
     }
