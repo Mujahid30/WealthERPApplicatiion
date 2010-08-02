@@ -20,9 +20,18 @@ namespace WealthERP.Customer
                 TreeView1.CollapseAll();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerNonIndividualLeftPane');", true);
             }
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            SetNode();
+
+        }
+        public void SetNode()
         {
             string strNodeValue = null;
             try
@@ -78,8 +87,6 @@ namespace WealthERP.Customer
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-           
-
         }
 
     
