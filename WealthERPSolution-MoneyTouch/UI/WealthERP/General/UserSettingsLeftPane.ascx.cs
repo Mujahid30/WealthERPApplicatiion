@@ -31,24 +31,24 @@ namespace WealthERP.General
             string strNodeValue = null;
             try
             {
-                if (Session["role"] != null)
-                {
-                    if (Session["role"].ToString() == "SUPER_ADMIN")
-                    {
-                        TreeNode tnHome = new TreeNode();
-                        TreeNode tnChangePassword = new TreeNode();
-                        TreeNode tnChangeLoginId = new TreeNode();
-                        tnHome=TreeView1.FindNode("Home");
-                        tnChangePassword = TreeView1.FindNode("Change Password");
-                        tnChangeLoginId = TreeView1.FindNode("Change Login Id");
-                        tnHome.SelectAction = TreeNodeSelectAction.None;
-                        tnChangePassword.SelectAction = TreeNodeSelectAction.None;
-                        tnChangeLoginId.SelectAction = TreeNodeSelectAction.None;
+                //if (Session["role"] != null)
+                //{
+                //    if (Session["role"].ToString() == "SUPER_ADMIN")
+                //    {
+                //        TreeNode tnHome = new TreeNode();
+                //        TreeNode tnChangePassword = new TreeNode();
+                //        TreeNode tnChangeLoginId = new TreeNode();
+                //        tnHome=TreeView1.FindNode("Home");
+                //        tnChangePassword = TreeView1.FindNode("Change Password");
+                //        tnChangeLoginId = TreeView1.FindNode("Change Login Id");
+                //        tnHome.SelectAction = TreeNodeSelectAction.None;
+                //        tnChangePassword.SelectAction = TreeNodeSelectAction.None;
+                //        tnChangeLoginId.SelectAction = TreeNodeSelectAction.None;
 
-                    }
-                }
-                else
-                {
+                //    }
+                //}
+                //else
+                //{
                     if (TreeView1.SelectedNode.Value.ToString() == "Home")
                     {
                         roleList = userBo.GetUserRoles(userVo.UserId);
@@ -77,7 +77,10 @@ namespace WealthERP.General
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
                             }
                         }
-
+                        else if (userVo.UserType == "SuperAdmin")
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFF');", true);
+                        }
                         else
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerIndividualDashboard','none');", true);
                     }
@@ -89,7 +92,7 @@ namespace WealthERP.General
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ChangeLoginId','none');", true);
                     }
-                }
+                //}
                 
             }
             catch (BaseApplicationException Ex)
