@@ -42,6 +42,7 @@ namespace WealthERP.Customer
             if (!IsPostBack)
             {
                 TreeView1.CollapseAll();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerIndividualLeftPane');", true);
 
             }
         }
