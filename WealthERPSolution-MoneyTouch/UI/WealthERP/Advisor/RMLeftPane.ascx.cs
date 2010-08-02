@@ -33,6 +33,7 @@ namespace WealthERP.Advisor
                 if (!IsPostBack)
                 {
                     TreeView1.CollapseAll();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMLeftPane');", true);
                 }
                 Session["dashBoard"] = "RM";
                 Session["FromAdvisorView"] = "FromRMView";
