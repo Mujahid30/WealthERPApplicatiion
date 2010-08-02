@@ -37,16 +37,16 @@ namespace WealthERP.Loans
             //Response.Write(ddlBorrowerType.SelectedValue + ddlBorrowerType.Text);
             userVo = (UserVo)Session["UserVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
-            if ((Request.QueryString["schemeId"] != null && Request.QueryString["schemeId"] != "") && Request.QueryString["mode"] == "Edit")
+            if (Session["LoanSchemeId"] != null && Session["LoanSchemeViewStatus"].ToString() == "Edit")
             {
-                schemeId = int.Parse(Request.QueryString["schemeId"]);
+                schemeId = int.Parse(Session["LoanSchemeId"].ToString());
                 lblSchemeId.Text = "Scheme ID :";
                 lblSchemeIdVal.Text = schemeId.ToString();
                 mode = Mode.Edit;
             }
-            else if ((Request.QueryString["schemeId"] != null && Request.QueryString["schemeId"] != "") && Request.QueryString["mode"] == "View")
+            else if (Session["LoanSchemeId"] != null && Session["LoanSchemeViewStatus"].ToString() == "View")
             {
-                schemeId = int.Parse(Request.QueryString["schemeId"]);
+                schemeId = int.Parse(Session["LoanSchemeId"].ToString());
                 lblSchemeId.Text = "Scheme ID :";
                 lblSchemeIdVal.Text = schemeId.ToString();
                 mode = Mode.View;
