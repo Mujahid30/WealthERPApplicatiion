@@ -42,7 +42,7 @@ namespace WealthERP.SuperAdmin
             if (!IsPostBack)
             {
                 SuperAdminTreeView.CollapseAll();
-
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('SuperAdminLeftPane');", true);
             }
         }
 
