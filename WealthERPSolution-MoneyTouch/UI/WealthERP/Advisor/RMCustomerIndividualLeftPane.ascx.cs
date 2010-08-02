@@ -71,10 +71,10 @@ namespace WealthERP.Advisor
 
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMCustomerIndividualLeftPane');", true);
                 }
-                if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
-                {
-                    SetNode();
-                }
+                //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+                //{
+                //    SetNode();
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -141,234 +141,237 @@ namespace WealthERP.Advisor
                 //}
 
                 //else 
-                if (TreeView1.SelectedNode.Value == "RM Home")
+                if (TreeView1.SelectedNode != null)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
-                {
-                    Session["IsDashboard"] = "true";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Portfolio Dashboard")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Profile Dashboard")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Alerts")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "View Profile")
-                {
-                    if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == null)
+                    if (TreeView1.SelectedNode.Value == "RM Home")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
                     }
-                    else
+                    else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewNonIndividualProfile','none');", true);
+                        Session["IsDashboard"] = "true";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                     }
-                }
-                else if (TreeView1.SelectedNode.Value == "Edit Profile")
-                {
-                    if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == null)
+                    else if (TreeView1.SelectedNode.Value == "Portfolio Dashboard")
                     {
-
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EditCustomerIndividualProfile','none');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','none');", true);
                     }
-                    else
+                    else if (TreeView1.SelectedNode.Value == "Profile Dashboard")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
                     }
-                }
-                else if (TreeView1.SelectedNode.Value == "Proof")
-                {
-
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewCustomerProofs','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Add Proof")
-                {
-                    Session["FlagProof"] = 1;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProofsAdd','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Bank Details")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Add Bank Details")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddBankDetails','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Demat Account Details")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Add Demat Account")
-                {
-                    Session["DematDetailsView"] = "Add";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddDematAccountDetails','none');", true);
-                }
-                //else if (TreeView1.SelectedNode.Value == "Group Accounts")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('ViewCustomerFamily','none');", true);
-                //}
-                //else if (TreeView1.SelectedNode.Value == "Add Group Member")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('FamilyDetails','none');", true);
-                //}
-                //else if (TreeView1.SelectedNode.Value == "Associate Member")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerAssociatesAdd','none');", true);
-                //}
-                //else if (TreeView1.SelectedNode.Value == "Portfolio Details")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerPortfolio','none');", true);
-                //}
-                else if (TreeView1.SelectedNode.Value == "Add Liability")
-                {
-                    Session["menu"] = null;
-                    Session.Remove("personalVo");
-                    Session.Remove("propertyVo");
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('LiabilitiesMaintenanceForm','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Liabilities Dashboard")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('LiabilityView','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Income Details")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerIncome','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Expense Details")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerExpense','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "General Insurance")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Add General Insurance")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceAccountAdd','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Add Life Insurance")
-                {
-                    Session.Remove("table");
-                    Session.Remove("insuranceVo");
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=IN')", true);
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','none');", true);
-                }
-                else if (TreeView1.SelectedNode.Value == "Life Insurance")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','none');", true);
-                }
-
-                // Code to Expand/Collapse the Tree View Nodes based on selections
-                if (TreeView1.SelectedNode.Parent == null)
-                {
-                    foreach (TreeNode node in TreeView1.Nodes)
+                    else if (TreeView1.SelectedNode.Value == "Alerts")
                     {
-                        if (node.Value != TreeView1.SelectedNode.Value)
-                            node.Collapse();
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "View Profile")
+                    {
+                        if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == null)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                        }
                         else
-                            node.Expand();
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewNonIndividualProfile','none');", true);
+                        }
                     }
-                }
-                else
-                {
-                    if (TreeView1.SelectedNode.Parent.Parent != null)
+                    else if (TreeView1.SelectedNode.Value == "Edit Profile")
                     {
-                        string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
+                        if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == null)
+                        {
+
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EditCustomerIndividualProfile','none');", true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
+                        }
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Proof")
+                    {
+
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewCustomerProofs','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Add Proof")
+                    {
+                        Session["FlagProof"] = 1;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProofsAdd','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Bank Details")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Add Bank Details")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddBankDetails','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Demat Account Details")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Add Demat Account")
+                    {
+                        Session["DematDetailsView"] = "Add";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddDematAccountDetails','none');", true);
+                    }
+                    //else if (TreeView1.SelectedNode.Value == "Group Accounts")
+                    //{
+                    //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('ViewCustomerFamily','none');", true);
+                    //}
+                    //else if (TreeView1.SelectedNode.Value == "Add Group Member")
+                    //{
+                    //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('FamilyDetails','none');", true);
+                    //}
+                    //else if (TreeView1.SelectedNode.Value == "Associate Member")
+                    //{
+                    //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerAssociatesAdd','none');", true);
+                    //}
+                    //else if (TreeView1.SelectedNode.Value == "Portfolio Details")
+                    //{
+                    //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerPortfolio','none');", true);
+                    //}
+                    else if (TreeView1.SelectedNode.Value == "Add Liability")
+                    {
+                        Session["menu"] = null;
+                        Session.Remove("personalVo");
+                        Session.Remove("propertyVo");
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('LiabilitiesMaintenanceForm','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Liabilities Dashboard")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('LiabilityView','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Income Details")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerIncome','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Expense Details")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerExpense','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "General Insurance")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Add General Insurance")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceAccountAdd','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Add Life Insurance")
+                    {
+                        Session.Remove("table");
+                        Session.Remove("insuranceVo");
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=IN')", true);
+                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','none');", true);
+                    }
+                    else if (TreeView1.SelectedNode.Value == "Life Insurance")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','none');", true);
+                    }
+
+                    // Code to Expand/Collapse the Tree View Nodes based on selections
+                    if (TreeView1.SelectedNode.Parent == null)
+                    {
                         foreach (TreeNode node in TreeView1.Nodes)
                         {
-                            if (node.Value != parentNode)
+                            if (node.Value != TreeView1.SelectedNode.Value)
                                 node.Collapse();
+                            else
+                                node.Expand();
                         }
                     }
                     else
                     {
-                        if (TreeView1.SelectedNode.Parent == null)
+                        if (TreeView1.SelectedNode.Parent.Parent != null)
                         {
+                            string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
                             foreach (TreeNode node in TreeView1.Nodes)
                             {
-                                if (node.Value != TreeView1.SelectedNode.Value)
+                                if (node.Value != parentNode)
                                     node.Collapse();
-                                else
-                                    node.Expand();
                             }
                         }
                         else
                         {
-                            strNodeValue = TreeView1.SelectedNode.Parent.Value;
-                            string val = TreeView1.SelectedNode.Value;
-                            foreach (TreeNode node in TreeView1.Nodes)
+                            if (TreeView1.SelectedNode.Parent == null)
                             {
-
-                                if (node.Value != strNodeValue)
-                                    node.Collapse();
-                                else
+                                foreach (TreeNode node in TreeView1.Nodes)
                                 {
-                                    foreach (TreeNode child in node.ChildNodes)
-                                    {
-                                        if (child.Value != val)
-                                            child.Collapse();
-                                        else
-                                            child.Expand();
-                                    }
+                                    if (node.Value != TreeView1.SelectedNode.Value)
+                                        node.Collapse();
+                                    else
+                                        node.Expand();
                                 }
+                            }
+                            else
+                            {
+                                strNodeValue = TreeView1.SelectedNode.Parent.Value;
+                                string val = TreeView1.SelectedNode.Value;
+                                foreach (TreeNode node in TreeView1.Nodes)
+                                {
 
+                                    if (node.Value != strNodeValue)
+                                        node.Collapse();
+                                    else
+                                    {
+                                        foreach (TreeNode child in node.ChildNodes)
+                                        {
+                                            if (child.Value != val)
+                                                child.Collapse();
+                                            else
+                                                child.Expand();
+                                        }
+                                    }
+
+                                }
                             }
                         }
                     }
+                    //if (TreeView1.SelectedNode.Parent == null)
+                    //{
+                    //    foreach (TreeNode node in TreeView1.Nodes)
+                    //    {
+                    //        if (node.Value != TreeView1.SelectedNode.Value)
+                    //            node.Collapse();
+                    //        else
+                    //            node.Expand();
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    if (TreeView1.SelectedNode.Parent.Parent != null)
+                    //    {
+                    //        string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
+                    //        foreach (TreeNode node in TreeView1.Nodes)
+                    //        {
+                    //            if (node.Value != parentNode)
+                    //                node.Collapse();
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        if (TreeView1.SelectedNode.Parent == null)
+                    //        {
+                    //            foreach (TreeNode node in TreeView1.Nodes)
+                    //            {
+                    //                if (node.Value != TreeView1.SelectedNode.Value)
+                    //                    node.Collapse();
+                    //                else
+                    //                    node.Expand();
+                    //            }
+                    //        }
+                    //        else
+                    //        {
+                    //            strNodeValue = TreeView1.SelectedNode.Parent.Value;
+                    //            foreach (TreeNode node in TreeView1.Nodes)
+                    //            {
+                    //                if (node.Value != strNodeValue)
+                    //                    node.Collapse();
+                    //            }
+                    //        }
+                    //    }
+                    //}
                 }
-                //if (TreeView1.SelectedNode.Parent == null)
-                //{
-                //    foreach (TreeNode node in TreeView1.Nodes)
-                //    {
-                //        if (node.Value != TreeView1.SelectedNode.Value)
-                //            node.Collapse();
-                //        else
-                //            node.Expand();
-                //    }
-                //}
-                //else
-                //{
-                //    if (TreeView1.SelectedNode.Parent.Parent != null)
-                //    {
-                //        string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
-                //        foreach (TreeNode node in TreeView1.Nodes)
-                //        {
-                //            if (node.Value != parentNode)
-                //                node.Collapse();
-                //        }
-                //    }
-                //    else
-                //    {
-                //        if (TreeView1.SelectedNode.Parent == null)
-                //        {
-                //            foreach (TreeNode node in TreeView1.Nodes)
-                //            {
-                //                if (node.Value != TreeView1.SelectedNode.Value)
-                //                    node.Collapse();
-                //                else
-                //                    node.Expand();
-                //            }
-                //        }
-                //        else
-                //        {
-                //            strNodeValue = TreeView1.SelectedNode.Parent.Value;
-                //            foreach (TreeNode node in TreeView1.Nodes)
-                //            {
-                //                if (node.Value != strNodeValue)
-                //                    node.Collapse();
-                //            }
-                //        }
-                //    }
-                //}
             }
             catch (BaseApplicationException Ex)
             {
