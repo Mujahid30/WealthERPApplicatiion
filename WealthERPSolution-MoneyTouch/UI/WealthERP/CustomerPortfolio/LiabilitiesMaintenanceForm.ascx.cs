@@ -673,11 +673,11 @@ namespace WealthERP.CustomerPortfolio
                     liabilitiesVo.Guarantor = txtGuarantor.Text;
                     if (txtTenture.Text != null && txtTenture.Text != "")
                     {
-                        liabilityVo.Tenure = int.Parse(txtTenture.Text);
+                        liabilitiesVo.Tenure = int.Parse(txtTenture.Text);
                     }
                     else
                     {
-                        liabilityVo.Tenure = 0;
+                        liabilitiesVo.Tenure = 0;
                     }
                     if (rbtnFloatYes.Checked)
                     {
@@ -1020,8 +1020,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlEMIFrequency.DataTextField = dtFrequency.Columns["Frequency"].ToString();
                     ddlEMIFrequency.DataValueField = dtFrequency.Columns["FrequencyCode"].ToString();
                     ddlEMIFrequency.DataBind();
-                    ddlEMIFrequency.SelectedItem.Value = liabilityVo.FrequencyCodeEMI.ToString();
-                    ddlEMIFrequency.Enabled = false;
+                    ddlEMIFrequency.SelectedValue = liabilityVo.FrequencyCodeEMI.ToString();
                 }
                 else
                 {
