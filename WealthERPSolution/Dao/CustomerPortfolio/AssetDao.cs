@@ -176,6 +176,7 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAssetAggregateCurrentValuesCmd = db.GetStoredProcCommand("SP_GetAssetCurrentValues");
                 db.AddInParameter(getAssetAggregateCurrentValuesCmd, "CP_PortfolioId", DbType.Int32, PortfolioId);
+                getAssetAggregateCurrentValuesCmd.CommandTimeout = 60 * 60;
                 assetAggrCurrValues = db.ExecuteDataSet(getAssetAggregateCurrentValuesCmd);
             }
             catch (BaseApplicationException Ex)
@@ -186,7 +187,7 @@ namespace DaoCustomerPortfolio
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AssetDao.cs:GetAssetInstrumentCategory()");
+                FunctionInfo.Add("Method", "AssetDao.cs:GetPortfolioAssetAggregateCurrentValues(int PortfolioId)");
 
                 object[] objects = new object[1];
                 objects[0] = PortfolioId;
