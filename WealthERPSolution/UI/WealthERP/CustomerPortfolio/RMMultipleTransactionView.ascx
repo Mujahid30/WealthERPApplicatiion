@@ -110,17 +110,15 @@
                 &nbsp;&nbsp;
                 <input id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" type="radio" />
                 <label for="rbtnSin" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
-                    font-weight: 500">
-                    Current Page</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    font-weight: 500">Current Page</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <br />
                 &nbsp;&nbsp;
                 <input id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')"
                     type="radio" />
                 <label for="Radio1" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
-                    font-weight: 500">
-                    All Pages</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                    font-weight: 500">All Pages</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
                 <br />
                 <div align="center">
                     <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
@@ -286,21 +284,34 @@
                                         </ItemTemplate>
                                         <ItemStyle Wrap="False"></ItemStyle>
                                     </asp:TemplateField>
-                                    <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Folio No">
-                                        <HeaderTemplate>
-                                            <asp:Label ID="lblFolio" runat="server" Text="Folio No"></asp:Label>
-                                            <asp:TextBox ID="txtFolioNumberSearch" runat="server" CssClass="GridViewTxtField"
-                                                onkeydown="return JSdoPostback(event,'ctrl_RMMultipleTransactionView_btnFolioNumberSearch');" />
-                                        </HeaderTemplate>
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblFolioNUmberHeader" runat="server" Text='<%# Eval("Folio Number").ToString() %>'
-                                                ItemStyle-Wrap="false"></asp:Label>
-                                        </ItemTemplate>
-                                        <ItemStyle Wrap="False"></ItemStyle>
-                                    </asp:TemplateField>
+                                    
                                     <%--   <asp:BoundField DataField="Folio Number" HeaderText="Folio No" ItemStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                             </asp:BoundField>--%>
+                              <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Type">
+                                        <HeaderTemplate>
+                                            <asp:Label ID="lblCategory" runat="server" Text="Category"></asp:Label>
+                                            <asp:DropDownList ID="ddlCategory" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
+                                                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCategoryHeader" runat="server" Text='<%# Eval("Category").ToString() %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle Wrap="False"></ItemStyle>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Type">
+                                        <HeaderTemplate>
+                                            <asp:Label ID="lblAMC" runat="server" Text="AMC"></asp:Label>
+                                            <asp:DropDownList ID="ddlAMC" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
+                                                OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblAMCHeader" runat="server" Text='<%# Eval("AMC").ToString() %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle Wrap="False"></ItemStyle>
+                                    </asp:TemplateField>
                                     <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Scheme">
                                         <HeaderTemplate>
                                             <asp:Label ID="lblScheme" runat="server" Text="Scheme"></asp:Label>
@@ -308,6 +319,18 @@
                                         </HeaderTemplate>
                                         <ItemTemplate>
                                             <asp:Label ID="lblSchemeHeader" runat="server" Text='<%# Eval("Scheme Name").ToString() %>'
+                                                ItemStyle-Wrap="false"></asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle Wrap="False"></ItemStyle>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Folio">
+                                        <HeaderTemplate>
+                                            <asp:Label ID="lblFolio" runat="server" Text="Folio"></asp:Label>
+                                            <asp:TextBox ID="txtFolioNumberSearch" runat="server" CssClass="GridViewTxtField"
+                                                onkeydown="return JSdoPostback(event,'ctrl_RMMultipleTransactionView_btnFolioNumberSearch');" />
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblFolioNUmberHeader" runat="server" Text='<%# Eval("Folio Number").ToString() %>'
                                                 ItemStyle-Wrap="false"></asp:Label>
                                         </ItemTemplate>
                                         <ItemStyle Wrap="False"></ItemStyle>
@@ -406,6 +429,8 @@
 <asp:HiddenField ID="hdnCustomerNameSearch" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnSchemeSearch" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnTranType" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnCategory" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnAMC" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnFolioNumber" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />

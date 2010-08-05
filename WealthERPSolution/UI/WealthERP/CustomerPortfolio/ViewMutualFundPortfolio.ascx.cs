@@ -982,13 +982,17 @@ namespace WealthERP.CustomerPortfolio
                 {
                     index = Convert.ToInt32(e.CommandArgument);
                     int slNo = int.Parse(gvMFPortfolio.DataKeys[index].Value.ToString());
-                    Session["MFPortfolioTransactionList"] = mfPortfolioList[slNo - 1].MFPortfolioTransactionVoList;
-                    Session["MFPortfolioVo"] = mfPortfolioList[slNo - 1];
-
-
+                    //Session["MFPortfolioTransactionList"] = mfPortfolioList[slNo - 1].MFPortfolioTransactionVoList;
+                    //Session["MFPortfolioVo"] = mfPortfolioList[slNo - 1];
+                    Session["Folio"] = mfPortfolioList[slNo - 1].Folio.ToString();
+                    Session["Scheme"] = mfPortfolioList[slNo - 1].SchemePlan.ToString();
+                    Hashtable ht = new Hashtable();
+                    ht["From"] = mfPortfolioList[slNo - 1].MFPortfolioTransactionVoList[0].BuyDate.ToShortDateString();
+                    ht["To"] = DateTime.Today.ToShortDateString();
+                    Session["tranDates"] = ht;
                     if (e.CommandName == "Select")
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolioTransactions','none');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
                     }
                 }
             }
@@ -1110,12 +1114,15 @@ namespace WealthERP.CustomerPortfolio
                 {
                     index = Convert.ToInt32(e.CommandArgument);
                     int slNo = int.Parse(gvMFPortfolioRealized.DataKeys[index].Value.ToString());
-                    Session["MFPortfolioTransactionList"] = mfPortfolioList[slNo - 1].MFPortfolioTransactionVoList;
-                    Session["MFPortfolioVo"] = mfPortfolioList[slNo - 1];
-
+                    Session["Folio"] = mfPortfolioList[slNo - 1].Folio.ToString();
+                    Session["Scheme"] = mfPortfolioList[slNo - 1].SchemePlan.ToString();
+                    Hashtable ht = new Hashtable();
+                    ht["From"] = mfPortfolioList[slNo - 1].MFPortfolioTransactionVoList[0].BuyDate.ToShortDateString();
+                    ht["To"] = DateTime.Today.ToShortDateString();
+                    Session["tranDates"] = ht;
                     if (e.CommandName == "Select")
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolioTransactions','none');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
                     }
                 }
             }
@@ -1239,13 +1246,15 @@ namespace WealthERP.CustomerPortfolio
                 {
                     index = Convert.ToInt32(e.CommandArgument);
                     int slNo = int.Parse(gvMFPortfolioNotional.DataKeys[index].Value.ToString());
-                    Session["MFPortfolioTransactionList"] = mfPortfolioList[slNo - 1].MFPortfolioTransactionVoList;
-                    Session["MFPortfolioVo"] = mfPortfolioList[slNo - 1];
-
-
+                    Session["Folio"] = mfPortfolioList[slNo - 1].Folio.ToString();
+                    Session["Scheme"] = mfPortfolioList[slNo - 1].SchemePlan.ToString();
+                    Hashtable ht = new Hashtable();
+                    ht["From"] = mfPortfolioList[slNo - 1].MFPortfolioTransactionVoList[0].BuyDate.ToShortDateString();
+                    ht["To"] = DateTime.Today.ToShortDateString();
+                    Session["tranDates"] = ht;
                     if (e.CommandName == "Select")
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolioTransactions','none');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
                     }
                 }
             }
@@ -2519,21 +2528,71 @@ namespace WealthERP.CustomerPortfolio
         {
 
             hdnDownloadFormat.Value = "excel";
-            if (hdnSelectedTab.Value.ToString() == "0")
+            if (hdnSelectedTab.Value.ToString() == "1")
             {
                 gvMFPortfolio.Columns[0].Visible = false;
+                for(int i=0;i<gvMFPortfolio.Rows.Count;i++)
+                {
+                    if (gvMFPortfolio.Rows[i].RowType!=DataControlRowType.Header)
+                    {
+                        gvMFPortfolio.Rows[i].Cells[7].Text=gvMFPortfolio.Rows[i].Cells[7].Text.Replace(",","");
+                        gvMFPortfolio.Rows[i].Cells[8].Text = gvMFPortfolio.Rows[i].Cells[8].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[10].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[12].Text = gvMFPortfolio.Rows[i].Cells[12].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[13].Text = gvMFPortfolio.Rows[i].Cells[13].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[14].Text = gvMFPortfolio.Rows[i].Cells[14].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[15].Text = gvMFPortfolio.Rows[i].Cells[15].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[16].Text = gvMFPortfolio.Rows[i].Cells[16].Text.Replace(",", "");
+
+                    }
+                }
                 PrepareGridViewForExport(gvMFPortfolio);
+                
                 ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolio", gvMFPortfolio);
-            }
-            else if (hdnSelectedTab.Value.ToString() == "1")
-            {
-                gvMFPortfolioRealized.Columns[0].Visible = false;
-                PrepareGridViewForExport(gvMFPortfolioRealized);
-                ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioRealized", gvMFPortfolioRealized);
             }
             else if (hdnSelectedTab.Value.ToString() == "2")
             {
+                gvMFPortfolioRealized.Columns[0].Visible = false;
+                for (int i = 0; i < gvMFPortfolioRealized.Rows.Count; i++)
+                {
+                    if (gvMFPortfolioRealized.Rows[i].RowType != DataControlRowType.Header)
+                    {
+                        gvMFPortfolioRealized.Rows[i].Cells[12].Text = gvMFPortfolioRealized.Rows[i].Cells[12].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[7].Text = gvMFPortfolioRealized.Rows[i].Cells[7].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[8].Text = gvMFPortfolioRealized.Rows[i].Cells[8].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[13].Text = gvMFPortfolioRealized.Rows[i].Cells[13].Text.Replace(",", "");
+
+                        gvMFPortfolioRealized.Rows[i].Cells[10].Text = gvMFPortfolioRealized.Rows[i].Cells[10].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[11].Text = gvMFPortfolioRealized.Rows[i].Cells[11].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[14].Text = gvMFPortfolioRealized.Rows[i].Cells[14].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[15].Text = gvMFPortfolioRealized.Rows[i].Cells[15].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[18].Text = gvMFPortfolioRealized.Rows[i].Cells[18].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[19].Text = gvMFPortfolioRealized.Rows[i].Cells[19].Text.Replace(",", "");
+
+                    }
+                }
+                PrepareGridViewForExport(gvMFPortfolioRealized);
+                ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioRealized", gvMFPortfolioRealized);
+            }
+            else if (hdnSelectedTab.Value.ToString() == "0")
+            {
                 gvMFPortfolioNotional.Columns[0].Visible = false;
+                for (int i = 0; i < gvMFPortfolioNotional.Rows.Count; i++)
+                {
+                    if (gvMFPortfolioNotional.Rows[i].RowType != DataControlRowType.Header)
+                    {
+                        gvMFPortfolioNotional.Rows[i].Cells[6].Text = gvMFPortfolioNotional.Rows[i].Cells[6].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[7].Text = gvMFPortfolioNotional.Rows[i].Cells[7].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[8].Text = gvMFPortfolioNotional.Rows[i].Cells[8].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[9].Text = gvMFPortfolioNotional.Rows[i].Cells[9].Text.Replace(",", "");
+
+                        gvMFPortfolioNotional.Rows[i].Cells[10].Text = gvMFPortfolioNotional.Rows[i].Cells[10].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[11].Text = gvMFPortfolioNotional.Rows[i].Cells[11].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[14].Text = gvMFPortfolioNotional.Rows[i].Cells[14].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[15].Text = gvMFPortfolioNotional.Rows[i].Cells[15].Text.Replace(",", "");
+
+                    }
+                }
                 PrepareGridViewForExport(gvMFPortfolioNotional);
                 ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioNotional", gvMFPortfolioNotional);
             }
@@ -2555,6 +2614,28 @@ namespace WealthERP.CustomerPortfolio
             if (hdnSelectedTab.Value.ToString() == "0")
             {
                 gvMFPortfolioNotional.Columns[0].Visible = false;
+                for (int i = 0; i < gvMFPortfolioNotional.Rows.Count; i++)
+                {
+                    if (gvMFPortfolioNotional.Rows[i].RowType != DataControlRowType.Header)
+                    {
+                        gvMFPortfolioNotional.Rows[i].Cells[6].Text = gvMFPortfolioNotional.Rows[i].Cells[6].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[7].Text = gvMFPortfolioNotional.Rows[i].Cells[7].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[8].Text = gvMFPortfolioNotional.Rows[i].Cells[8].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[9].Text = gvMFPortfolioNotional.Rows[i].Cells[9].Text.Replace(",", "");
+
+                        gvMFPortfolioNotional.Rows[i].Cells[10].Text = gvMFPortfolioNotional.Rows[i].Cells[10].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[11].Text = gvMFPortfolioNotional.Rows[i].Cells[11].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[12].Text = gvMFPortfolioNotional.Rows[i].Cells[12].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[13].Text = gvMFPortfolioNotional.Rows[i].Cells[13].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[14].Text = gvMFPortfolioNotional.Rows[i].Cells[14].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[15].Text = gvMFPortfolioNotional.Rows[i].Cells[15].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[16].Text = gvMFPortfolioNotional.Rows[i].Cells[16].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[17].Text = gvMFPortfolioNotional.Rows[i].Cells[17].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[18].Text = gvMFPortfolioNotional.Rows[i].Cells[18].Text.Replace(",", "");
+                        gvMFPortfolioNotional.Rows[i].Cells[19].Text = gvMFPortfolioNotional.Rows[i].Cells[19].Text.Replace(",", "");
+
+                    }
+                }
                 PrepareGridViewForExport(gvMFPortfolioNotional);
                 ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioNotional", gvMFPortfolioNotional);
 
@@ -2563,12 +2644,56 @@ namespace WealthERP.CustomerPortfolio
             else if (hdnSelectedTab.Value.ToString() == "1")
             {
                 gvMFPortfolio.Columns[0].Visible = false;
+                for (int i = 0; i < gvMFPortfolio.Rows.Count; i++)
+                {
+                    if (gvMFPortfolio.Rows[i].RowType != DataControlRowType.Header)
+                    {
+                        gvMFPortfolio.Rows[i].Cells[5].Text = gvMFPortfolio.Rows[i].Cells[5].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[6].Text = gvMFPortfolio.Rows[i].Cells[6].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[7].Text = gvMFPortfolio.Rows[i].Cells[7].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[8].Text = gvMFPortfolio.Rows[i].Cells[8].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[9].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[10].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[11].Text = gvMFPortfolio.Rows[i].Cells[11].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[12].Text = gvMFPortfolio.Rows[i].Cells[12].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[13].Text = gvMFPortfolio.Rows[i].Cells[13].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[14].Text = gvMFPortfolio.Rows[i].Cells[14].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[15].Text = gvMFPortfolio.Rows[i].Cells[15].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[16].Text = gvMFPortfolio.Rows[i].Cells[16].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[17].Text = gvMFPortfolio.Rows[i].Cells[17].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[18].Text = gvMFPortfolio.Rows[i].Cells[18].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[19].Text = gvMFPortfolio.Rows[i].Cells[19].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[20].Text = gvMFPortfolio.Rows[i].Cells[20].Text.Replace(",", "");
+                        gvMFPortfolio.Rows[i].Cells[21].Text = gvMFPortfolio.Rows[i].Cells[21].Text.Replace(",", "");
+
+
+
+                    }
+                }
                 PrepareGridViewForExport(gvMFPortfolio);
                 ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolio", gvMFPortfolio);
             }
             else if (hdnSelectedTab.Value.ToString() == "2")
             {
                 gvMFPortfolioRealized.Columns[0].Visible = false;
+                for (int i = 0; i < gvMFPortfolioRealized.Rows.Count; i++)
+                {
+                    if (gvMFPortfolioRealized.Rows[i].RowType != DataControlRowType.Header)
+                    {
+                        gvMFPortfolioRealized.Rows[i].Cells[6].Text = gvMFPortfolioRealized.Rows[i].Cells[6].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[7].Text = gvMFPortfolioRealized.Rows[i].Cells[7].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[8].Text = gvMFPortfolioRealized.Rows[i].Cells[8].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[9].Text = gvMFPortfolioRealized.Rows[i].Cells[9].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[10].Text = gvMFPortfolioRealized.Rows[i].Cells[10].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[11].Text = gvMFPortfolioRealized.Rows[i].Cells[11].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[12].Text = gvMFPortfolioRealized.Rows[i].Cells[12].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[13].Text = gvMFPortfolioRealized.Rows[i].Cells[13].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[14].Text = gvMFPortfolioRealized.Rows[i].Cells[14].Text.Replace(",", "");
+                        gvMFPortfolioRealized.Rows[i].Cells[15].Text = gvMFPortfolioRealized.Rows[i].Cells[15].Text.Replace(",", "");
+
+
+                    }
+                }
                 PrepareGridViewForExport(gvMFPortfolioRealized);
                 ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioRealized", gvMFPortfolioRealized);
 

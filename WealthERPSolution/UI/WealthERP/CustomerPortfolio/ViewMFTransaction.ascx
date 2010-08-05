@@ -21,7 +21,7 @@
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 <table style="width: 100%;" class="TableBackground">

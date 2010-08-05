@@ -162,6 +162,7 @@ namespace WealthERP.CustomerPortfolio
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 // Bind Grid
                 BindPortfolioDropDown();
+                hdnFolioFilter.Value = string.Empty;
                 if (Session["tranDates"] != null)
                 {
                     ht = (Hashtable)Session["tranDates"];
@@ -212,7 +213,21 @@ namespace WealthERP.CustomerPortfolio
             totalsst = 0;
             totalAmount = 0;
             totalUnits = 0;
-
+            if (Session["Scheme"] != null)
+            {
+                hdnSchemeFilter.Value = Session["Scheme"].ToString();
+                Session.Remove("Scheme");
+                lbBack.Visible = true;
+            }
+            if (Session["Folio"] != null)
+            {
+                hdnFolioFilter.Value = Session["Folio"].ToString();
+                Session.Remove("Folio");
+            }
+            else
+            {
+                hdnFolioFilter.Value = string.Empty;
+            }
             //ddlStatus = (DropDownList)gvMFTransactions.FindControl("ddlStatus");
             DataTable dtMFTransactions = new DataTable();
             try
@@ -226,12 +241,12 @@ namespace WealthERP.CustomerPortfolio
                 int Count;
                 if (export == 1)
                 {                   
-                        mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 1, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to);
+                        mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 1, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to,hdnFolioFilter.Value.ToString());
                    
                 }
                 else
                 {
-                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 0, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(),hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to);
+                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 0, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to, hdnFolioFilter.Value.ToString());
                     hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                 }
                 // customerTransactionBo.GetMFTransactions(customerVo.CustomerId,"C").ToString();
@@ -1205,6 +1220,12 @@ namespace WealthERP.CustomerPortfolio
             dtTo = DateTime.Parse(txtToTran.Text);
             hdnStatus.Value = "1";
             BindGridView(customerId, mypager.CurrentPage, 0, dtFrom, dtTo);
+        }
+
+        protected void lbBack_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
+
         }
     }
 }

@@ -59,13 +59,13 @@
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
                 Height="25px" Width="25px" />
             <asp:ImageButton ID="imgBtnWord" ImageUrl="~/Images/Export_Word.jpg" runat="server"
-                AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click" />
+                AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click" Visible="false" />
             <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/Images/Export_Pdf.gif" runat="server"
-                AlternateText="PDF" ToolTip="Export To PDF" OnClick="imgBtnPdf_Click" />
+                AlternateText="PDF" ToolTip="Export To PDF" OnClick="imgBtnPdf_Click" Visible="false" />
             <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/Images/Print.gif" runat="server" AlternateText="Print"
-                ToolTip="Print" OnClick="imgBtnPrint_Click" />
+                ToolTip="Print" OnClick="imgBtnPrint_Click" Visible="false"/>
             <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />
+                BorderStyle="None" BackColor="Transparent" ToolTip="Print" Visible="false"/>
             <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
                 OnClick="btnExportExcel_Click" Height="31px" Width="35px" />
         </td>

@@ -42,7 +42,7 @@ namespace WealthERP
 
                 AdvisorLogo.Visible = true;
                 BranchLogo.Visible = true;
-
+                
                 if (Session["userVo"] != null)
                 {
                     userVo = (UserVo)(Session["userVo"]);

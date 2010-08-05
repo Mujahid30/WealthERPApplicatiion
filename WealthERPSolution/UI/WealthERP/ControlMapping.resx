@@ -421,9 +421,6 @@
     <value>CustomerPortfolio//EquityProrate.aspx</value>
     <comment>CustomerPortfolio//EquityProrate.aspx</comment>
   </data>
-  <data name="TransactionView" xml:space="preserve">
-    <value />
-  </data>
   <data name="RMUserDetails" xml:space="preserve">
     <value>Advisor//RMUserDetails.ascx</value>
     <comment>Advisor//RMUserDetails.ascx</comment>

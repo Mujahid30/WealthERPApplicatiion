@@ -61,6 +61,8 @@ namespace WealthERP.CustomerPortfolio
                     hdnTranType.Value = string.Empty;
                     hdnCustomerNameSearch.Value = string.Empty;
                     hdnFolioNumber.Value = string.Empty;
+                    hdnCategory.Value = string.Empty;
+                    hdnAMC.Value = "0";
                     rbtnPickDate.Checked = true;
                     rbtnPickPeriod.Checked = false;
                     trRange.Visible = true;
@@ -201,6 +203,8 @@ namespace WealthERP.CustomerPortfolio
         private void BindGrid(int ExportGridView, int currentPage, DateTime convertedFromDate, DateTime convertedToDate)
         {
             Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
+            Dictionary<string, string> genDictCategory = new Dictionary<string, string>();
+            Dictionary<string, int> genDictAMC = new Dictionary<string, int>();
             DataSet ds = new DataSet();
             int Count = 0;
             totalAmount = 0;
@@ -213,13 +217,13 @@ namespace WealthERP.CustomerPortfolio
                     if (rbtnGroup.Checked)
                     {
 
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, 5000, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue);
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, 5000, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue,hdnCategory.Value.ToString(),int.Parse(hdnAMC.Value.ToString()),out genDictCategory,out genDictAMC);
                         hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                     }
                     else
                     {
 
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, 5000, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue);
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, 5000, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
                         hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                     }
 
@@ -229,13 +233,13 @@ namespace WealthERP.CustomerPortfolio
                     if (rbtnGroup.Checked)
                     {
 
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue);
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
                         hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                     }
                     else
                     {
 
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue);
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
                         hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                     }
 
@@ -251,7 +255,7 @@ namespace WealthERP.CustomerPortfolio
 
                     dtMFTransactions.Columns.Add("TransactionId");
                     dtMFTransactions.Columns.Add("Customer Name");
-                    dtMFTransactions.Columns.Add("Folio Number");
+                    dtMFTransactions.Columns.Add("Folio Number");                    
                     dtMFTransactions.Columns.Add("Scheme Name");
                     dtMFTransactions.Columns.Add("Transaction Type");
                     dtMFTransactions.Columns.Add("Transaction Date");
@@ -261,7 +265,8 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("STT");
                     dtMFTransactions.Columns.Add("Portfolio Name");
                     dtMFTransactions.Columns.Add("Transaction Status");
-
+                    dtMFTransactions.Columns.Add("Category");
+                    dtMFTransactions.Columns.Add("AMC");
                     DataRow drMFTransaction;
 
                     for (int i = 0; i < mfTransactionList.Count; i++)
@@ -269,6 +274,7 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction = dtMFTransactions.NewRow();
                         mfTransactionVo = new MFTransactionVo();
                         mfTransactionVo = mfTransactionList[i];
+                        
                         drMFTransaction[0] = mfTransactionVo.TransactionId.ToString();
                         drMFTransaction[1] = mfTransactionVo.CustomerName.ToString();
                         drMFTransaction[2] = mfTransactionVo.Folio.ToString();
@@ -300,6 +306,8 @@ namespace WealthERP.CustomerPortfolio
                         }
                         drMFTransaction[10] = mfTransactionVo.PortfolioName.ToString();
                         drMFTransaction[11] = mfTransactionVo.TransactionStatus.ToString();
+                        drMFTransaction[12] = mfTransactionVo.Category;
+                        drMFTransaction[13] = mfTransactionVo.AMCName;
                         dtMFTransactions.Rows.Add(drMFTransaction);
                     }
 
@@ -324,8 +332,76 @@ namespace WealthERP.CustomerPortfolio
                             ddlTranType.SelectedValue = hdnTranType.Value.ToString().Trim();
                         }
                     }
+                    if (genDictCategory.Count > 0)
+                    {
+                        DropDownList ddlCategory = GetCategoryDDL();
+                        if (ddlCategory != null)
+                        {
+                            ddlCategory.DataSource = genDictCategory;
+                            ddlCategory.DataTextField = "Key";
+                            ddlCategory.DataValueField = "Value";
+                            ddlCategory.DataBind();
+                            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                        }
 
+                        if (hdnCategory.Value != "")
+                        {
+                            ddlCategory.SelectedValue = hdnCategory.Value.ToString().Trim();
+                        }
+                    }
+                    if (genDictAMC.Count > 0)
+                    {
+                        DropDownList ddlAMC = GetAMCDDL();
+                        if (ddlAMC != null)
+                        {
+                            ddlAMC.DataSource = genDictAMC;
+                            ddlAMC.DataTextField = "Key";
+                            ddlAMC.DataValueField = "Value";
+                            ddlAMC.DataBind();
+                            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                        }
 
+                        if (hdnAMC.Value != "")
+                        {
+                            ddlAMC.SelectedValue = hdnAMC.Value.ToString().Trim();
+                        }
+                    }
+                    if (hdnSchemeSearch.Value != "")
+                    {
+                        
+                        if (gvMFTransactions.HeaderRow != null)
+                        {
+                            if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtSchemeSearch") != null)
+                            {
+                                TextBox txtScheme = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtSchemeSearch");
+                                txtScheme.Text = hdnSchemeSearch.Value.ToString();
+                            }
+                        }
+                    }
+                    if (hdnFolioNumber.Value != "")
+                    {
+
+                        if (gvMFTransactions.HeaderRow != null)
+                        {
+                            if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtFolioNumberSearch") != null)
+                            {
+                                TextBox txtFolio = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtFolioNumberSearch");
+                                txtFolio.Text = hdnFolioNumber.Value.ToString();
+                            }
+                        }
+                    }
+                    if (hdnCustomerNameSearch.Value != "")
+                    {
+
+                        if (gvMFTransactions.HeaderRow != null)
+                        {
+                            if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtNameSearch") != null)
+                            {
+                                TextBox txtName = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtNameSearch");
+                                txtName.Text = hdnCustomerNameSearch.Value.ToString();
+                            }
+                        }
+                    }  
                     GetPageCount();
                 }
                 else
@@ -347,6 +423,8 @@ namespace WealthERP.CustomerPortfolio
         private void BindGrid4Export(int currentPage, DateTime convertedFromDate, DateTime convertedToDate)
         {
             Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
+            Dictionary<string, string> genDictCategory = new Dictionary<string, string>();
+            Dictionary<string, int> genDictAMC = new Dictionary<string, int>();
             DataSet ds = new DataSet();
             int Count = 0;
             totalAmount = 0;
@@ -357,13 +435,13 @@ namespace WealthERP.CustomerPortfolio
                 if (rbtnGroup.Checked)
                 {
 
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue);
+                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue,hdnCategory.Value.ToString(),int.Parse(hdnAMC.Value.ToString()),out genDictCategory,out genDictAMC);
                     hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                 }
                 else
                 {
 
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue);
+                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
                     hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                 }
                 if (mfTransactionList.Count != 0)
@@ -386,6 +464,8 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("STT");
                     dtMFTransactions.Columns.Add("Portfolio Name");
                     dtMFTransactions.Columns.Add("Transaction Status");
+                    dtMFTransactions.Columns.Add("Category");
+                    dtMFTransactions.Columns.Add("AMC");
 
                     DataRow drMFTransaction;
 
@@ -410,6 +490,8 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction[9] = decimal.Parse(mfTransactionVo.STT.ToString());
                         drMFTransaction[10] = mfTransactionVo.PortfolioName.ToString();
                         drMFTransaction[11] = mfTransactionVo.TransactionStatus.ToString();
+                        drMFTransaction[12] = mfTransactionVo.Category;
+                        drMFTransaction[13] = mfTransactionVo.AMCName;
                         dtMFTransactions.Rows.Add(drMFTransaction);
                     }
 
@@ -435,7 +517,76 @@ namespace WealthERP.CustomerPortfolio
                         }
                     }
 
+                    if (genDictCategory.Count > 0)
+                    {
+                        DropDownList ddlCategory = GetCategoryDDL();
+                        if (ddlCategory != null)
+                        {
+                            ddlCategory.DataSource = genDictCategory;
+                            ddlCategory.DataTextField = "Key";
+                            ddlCategory.DataValueField = "Value";
+                            ddlCategory.DataBind();
+                            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                        }
 
+                        if (hdnCategory.Value != "")
+                        {
+                            ddlCategory.SelectedValue = hdnCategory.Value.ToString().Trim();
+                        }
+                    }
+                    if (genDictAMC.Count > 0)
+                    {
+                        DropDownList ddlAMC = GetAMCDDL();
+                        if (ddlAMC != null)
+                        {
+                            ddlAMC.DataSource = genDictAMC;
+                            ddlAMC.DataTextField = "Key";
+                            ddlAMC.DataValueField = "Value";
+                            ddlAMC.DataBind();
+                            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                        }
+
+                        if (hdnAMC.Value != "")
+                        {
+                            ddlAMC.SelectedValue = hdnAMC.Value.ToString().Trim();
+                        }
+                    }
+                    if (hdnSchemeSearch.Value != "")
+                    {
+
+                        if (gvMFTransactions.HeaderRow != null)
+                        {
+                            if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtSchemeSearch") != null)
+                            {
+                                TextBox txtScheme = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtSchemeSearch");
+                                txtScheme.Text = hdnSchemeSearch.Value.ToString();
+                            }
+                        }
+                    }
+                    if (hdnFolioNumber.Value != "")
+                    {
+
+                        if (gvMFTransactions.HeaderRow != null)
+                        {
+                            if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtFolioNumberSearch") != null)
+                            {
+                                TextBox txtFolio = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtFolioNumberSearch");
+                                txtFolio.Text = hdnFolioNumber.Value.ToString();
+                            }
+                        }
+                    }
+                    if (hdnCustomerNameSearch.Value != "")
+                    {
+
+                        if (gvMFTransactions.HeaderRow != null)
+                        {
+                            if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtNameSearch") != null)
+                            {
+                                TextBox txtName = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtNameSearch");
+                                txtName.Text = hdnCustomerNameSearch.Value.ToString();
+                            }
+                        }
+                    }  
                     GetPageCount();
                 }
                 else
@@ -465,6 +616,40 @@ namespace WealthERP.CustomerPortfolio
                 if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranType") != null)
                 {
                     ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlTranType");
+                }
+            }
+            else
+                ddl = null;
+
+            return ddl;
+
+        }
+        private DropDownList GetCategoryDDL()
+        {
+
+            DropDownList ddl = new DropDownList();
+            if (gvMFTransactions.HeaderRow != null)
+            {
+                if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlCategory") != null)
+                {
+                    ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlCategory");
+                }
+            }
+            else
+                ddl = null;
+
+            return ddl;
+
+        }
+        private DropDownList GetAMCDDL()
+        {
+
+            DropDownList ddl = new DropDownList();
+            if (gvMFTransactions.HeaderRow != null)
+            {
+                if ((DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlAMC") != null)
+                {
+                    ddl = (DropDownList)gvMFTransactions.HeaderRow.FindControl("ddlAMC");
                 }
             }
             else
@@ -517,6 +702,42 @@ namespace WealthERP.CustomerPortfolio
                 {   // Bind the Grid with Only All Values
                     hdnTranType.Value = "";
                     BindGrid(0,mypager.CurrentPage, convertedFromDate, convertedToDate);
+                }
+            }
+        }
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlCategory = GetCategoryDDL();
+
+            if (ddlCategory != null)
+            {
+                if (ddlCategory.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+                    hdnCategory.Value = ddlCategory.SelectedValue;
+                    BindGrid(0, mypager.CurrentPage, convertedFromDate, convertedToDate);
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnCategory.Value = "";
+                    BindGrid(0, mypager.CurrentPage, convertedFromDate, convertedToDate);
+                }
+            }
+        }
+        protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAMC = GetAMCDDL();
+
+            if (ddlAMC != null)
+            {
+                if (ddlAMC.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+                    hdnAMC.Value = ddlAMC.SelectedValue;
+                    BindGrid(0, mypager.CurrentPage, convertedFromDate, convertedToDate);
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnAMC.Value = "0";
+                    BindGrid(0, mypager.CurrentPage, convertedFromDate, convertedToDate);
                 }
             }
         }

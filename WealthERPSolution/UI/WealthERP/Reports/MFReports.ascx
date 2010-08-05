@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="demo" Namespace="DanLudwig.Controls.Web" Assembly="DanLudwig.Controls.AspAjax.ListBox" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
     <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 

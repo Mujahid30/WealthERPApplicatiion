@@ -410,7 +410,7 @@ namespace WealthERP.Advisor
                         Series series1 = ChartRMPerformance.Series[0];
                         ChartRMPerformance.Series.Clear();
                         ChartRMPerformance.Series.Add(seriesAssets);
-                        ChartRMPerformance.Series[0]["CollectedThreshold"] = "5";
+                        //ChartRMPerformance.Series[0]["CollectedThreshold"] = "5";
                         ChartRMPerformance.Series[0]["CollectedLegendText"] = "Other";
                         ChartRMPerformance.Series[0].XValueMember = "RMName";
                         ChartRMPerformance.Series[0].YValueMembers = "AggregateValue";
@@ -448,7 +448,7 @@ namespace WealthERP.Advisor
                         ChartRMPerformance.Series[0]["PieLabelStyle"] = "Disabled";
 
 
-                        ChartRMPerformance.Series[0].ToolTip = "#VALX: #PERCENT";
+                        ChartRMPerformance.Series[0].ToolTip = "#VALX: #VALY";
                         ChartRMPerformance.ChartAreas[0].Area3DStyle.Enable3D = true;
                         ChartRMPerformance.DataBind();
                     }

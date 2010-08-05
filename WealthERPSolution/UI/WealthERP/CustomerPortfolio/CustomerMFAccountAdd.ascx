@@ -94,7 +94,8 @@
             <asp:Label ID="lblModeOfHolding" runat="server" CssClass="FieldName" Text="Mode Of Holding :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlModeOfHolding" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlModeOfHolding" runat="server" CssClass="cmbField" 
+                onselectedindexchanged="ddlModeOfHolding_SelectedIndexChanged">
             </asp:DropDownList>
             <%--<span id="Span3" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlModeOfHolding"

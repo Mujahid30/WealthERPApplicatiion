@@ -47,6 +47,11 @@
             <hr />
         </td>
     </tr>
+    <tr>
+        <td class="HeaderCell">
+            <asp:LinkButton ID="lbBack" runat="server" Text="Back" onclick="lbBack_Click" Visible="false" CssClass="FieldName"></asp:LinkButton>
+        </td>
+    </tr>
 </table>
 <table>
     <tr>
@@ -266,6 +271,7 @@
 <asp:HiddenField ID="hdnRecordCount" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnSchemeFilter" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnFolioFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnTranType" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnTranTrigger" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnTranDate" runat="server" Visible="false" />
