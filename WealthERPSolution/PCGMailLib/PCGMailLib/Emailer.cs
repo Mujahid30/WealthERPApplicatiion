@@ -83,8 +83,11 @@ namespace PCGMailLib
                     smtpClient.Port = smtpPort;
 
                 //Hardcoding SSL settings for gmail SMTP
-                if (smtpServer.Contains("smtp.gmail.com"))
+                if (smtpServer.Contains("smtp.gmail.com") || smtpServer.Contains("smtp.live.com"))
+                {
                     smtpClient.EnableSsl = true;
+                    
+                }
 
                 mail.From = email.From;
 
