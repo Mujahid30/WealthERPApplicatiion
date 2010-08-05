@@ -1034,7 +1034,7 @@ namespace DaoCustomerPortfolio
             return transactionId;
         }
 
-        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId, int export, int CurrentPage, out int Count, string SchemeFilter, string TypeFilter, string TriggerFilter,string TransactionCode, string DateFilter, out Dictionary<string, string> genDictTranType, out Dictionary<string, string> genDictTranTrigger, out Dictionary<string, string> genDictTranDate, string SortExpression, DateTime FromDate, DateTime ToDate)
+        public List<MFTransactionVo> GetMFTransactions(int customerId, int portfolioId, int export, int CurrentPage, out int Count, string SchemeFilter, string TypeFilter, string TriggerFilter,string TransactionCode, string DateFilter, out Dictionary<string, string> genDictTranType, out Dictionary<string, string> genDictTranTrigger, out Dictionary<string, string> genDictTranDate, string SortExpression, DateTime FromDate, DateTime ToDate, string folioFilter)
         {
             List<MFTransactionVo> mfTransactionsList = null;
             MFTransactionVo mfTransactionVo = new MFTransactionVo();
@@ -1060,6 +1060,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getMFTransactionsCmd, "@schemeFilter", DbType.String, SchemeFilter);
                 else
                     db.AddInParameter(getMFTransactionsCmd, "@schemeFilter", DbType.String, DBNull.Value);
+                if (folioFilter != "")
+                    db.AddInParameter(getMFTransactionsCmd, "@folioFilter", DbType.String, folioFilter);
+                else
+                    db.AddInParameter(getMFTransactionsCmd, "@folioFilter", DbType.String, DBNull.Value);
                 if (TypeFilter != "")
                     db.AddInParameter(getMFTransactionsCmd, "@typeFilter", DbType.String, TypeFilter);
                 else
@@ -2179,8 +2183,25 @@ namespace DaoCustomerPortfolio
             return ds;
         }
 
-
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(out int Count, int CurrentPage, int RMId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue)
+        /// <summary>
+        /// Returns List of MF Transactions for the Selected RMId based on the Parameters
+        /// </summary>
+        /// <param name="Count">Out Parameter returns the number of Records</param>
+        /// <param name="CurrentPage">Passes the Current Page Number for Paging</param>
+        /// <param name="RMId">RelationShip Manager Id</param>
+        /// <param name="GroupHeadId">Passes the Groupo HeadId if the List is for a Group</param>
+        /// <param name="From">From Date</param>
+        /// <param name="To">To Date</param>
+        /// <param name="Manage">Parameter to Check Managed and UnManaged Portfolios</param>
+        /// <param name="CustomerName">Name of the Customer for Search Purpose</param>
+        /// <param name="Scheme">Scheme Search String Parameter</param>
+        /// <param name="TranType">Transactiion Type Search Parameter</param>
+        /// <param name="transactionStatus">Transaction Status Search Parameter</param>
+        /// <param name="genDictTranType">Out Parameter Returns Dictionary of Available Transaction Types</param>
+        /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
+        /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
+        /// <returns></returns>
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(out int Count, int CurrentPage, int RMId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC)
         {
             DataSet ds = null;
             Database db;
@@ -2190,6 +2211,8 @@ namespace DaoCustomerPortfolio
             DataTable dtGetMFTransactions;
             Count = 0;
             genDictTranType = new Dictionary<string, string>();
+            genDictCategory = new Dictionary<string, string>();
+            genDictAMC = new Dictionary<string, int>();
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2241,7 +2264,14 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TransactionStatus", DbType.String, "1");
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TransactionStatus", DbType.String, transactionStatus);
-
+                if (categoryCode == "")
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CategoryCode", DbType.String, DBNull.Value);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CategoryCode", DbType.String, categoryCode);
+                if (AMCCode == 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMCCode", DbType.Int32, DBNull.Value);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMCCode", DbType.String, AMCCode);
 
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
                 if (ds.Tables[0].Rows.Count > 0)
@@ -2256,8 +2286,12 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.CustomerName = dr["Name"].ToString();
                         mfTransactionVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
                         mfTransactionVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
+                        mfTransactionVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        mfTransactionVo.AMCName = dr["PA_AMCName"].ToString();
                         mfTransactionVo.MFCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
                         mfTransactionVo.SchemePlan = dr["PASP_SchemePlanName"].ToString();
+                        mfTransactionVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        mfTransactionVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         mfTransactionVo.BuySell = dr["CMFT_BuySell"].ToString();
                         mfTransactionVo.DividendRate = float.Parse(dr["CMFT_DividendRate"].ToString());
                         mfTransactionVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
@@ -2296,6 +2330,20 @@ namespace DaoCustomerPortfolio
                         foreach (DataRow dr in ds.Tables[2].Rows)
                         {
                             genDictTranType.Add(dr["WMTT_TransactionClassificationName"].ToString(), dr["WMTT_TransactionClassificationName"].ToString());
+                        }
+                    }
+                    if (ds.Tables[3].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in ds.Tables[3].Rows)
+                        {
+                            genDictCategory.Add(dr["PAIC_AssetInstrumentCategoryName"].ToString(), dr["PAIC_AssetInstrumentCategoryCode"].ToString());
+                        }
+                    }
+                    if (ds.Tables[4].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in ds.Tables[4].Rows)
+                        {
+                            genDictAMC.Add(dr["PA_AMCName"].ToString(), int.Parse(dr["PA_AMCCode"].ToString()));
                         }
                     }
                 }
