@@ -30,17 +30,26 @@ namespace WealthERP.Advisor
             try
             {
                 SessionBo.CheckSession();
-                if (!IsPostBack)
-                {
-                    TreeView1.CollapseAll();
-                }
                 Session["dashBoard"] = "RM";
                 Session["FromAdvisorView"] = "FromRMView";
                 userVo = (UserVo)Session["userVo"];
                 UserName = userVo.FirstName + userVo.LastName;
+                roleList = userBo.GetUserRoles(userVo.UserId);
+
+                if (!IsPostBack)
+                {
+                    
+                    if (roleList.Count == 1 && roleList.Contains("RM"))
+                    {
+                        TreeView1.Nodes.RemoveAt(0);
+                    }
+                    TreeView1.CollapseAll();
+                }
+                
                 sourcepath = Session[SessionContents.LogoPath].ToString();
                 if (Session[SessionContents.BranchLogoPath] != null)
                     branchLogoSourcePath = Session[SessionContents.BranchLogoPath].ToString();
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -71,7 +80,7 @@ namespace WealthERP.Advisor
             {
                 if (TreeView1.SelectedNode.Value.ToString() == "Switch Roles")
                 {
-                    roleList = userBo.GetUserRoles(userVo.UserId);
+                    
                     count = roleList.Count;
                     if (count == 3)
                     {
