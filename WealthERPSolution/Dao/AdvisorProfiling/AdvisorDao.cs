@@ -934,7 +934,10 @@ namespace DaoAdvisorProfiling
                 getCustomerListCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerList");
                 db.AddInParameter(getCustomerListCmd, "@A_AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getCustomerListCmd, "@CurrentPage", DbType.Int32, CurrentPage);
-                db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, SortExpression);
+                if (SortExpression != "")
+                    db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, SortExpression);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, DBNull.Value);
 
                 if (NameFilter != "")
                     db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, NameFilter);
