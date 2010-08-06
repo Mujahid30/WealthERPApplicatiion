@@ -474,6 +474,11 @@ namespace WealthERP.Advisor
             UserVo tempUser = null;
             UserBo userBo = new UserBo();
 
+            if (Session[SessionContents.PortfolioId] != null)
+            {
+                Session.Remove(SessionContents.PortfolioId);
+            }
+
             try
             {
                 ddlAction = (DropDownList)sender;
