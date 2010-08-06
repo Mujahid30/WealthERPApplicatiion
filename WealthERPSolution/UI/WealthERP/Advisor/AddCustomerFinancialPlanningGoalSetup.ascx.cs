@@ -120,6 +120,8 @@ namespace WealthERP.Advisor
                             Tab2ControlVisibility(1);
                             this.BindGoalOutputGridView(1);
                             TabContainer1.ActiveTabIndex = 1;
+                            trRTParaGraph.Visible = true;
+                            trOtherGoalParagraph.Visible = true;
 
                         }
                         //this.BindGoalOutputGridView(1);
@@ -136,6 +138,8 @@ namespace WealthERP.Advisor
                                 hidRTSaveReq.Value = string.Empty;
                                 this.BindGoalOutputGridView(1);
                                 TabContainer1.ActiveTabIndex = 1;
+                                trRTParaGraph.Visible = false;
+                                trOtherGoalParagraph.Visible = true;
 
                                 //gvRetirement.Visible = true;
                                 //lblTotalText.Visible = true;
@@ -151,7 +155,8 @@ namespace WealthERP.Advisor
                                     lblTotalText.Visible = true;
                                     lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
                                     TabContainer1.ActiveTabIndex = 1;
-
+                                    trRTParaGraph.Visible = true;
+                                    trOtherGoalParagraph.Visible = false;
                                 }
 
                    /* comment
@@ -1156,6 +1161,7 @@ namespace WealthERP.Advisor
                       Label lblActiveMsg = (Label)gvGoalOutPut.HeaderRow.FindControl("ActiveMessage");
                       lblActiveMsg.Visible = false;
                       lblTotalText.Text ="Total Saving Required Every Month=Rs."+ Math.Round(TotalSaveReq,2).ToString();
+                      lblOtherGoalParagraph.Text = GoalSetupBo.OtherGoalDescriptionText(int.Parse((string)Session["FP_UserID"]));
                       
                       
                       return 1;
@@ -1186,6 +1192,7 @@ namespace WealthERP.Advisor
     private int BindRTGoalOutputGridView()
         {
             double hidvalue=0;
+            string GoalDescription = "";
          //use same seeion name what ever used in risk profilling..
             DataSet dsRTGoal = (DataSet)GoalSetupBo.GetCustomerRTDetails(int.Parse((string)Session["FP_UserID"]));
             if (dsRTGoal != null && dsRTGoal.Tables.Count > 0 && dsRTGoal.Tables[0].Rows.Count > 0)
@@ -1195,7 +1202,9 @@ namespace WealthERP.Advisor
                 //RTSaveReq = double.Parse(dsRTGoal.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString());
                 if (dsRTGoal.Tables[0].Rows[0]["CG_MonthlySavingsRequired"] != null)
                     hidvalue = double.Parse(dsRTGoal.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString());
-                    hidRTSaveReq.Value = Math.Round(hidvalue, 2).ToString();
+                    hidRTSaveReq.Value = Math.Round(hidvalue, 2).ToString();                                  
+                    GoalDescription = GoalSetupBo.RTGoalDescriptionText(int.Parse((string)Session["FP_UserID"]));
+                    lblRTParagraph.Text = GoalDescription;
                     return 1;
             }
             return 0;

@@ -724,6 +724,18 @@ function validate() {
                         </asp:GridView>
                     </td>
                 </tr>
+                <tr id="trOtherGoalParagraph" runat="server">
+                    <td width="100%">
+                    
+                    <div id="divOtherGoal" style="width: 100%;height: 100%; border: Solid 1px #EBEFF9 !important; border-color: #EBEFF9 !important" >
+                         <br />
+                        <asp:Label ID="lblOtherGoalParagraph" runat="server" CssClass="GridViewCmbField" style="font-size:20 !important" Text="";>
+                        </asp:Label>
+                 
+                    </div>
+                    <br />
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <asp:GridView ID="gvRetirement" runat="server" AllowSorting="True" 
@@ -759,6 +771,20 @@ function validate() {
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Lumpsum Investment Required(Rs.)">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblLumpsumInvReq" runat="server" CssClass="GridViewCmbField" 
+                                            Text='<%#Eval("CG_LumpsumInvestmentRequired") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Amount To be Saved Per Year(Rs.)">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblYSavingReq" runat="server" CssClass="GridViewCmbField" 
+                                            Text='<%#Eval("CG_YearlySavingsRequired") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)">
                                     <ItemTemplate>
                                         <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
@@ -782,6 +808,14 @@ function validate() {
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
                         </asp:GridView>
                     </td>
+                </tr>
+                <tr id="trRTParaGraph" runat="server">
+                <td width="100%" style="width: 100%;height: 100%; border-width:medium !important; border-color:Blue !important">
+                <br />
+                <asp:Label ID="lblRTParagraph" runat="server" CssClass="GridViewCmbField" style="font-size:20 !important" Text="";>
+                </asp:Label>
+                <br />
+                </td>
                 </tr>
                 <tr>
                     <td>
