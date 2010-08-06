@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FPReports.ascx.cs" Inherits="WealthERP.Reports.FPReports" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="FPReports.ascx.cs" Inherits="WealthERP.Reports.FPReports" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
@@ -69,20 +69,32 @@
                             few characters of customer name.</span>
                     </td>
                 </tr>
-                <tr id="trCustomerDetails" runat="server" visible="false">
-                    <td>
-                        <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="PAN :"></asp:Label>
-                        <asp:TextBox ID="txtPanParent" runat="server" CssClass="txtField" BackColor="Transparent"
+                <tr id="trCustomerDetails1" runat="server" visible="false">
+                    <td align="right">
+                        <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="PAN NO :"></asp:Label>
+                       
+                    </td>
+                    <td align="left">
+                     <asp:TextBox ID="txtPanParent" runat="server" CssClass="txtField" BackColor="Transparent"
                             BorderStyle="None"></asp:TextBox>
                     </td>
-                    <td>
-                        <asp:Label ID="lblAddress" runat="server" CssClass="FieldName" Text="Address:"></asp:Label>
-                        <asp:TextBox ID="txtAddress" runat="server" CssClass="txtField" BackColor="Transparent"
+                    
+                </tr>
+                
+                <tr id="trCustomerDetails2" runat="server" visible="false">
+                <td align="right">
+                        <asp:Label ID="lblAddress" runat="server" CssClass="FieldName" Text="Address :"></asp:Label>
+                        
+                    </td>
+                    <td align="left">
+                    <asp:TextBox ID="txtAddress" runat="server" CssClass="txtField" BackColor="Transparent"
                             BorderStyle="None"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
+                
                     <td colspan="2">
+                        <br />
                         <asp:Button ID="btnView" runat="server" Text="View Report" OnClientClick="return validate('')"
                             PostBackUrl="~/Reports/Display.aspx" CssClass="PCGMediumButton" />
                     </td>

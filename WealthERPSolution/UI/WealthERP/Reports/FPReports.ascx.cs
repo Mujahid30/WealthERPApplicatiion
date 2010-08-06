@@ -59,13 +59,23 @@ namespace WealthERP.Reports
                     //rmVo = (RMVo)Session[SessionContents.RmVo];
                     //txtPickCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                     txtCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
-
+                    
                 }
                 else
                 {
 
                     txtCustomer.Text = Session["FP_UserName"].ToString();
                     txtCustomerId.Value = Session["FP_UserID"].ToString();
+                    customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+                    Session["CusVo"] = customerVo;
+
+                    DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
+                    DataRow dr = dt.Rows[0];
+
+                    txtAddress.Text = customerVo.Adr1City;
+                    txtPanParent.Text = dr["C_PANNum"].ToString();
+                    trCustomerDetails1.Visible = true;
+                    trCustomerDetails2.Visible = true;
                     SessionBo.CheckSession();
                     txtCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
                 }
@@ -87,10 +97,10 @@ namespace WealthERP.Reports
 
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                 DataRow dr = dt.Rows[0];
-
+                txtAddress.Text = customerVo.Adr1City; ;
                 txtPanParent.Text = dr["C_PANNum"].ToString();
-                trCustomerDetails.Visible = true;
-               
+                trCustomerDetails1.Visible = true;
+                trCustomerDetails2.Visible = true;
             }
            
 
