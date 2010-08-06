@@ -3,23 +3,35 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
+
 <table width="100%" class="TableBackground">
-<tr>
+    <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Associate Category"></asp:Label>
             <hr />
         </td>
     </tr>
 </table>
-
-
 <table style="width: 100%;" class="TableBackground">
     <tr id="trAssignNumber" visible="false" runat="server">
-        <td class="rightField">
+        <td class="rightField" width="20%">
             <asp:Label ID="lblNoOfCat" CssClass="FieldName" runat="server" Text="No of Categories:"></asp:Label>
             <asp:TextBox ID="txtNoOfCat" CssClass="txtField" runat="server"></asp:TextBox>
-            &nbsp; &nbsp;
-            <asp:Button ID="BtnNoOfCat" CssClass="PCGButton" Text="Submit" runat="server" OnClick="BtnNoOfCat_Click" />
+            <span id="Span5" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNoOfCat"
+                ErrorMessage="<br />Please enter the no. of categories" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="btnSubmit"> 
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please enter a numeric value"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtNoOfCat" Operator="DataTypeCheck"
+                Display="Dynamic" ValidationGroup="btnSubmit"></asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please enter a value less than 10"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtNoOfCat" Operator="LessThanEqual" ValidationGroup="btnSubmit"
+                ValueToCompare="9" Display="Dynamic"></asp:CompareValidator>
+        </td>
+        <td>
+            <asp:Button ID="BtnNoOfCat" CssClass="PCGButton" Text="Submit" runat="server" OnClick="BtnNoOfCat_Click"
+                ValidationGroup="btnSubmit" />
         </td>
     </tr>
     <tr id="trMeaageDefault" runat="server" visible="false" class="Message">
