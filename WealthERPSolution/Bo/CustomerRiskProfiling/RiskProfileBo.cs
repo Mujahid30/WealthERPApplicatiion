@@ -70,6 +70,38 @@ namespace BoCustomerRiskProfiling
         {
             riskprofiledao.UpdateAssetAllocationDetails(riskprofileid, cashpercentage, equitypercentage, debitpercentage, clientapprovedon, rmvo);
         }
+        /// <summary>
+        /// It returns RiskProfile Description Paragraph
+        /// </summary>
+        /// <param name="ClassName"></param>
+        /// <returns></returns>
+        public string GetRiskProfileText(string ClassName)
+        {
+            string RiskTextParagraph="";
+              if(ClassName=="Aggresive")
+              {
+                RiskTextParagraph="Your risk behaviour is Conservative. It shows that by nature you are a moderate " + 
+                "risk taker. You don’t want to assume high risks on investments, as you are afraid of booking losses."+
+                " You are happy with the reasonable return that you may get from medium to low risk investments.";
+              }
+              else if (ClassName == "Moderate")
+              {
+                  RiskTextParagraph = "Your risk behaviour is Moderate. It shows that by nature you are a balanced "+
+                  "risk taker. Before investing anywhere you take in to account all the upsides and downsides "+
+                  "associated with it and then take a well-reasoned decision. You are bothered about the downside "+
+                  "of high-risk investments and therefore, want to maintain a balanced portfolio.";
+ 
+              }
+              else if (ClassName == "Conservative")
+              {
+                  RiskTextParagraph = "Your risk behaviour is Aggressive. It shows that by nature you are a risk "+
+                  "taker. You want to assume high risks in anticipation of equally high returns and at the same "+
+                  "time you are not too bothered about the downside of high-risk investments.";
+ 
+              }
+
+              return RiskTextParagraph;
+        }
 
     }
 }
