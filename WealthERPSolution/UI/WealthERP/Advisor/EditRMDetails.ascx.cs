@@ -17,7 +17,7 @@ namespace WealthERP.Advisor
 {
     public partial class EditRMDetails : System.Web.UI.UserControl
     {
-        AdvisorBranchVo advisorBranchVo = null;        
+        AdvisorBranchVo advisorBranchVo = null;
         AdvisorVo advisorVo = new AdvisorVo();
         UserBo userBo = new UserBo();
         int rmId;
@@ -26,20 +26,20 @@ namespace WealthERP.Advisor
         RMVo rmVo = new RMVo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         UserVo userVo = new UserVo();
-        
+
         List<AdvisorBranchVo> advisorBranchList = null;
-       
+
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         DataSet _commondatasetSource;
         DataSet _commondatasetdestination;
         UserVo uvo = new UserVo();
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
-           // addBranch.Attributes.Add("onclick", "return addbranches('availableBranch','associatedBranch')");
+            // addBranch.Attributes.Add("onclick", "return addbranches('availableBranch','associatedBranch')");
             //deleteBranch.Attributes.Add("onclick", "return deletebranches('associatedBranch','availableBranch')");
             SessionBo.CheckSession();
-            advisorVo = (AdvisorVo)Session["advisorVo"];          
+            advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session["rmVo"];
             userVo = (UserVo)Session["userVo"];
             editRMDetails();
@@ -52,7 +52,7 @@ namespace WealthERP.Advisor
             lblPhoneDirectNumber.CssClass = "FieldName";
             lblPhoneNumber.CssClass = "FieldName";
             lblSTD.CssClass = "FieldName";
-          
+
         }
 
         //protected void rbtnMainBranch_CheckedChanged(object sender, EventArgs e)
@@ -64,8 +64,8 @@ namespace WealthERP.Advisor
         //    RadioButton rbtn = (RadioButton)sender;
         //    GridViewRow tempRow = (GridViewRow)rbtn.NamingContainer;
         //    ((RadioButton)tempRow.FindControl("rbtnMainBranch")).Checked = true;
-           
-           
+
+
 
         //}
 
@@ -111,7 +111,7 @@ namespace WealthERP.Advisor
                 if (!ChkMailId(txtEmail.Text.ToString()))
                 {
                     result = false;
-                   // lblEmail.CssClass = "Error";
+                    // lblEmail.CssClass = "Error";
                 }
 
                 //if (txtFirstName.Text.ToString() == "")
@@ -254,9 +254,9 @@ namespace WealthERP.Advisor
                         hdnExistingBranches.Value += drList["BranchId"].ToString() + ",";
                     }
 
-                    
+
                     //gvBranchList.DataSource = dt;
-                    
+
                     //gvBranchList.DataBind();
                     //gvBranchList.Visible = true;
 
@@ -265,7 +265,7 @@ namespace WealthERP.Advisor
                     associatedBranch.DataTextField = "Branch";
                     associatedBranch.DataValueField = "BranchId";
                     associatedBranch.DataBind();
-                    
+
                     if (chkExternalStaff.Checked == true)
                     {
                         setBranchList("Y");
@@ -273,12 +273,20 @@ namespace WealthERP.Advisor
                     else
                     {
                         setBranchList("N");
-                    }                  
-                    
+                    }
+
                 }
                 else
                 {
-                    setBranchList("N");
+
+                    if (chkExternalStaff.Checked == true)
+                    {
+                        setBranchList("Y");
+                    }
+                    else
+                    {
+                        setBranchList("N");
+                    }
                     //gvBranchList.Visible = false;
                 }
             }
@@ -348,7 +356,7 @@ namespace WealthERP.Advisor
 
                     //drAdvisorBranch[4] = advisorBranchVo.Phone1Isd + "-" + advisorBranchVo.Phone1Std + "-" + advisorBranchVo.Phone1Number;
                     //dtAdvisorBranch.Rows.Add(drAdvisorBranch);
-                    
+
                     //foreach(ListItem li in associatedBranch.Items)
                     //{
                     //    if (li.Value != advisorBranchVo.BranchId.ToString())
@@ -356,33 +364,33 @@ namespace WealthERP.Advisor
                     //        tracker = true;
                     //        break;
                     //    }
-                        
+
 
                     //}
                     if (associatedBranch.Items.FindByValue(advisorBranchVo.BranchId.ToString()) == null)
                     {
                         //if (tracker)
                         //{
-                            if (drAdvisorBranch["Branch"] != null && drAdvisorBranch["Branch Code"] != null)
-                            {
-                                drAdvisorBranch["Branch"] = advisorBranchVo.BranchName.ToString() + "," + advisorBranchVo.BranchId.ToString();
-                                drAdvisorBranch["Branch Code"] = advisorBranchVo.BranchId.ToString();
-                                dtAdvisorBranch.Rows.Add(drAdvisorBranch);
-                            }
-
+                        if (drAdvisorBranch["Branch"] != null && drAdvisorBranch["Branch Code"] != null)
+                        {
+                            drAdvisorBranch["Branch"] = advisorBranchVo.BranchName.ToString() + "," + advisorBranchVo.BranchId.ToString();
+                            drAdvisorBranch["Branch Code"] = advisorBranchVo.BranchId.ToString();
+                            dtAdvisorBranch.Rows.Add(drAdvisorBranch);
                         }
-                    
-                    
+
+                    }
+
+
 
                 }
                 //_commondatasetSource.Tables.Add(dtAdvisorBranch);
                 availableBranch.DataSource = dtAdvisorBranch;
                 availableBranch.DataTextField = "Branch";
                 availableBranch.DataValueField = "Branch Code";
-                
+
                 availableBranch.DataBind();
-                
-              
+
+
 
             }
             catch (BaseApplicationException Ex)
@@ -439,13 +447,13 @@ namespace WealthERP.Advisor
 
         }
 
- 
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             UserBo userBo = new UserBo();
             UserVo userVo = new UserVo();
             UserVo userVo2 = new UserVo();
-            
+
             Random id = new Random();
             AdvisorBo advisorBo = new AdvisorBo();
             AdvisorBranchBo advisorBrBo = new AdvisorBranchBo();
@@ -461,29 +469,69 @@ namespace WealthERP.Advisor
                     userVo.Email = txtEmail.Text.ToString();
                     userVo.FirstName = txtFirstName.Text.ToString();
                     userVo.LastName = txtLastName.Text.ToString();
-                    userVo.MiddleName = txtMiddleName.Text.ToString();                 
-                    
-                    
+                    userVo.MiddleName = txtMiddleName.Text.ToString();
 
                     rmVo.RMId = int.Parse(Session["rmId"].ToString());
                     rmVo.Email = txtEmail.Text.ToString();
-                    rmVo.Fax = int.Parse(txtFaxNumber.Text.ToString());
-                    rmVo.FaxIsd = int.Parse(txtFaxISD.Text.ToString());
-                    rmVo.FaxStd = int.Parse(txtExtSTD.Text.ToString());
+                    if (txtFaxNumber.Text == string.Empty || txtFaxNumber.Text == "")
+                        rmVo.Fax = 0;
+                    else
+                        rmVo.Fax = int.Parse(txtFaxNumber.Text.ToString());
+                    if (txtFaxISD.Text == string.Empty || txtFaxISD.Text == "")
+                        rmVo.FaxIsd = 0;
+                    else
+                        rmVo.FaxIsd = int.Parse(txtFaxISD.Text.ToString());
+                    if (txtExtSTD.Text == string.Empty || txtExtSTD.Text == "")
+                        rmVo.FaxStd = 0;
+                    else
+                        rmVo.FaxStd = int.Parse(txtExtSTD.Text.ToString());
                     rmVo.FirstName = txtFirstName.Text.ToString();
                     rmVo.LastName = txtLastName.Text.ToString();
                     rmVo.MiddleName = txtMiddleName.Text.ToString();
-                    rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
-                    rmVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
-                    rmVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
-                    rmVo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.ToString());
-                    rmVo.OfficePhoneExtIsd = int.Parse(txtPhExtISD.Text.ToString());
-                    rmVo.OfficePhoneExtNumber = int.Parse(txtPhExtPhoneNumber.Text.ToString());
-                    rmVo.OfficePhoneExtStd = int.Parse(txtExtSTD.Text.ToString());
-                    rmVo.ResPhoneIsd = int.Parse(txtPhResiISD.Text.ToString());
-                    rmVo.ResPhoneNumber = int.Parse(txtPhResiPhoneNumber.Text.ToString());
-                    rmVo.ResPhoneStd = int.Parse(txtResiSTD.Text.ToString());
-                    rmVo.CTC = Convert.ToDouble(txtCTC.Text.Trim());
+                    if (txtMobileNumber.Text == string.Empty || txtMobileNumber.Text == "")
+                        rmVo.Mobile = 0;
+                    else
+                        rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
+                    if (txtPhDirectISD.Text == string.Empty || txtPhDirectISD.Text == "")
+                        rmVo.OfficePhoneDirectIsd = 0;
+                    else
+                        rmVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
+                    if (txtPhDirectPhoneNumber.Text == string.Empty || txtPhDirectPhoneNumber.Text == "")
+                        rmVo.OfficePhoneDirectNumber = 0;
+                    else
+                        rmVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
+                    if (txtPhDirectSTD.Text == string.Empty || txtPhDirectSTD.Text == "")
+                        rmVo.OfficePhoneDirectStd = 0;
+                    else
+                        rmVo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.ToString());
+                    if (txtPhExtISD.Text == string.Empty || txtPhExtISD.Text == "")
+                        rmVo.OfficePhoneExtIsd = 0;
+                    else
+                        rmVo.OfficePhoneExtIsd = int.Parse(txtPhExtISD.Text.ToString());
+                    if (txtPhExtPhoneNumber.Text == string.Empty || txtPhExtPhoneNumber.Text == "")
+                        rmVo.OfficePhoneExtNumber = 0;
+                    else
+                        rmVo.OfficePhoneExtNumber = int.Parse(txtPhExtPhoneNumber.Text.ToString());
+                    if (txtExtSTD.Text == string.Empty || txtExtSTD.Text == "")
+                        rmVo.OfficePhoneExtStd = 0;
+                    else
+                        rmVo.OfficePhoneExtStd = int.Parse(txtExtSTD.Text.ToString());
+                    if (txtPhResiISD.Text == string.Empty || txtPhResiISD.Text == "")
+                        rmVo.ResPhoneIsd = 0;
+                    else
+                        rmVo.ResPhoneIsd = int.Parse(txtPhResiISD.Text.ToString());
+                    if (txtPhResiPhoneNumber.Text == string.Empty || txtPhResiPhoneNumber.Text == "")
+                        rmVo.ResPhoneNumber = 0;
+                    else
+                        rmVo.ResPhoneNumber = int.Parse(txtPhResiPhoneNumber.Text.ToString());
+                    if (txtResiSTD.Text == string.Empty || txtResiSTD.Text == "")
+                        rmVo.ResPhoneStd = 0;
+                    else
+                        rmVo.ResPhoneStd = int.Parse(txtResiSTD.Text.ToString());
+                    if (txtCTC.Text == string.Empty || txtCTC.Text == "")
+                        rmVo.CTC = 0;
+                    else
+                        rmVo.CTC = Convert.ToDouble(txtCTC.Text.Trim());
 
                     if (chkExternalStaff.Checked)
                     {
@@ -520,13 +568,13 @@ namespace WealthERP.Advisor
                     //string hdnExistingString = hdnExistingBranches.Value.ToString();
                     string hdnSelectedString = hdnSelectedBranches.Value.ToString();
                     //string[] existingBranchesList = hdnExistingString.Split(',');
-                    string[] selectedBranchesList=hdnSelectedString.Split(',');
-                    
+                    string[] selectedBranchesList = hdnSelectedString.Split(',');
+
                     advisorBranchBo.DeleteRMBranchAssociation1(rmIDRef);
 
 
 
-                    
+
                     foreach (string SelectedBranches in selectedBranchesList)
                     {
                         if (SelectedBranches != "")
@@ -557,7 +605,7 @@ namespace WealthERP.Advisor
                         {
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);
                         }
-                       
+
                     }
                     else
                     {
@@ -571,8 +619,8 @@ namespace WealthERP.Advisor
                         }
                     }
                 }
-                
-                
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -607,7 +655,7 @@ namespace WealthERP.Advisor
         {
 
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-          
+
         }
 
         private void DeleteRM()
@@ -664,13 +712,13 @@ namespace WealthERP.Advisor
 
         //protected void btnSaveBranchAssociation_Click(object sender, EventArgs e)
         //{
-          
+
         //    if (gvBranchList.Rows.Count != 0)
         //    {
 
         //        foreach (GridViewRow gvr in this.gvBranchList.Rows)
         //        {
-                    
+
         //              int  branchId = int.Parse(gvBranchList.DataKeys[gvr.RowIndex].Value.ToString());
         //                //if (((RadioButton)gvr.FindControl("rbtnMainBranch")).Checked == true)
         //                //{
@@ -698,7 +746,7 @@ namespace WealthERP.Advisor
 
 
         //            }
-                
+
         //    }
         //}
 
@@ -802,7 +850,7 @@ namespace WealthERP.Advisor
 
         protected void chkExternalStaff_CheckedChanged(object sender, EventArgs e)
         {
- 
+
         }
 
         //protected void gvBranchList_SelectedIndexChanged(object sender, EventArgs e)
@@ -812,10 +860,10 @@ namespace WealthERP.Advisor
 
         public void ListBoxIteration(int selectedBranch)
         {
-            
+
             Int16 m = 1;
-            advisorBranchBo.UpdateRMBranchAssociation(rmIDRef,selectedBranch, userVo.UserId, m);
-                        
+            advisorBranchBo.UpdateRMBranchAssociation(rmIDRef, selectedBranch, userVo.UserId, m);
+
         }
 
         protected void HiddenField1_ValueChanged(object sender, EventArgs e)
