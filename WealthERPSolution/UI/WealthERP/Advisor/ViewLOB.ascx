@@ -22,7 +22,15 @@
         </td>
     </tr>
 </table>
-
+<table id="ErrorMessage" align="center" runat="server">
+    <tr>
+        <td>
+            <div class="failure-msg" align="center">
+                No Records found.....
+            </div>
+        </td>
+    </tr>
+</table>
 <table class="TableBackground" style="width:100%">
     <%--<tr>
         <td class="HeaderCell">
