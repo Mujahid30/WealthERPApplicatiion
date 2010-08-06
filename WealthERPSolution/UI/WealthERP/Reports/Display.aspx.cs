@@ -23,7 +23,9 @@ using VoAdvisorProfiling;
 using System.IO;
 using BoCustomerPortfolio;
 using VoCustomerPortfolio;
-
+using BoCustomerGoalProfiling;
+using BoCustomerRiskProfiling;
+using VoEmailSMS;
 
 
 
@@ -40,6 +42,8 @@ namespace WealthERP.Reports
         public string isMail = "0";
         bool CustomerLogIn = false;
         string PDFViewPath = "";
+
+        RiskProfileBo riskprofilebo = new RiskProfileBo();
 
         MFReportVo mfReport = new MFReportVo();
         EquityReportVo equityReport = new EquityReportVo();
@@ -213,6 +217,9 @@ namespace WealthERP.Reports
             try
             {
                 FinancialPlanningReportsBo financialPlanningReportsBo = new FinancialPlanningReportsBo();
+                CustomerGoalSetupBo customerGoalsBo = new CustomerGoalSetupBo();
+                //customerVo = customerBo.GetCustomer(int.Parse(Request.Form["ctrl_MFReports$hdnCustomerId1"]));
+                //Session["customerVo"] = customerVo;
                 report = (FinancialPlanningVo)Session["reportParams"];
 
                 
@@ -232,7 +239,10 @@ namespace WealthERP.Reports
                             //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
 
+                            crmain.SetParameterValue("RTGoalDescription",customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
                             //AssignReportViewerProperties();
+                            crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
+                            crmain.SetParameterValue("RiskProfileDescription", riskprofilebo.GetRiskProfileText(dsEquitySectorwise.Tables[1].Rows[0]["RiskClass"].ToString()));
                         }
                         else
                          SetNoRecords();
@@ -1220,12 +1230,36 @@ namespace WealthERP.Reports
                 System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
                 //smtpClient.Send(email);
 
+                
                 isMailSent = emailer.SendMail(email);
+
+                EmailSMSBo emailSMSBo = new EmailSMSBo();
+                EmailVo emailVo = new EmailVo();
+                emailVo.AdviserId = advisorVo.advisorId;
+                emailVo.AttachmentPath = reportFileName;
+                if (Session["CusVo"] != null)
+                    emailVo.CustomerId = ((CustomerVo)Session["CusVo"]).CustomerId;
+                else
+                    emailVo.CustomerId = 0;
+                emailVo.EmailQueueId = 0;
+                emailVo.EmailType = "Report";
+                string[] FileNames = reportFileName.Split('\\');
+                emailVo.FileName = Files[Files.Count()-1];
+                emailVo.HasAttachment = 1;
+                emailVo.ReportCode = 0;
+                emailVo.SentDate = DateTime.Today;
+                emailVo.Status = 1;
+                emailSMSBo.AddToEmailLog(emailVo);
+
 
             }
             catch (Exception ex)
             {
-
+               
+            }
+            finally
+            {
+                email.Dispose();
             }
             return isMailSent;
         }
@@ -1266,6 +1300,7 @@ namespace WealthERP.Reports
             
             crmain.ExportToDisk(formatType, exportFileName);
             return exportFileName;
+            
             
         }
 

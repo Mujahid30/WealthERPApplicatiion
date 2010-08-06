@@ -110,7 +110,7 @@
 <body>
     <form id="form1" runat="server">
     <table width="100%" border="0">
-        <tr>
+         <tr>
             <td>
                 <table border="0" width="910px">
                     <tr>
@@ -118,8 +118,7 @@
                             &nbsp;  &nbsp;  &nbsp;  &nbsp; 
                         </td>--%>
                         <td align="center">
-                            <asp:Button ID="btnSendMail" runat="server" class='sendEmail ButtonField'  
-                                Text="Send Report by Email" OnClientClick="replaceSpecialChars()" />
+                            
                         </td>
                         <td align="right" valign="bottom">
                             <div style="display: none">
@@ -199,15 +198,21 @@
                 </table>
             </td>
         </tr>
-        <tr>
-            <td>
+         <tr>
+            <td width="100%" align="center">
+            <asp:Button ID="btnSendMail" runat="server" class='sendEmail ButtonField'  
+                                Text="Send Report by Email" OnClientClick="replaceSpecialChars()" />
+            </td>
+         </tr>
+         <tr>
+            <td width="100%" align="center">
                 <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true"
                     BorderColor="#789FC8" BorderStyle="Solid" BorderWidth="1" EnableDatabaseLogonPrompt="True"
                      DisplayGroupTree="False" EnableViewState="true" 
-                    OnNavigate="CrystalReportViewer1_Navigate" />
+                    OnNavigate="CrystalReportViewer1_Navigate" ToolbarStyle-Width="770px" Width="100%" />
             </td>
         </tr>
-        <tr>
+         <tr>
             <td align="center">
                 <asp:Label ID="lblNoRecords" runat="server" CssClass="HeaderTextSmall" Text="No records found."
                     Visible="false" EnableViewState="false"></asp:Label>
