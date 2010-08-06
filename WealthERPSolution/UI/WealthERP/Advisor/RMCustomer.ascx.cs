@@ -677,7 +677,10 @@ namespace WealthERP
             UserBo userBo = new UserBo();
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
             PortfolioBo portfolioBo = new PortfolioBo();
-
+            if (Session[SessionContents.PortfolioId] != null)
+            {
+                Session.Remove(SessionContents.PortfolioId); 
+            }
             try
             {
                 ddlAction = (DropDownList)sender;
