@@ -139,7 +139,7 @@
         <td class="leftField">
             <asp:GridView ID="gvRMBranch" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CssClass="GridViewStyle" DataKeyNames="BranchId" ShowFooter="True" 
-                OnRowDataBound="gvRMBranch_RowDataBound">
+                OnRowDataBound="gvRMBranch_RowDataBound" Enabled="false">
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle CssClass="PagerStyle " />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
