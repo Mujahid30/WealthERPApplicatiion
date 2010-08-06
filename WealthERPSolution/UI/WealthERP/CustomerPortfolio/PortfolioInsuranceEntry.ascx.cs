@@ -1326,6 +1326,7 @@ namespace WealthERP.CustomerPortfolio
                                         insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;
                                         insuranceBo.CreateInsuranceULIPPlan(insuranceUlipVo);
                                     }
+                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
                                 }
                                 catch (BaseApplicationException Ex)
                                 {
@@ -1351,6 +1352,7 @@ namespace WealthERP.CustomerPortfolio
                             {
                                 lblError.Text = "Check the Allocation";
                                 lblError.CssClass = "Error";
+                                trULIPError.Visible = true;
                             }
                         }
                         #endregion
@@ -1433,7 +1435,7 @@ namespace WealthERP.CustomerPortfolio
                         {
 
                         }
-                        Session.Remove("table");
+                        //Session.Remove("table");
                     }
                     else if (btnSubmit.Text == "Update")
                     {

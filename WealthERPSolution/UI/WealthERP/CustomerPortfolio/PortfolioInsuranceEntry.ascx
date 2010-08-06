@@ -9,12 +9,12 @@
     function CheckMaturityDate(sender, args) {
 
         var commencementDateString = document.getElementById('ctrl_PortfolioInsuranceEntry_txtPolicyCommencementDate').value;
-        var commDate = new Date(commencementDateString);
+        var commDate = changeDate(commencementDateString);
         var maturityDateString = document.getElementById('ctrl_PortfolioInsuranceEntry_txtPolicyMaturity').value;
-        var maturityDate = new Date(maturityDateString);
+        var maturityDate = changeDate(maturityDateString);
         var todayDate = new Date();
 
-        if (maturityDate < commDate) {
+        if (Date.parse(maturityDate) < Date.parse(commDate)) {
             sender._selectedDate = todayDate;
             sender._textbox.set_Value(sender._selectedDate.format(sender._format));
             alert("Warning! - Maturity date cannot be less than the commencement date");
@@ -59,18 +59,21 @@
             }
         }
 
-        var dtFirstPremiumDate = new Date(firstPremiumDate.value);
-        var dtLastPremiumDate = new Date(lastPremiumDate.value);
+        var dtFirstPremiumDate = changeDate(firstPremiumDate.value);
+        var dtLastPremiumDate = changeDate(lastPremiumDate.value);
         var todayDate = new Date();
 
-        if (dtFirstPremiumDate > dtLastPremiumDate) {
+        if (Date.parse(dtFirstPremiumDate) > Date.parse(dtLastPremiumDate)) {
             sender._selectedDate = todayDate;
             sender._textbox.set_Value(sender._selectedDate.format(sender._format));
             alert("Warning! - First Premium date cannot be greater than the last premium date");
-        }
-        
+        }        
     }
-    
+    function changeDate(date) {
+        var newDate = date.split('/');
+        date = newDate[1] + "/" + newDate[0] + "/" + newDate[2];
+        return date;
+    }
 </script>
 
 <%--<asp:UpdatePanel ID="up1" runat="server">
@@ -170,7 +173,7 @@
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cvInsuranceIssuerCode" runat="server" ControlToValidate="ddlInsuranceIssuerCode"
-                ErrorMessage="Please select an Insurance Issuer Code" Operator="NotEqual" ValueToCompare="Select an Insurance Issuer"
+                ErrorMessage="Please select an Insurance Issuer" Operator="NotEqual" ValueToCompare="Select an Insurance Issuer"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
@@ -956,7 +959,7 @@
             </asp:DropDownList>
             <span id="Span33" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlUlipPlans"
-                ErrorMessage="Please select a Premium Cycle" Operator="NotEqual" ValueToCompare="Select a ULIP Plan"
+                ErrorMessage="Please select Scheme Basket" Operator="NotEqual" ValueToCompare="Select a ULIP Plan"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
