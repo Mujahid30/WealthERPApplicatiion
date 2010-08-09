@@ -98,6 +98,8 @@ namespace WealthERP.SuperAdmin
                 }
                 else if (SuperAdminTreeView.SelectedNode.Value == "AddLoanScheme")
                 {
+                    Session.Remove("LoanSchemeId");
+                    Session.Remove("LoanSchemeViewStatus");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('LoanScheme', 'none')", true);
                 }    
                     
