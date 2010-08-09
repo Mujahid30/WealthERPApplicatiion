@@ -1739,7 +1739,7 @@ namespace WealthERP.Advisor
         protected void btnFixInc_Click(object sender, EventArgs e)
         {
 
-            string assetClass = "RE";
+            string assetClass = "FI";
             string category = "AGN";
             string segment = "";
             int advisorId = advisorVo.advisorId;
@@ -2843,8 +2843,22 @@ namespace WealthERP.Advisor
                
         private void PageRedirect()
         {
-            
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','?action=ViewLOB');", true);
+            if (Session["LOBGridAction"] != null)
+            {
+                if (Session["LOBGridAction"].ToString() == "LOBEdit")
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','?action=ViewLOB');", true);
+                }
+                else if (Session["LOBGridAction"].ToString() == "AdvisorLOBEdit")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','?action=ViewLOB');", true);
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','?action=ViewLOB');", true);
+            }
                 
         }
         
