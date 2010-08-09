@@ -24,11 +24,19 @@ namespace WealthERP.UserManagement
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
-            rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
-            Session["rmVo"] = rmVo;
-            branchId = advisorBranchBo.GetBranchId(rmVo.RMId);
             adviserVo = (AdvisorVo)Session["advisorVo"];
-            if (branchId != 0  || adviserVo.MultiBranch==0)
+            if (Session["rmVo"] == null)
+            {
+                rmVo = advisorStaffBo.GetAdvisorStaff(adviserVo.UserId);
+                Session["rmVo"] = rmVo;
+            }
+            else
+            {
+                rmVo = (RMVo)Session["rmVo"];
+            }
+            branchId = advisorBranchBo.GetBranchId(rmVo.RMId);
+            //adviserVo = (AdvisorVo)Session["advisorVo"];
+            if (branchId != 0 || adviserVo.MultiBranch == 0)
             {
                 lnkAdd.Visible = false;
                 lbl.Visible = false;
