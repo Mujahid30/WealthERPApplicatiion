@@ -158,6 +158,7 @@ namespace WealthERP.Loans
         {
             //string url = "?schemeId=" + schemeId + "&mode=View";
             string url = "?mode=Add";
+            Session["LoanSchemeViewStatus"] = "Add";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','" + url + "');", true);
         }
     }
