@@ -773,8 +773,8 @@ namespace WealthERP.SuperAdmin
         {
             try
             {
-                Session["userVo"] = userBo.GetUserDetails(userId);
-                userVo.UserId = userId;
+                //Session["userVo"] = userBo.GetUserDetails(userId);
+                //userVo.UserId = userId;
                 Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
                 Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                 advisorVo = (AdvisorVo)Session["advisorVo"];
