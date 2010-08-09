@@ -652,6 +652,7 @@ namespace WealthERP.Loans
                 bool isProofsUpdated = AddProofs();
             }
             string url = "?mode=view";
+            Session["LoanSchemeViewStatus"] = "View";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanSchemeView','" + url + "');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('LoanSchemeView','');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('SessionExpired','');", true);
@@ -708,6 +709,7 @@ namespace WealthERP.Loans
         protected void lnkViewAll_Click(object sender, EventArgs e)
         {
             string url = "?mode=view";
+            Session["LoanSchemeViewStatus"] = "View";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanSchemeView','" + url + "');", true);
         }
 
