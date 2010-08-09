@@ -204,9 +204,12 @@ namespace WealthERP.SuperAdmin
                         {
                             btnAddLOB.Visible = false;
                             btnSendLoginId.Visible = false;
-                            ddlStatus.Items[1].Enabled = false;
-                            calExeActivationDate.SelectedDate = DateTime.Now;
-                            calExeDeactivationDate.SelectedDate = DateTime.Now;
+                            ddlStatus.Items[1].Enabled = false;                            
+                            if (!IsPostBack)
+                            {
+                                calExeActivationDate.SelectedDate = DateTime.Now;
+                                calExeDeactivationDate.SelectedDate = DateTime.Now;
+                            }
                         }
                         if (advisorVo != null)
                         {
@@ -256,8 +259,7 @@ namespace WealthERP.SuperAdmin
                             }
                             else
                             {
-                                Ids=(List<int>)Session["IDs"];
-
+                                Ids=(List<int>)Session["IDs"];                                
                                 userVo.UserId = Ids[0];
                             }
                             DataPopulating();
@@ -311,11 +313,12 @@ namespace WealthERP.SuperAdmin
                         try
                         {
                             CreationSuccessMessage.Visible = true;
+                            Session["iffUserVo"] = userVo;
                             btnAddLOB.Visible = true;
                             btnSendLoginId.Visible = true;
                             lblMsg.Visible = true;
                             btnSubmit.Text = "Update";
-                            advisorVo = (AdvisorVo)Session["advisorVo"];
+                            advisorVo = (AdvisorVo)Session["advisorVo"]; DataRepopulating();
                         }
                         catch (Exception ex)
                         {
@@ -583,7 +586,9 @@ namespace WealthERP.SuperAdmin
             txtTelephoneNumber.Text = Session["IFFTelephoneNumber"].ToString();
             txtNameofIFF.Text = Session["IFFNameofIFF"].ToString();
             txtActivationDate.Text = Session["IFFActivationDate"].ToString();
+            calExeActivationDate.SelectedDate = DateTime.Parse(Session["IFFActivationDate"].ToString());
             txtDeactivationDate.Text = Session["IFFDeactivationDate"].ToString();
+            calExeDeactivationDate.SelectedDate = DateTime.Parse(Session["IFFDeactivationDate"].ToString());
             if (Session["IFFCategory"] != null)
             {
 
