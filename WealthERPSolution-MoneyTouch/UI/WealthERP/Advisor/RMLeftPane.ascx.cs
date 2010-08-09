@@ -72,7 +72,15 @@ namespace WealthERP.Advisor
             {
                 if (TreeView1.SelectedNode.Value.ToString() == "Switch Roles")
                 {
-                    roleList = userBo.GetUserRoles(userVo.UserId);
+                    if (userVo.UserType == "SuperAdmin")
+                    {
+                        rmVo = (RMVo)Session["rmVo"];
+                        roleList = userBo.GetUserRoles(advisorStaffBo.GetUserId(rmVo.RMId));
+                    }
+                    else
+                    {
+                        roleList = userBo.GetUserRoles(userVo.UserId);
+                    }
                     count = roleList.Count;
                     if (count == 3)
                     {
