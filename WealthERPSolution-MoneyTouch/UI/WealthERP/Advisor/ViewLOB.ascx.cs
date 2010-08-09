@@ -308,7 +308,7 @@ namespace WealthERP.Advisor
                 if (menu == "Edit")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditLOB','none');", true);
-                    Session["LOBGridAction"] = "LOBEdit";
+                    Session["LOBGridAction"] = "AdvisorLOBEdit";
                 }
                 else if (menu == "View")
                 {
