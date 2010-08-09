@@ -786,6 +786,7 @@ namespace WealthERP.Loans
             if (Session["LoanSchemeView"].ToString() == "SuperAdmin")
             {
                 string url = "?schemeId=" + schemeId + "&mode=Edit";
+                Session["LoanSchemeViewStatus"] = "Edit";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','" + url + "');", true);
             }           
         }
