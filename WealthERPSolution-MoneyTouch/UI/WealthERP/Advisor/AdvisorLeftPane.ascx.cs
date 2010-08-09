@@ -40,7 +40,7 @@ namespace WealthERP.Advisor
                     TreeView1.FindNode("Branch").ChildNodes.RemoveAt(0);
                 }
                 TreeView1.CollapseAll();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('IFAAdminMainDashboard');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
             }
 
             //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
