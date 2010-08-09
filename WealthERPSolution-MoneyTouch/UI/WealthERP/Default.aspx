@@ -88,29 +88,28 @@
                                         <div style="float: left; position: absolute; z-index: 2000px;">
                                             <img alt="Advisor Logo" id="AdvisorLogo" runat="server" />
                                         </div>
-                                        <div style="position: absolute; right: 15px; top: 15px; z-index: 2000px;">
+                                        <div style="position: absolute; right: 15px; top: 15px; z-index: 2000px;margin-left:50px;margin-top:30px;">
                                             <img id="BranchLogo" runat="server" />
                                         </div>
                                         <div align="right" style="float: right; position: relative; z-index: 2000px">
-                                            <img alt="TouchBase" id="CompanyLogo" runat="server" src="~/Images/Money_Touch_360_logo.png" style="height:60px"  />
+                                            <img alt="TouchBase" id="CompanyLogo" runat="server" src="~/Images/Money_Touch_360_logo1.png"
+                                                style="height: 60px" />
                                         </div>
                                     </div>
                                     <br />
                                     <br />
-                                                                        
                                     <div style="position: absolute; right: 10px; z-index: 2500px;">
                                         &nbsp;
                                         <asp:LinkButton ID="LinkButtonUserSettings" runat="server" Text="Settings" OnClientClick="javascript:loadcontrol('UserSettings','none'); return false;"
                                             CssClass="LinkButtons"></asp:LinkButton>&nbsp;
                                         <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign In" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
                                             CssClass="LinkButtons"></asp:LinkButton>
-                                        &nbsp;
+<%--                                        &nbsp;
                                         <asp:LinkButton ID="LinkButtonContactUs" runat="server" OnClientClick="javascript:loadcontrol('GeneralHome','none'); return false;"
                                             CssClass="LinkButtons">Contact Us</asp:LinkButton>
                                         &nbsp; <a href="Demo/Demo.html" class="LinkButtons" target="_blank">Demo</a> &nbsp;
-
-                                        <a id="lnkHelp" name="lnkHelp" href="help/Index.htm" class="LinkButtons" target="_blank" runat="server">
-                                            Help</a>
+                                        <a id="lnkHelp" name="lnkHelp" href="help/Index.htm" class="LinkButtons" target="_blank"
+                                            runat="server">Help</a>--%>
                                         <%--<asp:LinkButton ID="LinkButtonHelp" runat="server" CssClass="LinkButtons" PostBackUrl="Help.htm">Help</asp:LinkButton>--%>
                                         &nbsp;
                                         <asp:LinkButton ID="lblSignOut" runat="server" Text="" OnClientClick="javascript:logoutloadcontrol('UserLogout','~/Images/logo.jpg','~/Images/logo.jpg'); return false"
@@ -143,7 +142,7 @@
                                         <table width="100%">
                                             <tr>
                                                 <td>
-                                                   <%-- <asp:Menu ID="GeneralHeaderMenu" runat="server" Orientation="Horizontal" BorderStyle="Solid"
+                                                    <%-- <asp:Menu ID="GeneralHeaderMenu" runat="server" Orientation="Horizontal" BorderStyle="Solid"
                                                         BorderWidth="2px" CssClass="MenuEX">
                                                         <LevelMenuItemStyles>
                                                             <asp:MenuItemStyle CssClass="level1" />
@@ -250,13 +249,13 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('PortfolioDashboard','login');"
                                                                 Text="Portfolio" Value="Portfolio" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('UnderConstruction','none');"
-                                                                Text="Tools" Value="Tools" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('UnderConstruction','none');"
+                                                                Text="Tools" Value="Tools" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('RMAlertNotifications','none');"
                                                                 Text="Alerts" Value="Alerts" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports"></asp:MenuItem>
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('UnderConstruction','none');"
+                                                                Text="Reports" Value="Reports"></asp:MenuItem>--%>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -291,13 +290,13 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('PortfolioDashboard','login');"
                                                                 Text="Portfolio" Value="Portfolio" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
                                                                 Text="Tools" Value="Tools" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
                                                                 Text="Alerts" Value="Alerts" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports"></asp:MenuItem>
+                                                                Text="Reports" Value="Reports"></asp:MenuItem>--%>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -341,6 +340,39 @@
                                             </tr>
                                         </table>
                                     </div>
+                                    <div id="SuperAdminHeader" style="height: auto; width: 78%; float: left; display: none"
+                                        runat="server">
+                                        <table width="100%">
+                                            <tr>
+                                                <td>
+                                                    <asp:Menu ID="SuperAdminMenu" runat="server" Orientation="Horizontal" BorderStyle="Solid"
+                                                        BorderWidth="2px" CssClass="MenuEX">
+                                                        <%--OnMenuItemClick="RMMenu_MenuItemClick"--%>
+                                                        <LevelMenuItemStyles>
+                                                            <asp:MenuItemStyle CssClass="level1" />
+                                                            <asp:MenuItemStyle CssClass="level2" />
+                                                        </LevelMenuItemStyles>
+                                                        <StaticHoverStyle CssClass="hoverstyle" />
+                                                        <LevelSubMenuStyles>
+                                                            <asp:SubMenuStyle CssClass="sublevel1" />
+                                                        </LevelSubMenuStyles>
+                                                        <Items>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrol('IFF','none');" Text="IFF" Value="IFF"
+                                                                SeparatorImageUrl="~/Images/MenuSeparator.jpg">                                                                
+                                                            </asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrol('SuperAdminMessageBroadcast','login');"
+                                                                Text="MessageBroadcast" Value="MessageBroadcast" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
+                                                            </asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('LoanSchemeView', 'none');"
+                                                                Text="LoanScheme" Value="LoanScheme" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                        </Items>
+                                                    </asp:Menu>
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                     <div id="RMCLientHeaderIndividual" style="height: auto; width: 78%; float: left;
                                         display: none" runat="server">
                                         <table width="100%">
@@ -370,19 +402,19 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('PortfolioDashboard','login');"
                                                                 Text="Portfolio" Value="Portfolio" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
                                                                 Text="Planning" Value="Planning" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Tools" Value="Tools" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                                Text="Tools" Value="Tools" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMAlertDashBoard','login');"
                                                                 Text="Alerts" Value="Alerts" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
                                                                 Text="Research/Analytics" Value="ResearchAnalytics" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports"></asp:MenuItem>
+                                                                Text="Reports" Value="Reports"></asp:MenuItem>--%>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -420,7 +452,7 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('PortfolioDashboard','login');"
                                                                 Text="Portfolio" Value="Portfolio" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
                                                                 Text="Planning" Value="Planning" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
@@ -432,7 +464,7 @@
                                                                 Text="Research/Analytics" Value="ResearchAnalytics" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports"></asp:MenuItem>
+                                                                Text="Reports" Value="Reports"></asp:MenuItem>--%>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>

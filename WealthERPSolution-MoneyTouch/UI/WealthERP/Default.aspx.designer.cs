@@ -95,24 +95,6 @@ namespace WealthERP {
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonSignIn;
         
         /// <summary>
-        /// LinkButtonContactUs control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButtonContactUs;
-        
-        /// <summary>
-        /// lnkHelp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkHelp;
-        
-        /// <summary>
         /// lblSignOut control.
         /// </summary>
         /// <remarks>
@@ -210,6 +192,24 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu RMMenu;
+        
+        /// <summary>
+        /// SuperAdminHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SuperAdminHeader;
+        
+        /// <summary>
+        /// SuperAdminMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Menu SuperAdminMenu;
         
         /// <summary>
         /// RMCLientHeaderIndividual control.
