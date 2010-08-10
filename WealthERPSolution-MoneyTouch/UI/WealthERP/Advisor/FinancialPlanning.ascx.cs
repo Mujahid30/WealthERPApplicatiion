@@ -111,17 +111,20 @@ namespace WealthERP.Advisor
             //    Session.Remove("FP_UserName");
             //    Session.Remove("FP_UserID");                
             //}
-            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            if (Session[SessionContents.CurrentUserRole] != null)
             {
-                rmvo = (RMVo)Session[SessionContents.RmVo];
-                AdvisorRMId = rmvo.RMId;
-                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetCustomerName";
-            }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-            {
-                advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-                AdvisorRMId = advisorVo.advisorId;
-                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                {
+                    rmvo = (RMVo)Session[SessionContents.RmVo];
+                    AdvisorRMId = rmvo.RMId;
+                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetCustomerName";
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                {
+                    advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                    AdvisorRMId = advisorVo.advisorId;
+                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                }
             }
             
             rmvo=(RMVo)Session["rmVo"];
