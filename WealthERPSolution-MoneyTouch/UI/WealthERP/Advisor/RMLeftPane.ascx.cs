@@ -99,6 +99,13 @@ namespace WealthERP.Advisor
                         }
 
                     }
+                    if (count == 1)
+                    {
+                        if (roleList.Contains("RM"))
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
+                        }
+                    }
                     //   Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value.ToString() == "Dashboard")
