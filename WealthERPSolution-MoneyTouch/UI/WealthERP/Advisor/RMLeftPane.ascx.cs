@@ -34,9 +34,10 @@ namespace WealthERP.Advisor
                 {
                     TreeView1.CollapseAll();
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMLeftPane');", true);
-                }
+                }               
                 Session["dashBoard"] = "RM";
                 Session["FromAdvisorView"] = "FromRMView";
+                Session[SessionContents.CurrentUserRole] = "RM";
                 userVo = (UserVo)Session["userVo"];
                 UserName = userVo.FirstName + userVo.LastName;
                 sourcepath = Session[SessionContents.LogoPath].ToString();
