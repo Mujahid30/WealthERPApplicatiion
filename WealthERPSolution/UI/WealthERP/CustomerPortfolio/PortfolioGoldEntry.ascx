@@ -81,6 +81,11 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtPurchaseDate" runat="server" CssClass="txtField" Width="110px"></asp:TextBox>
+                    <span id="Span23" class="spnRequiredField">*</span>
+                      <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPurchaseDate"
+                        ErrorMessage="Please enter the Purchase Date" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG">
+                         </asp:RequiredFieldValidator>
                     <cc1:CalendarExtender ID="txtPurchaseDate_CalendarExtender" runat="server" Format="dd/MM/yyyy"
                         TargetControlID="txtPurchaseDate">
                     </cc1:CalendarExtender>
