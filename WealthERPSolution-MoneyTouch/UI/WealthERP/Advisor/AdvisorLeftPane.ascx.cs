@@ -9,11 +9,13 @@ using VoUser;
 using BoUser;
 using WealthERP.Base;
 using BoCommon;
+using WealthERP.Base;
 
 namespace WealthERP.Advisor
 {
     public partial class AdvisorLeftPane : System.Web.UI.UserControl
     {
+
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         AdvisorVo advisorVo;
@@ -30,7 +32,7 @@ namespace WealthERP.Advisor
             SessionBo.CheckSession();
             Session["BranchAdd"] = "forRM";
             userVo = (UserVo)Session["userVo"];
-            advisorVo = (AdvisorVo)Session["advisorVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];            
             if (Session[SessionContents.BranchLogoPath] != null)
                 sourcePath = Session[SessionContents.BranchLogoPath].ToString();
             if (!IsPostBack)
@@ -42,7 +44,7 @@ namespace WealthERP.Advisor
                 TreeView1.CollapseAll();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
             }
-
+            Session[SessionContents.CurrentUserRole] = "Advisor";
             //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
             //{
             //    SetNode();
