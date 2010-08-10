@@ -2845,7 +2845,7 @@ namespace WealthERP.Advisor
         {
             if (Session["LOBGridAction"] != null)
             {
-                if (Session["LOBGridAction"].ToString() == "LOBEdit")
+                if (Session["LOBGridAction"].ToString() == "LOBEdit" &&((UserVo)Session["userVo"]).UserType=="SuperAdmin")
                 {
 
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','?action=ViewLOB');", true);
@@ -2853,6 +2853,11 @@ namespace WealthERP.Advisor
                 else if (Session["LOBGridAction"].ToString() == "AdvisorLOBEdit")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','?action=ViewLOB');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','?action=ViewLOB');", true);
+
                 }
             }
             else
