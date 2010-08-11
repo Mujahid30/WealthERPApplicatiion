@@ -27,8 +27,7 @@ function loadcontrol(controlid, logintrue) {
     else {
         var c_src = "ControlHost.aspx?pageid=";
     }
-    var url = c_src + controlid;
-    
+    var url = c_src + controlid;    
 
 
     setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
@@ -344,9 +343,6 @@ function loadsearchcontrol(controlid, searchtype, searchstring) {
 
 
 function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogoSourcePath) {
-
-    
-
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
@@ -360,292 +356,572 @@ function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogo
     if (msie > 0)      // If Internet Explorer
     {
         if (parent.document.readyState == "complete") {
+            setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
             parent.document.getElementById("mainframe").src = url;
+        }
+        if (controlid == "IFF") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            loadlinks("SuperAdminLeftPane");
+        }
+        else if (controlid == "MFAdminDashboard") {
+            loadlinks("LOBMFAdminLeftPane");
+        }
+
+        else if (controlid == "AdvisorDashBoard") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "block";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                //parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("AdvisorLeftPane");
+
+        }
+        else if (controlid == "AdvisorBMDashBoard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "block";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                //parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("AdvisorBMLeftpane");
+        }
+        else if (controlid == "AdvisorRMDashBoard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+
+            loadlinks("AdvisorRMLeftpane");
+        }
+        else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+
+            loadlinks("AdvisorRMBMLeftpane");
+        }
+        else if (controlid == "RMDashBoard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "block";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                //  parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            if (BranchLogoSourcePath != "") {
+                // parent.document.getElementById("BranchLogo").src = BranchLogoSourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("RMLeftPane");
+        }
+        else if (controlid == "BMRMDashBoard") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "block";
+            if (SourcePath != "") {
+                //  parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            if (BranchLogoSourcePath != "") {
+                // parent.document.getElementById("BranchLogo").src = BranchLogoSourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("BMRMLeftpane");
+        }
+        else if (controlid == "CustomerIndividualDashboard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("CustomerIndividualLeftPane");
+        }
+        else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                //parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("CustomerIndividualLeftPane");
+        }
+        else if (controlid == "RMCustomerIndividualDashboard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("RMCustomerIndividualLeftPane");
+        }
+        //    else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
+        //        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //        parent.document.getElementById("AdvisorHeader").style.display = "none";        
+        //        parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+        //        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+        //        parent.document.getElementById("RMHeader").style.display = "none";
+        //        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+        //        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+        //        parent.document.getElementById("BMHeader").style.display = "none";
+        //        parent.document.getElementById("AdminHeader").style.display = "none";
+        //        if (SourcePath != "") {
+        //            // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+        //        }
+        //        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+        //        loadlinks("CustomerIndividualLeftPane");
+        //    }
+        else if (controlid == "CustomerNonIndividualDashboard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "block";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("CustomerNonIndividualLeftPane");
+
+        }
+        else if (controlid == "RMCustomerNonIndividualDashboard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "block";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                //parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("RMCustomerNonIndividualLeftPane");
+        }
+        else if (controlid == "GeneralHome" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "block";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            loadlinks("LeftPanel_Links");
+        }
+        else if (controlid == "BMDashBoard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "block";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            if (BranchLogoSourcePath != "") {
+                // parent.document.getElementById("BranchLogo").src = BranchLogoSourcePath;    
+            }
+
+            loadlinks("BMLeftpane");
+        }
+        else if (controlid == "AdminUpload") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "block";
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            loadlinks("LeftPanel_Links");
+
         }
     }
     else                // If another browser
     {
         setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
+        if (controlid == "IFF") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            loadlinks("SuperAdminLeftPane");
+        }
+        else if (controlid == "MFAdminDashboard") {
+            loadlinks("LOBMFAdminLeftPane");
+        }
+
+        else if (controlid == "AdvisorDashBoard") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "block";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                //parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("AdvisorLeftPane");
+
+        }
+        else if (controlid == "AdvisorBMDashBoard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "block";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                //parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("AdvisorBMLeftpane");
+        }
+        else if (controlid == "AdvisorRMDashBoard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+
+            loadlinks("AdvisorRMLeftpane");
+        }
+        else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+
+            loadlinks("AdvisorRMBMLeftpane");
+        }
+        else if (controlid == "RMDashBoard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "block";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                //  parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            if (BranchLogoSourcePath != "") {
+                // parent.document.getElementById("BranchLogo").src = BranchLogoSourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("RMLeftPane");
+        }
+        else if (controlid == "BMRMDashBoard") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "block";
+            if (SourcePath != "") {
+                //  parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            if (BranchLogoSourcePath != "") {
+                // parent.document.getElementById("BranchLogo").src = BranchLogoSourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("BMRMLeftpane");
+        }
+        else if (controlid == "CustomerIndividualDashboard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("CustomerIndividualLeftPane");
+        }
+        else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                //parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("CustomerIndividualLeftPane");
+        }
+        else if (controlid == "RMCustomerIndividualDashboard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("RMCustomerIndividualLeftPane");
+        }
+        //    else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
+        //        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //        parent.document.getElementById("AdvisorHeader").style.display = "none";        
+        //        parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+        //        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+        //        parent.document.getElementById("RMHeader").style.display = "none";
+        //        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+        //        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+        //        parent.document.getElementById("BMHeader").style.display = "none";
+        //        parent.document.getElementById("AdminHeader").style.display = "none";
+        //        if (SourcePath != "") {
+        //            // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+        //        }
+        //        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+        //        loadlinks("CustomerIndividualLeftPane");
+        //    }
+        else if (controlid == "CustomerNonIndividualDashboard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "block";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("CustomerNonIndividualLeftPane");
+
+        }
+        else if (controlid == "RMCustomerNonIndividualDashboard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "block";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            if (SourcePath != "") {
+                //parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+            loadlinks("RMCustomerNonIndividualLeftPane");
+        }
+        else if (controlid == "GeneralHome" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "block";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            loadlinks("LeftPanel_Links");
+        }
+        else if (controlid == "BMDashBoard" && logintrue == "login") {
+            parent.document.getElementById("GeneralMenu").style.display = "block";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "none";
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            if (BranchLogoSourcePath != "") {
+                // parent.document.getElementById("BranchLogo").src = BranchLogoSourcePath;    
+            }
+
+            loadlinks("BMLeftpane");
+        }
+        else if (controlid == "AdminUpload") {
+            parent.document.getElementById("GeneralMenu").style.display = "none";
+            parent.document.getElementById("AdvisorHeader").style.display = "none";
+            parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+            parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+            parent.document.getElementById("RMHeader").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+            parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+            parent.document.getElementById("BMHeader").style.display = "none";
+            parent.document.getElementById("AdminHeader").style.display = "block";
+            parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+            if (SourcePath != "") {
+                // parent.document.getElementById("AdvisorLogo").src = SourcePath;
+            }
+            loadlinks("LeftPanel_Links");
+
+        }
         //parent.document.getElementById("mainframe").src = url;
     }
-    if (controlid == "IFF") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        loadlinks("SuperAdminLeftPane");
-    }
-    else if (controlid == "MFAdminDashboard") {
-        loadlinks("LOBMFAdminLeftPane");
-    }
-
-    if (controlid == "AdvisorDashBoard") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "block";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        if (SourcePath != "") {
-            //parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-
-        loadlinks("AdvisorLeftPane");
-
-    }
-    else if (controlid == "AdvisorBMDashBoard" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "block";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        if (SourcePath != "") {
-            //parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-
-        loadlinks("AdvisorBMLeftpane");
-    }
-    else if (controlid == "AdvisorRMDashBoard" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        if (SourcePath != "") {
-            // parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-
-        loadlinks("AdvisorRMLeftpane");
-    }
-    else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        if (SourcePath != "") {
-            // parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-
-        loadlinks("AdvisorRMBMLeftpane");
-    }
-    else if (controlid == "RMDashBoard" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "block";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        if (SourcePath != "") {
-            //  parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-        if (BranchLogoSourcePath != "") {
-            // parent.document.getElementById("BranchLogo").src = BranchLogoSourcePath;
-        }
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-
-        loadlinks("RMLeftPane");
-    }
-    else if (controlid == "BMRMDashBoard") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "block";
-        if (SourcePath != "") {
-            //  parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-        if (BranchLogoSourcePath != "") {
-            // parent.document.getElementById("BranchLogo").src = BranchLogoSourcePath;
-        }
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-
-        loadlinks("BMRMLeftpane");
-    }
-    else if (controlid == "CustomerIndividualDashboard" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        if (SourcePath != "") {
-            // parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-
-        loadlinks("CustomerIndividualLeftPane");
-    }
-    else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";        
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        if (SourcePath != "") {
-            //parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-
-        loadlinks("CustomerIndividualLeftPane");
-    }
-    else if (controlid == "RMCustomerIndividualDashboard" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        if (SourcePath != "") {
-            // parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-
-        loadlinks("RMCustomerIndividualLeftPane");
-    }
-//    else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
-//        parent.document.getElementById("GeneralMenu").style.display = "none";
-//        parent.document.getElementById("AdvisorHeader").style.display = "none";        
-//        parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
-//        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-//        parent.document.getElementById("RMHeader").style.display = "none";
-//        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-//        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-//        parent.document.getElementById("BMHeader").style.display = "none";
-//        parent.document.getElementById("AdminHeader").style.display = "none";
-//        if (SourcePath != "") {
-//            // parent.document.getElementById("AdvisorLogo").src = SourcePath;
-//        }
-//        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-
-//        loadlinks("CustomerIndividualLeftPane");
-//    }
-    else if (controlid == "CustomerNonIndividualDashboard" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "block";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        if (SourcePath != "") {
-            // parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-
-        loadlinks("CustomerNonIndividualLeftPane");
-
-    }
-    else if (controlid == "RMCustomerNonIndividualDashboard" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "block";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        if (SourcePath != "") {
-            //parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-
-        loadlinks("RMCustomerNonIndividualLeftPane");
-    }
-    else if (controlid == "GeneralHome" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "block";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        loadlinks("LeftPanel_Links");
-    }
-    else if (controlid == "BMDashBoard" && logintrue == "login") {
-        parent.document.getElementById("GeneralMenu").style.display = "block";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        if (SourcePath != "") {
-            // parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-        if (BranchLogoSourcePath != "") {
-            // parent.document.getElementById("BranchLogo").src = BranchLogoSourcePath;    
-        }
-
-        loadlinks("BMLeftpane");
-    }
-    else if (controlid == "AdminUpload") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "block";
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        if (SourcePath != "") {
-            // parent.document.getElementById("AdvisorLogo").src = SourcePath;
-        }
-        loadlinks("LeftPanel_Links");
-
-    }
+    
     setHeaderLinksFromControl(UserName, "Sign Out", "", "false");
 }
 
@@ -664,9 +940,10 @@ function loadlinks(controlid) {
 
     if (msie > 0)      // If Internet Explorer
     {
-        if (parent.document.readyState == "complete") {
-            parent.document.getElementById("leftframe").src = url;
-        }
+//        if (parent.document.readyState == "complete") {
+//            parent.document.getElementById("leftframe").src = url;
+        //        }
+        setTimeout('parent.document.getElementById("leftframe").src="' + url + '"', 25);
     }
     else                // If another browser
     {
@@ -699,7 +976,7 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
     {
         if (document.readyState == "complete") {
 
-            //document.getElementById("mainframe").src = url;
+            document.getElementById("mainframe").src = url;
 
             if (controlid == "IFAAdminMainDashboard" && logintrue == "login") {
 
@@ -859,7 +1136,7 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
                 document.getElementById("BMHeader").style.display = "none";
                 document.getElementById("AdminHeader").style.display = "none";
                 document.getElementById("SwitchRolesHeader").style.display = "none";
-                alert('Hello');
+
 
                 loadlinksfromDefault("CustomerIndividualLeftPane");
             }
@@ -946,12 +1223,12 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
 
             }
             else if (controlid == "FinancialPlanning" && logintrue == "login") {
-            
-            loadlinks("FinancialPlanningLeftPane");
-            
-                document.getElementById("mainframe").src = url;                
+
+                loadlinks("FinancialPlanningLeftPane");
+
+                document.getElementById("mainframe").src = url;
             }
-            
+
         }
     }
     else                // If another browser
@@ -1383,13 +1660,13 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
     if (IsParent == "false") {
         if (signInText != "") {
 
-            parent.document.getElementById("lnkHelp").style.display = 'none';
+            //parent.document.getElementById("lnkHelp").style.display = 'none';
             parent.document.getElementById("LinkButtonUserSettings").style.display = 'none';
 
         }
         else {
 
-            parent.document.getElementById("lnkHelp").style.display = 'inline';
+            //parent.document.getElementById("lnkHelp").style.display = 'inline';
             parent.document.getElementById("LinkButtonUserSettings").style.display = 'inline';
         }
         if (msie > 0)      // If Internet Explorer
@@ -1409,11 +1686,11 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
     else if (IsParent == "true") {
         if (signInText != "") {
 
-            document.getElementById("lnkHelp").style.display = 'none';
+           // document.getElementById("lnkHelp").style.display = 'none';
             document.getElementById("LinkButtonUserSettings").style.display = 'none';
         }
         else {
-            document.getElementById("lnkHelp").style.visible = 'inline';
+            //document.getElementById("lnkHelp").style.visible = 'inline';
             document.getElementById("LinkButtonUserSettings").style.visible = 'inline';
         }
         if (msie > 0)      // If Internet Explorer
@@ -1531,4 +1808,189 @@ function loadcontrolCustomer(controlid, logintrue) {
         loadlinks("UserSettingsLeftPane");
     }
     
+}
+
+function loadtopmenu(menutype) {   
+    if (menutype == "AdvisorLeftPane") {
+        parent.document.getElementById("GeneralMenu").style.display = "none";
+        parent.document.getElementById("AdvisorHeader").style.display = "block";
+        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+        parent.document.getElementById("RMHeader").style.display = "none";
+        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+        parent.document.getElementById("BMHeader").style.display = "none";
+        parent.document.getElementById("AdminHeader").style.display = "none";
+        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+    }
+    else if (menutype == "AdvisorBMLeftpane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "AdvisorRMBMLeftpane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "AdvisorRMLeftpane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "AlertsLeftPane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "BMLeftpane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "block";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "BMRMLeftpane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "CustomerIndividualLeftPane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "CustomerNonIndividualLeftPane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "block";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "RMCustomerIndividualLeftPane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "block";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "RMCustomerNonIndividualLeftPane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "block";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "RMLeftPane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "block";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "none";
+
+}
+else if (menutype == "SuperAdminLeftPane") {
+    parent.document.getElementById("GeneralMenu").style.display = "none";
+    parent.document.getElementById("AdvisorHeader").style.display = "none";
+    parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    parent.document.getElementById("RMHeader").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    parent.document.getElementById("BMHeader").style.display = "none";
+    parent.document.getElementById("AdminHeader").style.display = "none";
+    parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    parent.document.getElementById("SuperAdminHeader").style.display = "block";
+
+}
 }
