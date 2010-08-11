@@ -9,7 +9,6 @@ using VoUser;
 using BoUser;
 using WealthERP.Base;
 using BoCommon;
-using WealthERP.Base;
 
 namespace WealthERP.Advisor
 {
@@ -44,7 +43,7 @@ namespace WealthERP.Advisor
                 TreeView1.CollapseAll();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
             }
-            Session[SessionContents.CurrentUserRole] = "Advisor";
+            Session[SessionContents.CurrentUserRole] = "Admin";
             //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
             //{
             //    SetNode();
