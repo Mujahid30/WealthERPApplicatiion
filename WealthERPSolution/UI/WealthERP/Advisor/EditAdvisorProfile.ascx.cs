@@ -82,6 +82,8 @@ namespace WealthERP.Advisor
                         txtAddressLine2.Text = advisorVo.AddressLine2.ToString();
                     if (advisorVo.AddressLine3 != null)
                         txtAddressLine3.Text = advisorVo.AddressLine3.ToString();
+                    if (advisorVo.Website != null)
+                        txtwebsite.Text = advisorVo.Website.ToString();
                     txtEmail.Text = advisorVo.Email.ToString();
 
                     if (advisorVo.Fax != 0)
@@ -400,6 +402,7 @@ namespace WealthERP.Advisor
 
                     newRmVo.Email = txtEmail.Text.ToString();
 
+                    advisorVo.Website = txtwebsite.Text.ToString();
                     if (txtFax.Text == "")
                     {
                         advisorVo.Fax = 0;

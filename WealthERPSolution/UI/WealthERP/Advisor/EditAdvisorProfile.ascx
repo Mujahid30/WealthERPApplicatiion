@@ -287,6 +287,14 @@
     </tr>
     <tr>
         <td class="leftField">
+            <asp:Label ID="Label23" runat="server" CssClass="FieldName" Text="Website :"></asp:Label>
+        </td>
+        <td class="rightField" colspan="3">
+            <asp:TextBox ID="txtwebsite" runat="server" CssClass="txtField"></asp:TextBox>  
+            </td>
+    </tr>
+    <tr>
+        <td class="leftField">
             <asp:Label ID="Label18" runat="server" CssClass="FieldName" Text="Business Type :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
