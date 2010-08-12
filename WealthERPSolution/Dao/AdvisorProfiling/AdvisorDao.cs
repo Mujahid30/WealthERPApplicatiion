@@ -1300,6 +1300,8 @@ namespace DaoAdvisorProfiling
                     advisorVo.Email = dr["A_Email"].ToString();
                     if (dr["A_Fax"] != DBNull.Value)
                         advisorVo.Fax = int.Parse(dr["A_Fax"].ToString());
+                    if (dr["A_Website"] != DBNull.Value)
+                        advisorVo.Website = dr["A_Website"].ToString();
                     if (dr["A_FaxISD"] != DBNull.Value)
                         advisorVo.FaxIsd = int.Parse(dr["A_FaxISD"].ToString());
                     if (dr["A_FaxSTD"] != DBNull.Value)
@@ -1394,6 +1396,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorUserCmd, "@A_FAX", DbType.Int32, advisorVo.Fax);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_ContactPersonMobile", DbType.String, advisorVo.MobileNumber);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_Email", DbType.String, advisorVo.Email);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_Website", DbType.String, advisorVo.Website);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_ContactPersonFirstName", DbType.String, advisorVo.ContactPersonFirstName);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_ContactPersonMiddleName", DbType.String, advisorVo.ContactPersonMiddleName);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_ContactPersonLastName", DbType.String, advisorVo.ContactPersonLastName);
