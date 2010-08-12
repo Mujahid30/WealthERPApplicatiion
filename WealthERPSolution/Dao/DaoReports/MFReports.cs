@@ -188,7 +188,39 @@ namespace DaoReports
                 throw (ex);
             }
         }
+        /// <summary>
+        /// Get Customer Portfolio Analytics Report Data
+        /// </summary>
+        /// <param name="reports"></param>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetPortfolioAnalyticsReport(MFReportVo reports, int adviserId)
+        {
 
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdCustomerMFReturns;
+            DataSet dsCustomerMFReturns;
+
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCustomerMFReturns = db.GetStoredProcCommand("SP_RPT_GetCustomerPortfolioAnalytics");
+                db.AddInParameter(cmdCustomerMFReturns, "@PortfolioIds", DbType.String, reports.PortfolioIds); //35437
+                db.AddInParameter(cmdCustomerMFReturns, "@FromDate", DbType.DateTime, reports.FromDate);
+                //db.AddInParameter(cmdCustomerMFReturns, "@AdviserId", DbType.Int32, adviserId);
+
+
+                dsCustomerMFReturns = db.ExecuteDataSet(cmdCustomerMFReturns);
+                //ds = dsCustomerMFReturns;
+                return dsCustomerMFReturns;
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
 
         /// <summary>
         /// Created Dtaa Table For "Portfolio Returns Realized" Report --Author:Pramod
