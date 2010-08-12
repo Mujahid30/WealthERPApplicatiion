@@ -34,7 +34,7 @@ namespace WealthERP.Advisor
                 {
                     TreeView1.CollapseAll();
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMLeftPane');", true);
-                }               
+                }
                 Session["dashBoard"] = "RM";
                 Session["FromAdvisorView"] = "FromRMView";
                 Session[SessionContents.CurrentUserRole] = "RM";
@@ -43,6 +43,28 @@ namespace WealthERP.Advisor
                 sourcepath = Session[SessionContents.LogoPath].ToString();
                 if (Session[SessionContents.BranchLogoPath] != null)
                     branchLogoSourcePath = Session[SessionContents.BranchLogoPath].ToString();
+
+                if (userVo.UserType == "SuperAdmin")
+                {
+                    rmVo = (RMVo)Session["rmVo"];
+                    roleList = userBo.GetUserRoles(advisorStaffBo.GetUserId(rmVo.RMId));
+                }
+                else
+                {
+                    roleList = userBo.GetUserRoles(userVo.UserId);
+                }
+                count = roleList.Count;
+
+                if (count == 1)
+                {
+                    
+                    TreeNode tn = (TreeNode)TreeView1.FindNode("Switch Roles");
+                    if (TreeView1.Nodes.Contains(tn) == true)
+                    {
+                        TreeView1.Nodes.Remove(tn);
+                    }
+                }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -71,18 +93,9 @@ namespace WealthERP.Advisor
             string strNodeValue = null;
             try
             {
+                
                 if (TreeView1.SelectedNode.Value.ToString() == "Switch Roles")
-                {
-                    if (userVo.UserType == "SuperAdmin")
-                    {
-                        rmVo = (RMVo)Session["rmVo"];
-                        roleList = userBo.GetUserRoles(advisorStaffBo.GetUserId(rmVo.RMId));
-                    }
-                    else
-                    {
-                        roleList = userBo.GetUserRoles(userVo.UserId);
-                    }
-                    count = roleList.Count;
+                {                    
                     if (count == 3)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
@@ -100,13 +113,13 @@ namespace WealthERP.Advisor
                         }
 
                     }
-                    if (count == 1)
-                    {
-                        if (roleList.Contains("RM"))
-                        {
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
-                        }
-                    }
+                    //if (count == 1)
+                    //{
+                    //    if (roleList.Contains("RM"))
+                    //    {
+                    //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
+                    //    }
+                    //}
                     //   Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value.ToString() == "Dashboard")
