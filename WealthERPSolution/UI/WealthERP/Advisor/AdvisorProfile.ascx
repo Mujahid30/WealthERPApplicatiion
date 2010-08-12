@@ -189,7 +189,7 @@
         <asp:Label ID="lblwebsite" runat="server" CssClass="FieldName" Text="Website :"></asp:Label>
         </td>
         <td class="rightField">
-        <asp:Label ID="lblwsite" runat="server" Text="" CssClass="Field"></asp:Label>
+        <asp:HyperLink ID="lblwsite" runat="server" CssClass="LinkButtons" Target="_blank"></asp:HyperLink>
         </td>
         <td class="style7">
         </td>

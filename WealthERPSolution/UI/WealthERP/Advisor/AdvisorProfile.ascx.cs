@@ -54,8 +54,10 @@ namespace WealthERP.Advisor
                 //}
                 //else
                 if (advisorVo.Website != null)
+                {
                     lblwsite.Text = advisorVo.Website.ToString();
-
+                    lblwsite.NavigateUrl = "http://" + advisorVo.Website.ToString();
+                }
                 lblMobile.Text = advisorVo.MobileNumber.ToString();
 
                 lblOrgName.Text = advisorVo.OrganizationName.ToString();
