@@ -414,7 +414,7 @@ namespace WealthERP.Advisor
 
                                 if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
                                 {
-                                    email.From = new MailAddress(emailer.smtpUserName, "WealthERP");
+                                    email.From = new MailAddress(emailer.smtpUserName, "MoneyTouch");
                                 }
                             }
                             bool isMailSent = emailer.SendMail(email);
