@@ -3,7 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 
@@ -138,8 +138,10 @@ function validate() {
                     .style.backgroundPosition = 'right';
     };
     function HideImage() {
-        document.getElementById('txtPickCustomer')
+        if (document.getElementById('txtPickCustomer').value != null) {
+            document.getElementById('txtPickCustomer')
                       .style.backgroundImage = 'none';
+        }
     };
 
     function DeleteConfirmation()
@@ -280,8 +282,7 @@ function validate() {
                     TargetControlID="txtPickCustomer" UseContextKey="True" 
                     DelimiterCharacters=""
                     CompletionSetCount="5"
-                    
-                   
+                    ServiceMethod="GetCustomerName"                   
                     Enabled="True">
                 </ajaxToolkit:AutoCompleteExtender>
             <span id="SpanPicCustomerReq" class="spnRequiredField" runat="server">*</span>
