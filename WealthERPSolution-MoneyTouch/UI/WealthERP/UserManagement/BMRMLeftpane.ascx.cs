@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BoCommon;
+using WealthERP.Base;
 
 namespace WealthERP.UserManagement
 {
@@ -67,6 +68,7 @@ namespace WealthERP.UserManagement
                 Session.Remove("advisorVo");
                 Session.Remove("rmVo");
                 Session["refreshTheme"] = true;
+                Session.Remove(SessionContents.LogoPath);                
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
             }
         }
