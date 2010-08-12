@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BoCommon;
+using WealthERP.Base;
 
 namespace WealthERP.UserManagement
 {
@@ -71,6 +72,7 @@ namespace WealthERP.UserManagement
                 Session.Remove("advisorVo");
                 Session.Remove("rmVo");
                 Session.Remove("customerVo");
+                Session.Remove(SessionContents.LogoPath);      
                 Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
                 //Session["SuperAdmin_Status_Check"] = "0";
