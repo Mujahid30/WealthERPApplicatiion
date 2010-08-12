@@ -38,9 +38,16 @@ namespace WealthERP.Customer
         protected void Page_Load(object sender, EventArgs e)
         {
             rmvo =(RMVo) Session["rmvo"];
-            
-            
-            customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
+            PortfolioBo portfoliobo=new PortfolioBo();
+            if (Session["customerPortfolioVo"] != null)
+            {
+                customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
+            }
+            else
+            {
+                customerportfoliovo = portfoliobo.GetCustomerDefaultPortfolio(((CustomerVo)Session["CustomerVo"]).CustomerId);
+                Session["customerPortfolioVo"] = customerportfoliovo;
+            }
             
                 if (Session["DematDetailsView"].ToString() == "View")
                 {
