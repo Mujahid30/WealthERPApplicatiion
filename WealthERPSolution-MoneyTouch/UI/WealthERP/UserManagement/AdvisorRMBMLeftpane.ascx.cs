@@ -8,6 +8,7 @@ using VoUser;
 using BoAdvisorProfiling;
 using VoAdvisorProfiling;
 using BoCommon;
+using WealthERP.Base;
 
 
 namespace WealthERP.UserManagement
@@ -102,6 +103,7 @@ namespace WealthERP.UserManagement
                 Session.Remove("rmVo");
                 Session.Remove("customerVo");
                 Session["refreshTheme"] = true;
+                Session.Remove(SessionContents.LogoPath);      
                 //Session["SuperAdmin_Status_Check"] = "0";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
             }
