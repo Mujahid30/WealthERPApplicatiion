@@ -213,7 +213,93 @@ namespace BoReports
             MFReportsDao mfReports = new MFReportsDao();
             return mfReports.GetReturnSummaryReport(reports, adviserId);
         }
+        /// <summary>
+        /// Get Customer Portfolio Analytics Report Data
+        /// </summary>
+        /// <param name="reports"></param>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetPortfolioAnalyticsReport(MFReportVo reports, int adviserId)
+        {
 
+            MFReportsDao mfReports = new MFReportsDao();
+            DataSet dsCustomerMFReturns;
+            double totalValue = 0;
+            double holdingstotal = 0;
+            double otherholdingsTotal = 0;
+            double sectorTotal = 0;
+            double otherSectorTotal = 0;
+            try
+            {
+                dsCustomerMFReturns = mfReports.GetPortfolioAnalyticsReport(reports, adviserId);
+                if (dsCustomerMFReturns != null)
+                {
+                    if (dsCustomerMFReturns.Tables[4].Rows.Count != 0)
+                    {
+                       DataRow drTotal=dsCustomerMFReturns.Tables[4].Rows[0];
+                       totalValue = double.Parse(drTotal["Amount"].ToString());
+                    }
+                    foreach (DataRow drHoldings in dsCustomerMFReturns.Tables[2].Rows)
+                    {
+                        holdingstotal = holdingstotal + double.Parse(drHoldings["Amount"].ToString());
+                    }
+                    foreach (DataRow drSector in dsCustomerMFReturns.Tables[5].Rows)
+                    {
+                        sectorTotal = sectorTotal + double.Parse(drSector["Amount"].ToString());
+                    }
+                    otherSectorTotal = totalValue - sectorTotal;
+                    otherholdingsTotal = totalValue - double.Parse(dsCustomerMFReturns.Tables[3].Rows[0]["Amount"].ToString()) - holdingstotal;
+                    if (dsCustomerMFReturns.Tables[2].Rows.Count != 0)
+                    {
+                        DataRow dr = dsCustomerMFReturns.Tables[2].NewRow();
+                        dr["Instrument"] = "Other Holdings";
+                        dr["InsType"] = "Other";
+                        dr["Amount"] = otherholdingsTotal.ToString();
+                        dsCustomerMFReturns.Tables[2].Rows.Add(dr);
+                        dr = dsCustomerMFReturns.Tables[2].NewRow();
+                        dr["Instrument"] = dsCustomerMFReturns.Tables[3].Rows[0]["Instrument"].ToString();
+                        dr["InsType"] = dsCustomerMFReturns.Tables[3].Rows[0]["InsType"].ToString();
+                        dr["Amount"] = dsCustomerMFReturns.Tables[3].Rows[0]["Amount"].ToString();
+                        dsCustomerMFReturns.Tables[2].Rows.Add(dr);
+                       // dr = dsCustomerMFReturns.Tables[2].NewRow();
+                        //dr["Instrument"] = dsCustomerMFReturns.Tables[4].Rows[0]["Instrument"].ToString();
+                        //dr["InsType"] = "";
+                        //dr["Amount"] = dsCustomerMFReturns.Tables[4].Rows[0]["Amount"].ToString();
+                        //dsCustomerMFReturns.Tables[2].Rows.Add(dr);
+                    }
+                    dsCustomerMFReturns.Tables[2].Columns.Add("Percentage");
+                    if(totalValue!=0)
+                    {
+                        for (int i = 0; i < dsCustomerMFReturns.Tables[2].Rows.Count; i++)
+                        {
+                            dsCustomerMFReturns.Tables[2].Rows[i]["Percentage"] = double.Parse((((double.Parse(dsCustomerMFReturns.Tables[2].Rows[i]["Amount"].ToString())) / totalValue) * 100).ToString());
+                        }
+                    }
+                    if (dsCustomerMFReturns.Tables[5].Rows.Count != 0)
+                    {
+                        DataRow drSectorHoldings = dsCustomerMFReturns.Tables[5].NewRow();
+                        drSectorHoldings["SectorCode"] = "0";
+                        drSectorHoldings["Sector"] = "Others";
+                        drSectorHoldings["Amount"] = otherSectorTotal.ToString();
+                        dsCustomerMFReturns.Tables[5].Rows.Add(drSectorHoldings);
+                    }
+                    dsCustomerMFReturns.Tables[5].Columns.Add("Percentage");
+                    if (totalValue != 0)
+                    {
+                        for (int i = 0; i < dsCustomerMFReturns.Tables[5].Rows.Count; i++)
+                        {
+                            dsCustomerMFReturns.Tables[5].Rows[i]["Percentage"] = double.Parse((((double.Parse(dsCustomerMFReturns.Tables[5].Rows[i]["Amount"].ToString())) / totalValue) * 100).ToString());
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return dsCustomerMFReturns;
+        }
         /// <summary>
         /// Returns DataTable For "Portfolio Returns Realized" Report --Author:Pramod
         /// </summary>
