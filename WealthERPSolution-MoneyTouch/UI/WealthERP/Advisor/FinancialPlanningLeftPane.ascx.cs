@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WealthERP.Base;
 
 namespace WealthERP.Advisor
 {
@@ -15,11 +16,25 @@ namespace WealthERP.Advisor
             {
                 Session.Remove("FP_UserName");
                 Session.Remove("FP_UserID");
+                if (Session[SessionContents.CurrentUserRole] != null)
+                {
+                    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMLeftPane');", true);
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+                    }
+                }
             }
             //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
             //{
             //    SetNode();
             //}
+           
+           
+        
 
         }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
