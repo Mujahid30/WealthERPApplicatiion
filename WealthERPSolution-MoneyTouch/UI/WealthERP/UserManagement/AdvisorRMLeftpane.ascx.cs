@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BoCommon;
+using WealthERP.Base;
+
 
 namespace WealthERP.UserManagement
 {
@@ -56,6 +58,7 @@ namespace WealthERP.UserManagement
                 {
                     //Session.Remove("customerVo");
                     //Session.Remove("rmVo");
+                    
                     Session["refreshTheme"] = true;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFAAdminMainDashboard','login');", true);
                     //Session["SuperAdmin_Status_Check"] = "2";
@@ -64,6 +67,7 @@ namespace WealthERP.UserManagement
                 else if (TreeView1.SelectedNode.Value == "RM")
                 {
                     //Session.Remove("customerVo");
+                    
                     Session["refreshTheme"] = true;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
                     //Session["SuperAdmin_Status_Check"] = "3";
@@ -76,6 +80,7 @@ namespace WealthERP.UserManagement
                     Session.Remove("rmVo");
                     Session.Remove("customerVo");
                     Session["refreshTheme"] = true;
+                    Session.Remove(SessionContents.LogoPath);      
                     //Session["SuperAdmin_Status_Check"] = "0";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
 
