@@ -38,14 +38,14 @@ namespace WealthERP.UserManagement
             //adviserVo = (AdvisorVo)Session["advisorVo"];
             if (branchId != 0 || adviserVo.MultiBranch == 0)
             {
-                lnkAdd.Visible = false;
-                lbl.Visible = false;
+                //lnkAdd.Visible = false;
+                //lbl.Visible = false;
                 Session["advisorBranchVo"] = advisorBranchBo.GetBranch(branchId);
             }
             else
             {
-                lnkAdd.Visible = true;
-                lbl.Visible = true;
+                //lnkAdd.Visible = true;
+                //lbl.Visible = true;
             }
 
         }
