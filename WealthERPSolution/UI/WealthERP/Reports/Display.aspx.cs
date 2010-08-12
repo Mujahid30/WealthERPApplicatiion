@@ -614,11 +614,35 @@ namespace WealthERP.Reports
                         break;
 
                     case "RETURNS_PORTFOLIO":
-                        crmain.Load(Server.MapPath("MFReturns.rpt"));
-                        DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
-                        if (dtReturnsPortfolio.Rows.Count > 0)
+                        //crmain.Load(Server.MapPath("MFReturns.rpt"));
+                        //DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        //if (dtReturnsPortfolio.Rows.Count > 0)
+                        //{
+                        //    crmain.SetDataSource(dtReturnsPortfolio);
+                        //    setLogo();
+                        //    crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                        //    crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                        //    AssignReportViewerProperties();
+
+                        //    //For PDF View In Browser
+                        //    if (Request.QueryString["mail"] == "2")
+                        //    {
+                        //        ExportInPDF();
+                        //    }
+                        //}
+                        //else
+                        //    SetNoRecords();
+                        //break;
+                        crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
+
+                        DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
+                        if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
                         {
-                            crmain.SetDataSource(dtReturnsPortfolio);
+                            crmain.SetDataSource(dsReturnsPortfolio.Tables[0]);
+                            crmain.Subreports["MFSchemePerformance"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[1]);
+                            crmain.Subreports["MFTopTenHoldings"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[2]);
+                            crmain.Subreports["MFTopTenSectors"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[5]);
+
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
@@ -1244,7 +1268,7 @@ namespace WealthERP.Reports
                 emailVo.EmailQueueId = 0;
                 emailVo.EmailType = "Report";
                 string[] FileNames = reportFileName.Split('\\');
-                emailVo.FileName = Files[Files.Count()-1];
+                emailVo.FileName = FileNames[FileNames.Count() - 1];
                 emailVo.HasAttachment = 1;
                 emailVo.ReportCode = 0;
                 emailVo.SentDate = DateTime.Today;
