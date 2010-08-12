@@ -2372,6 +2372,7 @@ namespace DaoCustomerPortfolio
                     liabilitiesVo.InstallmentStartDate = DateTime.Parse(dr["CL_InstallmentStartDate"].ToString());
                     liabilitiesVo.InstallmentEndDate = DateTime.Parse(dr["CL_InstallmentEndDate"].ToString());
                     liabilitiesVo.IsInProcess = int.Parse(dr["CL_IsInProcess"].ToString());
+                    liabilitiesVo.Tenure = int.Parse(dr["CL_Tenure"].ToString());
                     liabilitiesVo.Guarantor = dr["CL_Guarantor"].ToString();
                 }
 
