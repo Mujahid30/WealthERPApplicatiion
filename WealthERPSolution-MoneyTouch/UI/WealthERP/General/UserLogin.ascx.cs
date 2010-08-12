@@ -270,7 +270,7 @@ namespace WealthERP.General
 
                 }
             }
-
+            
         }
         private bool CheckSuperAdmin()
         {
