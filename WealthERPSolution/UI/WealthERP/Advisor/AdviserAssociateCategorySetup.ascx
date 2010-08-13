@@ -1,6 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserAssociateCategorySetup.ascx.cs"
-    Inherits="WealthERP.Advisor.AdviserAssociateCategorySetup" %>
-<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+﻿<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
@@ -17,7 +15,7 @@
         <td class="rightField" width="20%">
             <asp:Label ID="lblNoOfCat" CssClass="FieldName" runat="server" Text="No of Categories:"></asp:Label>
             <asp:TextBox ID="txtNoOfCat" CssClass="txtField" runat="server"></asp:TextBox>
-            <span id="Span5" class="spnRequiredField">*</span>
+            <span id="Span5" class="spnRequiredField">*d">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNoOfCat"
                 ErrorMessage="<br />Please enter the no. of categories" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnSubmit"> 
