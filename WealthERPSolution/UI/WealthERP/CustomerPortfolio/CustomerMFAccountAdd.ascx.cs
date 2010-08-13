@@ -131,6 +131,8 @@ namespace WealthERP.CustomerPortfolio
             ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHoldingCode.Trim();
             //ddlModeOfHolding.SelectedValue = "SI";
             BindAssociates(customerAccountsVo);
+            gvNominee2.Enabled = false;
+            gvJoint2.Visible = false;
             SetVisiblity(0);
         }
 
@@ -230,14 +232,20 @@ namespace WealthERP.CustomerPortfolio
             BindAMC();
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
             if (customerAccountsVo.IsJointHolding == 1)
+            {
                 rbtnYes.Checked = true;
+            }
             else
+            {
                 rbtnNo.Checked = true;
+            }
             BindModeOfHolding();
             if (customerAccountsVo.ModeOfHoldingCode != "" && customerAccountsVo.ModeOfHoldingCode != null)
                 ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHoldingCode.Trim();
             else
-                ddlModeOfHolding.SelectedIndex = 0; ;
+                ddlModeOfHolding.SelectedIndex = 0;
+            if (rbtnNo.Checked == true)
+                ddlModeOfHolding.Enabled = false;
             BindAssociates(customerAccountsVo);
             SetVisiblity(1);
 
@@ -262,7 +270,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 txtAccountDate.Enabled = true;
                 txtFolioNumber.Enabled = true;
-                ddlModeOfHolding.Enabled = true;
+                //ddlModeOfHolding.Enabled = true;
                 ddlPortfolio.Enabled = true;
                 ddlProductAmc.Enabled = true;
                 rbtnNo.Enabled = true;
@@ -376,7 +384,7 @@ namespace WealthERP.CustomerPortfolio
                 if (rbtnYes.Checked)
                 {
 
-                    if ((object)(Request.QueryString["action"])!=null)
+                    if ((object)(Request.QueryString["action"]) != null && Request.QueryString["action"]!="")
                     {
                         trJoint2.Visible = true;
                         if (Request.QueryString["action"].Trim() == "Edit")
