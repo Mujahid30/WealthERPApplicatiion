@@ -655,13 +655,13 @@ namespace WealthERP.Advisor
             {
                 if (image_ratio > 1.5)
                 {   // If Image width is lot greater than height, then do following
-                    if (width > 100 && width < 400)
+                    if (width > 100 && width < 200)
                     {
                         target_width = width;
                     }
-                    else if (width > 400)
+                    else if (width > 200)
                     {
-                        target_width = 400;
+                        target_width = 200;
                     }
                 }
             }
