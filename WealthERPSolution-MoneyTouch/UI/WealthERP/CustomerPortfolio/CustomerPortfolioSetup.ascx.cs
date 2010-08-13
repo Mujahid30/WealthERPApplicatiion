@@ -151,7 +151,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 newCustomerPortfolioVo.PortfolioId = int.Parse(Session["PortfolioId"].ToString());
                 newCustomerPortfolioVo.CustomerId = customerId;
-                newCustomerPortfolioVo.IsMainPortfolio = 0;
+                //newCustomerPortfolioVo.IsMainPortfolio = 0;
                 newCustomerPortfolioVo.PMSIdentifier = txtPMSIdentifier.Text;
                 newCustomerPortfolioVo.PortfolioName = txtPortfolioName.Text;
                 newCustomerPortfolioVo.PortfolioTypeCode = ddlPortfolioType.SelectedValue;
