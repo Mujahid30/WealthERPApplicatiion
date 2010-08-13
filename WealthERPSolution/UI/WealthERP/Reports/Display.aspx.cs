@@ -26,6 +26,11 @@ using VoCustomerPortfolio;
 using BoCustomerGoalProfiling;
 using BoCustomerRiskProfiling;
 using VoEmailSMS;
+using System.Xml;
+using System.Configuration;
+using System.Collections.Specialized;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+
 
 
 
@@ -53,7 +58,7 @@ namespace WealthERP.Reports
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
         RMVo rmVo = null;
-
+        WERPReports CommonReport = new WERPReports();
         private ReportType CurrentReportType
         {
             get
@@ -222,10 +227,13 @@ namespace WealthERP.Reports
                 //Session["customerVo"] = customerVo;
                 report = (FinancialPlanningVo)Session["reportParams"];
 
-                
+                        
                         crmain.Load(Server.MapPath("FinancialPlanning.rpt"));
+                        DataSet DScurrentAsset = new DataSet();
+                        DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(int.Parse(report.CustomerId));
                         DataSet dsEquitySectorwise = financialPlanningReportsBo.GetFinancialPlanningReport(report);
                         DataTable dtEquitySectorwise = dsEquitySectorwise.Tables[0];
+                        setLogo();
                         if (dsEquitySectorwise.Tables[1].Rows.Count > 0 ||  dsEquitySectorwise.Tables[0].Rows.Count > 0)
                         {
                             
@@ -233,16 +241,17 @@ namespace WealthERP.Reports
                             crmain.Database.Tables["Goal"].SetDataSource(dsEquitySectorwise.Tables[0]);
                             crmain.Database.Tables["RiskProfile"].SetDataSource(dsEquitySectorwise.Tables[1]);
                             crmain.Database.Tables["FamilyDetails"].SetDataSource(dsEquitySectorwise.Tables[2]);
-                            setLogo();
+                            crmain.Database.Tables["CurrentAsset"].SetDataSource(DScurrentAsset.Tables[0]);
                             //crmain.Subreports[0].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
                             //crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
                             //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
-
+                            //crmain.SetParameterValue("CustomerName",);
                             crmain.SetParameterValue("RTGoalDescription",customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
                             //AssignReportViewerProperties();
                             crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
-                            crmain.SetParameterValue("RiskProfileDescription", riskprofilebo.GetRiskProfileText(dsEquitySectorwise.Tables[1].Rows[0]["RiskClass"].ToString()));
+                            crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString());
                         }
                         else
                          SetNoRecords();
@@ -295,12 +304,13 @@ namespace WealthERP.Reports
                             crmain.Subreports[1].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
 
                             setLogo();
-                            crmain.SetParameterValue("RMName", "Advisor :  " + rmVo.FirstName + " " + rmVo.LastName);
-                            crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
-                            crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
+                            //crmain.SetParameterValue("RMName", "Advisor / Financial Planner :  " + rmVo.FirstName + " " + rmVo.LastName);
+                            //crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
+                            //crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
-                            //AssignReportViewerProperties();
+                            AssignReportViewerProperties();
                             CrystalReportViewer1.ReportSource = crmain;
                             CrystalReportViewer1.EnableDrillDown = true;
                             CrystalReportViewer1.HasCrystalLogo = false;
@@ -457,7 +467,7 @@ namespace WealthERP.Reports
                 else if (Session["customerVo"]!=null)
                     customerVo = (CustomerVo)Session["customerVo"];
 
-
+                //Customer Individual LogIn...
                  if (Session["hndCustomerLogin"].ToString() == "true")
                     {
                         customerVo = customerBo.GetCustomer(int.Parse(Request.Form["ctrl_MFReports$hdnCustomerId1"]));
@@ -633,7 +643,7 @@ namespace WealthERP.Reports
                         else
                             SetNoRecords();
                         break;
-                    case "PORFOLIO ANALYTICS":
+                    case "PORFOLIO_ANALYTICS":
                         crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
 
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
@@ -749,20 +759,30 @@ namespace WealthERP.Reports
         private void AssignReportViewerProperties()
         {
             RMVo rmVo = (RMVo)Session["rmVo"];
-
+            string state = "";
             if (Session["CusVo"] != null)
                 customerVo = (CustomerVo)Session["CusVo"];
             else if (Session["customerVo"] != null)
                 customerVo = (CustomerVo)Session["customerVo"];
             try
             {
+                string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 //setLogo();
-                crmain.SetParameterValue("RMName", "Advisor :  " + rmVo.FirstName + " " + rmVo.LastName);
-                crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
-                crmain.SetParameterValue("MobileNo", "Mobile :  " + rmVo.Mobile);
+                if (advisorVo.State != null)
+                    state = CommonReport.GetState(path, advisorVo.State);
 
-                crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + advisorVo.State);
-                crmain.SetParameterValue("OrgDetails", advisorVo.Email + ", " + advisorVo.Website);
+                crmain.SetParameterValue("RMName", "Advisor / Financial Planner :" + rmVo.FirstName + " " + rmVo.LastName);
+                crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
+                if (rmVo.Mobile != 0)
+                {
+                    crmain.SetParameterValue("MobileNo", "Mobile :  " + "+91-" + rmVo.Mobile);
+                }
+                else
+                {
+                    crmain.SetParameterValue("MobileNo", "Mobile :--");
+                }
+                crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + state);
+                crmain.SetParameterValue("OrgDetails", advisorVo.Email);
                 crmain.SetParameterValue("OrgTelephone", "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                 crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
@@ -778,7 +798,8 @@ namespace WealthERP.Reports
             CrystalReportViewer1.EnableDrillDown = true;
             CrystalReportViewer1.HasCrystalLogo = false;
         }
-
+       
+       
         /// <summary>
         /// Get Report Parameters and store it in to session.
         /// </summary>
@@ -1115,6 +1136,9 @@ namespace WealthERP.Reports
                                 subject = "Mutual Fund Summary Report - ";
                                 break;
                             case "RETURNS_PORTFOLIO":
+                                subject = "Portfolio Returns - ";
+                                break;
+                            case "PORFOLIO_ANALYTICS":
                                 subject = "Portfolio Returns - ";
                                 break;
                             case "RETURNS_PORTFOLIO_REALIZED":
