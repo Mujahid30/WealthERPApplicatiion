@@ -1421,5 +1421,126 @@ namespace DaoAdvisorProfiling
             }
             return dtAsscCommn;
         }
+
+        /// <summary>
+        /// Function to check whether an RM is the branch head (for removing the branch Association) 
+        /// </summary>
+        /// <param name="rmId">Id of the RM </param>
+        /// <param name="branchId">Id of the Branch</param>
+        /// <returns></returns>
+        public int CheckBranchHead(int rmId, int branchId)
+        {
+            Database db;
+            DbCommand chkBranchHead;
+            int count = 0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkBranchHead = db.GetStoredProcCommand("SP_ChkBranchHead");
+                db.AddInParameter(chkBranchHead, "@AR_RMId", DbType.Int32, rmId);
+                db.AddInParameter(chkBranchHead, "@AB_BranchId", DbType.Int32, branchId);
+
+                count = int.Parse(db.ExecuteScalar(chkBranchHead).ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:CheckBranchHead()");
+                object[] objects = new object[2];
+                objects[0] = rmId;
+                objects[1] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Function to delete the RM-Branch association
+       /// </summary>
+       /// <param name="rmId"></param>
+       /// <param name="branchID"></param>
+       /// <returns></returns>
+        public bool DeleteBranchAssociation(int rmId,int branchID)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteAssociationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteAssociationCmd = db.GetStoredProcCommand("SP_DeleteRMBranchAssociation");
+                db.AddInParameter(deleteAssociationCmd, "@AR_RMId", DbType.Int32, rmId);
+                db.AddInParameter(deleteAssociationCmd, "@AB_BranchId", DbType.Int32, branchID);
+                if (db.ExecuteNonQuery(deleteAssociationCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:DeleteBranchAssociation()");
+                object[] objects = new object[2];
+                objects[0] = rmId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        /// <summary>
+        /// Function to check whether an Associate Category is linked to any branch(for deleting the Associate Category) 
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        public int CheckAssociateBranchCategory(int categoryId)
+        {
+            Database db;
+            DbCommand chkAssociateBranchCategory;
+            int count = 0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkAssociateBranchCategory = db.GetStoredProcCommand("SP_ChkAssociateBranchCategory");
+                db.AddInParameter(chkAssociateBranchCategory, "@AAC_AssociateCategoryId", DbType.Int32, categoryId);
+
+                count = int.Parse(db.ExecuteScalar(chkAssociateBranchCategory).ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:CheckAssociateBranchCategory()");
+                object[] objects = new object[1];
+                objects[0] = categoryId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return count;
+        }
     }
 }
