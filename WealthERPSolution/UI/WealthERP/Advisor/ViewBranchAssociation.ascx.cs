@@ -115,7 +115,7 @@ namespace WealthERP.Advisor
                 GetPageCount();
 
                 this.LoadBranchAssociation(mypager.CurrentPage);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -140,6 +140,7 @@ namespace WealthERP.Advisor
             SessionBo.CheckSession();
             LoadBranchAssociation(mypager.CurrentPage);
         }
+
         private void LoadBranchAssociation(int currentPage)
         {
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
@@ -323,7 +324,6 @@ namespace WealthERP.Advisor
             }
         }
 
-
         //protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         //{
         //    string menu;
@@ -347,6 +347,7 @@ namespace WealthERP.Advisor
 
 
         //}
+
         protected void btnDeleteSelected_Click(object sender, EventArgs e)
         {
             int i = 0;
@@ -362,7 +363,7 @@ namespace WealthERP.Advisor
                 }
                 if (i == 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select the Record..!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select the Associations to be removed!');", true);
                 }
                 else
                 {
@@ -384,21 +385,23 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            
-           
+
+
         }
+
         protected void hiddenDelete_Click(object sender, EventArgs e)
         {
             string val = Convert.ToString(hdnMsgValue.Value);
-            //if (val == "1")
-            //{
-            //    DeleteBranchAssociation();
-            //}
-            //else
-            //{
-            //    ClearCheckBox();
-            //}
+            if (val == "1")
+            {
+                DeleteBranchAssociation();
+            }
+            else
+            {
+                ClearCheckBox();
+            }
         }
+
         protected void ClearCheckBox()
         {
             foreach (GridViewRow dr in gvBranchList.Rows)
@@ -407,63 +410,71 @@ namespace WealthERP.Advisor
                 checkBox.Checked = false;
             }
         }
-        //private void DeleteBranchAssociation()
-        //{
-        //    AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
-        //    bool result = false;
-        //    int rmId = 0;
-        //    int branchId = 0;
-        //    int count = 0;
-        //    try
-        //    {
 
-        //        foreach (GridViewRow dr in gvBranchList.Rows)
-        //        {
-        //            CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
-        //            if (checkBox.Checked)
-        //            {
+        private void DeleteBranchAssociation()
+        {
+            AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+            bool result = false;
+            int rmId = 0;
+            int branchId = 0;
+            int count = 0;
+            string asscNotDeleted =string.Empty;
+ 
+            try
+            {
+                foreach (GridViewRow dr in gvBranchList.Rows)
+                {
+                    CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
+                    rmId = Convert.ToInt32(gvBranchList.DataKeys[dr.RowIndex].Values["RMId"].ToString());
+                    branchId = Convert.ToInt32(gvBranchList.DataKeys[dr.RowIndex].Values["BranchId"].ToString());
+                    Label lblRMName= (Label) dr.FindControl("lblRMName");
+                    Label lblBranchName = (Label) dr.FindControl("lblBranchName");
+                    
+    
+                    if (checkBox.Checked)
+                    {
+                        count = advisorBranchBo.CheckBranchHead(rmId, branchId);
+                        if (count > 0)
+                        {
+                            asscNotDeleted = asscNotDeleted + lblBranchName.Text + " - " + lblRMName.Text + "\\n";
+                        }
+                        else
+                        {
+                            rmId = Convert.ToInt32(gvBranchList.DataKeys[dr.RowIndex].Values["RMId"].ToString());
+                            branchId = Convert.ToInt32(gvBranchList.DataKeys[dr.RowIndex].Values["BranchId"].ToString());
+                            result= advisorBranchBo.DeleteBranchAssociation(rmId, branchId);
+                        }
+                    }
+                }
+                if (asscNotDeleted.Length == 0)
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Removed Successfully..');", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('" + asscNotDeleted + "\\n \\n Above associations cannot be deleted as the RM is the Branch head of that Branch');", true);
+                }
 
-        //                rmId = Convert.ToInt32(gvBranchList.DataKeys[dr.RowIndex].Values["RMId"].ToString());
-        //                branchId = Convert.ToInt32(gvBranchList.DataKeys[dr.RowIndex].Values["BranchId"].ToString());
-        //                result = advisorBranchBo.UpdateRMBranchAssociation(rmId, branchId);
-        //                if (result)
-        //                {
-        //                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Deleted Successfully..');", true);
-
-        //                }
-        //                else
-        //                {
-        //                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Sorry..');", true);
-        //                }
-        //                count = count + 1;
-        //            }
-        //        }
-
-        //        if (count == 0)
-        //        {
-        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Please select the branch..');", true);
-        //        }
-        //        LoadBranchAssociation(mypager.CurrentPage);
-        //    }
-        //    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBranchAssociation','none');", true);
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-        //        FunctionInfo.Add("Method", "ViewBranchAssociation.ascx.cs:btnDeleteSelected_Click()");
-        //        object[] objects = new object[3];
-        //        objects[0] = rmId;
-        //        objects[1] = branchId;
-        //        objects[2] = result;
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-        //}
+                LoadBranchAssociation(mypager.CurrentPage);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewBranchAssociation.ascx.cs:btnDeleteSelected_Click()");
+                object[] objects = new object[3];
+                objects[0] = rmId;
+                objects[1] = branchId;
+                objects[2] = result;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
     }
 }

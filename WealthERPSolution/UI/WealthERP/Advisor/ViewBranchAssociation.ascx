@@ -70,17 +70,17 @@
                     </asp:TemplateField>
                     <asp:TemplateField ItemStyle-Wrap="false">
                         <HeaderTemplate>
-                            <asp:Label ID="lblBranchName" runat="server" Text="Branch Name"></asp:Label>
+                            <asp:Label ID="lblBranchNameHeader" runat="server" Text="Branch Name"></asp:Label>
                             <asp:DropDownList ID="ddlBranchName" AutoPostBack="true" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBranchName_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblBranchNameHeader" runat="server" Text='<%# Eval("Branch Name").ToString() %>'></asp:Label>
+                            <asp:Label ID="lblBranchName" runat="server" Text='<%# Eval("Branch Name").ToString() %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField ItemStyle-Wrap="false">
                         <HeaderTemplate>
-                            <asp:Label ID="lblRMName" runat="server" Text="RM Name"></asp:Label>
+                            <asp:Label ID="lblRMNameHeader" runat="server" Text="RM Name"></asp:Label>
                             <asp:DropDownList ID="ddlRMName" AutoPostBack="true" runat="server" CssClass="cmbField"  OnSelectedIndexChanged="ddlRMName_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
