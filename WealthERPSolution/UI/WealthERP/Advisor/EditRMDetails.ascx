@@ -94,7 +94,7 @@
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtFirstName" ErrorMessage="<br />Please Enter the Name"
+            <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtFirstName" ErrorMessage="Please Enter the Name"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
@@ -135,6 +135,29 @@
         </td>
     </tr>
     <tr>
+        <td class="leftField">
+            <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="Staff Role:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:DropDownList ID="ddlRMRole" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlRMRole_SelectedIndexChanged"
+                AutoPostBack="True">
+                <asp:ListItem Value="Select a Role" Text="Select a Role"></asp:ListItem>
+                <asp:ListItem Value="RM" Text="RM"></asp:ListItem>
+                <asp:ListItem Value="BM" Text="Branch Manager"></asp:ListItem>
+            </asp:DropDownList>
+            <span id="Span4" class="spnRequiredField">*</span>
+            <br />
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlRMRole"
+                CssClass="rfvPCG" ErrorMessage="Please Select a Role" Operator="NotEqual" ValueToCompare="Select a Role"></asp:CompareValidator>
+        </td>
+        <td class="style1" colspan="2">
+            <asp:CheckBox ID="chkRM" runat="server" Text="RM" CssClass="cmbField" />
+            &nbsp;
+            <asp:CheckBox ID="chkExternalStaff" runat="server" Text="IsExternalStaff" CssClass="cmbField"
+                AutoPostBack="true" OnCheckedChanged="chkExternalStaff_CheckedChanged" />
+        </td>
+    </tr>
+    <%--<tr>
         <td>
             &nbsp;
         </td>
@@ -142,7 +165,7 @@
             <asp:CheckBox ID="chkExternalStaff" runat="server" Text="IsExternalStaff" CssClass="cmbField"
                 AutoPostBack="true" OnCheckedChanged="chkExternalStaff_CheckedChanged" />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             &nbsp;
