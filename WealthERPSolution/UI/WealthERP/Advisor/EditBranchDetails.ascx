@@ -349,7 +349,7 @@
                                 Format="dd/MM/yyyy">
                             </cc1:CalendarExtender>
                             <cc1:TextBoxWatermarkExtender ID="txtEndDate_TextBoxWatermarkExtender" runat="server"
-                                TargetControlID="txtEndDate" WatermarkText="dd/mm/yyyy">
+                                TargetControlID="txtEndDate" WatermarkText="dd/MM/yyyy">
                             </cc1:TextBoxWatermarkExtender>
                         </ItemTemplate>
                         <FooterTemplate>

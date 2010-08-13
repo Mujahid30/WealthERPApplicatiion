@@ -17,6 +17,7 @@ using WealthERP.Base;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.IO;
+using System.Globalization;
 
 namespace WealthERP.Advisor
 {
@@ -48,7 +49,6 @@ namespace WealthERP.Advisor
             try
             {
                 SessionBo.CheckSession();
-                this.Page.Culture = "en-GB";
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 imgPath = Server.MapPath("Images") + "\\";
                 advisorBranchVo = (AdvisorBranchVo)Session["advisorBranchVo"];
@@ -753,6 +753,14 @@ namespace WealthERP.Advisor
             {
 
                 DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
+                DataTable dtNewTable = new DataTable();
+                dtNewTable.Columns.Add(new DataColumn("AACS_Id", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("AssetGroupCode", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("CommissionFee", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("RevenueUpperLimit", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("RevenueLowerLimit", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("StartDate", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("EndDate", typeof(string)));
 
                 DataRow drCurrentRow = null;
 
@@ -771,34 +779,32 @@ namespace WealthERP.Advisor
                         TextBox box4 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[4].FindControl("txtStartDate");
                         TextBox box5 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[5].FindControl("txtEndDate");
 
-                        drCurrentRow = dtCurrentTable.NewRow();
+                        drCurrentRow = dtNewTable.NewRow();
                         //drCurrentRow["RowNumber"] = i + 1;
-                        dtCurrentTable.Rows[i - 1]["AssetGroupCode"] = ddl1.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["CommissionFee"] = box1.Text;
-                        dtCurrentTable.Rows[i - 1]["RevenueUpperLimit"] = box2.Text;
-                        dtCurrentTable.Rows[i - 1]["RevenueLowerLimit"] = box3.Text;
-                        dtCurrentTable.Rows[i - 1]["StartDate"] = box4.Text;
-                        dtCurrentTable.Rows[i - 1]["EndDate"] = box5.Text;
+                        drCurrentRow["AACS_Id"] = dtCurrentTable.Rows[i - 1]["AACS_Id"];
+                        drCurrentRow["AssetGroupCode"] = ddl1.SelectedValue;
+                        drCurrentRow["CommissionFee"] = box1.Text;
+                        drCurrentRow["RevenueUpperLimit"] = box2.Text;
+                        drCurrentRow["RevenueLowerLimit"] = box3.Text;
+                        drCurrentRow["StartDate"] = box4.Text;
+                        drCurrentRow["EndDate"] = box5.Text;
+                        dtNewTable.Rows.Add(drCurrentRow);
                         rowIndex++;
                     }
 
-                    dtCurrentTable.Rows.Add(drCurrentRow);
+                    drCurrentRow = dtNewTable.NewRow();
+                    dtNewTable.Rows.Add(drCurrentRow);
 
-                    ViewState["CurrentTable"] = dtCurrentTable;
+                    ViewState["CurrentTable"] = dtNewTable;
 
-                    gvCommStructure.DataSource = dtCurrentTable;
+                    gvCommStructure.DataSource = dtNewTable;
 
                     gvCommStructure.DataBind();
-
                 }
-
             }
-
             else
             {
-
                 Response.Write("ViewState is null");
-
             }
 
 
