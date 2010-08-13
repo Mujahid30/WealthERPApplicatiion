@@ -956,5 +956,101 @@ namespace BoAdvisorProfiling
             }
             return dt;
         }
+        /// <summary>
+        /// Function to check whether an RM is the branch head (for removing the branch Association) 
+        /// </summary>
+        /// <param name="rmId">Id of the RM</param>
+        /// <param name="branchId">Id of the Branch</param>
+        /// <returns></returns>
+        public int CheckBranchHead(int rmId, int branchId)
+        {
+            int count = 0;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                count = advisorBranchDao.CheckBranchHead(rmId, branchId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CheckBranchHead()");
+                object[] objects = new object[2];
+                objects[0] = rmId;
+                objects[1] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return count;
+        }
+        /// <summary>
+        /// Function to delete the RM-Branch association
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        public bool DeleteBranchAssociation(int rmId,int branchId)
+        {
+            bool bResult = false;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                bResult = advisorBranchDao.DeleteBranchAssociation(rmId, branchId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:DeleteBranchAssociation()");
+                object[] objects = new object[2];
+                objects[0] = rmId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+        /// <summary>
+        /// Function to check whether an Associate Category is linked to any branch(for deleting the Associate Category) 
+        /// </summary>
+        /// <param name="categoryId">Id of the Branch</param>
+        /// <returns></returns>
+        public int CheckAssociateBranchCategory(int categoryId)
+        {
+            int count = 0;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                count = advisorBranchDao.CheckAssociateBranchCategory(categoryId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CheckAssociateBranchCategory()");
+                object[] objects = new object[1];
+                objects[1] = categoryId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return count;
+        }
     }
 }
