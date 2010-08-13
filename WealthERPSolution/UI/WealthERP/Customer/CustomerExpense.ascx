@@ -73,7 +73,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label1" runat="server" Text="Expense as of" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="Expense as of:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtDateOfEntry" runat="server" CssClass="txtField" Style="text-align: center"></asp:TextBox>
@@ -110,15 +110,10 @@
             &nbsp;
             <asp:Label ID="Label5" runat="server" Text="Yearly" CssClass="FieldName"></asp:Label>
         </td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-    </tr>
+    </tr>    
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label6" runat="server" Text="Transportation" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label6" runat="server" Text="Transportation:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtTranMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtTranYearly')"
@@ -141,7 +136,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label7" runat="server" Text="Food" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label7" runat="server" Text="Food:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtFoodMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtFoodYearly')"
@@ -164,7 +159,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label8" runat="server" Text="Clothing" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label8" runat="server" Text="Clothing:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtCloMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtCloYearly')"
@@ -187,7 +182,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label9" runat="server" Text="Home" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label9" runat="server" Text="Home:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtHomeMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtHomeYearly')"
@@ -210,7 +205,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label10" runat="server" Text="Utilities" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label10" runat="server" Text="Utilities:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtUtiMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtUtiYearly')"
@@ -233,7 +228,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label11" runat="server" Text="Self Care" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label11" runat="server" Text="Self Care:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtSCMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtSCYearly')"
@@ -256,7 +251,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label12" runat="server" Text="Health Care" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label12" runat="server" Text="Health Care:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtHCMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtHCYearly')"
@@ -279,7 +274,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label13" runat="server" Text="Education" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label13" runat="server" Text="Education:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtEduMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtEduYearly')"
@@ -302,7 +297,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label14" runat="server" Text="Pets" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label14" runat="server" Text="Pets:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtPetsMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtPetsYearly')"
@@ -325,7 +320,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label15" runat="server" Text="Entertainment" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label15" runat="server" Text="Entertainment:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtEntMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtEntYearly')"
@@ -348,7 +343,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label16" runat="server" Text="Miscellaneous" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label16" runat="server" Text="Miscellaneous:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtMisMonthly" runat="server" CssClass="txtField" onblur="CalculateYear(this,'txtMisYearly')"
@@ -371,17 +366,17 @@
     </tr>
     <tr>
     <td>
-    <asp:Label ID="lbltotal" runat="server" Text="Total Expense" CssClass="FieldName"></asp:Label>
+    <asp:Label ID="lbltotal" runat="server" Text="Total Expense:" CssClass="FieldName"></asp:Label>
     </td>
     <td>
-    <asp:TextBox ID="txttotal" runat="server" CssClass="txtField" Style="text-align: right"></asp:TextBox>
+    <asp:TextBox ID="txttotal" runat="server" CssClass="txtField" Style="text-align: right" Enabled="false"></asp:TextBox>
     </td>
     <td>
-    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField">
+    <asp:DropDownList ID="ddlTotal" runat="server" CssClass="cmbField">
             </asp:DropDownList>
     </td>
     <td>
-    <asp:TextBox ID="txttotalyear" runat="server" CssClass="txtField" Style="text-align: right"></asp:TextBox>
+    <asp:TextBox ID="txttotalyear" runat="server" CssClass="txtField" Style="text-align: right" Enabled="false"></asp:TextBox>
     </td>
     </tr>
     <tr>

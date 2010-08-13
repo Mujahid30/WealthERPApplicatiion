@@ -55,7 +55,7 @@ namespace WealthERP.Customer
                     GetCustomerExpenseDetails(customerVo.CustomerId);
                 }
                 CompareValidator1.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -76,7 +76,10 @@ namespace WealthERP.Customer
                 throw exBase;
             }
         }
-
+        /// <summary>
+        /// Bind all the Drop down for Customer Expense Screen
+        /// </summary>
+        /// <param name="path"></param>
         public void BindDropDowns(string path)
         {
             dtCurrency = XMLBo.GetCurrency(path);
@@ -145,6 +148,12 @@ namespace WealthERP.Customer
             ddlMisCurrency.DataValueField = "CurrencyCode";
             ddlMisCurrency.DataBind();
             ddlMisCurrency.SelectedValue = "1";
+
+            ddlTotal.DataSource = dtCurrency;
+            ddlTotal.DataTextField = "CurrencyName";
+            ddlTotal.DataValueField = "CurrencyCode";
+            ddlTotal.DataBind();
+            ddlTotal.SelectedValue = "1";
         }
 
         public void btnSave_Click(object sender, EventArgs e)
@@ -152,7 +161,7 @@ namespace WealthERP.Customer
             try
             {
 
- //               customerExpenseVo.DateOfEntry = DateBo.GetFormattedDate(Convert.ToDateTime(txtDateOfEntry.Text.ToString()),"en-GB");
+                //               customerExpenseVo.DateOfEntry = DateBo.GetFormattedDate(Convert.ToDateTime(txtDateOfEntry.Text.ToString()),"en-GB");
                 customerExpenseVo.DateOfEntry = Convert.ToDateTime(txtDateOfEntry.Text.ToString());
                 customerExpenseVo.Transportation = Double.Parse(txtTranMonthly.Text.ToString());
                 customerExpenseVo.TransportationYr = Double.Parse(txtTranYearly.Text.ToString());
@@ -187,10 +196,12 @@ namespace WealthERP.Customer
                 customerExpenseVo.Miscellaneous = Double.Parse(txtMisMonthly.Text.ToString());
                 customerExpenseVo.MiscellaneousYr = Double.Parse(txtMisYearly.Text.ToString());
                 customerExpenseVo.CurrencyCodeMiscellaneous = int.Parse(ddlMisCurrency.SelectedValue.ToString());
+                txttotal.Text = (double.Parse(txtTranMonthly.Text) + double.Parse(txtFoodMonthly.Text) + double.Parse(txtCloMonthly.Text) + double.Parse(txtHomeMonthly.Text) + double.Parse(txtUtiMonthly.Text) + double.Parse(txtSCMonthly.Text) + double.Parse(txtHCMonthly.Text) + double.Parse(txtEduMonthly.Text) + double.Parse(txtPetsMonthly.Text) + double.Parse(txtEntMonthly.Text) + double.Parse(txtMisMonthly.Text)).ToString();
+                txttotalyear.Text = (double.Parse(txtTranYearly.Text) + double.Parse(txtFoodYearly.Text) + double.Parse(txtCloYearly.Text) + double.Parse(txtHomeYearly.Text) + double.Parse(txtUtiYearly.Text) + double.Parse(txtSCYearly.Text) + double.Parse(txtHCYearly.Text) + double.Parse(txtEduYearly.Text) + double.Parse(txtPetsYearly.Text) + double.Parse(txtEntYearly.Text) + double.Parse(txtMisYearly.Text)).ToString();
                 txttotalyear.Visible = true;
                 txttotal.Visible = true;
                 lbltotal.Visible = true;
-                DropDownList1.Visible = true;
+                ddlTotal.Visible = true;
                 if (btnSave.Text == "Save")
                 {
                     customerBo.AddCustomerExpenseDetails(rmVo.UserId, customerVo.CustomerId, customerExpenseVo);
@@ -200,7 +211,7 @@ namespace WealthERP.Customer
                     txttotalyear.Visible = true;
                     txttotal.Visible = true;
                     lbltotal.Visible = true;
-                    DropDownList1.Visible =true;
+                    ddlTotal.Visible = true;
                 }
                 else
                 {
@@ -235,11 +246,16 @@ namespace WealthERP.Customer
             btnSave.Text = "Update";
             btnSave.Visible = true;
             txttotalyear.Visible = false;
-            txttotal.Visible = false;
-            lbltotal.Visible = false;
-            DropDownList1.Visible = false;
+            txttotal.Visible = true;
+            lbltotal.Visible = true;
+            ddlTotal.Visible = true;
+            txttotal.Text = (double.Parse(txtTranMonthly.Text) + double.Parse(txtFoodMonthly.Text) + double.Parse(txtCloMonthly.Text) + double.Parse(txtHomeMonthly.Text) + double.Parse(txtUtiMonthly.Text) + double.Parse(txtSCMonthly.Text) + double.Parse(txtHCMonthly.Text) + double.Parse(txtEduMonthly.Text) + double.Parse(txtPetsMonthly.Text) + double.Parse(txtEntMonthly.Text) + double.Parse(txtMisMonthly.Text)).ToString();
+            txttotalyear.Text = (double.Parse(txtTranYearly.Text) + double.Parse(txtFoodYearly.Text) + double.Parse(txtCloYearly.Text) + double.Parse(txtHomeYearly.Text) + double.Parse(txtUtiYearly.Text) + double.Parse(txtSCYearly.Text) + double.Parse(txtHCYearly.Text) + double.Parse(txtEduYearly.Text) + double.Parse(txtPetsYearly.Text) + double.Parse(txtEntYearly.Text) + double.Parse(txtMisYearly.Text)).ToString();
         }
-
+        /// <summary>
+        /// It will get the Customer Details and returns their Expense details based on that Customer
+        /// </summary>
+        /// <param name="customerId"></param>
         public void GetCustomerExpenseDetails(int customerId)
         {
             try
@@ -258,14 +274,14 @@ namespace WealthERP.Customer
                 {
                     if (dtExpenseDetails.Rows[0]["CE_Transportation"].ToString() != "")
                     {
-                        txtTranMonthly.Text = String.Format("{0:0.00}",decimal.Parse(dtExpenseDetails.Rows[0]["CE_Transportation"].ToString()));
-                        txtTranYearly.Text = String.Format("{0:0.00}",decimal.Parse(dtExpenseDetails.Rows[0]["CE_Transportation"].ToString()) * 12).ToString();
+                        txtTranMonthly.Text = String.Format("{0:0.00}", decimal.Parse(dtExpenseDetails.Rows[0]["CE_Transportation"].ToString()));
+                        txtTranYearly.Text = String.Format("{0:0.00}", decimal.Parse(dtExpenseDetails.Rows[0]["CE_Transportation"].ToString()) * 12).ToString();
                         ddlTranCurrency.SelectedValue = dtExpenseDetails.Rows[0]["XC_CurrencyCodeTransportation"].ToString();
                     }
                     if (dtExpenseDetails.Rows[0]["CE_Food"].ToString() != "")
                     {
-                        txtFoodMonthly.Text = String.Format("{0:0.00}",decimal.Parse(dtExpenseDetails.Rows[0]["CE_Food"].ToString()));
-                        txtFoodYearly.Text = String.Format("{0:0.00}",decimal.Parse(dtExpenseDetails.Rows[0]["CE_Food"].ToString()) * 12).ToString();
+                        txtFoodMonthly.Text = String.Format("{0:0.00}", decimal.Parse(dtExpenseDetails.Rows[0]["CE_Food"].ToString()));
+                        txtFoodYearly.Text = String.Format("{0:0.00}", decimal.Parse(dtExpenseDetails.Rows[0]["CE_Food"].ToString()) * 12).ToString();
                         ddlFoodCurrency.SelectedValue = dtExpenseDetails.Rows[0]["XC_CurrencyCodeFood"].ToString();
                     }
                     if (dtExpenseDetails.Rows[0]["CE_Clothing"].ToString() != "")
@@ -323,12 +339,10 @@ namespace WealthERP.Customer
                         ddlMisCurrency.SelectedValue = dtExpenseDetails.Rows[0]["XC_CurrencyCodeMiscellaneous"].ToString();
                     }
 
-                    
-                    String totalMonth = (double.Parse(txtFoodMonthly.Text) + double.Parse(txtCloMonthly.Text) + double.Parse(txtHomeMonthly.Text) + double.Parse(txtUtiMonthly.Text) + double.Parse(txtSCMonthly.Text) + double.Parse(txtHCMonthly.Text) + double.Parse(txtEduMonthly.Text) + double.Parse(txtPetsMonthly.Text) + double.Parse(txtEntMonthly.Text) + double.Parse(txtMisMonthly.Text)).ToString();
-                    txttotal.Text = String.Format("{0:n2}", double.Parse(totalMonth).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    txttotal.Text = (double.Parse(txtTranMonthly.Text) + double.Parse(txtFoodMonthly.Text) + double.Parse(txtCloMonthly.Text) + double.Parse(txtHomeMonthly.Text) + double.Parse(txtUtiMonthly.Text) + double.Parse(txtSCMonthly.Text) + double.Parse(txtHCMonthly.Text) + double.Parse(txtEduMonthly.Text) + double.Parse(txtPetsMonthly.Text) + double.Parse(txtEntMonthly.Text) + double.Parse(txtMisMonthly.Text)).ToString();
 
-                    String totalYear = (double.Parse(txtTranYearly.Text) + double.Parse(txtFoodYearly.Text) + double.Parse(txtCloYearly.Text) + double.Parse(txtHomeYearly.Text) + double.Parse(txtUtiYearly.Text) + double.Parse(txtSCYearly.Text) + double.Parse(txtHCYearly.Text) + double.Parse(txtEduYearly.Text) + double.Parse(txtPetsYearly.Text) + double.Parse(txtEntYearly.Text) + double.Parse(txtMisYearly.Text)).ToString();
-                    txttotalyear.Text = String.Format("{0:n2}", double.Parse(totalYear).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+
+                    txttotalyear.Text = (double.Parse(txtTranYearly.Text) + double.Parse(txtFoodYearly.Text) + double.Parse(txtCloYearly.Text) + double.Parse(txtHomeYearly.Text) + double.Parse(txtUtiYearly.Text) + double.Parse(txtSCYearly.Text) + double.Parse(txtHCYearly.Text) + double.Parse(txtEduYearly.Text) + double.Parse(txtPetsYearly.Text) + double.Parse(txtEntYearly.Text) + double.Parse(txtMisYearly.Text)).ToString();
 
 
                     if (dtExpenseDetails.Rows[0]["CE_DateOfEntry"].ToString() != "")
@@ -360,7 +374,9 @@ namespace WealthERP.Customer
 
             }
         }
-
+        /// <summary>
+        /// Disable all controls of the Customer Expense Screen
+        /// </summary>
         public void DisableAllControls()
         {
             txtDateOfEntry.Enabled = false;
@@ -398,11 +414,13 @@ namespace WealthERP.Customer
             ddlMisCurrency.Enabled = false;
             txtMisYearly.Enabled = false;
             btnSave.Enabled = false;
-            DropDownList1.Enabled = false;
+            ddlTotal.Enabled = false;
             txttotal.Enabled = false;
             txttotalyear.Enabled = false;
         }
-
+        /// <summary>
+        /// Enable all controls in Customer Expense Screen
+        /// </summary>
         public void EnableAllControls()
         {
             txtDateOfEntry.Enabled = true;
@@ -440,8 +458,11 @@ namespace WealthERP.Customer
             ddlMisCurrency.Enabled = true;
             txtMisYearly.Enabled = true;
             btnSave.Enabled = true;
+            ddlTotal.Enabled = true;
         }
-
+        /// <summary>
+        /// Initializes all the TextBox to "0.00"
+        /// </summary>
         public void InitializeTextBoxes()
         {
             txtTranMonthly.Text = "0.00";
@@ -466,7 +487,9 @@ namespace WealthERP.Customer
             txtEntYearly.Text = "0.00";
             txtMisMonthly.Text = "0.00";
             txtMisYearly.Text = "0.00";
-            txtDateOfEntry.Text =DateTime.Now.ToString("dd/MM/yyyy");
+            txtDateOfEntry.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            txttotal.Text = "0.00";
+            txttotalyear.Text = "0.00";
             //txtDateOfEntry.Text = DateTime.Now.ToShortDateString();
             //DateTime.Now.GetDateTimeFormats(
         }
