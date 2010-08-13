@@ -29,6 +29,7 @@ namespace WealthERP.Reports
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
         int activeTabIndex = 0;
+        CustomerVo customerVo = new CustomerVo();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -89,6 +90,9 @@ namespace WealthERP.Reports
             {
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                 DataRow dr = dt.Rows[0];
+
+                customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+                Session["CusVo"] = customerVo;
 
                 txtPanParent.Text = dr["C_PANNum"].ToString();
                 trCustomerDetails.Visible = true;
