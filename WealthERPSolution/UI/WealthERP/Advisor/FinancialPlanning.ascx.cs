@@ -15,6 +15,7 @@ using BoCustomerRiskProfiling;
 using VoUser;
 using BoCustomerGoalProfiling;
 using WealthERP.Base;
+using BoCommon;
 
 namespace WealthERP.Advisor
 {
@@ -111,6 +112,7 @@ namespace WealthERP.Advisor
             //    Session.Remove("FP_UserName");
             //    Session.Remove("FP_UserID");                
             //}
+            SessionBo.CheckSession();  
             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
             {
                 rmvo = (RMVo)Session[SessionContents.RmVo];
@@ -245,7 +247,7 @@ namespace WealthERP.Advisor
                                 txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
                                 txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
                                 txtRecommendedCash.Text = cashPercentage.ToString();
-
+                                lblRiskProfilingParagraph.Text= riskprofilebo.GetRiskProfileText("Conservative");
 
                             }
                             else if (lblRClassRs.Text == "Moderate")
@@ -254,6 +256,7 @@ namespace WealthERP.Advisor
                                 txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
                                 txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
                                 txtRecommendedCash.Text = cashPercentage.ToString();
+                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                             }
                             else if (lblRClassRs.Text == "Aggresive")
                             {
@@ -261,6 +264,7 @@ namespace WealthERP.Advisor
                                 txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
                                 txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
                                 txtRecommendedCash.Text = cashPercentage.ToString();
+                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                             }
 
                             //================================
@@ -318,11 +322,14 @@ namespace WealthERP.Advisor
                             AssetFormClear();
                             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No age set for this customer');", true);
                         }
+                        trCurrentAssetAllocation.Visible = true;
+                        ShowCurrentAssetAllocationPieChart();
                     }
                     else
                     {
                         tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
                         AssetFormClear();
+                        trCurrentAssetAllocation.Visible = false;
                     }
                 }
 
@@ -453,6 +460,11 @@ namespace WealthERP.Advisor
                 //     cRecommendedAsset.Visible = true;
                 // }
                 # endregion
+                if (customerId != 0)
+                {
+                    lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
+                }
+
             }
             catch (Exception ex)
             {
@@ -978,8 +990,65 @@ namespace WealthERP.Advisor
             txtRecommendedDebt.Text = "";
             txtRecommendedCash.Text = "";
             cActualAsset.Visible = false;
+            ChartCurrentAsset.Visible = false;
+            txtCurrentCash.Text = "";
+            txtCurrentDebt.Text = "";
+            txtCurrentEquity.Text = "";
+
             
             
         }
+
+        protected void ShowCurrentAssetAllocationPieChart()
+        {
+            DataSet DScurrentAsset=new DataSet();
+            DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId);
+
+            DataTable dt = new DataTable();
+            DataRow dr;
+            dt.Columns.Add("AssetType");
+            dt.Columns.Add("Value");
+
+            dr = dt.NewRow();
+            dr[0] = "Equity";
+            dr[1] = DScurrentAsset.Tables[0].Rows[0]["Equity"];
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr[0] = "Debt";
+            dr[1] = DScurrentAsset.Tables[0].Rows[0]["Debt"];
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr[0] = "Cash";
+            dr[1] = DScurrentAsset.Tables[0].Rows[0]["Cash"];
+            dt.Rows.Add(dr);
+
+            txtCurrentCash.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString()),2).ToString();
+            txtCurrentDebt.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString();
+            txtCurrentEquity.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString(); 
+
+
+            Series seriesAssets = new Series("sActualAsset");
+            seriesAssets.ChartType = SeriesChartType.Pie;
+            ChartCurrentAsset.Visible = true;
+            ChartCurrentAsset.Series.Clear();
+            ChartCurrentAsset.Series.Add(seriesAssets);
+            ChartCurrentAsset.DataSource = dt;
+            ChartCurrentAsset.Series[0].XValueMember = "AssetType";
+            ChartCurrentAsset.Series[0].YValueMembers = "Value";
+
+            // Enable X axis margin
+            ChartCurrentAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
+            ChartCurrentAsset.BackColor = Color.Transparent;
+            ChartCurrentAsset.ChartAreas[0].BackColor = Color.Transparent;
+            ChartCurrentAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
+            ChartCurrentAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+            ChartCurrentAsset.DataBind();
+ 
+        }
+
+
+
     }
 }
