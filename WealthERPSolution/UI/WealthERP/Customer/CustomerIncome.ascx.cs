@@ -76,7 +76,10 @@ namespace WealthERP.Customer
                 throw exBase;
             }
         }
-
+        /// <summary>
+        /// Bind all the Drop down for Customer Income Screen
+        /// </summary>
+        /// <param name="path"></param>
         public void BindDropDowns(string path)
         {
             dtCurrency = XMLBo.GetCurrency(path);
@@ -121,6 +124,12 @@ namespace WealthERP.Customer
             ddlTHSCurrency.DataValueField = "CurrencyCode";
             ddlTHSCurrency.DataBind();
             ddlTHSCurrency.SelectedValue = "1";
+
+            ddlTotal.DataSource = dtCurrency;
+            ddlTotal.DataTextField = "CurrencyName";
+            ddlTotal.DataValueField = "CurrencyCode";
+            ddlTotal.DataBind();
+            ddlTotal.SelectedValue = "1";
         }
 
         public void btnSave_Click(object sender, EventArgs e)
@@ -128,7 +137,7 @@ namespace WealthERP.Customer
             txttotal.Visible = true;
             txttotalyear.Visible = true;
             lbltotal.Visible = true;
-            DropDownList1.Visible = true;
+            ddlTotal.Visible = true;
             try
             {
 
@@ -158,6 +167,8 @@ namespace WealthERP.Customer
                 customerIncomeVo.otherSourceIncome = Double.Parse(txtOSIMonthly.Text.ToString());
                 customerIncomeVo.otherSourceIncomeYr = Double.Parse(txtOSIYearly.Text.ToString());
                 customerIncomeVo.currencyCodeOtherIncome = int.Parse(ddlOSICurrency.SelectedValue.ToString());
+                txttotal.Text = (decimal.Parse(txtGSMonthly.Text) + decimal.Parse(txtRIMonthly.Text) + decimal.Parse(txtPIMonthly.Text) + decimal.Parse(txtAIMonthly.Text) + decimal.Parse(txtBIMonthly.Text) + decimal.Parse(txtOSIMonthly.Text)).ToString();
+                txttotalyear.Text = (decimal.Parse(txtGSYearly.Text) + decimal.Parse(txtRIYearly.Text) + decimal.Parse(txtPIYearly.Text) + decimal.Parse(txtAIYearly.Text) + decimal.Parse(txtBIYearly.Text) + decimal.Parse(txtOSIYearly.Text)).ToString();
                 if (btnSave.Text == "Save")
                 {
                     customerBo.AddCustomerIncomeDetails(rmVo.UserId, customerVo.CustomerId, customerIncomeVo);
@@ -197,12 +208,17 @@ namespace WealthERP.Customer
             EnableAllControls();
             btnSave.Text = "Update";
             btnSave.Visible = true;
-            txttotal.Visible = false;
-            txttotalyear.Visible = false;
-            lbltotal.Visible = false;
-            DropDownList1.Visible = false;
+            txttotal.Visible = true;
+            txttotalyear.Visible = true;
+            lbltotal.Visible = true;
+            ddlTotal.Visible = true;
+            txttotal.Text = (decimal.Parse(txtGSMonthly.Text) + decimal.Parse(txtRIMonthly.Text) + decimal.Parse(txtPIMonthly.Text) + decimal.Parse(txtAIMonthly.Text) + decimal.Parse(txtBIMonthly.Text) + decimal.Parse(txtOSIMonthly.Text)).ToString();
+            txttotalyear.Text = (decimal.Parse(txtGSYearly.Text) + decimal.Parse(txtRIYearly.Text) + decimal.Parse(txtPIYearly.Text) + decimal.Parse(txtAIYearly.Text) + decimal.Parse(txtBIYearly.Text) + decimal.Parse(txtOSIYearly.Text)).ToString();
         }
-
+        /// <summary>
+        /// It will get the Customer Details and returns their Expense details based on that Customer
+        /// </summary>
+        /// <param name="customerId"></param>
         public void GetCustomerIncomeDetails(int customerId)
         {
             try
@@ -215,15 +231,15 @@ namespace WealthERP.Customer
                     btnEdit.Visible = false;
                     btnSave.Text = "Save";
                     EnableAllControls();
-                    txttotal.Visible = false;
-                    txttotalyear.Visible = false;
+                    txttotal.Visible = true;
+                    txttotalyear.Visible = true;
 
                 }
                 else
                 {
                     txttotal.Visible = true;
                     txttotalyear.Visible = true;
-                     if (dtIncomeDetails.Rows[0]["CI_AgriculturalIncome"].ToString() != "")
+                    if (dtIncomeDetails.Rows[0]["CI_AgriculturalIncome"].ToString() != "")
                     {
                         txtAIMonthly.Text = String.Format("{0:0.00}", decimal.Parse(dtIncomeDetails.Rows[0]["CI_AgriculturalIncome"].ToString()));
                         txtAIYearly.Text = String.Format("{0:0.00}", decimal.Parse(dtIncomeDetails.Rows[0]["CI_AgriculturalIncome"].ToString()) * 12).ToString();
@@ -268,7 +284,7 @@ namespace WealthERP.Customer
                     txttotal.Text = (decimal.Parse(txtGSMonthly.Text) + decimal.Parse(txtRIMonthly.Text) + decimal.Parse(txtPIMonthly.Text) + decimal.Parse(txtAIMonthly.Text) + decimal.Parse(txtBIMonthly.Text) + decimal.Parse(txtOSIMonthly.Text)).ToString();
 
                     txttotalyear.Text = (decimal.Parse(txtGSYearly.Text) + decimal.Parse(txtRIYearly.Text) + decimal.Parse(txtPIYearly.Text) + decimal.Parse(txtAIYearly.Text) + decimal.Parse(txtBIYearly.Text) + decimal.Parse(txtOSIYearly.Text)).ToString();
-                  
+
                     if (dtIncomeDetails.Rows[0]["CI_DateOfEntry"].ToString() != "")
                         txtDateOfEntry.Text = DateTime.Parse(dtIncomeDetails.Rows[0]["CI_DateOfEntry"].ToString()).ToShortDateString();
                     if (dtIncomeDetails.Rows[0]["CPA_AccountId"].ToString() != "")
@@ -342,7 +358,9 @@ namespace WealthERP.Customer
             ddlOSICurrency.Enabled = false;
             txtOSIYearly.Enabled = false;
             btnSave.Enabled = false;
-            DropDownList1.Enabled = false;
+            ddlTotal.Enabled = false;
+            //txttotal.Enabled = false;
+            //txttotalyear.Enabled = false;
         }
 
         public void EnableAllControls()
@@ -371,6 +389,7 @@ namespace WealthERP.Customer
             ddlOSICurrency.Enabled = true;
             txtOSIYearly.Enabled = true;
             btnSave.Enabled = true;
+            ddlTotal.Enabled = true;
 
         }
 
@@ -390,8 +409,10 @@ namespace WealthERP.Customer
             txtRIYearly.Text = "0.00";
             txtTHSMonthly.Text = "0.00";
             txtTHSYearly.Text = "0.00";
+            txttotal.Text = "0.00";
+            txttotalyear.Text = "0.00";
             txtDateOfEntry.Text = DateTime.Now.ToShortDateString();
         }
-   
+
     }
 }
