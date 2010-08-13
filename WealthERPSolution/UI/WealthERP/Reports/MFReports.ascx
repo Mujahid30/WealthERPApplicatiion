@@ -253,7 +253,7 @@
         var arr = new Array();
         arr["CATEGORY_WISE"] = "AS_ON";
         arr["RETURNS_PORTFOLIO"] = "AS_ON";
-        arr["RETURNS_PORTFOLIO"] = "AS_ON";
+        arr["PORFOLIO_ANALYTICS"] = "AS_ON";
         arr["RETURNS_PORTFOLIO_REALIZED"] = "AS_ON";
         arr["ELIGIBLE_CAPITAL_GAIN_DETAILS"] = "AS_ON";
         arr["ELIGIBLE_CAPITAL_GAIN_SUMMARY"] = "AS_ON";
@@ -624,6 +624,7 @@
                                                                 AutoPostBack="True" OnSelectedIndexChanged="ddlReportSubType_SelectedIndexChanged">
                                                                 <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE" Selected="True"></asp:ListItem>
                                                                 <asp:ListItem Text="Portfolio Returns" Value="RETURNS_PORTFOLIO"></asp:ListItem>
+                                                                <asp:ListItem Text="Portfolio Analytics" Value="PORFOLIO_ANALYTICS"></asp:ListItem>
                                                                 <asp:ListItem Text="Portfolio Returns Realized" Value="RETURNS_PORTFOLIO_REALIZED"></asp:ListItem>
                                                                 <asp:ListItem Text="Transaction Report" Value="TRANSACTION_REPORT"></asp:ListItem>
                                                                 <asp:ListItem Text="Dividend Statement" Value="DIVIDEND_STATEMENT"></asp:ListItem>
