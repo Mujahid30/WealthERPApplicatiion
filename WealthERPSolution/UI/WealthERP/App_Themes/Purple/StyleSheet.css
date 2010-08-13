@@ -715,3 +715,16 @@ ul.tabbernav li.tabberactive a:hover
      border-style: outset;
      
     }
+    
+    .DemoListBox
+    {
+                
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 145px;
+    width: 200px;
+    border: solid 1px #16518A;
+            
+    }
