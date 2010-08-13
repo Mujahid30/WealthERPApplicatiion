@@ -614,25 +614,26 @@ namespace WealthERP.Reports
                         break;
 
                     case "RETURNS_PORTFOLIO":
-                        //crmain.Load(Server.MapPath("MFReturns.rpt"));
-                        //DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
-                        //if (dtReturnsPortfolio.Rows.Count > 0)
-                        //{
-                        //    crmain.SetDataSource(dtReturnsPortfolio);
-                        //    setLogo();
-                        //    crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                        //    crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
-                        //    AssignReportViewerProperties();
+                        crmain.Load(Server.MapPath("MFReturns.rpt"));
+                        DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        if (dtReturnsPortfolio.Rows.Count > 0)
+                        {
+                            crmain.SetDataSource(dtReturnsPortfolio);
+                            setLogo();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            AssignReportViewerProperties();
 
-                        //    //For PDF View In Browser
-                        //    if (Request.QueryString["mail"] == "2")
-                        //    {
-                        //        ExportInPDF();
-                        //    }
-                        //}
-                        //else
-                        //    SetNoRecords();
-                        //break;
+                            //For PDF View In Browser
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                        }
+                        else
+                            SetNoRecords();
+                        break;
+                    case "PORFOLIO ANALYTICS":
                         crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
 
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
