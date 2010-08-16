@@ -57,22 +57,7 @@ namespace WealthERP.Reports
             }
         }
 
-        //protected void LinkButton1_Click(object sender, EventArgs e)
-        //{
-        //    this.moveSelectedItems(LBCustomer, LBSelectCustomer, false);
-        //}
-        //protected void LinkButton2_Click(object sender, EventArgs e)
-        //{
-        //    this.moveSelectedItems(LBSelectCustomer, LBCustomer, false);
-        //}
-        //protected void LinkButton3_Click(object sender, EventArgs e)
-        //{
-        //    this.moveSelectedItems(LBCustomer, LBSelectCustomer, true);
-        //}
-        //protected void LinkButton4_Click(object sender, EventArgs e)
-        //{
-        //    this.moveSelectedItems(LBSelectCustomer, LBCustomer, true);
-        //}
+        
         /// <summary>
         /// This will add selected list Items(Customer) From One Lst to Other List. Author:Pramod 
         /// </summary>
@@ -125,6 +110,7 @@ namespace WealthERP.Reports
             SessionBo.CheckSession();
             userVo = (UserVo)Session["UserVo"];
 
+            //ddlReportSubType.Attributes.Add("onchange", "ChangeDates()");
             rdoGroup.Attributes.Add("onClick", "javascript:ChangeCustomerSelectionTextBox(value);");
             rdoIndividual.Attributes.Add("onClick", "javascript:ChangeCustomerSelectionTextBox(value);");
             rdoCustomerGroup.Attributes.Add("onClick", "javascript:ChangeGroupOrSelf(value);");
@@ -158,13 +144,14 @@ namespace WealthERP.Reports
 
                 BindPeriodDropDown();
 
-                if (CustomerLogin == false)
-                {
-                    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                }
+                //if (CustomerLogin == false)
+                //{
+                //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //}
                 if (!IsPostBack)
                 {
+                    ddlMFTransactionTypeBind();
                     if (CustomerLogin == true)
                     {
                         trCustomerName.Visible = true;
@@ -189,7 +176,23 @@ namespace WealthERP.Reports
                     //tabpnlEmailReports.Visible = false;
                     if (CustomerLogin == false)
                     {
+                        //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
+                        if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                        {
+                            txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                        }
+                        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                        {
+                            txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
 
+                        }
+                        
+                        
                         //ListBox horizontal Scorling enabled false
                         LBCustomer.HorizontalScrollEnabled = false;
                         LBSelectCustomer.HorizontalScrollEnabled = false;
@@ -215,8 +218,8 @@ namespace WealthERP.Reports
                         txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                     }
                     //Transaction Subreport search invissible intitialy..
-                    trTranFilter1.Visible = false;
-                    trTranFilter2.Visible = false;
+                    //trTranFilter1.Visible = false;
+                    //trTranFilter2.Visible = false;
                     tabViewAndEmailReports.ActiveTabIndex = 0;
                     
                 }
@@ -271,7 +274,8 @@ namespace WealthERP.Reports
                 //CustomerVo customerVo = new CustomerVo();
                 customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId.Value));
                 Session["CusVo"] = customerVo;
-
+                txtParentCustomer.Text = customerVo.FirstName.ToString() + customerVo.MiddleName.ToString() + customerVo.LastName.ToString();
+                txtCustomer.Text = customerVo.FirstName.ToString() + customerVo.MiddleName.ToString() + customerVo.LastName.ToString();
                 hdnCustomerId.Value = "";
             }
             tabViewAndEmailReports.ActiveTab = tabViewAndEmailReports.Tabs[activeTabIndex];
@@ -579,7 +583,7 @@ namespace WealthERP.Reports
  
         }
 
-        protected void ddlReportSubType_SelectedIndexChanged(object sender, EventArgs e)
+       /* protected void ddlReportSubType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlReportSubType.SelectedValue == "TRANSACTION_REPORT")
             {
@@ -605,6 +609,22 @@ namespace WealthERP.Reports
              }
             tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
             
+        }*/
+
+        protected void ddlMFTransactionTypeBind()
+        {
+            MFReportsBo mfReportBo = new MFReportsBo();
+            DataSet ds = new DataSet();
+            ds = mfReportBo.GetMFTransactionType();
+            ddlMFTransactionType.DataSource = ds;
+            ddlMFTransactionType.DataValueField = "TransCode";
+            ddlMFTransactionType.DataTextField = "TransName";
+            ddlMFTransactionType.DataBind();
+            ddlMFTransactionType.Items.Insert(0, new ListItem("ALL", "0"));
+            ddlMFTransactionType.SelectedIndex = 0;
+            rddate.Checked = true;
+
+ 
         }
 
         protected void rbnGroup_CheckedChanged(object sender, EventArgs e)
@@ -614,7 +634,18 @@ namespace WealthERP.Reports
             
             CustomerBo customerBo = new CustomerBo();
             DataTable dtGroupCustomerList = new DataTable();
-            dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+
+            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            {
+                dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            {
+
+                dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+            }
+            
 
             LBCustomer.DataSource = dtGroupCustomerList;
             LBCustomer.DataTextField = "C_FirstName";
@@ -630,7 +661,18 @@ namespace WealthERP.Reports
             LBCustomer.Items.Clear();
             CustomerBo customerBo = new CustomerBo();
             DataTable dtIndiviCustomerList = new DataTable();
-            dtIndiviCustomerList = customerBo.GetCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+
+            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            {                
+                dtIndiviCustomerList = customerBo.GetMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            { 
+               
+                dtIndiviCustomerList = customerBo.GetAdviserCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+            }
+                       
 
             LBCustomer.DataSource = dtIndiviCustomerList;
             LBCustomer.DataTextField = "C_FirstName";

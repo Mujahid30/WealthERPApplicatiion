@@ -179,8 +179,8 @@
 
     //.........................................................................
     function DisplayDates(type) {
-        
 
+        
         if (type == 'DATE_RANGE') {
             document.getElementById("<%= rbtnPickDate.ClientID %>").checked = true;
             document.getElementById("<%= rbtnPickDate.ClientID %>").checked = true;
@@ -188,6 +188,20 @@
             document.getElementById("<%= trRange.ClientID %>").style.display = 'block';
             document.getElementById("<%= trPeriod.ClientID %>").style.display = 'none';
             document.getElementById("<%= trAsOn.ClientID %>").style.display = 'none';
+            
+            var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
+            selectedReport = dropdown.options[dropdown.selectedIndex].value
+           
+            if (selectedRepor == 'TRANSACTION_REPORT') {
+
+                document.getElementById("<%= trTranFilter1.ClientID %>").style.display = 'block';
+                document.getElementById("<%= trTranFilter2.ClientID %>").style.display = 'block';
+            }
+            else {
+                document.getElementById("<%= trTranFilter1.ClientID %>").style.display = 'none';
+                document.getElementById("<%= trTranFilter2.ClientID %>").style.display = 'none';
+
+            }
         }
         else if (type == 'PERIOD') {
             document.getElementById("tblPickDate").style.display = 'block';
@@ -196,6 +210,7 @@
             document.getElementById("<%= trAsOn.ClientID %>").style.display = 'none';
         }
         else if (type == 'AS_ON') {
+        
             document.getElementById("tblPickDate").style.display = 'none';
             document.getElementById("<%= trRange.ClientID %>").style.display = 'none';
             document.getElementById("<%= trPeriod.ClientID %>").style.display = 'none';
@@ -250,6 +265,7 @@
             return false;
     }
     function ChangeDates() {
+        
         var arr = new Array();
         arr["CATEGORY_WISE"] = "AS_ON";
         arr["RETURNS_PORTFOLIO"] = "AS_ON";
@@ -265,8 +281,9 @@
 
         var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
         selectedReport = dropdown.options[dropdown.selectedIndex].value
-
-        DisplayDates(arr[selectedReport]);
+        
+        
+         DisplayDates(arr[selectedReport]);
 
     }
 
@@ -300,7 +317,6 @@
 
         }
         else {
-
 
             document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'block';
 
@@ -469,7 +485,7 @@
             <table width="100%" cellpadding="0">
                 <tr>
                     <td>
-                        <ajaxToolkit:TabContainer ID="tabViewAndEmailReports" runat="server" ActiveTabIndex="1"
+                        <ajaxToolkit:TabContainer ID="tabViewAndEmailReports" runat="server" ActiveTabIndex="0"
                             Width="100%" Style="visibility: visible" 
                             OnClientActiveTabChanged="OnChanged">
                             <ajaxToolkit:TabPanel ID="tabpnlViewReports" runat="server" HeaderText="View Reports"
@@ -620,8 +636,7 @@
                                                             <asp:Label ID="Label4" runat="server" Text="Report Type:" CssClass="FieldName"></asp:Label>
                                                         </td>
                                                         <td align="left" width="77%">
-                                                            <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()"
-                                                                AutoPostBack="True" OnSelectedIndexChanged="ddlReportSubType_SelectedIndexChanged">
+                                                            <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">
                                                                 <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE" Selected="True"></asp:ListItem>
                                                                 <asp:ListItem Text="Portfolio Returns" Value="RETURNS_PORTFOLIO"></asp:ListItem>
                                                                 <asp:ListItem Text="Portfolio Analytics" Value="PORFOLIO_ANALYTICS"></asp:ListItem>
@@ -636,7 +651,7 @@
                                                             </asp:DropDownList>
                                                         </td>
                                                     </tr>
-                                                    <tr id="trTranFilter1" runat="server">
+                                                    <tr id="trTranFilter1" runat="server" style="display:none">
                                                         <td align="right" width="13%" runat="server">
                                                             <asp:Label ID="lblsortby" Text="Sort by:" runat="server" CssClass="FieldName"></asp:Label>
                                                         </td>
@@ -645,7 +660,7 @@
                                                                 ID="rdScheme" runat="server" GroupName="Transation" Text="Scheme/Folio" CssClass="cmbField" />
                                                         </td>
                                                     </tr>
-                                                    <tr id="trTranFilter2" runat="server">
+                                                    <tr id="trTranFilter2" runat="server" style="display:none">
                                                         <td align="right" width="13%" runat="server">
                                                             <asp:Label ID="lblFilterBy" Text="Filter by:" runat="server" CssClass="FieldName"></asp:Label>
                                                         </td>
