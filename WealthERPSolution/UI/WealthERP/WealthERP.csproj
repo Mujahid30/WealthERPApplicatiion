@@ -2163,14 +2163,12 @@
     </Compile>
     <Compile Include="Reports\MFReportsDS.cs">
       <DependentUpon>MFReportsDS.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\MFReturns.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\MFReturnsDS.cs">
       <DependentUpon>MFReturnsDS.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\MFReturnsTransactions.cs">
       <SubType>Component</SubType>
