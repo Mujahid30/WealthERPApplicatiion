@@ -813,6 +813,40 @@ namespace BoCustomerProfiling
             return bResult;
         }
 
+        public DataTable GetCustomerPanAddress(int customerId)
+        {
+            DataTable dt = new DataTable();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dt = customerDao.GetCustomerPanAddress(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerExpenseDetails()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
+
+        /// <summary>
+        /// Get RM Group Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public DataTable GetParentCustomerName(string prefixText,int rmId)
         {
             CustomerDao customerDao = new CustomerDao();
@@ -845,7 +879,12 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
-
+        /// <summary>
+        /// Get RM Individual Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public DataTable GetMemberCustomerName(string prefixText, int rmId)
         {
             CustomerDao customerDao = new CustomerDao();
@@ -879,33 +918,12 @@ namespace BoCustomerProfiling
             return dtCustomerNames;
         }
 
-        public DataTable GetCustomerPanAddress(int customerId)
-        {
-            DataTable dt = new DataTable();
-            CustomerDao customerDao = new CustomerDao();
-            try
-            {
-                dt = customerDao.GetCustomerPanAddress(customerId);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerExpenseDetails()");
-                object[] objects = new object[1];
-                objects[0] = customerId;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return dt;
-        }
+          /// <summary>
+          /// NO Use
+          /// </summary>
+          /// <param name="prefixText"></param>
+          /// <param name="rmId"></param>
+          /// <returns></returns>
 
         public DataTable GetCustomerName(string prefixText, int rmId)
         {
@@ -939,6 +957,13 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
+
+        /// <summary>
+        /// Get Advisor Individual Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
         public DataTable GetAdviserCustomerName(string prefixText, int adviserId)
         {
             CustomerDao customerDao = new CustomerDao();
@@ -947,6 +972,45 @@ namespace BoCustomerProfiling
             try
             {
                 dtCustomerNames = customerDao.GetAdviserCustomerName(prefixText, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAdviserCustomerName()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
+
+        /// <summary>
+        /// Get Advisor Group Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataTable GetAdviserGroupCustomerName(string prefixText, int adviserId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetAdviserGroupCustomerName(prefixText, adviserId);
             }
             catch (BaseApplicationException Ex)
             {
