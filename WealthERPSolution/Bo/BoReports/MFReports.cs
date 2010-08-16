@@ -272,7 +272,7 @@ namespace BoReports
                     {
                         for (int i = 0; i < dsCustomerMFReturns.Tables[2].Rows.Count; i++)
                         {
-                            dsCustomerMFReturns.Tables[2].Rows[i]["Percentage"] = double.Parse((((double.Parse(dsCustomerMFReturns.Tables[2].Rows[i]["Amount"].ToString())) / totalValue) * 100).ToString());
+                            dsCustomerMFReturns.Tables[2].Rows[i]["Percentage"] = Math.Round(double.Parse((((double.Parse(dsCustomerMFReturns.Tables[2].Rows[i]["Amount"].ToString())) / totalValue) * 100).ToString()),2);
                         }
                     }
                     if (dsCustomerMFReturns.Tables[5].Rows.Count != 0)
@@ -288,7 +288,7 @@ namespace BoReports
                     {
                         for (int i = 0; i < dsCustomerMFReturns.Tables[5].Rows.Count; i++)
                         {
-                            dsCustomerMFReturns.Tables[5].Rows[i]["Percentage"] = double.Parse((((double.Parse(dsCustomerMFReturns.Tables[5].Rows[i]["Amount"].ToString())) / totalValue) * 100).ToString());
+                            dsCustomerMFReturns.Tables[5].Rows[i]["Percentage"] = Math.Round(double.Parse((((double.Parse(dsCustomerMFReturns.Tables[5].Rows[i]["Amount"].ToString())) / totalValue) * 100).ToString()),2);
                         }
                     }
                 }
