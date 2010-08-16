@@ -2065,7 +2065,51 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
-        //Function used to get parent customer names for auto complete
+        //Getting the Pan and Address of Customer for Group Account Setup
+        public DataTable GetCustomerPanAddress(int customerId)
+        {
+            Database db;
+            DbCommand cmdGetPanAddress;
+            DataTable dtPanAddress;
+            DataSet dsPanAddress = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetPanAddress = db.GetStoredProcCommand("SP_GetCustomerPanAddress");
+                db.AddInParameter(cmdGetPanAddress, "@C_CustomerId", DbType.Int32, customerId);
+                dsPanAddress = db.ExecuteDataSet(cmdGetPanAddress);
+                dtPanAddress = dsPanAddress.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerExpenseDetails()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtPanAddress;
+        }
+
+
+
+        /// <summary>
+        ///  Get RM Group Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public DataTable GetParentCustomerName(string prefixText, int rmId)
         {
 
@@ -2110,7 +2154,12 @@ namespace DaoCustomerProfiling
             return dtCustomerNames;
         }
 
-        //Function used to get member customer names for auto complete
+       /// <summary>
+        /// Get RM Individual Customer Names
+       /// </summary>
+       /// <param name="prefixText"></param>
+       /// <param name="rmId"></param>
+       /// <returns></returns>
         public DataTable GetMemberCustomerName(string prefixText, int rmId)
         {
 
@@ -2155,44 +2204,14 @@ namespace DaoCustomerProfiling
             return dtCustomerNames;
         }
 
-        //Getting the Pan and Address of Customer for Group Account Setup
-        public DataTable GetCustomerPanAddress(int customerId)
-        {
-            Database db;
-            DbCommand cmdGetPanAddress;
-            DataTable dtPanAddress;
-            DataSet dsPanAddress = null;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
+     
 
-                //To retreive data from the table 
-                cmdGetPanAddress = db.GetStoredProcCommand("SP_GetCustomerPanAddress");
-                db.AddInParameter(cmdGetPanAddress, "@C_CustomerId", DbType.Int32, customerId);
-                dsPanAddress = db.ExecuteDataSet(cmdGetPanAddress);
-                dtPanAddress = dsPanAddress.Tables[0];
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerExpenseDetails()");
-                object[] objects = new object[1];
-                objects[0] = customerId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-            return dtPanAddress;
-        }
-
-        //Function used to get Customer names for auto complete
+        /// <summary>
+        /// No Use
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public DataTable GetCustomerName(string prefixText, int rmId)
         {
 
@@ -2236,6 +2255,12 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        /// <summary>
+        /// Get Advisor Individual Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
         public DataTable GetAdviserCustomerName(string prefixText, int adviserId)
         {
 
@@ -2279,6 +2304,57 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
+
+        /// <summary>
+        /// Get Advisor Group Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataTable GetAdviserGroupCustomerName(string prefixText, int adviserId)
+        {
+
+            Database db;
+            DbCommand cmdGetGroupCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetGroupCustomerNames = db.GetStoredProcCommand("SP_GetAdviserParentCustomerNames");
+                db.AddInParameter(cmdGetGroupCustomerNames, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetGroupCustomerNames, "@A_AdviserId", DbType.Int32, adviserId);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetGroupCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAdviserCustomerName()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
+
     }
 }
 
