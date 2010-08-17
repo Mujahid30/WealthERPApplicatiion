@@ -941,6 +941,15 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.CheckBox chkPortfolioReturnRE;
         
         /// <summary>
+        /// chkPortfolioAnalytics control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkPortfolioAnalytics;
+        
+        /// <summary>
         /// chkEligibleCapitalgainsDetail control.
         /// </summary>
         /// <remarks>

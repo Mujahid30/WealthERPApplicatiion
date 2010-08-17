@@ -23,6 +23,7 @@
         if (type == 'mail') {
             if (document.getElementById("<%= chkMFSummary.ClientID %>").checked == false &&
            document.getElementById("<%= chkPortfolioReturns.ClientID %>").checked == false &&
+           document.getElementById("<%= chkPortfolioAnalytics.ClientID %>").checked == false &&
            document.getElementById("<%= chkPortfolioReturnRE.ClientID %>").checked == false &&
            document.getElementById("<%= chkEligibleCapitalgainsDetail.ClientID %>").checked == false &&
            document.getElementById("<%= chkEligibleCapitalGainsSummary.ClientID %>").checked == false &&
@@ -89,7 +90,7 @@
                     }
                 }
             }
-            if (document.getElementById("<%= chkMFSummary.ClientID  %>").checked == true || document.getElementById("<%= chkPortfolioReturns.ClientID  %>").checked == true || document.getElementById("<%= chkPortfolioReturnRE.ClientID  %>").checked == true || document.getElementById("<%= chkEligibleCapitalgainsDetail.ClientID  %>").checked == true || document.getElementById("<%= chkEligibleCapitalGainsSummary.ClientID  %>").checked == true) {
+            if (document.getElementById("<%= chkMFSummary.ClientID  %>").checked == true || document.getElementById("<%= chkPortfolioReturns.ClientID  %>").checked == true || document.getElementById("<%= chkPortfolioAnalytics.ClientID  %>").checked == true || document.getElementById("<%= chkPortfolioReturnRE.ClientID  %>").checked == true || document.getElementById("<%= chkEligibleCapitalgainsDetail.ClientID  %>").checked == true || document.getElementById("<%= chkEligibleCapitalGainsSummary.ClientID  %>").checked == true) {
                 dateVal = document.getElementById("<%= txtEmailAsOnDate.ClientID  %>").value;
                 if (dateVal == null || dateVal == "" || dateVal == 'dd/mm/yyyy') {
                     alert("Please select date")
@@ -891,11 +892,7 @@
                                                                                     ValidationGroup="btnEmail"></asp:RequiredFieldValidator>
                                                                             </td>
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <br />
-                                                                            </td>
-                                                                        </tr>
+                                                                       
                                                                         <tr>
                                                                             <td width="100%">
                                                                                 <asp:CheckBox ID="chkMFSummary" runat="server" class="cmbField" 
@@ -912,6 +909,12 @@
                                                                             <td>
                                                                                 <asp:CheckBox ID="chkPortfolioReturnRE" runat="server" class="cmbField" 
                                                                                     Text="Portfolio Returns - Realized" />
+                                                                            </td>
+                                                                        </tr>
+                                                                         <tr>
+                                                                            <td>
+                                                                                 <asp:CheckBox ID="chkPortfolioAnalytics" runat="server" class="cmbField" 
+                                                                                    Text="Portfolio Analytics" />
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
