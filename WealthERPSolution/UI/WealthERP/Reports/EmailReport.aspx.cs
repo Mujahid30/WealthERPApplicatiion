@@ -168,6 +168,14 @@ namespace WealthERP.Reports
                 DisplayReport(mfReport);
                 //FillEmailValues();
             }
+            if (Request.Form[ctrlPrefix + "chkPortfolioAnalytics"] == "on")
+            {
+                CountReport = CountReport + 1;
+                crmain = new ReportDocument();
+                GetReportParameters("PORFOLIO_ANALYTICS");
+                DisplayReport(mfReport);
+                //FillEmailValues();
+            }
             //Add For three more new Report :Author:--pramod
             if (Request.Form[ctrlPrefix + "chkPortfolioReturnRE"] == "on")
             {
@@ -375,6 +383,28 @@ namespace WealthERP.Reports
                         else
                             SetNoRecords();
                         break;
+                    case "PORFOLIO_ANALYTICS":
+                        crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
+
+                        DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
+                        if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
+                        {
+                            crmain.SetDataSource(dsReturnsPortfolio.Tables[0]);
+                            crmain.Subreports["MFSchemePerformance"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[1]);
+                            crmain.Subreports["MFTopTenHoldings"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[2]);
+                            crmain.Subreports["MFTopTenSectors"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[5]);
+
+                            setLogo();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            AssignReportViewerProperties();
+                            exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
+                            crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
+                                                        
+                        }
+                        else
+                            SetNoRecords();
+                        break;
 
                     case "DIVIDEND_SUMMARY":
                         crmain.Load(Server.MapPath("MFDividendSummary.rpt"));
@@ -520,7 +550,7 @@ namespace WealthERP.Reports
                 mfReport.PortfolioIds = PortFolioIds;
             }
 
-            if (reportSubType == "CATEGORY_WISE" || reportSubType == "RETURNS_PORTFOLIO" || reportSubType == "RETURNS_PORTFOLIO_REALIZED" || reportSubType == "ELIGIBLE_CAPITAL_GAIN_DETAILS" || reportSubType == "ELIGIBLE_CAPITAL_GAIN_SUMMARY")
+            if (reportSubType == "CATEGORY_WISE" || reportSubType == "PORFOLIO_ANALYTICS" || reportSubType == "RETURNS_PORTFOLIO" || reportSubType == "RETURNS_PORTFOLIO_REALIZED" || reportSubType == "ELIGIBLE_CAPITAL_GAIN_DETAILS" || reportSubType == "ELIGIBLE_CAPITAL_GAIN_SUMMARY")
             {
                 mfReport.FromDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
                 mfReport.ToDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
@@ -645,7 +675,7 @@ namespace WealthERP.Reports
         /// </summary>
         private void CalculateDateRange(string reportType,out DateTime fromDate, out DateTime toDate)
         {
-            if (reportType == "RETURNS_PORTFOLIO" || reportType == "CATEGORY_WISE" || reportType == "RETURNS_PORTFOLIO_REALIZED" || reportType == "ELIGIBLE_CAPITAL_GAIN_DETAILS" || reportType == "ELIGIBLE_CAPITAL_GAIN_SUMMARY")
+            if (reportType == "RETURNS_PORTFOLIO" || reportType == "PORFOLIO_ANALYTICS" || reportType == "CATEGORY_WISE" || reportType == "RETURNS_PORTFOLIO_REALIZED" || reportType == "ELIGIBLE_CAPITAL_GAIN_DETAILS" || reportType == "ELIGIBLE_CAPITAL_GAIN_SUMMARY")
             {
                 fromDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
                 toDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
@@ -808,6 +838,9 @@ namespace WealthERP.Reports
                                     break;
                                 case "RETURNS_PORTFOLIO":
                                     subject = "Portfolio Returns - ";
+                                    break;
+                                case "PORFOLIO_ANALYTICS":
+                                    subject = "Portfolio Analytics - ";
                                     break;
                                 case "RETURNS_PORTFOLIO_REALIZED":
                                     subject = "Portfolio Returns Realized - ";
