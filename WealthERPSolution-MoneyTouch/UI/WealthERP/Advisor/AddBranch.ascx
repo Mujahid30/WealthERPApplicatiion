@@ -2,12 +2,11 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <html>
 <head>
-    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
 </head>
 <body>
 </body>
 </html>
-
 <%--<script>
     function ViewAssociateRows(BranchAssociateType) {
         var content_Prefix = "ctrl_AddBranch_";
@@ -30,14 +29,13 @@
 <%--<asp:UpdatePanel ID="upnl" runat="server">
 <ContentTemplate>--%>
 <table width="100%" class="TableBackground">
-<tr>
+    <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Add Branch"></asp:Label>
             <hr />
         </td>
     </tr>
 </table>
-
 <table style="width: 100%;" class="TableBackground">
     <tr>
         <td colspan="4" class="tdRequiredText">
@@ -92,9 +90,9 @@
             <asp:DropDownList ID="ddlAssociateCategory" runat="server" CssClass="cmbField" ToolTip="Please setup the category if u dont find any data here">
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="ddlAssociateCategory_CompareValidator" runat="server"
-                ControlToValidate="ddlAssociateCategory" ErrorMessage="Please select an Associate Category"
-                Operator="NotEqual" ValueToCompare="Select Associate Category" CssClass="cvPCG" ValidationGroup="btnSubmit">
+            <asp:CompareValidator ID="ddlAssociateCategory_CompareValidator" runat="server" ControlToValidate="ddlAssociateCategory"
+                ErrorMessage="Please select an Associate Category" Operator="NotEqual" ValueToCompare="Select Associate Category"
+                CssClass="cvPCG" ValidationGroup="btnSubmit">
             </asp:CompareValidator>
         </td>
     </tr>
@@ -135,9 +133,11 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtPinCode" runat="server" MaxLength="6" CssClass="txtField"></asp:TextBox>
-            <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="Enter a numeric value"
-                ValidationGroup="btnSubmit" CssClass="cvPCG" Type="Integer" ControlToValidate="txtPinCode"
-                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtPinCode"
+                ErrorMessage="Pincode Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG"
+                ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtPinCode"
+                Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -192,9 +192,11 @@
         <td class="rightField">
             <asp:TextBox ID="txtMobileNumber" CssClass="txtField" runat="server" MaxLength="10"></asp:TextBox>
             <br />
-            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Enter a numeric value"
-                ValidationGroup="btnSubmit" CssClass="cvPCG" Type="Integer" ControlToValidate="txtMobileNumber"
-                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtMobileNumber"
+                ErrorMessage="Pincode Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG"
+                ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtMobileNumber"
+                Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr id="trNoOfTerminals" runat="server">
@@ -204,9 +206,9 @@
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtTerminalCount" CssClass="txtField" runat="server" MaxLength="3"></asp:TextBox>
             <br />
-            <asp:CompareValidator ID="CompareValidator15" runat="server" ErrorMessage="Enter a numeric value"
-                ValidationGroup="btnSubmit" CssClass="cvPCG" Type="Integer" ControlToValidate="txtTerminalCount"
-                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" CssClass="cvPCG"
+                ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtTerminalCount"
+                Display="Dynamic"></asp:RegularExpressionValidator>
             <asp:Button ID="btnAddTerminal" runat="server" OnClick="btnAddTerminal_Click" Text="Add Terminal Id"
                 CssClass="PCGMediumButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddBranch_btnAddTerminal','M');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddBranch_btnAddTerminal','M');" />
@@ -246,16 +248,16 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtPhone1"
                 ErrorMessage="Please enter the Contact Number" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnSubmit">
-            </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Enter a numeric value"
-                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtIsdPhone1" Operator="DataTypeCheck"
-                Display="Dynamic"></asp:CompareValidator>
-            <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Enter a numeric value"
-                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtStdPhone1" Operator="DataTypeCheck"
-                Display="Dynamic"></asp:CompareValidator>
-            <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br />Enter a numeric value"
-                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPhone1" Operator="DataTypeCheck"
-                Display="Dynamic"></asp:CompareValidator>
+            </asp:RequiredFieldValidator>            
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" CssClass="cvPCG"
+                ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtIsdPhone1"
+                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator8" runat="server" CssClass="cvPCG"
+                ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtStdPhone1"
+                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" CssClass="cvPCG"
+                ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtPhone1"
+                Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
