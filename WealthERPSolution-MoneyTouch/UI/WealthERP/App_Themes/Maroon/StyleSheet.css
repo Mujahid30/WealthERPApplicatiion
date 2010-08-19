@@ -696,7 +696,7 @@ ul.tabbernav li.tabberactive a:hover
     font-weight: bold;
 } 
   
-  .success-msg, .failure-msg, .warning-msg
+  .success-msg, .failure-msg, .warning-msg,.information-msg
     {
         margin: 25px 0;        
         padding: 15px 60px;
