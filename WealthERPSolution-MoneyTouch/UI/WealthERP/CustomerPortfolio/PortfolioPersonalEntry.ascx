@@ -2,7 +2,6 @@
     Inherits="WealthERP.CustomerPortfolio.PortfolioPersonalEntry" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
-
 <script type="text/javascript">
     function checkDate(sender, args) {
 
@@ -25,16 +24,14 @@
 <asp:UpdatePanel ID="up1" runat="server">
     <ContentTemplate>
         <table style="width: 100%;" class="TableBackground">
-          <tr>
+            <tr>
                 <td colspan="3" class="HeaderCell">
                     <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Add Personal Asset"></asp:Label>
-                    
                 </td>
             </tr>
             <tr>
                 <td colspan="3" class="HeaderCell">
                     <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="View Personal Asset"></asp:Label>
-                    
                 </td>
             </tr>
             <tr>
@@ -103,7 +100,7 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtName" runat="server" CssClass="txtField"></asp:TextBox>
                     <span id="Span10" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtName" 
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtName"
                         ErrorMessage="Please enter the Name" Display="Dynamic" runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
                 </td>
@@ -118,8 +115,9 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtQuantity"
                         ErrorMessage="Please enter the Quantity" Display="Dynamic" runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtQuantity" CssClass="cvPCG"
-                        Display="Dynamic" runat="server" ErrorMessage="Enter a numeric value" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtQuantity"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" ErrorMessage="Enter a numeric value"
+                        ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trPurchaseDate" runat="server">
@@ -151,8 +149,9 @@
                         ErrorMessage="Please enter the Purchase Price" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtPurchasePrice" CssClass="cvPCG"
-                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtPurchasePrice"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trPurchaseValue" runat="server">
@@ -166,8 +165,9 @@
                         ErrorMessage="Please enter the Purchase Value" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPurchaseValue" CssClass="cvPCG"
-                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPurchaseValue"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trCurrentPrice" runat="server">
@@ -176,8 +176,9 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtCurrentPrice" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtCurrentPrice" CssClass="cvPCG"
-                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtCurrentPrice"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trCurrentValue" runat="server">
@@ -186,8 +187,14 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtCurrentValue" CssClass="cvPCG"
-                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                    <span id="Span17" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="rfvCurrentValue" ControlToValidate="txtCurrentValue"
+                        ErrorMessage="<br />Please enter the Current Value" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtCurrentValue"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>
