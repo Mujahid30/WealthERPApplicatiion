@@ -673,6 +673,11 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField"></asp:TextBox>
+                    <span id="Span13" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="rfvCurrentValue" ControlToValidate="txtCurrentValue"
+                        ErrorMessage="<br />Please enter the Current Value" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblMaturityValue" runat="server" CssClass="FieldName" Text="Maturity Value:"></asp:Label>
