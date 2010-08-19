@@ -14,8 +14,8 @@
 <link href="../Scripts/Calender/skins/aqua/theme.css" rel="stylesheet" type="text/css" />
 <%--Javascript Calendar Controls - Required Files--%>
 <asp:ScriptManager ID="scrptMgr" runat="server">
-
 </asp:ScriptManager>
+
 <script type="text/javascript" language="javascript">
     var content_Prefix = "ctrl_PortfolioPropertyEntry_";
     function CalculateCost(txtPurchasePrice, txtQuantity, txtPurchaseValue) {
@@ -29,6 +29,7 @@
         }
     }
 </script>
+
 <%--<asp:UpdatePanel ID="up1" runat="server">
     <ContentTemplate>--%>
 <table class="TableBackground" style="width: 100%">
@@ -350,11 +351,11 @@
         </td>
         <td colspan="2" class="rightField">
             <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField"></asp:TextBox>
-            <%--<span id="Span14" class="spnRequiredField">*</span>--%>
-            <%--<asp:RequiredFieldValidator ID="rfvCurrentValue" ControlToValidate="txtCurrentValue"
-                        ErrorMessage="Please enter the Current Value" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
-                    </asp:RequiredFieldValidator>--%>
+            <span id="Span14" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="rfvCurrentValue" ControlToValidate="txtCurrentValue"
+                ErrorMessage="<br />Please enter the Current Value" Display="Dynamic" runat="server"
+                CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvCurrentValue" runat="server" ErrorMessage="<br>Please enter a numeric value"
                 Type="Double" ControlToValidate="txtCurrentValue" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic"></asp:CompareValidator>
