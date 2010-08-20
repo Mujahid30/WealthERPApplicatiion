@@ -130,7 +130,7 @@ namespace WealthERP.Alerts
               }
               else if (TreeView1.SelectedNode.Value == "Liabilities Dashboard")
               {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard', 'none')", true);
+                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('LiabilityView', 'none')", true);
               }
         }
     }
