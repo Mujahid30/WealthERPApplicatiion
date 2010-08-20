@@ -726,9 +726,7 @@
                                     ValidationGroup="grpIns" ErrorMessage="<br />Please Enter Expiry Date" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>--%>
-                                <asp:CompareValidator ID="cvInsExpiryDate" runat="server" ErrorMessage="<br/>Sorry, Expiry date should not be prior to current date !"
-                                    Type="Date" ControlToValidate="txtInsAgencyExpiry" CssClass="cvPCG" Operator="greaterthanequal"
-                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpIns"></asp:CompareValidator>
+                                
                             </td>
                         </tr>
                         <tr>
@@ -854,9 +852,7 @@
                                     ValidationGroup="grpPostal" ErrorMessage="<br />Please Enter Expiry Date" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>--%>
-                                <asp:CompareValidator ID="cvPostExpiryDate" runat="server" ErrorMessage="<br/>Sorry, Expiry date should not be prior to current date !"
-                                    Type="Date" ControlToValidate="txtPostalAgencyExpiry" CssClass="cvPCG" Operator="GreaterThanEqual"
-                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpPostal"></asp:CompareValidator>
+                               
                             </td>
                         </tr>
                         <tr>
@@ -961,9 +957,7 @@
                                     ValidationGroup="grpRealEst" ErrorMessage="<br />Please Enter Expiry Date" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>--%>
-                                <asp:CompareValidator ID="cvRealEstExpiryDate" runat="server" ErrorMessage="<br/>Sorry, Expiry date should not be prior to current date !"
-                                    Type="Date" ControlToValidate="txtRealEstAgencyExpiry" CssClass="cvPCG" Operator="GreaterThanEqual"
-                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpRealEst"></asp:CompareValidator>
+                                
                             </td>
                         </tr>
                         <tr>
@@ -1070,9 +1064,7 @@
                                     ValidationGroup="grpFixInc" ErrorMessage="<br />Please Enter Expiry Date" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>--%>
-                                <asp:CompareValidator ID="cvFixIncExpiryDate" runat="server" ErrorMessage="<br/>Sorry, Expiry date should not be prior to current date !"
-                                    Type="Date" ControlToValidate="txtFixIncAgencyExpiry" CssClass="cvPCG" Operator="GreaterThanEqual"
-                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpFixInc"></asp:CompareValidator>
+                                
                             </td>
                         </tr>
                         <tr>
@@ -1177,9 +1169,7 @@
                                     ValidationGroup="grpLiab" ErrorMessage="<br />Please Enter Expiry Date" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>--%>
-                                <asp:CompareValidator ID="cvLiabExpiryDate" runat="server" ErrorMessage="<br/>Sorry, Expiry date should not be prior to current date !"
-                                    Type="Date" ControlToValidate="txtLiabAgencyExpiry" CssClass="cvPCG" Operator="greaterthanequal"
-                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpLiab"></asp:CompareValidator>
+                                
                             </td>
                         </tr>
                         <tr>

@@ -60,101 +60,7 @@ namespace WealthERP.Advisor
         String connectionstring;
 
 
-        //protected void FillHolidayDataset()
-        //{
-
-        //    DateTime lastDate = GetFirstDayOfNextMonth();
-        //    dsHolidays = GetCurrentMonthData(DateTime.Today, lastDate);
-        //    //DateTime nextDate;
-        //    //if (dsHolidays != null)
-        //    //{
-        //    //    foreach (DataRow dr in dsHolidays.Tables[0].Rows)
-        //    //    {
-        //    //        nextDate = (DateTime)dr["WTD_Date"];
-        //    //        if (nextDate == txtMFValidity_CalendarExtender.Day.Date)
-        //    //        {
-        //    //            e.Cell.BackColor = System.Drawing.Color.Pink;
-        //    //        }
-        //    //    }
-        //    //}
-        //}
-
-        //protected DateTime GetFirstDayOfNextMonth()
-        //{
-        //    int monthNumber, yearNumber;
-        //    if (txtMFValidity_CalendarExtender.SelectedDate.Value.Month == 12)
-        //    {
-        //        monthNumber = 1;
-        //        yearNumber = txtMFValidity_CalendarExtender.SelectedDate.Value.Year + 1;
-        //    }
-        //    else
-        //    {
-        //        monthNumber = txtMFValidity_CalendarExtender.SelectedDate.Value.Month + 1;
-        //        yearNumber = txtMFValidity_CalendarExtender.SelectedDate.Value.Year;
-        //    }
-        //    DateTime lastDate = new DateTime(yearNumber, monthNumber, 1);
-        //    return lastDate;
-        //}
-
-        //protected DataSet GetCurrentMonthData(DateTime firstDate, DateTime lastDate)
-        //{
-        //    DataSet dsMonth = new DataSet();
-        //    connectionstring = "Data Source=SERVER; Initial Catalog=WealthERPQA;" + " user id=sa; password=pcg123#;";
-        //    conn = new SqlConnection(connectionstring);
-        //    conn.Open();
-
-        //    Database db = DatabaseFactory.CreateDatabase("wealtherp");
-        //    string query = "SELECT WTD_Date FROM WerpTradeDate WHERE WTD_Date >= '" + firstDate.ToShortDateString() + "' AND WTD_Date < '" + lastDate.ToShortDateString() + "'";
-        //    DbCommand getBranchIdCmd = db.GetSqlStringCommand(query);
-        //    dsMonth = db.ExecuteDataSet(getBranchIdCmd);
-
-
-
-        //    //SqlCommand cmd = new SqlCommand(query, conn);
-
-
-        //    //SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
-        //    //sqlDataAdapter.SelectCommand = new SqlCommand(query, conn);
-        //    //sqlDataAdapter.Fill(dsMonth);
-
-        //    return dsMonth;
-        //}
-        //protected override void OnPreRender(EventArgs e)
-        //{
-        //    base.OnPreRender(e);
-        //    DateTime nextDate;
-        //    if (dsHolidays != null)
-        //    {
-        //        foreach (DataRow dr in dsHolidays.Tables[0].Rows)
-        //        {
-        //            nextDate = (DateTime)dr["WTD_Date"];
-        //            if (nextDate == e.Day.Date)
-        //            {
-        //                e.Cell.BackColor = System.Drawing.Color.Pink;
-        //            }
-        //        }
-        //    }
-        //}
-        //protected void Calendar1_DayRender(object sender, System.Web.UI.WebControls.DayRenderEventArgs e)
-        //{
-        //    DateTime nextDate;
-        //    if (dsHolidays != null)
-        //    {
-        //        foreach (DataRow dr in dsHolidays.Tables[0].Rows)
-        //        {
-        //            nextDate = (DateTime)dr["WTD_Date"];
-        //            if (nextDate == e.Day.Date)
-        //            {
-        //                e.Cell.BackColor = System.Drawing.Color.Pink;
-        //            }
-        //        }
-        //    }
-        //}
-        //protected void Calendar1_VisibleMonthChanged(object sender,
-        //    MonthChangedEventArgs e)
-        //{
-        //    FillHolidayDataset();
-        //}
+       
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -166,12 +72,7 @@ namespace WealthERP.Advisor
                 userVo = (UserVo)Session["UserVo"];
                 LOBId = Session["LOBId"].ToString();
                 cvMFExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-                cvInsExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-                cvPostExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-                cvRealEstExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-                cvFixIncExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-                cvLiabExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-
+               
                 if (!IsPostBack)
                 {
                     txtMFValidity_CalendarExtender.Animated = true;
