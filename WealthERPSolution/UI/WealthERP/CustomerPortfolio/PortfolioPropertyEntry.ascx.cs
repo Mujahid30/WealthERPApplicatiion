@@ -37,12 +37,16 @@ namespace WealthERP.CustomerPortfolio
         string AssetGroupCode = "PR";
         string Manage = string.Empty;
 
+        Mode mode = Mode.Add;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 SessionBo.CheckSession();
                 cvPurchaseDate1.ValueToCompare = DateTime.Now.ToShortDateString();
+                setMode(); //Set Add/Edit/View Mode based on the query string parameter.
+
                 if (!IsPostBack)
                 {
                     userVo = (UserVo)Session["userVo"];
@@ -57,17 +61,17 @@ namespace WealthERP.CustomerPortfolio
 
                     if (propertyVo != null)
                     {
-                        if (Manage == "edit")
+                        if (mode == Mode.Edit)
                         {
                             lblHeader.Text = "Edit Property";
                             SetControls("edit", propertyVo, customerAccountsVo, path);
                         }
-                        else if (Manage == "view")
+                        else if (mode == Mode.View)
                         {
                             lblHeader.Text = "View Property";
                             SetControls("view", propertyVo, customerAccountsVo, path);
                         }
-                        else if (Manage == "entry")
+                        else if (mode == Mode.Add)
                         {
                             lblHeader.Text = "Add Property";
                             SetControls("entry", propertyVo, customerAccountsVo, path);
@@ -596,7 +600,25 @@ namespace WealthERP.CustomerPortfolio
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioProperty', 'none')", true);
+            
+            if (mode == Mode.Edit || mode == Mode.View)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioProperty', 'none')", true);
+            else
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=PR')", true);
+        
+        }
+
+        /// <summary>
+        /// Set the mode to Edit/Add/View based on the Session["action"] value
+        /// </summary>
+        private void setMode()
+        {
+            if (Session["action"].ToString() == "Edit")
+                mode = Mode.Edit;
+            else if (Session["action"].ToString() == "View")
+                mode = Mode.View;
+            else
+                mode = Mode.Add;
         }
     }
 }
