@@ -508,7 +508,14 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 AddToAdviserSMSLogCmd = db.GetStoredProcCommand("SP_AddToAdviserSMSLog");
                 db.AddInParameter(AddToAdviserSMSLogCmd, "@ASML_SMSQueueId", DbType.Int32, smsVo.SMSId);
-
+                if (smsVo.AlertId != 0)
+                {
+                    db.AddInParameter(AddToAdviserSMSLogCmd, "@AEN_EventQueueID", DbType.Int32, smsVo.AlertId);
+                }
+                else
+                {
+                    db.AddInParameter(AddToAdviserSMSLogCmd, "@AEN_EventQueueID", DbType.Int32, 0);
+                }
                 db.AddInParameter(AddToAdviserSMSLogCmd, "@A_AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(AddToAdviserSMSLogCmd, "@ASML_SMSType", DbType.String, smsType);
                 db.AddInParameter(AddToAdviserSMSLogCmd, "@C_CustomerId", DbType.Int32, smsVo.CustomerId);
