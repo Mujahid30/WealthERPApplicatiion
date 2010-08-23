@@ -59,7 +59,9 @@ namespace WealthERP.Admin
 
         protected void rbtnHistorical_CheckedChanged(object sender, EventArgs e)
         {
-        
+
+            hdnSchemeSearch.Value = null;
+            hdnCompanySearch.Value = null;
             if (rbtnHistorical.Checked)
             {
                 trFromDate.Style.Add("display", "block");
@@ -72,6 +74,8 @@ namespace WealthERP.Admin
             PriceBo PriceObj = new PriceBo();
             DataSet ds;
             lblIllegal.Visible = false;
+            //hdnSchemeSearch.Value = null;
+            //hdnCompanySearch.Value = null;
 
 
 
@@ -135,10 +139,13 @@ namespace WealthERP.Admin
                 DateTime EndDate = DateTime.Parse(txtToDate.Text.ToString());
                 hdnFromDate.Value = StartDate.ToString();
                 hdnToDate.Value = EndDate.ToString();
+                
+                
+
                 if (ddlAssetGroup.SelectedValue == Contants.Source.Equity.ToString())
                 {
-                    
                     string Search = hdnCompanySearch.Value;
+                    //Search = null;
                     hdnEquityCount.Value = PriceObj.GetEquityCount("C", StartDate, EndDate, Search, mypager.CurrentPage).ToString();
                     lblTotalRows.Text = hdnEquityCount.Value;
                     GetPageCount_Equity();
@@ -148,8 +155,8 @@ namespace WealthERP.Admin
                     DivEquity.Style.Add("display", "visible");
                     DivMF.Style.Add("display", "none");
                     DivPager.Style.Add("display", "visible");
-                    Search = null;
-                    hdnCompanySearch.Value = null;
+                    
+                    //hdnCompanySearch.Value = null;
 
                 }
                 else if (ddlAssetGroup.SelectedValue == Contants.Source.MF.ToString())
@@ -166,8 +173,8 @@ namespace WealthERP.Admin
                     DivPager.Style.Add("display", "visible");
                     DivMF.Style.Add("display", "visible");
                     DivEquity.Style.Add("display", "none");
-                    Search = null;
-                    hdnSchemeSearch.Value = null;
+                    //Search = null;
+                    //hdnSchemeSearch.Value = null;
                     
                 }
             }
