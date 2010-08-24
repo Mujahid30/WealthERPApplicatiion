@@ -8,7 +8,38 @@
 <script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
 
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
 
+    function DownloadScript() {
+        btn = document.getElementById('<%= btnExportExcel.ClientID %>');
+        btn.click();
+    }
+</script>
+
+<%--<asp:UpdatePanel ID="up1" runat="server">
+    <ContentTemplate>--%>
+<%--This are the linkrels for the Jquery files and CSS files abt the screen tips and info's--%>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<link href="../App_Themes/Maroon/Images/bubbletip.css" rel="stylesheet" type="text/css" />
+<%--End--%>
+<%--This scripts includes the JQuery coding about the Screen Tips and screen info   --%>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.ScreenTip1').bubbletip($('#div1'), { deltaDirection: 'right' });
+        $('.ScreenTip2').bubbletip($('#div2'), { deltaDirection: 'right' });
+        $('.ScreenTip3').bubbletip($('#div3'), { deltaDirection: 'right' });
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+
+<%--End--%>
 <!--This script is used for Progress bar -->
 
 <script type="text/javascript">
