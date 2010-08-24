@@ -1034,7 +1034,49 @@ namespace BoCustomerProfiling
 
             }
             return dtCustomerNames;
-        }        
+        }
+
+        /// <summary>
+        /// Function to check whether a customer is group head or not
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <param name="classificationCode"></param>
+        /// <returns></returns>
+        public bool CheckCustomerGroupHead(int customerId)
+        {
+            bool result = false;
+
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+
+                result = customerDao.CheckCustomerGroupHead(customerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorLOBBo.cs:CheckCustomerGroupHead()");
+
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
+        }
     }
 
 }
