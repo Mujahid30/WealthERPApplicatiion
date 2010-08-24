@@ -2101,9 +2101,7 @@ namespace DaoCustomerProfiling
             }
             return dtPanAddress;
         }
-
-
-
+                
         /// <summary>
         ///  Get RM Group Customer Names
         /// </summary>
@@ -2154,7 +2152,7 @@ namespace DaoCustomerProfiling
             return dtCustomerNames;
         }
 
-       /// <summary>
+        /// <summary>
         /// Get RM Individual Customer Names
        /// </summary>
        /// <param name="prefixText"></param>
@@ -2203,8 +2201,6 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
-
-     
 
         /// <summary>
         /// No Use
@@ -2255,6 +2251,7 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
+
         /// <summary>
         /// Get Advisor Individual Customer Names
         /// </summary>
@@ -2355,6 +2352,48 @@ namespace DaoCustomerProfiling
             return dtCustomerNames;
         }
 
+        /// <summary>
+        /// Function to check whether a customer is group head or not
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public bool CheckCustomerGroupHead(int customerId)
+        {
+            bool result = false;
+            int res;
+            Database db;
+            DbCommand checkCustomerGrpHeadCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                checkCustomerGrpHeadCmd = db.GetStoredProcCommand("SP_ChkCustomerGrpHead");
+                db.AddInParameter(checkCustomerGrpHeadCmd, "@CustomerId", DbType.Int32, customerId);
+
+                res = int.Parse(db.ExecuteScalar(checkCustomerGrpHeadCmd).ToString());
+                if (res > 1)
+                    result = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorLOBDao.cs:CheckCustomerGroupHead()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }
     }
 }
 
