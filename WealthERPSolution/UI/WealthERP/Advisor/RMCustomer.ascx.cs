@@ -677,6 +677,8 @@ namespace WealthERP
             UserBo userBo = new UserBo();
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
             PortfolioBo portfolioBo = new PortfolioBo();
+            bool isGrpHead = false;
+
             if (Session[SessionContents.PortfolioId] != null)
             {
                 Session.Remove(SessionContents.PortfolioId); 
@@ -695,11 +697,11 @@ namespace WealthERP
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-                   if(customerVo.RelationShip == "SELF")
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                   if(isGrpHead == true)
                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
                    else
                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
-                   
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
@@ -711,8 +713,6 @@ namespace WealthERP
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
-                    
-                    
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','none');", true);
