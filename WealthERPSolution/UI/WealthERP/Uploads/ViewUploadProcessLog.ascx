@@ -5,13 +5,20 @@
 <%--Script manager is needed in order to have ajax based Page loading event triggerer that is bounded to that progress  bar--%>
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
-
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>  
 <link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
 <link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
 
 <script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
 
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
+<%--This scripts includes the JQuery coding about the screen info--%>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+<%--End--%>
 <%--This script is used to add Progress bar--%>
 <script type="text/javascript">
     function pageLoad() {
@@ -45,12 +52,21 @@
 </script>
 <table width="100%" class="TableBackground">
 <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Upload History"></asp:Label>
+         <td class="HeaderCell">
+            <img src="../Images/helpImage.png" height="25px" width="28px" style="float: right;" class="flip" />
+           <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Upload History"></asp:Label>
             <hr />
         </td>
     </tr>
+    <tr>
+       <td colspan="4">
+          <div class="panel">
+             <p>View all the details for the Uploads done such as Number of Records created, Number of Records rejected etc. You can also Manage you Rejected Transactions, Rollback or Reprocess your Uploads</p>
+          </div>
+       </td>
+    </tr>
 </table>
+
 
 <table style="width: 100%;" class="TableBackground">
     <tr>
