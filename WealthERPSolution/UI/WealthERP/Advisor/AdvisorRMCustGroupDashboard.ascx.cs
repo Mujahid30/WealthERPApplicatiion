@@ -551,10 +551,13 @@ namespace WealthERP.Advisor
 
                 cnt = dtGrpAssetNetHoldings.Rows.Count - 1;
 
-                for (i = 1; i <= 10; i++)
+                if (dtGrpAssetNetHoldings.Rows.Count > 0)
                 {
-                    XValues[i - 1] = dtGrpAssetNetHoldings.Columns[i].ColumnName;
-                    YValues[i - 1] = double.Parse(dtGrpAssetNetHoldings.Rows[cnt][i].ToString());
+                    for (i = 1; i <= 10; i++)
+                    {
+                        XValues[i - 1] = dtGrpAssetNetHoldings.Columns[i].ColumnName;
+                        YValues[i - 1] = double.Parse(dtGrpAssetNetHoldings.Rows[cnt][i].ToString());
+                    }
                 }
 
                 seriesAssets.Points.DataBindXY(XValues, YValues);
