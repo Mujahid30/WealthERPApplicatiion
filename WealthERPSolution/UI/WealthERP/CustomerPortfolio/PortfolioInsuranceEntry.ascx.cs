@@ -40,13 +40,18 @@ namespace WealthERP.CustomerPortfolio
         string Manage = string.Empty;
         string path = "";
 
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+            if (ddlUlipPlans.SelectedIndex != 0 && ddlUlipPlans.SelectedIndex != -1)
+            {
+                LoadUlipSubPlans(ddlUlipPlans.SelectedValue.ToString().Trim());
+            }
+        }
+
         //protected override void OnPreRender(EventArgs e)
         //{
         //    base.OnPreRender(e);
-        //    if (ddlUlipPlans.SelectedIndex != 0 && ddlUlipPlans.SelectedIndex != -1)
-        //    {
-        //        LoadUlipSubPlans(ddlUlipPlans.SelectedValue.ToString().Trim());
-        //    }
         //}
 
         protected void Page_Load(object sender, EventArgs e)
@@ -1306,10 +1311,14 @@ namespace WealthERP.CustomerPortfolio
                                     }
                                     else
                                     {
-                                        insuranceUlipVo.CIUP_AllocationPer = float.Parse(allocationPer.ToString());
-                                        insuranceUlipVo.CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
-                                        insuranceUlipVo.CIUP_Unit = float.Parse(units.ToString());
-                                        insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
+                                        if (allocationPer != string.Empty)
+                                            insuranceUlipVo.CIUP_AllocationPer = float.Parse(allocationPer.ToString());
+                                        if (purchasePrice != string.Empty)
+                                            insuranceUlipVo.CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
+                                        if (units != string.Empty)
+                                            insuranceUlipVo.CIUP_Unit = float.Parse(units.ToString());
+                                        if (purchaseDate != string.Empty)
+                                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
                                     }
                                     insuranceUlipList.Add(insuranceUlipVo);
                                 }
@@ -2099,7 +2108,30 @@ namespace WealthERP.CustomerPortfolio
                     txtBox4.ID = "txtPurchaseDateId" + i.ToString();
                     // txtBox3.ID = ds.Tables[0].Rows[i][0].ToString();
                     txtBox4.CssClass = "txtField";
+                    CalendarExtender calExtender = new CalendarExtender();
+                    calExtender.ID = calExtender + i.ToString();
+                    calExtender.TargetControlID = txtBox4.ID;
+                    calExtender.Format = "dd/MM/yyyy";
+                    calExtender.OnClientDateSelectionChanged = "isFutureDate";
+                    calExtender.EnableViewState = true;
+                    TextBoxWatermarkExtender waterMarkExtender = new TextBoxWatermarkExtender();
+                    waterMarkExtender.ID = waterMarkExtender + i.ToString();
+                    waterMarkExtender.WatermarkText = "dd/mm/yyyy";
+                    waterMarkExtender.TargetControlID = txtBox4.ID;
+                    waterMarkExtender.EnableViewState = true;
+                    CompareValidator compareValidator = new CompareValidator();
+                    compareValidator.ID = compareValidator + i.ToString();
+                    compareValidator.ControlToValidate = txtBox4.ID;
+                    compareValidator.Type = ValidationDataType.Date;
+                    compareValidator.ErrorMessage = "The date format should be dd/mm/yyyyyy";
+                    compareValidator.Operator = ValidationCompareOperator.DataTypeCheck;
+                    compareValidator.CssClass = "cvPCG";
+                    compareValidator.Display = ValidatorDisplay.Dynamic;
+                    compareValidator.EnableViewState = true;
                     tc.Controls.Add(txtBox4);
+                    tc.Controls.Add(calExtender);
+                    tc.Controls.Add(waterMarkExtender);
+                    tc.Controls.Add(compareValidator);
 
                     //// Bind Ajax Date Controls
                     //ce = new CalendarExtender();

@@ -22,9 +22,9 @@
     }
 
     function CheckLastPremiumDate(sender, args) {
-
+        debugger;
         var lastPremiumDate = '';
-        
+
         var firstPremiumDate = document.getElementById('ctrl_PortfolioInsuranceEntry_txtFirstPremiumDate');
         if (firstPremiumDate != null) {
             // Endowment Policy Selected
@@ -67,12 +67,27 @@
             sender._selectedDate = todayDate;
             sender._textbox.set_Value(sender._selectedDate.format(sender._format));
             alert("Warning! - First Premium date cannot be greater than the last premium date");
-        }        
+        }
     }
     function changeDate(date) {
         var newDate = date.split('/');
         date = newDate[1] + "/" + newDate[0] + "/" + newDate[2];
         return date;
+    }
+
+    function isFutureDate(sender, args) {
+        var purchaseDate = sender._element;
+        var dateToCheck = purchaseDate.value;
+        var currentDate = '<%= DateTime.Now.ToString("yyyyMMdd") %>'
+        var yyyymmdddateToCheck = dateToCheck.substr(6, 4) + dateToCheck.substr(3, 2) + dateToCheck.substr(0, 2)
+        if (currentDate >= yyyymmdddateToCheck) {
+            return true;
+        }
+        else {
+            alert('Sorry, Purchase date cannot be greater than current date');
+            sender._element.value = 'dd/mm/yyyy';
+            return false;
+        }
     }
 </script>
 
@@ -265,8 +280,8 @@
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="Please enter an integer value"
-                Type="Integer" ControlToValidate="txtApplicationNumber" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                Type="Integer" ControlToValidate="txtApplicationNumber" Operator="DataTypeCheck"
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -276,9 +291,8 @@
         <td colspan="4">
             <asp:TextBox ID="txtApplDate" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="cvDepositDate1" runat="server" ErrorMessage="<br/>The application date should not be greater than current date."
-                        Type="Date" ControlToValidate="txtApplDate" CssClass="cvPCG" Operator="LessThanEqual" 
-                        ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-
+                Type="Date" ControlToValidate="txtApplDate" CssClass="cvPCG" Operator="LessThanEqual"
+                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
             <cc1:CalendarExtender ID="txtApplDate_CalendarExtender" runat="server" TargetControlID="txtApplDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
