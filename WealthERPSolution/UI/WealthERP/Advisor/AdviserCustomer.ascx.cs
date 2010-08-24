@@ -473,6 +473,7 @@ namespace WealthERP.Advisor
             int userId = 0;
             UserVo tempUser = null;
             UserBo userBo = new UserBo();
+            bool isGrpHead = false;
 
             if (Session[SessionContents.PortfolioId] != null)
             {
@@ -493,8 +494,8 @@ namespace WealthERP.Advisor
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-
-                    if (customerVo.RelationShip == "SELF")
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                    if (isGrpHead == true)
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
                     else
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
