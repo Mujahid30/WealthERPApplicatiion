@@ -87,8 +87,7 @@ namespace WealthERP.Uploads
         protected void Page_Load(object sender, EventArgs e)
         {
             string lastUploadDate = "";
-            btn_Upload.Attributes.Add("onclick",
-    "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
+            btn_Upload.Attributes.Add("onclick","setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             this.Page.Culture = "en-US";
             SessionBo.CheckSession();
             rmVo = (RMVo)Session["rmVo"];
@@ -98,13 +97,13 @@ namespace WealthERP.Uploads
 
             
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
-            lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
-            if (lastUploadDate != "")
-            {
-                lblLastUploadDateText.Visible = true;
-                lblLastUploadDate.Visible = true;
-                lblLastUploadDate.Text = lastUploadDate;
-            }
+            //lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
+            //if (lastUploadDate != "")
+            //{
+            //    lblLastUploadDateText.Visible = true;
+            //    lblLastUploadDate.Visible = true;
+            //    lblLastUploadDate.Text = lastUploadDate;
+            //}
             if (Session["userVo"] != null)
             {
 
@@ -298,7 +297,7 @@ namespace WealthERP.Uploads
 
         protected void btn_Upload_Click(object sender, EventArgs e)
         {
-            
+            //System.Threading.Thread.Sleep(5000);
             //Create XML for the file
             #region Uploading Content
             txtValidationProgress.Text = "";
@@ -2091,7 +2090,11 @@ namespace WealthERP.Uploads
             {
                 btn_ViewRjects.Visible = false;
             }
-            msgUploadComplete.Visible = true;
+            if(txtXMLProgress.Text=="Done" && txtXtrnlInsertionProgress.Text=="Done" && txtInputInsertionProgress.Text=="Done" && txtFirstStagingInsertionProgress.Text=="Done" && txtSecondStagingInsertionProgress.Text=="Done" && txtWERPInsertionProgress.Text=="Done" && txtXtrnlInsertionProgress.Text=="Done")
+            {
+                msgUploadComplete.Visible = true;
+            }
+            
         }
 
         protected void ddlUploadType_SelectedIndexChanged(object sender, EventArgs e)

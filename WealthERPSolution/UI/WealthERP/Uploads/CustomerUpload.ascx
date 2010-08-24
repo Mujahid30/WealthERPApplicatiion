@@ -58,15 +58,16 @@
     <tr>
         <td align="center">
             <div id="msgUploadComplete" runat="server" class="success-msg" align="center" visible="false">
-            Uploading successfully Completed
+                Uploading successfully Completed
+            </div>
         </td>
     </tr>
-    </div>
 </table>
 <table class="TableBackground" style="width: 100%;">
     <tr>
         <td colspan="4" align="right" runat="server">
-            <asp:Label ID="lblLastUploadDateText" runat="server" Text="Last Upload Date:" CssClass="Error" Visible="false"></asp:Label>
+            <asp:Label ID="lblLastUploadDateText" runat="server" Text="Last Upload Date:" CssClass="Error"
+                Visible="false"></asp:Label>
             <asp:Label ID="lblLastUploadDate" runat="server" Text="" CssClass="Error" Visible="false"></asp:Label>
         </td>
     </tr>
