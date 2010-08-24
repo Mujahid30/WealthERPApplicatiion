@@ -60,8 +60,7 @@ div#MainDivLeft
     font-weight: normal;
     font-size: x-small;
     color: #16518A;
-    width: 150px; 
-    /*margin-left: 0px;*/
+    width: 150px; /*margin-left: 0px;*/
 }
 
 .cmbLongField
@@ -111,7 +110,7 @@ div#MainDivLeft
 .Message
 {
     background-color: White;
-    text-align: center;
+    text-align:left;
 }
 
 .SubTitle
@@ -177,7 +176,6 @@ div#MainDivLeft
 .PCGRedBcknd
 {
     background-color: #942627;
-    z-index: -1;
 }
 
 .PCGRedText
@@ -282,21 +280,11 @@ div#MainDivLeft
     text-align: right;
     vertical-align: middle;
 }
-.fieldNames
-{
-  text-align: right;
-  vertical-align: middle;
-  float: left;
-
-}  
 
 .rightField
 {
-    text-align: justify;
+    text-align: left;
     vertical-align: middle;
-    width: 500px;
-    float: left;
-    padding-left: 10px;
 }
 
 .leftAddressField
@@ -558,7 +546,6 @@ a.aBreadCrumbCurrent
 .TableBackground
 {
 	background-color:#EBEFF9;
-	
 }
 .modalBackground
 {
@@ -761,74 +748,35 @@ ul.tabbernav li.tabberactive a:hover
    margin:2px;
  }
  
-
-/* ..For Screen Info.. */
-
-div.panel,div.flip
-{
-margin:0px;
-padding:5px;
-background-color: #EBEFF9;
-border-bottom: solid 1.5px Black;
-font-size: x-small;
-}
-div.panel
-{
-    border: solid 1px Maroon;
-    background-color: #EBEFF9;
+  .DemoListBox
+    {
+                
     font-family: Verdana,Tahoma;
-    font-size: small;
-    font-weight: bold;
-    color:  #16518A;
-    display: none;
-    padding-bottom: 0;
-    padding-top: 0;
-   
-}
-
-/* End  */
-
-/* Screen Tip */
-p.tip
-{
-    color: Maroon;
-    font-family: Verdana,Tahoma;
-	font-size: x-small;
-	margin: 0px;
-	padding: 5px;
-	}
-	
-/* End */	
-
-/* Message Info */
-.MsgInfo
-{
-    color: Maroon;
+    font-weight: normal;
+    font-size:small;
+    color: #16518A;
+    width: 145px;
+    width: 200px;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: solid 1px #16518A;
+    empty-cells:hide;
+    cursor:pointer;
+    line-height:3px;
+                
+    }
+    
+  .linkButton
+  {
+        
+    background: url(Images/SelectAll.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
     font-size: x-small;
     font-family: Verdana,Tahoma;
-    font-weight: 500;
-}
-/* End */ 
-
-/* Downloading Standerd Files in Upload Screens */
-
-.ModelPup
-{
+    height: 50px;
+    width: 69px;
+    cursor: pointer;
     
-    font-size: small;
-    background-color: #F5DEB4;
-    border: Solid 1px Black;
-    border-left: Solid 5px #DDBDBE;
-    border-top:  Solid 5px #DDBDBE; 
-    border-bottom: Solid 5px #501411; 
-    border-right: Solid 5px #501411; 
-    -moz-border-radius: 1em;
-    -webkit-box-shadow: 18px 15px 13px rgba(0,0,0,0.6);
-    padding-bottom: 10px;
-    padding-top: 10px;
-    padding-left: 50px;
-    width: 250px;
-    position: absolute; z-index: 100001; left: 280px; top: 35px !important; 
-    
-}
-/* End */
+  }  
