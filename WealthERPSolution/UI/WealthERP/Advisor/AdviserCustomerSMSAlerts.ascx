@@ -52,13 +52,16 @@
         customerlist = customerwithoutmobilenumber.split(',');
         var customerlistlength=0;
         //=customerlist.length;
-        for (var j = 0; j < customerlist.length; j++) {
-            if (customerlist[j].value != 0) {
-                customerlistlength++;
+        if (customerlist != "" && customerlist!=null) {
+            for (var j = 0; j < customerlist.length; j++) {
+                if (customerlist[j].value != 0 && customerlist[j].value != "") {
+                    customerlistlength++;
+                }
             }
         }
         var numberofcustomerschecked = TestCheckBox();
-
+        alert(numberofcustomerschecked);
+        
         if (numberofcustomerschecked != false) {
             if (numberofcustomerschecked >= 0) {
                 if (customerlistlength != numberofcustomerschecked) {
@@ -82,11 +85,11 @@
     }
    
 </script>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     $(document).ready(function() {
-        $(".openQuickMobileAdd").colorbox({ width: "700px", inline: true, open: true, href: "/Alerts/QuickMobileNumberAdd.aspx" });
+        $(".openQuickMobileAdd").colorbox({ width: "700px", inline: true, href: "/Alerts/QuickMobileNumberAdd.aspx" });
     });
-</script>
+</script>--%>
 
 <table width="100%">
     <tr>
@@ -132,7 +135,7 @@
                         <asp:TemplateField HeaderText="Select">
                             <ItemTemplate>
                                 <asp:CheckBox ID="chkCustomerSMSAlert" runat="server" Visible="false" CssClass="Field"
-                                    AutoPostBack="true" />
+                                     />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="CustomerName" HeaderText="Customer" />
@@ -148,7 +151,7 @@
     </tr>
     <tr>
         <td align="center">
-            <asp:Button ID="btnSend" Text="Send SMS" runat="server" class='openQuickMobileAdd ButtonField' CssClass="PCGButton" OnClick="btnSend_Click" />
+            <asp:Button ID="btnSend" Text="Send SMS" runat="server" CssClass="openQuickMobileAdd PCGButton" OnClick="btnSend_Click" OnClientClick="return TestCheckBox();" />
         </td>
     </tr>
 </table>

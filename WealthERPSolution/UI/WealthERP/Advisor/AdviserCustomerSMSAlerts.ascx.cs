@@ -180,86 +180,86 @@ namespace WealthERP.Advisor
         protected void btnSend_Click(object sender, EventArgs e)
         {
             //System.Threading.Thread.Sleep(2000);
-            //int smsCount = 0;
-            //int smsLicence = 0;
-            //SMSVo smsVo = new SMSVo();
-            //List<int> alertIdList = new List<int>();
-            //EmailSMSBo emailSMSBo = new EmailSMSBo();
-            //List<SMSVo> smsVoList = new List<SMSVo>();
-            //AdvisorBo advisorBo = new AdvisorBo();
-            //AlertsBo alertsBo = new AlertsBo();
-            //string mobileNo;
-            //int adviserId = 0;
-            //if (Session["advisorVo"] != null)
-            //    adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
-            //if (lblLincenceValue.Text != "No SMS Licence Left!!")
-            //    smsLicence = int.Parse(lblLincenceValue.Text.ToString());
-            //int i = 0;
-            //foreach (GridViewRow gvRow in gvCustomerSMSAlerts.Rows)
-            //{
-            //    if (gvRow.RowType == DataControlRowType.DataRow)
-            //    {
-            //        if (((CheckBox)gvRow.FindControl("chkCustomerSMSAlert")).Checked)
-            //        {
-            //            smsVo = new SMSVo();
-            //            if (dsAdviserCustomerAlerts != null)
-            //            {
-            //                mobileNo = dsAdviserCustomerAlerts.Tables[0].Rows[i]["Mobile"].ToString();
-            //                if (mobileNo != "0")
-            //                {
-            //                    if (mobileNo.Length <= 10)
-            //                        smsVo.Mobile = Int64.Parse("91" + dsAdviserCustomerAlerts.Tables[0].Rows[i]["Mobile"].ToString());
-            //                    else
-            //                        smsVo.Mobile = Int64.Parse(mobileNo);
-            //                }
-            //            }
-            //            smsVo.Message = gvRow.Cells[3].Text.ToString();
-            //            smsVo.CustomerId = int.Parse(gvCustomerSMSAlerts.DataKeys[gvRow.RowIndex].Values["CustomerId"].ToString());
-            //            smsVo.IsSent = 0;
-            //            if (dsAdviserCustomerAlerts.Tables[0].Rows[i]["AlertId"].ToString() != null)
-            //            {
-            //                smsVo.AlertId = int.Parse(dsAdviserCustomerAlerts.Tables[0].Rows[i]["AlertId"].ToString());
-            //            }
-            //            else
-            //            {
-            //                smsVo.AlertId = 0;
-            //            }
-            //            smsVoList.Add(smsVo);
-            //            alertIdList.Add(int.Parse(gvCustomerSMSAlerts.DataKeys[gvRow.RowIndex].Values["AlertId"].ToString()));
-            //            smsCount++;
+            int smsCount = 0;
+            int smsLicence = 0;
+            SMSVo smsVo = new SMSVo();
+            List<int> alertIdList = new List<int>();
+            EmailSMSBo emailSMSBo = new EmailSMSBo();
+            List<SMSVo> smsVoList = new List<SMSVo>();
+            AdvisorBo advisorBo = new AdvisorBo();
+            AlertsBo alertsBo = new AlertsBo();
+            string mobileNo;
+            int adviserId = 0;
+            if (Session["advisorVo"] != null)
+                adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
+            if (lblLincenceValue.Text != "No SMS Licence Left!!")
+                smsLicence = int.Parse(lblLincenceValue.Text.ToString());
+            int i = 0;
+            foreach (GridViewRow gvRow in gvCustomerSMSAlerts.Rows)
+            {
+                if (gvRow.RowType == DataControlRowType.DataRow)
+                {
+                    if (((CheckBox)gvRow.FindControl("chkCustomerSMSAlert")).Checked)
+                    {
+                        smsVo = new SMSVo();
+                        if (dsAdviserCustomerAlerts != null)
+                        {
+                            mobileNo = dsAdviserCustomerAlerts.Tables[0].Rows[i]["Mobile"].ToString();
+                            if (mobileNo != "0")
+                            {
+                                if (mobileNo.Length <= 10)
+                                    smsVo.Mobile = Int64.Parse("91" + dsAdviserCustomerAlerts.Tables[0].Rows[i]["Mobile"].ToString());
+                                else
+                                    smsVo.Mobile = Int64.Parse(mobileNo);
+                            }
+                        }
+                        smsVo.Message = gvRow.Cells[3].Text.ToString();
+                        smsVo.CustomerId = int.Parse(gvCustomerSMSAlerts.DataKeys[gvRow.RowIndex].Values["CustomerId"].ToString());
+                        smsVo.IsSent = 0;
+                        if (dsAdviserCustomerAlerts.Tables[0].Rows[i]["AlertId"].ToString() != null)
+                        {
+                            smsVo.AlertId = int.Parse(dsAdviserCustomerAlerts.Tables[0].Rows[i]["AlertId"].ToString());
+                        }
+                        else
+                        {
+                            smsVo.AlertId = 0;
+                        }
+                        smsVoList.Add(smsVo);
+                        alertIdList.Add(int.Parse(gvCustomerSMSAlerts.DataKeys[gvRow.RowIndex].Values["AlertId"].ToString()));
+                        smsCount++;
 
-            //        }
-            //    }
-            //    i++;
-            //}
-            //if (smsCount <= smsLicence && smsCount != 0)
-            //{
-            //    smsVoList = emailSMSBo.AddToSMSQueue(smsVoList);
+                    }
+                }
+                i++;
+            }
+            if (smsCount <= smsLicence && smsCount != 0)
+            {
+                smsVoList = emailSMSBo.AddToSMSQueue(smsVoList);
 
-            //    smsLicence = smsLicence - smsCount;
-            //    advisorBo.UpdateAdviserSMSLicence(adviserId, smsLicence);
-            //    advisorBo.AddToAdviserSMSLog(smsVoList, adviserId, "Alert");
-            //    alertsBo.UpdateAlertStatus(alertIdList, 1);
-            //    if (smsLicence == 0)
-            //    {
-            //        lblLincenceValue.Text = "No SMS Licence Left!!";
-            //    }
-            //    else
-            //    {
-            //        lblLincenceValue.Text = smsLicence.ToString();
-            //    }
-            //    GetAdviserCustomerAlerts();
-            //}
-            //else if (smsCount == 0)
-            //{
-            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select an Alert!!');", true);
+                smsLicence = smsLicence - smsCount;
+                advisorBo.UpdateAdviserSMSLicence(adviserId, smsLicence);
+                advisorBo.AddToAdviserSMSLog(smsVoList, adviserId, "Alert");
+                alertsBo.UpdateAlertStatus(alertIdList, 1);
+                if (smsLicence == 0)
+                {
+                    lblLincenceValue.Text = "No SMS Licence Left!!";
+                }
+                else
+                {
+                    lblLincenceValue.Text = smsLicence.ToString();
+                }
+                GetAdviserCustomerAlerts();
+            }
+            else if (smsCount == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select an Alert!!');", true);
 
-            //}
-            //else
-            //{
-            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough SMS Credits to process this request');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough SMS Credits to process this request');", true);
 
-            //}
+            }
         }
 
     }
