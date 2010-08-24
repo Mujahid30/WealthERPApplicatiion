@@ -184,34 +184,34 @@ namespace WealthERP.Uploads
                 processID = int.Parse(gvProcessLog.DataKeys[selectedRow].Values["ADUL_ProcessId"].ToString());
                 filetypeId = Int32.Parse(gvProcessLog.DataKeys[selectedRow].Values["WUXFT_XMLFileTypeId"].ToString());
                 string extracttype = gvProcessLog.DataKeys[selectedRow].Values["XUET_ExtractTypeCode"].ToString();
-                XMLConversionStatus = gvProcessLog.Rows[selectedRow].Cells[18].Text.Trim();
-                InputInsertionStatus = gvProcessLog.Rows[selectedRow].Cells[19].Text.Trim();
-                FirstStagingStatus = gvProcessLog.Rows[selectedRow].Cells[20].Text.Trim();
-                SecondStagingStatus = gvProcessLog.Rows[selectedRow].Cells[21].Text.Trim();
-                WERPInsertionStatus = gvProcessLog.Rows[selectedRow].Cells[22].Text.Trim();
+                //XMLConversionStatus = gvProcessLog.Rows[selectedRow].Cells[18].Text.Trim();
+                //InputInsertionStatus = gvProcessLog.Rows[selectedRow].Cells[19].Text.Trim();
+                //FirstStagingStatus = gvProcessLog.Rows[selectedRow].Cells[20].Text.Trim();
+                //SecondStagingStatus = gvProcessLog.Rows[selectedRow].Cells[21].Text.Trim();
+                //WERPInsertionStatus = gvProcessLog.Rows[selectedRow].Cells[22].Text.Trim();
 
 
                 if (ddlAction.SelectedItem.Value.ToString() == Contants.Reprocess)
                 {
-                    if (XMLConversionStatus == "N")
-                    {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerUpload','login');", true);
-                    }
-                    else
-                    {
+                    //if (XMLConversionStatus == "N")
+                    //{
+                    //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerUpload','login');", true);
+                    //}
+                    //else
+                    //{
                         Reprocess(processID, filetypeId, InputInsertionStatus, FirstStagingStatus, SecondStagingStatus, WERPInsertionStatus);
-                    }
+                    //}
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == Contants.RollBack)
                 {
-                    if (XMLConversionStatus == "N")
-                    {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerUpload','login');", true);
-                    }
-                    else
-                    {
+                    //if (XMLConversionStatus == "N")
+                    //{
+                    //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerUpload','login');", true);
+                    //}
+                    //else
+                    //{
                         RollBack(processID, filetypeId, InputInsertionStatus, FirstStagingStatus, SecondStagingStatus, WERPInsertionStatus);
-                    }
+                    //}
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == Contants.ManageRejects)
                 {
