@@ -14,22 +14,22 @@ namespace WealthERP.Uploads {
     public partial class CustomerUpload {
         
         /// <summary>
-        /// scrptMgr control.
+        /// scptMgr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager scrptMgr;
+        protected global::System.Web.UI.ScriptManager scptMgr;
         
         /// <summary>
-        /// lblView control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblView;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
         /// msgUploadComplete control.

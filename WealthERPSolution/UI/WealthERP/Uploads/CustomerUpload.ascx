@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerUpload.ascx.cs"
     Inherits="WealthERP.Uploads.CustomerUpload" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 <link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
@@ -8,6 +9,7 @@
 <script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
 
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
+
 <script language="javascript" type="text/javascript">
 
     function DownloadScript() {
@@ -20,6 +22,9 @@
     <ContentTemplate>--%>
 <%--This are the linkrels for the Jquery files and CSS files abt the screen tips and info's--%>
 
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
@@ -28,6 +33,8 @@
 
 <link href="../App_Themes/Maroon/Images/bubbletip.css" rel="stylesheet" type="text/css" />
 <%--End--%>
+<%--This scripts includes the JQuery coding about the Screen Tips and screen info   --%>
+
 <%--This scripts includes the JQuery coding about the Screen Tips and screen info   --%>
 
 <script type="text/javascript">
@@ -71,21 +78,34 @@
             DialogBox_Loading.hide();
         }
     }
+    function DownloadScript() {
+        btn = document.getElementById('<%= btnExportExcel.ClientID %>');
+        btn.click();
+    }
 </script>
 
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
-            <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Uploads"></asp:Label>
+            <img src="../Images/helpImage.png" height="24px" width="24px" style="float: right;"
+                class="flip" />
+            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Uploads"></asp:Label>
             <hr />
         </td>
     </tr>
-    <tr>
-    </tr>
-    <tr>
-    </tr>
 </table>
 <table width="100%">
+    <tr>
+        <td colspan="3">
+            <div class="panel">
+                <p>
+                    Using this Feature you can Upload your Client Profiles and other Financial Data
+                    (MF Transactions, Equity Transactions etc) provided by your institution or you can
+                    use our Standard Templates to do so
+                </p>
+            </div>
+        </td>
+    </tr>
     <tr>
         <td align="center">
             <div id="msgUploadComplete" runat="server" class="success-msg" align="center" visible="false">
@@ -136,6 +156,14 @@
                 <asp:ListItem Value="EQT">Equity Transaction</asp:ListItem>
                 <asp:ListItem Value="MFSS">Systematic Setup</asp:ListItem>
             </asp:DropDownList>
+            <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
+            <div id="div1" style="display: none;">
+                <p class="tip">
+                    Choose what data you intend to upload from the dropdown<br />
+                    (eg: Client Profiles or MF Transactions etc)
+                </p>
+            </div>
+
             <asp:RequiredFieldValidator ID="ddlUploadType_RequiredFieldValidator" ControlToValidate="ddlUploadType"
                 ValidationGroup="btn_Upload" ErrorMessage="Please select an Extract type" InitialValue="0"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
@@ -164,6 +192,14 @@
             <asp:DropDownList ID="ddlListCompany" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlListCompany_SelectedIndexChanged"
                 AutoPostBack="true">
             </asp:DropDownList>
+            <img src="../Images/help.png" class="ScreenTip2" style="height: 15px; width: 15px;" />
+            <div id="div2" style="display: none;">
+                <p class="tip">
+                    Choose the source of the data your Uploading, it could be from your Financial Institution
+                    <br />
+                    (eg: CAMS, Karvy etc) or the Standard Templates provided by the software
+                </p>
+            </div>
             <asp:CompareValidator ID="ddlListCompany_CompareValidator" runat="server" ControlToValidate="ddlListCompany"
                 ErrorMessage="Please select an External Source" Operator="NotEqual" ValueToCompare="Select Source Type"
                 Display="Dynamic" CssClass="cvPCG" ValidationGroup="btn_Upload">
@@ -172,6 +208,14 @@
                 ValidationGroup="btn_Upload" ErrorMessage="Please select an External Source"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
+        </td>
+        <td style="float: right; vertical-align: top;" width="350px">
+            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" OnClientClick="setformat('excel')"
+                CausesValidation="False">click here to download standard file formats</asp:LinkButton>
+            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
+                TargetControlID="lnkbtnpup" DynamicServicePath="" BackgroundCssClass="modalBackground"
+                Enabled="True" OkControlID="btnOk" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();">
+            </cc1:ModalPopupExtender>
         </td>
     </tr>
     <%--<tr id="trFileTypeRow" runat="server">
@@ -192,6 +236,11 @@
                 GroupName="rbSkipRows" OnCheckedChanged="rbSkipRowsYes_CheckedChanged" AutoPostBack="true" />
             <asp:RadioButton ID="rbSkipRowsNo" runat="server" Text="No" CssClass="FieldName"
                 GroupName="rbSkipRows" OnCheckedChanged="rbSkipRowsNo_CheckedChanged" AutoPostBack="true" />
+            <img src="../Images/help.png" class="ScreenTip3" style="height: 15px; width: 15px;" />
+            <div id="div3" style="display: none;">
+                <p class="tip">
+                    Specify if any rows need to be omitted in your files.</p>
+            </div>
         </td>
     </tr>
     <tr id="trNoOfRows" runat="server" visible="false">
@@ -219,7 +268,8 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+       <td colspan="3" style="text-align: center">
+            <asp:Label ID="Message_lbl" CssClass="MsgInfo" runat="server" Text="Label" Font-Bold="False"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -232,8 +282,32 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4">
-            &nbsp;
+        <td>
+            <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup">
+                <asp:RadioButton ID="File1" Text="EquityTradeAccount" Checked="True" GroupName="colors"
+                    runat="server" />
+                <br />
+                <asp:RadioButton ID="File2" Text="EquityTransaction" Checked="True" GroupName="colors"
+                    runat="server" />
+                <br />
+                <asp:RadioButton ID="File3" Text="MFFolio" Checked="True" GroupName="colors" runat="server" />
+                <br />
+                <asp:RadioButton ID="File4" Text="MFTransaction" Checked="True" GroupName="colors"
+                    runat="server" />
+                <br />
+                <asp:RadioButton ID="File5" Text="CustomerProfile" Checked="True" GroupName="colors"
+                    runat="server" />
+                <br />
+                <asp:RadioButton ID="AllFiles" Text="All Standard Upload Files" Checked="True" GroupName="colors"
+                    runat="server" />
+                <br />
+                <br />                
+                <asp:Button ID="btnOk" runat="server" Text="Download" CausesValidation="false" CssClass="PCGButton" />
+                &nbsp;
+                <asp:Button ID="btnCancel"  CausesValidation="false" runat="server" Text="Cancel" CssClass="PCGButton" />
+            </asp:Panel>
+            <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
+                OnClick="btnExportExcel_Click"  CausesValidation="false" Height="31px" Width="35px" />
         </td>
     </tr>
 </table>
