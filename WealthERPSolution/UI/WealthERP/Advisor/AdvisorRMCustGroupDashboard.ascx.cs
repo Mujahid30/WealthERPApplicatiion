@@ -359,7 +359,7 @@ namespace WealthERP.Advisor
         {
 
             int tempCustId = 0;
-
+            int i=0;
             try
             {
                 dsGrpAssetNetHoldings = assetBo.GetGrpAssetNetHoldings(customerId);
@@ -406,6 +406,7 @@ namespace WealthERP.Advisor
 
                     foreach (DataRow dr in dsGrpAssetNetHoldings.Tables[0].Rows)
                     {
+                        i++;
                         if (int.Parse(dr["CustomerId"].ToString()) != tempCustId)
                         {
                             if (tempCustId != 0)
@@ -443,6 +444,8 @@ namespace WealthERP.Advisor
                                 drNetHoldings[10] = double.Parse(dr["CurrentValue"].ToString());
                             else if (dr["AssetType"].ToString() == "Liabilities")
                                 drNetHoldings[12] = double.Parse(dr["CurrentValue"].ToString());
+                            if (i == dsGrpAssetNetHoldings.Tables[0].Rows.Count)
+                                dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);
                         }
                         else
                         {
@@ -468,6 +471,8 @@ namespace WealthERP.Advisor
                                 drNetHoldings[10] = double.Parse(dr["CurrentValue"].ToString());
                             else if (dr["AssetType"].ToString() == "Liabilities")
                                 drNetHoldings[12] = double.Parse(dr["CurrentValue"].ToString());
+                            if (i == dsGrpAssetNetHoldings.Tables[0].Rows.Count)
+                                dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);
                         }
                     }
 
