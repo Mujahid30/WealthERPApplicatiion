@@ -53,7 +53,7 @@
 <table width="100%" class="TableBackground">
 <tr>
          <td class="HeaderCell">
-            <img src="../Images/helpImage.png" height="25px" width="28px" style="float: right;" class="flip" />
+            <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;" class="flip" />
            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Upload History"></asp:Label>
             <hr />
         </td>
