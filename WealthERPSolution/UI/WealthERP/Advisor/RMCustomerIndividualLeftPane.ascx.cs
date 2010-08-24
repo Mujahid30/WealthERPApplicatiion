@@ -11,6 +11,7 @@ using System.Collections.Specialized;
 using VoUser;
 using BoUser;
 using BoCommon;
+using BoCustomerProfiling;
 
 
 namespace WealthERP.Advisor
@@ -18,6 +19,8 @@ namespace WealthERP.Advisor
     public partial class RMIndividualCustomerLeftPane : System.Web.UI.UserControl
     {
         CustomerVo customerVo = new CustomerVo();
+        CustomerBo customerBo = new CustomerBo();
+
         List<string> roleList = new List<string>();
         int count;
         UserBo userBo = new UserBo();
@@ -29,6 +32,8 @@ namespace WealthERP.Advisor
             string Middle = null;
             string Last = null;
             userVo = (UserVo)Session["userVo"];
+            bool isGrpHead = false;
+
             try
             {
                 customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
@@ -50,11 +55,11 @@ namespace WealthERP.Advisor
 
                     lblEmailIdValue.Text = customerVo.Email.ToString();
 
-                    if (customerVo.RelationShip == "SELF")
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                    if (isGrpHead == true)
                     {
                         TreeView1.Nodes.AddAt(1, new TreeNode("Group Dashboard"));
                     }
-
 
                     string IsDashboard = string.Empty;
 
@@ -64,7 +69,7 @@ namespace WealthERP.Advisor
                     {
                         TreeView1.CollapseAll();
 
-                        if (customerVo.RelationShip == "SELF")
+                        if (isGrpHead == true)
                         {
                             TreeView1.FindNode("Group Dashboard").Selected = true;
                         }
