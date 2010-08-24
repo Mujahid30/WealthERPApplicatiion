@@ -1,9 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMCustomerIndividualDashboard.ascx.cs"
     Inherits="WealthERP.Advisor.RMCustomerDashboard" %>
 <style type="text/css">
-    .style6
+    .style8
     {
-        width: 268px;
+        height: 35px;
+    }
+    .style9
+    {
+        height: 21px;
     }
 </style>
 <table width="100%" class="TableBackground">
@@ -42,7 +46,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="leftField">
+                    <td valign="top" align="right">
                         <asp:Label ID="Label5" runat="server" Text="Address:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
@@ -93,11 +97,11 @@
             <hr />
         </td>
     </tr>
-    <tr>
-        <td width="50%" valign="top">
-            <table style="width: 456px; height: 100px; margin-top: 0px">
+    <tr align="left">
+        <td width="50%" valign="top" align="left">
+            <table style="width: 100%; height: 100%; margin-top: 0px">
                 <tr>
-                    <td class="style6">
+                    <td class="leftField">
                         <asp:Label ID="Label4" runat="server" Text="Phone Number:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
@@ -105,7 +109,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="style6">
+                    <td class="leftField">
                         <asp:Label ID="Label6" runat="server" Text="Email:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">

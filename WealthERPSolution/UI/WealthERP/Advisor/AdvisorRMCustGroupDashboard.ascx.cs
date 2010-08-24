@@ -472,7 +472,7 @@ namespace WealthERP.Advisor
                     }
 
                     drNetHoldings = dtGrpAssetNetHoldings.NewRow();
-                    drNetHoldings[0] = " ";
+                    drNetHoldings[0] = "Total:";
                     foreach (DataRow dr in dtGrpAssetNetHoldings.Rows)
                     {
                         drNetHoldings[1] = double.Parse(drNetHoldings[1].ToString()) + double.Parse(dr[1].ToString());
@@ -490,7 +490,7 @@ namespace WealthERP.Advisor
                         drNetHoldings[13] = double.Parse(drNetHoldings[13].ToString()) + double.Parse(dr[13].ToString());
                     }
                     drNetHoldings[14] = "0";
-
+                    
                     dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);
 
                     gvAssetAggrCurrentValue.DataSource = dtGrpAssetNetHoldings;

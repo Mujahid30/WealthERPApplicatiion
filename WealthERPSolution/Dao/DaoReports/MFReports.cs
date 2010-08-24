@@ -101,7 +101,10 @@ namespace DaoReports
                 db.AddInParameter(getCustomerNPListCmd, "@PortfolioIds", DbType.String, reports.PortfolioIds); //35437
                 db.AddInParameter(getCustomerNPListCmd, "@FromDate", DbType.DateTime, reports.FromDate);
                 db.AddInParameter(getCustomerNPListCmd, "@Todate", DbType.DateTime, reports.ToDate);
-                db.AddInParameter(getCustomerNPListCmd, "@TransType", DbType.String, reports.FilterBy);
+                if(reports.FilterBy!="0")
+                    db.AddInParameter(getCustomerNPListCmd, "@TransType", DbType.String, reports.FilterBy);
+                else
+                    db.AddInParameter(getCustomerNPListCmd, "@TransType", DbType.String, "ALL");
                 db.AddInParameter(getCustomerNPListCmd, "@OrderBy", DbType.String, reports.OrderBy);
 
                 //getCustomerNPListCmd = db.GetSqlStringCommand("select top 20 CMFA_AccountID,CMFT_TransactionDate,PASP_SchemePlanName from CustomerMutualfundtransaction  CustomerMutualfundtransaction inner join ProductAMCSchemePlan AS ProductAMCSchemePlan ON CustomerMutualfundtransaction.PASP_SchemePlanCode = ProductAMCSchemePlan.PASP_SchemePlanCode;");  //db.GetStoredProcCommand("SP_GetAdviser");

@@ -80,7 +80,7 @@
                     <HeaderStyle CssClass="HeaderStyle" />
                     <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
-                        <asp:TemplateField HeaderText="Goal Type">
+                        <asp:TemplateField HeaderText="Name">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lnkCustomerName" runat="server" CssClass="GridViewCmbField" OnClick="lnkCustomerNameAssetsGrid_Click"
                                     Text='<%# Eval("Customer_Name") %>'>

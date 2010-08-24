@@ -193,7 +193,7 @@
             var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
             selectedReport = dropdown.options[dropdown.selectedIndex].value
            
-            if (selectedRepor == 'TRANSACTION_REPORT') {
+            if (selectedReport == 'TRANSACTION_REPORT') {
 
                 document.getElementById("<%= trTranFilter1.ClientID %>").style.display = 'block';
                 document.getElementById("<%= trTranFilter2.ClientID %>").style.display = 'block';
@@ -282,9 +282,10 @@
 
         var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
         selectedReport = dropdown.options[dropdown.selectedIndex].value
-        
-        
-         DisplayDates(arr[selectedReport]);
+
+
+        DisplayDates(arr[selectedReport]);
+         
 
     }
 
