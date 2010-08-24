@@ -3,6 +3,7 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>   
 
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
@@ -14,7 +15,15 @@
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
 
 <!--This script is used for Progress bar -->
+<%--This scripts includes the JQuery coding about the screen info   --%>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+
+<%--End--%>
 <script type="text/javascript">
     function pageLoad() {
         InitDialogs();
@@ -46,13 +55,24 @@
     }
 </script>
 
-<table style="width: 100%" class="TableBackground">
+<table width="100%" class="TableBackground">
+<tr>
+         <td class="HeaderCell">
+            <img src="../Images/helpImage.png" height="25px" width="28px" style="float: right;" class="flip" />
+          <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="MF Transaction Staging Rejects"></asp:Label>
+            <hr />
+        </td>
+    </tr>
     <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="MF Transaction Staging Rejects"></asp:Label>
+        <td colspan="4">
+           <div class="panel">
+              <p style="padding-top: 0; padding-bottom: 0;">View all the rejected Transactions from your Uploads, also the reason for Rejection. <br /> <br /> Click here to view all the Reject resaons and solutions --><a href="~\UserManagement\Help.html">Reject Reasons and Solutions</a></p>
+           </div>
         </td>
     </tr>
 </table>
+
+
 <table width="100%">
 <tr>
 <td align="center">
