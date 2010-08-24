@@ -82,8 +82,7 @@ namespace WealthERP.Uploads
         {
             
             SessionBo.CheckSession();
-            btnReprocess.Attributes.Add("onclick",
-   "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
+            btnReprocess.Attributes.Add("onclick","setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
@@ -708,6 +707,7 @@ namespace WealthERP.Uploads
 
         protected void btnReprocess_Click(object sender, EventArgs e)
         {
+            //System.Threading.Thread.Sleep(5000);
             bool blResult = false;
             uploadsCommonBo = new UploadCommonBo();
             UploadProcessLogVo processlogVo = new UploadProcessLogVo();
@@ -729,7 +729,7 @@ namespace WealthERP.Uploads
             }
             else
             {
-                
+
                 DataSet ds = uploadsCommonBo.GetUploadDistinctProcessIdForAdviser(adviserVo.advisorId);
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -748,21 +748,22 @@ namespace WealthERP.Uploads
             }
 
             if (error == "")
-             {
-                 // Success Message
-                 trErrorMessage.Visible = true;
-                 lblError.Text = "Reprocess Done Successfully!";
-             }
-             else
-             {
-                 // Failure Message
-                 trErrorMessage.Visible = true;
-                 lblError.Text = "Reprocess Failure!;" + error;
-             }
+            {
+                // Success Message
+                trErrorMessage.Visible = true;
+                lblError.Text = "Reprocess Done Successfully!";
+                msgReprocessComplete.Visible = true;
+            }
+            else
+            {
+                // Failure Message
+                trErrorMessage.Visible = true;
+                lblError.Text = "Reprocess Failure!;" + error;
+            }
 
-             BindEquityTransactionGrid(ProcessId);
+            BindEquityTransactionGrid(ProcessId);
             //used to display alert msg after completion of reprocessing
-             msgReprocessComplete.Visible = true;
+             
         }
 
         private bool MFWERPTransactionWERPInsertion(int ProcessId, out int countTransactionsInserted, out int countRejectedRecords, int fileTypeId)

@@ -10,7 +10,7 @@
 <link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
 
 <script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
-
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.1/build/yahoo/yahoo-min.js"></script>
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
 
 <!--This script is used for Progress bar -->
@@ -37,7 +37,7 @@
         DialogBox_Loading.render(document.body);
     }
     function Loading(b) {
-        if (b == true && Page_IsValid == true) {
+        if (b == true) {
             DialogBox_Loading.show();
         }
         else {
@@ -189,7 +189,7 @@ Reprocess successfully Completed
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
-                CssClass="PCGButton" OnClientClick="Page_ClientValidate();Loading(true);" />
+                CssClass="PCGButton" OnClientClick="Loading(true);" />
             <asp:Button ID="btnMapFolios" runat="server" CssClass="PCGButton" Text="Map Folios"
                 OnClick="btnMapFolios_Click" />
         </td>
