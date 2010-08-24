@@ -109,7 +109,7 @@ div#MainDivLeft
 .Message
 {
     background-color: White;
-    text-align: center;
+    text-align:left;
 }
 
 .SubTitle
