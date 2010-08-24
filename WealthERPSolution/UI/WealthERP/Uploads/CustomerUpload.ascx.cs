@@ -66,7 +66,7 @@ namespace WealthERP.Uploads
         DataTable getNewFoliosDt = new DataTable();
         DataSet dsXML = new DataSet();
         DataTable dtInputRejects;
-
+        string message = "";
         
         int customerId;
         int customerId2;
@@ -86,6 +86,12 @@ namespace WealthERP.Uploads
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            lnkbtnpup.Style.Add("display", "none");
+            Panel1.Style.Add("display", "none");
+
+            Message_lbl.Visible = false;
+
             string lastUploadDate = "";
             btn_Upload.Attributes.Add("onclick","setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             this.Page.Culture = "en-US";
@@ -138,10 +144,7 @@ namespace WealthERP.Uploads
         {
             Dictionary<string, string> genDictProfile = new Dictionary<string, string>();
             genDictProfile.Add("Standard", "WP");
-            genDictProfile.Add("CAMS", "CA");
-            genDictProfile.Add("Karvy", "KA");
-            genDictProfile.Add("Templeton", "TN");
-            genDictProfile.Add("Deutsche", "DT");
+            
             return genDictProfile;
         }
 
@@ -149,10 +152,10 @@ namespace WealthERP.Uploads
         {
             Dictionary<string, string> genDictFolio = new Dictionary<string, string>();
             genDictFolio.Add("Standard", "WP");
-            genDictFolio.Add("CAMS", "CA");
-            genDictFolio.Add("Karvy", "KA");
-            genDictFolio.Add("Templeton", "TN");
-            genDictFolio.Add("Deutsche", "DT");
+            //genDictFolio.Add("CAMS", "CA");
+            //genDictFolio.Add("Karvy", "KA");
+            //genDictFolio.Add("Templeton", "TN");
+            //genDictFolio.Add("Deutsche", "DT");
             return genDictFolio;
         }
 
@@ -2102,6 +2105,8 @@ namespace WealthERP.Uploads
             if (ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF")
             {
                 trListBranch.Visible = true;
+                lnkbtnpup.Visible = true;
+                Panel1.Visible = true;
             }
             else
             {
@@ -2249,6 +2254,66 @@ namespace WealthERP.Uploads
             }
         }
 
+        /*  Code For Downloading standerd file formats */
+
+        //protected void LnkBtnPup_Click(object sender, EventArgs e)
+        //{
+        //    ModalPopupExtender1.TargetControlID = "LnkBtnPup";
+        //    ModalPopupExtender1.Show();
+        //}
+
+
+     /*  ***************************************** */ 
+     /*  Coding for Download Standerd upload files */
+
+
+        //protected void lnkbtnpup_Click1(object sender, EventArgs e)
+        //{
+        //    ModalPopupExtender1.TargetControlID = "lnkbtnpup";
+        //    ModalPopupExtender1.Show();
+
+        //}
+
+        protected void lnkbtnpup_Click(object sender, EventArgs e)
+        {
+            ModalPopupExtender1.TargetControlID = "btnPopUp";
+            ModalPopupExtender1.Show();
+
+        }
+
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            if (File1.Checked)
+            {
+                Response.Redirect("Standard Upload Files/EquityTradeAccount.xlsx");
+            }
+            else if (File2.Checked)
+            {
+                Response.Redirect("Standard Upload Files/EquityTransaction.xlsx");
+            }
+            else if (File3.Checked)
+            {
+                Response.Redirect("Standard Upload Files/MFFolio.xlsx");
+            }
+            else if (File4.Checked)
+            {
+                Response.Redirect("Standard Upload Files/MFTransaction.xlsx");
+            }
+            else if (File5.Checked)
+            {
+                Response.Redirect("Standard Upload Files/CustomerProfile.xlsx");
+            }
+            else if (AllFiles.Checked)
+            {
+                Response.Redirect("Standard Upload Files/All Standard Upload Files.zip");
+            }
+        }
+
+
+     /* *** */ 
+     /* End */
+
+
         protected void ddlListCompany_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlListCompany.SelectedIndex != 0)
@@ -2259,6 +2324,58 @@ namespace WealthERP.Uploads
             {
                 //trFileTypeRow.Visible = false;
             }
+            //***Dropdown screen info coding***
+
+            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT")
+            {
+                Message_lbl.Visible = true;
+                message=Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);
+                Message_lbl.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by your institution to Upload";
+
+            }
+            else
+            {
+                Message_lbl.Visible = false;
+              
+            }
+
+            if (ddlUploadType.SelectedValue == "P" && ddlListCompany.SelectedValue == "WP" && ddlListBranch.SelectedValue == "1058")
+            {
+                lnkbtnpup.Style.Add("display", "block");
+                Panel1.Style.Add("display", "block");
+
+            }
+            else
+            {
+                lnkbtnpup.Style.Add("display", "none");
+                Panel1.Style.Add("display", "none");
+            }
+
+            //if ( ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "MFF")
+            //{
+               
+
+        }
+
+        protected string Show_Message(string _ddlUpload, string _ddlList)
+        {
+            string msg = "";
+            foreach (ListItem li in ddlUploadType.Items)
+            {
+                if (li.Value == _ddlUpload)
+                {
+                    msg += li.Text;
+                }
+            }
+            foreach (ListItem li1 in ddlListCompany.Items)
+            {
+                if (li1.Value == _ddlList)
+                {
+                    msg += li1.Text;
+                }
+            }
+            return msg;
+
         }
 
         protected void rbSkipRowsNo_CheckedChanged(object sender, EventArgs e)
@@ -3602,7 +3719,7 @@ namespace WealthERP.Uploads
         }
 
         private void BindListBranch(int advisorId, string Id)
-        {
+      {
             UploadCommonBo uploadCommonBo = new UploadCommonBo();
             DataSet ds = uploadCommonBo.GetAdviserBranchList(advisorId, Id);
 
@@ -3630,12 +3747,30 @@ namespace WealthERP.Uploads
             if (dtInputRejects.Rows.Count != 0)
             {
                 rejectUpload_Flag = true;
-                divInputErrorList.Visible = true;
-                gvInputError.DataSource = dtInputRejects;
-                gvInputError.DataBind();
-                divresult.Visible = false;
-                ViewState["dtinputvalidationerror"] = dtInputRejects;
+
             }
         }
+
+        protected void imgBtnExport_Click(object sender, EventArgs e)
+        {
+
+            divInputErrorList.Visible = true;
+            gvInputError.DataSource = dtInputRejects;
+            gvInputError.DataBind();
+            divresult.Visible = false;
+            ViewState["dtinputvalidationerror"] = dtInputRejects;
+        }
+
+        
+
+        
+
+       
+      
+
+       
+
+        
     }
 }
+
