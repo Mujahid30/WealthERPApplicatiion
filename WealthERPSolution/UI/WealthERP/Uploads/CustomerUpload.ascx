@@ -87,7 +87,7 @@
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
-            <img src="../Images/helpImage.png" height="24px" width="24px" style="float: right;"
+            <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
                 class="flip" />
             <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Uploads"></asp:Label>
             <hr />
