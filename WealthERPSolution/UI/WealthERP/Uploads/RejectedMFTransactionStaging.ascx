@@ -66,7 +66,7 @@
     <tr>
         <td colspan="4">
            <div class="panel">
-              <p style="padding-top: 0; padding-bottom: 0;">View all the rejected Transactions from your Uploads, also the reason for Rejection. <br /> <br /> Click here to view all the Reject resaons and solutions --><a href="~\UserManagement\Help.html">Reject Reasons and Solutions</a></p>
+              <p style="padding-top: 0; padding-bottom: 0;">View all the rejected Transactions from your Uploads, also the reason for Rejection. <br /> <br /> Click here to view all the Reject resaons and solutions --><a href="http://www.wealtherp.com/help/#clientsetup" target="_blank">Reject Reasons and Solutions</a></p>
            </div>
         </td>
     </tr>
