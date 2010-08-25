@@ -105,7 +105,10 @@ namespace WealthERP.Reports
         }
         protected void txtParentCustomerId_ValueChanged(object sender, EventArgs e)
         {
+            CustomerBo customerBo = new CustomerBo();
 
+            customerVo = customerBo.GetCustomer(int.Parse(txtParentCustomerId.Value.ToString()));
+            Session["CusVo"] = customerVo;
             ShowGroupCustomers();
 
         }
