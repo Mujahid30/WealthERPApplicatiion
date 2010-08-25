@@ -2339,7 +2339,7 @@ namespace WealthERP.Uploads
               
             }
 
-            if (ddlUploadType.SelectedValue == "P" && ddlListCompany.SelectedValue == "WP" && ddlListBranch.SelectedValue == "1058")
+            if (ddlUploadType.SelectedValue == "P" && ddlListCompany.SelectedValue == "WP" )
             {
                 lnkbtnpup.Style.Add("display", "block");
                 Panel1.Style.Add("display", "block");
