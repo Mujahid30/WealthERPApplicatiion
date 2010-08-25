@@ -48,7 +48,7 @@ namespace WealthERP.Uploads
         UploadProcessLogVo processlogVo = new UploadProcessLogVo();
         RMVo rmVo = new RMVo();
 
-
+        string ValidationProgress = "";
         CamsUploadsBo camsUploadsBo = new CamsUploadsBo();
         KarvyUploadsBo karvyUploadsBo = new KarvyUploadsBo();
         StandardProfileUploadBo StandardProfileUploadBo = new StandardProfileUploadBo();
@@ -302,8 +302,7 @@ namespace WealthERP.Uploads
         {
             //System.Threading.Thread.Sleep(5000);
             //Create XML for the file
-            #region Uploading Content
-            txtValidationProgress.Text = "";
+            #region Uploading Content            
             string pathxml = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             bool XmlCreated = GetInputXML();
             bool stdProFirstStagingResult = false;
@@ -333,9 +332,18 @@ namespace WealthERP.Uploads
             bool deutscheFolioWerpInsertionResult = false;
             bool stdProCommonDeleteResult = false;
             bool stdFolioCommonDeleteResult = false;
+
+            string InputInsertionProgress = "";
+            string XtrnlInsertionProgress = "";
+            string XMLProgress = "";
+            string SecondStagingInsertionProgress = "";
+            string FirstStagingInsertionProgress = "";
+            string WERPInsertionProgress = "";
+            
+            
             trError.Visible = false;
             xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-            if (txtValidationProgress.Text.ToLower() != "failure")
+            if (ValidationProgress.ToLower() != "failure")
             {
                 string fileName = Server.MapPath("\\UploadFiles\\" + UploadProcessId + ".xml");
 
@@ -423,38 +431,38 @@ namespace WealthERP.Uploads
                         }
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (stdProInputResult)
                         {
-                            txtXtrnlInsertionProgress.Text = "NA";
-                            txtInputInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "NA";
+                            InputInsertionProgress = "Done";
                         }
                         else
                         {
-                            txtInputInsertionProgress.Text = "Failure";
-                            txtXtrnlInsertionProgress.Text = "NA";
+                            InputInsertionProgress = "Failure";
+                            XtrnlInsertionProgress = "NA";
                         }
 
                         if (stdProFirstStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (stdProCommonStagingResult)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
                         if (stdProCreateCustomerResult)
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -580,38 +588,40 @@ namespace WealthERP.Uploads
 
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+// Commented for Removing Process Progress Monitoring 
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (camsProInputResult)
                         {
-                            txtXtrnlInsertionProgress.Text = "Done";
-                            txtInputInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
+                            InputInsertionProgress = "Done";
                         }
                         else
                         {
-                            txtXtrnlInsertionProgress.Text = "Failure";
-                            txtInputInsertionProgress.Text = "Failure";
+                            XtrnlInsertionProgress = "Failure";
+                            InputInsertionProgress = "Failure";
                         }
 
                         if (camsProStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (camsProCommonStagingResult == true || camsFolioCommonStagingResult == true)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
                         if (camsProCreateCustomerResult == true || camsFolioWerpInsertionResult == true)
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
+// Up to here 
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -698,46 +708,46 @@ namespace WealthERP.Uploads
                         }
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (deutscheTranInputResult)
                         {
-                            txtXtrnlInsertionProgress.Text = "Done";
-                            txtInputInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
+                            InputInsertionProgress = "Done";
                         }
                         else
                         {
-                            txtInputInsertionProgress.Text = "Failure";
-                            txtXtrnlInsertionProgress.Text = "Failure";
+                            InputInsertionProgress = "Failure";
+                            XtrnlInsertionProgress = "Failure";
                         }
 
                         if (deutscheTranStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (deutscheTranStagingCheckResult)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
                         if (CommonTransChecks && deutscheTranWerpResult)
                         {
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
 
                         }
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
                         if (deutscheTranWerpResult)
-                            txtXtrnlInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
                         else
-                            txtXtrnlInsertionProgress.Text = "Failure";
+                            XtrnlInsertionProgress = "Failure";
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -872,38 +882,38 @@ namespace WealthERP.Uploads
 
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (templetonProInputResult)
                         {
-                            txtXtrnlInsertionProgress.Text = "Done";
-                            txtInputInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
+                            InputInsertionProgress = "Done";
                         }
                         else
                         {
-                            txtXtrnlInsertionProgress.Text = "Failure";
-                            txtInputInsertionProgress.Text = "Failure";
+                            XtrnlInsertionProgress = "Failure";
+                            InputInsertionProgress = "Failure";
                         }
 
                         if (templetonProStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (templetonProCommonStagingResult == true || templetonFolioCommonStagingResult == true)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
                         if (templetonProCreateCustomerResult == true || templetonFolioWerpInsertionResult == true)
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -1033,38 +1043,38 @@ namespace WealthERP.Uploads
 
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (deutscheProInputResult)
                         {
-                            txtXtrnlInsertionProgress.Text = "Done";
-                            txtInputInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
+                            InputInsertionProgress = "Done";
                         }
                         else
                         {
-                            txtXtrnlInsertionProgress.Text = "Failure";
-                            txtInputInsertionProgress.Text = "Failure";
+                            XtrnlInsertionProgress = "Failure";
+                            InputInsertionProgress = "Failure";
                         }
 
                         if (deutscheProStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (deutscheProCommonStagingResult == true || deutscheFolioCommonStagingResult == true)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
                         if (deutscheProCreateCustomerResult == true || deutscheFolioWerpInsertionResult == true)
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -1143,46 +1153,46 @@ namespace WealthERP.Uploads
                         }
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (camsTranInputResult)
                         {
-                            txtXtrnlInsertionProgress.Text = "Done";
-                            txtInputInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
+                            InputInsertionProgress = "Done";
                         }
                         else
                         {
-                            txtInputInsertionProgress.Text = "Failure";
-                            txtXtrnlInsertionProgress.Text = "Failure";
+                            InputInsertionProgress = "Failure";
+                            XtrnlInsertionProgress = "Failure";
                         }
 
                         if (camsTranStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (camsTranStagingCheckResult)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
                         if (CommonTransChecks && camsTranWerpResult)
                         {
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
 
                         }
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
                         if (camsTranWerpResult)
-                            txtXtrnlInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
                         else
-                            txtXtrnlInsertionProgress.Text = "Failure";
+                            XtrnlInsertionProgress = "Failure";
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -1336,38 +1346,38 @@ namespace WealthERP.Uploads
 
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (karvyProInputResult)
                         {
-                            txtInputInsertionProgress.Text = "Done";
-                            txtXtrnlInsertionProgress.Text = "Done";
+                            InputInsertionProgress = "Done";
+                            XtrnlInsertionProgress = "Done";
                         }
                         else
                         {
-                            txtInputInsertionProgress.Text = "Failure";
-                            txtXtrnlInsertionProgress.Text = "Failure";
+                            InputInsertionProgress = "Failure";
+                            XtrnlInsertionProgress = "Failure";
                         }
 
                         if (karvyProStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (karvyStagingToProfileStagingResult == true || karvyStagingToFolioStagingResult == true)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
                         if (karvyProCreateCustomerResult == true || karvyFolioWerpInsertionResult == true)
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -1447,46 +1457,46 @@ namespace WealthERP.Uploads
                         }
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (karvyTranInputResult)
                         {
-                            txtXtrnlInsertionProgress.Text = "Done";
-                            txtInputInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
+                            InputInsertionProgress = "Done";
                         }
                         else
                         {
-                            txtInputInsertionProgress.Text = "Failure";
-                            txtXtrnlInsertionProgress.Text = "Failure";
+                            InputInsertionProgress = "Failure";
+                            XtrnlInsertionProgress = "Failure";
                         }
 
                         if (karvyTranStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (karvyTranStagingCheckResult)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
 
                         if (CommonTransChecks && karvyTranWerpResult)
                         {
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
                         }
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
                         if (karvyTranInputResult)
-                            txtXtrnlInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
                         else
-                            txtXtrnlInsertionProgress.Text = "Failure";
+                            XtrnlInsertionProgress = "Failure";
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -1583,14 +1593,14 @@ namespace WealthERP.Uploads
                     //    txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                     //    if (XmlCreated)
-                    //        txtXMLProgress.Text = "Done";
+                    //        XMLProgress = "Done";
                     //    else
-                    //        txtXMLProgress.Text = "Failure";
+                    //        XMLProgress = "Failure";
 
                     //    if (werpMFProInputResult)
-                    //        txtInputInsertionProgress.Text = "Done";
+                    //        InputInsertionProgress = "Done";
                     //    else
-                    //        txtInputInsertionProgress.Text = "Failure";
+                    //        InputInsertionProgress = "Failure";
 
                     //    if (werpMFProStagingResult)
                     //        txtStagingInsertionProgress.Text = "Done";
@@ -1599,10 +1609,10 @@ namespace WealthERP.Uploads
 
                     //    if (werpMFProStagingCheckResult && werpMFProCreateCustomerResult && werpMFProCreateBankAccountResult)
                     //    {
-                    //        txtWERPInsertionProgress.Text = "Done";
+                    //        WERPInsertionProgress = "Done";
                     //    }
                     //    else
-                    //        txtWERPInsertionProgress.Text = "Failure";
+                    //        WERPInsertionProgress = "Failure";
 
                     //    // Update Process Summary Text Boxes
                     //    txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -1658,29 +1668,29 @@ namespace WealthERP.Uploads
                         }
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (WERPMFTranInputResult)
-                            txtInputInsertionProgress.Text = "Done";
+                            InputInsertionProgress = "Done";
                         else
-                            txtInputInsertionProgress.Text = "Failure";
+                            InputInsertionProgress = "Failure";
 
                         if (WERPMFTranStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (WERPMFTranStagingCheckResult && WERPMFTranWerpResult)
                         {
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
                         }
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
 
                         // Update Process Summary Text Boxes
@@ -1784,34 +1794,34 @@ namespace WealthERP.Uploads
                         }
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (werpEQTranInputResult)
-                            txtInputInsertionProgress.Text = "Done";
+                            InputInsertionProgress = "Done";
                         else
-                            txtInputInsertionProgress.Text = "Failure";
+                            InputInsertionProgress = "Failure";
 
                         if (werpEQFirstStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (werpEQSecondStagingResult)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
                         if (WERPEQTranWerpResult)
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
-                        txtXtrnlInsertionProgress.Text = "N/A";
+                        XtrnlInsertionProgress = "N/A";
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -1908,34 +1918,34 @@ namespace WealthERP.Uploads
                         }
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (werpEQTradeInputResult)
-                            txtInputInsertionProgress.Text = "Done";
+                            InputInsertionProgress = "Done";
                         else
-                            txtInputInsertionProgress.Text = "Failure";
+                            InputInsertionProgress = "Failure";
 
                         if (werpEQFirstStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (werpEQSecondStagingResult)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
                         if (WERPEQTradeWerpResult)
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
-                        txtXtrnlInsertionProgress.Text = "N/A";
+                        XtrnlInsertionProgress = "N/A";
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -2022,46 +2032,46 @@ namespace WealthERP.Uploads
                         }
 
                         // Update Process Progress Monitoring Text Boxes
-                        txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
                         if (XmlCreated)
-                            txtXMLProgress.Text = "Done";
+                            XMLProgress = "Done";
                         else
-                            txtXMLProgress.Text = "Failure";
+                            XMLProgress = "Failure";
 
                         if (templeTranInputResult)
                         {
-                            txtXtrnlInsertionProgress.Text = "Done";
-                            txtInputInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
+                            InputInsertionProgress = "Done";
                         }
                         else
                         {
-                            txtInputInsertionProgress.Text = "Failure";
-                            txtXtrnlInsertionProgress.Text = "Failure";
+                            InputInsertionProgress = "Failure";
+                            XtrnlInsertionProgress = "Failure";
                         }
 
                         if (templeTranStagingResult)
-                            txtFirstStagingInsertionProgress.Text = "Done";
+                            FirstStagingInsertionProgress = "Done";
                         else
-                            txtFirstStagingInsertionProgress.Text = "Failure";
+                            FirstStagingInsertionProgress = "Failure";
 
                         if (templeTranStagingCheckResult)
-                            txtSecondStagingInsertionProgress.Text = "Done";
+                            SecondStagingInsertionProgress = "Done";
                         else
-                            txtSecondStagingInsertionProgress.Text = "Failure";
+                            SecondStagingInsertionProgress = "Failure";
 
                         if (CommonTransChecks && templeTranWerpResult)
                         {
-                            txtWERPInsertionProgress.Text = "Done";
+                            WERPInsertionProgress = "Done";
 
                         }
                         else
-                            txtWERPInsertionProgress.Text = "Failure";
+                            WERPInsertionProgress = "Failure";
 
                         if (templeTranWerpResult)
-                            txtXtrnlInsertionProgress.Text = "Done";
+                            XtrnlInsertionProgress = "Done";
                         else
-                            txtXtrnlInsertionProgress.Text = "Failure";
+                            XtrnlInsertionProgress = "Failure";
 
                         // Update Process Summary Text Boxes
                         txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -2093,7 +2103,7 @@ namespace WealthERP.Uploads
             {
                 btn_ViewRjects.Visible = false;
             }
-            if(txtXMLProgress.Text=="Done" && txtXtrnlInsertionProgress.Text=="Done" && txtInputInsertionProgress.Text=="Done" && txtFirstStagingInsertionProgress.Text=="Done" && txtSecondStagingInsertionProgress.Text=="Done" && txtWERPInsertionProgress.Text=="Done" && txtXtrnlInsertionProgress.Text=="Done")
+            if(XMLProgress=="Done" && XtrnlInsertionProgress=="Done" && InputInsertionProgress=="Done" && FirstStagingInsertionProgress=="Done" && SecondStagingInsertionProgress=="Done" && WERPInsertionProgress=="Done" && XtrnlInsertionProgress=="Done")
             {
                 msgUploadComplete.Visible = true;
             }
@@ -2449,7 +2459,7 @@ namespace WealthERP.Uploads
 
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
                     {
@@ -2532,7 +2542,7 @@ namespace WealthERP.Uploads
 
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
                     {
@@ -2600,7 +2610,7 @@ namespace WealthERP.Uploads
 
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
                     {
@@ -2663,7 +2673,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                 }
                 #endregion
@@ -2700,7 +2710,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
                     {
@@ -2756,7 +2766,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
                     {
@@ -2819,7 +2829,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
                     {
@@ -2873,7 +2883,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
                     {
@@ -2929,7 +2939,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
                     {
@@ -2975,7 +2985,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                         filereadflag = false;
                     }
                     if (filereadflag == true)
@@ -3025,7 +3035,7 @@ namespace WealthERP.Uploads
 
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                         filereadflag = false;
                     }
                     if (filereadflag == true)
@@ -3081,7 +3091,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                 }
                 #endregion
@@ -3116,7 +3126,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                 }
                 #endregion
@@ -3151,7 +3161,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
 
                 }
@@ -3186,7 +3196,7 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                 }
                 #endregion
@@ -3221,7 +3231,7 @@ namespace WealthERP.Uploads
 
                     else
                     {
-                        txtValidationProgress.Text = "Failure";
+                        //ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
                     {
@@ -3255,7 +3265,7 @@ namespace WealthERP.Uploads
                 #endregion
 
                 // Update Success Failures
-                if (txtValidationProgress.Text != "Failure")
+                if (ValidationProgress != "Failure")
                 {
                     //Fill details for Upload process log
                     if (rejectUpload_Flag == false)

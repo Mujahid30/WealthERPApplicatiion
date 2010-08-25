@@ -335,15 +335,15 @@
 </div>
 <div id="divresult" runat="server" visible="false">
     <table class="TableBackground" style="width: 100%;">
-        <tr>
+        <%--<tr>
             <td colspan="4">
                 <asp:Label ID="lblProcessMonitoring" Text="Process Progress Monitoring" CssClass="HeaderTextSmall"
                     runat="server">
                 </asp:Label>
                 <hr />
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td class="leftField">
                 <asp:Label ID="lblProcessID" Text="Process ID:" CssClass="FieldName" runat="server">
                 </asp:Label>
@@ -352,8 +352,8 @@
                 <asp:TextBox ID="txtProcessID" CssClass="txtField" runat="server" Enabled="false">
                 </asp:TextBox>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td class="leftField">
                 <asp:Label ID="lblValidationProgress" Text="Validation Progress:" CssClass="FieldName"
                     runat="server">
@@ -363,8 +363,8 @@
                 <asp:TextBox ID="txtValidationProgress" CssClass="txtField" runat="server" Enabled="false">
                 </asp:TextBox>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td class="leftField">
                 <asp:Label ID="lblXMLProgress" Text="Conversion to XML Progress:" CssClass="FieldName"
                     runat="server">
@@ -374,8 +374,8 @@
                 <asp:TextBox ID="txtXMLProgress" CssClass="txtField" runat="server" Enabled="false">
                 </asp:TextBox>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td class="leftField">
                 <asp:Label ID="lblInputInsertionProgress" Text="Input Insertion Progress:" CssClass="FieldName"
                     runat="server">
@@ -385,8 +385,8 @@
                 <asp:TextBox ID="txtInputInsertionProgress" CssClass="txtField" runat="server" Enabled="false">
                 </asp:TextBox>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td class="leftField">
                 <asp:Label ID="lblFirstStagingInsertionProgress" Text="First Staging Insertion Progress:"
                     CssClass="FieldName" runat="server">
@@ -397,8 +397,8 @@
                     Enabled="false">
                 </asp:TextBox>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td class="leftField">
                 <asp:Label ID="lblSecondStagingInsertionProgress" Text="Second Staging Insertion Progress:"
                     CssClass="FieldName" runat="server">
@@ -409,8 +409,8 @@
                     Enabled="false">
                 </asp:TextBox>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td class="leftField">
                 <asp:Label ID="lblWERPInsertionProgress" Text="WERP Insertion Progress:" CssClass="FieldName"
                     runat="server">
@@ -420,8 +420,8 @@
                 <asp:TextBox ID="txtWERPInsertionProgress" CssClass="txtField" runat="server" Enabled="false">
                 </asp:TextBox>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td class="leftField">
                 <asp:Label ID="lblXtrnlInsertionProgress" Text="External Insertion Progress:" CssClass="FieldName"
                     runat="server">
@@ -431,20 +431,20 @@
                 <asp:TextBox ID="txtXtrnlInsertionProgress" CssClass="txtField" runat="server" Enabled="false">
                 </asp:TextBox>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td colspan="4">
                 &nbsp;
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <td colspan="4" class="SubmitCell">
                 <asp:Button ID="btnRollback" runat="server" Text="Rollback" CssClass="PCGButton"
                     onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerUpload_btnRollback','S');"
                     onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerUpload_btnRollback','S');"
                     OnClick="btnRollback_Click" />
             </td>
-        </tr>
+        </tr>--%>
         <tr>
             <td colspan="4">
                 &nbsp;
