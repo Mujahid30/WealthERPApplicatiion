@@ -51,8 +51,10 @@ namespace DaoReports
                     dtLiabilities.Columns.Add("CustomerId", Type.GetType("System.Int64"));
                     dtLiabilities.Columns.Add("LoanType");
                     dtLiabilities.Columns.Add("LoanAmount", Type.GetType("System.Int64"));
+                    dtLiabilities.Columns.Add("CustomerName");
                     DataRow drLiabilities = dtLiabilities.NewRow();
                     drLiabilities["CustomerId"] = "-1"; //customer Id is -1 so that it will not be displayed in report.
+                    drLiabilities["CustomerName"] = "CustomerName";
                     drLiabilities["LoanType"] = "LoanType";
                     drLiabilities["LoanAmount"] = 0;
                     dtLiabilities.Rows.Add(drLiabilities);
