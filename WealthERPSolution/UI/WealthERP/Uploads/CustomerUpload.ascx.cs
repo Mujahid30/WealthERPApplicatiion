@@ -2339,7 +2339,7 @@ namespace WealthERP.Uploads
             if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT")
             {
                 Message_lbl.Visible = true;
-                message=Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);
+                message = Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);
                 Message_lbl.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by your institution to Upload";
 
             }
@@ -2361,31 +2361,33 @@ namespace WealthERP.Uploads
                 Panel1.Style.Add("display", "none");
             }
 
-            //if ( ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "MFF")
-            //{
-               
-
         }
 
-        protected string Show_Message(string _ddlUpload, string _ddlList)
+        protected string Show_Message(string ddlUploadType, string ddlCompanyType)
         {
             string msg = "";
-            foreach (ListItem li in ddlUploadType.Items)
+            if (ddlUploadType == "PMFF" && ddlCompanyType == "CA")
             {
-                if (li.Value == _ddlUpload)
-                {
-                    msg += li.Text;
-                }
+                msg = "WBR-9";
             }
-            foreach (ListItem li1 in ddlListCompany.Items)
+            else if (ddlUploadType == "PMFF" && ddlCompanyType == "KA")
             {
-                if (li1.Value == _ddlList)
-                {
-                    msg += li1.Text;
-                }
+                msg = "MFSD-221 Combo";
             }
+            else if (ddlUploadType == "MFT" && ddlCompanyType == "CA")
+            {
+                msg = "WBR-2";
+            }
+            else if (ddlUploadType == "MFT" && ddlCompanyType == "KA")
+            {
+                msg = "MFSD-221 Combo";
+            }
+            else if ((ddlUploadType == "MFT" && ddlCompanyType == "TN" ) || (ddlUploadType == "MFT" && ddlCompanyType == "DT") || (ddlUploadType == "PMFF" && ddlCompanyType == "TN") || (ddlUploadType == "PMFF" && ddlCompanyType == "DT"))
+            {
+                msg = "Standard Combo";
+            }
+           
             return msg;
-
         }
 
         protected void rbSkipRowsNo_CheckedChanged(object sender, EventArgs e)
