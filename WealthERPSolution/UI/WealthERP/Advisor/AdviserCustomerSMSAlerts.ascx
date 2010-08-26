@@ -1,11 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserCustomerSMSAlerts.ascx.cs"
     Inherits="WealthERP.Advisor.AdviserCustomerSMSAlerts" %>
-
-
 <%--Used to create Popups and Alert Box--%>
 
 <script src="/Scripts/jquery.js" type="text/javascript"></script>
+
 <link href="/Scripts/colorbox.css" rel="stylesheet" type="text/css" />
+
 <script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -15,6 +15,7 @@
         try {
             //get target base control.
             TargetBaseControl = document.getElementById('<%= this.gvCustomerSMSAlerts.ClientID %>');
+            HideColumn(7);
         }
         catch (err) {
             TargetBaseControl = null;
@@ -26,16 +27,16 @@
             return false;
         }
 
-        //get target child control.
+        //get target child control.        
         var TargetChildControl = "chkCustomerSMSAlert";
 
         //get all the control of the type INPUT in the base control.
         var Inputs = TargetBaseControl.getElementsByTagName("input");
-        var totalChecked=0;
+        var totalChecked = 0;
 
         for (var n = 0; n < Inputs.length; ++n) {
             if (Inputs[n].type == 'checkbox' && Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 && Inputs[n].checked) {
-                totalChecked++;                             
+                totalChecked++;
             }
         }
         if (totalChecked > 0) {
@@ -48,27 +49,28 @@
     }
     function MobileNumberCheck() {
         var customerwithoutmobilenumber = document.getElementById("<%= hdnCustomerIdWithoutMobileNumber.ClientID %>").value;
+        //alert(customerwithoutmobilenumber);
         var customerlist = new Array();
         customerlist = customerwithoutmobilenumber.split(',');
-        var customerlistlength=0;
-        //=customerlist.length;
-        if (customerlist != "" && customerlist!=null) {
+        var customerlistlength = 0;
+        //=customerlist.length;        
+        if (customerlist != "" && customerlist != null && customerlist != 0) {
             for (var j = 0; j < customerlist.length; j++) {
-                if (customerlist[j].value != 0 && customerlist[j].value != "") {
+                if (customerlist[j] != "" && customerlist[j] != 0 && customerlist[j]!=null) {                    
                     customerlistlength++;
                 }
             }
         }
         var numberofcustomerschecked = TestCheckBox();
-        alert(numberofcustomerschecked);
-        
+        //alert(numberofcustomerschecked);
         if (numberofcustomerschecked != false) {
             if (numberofcustomerschecked >= 0) {
                 if (customerlistlength != numberofcustomerschecked) {
                     //alert(customerlistlength + ' ' + numberofcustomerschecked);
                     var confirmation = confirm('Do you wish to add Customer Mobile number');
                     if (confirmation == true) {
-                        return true;                     
+                        ShowColumn(7);
+                        return false;
                     }
                     else {
                         return false;
@@ -81,16 +83,29 @@
         }
         else
             return false;
-        
+
+    }
+    function HideColumn(columnNo) {
+        var dgTest = document.getElementById("<%=gvCustomerSMSAlerts.ClientID %>");
+        for (var i = 0; i < dgTest.rows.length; i++) {            
+            dgTest.rows[i].cells[columnNo].style.display = "none";
+        }
+    }
+
+    function ShowColumn(columnNo) {
+        var dgTest = document.getElementById("<%=gvCustomerSMSAlerts.ClientID %>");
+        for (var i = 0; i < dgTest.rows.length; i++) {
+            dgTest.rows[i].cells[columnNo].style.display = "block";
+        }
     }
    
 </script>
+
 <%--<script type="text/javascript">
     $(document).ready(function() {
         $(".openQuickMobileAdd").colorbox({ width: "700px", inline: true, href: "/Alerts/QuickMobileNumberAdd.aspx" });
     });
 </script>--%>
-
 <table width="100%">
     <tr>
         <td>
@@ -120,9 +135,8 @@
                     CssClass="FieldName"></asp:Label>
                 <asp:GridView ID="gvCustomerSMSAlerts" DataKeyNames="CustomerId,AlertId" runat="server"
                     AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" Width="100%"
-                    Font-Size="Small" BackImageUrl="~/CSS/Images/HeaderGlassBlack.jpg"
-                    CssClass="GridViewStyle" ShowFooter="true" OnRowDataBound="gvCustomerSMSAlerts_RowDataBound"
-                    AllowPaging="True">
+                    Font-Size="Small" BackImageUrl="~/CSS/Images/HeaderGlassBlack.jpg" CssClass="GridViewStyle"
+                    ShowFooter="True" OnRowDataBound="gvCustomerSMSAlerts_RowDataBound" AllowPaging="True">
                     <PagerStyle BorderStyle="Solid" />
                     <SelectedRowStyle Font-Bold="True" CssClass="SelectedRowStyle" />
                     <HeaderStyle Font-Bold="True" Font-Size="Small" ForeColor="White" CssClass="HeaderStyle" />
@@ -134,16 +148,26 @@
                     <Columns>
                         <asp:TemplateField HeaderText="Select">
                             <ItemTemplate>
-                                <asp:CheckBox ID="chkCustomerSMSAlert" runat="server" Visible="false" CssClass="Field"
-                                     />
+                                <asp:CheckBox ID="chkCustomerSMSAlert" runat="server" Visible="false" CssClass="Field" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="CustomerName" HeaderText="Customer" />
-                        <asp:BoundField DataField="Name" HeaderText="Details" />
-                        <asp:BoundField DataField="AlertMessage" HeaderText="Alert Message" />
-                        <asp:BoundField DataField="TimesSMSSent" HeaderText="No of Times SMS Sent" />
-                        <asp:BoundField DataField="LastSMSDate" HeaderText="Last SMS Date" />
-                        <asp:BoundField DataField="AlertDate" HeaderText="Alert Date" />
+                        <asp:BoundField DataField="CustomerName" HeaderText="Customer" ReadOnly="true" />
+                        <asp:BoundField DataField="Name" HeaderText="Details" ReadOnly="true" />
+                        <asp:BoundField DataField="AlertMessage" HeaderText="Alert Message" ReadOnly="true" />
+                        <asp:BoundField DataField="TimesSMSSent" HeaderText="No of Times SMS Sent" ReadOnly="true" />
+                        <asp:BoundField DataField="LastSMSDate" HeaderText="Last SMS Date" ReadOnly="true" />
+                        <asp:BoundField DataField="AlertDate" HeaderText="Alert Date" ReadOnly="true" />
+                        <asp:TemplateField HeaderText="Mobile No">
+                            <ItemTemplate>
+                                <asp:TextBox ID="txtMobileNo" runat="server" Text='<%# Eval("Mobile") %>' CssClass="txtField" MaxLength="10" />
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidator17" runat="server"
+                                    CssClass="cvPCG" ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+"
+                                    ControlToValidate="txtMobileNo" Display="Dynamic"></asp:RegularExpressionValidator>
+                            </ItemTemplate>
+                            <FooterTemplate>
+                                <asp:Button ID="btnUpdateMobileNo" runat="server" Text="Update" OnClick="btnUpdateMobileNo_Click" />
+                            </FooterTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </asp:Panel>
@@ -151,7 +175,8 @@
     </tr>
     <tr>
         <td align="center">
-            <asp:Button ID="btnSend" Text="Send SMS" runat="server" CssClass="openQuickMobileAdd PCGButton" OnClick="btnSend_Click" OnClientClick="return TestCheckBox();" />
+            <asp:Button ID="btnSend" Text="Send SMS" runat="server" CssClass="openQuickMobileAdd PCGButton"
+                OnClick="btnSend_Click" OnClientClick="return MobileNumberCheck();" />
         </td>
     </tr>
 </table>

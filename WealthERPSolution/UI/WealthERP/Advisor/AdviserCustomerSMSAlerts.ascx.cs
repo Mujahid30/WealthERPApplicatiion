@@ -24,8 +24,9 @@ namespace WealthERP.Advisor
         public void GetAdviserCustomerAlerts()
         {
             int adviserId = 0;
-            
-            
+
+            hdnCustomerIdWithoutMobileNumber.Value = "";
+            hdnCustomerNameWithoutMobileNumber.Value = "";
             DataRow drAdviserCustomerAlert = null;
             if (Session["advisorVo"] != null)
                 adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
@@ -42,6 +43,7 @@ namespace WealthERP.Advisor
                 dtAdviserCustomerAlerts.Columns.Add("TimesSMSSent");
                 dtAdviserCustomerAlerts.Columns.Add("LastSMSDate");
                 dtAdviserCustomerAlerts.Columns.Add("AlertDate");
+                dtAdviserCustomerAlerts.Columns.Add("Mobile");
                 for (int i = 0; i < dsAdviserCustomerAlerts.Tables[0].Rows.Count; i++)
                 {
                     drAdviserCustomerAlert = dtAdviserCustomerAlerts.NewRow();
@@ -100,19 +102,21 @@ namespace WealthERP.Advisor
                         {
                             drAdviserCustomerAlert["AlertDate"] = "";
                         }
+                        drAdviserCustomerAlert["Mobile"] = dsAdviserCustomerAlerts.Tables[0].Rows[i]["Mobile"].ToString();
+                        if (Int64.Parse(dsAdviserCustomerAlerts.Tables[0].Rows[i]["Mobile"].ToString()) != 0)
+                        {
+                            hdnCustomerIdWithoutMobileNumber.Value += dsAdviserCustomerAlerts.Tables[0].Rows[i]["CustomerId"].ToString() + ",";
+                            //if (hdnCustomerIdWithoutMobileNumber.Value != null)
+                            //{
+                            //    Session["CustomersWithoutMobileNumber"] = hdnCustomerIdWithoutMobileNumber.Value;
+                            //}
+                            //hdnCustomerNameWithoutMobileNumber.Value += dsAdviserCustomerAlerts.Tables[0].Rows[i]["CustomerName"].ToString() + ",";
+                        }
                         if (drAdviserCustomerAlert != null)
                         {
                             dtAdviserCustomerAlerts.Rows.Add(drAdviserCustomerAlert);
                         }
-                        if (Int64.Parse(dsAdviserCustomerAlerts.Tables[0].Rows[i]["Mobile"].ToString()) != 0)
-                        {
-                            hdnCustomerIdWithoutMobileNumber.Value += dsAdviserCustomerAlerts.Tables[0].Rows[i]["CustomerId"].ToString() + ",";
-                            if (hdnCustomerIdWithoutMobileNumber.Value != null)
-                            {
-                                Session["CustomersWithoutMobileNumber"] = hdnCustomerIdWithoutMobileNumber.Value;
-                            }
-                            hdnCustomerNameWithoutMobileNumber.Value += dsAdviserCustomerAlerts.Tables[0].Rows[i]["CustomerName"].ToString() + ",";
-                        }
+                        
                         
                     }                   
                     
@@ -171,10 +175,27 @@ namespace WealthERP.Advisor
                 {
                     ((CheckBox)e.Row.FindControl("chkCustomerSMSAlert")).Visible = true;                    
                   
-                }
+                }                
 
             }
            
+        }
+        protected void btnUpdateMobileNo_Click(object sender, EventArgs e)
+        {
+            //List<TextBox> txtMobileNoList=(TextBox)gvCustomerSMSAlerts.FindControl("txtMobileNo");
+            AlertsBo alertsBo = new AlertsBo();
+            string customerId = "";            
+            foreach (GridViewRow gvr in gvCustomerSMSAlerts.Rows)
+            {
+                TextBox txtMobileNo = (TextBox)gvr.FindControl("txtMobileNo");
+                if (txtMobileNo.Text != "0" && txtMobileNo.Text != null)
+                {
+                    customerId = gvCustomerSMSAlerts.DataKeys[gvr.RowIndex].Value.ToString();
+                    alertsBo.UpdateCustomerMobileNumber(int.Parse(customerId),Int64.Parse(txtMobileNo.Text));
+                    hdnCustomerIdWithoutMobileNumber.Value += "1,";
+                }
+            }
+            
         }
 
         protected void btnSend_Click(object sender, EventArgs e)
