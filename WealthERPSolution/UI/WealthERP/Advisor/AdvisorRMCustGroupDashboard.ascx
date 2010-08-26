@@ -64,17 +64,16 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2" width="100%"  valign="top">
+        <td colspan="2" width="100%" valign="top">
             <br />
-            <asp:Label runat="server" CssClass="FieldName" Text="No details to display.."
-                ID="lblAssetDetailsMsg"></asp:Label>
-            <%--<div style="height: 375px; overflow: auto; width: 100%">--%>
+            <asp:Label runat="server" CssClass="FieldName" Text="No details to display.." ID="lblAssetDetailsMsg"></asp:Label>
             <div id="div1" style="overflow-y: scroll; height: 350px; overflow-x: scroll; width: 100%">
-                <%--<asp:Panel ID="Panel1" runat="server" ScrollBars="Both" Height="100" Width="100%">--%>
                 <asp:GridView ID="gvAssetAggrCurrentValue" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                     CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" HorizontalAlign="Center"
-                    Width="100%" DataKeyNames="CustomerId">
+                    Width="100%" DataKeyNames="CustomerId" ShowFooter="true" 
+                    onrowdatabound="gvAssetAggrCurrentValue_RowDataBound">
                     <RowStyle CssClass="RowStyle" />
+                    <FooterStyle CssClass="FooterStyle" HorizontalAlign="Right"/>
                     <SelectedRowStyle CssClass="SelectedRowStyle" />
                     <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
                     <HeaderStyle CssClass="HeaderStyle" />
@@ -87,7 +86,6 @@
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <%--<asp:BoundField DataField="Customer_Name" HeaderText="Customer Name" />--%>
                         <asp:BoundField DataField="Equity" HeaderText="Equity" DataFormatString="{0:n2}"
                             HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
                         <asp:BoundField DataField="Mutual_Fund" HeaderText="Mutual Fund" DataFormatString="{0:n2}"
@@ -195,7 +193,7 @@
             &nbsp;
         </td>
     </tr>
-     <tr>
+    <tr>
         <td colspan="2">
         </td>
     </tr>

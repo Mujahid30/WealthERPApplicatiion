@@ -476,8 +476,8 @@ namespace WealthERP.Advisor
                         }
                     }
 
-                    drNetHoldings = dtGrpAssetNetHoldings.NewRow();
-                    drNetHoldings[0] = "Total:";
+                    drNetHoldings = dtGrpAssetNetHoldings.NewRow();  //DataRow which holds the total of all columns to show in the footer
+                    drNetHoldings[0] = "Total :";
                     foreach (DataRow dr in dtGrpAssetNetHoldings.Rows)
                     {
                         drNetHoldings[1] = double.Parse(drNetHoldings[1].ToString()) + double.Parse(dr[1].ToString());
@@ -495,24 +495,16 @@ namespace WealthERP.Advisor
                         drNetHoldings[13] = double.Parse(drNetHoldings[13].ToString()) + double.Parse(dr[13].ToString());
                     }
                     drNetHoldings[14] = "0";
-                    
-                    dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);
 
                     gvAssetAggrCurrentValue.DataSource = dtGrpAssetNetHoldings;
                     gvAssetAggrCurrentValue.DataBind();
                     gvAssetAggrCurrentValue.Visible = true;
-                    gvAssetAggrCurrentValue.Rows[gvAssetAggrCurrentValue.Rows.Count - 1].Font.Bold = true;
-                    //networth = sum - liabilityValue;
-                    //lblAssets.Text = String.Format("{0:n2}", double.Parse(sum.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    //lblLiabilityValue.Text = String.Format("{0:n2}", double.Parse(liabilityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    //lblNetWorth.Text = String.Format("{0:n2}", double.Parse(networth.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 }
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-
             catch (Exception Ex)
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
@@ -526,9 +518,7 @@ namespace WealthERP.Advisor
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
             }
-
         }
 
         /// <summary>
@@ -798,6 +788,7 @@ namespace WealthERP.Advisor
 
             customerVo = customerBo.GetCustomer(customerId);
             Session["CustomerVo"] = customerVo;
+            Session["IsDashboard"] = "CustDashboard";
 
             if (Session["S_CurrentUserRole"] == "Customer")
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustIndiDashboard','none');", true);
@@ -908,6 +899,28 @@ namespace WealthERP.Advisor
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewGeneralInsuranceDetails','none');", true);
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','none');", true);
+        }
+
+        protected void gvAssetAggrCurrentValue_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                e.Row.Cells[0].Text = drNetHoldings[0].ToString();
+                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[1].Text = drNetHoldings[1].ToString();
+                e.Row.Cells[2].Text = drNetHoldings[2].ToString();
+                e.Row.Cells[3].Text = drNetHoldings[3].ToString();
+                e.Row.Cells[4].Text = drNetHoldings[4].ToString();
+                e.Row.Cells[5].Text = drNetHoldings[5].ToString();
+                e.Row.Cells[6].Text = drNetHoldings[6].ToString();
+                e.Row.Cells[7].Text = drNetHoldings[7].ToString();
+                e.Row.Cells[8].Text = drNetHoldings[8].ToString();
+                e.Row.Cells[9].Text = drNetHoldings[9].ToString();
+                e.Row.Cells[10].Text = drNetHoldings[10].ToString();
+                e.Row.Cells[11].Text = drNetHoldings[11].ToString();
+                e.Row.Cells[12].Text = drNetHoldings[12].ToString();
+                e.Row.Cells[13].Text = drNetHoldings[13].ToString();
+            }
         }
     }
 }
