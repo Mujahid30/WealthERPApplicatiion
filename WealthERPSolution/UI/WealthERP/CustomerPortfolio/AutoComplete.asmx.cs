@@ -86,7 +86,13 @@ namespace WealthERP.CustomerPortfolio
 
 
         }
-
+        /// <summary>
+        /// Get RM Group Customer Names 
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="count"></param>
+        /// <param name="contextKey"></param>
+        /// <returns></returns>
         [WebMethod]
         public string[] GetParentCustomerName(string prefixText,int count,string contextKey)
         {
@@ -110,6 +116,14 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
 
+
+        /// <summary>
+        /// Get RM Individual Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="count"></param>
+        /// <param name="contextKey"></param>
+        /// <returns></returns>
         [WebMethod]
         public string[] GetMemberCustomerName(string prefixText, int count, string contextKey)
         {
@@ -133,6 +147,14 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
 
+
+        /// <summary>
+        /// No use
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="count"></param>
+        /// <param name="contextKey"></param>
+        /// <returns></returns>
         [WebMethod]
         public string[] GetCustomerName(string prefixText, int count, string contextKey)
         {
@@ -153,6 +175,13 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
 
+        /// <summary>
+        /// Get Advisor Individual Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="count"></param>
+        /// <param name="contextKey"></param>
+        /// <returns></returns>
         [WebMethod]
         public string[] GetAdviserCustomerName(string prefixText, int count, string contextKey)
         {
@@ -172,6 +201,36 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+
+
+        /// <summary>
+        /// Get Advisor Group Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="count"></param>
+        /// <param name="contextKey"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string[] GetAdviserGroupCustomerName(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtCustomerName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtCustomerName = customerBo.GetAdviserGroupCustomerName(prefixText, int.Parse(contextKey));
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtCustomerName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
+
+
     }
 
 }
