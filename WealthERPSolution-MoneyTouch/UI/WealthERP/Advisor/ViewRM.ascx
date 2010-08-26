@@ -44,23 +44,23 @@
                     <EditRowStyle CssClass="EditRowStyle" />
                     <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
-                      <%--  <asp:TemplateField>
+                        <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
                                     <asp:ListItem>Select </asp:ListItem>
-                                    <asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>
+                                    <%--<asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>--%>
                                     <asp:ListItem Text="View profile" Value="View profile">View profile  </asp:ListItem>
                                     <asp:ListItem Text="RM Dashboard" Value="RM Dashboard">RM Dashboard</asp:ListItem>
                                 </asp:DropDownList>
                             </ItemTemplate>
-                        </asp:TemplateField>--%>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="RMName" HeaderText="RM Name" SortExpression="RMName" />
                         <%--<asp:BoundField DataField="RM Main Branch" HeaderText="RM Main Branch" />--%>
                         <asp:BoundField DataField="StaffType" HeaderText="Staff Type" />
                         <asp:BoundField DataField="StaffRole" HeaderText="Staff Role" />
                         <asp:BoundField DataField="Email" HeaderText="Email" />                        
                         <asp:BoundField DataField="Mobile Number" HeaderText="Mobile Number" />                        
-                        <asp:BoundField DataField="WealthERP Id" HeaderText="WealthERP Id"  />
+                        <asp:BoundField DataField="WealthERP Id" HeaderText="Staff Id"  />
                         
                     </Columns>
                 </asp:GridView>

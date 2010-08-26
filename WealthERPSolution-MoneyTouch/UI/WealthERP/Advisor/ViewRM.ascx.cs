@@ -475,7 +475,7 @@ namespace WealthERP.Advisor
                 userId = int.Parse(gvRMList.DataKeys[selectedRow].Value.ToString());
                 Session["userId"] = userId;
                 rmVo = advisorStaffBo.GetAdvisorStaff(userId);
-                Session["rmVo"] = rmVo;
+                Session["CurrentrmVo"] = rmVo;
                 menu = MyDropDownList.SelectedItem.Value.ToString();
                 if (menu == "Edit profile")
                 {
@@ -489,7 +489,7 @@ namespace WealthERP.Advisor
                 }
                 if (menu == "RM Dashboard")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolonly('RMDashBoard','none');", true);
                 }
             }
             catch (BaseApplicationException Ex)
