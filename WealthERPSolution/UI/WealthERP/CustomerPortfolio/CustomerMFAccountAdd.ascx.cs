@@ -86,9 +86,13 @@ namespace WealthERP.CustomerPortfolio
                         btnSubmit.Visible = true;
                         btnUpdate.Visible = false;
                     }
+
+                    //pra..
+                    BindPortfolioDropDown();
+
                 }
 
-                BindPortfolioDropDown();
+                //BindPortfolioDropDown();
 
             }
             catch (BaseApplicationException Ex)
@@ -202,14 +206,17 @@ namespace WealthERP.CustomerPortfolio
                     drNominees[1] = dr["NAME"].ToString();
                     drNominees[2] = dr["XR_Relationship"].ToString();
                     drNominees[3] = dr["Stat"].ToString();
-
+                    
                     dtNomineesGV.Rows.Add(drNominees);
 
                 }
+                ViewState["Nominees"] = dtNomineesGV;
                 gvNominee2.DataSource = dtNomineesGV;
                 gvNominee2.DataBind();
+
                 gvNominee2.Columns[3].Visible = false;
                 gvNominee2.Visible = true;
+                
 
             }
             catch (BaseApplicationException Ex)
@@ -250,7 +257,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 rbtnNo.Checked = true;
             }
-            BindModeOfHolding();
+            //BindModeOfHolding();pra
             if (customerAccountsVo.ModeOfHoldingCode != "" && customerAccountsVo.ModeOfHoldingCode != null)
                 ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHoldingCode.Trim();
             else
@@ -293,6 +300,7 @@ namespace WealthERP.CustomerPortfolio
                 btnUpdate.Visible = true;
                 btnSubmit.Visible = false;
                 lnkEdit.Visible = false;
+                gvNominee2.Enabled = true;
             }
         }
 
@@ -396,10 +404,11 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
+
                 if (rbtnYes.Checked)
                 {
 
-                    if ((object)(Request.QueryString["action"]) != null && Request.QueryString["action"]!="")
+                    if ((object)(Request.QueryString["action"]) != null && Request.QueryString["action"] != "")
                     {
                         trJoint2.Visible = true;
                         if (Request.QueryString["action"].Trim() == "Edit")
@@ -507,7 +516,7 @@ namespace WealthERP.CustomerPortfolio
                     if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
                     {
 
-                        customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
+                         customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
                         customerAccountAssociationVo.AssociationType = "Nominee";
                         customerAccountBo.CreateMFAccountAssociation(customerAccountAssociationVo, userVo.UserId);
                     }
@@ -630,12 +639,15 @@ namespace WealthERP.CustomerPortfolio
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                DataTable dt = new DataTable();
+                if ((DataTable)ViewState["Nominees"] != null)
+                    dt = (DataTable)ViewState["Nominees"];
                 CheckBox chkBox = e.Row.FindControl("chkId") as CheckBox;
-                if (e.Row.Cells[3].Text == "yes")
-                    chkBox.Checked = true;
-                else
+                foreach (DataRow dr in dt.Rows)
                 {
-                    chkBox.Checked = false;
+                    if (gvNominee2.DataKeys[e.Row.RowIndex][0].ToString() == dr["AssociateId"].ToString() && dr["Stat"].ToString()=="yes")
+                        chkBox.Checked = true;
+                    
                 }
 
             }
