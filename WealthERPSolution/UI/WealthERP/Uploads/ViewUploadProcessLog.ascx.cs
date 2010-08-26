@@ -178,6 +178,7 @@ namespace WealthERP.Uploads
             try
             {                
                 DropDownList ddlAction = (DropDownList)sender;
+                uploadsCommonBo = new UploadCommonBo();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "Page_ClientValidate();Loading(true);", true); 
                 GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
                 int selectedRow = gvr.RowIndex;
@@ -189,7 +190,24 @@ namespace WealthERP.Uploads
                 //FirstStagingStatus = gvProcessLog.Rows[selectedRow].Cells[20].Text.Trim();
                 //SecondStagingStatus = gvProcessLog.Rows[selectedRow].Cells[21].Text.Trim();
                 //WERPInsertionStatus = gvProcessLog.Rows[selectedRow].Cells[22].Text.Trim();
-
+                UploadProcessLogVo processlogVo1 = new UploadProcessLogVo();
+                processlogVo1 = uploadsCommonBo.GetProcessLogInfo(processID);
+                if (processlogVo1.IsInsertionToInputComplete == 1)
+                    InputInsertionStatus = "Y";
+                else
+                    InputInsertionStatus = "N";
+                if (processlogVo1.IsInsertionToFirstStagingComplete == 1)
+                    FirstStagingStatus = "Y";
+                else
+                    FirstStagingStatus = "N";
+                if (processlogVo1.IsInsertionToSecondStagingComplete == 1)
+                    SecondStagingStatus = "Y";
+                else
+                    SecondStagingStatus = "N";
+                if (processlogVo1.IsInsertionToWERPComplete == 1)
+                    WERPInsertionStatus = "Y";
+                else
+                    WERPInsertionStatus = "N";
 
                 if (ddlAction.SelectedItem.Value.ToString() == Contants.Reprocess)
                 {
@@ -3824,7 +3842,7 @@ namespace WealthERP.Uploads
                     lblError.Text = "Cannot rollback as few customers have asset details entered!";
                 }
 
-                if (!blCustEQTranNetPositionUpdated)
+                else if (!blCustEQTranNetPositionUpdated)
                 {
                     trError.Visible = true;
                     lblError.Text = "Cannot rollback as few transactions have equity net positions updated!";
