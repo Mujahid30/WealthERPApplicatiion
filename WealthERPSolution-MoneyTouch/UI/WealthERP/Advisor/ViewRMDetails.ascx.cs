@@ -82,7 +82,15 @@ namespace WealthERP.Advisor
             DataRow dr;
             try
             {
-                rmVo = (RMVo)Session["rmVo"];
+                if (Session["CurrentrmVo"] != null)
+                {
+                    rmVo = (RMVo)Session["CurrentrmVo"];
+                }
+                else
+                {
+                    rmVo = (RMVo)Session["rmVo"];
+                }
+                
 
                 if (Session["advisorVo"] != null)
                 {
@@ -152,7 +160,14 @@ namespace WealthERP.Advisor
             {
                 if (Session["rmVo"] != null)
                 {
-                    rmVo = (RMVo)Session["rmVo"];
+                    if (Session["CurrentrmVo"] != null)
+                    {
+                        rmVo = (RMVo)Session["CurrentrmVo"];
+                    }
+                    else
+                    {
+                        rmVo = (RMVo)Session["rmVo"];
+                    }
                     lblMail.Text = rmVo.Email.ToString();
                     lblFax.Text = rmVo.FaxIsd.ToString() + "-" + rmVo.FaxStd.ToString() + "-" + rmVo.Fax.ToString();
                     lblMobile.Text = rmVo.Mobile.ToString();
@@ -214,8 +229,14 @@ namespace WealthERP.Advisor
 
             try
             {
-                newrmVo = (RMVo)Session["rmVo"];
-
+                if (Session["CurrentrmVo"] != null)
+                {
+                    newrmVo = (RMVo)Session["CurrentrmVo"];
+                }
+                else
+                {
+                    newrmVo = (RMVo)Session["rmVo"];
+                }
 
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','none');", true);
             }
