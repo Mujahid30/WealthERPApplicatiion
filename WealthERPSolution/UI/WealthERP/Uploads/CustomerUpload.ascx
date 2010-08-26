@@ -32,6 +32,7 @@
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
 <link href="../App_Themes/Maroon/Images/bubbletip.css" rel="stylesheet" type="text/css" />
+<link href="../App_Themes/Maroon/Images/bubbletip-IE.css" rel="stylesheet" type="text/css" />
 <%--End--%>
 <%--This scripts includes the JQuery coding about the Screen Tips and screen info   --%>
 
