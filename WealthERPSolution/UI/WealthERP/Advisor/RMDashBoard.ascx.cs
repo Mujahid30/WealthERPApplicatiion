@@ -381,6 +381,7 @@ namespace WealthERP.Advisor
 
             customerVo = customerBo.GetCustomer(customerId);
             Session["CustomerVo"] = customerVo;
+            Session["IsDashboard"] = "CustDashboard";
             
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
         }
