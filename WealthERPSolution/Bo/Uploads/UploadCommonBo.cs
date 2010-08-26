@@ -527,7 +527,7 @@ namespace BoUploads
                                 // 2) Remove details from werp tables onwards
 
                                 // Checking for dependant data - Net Postion Updated for the transaction
-                                blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
+                                //blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
                                 if (blCustMFTranNetPositionUpdated)
                                 {
@@ -549,7 +549,7 @@ namespace BoUploads
                             {   // MF Karvy Transaction Upload
 
                                 // Checking for dependant data - Net Postion Updated for the transaction
-                                blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
+                                //blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
                                 if (blCustMFTranNetPositionUpdated)
                                 {
@@ -672,7 +672,7 @@ namespace BoUploads
                                 // Checking for dependant data - Net Postion Updated for the transaction
                                 //blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
-                                blCustEQTranNetPositionUpdated = CustEQNetPositionUpdated(ProcessID);
+                               // blCustEQTranNetPositionUpdated = CustEQNetPositionUpdated(ProcessID);
 
                                 if (blCustEQTranNetPositionUpdated)
                                 {
@@ -759,7 +759,7 @@ namespace BoUploads
                                 // 2) Remove details from werp tables onwards
 
                                 // Checking for dependant data - Net Postion Updated for the transaction
-                                blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
+                               // blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
                                 if (blCustMFTranNetPositionUpdated)
                                 {
@@ -786,7 +786,7 @@ namespace BoUploads
                                 // 2) Remove details from werp tables onwards
 
                                 // Checking for dependant data - Net Postion Updated for the transaction
-                                blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
+                               // blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
                                 if (blCustMFTranNetPositionUpdated)
                                 {
