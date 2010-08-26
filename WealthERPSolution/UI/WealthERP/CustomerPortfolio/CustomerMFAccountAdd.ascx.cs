@@ -128,11 +128,20 @@ namespace WealthERP.CustomerPortfolio
             else
                 rbtnNo.Checked = true;
             BindModeOfHolding();
-            ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHoldingCode.Trim();
+            //if (customerAccountsVo.ModeOfHoldingCode != "")
+            //{
+            //    ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHoldingCode.Trim();
+            //}
+            //else
+            //{
+            //    ddlModeOfHolding.SelectedIndex = 0;
+ 
+            //}
             //ddlModeOfHolding.SelectedValue = "SI";
+            ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHoldingCode.Trim();
             BindAssociates(customerAccountsVo);
             gvNominee2.Enabled = false;
-            gvJoint2.Visible = false;
+            gvJoint2.Enabled = false;
             SetVisiblity(0);
         }
 
@@ -172,6 +181,8 @@ namespace WealthERP.CustomerPortfolio
                     gvJoint2.DataSource = dtJoinHolderGV;
                     gvJoint2.DataBind();
                     gvJoint2.Visible = true;
+                    trJointHolders.Visible = true;
+                    trJointHoldersGrid.Visible = true;
                     gvJoint2.Columns[3].Visible = false;
                 }
 
@@ -246,7 +257,11 @@ namespace WealthERP.CustomerPortfolio
                 ddlModeOfHolding.SelectedIndex = 0;
             if (rbtnNo.Checked == true)
                 ddlModeOfHolding.Enabled = false;
+            else
+                ddlModeOfHolding.Enabled = true;
             BindAssociates(customerAccountsVo);
+            gvJoint2.Enabled = true;
+            gvNominee2.Enabled = true;
             SetVisiblity(1);
 
         }

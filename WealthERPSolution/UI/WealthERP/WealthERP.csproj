@@ -2457,6 +2457,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\FinancialPlanning.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FinancialPlanning1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFDividend.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
