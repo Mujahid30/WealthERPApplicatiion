@@ -40,7 +40,7 @@
                 animationEasing: 'swing', // linear | swing
                 bindShow: 'mouseover', // mouseover | focus | click | etc.
                 bindHide: 'mouseout', // mouseout | blur | etc.
-                delayShow: 0,
+                delayShow: 550,
                 delayHide: 50,
                 calculateOnShow: true
             };
