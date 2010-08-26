@@ -484,26 +484,28 @@ namespace BoCustomerGoalProfiling
             try
             {
                 dsGetCustomerRTDetails = RTDetails.GetCustomerRTDetails(CustomerID);
+                if (dsGetCustomerRTDetails.Tables[0].Rows.Count > 1)
+                {
+                    string StrRT1 = "We have done an extensive analysis of your" +
+                    " retirement goal needs and savings required per month to meet those " +
+                    "needs.Based on the inputs provided by you we have calculated that at " +
+                    "the time of your retirement you'll need a corpus of Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FVofCostToday"].ToString() +
+                    " to lead a financialy stable retired life.";
 
-                string StrRT1 = "We have done an extensive analysis of your" +
-                " retirement goal needs and savings required per month to meet those " +
-                "needs.Based on the inputs provided by you we have calculated that at " +
-                "the time of your retirement you'll need a corpus of Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FVofCostToday"].ToString() +
-                " to lead a financialy stable retired life.";
+                    string StrRT2 = "To meet the retirement goal you have already invested Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_CurrentInvestment"].ToString() +
+                    " which will grow at Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_ROIEarned"].ToString() +
+                    " and it's value at the time of your retirement will be Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FutureValueOnCurrentInvest"].ToString() + ".";
 
-                string StrRT2 = "To meet the retirement goal you have already invested Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_CurrentInvestment"].ToString() +
-                " which will grow at Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_ROIEarned"].ToString() +
-                " and it's value at the time of your retirement will be Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FutureValueOnCurrentInvest"].ToString() + ".";
+                    string StrRT3 = "You have no investmensts attached to your retirement.";
 
-                string StrRT3 = "You have no investmensts attached to your retirement.";
-
-                string StrRT4 = "For the gap of Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_GapValues"].ToString() +
-                " for your retirement goal, you need to start planning soon- " +
-                "You can opt for any of the following saving options to meet your retirement goal." +
-                " Monthly savings required to meet the goal Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString() +
-                "required to meet the goal Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_YearlySavingsRequired"].ToString() + ".Lumpsum investment required Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_LumpsumInvestmentRequired"].ToString() +
-                ".We recommend you to start saving as per the reirement plan provided by us.";
-
+                    string StrRT4 = "For the gap of Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_GapValues"].ToString() +
+                    " for your retirement goal, you need to start planning soon- " +
+                    "You can opt for any of the following saving options to meet your retirement goal." +
+                    " Monthly savings required to meet the goal Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString() +
+                    "required to meet the goal Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_YearlySavingsRequired"].ToString() + ".Lumpsum investment required Rs." + dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_LumpsumInvestmentRequired"].ToString() +
+                    ".We recommend you to start saving as per the reirement plan provided by us.";
+               
+              
 
                 if (double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_CurrentInvestment"].ToString()) == 0)
                 {
@@ -513,8 +515,9 @@ namespace BoCustomerGoalProfiling
                 else
 
                     GoalDescription = StrRT1 + StrRT2 + StrRT4;
+                }
 
-
+                GoalDescription = "";
             }
             catch (BaseApplicationException Ex)
             {
@@ -565,47 +568,50 @@ namespace BoCustomerGoalProfiling
                 string strTotal = "";
 
                 GoalProfileList = customerGoalProfileDao.GetCustomerGoalProfile(CustomerId, 1);
-                for (int i = 0; i < GoalProfileList.Count; i++)
-                {                   
-                    goalProfileSetupVo = new GoalProfileSetupVo();
-                    goalProfileSetupVo = GoalProfileList[i];
-                    if (goalProfileSetupVo.Goalcode == "BH")
+                if (GoalProfileList != null)
+                {
+                    for (int i = 0; i < GoalProfileList.Count; i++)
                     {
-                        totalHome = totalHome + goalProfileSetupVo.MonthlySavingsReq;
-                    }
-                    if (goalProfileSetupVo.Goalcode == "ED")
-                    {
-                        totalChildEducation = totalChildEducation + goalProfileSetupVo.MonthlySavingsReq;
- 
-                    }
-                    if (goalProfileSetupVo.Goalcode == "MR")
-                    {
-                        totalChildMarriage = totalChildMarriage + goalProfileSetupVo.MonthlySavingsReq;
+                        goalProfileSetupVo = new GoalProfileSetupVo();
+                        goalProfileSetupVo = GoalProfileList[i];
+                        if (goalProfileSetupVo.Goalcode == "BH")
+                        {
+                            totalHome = totalHome + goalProfileSetupVo.MonthlySavingsReq;
+                        }
+                        if (goalProfileSetupVo.Goalcode == "ED")
+                        {
+                            totalChildEducation = totalChildEducation + goalProfileSetupVo.MonthlySavingsReq;
+
+                        }
+                        if (goalProfileSetupVo.Goalcode == "MR")
+                        {
+                            totalChildMarriage = totalChildMarriage + goalProfileSetupVo.MonthlySavingsReq;
+
+                        }
+                        if (goalProfileSetupVo.Goalcode == "OT")
+                        {
+                            totalOther = totalOther + goalProfileSetupVo.MonthlySavingsReq;
+
+                        }
 
                     }
-                    if (goalProfileSetupVo.Goalcode == "OT")
-                    {
-                        totalOther = totalOther + goalProfileSetupVo.MonthlySavingsReq;
+                    double TotalCost = totalChildEducation + totalChildMarriage + totalHome + totalOther;
 
-                    }
+                    strMain = "Based on your inputs we have done an analysis of your life's major financial goals and savings required to achieve them.";
+                    if (totalChildEducation != 0)
+                        strChildEducation = "Your monthly saving should be Rs." + totalChildEducation.ToString() + " to meet your children's marriage expeneses.";
+                    if (totalChildMarriage != 0)
+                        strChildMarriage = "You need to save Rs." + totalChildMarriage.ToString() + " to meet you children's higher education expenses.";
+                    if (totalHome != 0)
+                        strHome = "For buying house you need to save Rs." + totalHome.ToString() + " every month.";
+                    if (totalOther != 0)
+                        strOther = "For other Goals you need to save Rs." + totalOther.ToString() + " every month.";
 
+                    strTotal = "To meet all your major life goals other than retirement you need to save Rs." + TotalCost.ToString() + " every month.";
+
+                    GoalDescription = strMain + strChildEducation + strChildMarriage + strHome + strOther + strTotal;
                 }
-                double TotalCost = totalChildEducation + totalChildMarriage + totalHome + totalOther;
-                
-                strMain = "Based on your inputs we have done an analysis of your life's major financial goals and savings required to achieve them.";
-                if (totalChildEducation!=0)
-                strChildEducation = "Your monthly saving should be Rs." + totalChildEducation.ToString() + " to meet your children's marriage expeneses.";
-                if (totalChildMarriage != 0)
-                strChildMarriage = "You need to save Rs." + totalChildMarriage .ToString()+ " to meet you children's higher education expenses.";
-                if (totalHome != 0)
-                strHome = "For buying house you need to save Rs." + totalHome.ToString() + " every month.";
-                if (totalOther != 0)
-                strOther = "For other Goals you need to save Rs." + totalOther.ToString() + " every month.";
-
-                strTotal = "To meet all your major life goals other than retirement you need to save Rs." + TotalCost.ToString()+ " every month.";
-
-                GoalDescription = strMain + strChildEducation + strChildMarriage + strHome + strOther + strTotal;
-
+                GoalDescription = "";
             }
             catch (BaseApplicationException Ex)
             {
