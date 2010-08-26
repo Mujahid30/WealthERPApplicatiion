@@ -32,6 +32,17 @@
             border: 1px solid #F5E082;
             padding: 10px;
         }
+        .PageBackGround
+        {
+         background-color:Gray;
+         filter: alpha(opacity=100);
+         opacity: 0.7;
+        }
+        .pageBack
+        {
+            background-color:#EBEFF9; 
+        }
+        
     </style>
 
     <script>
@@ -46,11 +57,20 @@
 
         }
         function sendMail() {
-
+            
             if (document.getElementById("txtTo").value == "") {
                 alert("Please enter To Email Address.");
                 return false;
             }
+           
+            if (document.getElementById("txtCC").value != "") {                
+                if (document.getElementById("txtCC").value.indexOf("@") < 2 || document.getElementById("txtCC").value.indexOf(".") < 4) {
+                    alert("Please enter  a valid CC Email Address.");
+                    document.getElementById("txtCC").focus();
+                    return false;
+                }
+            }
+            
             if (document.getElementById("txtTo").value.indexOf("@") < 2 || document.getElementById("txtTo").value.indexOf(".") < 4) {
                 alert("Please enter  a valid To Email Address.");
                 document.getElementById("txtTo").focus();
@@ -136,14 +156,21 @@
       
         function hideProcessImage(){
         
-        $get("abc").style.display = "none";
+        $("#abc").hide();
         }
+        
  
 
   </script>
 
 </head>
-<body onload="hideProcessImage();">
+<body class="pageBack" onload="hideProcessImage();">
+<div id="abc"  style="width:100%; position:relative; top:200px;left:430px;opacity: 0.6;">
+
+<img id="Img1" src="images/MailSend-loader.gif" />
+</div>
+ 
+ <% sendMailFunction(); %>   
     <form id="form1" runat="server">
     <table width="100%" border="0">
         <tr>
@@ -184,6 +211,7 @@
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="txtCC" runat="server" Width="500px"></asp:TextBox>
+                                                   
                                             </td>
                                         </tr>
                                         <tr>
@@ -213,7 +241,7 @@
                     <tr id="trCustomerlist" runat="server">
                     <td align="center">
                     <div runat="server" id="divCustomerlist" class="yellow-box" visible="true" enableviewstate="false">
-                                <asp:Label ID="Label1" runat="server" Text="List of customer E-mail not send" EnableViewState="false" Style="color: Red;text-align:center"></asp:Label>
+                                <asp:Label ID="Label1" runat="server" Text="Report not send to the following customers as E-Mail Id is not available in profile" EnableViewState="false" Style="color: Red;text-align:center"></asp:Label>
                     </div>
                     
                     </td>
@@ -279,7 +307,7 @@
 
 
    
-        <img id="abc" src="images/loading.gif" />               
+                   
 
   
 

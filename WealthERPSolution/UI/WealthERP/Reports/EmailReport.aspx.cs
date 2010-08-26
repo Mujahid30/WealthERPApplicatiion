@@ -53,7 +53,13 @@ namespace WealthERP.Reports
         CustomerVo customerVo = new CustomerVo();
         bool GroupCustomer = true;
 
-        protected void Page_Init(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+        /// <summary>
+        /// Page Load Functionality called from Source code 
+        /// </summary>
+        public void sendMailFunction()
         {
             Page.Response.BufferOutput = false;        
             if (Session["advisorVo"] != null)
@@ -127,7 +133,7 @@ namespace WealthERP.Reports
                         }
 
                     }
-                    if (dtCustomerList.Rows.Count>1)
+                    if (dtCustomerList!=null)
                     {
                         trCustomerlist.Visible=true;
                         gvEmailCustomerList.DataSource = dtCustomerList;
@@ -145,6 +151,7 @@ namespace WealthERP.Reports
 
             
         }
+    
 
         /// <summary>
         /// This will Export report into disk based on CheckBox Selected from UI For Bulk-Email.
