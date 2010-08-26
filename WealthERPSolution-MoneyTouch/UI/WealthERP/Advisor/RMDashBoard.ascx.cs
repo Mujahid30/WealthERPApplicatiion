@@ -39,7 +39,14 @@ namespace WealthERP.Advisor
             DataTable dt;
             try
             {
-                rmVo = (RMVo)Session[SessionContents.RmVo];
+                if (Session["CurrentrmVo"] != null)
+                {
+                    rmVo = (RMVo)Session["CurrentrmVo"];
+                }
+                else
+                {
+                    rmVo = (RMVo)Session[SessionContents.RmVo];
+                }
                
 
                 rmId = rmVo.RMId;
