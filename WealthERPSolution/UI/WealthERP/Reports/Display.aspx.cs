@@ -236,22 +236,43 @@ namespace WealthERP.Reports
                         setLogo();
                         if (dsEquitySectorwise.Tables[1].Rows.Count > 0 ||  dsEquitySectorwise.Tables[0].Rows.Count > 0)
                         {
-                            
-                
-                            crmain.Database.Tables["Goal"].SetDataSource(dsEquitySectorwise.Tables[0]);
-                            crmain.Database.Tables["RiskProfile"].SetDataSource(dsEquitySectorwise.Tables[1]);
-                            crmain.Database.Tables["FamilyDetails"].SetDataSource(dsEquitySectorwise.Tables[2]);
-                            crmain.Database.Tables["CurrentAsset"].SetDataSource(DScurrentAsset.Tables[0]);
-                            //crmain.Subreports[0].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
-                            //crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
-                            //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
-                            AssignReportViewerProperties();
-                            //crmain.SetParameterValue("CustomerName",);
-                            crmain.SetParameterValue("RTGoalDescription",customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
-                            //AssignReportViewerProperties();
-                            crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
-                            crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
-                            crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString());
+
+                            if (double.Parse(dsEquitySectorwise.Tables[1].Rows[0]["CashPer"].ToString()) + double.Parse(dsEquitySectorwise.Tables[1].Rows[0]["DebtPer"].ToString()) + double.Parse(dsEquitySectorwise.Tables[1].Rows[0]["EquityPer"].ToString()) != 0)
+                            {
+                                crmain.Database.Tables["Goal"].SetDataSource(dsEquitySectorwise.Tables[0]);
+                                crmain.Database.Tables["RiskProfile"].SetDataSource(dsEquitySectorwise.Tables[1]);
+                                crmain.Database.Tables["FamilyDetails"].SetDataSource(dsEquitySectorwise.Tables[2]);
+                                crmain.Database.Tables["CurrentAsset"].SetDataSource(DScurrentAsset.Tables[0]);
+                                //crmain.Subreports[0].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
+                                //crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
+                                //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                                AssignReportViewerProperties();
+                                //crmain.SetParameterValue("CustomerName",);
+                                crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
+                                //AssignReportViewerProperties();
+                                crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
+                                crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
+                                crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString());
+                            }
+                            else if (dsEquitySectorwise.Tables[0].Rows.Count > 0 || dsEquitySectorwise.Tables[2].Rows.Count > 0)
+                            {
+                                crmain.Database.Tables["Goal"].SetDataSource(dsEquitySectorwise.Tables[0]);
+                                crmain.Database.Tables["RiskProfile"].SetDataSource(dsEquitySectorwise.Tables[1]);
+                                crmain.Database.Tables["FamilyDetails"].SetDataSource(dsEquitySectorwise.Tables[2]);
+                                crmain.Database.Tables["CurrentAsset"].SetDataSource(DScurrentAsset.Tables[0]);
+                                //crmain.Subreports[0].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
+                                //crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
+                                //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                                AssignReportViewerProperties();
+                                //crmain.SetParameterValue("CustomerName",);
+                                crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
+                                //AssignReportViewerProperties();
+                                crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
+                                crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
+                                crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString());
+                            }
+                            else
+                                SetNoRecords();
                         }
                         else
                          SetNoRecords();
