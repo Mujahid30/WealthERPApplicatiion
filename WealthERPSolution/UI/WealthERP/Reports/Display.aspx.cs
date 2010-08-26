@@ -30,6 +30,8 @@ using System.Xml;
 using System.Configuration;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Security.AccessControl;
+
 
 
 
@@ -180,11 +182,21 @@ namespace WealthERP.Reports
             }
            if (Request.QueryString["mail"] == "0" || Request.QueryString["mail"] == "1")
                 FillEmailValues();
-           else if(Request.QueryString["mail"] == "2")
+           else if (Request.QueryString["mail"] == "2")
            {
-               Response.Redirect("TempReports/ViewInPDF/" + rmVo.RMId + "/" + PDFViewPath);
-              
+               Response.Redirect("TempReports/ViewInPDF/" + PDFViewPath);
 
+               if (Directory.Exists(Server.MapPath("~/Reports/TempReports/ViewInPDF")))
+               {
+                   DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/ViewInPDF"));
+
+                   FileInfo info = new FileInfo(Server.MapPath("~/Reports/TempReports/ViewInPDF")+ PDFViewPath);
+                   info.Delete();
+                   //foreach (FileInfo f in di.GetFiles())
+                   //{
+                   //    f.Delete();
+                   //}
+               }
            }
         }
         /// <summary >
@@ -192,27 +204,32 @@ namespace WealthERP.Reports
         /// </summary>
         private void ExportInPDF()
         {
-            
-            if (Directory.Exists(Server.MapPath("~/Reports/TempReports/ViewInPDF/") + rmVo.RMId))
-            {
-                DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/ViewInPDF/") + rmVo.RMId);
 
-                foreach (FileInfo f in di.GetFiles())
-                {
-                    f.Delete();
-                }
-            }
-            else
-                Directory.CreateDirectory(Server.MapPath("~/Reports/TempReports/ViewInPDF/") + rmVo.RMId);
+            //if (Directory.Exists(Server.MapPath("~/Reports/TempReports/ViewInPDF/") + rmVo.RMId))
+            //{
+            //    DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/ViewInPDF/") + rmVo.RMId);
 
-                 string fileExtension = ".pdf";
-                 string exportFilename = string.Empty;
+            //    foreach (FileInfo f in di.GetFiles())
+            //    {
+            //        f.Delete();
+            //    }
+            //}
+            //else
+            //{
+            //    Directory.CreateDirectory(Server.MapPath("~/Reports/TempReports/ViewInPDF/") + rmVo.RMId);
 
-                //For PDF View In Browser
-                string PDFNames = CurrentReportType.ToString() + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
-                exportFilename = Server.MapPath("~/Reports/TempReports/ViewInPDF/") + rmVo.RMId + "/" + PDFNames;
-                PDFViewPath = PDFNames;
-                crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
+            //    //DirectoryInfo dirInfo = new DirectoryInfo("~/Reports/TempReports/ViewInPDF/" + rmVo.RMId.ToString());
+            //    //DirectorySecurity dSecurity = dirInfo.GetAccessControl();
+            //    //dSecurity.AddAccessRule(new FileSystemAccessRule(,FileSystemRights.Delete,AccessControlType.Deny));
+            //}
+              string fileExtension = ".pdf";
+              string exportFilename = string.Empty;
+              System.Guid guid = System.Guid.NewGuid();
+              //For PDF View In Browser
+              string PDFNames = CurrentReportType.ToString() + "_" + guid + fileExtension;
+              exportFilename = Server.MapPath("~/Reports/TempReports/ViewInPDF/") + PDFNames;
+              PDFViewPath = PDFNames;
+              crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
             
             
         }
@@ -313,25 +330,27 @@ namespace WealthERP.Reports
                     case "MULTI_ASSET_SUMMARY_REPORT":
                         
                         //crmain.SetDatabaseLogon("sa", "pcg123#", "122.166.49.39", "wealtherpQA");
-                        crmain.Load(Server.MapPath("MultiAssetReport.rpt"));
+                        crmain.Load(Server.MapPath("MultiiAssetReport.rpt"));
                        
                         
                         DataSet dsEquitySectorwise = portfolioReports.GetPortfolioSummary(report, advisorVo.advisorId);
                         DataTable dtEquitySectorwise = dsEquitySectorwise.Tables[0];
                         if (dtEquitySectorwise.Rows.Count > 0)
                         {
-                            crmain.Subreports[0].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[1]);
-                            crmain.Database.Tables["PortfolioSummary"].SetDataSource(dsEquitySectorwise.Tables[0]);
-                            crmain.Subreports[1].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
-
-                            setLogo();
+                             crmain.Subreports["Liabilities"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[1]);
+                             //crmain.Database.Tables["PortfolioSummary"].SetDataSource(dsEquitySectorwise.Tables[1]);
+                             crmain.Subreports["NetWorth"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
+                             crmain.Subreports["AssetBreakUp"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[0]);
+                             crmain.Subreports["Asset"].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[0]);
+                             setLogo();
                             //crmain.SetParameterValue("RMName", "Advisor / Financial Planner :  " + rmVo.FirstName + " " + rmVo.LastName);
                             //crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
                             //crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
-                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            
                             CrystalReportViewer1.ReportSource = crmain;
                             CrystalReportViewer1.EnableDrillDown = true;
                             CrystalReportViewer1.HasCrystalLogo = false;
@@ -1092,9 +1111,14 @@ namespace WealthERP.Reports
                 if (cust.Salutation == string.Empty || cust.Salutation == "")
                 {
                     Session["hidBody"] = txtBody.Text = GetReportBody(cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
- 
+
                 }
-                    Session["hidBody"] = txtBody.Text = GetReportBody(cust.Salutation + "." + " " +  cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r","");
+                else 
+                {
+                    Session["hidBody"] = txtBody.Text = GetReportBody(cust.Salutation + "." + " " + cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
+
+                }
+                    
 
             }
             else
@@ -1453,5 +1477,6 @@ namespace WealthERP.Reports
         #endregion
 
     }
+
 }
 

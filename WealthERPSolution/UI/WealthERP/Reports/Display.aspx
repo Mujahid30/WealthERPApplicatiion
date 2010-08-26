@@ -52,6 +52,14 @@
                 document.getElementById("txtTo").focus();
                 return false;
             }
+
+            if (document.getElementById("txtCC").value != "") {
+                    if (document.getElementById("txtCC").value.indexOf("@") < 2 || document.getElementById("txtCC").value.indexOf(".") < 4) {
+                    alert("Please enter  a valid CC Email Address.");
+                    document.getElementById("txtCC").focus();
+                    return false;
+                }
+            }
             
             document.getElementById("hidTo").value = document.getElementById("txtTo").value
             document.getElementById("hidSubject").value = document.getElementById("txtSubject").value
@@ -205,11 +213,11 @@
             </td>
          </tr>
          <tr>
-            <td width="100%" align="center">
+            <td width="100%" align="left">
                 <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true"
                     BorderColor="#789FC8" BorderStyle="Solid" BorderWidth="1" EnableDatabaseLogonPrompt="True"
                      DisplayGroupTree="False" EnableViewState="true" 
-                    OnNavigate="CrystalReportViewer1_Navigate" ToolbarStyle-Width="770px" Width="100%" />
+                    OnNavigate="CrystalReportViewer1_Navigate" ToolbarStyle-Width="770px" Width="100%"  />
             </td>
         </tr>
          <tr>
