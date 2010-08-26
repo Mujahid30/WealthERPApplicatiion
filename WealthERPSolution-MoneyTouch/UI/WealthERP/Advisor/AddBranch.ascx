@@ -191,9 +191,7 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtMobileNumber" CssClass="txtField" runat="server" MaxLength="10"></asp:TextBox>
-            <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtMobileNumber"
-                ErrorMessage="Mobile number Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
+            <br />           
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG"
                 ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtMobileNumber"
                 Display="Dynamic"></asp:RegularExpressionValidator>
