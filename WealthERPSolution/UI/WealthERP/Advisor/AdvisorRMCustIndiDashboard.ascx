@@ -41,7 +41,8 @@
         <td width="50%" valign="top">
             <asp:Label runat="server" CssClass="FieldName" Text="You have not Added any Asset Details.." ID="lblAssetDetailsMsg"></asp:Label>
             <asp:GridView ID="gvAssetAggrCurrentValue" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
+                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" 
+                Width="100%" onrowdatabound="gvAssetAggrCurrentValue_RowDataBound">
                 <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
                 <RowStyle CssClass="RowStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -49,7 +50,14 @@
                 <HeaderStyle CssClass="HeaderStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:BoundField DataField="Asset Class" HeaderText="Asset Class" SortExpression="Asset Class" />
+                    <%--<asp:BoundField DataField="Asset Class" HeaderText="Asset Class" SortExpression="Asset Class" />--%>
+                    <asp:TemplateField HeaderText="Asset Class">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkAssetClass" runat="server" CssClass="GridViewCmbField" OnClick="lnkAssetClassAssetsGrid_Click"
+                                    Text='<%# Eval("Asset Class") %>'>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     <asp:BoundField DataField="Current Value" HeaderText="Current Value" SortExpression="Current Value"
                         DataFormatString="{0:n2}" HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
                 </Columns>

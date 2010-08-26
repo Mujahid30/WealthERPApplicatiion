@@ -54,8 +54,6 @@ namespace WealthERP.Advisor
         double sum = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
             try
             {
                 SessionBo.CheckSession();
@@ -599,6 +597,112 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+
+        /// <summary>
+        /// Goes to the corresponding Grids on the click on the Assets class on the Assets Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lnkAssetClassAssetsGrid_Click(object sender, EventArgs e)
+        {
+            string str = ((LinkButton)sender).Text;
+            //GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            //int rowIndex = gvRow.RowIndex;
+            //DataKey dk = gvAssetAggrCurrentValue.DataKeys[rowIndex];
+            //int customerId = Convert.ToInt32(dk.Value);
+
+            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+            Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+            if (str == "Mutual Fund")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewMutualFundPortfolio','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
+            }
+            else if (str == "Fixed Income")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioFixedIncomeView','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioFixedIncomeView','none');", true);
+            }
+            else if (str == "Govt Savings")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewGovtSavings','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGovtSavings','none');", true);
+            }
+            else if (str == "Property")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioProperty','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioProperty','none');", true);
+            }
+            else if (str == "Pension & Gratuities")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PensionPortfolio','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionPortfolio','none');", true);
+            }
+            else if (str == "Personal Items")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioPersonal','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPersonal','none');", true);
+            }
+            else if (str == "Gold")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewGoldPortfolio','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio','none');", true);
+            }
+            else if (str == "Collectibles")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewCollectiblesPortfolio','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCollectiblesPortfolio','none');", true);
+            }
+            else if (str == "Cash&Savings")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioCashSavingsView','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCashSavingsView','none');", true);
+            }
+            else 
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('LiabilityView','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('LiabilityView','none');", true);
+            }
+
+        }
+
+        protected void gvAssetAggrCurrentValue_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            String str;
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (e.Row.FindControl("lnkAssetClass") != null)
+                {
+                    if (((LinkButton)e.Row.FindControl("lnkAssetClass")).Text.ToString() == "Assets Total" || ((LinkButton)e.Row.FindControl("lnkAssetClass")).Text.ToString() == "Net Worth")
+                    {
+                        str = ((LinkButton)e.Row.FindControl("lnkAssetClass")).Text.ToString();
+                        e.Row.Cells[0].Controls.Remove(e.Row.FindControl("lnkAssetClass"));
+                        e.Row.Cells[0].Text = str;
+                    }
+                }
+            }
+
         }
     }
 }
