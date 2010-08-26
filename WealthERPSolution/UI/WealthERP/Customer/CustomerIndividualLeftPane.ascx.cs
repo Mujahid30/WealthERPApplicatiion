@@ -18,6 +18,7 @@ namespace WealthERP.Customer
     {
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
+        bool isGrpHead = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,7 +44,8 @@ namespace WealthERP.Customer
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             if (!IsPostBack)
             {
-                if (customerVo.RelationShip == "SELF")
+                isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                if (isGrpHead == true)
                 {
                     TreeView1.Nodes.AddAt(0, new TreeNode("Group Home"));
                     Session["IsDashboard"] = "true";
