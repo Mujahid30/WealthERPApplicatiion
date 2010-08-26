@@ -103,6 +103,26 @@ namespace WealthERP.Reports
                     source.Items.Remove(item);
                 }
             }
+        
+        }
+
+        public void SelectLastItem(DanLudwig.Controls.Web.ListBox ListBox1)
+        {
+            for (int i = ListBox1.Items.Count - 1; i >= 0; i--)
+            {
+                ListItem item = ListBox1.Items[i];
+                if (i == ListBox1.Items.Count - 1)
+                {
+                    item.Selected = true;
+                }
+                else
+                {
+                    item.Selected = false;
+                }
+
+ 
+            }
+            
         }
    
         protected void Page_Load(object sender, EventArgs e)
@@ -231,6 +251,7 @@ namespace WealthERP.Reports
                     
                 }
             }
+            
         }
 
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
@@ -707,16 +728,19 @@ namespace WealthERP.Reports
         protected void AddSelected_Click(object sender, EventArgs e)
         {
             this.moveSelectedItems(LBCustomer, LBSelectCustomer, false);
+            SelectLastItem(LBSelectCustomer);
         }
 
         protected void RemoveSelected_Click(object sender, EventArgs e)
         {
             this.moveSelectedItems(LBSelectCustomer, LBCustomer, false);
+            SelectLastItem(LBSelectCustomer);
         }
 
         protected void SelectAll_Click(object sender, EventArgs e)
         {
             this.moveSelectedItems(LBCustomer, LBSelectCustomer, true);
+            LBSelectCustomer.Items[0].Selected = true;
 
         }
         protected void RemoveAll_Click(object sender, EventArgs e)

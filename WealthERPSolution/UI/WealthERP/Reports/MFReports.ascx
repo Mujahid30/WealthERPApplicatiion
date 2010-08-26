@@ -10,7 +10,7 @@
 
 <script type="text/javascript" language="javascript">
     function validate(type) {
-
+       
         var panel = "";
         var isPorfolioSelected = false;
 
@@ -18,6 +18,35 @@
         if (type == 'mail')
             getAllcustomerID(type);
 
+      
+         
+         if (type == 'mail') {
+             var ListBox = document.getElementById("<%= LBSelectCustomer.ClientID %>");
+             if (ListBox.value == "") {
+                 alert("Please Select Customers");
+                 return false;
+             }
+         }
+         
+         //Customer Check in View Report
+
+         if (type == '' || type == 'pdf') {
+             if (document.getElementById("<%= rdoGroup.ClientID %>").checked == true) {
+                 if (document.getElementById("<%= txtParentCustomer.ClientID %>").value == '') {
+                     alert("Please select a Customer to view the Report");
+                     return false;
+                 }
+             }
+
+             else {
+                 if (document.getElementById("<%= txtCustomer.ClientID %>").value == '') {
+                     alert("Please select a Customer to view the Report");
+                     return false;
+                 }
+             }
+         } 
+            
+       
 
         //Report selection check
         if (type == 'mail') {
@@ -40,6 +69,7 @@
 
         //Customer name check
         if (document.getElementById("<%= hndCustomerLogin.ClientID %>").value == '') {
+                     
             if (type == '' || type =='pdf') {
                 if (document.getElementById("<%= rdoGroup.ClientID %>").checked == true) {
                     if (document.getElementById("<%= txtParentCustomer.ClientID %>").value == '' || document.getElementById("<%= txtParentCustomer.ClientID %>").value == 'Type the Customer Name') {
@@ -167,7 +197,7 @@
         
         setTimeout(function() {
             window.document.forms[0].target = '';
-            window.document.forms[0].action = "";
+            window.document.forms[0].action = "ControlHost.aspx?pageid=MFReports";
         }, 500);
         return true;
     }
@@ -282,10 +312,9 @@
 
         var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
         selectedReport = dropdown.options[dropdown.selectedIndex].value
-
-
-        DisplayDates(arr[selectedReport]);
-         
+        
+        
+         DisplayDates(arr[selectedReport]);
 
     }
 
@@ -309,29 +338,25 @@
     //Advisor Login MFreport RadioButton Selection change Validation...................
 
     function ChangeCustomerSelectionTextBox(value) {
-
-
-        if (value == 'Group') {
-
+        
+        if (value == 'rdoGroup') {
+            
             document.getElementById("<%= trGroupCustomer.ClientID %>").style.display = 'block';
-
             document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'none';
+            document.getElementById("<%= txtParentCustomer.ClientID %>").value = '';
 
         }
         else {
 
-            document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'block';
-
             document.getElementById("<%= trGroupCustomer.ClientID %>").style.display = 'none';
-
+            document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'block';
+            document.getElementById("<%= txtCustomer.ClientID %>").value = '';
         }
+
         document.getElementById("<%= trCustomerDetails.ClientID %>").style.display = 'none';
         document.getElementById("<%= divGroupCustomers.ClientID %>").innerHTML = '';
         document.getElementById("<%= divPortfolios.ClientID %>").innerHTML = '';
-        document.getElementById("<%= txtCustomer.ClientID %>").value = 'Type the Customer Name';
-        document.getElementById("<%= txtParentCustomer.ClientID %>").value = 'Type the Customer Name';
-
-
+       
     }
 
     //Customer Login MFreport RadioButton Selection change Validation
@@ -462,7 +487,8 @@
         width: 861px;
     }
 </style>
-<table border="0" width="100%">
+
+<table border="0" width="100%" height="100%" style="">
     <%--<tr>
     <td colspan="2" class="Field">
         <asp:UpdatePanel ID="UpdatePanel" runat="server">
@@ -507,8 +533,9 @@
                                                     <tr id="trAdvisorRadioList" runat="server">
                                                         <td runat="server">
                                                             <asp:Label ID="lblGrpOrInd" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
-                                                                Text="Generate report for :"></asp:Label><asp:RadioButton runat="server" ID="rdoGroup"
-                                                                    Text="Group" Class="cmbField" GroupName="GrpOrInd" Checked="True" onClick="return ChangeCustomerSelectionTextBox('Group')" /><asp:RadioButton
+                                                                Text="Generate report for :"></asp:Label>
+                                                                <asp:RadioButton runat="server" ID="rdoGroup"
+                                                                    Text="Group" Class="cmbField" GroupName="GrpOrInd" Checked="True" onClick="ChangeCustomerSelectionTextBox('Group')" /><asp:RadioButton
                                                                         runat="server" ID="rdoIndividual" Text="Individual" Class="cmbField" GroupName="GrpOrInd"
                                                                         onClick="return ChangeCustomerSelectionTextBox('Individual')" />
                                                         </td>
@@ -519,8 +546,9 @@
                                                     <tr id="trCustomerRadioList" runat="server">
                                                         <td runat="server">
                                                             <asp:Label ID="lblCustometGroupOrInd" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
-                                                                Text="Generate report for :"></asp:Label><asp:RadioButton runat="server" ID="rdoCustomerGroup"
-                                                                    Text="Group" Class="cmbField" GroupName="GrpOrSelf" Checked="True" onClick="return ChangeGroupOrSelf('group')" /><asp:RadioButton
+                                                                Text="Generate report for :"></asp:Label>
+                                                                <asp:RadioButton runat="server" ID="rdoCustomerGroup"
+                                                                    Text="Group" Class="cmbField" GroupName="GrpOrSelf" Checked="True" onClick="ChangeGroupOrSelf('group')" /><asp:RadioButton
                                                                         runat="server" ID="rdoCustomerIndivisual" Text="Self" Class="cmbField" GroupName="GrpOrSelf"
                                                                         onClick="return ChangeGroupOrSelf('Individual')" />
                                                         </td>
@@ -531,10 +559,11 @@
                                                     <tr id="trIndCustomer" style="display: none" runat="server">
                                                         <td runat="server">
                                                             <asp:Label ID="lblCustomer" runat="server" Text="Select Customer:" CssClass="FieldName"></asp:Label><asp:TextBox
-                                                                ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True"></asp:TextBox><cc1:TextBoxWatermarkExtender
+                                                                ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True"></asp:TextBox>
+                                                                <%--<cc1:TextBoxWatermarkExtender
                                                                     ID="txtCustomer_TextBoxWatermarkExtender" runat="server" TargetControlID="txtCustomer"
                                                                     WatermarkText="Type the Customer Name" Enabled="True">
-                                                                </cc1:TextBoxWatermarkExtender>
+                                                                </cc1:TextBoxWatermarkExtender>--%>
                                                             <ajaxToolkit:AutoCompleteExtender ID="txtCustomer_autoCompleteExtender" runat="server"
                                                                 TargetControlID="txtCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                                                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
@@ -546,9 +575,9 @@
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtCustomer"
                                                                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                                                                 CssClass="rfvPCG" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator><span
-                                                                    style='font-size: 8px; font-weight: normal' class='FieldName'><br />
+                                                                    style='font-size: 9px; font-weight: normal' class='FieldName'><br />
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                    Enter few characters of customer name. </span>
+                                                                    Enter few characters of Indisualcustomer name. </span>
                                                         </td>
                                                         <td runat="server">
                                                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -558,10 +587,11 @@
                                                         <td runat="server">
                                                             <asp:Label ID="lblGCustomer" runat="server" Text="Select Customer:" CssClass="FieldName"></asp:Label><asp:TextBox
                                                                 ID="txtParentCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
-                                                                AutoPostBack="True"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtParentCustomer_TextBoxWatermarkExtender"
+                                                                AutoPostBack="True"></asp:TextBox>
+                                                                <%--<cc1:TextBoxWatermarkExtender ID="txtParentCustomer_TextBoxWatermarkExtender"
                                                                     runat="server" TargetControlID="txtParentCustomer" WatermarkText="Type the Customer Name"
                                                                     Enabled="True">
-                                                                </cc1:TextBoxWatermarkExtender>
+                                                                </cc1:TextBoxWatermarkExtender>--%>
                                                             <ajaxToolkit:AutoCompleteExtender ID="txtParentCustomer_autoCompleteExtender" runat="server"
                                                                 TargetControlID="txtParentCustomer" ServiceMethod="GetParentCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                                                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
@@ -573,9 +603,9 @@
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtCustomer"
                                                                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                                                                 CssClass="rfvPCG" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator><span
-                                                                    style='font-size: 8px; font-weight: normal' class='FieldName'><br />
+                                                                    style='font-size: 9px; font-weight: normal' class='FieldName'><br />
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                    Enter few characters of customer name. </span>
+                                                                    Enter few characters of Group customer name. </span>
                                                         </td>
                                                         <td runat="server">
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -774,7 +804,7 @@
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" ValidationGroup="btnView" />&nbsp;&nbsp;
                                                         </td>
                                                         <td class="style1">
-                                                            <asp:Button ID="btnExportToPDF" runat="server" Text="Export To Report" OnClientClick="return validate('pdf')"
+                                                            <asp:Button ID="btnExportToPDF" runat="server" Text="Export To PDF" OnClientClick="return validate('pdf')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />&nbsp;&nbsp;
                                                         </td>
                                                     </tr>
@@ -789,7 +819,7 @@
                                 <HeaderTemplate>
                                     Email Reports</HeaderTemplate>
                                 <ContentTemplate>
-                                    <table width="100%" cellpadding="5">
+                                    <table width="100%" height="100%" cellpadding="5">
                                         <tr>
                                             <td>
                                                 <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
@@ -1050,7 +1080,7 @@
                                                     <td class="style1">
                                                         <asp:Button ID="btnEmailReport" runat="server" CssClass="PCGMediumButton" 
                                                             OnClientClick="return validate('mail')" 
-                                                            PostBackUrl="~/Reports/EmailReport.aspx?mail={1}&amp;BulkMail={1}" 
+                                                            
                                                             Text="Email Report" ValidationGroup="btnEmail" />
                                                         &nbsp;&nbsp;
                                                     </td>
@@ -1067,6 +1097,7 @@
         </td>
     </tr>
 </table>
+
 <asp:HiddenField ID="hidFromDate" Value="" runat="server" />
 <asp:HiddenField ID="hidToDate" Value="" runat="server" />
 <asp:HiddenField ID="hidDateType" Value="" runat="server" />
