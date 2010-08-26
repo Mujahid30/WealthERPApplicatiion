@@ -28,6 +28,7 @@ namespace WealthERP.Advisor
         decimal eqTotal = 0;
         decimal mfTotal = 0;
         decimal insuranceTotal = 0;
+        int customerTotal = 0;
         DataSet ds = new DataSet();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -121,10 +122,11 @@ namespace WealthERP.Advisor
                             dr[5] = "0";
                         else
                             dr[5] = decimal.Parse(drResult["InsuranceAggr"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        insuranceTotal = insuranceTotal + Convert.ToDecimal(drResult["InsuranceAggr"].ToString());
+
 
                         dr[6] = drResult["NoOfCustomers"].ToString();
-
-                        insuranceTotal = insuranceTotal + Convert.ToDecimal(drResult["InsuranceAggr"].ToString());
+                        customerTotal= customerTotal+ Int32.Parse(drResult["NoOfCustomers"].ToString());
 
                         dt.Rows.Add(dr);
                     }
@@ -508,6 +510,8 @@ namespace WealthERP.Advisor
                 e.Row.Cells[3].Attributes.Add("align", "Right");
                 e.Row.Cells[2].Text = eqTotal.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[2].Attributes.Add("align", "Right");
+                e.Row.Cells[5].Text = customerTotal.ToString();
+                e.Row.Cells[5].Attributes.Add("align", "Right");
 
             }
             lblGT.Text = (eqTotal + mfTotal + insuranceTotal).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
