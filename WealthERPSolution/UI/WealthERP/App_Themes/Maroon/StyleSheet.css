@@ -60,8 +60,7 @@ div#MainDivLeft
     font-weight: normal;
     font-size: x-small;
     color: #16518A;
-    width: 150px; 
-    /*margin-left: 0px;*/
+    width: 150px; /*margin-left: 0px;*/
 }
 
 .cmbLongField
@@ -111,7 +110,7 @@ div#MainDivLeft
 .Message
 {
     background-color: White;
-    text-align: center;
+    text-align:left;
 }
 
 .SubTitle
@@ -177,7 +176,6 @@ div#MainDivLeft
 .PCGRedBcknd
 {
     background-color: #942627;
-    z-index: -1;
 }
 
 .PCGRedText
@@ -282,21 +280,11 @@ div#MainDivLeft
     text-align: right;
     vertical-align: middle;
 }
-.fieldNames
-{
-  text-align: right;
-  vertical-align: middle;
-  float: left;
-
-}  
 
 .rightField
 {
-    text-align: justify;
+    text-align: left;
     vertical-align: middle;
-    width: 500px;
-    float: left;
-    padding-left: 10px;
 }
 
 .leftAddressField
@@ -558,7 +546,6 @@ a.aBreadCrumbCurrent
 .TableBackground
 {
 	background-color:#EBEFF9;
-	
 }
 .modalBackground
 {
@@ -761,7 +748,38 @@ ul.tabbernav li.tabberactive a:hover
    margin:2px;
  }
  
-
+  .DemoListBox
+    {
+                
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size:small;
+    color: #16518A;
+    width: 145px;
+    width: 200px;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: solid 1px #16518A;
+    empty-cells:hide;
+    cursor:pointer;
+    line-height:3px;
+                
+    }
+    
+  .linkButton
+  {
+        
+    background: url(Images/SelectAll.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 50px;
+    width: 69px;
+    cursor: pointer;
+    
+  }  
 /* ..For Screen Info.. */
 
 div.panel,div.flip
