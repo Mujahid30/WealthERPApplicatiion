@@ -82,7 +82,8 @@
     }
     function GoalDeactiveConfirm()
     {
-    
+     if(document.getElementById("<%= hidGoalCount.ClientID %>")!=null)
+     {
      if(document.getElementById("<%= hidGoalCount.ClientID %>").value >0)
      {  
       
@@ -97,6 +98,7 @@
           return false;
        }
        
+      }
       }
     }
 
