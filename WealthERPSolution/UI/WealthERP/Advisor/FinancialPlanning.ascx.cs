@@ -35,6 +35,7 @@ namespace WealthERP.Advisor
         string riskCode;
         CustomerGoalSetupBo GoalSetupBo = new CustomerGoalSetupBo();
         
+
         /// <summary>
         /// For Java script coding variables are declared here
         /// </summary>
@@ -643,6 +644,8 @@ namespace WealthERP.Advisor
         }
         protected void txtPickCustomer_TextChanged(object sender, EventArgs e)
         {
+            trRiskProfilingParagraph.Visible = true;
+            trCustomerAssetText.Visible = true;
             LoadRiskProfiling();         
        
         }
@@ -740,7 +743,8 @@ namespace WealthERP.Advisor
                     else
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Risk profile for this customer');", true);
-                        
+                        trRiskProfilingParagraph.Visible = false;
+                        trCustomerAssetText.Visible = false;
                         Session["FP_UserName"] = txtPickCustomer.Text;
                         Session["FP_UserID"] = txtCustomerId.Value;
                         GoalCount = GoalSetupBo.CheckGoalProfile(customerId);
