@@ -741,8 +741,8 @@ namespace WealthERP.Advisor
                         if (ddlRM != null)
                         {
                             ddlRM.DataSource = genDictRM;
-                            ddlRM.DataTextField = "Key";
-                            ddlRM.DataValueField = "Value";
+                            ddlRM.DataTextField = "Value";
+                            ddlRM.DataValueField = "Key";
                             ddlRM.DataBind();
                             ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                         }
