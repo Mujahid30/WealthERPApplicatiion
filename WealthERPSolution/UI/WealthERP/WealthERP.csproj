@@ -2752,6 +2752,7 @@
     <Content Include="Reports\FPReports.ascx" />
     <Content Include="Reports\images\controls.png" />
     <Content Include="Reports\images\loading.gif" />
+    <Content Include="Reports\images\MailSend-loader.gif" />
     <Content Include="Reports\MFReports.ascx" />
     <Content Include="Reports\PortfolioReports.ascx" />
     <Content Include="Scripts\Dashboard.js" />
