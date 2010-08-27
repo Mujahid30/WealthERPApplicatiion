@@ -1058,7 +1058,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    ddlModeOfHolding.SelectedValue = "SO";
+                    ddlModeOfHolding.SelectedValue = "SI";
                     ddlModeOfHolding.Enabled = false;
                     trJoinHolders.Visible = false;
                     trJointHolderGrid.Visible = false;
