@@ -932,7 +932,7 @@
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-    <tr id="trMPDetails" runat="server">
+    <tr id="trMPDetails" runat="server" visible="false">
         <td colspan="2">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Dates Of payment"></asp:Label>
         </td>

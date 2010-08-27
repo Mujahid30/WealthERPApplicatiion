@@ -1029,7 +1029,7 @@ namespace WealthERP.CustomerPortfolio
                         trMPRemarks.Visible = true;
                         trMPHeader.Visible = true;
                         trMPPolicyTerm.Visible = true;
-                        trMPDetails.Visible = true;
+                        trMPDetails.Visible = false;
                         pnlMoneyBackEpisode.Visible = true;
                         trMPSpace.Visible = true;
                         trValuationHeader.Visible = true;
@@ -1999,7 +1999,7 @@ namespace WealthERP.CustomerPortfolio
                     tr.Cells.Add(tc);
 
                     // Middle Empty Cells Used for Alignment
-                    for (int j = 0; j < 13; j++)
+                    for (int j = 0; j < 35; j++)
                     {
                         tc = new TableCell();
                         tr.Cells.Add(tc);
