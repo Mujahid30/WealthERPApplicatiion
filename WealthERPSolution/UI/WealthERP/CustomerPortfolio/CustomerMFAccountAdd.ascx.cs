@@ -64,17 +64,21 @@ namespace WealthERP.CustomerPortfolio
                         {
 
                             EditFolioDetails();
+                           
                         }
                         else if (Request.QueryString["action"].Trim() == "View")
                         {
                             ViewFolioDetails();
+                           
+
                         }
 
                     }
                     else
                     {
 
-                        
+                        trNominee2Header.Visible = false;
+                        trJoint2Header.Visible = false;
                         ddlModeOfHolding.Enabled = false;
                         ddlModeOfHolding.SelectedValue = "SI";
                         lnkEdit.Visible = false;
@@ -143,10 +147,12 @@ namespace WealthERP.CustomerPortfolio
             //}
             //ddlModeOfHolding.SelectedValue = "SI";
             ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHoldingCode.Trim();
+            ViewState["ModeOfHolding"] = ddlModeOfHolding.SelectedValue;
             BindAssociates(customerAccountsVo);
             gvNominee2.Enabled = false;
             gvJoint2.Enabled = false;
             SetVisiblity(0);
+            trJoint2Header.Visible = false;
         }
 
         private void BindAssociates(CustomerAccountsVo AccountVo)
@@ -162,62 +168,77 @@ namespace WealthERP.CustomerPortfolio
                 dsCustomerAssociates = customerTransactionBo.GetMFFolioAccountAssociates(AccountVo.AccountId, customerVo.CustomerId);
                 dtJoinHolder = dsCustomerAssociates.Tables[0];
                 dtNominees = dsCustomerAssociates.Tables[1];
-
+                
                 if (AccountVo.IsJointHolding == 1)
                 {
-                    dtJoinHolderGV.Columns.Add("AssociateId");
-                    dtJoinHolderGV.Columns.Add("Name");
-                    dtJoinHolderGV.Columns.Add("Relationship");
-                    dtJoinHolderGV.Columns.Add("Stat");
-
-
-                    foreach (DataRow dr in dtJoinHolder.Rows)
+                    if (dtJoinHolder.Rows.Count > 0 && dtJoinHolder != null)
                     {
-                        drJoinHolder = dtJoinHolderGV.NewRow();
-                        drJoinHolder[0] = dr["CA_AssociationId"].ToString();
-                        drJoinHolder[1] = dr["NAME"].ToString();
-                        drJoinHolder[2] = dr["XR_Relationship"].ToString();
-                        drJoinHolder[3] = dr["Stat"].ToString();
+                        dtJoinHolderGV.Columns.Add("AssociateId");
+                        dtJoinHolderGV.Columns.Add("Name");
+                        dtJoinHolderGV.Columns.Add("Relationship");
+                        dtJoinHolderGV.Columns.Add("Stat");
 
-                        dtJoinHolderGV.Rows.Add(drJoinHolder);
+
+                        foreach (DataRow dr in dtJoinHolder.Rows)
+                        {
+                            drJoinHolder = dtJoinHolderGV.NewRow();
+                            drJoinHolder[0] = dr["CA_AssociationId"].ToString();
+                            drJoinHolder[1] = dr["NAME"].ToString();
+                            drJoinHolder[2] = dr["XR_Relationship"].ToString();
+                            drJoinHolder[3] = dr["Stat"].ToString();
+
+                            dtJoinHolderGV.Rows.Add(drJoinHolder);
+
+                        }
+                        gvJoint2.DataSource = dtJoinHolderGV;
+                        ViewState["JointHold"] = dtJoinHolderGV;
+                        gvJoint2.DataBind();
+                        gvJoint2.Visible = true;
+                        //trJointHolders.Visible = true;
+                        //trJointHoldersGrid.Visible = true;
+                        gvJoint2.Columns[3].Visible = false;
+                        trJoint2Header.Visible = true;
+                    }
+                    else
+                    {
+                        trJoint2Header.Visible = false;
+                    }
+                }
+
+
+                if (dtNominees.Rows.Count > 0 && dtJoinHolder != null)
+                {
+                    dtNomineesGV.Columns.Add("AssociateId");
+                    dtNomineesGV.Columns.Add("Name");
+                    dtNomineesGV.Columns.Add("Relationship");
+                    dtNomineesGV.Columns.Add("Stat");
+
+
+
+                    foreach (DataRow dr in dtNominees.Rows)
+                    {
+                        drNominees = dtNomineesGV.NewRow();
+                        drNominees[0] = dr["CA_AssociationId"].ToString();
+                        drNominees[1] = dr["NAME"].ToString();
+                        drNominees[2] = dr["XR_Relationship"].ToString();
+                        drNominees[3] = dr["Stat"].ToString();
+
+                        dtNomineesGV.Rows.Add(drNominees);
 
                     }
-                    gvJoint2.DataSource = dtJoinHolderGV;
-                    gvJoint2.DataBind();
-                    gvJoint2.Visible = true;
-                    trJointHolders.Visible = true;
-                    trJointHoldersGrid.Visible = true;
-                    gvJoint2.Columns[3].Visible = false;
+                    ViewState["Nominees"] = dtNomineesGV;
+                    gvNominee2.DataSource = dtNomineesGV;
+                    gvNominee2.DataBind();
+
+                    gvNominee2.Columns[3].Visible = false;
+                    gvNominee2.Visible = true;
+                    trNominee2Header.Visible = true;
+
                 }
-
-
-
-                dtNomineesGV.Columns.Add("AssociateId");
-                dtNomineesGV.Columns.Add("Name");
-                dtNomineesGV.Columns.Add("Relationship");
-                dtNomineesGV.Columns.Add("Stat");
-
-
-
-                foreach (DataRow dr in dtNominees.Rows)
+                else
                 {
-                    drNominees = dtNomineesGV.NewRow();
-                    drNominees[0] = dr["CA_AssociationId"].ToString();
-                    drNominees[1] = dr["NAME"].ToString();
-                    drNominees[2] = dr["XR_Relationship"].ToString();
-                    drNominees[3] = dr["Stat"].ToString();
-                    
-                    dtNomineesGV.Rows.Add(drNominees);
-
+                    trNominee2Header.Visible = false;
                 }
-                ViewState["Nominees"] = dtNomineesGV;
-                gvNominee2.DataSource = dtNomineesGV;
-                gvNominee2.DataBind();
-
-                gvNominee2.Columns[3].Visible = false;
-                gvNominee2.Visible = true;
-                
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -252,25 +273,34 @@ namespace WealthERP.CustomerPortfolio
             if (customerAccountsVo.IsJointHolding == 1)
             {
                 rbtnYes.Checked = true;
+                trJoint2Header.Visible = true;
+
             }
             else
             {
                 rbtnNo.Checked = true;
+                trJoint2Header.Visible = false;
             }
-            //BindModeOfHolding();pra
+            BindModeOfHolding();
             if (customerAccountsVo.ModeOfHoldingCode != "" && customerAccountsVo.ModeOfHoldingCode != null)
+            {
+                ddlModeOfHolding.Enabled = true;
                 ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHoldingCode.Trim();
+            }
             else
                 ddlModeOfHolding.SelectedIndex = 0;
             if (rbtnNo.Checked == true)
                 ddlModeOfHolding.Enabled = false;
             else
                 ddlModeOfHolding.Enabled = true;
+
+            ViewState["ModeOfHolding"] = ddlModeOfHolding.SelectedValue;
             BindAssociates(customerAccountsVo);
+            Session["CustomerAccountVo"] = customerAccountsVo;
             gvJoint2.Enabled = true;
             gvNominee2.Enabled = true;
             SetVisiblity(1);
-
+           
         }
 
         private void SetVisiblity(int p)
@@ -447,15 +477,15 @@ namespace WealthERP.CustomerPortfolio
 
                         if (dtCustomerAssociatesRaw.Rows.Count > 0)
                         {
-                            trJointHolders.Visible = true;
-                            trJointHoldersGrid.Visible = true;
+                            //trJointHolders.Visible = true;
+                            //trJointHoldersGrid.Visible = true;
                             gvJointHoldersList.DataSource = dtCustomerAssociates;
                             gvJointHoldersList.DataBind();
                         }
                         else
                         {
-                            trJointHolders.Visible = false;
-                            trJointHoldersGrid.Visible = false;
+                            //trJointHolders.Visible = false;
+                            //trJointHoldersGrid.Visible = false;
                         }
                     }
                 }
@@ -463,8 +493,8 @@ namespace WealthERP.CustomerPortfolio
                 {
                     ddlModeOfHolding.SelectedValue = "SI";
                     ddlModeOfHolding.Enabled = false;
-                    trJointHolders.Visible = false;
-                    trJointHoldersGrid.Visible = false;
+                    //trJointHolders.Visible = false;
+                    //trJointHoldersGrid.Visible = false;
                     trJoint2.Visible = false;
                 }
 
@@ -527,7 +557,7 @@ namespace WealthERP.CustomerPortfolio
                     {
                         if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                         {
-                            customerAccountAssociationVo.AssociationId = int.Parse(gvJointHoldersList.DataKeys[gvr.RowIndex].Values[1].ToString());
+                            customerAccountAssociationVo.AssociationId = int.Parse(gvJointHoldersList.DataKeys[gvr.RowIndex].Values[0].ToString());
                             customerAccountAssociationVo.AssociationType = "Joint Holder";
                             customerAccountBo.CreateMFAccountAssociation(customerAccountAssociationVo, userVo.UserId);
                         }
@@ -625,13 +655,22 @@ namespace WealthERP.CustomerPortfolio
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                DataTable dt = new DataTable();
+                if ((DataTable)ViewState["JointHold"] != null)
+                    dt = (DataTable)ViewState["JointHold"];
                 CheckBox chkBox = e.Row.FindControl("chkId") as CheckBox;
-                if (e.Row.Cells[3].Text == "yes")
-                    chkBox.Checked = true;
-                else
+                foreach (DataRow dr in dt.Rows)
                 {
-                    chkBox.Checked = false;
+                    if (gvJoint2.DataKeys[e.Row.RowIndex][0].ToString() == dr["AssociateId"].ToString() && dr["Stat"].ToString() == "yes")
+                        chkBox.Checked = true;
+
                 }
+                //if (e.Row.Cells[3].Text == "yes")
+                //    chkBox.Checked = true;
+                //else
+                //{
+                //    chkBox.Checked = false;
+                //}
             }
         }
 
@@ -656,6 +695,118 @@ namespace WealthERP.CustomerPortfolio
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
             EditFolioDetails();
+        }
+
+        protected void rbtnYes_CheckedChanged1(object sender, EventArgs e)
+        {
+            CustomerAccountsVo AccountVo = new CustomerAccountsVo();
+            if (Session["CustomerAccountVo"] != null)
+            {                
+                AccountVo = (CustomerAccountsVo)Session["CustomerAccountVo"];
+            }
+            ddlModeOfHolding.Enabled = true;
+            ddlModeOfHolding.SelectedIndex = 0;
+            if (txtFolioNumber.Text != "" && btnUpdate.Visible == true)
+            {
+                if (!string.IsNullOrEmpty(ViewState["ModeOfHolding"].ToString()))
+                ddlModeOfHolding.SelectedValue = ViewState["ModeOfHolding"].ToString();
+                
+                DataTable dtJoinHolder = new DataTable();
+                DataTable dtJoinHolderGV = new DataTable();
+                DataRow drJoinHolder;
+                dsCustomerAssociates = customerTransactionBo.GetMFFolioAccountAssociates(AccountVo.AccountId, customerVo.CustomerId);
+                dtJoinHolder = dsCustomerAssociates.Tables[0];
+                if (dtJoinHolder.Rows.Count > 0 && dtJoinHolder != null)
+                {
+                    dtJoinHolderGV.Columns.Add("AssociateId");
+                    dtJoinHolderGV.Columns.Add("Name");
+                    dtJoinHolderGV.Columns.Add("Relationship");
+                    dtJoinHolderGV.Columns.Add("Stat");
+
+                    foreach (DataRow dr in dtJoinHolder.Rows)
+                    {
+                        drJoinHolder = dtJoinHolderGV.NewRow();
+                        drJoinHolder[0] = dr["CA_AssociationId"].ToString();
+                        drJoinHolder[1] = dr["NAME"].ToString();
+                        drJoinHolder[2] = dr["XR_Relationship"].ToString();
+                        drJoinHolder[3] = dr["Stat"].ToString();
+
+                        dtJoinHolderGV.Rows.Add(drJoinHolder);
+
+                    }
+
+                    gvJoint2.DataSource = dtJoinHolderGV;
+                    ViewState["JointHold"] = dtJoinHolderGV;
+                    gvJoint2.DataBind();
+                    trJoint2Header.Visible = true;
+                    trJoint2.Visible = true;
+                    if (gvJoint2.Visible == false)
+                    {
+                        gvJoint2.Visible = true;
+                    }
+
+                    //trJointHolders.Visible = true;
+                    gvJoint2.Columns[3].Visible = false;
+                    trJoint2Header.Visible = true;
+                }
+                else
+                {
+                    trJoint2Header.Visible = false;
+                }
+               
+            }
+            else
+            {
+                //when addding MF Folio Account 
+                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                dtCustomerAssociates.Rows.Clear();
+                dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
+                dtCustomerAssociates.Columns.Add("MemberCustomerId");
+                dtCustomerAssociates.Columns.Add("AssociationId");
+                dtCustomerAssociates.Columns.Add("Name");
+                dtCustomerAssociates.Columns.Add("Relationship");
+
+                DataRow drCustomerAssociates;
+                foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
+                {
+
+                    drCustomerAssociates = dtCustomerAssociates.NewRow();
+                    drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
+                    drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
+                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                    drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                    dtCustomerAssociates.Rows.Add(drCustomerAssociates);
+                }
+
+                if (dtCustomerAssociatesRaw.Rows.Count > 0)
+                {
+                    trJointHolders.Visible = true;
+                    trJointHoldersGrid.Visible = true;
+                    gvJointHoldersList.DataSource = dtCustomerAssociates;
+                    gvJointHoldersList.DataBind();
+                }
+                else
+                {
+                    trJointHolders.Visible = false;
+                    trJointHoldersGrid.Visible = false;
+                }
+            }
+        }
+
+        protected void rbtnNo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ddlModeOfHolding.SelectedIndex != 0)
+            {
+                ViewState["ModeOfHolding"] = ddlModeOfHolding.SelectedValue;
+            }
+            ddlModeOfHolding.SelectedValue = "SI";
+            ddlModeOfHolding.Enabled = false;
+            trJointHolders.Visible = false;
+            trJointHoldersGrid.Visible = false;
+            trJoint2Header.Visible = false;
+            trJoint2.Visible = false;
+
+
         }
     }
 }

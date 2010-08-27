@@ -84,9 +84,10 @@
         </td>
         <td class="rightField">
             <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
-                Text="Yes" OnCheckedChanged="rbtnYes_CheckedChanged" AutoPostBack="true" />
+                Text="Yes"  AutoPostBack="true" 
+                oncheckedchanged="rbtnYes_CheckedChanged1" />
             <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
-                Text="No" OnCheckedChanged="rbtnYes_CheckedChanged" AutoPostBack="true" />
+                Text="No"  AutoPostBack="true" oncheckedchanged="rbtnNo_CheckedChanged" />
         </td>
     </tr>
     <tr>
@@ -127,7 +128,7 @@
             &nbsp;
         </td>
     </tr>
-    <tr id="trJointHolders" runat="server">
+    <tr id="trJointHolders" runat="server" visible="false">
         <td colspan="2">
             <asp:Label ID="lblJointHolders" runat="server" CssClass="HeaderTextSmall" Text="Joint Holders"></asp:Label>
             <hr />
@@ -136,7 +137,7 @@
     <tr id="trJointHoldersGrid" runat="server">
         <td colspan="2" align="center">
             <asp:GridView ID="gvJointHoldersList" runat="server" AutoGenerateColumns="False"
-                CellPadding="4" DataKeyNames="MemberCustomerId, AssociationId" 
+                CellPadding="4" DataKeyNames="AssociationId" 
                 CssClass="GridViewStyle">
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -162,7 +163,7 @@
             &nbsp;
         </td>
     </tr>
-    <tr id="trNominees" runat="server">
+    <tr id="trNominees" runat="server" visible="false">
         <td colspan="2">
             <asp:Label ID="lblNominees" runat="server" CssClass="HeaderTextSmall" Text="Nominees"></asp:Label>
             <hr />
@@ -191,13 +192,24 @@
             </asp:GridView>
         </td>
     </tr>
+    
+    
     <tr>
         <td colspan="2">
             &nbsp;
         </td>
     </tr>
+    
+    
+    <tr id="trJoint2Header" runat="server">
+     <td colspan="2">
+            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Joint Holders"></asp:Label>
+            <hr />
+     </td>
+    </tr>
     <tr id="trJoint2" runat="server">
-        <td colspan="2" align="center">
+      
+     <td align="center" colspan="2">
             <asp:GridView ID="gvJoint2" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 DataKeyNames="AssociateId" AllowSorting="True" CssClass="GridViewStyle" OnRowDataBound="gvJoint2_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
@@ -220,7 +232,16 @@
             </asp:GridView>
         </td>
     </tr>
+    
+    <tr id="trNominee2Header" runat="server" align="left">
+    <td colspan="2">
+            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Nominees"></asp:Label>
+            <hr />
+        </td>
+    </tr>
+    
     <tr id="trNominee2" runat="server">
+        
         <td colspan="2" align="center">
             <asp:GridView ID="gvNominee2" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 DataKeyNames="AssociateId" AllowSorting="True" CssClass="GridViewStyle" OnRowDataBound="gvNominee2_RowDataBound">
