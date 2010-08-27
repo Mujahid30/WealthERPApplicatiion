@@ -1006,6 +1006,8 @@ namespace WealthERP.Reports
                 //Add image to HTML version
                 if (Session["advisorVo"] != null)
                     logoPath = "~/Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
+                if (!File.Exists(logoPath))
+                    logoPath = "~/Images/spacer.png";
                 //System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("~/Images/") + @"\3DSYRW_4009.JPG", "image/jpeg");
                 System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logoPath), "image/jpeg");
                 imageResource.ContentId = "HDIImage";
