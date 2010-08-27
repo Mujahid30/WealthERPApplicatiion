@@ -200,6 +200,7 @@ namespace WealthERP.Reports
                         if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                         {
                             txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                             txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
                             txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                         }
