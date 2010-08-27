@@ -142,8 +142,7 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" Height="400px"
-    ScrollBars="Auto">
+<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%">
     <table>
         <caption>
             <img id="AdvisorLogo" runat="server" alt="Advisor Logo" style="display: none" />

@@ -51,9 +51,9 @@
     </script>
 
 </head>
-<body class="TableBackground">
+<body class="TableBackground" style="overflow-y:hidden;">
     <form id="form1" runat="server">
-    <div style="overflow: auto;vertical-align:top">
+    <div style="vertical-align:top">
         <asp:Panel ID="mainpanel" runat="server" >
           <%--  <asp:Literal ID="ltBreadCrumbs" runat="server">
             </asp:Literal>--%>

@@ -14,6 +14,42 @@
 
     <script language="javascript" type="text/javascript" src="Scripts/JScript.js"></script>
 
+<script language="javascript" type="text/javascript">
+    function calcHeight(ifrm_id) {
+        try {
+            setTimeout("calc('" + ifrm_id + "')", 200);
+        }
+        catch (e) { }
+    }
+    function calc(iframe_id) {
+        try {
+            var the_height = document.getElementById(iframe_id).contentWindow.document.body.scrollHeight;
+            if (the_height > 600) {
+                var newHeight = the_height + 20;
+                if (document.getElementById('leftframe').height != newHeight)
+                    document.getElementById('leftframe').height = newHeight;
+                if (document.getElementById('mainframe').height != newHeight)
+                    document.getElementById('mainframe').height = newHeight;
+                if (iframe_id == 'mainframe') {
+                    if (document.getElementById('splitter_bar_left').style.height != newHeight)
+                        document.getElementById('splitter_bar_left').style.height = newHeight + 'px';
+                }
+
+            }
+            else {
+                if (document.getElementById(iframe_id).height != 600)
+                    document.getElementById(iframe_id).height = 600;
+                if (iframe_id == 'mainframe') {
+                    if (document.getElementById('splitter_bar_left').style.height != 600)
+                        document.getElementById('splitter_bar_left').style.height = 600 + 'px';
+                }
+            }
+            setTimeout("calc('" + iframe_id + "')", 1000);
+        }
+        catch (e) { }
+    }
+</script>
+
     <script type="text/javascript" language="javascript">
         function hb1(clicked) //Show or hide the left_menu
         {
@@ -98,37 +134,29 @@
                                 height: 90px;" --%>
                                 <%--background-color: #D1E1F7"--%>
                                 <td colspan="3" valign="top">
-                                    <div style="width: 100%; height: 30px;">
-                                        <div style="float: left; position: absolute; z-index: 2000px;">
-                                            <img alt="Advisor Logo" id="AdvisorLogo" runat="server" />
+                                    <div style="width: 100%; height: 50px;">
+                                        <div style="float:left; z-index: 2000;">
+                                            <img alt="Advisor Logo" id="AdvisorLogo" runat="server" height="50" />
                                         </div>
-                                        <div align="center" style="position: static; z-index: 0px;">
-                                            <%--<img alt="WERP Logo" id="WerpLogo" src="~/Images/werplogo.jpg" runat="server" />--%>
-                                            <%--<asp:Label ID="CompanyName" runat="server" Text="WealthERP" CssClass="CompanyNameHeader"></asp:Label>
-                                            <br />
-                                            <asp:Label ID="CompanyCaption" runat="server" Text="[Caption]" Font-Bold="True" Font-Names="Freestyle Script"
-                                                Font-Size="Small" ForeColor="#CC0000"></asp:Label>--%>
+                                        <div style="float:right; z-index: 2000;">
+                                            <img id="BranchLogo" runat="server"/>
                                         </div>
-                                        <div style="position: absolute; right: 15px; top: 15px; z-index: 2000px;">
-                                            <img id="BranchLogo" runat="server" />
-                                        </div>
-                                        <br />
-                                        <div style="position: absolute; right: 10px; top: 75px; z-index: 2500px;">
-                                            &nbsp; <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
-                                                class="LinkButtons" href="#">Settings</a>&nbsp;
-                                            <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign In" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
-                                                CssClass="LinkButtons"></asp:LinkButton>
-                                            &nbsp;
-                                            <asp:LinkButton ID="LinkButtonContactUs" runat="server" OnClientClick="javascript:loadcontrol('GeneralHome','none'); return false;"
-                                                CssClass="LinkButtons">Contact Us</asp:LinkButton>
-                                            &nbsp; <a href="Demo/Demo.html" class="LinkButtons" target="_blank">Demo</a> &nbsp;
-                                            <a id="lnkHelp" name="lnkHelp" href="help/Index.htm" class="LinkButtons" target="_blank">
-                                                Help</a>
-                                            <%--<asp:LinkButton ID="LinkButtonHelp" runat="server" CssClass="LinkButtons" PostBackUrl="Help.htm">Help</asp:LinkButton>--%>
-                                            &nbsp;
-                                            <asp:LinkButton ID="lblSignOut" runat="server" Text="" OnClientClick="javascript:logoutloadcontrol('UserLogout','~/Images/logo.jpg','~/Images/logo.jpg'); return false"
-                                                CssClass="LinkButtons"></asp:LinkButton>
-                                        </div>
+                                    </div>
+                                    <div style="clear:both; z-index: 2500; text-align:right;">
+                                        &nbsp; <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
+                                            class="LinkButtons" href="#">Settings</a>&nbsp;
+                                        <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign In" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
+                                            CssClass="LinkButtons"></asp:LinkButton>
+                                        &nbsp;
+                                        <asp:LinkButton ID="LinkButtonContactUs" runat="server" OnClientClick="javascript:loadcontrol('GeneralHome','none'); return false;"
+                                            CssClass="LinkButtons">Contact Us</asp:LinkButton>
+                                        &nbsp; <a href="Demo/Demo.html" class="LinkButtons" target="_blank">Demo</a> &nbsp;
+                                        <a id="lnkHelp" name="lnkHelp" href="help/Index.htm" class="LinkButtons" target="_blank">
+                                            Help</a>
+                                        <%--<asp:LinkButton ID="LinkButtonHelp" runat="server" CssClass="LinkButtons" PostBackUrl="Help.htm">Help</asp:LinkButton>--%>
+                                        &nbsp;
+                                        <asp:LinkButton ID="lblSignOut" runat="server" Text="" OnClientClick="javascript:logoutloadcontrol('UserLogout','~/Images/logo.jpg','~/Images/logo.jpg'); return false"
+                                            CssClass="LinkButtons"></asp:LinkButton>
                                     </div>
                                 </td>
                             </tr>
@@ -601,6 +629,7 @@
                                     runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
                             </td>
                             <td align="right">
+                            <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OWPyWbNsq7qPWzrss8sCH3weSSj3SjP21EhheOl4L7s2vBTlMzf"></script><br/><a style="font-family: arial; font-size: 9px" href="https://www.godaddy.com" target="_blank">Best Web Hosting</a></span>
                                 <asp:Label ID="PCGLabel" Text="2010 @ Ampsys Consulting Pvt. Ltd." runat="server"
                                     CssClass="PCGWhiteText"></asp:Label>
                             </td>
@@ -618,29 +647,4 @@
     </form>
 </body>
 </html>
-
-<script language="javascript" type="text/javascript">
-    function calcHeight(ifrm_id) {
-        setTimeout("calc('" + ifrm_id + "')", 200);
-    }
-    function calc(iframe_id) {
-
-        var the_height = document.getElementById(iframe_id).contentWindow.document.body.scrollHeight;
-        if (the_height > 600) {
-            var newHeight = the_height + (the_height / 4);
-            document.getElementById('leftframe').height = newHeight;
-            document.getElementById('mainframe').height = newHeight;
-            if (iframe_id == 'mainframe') {
-                document.getElementById('splitter_bar_left').style.height = newHeight + 'px';
-            }
-
-        }
-        else {
-            document.getElementById(iframe_id).height = 600;
-            if (iframe_id == 'mainframe') {
-                document.getElementById('splitter_bar_left').style.height = 600 + 'px';
-            }
-        }
-    }
-</script>
 
