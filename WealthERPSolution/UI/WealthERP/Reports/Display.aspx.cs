@@ -254,7 +254,7 @@ namespace WealthERP.Reports
                         if (dsEquitySectorwise.Tables[1].Rows.Count > 0 ||  dsEquitySectorwise.Tables[0].Rows.Count > 0)
                         {
 
-                            if (double.Parse(dsEquitySectorwise.Tables[1].Rows[0]["CashPer"].ToString()) + double.Parse(dsEquitySectorwise.Tables[1].Rows[0]["DebtPer"].ToString()) + double.Parse(dsEquitySectorwise.Tables[1].Rows[0]["EquityPer"].ToString()) != 0)
+                            if (dsEquitySectorwise.Tables[1].Rows.Count > 0 && double.Parse(dsEquitySectorwise.Tables[1].Rows[0]["CashPer"].ToString()) + double.Parse(dsEquitySectorwise.Tables[1].Rows[0]["DebtPer"].ToString()) + double.Parse(dsEquitySectorwise.Tables[1].Rows[0]["EquityPer"].ToString()) != 0)
                             {
                                 crmain.Database.Tables["Goal"].SetDataSource(dsEquitySectorwise.Tables[0]);
                                 crmain.Database.Tables["RiskProfile"].SetDataSource(dsEquitySectorwise.Tables[1]);
