@@ -442,7 +442,7 @@ a.aBreadCrumbCurrent
 
 .SearchButton
 {
-    background: url(Images/Search_Image_1.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    background: url(Images/Search_Image_1.jpg) no-repeat left bottom; /*background-repeat: no-repeat;*/
     font-weight: bolder;
     color: White;
     font-size: x-small;

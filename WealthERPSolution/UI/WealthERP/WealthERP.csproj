@@ -2495,6 +2495,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MultiAssetReport1.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MultiiAssetReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MultiiAssetReport.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">

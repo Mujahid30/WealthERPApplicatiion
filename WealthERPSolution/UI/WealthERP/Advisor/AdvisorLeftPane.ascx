@@ -128,8 +128,8 @@
         <table>
             <tr>
                 <td>
-                    <div style="display: inline">
-                        <asp:TextBox runat="server" ID="txtFindRM" Style="width: 110px" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchRM');" />
+                    <div style="vertical-align:middle;">
+                        <asp:TextBox runat="server" ID="txtFindRM" Style="width: 110px;" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchRM');" />
                         <cc1:TextBoxWatermarkExtender ID="txtFindRM_TextBoxWatermarkExtender" runat="server"
                             TargetControlID="txtFindRM" WatermarkText="Find RM">
                         </cc1:TextBoxWatermarkExtender>
