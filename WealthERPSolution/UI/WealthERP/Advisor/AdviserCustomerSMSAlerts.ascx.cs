@@ -10,28 +10,140 @@ using VoUser;
 using BoAdvisorProfiling;
 using BoAlerts;
 using BoCommon;
+using WealthERP.Base;
+using System.Collections.Specialized;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
 
 namespace WealthERP.Advisor
 {
     public partial class AdviserCustomerSMSAlerts : System.Web.UI.UserControl
     {
         DataSet dsAdviserCustomerAlerts;
+        //DataSet dsTest = new DataSet();
+        protected override void OnInit(EventArgs e)
+        {
+            try
+            {
+                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+                mypager.EnableViewState = true;
+                base.OnInit(e);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdviserCustomerSMSAlert.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        {
+            try
+            {
+                GetPageCount();
+                this.GetAdviserCustomerAlerts(out dsAdviserCustomerAlerts);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdviserCustomerSMSAlert.ascx.cs:HandlePagerEvent()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        private void GetPageCount()
+        {
+            string upperlimit = "";
+            int rowCount = 0;
+            int ratio = 0;
+            string lowerlimit = "";
+            string PageRecords = "";
+            try
+            {
+                if (hdnCount.Value != "")
+                    rowCount = Convert.ToInt32(hdnCount.Value);
+                if (rowCount > 0)
+                {
+                    ratio = rowCount / 10;
+                    mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+                    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+                    lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
+                    upperlimit = (mypager.CurrentPage * 10).ToString();
+                    if (mypager.CurrentPage == mypager.PageCount)
+                        upperlimit = hdnCount.Value;
+                    PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+                    lblCurrentPage.Text = PageRecords;
+                    hdnCurrentPage.Value = mypager.CurrentPage.ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdviserCustomerSMSAlert.ascx.cs:GetPageCount()");
+                object[] objects = new object[5];
+                objects[0] = upperlimit;
+                objects[1] = rowCount;
+                objects[2] = ratio;
+                objects[3] = lowerlimit;
+                objects[4] = PageRecords;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                mypager.CurrentPage = 1;                
+                GetAdviserCustomerAlerts(out dsAdviserCustomerAlerts);
+            }
             setAdviserSMSLicenseInfo();
-            GetAdviserCustomerAlerts();
         }
-        public void GetAdviserCustomerAlerts()
+        public void GetAdviserCustomerAlerts(out DataSet dsAdviserCustomerAlerts)
         {
             int adviserId = 0;
-
+            int Count = 0;
             hdnCustomerIdWithoutMobileNumber.Value = "";
             hdnCustomerNameWithoutMobileNumber.Value = "";
+            if (hdnCurrentPage.Value.ToString() != "")
+            {
+                mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
+                hdnCurrentPage.Value = "";
+            }
             DataRow drAdviserCustomerAlert = null;
             if (Session["advisorVo"] != null)
                 adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
             AlertsBo alertsBo = new AlertsBo();
-            dsAdviserCustomerAlerts = alertsBo.GetAdviserCustomerSMSAlerts(adviserId);
+            dsAdviserCustomerAlerts = alertsBo.GetAdviserCustomerSMSAlerts(adviserId, mypager.CurrentPage, out Count);
+            ViewState["vsDsAdviserCustomerAlert"] = dsAdviserCustomerAlerts;
+            lblTotalRows.Text = hdnCount.Value = Count.ToString();
             if (dsAdviserCustomerAlerts != null)
             {
                 DataTable dtAdviserCustomerAlerts = new DataTable();
@@ -106,11 +218,6 @@ namespace WealthERP.Advisor
                         if (Int64.Parse(dsAdviserCustomerAlerts.Tables[0].Rows[i]["Mobile"].ToString()) != 0)
                         {
                             hdnCustomerIdWithoutMobileNumber.Value += dsAdviserCustomerAlerts.Tables[0].Rows[i]["CustomerId"].ToString() + ",";
-                            //if (hdnCustomerIdWithoutMobileNumber.Value != null)
-                            //{
-                            //    Session["CustomersWithoutMobileNumber"] = hdnCustomerIdWithoutMobileNumber.Value;
-                            //}
-                            //hdnCustomerNameWithoutMobileNumber.Value += dsAdviserCustomerAlerts.Tables[0].Rows[i]["CustomerName"].ToString() + ",";
                         }
                         if (drAdviserCustomerAlert != null)
                         {
@@ -127,7 +234,7 @@ namespace WealthERP.Advisor
                 pnlCustomerSMSAlerts.Visible = true;
                 lblNoRecords.Visible = false;
                 btnSend.Visible = true;
-
+                this.GetPageCount();
             }
             else
             {
@@ -183,6 +290,7 @@ namespace WealthERP.Advisor
         protected void btnUpdateMobileNo_Click(object sender, EventArgs e)
         {
             //List<TextBox> txtMobileNoList=(TextBox)gvCustomerSMSAlerts.FindControl("txtMobileNo");
+            hdnCustomerIdWithoutMobileNumber.Value = "";
             AlertsBo alertsBo = new AlertsBo();
             string customerId = "";            
             foreach (GridViewRow gvr in gvCustomerSMSAlerts.Rows)
@@ -211,6 +319,7 @@ namespace WealthERP.Advisor
             AlertsBo alertsBo = new AlertsBo();
             string mobileNo;
             int adviserId = 0;
+            dsAdviserCustomerAlerts = (DataSet)ViewState["vsDsAdviserCustomerAlert"];
             if (Session["advisorVo"] != null)
                 adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
             if (lblLincenceValue.Text != "No SMS Licence Left!!")
@@ -269,7 +378,7 @@ namespace WealthERP.Advisor
                 {
                     lblLincenceValue.Text = smsLicence.ToString();
                 }
-                GetAdviserCustomerAlerts();
+                GetAdviserCustomerAlerts(out dsAdviserCustomerAlerts);
             }
             else if (smsCount == 0)
             {
@@ -281,6 +390,12 @@ namespace WealthERP.Advisor
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough SMS Credits to process this request');", true);
 
             }
+        }
+
+        protected void gvCustomerSMSAlerts_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCustomerSMSAlerts.PageIndex = e.NewPageIndex;
+            gvCustomerSMSAlerts.DataBind();
         }
 
     }

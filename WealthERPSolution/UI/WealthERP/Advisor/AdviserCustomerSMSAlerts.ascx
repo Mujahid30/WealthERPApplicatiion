@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserCustomerSMSAlerts.ascx.cs"
     Inherits="WealthERP.Advisor.AdviserCustomerSMSAlerts" %>
+<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%--Used to create Popups and Alert Box--%>
 
 <script src="/Scripts/jquery.js" type="text/javascript"></script>
@@ -14,59 +15,81 @@
     window.onload = function() {
         try {
             //get target base control.
-            TargetBaseControl = document.getElementById('<%= this.gvCustomerSMSAlerts.ClientID %>');
+            TargetBaseControl = document.getElementById('<%= gvCustomerSMSAlerts.ClientID %>');
+            //alert(0);
             HideColumn(7);
+            //alert(1)
         }
         catch (err) {
+            //alert(2);
             TargetBaseControl = null;
         }
     }
 
-    function TestCheckBox() {
+    function TestCheckBox() {        
         if (TargetBaseControl == null) {
+            //alert(4);        
             return false;
         }
-
-        //get target child control.        
+        //alert(5);
+        //get target child control.
         var TargetChildControl = "chkCustomerSMSAlert";
-
+        var TargetTextChildControl = "txtMobileNo";
+        var totalChecked = 0;
+        var countWithMobileNumber=0;      
         //get all the control of the type INPUT in the base control.
         var Inputs = TargetBaseControl.getElementsByTagName("input");
-        var totalChecked = 0;
+
 
         for (var n = 0; n < Inputs.length; ++n) {
             if (Inputs[n].type == 'checkbox' && Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 && Inputs[n].checked) {
+                if (Inputs[n + 1].type == 'text' && Inputs[n + 1].id.indexOf('txtMobileNo') != -1) {
+                    if (Inputs[n + 1].value != 0) {
+                        alert(Inputs[n + 1].value);
+                        countWithMobileNumber++;
+                    }
+                }
                 totalChecked++;
             }
         }
-        if (totalChecked > 0) {
-            return totalChecked;
-        }
-        else {
+        
+        //alert(totalChecked);
+        if (totalChecked <= 0) {
             alert('Select at least one checkbox!');
             return false;
+        }
+        else {
+            if (countWithMobileNumber != totalChecked) {
+                var confirmation = confirm('Do you wish to add Customer Mobile number');
+                if (confirmation == true) {
+                    ShowColumn(7);
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
         }
     }
     function MobileNumberCheck() {
         var customerwithoutmobilenumber = document.getElementById("<%= hdnCustomerIdWithoutMobileNumber.ClientID %>").value;
-        //alert(customerwithoutmobilenumber);
+        
         var customerlist = new Array();
         customerlist = customerwithoutmobilenumber.split(',');
         var customerlistlength = 0;
-        //=customerlist.length;        
+       
         if (customerlist != "" && customerlist != null && customerlist != 0) {
             for (var j = 0; j < customerlist.length; j++) {
-                if (customerlist[j] != "" && customerlist[j] != 0 && customerlist[j]!=null) {                    
+                if (customerlist[j] != "" && customerlist[j] != 0 && customerlist[j] != null) {                           
                     customerlistlength++;
                 }
             }
         }
-        var numberofcustomerschecked = TestCheckBox();
-        //alert(numberofcustomerschecked);
+        var numberofcustomerschecked = TestCheckBox();       
         if (numberofcustomerschecked != false) {
             if (numberofcustomerschecked >= 0) {
                 if (customerlistlength != numberofcustomerschecked) {
-                    //alert(customerlistlength + ' ' + numberofcustomerschecked);
+                    alert(customerlistlength + ' ' + numberofcustomerschecked);
                     var confirmation = confirm('Do you wish to add Customer Mobile number');
                     if (confirmation == true) {
                         ShowColumn(7);
@@ -87,16 +110,25 @@
     }
     function HideColumn(columnNo) {
         var dgTest = document.getElementById("<%=gvCustomerSMSAlerts.ClientID %>");
-        for (var i = 0; i < dgTest.rows.length; i++) {            
-            dgTest.rows[i].cells[columnNo].style.display = "none";
+        try {
+            for (var i = 0; i < dgTest.rows.length; i++) {
+                //alert(dgTest.rows[i].cells[columnNo]);
+                dgTest.rows[i].cells[columnNo].style.display = "none";
+            }
         }
+        catch (e)
+        { }
     }
 
     function ShowColumn(columnNo) {
         var dgTest = document.getElementById("<%=gvCustomerSMSAlerts.ClientID %>");
-        for (var i = 0; i < dgTest.rows.length; i++) {
-            dgTest.rows[i].cells[columnNo].style.display = "block";
+        try {
+            for (var i = 0; i < dgTest.rows.length; i++) {
+                dgTest.rows[i].cells[columnNo].style.display = "block";
+            }
         }
+        catch (e)
+        { }
     }
    
 </script>
@@ -127,6 +159,12 @@
             </table>
         </td>
     </tr>
+        <tr align="center">
+        <td colspan="2" class="leftField">
+            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+        </td>
+    </tr>
     <tr>
         <td>
             <asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="300px" Width="100%" ScrollBars="Vertical"
@@ -135,8 +173,7 @@
                     CssClass="FieldName"></asp:Label>
                 <asp:GridView ID="gvCustomerSMSAlerts" DataKeyNames="CustomerId,AlertId" runat="server"
                     AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" Width="100%"
-                    Font-Size="Small" BackImageUrl="~/CSS/Images/HeaderGlassBlack.jpg" CssClass="GridViewStyle"
-                    ShowFooter="True" OnRowDataBound="gvCustomerSMSAlerts_RowDataBound" AllowPaging="True">
+                    Font-Size="Small" CssClass="GridViewStyle" ShowFooter="True" OnRowDataBound="gvCustomerSMSAlerts_RowDataBound">
                     <PagerStyle BorderStyle="Solid" />
                     <SelectedRowStyle Font-Bold="True" CssClass="SelectedRowStyle" />
                     <HeaderStyle Font-Bold="True" Font-Size="Small" ForeColor="White" CssClass="HeaderStyle" />
@@ -159,7 +196,8 @@
                         <asp:BoundField DataField="AlertDate" HeaderText="Alert Date" ReadOnly="true" />
                         <asp:TemplateField HeaderText="Mobile No">
                             <ItemTemplate>
-                                <asp:TextBox ID="txtMobileNo" runat="server" Text='<%# Eval("Mobile") %>' CssClass="txtField" MaxLength="10" />
+                                <asp:TextBox ID="txtMobileNo" runat="server" Text='<%# Eval("Mobile") %>' CssClass="txtField"
+                                    MaxLength="10" />
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator17" runat="server"
                                     CssClass="cvPCG" ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+"
                                     ControlToValidate="txtMobileNo" Display="Dynamic"></asp:RegularExpressionValidator>
@@ -170,15 +208,27 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
+                <div id="DivPager" runat="server">
+                    <table style="width: 100%">
+                        <tr id="trPager" runat="server">
+                            <td>
+                                <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </asp:Panel>
         </td>
     </tr>
     <tr>
         <td align="center">
             <asp:Button ID="btnSend" Text="Send SMS" runat="server" CssClass="openQuickMobileAdd PCGButton"
-                OnClick="btnSend_Click" OnClientClick="return MobileNumberCheck();" />
+                OnClick="btnSend_Click" OnClientClick="return TestCheckBox();"/>
         </td>
     </tr>
 </table>
 <asp:HiddenField ID="hdnCustomerIdWithoutMobileNumber" runat="server" />
 <asp:HiddenField ID="hdnCustomerNameWithoutMobileNumber" runat="server" />
+<asp:HiddenField ID="hdnCount" runat="server" />
+<asp:HiddenField ID="hdnCurrentPage" runat="server" />
+<asp:HiddenField ID="hdnSort" runat="server" Value="RMName ASC" />
