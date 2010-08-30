@@ -884,31 +884,79 @@ namespace WealthERP.Advisor
         {
             DataSet DScurrentAsset=new DataSet();
             DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId);
-
-            DataTable dt = new DataTable();
+                DataTable dt = new DataTable();
             DataRow dr;
             dt.Columns.Add("AssetType");
             dt.Columns.Add("Value");
+            if (DScurrentAsset.Tables[0].Rows.Count > 0)
+            {
 
-            dr = dt.NewRow();
-            dr[0] = "Equity";
-            dr[1] = DScurrentAsset.Tables[0].Rows[0]["Equity"];
-            dt.Rows.Add(dr);
 
-            dr = dt.NewRow();
-            dr[0] = "Debt";
-            dr[1] = DScurrentAsset.Tables[0].Rows[0]["Debt"];
-            dt.Rows.Add(dr);
+                dr = dt.NewRow();
+                dr[0] = "Equity";
+                if (DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString() != "")
+                {
+                    txtCurrentEquity.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString();
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Equity"];
+                }
+                else
+                {
+                    txtCurrentEquity.Text = "0";
+                    dr[1] = "0";
+                }
+                dt.Rows.Add(dr);
 
-            dr = dt.NewRow();
-            dr[0] = "Cash";
-            dr[1] = DScurrentAsset.Tables[0].Rows[0]["Cash"];
-            dt.Rows.Add(dr);
+                dr = dt.NewRow();
+                dr[0] = "Debt";
+                if (DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString() != "")
+                {
+                    txtCurrentDebt.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString();
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Debt"];
+                }
+                else
+                {
+                    txtCurrentDebt.Text = "0";
+                    dr[1] = "0";
+                }
 
-            txtCurrentCash.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString()),2).ToString();
-            txtCurrentDebt.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString();
-            txtCurrentEquity.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString(); 
+                dt.Rows.Add(dr);
 
+                dr = dt.NewRow();
+                dr[0] = "Cash";
+                if (DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString() != "")
+                {
+                    txtCurrentCash.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString()), 2).ToString();
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Cash"];
+                }
+                else
+                {
+                    txtCurrentCash.Text = "0";
+                    dr[1] = "0";
+                }
+
+                dt.Rows.Add(dr);
+
+            }
+            else
+            {
+                dr = dt.NewRow();
+                dr[0] = "Equity";                
+                txtCurrentEquity.Text = "0";
+                dr[1] = "0";                
+                dt.Rows.Add(dr);
+
+                dr = dt.NewRow();
+                dr[0] = "Debt";                
+                txtCurrentDebt.Text = "0";
+                dr[1] = "0";              
+                dt.Rows.Add(dr);
+
+                dr = dt.NewRow();
+                dr[0] = "Cash";                
+                txtCurrentCash.Text = "0";
+                dr[1] = "0";              
+                dt.Rows.Add(dr);
+            }
 
             Series seriesAssets = new Series("sActualAsset");
             seriesAssets.ChartType = SeriesChartType.Pie;
