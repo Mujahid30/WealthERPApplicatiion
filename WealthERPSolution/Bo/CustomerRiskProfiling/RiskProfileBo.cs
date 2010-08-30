@@ -115,7 +115,7 @@ namespace BoCustomerRiskProfiling
             DSAssets = riskprofiledao.GetCustomerAssets(CustomerID);
             if (DSAssets.Tables[1].Rows.Count > 0)
             {
-                if (DSAssets.Tables[0].Columns["Cash"].ToString() != "" || DSAssets.Tables[0].Columns["Cash"].ToString() != "")
+                if (DSAssets.Tables[0].Columns["Cash"].ToString() != "" || DSAssets.Tables[1].Columns["Cash"].ToString() != "")
                 {
                     if (double.Parse(DSAssets.Tables[0].Rows[0]["Cash"].ToString()) > double.Parse(DSAssets.Tables[1].Rows[0]["Cash"].ToString()))
                     {
