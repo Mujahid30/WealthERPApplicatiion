@@ -15,23 +15,20 @@
     window.onload = function() {
         try {
             //get target base control.
-            TargetBaseControl = document.getElementById('<%= gvCustomerSMSAlerts.ClientID %>');
-            //alert(0);
-            HideColumn(7);
-            //alert(1)
+            TargetBaseControl = document.getElementById('<%= gvCustomerSMSAlerts.ClientID %>');            
+            HideColumn(7);            
         }
         catch (err) {
-            //alert(2);
+            
             TargetBaseControl = null;
         }
     }
 
     function TestCheckBox() {        
-        if (TargetBaseControl == null) {
-            //alert(4);        
+        if (TargetBaseControl == null) {                 
             return false;
         }
-        //alert(5);
+        
         //get target child control.
         var TargetChildControl = "chkCustomerSMSAlert";
         var TargetTextChildControl = "txtMobileNo";
@@ -44,16 +41,13 @@
         for (var n = 0; n < Inputs.length; ++n) {
             if (Inputs[n].type == 'checkbox' && Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 && Inputs[n].checked) {
                 if (Inputs[n + 1].type == 'text' && Inputs[n + 1].id.indexOf('txtMobileNo') != -1) {
-                    if (Inputs[n + 1].value != 0) {
-                        alert(Inputs[n + 1].value);
+                    if (Inputs[n + 1].value != 0) {                        
                         countWithMobileNumber++;
                     }
                 }
                 totalChecked++;
             }
-        }
-        
-        //alert(totalChecked);
+        }      
         if (totalChecked <= 0) {
             alert('Select at least one checkbox!');
             return false;
@@ -71,43 +65,7 @@
             }
         }
     }
-    function MobileNumberCheck() {
-        var customerwithoutmobilenumber = document.getElementById("<%= hdnCustomerIdWithoutMobileNumber.ClientID %>").value;
-        
-        var customerlist = new Array();
-        customerlist = customerwithoutmobilenumber.split(',');
-        var customerlistlength = 0;
-       
-        if (customerlist != "" && customerlist != null && customerlist != 0) {
-            for (var j = 0; j < customerlist.length; j++) {
-                if (customerlist[j] != "" && customerlist[j] != 0 && customerlist[j] != null) {                           
-                    customerlistlength++;
-                }
-            }
-        }
-        var numberofcustomerschecked = TestCheckBox();       
-        if (numberofcustomerschecked != false) {
-            if (numberofcustomerschecked >= 0) {
-                if (customerlistlength != numberofcustomerschecked) {
-                    alert(customerlistlength + ' ' + numberofcustomerschecked);
-                    var confirmation = confirm('Do you wish to add Customer Mobile number');
-                    if (confirmation == true) {
-                        ShowColumn(7);
-                        return false;
-                    }
-                    else {
-                        return false;
-                    }
-                }
-                else {
-                    return true;
-                }
-            }
-        }
-        else
-            return false;
 
-    }
     function HideColumn(columnNo) {
         var dgTest = document.getElementById("<%=gvCustomerSMSAlerts.ClientID %>");
         try {
@@ -139,6 +97,13 @@
     });
 </script>--%>
 <table width="100%">
+<tr>
+<td align="center"><div class="success-msg" id="SuccessMessage" runat="server" visible="false" align="center">
+    SMS Sent Successfully
+</div></td></tr>
+</table>
+
+<table width="100%">
     <tr>
         <td>
             <asp:Label ID="lblCustomerSMSAlerts" Text="Customer SMS Alerts" CssClass="HeaderTextSmall"
@@ -167,7 +132,7 @@
     </tr>
     <tr>
         <td>
-            <asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="300px" Width="100%" ScrollBars="Vertical"
+            <asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="400px" Width="100%" ScrollBars="Vertical"
                 Visible="false" HorizontalAlign="Left">
                 <asp:Label ID="lblNoRecords" Text="No Alert Exists" runat="server" Visible="false"
                     CssClass="FieldName"></asp:Label>
