@@ -146,6 +146,10 @@ namespace WealthERP.Customer
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView', 'none')", true);
                 }
+                else if (TreeView1.SelectedNode.Value == "MFReports")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MFReports', 'none')", true);
+                }
                 else if (TreeView1.SelectedNode.Value == "Insurance")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('ViewInsuranceDetails', 'none')", true);
