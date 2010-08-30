@@ -111,7 +111,7 @@ namespace WealthERP.Reports
             }
 
             //if (Request.Form["ctrl_MFReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$btnEMailReport"] != null)
-            if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnExportToPDF"] != null)
+            if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnExportToPDF"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerViewReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerExportToPDF"] != null)
             {
                 CurrentReportType = ReportType.MFReports;
                 if(Request.QueryString["Mail"] == "1")
@@ -1106,7 +1106,10 @@ namespace WealthERP.Reports
                     cust = customerBo.GetCustomer(Convert.ToInt32(financialPlanning.CustomerId));
                 }
                 Session["hidCC"] = txtCC.Text;
+
+                if (Session["hidTo"]!=null)
                 Session["hidTo"] = txtTo.Text = cust.Email;
+
                 Session["hidSubject"] = txtSubject.Text = GetReportSubject(subType, fromDate, toDate);
                 if (cust.Salutation == string.Empty || cust.Salutation == "")
                 {
