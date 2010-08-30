@@ -27,6 +27,7 @@
                  return false;
              }
          }
+        
          
          //Customer Check in View Report
 
@@ -44,9 +45,9 @@
                      return false;
                  }
              }
-         } 
-            
-       
+         }
+
+         
 
         //Report selection check
         if (type == 'mail') {
@@ -181,7 +182,7 @@
         }
         //**************************************************************************************************************
 
-
+        
         window.document.forms[0].target = '_blank';
 
         if (type == 'mail') {
@@ -207,6 +208,27 @@
         document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value();
         return false;
     };
+
+
+
+    //**********Customer Login MF Report Validation For ViewReport and Export To PDF Button
+    function CustomerValidate(type) {
+        if (type == 'view') {
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=3";
+        } else {
+        window.document.forms[0].target = '_blank';
+        window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
+        }
+       
+       setTimeout(function() {
+            window.document.forms[0].target = '';
+            window.document.forms[0].action = "ControlHost.aspx?pageid=MFReports";
+        }, 500);
+        return true;
+      
+      }
+
 
     //.........................................................................
     function DisplayDates(type) {
@@ -798,13 +820,25 @@
                                                             </table>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr id="trAdminRM" runat="server">
                                                         <td class="style1">
                                                             <asp:Button ID="btnViewReport" runat="server" Text="View Report" OnClientClick="return validate('')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" ValidationGroup="btnView" />&nbsp;&nbsp;
                                                         </td>
                                                         <td class="style1">
                                                             <asp:Button ID="btnExportToPDF" runat="server" Text="Export To PDF" OnClientClick="return validate('pdf')"
+                                                                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />&nbsp;&nbsp;
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    
+                                                     <tr id="trCustomer" runat="server">
+                                                        <td class="style1">
+                                                            <asp:Button ID="btnCustomerViewReport" runat="server" Text="View Report" OnClientClick="return CustomerValidate('view')"
+                                                                PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="PCGMediumButton" ValidationGroup="btnView" />&nbsp;&nbsp;
+                                                        </td>
+                                                        <td class="style1">
+                                                            <asp:Button ID="btnCustomerExportToPDF" runat="server" Text="Export To PDF" OnClientClick="return CustomerValidate('pdf')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />&nbsp;&nbsp;
                                                         </td>
                                                     </tr>

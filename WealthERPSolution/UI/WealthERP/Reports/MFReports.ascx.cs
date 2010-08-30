@@ -154,12 +154,13 @@ namespace WealthERP.Reports
                     hndCustomerLogin.Value = "true";
                     Session["hndCustomerLogin"] = hndCustomerLogin.Value;
                     tabpnlEmailReports.Visible = false;
+                    
                 }
                 else
                 {
                     hndCustomerLogin.Value = "false";
                     Session["hndCustomerLogin"] = hndCustomerLogin.Value;
- 
+                     
                 }
 
                 BindPeriodDropDown();
@@ -181,6 +182,9 @@ namespace WealthERP.Reports
 
                         trAdvisorRadioList.Visible=false;
                         trCustomerRadioList.Visible = true;
+
+                        trAdminRM.Visible = false;
+                        trCustomer.Visible = true;
                     }
                     else
                     {
@@ -190,6 +194,9 @@ namespace WealthERP.Reports
 
                         trAdvisorRadioList.Visible = true;
                         trCustomerRadioList.Visible = false;
+
+                        trAdminRM.Visible = true;
+                        trCustomer.Visible = false;
                     }
                         
 
