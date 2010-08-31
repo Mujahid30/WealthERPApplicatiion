@@ -263,11 +263,11 @@
 
   <DebtIssue>
     <DebtIssuer DebtIssuerCode="BK" DebtIssuerName="Bank" Deleted="False" />
-    <DebtIssuer DebtIssuerCode="CG" DebtIssuerName="Central Govt" Deleted="False" />
+    <DebtIssuer DebtIssuerCode="CG" DebtIssuerName="Central Govt." Deleted="False" />
     <DebtIssuer DebtIssuerCode="CO" DebtIssuerName="Company" Deleted="False" />
     <DebtIssuer DebtIssuerCode="NC" DebtIssuerName="NBFC" Deleted="False" />
     <DebtIssuer DebtIssuerCode="PS" DebtIssuerName="PSU" Deleted="False" />
-    <DebtIssuer DebtIssuerCode="SG" DebtIssuerName="State Govt" Deleted="False" />
+    <DebtIssuer DebtIssuerCode="SG" DebtIssuerName="State Govt." Deleted="False" />
   </DebtIssue>
 
   <ExtSource>
@@ -296,7 +296,7 @@
     <Frequency FrequencyCode="FN" Frequency="FortNightly" Deleted="False" />
     <Frequency FrequencyCode="HY" Frequency="HalfYearly" Deleted="False" />
     <Frequency FrequencyCode="MN" Frequency="Monthly" Deleted="False" />
-    <Frequency FrequencyCode="QT" Frequency="Quaterly" Deleted="False" />
+    <Frequency FrequencyCode="QT" Frequency="Quarterly" Deleted="False" />
     <Frequency FrequencyCode="WK" Frequency="Weekly" Deleted="False" />
     <Frequency FrequencyCode="YR" Frequency="Yearly" Deleted="False" />
     <Frequency FrequencyCode="AM" Frequency="At Maturity" Deleted="False" />

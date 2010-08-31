@@ -323,7 +323,7 @@
     <Frequency  WF_FrequencyCode="Fort" WF_Frequency="Fortnightly"/>
     <Frequency  WF_FrequencyCode="HYear" WF_Frequency="Half Yearly"/>
     <Frequency  WF_FrequencyCode="Mon" WF_Frequency="Monthly"/>
-    <Frequency  WF_FrequencyCode="Quat" WF_Frequency="Quaterly"/>  
+    <Frequency  WF_FrequencyCode="Quat" WF_Frequency="Quarterly"/>  
     <Frequency  WF_FrequencyCode="Week" WF_Frequency="Weekly"/>
     <Frequency  WF_FrequencyCode="Year" WF_Frequency="Yearly"/>
     <Frequency  WF_FrequencyCode="AtMat" WF_Frequency="At Maturity"/>
