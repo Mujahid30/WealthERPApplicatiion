@@ -219,7 +219,7 @@ namespace DaoAdvisorProfiling
                     advisorLOBVo.OrganizationName = dr["AL_OrgName"].ToString();
                     advisorLOBVo.LicenseNumber = dr["AL_LicenseNo"].ToString();
                     advisorLOBVo.AdviserId = Int32.Parse(dr["A_AdviserId"].ToString());
-                    if (dr["AL_Validity"].ToString() != string.Empty)
+                    if (dr["AL_Validity"].ToString() != string.Empty && dr["AL_Validity"].ToString() != null)
                         advisorLOBVo.ValidityDate = DateTime.Parse(dr["AL_Validity"].ToString());
                     advisorLOBVo.LOBClassificationCode = dr["XALC_LOBClassificationCode"].ToString();
                     advisorLOBVo.IdentifierTypeCode = dr["XALIT_IdentifierTypeCode"].ToString();
@@ -283,7 +283,7 @@ namespace DaoAdvisorProfiling
                     advisorLOBVo.OrganizationName = dr["AL_OrgName"].ToString();
                     advisorLOBVo.LicenseNumber = dr["AL_LicenseNo"].ToString();
                     advisorLOBVo.AdviserId = advisorId;//Int32.Parse(dr["A_AdviserId"].ToString());
-                    if(dr["AL_Validity"].ToString() != string.Empty)
+                    if (dr["AL_Validity"].ToString() != string.Empty && dr["AL_Validity"].ToString() != null)
                         advisorLOBVo.ValidityDate = DateTime.Parse(dr["AL_Validity"].ToString());
                     advisorLOBVo.LOBClassificationCode = dr["XALC_LOBClassificationCode"].ToString();
                     advisorLOBVo.IdentifierTypeCode = dr["XALIT_IdentifierTypeCode"].ToString();
