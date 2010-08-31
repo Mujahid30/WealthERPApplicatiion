@@ -2403,7 +2403,10 @@ namespace WealthERP.Advisor
             {
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.OrganizationName = txtInsOrgName.Text.ToString();
-                advisorLOBVo.ValidityDate = DateTime.Parse(txtInsAgencyExpiry.Text.ToString());
+                if (txtInsAgencyExpiry.Text != "" && txtInsAgencyExpiry.Text != string.Empty)
+                    advisorLOBVo.ValidityDate = DateTime.Parse(txtInsAgencyExpiry.Text.ToString());
+                else
+                    advisorLOBVo.ValidityDate = DateTime.MinValue;
                 advisorLOBVo.AgentNum = txtInsAgentNum.Text.ToString();
                 advisorLOBVo.Identifier = txtInsIRDANum.Text.ToString();
                 if (txtInsTargetPolicies.Text.ToString().Trim() != string.Empty)
@@ -2490,7 +2493,10 @@ namespace WealthERP.Advisor
             {
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.OrganizationName = txtPostalOrgName.Text.ToString();
-                advisorLOBVo.ValidityDate = DateTime.Parse(txtPostalAgencyExpiry.Text.ToString());
+                if (txtPostalAgencyExpiry.Text != "" && txtPostalAgencyExpiry.Text != string.Empty)
+                    advisorLOBVo.ValidityDate = DateTime.Parse(txtPostalAgencyExpiry.Text.ToString());
+                else
+                    advisorLOBVo.ValidityDate = DateTime.MinValue;
                 advisorLOBVo.AgentNum = txtPostalAgentNum.Text.ToString();
                 if (txtPostalTargetAccount.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAccount = float.Parse(txtPostalTargetAccount.Text.ToString().Trim());
@@ -2551,7 +2557,10 @@ namespace WealthERP.Advisor
             {
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.OrganizationName = txtRealEstOrgName.Text.ToString();
-                advisorLOBVo.ValidityDate = DateTime.Parse(txtRealEstAgencyExpiry.Text.ToString());
+                if (txtRealEstAgencyExpiry.Text != "" && txtRealEstAgencyExpiry.Text != string.Empty)
+                    advisorLOBVo.ValidityDate = DateTime.Parse(txtRealEstAgencyExpiry.Text.ToString());
+                else
+                    advisorLOBVo.ValidityDate = DateTime.MinValue;
                 advisorLOBVo.AgentNum = txtRealEstAgentNum.Text.ToString();
                 if (txtRealEstTargetAccount.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAccount = float.Parse(txtRealEstTargetAccount.Text.ToString().Trim());
@@ -2612,7 +2621,10 @@ namespace WealthERP.Advisor
             {
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.OrganizationName = txtFixIncOrgName.Text.ToString();
-                advisorLOBVo.ValidityDate = DateTime.Parse(txtFixIncAgencyExpiry.Text.ToString());
+                if (txtFixIncAgencyExpiry.Text != "" && txtFixIncAgencyExpiry.Text != string.Empty)
+                    advisorLOBVo.ValidityDate = DateTime.Parse(txtFixIncAgencyExpiry.Text.ToString());
+                else
+                    advisorLOBVo.ValidityDate = DateTime.MinValue;
                 advisorLOBVo.AgentNum = txtFixIncAgentNum.Text.ToString();
                 if (txtFixIncTargetAccount.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAccount = float.Parse(txtFixIncTargetAccount.Text.ToString().Trim());
@@ -2680,7 +2692,10 @@ namespace WealthERP.Advisor
 
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.OrganizationName = txtLiabOrgName.Text.ToString();
-                advisorLOBVo.ValidityDate = DateTime.Parse(txtLiabAgencyExpiry.Text.ToString());
+                if (txtLiabAgencyExpiry.Text != "" && txtLiabAgencyExpiry.Text != string.Empty)
+                    advisorLOBVo.ValidityDate = DateTime.Parse(txtLiabAgencyExpiry.Text.ToString());
+                else
+                    advisorLOBVo.ValidityDate = DateTime.MinValue;
                 advisorLOBVo.AgentNum = txtLiabAgentNum.Text.ToString();
                 if (txtLiabTargetAccount.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAccount = float.Parse(txtLiabTargetAccount.Text.ToString().Trim());
