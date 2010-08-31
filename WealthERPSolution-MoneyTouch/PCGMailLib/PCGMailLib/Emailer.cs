@@ -116,7 +116,7 @@ namespace PCGMailLib
                 imageResource.ContentId = "HDIImage";
                 htmlView.LinkedResources.Add(imageResource);
                 //Add two views to message.
-                //mail.AlternateViews.Add(plainTextView);
+                mail.AlternateViews.Add(plainTextView);
                 mail.AlternateViews.Add(htmlView);
                 //Send message
                
