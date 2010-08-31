@@ -12,6 +12,12 @@
         var id = t.id; /* ID of the main tabber DIV */
         var i = argsObj.index; /* Which tab was clicked (0 is the first tab) */
         var e = argsObj.event; /* Event object */
+        if (i == 3) {
+            document.getElementById('<%= imgBtnExport.ClientID  %>').style.visibility = 'hidden';
+        }
+        else {
+            document.getElementById('<%= imgBtnExport.ClientID  %>').style.visibility = 'visible';
+        }
 
         document.getElementById('<%= hdnSelectedTab.ClientID %>').value = i;
     }
@@ -45,9 +51,6 @@
         btn = document.getElementById('<%= btnExportExcel.ClientID %>');
         btn.click();
     }
-   
-    
-    
 </script>
 
 <table>
@@ -336,7 +339,7 @@
                 =======================================================================================================
                 --%>
                 <div class="tabbertab" runat="server" id="divRealized">
-                    <h6 class="HeaderText">
+                    <h6 class="HeaderText" >
                         Realized</h6>
                     <table>
                         <tr>
@@ -451,7 +454,7 @@
                     </table>
                 </div>
                 <div id="Div1" class="tabbertab" runat="server">
-                    <h6 class="HeaderText">
+                    <h6 class="HeaderText" >
                         Performance and Analysis</h6>
                     <table id="Table1" runat="server">
                         <tr id="trMFCode" runat="server">
