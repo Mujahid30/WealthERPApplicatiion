@@ -2590,7 +2590,7 @@ namespace DaoAlerts
 
         #endregion
 
-        public DataSet GetAdviserCustomerSMSAlerts(int adviserId)
+        public DataSet GetAdviserCustomerSMSAlerts(int adviserId, int currentpage, out int count)
         {
             
             Database db;
@@ -2602,9 +2602,12 @@ namespace DaoAlerts
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdviserSMSAlertsCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerSMSAlerts");
                 db.AddInParameter(getAdviserSMSAlertsCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.Int32, currentpage);
+                //db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.String, sortorder);
+                //db.AddInParameter(getAdviserSMSAlertsCmd, "@SortOrder", DbType.Int32, currentpage);
 
                 dsAdviserSMSAlerts = db.ExecuteDataSet(getAdviserSMSAlertsCmd);
-
+                count = Int32.Parse(dsAdviserSMSAlerts.Tables[1].Rows[0][0].ToString());
                 
             }
             catch (BaseApplicationException Ex)
