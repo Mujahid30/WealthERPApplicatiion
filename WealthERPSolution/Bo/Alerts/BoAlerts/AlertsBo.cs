@@ -1587,13 +1587,13 @@ namespace BoAlerts
         }
         #endregion
 
-        public DataSet GetAdviserCustomerSMSAlerts(int adviserId)
+        public DataSet GetAdviserCustomerSMSAlerts(int adviserId, int currentpage,  out int count)
         {
             DataSet dsAdviserCustomerSMSAlerts;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                dsAdviserCustomerSMSAlerts = alertsDao.GetAdviserCustomerSMSAlerts(adviserId);
+                dsAdviserCustomerSMSAlerts = alertsDao.GetAdviserCustomerSMSAlerts(adviserId, currentpage, out count);
             }
             catch (BaseApplicationException Ex)
             {
