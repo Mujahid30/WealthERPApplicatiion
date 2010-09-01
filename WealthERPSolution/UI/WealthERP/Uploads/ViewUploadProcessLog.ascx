@@ -98,17 +98,18 @@
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:BoundField HeaderText="Status" />
                     <asp:BoundField DataField="ADUL_ProcessId" HeaderText="Process Id" />
                     <asp:BoundField DataField="ADUL_FileName" HeaderText="Actual FileName" />
                     <asp:BoundField DataField="WUXFT_XMLFileName" HeaderText = "File Type" />
                     <asp:BoundField DataField="XUET_ExtractType" HeaderText = "Extract Type" />
                     <asp:BoundField DataField="ADUL_XMLFileName" HeaderText="XML FileName" />
-                    <asp:BoundField DataField="ADUL_StartTime" HeaderText="Start Time" SortExpression="ADUL_StartTime" />
-                    <asp:BoundField DataField="ADUL_EndTime" HeaderText="End Time" />
+                    <asp:BoundField DataField="ADUL_StartTime" HeaderText="Start Time" SortExpression="ADUL_StartTime" ItemStyle-Wrap="false" />
+                    <asp:BoundField DataField="ADUL_EndTime" HeaderText="End Time" ItemStyle-Wrap="false" />
                     <asp:BoundField DataField="ADUL_TotalNoOfRecords" HeaderText="Total No of Records" />
                     <asp:BoundField DataField="ADUL_NoOfCustomersCreated" HeaderText="No of Customers Created" />
                     <asp:BoundField DataField="ADUL_NoOfAccountsCreated" HeaderText="No of Accounts Created" />
-                    <asp:BoundField DataField="ADUL_NoOfTransactionsCreated" HeaderText="No of Transactions Created" />
+                    <asp:BoundField DataField="ADUL_NoOfTransactionsCreated" HeaderText="No of Transactions Creatked" />
                     <asp:BoundField DataField="ADUL_NoOfCustomerDuplicates" HeaderText="No of Duplicate Customers" />
                     <asp:BoundField DataField="ADUL_NoOfAccountDuplicate" HeaderText="No of Duplicate Accounts" />
                     <asp:BoundField DataField="ADUL_NoOfTransactionDuplicate" HeaderText="No of Duplicate Transactions" />
