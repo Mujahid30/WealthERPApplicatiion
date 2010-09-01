@@ -43,16 +43,7 @@ namespace WealthERP.CustomerPortfolio
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
-            if (ddlUlipPlans.SelectedIndex != 0 && ddlUlipPlans.SelectedIndex != -1)
-            {
-                LoadUlipSubPlans(ddlUlipPlans.SelectedValue.ToString().Trim());
-            }
         }
-
-        //protected override void OnPreRender(EventArgs e)
-        //{
-        //    base.OnPreRender(e);
-        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -66,24 +57,25 @@ namespace WealthERP.CustomerPortfolio
                 insuranceVo = (InsuranceVo)Session["insuranceVo"];
 
 
-                if (Session["table"] != null)
-                {
-                    if (customerAccountVo.AssetCategory.ToString().Trim() == "INMP")
-                    {
-                        this.PlaceHolder2.Controls.Clear();
-                        Table tb = (Table)Session["table"];
-                        this.PlaceHolder2.Controls.Add(tb);
-                    }
-                    else
-                    {
-                        this.PlaceHolder1.Controls.Clear();
-                        Table tb = (Table)Session["table"];
-                        this.PlaceHolder1.Controls.Add(tb);
-                    }
-                }
+                //if (Session["table"] != null)
+                //{
+                //    if (customerAccountVo.AssetCategory.ToString().Trim() == "INMP")
+                //    {
+                //        this.PlaceHolder2.Controls.Clear();
+                //        Table tb = (Table)Session["table"];
+                //        this.PlaceHolder2.Controls.Add(tb);
+                //    }
+                //    else
+                //    {
+                //        this.PlaceHolder1.Controls.Clear();
+                //        Table tb = (Table)Session["table"];
+                //        this.PlaceHolder1.Controls.Add(tb);
+                //    }
+                //}
 
                 if (!IsPostBack)
                 {
+                    Session["moneyBackEpisodeList"] = null;
                     // Check Querystring to see if its an Edit/View/Entry
                     if (Request.QueryString["action"] != null)
                         Manage = Request.QueryString["action"].ToString();
@@ -106,6 +98,24 @@ namespace WealthERP.CustomerPortfolio
                     else
                     {
                         SetControls("entry", insuranceVo, customerAccountVo, path);
+                    }
+                }
+                else
+                {
+                    if (customerAccountVo.AssetCategory.Trim() == "INUP")
+                    {
+                        if (ddlUlipPlans.SelectedIndex != 0 && ddlUlipPlans.SelectedIndex != -1)
+                        {
+                            LoadUlipSubPlans(ddlUlipPlans.SelectedValue.ToString().Trim());
+                        }
+                    }
+                    else if (customerAccountVo.AssetCategory.Trim() == "INMP")
+                    {
+                        if (txtMoneyBackEpisode.Text.Trim() != string.Empty && txtMoneyBackEpisode.Text.Trim() != "0")
+                        {
+                            Int32.TryParse(txtMoneyBackEpisode.Text.Trim(), out count);
+                            ShowMoneyBackContent(count);
+                        }
                     }
                 }
             }
@@ -424,23 +434,23 @@ namespace WealthERP.CustomerPortfolio
                             insuranceULIPVo = insuranceULIPList[i];
 
                             TextBox txtBox1 = new TextBox();
-                            txtBox1 = ((TextBox)PlaceHolder2.FindControl("txtSubPlanId" + i.ToString()));
-                            txtBox1.Text = insuranceULIPVo.WUP_ULIPSubPlaCode.ToString();
+                            txtBox1 = ((TextBox)PlaceHolder1.FindControl("txtSubPlanId" + i.ToString()));
+                            //txtBox1.Text = insuranceULIPVo.WUP_ULIPSubPlaCode.ToString();
 
                             TextBox txtBox2 = new TextBox();
-                            txtBox2 = ((TextBox)PlaceHolder2.FindControl("txtUnitsId" + i.ToString()));
+                            txtBox2 = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString()));
                             txtBox2.Text = insuranceULIPVo.CIUP_Unit.ToString();
 
                             TextBox txtBox3 = new TextBox();
-                            txtBox3 = ((TextBox)PlaceHolder2.FindControl("txtPurchasePriceId" + i.ToString()));
+                            txtBox3 = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString()));
                             txtBox3.Text = insuranceULIPVo.CIUP_PurchasePrice.ToString();
 
                             TextBox txtBox4 = new TextBox();
-                            txtBox4 = ((TextBox)PlaceHolder2.FindControl("txtPurchaseDateId" + i.ToString()));
+                            txtBox4 = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString()));
                             txtBox4.Text = insuranceULIPVo.CIUP_PurchaseDate.ToShortDateString();
 
                             TextBox txtBox5 = new TextBox();
-                            txtBox5 = ((TextBox)PlaceHolder2.FindControl("txtAllocationId" + i.ToString()));
+                            txtBox5 = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString()));
                             txtBox5.Text = insuranceULIPVo.CIUP_AllocationPer.ToString();
                         }
 
@@ -1829,9 +1839,11 @@ namespace WealthERP.CustomerPortfolio
                                     {
                                         moneyBackEpisodeVo = new MoneyBackEpisodeVo();
                                         string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
-                                        moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
+                                        if(paymentDate != string.Empty && paymentDate != null)
+                                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
                                         string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
-                                        moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
+                                        if(repaidPercent != string.Empty && repaidPercent != null)
+                                            moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
                                         moneyBackEpisodeVo.CustInsInvId = insuranceVo.CustInsInvId;
                                         moneyBackEpisodeList.Add(moneyBackEpisodeVo);
                                     }
@@ -1919,45 +1931,49 @@ namespace WealthERP.CustomerPortfolio
                 count = int.Parse(txtMoneyBackEpisode.Text);
                 ShowMoneyBackContent(count);
 
+                //Commented by MP (Not Required
+                //**********************************************************************************************************
+
                 // OnPostBack it should load the existing values
-                if (Session["moneyBackEpisodeList"] != null)
-                {
-                    moneyBackEpisodeList = (List<MoneyBackEpisodeVo>)Session["moneyBackEpisodeList"];
+                //if (Session["moneyBackEpisodeList"] != null)
+                //{
+                //    moneyBackEpisodeList = (List<MoneyBackEpisodeVo>)Session["moneyBackEpisodeList"];
 
-                    // Do a Count Check Here Too
-                    if (count < moneyBackEpisodeList.Count)
-                    {// Special Case
-                        for (int i = 0; i < count; i++)
-                        {
-                            moneyBackEpisodeVo = new MoneyBackEpisodeVo();
-                            moneyBackEpisodeVo = moneyBackEpisodeList[i];
+                //    // Do a Count Check Here Too
+                //    if (count < moneyBackEpisodeList.Count)
+                //    {// Special Case
+                //        for (int i = 0; i < count; i++)
+                //        {
+                //            moneyBackEpisodeVo = new MoneyBackEpisodeVo();
+                //            moneyBackEpisodeVo = moneyBackEpisodeList[i];
 
-                            TextBox txtBox1 = new TextBox();
-                            txtBox1 = ((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString()));
-                            txtBox1.Text = moneyBackEpisodeVo.CIMBE_RepaymentDate.ToShortDateString();
+                //            TextBox txtBox1 = new TextBox();
+                //            txtBox1 = ((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString()));
+                //            txtBox1.Text = moneyBackEpisodeVo.CIMBE_RepaymentDate.ToShortDateString();
 
-                            TextBox txtBox2 = new TextBox();
-                            txtBox2 = ((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString()));
-                            txtBox2.Text = moneyBackEpisodeVo.CIMBE_RepaidPer.ToString();
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < moneyBackEpisodeList.Count; i++)
-                        {
-                            moneyBackEpisodeVo = new MoneyBackEpisodeVo();
-                            moneyBackEpisodeVo = moneyBackEpisodeList[i];
+                //            TextBox txtBox2 = new TextBox();
+                //            txtBox2 = ((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString()));
+                //            txtBox2.Text = moneyBackEpisodeVo.CIMBE_RepaidPer.ToString();
+                //        }
+                //    }
+                //    else
+                //    {
+                //        for (int i = 0; i < moneyBackEpisodeList.Count; i++)
+                //        {
+                //            moneyBackEpisodeVo = new MoneyBackEpisodeVo();
+                //            moneyBackEpisodeVo = moneyBackEpisodeList[i];
 
-                            TextBox txtBox1 = new TextBox();
-                            txtBox1 = ((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString()));
-                            txtBox1.Text = moneyBackEpisodeVo.CIMBE_RepaymentDate.ToShortDateString();
+                //            TextBox txtBox1 = new TextBox();
+                //            txtBox1 = ((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString()));
+                //            txtBox1.Text = moneyBackEpisodeVo.CIMBE_RepaymentDate.ToShortDateString();
 
-                            TextBox txtBox2 = new TextBox();
-                            txtBox2 = ((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString()));
-                            txtBox2.Text = moneyBackEpisodeVo.CIMBE_RepaidPer.ToString();
-                        }
-                    }
-                }
+                //            TextBox txtBox2 = new TextBox();
+                //            txtBox2 = ((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString()));
+                //            txtBox2.Text = moneyBackEpisodeVo.CIMBE_RepaidPer.ToString();
+                //        }
+                //    }
+                //}
+                //***********************************************************************************************************
             }
             catch (BaseApplicationException Ex)
             {
@@ -1994,7 +2010,30 @@ namespace WealthERP.CustomerPortfolio
                     TextBox txtBox1 = new TextBox();
                     txtBox1.ID = "txtPaymentDate" + i.ToString();
                     txtBox1.CssClass = "txtField";
+                    CalendarExtender calExtender = new CalendarExtender();
+                    calExtender.ID = calExtender + i.ToString();
+                    calExtender.TargetControlID = txtBox1.ID;
+                    calExtender.Format = "dd/MM/yyyy";
+                    calExtender.OnClientDateSelectionChanged = "isFutureDate";
+                    calExtender.EnableViewState = true;
+                    TextBoxWatermarkExtender waterMarkExtender = new TextBoxWatermarkExtender();
+                    waterMarkExtender.ID = waterMarkExtender + i.ToString();
+                    waterMarkExtender.WatermarkText = "dd/mm/yyyy";
+                    waterMarkExtender.TargetControlID = txtBox1.ID;
+                    waterMarkExtender.EnableViewState = true;
+                    CompareValidator compareValidator = new CompareValidator();
+                    compareValidator.ID = compareValidator + i.ToString();
+                    compareValidator.ControlToValidate = txtBox1.ID;
+                    compareValidator.Type = ValidationDataType.Date;
+                    compareValidator.ErrorMessage = "The date format should be dd/mm/yyyyyy";
+                    compareValidator.Operator = ValidationCompareOperator.DataTypeCheck;
+                    compareValidator.CssClass = "cvPCG";
+                    compareValidator.Display = ValidatorDisplay.Dynamic;
+                    compareValidator.EnableViewState = true;
                     tc.Controls.Add(txtBox1);
+                    tc.Controls.Add(calExtender);
+                    tc.Controls.Add(waterMarkExtender);
+                    tc.Controls.Add(compareValidator);
                     tc.ColumnSpan = 2;
                     tr.Cells.Add(tc);
 
@@ -2191,6 +2230,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
+            Manage = "edit";
             EnableDisableControls("edit", customerAccountVo.AssetCategory.ToString().Trim());
         }
 
