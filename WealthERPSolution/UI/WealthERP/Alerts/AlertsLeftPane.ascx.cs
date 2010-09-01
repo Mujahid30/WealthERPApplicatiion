@@ -45,7 +45,7 @@ namespace WealthERP.Alerts
                     {
                         lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.LastName.ToString();
                     }
-
+                    TreeView1.CollapseAll();
                     lblEmailIdValue.Text = customerVo.Email.ToString();
                 }
             }
@@ -74,64 +74,132 @@ namespace WealthERP.Alerts
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-          
+
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
-              if (TreeView1.SelectedNode.Value == "Advisor Home")
+            string strNodeValue = "";
+
+            if (TreeView1.SelectedNode.Value == "Advisor Home")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
             }
-              if (TreeView1.SelectedNode.Value == "RM Home")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMDashBoard','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "Group Dashboard")
-              {
-                  Session["IsDashboard"] = "true";
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "Profile Dashboard")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "Portfolio Dashboard")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioDashboard','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "Alert Dashboard")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertNotifications','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "View Notifications")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertNotifications','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "MF Alerts")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFAlert','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "FI Alerts")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFIAlerts','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "Insurance Alerts")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerInsuranceAlerts','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "Equity Alerts")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerEQAlerts','none');", true);
-              }
-              else if (TreeView1.SelectedNode.Value == "Liabilities Dashboard")
-              {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('LiabilityView', 'none')", true);
-              }
+            if (TreeView1.SelectedNode.Value == "RM Home")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMDashBoard','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "Group Dashboard")
+            {
+                Session["IsDashboard"] = "true";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "Profile Dashboard")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "Portfolio Dashboard")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioDashboard','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "Alert Dashboard")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertNotifications','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "View Notifications")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertNotifications','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "MF Alerts")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFAlert','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "FI Alerts")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFIAlerts','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "Insurance Alerts")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerInsuranceAlerts','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "Equity Alerts")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerEQAlerts','none');", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "Liabilities Dashboard")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('LiabilityView', 'none')", true);
+            }
+            else if (TreeView1.SelectedNode.Value == "Add Liability")
+            {
+                Session["menu"] = null;
+                Session.Remove("personalVo");
+                Session.Remove("propertyVo");
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('LiabilitiesMaintenanceForm','none');", true);
+            }
+
+            // Code to Expand/Collapse the Tree View Nodes based on selections
+            if (TreeView1.SelectedNode.Parent == null)
+            {
+                foreach (TreeNode node in TreeView1.Nodes)
+                {
+                    if (node.Value != TreeView1.SelectedNode.Value)
+                        node.Collapse();
+                    else
+                        node.Expand();
+                }
+            }
+            else
+            {
+                if (TreeView1.SelectedNode.Parent.Parent != null)
+                {
+                    string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
+                    foreach (TreeNode node in TreeView1.Nodes)
+                    {
+                        if (node.Value != parentNode)
+                            node.Collapse();
+                    }
+                }
+                else
+                {
+                    if (TreeView1.SelectedNode.Parent == null)
+                    {
+                        foreach (TreeNode node in TreeView1.Nodes)
+                        {
+                            if (node.Value != TreeView1.SelectedNode.Value)
+                                node.Collapse();
+                            else
+                                node.Expand();
+                        }
+                    }
+                    else
+                    {
+                        strNodeValue = TreeView1.SelectedNode.Parent.Value;
+                        string val = TreeView1.SelectedNode.Value;
+                        foreach (TreeNode node in TreeView1.Nodes)
+                        {
+
+                            if (node.Value != strNodeValue)
+                                node.Collapse();
+                            else
+                            {
+                                foreach (TreeNode child in node.ChildNodes)
+                                {
+                                    if (child.Value != val)
+                                        child.Collapse();
+                                    else
+                                        child.Expand();
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
         }
     }
 }
