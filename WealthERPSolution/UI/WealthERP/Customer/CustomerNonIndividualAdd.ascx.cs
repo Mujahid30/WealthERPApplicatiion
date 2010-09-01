@@ -478,7 +478,8 @@ namespace WealthERP.Customer
                     customerVo.Occupation = null;
                     customerVo.Qualification = null;
                     customerVo.MarriageDate = DateTime.Parse("1990-01-01 00:00:00.000");
-                    customerBo.CreateCustomer(customerVo, customerVo.RmId,userVo.UserId,0);
+                    //customerBo.CreateCustomer(customerVo, customerVo.RmId,userVo.UserId,0);
+                    customerBo.UpdateCustomer(customerVo);
 
                     Session["Check"] = "CustomerAdd";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AddBankDetails','none');", true);

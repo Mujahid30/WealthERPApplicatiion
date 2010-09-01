@@ -423,11 +423,10 @@ namespace WealthERP.Customer
                     {
                         customerVo.Type = "NIND";
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
-                        customerVo.LastName = txtCompanyName.Text.ToString();
-                        customerVo.MiddleName = "";
-                        customerVo.FirstName = "";
+                        customerVo.LastName = txtFirstName.Text.ToString();
+                        customerVo.MiddleName = txtMiddleName.Text.ToString();
+                        customerVo.FirstName = txtLastName.Text.ToString();
                         userVo.LastName = txtCompanyName.Text.ToString();
-
                     }
                     //customerVo.CustomerId = customerBo.GenerateId();
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
