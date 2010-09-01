@@ -12,7 +12,7 @@ using System.Web.Script.Services;
 using System.Xml.Linq;
 using System.Xml;
 using System.Web.Services;
-
+using DaoUser;
 
 namespace WealthERP
 {
@@ -189,6 +189,12 @@ namespace WealthERP
         {
             ResourceManager resourceMessages = new ResourceManager("WealthERP.BreadcrumbLinks", typeof(ControlHost).Assembly);
             return resourceMessages.GetString(pageID);
+        }
+        [WebMethod]
+        public static bool CheckLoginIdAvailability(string loginId)
+        {
+            UserDao userDao = new UserDao();
+            return userDao.ChkAvailability(loginId);
         }
     //    [WebMethod]
     //    [ScriptMethod(UseHttpGet = false,
