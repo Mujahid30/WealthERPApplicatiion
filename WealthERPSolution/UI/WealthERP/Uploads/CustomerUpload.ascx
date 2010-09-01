@@ -115,6 +115,15 @@
         </td>
     </tr>
 </table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="uploadError" runat="server" class="failure-msg" align="center" visible="false">
+                    <asp:Label ID="Message_lbl" runat="server" Text="Label" Font-Bold="False"></asp:Label>
+            </div>
+        </td>
+    </tr>
+</table>
 <table class="TableBackground" style="width: 100%;">
     <tr>
         <td colspan="4" align="right" runat="server">
@@ -254,6 +263,9 @@
                 ValidationGroup="btn_Upload" ErrorMessage="Please enter number of rows" Display="Dynamic"
                 runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtNoOfRows"
+                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -270,7 +282,7 @@
     </tr>
     <tr>
        <td colspan="3" style="text-align: center">
-            <asp:Label ID="Message_lbl" CssClass="MsgInfo" runat="server" Text="Label" Font-Bold="False"></asp:Label>
+            
         </td>
     </tr>
     <tr>
