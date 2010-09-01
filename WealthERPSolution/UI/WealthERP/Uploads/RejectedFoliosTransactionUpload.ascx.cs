@@ -54,7 +54,7 @@ namespace WealthERP.Uploads
                 upperlimit = (mypager.CurrentPage * 30).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
-                string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+                string PageRecords = string.Format("{0}- {1} of ", (int.Parse(lowerlimit.ToString())+1).ToString(), (int.Parse(upperlimit.ToString())+1).ToString());
                 lblCurrentPage.Text = PageRecords;
 
                 hdnCurrentPage.Value = mypager.CurrentPage.ToString();
@@ -102,7 +102,8 @@ namespace WealthERP.Uploads
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
+            hdnRecordCount.Value = Count.ToString();
+            lblTotalRows.Text = (Count + 1).ToString();
             if (Count > 0)
                 DivPager.Style.Add("display", "visible");
 
