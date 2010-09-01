@@ -167,7 +167,7 @@ namespace WealthERP.Uploads
                         ddlRejectReason.DataTextField = "Key";
                         ddlRejectReason.DataValueField = "Value";
                         ddlRejectReason.DataBind();
-                        ddlRejectReason.Items.Insert(0, new ListItem("Select Reject Reason", "Select Reject Reason"));
+                        ddlRejectReason.Items.Insert(0, new ListItem("Select", "Select"));
                     }
 
                     if (hdnRejectReasonFilter.Value != "")
@@ -244,7 +244,7 @@ namespace WealthERP.Uploads
                     ddlProcessId.DataTextField = "Key";
                     ddlProcessId.DataValueField = "Value";
                     ddlProcessId.DataBind();
-                    ddlProcessId.Items.Insert(0, new ListItem("Select ProcessId", "Select ProcessId"));
+                    ddlProcessId.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnProcessIdFilter.Value != "")
@@ -308,7 +308,7 @@ namespace WealthERP.Uploads
                     ddlInvName.DataTextField = "Key";
                     ddlInvName.DataValueField = "Value";
                     ddlInvName.DataBind();
-                    ddlInvName.Items.Insert(0, new ListItem("Select Inv. Name", "Select Inv. Name"));
+                    ddlInvName.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnInvNameFilter.Value != "")
@@ -372,7 +372,7 @@ namespace WealthERP.Uploads
                     ddlFileName.DataTextField = "Key";
                     ddlFileName.DataValueField = "Value";
                     ddlFileName.DataBind();
-                    ddlFileName.Items.Insert(0, new ListItem("Select File Name", "Select File Name"));
+                    ddlFileName.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnFileNameFilter.Value != "")
@@ -436,7 +436,7 @@ namespace WealthERP.Uploads
                     ddlSourceType.DataTextField = "Key";
                     ddlSourceType.DataValueField = "Value";
                     ddlSourceType.DataBind();
-                    ddlSourceType.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+                    ddlSourceType.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnSourceTypeFilter.Value != "")
@@ -500,7 +500,7 @@ namespace WealthERP.Uploads
                     ddlFolioNumber.DataTextField = "Key";
                     ddlFolioNumber.DataValueField = "Value";
                     ddlFolioNumber.DataBind();
-                    ddlFolioNumber.Items.Insert(0, new ListItem("Select Folio Number", "Select Folio Number"));
+                    ddlFolioNumber.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnFolioFilter.Value != "")
@@ -564,7 +564,7 @@ namespace WealthERP.Uploads
                     ddlSchemeName.DataTextField = "Key";
                     ddlSchemeName.DataValueField = "Value";
                     ddlSchemeName.DataBind();
-                    ddlSchemeName.Items.Insert(0, new ListItem("Select Scheme Name", "Select Scheme Name"));
+                    ddlSchemeName.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnSchemeNameFilter.Value != "")
@@ -628,7 +628,7 @@ namespace WealthERP.Uploads
                     ddlTransationType.DataTextField = "Key";
                     ddlTransationType.DataValueField = "Value";
                     ddlTransationType.DataBind();
-                    ddlTransationType.Items.Insert(0, new ListItem("Select Transaction Type", "Select Transaction Type"));
+                    ddlTransationType.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnTransactionTypeFilter.Value != "")
