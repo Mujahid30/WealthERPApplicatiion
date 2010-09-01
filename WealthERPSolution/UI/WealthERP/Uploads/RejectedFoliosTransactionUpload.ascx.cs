@@ -126,7 +126,7 @@ namespace WealthERP.Uploads
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
-
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
         }
 
         protected void btnMapToCustomer_Click(object sender, EventArgs e)
