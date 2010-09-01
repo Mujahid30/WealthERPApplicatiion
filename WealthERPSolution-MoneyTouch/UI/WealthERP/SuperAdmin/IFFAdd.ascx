@@ -2,7 +2,48 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
-
+<script src="/Scripts/jquery.js" type="text/javascript"></script>
+    <style>        
+        .error
+        {
+            color: Red;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .success
+        {
+            color: Green;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        input
+        {
+            border: 1px solid #ccc;
+            color: #333333;
+            font-size: 12px;
+            margin-top: 2px;
+            padding: 3px;
+            width: 200px;
+        }
+        .left-td
+        {
+            text-align: right;
+            width: 52%;
+            padding-left:100px;
+            color:#16518A;
+            
+        }
+        .right-td
+        {
+           
+            text-align: left;
+        }
+        .spnRequiredField
+        {
+            color: #FF0033;
+            font-size: x-small;
+        }
+    </style>
 <script type="text/javascript" language="javascript">
     function checkSelection() {
         var form = document.forms[0];
@@ -34,27 +75,29 @@
             this.document.forms[0].submit();
         }
     }
-    //        function Validation() {
-    //            alert('hello');
-    //            if (document.getElementById("ddlCategory").value == 0) {
-    //                alert('Plese select value for Category')
-    //                return false;
-    //            }
-    //            return true;
-    //        }
+    function Validation() {
+
+        if (document.getElementById('hidValid').value == 0) {            
+            alert('Your Selected Login id is not available. Please choose some other Login Id');
+            return false;
+        }        
+    }
+   
+</script>
+<script type="text/javascript">
     function checkLoginId() {
         $("#hidValid").val("0");
-        if ($("#txtLoginId").val() == "") {
+        if ($("#<%=txtLoginId.ClientID %>").val() == "") {
             $("#spnLoginStatus").html("");
             return;
         }
-        $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
+        $("#spnLoginStatus").html("<img src='/Images/loader.gif' />");
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            url: "Register.aspx/CheckLoginIdAvailability",
-            data: "{ 'loginId': '" + $("#txtLoginId").val() + "' }",
+            url: "ControlHost.aspx/CheckLoginIdAvailability",
+            data: "{ 'loginId': '" + $("#<%=txtLoginId.ClientID %>").val() + "' }",
             error: function(xhr, status, error) {
                 alert("Sorry. Something went wrong!");
             },
@@ -74,21 +117,20 @@
                 }
             }
 
-        });
+        });        
     }
-    function Validation() {
-
-        if (document.getElementById('<%= ddlStatus.ClientID %>').value == 'IA') {
-            var r = confirm("You have selected Deactivation for this IFF. Are you sure you want to Deactivate this IFF!");
-            if (r == true) {
-                return true;
-            }
-            else
-                return false;
+// To validate whether the current changes have been validated or not
+    function isValid() {
+        if (document.getElementById('hidValid').value == '1') {
+            Page_ClientValidate();
+            return Page_IsValid;
+        }
+        else {
+            Page_ClientValidate();
+            return false;
         }
     }
 </script>
-
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
@@ -245,7 +287,7 @@
             <asp:Label ID="lblLoginId" Text="Login Id:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtLoginId" CssClass="txtField" runat="server" Width="175px"></asp:TextBox>
+            <asp:TextBox ID="txtLoginId" CssClass="txtField" runat="server" Width="175px" onchange="checkLoginId()"></asp:TextBox>
             <span id="Span5" class="spnRequiredField">*</span><span id="spnLoginStatus"></span>
             <asp:RequiredFieldValidator ID="LoginIdRequiredFieldValidator" runat="server" ControlToValidate="txtLoginId"
                 ErrorMessage="Login Id Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
@@ -413,7 +455,7 @@
         <td>
             &nbsp;
         </td>
-    </tr>
-    <input type="hidden" id="hidValid" />
+    </tr> 
 </table>
+   <input type="hidden" id="hidValid" />
 <asp:TextBox ID="txtActivationHidden" runat="server" Style="display: none" />
