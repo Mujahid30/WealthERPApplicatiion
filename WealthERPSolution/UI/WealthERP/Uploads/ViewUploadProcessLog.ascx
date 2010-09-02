@@ -61,7 +61,7 @@
     <tr>
        <td colspan="4">
           <div class="panel">
-             <p>View all the details for the Uploads done such as Number of Records created, Number of Records rejected etc. You can also Manage you Rejected Transactions, Rollback or Reprocess your Uploads</p>
+             <p>View all the details for the uploads done such as number of records created, number of records rejected etc. You can also manage you rejected transactions, rollback or reprocess your uploads.</p>
           </div>
        </td>
     </tr>
