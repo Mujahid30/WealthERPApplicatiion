@@ -257,12 +257,12 @@
             <cc1:TextBoxWatermarkExtender ID="txtPurchaseDate_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtPurchaseDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
-            <%--<span id="Span9" class="spnRequiredField">*</span>
+            <span id="Span9" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvPurchaseDate" ControlToValidate="txtPurchaseDate"
                 ErrorMessage="<br/>Please select a Purchase Date" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>--%>
-            <asp:CompareValidator ID="cvPurchaseDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="cvPurchaseDate" runat="server" ErrorMessage="<br/>The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtPurchaseDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="cvPurchaseDate1" runat="server" ErrorMessage="<br/>The purchase date should not be greater than current date."
