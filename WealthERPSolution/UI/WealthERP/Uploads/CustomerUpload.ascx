@@ -100,9 +100,9 @@
         <td colspan="3">
             <div class="panel">
                 <p>
-                    Using this Feature you can Upload your Client Profiles and other Financial Data
-                    (MF Transactions, Equity Transactions etc) provided by your institution or you can
-                    use our Standard Templates to do so
+                    Using this feature you can upload your client profiles and other financial data
+                    (MF Transactions, Equity Transactions etc.) provided by your institution or you can
+                    use our standard templates to do so.
                 </p>
             </div>
         </td>
