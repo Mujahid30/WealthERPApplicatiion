@@ -83,7 +83,7 @@ namespace WealthERP.Advisor
             DataRow drResult = null;
             DataRow dr = null;
             int Count = 0;
-
+            mfTotal = 0;
             try
             {
                 ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, mypager.CurrentPage);
