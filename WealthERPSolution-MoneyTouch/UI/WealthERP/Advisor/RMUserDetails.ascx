@@ -1,6 +1,21 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMUserDetails.ascx.cs"
     Inherits="WealthERP.Advisor.RMUserDetails" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+
+<script src="/Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
+
+<link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.loadme').click(function() {
+            $(".loadmediv").colorbox({ width: "240px",overlayClose:false, inline: true, open: true, href: "#LoadImage" });
+        });
+    });
+</script>
+
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
@@ -54,7 +69,8 @@
                         <HeaderTemplate>
                             <asp:Label ID="lblRMName" runat="server" Text="RM Name"></asp:Label>
                             <br />
-                            <asp:TextBox ID="txtRMNameSearch" runat="server" Text = '<%# hdnNameFilter.Value %>' CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMUserDetails_btnNameSearch');" />
+                            <asp:TextBox ID="txtRMNameSearch" runat="server" Text='<%# hdnNameFilter.Value %>'
+                                CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMUserDetails_btnNameSearch');" />
                         </HeaderTemplate>
                         <ItemTemplate>
                             <%--<asp:Label ID="lblRMNameHeader" runat="server" Text='<%# Eval("RMName").ToString() %>'></asp:Label>--%>
@@ -79,8 +95,7 @@
     </tr>
     <tr>
         <td align="center">
-            <Pager:Pager ID="mypager" runat="server">
-            </Pager:Pager>
+            <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
         </td>
     </tr>
     <tr>
@@ -91,8 +106,8 @@
     <tr>
         <td>
             <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Send Login Password"
-                CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerProofsAdd_btnSubmit', 'L');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerProofsAdd_btnSubmit', 'L');" />
+                CssClass="loadme" />
+                <div class='loadmediv'></div>
         </td>
     </tr>
 </table>
@@ -102,6 +117,24 @@
             &nbsp;
         </td>
     </tr>
+</table>
+<table align="center" style="display:none;">
+<tr><td>
+<div id='LoadImage' style="width: 231px">
+    <table align="center" border="1">
+        <tr>
+            <td style="background-color: #3D77CB; color: #FFFFFF; font-size: 100%; font-weight: bold">
+                Processing,please wait...
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="../Images/Wait.gif" />
+            </td>
+        </tr>
+    </table>
+</div>
+</td></tr>
 </table>
 <asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
     BorderStyle="None" BackColor="Transparent" />

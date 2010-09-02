@@ -378,62 +378,60 @@ namespace WealthERP.Advisor
         {
             int selectedRecords = 0;
             string statusMessage = string.Empty;
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "$.colorbox({width: '700px', overlayClose: false, inline: true, href: '#LoadImage'});", true);
             try
             {
-               
-               
-
-                    foreach (GridViewRow gvr in gvRMUsers.Rows)
+                foreach (GridViewRow gvr in gvRMUsers.Rows)
+                {
+                    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                     {
-                        if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                        selectedRecords++;
+
+                        userId = int.Parse(gvRMUsers.DataKeys[gvr.RowIndex].Value.ToString());
+
+                        Emailer emailer = new Emailer();
+                        EmailMessage email = new EmailMessage();
+
+                        userVo = userBo.GetUserDetails(userId);
+                        string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                        email.GetAdviserRMAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
+                        email.To.Add(userVo.Email);
+
+                        AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
+                        int rmId = Convert.ToInt32(ViewState["rmId"]);
+                        AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(rmId);
+                        if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
                         {
-                            selectedRecords++;
+                            emailer.isDefaultCredentials = !Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired);
 
-                            userId = int.Parse(gvRMUsers.DataKeys[gvr.RowIndex].Value.ToString());
+                            if (!String.IsNullOrEmpty(adviserStaffSMTPVo.Password))
+                                emailer.smtpPassword = Encryption.Decrypt(adviserStaffSMTPVo.Password);
+                            emailer.smtpPort = int.Parse(adviserStaffSMTPVo.Port);
+                            emailer.smtpServer = adviserStaffSMTPVo.HostServer;
+                            emailer.smtpUserName = adviserStaffSMTPVo.Email;
 
-                            Emailer emailer = new Emailer();
-                            EmailMessage email = new EmailMessage();
-
-                            userVo = userBo.GetUserDetails(userId);
-                            string userName = userVo.FirstName + " " +  userVo.MiddleName + " " + userVo.LastName;
-                            email.GetAdviserRMAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
-                            email.To.Add(userVo.Email);
-
-                            AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
-                            int rmId = Convert.ToInt32(ViewState["rmId"]);
-                            AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(rmId);
-                            if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
+                            if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
                             {
-                                emailer.isDefaultCredentials = !Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired);
-
-                                if (!String.IsNullOrEmpty(adviserStaffSMTPVo.Password))
-                                    emailer.smtpPassword = Encryption.Decrypt(adviserStaffSMTPVo.Password);
-                                emailer.smtpPort = int.Parse(adviserStaffSMTPVo.Port);
-                                emailer.smtpServer = adviserStaffSMTPVo.HostServer;
-                                emailer.smtpUserName = adviserStaffSMTPVo.Email;
-
-                                if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
-                                {
-                                    email.From = new MailAddress(emailer.smtpUserName, "MoneyTouch");
-                                }
-                            }
-                            bool isMailSent = emailer.SendMail(email);
-                            
-                            if (isMailSent)
-                            {
-                                statusMessage  += "<br/>Credentials have been sent to " + userVo.Email;
-                            }
-                            else
-                            {
-                                statusMessage  += "<br/>An error occurred while sending mail to " + userVo.Email;
-
+                                email.From = new MailAddress(emailer.smtpUserName, "MoneyTouch");
                             }
                         }
+                        bool isMailSent = emailer.SendMail(email);
+
+                        if (isMailSent)
+                        {
+                            statusMessage += "<br/>Credentials have been sent to " + userVo.Email;
+                        }
+                        else
+                        {
+                            statusMessage += "<br/>An error occurred while sending mail to " + userVo.Email;
+
+                        }
                     }
-                    if (selectedRecords == 0)
-                        statusMessage = "Please select RM to send Password";
-                    lblStatusMsg.Text = statusMessage;
-                   
+                }
+                if (selectedRecords == 0)
+                    statusMessage = "Please select RM to send Password";
+                lblStatusMsg.Text = statusMessage;
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -444,7 +442,7 @@ namespace WealthERP.Advisor
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "RMCustomerUserDetails.ascx:btnGenerate_Click()");
-               
+
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
