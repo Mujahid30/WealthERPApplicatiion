@@ -66,6 +66,17 @@ namespace WealthERP.Advisor
                     if (advisorVo.BusinessCode != null)
                         ddlBusinessType.SelectedValue = advisorVo.BusinessCode.ToString();
 
+                    if (advisorVo.Associates == 1)
+                    {
+                        rbtnAssModelTypeYes.Checked = true;
+                        rbtnAssModelTypeNo.Checked = false;
+                    }
+                    else
+                    {
+                        rbtnAssModelTypeYes.Checked = false;
+                        rbtnAssModelTypeNo.Checked = true;
+                    }
+
                     if (advisorVo.MultiBranch == 1)
                     {
                         rbtnYes.Checked = true;
@@ -447,6 +458,11 @@ namespace WealthERP.Advisor
                     {
                         advisorVo.MultiBranch = 1;
                     }
+
+                    if (rbtnAssModelTypeNo.Checked)
+                        advisorVo.Associates = 0;
+                    else
+                        advisorVo.Associates = 1;
 
                     advisorVo.OrganizationName = txtOrganizationName.Text.ToString();
                     if (txtISD1.Text == "")

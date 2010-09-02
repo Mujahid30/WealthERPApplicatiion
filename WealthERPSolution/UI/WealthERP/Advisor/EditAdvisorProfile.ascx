@@ -304,6 +304,15 @@
     </tr>
     <tr>
         <td class="leftField">
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Associate Model Type :"></asp:Label>
+        </td>
+        <td class="rightField" colspan="3">
+            <asp:RadioButton ID="rbtnAssModelTypeYes" runat="server" CssClass="txtField" Text="Yes" GroupName="grpAssModel" />
+            <asp:RadioButton ID="rbtnAssModelTypeNo" runat="server" CssClass="txtField" Text="No" GroupName="grpAssModel" />
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
             <asp:Label ID="Label19" runat="server" CssClass="FieldName" Text="Multibranch Network :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
