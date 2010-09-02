@@ -1317,6 +1317,7 @@ namespace DaoAdvisorProfiling
                         advisorVo.MobileNumber = Convert.ToInt64(dr["A_ContactPersonMobile"].ToString());
 
                     advisorVo.MultiBranch = int.Parse(dr["A_IsMultiBranch"].ToString());
+                    advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
 
                     if (dr["A_Phone1STD"] != DBNull.Value && dr["A_Phone1STD"].ToString() != string.Empty)
                         advisorVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
@@ -1408,6 +1409,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorUserCmd, "@A_ContactPersonMiddleName", DbType.String, advisorVo.ContactPersonMiddleName);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_ContactPersonLastName", DbType.String, advisorVo.ContactPersonLastName);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_IsMultiBranch", DbType.Int32, advisorVo.MultiBranch);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_IsAssociateModel", DbType.Int32, advisorVo.Associates);
                 db.AddInParameter(updateAdvisorUserCmd, "@XABT_BusinessTypeCode", DbType.String, advisorVo.BusinessCode);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_AdviserLogo", DbType.String, advisorVo.LogoPath);
                 if (db.ExecuteNonQuery(updateAdvisorUserCmd) != 0)
