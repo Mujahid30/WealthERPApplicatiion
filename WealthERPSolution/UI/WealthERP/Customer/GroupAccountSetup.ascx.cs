@@ -78,7 +78,7 @@ namespace WealthERP.Customer
                 ddlRelationship.DataValueField = "RelationshipCode";
                 ddlRelationship.DataBind();
             }
-            ddlRelationship.Items.Insert(0, new ListItem("Select Relationship", "Select Relationship"));
+            ddlRelationship.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)

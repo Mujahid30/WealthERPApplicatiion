@@ -45,7 +45,7 @@
                 TargetControlID="txtParentCustomer" WatermarkText="Type the Customer Name">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtParentCustomer_autoCompleteExtender" runat="server"
-                TargetControlID="txtParentCustomer" ServiceMethod="GetParentCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                TargetControlID="txtParentCustomer" ServiceMethod="GetParentCustomers" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                 MinimumPrefixLength="2" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
@@ -134,8 +134,8 @@
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlRelationship"
-                ValidationGroup="btnSubmit" ErrorMessage="Please select a Relationship" Operator="NotEqual"
-                ValueToCompare="Select a Relationship" CssClass="cvPCG"></asp:CompareValidator>
+                ValidationGroup="btnSubmit" ErrorMessage="Select a Relationship" Operator="NotEqual"
+                ValueToCompare="Select" CssClass="cvPCG"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
