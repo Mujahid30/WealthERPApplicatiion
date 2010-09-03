@@ -40,6 +40,7 @@ namespace WealthERP.Advisor
                     TreeView1.FindNode("Branch").ChildNodes.RemoveAt(0);
                 }
                 TreeView1.CollapseAll();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
             }
         }
 
