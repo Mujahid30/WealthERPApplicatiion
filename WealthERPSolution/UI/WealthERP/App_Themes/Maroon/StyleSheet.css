@@ -696,7 +696,7 @@ ul.tabbernav li.tabberactive a:hover
     font-weight: bold;
 } 
   
-  .success-msg, .failure-msg, .warning-msg
+  .success-msg, .failure-msg, .warning-msg,.information-msg
     {
         margin: 25px 0;        
         padding: 15px 60px;
@@ -723,6 +723,12 @@ ul.tabbernav li.tabberactive a:hover
         border: solid #E6D976 1px;
         color: #987025;
         background: #F9F2C3 url('images/alert.png') no-repeat;
+    }
+    .information-msg
+    {
+        border: solid #3460EC 1px;
+        color: #2F58E8;
+        background: #D1DFFB url('images/information.png') no-repeat;
     }
  .ExortPanelpopup
  {
