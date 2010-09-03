@@ -232,16 +232,18 @@
                                     </table>
                                 </div>
                             </div>
-                            <div runat="server" id="divMessage" class="yellow-box" visible="false" enableviewstate="false">
+                            <div runat="server" id="divMessage" class="yellow-box" visible="false" enableviewstate="false" style="width:100%">
                                 <asp:Label ID="lblEmailStatus" runat="server" Text="" EnableViewState="false" Style="font-weight: bolder;
                                     color: Green;"></asp:Label>
                             </div>
                         </td>
                     </tr>
-                    <tr id="trCustomerlist" runat="server">
+                    <tr id="trCustomerlist" runat="server" visible="false">
                     <td align="center">
                     <div runat="server" id="divCustomerlist" class="yellow-box" visible="true" enableviewstate="false">
-                                <asp:Label ID="Label1" runat="server" Text="Report not send to the following customers as E-Mail Id is not available in profile" EnableViewState="false" Style="color: Red;text-align:center"></asp:Label>
+                                <asp:Label ID="Label1" runat="server" 
+                                    Text="Report not send to the following customers as E-Mail Id is not available in profile" 
+                                    EnableViewState="False" Style="color: Red;text-align:center" Font-Bold="True"></asp:Label>
                     </div>
                     
                     </td>

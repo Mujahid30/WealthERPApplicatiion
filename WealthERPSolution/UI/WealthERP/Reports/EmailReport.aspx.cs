@@ -66,7 +66,8 @@ namespace WealthERP.Reports
                 Session["newAdvisorVo"] = Session["advisorVo"];
             if (Session["rmVo"] != null)
                 Session["newRmVo"] = Session["rmVo"];
-                                   
+
+            trCustomerlist.Visible = false;                    
             advisorVo = (AdvisorVo)Session["newAdvisorVo"];
             rmVo = (RMVo)Session["newRmVo"];
 
@@ -133,14 +134,15 @@ namespace WealthERP.Reports
                         }
 
                     }
-                    if (dtCustomerList!=null)
+                    if(dtCustomerList.Rows.Count>0)
                     {
-                        trCustomerlist.Visible=true;
+                        
+                        //lblEmailStatus.Text = lblEmailStatus.Text + "  " + " and Report not send to the following customers as E-Mail Id is not available in profile";
+                        trCustomerlist.Visible = true;
                         gvEmailCustomerList.DataSource = dtCustomerList;
                         gvEmailCustomerList.DataBind();
                     }
-                    else
-                        trCustomerlist.Visible = false;
+                   
                     isMail = "0";
 
 
@@ -319,6 +321,7 @@ namespace WealthERP.Reports
                             crmain.Subreports["AllPositionReport2"].Database.Tables[0].SetDataSource(dsMFFundSummary.Tables[1]);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("PreviousMonthDate", DateBo.GetPreviousMonthLastDate(report.FromDate).ToShortDateString());
@@ -383,6 +386,7 @@ namespace WealthERP.Reports
                             //if (!String.IsNullOrEmpty(dtDividend.Rows[0]["Name"].ToString()))
                             //crmain.SetParameterValue("CustomerName", "--");
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
@@ -404,6 +408,7 @@ namespace WealthERP.Reports
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
@@ -442,6 +447,7 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtReturnsREPortfolio);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
                             exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
@@ -460,7 +466,8 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtEligibleCapitalGainsDetails);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
+                            //crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
                             exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
@@ -477,7 +484,8 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtEligibleCapitalGainsSummary);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            //crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
@@ -816,7 +824,12 @@ namespace WealthERP.Reports
             
             strMail.Append("<br/> Please find attached " + subject + ".");
             //strMail.Append("<br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName);
-            strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo:" + rmVo.Mobile + "<br/>Ph:+" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "</i></b>");
+            if (advisorVo!=null)
+            if (!string.IsNullOrEmpty(advisorVo.Website))
+            {
+                strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: +" + advisorVo.Website);
+            }
+            strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "</i></b>");
 
             return strMail.ToString();
 
@@ -1006,8 +1019,8 @@ namespace WealthERP.Reports
                 //Add image to HTML version
                 if (Session["advisorVo"] != null)
                     logoPath = "~/Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
-                if (!File.Exists(logoPath))
-                    logoPath = "~/Images/spacer.png";
+                if (!File.Exists(Server.MapPath(logoPath)))
+                   logoPath = "~/Images/spacer.png";
                 //System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("~/Images/") + @"\3DSYRW_4009.JPG", "image/jpeg");
                 System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logoPath), "image/jpeg");
                 imageResource.ContentId = "HDIImage";
