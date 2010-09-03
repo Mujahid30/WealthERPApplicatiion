@@ -101,10 +101,7 @@ namespace DaoReports
                 db.AddInParameter(getCustomerNPListCmd, "@PortfolioIds", DbType.String, reports.PortfolioIds); //35437
                 db.AddInParameter(getCustomerNPListCmd, "@FromDate", DbType.DateTime, reports.FromDate);
                 db.AddInParameter(getCustomerNPListCmd, "@Todate", DbType.DateTime, reports.ToDate);
-                if(reports.FilterBy!="0")
-                    db.AddInParameter(getCustomerNPListCmd, "@TransType", DbType.String, reports.FilterBy);
-                else
-                    db.AddInParameter(getCustomerNPListCmd, "@TransType", DbType.String, "ALL");
+                db.AddInParameter(getCustomerNPListCmd, "@TransType", DbType.String, reports.FilterBy);
                 db.AddInParameter(getCustomerNPListCmd, "@OrderBy", DbType.String, reports.OrderBy);
 
                 //getCustomerNPListCmd = db.GetSqlStringCommand("select top 20 CMFA_AccountID,CMFT_TransactionDate,PASP_SchemePlanName from CustomerMutualfundtransaction  CustomerMutualfundtransaction inner join ProductAMCSchemePlan AS ProductAMCSchemePlan ON CustomerMutualfundtransaction.PASP_SchemePlanCode = ProductAMCSchemePlan.PASP_SchemePlanCode;");  //db.GetStoredProcCommand("SP_GetAdviser");
@@ -410,8 +407,8 @@ namespace DaoReports
                                         drCapitalGainDetails["PortfolioName"] = drPortfolioCustomer["CP_PortfolioName"].ToString();
                                     drCapitalGainDetails["PortfolioId"] = portfoliioId;
 
-                                    drCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.RealizedProfitLoss;
-
+                                    //drCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.RealizedProfitLoss;
+                                    drCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.STCGTax + mFPortfolioTransaction.LTCGTax;
                                     drCapitalGainDetails["FolioNum"] = mFPortfolioVo.Folio;
                                     drCapitalGainDetails["PASP_SchemePlanCode"] = mFPortfolioVo.MFCode;
                                     drCapitalGainDetails["PASP_SchemePlanName"] = mFPortfolioVo.SchemePlan;
@@ -501,6 +498,7 @@ namespace DaoReports
                                     drCapitalGainDetails["PortfolioId"] = portfoliioId;
 
                                     drCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.RealizedProfitLoss;
+                                   
                                     drCapitalGainDetails["Units"] = mFPortfolioTransaction.BuyQuantity;
                                     drCapitalGainDetails["RedDate"] = mFPortfolioTransaction.SellDate.ToShortDateString();
                                     drCapitalGainDetails["RedAmount"] = mFPortfolioTransaction.NetSalesProceed;
@@ -605,7 +603,8 @@ namespace DaoReports
                                         drEligibleCapitalGainDetails["PortfolioName"] = drPortfolioCustomer["CP_PortfolioName"].ToString();
                                     drEligibleCapitalGainDetails["PortfolioId"] = portfoliioId;
 
-                                    drEligibleCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.RealizedProfitLoss;
+                                    //drEligibleCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.RealizedProfitLoss;
+                                    drEligibleCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.STCGTax + mFPortfolioTransaction.LTCGTax;
                                     drEligibleCapitalGainDetails["Units"] = mFPortfolioTransaction.BuyQuantity;
                                     drEligibleCapitalGainDetails["RedDate"] = mFPortfolioTransaction.SellDate.ToShortDateString();
                                     drEligibleCapitalGainDetails["RedAmount"] = mFPortfolioTransaction.NetSalesProceed;
