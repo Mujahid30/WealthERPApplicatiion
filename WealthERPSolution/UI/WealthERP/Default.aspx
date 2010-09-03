@@ -15,6 +15,8 @@
     <script language="javascript" type="text/javascript" src="Scripts/JScript.js"></script>
 
 <script language="javascript" type="text/javascript">
+    var timerEvent = null;
+    
     function calcHeight(ifrm_id) {
         try {
             setTimeout("calc('" + ifrm_id + "')", 200);
@@ -23,7 +25,9 @@
     }
     function calc(iframe_id) {
         try {
-            var the_height = document.getElementById(iframe_id).contentWindow.document.body.scrollHeight;
+            var leftframe_height = document.getElementById('leftframe').contentWindow.document.body.scrollHeight;
+            var mainframe_height = document.getElementById('mainframe').contentWindow.document.body.scrollHeight;
+            var the_height = (leftframe_height > mainframe_height) ? leftframe_height : mainframe_height;
             if (the_height > 600) {
                 var newHeight = the_height + 20;
                 if (document.getElementById('leftframe').height != newHeight)
@@ -44,7 +48,9 @@
                         document.getElementById('splitter_bar_left').style.height = 600 + 'px';
                 }
             }
-            setTimeout("calc('" + iframe_id + "')", 1000);
+
+            if (timerEvent != null) window.clearInterval(timerEvent);
+            timerEvent = window.setTimeout("calc('" + iframe_id + "')", 1000);
         }
         catch (e) { }
     }
@@ -629,6 +635,7 @@
                                     runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
                             </td>
                             <td align="right">
+                            <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OWPyWbNsq7qPWzrss8sCH3weSSj3SjP21EhheOl4L7s2vBTlMzf"></script><br/><a style="font-family: arial; font-size: 9px" href="https://www.godaddy.com" target="_blank">Best Web Hosting</a></span>
                                 <asp:Label ID="PCGLabel" Text="2010 @ Ampsys Consulting Pvt. Ltd." runat="server"
                                     CssClass="PCGWhiteText"></asp:Label>
                             </td>
