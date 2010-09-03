@@ -54,7 +54,7 @@
             if (document.getElementById("<%= chkMFSummary.ClientID %>").checked == false &&
            document.getElementById("<%= chkPortfolioReturns.ClientID %>").checked == false &&
            document.getElementById("<%= chkPortfolioAnalytics.ClientID %>").checked == false &&
-           document.getElementById("<%= chkPortfolioReturnRE.ClientID %>").checked == false &&
+          
            document.getElementById("<%= chkEligibleCapitalgainsDetail.ClientID %>").checked == false &&
            document.getElementById("<%= chkEligibleCapitalGainsSummary.ClientID %>").checked == false &&
            document.getElementById("<%= chkDividendDetail.ClientID %>").checked == false &&
@@ -121,7 +121,7 @@
                     }
                 }
             }
-            if (document.getElementById("<%= chkMFSummary.ClientID  %>").checked == true || document.getElementById("<%= chkPortfolioReturns.ClientID  %>").checked == true || document.getElementById("<%= chkPortfolioAnalytics.ClientID  %>").checked == true || document.getElementById("<%= chkPortfolioReturnRE.ClientID  %>").checked == true || document.getElementById("<%= chkEligibleCapitalgainsDetail.ClientID  %>").checked == true || document.getElementById("<%= chkEligibleCapitalGainsSummary.ClientID  %>").checked == true) {
+            if (document.getElementById("<%= chkMFSummary.ClientID  %>").checked == true || document.getElementById("<%= chkPortfolioReturns.ClientID  %>").checked == true || document.getElementById("<%= chkPortfolioAnalytics.ClientID  %>").checked == true || document.getElementById("<%= chkEligibleCapitalgainsDetail.ClientID  %>").checked == true || document.getElementById("<%= chkEligibleCapitalGainsSummary.ClientID  %>").checked == true) {
                 dateVal = document.getElementById("<%= txtEmailAsOnDate.ClientID  %>").value;
                 if (dateVal == null || dateVal == "" || dateVal == 'dd/mm/yyyy') {
                     alert("Please select date")
@@ -263,11 +263,12 @@
             document.getElementById("<%= trAsOn.ClientID %>").style.display = 'none';
         }
         else if (type == 'AS_ON') {
-        
+            document.getElementById("<%= trAsOn.ClientID %>").style.display = 'block';
             document.getElementById("tblPickDate").style.display = 'none';
             document.getElementById("<%= trRange.ClientID %>").style.display = 'none';
             document.getElementById("<%= trPeriod.ClientID %>").style.display = 'none';
-            document.getElementById("<%= trAsOn.ClientID %>").style.display = 'block';
+           
+            
         }
         document.getElementById("<%= hidDateType.ClientID %>").value = type;
     };
@@ -334,9 +335,21 @@
 
         var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
         selectedReport = dropdown.options[dropdown.selectedIndex].value
+       
+       
         
-        
-         DisplayDates(arr[selectedReport]);
+        if (selectedReport == 'TRANSACTION_REPORT') {
+
+            document.getElementById("<%= trTranFilter1.ClientID %>").style.display = 'block';
+            document.getElementById("<%= trTranFilter2.ClientID %>").style.display = 'block';
+        }
+        else {
+            document.getElementById("<%= trTranFilter1.ClientID %>").style.display = 'none';
+            document.getElementById("<%= trTranFilter2.ClientID %>").style.display = 'none';
+
+        }
+
+        DisplayDates(arr[selectedReport]);
 
     }
 
@@ -599,7 +612,7 @@
                                                                 CssClass="rfvPCG" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator><span
                                                                     style='font-size: 9px; font-weight: normal' class='FieldName'><br />
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                    Enter few characters of Indisualcustomer name. </span>
+                                                                    Enter few characters of Individual customer name. </span>
                                                         </td>
                                                         <td runat="server">
                                                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -689,12 +702,12 @@
                                                         <td width="13%" align="right">
                                                             <asp:Label ID="Label4" runat="server" Text="Report Type:" CssClass="FieldName"></asp:Label>
                                                         </td>
-                                                        <td align="left" width="77%">
+                                                        <td align="left" width="87%">
                                                             <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">
                                                                 <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE" Selected="True"></asp:ListItem>
-                                                                <asp:ListItem Text="Portfolio Returns" Value="RETURNS_PORTFOLIO"></asp:ListItem>
-                                                                <asp:ListItem Text="Portfolio Analytics" Value="PORFOLIO_ANALYTICS"></asp:ListItem>
-                                                                <asp:ListItem Text="Portfolio Returns Realized" Value="RETURNS_PORTFOLIO_REALIZED"></asp:ListItem>
+                                                                <asp:ListItem Text="Portfolio Returns-Holding" Value="RETURNS_PORTFOLIO"></asp:ListItem>
+                                                                <asp:ListItem Text="Comprehensive Report" Value="PORFOLIO_ANALYTICS"></asp:ListItem>
+                                                                <%--<asp:ListItem Text="Portfolio Returns Realized" Value="RETURNS_PORTFOLIO_REALIZED"></asp:ListItem>--%>
                                                                 <asp:ListItem Text="Transaction Report" Value="TRANSACTION_REPORT"></asp:ListItem>
                                                                 <asp:ListItem Text="Dividend Statement" Value="DIVIDEND_STATEMENT"></asp:ListItem>
                                                                 <asp:ListItem Text="Dividend Summary" Value="DIVIDEND_SUMMARY"></asp:ListItem>
@@ -705,24 +718,31 @@
                                                             </asp:DropDownList>
                                                         </td>
                                                     </tr>
-                                                    <tr id="trTranFilter1" runat="server" style="display:none">
-                                                        <td align="right" width="13%" runat="server">
+                                                    <td colspan="2" width="100%">
+                                                    <table width="100%">
+                                                     <tr id="trTranFilter1" runat="server" style="display:none">
+                                                        <td id="Td4" align="right"  runat="server">
                                                             <asp:Label ID="lblsortby" Text="Sort by:" runat="server" CssClass="FieldName"></asp:Label>
                                                         </td>
-                                                        <td align="left" width="77%" runat="server">
+                                                        <td id="Td5" align="left"  runat="server"> 
                                                             <asp:RadioButton ID="rddate" runat="server" GroupName="Transation" Text="Date" CssClass="cmbField" /><asp:RadioButton
                                                                 ID="rdScheme" runat="server" GroupName="Transation" Text="Scheme/Folio" CssClass="cmbField" />
                                                         </td>
                                                     </tr>
                                                     <tr id="trTranFilter2" runat="server" style="display:none">
-                                                        <td align="right" width="13%" runat="server">
+                                                        <td id="Td6" align="right"  runat="server">
                                                             <asp:Label ID="lblFilterBy" Text="Filter by:" runat="server" CssClass="FieldName"></asp:Label>
                                                         </td>
-                                                        <td align="left" width="77%" runat="server">
+                                                        <td id="Td7" align="left"  runat="server" >
                                                             <asp:DropDownList ID="ddlMFTransactionType" runat="server" CssClass="cmbField">
                                                             </asp:DropDownList>
                                                         </td>
                                                     </tr>
+                                                    </table>
+                                                    </td>
+                                                    <tr>
+                                                    </tr>
+                                                   
                                                 </table>
                                             </td>
                                         </tr>
@@ -751,7 +771,7 @@
                                                                     </td>
                                                                 </tr>
                                                             </table>
-                                                            <table id="trRange" runat="server">
+                                                            <table id="trRange" runat="server" style="display:none">
                                                                 <tr runat="server">
                                                                     <td runat="server">
                                                                         <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>&nbsp;&nbsp;
@@ -957,7 +977,11 @@
                                                                                     ValidationGroup="btnEmail"></asp:RequiredFieldValidator>
                                                                             </td>
                                                                         </tr>
-                                                                       
+                                                                        <tr>
+                                                                            <td>
+                                                                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                                            </td>
+                                                                        </tr>
                                                                         <tr>
                                                                             <td width="100%">
                                                                                 <asp:CheckBox ID="chkMFSummary" runat="server" class="cmbField" 
@@ -967,19 +991,20 @@
                                                                         <tr>
                                                                             <td>
                                                                                 <asp:CheckBox ID="chkPortfolioReturns" runat="server" class="cmbField" 
-                                                                                    Text="Portfolio Level Returns" />
+                                                                                    Text="Portfolio Return-Holdoing" />
                                                                             </td>
                                                                         </tr>
-                                                                        <tr>
+                                                                        <%--<tr>
                                                                             <td>
                                                                                 <asp:CheckBox ID="chkPortfolioReturnRE" runat="server" class="cmbField" 
                                                                                     Text="Portfolio Returns - Realized" />
                                                                             </td>
-                                                                        </tr>
+                                                                        </tr>--%>
+                                                                       
                                                                          <tr>
                                                                             <td>
                                                                                  <asp:CheckBox ID="chkPortfolioAnalytics" runat="server" class="cmbField" 
-                                                                                    Text="Portfolio Analytics" />
+                                                                                    Text="Comprehensive Report" />
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -1083,7 +1108,7 @@
                                                                         <tr>
                                                                             <td width="20%">
                                                                                 <asp:CheckBox ID="chkDividendDetail" runat="server" class="cmbField" 
-                                                                                    Text="Dividend Detail" />
+                                                                                    Text="Devidend Statement" />
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -1143,11 +1168,13 @@
 <asp:HiddenField ID="hndSelfOrGroup" runat="server" />
 
 <script type="text/javascript">
+    
     if (document.getElementById("<%= rbtnPickDate.ClientID %>").checked) {
         document.getElementById("<%= rbtnPickDate.ClientID %>").style.display = 'inline';
         document.getElementById("<%= trRange.ClientID %>").style.display = 'block';
         document.getElementById("<%= trPeriod.ClientID %>").style.display = 'none';
         document.getElementById("<%= trAsOn.ClientID %>").style.display = 'none';
+        
     }
     else if (document.getElementById("<%= rbtnPickPeriod.ClientID %>").checked) {
         document.getElementById("<%= rbtnPickDate.ClientID %>").style.display = 'inline';
@@ -1156,18 +1183,20 @@
         document.getElementById("<%= trAsOn.ClientID %>").style.display = 'none';
     }
 
-    //Code to maintain the state of the customer selection textbox on postback
-    if (document.getElementById("<%= rdoGroup.ClientID %>") != null) {
-        if (document.getElementById("<%= rdoGroup.ClientID %>").checked) {
-            document.getElementById('trGroupCustomer').style.display = 'block';
-            document.getElementById('trIndCustomer').style.display = 'none';
-        }
-        else {
-            document.getElementById('trIndCustomer').style.display = 'block';
-            document.getElementById('trGroupCustomer').style.display = 'none';
-        }
-    }
-    ChangeDates();
+  
+//    //Code to maintain the state of the customer selection textbox on postback
+//    if (document.getElementById("<%= rdoGroup.ClientID %>") != null) {
+//        if (document.getElementById("<%= rdoGroup.ClientID %>").checked) {
+//            document.getElementById('trGroupCustomer').style.display = 'block';
+//            document.getElementById('trIndCustomer').style.display = 'none';
+//        }
+//       
+//        else {
+//            document.getElementById('trIndCustomer').style.display = 'block';
+//            document.getElementById('trGroupCustomer').style.display = 'none';
+//        }
+//    }
     
+    ChangeDates();
 </script>
 
