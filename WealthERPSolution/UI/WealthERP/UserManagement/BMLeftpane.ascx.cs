@@ -35,6 +35,10 @@ namespace WealthERP.UserManagement
             UserName = userVo.FirstName + userVo.LastName;
             sourcepath = Session[SessionContents.LogoPath].ToString();
             branchLogoSourcePath = Session[SessionContents.BranchLogoPath].ToString();
+            if (!IsPostBack)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('BMLeftpane');", true);
+            }
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
