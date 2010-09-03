@@ -37,6 +37,10 @@ namespace WealthERP.UserManagement
                 advisorBranchVo = advisorBranchBo.GetBranch(bmBranchId);
                 Session["advisorBranchVo"] = advisorBranchVo;
             }
+            if (!IsPostBack)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorRMBMLeftpane');", true);
+            }
 
         }
 
