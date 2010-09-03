@@ -48,6 +48,14 @@ namespace WealthERP.CustomerPortfolio
                     }
                     TreeView1.CollapseAll();
                     TreeView1.FindNode("Portfolio Dashboard").Expand();
+                    if (customerVo.UserType == "IND")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerIndividualLeftPane');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerNonIndividualLeftPane');", true);
+                    }
                 }
             }
             catch (BaseApplicationException Ex)
