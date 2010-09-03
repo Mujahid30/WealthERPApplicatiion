@@ -40,8 +40,8 @@ namespace WealthERP
             {
                 lblDate.Text = DateTime.Now.ToLongDateString();
 
-                AdvisorLogo.Visible = true;
-                BranchLogo.Visible = true;
+                AdvisorLogo.Style.Add("display", "block");
+                BranchLogo.Style.Add("display", "block");
                 
                 if (Session["userVo"] != null)
                 {
@@ -75,150 +75,150 @@ namespace WealthERP
                         BranchLogo.Src = branchLogoPath;
 
                     }
-                    if (Session["advisorVo"] != null)
-                    {
-                        //GeneralMenu.Visible = false;
-                        //AdvisorHeader.Visible = true;
-                        GeneralMenu.Style.Add("display", "none");
-                        AdvisorHeader.Style.Add("display", "block");
-                        RMHeader.Style.Add("display", "none");
-                        CustomerIndividualHeader.Style.Add("display", "none");
-                        CustomerNonIndividualHeader.Style.Add("display", "none");
-                        RMCLientHeaderIndividual.Style.Add("display", "none");
-                        RMCLientHeaderNonIndividual.Style.Add("display", "none");
-                        BMHeader.Style.Add("display", "none");
+                    //if (Session["advisorVo"] != null)
+                    //{
+                    //    //GeneralMenu.Visible = false;
+                    //    //AdvisorHeader.Visible = true;
+                    //    GeneralMenu.Style.Add("display", "none");
+                    //    AdvisorHeader.Style.Add("display", "block");
+                    //    RMHeader.Style.Add("display", "none");
+                    //    CustomerIndividualHeader.Style.Add("display", "none");
+                    //    CustomerNonIndividualHeader.Style.Add("display", "none");
+                    //    RMCLientHeaderIndividual.Style.Add("display", "none");
+                    //    RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                    //    BMHeader.Style.Add("display", "none");
 
-                    }
-                    if (Session["CustomerVo"] != null && Session["rmVo"] == null)
-                    {
-                        //GeneralMenu.Visible = false;
-                        //AdvisorHeader.Visible = true;
-                        GeneralMenu.Style.Add("display", "none");
-                        AdvisorHeader.Style.Add("display", "none");
-                        RMHeader.Style.Add("display", "none");
+                    //}
+                    //if (Session["CustomerVo"] != null && Session["rmVo"] == null)
+                    //{
+                    //    //GeneralMenu.Visible = false;
+                    //    //AdvisorHeader.Visible = true;
+                    //    GeneralMenu.Style.Add("display", "none");
+                    //    AdvisorHeader.Style.Add("display", "none");
+                    //    RMHeader.Style.Add("display", "none");
 
                         CustomerVo customerVo = new CustomerVo();
                         customerVo = (CustomerVo)(Session["CustomerVo"]);
 
-                        if (customerVo.Type == "IND")
-                        {
-                            CustomerIndividualHeader.Style.Add("display", "block");
-                            CustomerNonIndividualHeader.Style.Add("display", "none");
-                        }
-                        else if (customerVo.Type == "NIND")
-                        {
-                            CustomerIndividualHeader.Style.Add("display", "none");
-                            CustomerNonIndividualHeader.Style.Add("display", "block");
-                        }
+                    //    if (customerVo.Type == "IND")
+                    //    {
+                    //        CustomerIndividualHeader.Style.Add("display", "block");
+                    //        CustomerNonIndividualHeader.Style.Add("display", "none");
+                    //    }
+                    //    else if (customerVo.Type == "NIND")
+                    //    {
+                    //        CustomerIndividualHeader.Style.Add("display", "none");
+                    //        CustomerNonIndividualHeader.Style.Add("display", "block");
+                    //    }
 
-                        RMCLientHeaderIndividual.Style.Add("display", "none");
-                        RMCLientHeaderNonIndividual.Style.Add("display", "none");
-                        BMHeader.Style.Add("display", "none");
-                    }
-                    if (Session["rmVo"] != null)
-                    {
-                        if (Session["CustomerVo"] != null)
-                        {
-                            if (userVo.UserType != "Customer")
-                            {
-                                GeneralMenu.Style.Add("display", "none");
-                                AdvisorHeader.Style.Add("display", "none");
-                                RMHeader.Style.Add("display", "none");
-                                CustomerIndividualHeader.Style.Add("display", "none");
-                                CustomerNonIndividualHeader.Style.Add("display", "none");
-                                BMHeader.Style.Add("display", "none");
+                    //    RMCLientHeaderIndividual.Style.Add("display", "none");
+                    //    RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                    //    BMHeader.Style.Add("display", "none");
+                    //}
+                    //if (Session["rmVo"] != null)
+                    //{
+                    //    if (Session["CustomerVo"] != null)
+                    //    {
+                    //        if (userVo.UserType != "Customer")
+                    //        {
+                    //            GeneralMenu.Style.Add("display", "none");
+                    //            AdvisorHeader.Style.Add("display", "none");
+                    //            RMHeader.Style.Add("display", "none");
+                    //            CustomerIndividualHeader.Style.Add("display", "none");
+                    //            CustomerNonIndividualHeader.Style.Add("display", "none");
+                    //            BMHeader.Style.Add("display", "none");
 
-                                CustomerVo customerVo = new CustomerVo();
-                                customerVo = (CustomerVo)(Session["CustomerVo"]);
+                    //            CustomerVo customerVo = new CustomerVo();
+                    //            customerVo = (CustomerVo)(Session["CustomerVo"]);
 
-                                if (customerVo.Type == "IND")
-                                {
-                                    RMCLientHeaderIndividual.Style.Add("display", "block");
-                                    RMCLientHeaderNonIndividual.Style.Add("display", "none");
-                                }
-                                else if (customerVo.Type == "NIND")
-                                {
-                                    RMCLientHeaderIndividual.Style.Add("display", "none");
-                                    RMCLientHeaderNonIndividual.Style.Add("display", "block");
-                                }
-                            }
-                            else
-                            {
-                                GeneralMenu.Style.Add("display", "none");
-                                AdvisorHeader.Style.Add("display", "none");
-                                RMHeader.Style.Add("display", "none");
-                                RMCLientHeaderIndividual.Style.Add("display", "none");
-                                RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                    //            if (customerVo.Type == "IND")
+                    //            {
+                    //                RMCLientHeaderIndividual.Style.Add("display", "block");
+                    //                RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                    //            }
+                    //            else if (customerVo.Type == "NIND")
+                    //            {
+                    //                RMCLientHeaderIndividual.Style.Add("display", "none");
+                    //                RMCLientHeaderNonIndividual.Style.Add("display", "block");
+                    //            }
+                    //        }
+                    //        else
+                    //        {
+                    //            GeneralMenu.Style.Add("display", "none");
+                    //            AdvisorHeader.Style.Add("display", "none");
+                    //            RMHeader.Style.Add("display", "none");
+                    //            RMCLientHeaderIndividual.Style.Add("display", "none");
+                    //            RMCLientHeaderNonIndividual.Style.Add("display", "none");
                                 
-                                BMHeader.Style.Add("display", "none");
+                    //            BMHeader.Style.Add("display", "none");
 
-                                CustomerVo customerVo = new CustomerVo();
-                                customerVo = (CustomerVo)(Session["CustomerVo"]);
+                    //            CustomerVo customerVo = new CustomerVo();
+                    //            customerVo = (CustomerVo)(Session["CustomerVo"]);
 
-                                if (customerVo.Type == "IND")
-                                {
-                                    CustomerIndividualHeader.Style.Add("display", "block");
-                                    CustomerNonIndividualHeader.Style.Add("display", "none"); 
-                                }
-                                else if (customerVo.Type == "NIND")
-                                {
-                                    CustomerIndividualHeader.Style.Add("display", "none");
-                                    CustomerNonIndividualHeader.Style.Add("display", "block");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (rmVo.RMRole == "RM")
-                            {
-                                GeneralMenu.Style.Add("display", "none");
-                                AdvisorHeader.Style.Add("display", "none");
-                                RMHeader.Style.Add("display", "block");
-                                CustomerIndividualHeader.Style.Add("display", "none");
-                                CustomerNonIndividualHeader.Style.Add("display", "none");
-                                RMCLientHeaderIndividual.Style.Add("display", "none");
-                                RMCLientHeaderNonIndividual.Style.Add("display", "none");
-                                BMHeader.Style.Add("display", "none");
-                            }
-                            else if (rmVo.RMRole == "Branch Man")
-                            {
-                                GeneralMenu.Style.Add("display", "none");
-                                AdvisorHeader.Style.Add("display", "none");
-                                RMHeader.Style.Add("display", "none");
-                                CustomerIndividualHeader.Style.Add("display", "none");
-                                CustomerNonIndividualHeader.Style.Add("display", "none");
-                                RMCLientHeaderIndividual.Style.Add("display", "none");
-                                RMCLientHeaderNonIndividual.Style.Add("display", "none");
-                                BMHeader.Style.Add("display", "block");
-                            }
-                        }
-                    }
+                    //            if (customerVo.Type == "IND")
+                    //            {
+                    //                CustomerIndividualHeader.Style.Add("display", "block");
+                    //                CustomerNonIndividualHeader.Style.Add("display", "none"); 
+                    //            }
+                    //            else if (customerVo.Type == "NIND")
+                    //            {
+                    //                CustomerIndividualHeader.Style.Add("display", "none");
+                    //                CustomerNonIndividualHeader.Style.Add("display", "block");
+                    //            }
+                    //        }
+                        //}
+                        //else
+                        //{
+                        //    if (rmVo.RMRole == "RM")
+                        //    {
+                        //        GeneralMenu.Style.Add("display", "none");
+                        //        AdvisorHeader.Style.Add("display", "none");
+                        //        RMHeader.Style.Add("display", "block");
+                        //        CustomerIndividualHeader.Style.Add("display", "none");
+                        //        CustomerNonIndividualHeader.Style.Add("display", "none");
+                        //        RMCLientHeaderIndividual.Style.Add("display", "none");
+                        //        RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                        //        BMHeader.Style.Add("display", "none");
+                        //    }
+                        //    else if (rmVo.RMRole == "Branch Man")
+                        //    {
+                        //        GeneralMenu.Style.Add("display", "none");
+                        //        AdvisorHeader.Style.Add("display", "none");
+                        //        RMHeader.Style.Add("display", "none");
+                        //        CustomerIndividualHeader.Style.Add("display", "none");
+                        //        CustomerNonIndividualHeader.Style.Add("display", "none");
+                        //        RMCLientHeaderIndividual.Style.Add("display", "none");
+                        //        RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                        //        BMHeader.Style.Add("display", "block");
+                        //    }
+                        //}
+                    //}
                 }
                 else
                 {
                     // If User Sessions are empty, load the login control 
-                    GeneralMenu.Style.Add("display", "block");
-                    AdvisorHeader.Style.Add("display", "none");
-                    RMHeader.Style.Add("display", "none");
-                    CustomerIndividualHeader.Style.Add("display", "none");
-                    CustomerNonIndividualHeader.Style.Add("display", "none");
-                    RMCLientHeaderIndividual.Style.Add("display", "none");
-                    RMCLientHeaderNonIndividual.Style.Add("display", "none");
-                    BMHeader.Style.Add("display", "none");
-                    AdvisorLogo.Visible = false;
-                    BranchLogo.Visible = false;
+                    //GeneralMenu.Style.Add("display", "block");
+                    //AdvisorHeader.Style.Add("display", "none");
+                    //RMHeader.Style.Add("display", "none");
+                    //CustomerIndividualHeader.Style.Add("display", "none");
+                    //CustomerNonIndividualHeader.Style.Add("display", "none");
+                    //RMCLientHeaderIndividual.Style.Add("display", "none");
+                    //RMCLientHeaderNonIndividual.Style.Add("display", "none");
+                    //BMHeader.Style.Add("display", "none");
+                    AdvisorLogo.Style.Add("display", "none");
+                    BranchLogo.Style.Add("display", "none");
 
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loginloadcontrolfromDefault('Userlogin','','');", true);
                 }
 
                 if (AdvisorLogo.Src == "")
                 {
-                    AdvisorLogo.Visible = false;
+                    AdvisorLogo.Style.Add("display", "none");
                 }
 
                 if (BranchLogo.Src == "")
                 {
-                    BranchLogo.Visible = false;
+                    BranchLogo.Style.Add("display", "none");
                 }
             }
             catch (BaseApplicationException Ex)
@@ -281,181 +281,5 @@ namespace WealthERP
             return CustType;
         }
 
-        //protected void GeneralHeaderMenu_MenuItemClick(object sender, MenuEventArgs e)
-        //{
-        //    if (GeneralHeaderMenu.SelectedValue.ToString() == "KnowldgeCenterHome")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "AdvisorRegistration";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('AdvisorRegistration');", true);
-        //    }
-        //    else if (GeneralHeaderMenu.SelectedValue.ToString() == "Home")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "Userlogin";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('Userlogin','none');", true);
-        //    }
-        //}
-
-        //protected void AdvisorMenu_MenuItemClick(object sender, MenuEventArgs e)
-        //{
-        //    if (AdvisorMenu.SelectedValue.ToString() == "Home")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "AdvisorDashBoard";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('AdvisorDashBoard','login');", true);
-        //    }
-        //    else if (AdvisorMenu.SelectedValue.ToString() == "Profile")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "AdvisorProfile";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('AdvisorProfile','login');", true);
-        //    }
-        //    else if (AdvisorMenu.SelectedValue.ToString() == "LOB")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "ViewLOB";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('ViewLOB','login');", true);
-        //    }
-        //    else if (AdvisorMenu.SelectedValue.ToString() == "Branch")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "ViewBranches";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('ViewBranches','login');", true);
-        //    }
-        //    else if (AdvisorMenu.SelectedValue.ToString() == "RM")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "ViewRM";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('ViewRM','login');", true);
-        //    }
-        //    else if (AdvisorMenu.SelectedValue.ToString() == "Alerts")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "AdvisorDashBoard";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('AdvisorDashBoard','login');", true);
-        //    }
-        //}
-
-        //protected void CustomerMenu_MenuItemClick(object sender, MenuEventArgs e)
-        //{
-        //    CustomerVo customerVo = new CustomerVo();
-        //    customerVo = (CustomerVo)(Session["CustomerVo"]);
-        //    if (customerVo.Type == "Individual")
-        //    {
-        //        if (CustomerMenu.SelectedValue.ToString() == "Home")
-        //        {
-        //            HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //            HttpContext.Current.Session["Sessionvalue"] = "CustomerIndividualDashboard";
-        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('CustomerIndividualDashboard','login');", true);
-        //        }
-        //        else if (CustomerMenu.SelectedValue.ToString() == "Profile")
-        //        {
-        //            HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //            HttpContext.Current.Session["Sessionvalue"] = "ViewCustomerIndividualProfile";
-        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('ViewCustomerIndividualProfile','login');", true);
-        //        }
-
-        //    }
-        //    if (customerVo.Type == "Non Individual")
-        //    {
-        //        if (CustomerMenu.SelectedValue.ToString() == "Home")
-        //        {
-        //            HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //            HttpContext.Current.Session["Sessionvalue"] = "CustomerNonIndividualDashboard";
-        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('CustomerNonIndividualDashboard','login');", true);
-        //        }
-        //        else if (CustomerMenu.SelectedValue.ToString() == "Profile")
-        //        {
-        //            HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //            HttpContext.Current.Session["Sessionvalue"] = "ViewNonIndividualProfile";
-        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('ViewNonIndividualProfile','login');", true);
-        //        }
-
-        //    }
-        //}
-
-        //protected void RMMenu_MenuItemClick(object sender, MenuEventArgs e)
-        //{
-        //    if (RMMenu.SelectedValue.ToString() == "Welcome")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "RMDashBoard";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('RMDashBoard','login');", true);
-        //    }
-        //    else if (RMMenu.SelectedValue.ToString() == "Profile")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "RMProfile";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('ViewRMDetails','login');", true);
-        //    }
-        //    else if (RMMenu.SelectedValue.ToString() == "Clients")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "RMCustomer";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('RMCustomer','login');", true);
-        //    }
-        //    else if (RMMenu.SelectedValue.ToString() == "Alerts")
-        //    {
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "RMDashBoard";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('RMDashBoard','login');", true);
-        //    }
-        //}
-
-        //protected void RMCLientMenu_MenuItemClick(object sender, MenuEventArgs e)
-        //{
-        //    CustomerVo customerVo = new CustomerVo();
-        //    customerVo = (CustomerVo)(Session["CustomerVo"]);
-
-        //    if (RMCLientMenu.SelectedValue.ToString() == "Home")
-        //    {
-        //        GeneralMenu.Style.Add("display", "none");
-        //        AdvisorHeader.Style.Add("display", "none");
-        //        RMHeader.Style.Add("display", "block");
-        //        CustomerHeader.Style.Add("display", "none");
-        //        RMCLientHeader.Style.Add("display", "none");
-
-
-        //        HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //        HttpContext.Current.Session["Sessionvalue"] = "RMDashBoard";
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('RMDashBoard','login');", true);
-        //        if (Session["CustomerVo"] != null)
-        //            Session["CustomerVo"] = null;
-
-        //    }
-        //    else if (RMCLientMenu.SelectedValue.ToString() == "CustomerDashboard")
-        //    {
-        //        if (customerVo.Type == "Individual")
-        //        {
-        //            HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //            HttpContext.Current.Session["Sessionvalue"] = "RMCustomerIndividualDashboard";
-        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('RMCustomerIndividualDashboard','login');", true);
-        //        }
-        //        else if (customerVo.Type == "Non Individual")
-        //        {
-        //            HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //            HttpContext.Current.Session["Sessionvalue"] = "RMCustomerNonIndividualDashboard";
-        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('RMCustomerNonIndividualDashboard','login');", true);
-        //        }
-
-        //    }
-        //    else if (RMCLientMenu.SelectedValue.ToString() == "Profile")
-        //    {
-        //        if (customerVo.Type == "Individual")
-        //        {
-        //            HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //            HttpContext.Current.Session["Sessionvalue"] = "ViewCustomerIndividualProfile";
-        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('ViewCustomerIndividualProfile','login');", true);
-        //        }
-        //        else if (customerVo.Type == "Non Individual")
-        //        {
-        //            HttpContext.Current.Session["Sessionkey"] = "Current_PageID";
-        //            HttpContext.Current.Session["Sessionvalue"] = "ViewNonIndividualProfile";
-        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadfrommenu('ViewNonIndividualProfile','login');", true);
-        //        }
-
-        //    }
-        //}
     }
 }
