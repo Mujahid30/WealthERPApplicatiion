@@ -2151,7 +2151,55 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        /// <summary>
+        ///  Get RM Group Customers for Grouping
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
+        public DataTable GetParentCustomers(string prefixText, int rmId)
+        {
 
+            Database db;
+            DbCommand cmdGetCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetParentCustomers");
+                db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetCustomerNames, "@AR_RMId", DbType.Int32, rmId);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetParentCustomerName()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
         /// <summary>
         /// Get RM Individual Customer Names
        /// </summary>
