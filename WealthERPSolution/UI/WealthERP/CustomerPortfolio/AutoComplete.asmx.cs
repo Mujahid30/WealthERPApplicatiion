@@ -116,7 +116,35 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
 
+        /// <summary>
+        /// Get RM Group Customer Names 
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="count"></param>
+        /// <param name="contextKey"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string[] GetParentCustomers(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtCustomerName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
 
+            dtCustomerName = customerBo.GetParentCustomers(prefixText, int.Parse(contextKey));
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtCustomerName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
+                names.Add(item);
+
+                //customerNameList[i] = dr["C_FirstName"].ToString() + "|" + dr["C_PANNum"].ToString();
+                //i++;
+            }
+            return names.ToArray();
+        }
         /// <summary>
         /// Get RM Individual Customer Names
         /// </summary>
