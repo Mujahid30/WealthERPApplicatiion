@@ -2733,6 +2733,7 @@
     <Content Include="Images\MenuSeparator.jpg" />
     <Content Include="Images\Portfolios.jpg" />
     <Content Include="Images\Print.gif" />
+    <Content Include="Images\QuestionImage\QM1006.jpg" />
     <Content Include="Images\redStatus.png" />
     <Content Include="Images\ScreenInfo.png" />
     <Content Include="Images\spacer.png" />
@@ -3537,8 +3538,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Email\" />
-    <Folder Include="Images\QuestionImage\" />
     <Folder Include="MarketDataDownloadFiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
