@@ -50,6 +50,7 @@
         }
     }
 </script>
+
 <table width="100%" class="TableBackground">
 <tr>
          <td class="HeaderCell">
@@ -67,7 +68,15 @@
     </tr>
 </table>
 
-
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="divError" runat="server" class="information-msg" align="center" visible="false">
+                    <asp:Label ID="lblError" runat="server"></asp:Label>
+            </div>
+        </td>
+    </tr>
+</table>
 <table style="width: 100%;" class="TableBackground">
     <tr>
         <td class="leftField">
@@ -138,11 +147,7 @@
             &nbsp;
         </td>
     </tr>
-    <tr id="trError" runat="server" visible="false">
-        <td class="Message">
-            <asp:Label ID="lblError" CssClass="Error" runat="server"></asp:Label>
-        </td>
-    </tr>
+   
 </table>
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
