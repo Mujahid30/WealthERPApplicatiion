@@ -52,7 +52,7 @@ namespace WealthERP.Advisor
             dsGetRiskProfileQuestion = riskprofilebo.GetRiskProfileQuestion();
             totalquestion = dsGetRiskProfileQuestion.Tables[0].Rows.Count;
             int optioncounttemp = 1;
-            
+            hidGoalCount.Value = null;
             //PlaceHolder1.Controls.Add(new LiteralControl("<table>"));
             for (int i = 0; i < totalquestion; i++)
             {
@@ -710,13 +710,14 @@ namespace WealthERP.Advisor
                             LoadAssetAllocation(riskCode);
                         }
 
-
+                        trRiskProfilingParagraph.Visible = true;
 
                         if (lblRClass.Text == "Aggressive")
                         {
 
                             lblRClass.BackColor = System.Drawing.Color.Green;
                             lblRScore.ForeColor = System.Drawing.Color.Green;
+                            lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
                         }
                         else if (lblRClass.Text == "Moderate")
                         {
@@ -724,14 +725,16 @@ namespace WealthERP.Advisor
 
                             lblRClass.BackColor = System.Drawing.Color.Yellow;
                             lblRScore.ForeColor = System.Drawing.Color.Yellow;
+                            lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                         }
                         else if (lblRClass.Text == "Conservative")
                         {
                             lblRClass.BackColor = System.Drawing.Color.Red;
                             lblRScore.ForeColor = System.Drawing.Color.Red;
+                            lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
                         }
 
-
+                       
                         //SetAdjustment();
 
                         Session["FP_UserName"] = txtPickCustomer.Text;
