@@ -484,7 +484,7 @@ namespace BoCustomerGoalProfiling
             try
             {
                 dsGetCustomerRTDetails = RTDetails.GetCustomerRTDetails(CustomerID);
-                if (dsGetCustomerRTDetails.Tables[0].Rows.Count > 1)
+                if (dsGetCustomerRTDetails.Tables[0].Rows.Count > 0)
                 {
                     string StrRT1 = "We have done an extensive analysis of your" +
                     " retirement goal needs and savings required per month to meet those " +
@@ -516,8 +516,8 @@ namespace BoCustomerGoalProfiling
 
                     GoalDescription = StrRT1 + StrRT2 + StrRT4;
                 }
-
-                GoalDescription = "";
+                else
+                 GoalDescription = "";
             }
             catch (BaseApplicationException Ex)
             {
@@ -611,6 +611,7 @@ namespace BoCustomerGoalProfiling
 
                     GoalDescription = strMain + strChildEducation + strChildMarriage + strHome + strOther + strTotal;
                 }
+                else
                 GoalDescription = "";
             }
             catch (BaseApplicationException Ex)
