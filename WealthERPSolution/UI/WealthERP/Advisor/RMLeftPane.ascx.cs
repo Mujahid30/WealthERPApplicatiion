@@ -44,6 +44,7 @@ namespace WealthERP.Advisor
                         TreeView1.Nodes.RemoveAt(0);
                     }
                     TreeView1.CollapseAll();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMLeftPane');", true);
                 }
                 
                 sourcepath = Session[SessionContents.LogoPath].ToString();
