@@ -110,6 +110,8 @@ namespace WealthERP.Advisor
                         Tab2ControlVisibility(0);
                         lblHeaderOutPut.Text = "No Records Found";
                         TabContainer1.ActiveTabIndex = 0;
+                        trRTParaGraph.Visible = false;
+                        trOtherGoalParagraph.Visible = false;
 
                     }
                     else
@@ -159,81 +161,7 @@ namespace WealthERP.Advisor
                                     trOtherGoalParagraph.Visible = false;
                                 }
 
-                   /* comment
-                    //if (gvRT == 0 && gvOUT == 0)
-                    //{
-                    //    trNoteStar.Visible = true;
-                    //    //There is no goal exist for this customer.
-                    //    TabContainer1.ActiveTabIndex = 0;
-                    //    //Set the customer Name From session
-                    //    //txtPickCustomer.Text = Session["FP_UserName"].ToString();
-                    //    //txtCustomerId.Value = Session["FP_UserID"].ToString();
-                    //    //SessionBo.CheckSession();
-                    //    //for RM wish to change the picked customer..in Pickcustomer textbox 
-                    //    //rmVo = (RMVo)Session[SessionContents.RmVo];
-                    //    //txtPickCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-
-                    //    //txtPickCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
-
-                    //    //Manually assigning the parent customer ID to the hidden field,so that the 
-                    //    //txtCustomerId_ValueChanged will fire... and this will be take care of Tab2.. 
-                    //    //txtCustomerId.Value = Session["CustomerID"].ToString();
-
-
-                    //    //InitialPageLoadState();
-                    //    ddlGoalType.Enabled = true;
-                    //    gvGoalOutPut.Visible = false;
-                    //    //double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
-                    //    //txtExpRateOfReturn.Text = ExpROI.ToString();
-                    //    //txtCurrentInvestPurpose.Text = "0";
-                    //    //txtAboveRateOfInterst.Text = "0";
-                    //    //BindGoalObjTypeDropDown();
-
-                    //    //tab2 show.
-
-                    //}
-                    //else 
-                    //{
-                    //    trNoteStar.Visible = false;
-                    //    //txtPickCustomer.Text = Session["FP_UserName"].ToString();
-                    //    //txtCustomerId.Value = Session["FP_UserID"].ToString();
-                    //    //SessionBo.CheckSession();
-                    //    //rmVo = (RMVo)Session[SessionContents.RmVo];
-                    //    //txtPickCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    //    //txtPickCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
-                    //    //if gvRT OR gvOUT having any goal data then go to Tab2 and show the details
-                    //    //InitialPageLoadState();
-                    //    //double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
-                    //    //txtExpRateOfReturn.Text = ExpROI.ToString();
-                    //    //txtCurrentInvestPurpose.Text = "0";
-                    //    //txtAboveRateOfInterst.Text = "0";
-                    //    //BindGoalObjTypeDropDown();
-                    //    ddlGoalType.Enabled = true;
-
-                        
-                    //    Tab2ControlVisibility(1);
-
-                    //    if (gvOUT != 0)
-                    //    {
-                    //        this.BindGoalOutputGridView(1);
-                    //    }
-                    //    else
-                    //        gvGoalOutPut.Visible = false;
-                        
-                    //    if (gvRT == 1)
-                    //    {
-                    //        gvRetirement.Visible = true;
-                    //        lblTotalText.Visible = true;
-                    //        lblTotalText.Text = "Total Saving Required Per Month=RS."+hidRTSaveReq.Value;
-                           
-                    //    }
-                    //    TabContainer1.ActiveTabIndex = 1;
-                        
-                    //}
-                    */
-
-
-
+                 
 
  
                 }
@@ -304,6 +232,8 @@ namespace WealthERP.Advisor
             Tab2ControlVisibility(0);
             lblHeaderOutPut.Text = "No Records Found";
             TabContainer1.ActiveTabIndex = 0;
+            trRTParaGraph.Visible = false;
+            trOtherGoalParagraph.Visible = false;
 
         }
         else
@@ -314,7 +244,8 @@ namespace WealthERP.Advisor
                 Tab2ControlVisibility(1);
                 this.BindGoalOutputGridView(1);
                 TabContainer1.ActiveTabIndex = 1;
-
+                trRTParaGraph.Visible = true;
+                trOtherGoalParagraph.Visible = true;
             }
             //this.BindGoalOutputGridView(1);
             else
@@ -329,8 +260,10 @@ namespace WealthERP.Advisor
 
                     hidRTSaveReq.Value = string.Empty;
                     this.BindGoalOutputGridView(1);
+                    trRTParaGraph.Visible = false;
+                    trOtherGoalParagraph.Visible = true;
                     TabContainer1.ActiveTabIndex = 1;
-
+                   
                     //gvRetirement.Visible = true;
                     //lblTotalText.Visible = true;
                     //lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
@@ -344,6 +277,8 @@ namespace WealthERP.Advisor
                         gvRetirement.Visible = true;
                         lblTotalText.Visible = true;
                         lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
+                        trRTParaGraph.Visible = true;
+                        trOtherGoalParagraph.Visible = false;
                         TabContainer1.ActiveTabIndex = 1;
 
                     }
@@ -434,14 +369,14 @@ namespace WealthERP.Advisor
         //lblReqNote.Visible = false;
         trRequiedNote.Visible = false;
         lblHeader.Text = "Goal Details";
-        
-        
+
+
         switch (goalProfileSetupVo.Goalcode)
         {
             case "BH":
                 lblGoalCostToday.Text = "Home Cost Today :";
                 lblGoalYear.Text = "Goal Year :";
-                
+
                 //lblGoalDescription.Visible = false;
                 //txtGoalDescription.Visible = false;
                 trGoalDesc.Visible = false;
@@ -478,7 +413,7 @@ namespace WealthERP.Advisor
                     //chkApprove.Visible = true;
                     trchkApprove.Visible = true;
                     chkApprove.Enabled = false;
-                   
+
                 }
                 break;
             case "ED":
@@ -523,7 +458,7 @@ namespace WealthERP.Advisor
                     //chkApprove.Visible = true;
                     trchkApprove.Visible = true;
                     chkApprove.Enabled = false;
-                    
+
                 }
                 break;
             case "MR":
@@ -569,7 +504,7 @@ namespace WealthERP.Advisor
                     //chkApprove.Visible = true;
                     trchkApprove.Visible = true;
                     chkApprove.Enabled = false;
-                    
+
                 }
                 break;
             case "OT":
@@ -614,7 +549,7 @@ namespace WealthERP.Advisor
                     //chkApprove.Visible = true;
                     trchkApprove.Visible = true;
                     chkApprove.Enabled = false;
-                   
+
                 }
                 break;
             case "RT":
@@ -657,80 +592,15 @@ namespace WealthERP.Advisor
                     //chkApprove.Visible = true;
                     trchkApprove.Visible = true;
                     chkApprove.Enabled = false;
-                   
+
                 }
                 break;
-             default:
+            default:
                 break;
         }
-       
-      
-        //ddlGoalType.Text = goalProfileSetupVo.Goalcode;
-        //txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;
-        //txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToString();
-        //ListItem lstPickChild = new ListItem(goalProfileSetupVo.ChildName);
-        //ddlPickChild.Items.Add(lstPickChild);
-        
-        //txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
-        //txtGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
-        //txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
-        //txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
-        //txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
-        
-        //txtComment.Text = goalProfileSetupVo.Comments;
 
-        //txtROIFutureInvest.Text = goalProfileSetupVo.RateofInterestOnFture.ToString();
-        
- 
     }
-  /*  protected void TabContainer1_ActiveTabChanged(object sender, EventArgs e)
-    {
-
-        try
-        {
-            if (TabContainer1.ActiveTabIndex == 0)
-            {
-                //rmVo = (RMVo)Session[SessionContents.RmVo];
-                //txtPickCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                //lblGoalDescription.Visible = false;
-                //txtGoalDescription.Visible = false;
-                //lblROIFutureInvest.Visible = false;
-                //txtROIFutureInvest.Visible = false;
-                //RequiredFieldValidator6.Visible = false;
-                //ddlPickChild.Visible = false;
-                //lblPickChild.Visible = false;
-                //txtGoalDate.Text = DateTime.Now.ToShortDateString();
-                //BindGoalObjTypeDropDown();
-
-
-            }
-            if (TabContainer1.ActiveTabIndex == 1)
-            {
-                //SetPageLoadState();
-                
-
-            }
-        }
-
-        catch (BaseApplicationException Ex)
-        {
-            throw Ex;
-        }
-        catch (Exception Ex)
-        {
-            BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-            NameValueCollection FunctionInfo = new NameValueCollection();
-            FunctionInfo.Add("Method", "AddCustomerFinancialPlanningGoalSetup.ascx:TCGoalProfile_ActiveTabChanged()");
-            object[] objects = new object[1];
-            objects[0] = sender;
-            FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-            exBase.AdditionalInformation = FunctionInfo;
-            ExceptionManager.Publish(exBase);
-            throw exBase;
-        }
-
-    }*/
-
+        
     protected void clearAll()
     {
 
@@ -745,23 +615,11 @@ namespace WealthERP.Advisor
                     lblGoalCostToday.Text = "Home Cost Today :";
                     lblGoalYear.Text = "Goal Year :";
 
-                    //lblPickChild.Visible = true;
-                    //ddlPickChild.Visible = false;
-                 
-
-                    //lblGoalDescription.Visible = false;
-                    //txtGoalDescription.Visible = false;
+                    
                     trGoalDesc.Visible = false;
 
-                    //lblROIFutureInvest.Visible = false;
-                    //txtROIFutureInvest.Visible = false;
-                    //RequiredFieldValidator6.Visible = false;
-                    //SpanROIFutureInvest.Visible = false;
-                    //RangeValidator2.Visible = false;
                     trROIFutureInvestment.Visible = false;
 
-                    //lblPickChild.Visible = false;
-                    //ddlPickChild.Visible = false;
                     trPickChild.Visible = false;
 
                     //default  current investment and Rate of return of above to 0
@@ -774,19 +632,13 @@ namespace WealthERP.Advisor
                     lblGoalCostToday.Text = "Education Cost Today :";
                     lblGoalYear.Text = "Goal Year :";
 
-                    //lblPickChild.Visible = true;
-                    //ddlPickChild.Visible = true;
+                   
                     trPickChild.Visible = true;
 
-                    //txtGoalDescription.Visible = false;
-                    //lblGoalDescription.Visible = false;
+                   
                     trGoalDesc.Visible = false;
 
-                    //lblROIFutureInvest.Visible = false;
-                    //txtROIFutureInvest.Visible = false;
-                    //RequiredFieldValidator6.Visible = false;
-                    //SpanROIFutureInvest.Visible = false;
-                    //RangeValidator2.Visible = false;
+                
                     trROIFutureInvestment.Visible = false;
 
                     //default  current investment and Rate of return of above to 0
@@ -801,42 +653,29 @@ namespace WealthERP.Advisor
                     lblGoalCostToday.Text = "Mariage Cost Today:";
                     lblGoalYear.Text = "Goal Year :";
 
-                    //lblPickChild.Visible = true;
-                    //ddlPickChild.Visible = true;
+                  
                     trPickChild.Visible = true;
 
-                    //txtGoalDescription.Visible = false;
-                    //lblGoalDescription.Visible = false;
+                    
                     trGoalDesc.Visible = false;
 
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
                     txtAboveRateOfInterst.Text = "0";
 
-                    //lblROIFutureInvest.Visible = false;
-                    //txtROIFutureInvest.Visible = false;
-                    //RequiredFieldValidator6.Visible = false;
-                    //SpanROIFutureInvest.Visible = false;
-                    //RangeValidator2.Visible = false;
+                   
                     trROIFutureInvestment.Visible = false;
 
                     BindPickChildDropDown(ParentCustomerId);
                     TabContainer1.ActiveTabIndex = 0;
                     break;
                 case "RT":
-                    //ddlPickChild.Visible = false;
-                    //lblPickChild.Visible = false;
+                  
                     trPickChild.Visible = false;
 
-                    //txtGoalDescription.Visible = false;
-                    //lblGoalDescription.Visible = false;
+                 
                     trGoalDesc.Visible = false;
 
-                    //lblROIFutureInvest.Visible = true;
-                    //txtROIFutureInvest.Visible = true;
-                    //SpanROIFutureInvest.Visible = true;
-                    //RangeValidator2.Visible = true;
-                    //RequiredFieldValidator6.Visible = true;
                     trROIFutureInvestment.Visible = true;
 
                     lblGoalYear.Text = "Goal Year :";
@@ -847,12 +686,10 @@ namespace WealthERP.Advisor
                     TabContainer1.ActiveTabIndex = 0;
                     break;
                 case "OT":
-                    //ddlPickChild.Visible = false;
-                    //lblPickChild.Visible = false;
+                    
                     trPickChild.Visible = false;
 
-                    //txtGoalDescription.Visible = true;
-                    //lblGoalDescription.Visible = true;
+                   
                     trGoalDesc.Visible = true;
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
@@ -860,11 +697,6 @@ namespace WealthERP.Advisor
                     lblGoalCostToday.Text = "Goal Cost Today :";
                     lblGoalYear.Text = "Goal Year :";
 
-                    //lblROIFutureInvest.Visible = false;
-                    //txtROIFutureInvest.Visible = false;
-                    //RequiredFieldValidator6.Visible = false;
-                    //SpanROIFutureInvest.Visible = false;
-                    //RangeValidator2.Visible = false;
                     trROIFutureInvestment.Visible = false;
 
                     TabContainer1.ActiveTabIndex = 0;
@@ -890,38 +722,7 @@ namespace WealthERP.Advisor
 
         }
 
-        //protected void txtPickCustomer_TextChanged(object sender, EventArgs e)
-        //{
-
-        //    //CustomerBo customerBo = new CustomerBo();
-        //    //if (txtCustomerId.Value != string.Empty)
-        //    //{
-        //    //    DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
-        //    //    DataRow dr = dt.Rows[0];
-
-        //    //    txtPanParent.Text = dr["C_PANNum"].ToString();
-        //    //    txtAddress.Text = dr["C_Adr1Line1"].ToString();
-
-        //    //    trCustomerDetails.Visible = true;
-        //    //}
-        //    //int ExpROI;
-        //    //ExpROI=GoalSetupBo.GetExpectedROI(ParentcustomerID);
-        //    ////txtExpRateOfReturn.Text = Convert.ToString(ExpROI);
-        //    //Session["ROI"] = Convert.ToString(ExpROI);
-        //    //int ExpROI;
-
-        //    //if (txtCustomerId.Value != string.Empty)
-        //    //{
-        //    //    ParentcustomerID = int.Parse(txtCustomerId.Value);
-        //    //    ExpROI = GoalSetupBo.GetExpectedROI(ParentcustomerID);
-        //    //    txtExpRateOfReturn.Text = ExpROI.ToString();
-        //    //    txtCurrentInvestPurpose.Text = "0";
-        //    //    txtAboveRateOfInterst.Text = "0";
-        //    //    BindGoalObjTypeDropDown();
-        //    //}
-
-
-        //}
+        
     
 
        
@@ -1193,7 +994,7 @@ namespace WealthERP.Advisor
         {
             double hidvalue=0;
             string GoalDescription = "";
-         //use same seeion name what ever used in risk profilling..
+         //use same session name what ever used in risk profilling..
             DataSet dsRTGoal = (DataSet)GoalSetupBo.GetCustomerRTDetails(int.Parse((string)Session["FP_UserID"]));
             if (dsRTGoal != null && dsRTGoal.Tables.Count > 0 && dsRTGoal.Tables[0].Rows.Count > 0)
             {
@@ -1226,33 +1027,29 @@ namespace WealthERP.Advisor
             lblPickChild.Text = "Select a child for Goal planning :";
             lblGoalCostToday.Text = "Goal Cost Today :";
             ddlGoalType.SelectedIndex = 0;
-            //txtGoalDescription.Visible = false;
-            //lblGoalDescription.Visible = false;
+           
             trGoalDesc.Visible = false;
             txtGoalDate.Text = DateTime.Now.ToShortDateString();
-            //ddlPickChild.Visible = false;
-            //lblPickChild.Visible = false;
+           
             trPickChild.Visible = false;
             txtGoalCostToday.Text = "";
             ddlGoalYear.SelectedIndex = 0;
             txtCurrentInvestPurpose.Text = "0";
             txtAboveRateOfInterst.Text = "0";
-            //lblROIFutureInvest.Visible = false;
-            //SpanROIFutureInvest.Visible = false;
-            //txtROIFutureInvest.Visible = false; 
+            
             trROIFutureInvestment.Visible = false;
             txtComment.Text = "";
             double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse((string)Session["FP_UserID"]));
             txtExpRateOfReturn.Text = ExpROI.ToString();
 
             chkApprove.Checked = false;
-            //lblApproveOn.Visible = false;
+            
             trlblApproveOn.Visible = false;
-            //chkApprove.Visible = true;
+           
             trchkApprove.Visible = true;
             lblHeader.Visible = true;
             lblNote.Visible = true;
-            //lblReqNote.Visible = true;
+         
             trRequiedNote.Visible = true;
            
             
@@ -1261,22 +1058,17 @@ namespace WealthERP.Advisor
         else
         {
             ddlGoalType.SelectedIndex = 0;
-            //txtGoalDescription.Visible = false;
-            //lblGoalDescription.Visible = false;
+           
             trGoalDesc.Visible = false;
             txtGoalDate.Text = DateTime.Now.ToShortDateString();
-            //ddlPickChild.Visible = false;
-            //lblPickChild.Visible = false;
+          
             trPickChild.Visible = false;
             txtGoalCostToday.Text = "";
             lblGoalCostToday.Text = "Goal Cost Today :";
             ddlGoalYear.SelectedIndex = 0;
             txtCurrentInvestPurpose.Text = "0";
             txtAboveRateOfInterst.Text = "0";
-            //lblROIFutureInvest.Visible = false;
-            //txtROIFutureInvest.Visible = false;
-            //SpanROIFutureInvest.Visible = false;
-            //RequiredFieldValidator6.Visible = false;
+           
             trROIFutureInvestment.Visible = false;
 
             txtROIFutureInvest.Text = "";
@@ -1414,10 +1206,7 @@ namespace WealthERP.Advisor
 
     }
 
-    //protected void btnBack_Click(object sender, EventArgs e)
-    //{
-    //    TabContainer1.ActiveTabIndex = 0;
-    //}
+    
 
     protected void btnNext_Click(object sender, EventArgs e)
     {

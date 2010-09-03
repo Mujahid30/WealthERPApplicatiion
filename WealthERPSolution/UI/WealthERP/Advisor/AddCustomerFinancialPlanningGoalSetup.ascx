@@ -724,7 +724,7 @@ function validate() {
                         </asp:GridView>
                     </td>
                 </tr>
-                <tr id="trOtherGoalParagraph" runat="server">
+                <tr id="trOtherGoalParagraph" runat="server" >
                     <td width="100%">
                     
                     <div id="divOtherGoal" style="width: 100%;height: 100%; border: Solid 1px #EBEFF9 !important; border-color: #EBEFF9 !important" >
@@ -809,7 +809,7 @@ function validate() {
                         </asp:GridView>
                     </td>
                 </tr>
-                <tr id="trRTParaGraph" runat="server">
+                <tr id="trRTParaGraph" runat="server" >
                 <td width="100%" style="width: 100%;height: 100%; border-width:medium !important; border-color:Blue !important">
                 <br />
                 <asp:Label ID="lblRTParagraph" runat="server" CssClass="GridViewCmbField" style="font-size:20 !important" Text="";>
