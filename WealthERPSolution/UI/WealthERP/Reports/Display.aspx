@@ -100,12 +100,12 @@
            
            if(<%= isMail %> == "1")
            {
-             $(".sendEmail").colorbox({ width: "700px", inline: true, open:true, href: "#divEmail" });
+             $(".sendEmail").colorbox({ width: "700px", inline: true, overlayClose:false, open:true, href: "#divEmail" });
              replaceSpecialChars();
            }
            else
            {
-             $(".sendEmail").colorbox({ width: "50%", inline: true, href: "#divEmail",onClosed:function(){
+             $(".sendEmail").colorbox({ width: "50%", inline: true,overlayClose:false, href: "#divEmail",onClosed:function(){
                 ConvertnlTobr(); 
               } 
               });

@@ -529,8 +529,9 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtCapitalGainSummary);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
-                            crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            //crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
+                            //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
 
                             //For PDF View In Browser : Author-Pramod
@@ -553,8 +554,9 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtCapitalGainDetails);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
-                            crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            //crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
+                            //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
 
                             //For PDF View In Browser : Author-Pramod
@@ -579,6 +581,7 @@ namespace WealthERP.Reports
                             crmain.Subreports["AllPositionReport2"].Database.Tables[0].SetDataSource(dsMFFundSummary.Tables[1]);
                             setLogo();                                       
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("PreviousMonthDate", DateBo.GetPreviousMonthLastDate(report.FromDate).ToShortDateString());
@@ -602,6 +605,7 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtTransactions);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
@@ -624,6 +628,7 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtDividend);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
 
@@ -648,6 +653,7 @@ namespace WealthERP.Reports
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
 
@@ -671,6 +677,7 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtReturnsPortfolio);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
 
@@ -696,6 +703,7 @@ namespace WealthERP.Reports
 
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
 
@@ -738,7 +746,8 @@ namespace WealthERP.Reports
                         {
                             crmain.SetDataSource(dtEligibleCapitalGainsDetails);
                             setLogo();
-                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName.TrimEnd() + " " + customerVo.MiddleName.TrimEnd() + " " + customerVo.LastName.TrimEnd());
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
@@ -761,6 +770,7 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtEligibleCapitalGainsSummary);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
@@ -811,7 +821,7 @@ namespace WealthERP.Reports
                 if (advisorVo.State != null)
                     state = CommonReport.GetState(path, advisorVo.State);
 
-                crmain.SetParameterValue("RMName", "Advisor / Financial Planner :" + rmVo.FirstName + " " + rmVo.LastName);
+                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + rmVo.FirstName + " " + rmVo.LastName);
                 crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
                 if (rmVo.Mobile != 0)
                 {
@@ -822,8 +832,8 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("MobileNo", "Mobile :--");
                 }
                 crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + state);
-                crmain.SetParameterValue("OrgDetails", advisorVo.Email);
-                crmain.SetParameterValue("OrgTelephone", "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
+                crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.Email);
+                crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                 crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
                 crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);
@@ -877,7 +887,13 @@ namespace WealthERP.Reports
 
                 mfReport.PortfolioIds = GetPortfolios();
                 //MF Transaction report Fiter Creiteria 
+                if (Request.Form[ctrlPrefix + "ddlMFTransactionType"] == "0")
+                {
+                    mfReport.FilterBy = "ALL";
+                }
+                else
                 mfReport.FilterBy= Request.Form[ctrlPrefix + "ddlMFTransactionType"];
+
                 if (Request.Form[ctrlPrefix + "Transation"] == "rdScheme")
                  {
                     mfReport.OrderBy = "Scheme";
@@ -1126,9 +1142,13 @@ namespace WealthERP.Reports
             }
             else
             {
+                if (Session["hidSubject"]!=null)
                 txtSubject.Text = Session["hidSubject"].ToString();
+                if (Session["hidCC"] != null)
                 txtCC.Text = Session["hidCC"].ToString();
+                if (Session["hidTo"]!=null)
                 txtTo.Text = Session["hidTo"].ToString();
+                if (Session["hidBody"]!=null)
                 txtBody.Text = Session["hidBody"].ToString().Replace("\r", "");
                 if (hidCCMe.Value == "true")
                     chkCopy.Checked = true;
@@ -1157,7 +1177,11 @@ namespace WealthERP.Reports
 
             strMail.Append("Dear " + customerName + ",<br/>");
             strMail.Append("<br/>Please find attached " + subject + ".");
-            strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo:" + rmVo.Mobile + "<br/>Ph:+" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber);
+           if(!string.IsNullOrEmpty(advisorVo.Website))
+           {
+               strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: +" + advisorVo.Website);
+           }
+            strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber);
 
             return strMail.ToString();
 
