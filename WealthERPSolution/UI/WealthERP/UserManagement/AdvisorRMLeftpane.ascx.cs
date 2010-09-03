@@ -13,6 +13,10 @@ namespace WealthERP.UserManagement
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            if (!IsPostBack)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorRMLeftpane');", true);
+            }
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
