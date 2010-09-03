@@ -879,6 +879,46 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
+
+        // <summary>
+        /// Get RM Group Customer Names for Grouping
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
+        public DataTable GetParentCustomers(string prefixText, int rmId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetParentCustomers(prefixText, rmId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetParentCustomers()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
+
         /// <summary>
         /// Get RM Individual Customer Names
         /// </summary>
