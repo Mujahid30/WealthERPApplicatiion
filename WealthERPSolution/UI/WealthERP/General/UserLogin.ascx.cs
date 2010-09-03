@@ -45,6 +45,7 @@ namespace WealthERP.General
             string sourcePath = "";
             string branchLogoSourcePath = "";
             int count;
+            bool isGrpHead = false;
 
             if (txtLoginId.Text == "" || txtPassword.Text == "")
             {
@@ -250,8 +251,10 @@ namespace WealthERP.General
                             Session[SessionContents.LogoPath] = sourcePath;
                             Session["S_CurrentUserRole"] = "Customer";
                             GetLatestValuationDate();
-                            
-                            if (customerVo.RelationShip == "SELF")
+
+                            Session["IsDashboard"] = "true";
+                            isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                            if (isGrpHead == true)
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustGroupDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                             else
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
