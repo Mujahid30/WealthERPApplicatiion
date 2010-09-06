@@ -167,7 +167,7 @@
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="Label13" runat="server" Text="Line3(Building):" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="Label13" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
                                 <asp:Label ID="lblCorrLine3" runat="server" Text="Label" CssClass="Field"></asp:Label>
