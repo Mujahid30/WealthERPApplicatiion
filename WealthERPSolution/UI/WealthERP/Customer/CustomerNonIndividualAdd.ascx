@@ -20,6 +20,7 @@
         }
     }
 </script>
+
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 <table class="TableBackground" width="100%">
@@ -60,7 +61,7 @@
             <span id="spCompanyName" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="rfvCompanyName" ControlToValidate="txtCompanyName"
-                ErrorMessage="Please enter the LCompany Name" Display="Dynamic" runat="server"
+                ErrorMessage="Please enter the Company Name" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
@@ -80,7 +81,7 @@
         <td class="rightField" colspan="2">
             <asp:TextBox ID="txtDateofRegistration" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtDateofRegistration_CalendarExtender" runat="server"
-                TargetControlID="txtDateofRegistration"  Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+                TargetControlID="txtDateofRegistration" Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="txtDateofRegistration_TextBoxWatermarkExtender"
                 runat="server" TargetControlID="txtDateofRegistration" WatermarkText="dd/mm/yyyy">
@@ -94,7 +95,7 @@
         <td class="rightField" colspan="2">
             <asp:TextBox ID="txtDateofCommencement" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtDateofCommencement_CalendarExtender" runat="server"
-                TargetControlID="txtDateofCommencement"  Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+                TargetControlID="txtDateofCommencement" Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="txtDateofCommencement_TextBoxWatermarkExtender"
                 runat="server" TargetControlID="txtDateofCommencement" WatermarkText="dd/mm/yyyy">
@@ -207,10 +208,9 @@
                 </td>
                 <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="spCorrAdrLine1" class="spnRequiredField">*<br />
-                    </span>
-                    &nbsp;<asp:RequiredFieldValidator ID="rfvCorrAdrLine1" ControlToValidate="txtCorrAdrLine1"
-                        ErrorMessage="Please enter Line1 of Correspondence Address" Display="Dynamic"
+                    <span id="spCorrAdrLine1" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="rfvCorrAdrLine1" ControlToValidate="txtCorrAdrLine1"
+                        ErrorMessage="<br />Please enter Line1 of Correspondence Address" Display="Dynamic"
                         runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
                 </td>
