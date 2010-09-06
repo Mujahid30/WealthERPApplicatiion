@@ -106,7 +106,7 @@
     <tr>
         <td>
             <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Send Login Password"
-                CssClass="loadme" />
+                CssClass="loadme PCGLongButton" />
                 <div class='loadmediv'></div>
         </td>
     </tr>
