@@ -65,6 +65,7 @@ namespace WealthERP.SuperAdmin
                     {
                         try
                         {
+                            hidStatus.Value = "1";
                             btnAddLOB.Visible = true;
                             btnSendLoginId.Visible = true;
                             lblIFFAdd.Text = "Edit IFF";
@@ -170,7 +171,7 @@ namespace WealthERP.SuperAdmin
                     }
                     else if (Session["IFFAdd"].ToString() == "Add")
                     {
-
+                        hidStatus.Value = "0";
                         Deactivation.Visible = false;
                         lblDeactivation.Visible = false;
                         txtDeactivationDate.Text = "";

@@ -76,11 +76,12 @@
         }
     }
     function Validation() {
-
-        if (document.getElementById('hidValid').value == 0) {            
-            alert('Your Selected Login id is not available. Please choose some other Login Id');
-            return false;
-        }        
+        if (document.getElementById('hidStatus.ClientId').value == "0") {
+            if (document.getElementById('hidValid').value == 0) {
+                alert('Your Selected Login id is not available. Please choose some other Login Id');
+                return false;
+            }
+        }
     }
    
 </script>
@@ -458,4 +459,5 @@
     </tr> 
 </table>
    <input type="hidden" id="hidValid" />
+      <input type="hidden" id="hidStatus" runat="server" />
 <asp:TextBox ID="txtActivationHidden" runat="server" Style="display: none" />
