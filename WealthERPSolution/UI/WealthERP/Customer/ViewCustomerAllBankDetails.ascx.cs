@@ -11,6 +11,7 @@ using BoUser;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
+using System.Configuration;
 
 namespace WealthERP.Customer
 {
@@ -20,12 +21,15 @@ namespace WealthERP.Customer
         CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
         int customerId;
         int customerBankAccId;
+        string state = string.Empty;
+        string path;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 SessionBo.CheckSession();
+                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 customerId = int.Parse(Session["CustomerId"].ToString());
                 customerBankAccId = int.Parse(Session["CustBankAccId"].ToString());
                 customerBankAccountVo = customerBankAccountBo.GetCustomerBankAccount(customerId, customerBankAccId);
@@ -42,7 +46,8 @@ namespace WealthERP.Customer
                 lblCity.Text = customerBankAccountVo.BranchAdrCity.ToString();
                 lblIfsc.Text = customerBankAccountVo.IFSC.ToString();
                 lblMicr.Text = customerBankAccountVo.MICR.ToString();
-                lblState.Text = customerBankAccountVo.BranchAdrState;
+                state = XMLBo.GetStateName(path, customerBankAccountVo.BranchAdrState);
+                lblState.Text = state;
                 lblCountry.Text = customerBankAccountVo.BranchAdrCountry;
             }
             catch (BaseApplicationException Ex)
