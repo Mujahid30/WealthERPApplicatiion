@@ -25,7 +25,7 @@
                         <asp:Label ID="lblEquityLabel" runat="server" CssClass="FieldName" Text="Equity:"></asp:Label>
                     </td>
                     <td class="leftField" style="width: 30%">
-                        <asp:Label ID="lblEquityValue" runat="server" CssClass="Field" Text="Equity"></asp:Label>
+                        <asp:Label ID="lblEquityValue" runat="server" CssClass="Field" Text="0"></asp:Label>
                     </td>
                     <td>
                     </td>
@@ -39,7 +39,7 @@
                         <asp:Label ID="lblEquityMFLabel" runat="server" CssClass="FieldName" Text="MF-Equity:"></asp:Label>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="lblEquityMFValue" runat="server" CssClass="Field" Text="MF-Equity"></asp:Label>
+                        <asp:Label ID="lblEquityMFValue" runat="server" CssClass="Field" Text="0"></asp:Label>
                     </td>
                     <td>
                     </td>
@@ -53,7 +53,7 @@
                         <asp:Label ID="lblMFDebtLabel" runat="server" CssClass="FieldName" Text="MF-Debt:"></asp:Label>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="lblMFDebtValue" runat="server" CssClass="Field" Text="MF-Debt"></asp:Label>
+                        <asp:Label ID="lblMFDebtValue" runat="server" CssClass="Field" Text="0"></asp:Label>
                     </td>
                     <td>
                     </td>
@@ -67,7 +67,7 @@
                         <asp:Label ID="lblMFHybridLabel" runat="server" CssClass="FieldName" Text="MF-Hybrid:"></asp:Label>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="lblMFHybridValue" runat="server" CssClass="Field" Text="MF-Hybrid"></asp:Label>
+                        <asp:Label ID="lblMFHybridValue" runat="server" CssClass="Field" Text="0"></asp:Label>
                     </td>
                     <td>
                     </td>
@@ -81,7 +81,7 @@
                         <asp:Label ID="lblMFOthers" runat="server" CssClass="FieldName" Text="MF-Others:"></asp:Label>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="lblMFOthersValue" runat="server" CssClass="Field" Text="MF-Others"></asp:Label>
+                        <asp:Label ID="lblMFOthersValue" runat="server" CssClass="Field" Text="0"></asp:Label>
                     </td>
                     <td>
                     </td>
@@ -95,7 +95,7 @@
                         <asp:Label ID="lblInsurancelabel" runat="server" CssClass="FieldName" Text="Insurance:"></asp:Label>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="lblInsuranceValue" runat="server" CssClass="Field" Text="Insurance"></asp:Label>
+                        <asp:Label ID="lblInsuranceValue" runat="server" CssClass="Field" Text="0"></asp:Label>
                     </td>
                     <td>
                     </td>
