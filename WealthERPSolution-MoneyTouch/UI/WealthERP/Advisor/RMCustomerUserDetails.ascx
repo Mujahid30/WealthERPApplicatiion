@@ -2,6 +2,20 @@
     Inherits="WealthERP.Advisor.RMCustomerUserDeatils" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
+<script src="/Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
+
+<link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.loadme').click(function() {
+            $(".loadmediv").colorbox({ width: "240px",overlayClose:false, inline: true, open: true, href: "#LoadImage" });
+        });
+    });
+</script>
+
 <%--
 <table width="100%" class="TableBackground">
 <tr>
@@ -11,7 +25,24 @@
         </td>
     </tr>
 </table>--%>
-
+<table align="center" style="display:none;">
+<tr><td>
+<div id='LoadImage' style="width: 231px">
+    <table align="center" border="1">
+        <tr>
+            <td style="background-color: #3D77CB; color: #FFFFFF; font-size: 100%; font-weight: bold">
+                Processing,please wait...
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="../Images/Wait.gif" />
+            </td>
+        </tr>
+    </table>
+</div>
+</td></tr>
+</table>
 <table style="width: 100%;" class="TableBackground">
     <tr>
         <td>
@@ -95,8 +126,9 @@
     <tr>
         <td>
             <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Send Login Password"
-                CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerProofsAdd_btnSubmit', 'L');"
+                CssClass="loadme PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerProofsAdd_btnSubmit', 'L');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerProofsAdd_btnSubmit', 'L');" />
+                 <div class='loadmediv'></div>
         </td>
     </tr>
 </table>
