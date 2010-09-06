@@ -1,18 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMCustomerIndividualDashboard.ascx.cs"
     Inherits="WealthERP.Advisor.RMCustomerDashboard" %>
-<style type="text/css">
-    .style8
-    {
-        height: 35px;
-    }
-    .style9
-    {
-        height: 21px;
-    }
-</style>
+
 <table width="100%" class="TableBackground">
     <tr>
-        <td class="HeaderCell">
+        <td class="HeaderCell" colspan="2">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Customer Individual Dashboard"></asp:Label>
             <hr />
         </td>
@@ -36,7 +27,7 @@
     </tr>
     <tr>
         <td width="50%" valign="top">
-            <table style="width: 457px; height: 100px; margin-top: 0px">
+            <table style="width: 100%; height: 100%; margin-top: 0px">
                 <tr>
                     <td class="leftField">
                         <asp:Label ID="Label3" runat="server" Text="Name:" CssClass="FieldName"></asp:Label>
@@ -76,7 +67,8 @@
             <table>
                 <tr>
                     <td align="right">
-                        <asp:LinkButton ID="lnkMoreBankDetails" runat="server" Text=">>More" ForeColor="Blue" Font-Size="X-Small" Font-Bold="true" OnClick="lnkMoreBankDetails_Click"></asp:LinkButton>
+                        <asp:LinkButton ID="lnkMoreBankDetails" runat="server" Text=">>More" ForeColor="Blue"
+                            Font-Size="X-Small" Font-Bold="true" OnClick="lnkMoreBankDetails_Click"></asp:LinkButton>
                     </td>
                 </tr>
             </table>
@@ -97,9 +89,9 @@
             <hr />
         </td>
     </tr>
-    <tr align="left">
-        <td width="50%" valign="top" align="left">
-            <table style="width: 100%; height: 100%; margin-top: 0px">
+    <tr>
+        <td width="50%" valign="top" >
+            <table style="width: 100%;height: 100%; margin-top: 0px">
                 <tr>
                     <td class="leftField">
                         <asp:Label ID="Label4" runat="server" Text="Phone Number:" CssClass="FieldName"></asp:Label>
@@ -142,7 +134,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td colspan="2">
             &nbsp;
         </td>
     </tr>
