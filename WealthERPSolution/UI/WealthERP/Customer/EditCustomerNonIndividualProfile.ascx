@@ -55,10 +55,10 @@
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date of Profiling"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date of Profiling:"></asp:Label>
         </td>
-        <td align="left">
+        <td class="rightField">
             <asp:TextBox ID="txtDateofProfiling" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
         <td>
@@ -66,10 +66,10 @@
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Salutation"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
         </td>
-        <td colspan="2" align="left">
+        <td class="rightField"">
             <asp:DropDownList ID="ddlSalutation" runat="server" CssClass="cmbField">
                 <asp:ListItem>Mr.</asp:ListItem>
                 <asp:ListItem>Mrs.</asp:ListItem>
@@ -79,26 +79,26 @@
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Name of Company"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Name of Company:"></asp:Label>
         </td>
-        <td colspan="2" align="left">
+        <td class="rightField">
             <asp:TextBox ID="txtCompanyName" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Customer Code"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Customer Code:"></asp:Label>
         </td>
-        <td colspan="2" align="left">
+        <td class="rightField">
             <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="Date Of Registration"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="Date Of Registration:"></asp:Label>
         </td>
-        <td align="left">
+        <td class="rightField">
             <asp:TextBox ID="txtDateofRegistration" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtDateofRegistration_CalendarExtender" runat="server"
                 TargetControlID="txtDateofRegistration" Format="dd/MM/yyyy">
@@ -112,10 +112,10 @@
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Date Of Commencement"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Date Of Commencement:"></asp:Label>
         </td>
-        <td align="left">
+        <td aclass="rightField">
             <asp:TextBox ID="txtDateofCommencement" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateofCommencement" Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -128,44 +128,44 @@
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label12" runat="server" CssClass="FieldName" Text="Registration No with ROC-Registrar"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label12" runat="server" CssClass="FieldName" Text="Registration No with ROC-Registrar:"></asp:Label>
         </td>
-        <td colspan="2" align="left">
+        <td class="rightField">
             <asp:TextBox ID="txtRocRegistration" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label13" runat="server" CssClass="FieldName" Text="Place Of Registration"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label13" runat="server" CssClass="FieldName" Text="Place Of Registration:"></asp:Label>
         </td>
-        <td colspan="2" align="left">
+        <td class="rightField">
             <asp:TextBox ID="txtRegistrationPlace" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label14" runat="server" CssClass="FieldName" Text="Company Website"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label14" runat="server" CssClass="FieldName" Text="Company Website:"></asp:Label>
         </td>
-        <td colspan="2" align="left">
+        <td class="rightField">
             <asp:TextBox ID="txtCompanyWebsite" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name (First/Middle/Last)"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name (First/Middle/Last):"></asp:Label>
         </td>
-        <td colspan="2" align="left">
+        <td class="rightField">
             <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td align="left">
-            <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="PAN Number"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
         </td>
-        <td colspan="2" align="left">
+        <td class="rightField">
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
@@ -189,17 +189,17 @@
                 </td>
                 <td colspan="2" align="center">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Label ID="Label18" runat="server" Text="Correspondence Address" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label18" runat="server" Text="Correspondence Address" CssClass="HeaderTextSmall"></asp:Label>
                 </td>
                 <td>
                     &nbsp;
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label19" runat="server" Text="Line1(House No/Building)" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label19" runat="server" Text="Line1(House No/Building):" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
                 <td>
@@ -210,10 +210,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label20" runat="server" Text="Line2(Street)" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label20" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtCorrAdrLine2" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
                 <td>
@@ -224,10 +224,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label21" runat="server" Text="Line3(Area)" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label21" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
                 <td>
@@ -238,16 +238,16 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label22" runat="server" Text="City" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label22" runat="server" Text="City:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtCorrAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
-                <td align="left">
-                    <asp:Label ID="Label23" runat="server" Text="State" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label23" runat="server" Text="State:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:DropDownList ID="ddlCorrAdrState" runat="server" CssClass="txtField">
                         <asp:ListItem>Karnataka</asp:ListItem>
                         <asp:ListItem>Andhra Pradesh</asp:ListItem>
@@ -256,16 +256,16 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label24" runat="server" Text="Pin Code" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label24" runat="server" Text="Pin Code:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtCorrAdrPinCode" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
-                <td align="left">
-                    <asp:Label ID="Label1" runat="server" Text="Country" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label1" runat="server" Text="Country:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:DropDownList ID="ddlCorrAdrCountry" runat="server" CssClass="cmbField">
                         <asp:ListItem>India</asp:ListItem>
                         <asp:ListItem>USA</asp:ListItem>
@@ -291,10 +291,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label27" runat="server" Text="Line1(House No/Building)" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label27" runat="server" Text="Line1(House No/Building):" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
                 <td>
@@ -305,10 +305,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label28" runat="server" Text="Line2(Street)" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label28" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtPermAdrLine2" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
                 <td>
@@ -319,10 +319,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label29" runat="server" Text="Line3(Area)" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label29" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
                 <td>
@@ -333,16 +333,16 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label30" runat="server" Text="City" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label30" runat="server" Text="City:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
-                <td align="left">
-                    <asp:Label ID="Label31" runat="server" Text="State" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label31" runat="server" Text="State:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td>
+                <td class="rightField">
                     <asp:DropDownList ID="ddlPermAdrState" runat="server" CssClass="cmbField">
                         <asp:ListItem>Karnataka</asp:ListItem>
                         <asp:ListItem>Andhra Pradesh</asp:ListItem>
@@ -351,16 +351,16 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label32" runat="server" Text="Pin Code" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label32" runat="server" Text="Pin Code:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtPermAdrPinCode" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
-                <td align="left">
-                    <asp:Label ID="Label25" runat="server" Text="Country" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label25" runat="server" Text="Country:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:DropDownList ID="ddlPermAdrCountry" runat="server" CssClass="cmbField">
                         <asp:ListItem>India</asp:ListItem>
                         <asp:ListItem>USA</asp:ListItem>
@@ -385,10 +385,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label34" runat="server" Text="Telephone No. 1" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label34" runat="server" Text="Telephone No. 1:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtPhoneNo1Isd" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
                     <asp:TextBox ID="txtPhoneNo1Std" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
                     <asp:TextBox ID="txtPhoneNo1" runat="server" Width="100px" CssClass="txtField"></asp:TextBox>
@@ -401,10 +401,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label35" runat="server" Text="Telephone No. 2" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label35" runat="server" Text="Telephone No. 2:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtPhoneNo2Isd" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
                     <asp:TextBox ID="txtPhoneNo2Std" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
                     <asp:TextBox ID="txtPhoneNo2" runat="server" Width="100px" CssClass="txtField"></asp:TextBox>
@@ -417,10 +417,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label36" runat="server" Text="Fax" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label36" runat="server" Text="Fax:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtFaxIsd" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
                     <asp:TextBox ID="txtFaxStd" runat="server" Width="40px" CssClass="txtField"></asp:TextBox>
                     <asp:TextBox ID="txtFax" runat="server" Width="100px" CssClass="txtField"></asp:TextBox>
@@ -433,10 +433,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">
-                    <asp:Label ID="Label37" runat="server" Text="Email Id" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="Label37" runat="server" Text="Email Id:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td align="left">
+                <td class="rightField">
                     <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
                 <td>
