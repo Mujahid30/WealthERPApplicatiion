@@ -92,7 +92,7 @@
     </tr>
     <tr id="Tr1" runat="server">
         <td>
-            <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup">
+            <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" style="display:none">
                 <br />
                 <table width="100%">
                     <tr>
