@@ -69,8 +69,8 @@ namespace WealthERP.Advisor
                 {
                     if (txtNewPassword.Text == txtConfirmPassword.Text)
                     {
-                        userVo.Password = txtConfirmPassword.Text.ToString();
-                        userBo.ChangePassword(userVo.UserId,Encryption.Encrypt(userVo.Password),tempPass);
+                        userVo.Password = Encryption.Encrypt(txtConfirmPassword.Text.ToString());
+                        userBo.ChangePassword(userVo.UserId, userVo.Password, tempPass);
                         
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Your Password Changed Successfully..!');", true);
                         if(Session["ChangeTempPass"]!=null && Session["ChangeTempPass"].ToString()=="Y")

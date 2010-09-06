@@ -137,7 +137,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:GridView ID="gvRMBranch" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+            <asp:GridView ID="gvRMBranch" runat="server" AllowSorting="false" AutoGenerateColumns="False"
                 CssClass="GridViewStyle" DataKeyNames="BranchId" ShowFooter="True" 
                 OnRowDataBound="gvRMBranch_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
@@ -162,8 +162,8 @@
                                 Enabled="false" />
                         </ItemTemplate>
                     </asp:TemplateField>--%>
-                    <asp:BoundField DataField="Branch Code" HeaderText="Branch Code" SortExpression="Branch Code" />
-                    <asp:BoundField DataField="Branch Name" HeaderText="Branch Name" SortExpression="Branch Name" />
+                    <asp:BoundField DataField="Branch Code" HeaderText="Branch Code"  />
+                    <asp:BoundField DataField="Branch Name" HeaderText="Branch Name"  />
                 </Columns>
             </asp:GridView>
         </td>

@@ -1093,9 +1093,20 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, areaFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, DBNull.Value);
-                db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
-                db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
-                db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
+                if (pincodeFilter != "")                
+                    db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, DBNull.Value);
+                if (parentFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, DBNull.Value);
+
+                if (cityFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, DBNull.Value);
+
 
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
@@ -1136,7 +1147,7 @@ namespace DaoAdvisorProfiling
                 {
                     foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
                     {
-                        genDictParent.Add(dr["Parent"].ToString(), dr["Parent"].ToString());
+                        genDictParent.Add(dr["ParentId"].ToString(), dr["Parent"].ToString());
                     }
                 }
 

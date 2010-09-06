@@ -341,8 +341,8 @@ namespace WealthERP.Advisor
                         if (ddlParent != null)
                         {
                             ddlParent.DataSource = genDictParent;
-                            ddlParent.DataTextField = "Key";
-                            ddlParent.DataValueField = "Value";
+                            ddlParent.DataTextField = "Value";
+                            ddlParent.DataValueField = "Key";
                             ddlParent.DataBind();
                             ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                         }
@@ -1424,7 +1424,8 @@ namespace WealthERP.Advisor
                 if (ddlRM.SelectedIndex != 0)
                 {   // Bind the Grid with Only Selected Values
                     //hdnRMFilter.Value = ddlRM.SelectedValue;
-                    hdnRMFilter.Value = ddlRM.SelectedItem.Text;
+                    hdnRMFilter.Value = ddlRM.SelectedItem.Value;
+                    hdnCurrentPage.Value = "";
                 }
                 else
                 {   // Bind the Grid with Only All Values
@@ -1480,6 +1481,7 @@ namespace WealthERP.Advisor
             else
             {
                 hdnReassignRM.Value = "";
+                BindGrid(mypager.CurrentPage, 0);
             }
             if (genDictReassignRM != null)
             {

@@ -39,8 +39,13 @@ namespace WealthERP.Advisor
            // addBranch.Attributes.Add("onclick", "return addbranches('availableBranch','associatedBranch')");
             //deleteBranch.Attributes.Add("onclick", "return deletebranches('associatedBranch','availableBranch')");
             SessionBo.CheckSession();
-            advisorVo = (AdvisorVo)Session["advisorVo"];          
-            rmVo = (RMVo)Session["rmVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];     
+            if(Session["CurrentrmVo"]!=null)
+            {
+                rmVo = (RMVo)Session["CurrentrmVo"];
+            }
+            else
+                rmVo = (RMVo)Session["rmVo"];
             userVo = (UserVo)Session["userVo"];
             editRMDetails();
             lblEmail.CssClass = "FieldName";
@@ -216,7 +221,8 @@ namespace WealthERP.Advisor
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             try
             {
-                rmVo = (RMVo)Session["rmVo"];
+                if(rmVo==null)
+                    rmVo = (RMVo)Session["rmVo"];
 
                 if (Session["advisorVo"] != null)
                 {
@@ -278,7 +284,14 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    setBranchList("N");
+                    if (chkExternalStaff.Checked == true)
+                    {
+                        setBranchList("Y");
+                    }
+                    else
+                    {
+                        setBranchList("N");
+                    } 
                     //gvBranchList.Visible = false;
                 }
             }
@@ -321,48 +334,22 @@ namespace WealthERP.Advisor
                 {
                     advisorBranchList = advisorBranchBo.GetAdvisorBranches(advisorVo.advisorId, "N");
                 }
-                //dtAdvisorBranch.Columns.Add("Sl.No.");
-                //dtAdvisorBranch.Columns.Add("BranchId");
-                //dtAdvisorBranch.Columns.Add("Branch Name");
+              
                 dtAdvisorBranch.Columns.Add("Branch");
                 dtAdvisorBranch.Columns.Add("Branch Code");
-                //dtAdvisorBranch.Columns.Add("Branch Address");
-                //dtAdvisorBranch.Columns.Add("Branch Phone");
 
-                for (int i = 0; i < advisorBranchList.Count; i++)
+                if (advisorBranchList != null)
                 {
-                    drAdvisorBranch = dtAdvisorBranch.NewRow();
-                    advisorBranchVo = new AdvisorBranchVo();
-                    advisorBranchVo = advisorBranchList[i];
-                    //drAdvisorBranch[0] = (i + 1).ToString();
-                    //drAdvisorBranch[1] = advisorBranchVo.BranchId.ToString();
-                    //drAdvisorBranch[2] = advisorBranchVo.BranchName.ToString();
-                    //if (advisorBranchVo.State != "" && advisorBranchVo.State != "Select a State")
-                    //{
-                    //    drAdvisorBranch[3] = advisorBranchVo.AddressLine1.ToString() + "'" + advisorBranchVo.AddressLine2.ToString() + "'" + advisorBranchVo.AddressLine3.ToString() + "," + advisorBranchVo.City.ToString() + "'" + XMLBo.GetStateName(path, advisorBranchVo.State.ToString());
-                    //}
-                    //else
-                    //{
-                    //    drAdvisorBranch[3] = advisorBranchVo.AddressLine1.ToString() + "'" + advisorBranchVo.AddressLine2.ToString() + "'" + advisorBranchVo.AddressLine3.ToString() + "," + advisorBranchVo.City.ToString() + "'";
-                    //}
-
-                    //drAdvisorBranch[4] = advisorBranchVo.Phone1Isd + "-" + advisorBranchVo.Phone1Std + "-" + advisorBranchVo.Phone1Number;
-                    //dtAdvisorBranch.Rows.Add(drAdvisorBranch);
-                    
-                    //foreach(ListItem li in associatedBranch.Items)
-                    //{
-                    //    if (li.Value != advisorBranchVo.BranchId.ToString())
-                    //    {
-                    //        tracker = true;
-                    //        break;
-                    //    }
-                        
-
-                    //}
-                    if (associatedBranch.Items.FindByValue(advisorBranchVo.BranchId.ToString()) == null)
+                    for (int i = 0; i < advisorBranchList.Count; i++)
                     {
-                        //if (tracker)
-                        //{
+                        drAdvisorBranch = dtAdvisorBranch.NewRow();
+                        advisorBranchVo = new AdvisorBranchVo();
+                        advisorBranchVo = advisorBranchList[i];
+
+                        if (associatedBranch.Items.FindByValue(advisorBranchVo.BranchId.ToString()) == null)
+                        {
+                            //if (tracker)
+                            //{
                             if (drAdvisorBranch["Branch"] != null && drAdvisorBranch["Branch Code"] != null)
                             {
                                 drAdvisorBranch["Branch"] = advisorBranchVo.BranchName.ToString() + "," + advisorBranchVo.BranchId.ToString();
@@ -371,9 +358,10 @@ namespace WealthERP.Advisor
                             }
 
                         }
-                    
-                    
 
+
+
+                    }
                 }
                 //_commondatasetSource.Tables.Add(dtAdvisorBranch);
                 availableBranch.DataSource = dtAdvisorBranch;
@@ -407,8 +395,11 @@ namespace WealthERP.Advisor
         }
         public void editRMDetails()
         {
-            RMVo rmVo = new RMVo();
-            rmVo = (RMVo)Session["rmVo"];
+            if (rmVo == null)
+            {
+                rmVo = new RMVo();
+                rmVo = (RMVo)Session["rmVo"];
+            }
             txtFirstName.Text = rmVo.FirstName.ToString();
             txtLastName.Text = rmVo.LastName.ToString();
             txtMiddleName.Text = rmVo.MiddleName.ToString();

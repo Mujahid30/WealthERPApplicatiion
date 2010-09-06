@@ -3119,9 +3119,9 @@ namespace WealthERP.Uploads
                     trUploadedTransactions.Visible = false;
                     trRejectedRecords.Visible = true;
 
-                    txtUploadedCustomers.Text = NoOfCustomersUploaded.ToString();
-                    txtUploadedFolios.Text = NoOfFoliosUploaded.ToString();
-                    txtRejectedRecords.Text = NoOfRejectedRecords.ToString();
+                    txtUploadedCustomers.Text = processlogVo.NoOfCustomerInserted.ToString();
+                    txtUploadedFolios.Text = processlogVo.NoOfAccountsInserted.ToString();
+                    txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
 
                 }
                 else if (extracttype == "FO")
@@ -3133,8 +3133,8 @@ namespace WealthERP.Uploads
                     trRejectedRecords.Visible = true;
 
                     //txtUploadedCustomers.Text = NoOfCustomersUploaded.ToString();
-                    txtUploadedFolios.Text = NoOfFoliosUploaded.ToString();
-                    txtRejectedRecords.Text = NoOfRejectedRecords.ToString();
+                    txtUploadedFolios.Text = processlogVo.NoOfAccountsInserted.ToString();
+                    txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
 
                 }
                 else if (extracttype == "MFT" || extracttype == "ET")
@@ -3145,8 +3145,8 @@ namespace WealthERP.Uploads
                     trUploadedTransactions.Visible = true;
                     trRejectedRecords.Visible = true;
 
-                    txtUploadedTransactions.Text = NoOfTransactionsUploaded.ToString();
-                    txtRejectedRecords.Text = NoOfRejectedRecords.ToString();
+                    txtUploadedTransactions.Text = processlogVo.NoOfTransactionInserted.ToString();
+                    txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
 
                 }
                 else if (extracttype == "")
@@ -3157,10 +3157,10 @@ namespace WealthERP.Uploads
                     trUploadedTransactions.Visible = true;
                     trRejectedRecords.Visible = true;
 
-                    txtUploadedCustomers.Text = NoOfCustomersUploaded.ToString();
-                    txtUploadedFolios.Text = NoOfFoliosUploaded.ToString();
-                    txtUploadedTransactions.Text = NoOfTransactionsUploaded.ToString();
-                    txtRejectedRecords.Text = NoOfRejectedRecords.ToString();
+                    txtUploadedCustomers.Text = processlogVo.NoOfCustomerInserted.ToString();
+                    txtUploadedFolios.Text = processlogVo.NoOfAccountsInserted.ToString();
+                    txtUploadedTransactions.Text = processlogVo.NoOfTransactionInserted.ToString();
+                    txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
                 }
 
                 BindProcessHistoryGrid();
