@@ -724,8 +724,9 @@ namespace WealthERP.SuperAdmin
                 menu = MyDropDownList.SelectedItem.Value.ToString();
                 if (menu == "View Dashboard")
                 {
-                    
-                    AdvisorDashboardValidation(userId);                    
+                    Session["advisorVo"] = advisorBo.GetAdvisorUser(userId);                    
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolonly('IFAAdminMainDashboard','none');", true);
+                    //AdvisorDashboardValidation(userId);                    
                 }
                 if (menu == "Edit profile")
                 {
