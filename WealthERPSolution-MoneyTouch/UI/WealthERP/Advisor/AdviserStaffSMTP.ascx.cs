@@ -126,9 +126,9 @@ namespace WealthERP.Advisor
 
 
             if (txtEmail.Text.Trim() != string.Empty && txtEmail.Text.Contains("@"))
-                email.From = new MailAddress(txtEmail.Text.Trim(), "Test Email from WERP");
+                email.From = new MailAddress(txtEmail.Text.Trim(), "Test Email from MoneyTouch360");
             else
-                email.From = new MailAddress("admin@wealthERP.com", "Test Email from WERP");
+                email.From = new MailAddress("admin@wealthERP.com", "Test Email from MoneyTouch360");
 
             email.Body = "Test Email Content :" + txtEmail.Text;
             email.Subject = "Test Email subject";

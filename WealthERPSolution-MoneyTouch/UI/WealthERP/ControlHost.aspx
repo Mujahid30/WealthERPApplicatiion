@@ -53,7 +53,7 @@
 </head>
 <body class="TableBackground">
     <form id="form1" runat="server">
-    <div style="overflow: auto;vertical-align:top">
+    <div style="vertical-align:top">
         <asp:Panel ID="mainpanel" runat="server" >
           <%--  <asp:Literal ID="ltBreadCrumbs" runat="server">
             </asp:Literal>--%>

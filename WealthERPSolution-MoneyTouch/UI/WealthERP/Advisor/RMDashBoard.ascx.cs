@@ -266,10 +266,11 @@ namespace WealthERP.Advisor
         {
             try
             {
-                rmVo = (RMVo)Session[SessionContents.RmVo];
-                userVo = (UserVo)Session[SessionContents.UserVo];
+                if(rmVo==null)
+                    rmVo = (RMVo)Session[SessionContents.RmVo];
+                //userVo = (UserVo)Session[SessionContents.UserVo];
 
-                dsCustomerAlerts = alertsBo.GetRMCustomerDashboardAlerts(rmVo.UserId);
+                dsCustomerAlerts = alertsBo.GetRMCustomerDashboardAlerts(rmVo.RMId);
                 if (dsCustomerAlerts.Tables[0].Rows.Count == 0)
                 {
                     lblAlertsMessage.Visible = true;

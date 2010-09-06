@@ -241,8 +241,8 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("RMName", "Advisor :  " + rmVo.FirstName + " " + rmVo.LastName);
                             crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
                             crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
-                            crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
-                            crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("PreviousDate", (DateBo.GetPreviousMonthLastDate(report.ToDate)).ToLongDateString());
+                            crmain.SetParameterValue("ToDate", report.ToDate.ToLongDateString());
                             //AssignReportViewerProperties();
                             CrystalReportViewer1.ReportSource = crmain;
                             CrystalReportViewer1.EnableDrillDown = true;

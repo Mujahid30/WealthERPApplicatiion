@@ -18,7 +18,7 @@
                     <EditRowStyle CssClass="EditRowStyle" />
                     <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
-                        <asp:BoundField DataField="WERPCODE" HeaderText="WERP CODE" />
+                        <asp:BoundField DataField="WERPCODE" HeaderText="CODE" />
                         <asp:BoundField DataField="Name" HeaderText="Name" />
                         <asp:BoundField DataField="AMFICode" HeaderText="AMFI CODE" />
                         <asp:BoundField DataField="KARVYCode" HeaderText="KARVY CODE" />
@@ -84,7 +84,7 @@
                     <EditRowStyle CssClass="EditRowStyle" />
                     <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
-                        <asp:BoundField DataField="WERPCODE" HeaderText="WERP CODE" />
+                        <asp:BoundField DataField="WERPCODE" HeaderText="CODE" />
                         <asp:BoundField DataField="NAME" HeaderText="NAME" />
                         <asp:BoundField DataField="BSECODE" HeaderText="BSE CODE" />
                         <asp:BoundField DataField="NSECODE" HeaderText="NSE CODE" />

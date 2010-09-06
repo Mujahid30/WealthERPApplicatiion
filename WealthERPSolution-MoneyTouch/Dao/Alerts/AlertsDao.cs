@@ -3854,6 +3854,7 @@ namespace DaoAlerts
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerMFAlertsCmd = db.GetStoredProcCommand("SP_GetCustomerMFAlerts");
                 db.AddInParameter(getCustomerMFAlertsCmd, "@CustomerId", DbType.Int32, customerId);
+                getCustomerMFAlertsCmd.CommandTimeout = 60 * 60;
                 dsGetCustomerMFAlerts = db.ExecuteDataSet(getCustomerMFAlertsCmd);
 
             }

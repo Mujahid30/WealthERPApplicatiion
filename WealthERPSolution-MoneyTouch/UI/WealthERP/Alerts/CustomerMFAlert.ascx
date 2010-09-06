@@ -161,8 +161,8 @@
                 </td>
                 <td class="rightField">
                     <asp:Button ID="btnSubmitReminder" runat="server" Text="Submit" CssClass="PCGButton"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
+                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAlert_btnSubmitReminder', 'S');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAlert_btnSubmitReminder', 'S');"
                         OnClick="btnSubmitReminder_Click" />
                 </td>
             </tr>
@@ -214,8 +214,8 @@
                 </td>
                 <td align="center" width="15%">
                     <asp:Button ID="btnSubmitOccurrence" runat="server" Text="Submit" CssClass="PCGButton"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
+                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAlert_btnSubmitOccurrence', 'S');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAlert_btnSubmitOccurrence', 'S');"
                         OnClick="btnSubmitOccurrence_Click" />
                 </td>
                 <td class="rightField">

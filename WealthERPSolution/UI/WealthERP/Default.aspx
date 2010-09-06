@@ -11,7 +11,7 @@
     <title>Wealth ERP</title>
     <%-- <link href="CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="CSS/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
-
+<link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
     <script language="javascript" type="text/javascript" src="Scripts/JScript.js"></script>
 
 <script language="javascript" type="text/javascript">

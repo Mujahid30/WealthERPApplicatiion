@@ -1470,6 +1470,9 @@ namespace WealthERP.Advisor
 
         protected void chkReassignRM_CheckedChanged(object sender, EventArgs e)
         {
+            AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+            DataTable ds = new DataTable();
+           
             if (((CheckBox)gvCustomers.HeaderRow.FindControl("chkReassignRM")).Checked)
             {
                 hdnReassignRM.Value = "1";
@@ -1478,7 +1481,23 @@ namespace WealthERP.Advisor
             {
                 hdnReassignRM.Value = "";
             }
-            ReAssignRMControl(genDictReassignRM);
+            if (genDictReassignRM != null)
+            {
+                ReAssignRMControl(genDictReassignRM);
+            }
+            else
+            {
+                ds=advisorStaffBo.GetAdviserRM(((AdvisorVo)Session["advisorVo"]).advisorId);
+                genDictReassignRM=new Dictionary<string,string>();
+                foreach (DataRow dr in ds.Rows)
+                {
+                    if (dr["RMName"].ToString().Trim() != "")
+                    {
+                        genDictReassignRM.Add(dr["AR_RMId"].ToString(), dr["RMName"].ToString());
+                    }
+                }
+                ReAssignRMControl(genDictReassignRM);
+            }
 
         }
 

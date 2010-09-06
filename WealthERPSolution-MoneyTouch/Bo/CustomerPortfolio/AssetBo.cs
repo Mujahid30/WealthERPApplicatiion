@@ -416,13 +416,13 @@ namespace BoCustomerPortfolio
             return assetSubCategories;
         }
 
-        public DataSet GetAdviserBranchMF_EQ_In_AggregateCurrentValues(int advisorId,out int Count,int currentPage)
+        public DataSet GetAdviserBranchMF_EQ_In_AggregateCurrentValues(int advisorId,out int Count,int currentPage,out double total)
         {
             AssetDao assetDao = new AssetDao();
             DataSet ds = new DataSet();
             try
             {
-                ds = assetDao.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorId,out Count,currentPage);
+                ds = assetDao.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorId,out Count,currentPage,out total);
             }
             catch (BaseApplicationException Ex)
             {

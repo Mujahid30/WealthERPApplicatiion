@@ -68,7 +68,7 @@
                         </asp:TemplateField>
                       
                         <asp:BoundField DataField="ProcessID" HeaderText="ProcessId" />
-                        <asp:BoundField DataField="WERPCUstomerName" HeaderText="WERP Name" SortExpression="WERPCUstomerName" />
+                        <asp:BoundField DataField="WERPCUstomerName" HeaderText="Name" SortExpression="WERPCUstomerName" />
                         <%--<asp:BoundField DataField="CustomerExists" HeaderText="Is Customer Existing" />--%>
                         <asp:TemplateField>
                             <HeaderTemplate>

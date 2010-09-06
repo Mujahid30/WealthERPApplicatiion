@@ -85,6 +85,10 @@ namespace WealthERP.UserManagement
                 //Session.Remove("customerVo");
                 Session["refreshTheme"] = true;
                 Session["FromUserLogin"] = "false";
+                if (Session["CurrentrmVo"] != null)
+                {
+                   Session.Remove("CurrentrmVo");
+                }
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
                 //Session["SuperAdmin_Status_Check"] = "3";
             }

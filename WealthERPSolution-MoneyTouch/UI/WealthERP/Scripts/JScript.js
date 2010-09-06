@@ -292,68 +292,79 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
     if (msie > 0)      // If Internet Explorer
     {
         if (document.readyState == "complete") {
-            loadlinksfromDefault("AdvisorLeftPane");
-        }
-        else if (controlid == "AdvisorProfile" && logintrue == "login") {
-            loadlinksfromDefault("AdvisorLeftPane");
-        }
-        else if (controlid == "ViewLOB" && logintrue == "login") {
-            loadlinksfromDefault("AdvisorLeftPane");
-        }
-        else if (controlid == "ViewBranches" && logintrue == "login") {
-            loadlinksfromDefault("AdvisorLeftPane");
-        }
-        else if (controlid == "RMAlertNotifications") {
-            loadlinksfromDefault("AlertsLeftPane");
-        }
-        else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "login") {
-            loadlinksfromDefault("AdvisorRMBMLeftpane");
-        }
-        else if (controlid == "AdvisorBMDashBoard" && logintrue == "login") {
-            loadlinksfromDefault("AdvisorBMLeftpane");
-        }
-        else if (controlid == "AdvisorRMDashBoard" && logintrue == "login") {
-            loadlinksfromDefault("AdvisorRMLeftpane");
-        }
-        else if (controlid == "BMRMDashBoard" && logintrue == "login") {
-            loadlinksfromDefault("BMRMLeftpane");
-        }
-        else if (controlid == "BMDashBoard" && logintrue == "login") {
-            loadlinksfromDefault("BMLeftpane");
-        }
-        else if (controlid == "RMDashBoard" && logintrue == "login") {
-            loadlinksfromDefault("RMLeftPane");
-        }
-        else if (controlid == "PortfolioDashboard" && logintrue == "login") {
-            loadlinksfromDefault("PortfolioLeftPane");
-        }
-        else if (controlid == "CustomerIndividualDashboard" && logintrue == "login") {
-            loadlinksfromDefault("CustomerIndividualLeftPane");
-        }
-        else if (controlid == "RMCustomerIndividualDashboard" && logintrue == "login") {
-            loadlinksfromDefault("RMCustomerIndividualLeftPane");
-        }
-        else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
-            loadlinksfromDefault("RMCustomerIndividualLeftPane");
-        }
-        else if (controlid == "CustomerNonIndividualDashboard" && logintrue == "login") {
-            loadlinksfromDefault("CustomerNonIndividualLeftPane");
-        }
-        else if (controlid == "RMCustomerNonIndividualDashboard" && logintrue == "login") {
-            loadlinksfromDefault("RMCustomerNonIndividualLeftPane");
-        }
-        else if (controlid == "ViewRMDetails" && logintrue == "login") {
-            loadlinksfromDefault("RMLeftPane");
-        }
-        else if (controlid == "RMCustomer" && logintrue == "login") {
-            loadlinksfromDefault("RMLeftPane");
-        }
-        else if (controlid == "AdminUpload") {
-            loadlinksfromDefault("LeftPanel_Links");
 
-        }
-        else if (controlid == "FinancialPlanning" && logintrue == "login") {
-            loadlinks("FinancialPlanningLeftPane");
+
+            if (controlid == "AdvisorProfile" && logintrue == "login") {
+                loadlinksfromDefault("AdvisorLeftPane");
+            }
+            else if (controlid == "IFAAdminMainDashboard" && logintrue == "login") {
+                loadlinksfromDefault("AdvisorLeftPane");
+            }
+            else if (controlid == "ViewLOB" && logintrue == "login") {
+                loadlinksfromDefault("AdvisorLeftPane");
+            }
+            else if (controlid == "ViewBranches" && logintrue == "login") {
+                loadlinksfromDefault("AdvisorLeftPane");
+            }
+            else if (controlid == "RMAlertNotifications") {
+                loadlinksfromDefault("AlertsLeftPane");
+            }
+            else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "login") {
+                loadlinksfromDefault("AdvisorRMBMLeftpane");
+            }
+            else if (controlid == "AdvisorBMDashBoard" && logintrue == "login") {
+                loadlinksfromDefault("AdvisorBMLeftpane");
+            }
+            else if (controlid == "AdvisorRMDashBoard" && logintrue == "login") {
+                loadlinksfromDefault("AdvisorRMLeftpane");
+            }
+            else if (controlid == "BMRMDashBoard" && logintrue == "login") {
+                loadlinksfromDefault("BMRMLeftpane");
+            }
+            else if (controlid == "BMDashBoard" && logintrue == "login") {
+                loadlinksfromDefault("BMLeftpane");
+            }
+            else if (controlid == "RMDashBoard" && logintrue == "login") {
+                loadlinksfromDefault("RMLeftPane");
+            }
+            else if (controlid == "PortfolioDashboard" && logintrue == "login") {
+                loadlinksfromDefault("PortfolioLeftPane");
+            }
+            else if (controlid == "CustomerIndividualDashboard" && logintrue == "login") {
+                loadlinksfromDefault("CustomerIndividualLeftPane");
+            }
+            else if (controlid == "RMCustomerIndividualDashboard" && logintrue == "login") {
+                loadlinksfromDefault("RMCustomerIndividualLeftPane");
+            }
+            else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
+                loadlinksfromDefault("RMCustomerIndividualLeftPane");
+            }
+            else if (controlid == "CustomerNonIndividualDashboard" && logintrue == "login") {
+                loadlinksfromDefault("CustomerNonIndividualLeftPane");
+            }
+            else if (controlid == "RMCustomerNonIndividualDashboard" && logintrue == "login") {
+                loadlinksfromDefault("RMCustomerNonIndividualLeftPane");
+            }
+            else if (controlid == "ViewRMDetails" && logintrue == "login") {
+                loadlinksfromDefault("RMLeftPane");
+            }
+            else if (controlid == "ViewRM" && logintrue == "login") {
+                loadlinksfromDefault("AdvisorLeftPane");
+            }
+            else if (controlid == "RMCustomer" && logintrue == "login") {
+                loadlinksfromDefault("RMLeftPane");
+            }
+            else if (controlid == "AdminPriceList" && logintrue == "login") {
+                loadlinksfromDefault("AdvisorLeftPane");
+            }
+            else if (controlid == "AdminUpload") {
+                loadlinksfromDefault("LeftPanel_Links");
+
+            }
+            else if (controlid == "FinancialPlanning" && logintrue == "login") {
+                loadlinks("FinancialPlanningLeftPane");
+
+            }
             document.getElementById("mainframe").src = url;
         }
 

@@ -27,7 +27,15 @@ namespace WealthERP.Advisor
             {
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
-                advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                if (Session["advisorVo"] != null && userVo.UserType == "SuperAdmin")
+                {
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
+                }
+                else
+                {
+                    advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                }
+
                 string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 if (advisorVo.BusinessCode == "" || advisorVo.BusinessCode == null)
                 {

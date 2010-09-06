@@ -13,7 +13,47 @@
     <link href="CSS/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
 
     <script language="javascript" type="text/javascript" src="Scripts/JScript.js"></script>
+<script language="javascript" type="text/javascript">
+    var timerEvent = null;
+    
+    function calcHeight(ifrm_id) {
+        try {
+            setTimeout("calc('" + ifrm_id + "')", 200);
+        }
+        catch (e) { }
+    }
+    function calc(iframe_id) {
+        try {
+            var leftframe_height = document.getElementById('leftframe').contentWindow.document.body.scrollHeight;
+            var mainframe_height = document.getElementById('mainframe').contentWindow.document.body.scrollHeight;
+            var the_height = (leftframe_height > mainframe_height) ? leftframe_height : mainframe_height;
+            if (the_height > 600) {
+                var newHeight = the_height + 50;
+                if (document.getElementById('leftframe').height != newHeight)
+                    document.getElementById('leftframe').height = newHeight;
+                if (document.getElementById('mainframe').height != newHeight)
+                    document.getElementById('mainframe').height = newHeight;
+                if (iframe_id == 'mainframe') {
+                    if (document.getElementById('splitter_bar_left').style.height != newHeight)
+                        document.getElementById('splitter_bar_left').style.height = newHeight + 'px';
+                }
 
+            }
+            else {
+                if (document.getElementById(iframe_id).height != 600)
+                    document.getElementById(iframe_id).height = 600;
+                if (iframe_id == 'mainframe') {
+                    if (document.getElementById('splitter_bar_left').style.height != 600)
+                        document.getElementById('splitter_bar_left').style.height = 600 + 'px';
+                }
+            }
+
+            if (timerEvent != null) window.clearInterval(timerEvent);
+            timerEvent = window.setTimeout("calc('" + iframe_id + "')", 1000);
+        }
+        catch (e) { }
+    }
+</script>
     <script type="text/javascript" language="javascript">
         function hb1(clicked) //Show or hide the left_menu
         {
@@ -615,10 +655,13 @@
                     <table width="100%">
                         <tr>
                             <td>
+                            
                                 <asp:Label ID="lblBestViewed" Text="Best Viewed in Mozilla Firefox Version 3.0 and above"
                                     runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
                             </td>
                             <td align="right">
+                                         <%--                <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OWPyWbNsq7qPWzrss8sCH3weSSj3SjP21EhheOl4L7s2vBTlMzf"></script><br/><a style="font-family: arial; font-size: 9px" href="https://www.godaddy.com" target="_blank">Best Web Hosting</a></span>
+--%>
                                 <asp:Label ID="PCGLabel" Text="2010 @ Ampsys Consulting Pvt. Ltd." runat="server"
                                     CssClass="PCGWhiteText"></asp:Label>
                             </td>
@@ -632,28 +675,4 @@
 </body>
 </html>
 
-<script language="javascript" type="text/javascript">
-    function calcHeight(ifrm_id) {
-        setTimeout("calc('" + ifrm_id + "')", 200);
-    }
-    function calc(iframe_id) {
-
-        var the_height = document.getElementById(iframe_id).contentWindow.document.body.scrollHeight;
-        if (the_height > 600) {
-            var newHeight = the_height + (the_height / 4);
-            document.getElementById('leftframe').height = newHeight;
-            document.getElementById('mainframe').height = newHeight;
-            if (iframe_id == 'mainframe') {
-                document.getElementById('splitter_bar_left').style.height = newHeight + 'px';
-            }
-
-        }
-        else {
-            document.getElementById(iframe_id).height = 600;
-            if (iframe_id == 'mainframe') {
-                document.getElementById('splitter_bar_left').style.height = 600 + 'px';
-            }
-        }
-    }
-</script>
 

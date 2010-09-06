@@ -28,6 +28,7 @@ namespace WealthERP.Advisor
         decimal eqTotal = 0;
         decimal mfTotal = 0;
         decimal insuranceTotal = 0;
+        double total = 0;
         DataSet ds = new DataSet();
         AdviserMaintenanceBo advisermaintanencebo = new AdviserMaintenanceBo();
         protected void Page_Load(object sender, EventArgs e)
@@ -43,7 +44,7 @@ namespace WealthERP.Advisor
                 if (dsMessage != null)
                 {
                     MessageReceived.Visible = true;
-                    if (dsMessage.Tables[0].Rows[0]["ABM_IsActive"].ToString() == "1")
+                    if (dsMessage.Tables[0].Rows[0]["ABM_IsActive"].ToString() == "1" && dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString()!="")
                     {
                         DateTime dtMessageDate=DateTime.Parse(dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessageDate"].ToString());
                         lblSuperAdmnMessage.Text +="Message from SuperAdmin:"+ dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString()+Environment.NewLine+" Sent on:" + dtMessageDate.ToString();
@@ -84,9 +85,10 @@ namespace WealthERP.Advisor
             DataRow dr = null;
             int Count = 0;
             mfTotal = 0;
+            total = 0;
             try
             {
-                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, mypager.CurrentPage);
+                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, mypager.CurrentPage,out total);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -141,6 +143,7 @@ namespace WealthERP.Advisor
                     gvrAdminBranchPerform.DataBind();
                     gvrAdminBranchPerform.Visible = true;
                     GetPageCount();
+                    lblGT.Text = total.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 }
                 else
                 {
@@ -280,9 +283,11 @@ namespace WealthERP.Advisor
             AssetBo assetsBo = new AssetBo();
             DataSet ds = null;
             int Count = 0;
+            mfTotal = 0;
+            total = 0;
             try
             {
-                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, mypager.CurrentPage);
+                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, mypager.CurrentPage,out total);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -517,7 +522,7 @@ namespace WealthERP.Advisor
                 e.Row.Cells[2].Attributes.Add("align", "Right");
 
             }
-            lblGT.Text = (eqTotal + mfTotal + insuranceTotal).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+            
         }
     }
 }

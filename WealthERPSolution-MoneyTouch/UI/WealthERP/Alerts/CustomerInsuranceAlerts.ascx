@@ -87,8 +87,8 @@
                 </td>
                 <td class="rightField">
                     <asp:Button ID="btnSubmitReminder" runat="server" Text="Submit" CssClass="PCGButton"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
+                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerInsuranceAlerts_btnSubmitReminder', 'S');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerInsuranceAlerts_btnSubmitReminder', 'S');"
                         OnClick="btnSubmitReminder_Click" />
                 </td>
             </tr>

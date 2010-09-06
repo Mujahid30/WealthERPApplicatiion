@@ -112,7 +112,10 @@ namespace PCGMailLib
                 System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(mail.Body, null, "text/plain");
                 System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body><table align=\"center\" width=\"60%\"><tr><td><img src=cid:HDIImage alt=\"MoneyTouch360&deg\" height=\"60px\">"+mail.Body, null, "text/html");
                 //Add image to HTML version
-                System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("\\Images\\Money_Touch_360_logo1.gif"), "image/gif");
+                string logopath = "\\Images\\Money_Touch_360_logo1.gif";
+                if(!File.Exists(Server.MapPath(logopath)))
+                    logopath = "\\Images\\spacer.png";
+                System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logopath), "image/gif");
                 imageResource.ContentId = "HDIImage";
                 htmlView.LinkedResources.Add(imageResource);
                 //Add two views to message.
