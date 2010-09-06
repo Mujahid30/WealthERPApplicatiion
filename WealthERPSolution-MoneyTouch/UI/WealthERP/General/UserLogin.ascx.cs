@@ -274,6 +274,7 @@ namespace WealthERP.General
         }
         private bool CheckSuperAdmin()
         {
+            string UserName = "";            
             UserVo userVo = new UserVo();
             UserBo userBo = new UserBo();
 
@@ -290,7 +291,8 @@ namespace WealthERP.General
                     Session["role"] = "SUPER_ADMIN";
                     Session["UserVo"] = userVo;
                     Session["SuperAdminRetain"] = userVo;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFF');", true);
+                    UserName = userVo.FirstName+" "+userVo.LastName;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFF','login','" + UserName + "','');", true);
                     if (userVo.theme != null)
                     {
                         Session["Theme"] = "Purple";
