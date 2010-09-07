@@ -678,6 +678,9 @@
                         ErrorMessage="<br />Please enter the Current Value" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG"
+                                    ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtCurrentValue"
+                                    Display="Dynamic"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblMaturityValue" runat="server" CssClass="FieldName" Text="Maturity Value:"></asp:Label>
