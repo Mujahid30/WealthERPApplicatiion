@@ -2727,6 +2727,7 @@
     <Content Include="Images\toggle_block_stretch.gif" />
     <Content Include="Images\Trans.png" />
     <Content Include="Images\undermain.jpg" />
+    <Content Include="Images\Wait.gif" />
     <Content Include="Images\WealthERP_logo.png" />
     <Content Include="Images\werplogo.jpg" />
     <Content Include="LookUps\Questions.xml" />
