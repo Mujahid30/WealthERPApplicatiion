@@ -89,7 +89,7 @@ namespace WealthERP.General
                         }
                         else if (userVo.UserType == "SuperAdmin")
                         {
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFF','login','" + UserName + "','');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFF','login','" + userVo.FirstName + " " + userVo.LastName + "','');", true);
                         }
                         else
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerIndividualDashboard','none');", true);
