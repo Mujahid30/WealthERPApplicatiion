@@ -8,6 +8,9 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Configuration;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections;
+using System.Text.RegularExpressions;
+using System.Net.Mime;
 
 namespace PCGMailLib
 {
@@ -107,22 +110,10 @@ namespace PCGMailLib
 
                 mail.Subject = email.Subject;
                 mail.IsBodyHtml = true;                
-                mail.Body = email.Body;
-                
-                System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(mail.Body, null, "text/plain");
-                System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body><table align=\"center\" width=\"60%\"><tr><td><img src=cid:HDIImage alt=\"MoneyTouch360&deg\" height=\"60px\">"+mail.Body, null, "text/html");
-                //Add image to HTML version
-                string logopath = "\\Images\\Money_Touch_360_logo1.gif";
-                if(!File.Exists(Server.MapPath(logopath)))
-                    logopath = "\\Images\\spacer.png";
-                System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logopath), "image/gif");
-                imageResource.ContentId = "HDIImage";
-                htmlView.LinkedResources.Add(imageResource);
-                //Add two views to message.
-                mail.AlternateViews.Add(plainTextView);
-                mail.AlternateViews.Add(htmlView);
-                //Send message
-               
+                mail.Body = email.Body;                
+
+                ////Send message
+                ProcessMailForInlineAttachments(ref mail, mail.Body);
                 SaveMail(mail);
 
                 smtpClient.Send(mail);
@@ -151,7 +142,51 @@ namespace PCGMailLib
                 //throw exBase;
             }
         }
+        void ProcessMailForInlineAttachments(ref MailMessage oMM, string sBody)
+        {
+            //string sBody = oMM.Body;
+            Hashtable oHT = new Hashtable();
+            bool bHasInlineImages = false;
+            int lContentId = 96358;
+            foreach (Match oM in Regex.Matches(sBody, "src\\s*=\\s*\"(.+((jpg)|(gif)))\"", RegexOptions.IgnoreCase | RegexOptions.Multiline))
+            {
+                string sImgName = oM.Groups[1].Value;
+                if (sImgName.IndexOf("http") == -1)
+                {
+                    string sFilePath = Server.MapPath("\\Images\\") + sImgName;
+                    if (File.Exists(sFilePath))
+                    {
+                        if (!oHT.ContainsKey(sImgName))
+                        {
+                            oHT.Add(sImgName, lContentId);
+                            sBody = sBody.Replace(sImgName, "cid:" + lContentId.ToString());
+                            lContentId++;
+                        }
+                        bHasInlineImages = true;
+                    }
+                }
+            }
 
+            // HTML View
+            AlternateView oAV = AlternateView.CreateAlternateViewFromString(sBody, null, MediaTypeNames.Text.Html);
+            if (bHasInlineImages)
+            {
+                foreach (string sKey in oHT.Keys)
+                {
+                    string sFilePath = Server.MapPath("\\Images\\Money_Touch_360_logo1.gif");
+                    LinkedResource oLR = new LinkedResource(sFilePath);
+                    oLR.ContentType.Name = sKey;
+                    oLR.ContentId = oHT[sKey].ToString();
+
+                    oAV.LinkedResources.Add(oLR);
+                }
+            }
+            oMM.AlternateViews.Add(oAV);
+
+            // Plain Text View
+            //                oAV = AlternateView.CreateAlternateViewFromString("Plain Text View", null, MediaTypeNames.Text.Plain);
+            //              oMM.AlternateViews.Add(oAV);
+        }
         /// <summary>
         /// Save mail as an HTML file.
         /// </summary>
