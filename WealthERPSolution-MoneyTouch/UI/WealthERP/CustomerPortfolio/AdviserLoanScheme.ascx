@@ -45,6 +45,15 @@
 </table>
 <table width="100%">
     <tr>
+        <td align="center">
+            <div class="success-msg" id="UpdationIncomplete" runat="server" visible="false" align="center">
+                Please Check all the grid items have been Updated!
+            </div>
+        </td>
+    </tr>
+    </table>
+<table width="100%">
+    <tr>
         <td align="right">
             <asp:Label ID="Label2" Text="Scheme Name:" runat="server" CssClass="FieldName"></asp:Label>
         </td>
