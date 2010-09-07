@@ -8,7 +8,8 @@
         <table style="width: 100%;">
             <tr>
                 <td colspan="6">
-                    <asp:Label ID="lblHeader" Text="Pension & Gratuities Portfolio Details" runat="server" CssClass="HeaderTextBig"></asp:Label>
+                    <asp:Label ID="lblHeader" Text="Pension & Gratuities Portfolio Details" runat="server"
+                        CssClass="HeaderTextBig"></asp:Label>
                     <hr />
                 </td>
             </tr>
@@ -35,14 +36,13 @@
             </tr>
         </table>
         <table style="width: 100%;">
-          
             <tr>
                 <td colspan="6">
                     <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
                         OnClick="lnkBtnBack_Click"></asp:LinkButton>
                 </td>
             </tr>
-             <tr id="trEditButton" runat="server" visible="false">
+            <tr id="trEditButton" runat="server" visible="false">
                 <td colspan="6">
                     <asp:LinkButton ID="lnkEdit" runat="server" Text="Edit" OnClick="lnkEdit_Click" CssClass="LinkButtons">
                     </asp:LinkButton>
@@ -107,7 +107,6 @@
                     &nbsp;
                 </td>
             </tr>
-           
             <tr id="trEditSpace" runat="server" visible="false">
                 <td colspan="6">
                     &nbsp;
@@ -587,6 +586,9 @@
                     <asp:CompareValidator ID="CompareValidator23" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtSuperCurrentValue" Operator="DataTypeCheck"
                         CssClass="cvPCG"></asp:CompareValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG"
+                        ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtSuperCurrentValue"
+                        Display="Dynamic"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trSuperRemarks" runat="server">
