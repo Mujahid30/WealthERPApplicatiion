@@ -39,13 +39,15 @@ namespace WealthERP.Advisor
            // addBranch.Attributes.Add("onclick", "return addbranches('availableBranch','associatedBranch')");
             //deleteBranch.Attributes.Add("onclick", "return deletebranches('associatedBranch','availableBranch')");
             SessionBo.CheckSession();
-            advisorVo = (AdvisorVo)Session["advisorVo"];     
-            if(Session["CurrentrmVo"]!=null)
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            if (Session["CurrentrmVo"] != null)
             {
                 rmVo = (RMVo)Session["CurrentrmVo"];
             }
             else
+            {
                 rmVo = (RMVo)Session["rmVo"];
+            }
             userVo = (UserVo)Session["userVo"];
             editRMDetails();
             lblEmail.CssClass = "FieldName";
@@ -221,8 +223,14 @@ namespace WealthERP.Advisor
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             try
             {
-                if(rmVo==null)
+                if (Session["CurrentrmVo"] != null)
+                {
+                    rmVo = (RMVo)Session["CurrentrmVo"];
+                }
+                else
+                {
                     rmVo = (RMVo)Session["rmVo"];
+                }
 
                 if (Session["advisorVo"] != null)
                 {
@@ -395,9 +403,13 @@ namespace WealthERP.Advisor
         }
         public void editRMDetails()
         {
-            if (rmVo == null)
+            RMVo rmVo = new RMVo();
+            if (Session["CurrentrmVo"] != null)
             {
-                rmVo = new RMVo();
+                rmVo = (RMVo)Session["CurrentrmVo"];
+            }
+            else
+            {
                 rmVo = (RMVo)Session["rmVo"];
             }
             txtFirstName.Text = rmVo.FirstName.ToString();
@@ -607,7 +619,14 @@ namespace WealthERP.Advisor
             bool result = false;
             try
             {
-                rmVo = (RMVo)Session["rmVo"];
+                if (Session["CurrentrmVo"] != null)
+                {
+                    rmVo = (RMVo)Session["CurrentrmVo"];
+                }
+                else
+                {
+                    rmVo = (RMVo)Session["rmVo"];
+                }
                 userId = int.Parse(Session["userId"].ToString());
 
                 result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
