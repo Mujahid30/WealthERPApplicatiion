@@ -3,47 +3,47 @@
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
 <script src="/Scripts/jquery.js" type="text/javascript"></script>
-    <style>        
-        .error
-        {
-            color: Red;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        .success
-        {
-            color: Green;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        input
-        {
-            border: 1px solid #ccc;
-            color: #333333;
-            font-size: 12px;
-            margin-top: 2px;
-            padding: 3px;
-            width: 200px;
-        }
-        .left-td
-        {
-            text-align: right;
-            width: 52%;
-            padding-left:100px;
-            color:#16518A;
-            
-        }
-        .right-td
-        {
-           
-            text-align: left;
-        }
-        .spnRequiredField
-        {
-            color: #FF0033;
-            font-size: x-small;
-        }
-    </style>
+
+<style>
+    .error
+    {
+        color: Red;
+        font-weight: bold;
+        font-size: 12px;
+    }
+    .success
+    {
+        color: Green;
+        font-weight: bold;
+        font-size: 12px;
+    }
+    input
+    {
+        border: 1px solid #ccc;
+        color: #333333;
+        font-size: 12px;
+        margin-top: 2px;
+        padding: 3px;
+        width: 50px;
+    }
+    .left-td
+    {
+        text-align: right;
+        width: 52%;
+        padding-left: 100px;
+        color: #16518A;
+    }
+    .right-td
+    {
+        text-align: left;
+    }
+    .spnRequiredField
+    {
+        color: #FF0033;
+        font-size: x-small;
+    }    
+</style>
+
 <script type="text/javascript" language="javascript">
     function checkSelection() {
         var form = document.forms[0];
@@ -85,6 +85,7 @@
     }
    
 </script>
+
 <script type="text/javascript">
     function checkLoginId() {
         $("#hidValid").val("0");
@@ -118,9 +119,9 @@
                 }
             }
 
-        });        
+        });
     }
-// To validate whether the current changes have been validated or not
+    // To validate whether the current changes have been validated or not
     function isValid() {
         if (document.getElementById('hidValid').value == '1') {
             Page_ClientValidate();
@@ -132,6 +133,7 @@
         }
     }
 </script>
+
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
@@ -420,6 +422,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="IsDependent" ItemStyle-HorizontalAlign="Center">
+                        
                         <ItemTemplate>
                             <asp:CheckBox ID="chkIsDependent" runat="server" />
                         </ItemTemplate>
@@ -456,8 +459,8 @@
         <td>
             &nbsp;
         </td>
-    </tr> 
+    </tr>
 </table>
-   <input type="hidden" id="hidValid" />
-      <input type="hidden" id="hidStatus" runat="server" />
+<input type="hidden" id="hidValid" />
+<input type="hidden" id="hidStatus" runat="server" />
 <asp:TextBox ID="txtActivationHidden" runat="server" Style="display: none" />
