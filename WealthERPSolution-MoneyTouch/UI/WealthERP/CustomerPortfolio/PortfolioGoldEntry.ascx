@@ -181,9 +181,9 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField"></asp:TextBox>
                      <span id="Span7" class="spnRequiredField">*</span>
-                  <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtPurchaseDate"
-                        ErrorMessage="<br />Please select a Purchase Date" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                  <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtCurrentValue"
+                        ErrorMessage="<br />Please enter Current Value" Display="Dynamic" runat="server"
+                        CssClass="cvPCG">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br />Please enter a numeric value"
                         Type="Double" ControlToValidate="txtCurrentValue" Operator="DataTypeCheck" CssClass="cvPCG"
