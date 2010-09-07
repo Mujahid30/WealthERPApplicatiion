@@ -447,7 +447,7 @@
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
                                                                 Text="Tools" Value="Tools" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMAlertDashBoard','login');"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrol('RMAlertNotifications','none');"
                                                                 Text="Alerts" Value="Alerts" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
