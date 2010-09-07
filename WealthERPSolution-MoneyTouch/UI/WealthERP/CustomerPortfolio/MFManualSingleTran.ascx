@@ -4,7 +4,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <html>
 <head>
-    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
 </head>
 <body>
 </body>
@@ -81,49 +81,41 @@
             </tr>
         </table>
         <table style="width: 100%;" class="TableBackground">
+            
+            </table>
+            <table style="width: 100%;" class="TableBackground">  
             <tr>
                 <td class="leftField">
                     <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Select the Portfolio :"></asp:Label>
                 </td>
-                <td colspan="4" class="rightField">
+                <td class="rightField">
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
+                    <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
                 </td>
-            </tr>
-            <tr>
-                <td class="leftField">
+                <td class="leftField" colspan="2">
                     <asp:Label ID="lblSchemeSearch" runat="server" Text="Scheme Search :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField">
-                <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
-                                    <asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtField" AutoComplete="Off"
-                                        AutoPostBack="true"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
-                                            runat="server" TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
-                                        </cc1:TextBoxWatermarkExtender>
-                                    <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
-                                        TargetControlID="txtSearchScheme" ServiceMethod="GetSchemeList" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                                        MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
-                                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                                        UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
-                                    <span id="Span6" class="spnRequiredField">*<br />
-                                    </span>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSearchScheme"
-                                        ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                                        ValidationGroup="MFSubmit">
-                                    </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
-                                        few characters of Scheme name.</span>
-                    
+                <td class="rightField">                    
+                    <asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtField" AutoComplete="Off"
+                        AutoPostBack="true" Width="300px"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
+                            runat="server" TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
+                        </cc1:TextBoxWatermarkExtender>
+                    <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
+                        TargetControlID="txtSearchScheme" ServiceMethod="GetSchemeList" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                        MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
+                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                        UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
+                    <span id="Span6" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSearchScheme"
+                        ErrorMessage="<br />Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                        ValidationGroup="MFSubmit">
+                    </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'><br />Enter
+                        few characters of Scheme name.</span>
                 </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-                <td style="display: run-in;">
-                </td>
-            </tr>
+            </tr>          
             <tr>
                 <td class="leftField">
                     <asp:Label ID="Label3" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
@@ -226,7 +218,6 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtDividentRate" runat="server" CssClass="txtField"></asp:TextBox>
-                    
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtDividentRate"
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Please enter a Dividend Rate"
                         Display="Dynamic" runat="server" InitialValue="">--%>
@@ -237,32 +228,32 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
-                <td></td>
+                <td>
+                </td>
+                <td>
+                </td>
                 <td class="leftField" id="tdSchemeToLabel" runat="server" colspan="2">
                     <asp:Label ID="lblSchemeTo" runat="server" Text="Scheme To :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" id="tdSchemeToValue" runat="server" colspan="2" >
-                 <asp:HiddenField ID="txtSwitchSchemeCode" runat="server" 
-                        onvaluechanged="txtSwitchSchemeCode_ValueChanged" />
-                                    <asp:TextBox ID="txtSwicthSchemeSearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                                        AutoPostBack="true"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSwitchSchemeCode_TextBoxWatermarkExtender"
-                                            runat="server" TargetControlID="txtSwicthSchemeSearch" WatermarkText="Type the Scheme Name">
-                                        </cc1:TextBoxWatermarkExtender>
-                                    <ajaxToolkit:AutoCompleteExtender ID="txtSwitchSchemeCode_AutoCompleteExtender" runat="server"
-                                        TargetControlID="txtSwicthSchemeSearch" ServiceMethod="GetSwitchSchemeList" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                                        MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
-                                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                                        UseContextKey="true" OnClientItemSelected="GetSwitchSchemeCode" />
-                                    <span id="Span1" class="spnRequiredField">*<br />
-                                    </span>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtSwicthSchemeSearch"
-                                        ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                                        ValidationGroup="MFSubmit">
-                                    </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
-                                        few characters of customer name.</span>
-                    
+                <td class="rightField" id="tdSchemeToValue" runat="server" colspan="2">
+                    <asp:HiddenField ID="txtSwitchSchemeCode" runat="server" OnValueChanged="txtSwitchSchemeCode_ValueChanged" />
+                    <asp:TextBox ID="txtSwicthSchemeSearch" runat="server" CssClass="txtField" AutoComplete="Off"
+                        AutoPostBack="true"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSwitchSchemeCode_TextBoxWatermarkExtender"
+                            runat="server" TargetControlID="txtSwicthSchemeSearch" WatermarkText="Type the Scheme Name">
+                        </cc1:TextBoxWatermarkExtender>
+                    <ajaxToolkit:AutoCompleteExtender ID="txtSwitchSchemeCode_AutoCompleteExtender" runat="server"
+                        TargetControlID="txtSwicthSchemeSearch" ServiceMethod="GetSwitchSchemeList" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                        MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
+                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                        UseContextKey="true" OnClientItemSelected="GetSwitchSchemeCode" />
+                    <span id="Span1" class="spnRequiredField">*<br />
+                    </span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtSwicthSchemeSearch"
+                        ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                        ValidationGroup="MFSubmit">
+                    </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
+                        few characters of customer name.</span>
                 </td>
             </tr>
             <tr>
@@ -295,10 +286,9 @@
                         CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
-                <td class="rightfield" runat="server" id="tdSwitchUseNAV" visible="false">                   
-                 <asp:Button ID="btnSwitchNAV" runat="server" Text="Use NAV" 
-                        CssClass="PCGMediumButton" onclick="btnSwitchNAV_Click"
-                        />
+                <td class="rightfield" runat="server" id="tdSwitchUseNAV" visible="false">
+                    <asp:Button ID="btnSwitchNAV" runat="server" Text="Use NAV" CssClass="PCGMediumButton"
+                        OnClick="btnSwitchNAV_Click" />
                 </td>
             </tr>
             <tr>
@@ -349,12 +339,12 @@
                         CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
-               <td class="leftField" id="tdAmtPurchasedLabel" runat="server" colspan="2">
+                <td class="leftField" id="tdAmtPurchasedLabel" runat="server" colspan="2">
                     <asp:Label ID="lblAmtPurchased" runat="server" Text="Amount :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" id="tdAmtPurchasedValue" runat="server" colspan="2">
-                    <asp:TextBox ID="txtAmtPurchased" runat="server" CssClass="txtField" 
-                        MaxLength="18" ontextchanged="txtAmtPurchased_TextChanged" AutoPostBack="true"></asp:TextBox>
+                    <asp:TextBox ID="txtAmtPurchased" runat="server" CssClass="txtField" MaxLength="18"
+                        OnTextChanged="txtAmtPurchased_TextChanged" AutoPostBack="true"></asp:TextBox>
                     <span id="Span15" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtAmtPurchased"
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Please enter the Amount"
@@ -380,10 +370,10 @@
                         CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
-                 <td class="leftField" id="tdUnitsAllotedLabel" runat="server" colspan="2">
+                <td class="leftField" id="tdUnitsAllotedLabel" runat="server" colspan="2">
                     <asp:Label ID="lblUnitsAlloted" runat="server" Text="Units Allotted :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" id="tdUnitsAllotedValue" runat="server"  colspan="2">
+                <td class="rightField" id="tdUnitsAllotedValue" runat="server" colspan="2">
                     <asp:TextBox ID="txtUnitsAlloted" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
                     <span id="Span13" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtUnitsAlloted"
@@ -394,7 +384,6 @@
                         CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
-                
             </tr>
             <tr>
                 <td colspan="2">
