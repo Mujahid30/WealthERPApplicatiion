@@ -16,6 +16,7 @@ namespace WealthERP.Advisor
 {
     public partial class ViewBranchAssociation : System.Web.UI.UserControl
     {
+
         static Dictionary<string, string> genDictRM;
         static Dictionary<string, string> genDictBranch;
 
