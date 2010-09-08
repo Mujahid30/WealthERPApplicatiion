@@ -684,11 +684,11 @@
                                 <%--  </td>
                         <td class="rightField">--%>
                                 <asp:TextBox ID="txtInsIRDANum" runat="server" CssClass="txtField"></asp:TextBox>
-                                <%--<span id="Span30" class="spnRequiredField">*</span>
+                                <span id="Span30" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator29" ControlToValidate="txtInsIRDANum"
                                     ValidationGroup="btnRD" ErrorMessage="<br />Please Enter IRDA no." Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
-                                </asp:RequiredFieldValidator>--%>
+                                </asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
@@ -697,11 +697,11 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtInsAgentNum" runat="server" CssClass="txtField"></asp:TextBox>
-                                <%--<span id="Span26" class="spnRequiredField">*</span>
+                                <span id="Span26" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator25" ControlToValidate="txtInsAgentNum"
                                     ValidationGroup="btnRD" ErrorMessage="<br />Please Enter Agent No./Agency Code"
                                     Display="Dynamic" runat="server" CssClass="rfvPCG">
-                                </asp:RequiredFieldValidator>--%>
+                                </asp:RequiredFieldValidator>
                             </td>
                             <td class="rightField">
                                 <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Agency Expiry Date:"></asp:Label>
@@ -714,14 +714,14 @@
                                 <cc1:TextBoxWatermarkExtender ID="txtInsAgencyExpiry_TextBoxWatermarkExtender" WatermarkText="dd/mm/yyyy"
                                     TargetControlID="txtInsAgencyExpiry" runat="server">
                                 </cc1:TextBoxWatermarkExtender>
-                                <%--<span id="Span27" class="spnRequiredField">*</span>
+                                <span id="Span27" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator26" ControlToValidate="txtInsAgencyExpiry"
                                     ValidationGroup="grpIns" ErrorMessage="<br />Please Enter Expiry Date" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="cvInsExpiryDate" runat="server" ErrorMessage="<br/>Sorry, Expiry date should not be prior to current date !"
                                     Type="Date" ControlToValidate="txtInsAgencyExpiry" CssClass="cvPCG" Operator="greaterthanequal"
-                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpIns"></asp:CompareValidator>--%>
+                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpIns"></asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
@@ -825,11 +825,11 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtPostalAgentNum" runat="server" CssClass="txtField"></asp:TextBox>
-                                <%--<span id="Span31" class="spnRequiredField">*</span>
+                                <span id="Span31" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator30" ControlToValidate="txtPostalAgentNum"
                                     ValidationGroup="btnRD" ErrorMessage="<br />Please Enter Agent No./Agency Code"
                                     Display="Dynamic" runat="server" CssClass="rfvPCG">
-                                </asp:RequiredFieldValidator>--%>
+                                </asp:RequiredFieldValidator>
                             </td>
                             <td class="rightField">
                                 <asp:Label ID="Label14" runat="server" CssClass="FieldName" Text="Agency Expiry Date:"></asp:Label>
@@ -842,14 +842,14 @@
                                 <cc1:TextBoxWatermarkExtender ID="txtPostalAgencyExpiry_TextBoxWatermarkExtender"
                                     WatermarkText="dd/mm/yyyy" TargetControlID="txtPostalAgencyExpiry" runat="server">
                                 </cc1:TextBoxWatermarkExtender>
-                                <%--<span id="Span32" class="spnRequiredField">*</span>
+                                <span id="Span32" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="txtPostalAgencyExpiry_RequiredFieldValidator" ControlToValidate="txtPostalAgencyExpiry"
                                     ValidationGroup="grpPostal" ErrorMessage="<br />Please Enter Expiry Date" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="cvPostExpiryDate" runat="server" ErrorMessage="<br/>Sorry, Expiry date should not be prior to current date !"
                                     Type="Date" ControlToValidate="txtPostalAgencyExpiry" CssClass="cvPCG" Operator="greaterthanequal"
-                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpPostal"></asp:CompareValidator>--%>
+                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpPostal"></asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
@@ -932,11 +932,11 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtRealEstAgentNum" runat="server" CssClass="txtField"></asp:TextBox>
-                                <%--<span id="Span36" class="spnRequiredField">*</span>
+                                <span id="Span36" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator35" ControlToValidate="txtRealEstAgentNum"
                                     ValidationGroup="btnRD" ErrorMessage="<br />Please Enter Agent No./Agency Code"
                                     Display="Dynamic" runat="server" CssClass="rfvPCG">
-                                </asp:RequiredFieldValidator>--%>
+                                </asp:RequiredFieldValidator>
                             </td>
                             <td class="rightField">
                                 <asp:Label ID="Label52" runat="server" CssClass="FieldName" Text="Agency Expiry Date:"></asp:Label>
@@ -949,14 +949,14 @@
                                 <cc1:TextBoxWatermarkExtender ID="txtRealEstAgencyExpiry_TextBoxWatermarkExtender"
                                     WatermarkText="dd/mm/yyyy" TargetControlID="txtRealEstAgencyExpiry" runat="server">
                                 </cc1:TextBoxWatermarkExtender>
-                                <%--<span id="Span37" class="spnRequiredField">*</span>
+                                <span id="Span37" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="txtRealEstAgencyExpiry_RequiredFieldValidator" ControlToValidate="txtRealEstAgencyExpiry"
                                     ValidationGroup="grpRealEst" ErrorMessage="<br />Please Enter Expiry Date" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="cvRealEstExpiryDate" runat="server" ErrorMessage="<br/>Sorry, Expiry date should not be prior to current date !"
                                     Type="Date" ControlToValidate="txtRealEstAgencyExpiry" CssClass="cvPCG" Operator="GreaterThanEqual"
-                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpRealEst"></asp:CompareValidator>--%>
+                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpRealEst"></asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
@@ -1041,11 +1041,11 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtFixIncAgentNum" runat="server" CssClass="txtField"></asp:TextBox>
-                                <%--<span id="Span39" class="spnRequiredField">*</span>
+                                <span id="Span39" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator38" ControlToValidate="txtFixIncAgentNum"
                                     ValidationGroup="btnRD" ErrorMessage="<br />Please Enter Agent No./Agency Code"
                                     Display="Dynamic" runat="server" CssClass="rfvPCG">
-                                </asp:RequiredFieldValidator>--%>
+                                </asp:RequiredFieldValidator>
                             </td>
                             <td class="rightField">
                                 <asp:Label ID="Label59" runat="server" CssClass="FieldName" Text="Agency Expiry Date:"></asp:Label>
@@ -1058,14 +1058,14 @@
                                 <cc1:TextBoxWatermarkExtender ID="txtFixIncAgencyExpiry_TextBoxWatermarkExtender"
                                     WatermarkText="dd/mm/yyyy" TargetControlID="txtFixIncAgencyExpiry" runat="server">
                                 </cc1:TextBoxWatermarkExtender>
-                                <%--<span id="Span40" class="spnRequiredField">*</span>
+                                <span id="Span40" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="txtFixIncAgencyExpiry_RequiredFieldValidator" ControlToValidate="txtFixIncAgencyExpiry"
                                     ValidationGroup="grpFixInc" ErrorMessage="<br />Please Enter Expiry Date" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="cvFixIncExpiryDate" runat="server" ErrorMessage="<br/>Sorry, Expiry date should not be prior to current date !"
                                     Type="Date" ControlToValidate="txtFixIncAgencyExpiry" CssClass="cvPCG" Operator="greaterthanequal"
-                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpFixInc"></asp:CompareValidator>--%>
+                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpFixInc"></asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
@@ -1150,11 +1150,11 @@
                             </td>
                             <td class="style2">
                                 <asp:TextBox ID="txtLiabAgentNum" runat="server" CssClass="txtField"></asp:TextBox>
-                                <%--<span id="Span33" class="spnRequiredField">*</span>
+                                <span id="Span33" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator32" ControlToValidate="txtLiabAgentNum"
                                     ValidationGroup="btnRD" ErrorMessage="<br />Please Enter Agent No./Agency Code"
                                     Display="Dynamic" runat="server" CssClass="rfvPCG">
-                                </asp:RequiredFieldValidator>--%>
+                                </asp:RequiredFieldValidator>
                             </td>
                             <td class="rightField">
                                 <asp:Label ID="Label44" runat="server" CssClass="FieldName" Text="Agency Expiry Date:"></asp:Label>
@@ -1167,14 +1167,14 @@
                                 <cc1:TextBoxWatermarkExtender ID="txtLiabAgencyExpiry_TextBoxWatermarkExtender" WatermarkText="dd/mm/yyyy"
                                     TargetControlID="txtLiabAgencyExpiry" runat="server">
                                 </cc1:TextBoxWatermarkExtender>
-                                <%--<span id="Span34" class="spnRequiredField">*</span>
+                                <span id="Span34" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="txtFixIncAgencyExpiryRequiredFieldValidator" ControlToValidate="txtFixIncAgencyExpiry"
                                     ValidationGroup="grpLiab" ErrorMessage="<br />Please Enter Expiry Date" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
                                 </asp:RequiredFieldValidator>
                                 <asp:CompareValidator ID="cvLiabExpiryDate" runat="server" ErrorMessage="<br/>Sorry, Expiry date should not be prior to current date !"
                                     Type="Date" ControlToValidate="txtLiabAgencyExpiry" CssClass="cvPCG" Operator="greaterthanequal"
-                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpLiab"></asp:CompareValidator>--%>
+                                    ValueToCompare="" Display="Dynamic" ValidationGroup="grpLiab"></asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
