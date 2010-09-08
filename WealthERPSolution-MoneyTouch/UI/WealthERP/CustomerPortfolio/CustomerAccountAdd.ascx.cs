@@ -56,7 +56,8 @@ namespace WealthERP.CustomerPortfolio
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 insuranceUlipList = (List<InsuranceULIPVo>)Session["ulipList"];
                 group = Session["action"].ToString().Trim();
-                portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                if(portfolioId==0 || portfolioId == null)
+                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 this.Page.Culture = "en-GB";
                 if (!IsPostBack)
                 {
@@ -1057,7 +1058,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    ddlModeOfHolding.SelectedValue = "SO";
+                    ddlModeOfHolding.SelectedValue = "SI";
                     ddlModeOfHolding.Enabled = false;
                     trJoinHolders.Visible = false;
                     trJointHolderGrid.Visible = false;
