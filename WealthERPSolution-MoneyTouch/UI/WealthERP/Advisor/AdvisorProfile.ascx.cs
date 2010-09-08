@@ -70,8 +70,22 @@ namespace WealthERP.Advisor
 
                 if (advisorVo.Phone1Isd > 1 && advisorVo.Phone1Std > 1 && advisorVo.Phone1Number > 1)
                     lblPhNumber1.Text = advisorVo.Phone1Isd.ToString() + "-" + advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString();
+                else if(advisorVo.Phone1Isd==0 && advisorVo.Phone1Std > 1 && advisorVo.Phone1Number > 1)
+                    lblPhNumber1.Text = advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString();
+                else if (advisorVo.Phone1Isd > 1 && advisorVo.Phone1Std==0 && advisorVo.Phone1Number > 1)
+                    lblPhNumber1.Text = advisorVo.Phone1Isd.ToString() +  "-" + advisorVo.Phone1Number.ToString();
+                else if (advisorVo.Phone1Isd==0 && advisorVo.Phone1Std==0 && advisorVo.Phone1Number > 1)
+                    lblPhNumber1.Text = advisorVo.Phone1Number.ToString();
+
+
                 if (advisorVo.Phone2Isd > 1 && advisorVo.Phone2Std > 1 && advisorVo.Phone2Number > 1)
                     lblPhNumber2.Text = advisorVo.Phone2Isd.ToString() + "-" + advisorVo.Phone2Std.ToString() + "-" + advisorVo.Phone2Number.ToString();
+                else if (advisorVo.Phone2Isd == 0 && advisorVo.Phone2Std > 1 && advisorVo.Phone2Number > 1)
+                    lblPhNumber2.Text = advisorVo.Phone2Std.ToString() + "-" + advisorVo.Phone2Number.ToString();
+                else if (advisorVo.Phone2Isd > 1 && advisorVo.Phone2Std == 0 && advisorVo.Phone2Number > 1)
+                    lblPhNumber2.Text = advisorVo.Phone2Isd.ToString() + "-" + advisorVo.Phone2Number.ToString();
+                else if (advisorVo.Phone2Isd == 0 && advisorVo.Phone2Std == 0 && advisorVo.Phone2Number > 1)
+                    lblPhNumber2.Text = advisorVo.Phone2Number.ToString();
 
                 if (advisorVo.PinCode > 0)
                     lblPin.Text = advisorVo.PinCode.ToString();
