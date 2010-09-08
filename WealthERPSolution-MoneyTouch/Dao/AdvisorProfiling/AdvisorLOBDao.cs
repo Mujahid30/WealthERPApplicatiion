@@ -328,7 +328,8 @@ namespace DaoAdvisorProfiling
             return getAdvisorLOBDs;
 
         }
-public void UpdateAdvisorLOB(int lobId, int IsDependent)
+
+        public void UpdateAdvisorLOB(int lobId, int IsDependent)
         {
             
             Database db;
@@ -365,6 +366,7 @@ public void UpdateAdvisorLOB(int lobId, int IsDependent)
             }            
 
         }
+
         public string GetLOBCode(string path,string assetClass, string category, string segment)
         {
             string LOBCode = "";
