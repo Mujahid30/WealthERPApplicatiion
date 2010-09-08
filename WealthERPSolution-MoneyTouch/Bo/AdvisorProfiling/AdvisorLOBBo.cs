@@ -332,6 +332,12 @@ namespace BoAdvisorProfiling
             }
             return result;
         }
-         
+        public void UpdateAdvisorLOB(int lobId,int IsDependent)
+        {
+
+            AdvisorLOBDao advisorlobdao=new AdvisorLOBDao();
+            advisorlobdao.UpdateAdvisorLOB(lobId, IsDependent);
+
+        }
     }
 }
