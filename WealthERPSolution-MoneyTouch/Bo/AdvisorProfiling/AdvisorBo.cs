@@ -732,6 +732,13 @@ namespace BoAdvisorProfiling
         //    return bCode;  
 
         //}
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorVo"></param>
+        /// <returns></returns>
         public bool UpdateAdvisorUser(AdvisorVo advisorVo)
         {
             bool bResult = false;
