@@ -567,7 +567,7 @@ namespace WealthERP.Advisor
                     rbtnNo.Enabled = false;
                     txtCity.Enabled = false;
                     ddlBusinessType.Enabled = false;
-                    txtCountry.Enabled = false;
+                    
                     ddlState.Enabled = false;
                     txtAddressLine1.Enabled = false;
                     txtAddressLine2.Enabled = false;
