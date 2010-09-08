@@ -26,6 +26,7 @@ namespace WealthERP.Advisor
 {
     public partial class LOB : System.Web.UI.UserControl
     {
+
         AdvisorVo advisorVo = new AdvisorVo();
         ProductMFBo productMfBo = new ProductMFBo();
         UserVo userVo = new UserVo();
@@ -60,8 +61,7 @@ namespace WealthERP.Advisor
         String connectionstring;
 
 
-       
-
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,7 +69,7 @@ namespace WealthERP.Advisor
             {
                 SessionBo.CheckSession();
                 advisorVo = (AdvisorVo)Session["advisorVo"];
-                userVo = (UserVo)Session["UserVo"];
+                userVo = (UserVo)Session["iffUserVo"];
                 LOBId = Session["LOBId"].ToString();
                 cvMFExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
                
@@ -1422,7 +1422,7 @@ namespace WealthERP.Advisor
             {
                 if (Session["LOBId"].ToString() == "lob")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','none');", true);
                 }
                 else if (Session["LOBId"].ToString() == "FromReg")
                 {
