@@ -47,17 +47,9 @@ namespace WealthERP.Advisor
                 SessionBo.CheckSession();
                 string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
 
-                userVo = (UserVo)Session["userVo"];
-                if (Session["advisorVo"] != null && Session["rmVo"] != null && userVo.UserType == "SuperAdmin")
-                {
-                    advisorVo = (AdvisorVo)Session["advisorVo"];
-                    rmVo = (RMVo)Session["rmVo"];
-                }
-                else
-                {
-                    advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
-                    rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
-                }
+                userVo = (UserVo)Session["UserVo"];
+                advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                 //RegularExpressionValidator3.Controls.Add(
                 if (!IsPostBack)
                 {
@@ -73,6 +65,17 @@ namespace WealthERP.Advisor
                     BindDropDowns(path);
                     if (advisorVo.BusinessCode != null)
                         ddlBusinessType.SelectedValue = advisorVo.BusinessCode.ToString();
+
+                    if (advisorVo.Associates == 1)
+                    {
+                        rbtnAssModelTypeYes.Checked = true;
+                        rbtnAssModelTypeNo.Checked = false;
+                    }
+                    else
+                    {
+                        rbtnAssModelTypeYes.Checked = false;
+                        rbtnAssModelTypeNo.Checked = true;
+                    }
 
                     if (advisorVo.MultiBranch == 1)
                     {
@@ -90,6 +93,8 @@ namespace WealthERP.Advisor
                         txtAddressLine2.Text = advisorVo.AddressLine2.ToString();
                     if (advisorVo.AddressLine3 != null)
                         txtAddressLine3.Text = advisorVo.AddressLine3.ToString();
+                    if (advisorVo.Website != null)
+                        txtwebsite.Text = advisorVo.Website.ToString();
                     txtEmail.Text = advisorVo.Email.ToString();
 
                     if (advisorVo.Fax != 0)
@@ -129,7 +134,7 @@ namespace WealthERP.Advisor
 
                     txtCity.Text = advisorVo.City.ToString();
                     if (advisorVo.Country != null)
-                        ddlCountry.Items.Add(advisorVo.Country.ToString());
+                        txtCountry.Text=advisorVo.Country.ToString();
                     if (advisorVo.State != null)
                         ddlState.SelectedValue = advisorVo.State.ToString();
                 }
@@ -402,12 +407,14 @@ namespace WealthERP.Advisor
                     advisorVo.ContactPersonFirstName = txtFirstName.Text.ToString();
                     advisorVo.ContactPersonLastName = txtLastName.Text.ToString();
                     advisorVo.ContactPersonMiddleName = txtMiddleName.Text.ToString();
-                    if (ddlCountry.SelectedItem != null)
-                        advisorVo.Country = ddlCountry.SelectedItem.Value.ToString();
+                    if (!string.IsNullOrEmpty(txtCountry.Text))
+                        advisorVo.Country = txtCountry.Text;
                     advisorVo.Email = txtEmail.Text.ToString();
-
+                    if (!string.IsNullOrEmpty(txtwebsite.Text.ToString()))
+                    advisorVo.Website = txtwebsite.Text.ToString();
                     newRmVo.Email = txtEmail.Text.ToString();
 
+                    advisorVo.Website = txtwebsite.Text.ToString();
                     if (txtFax.Text == "")
                     {
                         advisorVo.Fax = 0;
@@ -452,6 +459,11 @@ namespace WealthERP.Advisor
                     {
                         advisorVo.MultiBranch = 1;
                     }
+
+                    if (rbtnAssModelTypeNo.Checked)
+                        advisorVo.Associates = 0;
+                    else
+                        advisorVo.Associates = 1;
 
                     advisorVo.OrganizationName = txtOrganizationName.Text.ToString();
                     if (txtISD1.Text == "")
@@ -505,7 +517,7 @@ namespace WealthERP.Advisor
                     else
                     {
                         advisorVo.Phone2Number = 0;
-                            newRmVo.OfficePhoneExtNumber = 0;
+                        newRmVo.OfficePhoneExtNumber = 0;
                     }
                     if (txtPinCode.Text != string.Empty)
                         advisorVo.PinCode = int.Parse(txtPinCode.Text.ToString());
@@ -541,12 +553,12 @@ namespace WealthERP.Advisor
                     userBo.UpdateUser(userVo);
                     advisorStaffBo.UpdateStaff(newRmVo);
 
-
+                     
                     rbtnYes.Enabled = false;
                     rbtnNo.Enabled = false;
                     txtCity.Enabled = false;
                     ddlBusinessType.Enabled = false;
-                    ddlCountry.Enabled = false;
+                    txtCountry.Enabled = false;
                     ddlState.Enabled = false;
                     txtAddressLine1.Enabled = false;
                     txtAddressLine2.Enabled = false;

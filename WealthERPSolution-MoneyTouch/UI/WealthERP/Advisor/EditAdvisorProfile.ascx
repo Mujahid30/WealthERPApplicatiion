@@ -29,7 +29,7 @@
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtOrganizationName"
                 ErrorMessage="Please enter the Organisation Name" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                CssClass="rfvPCG" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -44,7 +44,7 @@
             </span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtFirstName"
                 ErrorMessage="Please enter the First Name" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                CssClass="rfvPCG" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -80,7 +80,7 @@
             </span>
             <asp:RequiredFieldValidator ID="rfvAddressLine1" ControlToValidate="txtAddressLine1"
                 ErrorMessage="Please enter the Address Line 1" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                CssClass="rfvPCG" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -120,7 +120,7 @@
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPinCode"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG" 
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -138,8 +138,9 @@
             <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Country :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:DropDownList ID="ddlCountry" runat="server" CssClass="txtField">
-            </asp:DropDownList>
+          <%--  <asp:DropDownList ID="ddlCountry" runat="server" CssClass="txtField">
+            </asp:DropDownList>--%>
+              <asp:TextBox ID="txtCountry" runat="server" CssClass="txtField" MaxLength="6"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -173,8 +174,8 @@
                 ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtISD1"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtISD1"
-                runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit" Display="Dynamic"
-                ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit" Display="Dynamic" 
+                ErrorMessage="Not acceptable format" ValidationExpression="^\d[0-9]$"></asp:RegularExpressionValidator>
         </td>
         <td class="rightField" width="15px">
             <asp:TextBox ID="txtSTD1" runat="server" Width="55px" MaxLength="4" CssClass="txtField"></asp:TextBox>
@@ -182,7 +183,7 @@
                 ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtSTD1"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtSTD1"
-                CssClass="rfvPCG" ValidationGroup="btnSubmit" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="btnSubmit" Display="Dynamic" runat="server" 
                 ErrorMessage="<br/>Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
         <td class="rightField">
@@ -223,7 +224,7 @@
                 ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPhoneNumber2"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtPhoneNumber2"
-                ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic" runat="server"
+               ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic" runat="server"
                 ErrorMessage="<br/>Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -278,12 +279,20 @@
             <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEmail"
-                ErrorMessage="Please enter an Email ID" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                ErrorMessage="Please enter an Email ID" Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
-                ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
+                ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
                 CssClass="rfvPCG" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
         </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="Label23" runat="server" CssClass="FieldName" Text="Website :"></asp:Label>
+        </td>
+        <td class="rightField" colspan="3">
+            <asp:TextBox ID="txtwebsite" runat="server" CssClass="txtField"></asp:TextBox>  
+            </td>
     </tr>
     <tr>
         <td class="leftField">
@@ -292,6 +301,15 @@
         <td class="rightField" colspan="3">
             <asp:DropDownList ID="ddlBusinessType" runat="server" CssClass="cmbField">
             </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Associate Model Type :"></asp:Label>
+        </td>
+        <td class="rightField" colspan="3">
+            <asp:RadioButton ID="rbtnAssModelTypeYes" runat="server" CssClass="txtField" Text="Yes" GroupName="grpAssModel" />
+            <asp:RadioButton ID="rbtnAssModelTypeNo" runat="server" CssClass="txtField" Text="No" GroupName="grpAssModel" />
         </td>
     </tr>
     <tr>
@@ -335,7 +353,7 @@
         <td class="SubmitCell" colspan="4">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditAdvisorProfile_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EditAdvisorProfile_btnSubmit', 'S');"
-                Text="Submit" OnClick="btnSubmit_Click" />
+                Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
         </td>
     </tr>
 </table>
