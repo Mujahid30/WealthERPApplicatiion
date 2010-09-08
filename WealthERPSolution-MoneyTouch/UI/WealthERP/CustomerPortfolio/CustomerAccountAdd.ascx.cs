@@ -23,6 +23,7 @@ namespace WealthERP.CustomerPortfolio
     public partial class CustomerAccountAdd : System.Web.UI.UserControl
     {
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
+
         CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
         CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo();
         List<InsuranceULIPVo> insuranceUlipList = new List<InsuranceULIPVo>();
