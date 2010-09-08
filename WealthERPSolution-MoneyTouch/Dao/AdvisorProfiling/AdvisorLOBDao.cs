@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using Microsoft.Practices.EnterpriseLibrary.Configuration;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
@@ -20,13 +21,13 @@ namespace DaoAdvisorProfiling
 {
     public class AdvisorLOBDao
     {
-       //SP_UpdateAdvisorLOB 
+       
         public bool CreateAdvisorLOB(AdvisorLOBVo advisorLOBVo, int advisorId,int userId) 
         {
             bool result = false;
             Database db;
             DbCommand createAdvisorLOBCmd;
-            
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -218,7 +219,7 @@ namespace DaoAdvisorProfiling
                     advisorLOBVo.OrganizationName = dr["AL_OrgName"].ToString();
                     advisorLOBVo.LicenseNumber = dr["AL_LicenseNo"].ToString();
                     advisorLOBVo.AdviserId = Int32.Parse(dr["A_AdviserId"].ToString());
-                    if (dr["AL_Validity"].ToString() != string.Empty)
+                    if (dr["AL_Validity"].ToString() != string.Empty && dr["AL_Validity"].ToString() != null)
                         advisorLOBVo.ValidityDate = DateTime.Parse(dr["AL_Validity"].ToString());
                     advisorLOBVo.LOBClassificationCode = dr["XALC_LOBClassificationCode"].ToString();
                     advisorLOBVo.IdentifierTypeCode = dr["XALIT_IdentifierTypeCode"].ToString();
@@ -282,7 +283,7 @@ namespace DaoAdvisorProfiling
                     advisorLOBVo.OrganizationName = dr["AL_OrgName"].ToString();
                     advisorLOBVo.LicenseNumber = dr["AL_LicenseNo"].ToString();
                     advisorLOBVo.AdviserId = advisorId;//Int32.Parse(dr["A_AdviserId"].ToString());
-                    if(dr["AL_Validity"].ToString() != string.Empty)
+                    if (dr["AL_Validity"].ToString() != string.Empty && dr["AL_Validity"].ToString() != null)
                         advisorLOBVo.ValidityDate = DateTime.Parse(dr["AL_Validity"].ToString());
                     advisorLOBVo.LOBClassificationCode = dr["XALC_LOBClassificationCode"].ToString();
                     advisorLOBVo.IdentifierTypeCode = dr["XALIT_IdentifierTypeCode"].ToString();
@@ -296,11 +297,8 @@ namespace DaoAdvisorProfiling
       		            advisorLOBVo.TargetAmount=double.Parse(dr["AL_TargetAmount"].ToString());
                     if (dr["AL_TargetPremiumAmount"].ToString() != string.Empty)
                         advisorLOBVo.TargetPremiumAmount=double.Parse(dr["AL_TargetPremiumAmount"].ToString());
-                    if (dr["AL_IsDependent"].ToString() != string.Empty)
-                        advisorLOBVo.IsDependent = Int16.Parse(dr["AL_IsDependent"].ToString());
 			
                     advisorLOBList.Add(advisorLOBVo);
-                    
                 }
             }
             catch (BaseApplicationException Ex)
@@ -324,47 +322,11 @@ namespace DaoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
 
-            }            
+            }
             return getAdvisorLOBDs;
 
         }
-        public void UpdateAdvisorLOB(int lobId, int IsDependent)
-        {
-            
-            Database db;
-            DbCommand UpdateAdvisorLOBCmd;            
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                UpdateAdvisorLOBCmd = db.GetStoredProcCommand("SP_UpdateAdvisorLOB");
-                db.AddInParameter(UpdateAdvisorLOBCmd, "@LOBId", DbType.Int32, lobId);
-                db.AddInParameter(UpdateAdvisorLOBCmd, "@IsDependent", DbType.Int32, IsDependent);
-                db.ExecuteNonQuery(UpdateAdvisorLOBCmd);
-                
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "AdvisorLOBDao.cs:GetAdvisorLOBs()");
-
-
-                object[] objects = new object[1];
-                objects[0] = lobId;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }            
-
-        }
         public string GetLOBCode(string path,string assetClass, string category, string segment)
         {
             string LOBCode = "";
