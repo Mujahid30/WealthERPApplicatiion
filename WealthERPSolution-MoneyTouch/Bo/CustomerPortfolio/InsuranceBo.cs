@@ -21,7 +21,7 @@ namespace BoCustomerPortfolio
             int insuranceId = 0;
             try
             {
-            //    bResult = insuranceDao.CreateInsurancePortfolio(insuranceVo, userId);
+                //    bResult = insuranceDao.CreateInsurancePortfolio(insuranceVo, userId);
                 insuranceId = insuranceDao.CreateInsurancePortfolio(insuranceVo, userId);
 
             }
@@ -114,7 +114,7 @@ namespace BoCustomerPortfolio
 
             return bResult;
         }
-        
+
         public List<InsuranceVo> GetInsurancePortfolio(int portfolioId, int currentPage, string sortExpression, out int count)
         {
             InsuranceDao insuranceDao = new InsuranceDao();
@@ -213,11 +213,11 @@ namespace BoCustomerPortfolio
 
         public int CreateInsuranceAccount(InsuranceVo insuranceVo, int userId)
         {
-            InsuranceDao insuranceDao = new InsuranceDao();       
+            InsuranceDao insuranceDao = new InsuranceDao();
             int id = 0;
             try
             {
-               id = insuranceDao.CreateInsuranceAccount(insuranceVo, userId);
+                id = insuranceDao.CreateInsuranceAccount(insuranceVo, userId);
 
             }
             catch (BaseApplicationException Ex)
@@ -249,7 +249,7 @@ namespace BoCustomerPortfolio
         public DataSet GetCustomerInsuranceAccounts(int customerId, string assetGroup)
         {
             DataSet dsInsuranceAccounts;
-            InsuranceDao insuranceDao=new InsuranceDao();
+            InsuranceDao insuranceDao = new InsuranceDao();
             try
             {
                 dsInsuranceAccounts = insuranceDao.GetCustomerInsuranceAccounts(customerId, assetGroup);
@@ -298,7 +298,7 @@ namespace BoCustomerPortfolio
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "InsuranceBo.cs:CreateMoneyBackEpisode()");
                 object[] objects = new object[1];
-                objects[0] = moneyBackEpisodeVo;              
+                objects[0] = moneyBackEpisodeVo;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -356,7 +356,7 @@ namespace BoCustomerPortfolio
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "InsuranceBo.cs:CreateInsuranceULIPPlan()");
                 object[] objects = new object[1];
-                objects[0] = insuranceUlipVo;           
+                objects[0] = insuranceUlipVo;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -427,7 +427,7 @@ namespace BoCustomerPortfolio
 
             return bResult;
         }
-        
+
         public InsuranceULIPVo GetInsuranceULIPDetails(int insuranceUlipId)
         {
             InsuranceDao insuranceDao = new InsuranceDao();
@@ -1269,5 +1269,76 @@ namespace BoCustomerPortfolio
             }
             return ds;
         }
+
+        /// <summary>
+        /// Function to retrieve all the Life Insurance and General Insurance of a Group for Group Dashboard
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public DataSet GetGrpInsuranceDetails(int customerId)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = insuranceDao.GetGrpInsuranceDetails(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceBo.cs:GetGrpInsuranceDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        /// <summary>
+        /// Function to retrieve all the Life Insurance and General Insurance of a Customer for Customer Dashboard
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public DataSet GetCustomerDashboardInsuranceDetails(int customerId)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = insuranceDao.GetCustomerDashboardInsuranceDetails(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceBo.cs:GetCustomerDashboardInsuranceDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
     }
 }
