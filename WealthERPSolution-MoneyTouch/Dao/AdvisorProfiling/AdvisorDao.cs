@@ -1307,6 +1307,7 @@ namespace DaoAdvisorProfiling
                     if (dr["A_Country"] != DBNull.Value)
                         advisorVo.Country = dr["A_Country"].ToString();
                     advisorVo.Email = dr["A_Email"].ToString();
+                    advisorVo.Website = dr["A_Website"].ToString();
                     if (dr["A_Fax"] != DBNull.Value)
                         advisorVo.Fax = int.Parse(dr["A_Fax"].ToString());
                     if (dr["A_FaxISD"] != DBNull.Value)
@@ -1317,6 +1318,8 @@ namespace DaoAdvisorProfiling
                         advisorVo.MobileNumber = Convert.ToInt64(dr["A_ContactPersonMobile"].ToString());
 
                     advisorVo.MultiBranch = int.Parse(dr["A_IsMultiBranch"].ToString());
+                    if (!string.IsNullOrEmpty(dr["A_IsAssociateModel"].ToString()))
+                    advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
 
                     if (dr["A_Phone1STD"] != DBNull.Value && dr["A_Phone1STD"].ToString() != string.Empty)
                         advisorVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
@@ -1341,8 +1344,10 @@ namespace DaoAdvisorProfiling
                     if (dr["AL_IsDependent"] != null && dr["AL_IsDependent"].ToString() != "")
                         advisorVo.IsDependent = Int16.Parse(dr["AL_IsDependent"].ToString());
                     advisorVo.LoginId = dr["U_LoginId"].ToString();
+                    
                     advisorVo.Password = dr["U_Password"].ToString();
                     advisorVo.Email = dr["A_Email"].ToString();
+                    if(!string.IsNullOrEmpty(dr["A_IsActive"].ToString()))
                     advisorVo.IsActive = Int16.Parse(dr["A_IsActive"].ToString());
                     if (dr["A_ActivationDate"] != null && dr["A_ActivationDate"].ToString() != "")
                         advisorVo.ActivationDate = DateTime.Parse(dr["A_ActivationDate"].ToString());
@@ -1382,7 +1387,11 @@ namespace DaoAdvisorProfiling
             id = Guid.NewGuid();
             return id.ToString();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorVo"></param>
+        /// <returns></returns>
         public bool UpdateAdvisorUser(AdvisorVo advisorVo)
         {
             bool bResult = false;
@@ -1415,10 +1424,12 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorUserCmd, "@A_FAX", DbType.Int32, advisorVo.Fax);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_ContactPersonMobile", DbType.String, advisorVo.MobileNumber);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_Email", DbType.String, advisorVo.Email);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_Website", DbType.String, advisorVo.Website);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_ContactPersonFirstName", DbType.String, advisorVo.ContactPersonFirstName);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_ContactPersonMiddleName", DbType.String, advisorVo.ContactPersonMiddleName);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_ContactPersonLastName", DbType.String, advisorVo.ContactPersonLastName);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_IsMultiBranch", DbType.Int32, advisorVo.MultiBranch);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_IsAssociateModel", DbType.Int32, advisorVo.Associates);
                 db.AddInParameter(updateAdvisorUserCmd, "@XABT_BusinessTypeCode", DbType.String, advisorVo.BusinessCode);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_AdviserLogo", DbType.String, advisorVo.LogoPath);
                 if (db.ExecuteNonQuery(updateAdvisorUserCmd) != 0)
@@ -1448,6 +1459,8 @@ namespace DaoAdvisorProfiling
 
             return bResult;
         }
+
+
         public DataSet GetXMLAdvisorCategory()
         {
             Database db;
