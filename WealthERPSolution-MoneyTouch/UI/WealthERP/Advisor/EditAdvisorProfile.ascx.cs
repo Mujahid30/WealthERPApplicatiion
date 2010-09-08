@@ -49,7 +49,16 @@ namespace WealthERP.Advisor
 
                 userVo = (UserVo)Session["UserVo"];
                 advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
-                rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
+                if (Session["advisorVo"] != null && Session["rmVo"] != null && userVo.UserType == "SuperAdmin")
+                {
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
+                    rmVo = (RMVo)Session["rmVo"];
+                }
+                else
+                {
+                    advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                    rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
+                }
                 //RegularExpressionValidator3.Controls.Add(
                 if (!IsPostBack)
                 {
