@@ -60,101 +60,7 @@ namespace WealthERP.Advisor
         String connectionstring;
 
 
-        //protected void FillHolidayDataset()
-        //{
-
-        //    DateTime lastDate = GetFirstDayOfNextMonth();
-        //    dsHolidays = GetCurrentMonthData(DateTime.Today, lastDate);
-        //    //DateTime nextDate;
-        //    //if (dsHolidays != null)
-        //    //{
-        //    //    foreach (DataRow dr in dsHolidays.Tables[0].Rows)
-        //    //    {
-        //    //        nextDate = (DateTime)dr["WTD_Date"];
-        //    //        if (nextDate == txtMFValidity_CalendarExtender.Day.Date)
-        //    //        {
-        //    //            e.Cell.BackColor = System.Drawing.Color.Pink;
-        //    //        }
-        //    //    }
-        //    //}
-        //}
-
-        //protected DateTime GetFirstDayOfNextMonth()
-        //{
-        //    int monthNumber, yearNumber;
-        //    if (txtMFValidity_CalendarExtender.SelectedDate.Value.Month == 12)
-        //    {
-        //        monthNumber = 1;
-        //        yearNumber = txtMFValidity_CalendarExtender.SelectedDate.Value.Year + 1;
-        //    }
-        //    else
-        //    {
-        //        monthNumber = txtMFValidity_CalendarExtender.SelectedDate.Value.Month + 1;
-        //        yearNumber = txtMFValidity_CalendarExtender.SelectedDate.Value.Year;
-        //    }
-        //    DateTime lastDate = new DateTime(yearNumber, monthNumber, 1);
-        //    return lastDate;
-        //}
-
-        //protected DataSet GetCurrentMonthData(DateTime firstDate, DateTime lastDate)
-        //{
-        //    DataSet dsMonth = new DataSet();
-        //    connectionstring = "Data Source=SERVER; Initial Catalog=WealthERPQA;" + " user id=sa; password=pcg123#;";
-        //    conn = new SqlConnection(connectionstring);
-        //    conn.Open();
-
-        //    Database db = DatabaseFactory.CreateDatabase("wealtherp");
-        //    string query = "SELECT WTD_Date FROM WerpTradeDate WHERE WTD_Date >= '" + firstDate.ToShortDateString() + "' AND WTD_Date < '" + lastDate.ToShortDateString() + "'";
-        //    DbCommand getBranchIdCmd = db.GetSqlStringCommand(query);
-        //    dsMonth = db.ExecuteDataSet(getBranchIdCmd);
-
-
-
-        //    //SqlCommand cmd = new SqlCommand(query, conn);
-
-
-        //    //SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
-        //    //sqlDataAdapter.SelectCommand = new SqlCommand(query, conn);
-        //    //sqlDataAdapter.Fill(dsMonth);
-
-        //    return dsMonth;
-        //}
-        //protected override void OnPreRender(EventArgs e)
-        //{
-        //    base.OnPreRender(e);
-        //    DateTime nextDate;
-        //    if (dsHolidays != null)
-        //    {
-        //        foreach (DataRow dr in dsHolidays.Tables[0].Rows)
-        //        {
-        //            nextDate = (DateTime)dr["WTD_Date"];
-        //            if (nextDate == e.Day.Date)
-        //            {
-        //                e.Cell.BackColor = System.Drawing.Color.Pink;
-        //            }
-        //        }
-        //    }
-        //}
-        //protected void Calendar1_DayRender(object sender, System.Web.UI.WebControls.DayRenderEventArgs e)
-        //{
-        //    DateTime nextDate;
-        //    if (dsHolidays != null)
-        //    {
-        //        foreach (DataRow dr in dsHolidays.Tables[0].Rows)
-        //        {
-        //            nextDate = (DateTime)dr["WTD_Date"];
-        //            if (nextDate == e.Day.Date)
-        //            {
-        //                e.Cell.BackColor = System.Drawing.Color.Pink;
-        //            }
-        //        }
-        //    }
-        //}
-        //protected void Calendar1_VisibleMonthChanged(object sender,
-        //    MonthChangedEventArgs e)
-        //{
-        //    FillHolidayDataset();
-        //}
+       
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -163,15 +69,10 @@ namespace WealthERP.Advisor
             {
                 SessionBo.CheckSession();
                 advisorVo = (AdvisorVo)Session["advisorVo"];
-                userVo = (UserVo)Session["iffUserVo"];
+                userVo = (UserVo)Session["UserVo"];
                 LOBId = Session["LOBId"].ToString();
                 cvMFExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-                cvInsExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-                cvPostExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-                cvRealEstExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-                cvFixIncExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-                cvLiabExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
-
+               
                 if (!IsPostBack)
                 {
                     txtMFValidity_CalendarExtender.Animated = true;
@@ -1521,7 +1422,7 @@ namespace WealthERP.Advisor
             {
                 if (Session["LOBId"].ToString() == "lob")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','none');", true);
                 }
                 else if (Session["LOBId"].ToString() == "FromReg")
                 {
@@ -2502,7 +2403,10 @@ namespace WealthERP.Advisor
             {
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.OrganizationName = txtInsOrgName.Text.ToString();
-                advisorLOBVo.ValidityDate = DateTime.Parse(txtInsAgencyExpiry.Text.ToString());
+                if (txtInsAgencyExpiry.Text != "" && txtInsAgencyExpiry.Text != string.Empty)
+                    advisorLOBVo.ValidityDate = DateTime.Parse(txtInsAgencyExpiry.Text.ToString());
+                else
+                    advisorLOBVo.ValidityDate = DateTime.MinValue;
                 advisorLOBVo.AgentNum = txtInsAgentNum.Text.ToString();
                 advisorLOBVo.Identifier = txtInsIRDANum.Text.ToString();
                 if (txtInsTargetPolicies.Text.ToString().Trim() != string.Empty)
@@ -2589,7 +2493,10 @@ namespace WealthERP.Advisor
             {
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.OrganizationName = txtPostalOrgName.Text.ToString();
-                advisorLOBVo.ValidityDate = DateTime.Parse(txtPostalAgencyExpiry.Text.ToString());
+                if (txtPostalAgencyExpiry.Text != "" && txtPostalAgencyExpiry.Text != string.Empty)
+                    advisorLOBVo.ValidityDate = DateTime.Parse(txtPostalAgencyExpiry.Text.ToString());
+                else
+                    advisorLOBVo.ValidityDate = DateTime.MinValue;
                 advisorLOBVo.AgentNum = txtPostalAgentNum.Text.ToString();
                 if (txtPostalTargetAccount.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAccount = float.Parse(txtPostalTargetAccount.Text.ToString().Trim());
@@ -2650,7 +2557,10 @@ namespace WealthERP.Advisor
             {
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.OrganizationName = txtRealEstOrgName.Text.ToString();
-                advisorLOBVo.ValidityDate = DateTime.Parse(txtRealEstAgencyExpiry.Text.ToString());
+                if (txtRealEstAgencyExpiry.Text != "" && txtRealEstAgencyExpiry.Text != string.Empty)
+                    advisorLOBVo.ValidityDate = DateTime.Parse(txtRealEstAgencyExpiry.Text.ToString());
+                else
+                    advisorLOBVo.ValidityDate = DateTime.MinValue;
                 advisorLOBVo.AgentNum = txtRealEstAgentNum.Text.ToString();
                 if (txtRealEstTargetAccount.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAccount = float.Parse(txtRealEstTargetAccount.Text.ToString().Trim());
@@ -2711,7 +2621,10 @@ namespace WealthERP.Advisor
             {
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.OrganizationName = txtFixIncOrgName.Text.ToString();
-                advisorLOBVo.ValidityDate = DateTime.Parse(txtFixIncAgencyExpiry.Text.ToString());
+                if (txtFixIncAgencyExpiry.Text != "" && txtFixIncAgencyExpiry.Text != string.Empty)
+                    advisorLOBVo.ValidityDate = DateTime.Parse(txtFixIncAgencyExpiry.Text.ToString());
+                else
+                    advisorLOBVo.ValidityDate = DateTime.MinValue;
                 advisorLOBVo.AgentNum = txtFixIncAgentNum.Text.ToString();
                 if (txtFixIncTargetAccount.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAccount = float.Parse(txtFixIncTargetAccount.Text.ToString().Trim());
@@ -2779,7 +2692,10 @@ namespace WealthERP.Advisor
 
                 advisorLOBVo.LOBClassificationCode = XMLBo.GetLOBClassification(path, assetClass, category, segment);
                 advisorLOBVo.OrganizationName = txtLiabOrgName.Text.ToString();
-                advisorLOBVo.ValidityDate = DateTime.Parse(txtLiabAgencyExpiry.Text.ToString());
+                if (txtLiabAgencyExpiry.Text != "" && txtLiabAgencyExpiry.Text != string.Empty)
+                    advisorLOBVo.ValidityDate = DateTime.Parse(txtLiabAgencyExpiry.Text.ToString());
+                else
+                    advisorLOBVo.ValidityDate = DateTime.MinValue;
                 advisorLOBVo.AgentNum = txtLiabAgentNum.Text.ToString();
                 if (txtLiabTargetAccount.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAccount = float.Parse(txtLiabTargetAccount.Text.ToString().Trim());
