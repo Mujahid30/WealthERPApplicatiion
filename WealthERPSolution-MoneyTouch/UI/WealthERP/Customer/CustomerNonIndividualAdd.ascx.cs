@@ -418,9 +418,19 @@ namespace WealthERP.Customer
                     customerVo.CompanyName = txtCompanyName.Text.ToString();
                     customerVo.CustCode = txtCustomerCode.Text.ToString();
                     customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
-                    customerVo.RegistrationDate = DateTime.Parse(txtDateofRegistration.Text.ToString());
-                    customerVo.CommencementDate = DateTime.Parse(txtDateofCommencement.Text.ToString());
-                    customerVo.ProfilingDate = DateTime.Parse(txtDateofProfiling.Text.ToString());
+                    if (txtDateofRegistration.Text != string.Empty)
+                        customerVo.RegistrationDate = DateTime.Parse(txtDateofRegistration.Text.ToString());
+                    else
+                        customerVo.RegistrationDate = DateTime.MinValue;
+                    if (txtDateofCommencement.Text != string.Empty)
+                        customerVo.CommencementDate = DateTime.Parse(txtDateofCommencement.Text.ToString());
+                    else
+                        customerVo.CommencementDate = DateTime.MinValue;
+                    if (txtDateofProfiling.Text != string.Empty)
+                        customerVo.ProfilingDate = DateTime.Parse(txtDateofProfiling.Text.ToString());
+                    else
+                        customerVo.ProfilingDate = DateTime.MinValue;
+
                     customerVo.RegistrationPlace = txtRegistrationPlace.Text.ToString();
                     customerVo.CompanyWebsite = txtCompanyWebsite.Text.ToString();
                     customerVo.RmId = rmId;
@@ -468,7 +478,8 @@ namespace WealthERP.Customer
                     customerVo.Occupation = null;
                     customerVo.Qualification = null;
                     customerVo.MarriageDate = DateTime.Parse("1990-01-01 00:00:00.000");
-                    customerBo.CreateCustomer(customerVo, customerVo.RmId,userVo.UserId,0);
+                    //customerBo.CreateCustomer(customerVo, customerVo.RmId,userVo.UserId,0);
+                    customerBo.UpdateCustomer(customerVo);
 
                     Session["Check"] = "CustomerAdd";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AddBankDetails','none');", true);
