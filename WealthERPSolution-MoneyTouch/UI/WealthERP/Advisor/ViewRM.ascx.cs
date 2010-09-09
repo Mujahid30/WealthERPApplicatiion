@@ -107,7 +107,7 @@ namespace WealthERP.Advisor
                     ratio = rowCount / 10;
                     mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
                     mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
+                    lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
                     upperlimit = (mypager.CurrentPage * 10).ToString();
                     if (mypager.CurrentPage == mypager.PageCount)
                         upperlimit = hdnCount.Value;
@@ -228,7 +228,7 @@ namespace WealthERP.Advisor
                 rm = Session["RM"].ToString();
                 if (rm.ToLower().Trim() == "find rm" || rm.ToLower().Trim() == "")
                     rm = "";
-                
+
                 ds = advisorStaffBo.FindRM(rm, advisorVo.advisorId, mypager.CurrentPage, hdnSort.Value.ToString(), out count);
 
                 lblTotalRows.Text = hdnCount.Value = count.ToString();
@@ -251,7 +251,7 @@ namespace WealthERP.Advisor
                         drAdvisorStaff = dtAdvisorStaff.NewRow();
                         dr = dt.Rows[i];
                         rmVo = new RMVo();
-                       
+
                         drAdvisorStaff[0] = dr["u_userId"].ToString();
                         drAdvisorStaff[1] = dr["ar_rmid"].ToString();
                         drAdvisorStaff[2] = dr["ar_firstname"].ToString() + " " + dr["ar_middlename"].ToString() + " " + dr["ar_lastname"].ToString();
@@ -303,7 +303,7 @@ namespace WealthERP.Advisor
         public void showRMList()
         {
             rmVo = new RMVo();
-            int Count=0;
+            int Count = 0;
             List<RMVo> rmList = new List<RMVo>();
             List<string> roleList = new List<string>();
             //roleList = userBo.GetUserRoles(userVo.UserId);
@@ -320,7 +320,7 @@ namespace WealthERP.Advisor
                         //lblMsg.Visible = true;
                         //lblMsg.Text = "You dont have RM.. !";
 
-                        rmList = advisorStaffBo.GetBMRMList(branchId,mypager.CurrentPage,out Count);
+                        rmList = advisorStaffBo.GetBMRMList(branchId, mypager.CurrentPage, out Count);
 
                         if (rmList.Count != 0)
                         {
@@ -381,7 +381,7 @@ namespace WealthERP.Advisor
                     trMessage.Visible = false;
                     advisorStaffBo = new AdvisorStaffBo();
                     List<RMVo> advisorStaffList = null;
-                    advisorStaffList = advisorStaffBo.GetRMList(advisorVo.advisorId, mypager.CurrentPage, hdnSort.Value, out Count,string.Empty);
+                    advisorStaffList = advisorStaffBo.GetRMList(advisorVo.advisorId, mypager.CurrentPage, hdnSort.Value, out Count, string.Empty);
                     if (advisorStaffList != null)
                     {
                         lblTotalRows.Text = hdnCount.Value = Count.ToString();
