@@ -9,12 +9,12 @@
     function CheckMaturityDate(sender, args) {
 
         var commencementDateString = document.getElementById('ctrl_PortfolioInsuranceEntry_txtPolicyCommencementDate').value;
-        var commDate = new Date(commencementDateString);
+        var commDate = changeDate(commencementDateString);
         var maturityDateString = document.getElementById('ctrl_PortfolioInsuranceEntry_txtPolicyMaturity').value;
-        var maturityDate = new Date(maturityDateString);
+        var maturityDate = changeDate(maturityDateString);
         var todayDate = new Date();
 
-        if (maturityDate < commDate) {
+        if (Date.parse(maturityDate) < Date.parse(commDate)) {
             sender._selectedDate = todayDate;
             sender._textbox.set_Value(sender._selectedDate.format(sender._format));
             alert("Warning! - Maturity date cannot be less than the commencement date");
@@ -22,9 +22,8 @@
     }
 
     function CheckLastPremiumDate(sender, args) {
-
         var lastPremiumDate = '';
-        
+
         var firstPremiumDate = document.getElementById('ctrl_PortfolioInsuranceEntry_txtFirstPremiumDate');
         if (firstPremiumDate != null) {
             // Endowment Policy Selected
@@ -59,18 +58,36 @@
             }
         }
 
-        var dtFirstPremiumDate = new Date(firstPremiumDate.value);
-        var dtLastPremiumDate = new Date(lastPremiumDate.value);
+        var dtFirstPremiumDate = changeDate(firstPremiumDate.value);
+        var dtLastPremiumDate = changeDate(lastPremiumDate.value);
         var todayDate = new Date();
 
-        if (dtFirstPremiumDate > dtLastPremiumDate) {
+        if (Date.parse(dtFirstPremiumDate) > Date.parse(dtLastPremiumDate)) {
             sender._selectedDate = todayDate;
             sender._textbox.set_Value(sender._selectedDate.format(sender._format));
             alert("Warning! - First Premium date cannot be greater than the last premium date");
         }
-        
     }
-    
+    function changeDate(date) {
+        var newDate = date.split('/');
+        date = newDate[1] + "/" + newDate[0] + "/" + newDate[2];
+        return date;
+    }
+
+    function isFutureDate(sender, args) {
+        var purchaseDate = sender._element;
+        var dateToCheck = purchaseDate.value;
+        var currentDate = '<%= DateTime.Now.ToString("yyyyMMdd") %>'
+        var yyyymmdddateToCheck = dateToCheck.substr(6, 4) + dateToCheck.substr(3, 2) + dateToCheck.substr(0, 2)
+        if (currentDate >= yyyymmdddateToCheck) {
+            return true;
+        }
+        else {
+            alert('Sorry, Purchase date cannot be greater than current date');
+            sender._element.value = 'dd/mm/yyyy';
+            return false;
+        }
+    }
 </script>
 
 <%--<asp:UpdatePanel ID="up1" runat="server">
@@ -170,7 +187,7 @@
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cvInsuranceIssuerCode" runat="server" ControlToValidate="ddlInsuranceIssuerCode"
-                ErrorMessage="Please select an Insurance Issuer Code" Operator="NotEqual" ValueToCompare="Select an Insurance Issuer"
+                ErrorMessage="Please select an Insurance Issuer" Operator="NotEqual" ValueToCompare="Select an Insurance Issuer"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
@@ -262,8 +279,8 @@
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="Please enter an integer value"
-                Type="Integer" ControlToValidate="txtApplicationNumber" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                Type="Integer" ControlToValidate="txtApplicationNumber" Operator="DataTypeCheck"
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -273,9 +290,8 @@
         <td colspan="4">
             <asp:TextBox ID="txtApplDate" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="cvDepositDate1" runat="server" ErrorMessage="<br/>The application date should not be greater than current date."
-                        Type="Date" ControlToValidate="txtApplDate" CssClass="cvPCG" Operator="LessThanEqual" 
-                        ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-
+                Type="Date" ControlToValidate="txtApplDate" CssClass="cvPCG" Operator="LessThanEqual"
+                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
             <cc1:CalendarExtender ID="txtApplDate_CalendarExtender" runat="server" TargetControlID="txtApplDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -915,7 +931,7 @@
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-    <tr id="trMPDetails" runat="server">
+    <tr id="trMPDetails" runat="server" visible="false">
         <td colspan="2">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Dates Of payment"></asp:Label>
         </td>
@@ -956,7 +972,7 @@
             </asp:DropDownList>
             <span id="Span33" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlUlipPlans"
-                ErrorMessage="Please select a Premium Cycle" Operator="NotEqual" ValueToCompare="Select a ULIP Plan"
+                ErrorMessage="Please select Scheme Basket" Operator="NotEqual" ValueToCompare="Select a ULIP Plan"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
