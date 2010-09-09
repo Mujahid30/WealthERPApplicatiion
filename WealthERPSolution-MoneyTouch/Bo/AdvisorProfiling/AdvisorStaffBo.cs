@@ -19,15 +19,22 @@ namespace BoAdvisorProfiling
 {
     public class AdvisorStaffBo
     {
-        public int CreateAdvisorStaff(RMVo rmVo, int advisorId,int userId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmVo"></param>
+        /// <param name="advisorId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public int CreateAdvisorStaff(RMVo rmVo, int advisorId, int userId)
         {
             bool result = false;
             int rmId;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
-            
+
             try
             {
-                rmId = advisorStaffDao.CreateAdvisorStaff(rmVo, advisorId,userId);
+                rmId = advisorStaffDao.CreateAdvisorStaff(rmVo, advisorId, userId);
             }
 
             catch (BaseApplicationException Ex)
@@ -53,14 +60,20 @@ namespace BoAdvisorProfiling
             }
             return rmId;
         }
-
-        public bool CreateRMBranch(int rmId, int branchId,int userId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool CreateRMBranch(int rmId, int branchId, int userId)
         {
             bool result = false;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             try
             {
-                advisorStaffDao.CreateRMBranch(rmId, branchId,userId);
+                advisorStaffDao.CreateRMBranch(rmId, branchId, userId);
                 result = true;
             }
             catch (BaseApplicationException Ex)
@@ -86,14 +99,29 @@ namespace BoAdvisorProfiling
             }
             return result;
         }
-
-        public List<CustomerVo> FindCustomer(string CustomerName, 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CustomerName"></param>
+        /// <param name="rmId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="sortExpression"></param>
+        /// <param name="nameFilter"></param>
+        /// <param name="areaFilter"></param>
+        /// <param name="pincodeFilter"></param>
+        /// <param name="parentFilter"></param>
+        /// <param name="cityFilter"></param>
+        /// <param name="genDictParent"></param>
+        /// <param name="genDictCity"></param>
+        /// <returns></returns>
+        public List<CustomerVo> FindCustomer(string CustomerName,
                                             int rmId,
                                             int currentPage,
                                             out int count,
-                                            string sortExpression, 
-                                            string nameFilter, 
-                                            string areaFilter, 
+                                            string sortExpression,
+                                            string nameFilter,
+                                            string areaFilter,
                                             string pincodeFilter,
                                             string parentFilter,
                                             string cityFilter,
@@ -130,8 +158,13 @@ namespace BoAdvisorProfiling
             }
             return CustomerList;
         }
-
-        public bool DeleteRM(int rmId,int userId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool DeleteRM(int rmId, int userId)
         {
             bool bResult = false;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
@@ -150,33 +183,39 @@ namespace BoAdvisorProfiling
                 FunctionInfo.Add("Method", "AdvisorStaffBo.cs:DeleteRM()");
                 object[] objects = new object[2];
                 objects[0] = rmId;
-                objects[1] = userId; 
+                objects[1] = userId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmVo"></param>
+        /// <param name="userId"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public bool CreateRMUser(RMVo rmVo, int userId, string password)
         {
             bool bResult = false;
             UserVo userVo = new UserVo();
-            UserDao userDao = new UserDao();          
-            
-            
+            UserDao userDao = new UserDao();
+
+
             try
             {
                 userVo.Email = rmVo.Email;
-                userVo.LoginId = rmVo.Email;                
+                userVo.LoginId = rmVo.Email;
                 userVo.FirstName = rmVo.FirstName;
                 userVo.LastName = rmVo.LastName;
                 userVo.MiddleName = rmVo.MiddleName;
                 userVo.Password = password.ToString();
                 userVo.UserId = userId;
                 userVo.UserType = "RM";
-                 userDao.CreateUser(userVo);
-                 bResult = true;
+                userDao.CreateUser(userVo);
+                bResult = true;
             }
             catch (BaseApplicationException Ex)
             {
@@ -203,7 +242,13 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userVo"></param>
+        /// <param name="rmVo"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public List<int> CreateCompleteRM(UserVo userVo, RMVo rmVo, int userId)
         {
             List<int> rmIds = new List<int>();
@@ -237,8 +282,16 @@ namespace BoAdvisorProfiling
             }
             return rmIds;
         }
-
-        public DataSet  FindRM(string rmName,int adviserId,int currentpage,string sortorder,out int count)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmName"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="currentpage"></param>
+        /// <param name="sortorder"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public DataSet FindRM(string rmName, int adviserId, int currentpage, string sortorder, out int count)
         {
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             DataSet ds = new DataSet();
@@ -257,7 +310,7 @@ namespace BoAdvisorProfiling
                 FunctionInfo.Add("Method", "AdvisorStaffBo.cs:FindRM()");
                 object[] objects = new object[2];
                 objects[0] = rmName;
-                objects[1] = adviserId; 
+                objects[1] = adviserId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -265,8 +318,14 @@ namespace BoAdvisorProfiling
             }
             return ds;
         }
-
-        public List<RMVo> GetBMRMList(int branchId,int CurrentPage,out int Count)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
+        public List<RMVo> GetBMRMList(int branchId, int CurrentPage, out int Count)
         {
             List<RMVo> rmList = new List<RMVo>();
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
@@ -282,14 +341,18 @@ namespace BoAdvisorProfiling
 
             return rmList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public int GetUserId(int rmId)
         {
             int userId;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             try
             {
-                userId=advisorStaffDao.GetUserId(rmId);
+                userId = advisorStaffDao.GetUserId(rmId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -309,11 +372,15 @@ namespace BoAdvisorProfiling
             }
             return userId;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public RMVo GetAdvisorStaff(int userId)
         {
             RMVo rmVo = new RMVo();
-            AdvisorStaffDao advisorStaffDao=new AdvisorStaffDao();
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             try
             {
                 rmVo = advisorStaffDao.GetAdvisorStaff(userId);
@@ -342,7 +409,11 @@ namespace BoAdvisorProfiling
             }
             return rmVo;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public RMVo GetAdvisorStaffDetails(int rmId)
         {
             RMVo rmVo = new RMVo();
@@ -375,7 +446,11 @@ namespace BoAdvisorProfiling
             }
             return rmVo;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <returns></returns>
         public List<RMVo> GetRMList(int advisorId)
         {
             List<RMVo> rmList = null;
@@ -410,15 +485,23 @@ namespace BoAdvisorProfiling
             }
             return rmList;
         }
-
-        public List<RMVo> GetRMList(int advisorId, int currentPage, string sortOrder, out int Count,string nameSrch)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="Count"></param>
+        /// <param name="nameSrch"></param>
+        /// <returns></returns>
+        public List<RMVo> GetRMList(int advisorId, int currentPage, string sortOrder, out int Count, string nameSrch)
         {
             List<RMVo> rmList = null;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             try
             {
 
-                rmList = advisorStaffDao.GetRMList(advisorId,currentPage,sortOrder,out Count,nameSrch);
+                rmList = advisorStaffDao.GetRMList(advisorId, currentPage, sortOrder, out Count, nameSrch);
 
             }
             catch (BaseApplicationException Ex)
@@ -445,7 +528,11 @@ namespace BoAdvisorProfiling
             }
             return rmList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public List<CustomerVo> GetCustomerList(int rmId)
         {
             List<CustomerVo> customerList = null;
@@ -478,7 +565,11 @@ namespace BoAdvisorProfiling
             }
             return customerList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public List<CustomerVo> GetBMCustomerList(int rmId)
         {
             List<CustomerVo> bmCustomerList = null;
@@ -506,7 +597,15 @@ namespace BoAdvisorProfiling
             }
             return bmCustomerList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
         public List<CustomerVo> GetCustomerForAssociation(int customerId, int rmId, int currentPage, string sortOrder, out int Count)
         {
             List<CustomerVo> customerList = null;
@@ -514,7 +613,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                customerList = advisorStaffDao.GetCustomerForAssociation(customerId,rmId,currentPage,sortOrder,out Count);
+                customerList = advisorStaffDao.GetCustomerForAssociation(customerId, rmId, currentPage, sortOrder, out Count);
             }
             catch (BaseApplicationException Ex)
             {
@@ -539,7 +638,21 @@ namespace BoAdvisorProfiling
             }
             return customerList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="sortExpression"></param>
+        /// <param name="nameFilter"></param>
+        /// <param name="areaFilter"></param>
+        /// <param name="pincodeFilter"></param>
+        /// <param name="parentFilter"></param>
+        /// <param name="cityFilter"></param>
+        /// <param name="genDictParent"></param>
+        /// <param name="genDictCity"></param>
+        /// <returns></returns>
         public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
         {
             List<CustomerVo> customerList = null;
@@ -574,7 +687,23 @@ namespace BoAdvisorProfiling
 
             return customerList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="sortExpression"></param>
+        /// <param name="nameFilter"></param>
+        /// <param name="areaFilter"></param>
+        /// <param name="pincodeFilter"></param>
+        /// <param name="parentFilter"></param>
+        /// <param name="cityFilter"></param>
+        /// <param name="RMFilter"></param>
+        /// <param name="genDictParent"></param>
+        /// <param name="genDictCity"></param>
+        /// <param name="genDictRM"></param>
+        /// <returns></returns>
         public List<CustomerVo> GetBMCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
         {
             List<CustomerVo> customerList = null;
@@ -610,8 +739,13 @@ namespace BoAdvisorProfiling
 
             return customerList;
         }
-
-        public List<CustomerVo> GetCustomerList(string customerName,int rmId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="customerName"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
+        public List<CustomerVo> GetCustomerList(string customerName, int rmId)
         {
             List<CustomerVo> customerList = null;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
@@ -640,11 +774,16 @@ namespace BoAdvisorProfiling
             }
             return customerList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="Flag"></param>
+        /// <returns></returns>
         public int GetCustomerList(int rmId, string Flag)
         {
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
-            int rowCount=0;
+            int rowCount = 0;
             try
             {
                 rowCount = advisorStaffDao.GetCustomerList(rmId, Flag);
@@ -673,7 +812,11 @@ namespace BoAdvisorProfiling
             return rowCount;
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public DataSet GetRMCustomerList(int rmId)
         {
             DataSet dsCustomerList = new DataSet();
@@ -706,7 +849,11 @@ namespace BoAdvisorProfiling
             return dsCustomerList;
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmVo"></param>
+        /// <returns></returns>
         public bool UpdateStaff(RMVo rmVo)
         {
             bool bResult = false;
@@ -714,7 +861,7 @@ namespace BoAdvisorProfiling
             try
             {
                 bResult = advisorStaffDao.UpdateStaff(rmVo);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -739,7 +886,14 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
         public DataSet GetBMStaff(int rmId, int currentPage, string sortOrder, out int Count)
         {
             DataSet dsRMList;
@@ -768,7 +922,11 @@ namespace BoAdvisorProfiling
             }
             return dsRMList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <returns></returns>
         public DataTable GetAdvisorAssociatesDropDown(int advisorId)
         {
             DataTable dtAdvisorAssociates;
@@ -795,14 +953,19 @@ namespace BoAdvisorProfiling
             }
             return dtAdvisorAssociates;
         }
-
-        public DataTable GetExternalRMList(int adviserId,int flag)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="flag"></param>
+        /// <returns></returns>
+        public DataTable GetExternalRMList(int adviserId, int flag)
         {
             DataTable dt;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             try
             {
-                dt = advisorStaffDao.GetExternalRMList(adviserId,flag);
+                dt = advisorStaffDao.GetExternalRMList(adviserId, flag);
             }
             catch (BaseApplicationException Ex)
             {
@@ -822,7 +985,11 @@ namespace BoAdvisorProfiling
             }
             return dt;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public int CheckRMMainBranch(int rmId)
         {
             int cnt;
@@ -849,7 +1016,11 @@ namespace BoAdvisorProfiling
             }
             return cnt;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public int GetRMBranchId(int rmId)
         {
             int branchId = 0;
@@ -876,7 +1047,11 @@ namespace BoAdvisorProfiling
             }
             return branchId;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public DataTable GetBranchRMList(int branchId)
         {
             DataTable dtBranchRMList;
@@ -903,7 +1078,11 @@ namespace BoAdvisorProfiling
             }
             return dtBranchRMList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
         public DataTable GetAdviserRM(int adviserId)
         {
             DataTable dtAdviserRMList;
