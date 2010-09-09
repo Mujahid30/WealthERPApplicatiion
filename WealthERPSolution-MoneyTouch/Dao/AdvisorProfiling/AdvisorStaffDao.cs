@@ -427,7 +427,7 @@ namespace DaoAdvisorProfiling
                         rmVo.FirstName = dr["AR_FirstName"].ToString();
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
                         rmVo.LastName = dr["AR_LastName"].ToString();
-                        if(dr["AR_OfficePhoneDirect"].ToString() !="")
+                        if (dr["AR_OfficePhoneDirect"].ToString() != "")
                             rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                         if (dr["AR_OfficePhoneDirectISD"].ToString() != "")
                             rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
@@ -486,7 +486,7 @@ namespace DaoAdvisorProfiling
             return rmList;
         }
 
-        public List<RMVo> GetRMList(int advisorId, int currentPage, string sortOrder, out int Count,string nameSrch)
+        public List<RMVo> GetRMList(int advisorId, int currentPage, string sortOrder, out int Count, string nameSrch)
         {
             List<RMVo> rmList = new List<RMVo>();
             RMVo rmVo;
@@ -515,7 +515,7 @@ namespace DaoAdvisorProfiling
                         rmVo.FirstName = dr["AR_FirstName"].ToString();
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
                         rmVo.LastName = dr["AR_LastName"].ToString();
-                        if(dr["AR_OfficePhoneDirect"].ToString()!="" && dr["AR_OfficePhoneDirect"]!=null)
+                        if (dr["AR_OfficePhoneDirect"].ToString() != "" && dr["AR_OfficePhoneDirect"] != null)
                             rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                         if (dr["AR_OfficePhoneDirectISD"].ToString() != "" && dr["AR_OfficePhoneDirectISD"] != null)
                             rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
@@ -682,7 +682,7 @@ namespace DaoAdvisorProfiling
                     if (dr["AR_IsExternalStaff"] != DBNull.Value && dr["AR_IsExternalStaff"].ToString() != "")
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
                     else
-                         rmVo.IsExternal = 1;
+                        rmVo.IsExternal = 1;
 
                     if (dr["AR_CTC"].ToString() != "")
                         rmVo.CTC = Double.Parse(dr["AR_CTC"].ToString());
@@ -1093,7 +1093,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, areaFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, DBNull.Value);
-                if (pincodeFilter != "")                
+                if (pincodeFilter != "")
                     db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, DBNull.Value);
@@ -1106,7 +1106,6 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, DBNull.Value);
-
 
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
