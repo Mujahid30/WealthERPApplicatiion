@@ -20,14 +20,21 @@ namespace BoAdvisorProfiling
 {
     public class AdvisorBranchBo
     {
-        public int CreateAdvisorBranch(AdvisorBranchVo advisorBranchVo, int advisorId,int userId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorBranchVo"></param>
+        /// <param name="advisorId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public int CreateAdvisorBranch(AdvisorBranchVo advisorBranchVo, int advisorId, int userId)
         {
-            int branchId;         
+            int branchId;
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             try
             {
-               branchId = advisorBranchDao.CreateAdvisorBranch(advisorBranchVo, advisorId,userId);
-                
+                branchId = advisorBranchDao.CreateAdvisorBranch(advisorBranchVo, advisorId, userId);
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -54,10 +61,14 @@ namespace BoAdvisorProfiling
             }
             return branchId;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmid"></param>
+        /// <returns></returns>
         public int GetBranchId(int rmid)
         {
-            int branchId=0;
+            int branchId = 0;
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             try
             {
@@ -69,7 +80,11 @@ namespace BoAdvisorProfiling
             }
             return branchId;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public bool ChkBranchManagerAvail(int branchId)
         {
             bool bResult = false;
@@ -84,14 +99,21 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
-        public bool AssociateBranch(int rmId, int branchId,int IsMainBranch,int userId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="IsMainBranch"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool AssociateBranch(int rmId, int branchId, int IsMainBranch, int userId)
         {
             bool bResult = false;
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             try
             {
-                bResult = advisorBranchDao.AssociateBranch(rmId, branchId, IsMainBranch,userId);
+                bResult = advisorBranchDao.AssociateBranch(rmId, branchId, IsMainBranch, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -118,7 +140,14 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="IsMainBranch"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool UpdateAssociateBranch(int rmId, int branchId, int IsMainBranch, int userId)
         {
             bool bResult = false;
@@ -152,7 +181,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public bool DeleteBranch(int branchId)
         {
             bool bResult = false;
@@ -160,21 +193,21 @@ namespace BoAdvisorProfiling
             try
             {
                 bResult = advisorBranchDao.DeleteBranch(branchId);
-            
+
             }
             catch (BaseApplicationException Ex)
             {
-               
+
                 throw Ex;
             }
             catch (Exception Ex)
             {
-               
+
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AdvisorBranchBo.cs:DeleteBranch()");
                 object[] objects = new object[1];
-                objects[0] = branchId;                
+                objects[0] = branchId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -183,14 +216,20 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-        
-        public bool AddBranchTerminal(int branchId, int terminalId,int userId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <param name="terminalId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool AddBranchTerminal(int branchId, int terminalId, int userId)
         {
             bool bResult = false;
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             try
             {
-                bResult = advisorBranchDao.AddBranchTerminal( branchId,terminalId,userId);
+                bResult = advisorBranchDao.AddBranchTerminal(branchId, terminalId, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -217,7 +256,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public AdvisorBranchVo GetBranch(int branchId)
         {
             AdvisorBranchVo advisorBranchVo = null;
@@ -249,7 +292,11 @@ namespace BoAdvisorProfiling
             }
             return advisorBranchVo;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorBranchVo"></param>
+        /// <returns></returns>
         public bool UpdateAdvisorBranch(AdvisorBranchVo advisorBranchVo)
         {
             bool bResult = false;
@@ -281,14 +328,22 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-        
-        public List<int> FindBranch(string branchName,int advisorId,int CurrentPage, string sortOrder, out int count)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchName"></param>
+        /// <param name="advisorId"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public List<int> FindBranch(string branchName, int advisorId, int CurrentPage, string sortOrder, out int count)
         {
             List<int> branchList = new List<int>();
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             try
             {
-                branchList = advisorBranchDao.FindBranch(branchName,advisorId,CurrentPage,sortOrder,out count);
+                branchList = advisorBranchDao.FindBranch(branchName, advisorId, CurrentPage, sortOrder, out count);
             }
             catch (BaseApplicationException Ex)
             {
@@ -309,8 +364,15 @@ namespace BoAdvisorProfiling
             }
             return branchList;
         }
-        
-        public List<AdvisorBranchVo> GetAdvisorBranches(int advisorId, string sortOrder, int CurrentPage , out int Count)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
+        public List<AdvisorBranchVo> GetAdvisorBranches(int advisorId, string sortOrder, int CurrentPage, out int Count)
         {
             List<AdvisorBranchVo> branchList = null;
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
@@ -344,7 +406,12 @@ namespace BoAdvisorProfiling
             }
             return branchList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <param name="IsExternal"></param>
+        /// <returns></returns>
         public List<AdvisorBranchVo> GetAdvisorBranches(int advisorId, string IsExternal)
         {
             List<AdvisorBranchVo> branchList = null;
@@ -375,11 +442,15 @@ namespace BoAdvisorProfiling
             }
             return branchList;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="terminalId"></param>
+        /// <returns></returns>
         public bool DeleteBranchTerminal(int terminalId)
         {
             bool bResult = false;
-            AdvisorBranchDao advisorBranchDao=new AdvisorBranchDao();
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             try
             {
                 bResult = advisorBranchDao.DeleteBranchTerminal(terminalId);
@@ -402,7 +473,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public DataSet GetBranchTerminals(int branchId)
         {
             DataSet ds = new DataSet();
@@ -421,7 +496,7 @@ namespace BoAdvisorProfiling
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetBranchTerminals()");
                 object[] objects = new object[1];
-                objects[0] = branchId;                
+                objects[0] = branchId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -429,14 +504,20 @@ namespace BoAdvisorProfiling
             }
             return ds;
         }
-
-        public void UpdateRMBranchAssociation(int rmId, int branchId, int userid,Int16 IsMainBranch)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="userid"></param>
+        /// <param name="IsMainBranch"></param>
+        public void UpdateRMBranchAssociation(int rmId, int branchId, int userid, Int16 IsMainBranch)
         {
             bool bResult = false;
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             try
             {
-                bResult = advisorBranchDao.UpdateRMBranchAssociation(rmId, branchId,userid,IsMainBranch);
+                bResult = advisorBranchDao.UpdateRMBranchAssociation(rmId, branchId, userid, IsMainBranch);
             }
             catch (BaseApplicationException Ex)
             {
@@ -455,9 +536,12 @@ namespace BoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            
-        }
 
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
         public void DeleteRMBranchAssociation1(int rmId)
         {
             bool bResult = false;
@@ -477,7 +561,7 @@ namespace BoAdvisorProfiling
                 FunctionInfo.Add("Method", "AdvisorBranchBo.cs:UpdateRMBranchAssociation()");
                 object[] objects = new object[2];
                 objects[0] = rmId;
-               
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -485,14 +569,20 @@ namespace BoAdvisorProfiling
             }
 
         }
-        
-        public DataSet GetRMBranchAssociation(int rmId,int adviserId,string Flag)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="Flag"></param>
+        /// <returns></returns>
+        public DataSet GetRMBranchAssociation(int rmId, int adviserId, string Flag)
         {
             DataSet ds = new DataSet();
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             try
             {
-                ds = advisorBranchDao.GetRMBranchAssociation(rmId,adviserId,Flag);
+                ds = advisorBranchDao.GetRMBranchAssociation(rmId, adviserId, Flag);
             }
 
             catch (BaseApplicationException Ex)
@@ -513,7 +603,18 @@ namespace BoAdvisorProfiling
             }
             return ds;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="Count"></param>
+        /// <param name="BranchFilter"></param>
+        /// <param name="RMFilter"></param>
+        /// <param name="SortExpression"></param>
+        /// <param name="genDictBranch"></param>
+        /// <param name="genDictRM"></param>
+        /// <returns></returns>
         public DataSet GetBranchAssociation(int userId, int currentPage, out int Count, string BranchFilter, string RMFilter, string SortExpression, out Dictionary<string, string> genDictBranch, out Dictionary<string, string> genDictRM)
         {
             DataSet ds = new DataSet();
@@ -527,7 +628,7 @@ namespace BoAdvisorProfiling
             {
                 ds = advisorBranchDao.GetBranchAssociation(userId, currentPage, out Count, BranchFilter, RMFilter, SortExpression, out genDictBranch, out genDictRM);
             }
-          
+
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -550,39 +651,48 @@ namespace BoAdvisorProfiling
             }
             return ds;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ArrayList GetBranchName(int id)
-        {         
-          
+        {
+
             ArrayList branchList = null;
-            AdvisorBranchDao advisorBranchDao=new AdvisorBranchDao();
-              try{
-                  branchList=advisorBranchDao.GetBranchName(id);
-              }
-              catch (BaseApplicationException Ex)
-              {
-                  throw Ex;
-              }
-              catch (Exception Ex)
-              {
-                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                  NameValueCollection FunctionInfo = new NameValueCollection();
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                branchList = advisorBranchDao.GetBranchName(id);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
-                  FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetBranchName()");
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetBranchName()");
 
 
-                  object[] objects = new object[3];
-                  objects[0] = id;
+                object[] objects = new object[3];
+                objects[0] = id;
 
-                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                  exBase.AdditionalInformation = FunctionInfo;
-                  ExceptionManager.Publish(exBase);
-                  throw exBase;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
-              }
-              return branchList;
-          }
-
+            }
+            return branchList;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public bool CheckInternalBranchAssociations(int rmId)
         {
             bool blResult = false;
@@ -611,7 +721,11 @@ namespace BoAdvisorProfiling
 
             return blResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public bool CheckBranchMgrRole(int rmId)
         {
             bool blResult = false;
@@ -640,7 +754,11 @@ namespace BoAdvisorProfiling
 
             return blResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public bool CheckExternalBranchAssociations(int rmId)
         {
             bool blResult = false;
@@ -669,8 +787,13 @@ namespace BoAdvisorProfiling
 
             return blResult;
         }
-
-        public DataTable GetAsscCommissionDetails(int adviserId, int asscCategoryId) 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="asscCategoryId"></param>
+        /// <returns></returns>
+        public DataTable GetAsscCommissionDetails(int adviserId, int asscCategoryId)
         {
             DataTable dt = new DataTable();
             AdvisorBranchDao adviserBranchDao = new AdvisorBranchDao();
@@ -698,7 +821,11 @@ namespace BoAdvisorProfiling
             }
             return dt;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
         public DataTable GetAdviserAssetGroups(int adviserId)
         {
             DataTable dt = new DataTable();
@@ -726,8 +853,13 @@ namespace BoAdvisorProfiling
             }
             return dt;
         }
-
-        public bool AddAssociateCommission(int userid,AdvisorAssociateCommissionVo advisorAssociateCommissionVo)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="advisorAssociateCommissionVo"></param>
+        /// <returns></returns>
+        public bool AddAssociateCommission(int userid, AdvisorAssociateCommissionVo advisorAssociateCommissionVo)
         {
             bool bResult = false;
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
@@ -757,7 +889,12 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="advisorAssociateCommissionVo"></param>
+        /// <returns></returns>
         public bool UpdateAssociateCommission(int userid, AdvisorAssociateCommissionVo advisorAssociateCommissionVo)
         {
             bool bResult = false;
@@ -788,7 +925,11 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <returns></returns>
         public DataTable GetBranchAssociateCommission(int branchId)
         {
             DataTable dt = new DataTable();
@@ -815,6 +956,102 @@ namespace BoAdvisorProfiling
                 throw exBase;
             }
             return dt;
+        }
+        /// <summary>
+        /// Function to check whether an RM is the branch head (for removing the branch Association) 
+        /// </summary>
+        /// <param name="rmId">Id of the RM</param>
+        /// <param name="branchId">Id of the Branch</param>
+        /// <returns></returns>
+        public int CheckBranchHead(int rmId, int branchId)
+        {
+            int count = 0;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                count = advisorBranchDao.CheckBranchHead(rmId, branchId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CheckBranchHead()");
+                object[] objects = new object[2];
+                objects[0] = rmId;
+                objects[1] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return count;
+        }
+        /// <summary>
+        /// Function to delete the RM-Branch association
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        public bool DeleteBranchAssociation(int rmId, int branchId)
+        {
+            bool bResult = false;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                bResult = advisorBranchDao.DeleteBranchAssociation(rmId, branchId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:DeleteBranchAssociation()");
+                object[] objects = new object[2];
+                objects[0] = rmId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+        /// <summary>
+        /// Function to check whether an Associate Category is linked to any branch(for deleting the Associate Category) 
+        /// </summary>
+        /// <param name="categoryId">Id of the Branch</param>
+        /// <returns></returns>
+        public int CheckAssociateBranchCategory(int categoryId)
+        {
+            int count = 0;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                count = advisorBranchDao.CheckAssociateBranchCategory(categoryId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CheckAssociateBranchCategory()");
+                object[] objects = new object[1];
+                objects[1] = categoryId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return count;
         }
     }
 }
