@@ -239,7 +239,7 @@ namespace WealthERP.Customer
                 {
                     txttotal.Visible = true;
                     txttotalyear.Visible = true;
-                    if (dtIncomeDetails.Rows[0]["CI_AgriculturalIncome"].ToString() != "")
+                     if (dtIncomeDetails.Rows[0]["CI_AgriculturalIncome"].ToString() != "")
                     {
                         txtAIMonthly.Text = String.Format("{0:0.00}", decimal.Parse(dtIncomeDetails.Rows[0]["CI_AgriculturalIncome"].ToString()));
                         txtAIYearly.Text = String.Format("{0:0.00}", decimal.Parse(dtIncomeDetails.Rows[0]["CI_AgriculturalIncome"].ToString()) * 12).ToString();
@@ -284,7 +284,7 @@ namespace WealthERP.Customer
                     txttotal.Text = (decimal.Parse(txtGSMonthly.Text) + decimal.Parse(txtRIMonthly.Text) + decimal.Parse(txtPIMonthly.Text) + decimal.Parse(txtAIMonthly.Text) + decimal.Parse(txtBIMonthly.Text) + decimal.Parse(txtOSIMonthly.Text)).ToString();
 
                     txttotalyear.Text = (decimal.Parse(txtGSYearly.Text) + decimal.Parse(txtRIYearly.Text) + decimal.Parse(txtPIYearly.Text) + decimal.Parse(txtAIYearly.Text) + decimal.Parse(txtBIYearly.Text) + decimal.Parse(txtOSIYearly.Text)).ToString();
-
+                  
                     if (dtIncomeDetails.Rows[0]["CI_DateOfEntry"].ToString() != "")
                         txtDateOfEntry.Text = DateTime.Parse(dtIncomeDetails.Rows[0]["CI_DateOfEntry"].ToString()).ToShortDateString();
                     if (dtIncomeDetails.Rows[0]["CPA_AccountId"].ToString() != "")
@@ -413,6 +413,6 @@ namespace WealthERP.Customer
             txttotalyear.Text = "0.00";
             txtDateOfEntry.Text = DateTime.Now.ToShortDateString();
         }
-
+   
     }
 }
