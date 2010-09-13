@@ -717,7 +717,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "AdvisorBMLeftpane") {
@@ -731,7 +731,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "AdvisorRMBMLeftpane") {
@@ -745,7 +745,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "AdvisorRMLeftpane") {
@@ -759,7 +759,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "AlertsLeftPane") {
@@ -773,7 +773,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "BMLeftpane") {
@@ -787,7 +787,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "block";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "BMRMLeftpane") {
@@ -801,7 +801,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "CustomerIndividualLeftPane") {
@@ -815,7 +815,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "CustomerNonIndividualLeftPane") {
@@ -829,7 +829,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "RMCustomerIndividualLeftPane") {
@@ -843,7 +843,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "RMCustomerNonIndividualLeftPane") {
@@ -857,7 +857,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "RMLeftPane") {
@@ -871,7 +871,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "none";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
     else if (menutype == "SuperAdminLeftPane") {
@@ -885,7 +885,7 @@ function loadtopmenu(menutype) {
         parent.document.getElementById("BMHeader").style.display = "none";
         parent.document.getElementById("AdminHeader").style.display = "none";
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        parent.document.getElementById("SuperAdminHeader").style.display = "block";
+        //parent.document.getElementById("SuperAdminHeader").style.display = "block";
 
     }
 }
