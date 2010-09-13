@@ -2,7 +2,6 @@
     Inherits="WealthERP.Customer.ViewCustomerExpense" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
-
 <script>
 
 
@@ -365,7 +364,7 @@
         </td>
     </tr>
     <tr>
-    <td>
+    <td class="leftField">
     <asp:Label ID="lbltotal" runat="server" Text="Total Expense:" CssClass="FieldName"></asp:Label>
     </td>
     <td>
