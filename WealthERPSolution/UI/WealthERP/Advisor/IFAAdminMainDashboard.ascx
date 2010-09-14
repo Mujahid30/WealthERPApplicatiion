@@ -95,7 +95,8 @@
     </tr>
     <tr>
         <td align="left">
-            <asp:Chart ID="ChartRMPerformance" runat="server" BackColor="LightSteelBlue" Width="348px">
+            <asp:Chart ID="ChartRMPerformance" runat="server" BackColor="LightSteelBlue" 
+                Width="400px" Height="325px">
                 <Series>
                     <asp:Series Name="Series1">
                     </asp:Series>
@@ -108,7 +109,7 @@
         </td>
         <td>
             <asp:Chart ID="ChartBranchPerformance" runat="server" BackColor="LightSteelBlue"
-                Height="299px" Width="322px">
+                Height="325px" Width="400px">
                 <Series>
                     <asp:Series Name="Series1" XValueMember="Branch Code" YValueMembers="Aggr">
                     </asp:Series>

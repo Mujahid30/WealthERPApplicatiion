@@ -452,7 +452,7 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
 }
 
 function logoutloadcontrol(controlid, logoPath, branchLogoPath) {
-    debugger;
+    
 
     if (controlid != null)
         PageMethods.AjaxSetSession("Current_PageID", controlid);

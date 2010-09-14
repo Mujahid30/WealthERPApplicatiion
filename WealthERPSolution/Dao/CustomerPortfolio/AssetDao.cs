@@ -94,22 +94,31 @@ namespace DaoCustomerPortfolio
 
 
 
-        public DataSet GetAdviserBranchMF_EQ_In_AggregateCurrentValues(int advisorId, out int Count,int currentPage)
+        public DataSet GetAdviserBranchMF_EQ_In_AggregateCurrentValues(int advisorId, out int Count,int currentPage,out double total)
         {
             Database db;
             DbCommand getAdvisorBranchAggregateValueCmd;
             DataSet ds=null;
             Count = 0;
+            total = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdvisorBranchAggregateValueCmd = db.GetStoredProcCommand("SP_GetAdvisorBranchEQ_MF_IN_CurrentAggr");
                 db.AddInParameter(getAdvisorBranchAggregateValueCmd, "@A_AdviserId", DbType.Int16, advisorId);
-                db.AddInParameter(getAdvisorBranchAggregateValueCmd, "@CurrentPage", DbType.Int32, currentPage);
+                if (currentPage != 0)
+                    db.AddInParameter(getAdvisorBranchAggregateValueCmd, "@CurrentPage", DbType.Int32, currentPage);
+                else
+                    db.AddInParameter(getAdvisorBranchAggregateValueCmd, "@CurrentPage", DbType.Int32, DBNull.Value);
+
                 ds = db.ExecuteDataSet(getAdvisorBranchAggregateValueCmd);
+                if (ds.Tables[2].Rows.Count > 0)
+                {
+                    Count = int.Parse(ds.Tables[2].Rows[0][0].ToString());
+                }
                 if (ds.Tables[1].Rows.Count > 0)
                 {
-                    Count = int.Parse(ds.Tables[1].Rows[0][0].ToString());
+                    total = double.Parse(ds.Tables[1].Rows[0][0].ToString());
                 }
             }
             catch (BaseApplicationException Ex)
