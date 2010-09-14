@@ -355,10 +355,10 @@
             <asp:RequiredFieldValidator ID="rfvCurrentValue" ControlToValidate="txtCurrentValue"
                 ErrorMessage="<br />Please enter the Current Value" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="cvCurrentValue" runat="server" ErrorMessage="<br>Please enter a numeric value"
-                Type="Double" ControlToValidate="txtCurrentValue" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+            </asp:RequiredFieldValidator>           
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG"
+                ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtCurrentValue"
+                Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
