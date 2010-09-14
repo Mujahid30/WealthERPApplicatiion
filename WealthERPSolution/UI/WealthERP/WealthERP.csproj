@@ -2711,6 +2711,7 @@
     <Content Include="Emails\Templates\AdviserRegistration.html" />
     <Content Include="Emails\Templates\AdviserRegistrationNotification.html" />
     <Content Include="Emails\Templates\AdviserRMAccounts.html" />
+    <Content Include="favicon.ico" />
     <Content Include="General\SetTheme.ascx" />
     <Content Include="General\UserSettings.ascx" />
     <Content Include="General\UserSettingsLeftPane.ascx" />
