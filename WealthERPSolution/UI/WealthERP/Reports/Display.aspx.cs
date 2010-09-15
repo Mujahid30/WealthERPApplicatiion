@@ -348,6 +348,7 @@ namespace WealthERP.Reports
                             //crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
                             crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             
@@ -1181,6 +1182,7 @@ namespace WealthERP.Reports
            {
                strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: +" + advisorVo.Website);
            }
+           else
             strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber);
 
             return strMail.ToString();
