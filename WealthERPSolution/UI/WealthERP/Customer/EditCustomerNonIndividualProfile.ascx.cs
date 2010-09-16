@@ -73,7 +73,7 @@ namespace WealthERP.Customer
                     }
                     else
                         txtDateofCommencement.Text = customerVo.CommencementDate.ToShortDateString();
-                    txtCompanyName.Text = customerVo.LastName;
+                    txtCompanyName.Text = customerVo.FirstName;
                     txtCustomerCode.Text = customerVo.CustCode.ToString();
                     txtPanNumber.Text = customerVo.PANNum.ToString();
                     //txtRmName.Text = customerVo.RmId.ToString();
@@ -178,7 +178,7 @@ namespace WealthERP.Customer
                 customerVo.ContactFirstName = txtFirstName.Text.ToString();
                 customerVo.ContactMiddleName = txtMiddleName.Text.ToString();
                 customerVo.ContactLastName = txtLastName.Text.ToString();
-                customerVo.LastName = txtCompanyName.Text.ToString();
+                customerVo.FirstName = txtCompanyName.Text.ToString();
                 customerVo.CustCode = txtCustomerCode.Text.ToString();
                 customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
                 if (customerVo.Salutation == "Mr.")
