@@ -422,10 +422,10 @@ namespace WealthERP.Customer
                     else if (rbtnNonIndividual.Checked)
                     {
                         customerVo.Type = "NIND";
-                        customerVo.CompanyName = txtCompanyName.Text.ToString();
+                        customerVo.FirstName = txtCompanyName.Text.ToString();
                         customerVo.LastName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
-                        customerVo.FirstName = txtLastName.Text.ToString();
+                        //customerVo.FirstName = txtLastName.Text.ToString();
                         userVo.LastName = txtCompanyName.Text.ToString();
                     }
                     //customerVo.CustomerId = customerBo.GenerateId();
