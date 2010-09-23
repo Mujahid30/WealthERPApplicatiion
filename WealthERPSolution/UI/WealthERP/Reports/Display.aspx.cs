@@ -184,19 +184,27 @@ namespace WealthERP.Reports
                 FillEmailValues();
            else if (Request.QueryString["mail"] == "2")
            {
-               Response.Redirect("TempReports/ViewInPDF/" + PDFViewPath);
-
-               if (Directory.Exists(Server.MapPath("~/Reports/TempReports/ViewInPDF")))
-               {
-                   DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/ViewInPDF"));
-
-                   FileInfo info = new FileInfo(Server.MapPath("~/Reports/TempReports/ViewInPDF")+ PDFViewPath);
-                   info.Delete();
-                   //foreach (FileInfo f in di.GetFiles())
-                   //{
-                   //    f.Delete();
-                   //}
+               string logoPath = "~/TempReports/ViewInPDF/" + PDFViewPath;
+               if (PDFViewPath!="")
+               {                   
+                   Response.Redirect("TempReports/ViewInPDF/" + PDFViewPath);
                }
+               else
+               {
+
+               }
+
+               //if (Directory.Exists(Server.MapPath("~/Reports/TempReports/ViewInPDF")))
+               //{
+               //    DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/ViewInPDF"));
+
+               //    FileInfo info = new FileInfo(Server.MapPath("~/Reports/TempReports/ViewInPDF")+ PDFViewPath);
+               //    info.Delete();
+               //    //foreach (FileInfo f in di.GetFiles())
+               //    //{
+               //    //    f.Delete();
+               //    //}
+               //}
            }
         }
         /// <summary >
@@ -1180,7 +1188,7 @@ namespace WealthERP.Reports
             strMail.Append("<br/>Please find attached " + subject + ".");
            if(!string.IsNullOrEmpty(advisorVo.Website))
            {
-               strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: +" + advisorVo.Website);
+               strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website);
            }
            else
             strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber);
@@ -1210,7 +1218,7 @@ namespace WealthERP.Reports
                                 subject = "Mutual Fund Summary Report - ";
                                 break;
                             case "RETURNS_PORTFOLIO":
-                                subject = "Portfolio Returns - ";
+                                subject = "Portfolio Return-Holding ";
                                 break;
                             case "PORFOLIO_ANALYTICS":
                                 subject = "Portfolio Returns - ";

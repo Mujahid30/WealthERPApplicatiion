@@ -31,6 +31,11 @@
             border:1px solid #F5E082;
             padding:10px;
         }
+        .revPCG
+        {
+            font-family: Verdana,Tahoma;
+            font-size: x-small;
+        }
 
     </style>
 
@@ -47,20 +52,7 @@
                 alert("Please enter To Email Address.");
                 return false;
             }
-            if (document.getElementById("txtTo").value.indexOf("@") < 2 || document.getElementById("txtTo").value.indexOf(".") < 4) {
-                alert("Please enter  a valid To Email Address.");
-                document.getElementById("txtTo").focus();
-                return false;
-            }
-
-            if (document.getElementById("txtCC").value != "") {
-                    if (document.getElementById("txtCC").value.indexOf("@") < 2 || document.getElementById("txtCC").value.indexOf(".") < 4) {
-                    alert("Please enter  a valid CC Email Address.");
-                    document.getElementById("txtCC").focus();
-                    return false;
-                }
-            }
-            
+                     
             document.getElementById("hidTo").value = document.getElementById("txtTo").value
             document.getElementById("hidSubject").value = document.getElementById("txtSubject").value
             document.getElementById("hidFormat").value = document.getElementById("ddlFormat").options[document.getElementById("ddlFormat").selectedIndex].value
@@ -74,6 +66,7 @@
             document.getElementById("btnSendEmail").click()
 
         }
+        
         function replaceSpecialChars() {
             
             while (document.getElementById("txtBody").value.indexOf("<br/>") > -1) {
@@ -105,7 +98,7 @@
            }
            else
            {
-             $(".sendEmail").colorbox({ width: "50%", inline: true,overlayClose:false, href: "#divEmail",onClosed:function(){
+             $(".sendEmail").colorbox({ width: "630px", inline: true,overlayClose:false, href: "#divEmail",onClosed:function(){
                 ConvertnlTobr(); 
               } 
               });
@@ -165,6 +158,10 @@
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="txtTo" runat="server" Width="500px"></asp:TextBox>
+                                                  <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtTo"
+                                                     ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server" ValidationGroup="btnSend"
+                                                     ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG">
+                                                 </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -173,6 +170,10 @@
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="txtCC" runat="server" Width="500px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtCC"
+                                                     ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server" ValidationGroup="btnSend"
+                                                     ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG">
+                                                </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -187,7 +188,7 @@
                                             <td colspan="2">
                                                 <asp:CheckBox ID="chkCopy" runat="server" Text="Send a copy to me" Checked="true" />
                                                 <asp:HiddenField ID="hidRMEmailId" runat="server" />
-                                                <asp:Button ID="btnSend" runat="server" Text="Send" CssClass="PCGButton" OnClientClick="sendMail()" />
+                                                <asp:Button ID="btnSend" runat="server" ValidationGroup="btnSend" Text="Send" CssClass="PCGButton" OnClientClick="sendMail()"/>
                                             </td>
                                         </tr>
                                     </table>
