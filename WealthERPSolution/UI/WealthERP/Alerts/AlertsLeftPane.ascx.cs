@@ -9,12 +9,14 @@ using WealthERP.Base;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
+using BoCustomerProfiling;
 
 namespace WealthERP.Alerts
 {
     public partial class AlertsLeftPane : System.Web.UI.UserControl
     {
         CustomerVo customerVo = new CustomerVo();
+        CustomerBo customerBo = new CustomerBo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,6 +24,7 @@ namespace WealthERP.Alerts
             string First = null;
             string Middle = null;
             string Last = null;
+            bool isGrpHead = false;
 
             try
             {
@@ -32,7 +35,8 @@ namespace WealthERP.Alerts
                     Middle = customerVo.MiddleName.ToString();
                     Last = customerVo.LastName.ToString();
 
-                    if (customerVo.RelationShip == "SELF")
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                    if (isGrpHead == true)
                     {
                         TreeView1.Nodes.AddAt(1, new TreeNode("Group Dashboard"));
                     }
@@ -46,6 +50,9 @@ namespace WealthERP.Alerts
                         lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.LastName.ToString();
                     }
                     TreeView1.CollapseAll();
+                    TreeView1.FindNode("Alert Dashboard").Expand();
+                    TreeView1.FindNode("Alert Dashboard").ChildNodes[0].Selected = true;
+                    
                     lblEmailIdValue.Text = customerVo.Email.ToString();
                 }
             }
