@@ -3,24 +3,22 @@
 
 <script type="text/javascript">
     var tabberOptions = { 'onClick': function(argsObj) {
-        
+
         var t = argsObj.tabber; /* Tabber object */
         var id = t.id; /* ID of the main tabber DIV */
         var i = argsObj.index; /* Which tab was clicked (0 is the first tab) */
         var e = argsObj.event; /* Event object */
 
-      
+
         document.getElementById('<%= hdnSelectedTab.ClientID %>').value = i;
-        
+
     }
     };
 </script>
 
-
-    <script type="text/javascript" src="../Scripts/tabber.js"></script>
+<script type="text/javascript" src="../Scripts/tabber.js"></script>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
-
 
 <script language="javascript" type="text/javascript">
     function Print_Click(div, btnID) {
@@ -60,10 +58,10 @@
     <tr>
         <td colspan="3">
             <div class="tabber" id="divMain">
-                <div class="tabbertab" runat="server" id="divAll" >
-                    <h6 >
+                <div class="tabbertab" runat="server" id="divAll">
+                    <h6>
                         All</h6>
-                   <table id="tblPortfolio" runat="server">
+                    <table id="tblPortfolio" runat="server">
                         <tr id="Tr1" runat="server" visible="true">
                             <td>
                                 <asp:RadioButton ID="rbtnExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -91,10 +89,10 @@
                                     <asp:Label ID="lblMessage" Visible="false" Text="No Record Exists" runat="server"
                                         CssClass="Field"></asp:Label>
                                     <asp:GridView ID="gvEquityPortfolio" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                        CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true" 
-                                        CssClass="GridViewStyle" ShowFooter="True" OnSorting="gvEquityPortfolio_Sorting"
-                                        OnRowCommand="gvEquityPortfolio_RowCommand" OnPageIndexChanging="gvEquityPortfolio_PageIndexChanging"
-                                        OnDataBound="gvEquityPortfolio_DataBound" OnRowDataBound="gvEquityPortfolio_RowDataBound">
+                                        CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true" CssClass="GridViewStyle"
+                                        ShowFooter="True" OnSorting="gvEquityPortfolio_Sorting" OnRowCommand="gvEquityPortfolio_RowCommand"
+                                        OnPageIndexChanging="gvEquityPortfolio_PageIndexChanging" OnDataBound="gvEquityPortfolio_DataBound"
+                                        OnRowDataBound="gvEquityPortfolio_RowDataBound">
                                         <RowStyle CssClass="RowStyle" />
                                         <FooterStyle CssClass="FooterStyle" />
                                         <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -115,21 +113,14 @@
                                                     <asp:Label ID="lblScripNameHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="Quantity" HeaderText="No of Shares" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="AveragePrice" HeaderText="Average Price (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CostOfPurchase" HeaderText="Cost Of Purchase (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="MarketPrice" HeaderText="Current Price (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CurrentValue" HeaderText="Current Value (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="UnRealizedPL" HeaderText="UnRealized P/L (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)"  ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="Quantity" HeaderText="No of Shares" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="AveragePrice" HeaderText="Average Price (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="CostOfPurchase" HeaderText="Cost Of Purchase (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="MarketPrice" HeaderText="Current Price (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="CurrentValue" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="UnRealizedPL" HeaderText="UnRealized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)" ItemStyle-HorizontalAlign="Right" />
                                         </Columns>
                                     </asp:GridView>
                                 </div>
@@ -137,8 +128,8 @@
                         </tr>
                     </table>
                 </div>
-                <div class="tabbertab" runat="server" id="divRealized" >
-                    <h6 >
+                <div class="tabbertab" runat="server" id="divRealized">
+                    <h6>
                         Realized Delivery</h6>
                     <table id="tblDelivery" runat="server">
                         <tr id="Tr2" runat="server" visible="true">
@@ -171,8 +162,8 @@
                                     <asp:Label ID="lblMessageD" Visible="false" Text="No Record Exists" runat="server"
                                         CssClass="Field"></asp:Label>
                                     <asp:GridView ID="gvEquityPortfolioDelivery" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                        CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true" 
-                                        CssClass="GridViewStyle" ShowFooter="True" OnSorting="gvEquityPortfolioDelivery_Sorting" OnRowDataBound="gvEquityPortfolioDelivery_RowDataBound"
+                                        CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true" CssClass="GridViewStyle"
+                                        ShowFooter="True" OnSorting="gvEquityPortfolioDelivery_Sorting" OnRowDataBound="gvEquityPortfolioDelivery_RowDataBound"
                                         OnRowCommand="gvEquityPortfolioDelivery_RowCommand" OnPageIndexChanging="gvEquityPortfolioDelivery_PageIndexChanging"
                                         OnDataBound="gvEquityPortfolioDelivery_DataBound">
                                         <RowStyle CssClass="RowStyle" />
@@ -189,21 +180,19 @@
                                                 <HeaderTemplate>
                                                     <asp:Label ID="lblScripNameRealized" runat="server" Text="Scrip Name"></asp:Label>
                                                     <br />
-                                                    <asp:TextBox ID="txtScripNameRealizedSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_ViewEquityPortfolios_btnEQRealizedSearch');" />
+                                                    <asp:TextBox ID="txtScripNameRealizedSearch" runat="server" CssClass="GridViewTxtField"
+                                                        onkeydown="return JSdoPostback(event,'ctrl_ViewEquityPortfolios_btnEQRealizedSearch');" />
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblScripNameRealizedHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="SaleQty" HeaderText="No of Shares Sold" 
-                                                ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="SaleQty" HeaderText="No of Shares Sold" ItemStyle-HorizontalAlign="Right" />
                                             <asp:BoundField DataField="RealizedSalesProceeds" HeaderText="Sale Proceeds (Rs)"
-                                                 ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CostOfSales" HeaderText="Cost Of Sales (Rs)" 
                                                 ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)"  ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="CostOfSales" HeaderText="Cost Of Sales (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)" ItemStyle-HorizontalAlign="Right" />
                                         </Columns>
                                     </asp:GridView>
                                 </div>
@@ -246,9 +235,9 @@
                                         CssClass="Field"></asp:Label>
                                     <asp:GridView ID="gvEquityPortfolioSpeculative" runat="server" AllowSorting="True"
                                         AutoGenerateColumns="False" CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true"
-                                         CssClass="GridViewStyle" ShowFooter="True" OnSorting="gvEquityPortfolioSpeculative_Sorting" OnRowDataBound="gvEquityPortfolioSpeculative_RowDataBound"
-                                        OnRowCommand="gvEquityPortfolioSpeculative_RowCommand" OnPageIndexChanging="gvEquityPortfolioSpeculative_PageIndexChanging"
-                                        OnDataBound="gvEquityPortfolioSpeculative_DataBound">
+                                        CssClass="GridViewStyle" ShowFooter="True" OnSorting="gvEquityPortfolioSpeculative_Sorting"
+                                        OnRowDataBound="gvEquityPortfolioSpeculative_RowDataBound" OnRowCommand="gvEquityPortfolioSpeculative_RowCommand"
+                                        OnPageIndexChanging="gvEquityPortfolioSpeculative_PageIndexChanging" OnDataBound="gvEquityPortfolioSpeculative_DataBound">
                                         <RowStyle CssClass="RowStyle" />
                                         <FooterStyle CssClass="FooterStyle" />
                                         <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -270,15 +259,12 @@
                                                     <asp:Label ID="lblScripNameRealizedSpecHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="SaleQty" HeaderText="No of Shares" 
-                                                ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="SaleQty" HeaderText="No of Shares" ItemStyle-HorizontalAlign="Right" />
                                             <asp:BoundField DataField="RealizedSalesProceeds" HeaderText="Sale Proceeds (Rs)"
                                                 ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CostOfSales" HeaderText="Cost Of Sales (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)"  ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="CostOfSales" HeaderText="Cost Of Sales (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)" ItemStyle-HorizontalAlign="Right" />
                                         </Columns>
                                     </asp:GridView>
                                 </div>
@@ -345,19 +331,13 @@
                                                     <asp:Label ID="lblScripNameUnRealizedHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="Quantity" HeaderText="No of Shares" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="AveragePrice" HeaderText="Average Price (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CostOfPurchase" HeaderText="Cost Of Purchase (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="MarketPrice" HeaderText="Current Price (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CurrentValue" HeaderText="Current Value (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="UnRealizedPL" HeaderText="UnRealized P/L (Rs)" 
-                                                ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)"  ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="Quantity" HeaderText="No of Shares" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="AveragePrice" HeaderText="Average Price (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="CostOfPurchase" HeaderText="Cost Of Purchase (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="MarketPrice" HeaderText="Current Price (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="CurrentValue" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="UnRealizedPL" HeaderText="UnRealized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)" ItemStyle-HorizontalAlign="Right" />
                                         </Columns>
                                     </asp:GridView>
                                 </div>
@@ -408,26 +388,24 @@
 <asp:HiddenField ID="hdnRealizedSpecScipFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnUnRealizedScipFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnSelectedTab" runat="server" />
-
- 
- <table id="Table1" runat="server">
-                        <tr id="Tr5" runat="server" visible="true">
-                            <td>
-                                <asp:RadioButton ID="rbtnTry" Text="Excel" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                                <asp:RadioButton ID="RadioButton2" Text="PDF" runat="server" GroupName="grpExport" CssClass="cmbField" />
-                                <asp:RadioButton ID="RadioButton3" Text="Word" runat="server" GroupName="grpExport" CssClass="cmbField" />
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Button ID="Button2" runat="server" OnClick="btnExport_Click" Text="Export"
-                                    CssClass="ButtonField" />
-                                <asp:Button ID="Button3" runat="server" OnClick="btnPrint_Click" Text="Print" CssClass="ButtonField" />
-                                <asp:Button ID="Button4" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                                    BorderStyle="None" BackColor="Transparent" />
-                            </td>
-                        </tr>
-                    </table>
+<table id="Table1" runat="server" visible="false">
+    <tr id="Tr5" runat="server" visible="true">
+        <td>
+            <asp:RadioButton ID="rbtnTry" Text="Excel" runat="server" GroupName="grpExport" CssClass="cmbField" />
+            <asp:RadioButton ID="RadioButton2" Text="PDF" runat="server" GroupName="grpExport"
+                CssClass="cmbField" />
+            <asp:RadioButton ID="RadioButton3" Text="Word" runat="server" GroupName="grpExport"
+                CssClass="cmbField" />
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Button ID="Button2" runat="server" OnClick="btnExport_Click" Text="Export" CssClass="ButtonField" />
+            <asp:Button ID="Button3" runat="server" OnClick="btnPrint_Click" Text="Print" CssClass="ButtonField" />
+            <asp:Button ID="Button4" runat="server" Text="" OnClick="btnPrintGrid_Click" BorderStyle="None"
+                BackColor="Transparent" />
+        </td>
+    </tr>
+</table>
