@@ -677,6 +677,13 @@ namespace WealthERP.Advisor
                 else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCashSavingsView','none');", true);
             }
+            else if (str == "Direct Equity")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewEquityPortfolios','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolios','none');", true);
+            }
             else 
             {
                 if (Session["S_CurrentUserRole"] == "Customer")
