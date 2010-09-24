@@ -115,7 +115,7 @@
         <td class="leftField">
             <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Date Of Commencement:"></asp:Label>
         </td>
-        <td aclass="rightField">
+        <td class="rightField">
             <asp:TextBox ID="txtDateofCommencement" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateofCommencement" Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -129,7 +129,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label12" runat="server" CssClass="FieldName" Text="Registration No with ROC-Registrar:"></asp:Label>
+            <asp:Label ID="Label12" runat="server" CssClass="FieldName" Text="Reg. No. with ROC-Registrar:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtRocRegistration" runat="server" CssClass="txtField"></asp:TextBox>
@@ -153,7 +153,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name (First/Middle/Last):"></asp:Label>
+            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox>
