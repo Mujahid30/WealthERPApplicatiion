@@ -98,6 +98,13 @@ div#MainDivLeft
     color: red;
 }
 
+.UploadDateLbl
+{
+    
+    font-size: small;
+    color: #2E175F;
+}
+
 .SuccessMsg
 {
     font-family: Verdana,Tahoma;
@@ -787,6 +794,7 @@ p.tip
     color: #523C7D;
     font-size: x-small;
     font-family: Verdana,Tahoma;
+     font-weight: 500;
     
 } 
 

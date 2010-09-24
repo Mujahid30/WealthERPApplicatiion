@@ -86,11 +86,15 @@ namespace WealthERP.Uploads
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            lnkbtnpup.Style.Add("display", "none");
+            Panel1.Visible = true;
             Panel1.Style.Add("display", "none");
 
+            lnkbtnpup.Visible = false;
+            ModalPopupExtender1.Hide();
+
             Message_lbl.Visible = false;
+
+            lblFileType.Visible = false;
 
             string lastUploadDate = "";
             btn_Upload.Attributes.Add("onclick","setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
@@ -103,13 +107,13 @@ namespace WealthERP.Uploads
 
             
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
-            //lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
-            //if (lastUploadDate != "")
-            //{
-            //    lblLastUploadDateText.Visible = true;
-            //    lblLastUploadDate.Visible = true;
-            //    lblLastUploadDate.Text = lastUploadDate;
-            //}
+            lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
+            if (lastUploadDate != "")
+            {
+                lblLastUploadDateText.Visible = true;
+                lblLastUploadDate.Visible = true;
+                lblLastUploadDate.Text = lastUploadDate;
+            }
             if (Session["userVo"] != null)
             {
 
@@ -2116,8 +2120,6 @@ namespace WealthERP.Uploads
             if (ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF")
             {
                 trListBranch.Visible = true;
-                lnkbtnpup.Visible = true;
-                Panel1.Visible = true;
             }
             else
             {
@@ -2339,28 +2341,40 @@ namespace WealthERP.Uploads
 
             if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT")
             {
-                Message_lbl.Visible = true;
+                lblFileType.Visible = true;
                 message = Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);
-                Message_lbl.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by your institution to Upload";
+                lblFileType.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by your institution to Upload.";
 
             }
             else
             {
-                Message_lbl.Visible = false;
+                lblFileType.Visible = false;
               
             }
 
-            if (ddlUploadType.SelectedValue == "P" && ddlListCompany.SelectedValue == "WP" )
+            if (ddlUploadType.SelectedValue == "P" && ddlListCompany.SelectedValue == "WP")
             {
-                lnkbtnpup.Style.Add("display", "block");
-                Panel1.Style.Add("display", "block");
+                //lnkbtnpup.Style.Add("display", "block");
+                //Panel1.Style.Add("display", "block");
+
+                lnkbtnpup.Visible = true;
 
             }
             else
             {
-                lnkbtnpup.Style.Add("display", "none");
-                Panel1.Style.Add("display", "none");
+                //lnkbtnpup.Style.Add("display", "none");
+                //Panel1.Style.Add("display", "none");
+
+                lnkbtnpup.Visible = false;
+
             }
+
+        }
+
+        protected void lnkbtnpup_Click1(object sender, EventArgs e)
+        {
+            ModalPopupExtender1.TargetControlID = "lnkbtnpup";
+            ModalPopupExtender1.Show();
 
         }
 
@@ -3773,6 +3787,8 @@ namespace WealthERP.Uploads
             divresult.Visible = false;
             ViewState["dtinputvalidationerror"] = dtInputRejects;
         }
+
+       
 
         
 

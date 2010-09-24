@@ -127,9 +127,9 @@
 <table class="TableBackground" style="width: 100%;">
     <tr>
         <td colspan="4" align="right" runat="server">
-            <asp:Label ID="lblLastUploadDateText" runat="server" Text="Last Upload Date:" CssClass="Error"
+            <asp:Label ID="lblLastUploadDateText" runat="server" Text="Last Upload Date:" CssClass="UploadDateLbl"
                 Visible="false"></asp:Label>
-            <asp:Label ID="lblLastUploadDate" runat="server" Text="" CssClass="Error" Visible="false"></asp:Label>
+            <asp:Label ID="lblLastUploadDate" runat="server" Text="" Font-Bold="true" CssClass="UploadDateLbl" Visible="false"></asp:Label>
         </td>
     </tr>
     <tr id="trError" visible="false" runat="server">
@@ -220,11 +220,11 @@
             </asp:RequiredFieldValidator>
         </td>
         <td style="float: right; vertical-align: top;" width="350px">
-            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" OnClientClick="setformat('excel')"
-                CausesValidation="False">click here to download standard file formats</asp:LinkButton>
+            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" 
+                CausesValidation="False" onclick="lnkbtnpup_Click1">click here to download standard file formats</asp:LinkButton>
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="lnkbtnpup" DynamicServicePath="" BackgroundCssClass="modalBackground"
-                Enabled="True" OkControlID="btnOk" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();">
+                Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="Panel1" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();">
             </cc1:ModalPopupExtender>
         </td>
     </tr>
@@ -281,8 +281,9 @@
         </td>
     </tr>
     <tr>
-       <td colspan="3" style="text-align: center">
-            
+       <td colspan="3" style="padding-left: 242px;">
+            <%--<asp:label ID="FileType_lbl" runat="server" Font-Bold="false" CssClass="MsgInfo" text="Label"></asp:label>--%>
+            <asp:Label ID="lblFileType" runat="server" Font-Bold="false" CssClass="MsgInfo" Text="Label"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -296,7 +297,7 @@
     </tr>
     <tr>
         <td>
-            <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup">
+            <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup"  Visible="false">
                 <asp:RadioButton ID="File1" Text="EquityTradeAccount" Checked="True" GroupName="colors"
                     runat="server" />
                 <br />
