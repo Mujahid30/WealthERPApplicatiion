@@ -115,15 +115,15 @@
                     <asp:BoundField DataField="ADUL_XMLFileName" HeaderText="XML FileName" />
                     <asp:BoundField DataField="ADUL_StartTime" HeaderText="Start Time" SortExpression="ADUL_StartTime" ItemStyle-Wrap="false" />
                     <asp:BoundField DataField="ADUL_EndTime" HeaderText="End Time" ItemStyle-Wrap="false" />
-                    <asp:BoundField DataField="ADUL_TotalNoOfRecords" HeaderText="Total No of Records" />
-                    <asp:BoundField DataField="ADUL_NoOfCustomersCreated" HeaderText="No of Customers Created" />
-                    <asp:BoundField DataField="ADUL_NoOfAccountsCreated" HeaderText="No of Accounts Created" />
-                    <asp:BoundField DataField="ADUL_NoOfTransactionsCreated" HeaderText="No of Transactions Creatked" />
-                    <asp:BoundField DataField="ADUL_NoOfCustomerDuplicates" HeaderText="No of Duplicate Customers" />
-                    <asp:BoundField DataField="ADUL_NoOfAccountDuplicate" HeaderText="No of Duplicate Accounts" />
-                    <asp:BoundField DataField="ADUL_NoOfTransactionDuplicate" HeaderText="No of Duplicate Transactions" />
-                    <asp:BoundField DataField="ADUL_NoOfRejectRecords" HeaderText="No of Rejected Records" />
-                    <asp:BoundField DataField="ADUL_NoOfRecordsInserted" HeaderText="No of Records Inserted" />
+                    <asp:BoundField DataField="ADUL_TotalNoOfRecords" HeaderText="Total No. of Records" />
+                    <asp:BoundField DataField="ADUL_NoOfCustomersCreated" HeaderText="No. of Customers Created" />
+                    <asp:BoundField DataField="ADUL_NoOfAccountsCreated" HeaderText="No. of Accounts Created" />
+                    <asp:BoundField DataField="ADUL_NoOfTransactionsCreated" HeaderText="No. of Transactions Creatked" />
+                    <asp:BoundField DataField="ADUL_NoOfCustomerDuplicates" HeaderText="No. of Duplicate Customers" />
+                    <asp:BoundField DataField="ADUL_NoOfAccountDuplicate" HeaderText="No. of Duplicate Accounts" />
+                    <asp:BoundField DataField="ADUL_NoOfTransactionDuplicate" HeaderText="No. of Duplicate Transactions" />
+                    <asp:BoundField DataField="ADUL_NoOfRejectRecords" HeaderText="No. of Rejected Records" />
+                    <asp:BoundField DataField="ADUL_NoOfRecordsInserted" HeaderText="No. of Records Inserted" />
                     <%--<asp:BoundField DataField="ADUL_NoOfInputRejects" HeaderText="No of Input Rejects" />
                     <asp:BoundField DataField="ADUL_IsXMLConvesionComplete" HeaderText="XML Conversion Status" />
                     <asp:BoundField DataField="ADUL_IsInsertionToInputComplete" HeaderText="Input Insertion Status" />
