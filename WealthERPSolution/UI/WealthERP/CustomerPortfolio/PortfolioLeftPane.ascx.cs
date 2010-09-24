@@ -9,15 +9,18 @@ using WealthERP.Base;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
+using BoCustomerProfiling;
 
 namespace WealthERP.CustomerPortfolio
 {
     public partial class PortfolioLeftPane : System.Web.UI.UserControl
     {
         CustomerVo customerVo = new CustomerVo();
+        CustomerBo customerBo = new CustomerBo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            bool isGrpHead = false;
             try
             {
                 SessionBo.CheckSession();
@@ -30,7 +33,8 @@ namespace WealthERP.CustomerPortfolio
                         string Middle = customerVo.MiddleName.ToString();
                         string Last = customerVo.LastName.ToString();
 
-                        if (customerVo.RelationShip == "SELF")
+                        isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                        if (isGrpHead == true)
                         {
                             TreeView1.Nodes.AddAt(1, new TreeNode("Group Dashboard"));
                         }
