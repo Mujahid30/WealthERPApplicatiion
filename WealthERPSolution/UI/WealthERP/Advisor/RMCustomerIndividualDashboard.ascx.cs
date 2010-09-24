@@ -166,7 +166,7 @@ namespace WealthERP.Advisor
 
 
                     DataRow drCustomerBankAccount;
-                    for (int i = 0; i < 2; i++)
+                    for (int i = 0; i < customerBankAccountList.Count; i++)
                     {
                         drCustomerBankAccount = dtCustomerBankAccounts.NewRow();
                         customerBankAccountVo = new CustomerBankAccountVo();

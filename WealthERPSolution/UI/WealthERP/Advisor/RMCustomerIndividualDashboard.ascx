@@ -1,6 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMCustomerIndividualDashboard.ascx.cs"
     Inherits="WealthERP.Advisor.RMCustomerDashboard" %>
-
+<style type="text/css">
+    .style1
+    {
+        width: 351px;
+    }
+</style>
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell" colspan="2">
@@ -29,7 +34,7 @@
         <td width="50%" valign="top">
             <table style="width: 100%; height: 100%; margin-top: 0px">
                 <tr>
-                    <td class="leftField">
+                    <td class="leftField" width="25%">
                         <asp:Label ID="Label3" runat="server" Text="Name:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
@@ -37,7 +42,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" align="right">
+                    <td class="leftField" valign="top">
                         <asp:Label ID="Label5" runat="server" Text="Address:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
@@ -90,10 +95,10 @@
         </td>
     </tr>
     <tr>
-        <td width="50%" valign="top" >
-            <table style="width: 100%;height: 100%; margin-top: 0px">
+        <td width="50%" valign="top">
+            <table style="width: 100%; height: 100%; margin-top: 0px">
                 <tr>
-                    <td class="leftField">
+                    <td class="leftField" width="25%">
                         <asp:Label ID="Label4" runat="server" Text="Phone Number:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
@@ -101,7 +106,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="leftField">
+                    <td class="leftField" width="25%">
                         <asp:Label ID="Label6" runat="server" Text="Email:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
