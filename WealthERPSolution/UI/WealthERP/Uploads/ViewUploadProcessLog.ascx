@@ -118,7 +118,7 @@
                     <asp:BoundField DataField="ADUL_TotalNoOfRecords" HeaderText="Total No. of Records" />
                     <asp:BoundField DataField="ADUL_NoOfCustomersCreated" HeaderText="No. of Customers Created" />
                     <asp:BoundField DataField="ADUL_NoOfAccountsCreated" HeaderText="No. of Accounts Created" />
-                    <asp:BoundField DataField="ADUL_NoOfTransactionsCreated" HeaderText="No. of Transactions Creatked" />
+                    <asp:BoundField DataField="ADUL_NoOfTransactionsCreated" HeaderText="No. of Transactions Created" />
                     <asp:BoundField DataField="ADUL_NoOfCustomerDuplicates" HeaderText="No. of Duplicate Customers" />
                     <asp:BoundField DataField="ADUL_NoOfAccountDuplicate" HeaderText="No. of Duplicate Accounts" />
                     <asp:BoundField DataField="ADUL_NoOfTransactionDuplicate" HeaderText="No. of Duplicate Transactions" />
