@@ -147,7 +147,7 @@ namespace WealthERP.Customer
                         customerVo.ContactLastName = txtLastName.Text.ToString();
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
                         customerVo.CustCode = txtCustomerCode.Text.ToString();
-                        customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
+                        //customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
                         if (txtDateofRegistration.Text != "")
                         {
                             customerVo.RegistrationDate = DateTime.Parse(txtDateofRegistration.Text.ToString());
@@ -214,9 +214,6 @@ namespace WealthERP.Customer
                         customerVo.ISDFax = int.Parse(txtFaxIsd.Text.ToString());
                         customerVo.STDFax = int.Parse(txtFaxStd.Text.ToString());
                         customerVo.Email = txtEmail.Text.ToString();
-                        //customerVo.ContactFirstName = txtFirstName.Text;
-                        //customerVo.ContactLastName = txtLastName.Text;
-                        //customerVo.ContactMiddleName = txtMiddleName.Text;
                         customerVo.MaritalStatus = null;
                         Session["Customer"] = "Customer";
                         //  customerBo.CreateCustomer(customerVo, customerVo.RmId,userVo.UserId);

@@ -39,7 +39,7 @@
             </cc1:CalendarExtender>
         </td>
     </tr>
-    <tr>
+    <tr style="visibility:collapse">
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
         </td>
@@ -104,7 +104,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="lblRegistrationNum" runat="server" CssClass="FieldName" Text="Registration No with ROC-Registrar:"></asp:Label>
+            <asp:Label ID="lblRegistrationNum" runat="server" CssClass="FieldName" Text="Reg. No. with ROC-Registrar:"></asp:Label>
         </td>
         <td class="rightField" colspan="2">
             <asp:TextBox ID="txtRocRegistration" runat="server" CssClass="txtField"></asp:TextBox>
@@ -161,7 +161,7 @@
             </cc1:TextBoxWatermarkExtender>
         </td>
     </tr>
-    <tr>
+    <tr visible="false">
         <td class="leftField">
             <asp:Label ID="Label16" runat="server" CssClass="FieldName" Text="Designation:"></asp:Label>
         </td>
