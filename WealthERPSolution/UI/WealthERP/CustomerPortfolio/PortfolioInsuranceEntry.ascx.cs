@@ -447,7 +447,8 @@ namespace WealthERP.CustomerPortfolio
 
                             TextBox txtBox4 = new TextBox();
                             txtBox4 = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString()));
-                            txtBox4.Text = insuranceULIPVo.CIUP_PurchaseDate.ToShortDateString();
+                            if(insuranceULIPVo.CIUP_PurchaseDate != DateTime.MinValue)
+                                txtBox4.Text = insuranceULIPVo.CIUP_PurchaseDate.ToShortDateString();
 
                             TextBox txtBox5 = new TextBox();
                             txtBox5 = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString()));
@@ -1564,7 +1565,7 @@ namespace WealthERP.CustomerPortfolio
 
                             insuranceVo.PremiumAccumalated = 0;
                             insuranceVo.BonusAccumalated = 0;
-
+                            
                             DataSet prevUlipSubPlansDS = assetBo.GetPrevULIPSubPlans(insuranceVo.CustInsInvId);
                             PrevUlipSubPlanCode = Int32.Parse(prevUlipSubPlansDS.Tables[0].Rows[0]["WUSP_ULIPSubPlanCode"].ToString().Trim());
                             DataSet prevUlipPlanCodeDS = assetBo.GetPrevUlipPlanCode(PrevUlipSubPlanCode);
@@ -2270,54 +2271,69 @@ namespace WealthERP.CustomerPortfolio
 
         protected void txtLastPremiumDate_TextChanged(object sender, EventArgs e)
         {
-            DateTime dtFrom = DateTime.Parse(txtFirstPremiumDate.Text);
-            DateTime dtTo = DateTime.Parse(txtLastPremiumDate.Text);
-            DateBo dtBo = new DateBo();
+            if (txtFirstPremiumDate.Text != "dd/mm/yyyy" && txtFirstPremiumDate.Text != string.Empty && txtLastPremiumDate.Text != "dd/mm/yyyy" && txtLastPremiumDate.Text != string.Empty)
+            {
+                DateTime dtFrom = DateTime.Parse(txtFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtLastPremiumDate.Text);
+                DateBo dtBo = new DateBo();
 
-            float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-            txtEPPremiumDuration.Text = NoOfMonths.ToString("f2");
+                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtEPPremiumDuration.Text = NoOfMonths.ToString("f2");
+            }
         }
 
         protected void txtWLPLastPremiumDate_TextChanged(object sender, EventArgs e)
         {
-            DateTime dtFrom = DateTime.Parse(txtWLPFirstPremiumDate.Text);
-            DateTime dtTo = DateTime.Parse(txtWLPLastPremiumDate.Text);
-            DateBo dtBo = new DateBo();
+            if (txtWLPFirstPremiumDate.Text != "dd/mm/yyyy" && txtWLPFirstPremiumDate.Text != string.Empty && txtWLPLastPremiumDate.Text != "dd/mm/yyyy" && txtWLPLastPremiumDate.Text != string.Empty)
+            {
+                DateTime dtFrom = DateTime.Parse(txtWLPFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtWLPLastPremiumDate.Text);
+                DateBo dtBo = new DateBo();
 
-            float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-            txtWLPPremiumDuration.Text = NoOfMonths.ToString("f2");
+                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtWLPPremiumDuration.Text = NoOfMonths.ToString("f2");
+            }
         }
 
         protected void txtMPLastPremiumDate_TextChanged(object sender, EventArgs e)
         {
-            DateTime dtFrom = DateTime.Parse(txtMPFirstPremiumDate.Text);
-            DateTime dtTo = DateTime.Parse(txtMPLastPremiumDate.Text);
-            DateBo dtBo = new DateBo();
+            if (txtMPFirstPremiumDate.Text != "dd/mm/yyyy" && txtMPFirstPremiumDate.Text != string.Empty && txtMPLastPremiumDate.Text != "dd/mm/yyyy" && txtMPLastPremiumDate.Text != string.Empty)
+            {
+                DateTime dtFrom = DateTime.Parse(txtMPFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtMPLastPremiumDate.Text);
+                DateBo dtBo = new DateBo();
 
-            float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-            txtMPPremiumDuration.Text = NoOfMonths.ToString("f2");
+                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtMPPremiumDuration.Text = NoOfMonths.ToString("f2");
+            }
         }
 
         protected void txtTPLastPremiumDate_TextChanged(object sender, EventArgs e)
         {
-            DateTime dtFrom = DateTime.Parse(txtTPFirstPremiumDate.Text);
-            DateTime dtTo = DateTime.Parse(txtTPLastPremiumDate.Text);
-            DateBo dtBo = new DateBo();
+            if (txtTPFirstPremiumDate.Text != "dd/mm/yyyy" && txtTPFirstPremiumDate.Text != string.Empty && txtTPLastPremiumDate.Text != "dd/mm/yyyy" && txtTPLastPremiumDate.Text != string.Empty)
+            {
+                DateTime dtFrom = DateTime.Parse(txtTPFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtTPLastPremiumDate.Text);
+                DateBo dtBo = new DateBo();
 
-            float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-            txtTPPremiumDuration.Text = NoOfMonths.ToString("f2");
+                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtTPPremiumDuration.Text = NoOfMonths.ToString("f2");
+            }
         }
 
         protected void txtPolicyMaturity_TextChanged(object sender, EventArgs e)
         {
             if (customerAccountVo.AssetCategory.Trim() == "INMP")
             {
-                DateTime dtFrom = DateTime.Parse(txtPolicyCommencementDate.Text);
-                DateTime dtTo = DateTime.Parse(txtPolicyMaturity.Text);
-                DateBo dtBo = new DateBo();
+                if (txtPolicyCommencementDate.Text != "dd/mm/yyyy" && txtPolicyCommencementDate.Text != string.Empty && txtPolicyMaturity.Text != "dd/mm/yyyy" && txtPolicyMaturity.Text != string.Empty)
+                {
+                    DateTime dtFrom = DateTime.Parse(txtPolicyCommencementDate.Text);
+                    DateTime dtTo = DateTime.Parse(txtPolicyMaturity.Text);
+                    DateBo dtBo = new DateBo();
 
-                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                txtMPPolicyTerm.Text = NoOfMonths.ToString("f2");
+                    float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                    txtMPPolicyTerm.Text = NoOfMonths.ToString("f2");
+                }
             }
         }
     }
