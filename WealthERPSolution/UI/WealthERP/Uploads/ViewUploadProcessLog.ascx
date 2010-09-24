@@ -71,7 +71,7 @@
 <table width="100%">
     <tr>
         <td align="center">
-            <div id="divError" runat="server" class="information-msg" align="center" visible="false">
+            <div id="divError" runat="server" class="success-msg" align="center" visible="false">
                     <asp:Label ID="lblError" runat="server"></asp:Label>
             </div>
         </td>
