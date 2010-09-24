@@ -4,7 +4,7 @@
 
 <script src="../Scripts/tabber.js" type="text/javascript"></script>
 
-<table class="TableBackground">
+<table class="TableBackground" style="width: 50%;">
     <tr>
         <td class="rightField" colspan="2">
             <asp:Label ID="Label26" runat="server" CssClass="HeaderTextBig" Text="Profile"></asp:Label>
@@ -77,7 +77,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label12" runat="server" CssClass="FieldName" Text="Registration No with ROC-Registrar :"></asp:Label>
+            <asp:Label ID="Label12" runat="server" CssClass="FieldName" Text="Reg. No. with ROC-Registrar :"></asp:Label>
         </td>
         <td class="rightField">
             <asp:Label ID="lblRegistrationNum" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -101,7 +101,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name (First/Middle/Last) :"></asp:Label>
+            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name :"></asp:Label>
         </td>
         <td class="rightField">
             <asp:Label ID="lblName" runat="server" Text="Label" CssClass="Field"></asp:Label>
