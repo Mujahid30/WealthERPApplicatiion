@@ -215,6 +215,10 @@ function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogo
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
         loadlinks("CustomerIndividualLeftPane");
     }
+    else if (controlid == "AdvisorRMCustGroupDashboard" && logintrue == "login") {
+        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+        loadlinks("CustomerIndividualLeftPane");
+    }
     else if (controlid == "RMCustomerIndividualDashboard" && logintrue == "login") {
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
         loadlinks("RMCustomerIndividualLeftPane");
