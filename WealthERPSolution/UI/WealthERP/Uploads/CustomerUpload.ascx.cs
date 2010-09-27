@@ -129,18 +129,19 @@ namespace WealthERP.Uploads
 
             if (!IsPostBack)
             {
-                lblMessage.Text = "";
-                lblError.Text = "";
+                
+                    lblMessage.Text = "";
+                    lblError.Text = "";
 
-                //trFileTypeRow.Visible = false;
-                trError.Visible = false;
-                trMessage.Visible = false;
-                rbSkipRowsNo.Checked = true;
+                    //trFileTypeRow.Visible = false;
+                    trError.Visible = false;
+                    trMessage.Visible = false;
+                    rbSkipRowsNo.Checked = true;
 
-                BindListBranch(adviserVo.advisorId, "adviser");
+                    BindListBranch(adviserVo.advisorId, "adviser");
+                
             }
-            divInputErrorList.Visible = false;
-            
+            divInputErrorList.Visible = false;            
 
         }
 
@@ -306,122 +307,125 @@ namespace WealthERP.Uploads
         {
             //System.Threading.Thread.Sleep(5000);
             //Create XML for the file
-            #region Uploading Content            
-            string pathxml = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-            bool XmlCreated = GetInputXML();
-            bool stdProFirstStagingResult = false;
-            bool stdProCommonStagingResult = false;
-            bool stdProCreateBankAccountResult = false;
-            bool stdProCreateCustomerResult = false;
-            bool camsProStagingResult = false;
-            bool camsProStagingCheckResult = false;
-            bool camsProCommonStagingResult = false;
-            bool camsProCommonChecksResult = false;
-            bool camsProCreateCustomerResult = false;
-            bool camsFolioCommonStagingResult = false;
-            bool camsFolioWerpInsertionResult = false;
-            bool templetonProStagingResult = false;
-            bool templetonProStagingCheckResult = false;
-            bool templetonProCommonStagingResult = false;
-            bool templetonProCommonChecksResult = false;
-            bool templetonProCreateCustomerResult = false;
-            bool templetonFolioCommonStagingResult = false;
-            bool templetonFolioWerpInsertionResult = false;
-            bool deutscheProStagingResult = false;
-            bool deutscheProStagingCheckResult = false;
-            bool deutscheProCommonStagingResult = false;
-            bool deutscheProCommonChecksResult = false;
-            bool deutscheProCreateCustomerResult = false;
-            bool deutscheFolioCommonStagingResult = false;
-            bool deutscheFolioWerpInsertionResult = false;
-            bool stdProCommonDeleteResult = false;
-            bool stdFolioCommonDeleteResult = false;
-
-            string InputInsertionProgress = "";
-            string XtrnlInsertionProgress = "";
-            string XMLProgress = "";
-            string SecondStagingInsertionProgress = "";
-            string FirstStagingInsertionProgress = "";
-            string WERPInsertionProgress = "";
-            
-            
-            trError.Visible = false;
-            xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-            if (ValidationProgress.ToLower() != "failure")
+            if (Page.IsValid)
             {
-                string fileName = Server.MapPath("\\UploadFiles\\" + UploadProcessId + ".xml");
+                #region Uploading Content
+                string pathxml = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                bool XmlCreated = GetInputXML();
+                bool stdProFirstStagingResult = false;
+                bool stdProCommonStagingResult = false;
+                bool stdProCreateBankAccountResult = false;
+                bool stdProCreateCustomerResult = false;
+                bool camsProStagingResult = false;
+                bool camsProStagingCheckResult = false;
+                bool camsProCommonStagingResult = false;
+                bool camsProCommonChecksResult = false;
+                bool camsProCreateCustomerResult = false;
+                bool camsFolioCommonStagingResult = false;
+                bool camsFolioWerpInsertionResult = false;
+                bool templetonProStagingResult = false;
+                bool templetonProStagingCheckResult = false;
+                bool templetonProCommonStagingResult = false;
+                bool templetonProCommonChecksResult = false;
+                bool templetonProCreateCustomerResult = false;
+                bool templetonFolioCommonStagingResult = false;
+                bool templetonFolioWerpInsertionResult = false;
+                bool deutscheProStagingResult = false;
+                bool deutscheProStagingCheckResult = false;
+                bool deutscheProCommonStagingResult = false;
+                bool deutscheProCommonChecksResult = false;
+                bool deutscheProCreateCustomerResult = false;
+                bool deutscheFolioCommonStagingResult = false;
+                bool deutscheFolioWerpInsertionResult = false;
+                bool stdProCommonDeleteResult = false;
+                bool stdFolioCommonDeleteResult = false;
+
+                string InputInsertionProgress = "";
+                string XtrnlInsertionProgress = "";
+                string XMLProgress = "";
+                string SecondStagingInsertionProgress = "";
+                string FirstStagingInsertionProgress = "";
+                string WERPInsertionProgress = "";
 
 
-                if (XmlCreated == true && rejectUpload_Flag == false)
+                trError.Visible = false;
+                xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+                if (ValidationProgress.ToLower() != "failure")
                 {
-                    trError.Visible = false;
+                    string fileName = Server.MapPath("\\UploadFiles\\" + UploadProcessId + ".xml");
 
-                    #region Standard Profile Upload
-                    //*****************************************************************************************************************************
-                    //Standard Profile Upload
-                    if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfile && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
+
+                    if (XmlCreated == true && rejectUpload_Flag == false)
                     {
-                        // Std Insert To Input Profile
-                        packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadStdProfileDataFromFileToInput.dtsx");
-                        bool stdProInputResult = StandardProfileUploadBo.StdInsertToInputProfile(packagePath, fileName, configPath);
-                        if (stdProInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 2;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                            if (updateProcessLog1)
-                            {
-                                // Std Insert To First Staging Profile
-                                packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadStdProfileInputDataToFirstStaging.dtsx");
-                                stdProFirstStagingResult = StandardProfileUploadBo.StdInsertToFirstStaging(UploadProcessId, packagePath, configPath);
-                                if (stdProFirstStagingResult)
-                                {
-                                    processlogVo.IsInsertionToFirstStagingComplete = 1;
-                                    processlogVo.EndTime = DateTime.Now;
-                                    bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                    if (updateProcessLog2)
-                                    {
-                                        // Data translation checks
-                                        packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsDataTranslationChecksInStdProfileMainStaging.dtsx");
-                                        bool stdProTranslationCheckStagingResult = StandardProfileUploadBo.StdDataTranslationCheckInFirstStaging(UploadProcessId, packagePath, configPath);
-                                        if (stdProTranslationCheckStagingResult)
-                                        {
-                                            // Insertion to common staging
-                                            packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadStdProfileFirstStagingToCommonStaging.dtsx");
-                                            stdProCommonStagingResult = StandardProfileUploadBo.StdInsertToCommonStaging(UploadProcessId, packagePath, configPath);
-                                            if (stdProCommonStagingResult)
-                                            {
-                                                processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                                processlogVo.EndTime = DateTime.Now;
-                                                bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                if (updateProcessLog3)
-                                                {
-                                                    //common profile checks
-                                                    packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                    bool stdProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                                    if (stdProCommonChecksResult)
-                                                    {
-                                                        // Insert Customer Details into WERP Tables
-                                                        stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
-                                                        if (stdProCreateCustomerResult)
-                                                        {
-                                                            //Create new Bank Accounts
-                                                            packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                                            stdProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
-                                                            if (stdProCreateBankAccountResult)
-                                                            {
+                        trError.Visible = false;
 
-                                                                processlogVo.NoOfCustomerInserted = countCustCreated;
-                                                                processlogVo.IsInsertionToWERPComplete = 1;
-                                                                processlogVo.EndTime = DateTime.Now;
-                                                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "WP");
-                                                                bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                if (updateProcessLog4)
+                        #region Standard Profile Upload
+                        //*****************************************************************************************************************************
+                        //Standard Profile Upload
+                        if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfile && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
+                        {
+                            // Std Insert To Input Profile
+                            packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadStdProfileDataFromFileToInput.dtsx");
+                            bool stdProInputResult = StandardProfileUploadBo.StdInsertToInputProfile(packagePath, fileName, configPath);
+                            if (stdProInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 2;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                if (updateProcessLog1)
+                                {
+                                    // Std Insert To First Staging Profile
+                                    packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadStdProfileInputDataToFirstStaging.dtsx");
+                                    stdProFirstStagingResult = StandardProfileUploadBo.StdInsertToFirstStaging(UploadProcessId, packagePath, configPath);
+                                    if (stdProFirstStagingResult)
+                                    {
+                                        processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        if (updateProcessLog2)
+                                        {
+                                            // Data translation checks
+                                            packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsDataTranslationChecksInStdProfileMainStaging.dtsx");
+                                            bool stdProTranslationCheckStagingResult = StandardProfileUploadBo.StdDataTranslationCheckInFirstStaging(UploadProcessId, packagePath, configPath);
+                                            if (stdProTranslationCheckStagingResult)
+                                            {
+                                                // Insertion to common staging
+                                                packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadStdProfileFirstStagingToCommonStaging.dtsx");
+                                                stdProCommonStagingResult = StandardProfileUploadBo.StdInsertToCommonStaging(UploadProcessId, packagePath, configPath);
+                                                if (stdProCommonStagingResult)
+                                                {
+                                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                    if (updateProcessLog3)
+                                                    {
+                                                        //common profile checks
+                                                        packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
+                                                        bool stdProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                        if (stdProCommonChecksResult)
+                                                        {
+                                                            // Insert Customer Details into WERP Tables
+                                                            stdProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                            if (stdProCreateCustomerResult)
+                                                            {
+                                                                //Create new Bank Accounts
+                                                                packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
+                                                                stdProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
+                                                                if (stdProCreateBankAccountResult)
                                                                 {
-                                                                    stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "WP");
+
+                                                                    processlogVo.NoOfCustomerInserted = countCustCreated;
+                                                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                                                    processlogVo.EndTime = DateTime.Now;
+                                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "WP");
+                                                                    bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                    if (updateProcessLog4)
+                                                                    {
+                                                                        stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "WP");
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -432,569 +436,114 @@ namespace WealthERP.Uploads
                                     }
                                 }
                             }
-                        }
 
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
 
-                        if (stdProInputResult)
-                        {
-                            XtrnlInsertionProgress = "NA";
-                            InputInsertionProgress = "Done";
-                        }
-                        else
-                        {
-                            InputInsertionProgress = "Failure";
-                            XtrnlInsertionProgress = "NA";
-                        }
-
-                        if (stdProFirstStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (stdProCommonStagingResult)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-                        if (stdProCreateCustomerResult)
-                            WERPInsertionProgress = "Done";
-                        else
-                            WERPInsertionProgress = "Failure";
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-                        processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-                    #endregion Standard Profile Upload
-
-                    #region MF CAMS Profile Upload
-                    //*****************************************************************************************************************************
-                    //MF CAMS Profile Upload
-                    else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
-                    {
-                        // CAMS Insert To Input Profile
-                        packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadProfileDataFromCAMSFileToXtrnlProfileInput.dtsx");
-                        bool camsProInputResult = camsUploadsBo.CAMSInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
-                        if (camsProInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                            if (updateProcessLog1)
+                            if (stdProInputResult)
                             {
-                                // CAMS Insert To Staging Profile
-                                packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadXtrnlProfileInputToXtrnlProfileStaging.dtsx");
-                                camsProStagingResult = camsUploadsBo.CAMSInsertToStagingProfile(UploadProcessId, packagePath, configPath);
-                                if (camsProStagingResult)
-                                {
-                                    processlogVo.IsInsertionToFirstStagingComplete = 1;
-                                    processlogVo.EndTime = DateTime.Now;
-                                    bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                    if (updateProcessLog2)
-                                    {
-                                        // Doing a check on data translation
-                                        packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadDataTranslationChecksFirstStaging.dtsx");
-                                        camsProStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                        if (camsProStagingCheckResult)
-                                        {
-                                            if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
-                                            {
-                                                // Insertion to common staging
-                                                packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadProfileDataFromCAMSStagingToCommonStaging.dtsx");
-                                                camsProCommonStagingResult = camsUploadsBo.CAMSInsertToCommonStaging(UploadProcessId, packagePath, configPath);
-                                                if (camsProCommonStagingResult)
-                                                {
-                                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                                    processlogVo.EndTime = DateTime.Now;
-                                                    bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                    if (updateProcessLog3)
-                                                    {
-                                                        //common profile checks
-                                                        packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                        camsProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                                        if (camsProCommonChecksResult)
-                                                        {
-                                                            // Insert Customer Details into WERP Tables
-                                                            camsProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
-                                                            if (camsProCreateCustomerResult)
-                                                            {
-                                                                processlogVo.IsInsertionToWERPComplete = 1;
-                                                                processlogVo.EndTime = DateTime.Now;
-                                                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "CA");
-                                                                processlogVo.NoOfCustomerInserted = countCustCreated;
-                                                                txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
-                                                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "CA");
-                                                                processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
+                                XtrnlInsertionProgress = "NA";
+                                InputInsertionProgress = "Done";
+                            }
+                            else
+                            {
+                                InputInsertionProgress = "Failure";
+                                XtrnlInsertionProgress = "NA";
+                            }
 
-                                                                //processlogVo.NoOfAccountsInserted = countFolioCreated;
-                                                                bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                if (updateProcessLog4)
-                                                                    stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio)
+                            if (stdProFirstStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (stdProCommonStagingResult)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+                            if (stdProCreateCustomerResult)
+                                WERPInsertionProgress = "Done";
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+                            processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
+                        }
+                        #endregion Standard Profile Upload
+
+                        #region MF CAMS Profile Upload
+                        //*****************************************************************************************************************************
+                        //MF CAMS Profile Upload
+                        else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
+                        {
+                            // CAMS Insert To Input Profile
+                            packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadProfileDataFromCAMSFileToXtrnlProfileInput.dtsx");
+                            bool camsProInputResult = camsUploadsBo.CAMSInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
+                            if (camsProInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                if (updateProcessLog1)
                                 {
+                                    // CAMS Insert To Staging Profile
+                                    packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadXtrnlProfileInputToXtrnlProfileStaging.dtsx");
+                                    camsProStagingResult = camsUploadsBo.CAMSInsertToStagingProfile(UploadProcessId, packagePath, configPath);
                                     if (camsProStagingResult)
                                     {
-                                        packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadFolioDataFromCAMSStagingToCommonStaging.dtsx");
-                                        camsFolioCommonStagingResult = camsUploadsBo.CAMSInsertFolioDataToFolioCommonStaging(UploadProcessId, packagePath, configPath);
-                                        if (camsFolioCommonStagingResult)
+                                        processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        if (updateProcessLog2)
                                         {
-                                            //Folio Chks in Std Folio Staging 
-                                            packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
-                                            bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
-                                            if (camsFolioStagingChkResult)
+                                            // Doing a check on data translation
+                                            packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadDataTranslationChecksFirstStaging.dtsx");
+                                            camsProStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                            if (camsProStagingCheckResult)
                                             {
-                                                //Move Folio data to WERP table
-                                                packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
-                                                camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
-                                                if (camsFolioWerpInsertionResult)
+                                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
                                                 {
-                                                    processlogVo.IsInsertionToWERPComplete = 1;
-                                                    processlogVo.EndTime = DateTime.Now;
-                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "CA");
-                                                    processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPMF");
-                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "CA");
-                                                    processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
-                                                    txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-
-                                                    bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                    if (updateProcessLog4)
-                                                        stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                }
-                                            }
-                                        }
-
-                                    }
-                                }
-                            }
-                        }
-
-
-                        // Update Process Progress Monitoring Text Boxes
-// Commented for Removing Process Progress Monitoring 
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
-
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
-
-                        if (camsProInputResult)
-                        {
-                            XtrnlInsertionProgress = "Done";
-                            InputInsertionProgress = "Done";
-                        }
-                        else
-                        {
-                            XtrnlInsertionProgress = "Failure";
-                            InputInsertionProgress = "Failure";
-                        }
-
-                        if (camsProStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (camsProCommonStagingResult == true || camsFolioCommonStagingResult == true)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-                        if (camsProCreateCustomerResult == true || camsFolioWerpInsertionResult == true)
-                            WERPInsertionProgress = "Done";
-                        else
-                            WERPInsertionProgress = "Failure";
-// Up to here 
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        //txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-                    #endregion MF CAMS Profile Upload
-
-                    #region MF Deutsche Transaction Upload
-
-                    else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeDeutsche)
-                    {
-                        bool updateProcessLog = false;
-                        bool deutscheTranWerpResult = false;
-                        bool deutscheTranStagingCheckResult = false;
-                        bool deutscheTranStagingResult = false;
-                        bool deutscheTranInputResult = false;
-                        bool deutscheTansSecondStaginresult = false;
-                        bool CommonTransChecks = false;
-
-                        packagePath = Server.MapPath("\\UploadPackages\\DeutscheTransactionUploadPackage\\DeutscheTransactionUploadPackage\\UploadDeutscheTransactionXMLFileToInputTable.dtsx");
-                        deutscheTranInputResult = deutscheUploadsBo.DeutscheInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
-
-                        if (deutscheTranInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-                            if (updateProcessLog)
-                            {
-
-
-                                packagePath = Server.MapPath("\\UploadPackages\\DeutscheTransactionUploadPackage\\DeutscheTransactionUploadPackage\\UploadDeutscheTransactionInputToFirstStaging.dtsx");
-                                deutscheTranStagingResult = deutscheUploadsBo.DeutscheInsertToStagingTrans(UploadProcessId, packagePath, configPath);
-                                if (deutscheTranStagingResult)
-                                {
-                                    processlogVo.IsInsertionToFirstStagingComplete = 1;
-                                    processlogVo.EndTime = DateTime.Now;
-                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                    if (updateProcessLog)
-                                    {
-                                        packagePath = Server.MapPath("\\UploadPackages\\DeutscheTransactionUploadPackage\\DeutscheTransactionUploadPackage\\UploadsDeutscheTransactionChecksFirstStaging.dtsx");
-                                        deutscheTranStagingCheckResult = deutscheUploadsBo.DeutscheProcessDataInStagingTrans(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                        if (deutscheTranStagingCheckResult)
-                                        {
-                                            packagePath = Server.MapPath("\\UploadPackages\\DeutscheTransactionUploadPackage\\DeutscheTransactionUploadPackage\\UploadDeutscheTransactionFirstStagingtoSecondStaging.dtsx");
-                                            deutscheTansSecondStaginresult = deutscheUploadsBo.DeutscheTransInsertToCommonTransStaging(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                            if (deutscheTansSecondStaginresult)
-                                            {
-                                                processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                                processlogVo.EndTime = DateTime.Now;
-                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                if (updateProcessLog)
-                                                {
-                                                    packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
-                                                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "DT", "Deutsche");
-                                                    if (CommonTransChecks)
+                                                    // Insertion to common staging
+                                                    packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadProfileDataFromCAMSStagingToCommonStaging.dtsx");
+                                                    camsProCommonStagingResult = camsUploadsBo.CAMSInsertToCommonStaging(UploadProcessId, packagePath, configPath);
+                                                    if (camsProCommonStagingResult)
                                                     {
-                                                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
-                                                        deutscheTranWerpResult = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
-                                                        if (deutscheTranWerpResult)
+                                                        processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (updateProcessLog3)
                                                         {
-                                                            processlogVo.IsInsertionToWERPComplete = 1;
-                                                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPMF");
-                                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeCAMS);
-                                                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "DT");
-                                                            processlogVo.NoOfTransactionDuplicates = 0;
-                                                            processlogVo.EndTime = DateTime.Now;
-                                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
-
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
-
-                        if (deutscheTranInputResult)
-                        {
-                            XtrnlInsertionProgress = "Done";
-                            InputInsertionProgress = "Done";
-                        }
-                        else
-                        {
-                            InputInsertionProgress = "Failure";
-                            XtrnlInsertionProgress = "Failure";
-                        }
-
-                        if (deutscheTranStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (deutscheTranStagingCheckResult)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-                        if (CommonTransChecks && deutscheTranWerpResult)
-                        {
-                            WERPInsertionProgress = "Done";
-
-                        }
-                        else
-                            WERPInsertionProgress = "Failure";
-
-                        if (deutscheTranWerpResult)
-                            XtrnlInsertionProgress = "Done";
-                        else
-                            XtrnlInsertionProgress = "Failure";
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
-
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-
-
-
-                    #endregion MF Deutsche Transaction Upload
-
-                    #region MF Templeton Profile Upload
-                    //*****************************************************************************************************************************
-                    //MF Templeton Profile Upload
-                    else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeTemp)
-                    {
-                        // Templeton Insert To Input Profile
-                        packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadTempletonProfileDataFromFileToInput.dtsx");
-                        bool templetonProInputResult = templetonUploadsBo.TempInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
-                        if (templetonProInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                            if (updateProcessLog1)
-                            {
-                                // Templeton Insert To Staging Profile
-                                packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadTempXtrnlProfileInputToXtrnlProfileStaging.dtsx");
-                                templetonProStagingResult = templetonUploadsBo.TempInsertToStagingProfile(UploadProcessId, packagePath, configPath);
-                                if (templetonProStagingResult)
-                                {
-                                    processlogVo.IsInsertionToFirstStagingComplete = 1;
-                                    processlogVo.EndTime = DateTime.Now;
-                                    bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                    if (updateProcessLog2)
-                                    {
-                                        // Doing a check on data translation
-                                        packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadTempDataTranslationChecksFirstStaging.dtsx");
-                                        templetonProStagingCheckResult = templetonUploadsBo.TempProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                        if (templetonProStagingCheckResult)
-                                        {
-                                            if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
-                                            {
-                                                // Insertion to common staging
-                                                packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadProfileDataFromTempStagingToCommonStaging.dtsx");
-                                                templetonProCommonStagingResult = templetonUploadsBo.TempInsertToCommonStaging(UploadProcessId, packagePath, configPath);
-                                                if (templetonProCommonStagingResult)
-                                                {
-                                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                                    processlogVo.EndTime = DateTime.Now;
-                                                    bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                    if (updateProcessLog3)
-                                                    {
-                                                        //common profile checks
-                                                        packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                        templetonProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                                        if (templetonProCommonChecksResult)
-                                                        {
-                                                            // Insert Customer Details into WERP Tables
-                                                            templetonProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
-                                                            if (templetonProCreateCustomerResult)
+                                                            //common profile checks
+                                                            packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
+                                                            camsProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                            if (camsProCommonChecksResult)
                                                             {
-                                                                //Create new Bank Accounts
-                                                                packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                                                bool templetonProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
-                                                                if (templetonProCreateBankAccountResult)
+                                                                // Insert Customer Details into WERP Tables
+                                                                camsProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                                if (camsProCreateCustomerResult)
                                                                 {
                                                                     processlogVo.IsInsertionToWERPComplete = 1;
                                                                     processlogVo.EndTime = DateTime.Now;
-                                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "TN");
+                                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "CA");
                                                                     processlogVo.NoOfCustomerInserted = countCustCreated;
                                                                     txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
-                                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "TN");
+                                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "CA");
                                                                     processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
-                                                                    bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                    if (updateProcessLog4)
-                                                                        stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio)
-                                {
-                                    if (templetonProStagingResult)
-                                    {
-                                        packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadFolioDataFromTempStagingToCommonStaging.dtsx");
-                                        templetonFolioCommonStagingResult = templetonUploadsBo.TempInsertFolioDataToFolioCommonStaging(UploadProcessId, packagePath, configPath);
-                                        if (templetonFolioCommonStagingResult)
-                                        {
-                                            //Folio Chks in Std Folio Staging 
-                                            packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
-                                            bool templetonFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
-                                            if (templetonFolioStagingChkResult)
-                                            {
-                                                //Folio Chks in Std Folio Staging 
-                                                packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
-                                                templetonFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
-                                                if (templetonFolioWerpInsertionResult)
-                                                {
-                                                    processlogVo.IsInsertionToWERPComplete = 1;
-                                                    processlogVo.EndTime = DateTime.Now;
-                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "TN");
-                                                    processlogVo.NoOfCustomerInserted = countCustCreated;
-                                                    processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPMF");
-                                                    txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "TN");
-                                                    processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
 
-                                                    bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                    if (updateProcessLog4)
-                                                        stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                }
-                                            }
-                                        }
-
-                                    }
-                                }
-                            }
-                        }
-
-
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
-
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
-
-                        if (templetonProInputResult)
-                        {
-                            XtrnlInsertionProgress = "Done";
-                            InputInsertionProgress = "Done";
-                        }
-                        else
-                        {
-                            XtrnlInsertionProgress = "Failure";
-                            InputInsertionProgress = "Failure";
-                        }
-
-                        if (templetonProStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (templetonProCommonStagingResult == true || templetonFolioCommonStagingResult == true)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-                        if (templetonProCreateCustomerResult == true || templetonFolioWerpInsertionResult == true)
-                            WERPInsertionProgress = "Done";
-                        else
-                            WERPInsertionProgress = "Failure";
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        //txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-                    #endregion MF Templeton Profile Upload
-
-                    #region MF Deutsche Profile Upload
-                    //*****************************************************************************************************************************
-                    //MF Deutsche Profile Upload
-                    else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeDeutsche)
-                    {
-                        // Deutsche Insert To Input Profile
-                        packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadDeutscheProfileDataFromFileToInput.dtsx");
-                        bool deutscheProInputResult = deutscheUploadsBo.DeutscheInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
-                        if (deutscheProInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                            if (updateProcessLog1)
-                            {
-                                // Deutsche Insert To Staging Profile
-                                packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadDeutscheXtrnlProfileInputToXtrnlProfileStaging.dtsx");
-                                deutscheProStagingResult = deutscheUploadsBo.DeutscheInsertToStagingProfile(UploadProcessId, packagePath, configPath);
-                                if (deutscheProStagingResult)
-                                {
-                                    processlogVo.IsInsertionToFirstStagingComplete = 1;
-                                    processlogVo.EndTime = DateTime.Now;
-                                    bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                    if (updateProcessLog2)
-                                    {
-                                        // Doing a check on data translation
-                                        packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadDeutscheDataTranslationChecksFirstStaging.dtsx");
-                                        deutscheProStagingCheckResult = deutscheUploadsBo.DeutscheProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                        if (deutscheProStagingCheckResult)
-                                        {
-                                            if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
-                                            {
-                                                // Insertion to common staging
-                                                packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadProfileDataFromDeutscheStagingToCommonStaging.dtsx");
-                                                deutscheProCommonStagingResult = deutscheUploadsBo.DeutscheInsertToCommonStaging(UploadProcessId, packagePath, configPath);
-                                                if (deutscheProCommonStagingResult)
-                                                {
-                                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                                    processlogVo.EndTime = DateTime.Now;
-                                                    bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                    if (updateProcessLog3)
-                                                    {
-                                                        //common profile checks
-                                                        packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                        deutscheProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                                        if (deutscheProCommonChecksResult)
-                                                        {
-                                                            // Insert Customer Details into WERP Tables
-                                                            deutscheProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
-                                                            if (deutscheProCreateCustomerResult)
-                                                            {
-                                                                //Create new Bank Accounts
-                                                                packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                                                bool deutscheProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
-                                                                if (deutscheProCreateBankAccountResult)
-                                                                {
-                                                                    processlogVo.IsInsertionToWERPComplete = 1;
-                                                                    processlogVo.EndTime = DateTime.Now;
-                                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "DT");
-                                                                    processlogVo.NoOfCustomerInserted = countCustCreated;
-                                                                    txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
                                                                     //processlogVo.NoOfAccountsInserted = countFolioCreated;
-                                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "DT");
-                                                                    processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
                                                                     bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                                                     if (updateProcessLog4)
                                                                         stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
@@ -1006,336 +555,155 @@ namespace WealthERP.Uploads
                                             }
                                         }
                                     }
-                                }
-                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio)
-                                {
-                                    if (deutscheProStagingResult)
+                                    if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio)
                                     {
-                                        packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadFolioDataFromDeutscheStagingToCommonStaging.dtsx");
-                                        deutscheFolioCommonStagingResult = deutscheUploadsBo.DeutscheInsertFolioDataToFolioCommonStaging(UploadProcessId, packagePath, configPath);
-                                        if (deutscheFolioCommonStagingResult)
+                                        if (camsProStagingResult)
                                         {
-                                            //Folio Chks in Std Folio Staging 
-                                            packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
-                                            bool deutscheFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
-                                            if (deutscheFolioStagingChkResult)
+                                            packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadFolioDataFromCAMSStagingToCommonStaging.dtsx");
+                                            camsFolioCommonStagingResult = camsUploadsBo.CAMSInsertFolioDataToFolioCommonStaging(UploadProcessId, packagePath, configPath);
+                                            if (camsFolioCommonStagingResult)
                                             {
                                                 //Folio Chks in Std Folio Staging 
-                                                packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
-                                                deutscheFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
-                                                if (deutscheFolioWerpInsertionResult)
+                                                packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
+                                                bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                if (camsFolioStagingChkResult)
                                                 {
-                                                    processlogVo.IsInsertionToWERPComplete = 1;
-                                                    processlogVo.EndTime = DateTime.Now;
-                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "DT");
-                                                    processlogVo.NoOfCustomerInserted = countCustCreated;
-                                                    processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPMF");
-                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "DT");
-                                                    processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
-                                                    txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                                                    bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                    if (updateProcessLog4)
-                                                        stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                    //Move Folio data to WERP table
+                                                    packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
+                                                    camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                    if (camsFolioWerpInsertionResult)
+                                                    {
+                                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "CA");
+                                                        processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPMF");
+                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "CA");
+                                                        processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                                                        txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
+
+                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (updateProcessLog4)
+                                                            stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                    }
                                                 }
                                             }
-                                        }
 
+                                        }
                                     }
                                 }
                             }
-                        }
 
 
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
+                            // Update Process Progress Monitoring Text Boxes
+                            // Commented for Removing Process Progress Monitoring 
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
 
-                        if (deutscheProInputResult)
-                        {
-                            XtrnlInsertionProgress = "Done";
-                            InputInsertionProgress = "Done";
-                        }
-                        else
-                        {
-                            XtrnlInsertionProgress = "Failure";
-                            InputInsertionProgress = "Failure";
-                        }
-
-                        if (deutscheProStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (deutscheProCommonStagingResult == true || deutscheFolioCommonStagingResult == true)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-                        if (deutscheProCreateCustomerResult == true || deutscheFolioWerpInsertionResult == true)
-                            WERPInsertionProgress = "Done";
-                        else
-                            WERPInsertionProgress = "Failure";
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        //txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-                    #endregion MF Deutsche Profile Upload
-
-                    #region MF CAMS Transaction Upload
-                    //*****************************************************************************************************************************
-                    //MF CAMS Transaction Upload
-                    else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
-                    {
-                        bool updateProcessLog = false;
-                        bool camsTranWerpResult = false;
-                        bool CommonTransChecks = false;
-                        bool camsTranStagingCheckResult = false;
-                        bool camsTranStagingResult = false;
-                        bool camsTranInputResult = false;
-
-
-                        packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadTransactionDataFromCAMSFileToXtrnlTransactionInput.dtsx");
-                        camsTranInputResult = camsUploadsBo.CAMSInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
-                        if (camsTranInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                            processlogVo.IsInsertionToXtrnlComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-
-                            packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadXtrnlTransactionInputToXtrnlTransactionStaging.dtsx");
-                            camsTranStagingResult = camsUploadsBo.CAMSInsertToStagingTrans(UploadProcessId, packagePath, configPath);
-                            if (camsTranStagingResult)
+                            if (camsProInputResult)
                             {
-                                processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                XtrnlInsertionProgress = "Done";
+                                InputInsertionProgress = "Done";
+                            }
+                            else
+                            {
+                                XtrnlInsertionProgress = "Failure";
+                                InputInsertionProgress = "Failure";
+                            }
+
+                            if (camsProStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (camsProCommonStagingResult == true || camsFolioCommonStagingResult == true)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+                            if (camsProCreateCustomerResult == true || camsFolioWerpInsertionResult == true)
+                                WERPInsertionProgress = "Done";
+                            else
+                                WERPInsertionProgress = "Failure";
+                            // Up to here 
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            //txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
+                        }
+                        #endregion MF CAMS Profile Upload
+
+                        #region MF Deutsche Transaction Upload
+
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeDeutsche)
+                        {
+                            bool updateProcessLog = false;
+                            bool deutscheTranWerpResult = false;
+                            bool deutscheTranStagingCheckResult = false;
+                            bool deutscheTranStagingResult = false;
+                            bool deutscheTranInputResult = false;
+                            bool deutscheTansSecondStaginresult = false;
+                            bool CommonTransChecks = false;
+
+                            packagePath = Server.MapPath("\\UploadPackages\\DeutscheTransactionUploadPackage\\DeutscheTransactionUploadPackage\\UploadDeutscheTransactionXMLFileToInputTable.dtsx");
+                            deutscheTranInputResult = deutscheUploadsBo.DeutscheInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
+
+                            if (deutscheTranInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
                                 processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadChecksCAMSTransactionStaging.dtsx");
-                                camsTranStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingTrans(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                if (camsTranStagingCheckResult)
+                                if (updateProcessLog)
                                 {
 
-                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                    processlogVo.EndTime = DateTime.Now;
-                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                    packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
-                                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "CA", "CAMS");
-
-
-                                    packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
-                                    camsTranWerpResult = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
-                                    if (camsTranWerpResult)
+                                    packagePath = Server.MapPath("\\UploadPackages\\DeutscheTransactionUploadPackage\\DeutscheTransactionUploadPackage\\UploadDeutscheTransactionInputToFirstStaging.dtsx");
+                                    deutscheTranStagingResult = deutscheUploadsBo.DeutscheInsertToStagingTrans(UploadProcessId, packagePath, configPath);
+                                    if (deutscheTranStagingResult)
                                     {
-                                        processlogVo.IsInsertionToWERPComplete = 1;
-                                        processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPMF");
-                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeCAMS);
+                                        processlogVo.IsInsertionToFirstStagingComplete = 1;
                                         processlogVo.EndTime = DateTime.Now;
-                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "CA");
-                                        processlogVo.NoOfTransactionDuplicates = 0;
                                         updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                    }
-                                }
-                            }
-
-
-                        }
-
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
-
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
-
-                        if (camsTranInputResult)
-                        {
-                            XtrnlInsertionProgress = "Done";
-                            InputInsertionProgress = "Done";
-                        }
-                        else
-                        {
-                            InputInsertionProgress = "Failure";
-                            XtrnlInsertionProgress = "Failure";
-                        }
-
-                        if (camsTranStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (camsTranStagingCheckResult)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-                        if (CommonTransChecks && camsTranWerpResult)
-                        {
-                            WERPInsertionProgress = "Done";
-
-                        }
-                        else
-                            WERPInsertionProgress = "Failure";
-
-                        if (camsTranWerpResult)
-                            XtrnlInsertionProgress = "Done";
-                        else
-                            XtrnlInsertionProgress = "Failure";
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
-
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-
-
-                    #endregion MF CAMS Transaction Upload
-
-                    #region MF CAMS Systematic Upload
-                    //MF CAMS Systematic Upload
-                    else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
-                    {
-
-                    }
-                    #endregion MF CAMS Systematic Upload
-
-                    #region MF Karvy Profile Upload
-                    //*******************************************************************************************************************
-                    //MF Karvy Profile Upload
-                    else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeKarvy)
-                    {
-                        bool karvyProInputResult = false;
-                        bool karvyProStagingResult = false;
-                        bool karvyProStagingCheckResult = false;
-                        bool karvyStagingToProfileStagingResult = false;
-                        bool karvyProCommonChecksResult = false;
-                        bool karvyProCreateCustomerResult = false;
-                        bool karvyStagingToFolioStagingResult = false;
-                        bool karvyFolioWerpInsertionResult = false;
-                        // Karvy Insert To Input Profile
-                        packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadProfileDataFromKarvyProfileFileToXtrnlProfileInput.dtsx");
-                        karvyProInputResult = karvyUploadsBo.KARVYInsertToInputProfile(packagePath, UploadProcessId, fileName, configPath);
-                        if (karvyProInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-                            if (updateProcessLog1)
-                            {
-
-                                // Karvy Insert To Staging Profile
-                                packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadKarvyXtrnlProfileInputToKarvyXtrnlProfileStaging .dtsx");
-                                karvyProStagingResult = karvyUploadsBo.KARVYInsertToStagingProfile(UploadProcessId, packagePath, configPath);
-                                if (karvyProStagingResult)
-                                {
-                                    processlogVo.IsInsertionToFirstStagingComplete = 1;
-                                    processlogVo.EndTime = DateTime.Now;
-                                    bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                    if (updateProcessLog2)
-                                    {
-                                        // Data Translation checks in Karvy Staging
-                                        packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadDataTranslationKarvyProfileStaging.dtsx");
-                                        karvyProStagingCheckResult = karvyUploadsBo.KARVYStagingDataTranslationCheck(UploadProcessId, packagePath, configPath);
-                                        if (karvyProStagingCheckResult)
+                                        if (updateProcessLog)
                                         {
-
-                                            if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
+                                            packagePath = Server.MapPath("\\UploadPackages\\DeutscheTransactionUploadPackage\\DeutscheTransactionUploadPackage\\UploadsDeutscheTransactionChecksFirstStaging.dtsx");
+                                            deutscheTranStagingCheckResult = deutscheUploadsBo.DeutscheProcessDataInStagingTrans(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                            if (deutscheTranStagingCheckResult)
                                             {
-                                                // Inserting Karvy Staging Data to Profile Staging
-                                                packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadKarvyXtrnlProfileStagingToProfileStaging.dtsx");
-                                                karvyStagingToProfileStagingResult = karvyUploadsBo.KARVYStagingInsertToProfileStaging(UploadProcessId, packagePath, configPath);
-                                                if (karvyStagingToProfileStagingResult)
+                                                packagePath = Server.MapPath("\\UploadPackages\\DeutscheTransactionUploadPackage\\DeutscheTransactionUploadPackage\\UploadDeutscheTransactionFirstStagingtoSecondStaging.dtsx");
+                                                deutscheTansSecondStaginresult = deutscheUploadsBo.DeutscheTransInsertToCommonTransStaging(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                if (deutscheTansSecondStaginresult)
                                                 {
                                                     processlogVo.IsInsertionToSecondStagingComplete = 1;
                                                     processlogVo.EndTime = DateTime.Now;
-                                                    bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                    if (updateProcessLog3)
+                                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                    if (updateProcessLog)
                                                     {
-                                                        //Making Chks in Profile Staging
-                                                        packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                                                        karvyProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                                        if (karvyProCommonChecksResult)
+                                                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+                                                        CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "DT", "Deutsche");
+                                                        if (CommonTransChecks)
                                                         {
-                                                            // Insert Customer Details into WERP Tables
-                                                            karvyProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
-                                                            if (karvyProCreateCustomerResult)
-                                                            {
-                                                                //Create new Bank Accounts
-                                                                packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                                                bool karvyProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
-                                                                if (karvyProCreateBankAccountResult)
-                                                                {
-                                                                    processlogVo.IsInsertionToWERPComplete = 1;
-                                                                    processlogVo.EndTime = DateTime.Now;
-                                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "KA");
-                                                                    processlogVo.NoOfCustomerInserted = countCustCreated;
-                                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "KA");
-                                                                    processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
-                                                                    txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
-                                                                    bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                    if (updateProcessLog4)
-                                                                        stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio)
-                                            {
-                                                if (karvyProStagingCheckResult)
-                                                {
-                                                    // Inserting Karvy Staging Data to Folio Staging
-                                                    packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadKarvyXtrnlProfileStagingToFolioStaging.dtsx");
-                                                    karvyStagingToFolioStagingResult = karvyUploadsBo.KARVYStagingInsertToFolioStaging(UploadProcessId, packagePath, configPath);
-                                                    if (karvyStagingToFolioStagingResult)
-                                                    {
-
-                                                        //Folio Chks in Std Folio Staging 
-                                                        packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
-                                                        bool karvyFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
-                                                        if (karvyFolioStagingChkResult)
-                                                        {
-                                                            //Folio Chks in Std Folio Staging 
-                                                            packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
-                                                            karvyFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
-                                                            if (karvyFolioWerpInsertionResult)
+                                                            packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
+                                                            deutscheTranWerpResult = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
+                                                            if (deutscheTranWerpResult)
                                                             {
                                                                 processlogVo.IsInsertionToWERPComplete = 1;
+                                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPMF");
+                                                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeCAMS);
+                                                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "DT");
+                                                                processlogVo.NoOfTransactionDuplicates = 0;
                                                                 processlogVo.EndTime = DateTime.Now;
-                                                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "KA");
-                                                                processlogVo.NoOfCustomerInserted = countCustCreated;
-                                                                processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPMF");
-                                                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "KA");
-                                                                processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
-                                                                txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                                                                bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                                if (updateProcessLog4)
-                                                                    stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                                             }
                                                         }
                                                     }
@@ -1346,447 +714,633 @@ namespace WealthERP.Uploads
                                 }
                             }
 
-                        }
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
 
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
-
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
-
-                        if (karvyProInputResult)
-                        {
-                            InputInsertionProgress = "Done";
-                            XtrnlInsertionProgress = "Done";
-                        }
-                        else
-                        {
-                            InputInsertionProgress = "Failure";
-                            XtrnlInsertionProgress = "Failure";
-                        }
-
-                        if (karvyProStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (karvyStagingToProfileStagingResult == true || karvyStagingToFolioStagingResult == true)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-                        if (karvyProCreateCustomerResult == true || karvyFolioWerpInsertionResult == true)
-                            WERPInsertionProgress = "Done";
-                        else
-                            WERPInsertionProgress = "Failure";
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        //if (processlogVo.NoOfFolioInserted > processlogVo.NoOfCustomerInserted)
-                        //{
-                        txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-                    #endregion MF Karvy Profile Upload
-
-                    #region MF Karvy Transaction Upload
-                    //*****************************************************************************************************************
-                    //MF Karvy Transaction Upload
-                    else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeKarvy)
-                    {
-                        bool updateProcessLog;
-                        bool karvyTranWerpResult = false;
-                        bool CommonTransChecks = false;
-                        bool karvyTranStagingCheckResult = false;
-                        bool karvyTranStagingResult = false;
-                        bool karvyTranInputResult = false;
-
-                        // Input Insertion
-                        packagePath = Server.MapPath("\\UploadPackages\\KarvyTransactionUploadPackageNew\\KarvyTransactionUploadPackageNew\\UploadTransactionDataFromKarvyFileToXtrnlTransactionInput.dtsx");
-                        karvyTranInputResult = karvyUploadsBo.KarvyInsertToInputTrans(processlogVo.ProcessId, packagePath, fileName, configPath);
-                        if (karvyTranInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                            processlogVo.IsInsertionToXtrnlComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-                            // Staging Insertion
-                            packagePath = Server.MapPath("\\UploadPackages\\KarvyTransactionUploadPackageNew\\KarvyTransactionUploadPackageNew\\UploadKarvyXtrnlTransactionInputToKarvyXtrnlTransactionStaging.dtsx");
-                            karvyTranStagingResult = karvyUploadsBo.KarvyInsertToStagingTrans(UploadProcessId, packagePath, configPath);
-                            if (karvyTranStagingResult)
+                            if (deutscheTranInputResult)
                             {
-                                processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                XtrnlInsertionProgress = "Done";
+                                InputInsertionProgress = "Done";
+                            }
+                            else
+                            {
+                                InputInsertionProgress = "Failure";
+                                XtrnlInsertionProgress = "Failure";
+                            }
+
+                            if (deutscheTranStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (deutscheTranStagingCheckResult)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+                            if (CommonTransChecks && deutscheTranWerpResult)
+                            {
+                                WERPInsertionProgress = "Done";
+
+                            }
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            if (deutscheTranWerpResult)
+                                XtrnlInsertionProgress = "Done";
+                            else
+                                XtrnlInsertionProgress = "Failure";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
+                        }
+
+
+
+                        #endregion MF Deutsche Transaction Upload
+
+                        #region MF Templeton Profile Upload
+                        //*****************************************************************************************************************************
+                        //MF Templeton Profile Upload
+                        else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeTemp)
+                        {
+                            // Templeton Insert To Input Profile
+                            packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadTempletonProfileDataFromFileToInput.dtsx");
+                            bool templetonProInputResult = templetonUploadsBo.TempInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
+                            if (templetonProInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                if (updateProcessLog1)
+                                {
+                                    // Templeton Insert To Staging Profile
+                                    packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadTempXtrnlProfileInputToXtrnlProfileStaging.dtsx");
+                                    templetonProStagingResult = templetonUploadsBo.TempInsertToStagingProfile(UploadProcessId, packagePath, configPath);
+                                    if (templetonProStagingResult)
+                                    {
+                                        processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        if (updateProcessLog2)
+                                        {
+                                            // Doing a check on data translation
+                                            packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadTempDataTranslationChecksFirstStaging.dtsx");
+                                            templetonProStagingCheckResult = templetonUploadsBo.TempProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                            if (templetonProStagingCheckResult)
+                                            {
+                                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
+                                                {
+                                                    // Insertion to common staging
+                                                    packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadProfileDataFromTempStagingToCommonStaging.dtsx");
+                                                    templetonProCommonStagingResult = templetonUploadsBo.TempInsertToCommonStaging(UploadProcessId, packagePath, configPath);
+                                                    if (templetonProCommonStagingResult)
+                                                    {
+                                                        processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (updateProcessLog3)
+                                                        {
+                                                            //common profile checks
+                                                            packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
+                                                            templetonProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                            if (templetonProCommonChecksResult)
+                                                            {
+                                                                // Insert Customer Details into WERP Tables
+                                                                templetonProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                                if (templetonProCreateCustomerResult)
+                                                                {
+                                                                    //Create new Bank Accounts
+                                                                    packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
+                                                                    bool templetonProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
+                                                                    if (templetonProCreateBankAccountResult)
+                                                                    {
+                                                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                                                        processlogVo.EndTime = DateTime.Now;
+                                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "TN");
+                                                                        processlogVo.NoOfCustomerInserted = countCustCreated;
+                                                                        txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
+                                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "TN");
+                                                                        processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
+                                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                        if (updateProcessLog4)
+                                                                            stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio)
+                                    {
+                                        if (templetonProStagingResult)
+                                        {
+                                            packagePath = Server.MapPath("\\UploadPackages\\TempletonProfileUploadPackageNew\\TempletonProfileUploadPackageNew\\UploadFolioDataFromTempStagingToCommonStaging.dtsx");
+                                            templetonFolioCommonStagingResult = templetonUploadsBo.TempInsertFolioDataToFolioCommonStaging(UploadProcessId, packagePath, configPath);
+                                            if (templetonFolioCommonStagingResult)
+                                            {
+                                                //Folio Chks in Std Folio Staging 
+                                                packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
+                                                bool templetonFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                if (templetonFolioStagingChkResult)
+                                                {
+                                                    //Folio Chks in Std Folio Staging 
+                                                    packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
+                                                    templetonFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                    if (templetonFolioWerpInsertionResult)
+                                                    {
+                                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "TN");
+                                                        processlogVo.NoOfCustomerInserted = countCustCreated;
+                                                        processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPMF");
+                                                        txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
+                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "TN");
+                                                        processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+
+                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (updateProcessLog4)
+                                                            stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+
+
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
+
+                            if (templetonProInputResult)
+                            {
+                                XtrnlInsertionProgress = "Done";
+                                InputInsertionProgress = "Done";
+                            }
+                            else
+                            {
+                                XtrnlInsertionProgress = "Failure";
+                                InputInsertionProgress = "Failure";
+                            }
+
+                            if (templetonProStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (templetonProCommonStagingResult == true || templetonFolioCommonStagingResult == true)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+                            if (templetonProCreateCustomerResult == true || templetonFolioWerpInsertionResult == true)
+                                WERPInsertionProgress = "Done";
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            //txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
+                        }
+                        #endregion MF Templeton Profile Upload
+
+                        #region MF Deutsche Profile Upload
+                        //*****************************************************************************************************************************
+                        //MF Deutsche Profile Upload
+                        else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeDeutsche)
+                        {
+                            // Deutsche Insert To Input Profile
+                            packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadDeutscheProfileDataFromFileToInput.dtsx");
+                            bool deutscheProInputResult = deutscheUploadsBo.DeutscheInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
+                            if (deutscheProInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                if (updateProcessLog1)
+                                {
+                                    // Deutsche Insert To Staging Profile
+                                    packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadDeutscheXtrnlProfileInputToXtrnlProfileStaging.dtsx");
+                                    deutscheProStagingResult = deutscheUploadsBo.DeutscheInsertToStagingProfile(UploadProcessId, packagePath, configPath);
+                                    if (deutscheProStagingResult)
+                                    {
+                                        processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        if (updateProcessLog2)
+                                        {
+                                            // Doing a check on data translation
+                                            packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadDeutscheDataTranslationChecksFirstStaging.dtsx");
+                                            deutscheProStagingCheckResult = deutscheUploadsBo.DeutscheProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                            if (deutscheProStagingCheckResult)
+                                            {
+                                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
+                                                {
+                                                    // Insertion to common staging
+                                                    packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadProfileDataFromDeutscheStagingToCommonStaging.dtsx");
+                                                    deutscheProCommonStagingResult = deutscheUploadsBo.DeutscheInsertToCommonStaging(UploadProcessId, packagePath, configPath);
+                                                    if (deutscheProCommonStagingResult)
+                                                    {
+                                                        processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (updateProcessLog3)
+                                                        {
+                                                            //common profile checks
+                                                            packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
+                                                            deutscheProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                            if (deutscheProCommonChecksResult)
+                                                            {
+                                                                // Insert Customer Details into WERP Tables
+                                                                deutscheProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                                if (deutscheProCreateCustomerResult)
+                                                                {
+                                                                    //Create new Bank Accounts
+                                                                    packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
+                                                                    bool deutscheProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
+                                                                    if (deutscheProCreateBankAccountResult)
+                                                                    {
+                                                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                                                        processlogVo.EndTime = DateTime.Now;
+                                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "DT");
+                                                                        processlogVo.NoOfCustomerInserted = countCustCreated;
+                                                                        txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
+                                                                        //processlogVo.NoOfAccountsInserted = countFolioCreated;
+                                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "DT");
+                                                                        processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
+                                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                        if (updateProcessLog4)
+                                                                            stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio)
+                                    {
+                                        if (deutscheProStagingResult)
+                                        {
+                                            packagePath = Server.MapPath("\\UploadPackages\\DeutscheProfileUploadPackageNew\\DeutscheProfileUploadPackageNew\\UploadFolioDataFromDeutscheStagingToCommonStaging.dtsx");
+                                            deutscheFolioCommonStagingResult = deutscheUploadsBo.DeutscheInsertFolioDataToFolioCommonStaging(UploadProcessId, packagePath, configPath);
+                                            if (deutscheFolioCommonStagingResult)
+                                            {
+                                                //Folio Chks in Std Folio Staging 
+                                                packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
+                                                bool deutscheFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                if (deutscheFolioStagingChkResult)
+                                                {
+                                                    //Folio Chks in Std Folio Staging 
+                                                    packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
+                                                    deutscheFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                    if (deutscheFolioWerpInsertionResult)
+                                                    {
+                                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "DT");
+                                                        processlogVo.NoOfCustomerInserted = countCustCreated;
+                                                        processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPMF");
+                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "DT");
+                                                        processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                                                        txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
+                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (updateProcessLog4)
+                                                            stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+
+
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
+
+                            if (deutscheProInputResult)
+                            {
+                                XtrnlInsertionProgress = "Done";
+                                InputInsertionProgress = "Done";
+                            }
+                            else
+                            {
+                                XtrnlInsertionProgress = "Failure";
+                                InputInsertionProgress = "Failure";
+                            }
+
+                            if (deutscheProStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (deutscheProCommonStagingResult == true || deutscheFolioCommonStagingResult == true)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+                            if (deutscheProCreateCustomerResult == true || deutscheFolioWerpInsertionResult == true)
+                                WERPInsertionProgress = "Done";
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            //txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
+                        }
+                        #endregion MF Deutsche Profile Upload
+
+                        #region MF CAMS Transaction Upload
+                        //*****************************************************************************************************************************
+                        //MF CAMS Transaction Upload
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
+                        {
+                            bool updateProcessLog = false;
+                            bool camsTranWerpResult = false;
+                            bool CommonTransChecks = false;
+                            bool camsTranStagingCheckResult = false;
+                            bool camsTranStagingResult = false;
+                            bool camsTranInputResult = false;
+
+
+                            packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadTransactionDataFromCAMSFileToXtrnlTransactionInput.dtsx");
+                            camsTranInputResult = camsUploadsBo.CAMSInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
+                            if (camsTranInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
                                 processlogVo.EndTime = DateTime.Now;
                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                // Transalation check in first staging and Move to second staging
-                                packagePath = Server.MapPath("\\UploadPackages\\KarvyTransactionUploadPackageNew\\KarvyTransactionUploadPackageNew\\UploadChecksKarvyTransactionStaging.dtsx");
-                                karvyTranStagingCheckResult = karvyUploadsBo.KarvyProcessDataInStagingTrans(UploadProcessId, packagePath, configPath);
-                                if (karvyTranStagingCheckResult)
+
+                                packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadXtrnlTransactionInputToXtrnlTransactionStaging.dtsx");
+                                camsTranStagingResult = camsUploadsBo.CAMSInsertToStagingTrans(UploadProcessId, packagePath, configPath);
+                                if (camsTranStagingResult)
                                 {
-                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                    processlogVo.IsInsertionToFirstStagingComplete = 1;
                                     processlogVo.EndTime = DateTime.Now;
                                     updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                    packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
-                                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "KA", "Karvy");
-
-                                    packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
-                                    karvyTranWerpResult = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
-                                    if (karvyTranWerpResult)
+                                    packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadChecksCAMSTransactionStaging.dtsx");
+                                    camsTranStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingTrans(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                    if (camsTranStagingCheckResult)
                                     {
-                                        processlogVo.IsInsertionToWERPComplete = 1;
-                                        processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPMF");
-                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeKarvy);
+
+                                        processlogVo.IsInsertionToSecondStagingComplete = 1;
                                         processlogVo.EndTime = DateTime.Now;
-                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "KA");
-                                        processlogVo.NoOfTransactionDuplicates = 0;
                                         updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+                                        CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "CA", "CAMS");
+
+
+                                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
+                                        camsTranWerpResult = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
+                                        if (camsTranWerpResult)
+                                        {
+                                            processlogVo.IsInsertionToWERPComplete = 1;
+                                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPMF");
+                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeCAMS);
+                                            processlogVo.EndTime = DateTime.Now;
+                                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "CA");
+                                            processlogVo.NoOfTransactionDuplicates = 0;
+                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        }
                                     }
                                 }
+
+
                             }
 
-                        }
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
 
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
-
-                        if (karvyTranInputResult)
-                        {
-                            XtrnlInsertionProgress = "Done";
-                            InputInsertionProgress = "Done";
-                        }
-                        else
-                        {
-                            InputInsertionProgress = "Failure";
-                            XtrnlInsertionProgress = "Failure";
-                        }
-
-                        if (karvyTranStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (karvyTranStagingCheckResult)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-
-                        if (CommonTransChecks && karvyTranWerpResult)
-                        {
-                            WERPInsertionProgress = "Done";
-                        }
-                        else
-                            WERPInsertionProgress = "Failure";
-
-                        if (karvyTranInputResult)
-                            XtrnlInsertionProgress = "Done";
-                        else
-                            XtrnlInsertionProgress = "Failure";
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        //if (processlogVo.NoOfFolioInserted > processlogVo.NoOfCustomerInserted)
-                        //{
-                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
-                        //}
-                        //else if (processlogVo.NoOfFolioInserted < processlogVo.NoOfCustomerInserted)
-                        //{
-
-                        //}
-                        //txtUploadedRecords.Text = (processlogVo.);//processlogVo.NoOfTotalRecords - processlogVo.NoOfRejectedRecords).ToString();
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-                    #endregion MF Karvy Transaction Upload
-
-                    #region MF Karvy Combination Upload
-                    //*****************************************************************************************************************************
-                    //MF Karvy Combination Upload
-                    else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeKarvy)
-                    {
-
-                    }
-                    //****************************************************************************************************************
-                    ////MF WERP Profile
-                    //else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
-                    //{
-                    //    // WERP MF Insert To Input Profile
-                    //    packagePath = Server.MapPath("\\UploadPackages\\WerpMFProfileUploadPackageNew\\WerpMFProfileUploadPackageNew\\UploadProfileDataFromWerpMFProfileFileToWerpMFXtrnlProfileInput.dtsx");
-                    //    bool werpMFProInputResult = werpMFUploadsBo.WerpMFInsertToInputProfile(packagePath, fileName, configPath);
-                    //    if (werpMFProInputResult)
-                    //    {
-                    //        processlogVo.IsInsertionToInputComplete = 1;
-                    //        processlogVo.EndTime = DateTime.Now;
-                    //        processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                    //        bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                    //    }
-
-                    //    // WERP MF Insert To Staging Profile
-                    //    packagePath = Server.MapPath("\\UploadPackages\\WerpMFProfileUploadPackageNew\\WerpMFProfileUploadPackageNew\\UploadWerpMFXtrnlProfileInputToXtrnlProfileStaging.dtsx");
-                    //    bool werpMFProStagingResult = werpMFUploadsBo.WerpMFInsertToStagingProfile(UploadProcessId, packagePath, configPath);
-                    //    if (werpMFProStagingResult)
-                    //    {
-                    //        processlogVo.IsInsertionToFirstStagingComplete = 1;
-                    //        processlogVo.EndTime = DateTime.Now;
-                    //        bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                    //    }
-
-                    //    // Doing a check on data in Staging and marking IsRejected flag
-                    //    packagePath = Server.MapPath("\\UploadPackages\\WerpMFProfileUploadPackageNew\\WerpMFProfileUploadPackageNew\\UploadChecksWerpMFProfileStaging.dtsx");
-                    //    bool werpMFProStagingCheckResult = werpMFUploadsBo.WerpMFProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-
-                    //    // Insert Customer Details into Customer Tables
-                    //    bool werpMFProCreateCustomerResult = werpMFUploadsBo.WerpMFInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, out countCustCreated, out countFolioCreated);
-                    //    bool werpMFProCreateBankAccountResult = false;
-                    //    if (werpMFProCreateCustomerResult)
-                    //    {
-                    //        // Insert Bank Account Details
-                    //        packagePath = Server.MapPath("\\UploadPackages\\WerpMFProfileUploadPackageNew\\WerpMFProfileUploadPackageNew\\UploadWerpMFProfileNewBankAccountCreation.dtsx");
-                    //        werpMFProCreateBankAccountResult = werpMFUploadsBo.WerpMFCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
-                    //        if (werpMFProCreateBankAccountResult)
-                    //        {
-
-                    //            processlogVo.IsInsertionToWERPComplete = 1;
-                    //            processlogVo.IsInsertionToXtrnlComplete = 2;
-                    //            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeStandard);
-                    //            processlogVo.NoOfCustomerInserted = countCustCreated;
-                    //            processlogVo.NoOfAccountsInserted = countFolioCreated;
-                    //            processlogVo.EndTime = DateTime.Now;
-                    //            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                    //        }
-                    //    }
-
-
-
-                    //    // Insert uploaded records from Staging Table into External Tables
-                    //    //packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadKarvyXtrnlProfileStagingToKarvyXtrnlProfile.dtsx");
-                    //    //bool werpMFProXtrnlResult = werpMFUploadsBo.WerpMFInsertExternalProfile(UploadProcessId, packagePath);
-                    //    //if (werpMFProXtrnlResult)
-                    //    //{
-                    //    //    processlogVo.IsInsertionToXtrnlComplete = 1;
-                    //    //    processlogVo.EndTime = DateTime.Now;
-                    //    //    bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                    //    //}
-                    //    //
-
-
-
-                    //    // Update Process Progress Monitoring Text Boxes
-                    //    txtProcessID.Text = processlogVo.ProcessId.ToString();
-
-                    //    if (XmlCreated)
-                    //        XMLProgress = "Done";
-                    //    else
-                    //        XMLProgress = "Failure";
-
-                    //    if (werpMFProInputResult)
-                    //        InputInsertionProgress = "Done";
-                    //    else
-                    //        InputInsertionProgress = "Failure";
-
-                    //    if (werpMFProStagingResult)
-                    //        txtStagingInsertionProgress.Text = "Done";
-                    //    else
-                    //        txtStagingInsertionProgress.Text = "Failure";
-
-                    //    if (werpMFProStagingCheckResult && werpMFProCreateCustomerResult && werpMFProCreateBankAccountResult)
-                    //    {
-                    //        WERPInsertionProgress = "Done";
-                    //    }
-                    //    else
-                    //        WERPInsertionProgress = "Failure";
-
-                    //    // Update Process Summary Text Boxes
-                    //    txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                    //    txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                    //    txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                    //    txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                    //    txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-
-                    //    Session[SessionContents.ProcessLogVo] = processlogVo;
-                    //}
-                    #endregion MF Karvy Combination Upload
-
-                    #region   MF WERP Transaction
-                    //*****************************************************************************************************************************
-                    //MF WERP Transaction
-                    else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
-                    {
-                        // Input Insertion
-                        packagePath = Server.MapPath("\\UploadPackages\\WERPMFUploadTransactionNew\\WERPMFUploadTransactionNew\\UploadTransactionDataFromWERPMFFileToXtrnlTransactionInput.dtsx");
-                        bool WERPMFTranInputResult = werpUploadBo.WERPMFInsertToInputTrans(packagePath, fileName, configPath);
-                        if (WERPMFTranInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                        }
-
-                        // Staging Insertion
-                        packagePath = Server.MapPath("\\UploadPackages\\WERPMFUploadTransactionNew\\WERPMFUploadTransactionNew\\UploadTransactionDataFromWERPMFInputToStagingTransactionInput.dtsx");
-                        bool WERPMFTranStagingResult = werpUploadBo.WERPMFInsertToStagingTrans(UploadProcessId, packagePath, configPath);
-                        if (WERPMFTranStagingResult)
-                        {
-                            processlogVo.IsInsertionToFirstStagingComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                        }
-
-                        // WERP Insertion
-                        packagePath = Server.MapPath("\\UploadPackages\\WERPMFUploadTransactionNew\\WERPMFUploadTransactionNew\\CheckTransactionDataFromWERPMFStaging.dtsx");
-                        bool WERPMFTranStagingCheckResult = werpUploadBo.WERPMFProcessDataInStagingTrans(UploadProcessId, packagePath, configPath);
-
-                        packagePath = Server.MapPath("\\UploadPackages\\WERPMFUploadTransactionNew\\WERPMFUploadTransactionNew\\UploadTransactionDataFromWERPMFStagingToWERPTable.dtsx");
-                        bool WERPMFTranWerpResult = werpUploadBo.WERPMFInsertTransDetails(UploadProcessId, packagePath, configPath);
-                        if (WERPMFTranWerpResult)
-                        {
-                            processlogVo.IsInsertionToWERPComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 2;
-                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, Contants.UploadExternalTypeStandard);
-                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeStandard);
-                            processlogVo.EndTime = DateTime.Now;
-                            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                        }
-
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
-
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
-
-                        if (WERPMFTranInputResult)
-                            InputInsertionProgress = "Done";
-                        else
-                            InputInsertionProgress = "Failure";
-
-                        if (WERPMFTranStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (WERPMFTranStagingCheckResult && WERPMFTranWerpResult)
-                        {
-                            WERPInsertionProgress = "Done";
-                        }
-                        else
-                            WERPInsertionProgress = "Failure";
-
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        //if (processlogVo.NoOfFolioInserted > processlogVo.NoOfCustomerInserted)
-                        //{
-                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
-                        //}
-                        //else if (processlogVo.NoOfFolioInserted < processlogVo.NoOfCustomerInserted)
-                        //{
-
-                        //}
-                        //txtUploadedRecords.Text = (processlogVo.);//processlogVo.NoOfTotalRecords - processlogVo.NoOfRejectedRecords).ToString();
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-                    #endregion MF WERP Transaction
-
-                    #region Standard Equity Transaction Upload
-                    //*****************************************************************************************************************************
-                    //Standard Equity Transaction Upload
-                    else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
-                    {
-                        bool werpEQTranInputResult = false;
-                        bool werpEQFirstStagingResult = false;
-                        bool werpEQFirstStagingCheckResult = false;
-                        bool werpEQSecondStagingResult = false;
-                        bool WERPEQSecondStagingCheckResult = false;
-                        bool WERPEQTranWerpResult = false;
-
-                        // WERP Equity Insert To Input Profile
-                        packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadTransactionDataFromEQStdFileToEQStdTranInput.dtsx");
-                        werpEQTranInputResult = werpEQUploadsBo.WerpEQInsertToInputTransaction(packagePath, fileName, configPath);
-                        if (werpEQTranInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 2;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-                            if (updateProcessLog1)
+                            if (camsTranInputResult)
                             {
-                                // WERP Equity Insert To 1st Staging Transaction
-                                packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadEQTransactionInputToEQStdTranStaging.dtsx");
-                                werpEQFirstStagingResult = werpEQUploadsBo.WerpEQInsertToFirstStagingTransaction(UploadProcessId, packagePath, configPath);
-                                if (werpEQFirstStagingResult)
+                                XtrnlInsertionProgress = "Done";
+                                InputInsertionProgress = "Done";
+                            }
+                            else
+                            {
+                                InputInsertionProgress = "Failure";
+                                XtrnlInsertionProgress = "Failure";
+                            }
+
+                            if (camsTranStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (camsTranStagingCheckResult)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+                            if (CommonTransChecks && camsTranWerpResult)
+                            {
+                                WERPInsertionProgress = "Done";
+
+                            }
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            if (camsTranWerpResult)
+                                XtrnlInsertionProgress = "Done";
+                            else
+                                XtrnlInsertionProgress = "Failure";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
+                        }
+
+
+                        #endregion MF CAMS Transaction Upload
+
+                        #region MF CAMS Systematic Upload
+                        //MF CAMS Systematic Upload
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
+                        {
+
+                        }
+                        #endregion MF CAMS Systematic Upload
+
+                        #region MF Karvy Profile Upload
+                        //*******************************************************************************************************************
+                        //MF Karvy Profile Upload
+                        else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == Contants.UploadExternalTypeKarvy)
+                        {
+                            bool karvyProInputResult = false;
+                            bool karvyProStagingResult = false;
+                            bool karvyProStagingCheckResult = false;
+                            bool karvyStagingToProfileStagingResult = false;
+                            bool karvyProCommonChecksResult = false;
+                            bool karvyProCreateCustomerResult = false;
+                            bool karvyStagingToFolioStagingResult = false;
+                            bool karvyFolioWerpInsertionResult = false;
+                            // Karvy Insert To Input Profile
+                            packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadProfileDataFromKarvyProfileFileToXtrnlProfileInput.dtsx");
+                            karvyProInputResult = karvyUploadsBo.KARVYInsertToInputProfile(packagePath, UploadProcessId, fileName, configPath);
+                            if (karvyProInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                if (updateProcessLog1)
                                 {
-                                    processlogVo.IsInsertionToFirstStagingComplete = 1;
-                                    processlogVo.EndTime = DateTime.Now;
-                                    bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                    if (updateProcessLog2)
+                                    // Karvy Insert To Staging Profile
+                                    packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadKarvyXtrnlProfileInputToKarvyXtrnlProfileStaging .dtsx");
+                                    karvyProStagingResult = karvyUploadsBo.KARVYInsertToStagingProfile(UploadProcessId, packagePath, configPath);
+                                    if (karvyProStagingResult)
                                     {
-                                        // Doing a check on data in First Staging and marking IsRejected flag
-                                        packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQStdTranStaging.dtsx");
-                                        werpEQFirstStagingCheckResult = werpEQUploadsBo.WerpEQProcessDataInFirstStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
-
-                                        if (werpEQFirstStagingCheckResult)
+                                        processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        if (updateProcessLog2)
                                         {
-                                            // WERP Equity Insert To 2nd Staging Transaction
-                                            packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadEQStdTranStagingToEQTranStaging.dtsx");
-                                            werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 8); // EQ Trans XML File Type Id = 8
-
-                                            if (werpEQSecondStagingResult)
+                                            // Data Translation checks in Karvy Staging
+                                            packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadDataTranslationKarvyProfileStaging.dtsx");
+                                            karvyProStagingCheckResult = karvyUploadsBo.KARVYStagingDataTranslationCheck(UploadProcessId, packagePath, configPath);
+                                            if (karvyProStagingCheckResult)
                                             {
-                                                processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                                processlogVo.EndTime = DateTime.Now;
-                                                bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                                if (updateProcessLog3)
+                                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
                                                 {
-                                                    // WERP Insertion
-                                                    packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQTranStaging.dtsx");
-                                                    WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
-
-                                                    if (WERPEQSecondStagingCheckResult)
+                                                    // Inserting Karvy Staging Data to Profile Staging
+                                                    packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadKarvyXtrnlProfileStagingToProfileStaging.dtsx");
+                                                    karvyStagingToProfileStagingResult = karvyUploadsBo.KARVYStagingInsertToProfileStaging(UploadProcessId, packagePath, configPath);
+                                                    if (karvyStagingToProfileStagingResult)
                                                     {
-                                                        packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadEQTranStagingToWerp.dtsx");
-                                                        WERPEQTranWerpResult = werpEQUploadsBo.WERPEQInsertTransDetails(UploadProcessId, packagePath, configPath);
-                                                        if (WERPEQTranWerpResult)
+                                                        processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (updateProcessLog3)
                                                         {
-                                                            processlogVo.IsInsertionToWERPComplete = 1;
-                                                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPEQ");
-                                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, "WPEQ");
-                                                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "EQT");
-                                                            processlogVo.NoOfTransactionDuplicates = 0;
-                                                            processlogVo.EndTime = DateTime.Now;
-                                                            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                            //Making Chks in Profile Staging
+                                                            packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
+                                                            karvyProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                                            if (karvyProCommonChecksResult)
+                                                            {
+                                                                // Insert Customer Details into WERP Tables
+                                                                karvyProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                                if (karvyProCreateCustomerResult)
+                                                                {
+                                                                    //Create new Bank Accounts
+                                                                    packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
+                                                                    bool karvyProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
+                                                                    if (karvyProCreateBankAccountResult)
+                                                                    {
+                                                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                                                        processlogVo.EndTime = DateTime.Now;
+                                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "KA");
+                                                                        processlogVo.NoOfCustomerInserted = countCustCreated;
+                                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "KA");
+                                                                        processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
+                                                                        txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
+                                                                        bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                        if (updateProcessLog4)
+                                                                            stdProCommonDeleteResult = StandardProfileUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio)
+                                                {
+                                                    if (karvyProStagingCheckResult)
+                                                    {
+                                                        // Inserting Karvy Staging Data to Folio Staging
+                                                        packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadKarvyXtrnlProfileStagingToFolioStaging.dtsx");
+                                                        karvyStagingToFolioStagingResult = karvyUploadsBo.KARVYStagingInsertToFolioStaging(UploadProcessId, packagePath, configPath);
+                                                        if (karvyStagingToFolioStagingResult)
+                                                        {
+
+                                                            //Folio Chks in Std Folio Staging 
+                                                            packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
+                                                            bool karvyFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                            if (karvyFolioStagingChkResult)
+                                                            {
+                                                                //Folio Chks in Std Folio Staging 
+                                                                packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
+                                                                karvyFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, UploadProcessId, configPath);
+                                                                if (karvyFolioWerpInsertionResult)
+                                                                {
+                                                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                                                    processlogVo.EndTime = DateTime.Now;
+                                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "KA");
+                                                                    processlogVo.NoOfCustomerInserted = countCustCreated;
+                                                                    processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPMF");
+                                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "KA");
+                                                                    processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                                                                    txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
+                                                                    bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                                    if (updateProcessLog4)
+                                                                        stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(UploadProcessId);
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -1794,237 +1348,449 @@ namespace WealthERP.Uploads
                                         }
                                     }
                                 }
+
                             }
-                        }
 
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
-                        if (werpEQTranInputResult)
-                            InputInsertionProgress = "Done";
-                        else
-                            InputInsertionProgress = "Failure";
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
 
-                        if (werpEQFirstStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (werpEQSecondStagingResult)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-                        if (WERPEQTranWerpResult)
-                            WERPInsertionProgress = "Done";
-                        else
-                            WERPInsertionProgress = "Failure";
-
-                        XtrnlInsertionProgress = "N/A";
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-                    #endregion Standard Equity Transaction Upload
-
-                    #region Standard Equity Trade Account Upload
-
-                    //************************************************************************************************************************************
-
-                    //Standard Equity Trade Account Upload
-                    else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTradeAccount && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
-                    {
-                        bool werpEQTradeInputResult = false;
-                        bool werpEQFirstStagingResult = false;
-                        bool werpEQFirstStagingCheckResult = false;
-                        bool werpEQSecondStagingResult = false;
-                        bool WERPEQSecondStagingCheckResult = false;
-                        bool WERPEQTradeWerpResult = false;
-
-                        // WERP Equity Insert To Input Profile
-                        packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadTradeAccDataFromEQStdFileToEQStdTradeAccInput.dtsx");
-                        werpEQTradeInputResult = werpEQUploadsBo.WerpEQInsertToInputTradeAccount(packagePath, fileName, configPath);
-                        if (werpEQTradeInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 2;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-                            if (updateProcessLog1)
+                            if (karvyProInputResult)
                             {
-                                // WERP Equity Insert To 1st Staging Trade Account
-                                packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadEQTradeAccInputToEQStdTradeAccStaging.dtsx");
-                                werpEQFirstStagingResult = werpEQUploadsBo.WerpEQInsertToFirstStagingTradeAccount(UploadProcessId, packagePath, configPath);
-                                if (werpEQFirstStagingResult)
-                                {
-                                    processlogVo.IsInsertionToFirstStagingComplete = 1;
-                                    processlogVo.EndTime = DateTime.Now;
-                                    bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-                                    if (updateProcessLog2)
-                                    {
-                                        // Doing a check on data in First Staging and marking IsRejected flag
-                                        packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadChecksOnEQStdTradeAccStaging.dtsx");
-                                        werpEQFirstStagingCheckResult = werpEQUploadsBo.WerpEQProcessDataInFirstStagingTradeAccount(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
-
-                                        if (werpEQFirstStagingCheckResult)
-                                        {
-                                            // WERP Equity Insert To 2nd Staging Trade Account
-                                            packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadEQStdTradeStagingToEQTradeStaging.dtsx");
-                                            werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTradeAccount(UploadProcessId, packagePath, configPath, 13); // EQ Trade Account XML File Type Id = 13
-
-                                            if (werpEQSecondStagingResult)
-                                            {
-                                                processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                                processlogVo.EndTime = DateTime.Now;
-                                                bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-                                                if (updateProcessLog3)
-                                                {
-                                                    // WERP Insertion
-                                                    packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadChecksOnEQTradeStaging.dtsx");
-                                                    WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTradeAccount(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
-
-                                                    if (WERPEQSecondStagingCheckResult)
-                                                    {
-                                                        packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadEQTradeStagingToWerp.dtsx");
-                                                        WERPEQTradeWerpResult = werpEQUploadsBo.WERPEQInsertTradeAccountDetails(UploadProcessId, packagePath, configPath);
-                                                        if (WERPEQTradeWerpResult)
-                                                        {
-                                                            processlogVo.IsInsertionToWERPComplete = 1;
-                                                            processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPEQ");
-                                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetAccountsUploadRejectCount(UploadProcessId, "WPEQ");
-                                                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTradeAccountInputRejectCount(UploadProcessId, "EQTA");
-                                                            processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
-                                                            processlogVo.EndTime = DateTime.Now;
-                                                            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                InputInsertionProgress = "Done";
+                                XtrnlInsertionProgress = "Done";
                             }
-                        }
-
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
-
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
-
-                        if (werpEQTradeInputResult)
-                            InputInsertionProgress = "Done";
-                        else
-                            InputInsertionProgress = "Failure";
-
-                        if (werpEQFirstStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (werpEQSecondStagingResult)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-                        if (WERPEQTradeWerpResult)
-                            WERPInsertionProgress = "Done";
-                        else
-                            WERPInsertionProgress = "Failure";
-
-                        XtrnlInsertionProgress = "N/A";
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
-                    }
-                    #endregion Standard Equity Trade Account Upload
-
-                    #region MF Templeton Transaction Upload
-                    else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeTemp)
-                    {
-                        bool updateProcessLog = false;
-                        bool templeTranWerpResult = false;
-                        bool CommonTransChecks = false;
-                        bool templeTranSecondStagingResult = false;
-                        bool templeTranStagingCheckResult = false;
-                        bool templeTranStagingResult = false;
-                        bool templeTranInputResult = false;
-
-                        packagePath = Server.MapPath("\\UploadPackages\\TempletonTransactionUploadPackage\\TempletonTransactionUploadPackage\\UploadTransactionFromXmlFileToInputTable.dtsx");
-                        templeTranInputResult = templetonUploadsBo.TempletonInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
-                        if (templeTranInputResult)
-                        {
-                            processlogVo.IsInsertionToInputComplete = 1;
-                            processlogVo.IsInsertionToXtrnlComplete = 1;
-                            processlogVo.EndTime = DateTime.Now;
-                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
-                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-                            if (updateProcessLog)
+                            else
                             {
-                                packagePath = Server.MapPath("\\UploadPackages\\TempletonTransactionUploadPackage\\TempletonTransactionUploadPackage\\UploadTempletonTransToStagingTable.dtsx");
-                                templeTranStagingResult = templetonUploadsBo.TempletonInsertToStagingTrans(UploadProcessId, packagePath, configPath);
-                                if (templeTranStagingResult)
+                                InputInsertionProgress = "Failure";
+                                XtrnlInsertionProgress = "Failure";
+                            }
+
+                            if (karvyProStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (karvyStagingToProfileStagingResult == true || karvyStagingToFolioStagingResult == true)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+                            if (karvyProCreateCustomerResult == true || karvyFolioWerpInsertionResult == true)
+                                WERPInsertionProgress = "Done";
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            //if (processlogVo.NoOfFolioInserted > processlogVo.NoOfCustomerInserted)
+                            //{
+                            txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
+                        }
+                        #endregion MF Karvy Profile Upload
+
+                        #region MF Karvy Transaction Upload
+                        //*****************************************************************************************************************
+                        //MF Karvy Transaction Upload
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeKarvy)
+                        {
+                            bool updateProcessLog;
+                            bool karvyTranWerpResult = false;
+                            bool CommonTransChecks = false;
+                            bool karvyTranStagingCheckResult = false;
+                            bool karvyTranStagingResult = false;
+                            bool karvyTranInputResult = false;
+
+                            // Input Insertion
+                            packagePath = Server.MapPath("\\UploadPackages\\KarvyTransactionUploadPackageNew\\KarvyTransactionUploadPackageNew\\UploadTransactionDataFromKarvyFileToXtrnlTransactionInput.dtsx");
+                            karvyTranInputResult = karvyUploadsBo.KarvyInsertToInputTrans(processlogVo.ProcessId, packagePath, fileName, configPath);
+                            if (karvyTranInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                // Staging Insertion
+                                packagePath = Server.MapPath("\\UploadPackages\\KarvyTransactionUploadPackageNew\\KarvyTransactionUploadPackageNew\\UploadKarvyXtrnlTransactionInputToKarvyXtrnlTransactionStaging.dtsx");
+                                karvyTranStagingResult = karvyUploadsBo.KarvyInsertToStagingTrans(UploadProcessId, packagePath, configPath);
+                                if (karvyTranStagingResult)
                                 {
                                     processlogVo.IsInsertionToFirstStagingComplete = 1;
                                     processlogVo.EndTime = DateTime.Now;
                                     updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                    if (updateProcessLog)
+                                    // Transalation check in first staging and Move to second staging
+                                    packagePath = Server.MapPath("\\UploadPackages\\KarvyTransactionUploadPackageNew\\KarvyTransactionUploadPackageNew\\UploadChecksKarvyTransactionStaging.dtsx");
+                                    karvyTranStagingCheckResult = karvyUploadsBo.KarvyProcessDataInStagingTrans(UploadProcessId, packagePath, configPath);
+                                    if (karvyTranStagingCheckResult)
                                     {
-                                        packagePath = Server.MapPath("\\UploadPackages\\TempletonTransactionUploadPackage\\TempletonTransactionUploadPackage\\UploadChecksOnTempletonStaging.dtsx");
-                                        templeTranStagingCheckResult = templetonUploadsBo.TempletonProcessDataInStagingTrans(UploadProcessId, packagePath, configPath);
-                                        if (templeTranStagingCheckResult)
+                                        processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+                                        CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "KA", "Karvy");
+
+                                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
+                                        karvyTranWerpResult = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
+                                        if (karvyTranWerpResult)
                                         {
-                                            packagePath = Server.MapPath("\\UploadPackages\\TempletonTransactionUploadPackage\\TempletonTransactionUploadPackage\\UploadTempletonTransStagingToTransStaging.dtsx");
-                                            templeTranSecondStagingResult = templetonUploadsBo.TempletonInsertFromTempStagingTransToCommonStaging(UploadProcessId, packagePath, configPath);
-                                            if (templeTranSecondStagingResult)
+                                            processlogVo.IsInsertionToWERPComplete = 1;
+                                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPMF");
+                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeKarvy);
+                                            processlogVo.EndTime = DateTime.Now;
+                                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "KA");
+                                            processlogVo.NoOfTransactionDuplicates = 0;
+                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
+
+                            if (karvyTranInputResult)
+                            {
+                                XtrnlInsertionProgress = "Done";
+                                InputInsertionProgress = "Done";
+                            }
+                            else
+                            {
+                                InputInsertionProgress = "Failure";
+                                XtrnlInsertionProgress = "Failure";
+                            }
+
+                            if (karvyTranStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (karvyTranStagingCheckResult)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+
+                            if (CommonTransChecks && karvyTranWerpResult)
+                            {
+                                WERPInsertionProgress = "Done";
+                            }
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            if (karvyTranInputResult)
+                                XtrnlInsertionProgress = "Done";
+                            else
+                                XtrnlInsertionProgress = "Failure";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            //if (processlogVo.NoOfFolioInserted > processlogVo.NoOfCustomerInserted)
+                            //{
+                            txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+                            //}
+                            //else if (processlogVo.NoOfFolioInserted < processlogVo.NoOfCustomerInserted)
+                            //{
+
+                            //}
+                            //txtUploadedRecords.Text = (processlogVo.);//processlogVo.NoOfTotalRecords - processlogVo.NoOfRejectedRecords).ToString();
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
+                        }
+                        #endregion MF Karvy Transaction Upload
+
+                        #region MF Karvy Combination Upload
+                        //*****************************************************************************************************************************
+                        //MF Karvy Combination Upload
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeKarvy)
+                        {
+
+                        }
+                        //****************************************************************************************************************
+                        ////MF WERP Profile
+                        //else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
+                        //{
+                        //    // WERP MF Insert To Input Profile
+                        //    packagePath = Server.MapPath("\\UploadPackages\\WerpMFProfileUploadPackageNew\\WerpMFProfileUploadPackageNew\\UploadProfileDataFromWerpMFProfileFileToWerpMFXtrnlProfileInput.dtsx");
+                        //    bool werpMFProInputResult = werpMFUploadsBo.WerpMFInsertToInputProfile(packagePath, fileName, configPath);
+                        //    if (werpMFProInputResult)
+                        //    {
+                        //        processlogVo.IsInsertionToInputComplete = 1;
+                        //        processlogVo.EndTime = DateTime.Now;
+                        //        processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                        //        bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        //    }
+
+                        //    // WERP MF Insert To Staging Profile
+                        //    packagePath = Server.MapPath("\\UploadPackages\\WerpMFProfileUploadPackageNew\\WerpMFProfileUploadPackageNew\\UploadWerpMFXtrnlProfileInputToXtrnlProfileStaging.dtsx");
+                        //    bool werpMFProStagingResult = werpMFUploadsBo.WerpMFInsertToStagingProfile(UploadProcessId, packagePath, configPath);
+                        //    if (werpMFProStagingResult)
+                        //    {
+                        //        processlogVo.IsInsertionToFirstStagingComplete = 1;
+                        //        processlogVo.EndTime = DateTime.Now;
+                        //        bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        //    }
+
+                        //    // Doing a check on data in Staging and marking IsRejected flag
+                        //    packagePath = Server.MapPath("\\UploadPackages\\WerpMFProfileUploadPackageNew\\WerpMFProfileUploadPackageNew\\UploadChecksWerpMFProfileStaging.dtsx");
+                        //    bool werpMFProStagingCheckResult = werpMFUploadsBo.WerpMFProcessDataInStagingProfile(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+
+                        //    // Insert Customer Details into Customer Tables
+                        //    bool werpMFProCreateCustomerResult = werpMFUploadsBo.WerpMFInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, out countCustCreated, out countFolioCreated);
+                        //    bool werpMFProCreateBankAccountResult = false;
+                        //    if (werpMFProCreateCustomerResult)
+                        //    {
+                        //        // Insert Bank Account Details
+                        //        packagePath = Server.MapPath("\\UploadPackages\\WerpMFProfileUploadPackageNew\\WerpMFProfileUploadPackageNew\\UploadWerpMFProfileNewBankAccountCreation.dtsx");
+                        //        werpMFProCreateBankAccountResult = werpMFUploadsBo.WerpMFCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
+                        //        if (werpMFProCreateBankAccountResult)
+                        //        {
+
+                        //            processlogVo.IsInsertionToWERPComplete = 1;
+                        //            processlogVo.IsInsertionToXtrnlComplete = 2;
+                        //            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeStandard);
+                        //            processlogVo.NoOfCustomerInserted = countCustCreated;
+                        //            processlogVo.NoOfAccountsInserted = countFolioCreated;
+                        //            processlogVo.EndTime = DateTime.Now;
+                        //            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        //        }
+                        //    }
+
+
+
+                        //    // Insert uploaded records from Staging Table into External Tables
+                        //    //packagePath = Server.MapPath("\\UploadPackages\\KarvyProfileUploadPackageNew\\KarvyProfileUploadPackageNew\\UploadKarvyXtrnlProfileStagingToKarvyXtrnlProfile.dtsx");
+                        //    //bool werpMFProXtrnlResult = werpMFUploadsBo.WerpMFInsertExternalProfile(UploadProcessId, packagePath);
+                        //    //if (werpMFProXtrnlResult)
+                        //    //{
+                        //    //    processlogVo.IsInsertionToXtrnlComplete = 1;
+                        //    //    processlogVo.EndTime = DateTime.Now;
+                        //    //    bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        //    //}
+                        //    //
+
+
+
+                        //    // Update Process Progress Monitoring Text Boxes
+                        //    txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                        //    if (XmlCreated)
+                        //        XMLProgress = "Done";
+                        //    else
+                        //        XMLProgress = "Failure";
+
+                        //    if (werpMFProInputResult)
+                        //        InputInsertionProgress = "Done";
+                        //    else
+                        //        InputInsertionProgress = "Failure";
+
+                        //    if (werpMFProStagingResult)
+                        //        txtStagingInsertionProgress.Text = "Done";
+                        //    else
+                        //        txtStagingInsertionProgress.Text = "Failure";
+
+                        //    if (werpMFProStagingCheckResult && werpMFProCreateCustomerResult && werpMFProCreateBankAccountResult)
+                        //    {
+                        //        WERPInsertionProgress = "Done";
+                        //    }
+                        //    else
+                        //        WERPInsertionProgress = "Failure";
+
+                        //    // Update Process Summary Text Boxes
+                        //    txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                        //    txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                        //    txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                        //    txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
+                        //    txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                        //    Session[SessionContents.ProcessLogVo] = processlogVo;
+                        //}
+                        #endregion MF Karvy Combination Upload
+
+                        #region   MF WERP Transaction
+                        //*****************************************************************************************************************************
+                        //MF WERP Transaction
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
+                        {
+                            // Input Insertion
+                            packagePath = Server.MapPath("\\UploadPackages\\WERPMFUploadTransactionNew\\WERPMFUploadTransactionNew\\UploadTransactionDataFromWERPMFFileToXtrnlTransactionInput.dtsx");
+                            bool WERPMFTranInputResult = werpUploadBo.WERPMFInsertToInputTrans(packagePath, fileName, configPath);
+                            if (WERPMFTranInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            }
+
+                            // Staging Insertion
+                            packagePath = Server.MapPath("\\UploadPackages\\WERPMFUploadTransactionNew\\WERPMFUploadTransactionNew\\UploadTransactionDataFromWERPMFInputToStagingTransactionInput.dtsx");
+                            bool WERPMFTranStagingResult = werpUploadBo.WERPMFInsertToStagingTrans(UploadProcessId, packagePath, configPath);
+                            if (WERPMFTranStagingResult)
+                            {
+                                processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            }
+
+                            // WERP Insertion
+                            packagePath = Server.MapPath("\\UploadPackages\\WERPMFUploadTransactionNew\\WERPMFUploadTransactionNew\\CheckTransactionDataFromWERPMFStaging.dtsx");
+                            bool WERPMFTranStagingCheckResult = werpUploadBo.WERPMFProcessDataInStagingTrans(UploadProcessId, packagePath, configPath);
+
+                            packagePath = Server.MapPath("\\UploadPackages\\WERPMFUploadTransactionNew\\WERPMFUploadTransactionNew\\UploadTransactionDataFromWERPMFStagingToWERPTable.dtsx");
+                            bool WERPMFTranWerpResult = werpUploadBo.WERPMFInsertTransDetails(UploadProcessId, packagePath, configPath);
+                            if (WERPMFTranWerpResult)
+                            {
+                                processlogVo.IsInsertionToWERPComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 2;
+                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, Contants.UploadExternalTypeStandard);
+                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeStandard);
+                                processlogVo.EndTime = DateTime.Now;
+                                bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            }
+
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
+
+                            if (WERPMFTranInputResult)
+                                InputInsertionProgress = "Done";
+                            else
+                                InputInsertionProgress = "Failure";
+
+                            if (WERPMFTranStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (WERPMFTranStagingCheckResult && WERPMFTranWerpResult)
+                            {
+                                WERPInsertionProgress = "Done";
+                            }
+                            else
+                                WERPInsertionProgress = "Failure";
+
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            //if (processlogVo.NoOfFolioInserted > processlogVo.NoOfCustomerInserted)
+                            //{
+                            txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+                            //}
+                            //else if (processlogVo.NoOfFolioInserted < processlogVo.NoOfCustomerInserted)
+                            //{
+
+                            //}
+                            //txtUploadedRecords.Text = (processlogVo.);//processlogVo.NoOfTotalRecords - processlogVo.NoOfRejectedRecords).ToString();
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
+                        }
+                        #endregion MF WERP Transaction
+
+                        #region Standard Equity Transaction Upload
+                        //*****************************************************************************************************************************
+                        //Standard Equity Transaction Upload
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
+                        {
+                            bool werpEQTranInputResult = false;
+                            bool werpEQFirstStagingResult = false;
+                            bool werpEQFirstStagingCheckResult = false;
+                            bool werpEQSecondStagingResult = false;
+                            bool WERPEQSecondStagingCheckResult = false;
+                            bool WERPEQTranWerpResult = false;
+
+                            // WERP Equity Insert To Input Profile
+                            packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadTransactionDataFromEQStdFileToEQStdTranInput.dtsx");
+                            werpEQTranInputResult = werpEQUploadsBo.WerpEQInsertToInputTransaction(packagePath, fileName, configPath);
+                            if (werpEQTranInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 2;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                if (updateProcessLog1)
+                                {
+                                    // WERP Equity Insert To 1st Staging Transaction
+                                    packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadEQTransactionInputToEQStdTranStaging.dtsx");
+                                    werpEQFirstStagingResult = werpEQUploadsBo.WerpEQInsertToFirstStagingTransaction(UploadProcessId, packagePath, configPath);
+                                    if (werpEQFirstStagingResult)
+                                    {
+                                        processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                        if (updateProcessLog2)
+                                        {
+                                            // Doing a check on data in First Staging and marking IsRejected flag
+                                            packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQStdTranStaging.dtsx");
+                                            werpEQFirstStagingCheckResult = werpEQUploadsBo.WerpEQProcessDataInFirstStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+
+                                            if (werpEQFirstStagingCheckResult)
                                             {
-                                                processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                                processlogVo.EndTime = DateTime.Now;
-                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                // WERP Equity Insert To 2nd Staging Transaction
+                                                packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadEQStdTranStagingToEQTranStaging.dtsx");
+                                                werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 8); // EQ Trans XML File Type Id = 8
 
-                                                if (updateProcessLog)
+                                                if (werpEQSecondStagingResult)
                                                 {
-                                                    packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
-                                                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "TN", "Templeton");
+                                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                                    if (CommonTransChecks)
+                                                    if (updateProcessLog3)
                                                     {
-                                                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
-                                                        templeTranWerpResult = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
-                                                        if (templeTranWerpResult)
+                                                        // WERP Insertion
+                                                        packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQTranStaging.dtsx");
+                                                        WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+
+                                                        if (WERPEQSecondStagingCheckResult)
                                                         {
-                                                            processlogVo.IsInsertionToWERPComplete = 1;
-                                                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPMF");
-                                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeTemp);
-                                                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "TN");
-                                                            processlogVo.NoOfTransactionDuplicates = 0;
-                                                            processlogVo.EndTime = DateTime.Now;
-                                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                            packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadEQTranStagingToWerp.dtsx");
+                                                            WERPEQTranWerpResult = werpEQUploadsBo.WERPEQInsertTransDetails(UploadProcessId, packagePath, configPath);
+                                                            if (WERPEQTranWerpResult)
+                                                            {
+                                                                processlogVo.IsInsertionToWERPComplete = 1;
+                                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPEQ");
+                                                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, "WPEQ");
+                                                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "EQT");
+                                                                processlogVo.NoOfTransactionDuplicates = 0;
+                                                                processlogVo.EndTime = DateTime.Now;
+                                                                bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -2033,83 +1799,325 @@ namespace WealthERP.Uploads
                                     }
                                 }
                             }
+
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
+
+                            if (werpEQTranInputResult)
+                                InputInsertionProgress = "Done";
+                            else
+                                InputInsertionProgress = "Failure";
+
+                            if (werpEQFirstStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (werpEQSecondStagingResult)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+                            if (WERPEQTranWerpResult)
+                                WERPInsertionProgress = "Done";
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            XtrnlInsertionProgress = "N/A";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
                         }
+                        #endregion Standard Equity Transaction Upload
 
-                        // Update Process Progress Monitoring Text Boxes
-                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
+                        #region Standard Equity Trade Account Upload
 
-                        if (XmlCreated)
-                            XMLProgress = "Done";
-                        else
-                            XMLProgress = "Failure";
+                        //************************************************************************************************************************************
 
-                        if (templeTranInputResult)
+                        //Standard Equity Trade Account Upload
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTradeAccount && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
                         {
-                            XtrnlInsertionProgress = "Done";
-                            InputInsertionProgress = "Done";
+                            bool werpEQTradeInputResult = false;
+                            bool werpEQFirstStagingResult = false;
+                            bool werpEQFirstStagingCheckResult = false;
+                            bool werpEQSecondStagingResult = false;
+                            bool WERPEQSecondStagingCheckResult = false;
+                            bool WERPEQTradeWerpResult = false;
+
+                            // WERP Equity Insert To Input Profile
+                            packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadTradeAccDataFromEQStdFileToEQStdTradeAccInput.dtsx");
+                            werpEQTradeInputResult = werpEQUploadsBo.WerpEQInsertToInputTradeAccount(packagePath, fileName, configPath);
+                            if (werpEQTradeInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 2;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                if (updateProcessLog1)
+                                {
+                                    // WERP Equity Insert To 1st Staging Trade Account
+                                    packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadEQTradeAccInputToEQStdTradeAccStaging.dtsx");
+                                    werpEQFirstStagingResult = werpEQUploadsBo.WerpEQInsertToFirstStagingTradeAccount(UploadProcessId, packagePath, configPath);
+                                    if (werpEQFirstStagingResult)
+                                    {
+                                        processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                        if (updateProcessLog2)
+                                        {
+                                            // Doing a check on data in First Staging and marking IsRejected flag
+                                            packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadChecksOnEQStdTradeAccStaging.dtsx");
+                                            werpEQFirstStagingCheckResult = werpEQUploadsBo.WerpEQProcessDataInFirstStagingTradeAccount(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+
+                                            if (werpEQFirstStagingCheckResult)
+                                            {
+                                                // WERP Equity Insert To 2nd Staging Trade Account
+                                                packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadEQStdTradeStagingToEQTradeStaging.dtsx");
+                                                werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTradeAccount(UploadProcessId, packagePath, configPath, 13); // EQ Trade Account XML File Type Id = 13
+
+                                                if (werpEQSecondStagingResult)
+                                                {
+                                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                    if (updateProcessLog3)
+                                                    {
+                                                        // WERP Insertion
+                                                        packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadChecksOnEQTradeStaging.dtsx");
+                                                        WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTradeAccount(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+
+                                                        if (WERPEQSecondStagingCheckResult)
+                                                        {
+                                                            packagePath = Server.MapPath("\\UploadPackages\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\EQTradeAccountUploadPackage\\UploadEQTradeStagingToWerp.dtsx");
+                                                            WERPEQTradeWerpResult = werpEQUploadsBo.WERPEQInsertTradeAccountDetails(UploadProcessId, packagePath, configPath);
+                                                            if (WERPEQTradeWerpResult)
+                                                            {
+                                                                processlogVo.IsInsertionToWERPComplete = 1;
+                                                                processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPEQ");
+                                                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetAccountsUploadRejectCount(UploadProcessId, "WPEQ");
+                                                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTradeAccountInputRejectCount(UploadProcessId, "EQTA");
+                                                                processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                                                                processlogVo.EndTime = DateTime.Now;
+                                                                bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
+
+                            if (werpEQTradeInputResult)
+                                InputInsertionProgress = "Done";
+                            else
+                                InputInsertionProgress = "Failure";
+
+                            if (werpEQFirstStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (werpEQSecondStagingResult)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+                            if (WERPEQTradeWerpResult)
+                                WERPInsertionProgress = "Done";
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            XtrnlInsertionProgress = "N/A";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
                         }
-                        else
+                        #endregion Standard Equity Trade Account Upload
+
+                        #region MF Templeton Transaction Upload
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeTemp)
                         {
-                            InputInsertionProgress = "Failure";
-                            XtrnlInsertionProgress = "Failure";
+                            bool updateProcessLog = false;
+                            bool templeTranWerpResult = false;
+                            bool CommonTransChecks = false;
+                            bool templeTranSecondStagingResult = false;
+                            bool templeTranStagingCheckResult = false;
+                            bool templeTranStagingResult = false;
+                            bool templeTranInputResult = false;
+
+                            packagePath = Server.MapPath("\\UploadPackages\\TempletonTransactionUploadPackage\\TempletonTransactionUploadPackage\\UploadTransactionFromXmlFileToInputTable.dtsx");
+                            templeTranInputResult = templetonUploadsBo.TempletonInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
+                            if (templeTranInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                if (updateProcessLog)
+                                {
+                                    packagePath = Server.MapPath("\\UploadPackages\\TempletonTransactionUploadPackage\\TempletonTransactionUploadPackage\\UploadTempletonTransToStagingTable.dtsx");
+                                    templeTranStagingResult = templetonUploadsBo.TempletonInsertToStagingTrans(UploadProcessId, packagePath, configPath);
+                                    if (templeTranStagingResult)
+                                    {
+                                        processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                        if (updateProcessLog)
+                                        {
+                                            packagePath = Server.MapPath("\\UploadPackages\\TempletonTransactionUploadPackage\\TempletonTransactionUploadPackage\\UploadChecksOnTempletonStaging.dtsx");
+                                            templeTranStagingCheckResult = templetonUploadsBo.TempletonProcessDataInStagingTrans(UploadProcessId, packagePath, configPath);
+                                            if (templeTranStagingCheckResult)
+                                            {
+                                                packagePath = Server.MapPath("\\UploadPackages\\TempletonTransactionUploadPackage\\TempletonTransactionUploadPackage\\UploadTempletonTransStagingToTransStaging.dtsx");
+                                                templeTranSecondStagingResult = templetonUploadsBo.TempletonInsertFromTempStagingTransToCommonStaging(UploadProcessId, packagePath, configPath);
+                                                if (templeTranSecondStagingResult)
+                                                {
+                                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                    if (updateProcessLog)
+                                                    {
+                                                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+                                                        CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, UploadProcessId, packagePath, configPath, "TN", "Templeton");
+
+                                                        if (CommonTransChecks)
+                                                        {
+                                                            packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
+                                                            templeTranWerpResult = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
+                                                            if (templeTranWerpResult)
+                                                            {
+                                                                processlogVo.IsInsertionToWERPComplete = 1;
+                                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPMF");
+                                                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeTemp);
+                                                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "TN");
+                                                                processlogVo.NoOfTransactionDuplicates = 0;
+                                                                processlogVo.EndTime = DateTime.Now;
+                                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Update Process Progress Monitoring Text Boxes
+                            //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
+
+                            if (templeTranInputResult)
+                            {
+                                XtrnlInsertionProgress = "Done";
+                                InputInsertionProgress = "Done";
+                            }
+                            else
+                            {
+                                InputInsertionProgress = "Failure";
+                                XtrnlInsertionProgress = "Failure";
+                            }
+
+                            if (templeTranStagingResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+                            if (templeTranStagingCheckResult)
+                                SecondStagingInsertionProgress = "Done";
+                            else
+                                SecondStagingInsertionProgress = "Failure";
+
+                            if (CommonTransChecks && templeTranWerpResult)
+                            {
+                                WERPInsertionProgress = "Done";
+
+                            }
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            if (templeTranWerpResult)
+                                XtrnlInsertionProgress = "Done";
+                            else
+                                XtrnlInsertionProgress = "Failure";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
                         }
-
-                        if (templeTranStagingResult)
-                            FirstStagingInsertionProgress = "Done";
-                        else
-                            FirstStagingInsertionProgress = "Failure";
-
-                        if (templeTranStagingCheckResult)
-                            SecondStagingInsertionProgress = "Done";
-                        else
-                            SecondStagingInsertionProgress = "Failure";
-
-                        if (CommonTransChecks && templeTranWerpResult)
-                        {
-                            WERPInsertionProgress = "Done";
-
-                        }
-                        else
-                            WERPInsertionProgress = "Failure";
-
-                        if (templeTranWerpResult)
-                            XtrnlInsertionProgress = "Done";
-                        else
-                            XtrnlInsertionProgress = "Failure";
-
-                        // Update Process Summary Text Boxes
-                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
-
-                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-
-                        Session[SessionContents.ProcessLogVo] = processlogVo;
+                        #endregion
                     }
-                    #endregion
+                    else
+                    {
+                        string rejectmessage = reject_reason;
+                        trError.Visible = true;
+                        lblError.Text = rejectmessage;
+                    }
                 }
                 else
                 {
-                    string rejectmessage = reject_reason;
+                    // Display Incorrect File Format
                     trError.Visible = true;
-                    lblError.Text = rejectmessage;
+                    lblError.Text = "The file format does not match the selection made!";
                 }
-            }
-            else
-            {
-                // Display Incorrect File Format
-                trError.Visible = true;
-                lblError.Text = "The file format does not match the selection made!";
-            }
-            # endregion
-            if (processlogVo.NoOfRejectedRecords == 0)
-            {
-                btn_ViewRjects.Visible = false;
-            }
-            if(XMLProgress=="Done" && XtrnlInsertionProgress=="Done" && InputInsertionProgress=="Done" && FirstStagingInsertionProgress=="Done" && SecondStagingInsertionProgress=="Done" && WERPInsertionProgress=="Done" && XtrnlInsertionProgress=="Done")
-            {
-                msgUploadComplete.Visible = true;
+                # endregion
+                if (processlogVo.NoOfRejectedRecords == 0)
+                {
+                    btn_ViewRjects.Visible = false;
+                }
+                else
+                {
+                    btn_ViewRjects.Visible = true;
+                }
+                if (XMLProgress == "Done" && XtrnlInsertionProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done" && XtrnlInsertionProgress == "Done")
+                {
+                    msgUploadComplete.Visible = true;
+                }
             }
 
             
@@ -3420,42 +3428,7 @@ namespace WealthERP.Uploads
 
 
                 int dsfileCount = dsFile.Tables[0].Rows.Count;
-
-                //foreach (DataRow drActual in dsActual.Tables[0].Rows)
-                //{
-                //    bool isExistingFlag = false;
-                //    foreach (DataColumn dcFile in dsFile.Tables[0].Columns)
-                //    {
-                //        if (drActual["ExternalColumnName"].ToString().ToUpper().TrimEnd() == dcFile.ColumnName.ToString().ToUpper().TrimEnd())
-                //        {
-                //            string WERPcolumnname = drActual["WERPColumnName"].ToString();
-                //            DataRow drXML;
-                //            isExistingFlag = true;
-                //            for (int i = 0; i < dsfileCount; i++)
-                //            {
-                //                if (dt.Rows.Count < dsfileCount)
-                //                {
-                //                    drXML = dt.NewRow();
-                //                    drXML[WERPcolumnname] = dsFile.Tables[0].Rows[i][dcFile.ColumnName].ToString();
-                //                    //dt.Rows[i][WERPcolumnname] = dsFile.Tables[0].Rows[i][dcFile.ColumnName];
-                //                    dt.Rows.Add(drXML);
-                //                }
-                //                else
-                //                {
-                //                    dt.Rows[i][WERPcolumnname] = dsFile.Tables[0].Rows[i][dcFile.ColumnName];
-                //                }
-                //            }
-                //        }
-                //        if (isExistingFlag == true)
-                //            break;
-
-                //    }
-                //    if (isExistingFlag == false && drActual["IsMandatory"].ToString() == "1")
-                //    {
-                //        rejectUpload_Flag = true;
-                //        reject_reason = reject_reason + "The mandatory Column '" + drActual["ExternalColumnName"].ToString() + "' does not exist; <br />";
-                //    }
-                //}
+                              
 
                 //Add headers to the datatable which will be used for creating xml
                 foreach (DataRow dr in dsActual.Tables[0].Rows)
@@ -3606,68 +3579,7 @@ namespace WealthERP.Uploads
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','?processId=" + processid + "&filetypeid=" + filetype + "');", true);
             }
-
-
-            //if (filetype == 1 || filetype == 17)
-            //{   // MF CAMS Transaction Rejected Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStaging','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 2 || filetype == 16)
-            //{   // MF CAMS Profile Rejected Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 3 || filetype == 4)
-            //{   // MF Karvy Transaction Rejected Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStaging','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 5 || filetype == 6)
-            //{   // MF Karvy Profile Rejected Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 9)
-            //{   // MF WERP Transaction Rejected Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStaging','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 10)
-            //{   // MF WERP Profile Rejected Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 19)
-            //{   // EQ Standard Trade Account Rejected Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedTradeAccountStaging','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 14)
-            //{   // EQ Standard Transaction Rejected Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 15)
-            //{   // EQ WERP Transaction Rejected Screen
-
-            //}
-            //else if (filetype == 12)
-            //{   // EQ WERP Profile Rejected Screen
-
-            //}
-            //else if (filetype == 18)
-            //{   //Folio Staging Reject Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 22)
-            //{   //Folio Staging Reject Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 24)
-            //{   //Folio Staging Reject Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 21)
-            //{   //Folio Staging Reject Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStaging','?processId=" + processid + "');", true);
-            //}
-            //else if (filetype == 23)
-            //{   //Folio Staging Reject Screen
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStaging','?processId=" + processid + "');", true);
-            //}
+            
         }
 
         protected void btnRollback_Click(object sender, EventArgs e)
@@ -3786,20 +3698,7 @@ namespace WealthERP.Uploads
             gvInputError.DataBind();
             divresult.Visible = false;
             ViewState["dtinputvalidationerror"] = dtInputRejects;
-        }
-
-       
-
-        
-
-        
-
-       
-      
-
-       
-
-        
+        }        
     }
 }
 

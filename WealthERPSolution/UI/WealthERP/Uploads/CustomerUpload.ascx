@@ -264,7 +264,7 @@
                 runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtNoOfRows"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btn_Upload" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
