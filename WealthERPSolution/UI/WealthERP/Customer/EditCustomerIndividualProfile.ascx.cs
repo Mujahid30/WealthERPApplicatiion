@@ -92,7 +92,10 @@ namespace WealthERP.Customer
                         txtDob.Text = "";
                     else
                         txtDob.Text = customerVo.Dob.ToShortDateString();
-
+                    if (!string.IsNullOrEmpty(customerVo.Salutation))
+                        ddlSalutation.SelectedValue = customerVo.Salutation;
+                    else
+                        ddlSalutation.SelectedIndex = 0;
                     txtGuardianFirstName.Text = customerVo.ContactFirstName;
                     txtGuardianLastName.Text = customerVo.ContactLastName;
                     txtGuardianMiddleName.Text = customerVo.ContactMiddleName;
@@ -291,6 +294,7 @@ namespace WealthERP.Customer
                 if (Validation())
                 {
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue.ToString());
+                    customerVo.Salutation = ddlSalutation.SelectedValue;
                     customerVo.FirstName = txtFirstName.Text.ToString();
                     customerVo.MiddleName = txtMiddleName.Text.ToString();
                     customerVo.LastName = txtLastName.Text.ToString();

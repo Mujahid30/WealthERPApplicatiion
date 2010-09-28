@@ -71,6 +71,22 @@
     </tr>
     <tr>
         <td class="leftField">
+            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
+        </td>
+        <td class="rightField" width="75%">
+            <asp:DropDownList ID="ddlSalutation" runat="server" CssClass="cmbField">
+                <asp:ListItem>Select a Salutation</asp:ListItem>
+                <asp:ListItem>Mr.</asp:ListItem>
+                <asp:ListItem>Mrs.</asp:ListItem>
+                <asp:ListItem>Ms.</asp:ListItem>
+            </asp:DropDownList>
+             <asp:CompareValidator ID="cmpddlSalutation" runat="server" ControlToValidate="ddlSalutation"
+                ErrorMessage="Please select a Salutation for customer" Operator="NotEqual" ValueToCompare="Select a Salutation"
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Name (First/Middle/Last):"></asp:Label>
         </td>
         <td class="rightField">
