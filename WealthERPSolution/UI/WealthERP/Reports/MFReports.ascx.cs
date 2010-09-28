@@ -39,7 +39,7 @@ namespace WealthERP.Reports
         int reportFlag = 0;
         //For Storing customer Details in to session for Report
         CustomerVo customerVo = new CustomerVo();
-
+        bool isGrpHead = false;
         bool CustomerLogin = false;
 
         protected void Page_Init(object sender, EventArgs e)
@@ -182,9 +182,20 @@ namespace WealthERP.Reports
 
                         trAdvisorRadioList.Visible=false;
                         trCustomerRadioList.Visible = true;
-
+                        
                         trAdminRM.Visible = false;
                         trCustomer.Visible = true;
+
+                        isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                        if (isGrpHead == false)
+                        {
+                            rdoCustomerGroup.Enabled = false;
+                            rdoCustomerIndivisual.Checked = true;
+                            divGroupCustomers.Visible = false;
+                        }
+                        else
+                            rdoCustomerGroup.Checked = true;
+
                     }
                     else
                     {
@@ -317,7 +328,6 @@ namespace WealthERP.Reports
         {
                 //CustomerBo customerBo = new CustomerBo();
                 lblCustomerName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
-                
                 DataTable dt = customerBo.GetCustomerPanAddress(customerVo.CustomerId);
                 DataRow dr = dt.Rows[0];
                 hdnCustomerId1.Value = customerVo.CustomerId.ToString();

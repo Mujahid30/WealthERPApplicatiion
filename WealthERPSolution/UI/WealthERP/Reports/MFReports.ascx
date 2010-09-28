@@ -323,7 +323,7 @@
         var arr = new Array();
         arr["CATEGORY_WISE"] = "AS_ON";
         arr["RETURNS_PORTFOLIO"] = "AS_ON";
-        arr["PORFOLIO_ANALYTICS"] = "AS_ON";
+        arr["COMPREHENSIVE"] = "AS_ON";
         arr["RETURNS_PORTFOLIO_REALIZED"] = "AS_ON";
         arr["ELIGIBLE_CAPITAL_GAIN_DETAILS"] = "AS_ON";
         arr["ELIGIBLE_CAPITAL_GAIN_SUMMARY"] = "AS_ON";
@@ -409,6 +409,7 @@
         else {
             document.getElementById("<%= divGroupCustomers.ClientID %>").style.display = 'none';
             document.getElementById("<%= hndSelfOrGroup.ClientID %>").value = 'self';
+          
 
         }
 
@@ -521,6 +522,14 @@
     {
         width: 861px;
     }
+    .ddlReportType
+    {
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 175px; /*margin-left: 0px;*/
+    }
 </style>
 
 <table border="0" width="100%" height="100%" style="">
@@ -569,10 +578,8 @@
                                                         <td runat="server">
                                                             <asp:Label ID="lblGrpOrInd" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                                                 Text="Generate report for :"></asp:Label>
-                                                                <asp:RadioButton runat="server" ID="rdoGroup"
-                                                                    Text="Group" Class="cmbField" GroupName="GrpOrInd" Checked="True" onClick="ChangeCustomerSelectionTextBox('Group')" /><asp:RadioButton
-                                                                        runat="server" ID="rdoIndividual" Text="Individual" Class="cmbField" GroupName="GrpOrInd"
-                                                                        onClick="return ChangeCustomerSelectionTextBox('Individual')" />
+                                                                <asp:RadioButton runat="server" ID="rdoGroup" Text="Group" Class="cmbField" GroupName="GrpOrInd" Checked="True" onClick="ChangeCustomerSelectionTextBox('Group')" />
+                                                                <asp:RadioButton runat="server" ID="rdoIndividual" Text="Individual" Class="cmbField" GroupName="GrpOrInd" onClick="return ChangeCustomerSelectionTextBox('Individual')" />
                                                         </td>
                                                         <td runat="server">
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -582,10 +589,8 @@
                                                         <td runat="server">
                                                             <asp:Label ID="lblCustometGroupOrInd" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                                                 Text="Generate report for :"></asp:Label>
-                                                                <asp:RadioButton runat="server" ID="rdoCustomerGroup"
-                                                                    Text="Group" Class="cmbField" GroupName="GrpOrSelf" Checked="True" onClick="ChangeGroupOrSelf('group')" /><asp:RadioButton
-                                                                        runat="server" ID="rdoCustomerIndivisual" Text="Self" Class="cmbField" GroupName="GrpOrSelf"
-                                                                        onClick="return ChangeGroupOrSelf('Individual')" />
+                                                                <asp:RadioButton runat="server" ID="rdoCustomerGroup" Text="Group" Class="cmbField" GroupName="GrpOrSelf" onClick="ChangeGroupOrSelf('group')" />
+                                                                <asp:RadioButton runat="server" ID="rdoCustomerIndivisual" Text="Self" Class="cmbField" GroupName="GrpOrSelf" onClick="return ChangeGroupOrSelf('Individual')" />
                                                         </td>
                                                         <td runat="server">
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -595,10 +600,6 @@
                                                         <td runat="server">
                                                             <asp:Label ID="lblCustomer" runat="server" Text="Select Customer:" CssClass="FieldName"></asp:Label><asp:TextBox
                                                                 ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True"></asp:TextBox>
-                                                                <%--<cc1:TextBoxWatermarkExtender
-                                                                    ID="txtCustomer_TextBoxWatermarkExtender" runat="server" TargetControlID="txtCustomer"
-                                                                    WatermarkText="Type the Customer Name" Enabled="True">
-                                                                </cc1:TextBoxWatermarkExtender>--%>
                                                             <ajaxToolkit:AutoCompleteExtender ID="txtCustomer_autoCompleteExtender" runat="server"
                                                                 TargetControlID="txtCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                                                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
@@ -611,7 +612,7 @@
                                                                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                                                                 CssClass="rfvPCG" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator><span
                                                                     style='font-size: 9px; font-weight: normal' class='FieldName'><br />
-                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                     Enter few characters of Individual customer name. </span>
                                                         </td>
                                                         <td runat="server">
@@ -623,10 +624,6 @@
                                                             <asp:Label ID="lblGCustomer" runat="server" Text="Select Customer:" CssClass="FieldName"></asp:Label><asp:TextBox
                                                                 ID="txtParentCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
                                                                 AutoPostBack="True"></asp:TextBox>
-                                                                <%--<cc1:TextBoxWatermarkExtender ID="txtParentCustomer_TextBoxWatermarkExtender"
-                                                                    runat="server" TargetControlID="txtParentCustomer" WatermarkText="Type the Customer Name"
-                                                                    Enabled="True">
-                                                                </cc1:TextBoxWatermarkExtender>--%>
                                                             <ajaxToolkit:AutoCompleteExtender ID="txtParentCustomer_autoCompleteExtender" runat="server"
                                                                 TargetControlID="txtParentCustomer" ServiceMethod="GetParentCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                                                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
@@ -639,7 +636,7 @@
                                                                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                                                                 CssClass="rfvPCG" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator><span
                                                                     style='font-size: 9px; font-weight: normal' class='FieldName'><br />
-                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                     Enter few characters of Group customer name. </span>
                                                         </td>
                                                         <td runat="server">
@@ -703,11 +700,10 @@
                                                             <asp:Label ID="Label4" runat="server" Text="Report Type:" CssClass="FieldName"></asp:Label>
                                                         </td>
                                                         <td align="left" width="87%">
-                                                            <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">
+                                                            <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="ddlReportType" onChange="ChangeDates()">
                                                                 <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE" Selected="True"></asp:ListItem>
                                                                 <asp:ListItem Text="Portfolio Returns-Holding" Value="RETURNS_PORTFOLIO"></asp:ListItem>
-                                                                <asp:ListItem Text="Comprehensive Report" Value="PORFOLIO_ANALYTICS"></asp:ListItem>
-                                                                <%--<asp:ListItem Text="Portfolio Returns Realized" Value="RETURNS_PORTFOLIO_REALIZED"></asp:ListItem>--%>
+                                                                <asp:ListItem Text="Comprehensive Report" Value="COMPREHENSIVE"></asp:ListItem>
                                                                 <asp:ListItem Text="Transaction Report" Value="TRANSACTION_REPORT"></asp:ListItem>
                                                                 <asp:ListItem Text="Dividend Statement" Value="DIVIDEND_STATEMENT"></asp:ListItem>
                                                                 <asp:ListItem Text="Dividend Summary" Value="DIVIDEND_SUMMARY"></asp:ListItem>
@@ -718,29 +714,32 @@
                                                             </asp:DropDownList>
                                                         </td>
                                                     </tr>
-                                                    <td colspan="2" width="100%">
-                                                    <table width="100%">
-                                                     <tr id="trTranFilter1" runat="server" style="display:none">
-                                                        <td id="Td4" align="right"  runat="server">
-                                                            <asp:Label ID="lblsortby" Text="Sort by:" runat="server" CssClass="FieldName"></asp:Label>
-                                                        </td>
-                                                        <td id="Td5" align="left"  runat="server"> 
-                                                            <asp:RadioButton ID="rddate" runat="server" GroupName="Transation" Text="Date" CssClass="cmbField" /><asp:RadioButton
-                                                                ID="rdScheme" runat="server" GroupName="Transation" Text="Scheme/Folio" CssClass="cmbField" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr id="trTranFilter2" runat="server" style="display:none">
-                                                        <td id="Td6" align="right"  runat="server">
-                                                            <asp:Label ID="lblFilterBy" Text="Filter by:" runat="server" CssClass="FieldName"></asp:Label>
-                                                        </td>
-                                                        <td id="Td7" align="left"  runat="server" >
-                                                            <asp:DropDownList ID="ddlMFTransactionType" runat="server" CssClass="cmbField">
-                                                            </asp:DropDownList>
-                                                        </td>
-                                                    </tr>
-                                                    </table>
-                                                    </td>
                                                     <tr>
+                                                        <td colspan="2" width="100%">
+                                                            <table width="100%">
+                                                                <tr ID="trTranFilter1" runat="server" style="display: none">
+                                                                    <td ID="Td4" runat="server" align="right">
+                                                                        <asp:Label ID="lblsortby" runat="server" CssClass="FieldName" Text="Sort by:"></asp:Label>
+                                                                    </td>
+                                                                    <td ID="Td5" runat="server" align="left">
+                                                                        <asp:RadioButton ID="rddate" runat="server" CssClass="cmbField" 
+                                                                            GroupName="Transation" Text="Date" />
+                                                                        <asp:RadioButton ID="rdScheme" runat="server" CssClass="cmbField" 
+                                                                            GroupName="Transation" Text="Scheme/Folio" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ID="trTranFilter2" runat="server" style="display: none">
+                                                                    <td ID="Td6" runat="server" align="right">
+                                                                        <asp:Label ID="lblFilterBy" runat="server" CssClass="FieldName" 
+                                                                            Text="Filter by:"></asp:Label>
+                                                                    </td>
+                                                                    <td ID="Td7" runat="server" align="left">
+                                                                        <asp:DropDownList ID="ddlMFTransactionType" runat="server" CssClass="cmbField">
+                                                                        </asp:DropDownList>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
                                                     </tr>
                                                    
                                                 </table>
@@ -841,11 +840,11 @@
                                                         </td>
                                                     </tr>
                                                     <tr id="trAdminRM" runat="server">
-                                                        <td class="style1">
+                                                        <td class="style1" runat="server">
                                                             <asp:Button ID="btnViewReport" runat="server" Text="View Report" OnClientClick="return validate('')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" ValidationGroup="btnView" />&nbsp;&nbsp;
                                                         </td>
-                                                        <td class="style1">
+                                                        <td class="style1" runat="server">
                                                             <asp:Button ID="btnExportToPDF" runat="server" Text="Export To PDF" OnClientClick="return validate('pdf')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />&nbsp;&nbsp;
                                                         </td>
@@ -853,11 +852,11 @@
                                                     
                                                     
                                                      <tr id="trCustomer" runat="server">
-                                                        <td class="style1">
+                                                        <td class="style1" runat="server">
                                                             <asp:Button ID="btnCustomerViewReport" runat="server" Text="View Report" OnClientClick="return CustomerValidate('view')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="PCGMediumButton" ValidationGroup="btnView" />&nbsp;&nbsp;
                                                         </td>
-                                                        <td class="style1">
+                                                        <td class="style1" runat="server">
                                                             <asp:Button ID="btnCustomerExportToPDF" runat="server" Text="Export To PDF" OnClientClick="return CustomerValidate('pdf')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />&nbsp;&nbsp;
                                                         </td>
@@ -1108,7 +1107,7 @@
                                                                         <tr>
                                                                             <td width="20%">
                                                                                 <asp:CheckBox ID="chkDividendDetail" runat="server" class="cmbField" 
-                                                                                    Text="Devidend Statement" />
+                                                                                    Text="Dividend Statement" />
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
