@@ -583,14 +583,14 @@ namespace WealthERP.Reports
                         crmain.Load(Server.MapPath("MFFundSummary.rpt"));
                         
                         DataSet dsMFFundSummary = mfReports.GetMFFundSummaryReport(report, advisorVo.advisorId);
-                        if (dsMFFundSummary.Tables.Count > 0)
+                        if (dsMFFundSummary.Tables[0].Rows.Count > 0 || dsMFFundSummary.Tables[1].Rows.Count > 0 || dsMFFundSummary.Tables[2].Rows.Count > 0)
                         {
                             crmain.Subreports["OpenPositionReport"].Database.Tables[0].SetDataSource(dsMFFundSummary.Tables[0]);
                             crmain.Subreports["AllPositionReport1"].Database.Tables[0].SetDataSource(dsMFFundSummary.Tables[1]);
                             crmain.Subreports["AllPositionReport2"].Database.Tables[0].SetDataSource(dsMFFundSummary.Tables[1]);
                             setLogo();                                       
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("PreviousMonthDate", DateBo.GetPreviousMonthLastDate(report.FromDate).ToShortDateString());
@@ -699,7 +699,7 @@ namespace WealthERP.Reports
                         else
                             SetNoRecords();
                         break;
-                    case "PORFOLIO_ANALYTICS":
+                    case "COMPREHENSIVE":
                         crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
 
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
@@ -1125,15 +1125,15 @@ namespace WealthERP.Reports
                 }
                 else if (CurrentReportType == ReportType.FinancialPlanning)
                 {
-                    //subType = string.Empty;
-                    //fromDate = DateTime.MinValue;
-                    //toDate = DateTime.MinValue;
+                    subType = string.Empty;
+                    fromDate =DateTime.Today;
+                    toDate = DateTime.Today;
                     cust = customerBo.GetCustomer(Convert.ToInt32(financialPlanning.CustomerId));
                 }
                 Session["hidCC"] = txtCC.Text;
-
+                Session["hidTo"]= cust.Email;
                 if (Session["hidTo"]!=null)
-                Session["hidTo"] = txtTo.Text = cust.Email;
+                    Session["hidTo"] = txtTo.Text = cust.Email;
 
                 Session["hidSubject"] = txtSubject.Text = GetReportSubject(subType, fromDate, toDate);
                 if (cust.Salutation == string.Empty || cust.Salutation == "")
@@ -1143,7 +1143,7 @@ namespace WealthERP.Reports
                 }
                 else 
                 {
-                    Session["hidBody"] = txtBody.Text = GetReportBody(cust.Salutation + "." + " " + cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
+                    Session["hidBody"] = txtBody.Text = GetReportBody(cust.Salutation + " " + cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
 
                 }
                     
@@ -1188,10 +1188,10 @@ namespace WealthERP.Reports
             strMail.Append("<br/>Please find attached " + subject + ".");
            if(!string.IsNullOrEmpty(advisorVo.Website))
            {
-               strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website);
+               strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website + "</i></b>");
            }
            else
-            strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber);
+               strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website + "</i></b>");
 
             return strMail.ToString();
 
@@ -1220,8 +1220,8 @@ namespace WealthERP.Reports
                             case "RETURNS_PORTFOLIO":
                                 subject = "Portfolio Return-Holding ";
                                 break;
-                            case "PORFOLIO_ANALYTICS":
-                                subject = "Portfolio Returns - ";
+                            case "COMPREHENSIVE":
+                                subject = "Comprehensive Report - ";
                                 break;
                             case "RETURNS_PORTFOLIO_REALIZED":
                                 subject = "Portfolio Returns Realized - ";
@@ -1254,7 +1254,7 @@ namespace WealthERP.Reports
                     subject = "Portfolio Report - ";
                     break;
                 case ReportType.FinancialPlanning:
-                    subject = "Financial Planning Report";
+                    subject = "Financial Planning Report-";
                     break;
             }
 
