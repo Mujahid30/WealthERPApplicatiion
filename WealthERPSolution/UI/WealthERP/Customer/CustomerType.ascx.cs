@@ -238,6 +238,7 @@ namespace WealthERP.Customer
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
         {
             BindSubTypeDropDown();
+            trSalutation.Visible = true;
         }
 
         private void BindSubTypeDropDown()
@@ -291,6 +292,7 @@ namespace WealthERP.Customer
                 ddlCustomerSubType.Items.Insert(0, new ListItem("Select a Sub-Type", "Select a Sub-Type"));
                 trIndividualName.Visible = false;
                 trNonIndividualName.Visible = true;
+                trSalutation.Visible = false;
             }
             catch (BaseApplicationException Ex)
             {
@@ -331,7 +333,14 @@ namespace WealthERP.Customer
                         customerVo.FirstName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
-
+                        if (ddlSalutation.SelectedIndex==0)
+                        {
+                            customerVo.Salutation = "";
+                        }
+                        else
+                        {
+                            customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
+                        }
                         userVo.FirstName = txtFirstName.Text.ToString();
                         userVo.MiddleName = txtMiddleName.Text.ToString();
                         userVo.LastName = txtLastName.Text.ToString();
@@ -414,7 +423,14 @@ namespace WealthERP.Customer
                         customerVo.FirstName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
-
+                        if (ddlSalutation.SelectedIndex == 0)
+                        {
+                            customerVo.Salutation = "";
+                        }
+                        else
+                        {
+                            customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
+                        }
                         userVo.FirstName = txtFirstName.Text.ToString();
                         userVo.MiddleName = txtMiddleName.Text.ToString();
                         userVo.LastName = txtLastName.Text.ToString();

@@ -14,7 +14,19 @@
 <link href="../Scripts/Calender/skins/aqua/theme.css" rel="stylesheet" type="text/css" />
 <%--Javascript Calendar Controls - Required Files--%>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
+ 
 </asp:ScriptManager>
+<script type="text/javascript" language="javascript">
+    function ShowHideSalulation(value) {
+        alert(value);
+        if (value == 'rbtnNonIndividual') {
+            document.getElementById("<%= trSalutation.ClientID %>").style.display = 'none';
+        }
+        else {
+            document.getElementById("<%= trSalutation.ClientID %>").style.display = 'block';
+             }
+    }
+</script>
 <%--<asp:UpdatePanel ID="upPnl" runat="server">
     <ContentTemplate>--%>
 <table class="TableBackground" style="width: 100%">
@@ -87,6 +99,24 @@
                 CssClass="cvPCG"></asp:CompareValidator>
         </td>
     </tr>--%>
+     <tr id="trSalutation" runat="server">
+        <td class="leftField">
+            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
+        </td>
+        <td class="rightField" width="75%">
+            <asp:DropDownList ID="ddlSalutation" runat="server" CssClass="cmbField">
+                <asp:ListItem>Select a Salutation</asp:ListItem>
+                <asp:ListItem>Mr.</asp:ListItem>
+                <asp:ListItem>Mrs.</asp:ListItem>
+                <asp:ListItem>Ms.</asp:ListItem>
+            </asp:DropDownList>
+            <span id="Span3" class="spnRequiredField">*</span>
+               <br />
+            <asp:CompareValidator ID="cmpddlSalutation" runat="server" ControlToValidate="ddlSalutation"
+                ErrorMessage="Please select a Salutation for customer" Operator="NotEqual" ValueToCompare="Select a Salutation"
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+        </td>
+    </tr>
     <tr id="trIndividualName" runat="server">
         <td class="leftField">
             <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name (First/Middle/Last):"></asp:Label>
