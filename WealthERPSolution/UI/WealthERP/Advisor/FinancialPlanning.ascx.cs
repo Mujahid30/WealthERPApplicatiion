@@ -260,13 +260,13 @@ namespace WealthERP.Advisor
                                 txtRecommendedCash.Text = cashPercentage.ToString();
                                 lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                             }
-                            else if (lblRClassRs.Text == "Aggresive")
+                            else if (lblRClassRs.Text == "Aggressive")
                             {
                                 equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
                                 txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
                                 txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
                                 txtRecommendedCash.Text = cashPercentage.ToString();
-                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
+                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
                             }
 
                             //================================
@@ -448,23 +448,25 @@ namespace WealthERP.Advisor
                     DataSet dsRiskClass = riskprofilebo.GetRiskClass(riskCode);
                     lblRClass.Text = dsRiskClass.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
 
-                    if (lblRClass.Text == "Aggresive")
+                    if (lblRClass.Text == "Aggressive")
                     {
 
-                        lblRClass.BackColor = System.Drawing.Color.Green;
+                        lblRClass.ForeColor = System.Drawing.Color.Green;
                         lblRScore.ForeColor = System.Drawing.Color.Green;
+                        lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
+
                     }
                     else if (lblRClass.Text == "Moderate")
                     {
-
-
-                        lblRClass.BackColor = System.Drawing.Color.Yellow;
+                        lblRClass.ForeColor = System.Drawing.Color.Yellow;
                         lblRScore.ForeColor = System.Drawing.Color.Yellow;
+                        lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                     }
                     else if (lblRClass.Text == "Conservative")
                     {
-                        lblRClass.BackColor = System.Drawing.Color.Red;
+                        lblRClass.ForeColor = System.Drawing.Color.Red;
                         lblRScore.ForeColor = System.Drawing.Color.Red;
+                        lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
                     }
 
 
@@ -715,21 +717,23 @@ namespace WealthERP.Advisor
                         if (lblRClass.Text == "Aggressive")
                         {
 
-                            lblRClass.BackColor = System.Drawing.Color.Green;
+                            //lblRClass.BackColor = System.Drawing.Color.Green;
                             lblRScore.ForeColor = System.Drawing.Color.Green;
+                            lblRClass.ForeColor = System.Drawing.Color.Green;
                             lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
+                            
                         }
                         else if (lblRClass.Text == "Moderate")
                         {
 
 
-                            lblRClass.BackColor = System.Drawing.Color.Yellow;
+                            lblRClass.ForeColor = System.Drawing.Color.Yellow;
                             lblRScore.ForeColor = System.Drawing.Color.Yellow;
                             lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                         }
                         else if (lblRClass.Text == "Conservative")
                         {
-                            lblRClass.BackColor = System.Drawing.Color.Red;
+                            lblRClass.ForeColor = System.Drawing.Color.Red;
                             lblRScore.ForeColor = System.Drawing.Color.Red;
                             lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
                         }
