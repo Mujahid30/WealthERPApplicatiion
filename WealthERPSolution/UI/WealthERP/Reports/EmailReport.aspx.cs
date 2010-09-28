@@ -52,7 +52,17 @@ namespace WealthERP.Reports
         CustomerBo customerBo = new CustomerBo();
         CustomerVo customerVo = new CustomerVo();
         bool GroupCustomer = true;
-
+        string mFundSummary = string.Empty;
+        string portfolioRHolding = string.Empty;
+        string comprehensive = string.Empty;
+        string eCapitalGainDetails = string.Empty;
+        string eCapitalGainsSummary = string.Empty;
+        string transactionReport = string.Empty;
+        string dividendStatement = string.Empty;
+        string dividendSummary = string.Empty;
+        string capitalGainDetails = string.Empty;
+        string capitalGainSummary = string.Empty;
+        string mailSendStatus = "";
         protected void Page_Load(object sender, EventArgs e)
         {
         }
@@ -87,9 +97,25 @@ namespace WealthERP.Reports
                     char[] separator = new char[] { ',' };
 
                     string[] strSplitArr = AllCustomerId.Split(separator);
-                    DataTable dtCustomerList = new DataTable();
-                    dtCustomerList.Columns.Add("CustometName");
-                    DataRow drcustomer;
+
+                    DataTable dtCustomerReportMailStatus = new DataTable();
+                    DataRow drCustomerReportMailStatus;
+
+                    if (strSplitArr.Count() > 0)
+                    {
+                        dtCustomerReportMailStatus.Columns.Add("CustometName");
+                        dtCustomerReportMailStatus.Columns.Add("MFundSummary");
+                        dtCustomerReportMailStatus.Columns.Add("PortfolioRHolding");
+                        dtCustomerReportMailStatus.Columns.Add("Comprehensive");
+                        dtCustomerReportMailStatus.Columns.Add("ECapitalGainDetails");
+                        dtCustomerReportMailStatus.Columns.Add("ECapitalGainsSummary");
+                        dtCustomerReportMailStatus.Columns.Add("TransactionReport");
+                        dtCustomerReportMailStatus.Columns.Add("DividendStatement");
+                        dtCustomerReportMailStatus.Columns.Add("DividendSummary");
+                        dtCustomerReportMailStatus.Columns.Add("CapitalGainDetails");
+                        dtCustomerReportMailStatus.Columns.Add("CapitalGainSummary");                     
+ 
+                    }
 
                     foreach (string arrStr in strSplitArr)
                     {
@@ -119,28 +145,96 @@ namespace WealthERP.Reports
 
                             if (!string.IsNullOrEmpty(customerVo.Email))
                             {
+                                clearAllReportString();
                                 ExportTODisk();
                                 MailSending();
+
+                                drCustomerReportMailStatus = dtCustomerReportMailStatus.NewRow();
+                                string CustometName = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
+                                drCustomerReportMailStatus["CustometName"] = CustometName;
+                                if(!string.IsNullOrEmpty(mFundSummary))
+                                    drCustomerReportMailStatus["MFundSummary"] = mFundSummary;
+                                else
+                                    drCustomerReportMailStatus["MFundSummary"] = mailSendStatus;
+
+                                if (!string.IsNullOrEmpty(portfolioRHolding))
+                                    drCustomerReportMailStatus["PortfolioRHolding"] = portfolioRHolding;
+                                else
+                                    drCustomerReportMailStatus["PortfolioRHolding"] = mailSendStatus;
+
+                                if (!string.IsNullOrEmpty(comprehensive))
+                                    drCustomerReportMailStatus["Comprehensive"] = comprehensive;
+                                else
+                                    drCustomerReportMailStatus["Comprehensive"] = mailSendStatus;
+
+                                if (!string.IsNullOrEmpty(eCapitalGainDetails))
+                                    drCustomerReportMailStatus["ECapitalGainDetails"] = eCapitalGainDetails;
+                                else
+                                    drCustomerReportMailStatus["ECapitalGainDetails"] = mailSendStatus;
+
+                                if (!string.IsNullOrEmpty(eCapitalGainsSummary))
+                                    drCustomerReportMailStatus["ECapitalGainsSummary"] = eCapitalGainsSummary;
+                                else
+                                    drCustomerReportMailStatus["ECapitalGainsSummary"] = mailSendStatus;
+
+                                if (!string.IsNullOrEmpty(transactionReport))
+                                    drCustomerReportMailStatus["TransactionReport"] = transactionReport;
+                                else
+                                    drCustomerReportMailStatus["TransactionReport"] = mailSendStatus;
+
+                                if (!string.IsNullOrEmpty(dividendStatement))
+                                    drCustomerReportMailStatus["DividendStatement"] = dividendStatement;
+                                else
+                                    drCustomerReportMailStatus["DividendStatement"] = mailSendStatus;
+
+                                if (!string.IsNullOrEmpty(dividendSummary))
+                                    drCustomerReportMailStatus["DividendSummary"] = dividendSummary;
+                                else
+                                    drCustomerReportMailStatus["DividendSummary"] = mailSendStatus;
+
+                                if (!string.IsNullOrEmpty(capitalGainDetails))
+                                    drCustomerReportMailStatus["CapitalGainDetails"] = capitalGainDetails;
+                                else
+                                    drCustomerReportMailStatus["CapitalGainDetails"] = mailSendStatus;
+
+                                if (!string.IsNullOrEmpty(capitalGainSummary))
+                                    drCustomerReportMailStatus["CapitalGainSummary"] = capitalGainSummary;
+                                else
+                                    drCustomerReportMailStatus["CapitalGainSummary"] = mailSendStatus;
+
+                                dtCustomerReportMailStatus.Rows.Add(drCustomerReportMailStatus);                     
+                                
                             }
                             else
                             {
-                                drcustomer = dtCustomerList.NewRow();
+                                drCustomerReportMailStatus = dtCustomerReportMailStatus.NewRow();
                                 string CustometName=customerVo.FirstName+ " " + customerVo.MiddleName + " " + customerVo.LastName;
-                                drcustomer["CustometName"] = CustometName;
-                                dtCustomerList.Rows.Add(drcustomer);
+                                drCustomerReportMailStatus["CustometName"] = CustometName;
+                                drCustomerReportMailStatus["MFundSummary"] = "Email-Id Not in Profile";
+                                drCustomerReportMailStatus["PortfolioRHolding"] = "Email-Id Not in Profile";
+                                drCustomerReportMailStatus["Comprehensive"] = "Email-Id Not in Profile";
+                                drCustomerReportMailStatus["ECapitalGainDetails"] = "Email-Id Not in Profile";
+                                drCustomerReportMailStatus["ECapitalGainsSummary"] = "Email-Id Not in Profile";
+                                drCustomerReportMailStatus["TransactionReport"] = "Email-Id Not in Profile";
+                                drCustomerReportMailStatus["DividendStatement"] = "Email-Id Not in Profile";
+                                drCustomerReportMailStatus["DividendSummary"] = "Email-Id Not in Profile";
+                                drCustomerReportMailStatus["CapitalGainDetails"] = "Email-Id Not in Profile";
+                                drCustomerReportMailStatus["CapitalGainSummary"] = "Email-Id Not in Profile";
+                                dtCustomerReportMailStatus.Rows.Add(drCustomerReportMailStatus);
                                 
                             }
 
                         }
 
                     }
-                    if(dtCustomerList.Rows.Count>0)
+                    if (dtCustomerReportMailStatus.Rows.Count > 0)
                     {
                         
                         //lblEmailStatus.Text = lblEmailStatus.Text + "  " + " and Report not send to the following customers as E-Mail Id is not available in profile";
                         trCustomerlist.Visible = true;
-                        gvEmailCustomerList.DataSource = dtCustomerList;
+                        gvEmailCustomerList.DataSource = dtCustomerReportMailStatus;
                         gvEmailCustomerList.DataBind();
+                        ShowHideGridViewColumns(gvEmailCustomerList);
                     }
                    
                     isMail = "0";
@@ -153,7 +247,75 @@ namespace WealthERP.Reports
 
             
         }
-    
+        /// <summary>
+        /// hide Report columns in the gridview based on seleted report..
+        /// </summary>
+        private void ShowHideGridViewColumns(GridView gvEmailCustomerList)
+        {
+            if (Request.Form[ctrlPrefix + "chkMFSummary"] != "on")
+            {
+                gvEmailCustomerList.Columns[1].Visible = false;
+            }
+            if (Request.Form[ctrlPrefix + "chkPortfolioReturns"] != "on")
+            {
+                gvEmailCustomerList.Columns[2].Visible = false;
+            }
+            if (Request.Form[ctrlPrefix + "chkPortfolioAnalytics"] != "on")
+            {
+                gvEmailCustomerList.Columns[3].Visible = false;                
+            }
+                    
+            if (Request.Form[ctrlPrefix + "chkEligibleCapitalgainsDetail"] != "on")
+            {
+                gvEmailCustomerList.Columns[4].Visible = false;
+            }
+            if (Request.Form[ctrlPrefix + "chkEligibleCapitalGainsSummary"] != "on")
+            {
+                gvEmailCustomerList.Columns[5].Visible = false;
+            }
+            if (Request.Form[ctrlPrefix + "chkTransactionReport"] != "on")
+            {
+                gvEmailCustomerList.Columns[6].Visible = false;
+            }
+            if (Request.Form[ctrlPrefix + "chkDividendDetail"] != "on")
+            {
+                gvEmailCustomerList.Columns[7].Visible = false;
+            }
+            if (Request.Form[ctrlPrefix + "chkDividendSummary"] != "on")
+            {
+                gvEmailCustomerList.Columns[8].Visible = false;
+
+            }
+            if (Request.Form[ctrlPrefix + "chkCapitalGainDetails"] != "on")
+            {
+                gvEmailCustomerList.Columns[9].Visible = false;
+
+            }
+            if (Request.Form[ctrlPrefix + "chkCapitalGainSummary"] != "on")
+            {
+                gvEmailCustomerList.Columns[10].Visible = false;
+
+            }
+            
+        }
+
+        /// <summary>
+        /// Clearing all the string variable for next customer report generaion and mail send
+        /// </summary>
+        public void clearAllReportString()
+        {
+            mFundSummary = string.Empty;
+            portfolioRHolding = string.Empty;
+            comprehensive = string.Empty;
+            eCapitalGainDetails = string.Empty;
+            eCapitalGainsSummary = string.Empty;
+            transactionReport = string.Empty;
+            dividendStatement = string.Empty;
+            dividendSummary = string.Empty;
+            capitalGainDetails = string.Empty;
+            capitalGainSummary = string.Empty;
+            mailSendStatus = string.Empty;
+        }
 
         /// <summary>
         /// This will Export report into disk based on CheckBox Selected from UI For Bulk-Email.
@@ -181,7 +343,7 @@ namespace WealthERP.Reports
             {
                 CountReport = CountReport + 1;
                 crmain = new ReportDocument();
-                GetReportParameters("PORFOLIO_ANALYTICS");
+                GetReportParameters("COMPREHENSIVE");
                 DisplayReport(mfReport);
                 //FillEmailValues();
             }
@@ -266,6 +428,8 @@ namespace WealthERP.Reports
                 MFReportsBo mfReports = new MFReportsBo();
                 report = (MFReportVo)Session["reportParams"];
                 //customerVo = (CustomerVo)Session["CusVo"];
+                if (Session["CusVo"] != null)
+                    customerVo = (CustomerVo)Session["CusVo"];
                 string fileExtension = ".pdf";
                 string exportFilename = string.Empty;
                 
@@ -281,14 +445,17 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtCapitalGainSummary);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
-                            crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            //crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
+                            //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
-                            crmain.ExportToDisk(ExportFormatType.PortableDocFormat , exportFilename);
+                            crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
                         }
                         else
-                            SetNoRecords();
+                        {
+                            capitalGainSummary = "No Record Found";
+                        }
                         break;
 
                     case "CAPITAL_GAIN_DETAILS":
@@ -299,14 +466,18 @@ namespace WealthERP.Reports
                             crmain.SetDataSource(dtCapitalGainDetails);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
-                            crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            //crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
+                            //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
                         }
                         else
-                            SetNoRecords();
+                        {
+                            capitalGainDetails = "No Record Found";
+                            
+                        }
                         break;
 
 
@@ -330,7 +501,10 @@ namespace WealthERP.Reports
                             crmain.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, exportFilename);
                         }
                         else
-                            SetNoRecords();
+                        {
+                            mFundSummary = "No Record Found";
+                            
+                        }
                         break;
 
                     case "TRANSACTION_REPORT":
@@ -343,6 +517,7 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             //if (!String.IsNullOrEmpty(dtTransactions.Rows[0]["CustomerName"].ToString()))
                             // crmain.SetParameterValue("CustomerName", "Cust");
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
 
@@ -351,7 +526,10 @@ namespace WealthERP.Reports
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
                         }
                         else
-                            SetNoRecords();
+                        {
+                            transactionReport = "No Record Found";
+                           
+                        }
                         break;
 
                     case "DIVIDEND_STATEMENT":
@@ -364,6 +542,7 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             //if (!String.IsNullOrEmpty(dtDividend.Rows[0]["Name"].ToString()))
                             //crmain.SetParameterValue("CustomerName", "--");
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
 
@@ -372,7 +551,10 @@ namespace WealthERP.Reports
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
                         }
                         else
-                            SetNoRecords();
+                        {
+                            dividendStatement = "No Record Found";
+                            
+                        }
                         break;
 
                     case "RETURNS_PORTFOLIO":
@@ -392,9 +574,12 @@ namespace WealthERP.Reports
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
                         }
                         else
-                            SetNoRecords();
+                        {
+                            portfolioRHolding = "No Record Found";
+                            
+                        }
                         break;
-                    case "PORFOLIO_ANALYTICS":
+                    case "COMPREHENSIVE":
                         crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
 
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
@@ -412,23 +597,27 @@ namespace WealthERP.Reports
                             AssignReportViewerProperties();
                             exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
-                                                        
+
                         }
                         else
-                            SetNoRecords();
+                        {
+                            comprehensive = "No Record Found";
+                           
+                        }
                         break;
 
                     case "DIVIDEND_SUMMARY":
                         crmain.Load(Server.MapPath("MFDividendSummary.rpt"));
                         DataTable dtDividendSummary = mfReports.GetDivdendReport(report);
-                        customerVo = (CustomerVo)Session["CusVo"];
+                        //customerVo = (CustomerVo)Session["CusVo"];
                         if (dtDividendSummary.Rows.Count > 0)
                         {
                             crmain.SetDataSource(dtDividendSummary);
                             setLogo();
                             //if (!String.IsNullOrEmpty(dtDividend.Rows[0]["Name"].ToString()))
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("FromDate",  report.FromDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
 
                             AssignReportViewerProperties();
@@ -436,7 +625,10 @@ namespace WealthERP.Reports
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
                         }
                         else
-                            SetNoRecords();
+                        {
+                            dividendSummary = "No Record Found";
+                            
+                        }
                         break;
                     //Added Three more cases for Display three new report : Author-Pramod
                     case "RETURNS_PORTFOLIO_REALIZED":
@@ -473,7 +665,10 @@ namespace WealthERP.Reports
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
                         }
                         else
-                            SetNoRecords();
+                        {
+                            eCapitalGainDetails = "No Record Found";
+                            
+                        }
                         break;
                       
                     case "ELIGIBLE_CAPITAL_GAIN_SUMMARY":
@@ -491,7 +686,10 @@ namespace WealthERP.Reports
                             crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
                         }
                         else
-                            SetNoRecords();
+                        {
+                            eCapitalGainsSummary = "No Record Found";
+                            
+                        }
                         break;
                                                                       
                 }
@@ -565,7 +763,7 @@ namespace WealthERP.Reports
                 mfReport.PortfolioIds = PortFolioIds;
             }
 
-            if (reportSubType == "CATEGORY_WISE" || reportSubType == "PORFOLIO_ANALYTICS" || reportSubType == "RETURNS_PORTFOLIO" || reportSubType == "RETURNS_PORTFOLIO_REALIZED" || reportSubType == "ELIGIBLE_CAPITAL_GAIN_DETAILS" || reportSubType == "ELIGIBLE_CAPITAL_GAIN_SUMMARY")
+            if (reportSubType == "CATEGORY_WISE" || reportSubType == "COMPREHENSIVE" || reportSubType == "RETURNS_PORTFOLIO" || reportSubType == "RETURNS_PORTFOLIO_REALIZED" || reportSubType == "ELIGIBLE_CAPITAL_GAIN_DETAILS" || reportSubType == "ELIGIBLE_CAPITAL_GAIN_SUMMARY")
             {
                 mfReport.FromDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
                 mfReport.ToDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
@@ -690,7 +888,7 @@ namespace WealthERP.Reports
         /// </summary>
         private void CalculateDateRange(string reportType,out DateTime fromDate, out DateTime toDate)
         {
-            if (reportType == "RETURNS_PORTFOLIO" || reportType == "PORFOLIO_ANALYTICS" || reportType == "CATEGORY_WISE" || reportType == "RETURNS_PORTFOLIO_REALIZED" || reportType == "ELIGIBLE_CAPITAL_GAIN_DETAILS" || reportType == "ELIGIBLE_CAPITAL_GAIN_SUMMARY")
+            if (reportType == "RETURNS_PORTFOLIO" || reportType == "COMPREHENSIVE" || reportType == "CATEGORY_WISE" || reportType == "RETURNS_PORTFOLIO_REALIZED" || reportType == "ELIGIBLE_CAPITAL_GAIN_DETAILS" || reportType == "ELIGIBLE_CAPITAL_GAIN_SUMMARY")
             {
                 fromDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
                 toDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtEmailAsOnDate"]);
@@ -785,7 +983,7 @@ namespace WealthERP.Reports
 
                 }
                 else
-                Session["hidBody"] = txtBody.Text = GetReportBody(cust.Salutation + "." + " " + cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
+                Session["hidBody"] = txtBody.Text = GetReportBody(cust.Salutation + " " + cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
                 //Session["hidBody"] = txtBody.Text = GetReportBody(cust.FirstName + " " + cust.LastName, subType, fromDate, toDate).Replace("\r", "");
 
             }
@@ -827,9 +1025,10 @@ namespace WealthERP.Reports
             if (advisorVo!=null)
             if (!string.IsNullOrEmpty(advisorVo.Website))
             {
-                strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: +" + advisorVo.Website);
+                strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website + "</i></b>");
             }
-            strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "</i></b>");
+            else
+                strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website + "</i></b>");
 
             return strMail.ToString();
 
@@ -857,10 +1056,10 @@ namespace WealthERP.Reports
                                     subject = "Mutual Fund Summary Report - ";
                                     break;
                                 case "RETURNS_PORTFOLIO":
-                                    subject = "Portfolio Returns - ";
+                                    subject = "Portfolio Return-Holding ";
                                     break;
-                                case "PORFOLIO_ANALYTICS":
-                                    subject = "Portfolio Analytics - ";
+                                case "COMPREHENSIVE":
+                                    subject = "Comprehensive Report - ";
                                     break;
                                 case "RETURNS_PORTFOLIO_REALIZED":
                                     subject = "Portfolio Returns Realized - ";
@@ -1093,7 +1292,7 @@ namespace WealthERP.Reports
             DirectoryInfo di=null;
             int reportExistFlag = 0;
             //string reportFileName = ExportToDisk();
-            divMessage.Visible = true;
+            //divMessage.Visible = true;
             if (Directory.Exists(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId))
             {
                 di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
@@ -1105,25 +1304,25 @@ namespace WealthERP.Reports
 
 
             
-            if (di.GetFiles().Length != 0)
-            {
-                bool isMailSent = SendMail();
-                if (isMailSent)
-                {
-                    lblEmailStatus.Text = "Email sent successfully";
-                    lblEmailStatus.CssClass = "SuccessMsg";
-                }
-                else
-                {
-                    lblEmailStatus.Text = "An error occurred while sending mail.";
-                    lblEmailStatus.CssClass = "Error";
-                }
-            }
-            else
-            {
-                lblEmailStatus.Text = "No Report Created.Email not sent.";
-                lblEmailStatus.CssClass = "Error";
-            }
+            //if (di.GetFiles().Length != 0)
+            //{
+            //    bool isMailSent = SendMail();
+            //    if (isMailSent)
+            //    {
+            //        lblEmailStatus.Text = "Email sent successfully";
+            //        lblEmailStatus.CssClass = "SuccessMsg";
+            //    }
+            //    else
+            //    {
+            //        lblEmailStatus.Text = "An error occurred while sending mail.";
+            //        lblEmailStatus.CssClass = "Error";
+            //    }
+            //}
+            //else
+            //{
+            //    lblEmailStatus.Text = "No Report Created.Email not sent.";
+            //    lblEmailStatus.CssClass = "Error";
+            //}
 
         }
 
@@ -1131,11 +1330,11 @@ namespace WealthERP.Reports
         /// Mail Sending Functinality
         /// </summary>
         private void MailSending()
-        {
+        {           
             DirectoryInfo di = null;
             int reportExistFlag = 0;
             //string reportFileName = ExportToDisk();
-            divMessage.Visible = true;
+            //divMessage.Visible = true;
             if (Directory.Exists(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId))
             {
                 di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
@@ -1152,19 +1351,21 @@ namespace WealthERP.Reports
                 bool isMailSent = SendMail();
                 if (isMailSent)
                 {
-                    lblEmailStatus.Text = "Email sent successfully";
-                    lblEmailStatus.CssClass = "SuccessMsg";
+                    mailSendStatus = "Email sent successfully";
+                    //lblEmailStatus.Text = "Email sent successfully";
+                    //lblEmailStatus.CssClass = "SuccessMsg";
                 }
                 else
                 {
-                    lblEmailStatus.Text = "An error occurred while sending mail.";
-                    lblEmailStatus.CssClass = "Error";
+                    mailSendStatus="Error occurred while sending mail";
+                    //lblEmailStatus.Text = "An error occurred while sending mail.";
+                    //lblEmailStatus.CssClass = "Error";
                 }
             }
             else
             {
-                lblEmailStatus.Text = "No Report Created.Email not sent.";
-                lblEmailStatus.CssClass = "Error";
+                //lblEmailStatus.Text = "No Report Created.Email not sent.";
+                //lblEmailStatus.CssClass = "Error";
             }
  
         }

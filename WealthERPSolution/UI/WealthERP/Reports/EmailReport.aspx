@@ -86,6 +86,8 @@
             document.getElementById("btnSendMail").click()
 
         }
+        
+       
         function replaceSpecialChars() {
 
             while (document.getElementById("txtBody").value.indexOf("<br/>") > -1) {
@@ -175,10 +177,10 @@
     <table width="100%" border="0">
         <tr>
             <td>
-                <table border="0" width="910px">
+                <table border="0" width="100%">
                     <tr>
                         <td align="center">
-                            <asp:Button ID="btnSendEmail" runat="server" class='sendEmail ButtonField' Text="Send Report by Email" style="display:none" />
+                            <asp:Button ID="btnSendEmail" runat="server" CssClass='sendEmail ButtonField' Text="Send Report by Email" style="display:none" />
                             
                             <div style="display: none">
                                 <div id='divEmail' style='padding: 10px; background: #fff;'>
@@ -232,30 +234,32 @@
                                     </table>
                                 </div>
                             </div>
-                            <div runat="server" id="divMessage" class="yellow-box" visible="false" enableviewstate="false" style="width:100%">
+                            <%--<div runat="server" id="divMessage" class="yellow-box" visible="false" enableviewstate="false" style="width:100%">
                                 <asp:Label ID="lblEmailStatus" runat="server" Text="" EnableViewState="false" Style="font-weight: bolder;
                                     color: Green;"></asp:Label>
-                            </div>
+                            </div>--%>
                         </td>
                     </tr>
                     <tr id="trCustomerlist" runat="server" visible="false">
                     <td align="center">
                     <div runat="server" id="divCustomerlist" class="yellow-box" visible="true" enableviewstate="false">
                                 <asp:Label ID="Label1" runat="server" 
-                                    Text="Report not send to the following customers as E-Mail Id is not available in profile" 
-                                    EnableViewState="False" Style="color: Red;text-align:center" Font-Bold="True"></asp:Label>
+                                    Text="Status of selected report for all selected customer" 
+                                    EnableViewState="False" Style="color: Green;text-align:center" Font-Bold="True"></asp:Label>
                     </div>
                     
                     </td>
                     </tr>
                     <tr>
-                        <td align="center">
-                            <asp:GridView ID="gvEmailCustomerList" runat="server" AllowSorting="True" 
+                        <td align="center" style="width:100%" >
+                        <asp:Panel ID="panelReportStatus" runat="server" Width="90%" Height="80%" ScrollBars="Both">
+                         <asp:GridView ID="gvEmailCustomerList" runat="server" AllowSorting="True" 
                             AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" 
-                            HorizontalAlign="Center" ShowFooter="True" EnableViewState="true" Width="200px">
+                            HorizontalAlign="Center" ShowFooter="True" EnableViewState="true" Width="100%">
                              <FooterStyle CssClass="FooterStyle" />
                              <Columns>
-                             <asp:TemplateField HeaderText="Customer Name">
+                             
+                                <asp:TemplateField HeaderText="Customer Name">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCustomerName" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CustometName") %>'>
@@ -263,12 +267,86 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
+                                <asp:TemplateField HeaderText="Mutual Fund Summary">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMutualFund" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("MFundSummary") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Portfolio Return-Holdoing">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblPortfolioReturnHolding" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("PortfolioRHolding") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Comprehensive Report">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblComprehensiveReport" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("Comprehensive") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="EligibleCapitalGainDetails">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEligibleCapitalGainDetails" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("ECapitalGainDetails") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="EligibleCapitalGainsSummary">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEligibleCapitalGainsSummary" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("ECapitalGainsSummary") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="TransactionReport">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblTransactionReport" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("TransactionReport") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Dividend Statement">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDevidendStatement" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("DividendStatement") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Dividend Summary">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDividendSummary" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("DividendSummary") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Capital Gain Details">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCapitalGainDetails" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("CapitalGainDetails") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Capital Gain Summary">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCapitalGainSummary" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("CapitalGainSummary") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                   
+                                </asp:TemplateField>
+                                
+                                
                              </Columns>
                              <HeaderStyle CssClass="HeaderStyle" />
                             <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
                             <RowStyle CssClass="RowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
                             </asp:GridView>
+                        </asp:Panel>
+                           
                         </td>
                     </tr>
                 </table>
@@ -290,6 +368,7 @@
             </td>
         </tr>
     </table>
+    
     <asp:Button ID="btnSendMail" runat="server" Text="" OnClick="btnSendEmail_Click" OnClientClick="ShowProcesssing(this)"
         BorderStyle="None" BackColor="Transparent" />
     <asp:HiddenField ID="hidFormat" runat="server" />
