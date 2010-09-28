@@ -72,6 +72,8 @@ namespace WealthERP.Customer
                     }
 
                    // txtRmName.Text = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
+                    if(!string.IsNullOrEmpty(customerVo.Salutation))
+                    ddlSalutation.SelectedValue = customerVo.Salutation;
                     txtFirstName.Text = customerVo.FirstName.ToString();
                     txtMiddleName.Text = customerVo.MiddleName.ToString();
                     txtLastName.Text = customerVo.LastName.ToString();
@@ -80,6 +82,7 @@ namespace WealthERP.Customer
                     txtProfilingDate.Text = DateTime.Today.Date.ToShortDateString().ToString();
                     txtRMName.Text = rmVo.FirstName;
                     BindDropDowns(path);
+                    
                 }
             }
             catch (BaseApplicationException Ex)
@@ -163,14 +166,9 @@ namespace WealthERP.Customer
                     rmId = rmVo.RMId;
 
                     customerVo.ProfilingDate = DateTime.Parse(txtProfilingDate.Text.ToString());
-                    if (ddlSalutation.SelectedValue.ToString().ToLower() == "select a salutation")
-                    {
-                        customerVo.Salutation = "";
-                    }
-                    else
-                    {
-                        customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
-                    }
+                    if (!string.IsNullOrEmpty(customerVo.Salutation))
+                    customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
+                    
                     customerVo.FirstName = txtFirstName.Text.ToString().Trim();
                     customerVo.MiddleName = txtMiddleName.Text.ToString().Trim();
                     customerVo.LastName = txtLastName.Text.ToString().Trim();
@@ -313,6 +311,7 @@ namespace WealthERP.Customer
                     rmId = rmVo.RMId;
 
                     customerVo.ProfilingDate = DateTime.Parse(txtProfilingDate.Text.ToString());
+                    if (!string.IsNullOrEmpty(customerVo.Salutation))
                     customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
                     customerVo.FirstName = txtFirstName.Text.ToString();
                     customerVo.MiddleName = txtMiddleName.Text.ToString();

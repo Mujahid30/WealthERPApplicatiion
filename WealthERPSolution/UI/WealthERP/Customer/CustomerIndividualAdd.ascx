@@ -37,7 +37,7 @@
     <ContentTemplate>--%>
 <table class="TableBackground" width="100%">
     
-        <tr>
+    <tr>
         <td colspan="4" class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
                 Note: Fields marked with ' * ' are compulsory</label>
@@ -67,6 +67,9 @@
                 <asp:ListItem>Mrs.</asp:ListItem>
                 <asp:ListItem>Ms.</asp:ListItem>
             </asp:DropDownList>
+             <asp:CompareValidator ID="cmpddlSalutation" runat="server" ControlToValidate="ddlSalutation"
+                ErrorMessage="Please select a Salutation for customer" Operator="NotEqual" ValueToCompare="Select a Salutation"
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -117,11 +120,6 @@
         </td>
     </tr>
     <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
         <td class="leftField">
             <asp:Label ID="lblCustCode" runat="server" CssClass="FieldName" Text="Customer Code:"></asp:Label>
         </td>
@@ -167,7 +165,7 @@
             </asp:RequiredFieldValidator>
         </td>
     </tr> 
-     <tr>
+    <tr>
         <td class="leftField">
             <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
         </td>
