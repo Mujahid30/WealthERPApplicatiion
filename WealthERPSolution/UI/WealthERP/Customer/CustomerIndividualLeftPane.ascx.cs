@@ -82,6 +82,7 @@ namespace WealthERP.Customer
                     TreeView1.FindNode("Profile Dashboard").Expand();
                     TreeView1.FindNode("Profile Dashboard").Selected = true;
                 }
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerIndividualLeftPane');", true);
             }
         }
 
