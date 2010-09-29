@@ -511,6 +511,10 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_AllocationPer", DbType.Double, insuranceUlipVo.CIUP_AllocationPer);
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_Unit", DbType.Double, insuranceUlipVo.CIUP_Unit);
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_PurchasePrice", DbType.Double, insuranceUlipVo.CIUP_PurchasePrice);
+                if(insuranceUlipVo.CIUP_PurchaseDate != DateTime.MinValue)
+                    db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_PurchaseDate", DbType.DateTime, insuranceUlipVo.CIUP_PurchaseDate);
+                else
+                    db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_PurchaseDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_CreatedBy", DbType.Int32, insuranceUlipVo.CIUP_CreatedBy);
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_ModifiedBy", DbType.Int32, insuranceUlipVo.CIUP_ModifiedBy);
                 if (db.ExecuteNonQuery(createInsuranceULIPPlanCmd) != 0)
@@ -550,11 +554,13 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_AllocationPer", DbType.Double, insuranceUlipVo.CIUP_AllocationPer);
                 db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_Unit", DbType.Double, insuranceUlipVo.CIUP_Unit);
                 db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_PurchasePrice", DbType.Double, insuranceUlipVo.CIUP_PurchasePrice);
-                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_PurchaseDate", DbType.DateTime, insuranceUlipVo.CIUP_PurchaseDate);
+                if(insuranceUlipVo.CIUP_PurchaseDate != DateTime.MinValue)
+                    db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_PurchaseDate", DbType.DateTime, insuranceUlipVo.CIUP_PurchaseDate);
+                else
+                    db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_PurchaseDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_ModifiedBy", DbType.Int32, insuranceUlipVo.CIUP_ModifiedBy);
                 if (db.ExecuteNonQuery(updateInsuranceULIPPlanCmd) != 0)
                     bResult = true;
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -618,7 +624,8 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createMoneybackEpisodeCmd = db.GetStoredProcCommand("SP_CreateMoneyBackEpisode");
-                db.AddInParameter(createMoneybackEpisodeCmd, "@CIMBE_RepaymentDate", DbType.DateTime, moneyBackEpisodeVo.CIMBE_RepaymentDate);
+                if(moneyBackEpisodeVo.CIMBE_RepaymentDate != DateTime.MinValue)
+                    db.AddInParameter(createMoneybackEpisodeCmd, "@CIMBE_RepaymentDate", DbType.DateTime, moneyBackEpisodeVo.CIMBE_RepaymentDate);
                 db.AddInParameter(createMoneybackEpisodeCmd, "@CIMBE_RepaidPer", DbType.Double, moneyBackEpisodeVo.CIMBE_RepaidPer);
                 db.AddInParameter(createMoneybackEpisodeCmd, "@CINP_InsuranceNPId", DbType.Int32, moneyBackEpisodeVo.CustInsInvId);
                 db.AddInParameter(createMoneybackEpisodeCmd, "@CIMBE_CreatedBy", DbType.Int32, moneyBackEpisodeVo.CIMBE_CreatedBy);
