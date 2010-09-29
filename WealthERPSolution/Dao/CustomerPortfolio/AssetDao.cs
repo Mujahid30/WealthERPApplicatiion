@@ -856,7 +856,7 @@ namespace DaoCustomerPortfolio
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getPrevUlipSubPlanCmd = db.GetStoredProcCommand("SP_GetUlipSubPlanCodeFromInvInsID");
+                getPrevUlipSubPlanCmd = db.GetStoredProcCommand("SP_GetInsuranceULIPList");
                 db.AddInParameter(getPrevUlipSubPlanCmd, "@CINP_InsuranceNPId", DbType.Int32, InsuranceId);
                 getPrevUlipSubPlanDs = db.ExecuteDataSet(getPrevUlipSubPlanCmd);
             }
