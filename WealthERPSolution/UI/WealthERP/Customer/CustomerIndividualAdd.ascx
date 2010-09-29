@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerIndividualAdd.ascx.cs"
     Inherits="WealthERP.Customer.BasicIndividualProfile" EnableViewState="true" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
 <%--Javascript Calendar Controls - Required Files--%>
 
 <script src="../Scripts/tabber.js" type="text/javascript"></script>
@@ -13,6 +12,7 @@
 <script type="text/javascript" src="../Scripts/Calender/calendar-setup.js"></script>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
+
 <script type="text/javascript" language="javascript">
     function checkDate(sender, args) {
 
@@ -29,8 +29,8 @@
         }
     }
 </script>
-<%--Javascript Calendar Controls - Required Files--%>
 
+<%--Javascript Calendar Controls - Required Files--%>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 <%--<asp:UpdatePanel ID="up1" runat="server">
@@ -91,7 +91,6 @@
             <cc1:TextBoxWatermarkExtender ID="txtLastName_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtLastName" WatermarkText="LastName">
             </cc1:TextBoxWatermarkExtender>
-            
             <br />
             <asp:RequiredFieldValidator ID="rfvLastName" ControlToValidate="txtFirstName" ErrorMessage="Please enter the First Name"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
@@ -145,7 +144,8 @@
             <div class="dvInLine">
                 <asp:TextBox ID="txtDob" runat="server" CssClass="txtField"></asp:TextBox>
                 <%--<img alt="Calendar" src="../CSS/Images/calendar3.jpg" id="imgCalendar" />--%>
-                <cc1:CalendarExtender ID="txtDob_CalendarExtender" runat="server" TargetControlID="txtDob"  Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+                <cc1:CalendarExtender ID="txtDob_CalendarExtender" runat="server" TargetControlID="txtDob"
+                    Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
                 </cc1:CalendarExtender>
                 <cc1:TextBoxWatermarkExtender ID="txtDob_TextBoxWatermarkExtender" runat="server"
                     TargetControlID="txtDob" WatermarkText="dd/mm/yyyy">
@@ -158,22 +158,22 @@
             <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
         </td>
         <td class="rightField" width="75%">
-            <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>            
+            <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
-    </tr> 
+    </tr>
     <tr>
         <td class="leftField">
             <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
         </td>
         <td class="rightField" width="75%">
-            <asp:TextBox ID="txtRMName" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>            
-            <br />            
+            <asp:TextBox ID="txtRMName" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+            <br />
         </td>
-    </tr>    
+    </tr>
     <tr>
         <td colspan="2">
             <div class="tabber" id="divTab" runat="server" style="width: 100%">
@@ -194,7 +194,7 @@
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="lblAdrLine1" CssClass="FieldName" runat="server" Text="Line1(HouseNo/Building):"></asp:Label>
+                                <asp:Label ID="lblAdrLine1" CssClass="FieldName" runat="server" Text="Line1(House No./Building):"></asp:Label>
                             </td>
                             <td class="rightField" colspan="3">
                                 <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
@@ -226,11 +226,15 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtLivingSince" runat="server" CssClass="txtField"></asp:TextBox>
-                                <cc1:CalendarExtender ID="txtLivingSince_CalendarExtender" runat="server" TargetControlID="txtLivingSince" Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+                                <cc1:CalendarExtender ID="txtLivingSince_CalendarExtender" runat="server" TargetControlID="txtLivingSince"
+                                    Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
                                 </cc1:CalendarExtender>
                                 <cc1:TextBoxWatermarkExtender ID="txtLivingSince_TextBoxWatermarkExtender" WatermarkText="dd/mm/yyyy"
                                     TargetControlID="txtLivingSince" runat="server">
                                 </cc1:TextBoxWatermarkExtender>
+                                <asp:CompareValidator ID="txtLivingSince_CompareValidator" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                                    Type="Date" ControlToValidate="txtLivingSince" CssClass="cvPCG" Operator="LessThanEqual"
+                                    ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
@@ -254,6 +258,9 @@
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:TextBox ID="txtCorrAdrPinCode" runat="server" CssClass="txtField" MaxLength="6"></asp:TextBox>
+                                <asp:CompareValidator ID="txtCorrAdrPinCode_comparevalidator" ControlToValidate="txtCorrAdrPinCode"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                             </td>
                             <td class="leftField" width="25%">
                                 <asp:Label ID="Label17" CssClass="FieldName" runat="server" Text="Country:"></asp:Label>
@@ -295,7 +302,7 @@
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="Label19" CssClass="FieldName" runat="server" Text="Line1(HouseNo/Building):"></asp:Label>
+                                <asp:Label ID="Label19" CssClass="FieldName" runat="server" Text="Line1(House No./Building):"></asp:Label>
                             </td>
                             <td class="rightField" colspan="3">
                                 <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
@@ -338,6 +345,9 @@
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:TextBox ID="txtPermAdrPinCode" runat="server" CssClass="txtField" MaxLength="6"></asp:TextBox>
+                                <asp:CompareValidator ID="txtPermAdrPinCode_CompareValidator" ControlToValidate="txtPermAdrPinCode"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                             </td>
                             <td class="leftField" width="25%">
                                 <asp:Label ID="Label25" CssClass="FieldName" runat="server" Text="Country:"></asp:Label>
@@ -382,7 +392,7 @@
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="Label27" CssClass="FieldName" runat="server" Text="Line1(HouseNo/Building):"></asp:Label>
+                                <asp:Label ID="Label27" CssClass="FieldName" runat="server" Text="Line1(House No./Building):"></asp:Label>
                             </td>
                             <td class="rightField" colspan="3">
                                 <asp:TextBox ID="txtOfcAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
@@ -408,11 +418,15 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtJobStartDate" runat="server" CssClass="txtField"></asp:TextBox>
-                                <cc1:CalendarExtender ID="txtJobStartDate_CalendarExtender" runat="server" TargetControlID="txtJobStartDate"  Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+                                <cc1:CalendarExtender ID="txtJobStartDate_CalendarExtender" runat="server" TargetControlID="txtJobStartDate"
+                                    Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
                                 </cc1:CalendarExtender>
                                 <cc1:TextBoxWatermarkExtender ID="txtJobStartDate_TextBoxWatermarkExtender" WatermarkText="dd/mm/yyyy"
                                     TargetControlID="txtJobStartDate" runat="server">
                                 </cc1:TextBoxWatermarkExtender>
+                                <asp:CompareValidator ID="cvJobStartDate" runat="server" ErrorMessage="<br/>The Job start date should not be greater than current date."
+                                    Type="Date" ControlToValidate="txtJobStartDate" CssClass="cvPCG" Operator="LessThanEqual"
+                                    ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
@@ -436,6 +450,9 @@
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:TextBox ID="txtOfcAdrPinCode" runat="server" CssClass="txtField" MaxLength="6"></asp:TextBox>
+                                <asp:CompareValidator ID="txtOfcAdrPinCode_CompareValidator" ControlToValidate="txtOfcAdrPinCode"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                             </td>
                             <td class="leftField" width="25%">
                                 <asp:Label ID="Label33" CssClass="FieldName" runat="server" Text="Country:"></asp:Label>
@@ -480,6 +497,15 @@
                                 <asp:TextBox ID="txtResPhoneNoStd" runat="server" Width="40px" CssClass="txtField"
                                     MaxLength="3"></asp:TextBox>
                                 <asp:TextBox ID="txtResPhoneNo" runat="server" Width="80px" CssClass="txtField" MaxLength="8"></asp:TextBox>
+                                <asp:CompareValidator ID="txtResPhoneNoIsd_CompareValidator" ControlToValidate="txtResPhoneNoIsd"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD code."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                <asp:CompareValidator ID="txtResPhoneNoStd_CompareValidator" ControlToValidate="txtResPhoneNoStd"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for STD code."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                <asp:CompareValidator ID="txtResPhoneNo_CompareValidator" ControlToValidate="txtResPhoneNo"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Phone number."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                             </td>
                             <td class="leftField" width="25%">
                                 <asp:Label ID="Label41" CssClass="FieldName" runat="server" Text="Fax(Res):"></asp:Label>
@@ -488,11 +514,20 @@
                                 <asp:TextBox ID="txtResFaxIsd" runat="server" Width="40px" CssClass="txtField" MaxLength="2">91</asp:TextBox>
                                 <asp:TextBox ID="txtResFaxStd" runat="server" Width="40px" CssClass="txtField" MaxLength="3"></asp:TextBox>
                                 <asp:TextBox ID="txtResFax" runat="server" Width="80px" CssClass="txtField" MaxLength="8"></asp:TextBox>
+                                <asp:CompareValidator ID="txtResFaxIsd_CompareValidator" ControlToValidate="txtResFaxIsd"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD code."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                <asp:CompareValidator ID="txtResFaxStd_CompareValidator" ControlToValidate="txtResFaxStd"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for STD code."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                <asp:CompareValidator ID="txtResFax_CompareValidator" ControlToValidate="txtResFax"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Fax number."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="lblOfcPhone" CssClass="FieldName" runat="server" Text="Telephone No.(Ofc):"></asp:Label>
+                                <asp:Label ID="lblOfcPhone" CssClass="FieldName" runat="server" Text="Telephone No.(Off):"></asp:Label>
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:TextBox ID="txtOfcPhoneNoIsd" runat="server" Width="40px" CssClass="txtField"
@@ -500,14 +535,32 @@
                                 <asp:TextBox ID="txtOfcPhoneNoStd" runat="server" Width="40px" CssClass="txtField"
                                     MaxLength="3"></asp:TextBox>
                                 <asp:TextBox ID="txtOfcPhoneNo" runat="server" Width="80px" CssClass="txtField" MaxLength="8"></asp:TextBox>
+                                <asp:CompareValidator ID="txtOfcPhoneNoIsd_CompareValidator" ControlToValidate="txtOfcPhoneNoIsd"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD code."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                <asp:CompareValidator ID="txtOfcPhoneNoStd_CompareValidator" ControlToValidate="txtOfcPhoneNoStd"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for STD code."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                <asp:CompareValidator ID="txtOfcPhoneNo_CompareValidator" ControlToValidate="txtOfcPhoneNo"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Phone number."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                             </td>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="Label42" CssClass="FieldName" runat="server" Text="Fax(Ofc):"></asp:Label>
+                                <asp:Label ID="Label42" CssClass="FieldName" runat="server" Text="Fax(Off):"></asp:Label>
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:TextBox ID="txtOfcFaxIsd" runat="server" Width="40px" CssClass="txtField" MaxLength="2">91</asp:TextBox>
                                 <asp:TextBox ID="txtOfcFaxStd" runat="server" Width="40px" CssClass="txtField" MaxLength="3"></asp:TextBox>
                                 <asp:TextBox ID="txtOfcFax" runat="server" Width="80px" CssClass="txtField" MaxLength="8"></asp:TextBox>
+                                <asp:CompareValidator ID="txtOfcFaxIsd_CompareValidator" ControlToValidate="txtOfcFaxIsd"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD Code."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                <asp:CompareValidator ID="txtOfcFaxStd_CompareValidator" ControlToValidate="txtOfcFaxStd"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for STD Code."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                <asp:CompareValidator ID="txtOfcFax_CompareValidator" ControlToValidate="txtOfcFax"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Fax Number."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
@@ -516,12 +569,18 @@
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                                <asp:CompareValidator ID="txtMobile1_CompareValidator" ControlToValidate="txtMobile1"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Mobile Number."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                             </td>
                             <td class="leftField" width="25%">
                                 <asp:Label ID="Label43" CssClass="FieldName" runat="server" Text="Mobile2:"></asp:Label>
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:TextBox ID="txtMobile2" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                                <asp:CompareValidator ID="txtMobile2_CompareValidator" ControlToValidate="txtMobile2"
+                                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Mobile Number."
+                                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
@@ -530,9 +589,8 @@
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
-                                <br />
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
-                                    ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
+                                    ErrorMessage="<br />Please enter a valid Email ID" Display="Dynamic" runat="server"
                                     ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
                             </td>
                             <td class="leftField" width="25%">
@@ -540,6 +598,9 @@
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:TextBox ID="txtAltEmail" runat="server" CssClass="txtField"></asp:TextBox>
+                                <asp:RegularExpressionValidator ID="txtAltEmail_RegularExpressionValidator" ControlToValidate="txtAltEmail"
+                                    ErrorMessage="<br />Please enter a valid Email ID" Display="Dynamic" runat="server"
+                                    ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
                             </td>
                         </tr>
                         <tr>
@@ -610,7 +671,8 @@
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:TextBox ID="txtRBIApprovalDate" runat="server" CssClass="txtField"></asp:TextBox>
-                                <cc1:CalendarExtender ID="txtRBIApprovalDate_CalendarExtender" runat="server" TargetControlID="txtRBIApprovalDate"  Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+                                <cc1:CalendarExtender ID="txtRBIApprovalDate_CalendarExtender" runat="server" TargetControlID="txtRBIApprovalDate"
+                                    Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
                                 </cc1:CalendarExtender>
                                 <cc1:TextBoxWatermarkExtender ID="txtRBIApprovalDate_TextBoxWatermarkExtender" runat="server"
                                     TargetControlID="txtRBIApprovalDate" WatermarkText="dd/mm/yyyy">
