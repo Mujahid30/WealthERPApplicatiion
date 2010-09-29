@@ -65,9 +65,7 @@
 <table class="TableBackground">
     <tr>
         <td>
-            <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="PCGButton" CausesValidation="false"
-                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerIndividualAdd_btnSubmit');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerIndividualAdd_btnSubmit', 'S');"
+            <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="PCGButton" CausesValidation="false"                
                 OnClick="btnEdit_Click" />
         </td>
     </tr>
