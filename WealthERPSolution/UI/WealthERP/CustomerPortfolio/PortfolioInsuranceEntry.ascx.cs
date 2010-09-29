@@ -447,7 +447,7 @@ namespace WealthERP.CustomerPortfolio
 
                             TextBox txtBox4 = new TextBox();
                             txtBox4 = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString()));
-                            if(insuranceULIPVo.CIUP_PurchaseDate != DateTime.MinValue)
+                            if (insuranceULIPVo.CIUP_PurchaseDate != DateTime.MinValue)
                                 txtBox4.Text = insuranceULIPVo.CIUP_PurchaseDate.ToShortDateString();
 
                             TextBox txtBox5 = new TextBox();
@@ -1175,7 +1175,7 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo.InsuranceIssuerCode = ddlInsuranceIssuerCode.SelectedValue.ToString();
                         insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
                         insuranceVo.EndDate = DateTime.Parse(txtPolicyMaturity.Text.Trim());
-                        insuranceVo.SumAssured = float.Parse(txtSumAssured.Text);
+                        insuranceVo.SumAssured = double.Parse(txtSumAssured.Text);
                         if (txtApplDate.Text.Trim() != "")
                             insuranceVo.ApplicationDate = DateTime.Parse(txtApplDate.Text.Trim());
                         insuranceVo.ApplicationNumber = txtApplicationNumber.Text;
@@ -1414,9 +1414,11 @@ namespace WealthERP.CustomerPortfolio
                                 {
                                     moneyBackEpisodeVo = new MoneyBackEpisodeVo();
                                     string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
-                                    moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
+                                    if (paymentDate != string.Empty)
+                                        moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
                                     string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
-                                    moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
+                                    if (repaidPercent != string.Empty)
+                                        moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
                                     moneyBackEpisodeVo.CustInsInvId = insuranceId;
                                     moneyBackEpisodeList.Add(moneyBackEpisodeVo);
                                 }
@@ -1468,7 +1470,7 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo.InsuranceIssuerCode = ddlInsuranceIssuerCode.SelectedValue.ToString();
                         insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
                         insuranceVo.EndDate = DateTime.Parse(txtPolicyMaturity.Text.Trim());
-                        insuranceVo.SumAssured = float.Parse(txtSumAssured.Text);
+                        insuranceVo.SumAssured = double.Parse(txtSumAssured.Text);
                         if (txtApplDate.Text.Trim() != "")
                             insuranceVo.ApplicationDate = DateTime.Parse(txtApplDate.Text.Trim());
                         insuranceVo.ApplicationNumber = txtApplicationNumber.Text;
@@ -1565,7 +1567,7 @@ namespace WealthERP.CustomerPortfolio
 
                             insuranceVo.PremiumAccumalated = 0;
                             insuranceVo.BonusAccumalated = 0;
-                            
+
                             DataSet prevUlipSubPlansDS = assetBo.GetPrevULIPSubPlans(insuranceVo.CustInsInvId);
                             PrevUlipSubPlanCode = Int32.Parse(prevUlipSubPlansDS.Tables[0].Rows[0]["WUSP_ULIPSubPlanCode"].ToString().Trim());
                             DataSet prevUlipPlanCodeDS = assetBo.GetPrevUlipPlanCode(PrevUlipSubPlanCode);
@@ -1607,7 +1609,7 @@ namespace WealthERP.CustomerPortfolio
 
                                     for (int i = 0; i < count; i++)
                                     {
-                                        insuranceUlipVo = insuranceUlipList[i];
+                                        //insuranceUlipVo = insuranceUlipList[i];
                                         string allocationPer = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString();
                                         string units = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString())).Text.ToString();
                                         string purchasePrice = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString())).Text.ToString();
@@ -1615,19 +1617,23 @@ namespace WealthERP.CustomerPortfolio
 
                                         if (allocationPer == "")
                                         {
-                                            insuranceUlipVo.CIUP_AllocationPer = 0;
-                                            insuranceUlipVo.CIUP_PurchasePrice = 0;
-                                            insuranceUlipVo.CIUP_Unit = 0;
-                                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse("1/1/1900");
+                                            insuranceUlipList[i].CIUP_AllocationPer = 0;
+                                            insuranceUlipList[i].CIUP_PurchasePrice = 0;
+                                            insuranceUlipList[i].CIUP_Unit = 0;
+                                            insuranceUlipList[i].CIUP_PurchaseDate = DateTime.Parse("1/1/1900");
                                         }
                                         else
                                         {
-                                            insuranceUlipVo.CIUP_AllocationPer = float.Parse(allocationPer.ToString());
-                                            insuranceUlipVo.CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
-                                            insuranceUlipVo.CIUP_Unit = float.Parse(units.ToString());
-                                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
+                                            if(allocationPer != string.Empty)
+                                                insuranceUlipList[i].CIUP_AllocationPer = float.Parse(allocationPer.ToString());
+                                            if(purchasePrice!=string.Empty)
+                                                insuranceUlipList[i].CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
+                                            if(units != string.Empty)
+                                                insuranceUlipList[i].CIUP_Unit = float.Parse(units.ToString());
+                                            if (purchaseDate != string.Empty)
+                                                insuranceUlipList[i].CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
                                         }
-                                        insuranceUlipList.Add(insuranceUlipVo);
+                                        //insuranceUlipList.Add(insuranceUlipVo);
                                     }
 
                                     if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
@@ -1840,10 +1846,10 @@ namespace WealthERP.CustomerPortfolio
                                     {
                                         moneyBackEpisodeVo = new MoneyBackEpisodeVo();
                                         string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
-                                        if(paymentDate != string.Empty && paymentDate != null)
+                                        if (paymentDate != string.Empty && paymentDate != null)
                                             moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
                                         string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
-                                        if(repaidPercent != string.Empty && repaidPercent != null)
+                                        if (repaidPercent != string.Empty && repaidPercent != null)
                                             moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
                                         moneyBackEpisodeVo.CustInsInvId = insuranceVo.CustInsInvId;
                                         moneyBackEpisodeList.Add(moneyBackEpisodeVo);
@@ -1929,8 +1935,19 @@ namespace WealthERP.CustomerPortfolio
                 //Session["episodeCount"] = txtMoneyBackEpisode.Text;
                 pnlMoneyBackEpisode.Visible = true;
                 trMPDetails.Visible = true;
-                count = int.Parse(txtMoneyBackEpisode.Text);
-                ShowMoneyBackContent(count);
+                if (txtMoneyBackEpisode.Text != "")
+                {
+                    count = int.Parse(txtMoneyBackEpisode.Text);
+                    if (count != 0)
+                        ShowMoneyBackContent(count);
+                    else
+                        trMPDetails.Visible = false;
+                }
+                else
+                {
+                    trMPDetails.Visible = false;
+                    pnlMoneyBackEpisode.Visible = false;
+                }
 
                 //Commented by MP (Not Required
                 //**********************************************************************************************************
@@ -2015,7 +2032,6 @@ namespace WealthERP.CustomerPortfolio
                     calExtender.ID = calExtender + i.ToString();
                     calExtender.TargetControlID = txtBox1.ID;
                     calExtender.Format = "dd/MM/yyyy";
-                    calExtender.OnClientDateSelectionChanged = "isFutureDate";
                     calExtender.EnableViewState = true;
                     TextBoxWatermarkExtender waterMarkExtender = new TextBoxWatermarkExtender();
                     waterMarkExtender.ID = waterMarkExtender + i.ToString();
@@ -2023,10 +2039,10 @@ namespace WealthERP.CustomerPortfolio
                     waterMarkExtender.TargetControlID = txtBox1.ID;
                     waterMarkExtender.EnableViewState = true;
                     CompareValidator compareValidator = new CompareValidator();
-                    compareValidator.ID = compareValidator + i.ToString();
+                    compareValidator.ID = compareValidator + i.ToString() + i.ToString();
                     compareValidator.ControlToValidate = txtBox1.ID;
                     compareValidator.Type = ValidationDataType.Date;
-                    compareValidator.ErrorMessage = "The date format should be dd/mm/yyyyyy";
+                    compareValidator.ErrorMessage = "The date format should be dd/mm/yyyy";
                     compareValidator.Operator = ValidationCompareOperator.DataTypeCheck;
                     compareValidator.CssClass = "cvPCG";
                     compareValidator.Display = ValidatorDisplay.Dynamic;
@@ -2051,11 +2067,18 @@ namespace WealthERP.CustomerPortfolio
                     txtBox2.ID = "txtRepaidPer" + i.ToString();
                     //txtBox2.ID = ds.Tables[0].Rows[i][0].ToString();
                     txtBox2.CssClass = "txtField";
+                    CompareValidator compareValidator1 = new CompareValidator();
+                    compareValidator1.ID = compareValidator1 + i.ToString() + (i + 1).ToString();
+                    compareValidator1.ControlToValidate = txtBox2.ID;
+                    compareValidator1.Type = ValidationDataType.Double;
+                    compareValidator1.ErrorMessage = "Please enter a numeric value";
+                    compareValidator1.Operator = ValidationCompareOperator.DataTypeCheck;
+                    compareValidator1.CssClass = "cvPCG";
+                    compareValidator1.Display = ValidatorDisplay.Dynamic;
+                    compareValidator1.EnableViewState = true;
                     tc.Controls.Add(txtBox2);
+                    tc.Controls.Add(compareValidator1);
                     tr.Cells.Add(tc);
-                    //// Fourth Cell
-                    //tc = new TableCell();
-                    //tr.Cells.Add(tc);
 
                     tb.Rows.Add(tr);
                 }

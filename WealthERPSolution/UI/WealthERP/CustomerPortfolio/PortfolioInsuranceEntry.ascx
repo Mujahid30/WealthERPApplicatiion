@@ -185,7 +185,7 @@
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Policy Issuer:"></asp:Label>
         </td>
         <td colspan="4">
-            <asp:DropDownList ID="ddlInsuranceIssuerCode" runat="server" CssClass="cmbField"
+            <asp:DropDownList ID="ddlInsuranceIssuerCode" runat="server" CssClass="cmbField" Width="42%"
                 AutoPostBack="True" OnSelectedIndexChanged="ddlInsuranceIssuerCode_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
