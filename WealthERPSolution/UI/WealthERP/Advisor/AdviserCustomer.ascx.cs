@@ -504,6 +504,7 @@ namespace WealthERP.Advisor
                 {
                     Session["IsDashboard"] = "false";
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Session["customerPortfolioVo"] = customerPortfolioVo;
 
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
