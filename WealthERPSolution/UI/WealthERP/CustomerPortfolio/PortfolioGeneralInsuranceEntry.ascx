@@ -485,7 +485,7 @@
                 ErrorMessage="Please select a Policy Commencement Date" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
-            <asp:CompareValidator ID="CompareValidator67" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyyyy"
+            <asp:CompareValidator ID="CompareValidator67" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtCheckUpDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 ValidationGroup="buttonSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
