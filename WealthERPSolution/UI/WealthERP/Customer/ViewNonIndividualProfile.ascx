@@ -134,7 +134,7 @@
             </tr>
             <tr>
                 <td class="leftField">
-                    <asp:Label ID="Label3" runat="server" Text="Line1(House No/Building) :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label3" runat="server" Text="Line1(House No./Building) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
                     <asp:Label ID="lblCorrLine1" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -162,7 +162,7 @@
             </tr>
             <tr>
                 <td class="leftField">
-                    <asp:Label ID="Label7" runat="server" Text="Line3(Building) :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label7" runat="server" Text="Line3(Area) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
                     <asp:Label ID="lblCorrLine3" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -216,7 +216,7 @@
             </tr>
             <tr>
                 <td class="leftField">
-                    <asp:Label ID="Label60" runat="server" Text="Line1(House No/Building) :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label60" runat="server" Text="Line1(House No./Building) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
                     <asp:Label ID="lblPermLine1" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -298,7 +298,7 @@
             </tr>
             <tr>
                 <td class="leftField" width="25%">
-                    <asp:Label ID="Label36" runat="server" Text="Telephone No. (Res) :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label36" runat="server" Text="Telephone No.(Res) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" width="25%">
                     <asp:Label ID="lblResPhone" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -312,7 +312,7 @@
             </tr>
             <tr>
                 <td class="leftField" width="25%">
-                    <asp:Label ID="Label37" runat="server" Text="Telephone No.(Ofc) :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label37" runat="server" Text="Telephone No.(Off) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" width="25%">
                     <asp:Label ID="lblOfcPhone" runat="server" Text="Label" CssClass="Field"></asp:Label>
