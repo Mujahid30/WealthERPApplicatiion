@@ -139,7 +139,7 @@
         <td class="leftField">
             <asp:GridView ID="gvRMBranch" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CssClass="GridViewStyle" DataKeyNames="BranchId" ShowFooter="True" 
-                OnRowDataBound="gvRMBranch_RowDataBound" Enabled="false">
+                OnRowDataBound="gvRMBranch_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle CssClass="PagerStyle " />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -149,7 +149,7 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Select">
                         <ItemTemplate>
-                            <asp:CheckBox ID="chkBx" runat="server" />
+                            <asp:CheckBox ID="chkBx" runat="server" Enabled="false"/>
                         </ItemTemplate>
                         <FooterTemplate>
                             <%--<asp:Button ID="btnDeleteSelected" CssClass="FieldName" runat="server" Text="Delete"
