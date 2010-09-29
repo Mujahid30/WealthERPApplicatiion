@@ -55,7 +55,7 @@ namespace WealthERP.Customer
                     GetCustomerExpenseDetails(customerVo.CustomerId);
                 }
                 CompareValidator1.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
-
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -161,7 +161,7 @@ namespace WealthERP.Customer
             try
             {
 
-                //               customerExpenseVo.DateOfEntry = DateBo.GetFormattedDate(Convert.ToDateTime(txtDateOfEntry.Text.ToString()),"en-GB");
+ //               customerExpenseVo.DateOfEntry = DateBo.GetFormattedDate(Convert.ToDateTime(txtDateOfEntry.Text.ToString()),"en-GB");
                 customerExpenseVo.DateOfEntry = Convert.ToDateTime(txtDateOfEntry.Text.ToString());
                 customerExpenseVo.Transportation = Double.Parse(txtTranMonthly.Text.ToString());
                 customerExpenseVo.TransportationYr = Double.Parse(txtTranYearly.Text.ToString());
@@ -245,7 +245,7 @@ namespace WealthERP.Customer
             EnableAllControls();
             btnSave.Text = "Update";
             btnSave.Visible = true;
-            txttotalyear.Visible = false;
+            txttotalyear.Visible = true;
             txttotal.Visible = true;
             lbltotal.Visible = true;
             ddlTotal.Visible = true;
@@ -274,14 +274,14 @@ namespace WealthERP.Customer
                 {
                     if (dtExpenseDetails.Rows[0]["CE_Transportation"].ToString() != "")
                     {
-                        txtTranMonthly.Text = String.Format("{0:0.00}", decimal.Parse(dtExpenseDetails.Rows[0]["CE_Transportation"].ToString()));
-                        txtTranYearly.Text = String.Format("{0:0.00}", decimal.Parse(dtExpenseDetails.Rows[0]["CE_Transportation"].ToString()) * 12).ToString();
+                        txtTranMonthly.Text = String.Format("{0:0.00}",decimal.Parse(dtExpenseDetails.Rows[0]["CE_Transportation"].ToString()));
+                        txtTranYearly.Text = String.Format("{0:0.00}",decimal.Parse(dtExpenseDetails.Rows[0]["CE_Transportation"].ToString()) * 12).ToString();
                         ddlTranCurrency.SelectedValue = dtExpenseDetails.Rows[0]["XC_CurrencyCodeTransportation"].ToString();
                     }
                     if (dtExpenseDetails.Rows[0]["CE_Food"].ToString() != "")
                     {
-                        txtFoodMonthly.Text = String.Format("{0:0.00}", decimal.Parse(dtExpenseDetails.Rows[0]["CE_Food"].ToString()));
-                        txtFoodYearly.Text = String.Format("{0:0.00}", decimal.Parse(dtExpenseDetails.Rows[0]["CE_Food"].ToString()) * 12).ToString();
+                        txtFoodMonthly.Text = String.Format("{0:0.00}",decimal.Parse(dtExpenseDetails.Rows[0]["CE_Food"].ToString()));
+                        txtFoodYearly.Text = String.Format("{0:0.00}",decimal.Parse(dtExpenseDetails.Rows[0]["CE_Food"].ToString()) * 12).ToString();
                         ddlFoodCurrency.SelectedValue = dtExpenseDetails.Rows[0]["XC_CurrencyCodeFood"].ToString();
                     }
                     if (dtExpenseDetails.Rows[0]["CE_Clothing"].ToString() != "")
@@ -487,7 +487,7 @@ namespace WealthERP.Customer
             txtEntYearly.Text = "0.00";
             txtMisMonthly.Text = "0.00";
             txtMisYearly.Text = "0.00";
-            txtDateOfEntry.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            txtDateOfEntry.Text =DateTime.Now.ToString("dd/MM/yyyy");
             txttotal.Text = "0.00";
             txttotalyear.Text = "0.00";
             //txtDateOfEntry.Text = DateTime.Now.ToShortDateString();
