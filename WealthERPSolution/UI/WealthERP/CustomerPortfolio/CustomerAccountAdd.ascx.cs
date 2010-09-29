@@ -56,7 +56,7 @@ namespace WealthERP.CustomerPortfolio
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 insuranceUlipList = (List<InsuranceULIPVo>)Session["ulipList"];
                 group = Session["action"].ToString().Trim();
-                if(portfolioId==0 || portfolioId == null)
+                if(portfolioId==0)
                     portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 this.Page.Culture = "en-GB";
                 if (!IsPostBack)
