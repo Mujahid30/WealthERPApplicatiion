@@ -187,7 +187,7 @@
                                     <asp:Label ID="lblUserName" runat="server" CssClass="HeaderDateText"></asp:Label>
                                 </td>
                                 <td colspan="2" class="PCGRedBcknd" valign="middle">
-                                    <div id="GeneralMenu" style="height: auto; width: 78%; float: left;" runat="server">
+                                   <%-- <div id="GeneralMenu" style="height: auto; width: 78%; float: left;" runat="server">
                                         <table width="100%">
                                             <tr>
                                                 <td>
@@ -223,7 +223,7 @@
                                                                 </asp:MenuItem>
                                                             </asp:MenuItem>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Financial Planning" Value="FinancialPlanning"></asp:MenuItem>--%>
+                                                                Text="Financial Planning" Value="FinancialPlanning"></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -231,7 +231,7 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                    </div>
+                                    </div>--%>
                                     <div id="AdvisorHeader" style="height: auto; width: 78%; float: left; display: none;"
                                         runat="server">
                                         <table width="100%">
