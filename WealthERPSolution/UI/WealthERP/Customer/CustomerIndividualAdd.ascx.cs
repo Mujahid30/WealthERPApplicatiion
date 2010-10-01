@@ -44,6 +44,8 @@ namespace WealthERP.Customer
         {
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+            txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
+            cvJobStartDate.ValueToCompare = DateTime.Now.ToShortDateString();
 
             try
             {

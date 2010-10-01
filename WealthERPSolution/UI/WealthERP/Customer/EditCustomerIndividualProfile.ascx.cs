@@ -32,7 +32,8 @@ namespace WealthERP.Customer
         protected void Page_Load(object sender, EventArgs e)
         {
             cvDepositDate1.ValueToCompare = DateTime.Now.ToShortDateString();
-            
+            txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
+            cvJobStartDate.ValueToCompare = DateTime.Now.ToShortDateString();
             try
             {
                 SessionBo.CheckSession();

@@ -79,7 +79,8 @@
                 <asp:ListItem>Mrs.</asp:ListItem>
                 <asp:ListItem>Ms.</asp:ListItem>
             </asp:DropDownList>
-             <asp:CompareValidator ID="cmpddlSalutation" runat="server" ControlToValidate="ddlSalutation"
+            <span id="Span5" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="cmpddlSalutation" runat="server" ControlToValidate="ddlSalutation"
                 ErrorMessage="Please select a Salutation for customer" Operator="NotEqual" ValueToCompare="Select a Salutation"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
@@ -89,8 +90,8 @@
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Name (First/Middle/Last):"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox><span
-                id="Span1" class="spnRequiredField">*</span>
+            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span1" class="spnRequiredField">*</span>
             <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rfvLastName" ControlToValidate="txtFirstName" ErrorMessage="Please enter the First Name"
@@ -154,7 +155,7 @@
     </tr>
 </table>
 <div class="tabber">
-    <div class="tabbertab">
+    <div class="tabbertab" style="height: 250px;">
         <h6>
             Correspondence Address</h6>
         <table style="width: 100%; height: 196px;">
@@ -192,14 +193,15 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtLivingSince" runat="server" CssClass="txtField"></asp:TextBox>
-                    <cc1:CalendarExtender ID="txtLivingSince_CalendarExtender" runat="server" TargetControlID="txtLivingSince">
+                    <cc1:CalendarExtender ID="txtLivingSince_CalendarExtender" runat="server" TargetControlID="txtLivingSince"
+                        Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
                     <cc1:TextBoxWatermarkExtender ID="txtLivingSince_TextBoxWatermarkExtender" WatermarkText="dd/mm/yyyy"
                         TargetControlID="txtLivingSince" runat="server">
                     </cc1:TextBoxWatermarkExtender>
                     <asp:CompareValidator ID="txtLivingSince_CompareValidator" runat="server" ErrorMessage="<br/>Please enter a valid date."
                         Type="Date" ControlToValidate="txtLivingSince" CssClass="cvPCG" Operator="LessThanEqual"
-                        ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                        Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
             <tr>
@@ -236,7 +238,7 @@
             </tr>
         </table>
     </div>
-    <div class="tabbertab">
+    <div class="tabbertab" style="height: 250px;">
         <h6>
             Permanent Address</h6>
         <table style="width: 100%; height: 196px;">
@@ -309,7 +311,7 @@
             </tr>
         </table>
     </div>
-    <div class="tabbertab">
+    <div class="tabbertab" style="height: 250px;">
         <h6>
             Office Address</h6>
         <table style="width: 100%; height: 213px;">
@@ -355,14 +357,15 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtJobStartDate" runat="server" CssClass="txtField"></asp:TextBox>
-                    <cc1:CalendarExtender ID="txtJobStartDate_CalendarExtender" runat="server" TargetControlID="txtJobStartDate">
+                    <cc1:CalendarExtender ID="txtJobStartDate_CalendarExtender" runat="server" TargetControlID="txtJobStartDate"
+                        Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
                     <cc1:TextBoxWatermarkExtender ID="txtJobStartDate_TextBoxWatermarkExtender" WatermarkText="dd/mm/yyyy"
                         TargetControlID="txtJobStartDate" runat="server">
                     </cc1:TextBoxWatermarkExtender>
-                    <asp:CompareValidator ID="cvJobStartDate" runat="server" ErrorMessage="<br/>The Job start date should not be greater than current date."
+                    <asp:CompareValidator ID="cvJobStartDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                         Type="Date" ControlToValidate="txtJobStartDate" CssClass="cvPCG" Operator="LessThanEqual"
-                        ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                        Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
             <tr>
@@ -399,7 +402,7 @@
             </tr>
         </table>
     </div>
-    <div class="tabbertab">
+    <div class="tabbertab" style="height: 250px;">
         <h6>
             Contact Details</h6>
         <table style="width: 100%; height: 170px;">
@@ -527,10 +530,10 @@
             </tr>
         </table>
     </div>
-    <div class="tabbertab">
+    <div class="tabbertab" style="height: 250px;">
         <h6>
             Additional Information</h6>
-        <table style="width: 100%; height: 143px;">
+        <table style="width: 100%; height: 163px;">
             <tr>
                 <td colspan="4">
                     <asp:Label ID="Label44" CssClass="HeaderTextSmall" runat="server" Text="Additional Information"></asp:Label>
