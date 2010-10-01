@@ -65,8 +65,7 @@
                     <ContentTemplate>--%>
                 <asp:GridView ID="gvNotification" runat="server" AutoGenerateColumns="False" CellPadding="4"
                     CssClass="GridViewStyle" DataKeyNames="EventQueueID" AllowSorting="True" Font-Size="Small"
-                    HorizontalAlign="Center" BackImageUrl="~/CSS/Images/PCGGridViewHeaderGlass2.jpg"
-                    ShowFooter="True" EnableViewState="true">
+                    HorizontalAlign="Center" ShowFooter="True" EnableViewState="true">
                     <%-- OnRowEditing="gvDateAlerts_RowEditing" OnRowCommand="gvDateAlerts_RowCommand" OnRowUpdating="gvDateAlerts_RowUpdating" OnRowCancelingEdit="gvDateAlerts_RowCancelingEdit"
                     OnRowDataBound="gvDateAlerts_RowDataBound" --%>
                     <FooterStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
