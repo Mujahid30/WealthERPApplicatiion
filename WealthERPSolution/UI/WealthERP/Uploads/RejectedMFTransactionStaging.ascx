@@ -3,7 +3,8 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>   
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
@@ -11,7 +12,9 @@
 <link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
 
 <script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
+
 <script type="text/javascript" src="http://yui.yahooapis.com/2.8.1/build/yahoo/yahoo-min.js"></script>
+
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
 
 <!--This script is used for Progress bar -->
@@ -24,6 +27,7 @@
 </script>
 
 <%--End--%>
+
 <script type="text/javascript">
     function pageLoad() {
         InitDialogs();
@@ -56,10 +60,11 @@
 </script>
 
 <table width="100%" class="TableBackground">
-<tr>
-         <td class="HeaderCell">
-            <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;" class="flip" />
-          <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="MF Transaction Staging Rejects"></asp:Label>
+    <tr>
+        <td class="HeaderCell">
+            <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                class="flip" />
+            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="MF Transaction Staging Rejects"></asp:Label>
             <hr />
         </td>
     </tr>
@@ -71,16 +76,15 @@
         </td>
     </tr>
 </table>
-
-
 <table width="100%">
-<tr>
-<td align="center">
-<div id="msgReprocessComplete" runat="server" class="success-msg" align="center" visible="false">
-Reprocess successfully Completed
-</td>
-</tr>
-</div>
+    <tr>
+        <td align="center">
+            <div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
+                visible="false">
+            Reprocess successfully Completed
+        </td>
+    </tr>
+    </div>
 </table>
 <table style="width: 100%" class="TableBackground">
     <tr>
@@ -95,8 +99,11 @@ Reprocess successfully Completed
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
+</table>
+<table>
     <tr>
         <td>
+        <asp:Panel runat="server">
             <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="CMFTSId" AllowSorting="true"
                 OnSorting="gvWERPTrans_Sort">
@@ -122,7 +129,7 @@ Reprocess successfully Completed
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
-                            <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="cmbLongField" runat="server"
+                            <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="cmbField" runat="server"
                                 OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
@@ -144,7 +151,7 @@ Reprocess successfully Completed
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrSourceType" runat="server" Text="Source Type"></asp:Label>
-                            <asp:DropDownList ID="ddlSourceType" AutoPostBack="true" CssClass="cmbLongField"
+                            <asp:DropDownList ID="ddlSourceType" AutoPostBack="true" CssClass="cmbField"
                                 runat="server" OnSelectedIndexChanged="ddlSourceType_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
@@ -162,11 +169,12 @@ Reprocess successfully Completed
                         <ItemTemplate>
                             <asp:Label ID="lblInvNameData" runat="server" Text='<%# Bind("InvestorName") %>'></asp:Label>
                         </ItemTemplate>
+                        <HeaderStyle Wrap="False" />
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrFolioNumber" runat="server" Text="Folio Number"></asp:Label>
-                            <asp:DropDownList ID="ddlFolioNumber" AutoPostBack="true" CssClass="cmbLongField"
+                            <asp:DropDownList ID="ddlFolioNumber" AutoPostBack="true" CssClass="cmbField"
                                 runat="server" OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
@@ -175,7 +183,9 @@ Reprocess successfully Completed
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="Scheme" HeaderText="Scheme" DataFormatString="{0:f4}"
-                        ItemStyle-Wrap="false" />
+                        ItemStyle-Wrap="false" >
+                    <ItemStyle Wrap="False" />
+                    </asp:BoundField>
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrSchemeName" runat="server" Text="Scheme Name"></asp:Label>
@@ -190,7 +200,7 @@ Reprocess successfully Completed
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblHdrTransactionType" runat="server" Text="Traansation Type"></asp:Label>
-                            <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbLongField"
+                            <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbField"
                                 runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
@@ -204,6 +214,7 @@ Reprocess successfully Completed
                     <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:f4}" />
                 </Columns>
             </asp:GridView>
+            </asp:Panel>
         </td>
     </tr>
     <tr id="trReprocess" runat="server">
