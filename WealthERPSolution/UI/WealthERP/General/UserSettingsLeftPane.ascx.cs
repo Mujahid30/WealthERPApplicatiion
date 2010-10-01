@@ -57,7 +57,7 @@ namespace WealthERP.General
                         if (roleList.Contains("RM"))
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
                         else
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerIndividualDashboard','none');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcepath + "');", true);
                     }
                 }
                 else if (TreeView1.SelectedNode.Value.ToString() == "Change Password")
