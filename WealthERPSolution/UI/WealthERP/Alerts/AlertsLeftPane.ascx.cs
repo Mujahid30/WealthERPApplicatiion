@@ -103,6 +103,7 @@ namespace WealthERP.Alerts
             }
             else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
             {
+                Session["IsDashboard"] = "CustDashboard";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
             }
             else if (TreeView1.SelectedNode.Value == "Profile Dashboard")
