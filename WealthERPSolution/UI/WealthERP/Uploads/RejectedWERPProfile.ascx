@@ -59,7 +59,7 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged" CssClass="GridViewCmbField">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -92,11 +92,11 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblPan" runat="server" Text="PAN Number"></asp:Label>
-                            <asp:DropDownList ID="ddlPanNumber" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlPanNumber_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlPanNumber" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlPanNumber_SelectedIndexChanged" CssClass="GridViewCmbField">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:TextBox ID="txtPanWerp" runat="server" Text='<%# Bind("PANNumber") %>'></asp:TextBox>
+                            <asp:TextBox ID="txtPanWerp" runat="server" Text='<%# Bind("PANNumber") %>' CssClass="txtField"></asp:TextBox>
                         </ItemTemplate>
                         <FooterTemplate>
                             <asp:TextBox ID="txtPanMultiple" CssClass="FieldName" runat="server" />
@@ -109,7 +109,7 @@
                                 CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedWERPProfile_btnGridSearch');" />
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:TextBox ID="txtBroker" runat="server" Text='<%# Bind("BrokerCode") %>'></asp:TextBox>
+                            <asp:TextBox ID="txtBroker" runat="server" Text='<%# Bind("BrokerCode") %>' CssClass="txtField"></asp:TextBox>
                         </ItemTemplate>
                         <FooterTemplate>
                             <asp:TextBox ID="txtBrokerMultiple" CssClass="FieldName" runat="server" />
