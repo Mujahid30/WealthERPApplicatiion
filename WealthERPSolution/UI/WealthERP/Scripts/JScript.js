@@ -470,7 +470,7 @@ function logoutloadcontrol(controlid, logoPath, branchLogoPath) {
 
     setHeaderLinksFromControl("", "", "Sign In", "true");
 
-    document.getElementById("GeneralMenu").style.display = "block";
+    //document.getElementById("GeneralMenu").style.display = "block";
     document.getElementById("AdvisorHeader").style.display = "none";
     document.getElementById("CustomerIndividualHeader").style.display = "none";
     document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -640,16 +640,10 @@ function ChangeButtonCss(str, submitButton, size) {
 }
 
 function JSdoPostback(e, btnID) {
-
-
     var unicode = e.charCode ? e.charCode : e.keyCode;
-
     if (unicode == 13) {
-
-
         var btn2 = document.getElementById(btnID);
         btn2.click();
-
         return false;
     }
     else {
@@ -658,7 +652,6 @@ function JSdoPostback(e, btnID) {
 }
 
 function loadcontrolCustomer(controlid, logintrue) {
-
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
@@ -675,7 +668,7 @@ function loadcontrolCustomer(controlid, logintrue) {
     setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
     //parent.document.getElementById("mainframe").src = url;
     if (controlid == "LoanSchemeView") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -687,7 +680,7 @@ function loadcontrolCustomer(controlid, logintrue) {
         parent.document.getElementById("SwitchRolesHeader").style.display = "none";
     }
     else {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -707,11 +700,10 @@ function loadcontrolCustomer(controlid, logintrue) {
     else if (controlid == "UserSettings") {
         loadlinks("UserSettingsLeftPane");
     }
-
 }
 function loadtopmenu(menutype) {
     if (menutype == "AdvisorLeftPane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "block";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -725,7 +717,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "AdvisorBMLeftpane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -739,7 +731,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "AdvisorRMBMLeftpane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -753,7 +745,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "AdvisorRMLeftpane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -767,7 +759,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "AlertsLeftPane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -781,7 +773,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "BMLeftpane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -795,7 +787,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "BMRMLeftpane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -809,7 +801,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "CustomerIndividualLeftPane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -823,7 +815,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "CustomerNonIndividualLeftPane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "block";
@@ -837,7 +829,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "RMCustomerIndividualLeftPane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -851,7 +843,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "RMCustomerNonIndividualLeftPane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -865,7 +857,7 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "RMLeftPane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
+        //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
         parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
         parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
@@ -878,20 +870,20 @@ function loadtopmenu(menutype) {
         //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
-    else if (menutype == "SuperAdminLeftPane") {
-        parent.document.getElementById("GeneralMenu").style.display = "none";
-        parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-        parent.document.getElementById("RMHeader").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-        parent.document.getElementById("BMHeader").style.display = "none";
-        parent.document.getElementById("AdminHeader").style.display = "none";
-        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-        //parent.document.getElementById("SuperAdminHeader").style.display = "block";
+//    else if (menutype == "SuperAdminLeftPane") {
+//        //parent.document.getElementById("GeneralMenu").style.display = "none";
+//        parent.document.getElementById("AdvisorHeader").style.display = "none";
+//        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+//        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+//        parent.document.getElementById("RMHeader").style.display = "none";
+//        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+//        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+//        parent.document.getElementById("BMHeader").style.display = "none";
+//        parent.document.getElementById("AdminHeader").style.display = "none";
+//        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+//        //parent.document.getElementById("SuperAdminHeader").style.display = "block";
 
-    }
+//    }
 }
 /*Loads Controls only it wont load any Left Link*/
 function loadcontrolonly(controlid, logintrue) {
