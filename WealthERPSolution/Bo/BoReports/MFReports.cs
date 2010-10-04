@@ -237,6 +237,7 @@ namespace BoReports
                     if (dsCustomerMFReturns.Tables[4].Rows.Count != 0)
                     {
                        DataRow drTotal=dsCustomerMFReturns.Tables[4].Rows[0];
+                       if (!string.IsNullOrEmpty(drTotal["Amount"].ToString()))
                        totalValue = double.Parse(drTotal["Amount"].ToString());
                     }
                     foreach (DataRow drHoldings in dsCustomerMFReturns.Tables[2].Rows)
@@ -248,7 +249,8 @@ namespace BoReports
                         sectorTotal = sectorTotal + double.Parse(drSector["Amount"].ToString());
                     }
                     otherSectorTotal = totalValue - sectorTotal;
-                    otherholdingsTotal = totalValue - double.Parse(dsCustomerMFReturns.Tables[3].Rows[0]["Amount"].ToString()) - holdingstotal;
+                    if(dsCustomerMFReturns.Tables[3].Rows.Count!=0 && dsCustomerMFReturns.Tables[3].Rows[0]["Amount"].ToString()!="")
+                        otherholdingsTotal = totalValue - double.Parse(dsCustomerMFReturns.Tables[3].Rows[0]["Amount"].ToString()) - holdingstotal;
                     if (dsCustomerMFReturns.Tables[2].Rows.Count != 0)
                     {
                         DataRow dr = dsCustomerMFReturns.Tables[2].NewRow();
