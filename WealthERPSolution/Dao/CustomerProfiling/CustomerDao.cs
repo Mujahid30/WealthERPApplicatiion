@@ -50,7 +50,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_MiddleName", DbType.String, customerVo.MiddleName);
                 db.AddInParameter(createCustomerCmd, "@C_LastName", DbType.String, customerVo.LastName);
                 db.AddInParameter(createCustomerCmd, "@C_Gender", DbType.String, customerVo.Gender);
-                
+
                 if (customerVo.Dob == DateTime.MinValue)
                 {
                     db.AddInParameter(createCustomerCmd, "@C_DOB", DbType.DateTime, DBNull.Value);
@@ -103,7 +103,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_OfcFax", DbType.Int32, customerVo.OfcFax);
                 db.AddInParameter(createCustomerCmd, "@XO_OccupationCode", DbType.String, customerVo.Occupation);
                 db.AddInParameter(createCustomerCmd, "@XQ_QualificationCode", DbType.String, customerVo.Qualification);
-                db.AddInParameter(createCustomerCmd, "@C_MarriageDate", DbType.DateTime,customerVo.MarriageDate);
+                db.AddInParameter(createCustomerCmd, "@C_MarriageDate", DbType.DateTime, customerVo.MarriageDate);
                 db.AddInParameter(createCustomerCmd, "@XMS_MaritalStatusCode", DbType.String, customerVo.MaritalStatus);
                 db.AddInParameter(createCustomerCmd, "@XN_NationalityCode", DbType.String, customerVo.Nationality);
                 db.AddInParameter(createCustomerCmd, "@C_RBIRefNum", DbType.String, customerVo.RBIRefNum);
@@ -271,6 +271,8 @@ namespace DaoCustomerProfiling
                     customerVo.Occupation = dr["XO_OccupationCode"].ToString();
                     customerVo.Qualification = dr["XQ_QualificationCode"].ToString();
                     customerVo.MaritalStatus = dr["XMS_MaritalStatusCode"].ToString();
+                    if(dr["C_MarriageDate"].ToString() != "")
+                        customerVo.MarriageDate = Convert.ToDateTime(dr["C_MarriageDate"].ToString());
                     customerVo.Nationality = dr["XN_NationalityCode"].ToString();
                     customerVo.RBIRefNum = dr["C_RBIRefNum"].ToString();
                     if (dr["C_RBIApprovalDate"].ToString() != "")
@@ -779,6 +781,10 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(editCustomerCmd, "@XMS_MaritalStatusCode", DbType.String, customerVo.MaritalStatus);
                 else
                     db.AddInParameter(editCustomerCmd, "@XMS_MaritalStatusCode", DbType.String, DBNull.Value);
+                if (customerVo.MarriageDate != DateTime.MinValue)
+                    db.AddInParameter(editCustomerCmd, "@C_MarriageDate", DbType.DateTime, customerVo.MarriageDate);
+                else
+                    db.AddInParameter(editCustomerCmd, "@C_MarriageDate", DbType.DateTime, DBNull.Value);
 
                 if (customerVo.Nationality != "Select a Nationality" && customerVo.Nationality != "")
                     db.AddInParameter(editCustomerCmd, "@XN_NationalityCode", DbType.String, customerVo.Nationality);
@@ -2248,7 +2254,7 @@ namespace DaoCustomerProfiling
             }
             return dtPanAddress;
         }
-                
+
         /// <summary>
         ///  Get RM Group Customer Names
         /// </summary>
@@ -2349,10 +2355,10 @@ namespace DaoCustomerProfiling
         }
         /// <summary>
         /// Get RM Individual Customer Names
-       /// </summary>
-       /// <param name="prefixText"></param>
-       /// <param name="rmId"></param>
-       /// <returns></returns>
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
         public DataTable GetMemberCustomerName(string prefixText, int rmId)
         {
 
