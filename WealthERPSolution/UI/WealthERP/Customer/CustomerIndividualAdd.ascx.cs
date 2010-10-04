@@ -45,6 +45,7 @@ namespace WealthERP.Customer
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
+            txtMarriageDate_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
             cvJobStartDate.ValueToCompare = DateTime.Now.ToShortDateString();
 
             try
@@ -246,6 +247,12 @@ namespace WealthERP.Customer
                     customerVo.Qualification = ddlQualification.SelectedValue.ToString().Trim();
                     customerVo.Nationality = ddlNationality.SelectedValue.ToString().Trim();
                     customerVo.MaritalStatus = ddlMaritalStatus.SelectedValue.ToString().Trim();
+                    if (txtMarriageDate.Text != string.Empty && txtMarriageDate.Text != "dd/mm/yyyy")
+                    {
+                        customerVo.MarriageDate = DateTime.Parse(txtMarriageDate.Text);
+                    }
+                    else
+                        customerVo.MarriageDate = DateTime.MinValue;
                     customerVo.RBIRefNum = txtRBIRefNo.Text.ToString().Trim();
                     if (txtLivingSince.Text.ToString() != "")
                         customerVo.ResidenceLivingDate = DateTime.Parse(txtLivingSince.Text.ToString());
