@@ -3,6 +3,18 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
+<script type="text/javascript" language="javascript">
+    function OnMaritalStatusChange(ddlMaritalStatus) {
+        var selectedValue = document.getElementById(ddlMaritalStatus.id).value;
+        document.getElementById('<%= txtMarriageDate.ClientID %>').value = 'dd/mm/yyyy';
+        if (selectedValue == 'MA') {
+            document.getElementById('<%= txtMarriageDate.ClientID %>').disabled = false;
+        }
+        else {
+            document.getElementById('<%= txtMarriageDate.ClientID %>').disabled = true;
+        }
+    }
+</script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
@@ -561,7 +573,7 @@
                     <asp:Label ID="Label47" CssClass="FieldName" runat="server" Text="Marital Status:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:DropDownList ID="ddlMaritalStatus" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddlMaritalStatus" runat="server" CssClass="cmbField" OnChange="OnMaritalStatusChange(this)">
                     </asp:DropDownList>
                 </td>
                 <td class="leftField">
@@ -570,6 +582,29 @@
                 <td class="rightField">
                     <asp:DropDownList ID="ddlNationality" runat="server" CssClass="cmbField">
                     </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftField" width="25%">
+                    <asp:Label ID="Label6" CssClass="FieldName" runat="server" Text="Marriage Date:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtMarriageDate" runat="server" CssClass="txtField"></asp:TextBox>
+                    <cc1:CalendarExtender ID="txtMarriageDate_CalendarExtender" runat="server" TargetControlID="txtMarriageDate"
+                        Format="dd/MM/yyyy">
+                    </cc1:CalendarExtender>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtMarriageDate"
+                        WatermarkText="dd/mm/yyyy">
+                    </cc1:TextBoxWatermarkExtender>
+                    <asp:CompareValidator ID="txtMarriageDate_CompareValidator" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                        Type="Date" ControlToValidate="txtMarriageDate" CssClass="cvPCG" Operator="LessThanEqual"
+                        ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                </td>
+                <td class="leftField" width="25%">
+                    <asp:Label ID="lblMotherMaidenName" CssClass="FieldName" runat="server" Text="Mother's Maiden Name:"></asp:Label>
+                </td>
+                <td class="rightField" width="25%">
+                    <asp:TextBox ID="txtMotherMaidenName" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -591,14 +626,7 @@
                     </cc1:TextBoxWatermarkExtender>
                 </td>
             </tr>
-            <tr>
-                <td class="leftField" width="25%">
-                    <asp:Label ID="lblMotherMaidenName" CssClass="FieldName" runat="server" Text="Mother's Maiden Name:"></asp:Label>
-                </td>
-                <td class="rightField" width="25%">
-                    <asp:TextBox ID="txtMotherMaidenName" runat="server" CssClass="txtField"></asp:TextBox>
-                </td>
-            </tr>
+            
         </table>
     </div>
 </div>

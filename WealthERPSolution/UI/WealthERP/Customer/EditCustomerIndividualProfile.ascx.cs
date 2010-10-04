@@ -34,6 +34,8 @@ namespace WealthERP.Customer
             cvDepositDate1.ValueToCompare = DateTime.Now.ToShortDateString();
             txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
             cvJobStartDate.ValueToCompare = DateTime.Now.ToShortDateString();
+            txtMarriageDate_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
+
             try
             {
                 SessionBo.CheckSession();
@@ -77,6 +79,14 @@ namespace WealthERP.Customer
                     ddlAdviserBranchList.SelectedValue = customerVo.BranchId.ToString();
                     if (customerVo.MaritalStatus != null)
                         ddlMaritalStatus.SelectedValue = customerVo.MaritalStatus.ToString();
+                    if (ddlMaritalStatus.SelectedValue == "MA")
+                        txtMarriageDate.Enabled = true;
+                    else
+                        txtMarriageDate.Enabled = false;
+                    if (customerVo.MarriageDate == DateTime.MinValue)
+                        txtMarriageDate.Text = "";
+                    else
+                        txtMarriageDate.Text = customerVo.MarriageDate.ToShortDateString();
                     if (customerVo.Nationality != null)
                         ddlNationality.SelectedValue = customerVo.Nationality.ToString();
                     if (customerVo.Occupation != null)
@@ -471,6 +481,13 @@ namespace WealthERP.Customer
                         customerVo.MaritalStatus = null;
                     else
                         customerVo.MaritalStatus = ddlMaritalStatus.SelectedItem.Value.ToString();
+
+                    if (txtMarriageDate.Text != string.Empty && txtMarriageDate.Text != "dd/mm/yyyy")
+                    {
+                        customerVo.MarriageDate = DateTime.Parse(txtMarriageDate.Text);
+                    }
+                    else
+                        customerVo.MarriageDate = DateTime.MinValue;
 
                     if (txtLivingSince.Text == "")
                         customerVo.ResidenceLivingDate = DateTime.MinValue;
