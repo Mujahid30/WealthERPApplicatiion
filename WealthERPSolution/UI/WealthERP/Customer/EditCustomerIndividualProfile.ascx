@@ -4,6 +4,20 @@
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
 <script type="text/javascript" language="javascript">
+    function checkDate(sender, args) {
+
+        var selectedDate = new Date();
+        selectedDate = sender._selectedDate;
+
+        var todayDate = new Date();
+        var msg = "";
+
+        if (selectedDate > todayDate) {
+            sender._selectedDate = todayDate;
+            sender._textbox.set_Value(sender._selectedDate.format(sender._format));
+            alert("Warning! - Date Cannot be in the future");
+        }
+    }
     function OnMaritalStatusChange(ddlMaritalStatus) {
         var selectedValue = document.getElementById(ddlMaritalStatus.id).value;
         document.getElementById('<%= txtMarriageDate.ClientID %>').value = 'dd/mm/yyyy';
@@ -206,13 +220,13 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtLivingSince" runat="server" CssClass="txtField"></asp:TextBox>
                     <cc1:CalendarExtender ID="txtLivingSince_CalendarExtender" runat="server" TargetControlID="txtLivingSince"
-                        Format="dd/MM/yyyy">
+                        Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
                     </cc1:CalendarExtender>
                     <cc1:TextBoxWatermarkExtender ID="txtLivingSince_TextBoxWatermarkExtender" WatermarkText="dd/mm/yyyy"
                         TargetControlID="txtLivingSince" runat="server">
                     </cc1:TextBoxWatermarkExtender>
                     <asp:CompareValidator ID="txtLivingSince_CompareValidator" runat="server" ErrorMessage="<br/>Please enter a valid date."
-                        Type="Date" ControlToValidate="txtLivingSince" CssClass="cvPCG" Operator="LessThanEqual"
+                        Type="Date" ControlToValidate="txtLivingSince" CssClass="cvPCG" Operator="DataTypeCheck"
                         Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
@@ -370,13 +384,13 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtJobStartDate" runat="server" CssClass="txtField"></asp:TextBox>
                     <cc1:CalendarExtender ID="txtJobStartDate_CalendarExtender" runat="server" TargetControlID="txtJobStartDate"
-                        Format="dd/MM/yyyy">
+                        Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
                     </cc1:CalendarExtender>
                     <cc1:TextBoxWatermarkExtender ID="txtJobStartDate_TextBoxWatermarkExtender" WatermarkText="dd/mm/yyyy"
                         TargetControlID="txtJobStartDate" runat="server">
                     </cc1:TextBoxWatermarkExtender>
                     <asp:CompareValidator ID="cvJobStartDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
-                        Type="Date" ControlToValidate="txtJobStartDate" CssClass="cvPCG" Operator="LessThanEqual"
+                        Type="Date" ControlToValidate="txtJobStartDate" CssClass="cvPCG" Operator="DataTypeCheck"
                         Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
@@ -591,13 +605,13 @@
                 <td class="rightField" width="25%">
                     <asp:TextBox ID="txtMarriageDate" runat="server" CssClass="txtField"></asp:TextBox>
                     <cc1:CalendarExtender ID="txtMarriageDate_CalendarExtender" runat="server" TargetControlID="txtMarriageDate"
-                        Format="dd/MM/yyyy">
+                        Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
                     </cc1:CalendarExtender>
                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtMarriageDate"
                         WatermarkText="dd/mm/yyyy">
                     </cc1:TextBoxWatermarkExtender>
                     <asp:CompareValidator ID="txtMarriageDate_CompareValidator" runat="server" ErrorMessage="<br/>Please enter a valid date."
-                        Type="Date" ControlToValidate="txtMarriageDate" CssClass="cvPCG" Operator="LessThanEqual"
+                        Type="Date" ControlToValidate="txtMarriageDate" CssClass="cvPCG" Operator="DataTypeCheck"
                         ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                 </td>
                 <td class="leftField" width="25%">
