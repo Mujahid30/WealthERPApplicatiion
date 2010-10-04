@@ -19,6 +19,14 @@ namespace DaoCustomerProfiling
 {
     public class CustomerDao
     {
+        /// <summary>
+        /// It Creates Customer
+        /// </summary>
+        /// <param name="customerVo"></param>
+        /// <param name="rmId"></param>
+        /// <param name="userId"></param>
+        /// <param name="ADULProcessId"></param>
+        /// <returns></returns>
         public int CreateCustomer(CustomerVo customerVo, int rmId, int userId, int ADULProcessId)
         {
 
@@ -178,6 +186,11 @@ namespace DaoCustomerProfiling
             return customerId;
         }
 
+        /// <summary>
+        /// It gets completes Customer Details and Assigned it to CustomerVo
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public CustomerVo GetCustomer(int customerId)
         {
             CustomerVo customerVo = null;
@@ -315,6 +328,8 @@ namespace DaoCustomerProfiling
 
             return customerVo;
         }
+
+
         public int CreateCustomerUser(CustomerVo customerVo, int userId)
         {
 
@@ -368,6 +383,12 @@ namespace DaoCustomerProfiling
 
             return custUserId;
         }
+
+        /// <summary>
+        /// Gets CustomerInfo if you pass UserId as its Parameter
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public CustomerVo GetCustomerInfo(int userId)
         {
 
@@ -504,6 +525,13 @@ namespace DaoCustomerProfiling
             return customerVo;
 
         }
+
+
+        /// <summary>
+        /// Gets only Customer Name
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public string GetCustomerUsername(int customerId)
         {
             string userName = "";
@@ -543,6 +571,13 @@ namespace DaoCustomerProfiling
             }
             return userName;
         }
+
+        /// <summary>
+        /// It will get you Complete information of the Customer if you pass Firstname of the Customer as its Parameter
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public DataSet SearchCustomers(int advisorId, string name)
         {
             Database db;
@@ -585,6 +620,12 @@ namespace DaoCustomerProfiling
 
         }
 
+
+        /// <summary>
+        /// Gets you Firstname middlename lastname emailid password detals for a particular Customer from Usertable if you pass Customer Id as its Parameter
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public UserVo GetCustomerUser(int customerId)
         {
             UserVo userVo = null;
@@ -639,6 +680,12 @@ namespace DaoCustomerProfiling
             return userVo;
         }
 
+
+        /// <summary>
+        /// It Updates Complete customer Details if you pass complete CustomerVo as a Parameter
+        /// </summary>
+        /// <param name="customerVo"></param>
+        /// <returns></returns>
         public bool UpdateCustomer(CustomerVo customerVo)
         {
             bool bResult = false;
@@ -807,6 +854,14 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
+
+        /// <summary>
+        /// It Gets you Asset Code about Asset Class
+        /// </summary>
+        /// <param name="AssetType"></param>
+        /// <param name="CustomerType"></param>
+        /// <param name="KYCFlag"></param>
+        /// <returns></returns>
         public string GetAssestCode(string AssetType, string CustomerType, int KYCFlag)
         {
             string filtercategory = "";
@@ -826,13 +881,7 @@ namespace DaoCustomerProfiling
                 if (dsAssetCode.Tables[0].Rows.Count > 0)
                 {
                     filtercategory = dsAssetCode.Tables[0].Rows[0][0].ToString();
-                }
-
-                //ds = new DataSet();
-                //ds.ReadXml(path);
-                //row = ds.Tables["FilterCategory"].Select(" AssetClass = '" + AssetType + "' and CustomerType = '" + CustomerType + "' and KYCFlag = '" + KYCFlag + "'");
-                //dr = row[0];
-                //filtercategory = dr["Code"].ToString();
+                }            
             }
             catch (BaseApplicationException Ex)
             {
@@ -860,6 +909,13 @@ namespace DaoCustomerProfiling
             return filtercategory;
         }
 
+
+        /// <summary>
+        /// It Gets you Proof List Details if you pass FilterCategory as its Parameter
+        /// </summary>
+        /// <param name="filterCategory"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public List<string> GetProofList(string filterCategory, string path)
         {
             Database db;
@@ -929,6 +985,14 @@ namespace DaoCustomerProfiling
             return lookups;
         }
 
+
+        /// <summary>
+        /// It inserts Customer Proofs in to Database
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="customerProof"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool SaveCustomerProofs(int customerId, int customerProof, int userId)
         {
             bool bResult = false;
@@ -974,6 +1038,12 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
+        /// <summary>
+        /// It Gets Customer Proof Code if you Pass Proofs and its location as its Paramaeter
+        /// </summary>
+        /// <param name="proof"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public int GetCustomerProofCode(string proof, string path)
         {
             int proofCode = 0;
@@ -1015,6 +1085,14 @@ namespace DaoCustomerProfiling
             return proofCode;
         }
 
+
+        /// <summary>
+        /// It Gets Complete Customer Proofs for the Particular Customer if you Pass Customer Id as its Parameter
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
         public DataSet GetCustomerProofs(int customerId, int currentPage, out int Count)
         {
 
@@ -1032,19 +1110,7 @@ namespace DaoCustomerProfiling
 
                 getCustomerProofsDs = db.ExecuteDataSet(getCustomerProofsCmd);
                 Count = int.Parse(getCustomerProofsDs.Tables[1].Rows[0][0].ToString());
-                //if (getCustomerProofsDs.Tables[0].Rows.Count > 0)
-                //{
-                //    customerProofList = new List<string>();
-                //    foreach (DataRow dr in getCustomerProofsDs.Tables[0].Rows)
-                //    {
-                //        proof = dr["XP_ProofName"].ToString();  //Have to access the XML and get the correct Proof Name and place in customerprooflist
-                //        customerProofList.Add(proof);
-                //    }
-                //}
-                //else
-                //{
-                //    customerProofList = null;
-                //}
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -1070,7 +1136,15 @@ namespace DaoCustomerProfiling
 
             return getCustomerProofsDs;
         }
+        
 
+
+        /// <summary>
+        /// It Deletes Complete Customer details for the Particular Customer if you Pass CustomerId as its Parameter
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool DeleteCustomer(int customerId, int userId)
         {
             bool bResult = false;
@@ -1109,6 +1183,15 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
+
+        /// <summary>
+        /// It Creates Complete Customer Profile in both Customer Table and also User Table if you pass CustomerVo,UserVo,CustomerPortfolioVo as its Parameter
+        /// </summary>
+        /// <param name="customerVo"></param>
+        /// <param name="userVo"></param>
+        /// <param name="customerPortfolioVo"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public List<int> CreateCompleteCustomer(CustomerVo customerVo, UserVo userVo, CustomerPortfolioVo customerPortfolioVo, int userId)
         {
             //bool bReturn = false;
@@ -1336,7 +1419,14 @@ namespace DaoCustomerProfiling
             return customerIds;
         }
 
-        // GET CUSTOMER PROOF LIST BASED ON CUSTOMER TYPE AND PROOF CATEGORY
+        
+        /// <summary>
+        /// Get ProofList based on CustomerType and also based on Proof Category
+        /// </summary>
+        /// <param name="customerType"></param>
+        /// <param name="proofCategory"></param>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public DataTable GetProofList(int customerType, int proofCategory, int customerId)
         {
             Database db;
@@ -1376,7 +1466,12 @@ namespace DaoCustomerProfiling
             return dtResult;
         }
 
-        // DELETE CUSTOMER PROOF
+        /// <summary>
+        /// Deletes Customer Proof if you pass CustomerId as its Parameter
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="proofCode"></param>
+        /// <returns></returns>
         public bool DeleteCustomerProof(int customerId, int proofCode)
         {
             Database db;
@@ -1416,7 +1511,12 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
-        // REASSIGNING  RM
+        /// <summary>
+        /// It Reassigns RM if you pass Arrays of Customer Ids and RmIds
+        /// </summary>
+        /// <param name="customerIds"></param>
+        /// <param name="rmIds"></param>
+        /// <returns></returns>
         public bool UpdateCustomerAssignedRM(int[] customerIds, int[] rmIds)
         {
             bool bResult = false;
@@ -1458,7 +1558,11 @@ namespace DaoCustomerProfiling
 
         }
 
-        //Getting the details of income for a particular customer
+        /// <summary>
+        /// Getting the details of income for a particular customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public DataTable GetCustomerIncomeDetails(int customerId)
         {
             Database db;
@@ -1495,7 +1599,14 @@ namespace DaoCustomerProfiling
             return dtIncomeDetails;
         }
 
-        //Adding Customer Income Details
+        /// <summary>
+        /// Adding Customer Income Details
+        /// </summary>
+        /// <param name="rmUserId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="customerIncomeVo"></param>
+        /// <returns></returns>
+
         public bool AddCustomerIncomeDetails(int rmUserId, int customerId, CustomerIncomeVo customerIncomeVo)
         {
             Database db;
@@ -1595,7 +1706,13 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
-        //Update Customer Income Details
+        /// <summary>
+        /// Update Customer Income Details
+        /// </summary>
+        /// <param name="rmUserId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="customerIncomeVo"></param>
+        /// <returns></returns>
         public bool UpdateCustomerIncomeDetails(int rmUserId, int customerId, CustomerIncomeVo customerIncomeVo)
         {
             Database db;
@@ -1695,7 +1812,11 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
-        //Getting the property details of a customer
+        /// <summary>
+        /// Getting the property details of a customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public DataTable GetCustomerPropertyDetails(int customerId)
         {
             Database db;
@@ -1731,7 +1852,11 @@ namespace DaoCustomerProfiling
             return dtPropDetails;
         }
 
-        //Getting the details of Expense for a particular customer
+        /// <summary>
+        /// Getting the details of Expense for a particular customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public DataTable GetCustomerExpenseDetails(int customerId)
         {
             Database db;
@@ -1768,7 +1893,13 @@ namespace DaoCustomerProfiling
             return dtExpenseDetails;
         }
 
-        //Adding Customer Expense Details
+        /// <summary>
+        /// Adding Customer Expense Details
+        /// </summary>
+        /// <param name="rmUserId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="customerExpenseVo"></param>
+        /// <returns></returns>
         public bool AddCustomerExpenseDetails(int rmUserId, int customerId, CustomerExpenseVo customerExpenseVo)
         {
             Database db;
@@ -1896,7 +2027,13 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
-        //Update Customer Expense Details
+        /// <summary>
+        /// Update Customer Expense Details
+        /// </summary>
+        /// <param name="rmUserId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="customerExpenseVo"></param>
+        /// <returns></returns>
         public bool UpdateCustomerExpenseDetails(int rmUserId, int customerId, CustomerExpenseVo customerExpenseVo)
         {
             Database db;
@@ -2024,7 +2161,13 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
-        //PAN Number Duplicate Check
+        /// <summary>
+        /// PAN Number Duplicate Check
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="panNumber"></param>
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
         public bool PANNumberDuplicateCheck(int adviserId, string panNumber, int CustomerId)
         {
             Database db;
@@ -2065,7 +2208,11 @@ namespace DaoCustomerProfiling
             return bResult;
         }
 
-        //Getting the Pan and Address of Customer for Group Account Setup
+        /// <summary>
+        /// Getting the Pan and Address of Customer for Group Account Setup
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public DataTable GetCustomerPanAddress(int customerId)
         {
             Database db;
@@ -2441,6 +2588,45 @@ namespace DaoCustomerProfiling
                 throw exBase;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Used to Get Customer Relation
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetCustomerRelation()
+        {
+            Database db;
+            DbCommand cmdGetCustomerRelation;
+            DataTable dtGetCustomerRelation;
+            DataSet dsGetCustomerRelation = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetCustomerRelation = db.GetStoredProcCommand("SP_GetCustomerRelation");                
+                dsGetCustomerRelation = db.ExecuteDataSet(cmdGetCustomerRelation);
+                dtGetCustomerRelation = dsGetCustomerRelation.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerRelation()");
+                object[] objects = new object[1];
+                objects[0] = "Relationship problem";
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetCustomerRelation;
         }
     }
 }
