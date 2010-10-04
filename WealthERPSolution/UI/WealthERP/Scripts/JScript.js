@@ -44,7 +44,11 @@ function loadcontrol(controlid, logintrue) {
     //setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 10);
     parent.document.getElementById("mainframe").src = url;
 
-    if (controlid == "IFAAdminMainDashboard") {
+    if (controlid == "AdvisorProfile") {
+        loadlinks("AdvisorLeftPane");
+
+    }
+    else if (controlid == "IFAAdminMainDashboard") {
         loadlinks("AdvisorLeftPane");
 
     }
