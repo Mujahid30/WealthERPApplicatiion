@@ -474,6 +474,20 @@
                             </td>
                         </tr>
                         <tr>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="lblMarriageDat" runat="server" Text="Marriage Date:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                <asp:Label ID="lblMarriageDate" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                            </td>
+                            <td class="leftField" width="25%">
+                                <asp:Label ID="lblMotherMaidenName" runat="server" Text="Mother's Maiden Name:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                <asp:Label ID="lblMotherMaiden" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="leftField" width="25%">
                                 <asp:Label ID="Label49" runat="server" Text="RBI Reference No:" CssClass="FieldName"></asp:Label>
                             </td>
@@ -487,14 +501,7 @@
                                 <asp:Label ID="lblRBIRefDate" runat="server" Text="Label" CssClass="Field"></asp:Label>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="leftField" width="25%">
-                                <asp:Label ID="lblMotherMaidenName" runat="server" Text="Mother's Maiden Name:" CssClass="FieldName"></asp:Label>
-                            </td>
-                            <td class="rightField" width="25%">
-                                <asp:Label ID="lblMotherMaiden" runat="server" Text="Label" CssClass="Field"></asp:Label>
-                            </td>
-                        </tr>
+                        
                     </table>
                 </div>
             </div>

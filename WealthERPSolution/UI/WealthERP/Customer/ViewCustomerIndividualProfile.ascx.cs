@@ -150,6 +150,10 @@ namespace WealthERP.Customer
                     lblMaritalStatus.Text = XMLBo.GetMaritalStatusName(path, customerVo.MaritalStatus.ToString());
                 else
                     lblMaritalStatus.Text = "";
+                if (customerVo.MarriageDate.Year == 1800 || customerVo.MarriageDate == DateTime.MinValue)
+                    lblMarriageDate.Text = "";
+                else
+                    lblMarriageDate.Text = customerVo.MarriageDate.ToShortDateString();
                 if (customerVo.Qualification != null)
                     lblQualification.Text = XMLBo.GetQualificationName(path, customerVo.Qualification.ToString());
                 else

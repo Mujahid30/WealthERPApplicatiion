@@ -887,6 +887,42 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label lblNationality;
         
         /// <summary>
+        /// lblMarriageDat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMarriageDat;
+        
+        /// <summary>
+        /// lblMarriageDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMarriageDate;
+        
+        /// <summary>
+        /// lblMotherMaidenName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMotherMaidenName;
+        
+        /// <summary>
+        /// lblMotherMaiden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMotherMaiden;
+        
+        /// <summary>
         /// Label49 control.
         /// </summary>
         /// <remarks>
@@ -921,24 +957,6 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRBIRefDate;
-        
-        /// <summary>
-        /// lblMotherMaidenName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMotherMaidenName;
-        
-        /// <summary>
-        /// lblMotherMaiden control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMotherMaiden;
         
         /// <summary>
         /// trDelete control.
