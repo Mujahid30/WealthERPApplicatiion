@@ -1117,6 +1117,38 @@ namespace BoCustomerProfiling
             }
             return result;
         }
+        public DataTable GetCustomerRelation()
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtGetCustomerRelation = new DataTable();
+            try
+            {
+                dtGetCustomerRelation = customerDao.GetCustomerRelation();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAdviserCustomerName()");
+
+
+                object[] objects = new object[0];
+                objects[0] = "BoRelationshipProblem";
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetCustomerRelation;
+        }
     }
 
 }
