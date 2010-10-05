@@ -1298,8 +1298,8 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@XQ_QualificationCode", DbType.String, customerVo.Qualification);
                 db.AddInParameter(createCustomerCmd, "@XMS_MaritalStatusCode", DbType.String, customerVo.MaritalStatus);
                 db.AddInParameter(createCustomerCmd, "@XN_NationalityCode", DbType.String, customerVo.Nationality);
-
-
+                db.AddInParameter(createCustomerCmd, "@C_IsProspect", DbType.Int32, customerVo.IsProspect);
+                db.AddInParameter(createCustomerCmd, "@C_IsFPClient", DbType.Int32, customerVo.IsFPClient);  
                 //Customer Marriage Date
 
                 db.AddInParameter(createCustomerCmd, "@C_MarriageDate", DbType.DateTime, DBNull.Value);
