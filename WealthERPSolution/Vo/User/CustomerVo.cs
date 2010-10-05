@@ -85,7 +85,10 @@ namespace VoUser
         private string m_BranchName;
         private string m_RelationShip;
         private DateTime m_MarriageDate;
+        private int m_IsProspect;
+        private int m_IsFPClient;
 
+      
         public DateTime MarriageDate
         {
             get { return m_MarriageDate; }
@@ -471,6 +474,17 @@ namespace VoUser
             set { m_AssignedRM = value; }
         }
 
+        public int IsFPClient
+        {
+            get { return m_IsFPClient; }
+            set { m_IsFPClient = value; }
+        }
+
+        public int IsProspect
+        {
+            get { return m_IsProspect; }
+            set { m_IsProspect = value; }
+        }
         #endregion Properties
 
     }
