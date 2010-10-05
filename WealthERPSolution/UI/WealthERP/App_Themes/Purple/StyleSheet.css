@@ -53,6 +53,15 @@ div#MainDivLeft
     color: #16518A;
     width: 145px;
 }
+.txtSchemeName
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 500px;
+    
+}
 .cmbField
 {
     font-family: Verdana,Tahoma;
