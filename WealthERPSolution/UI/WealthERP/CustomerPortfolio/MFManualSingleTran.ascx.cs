@@ -339,7 +339,7 @@ namespace WealthERP.CustomerPortfolio
                             customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
                         }
                     }
-                }
+                
                 if (ddlTransactionType.SelectedItem.Value == "Holdings")
                 {
                     mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
