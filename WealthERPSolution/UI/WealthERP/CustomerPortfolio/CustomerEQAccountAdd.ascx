@@ -17,10 +17,11 @@
             alert("Warning! - Date Cannot be in the future");
         }
     }
+    
 </script>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
-        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+        <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 <asp:UpdatePanel ID="upnl1" runat="server">
@@ -185,7 +186,7 @@
                 <td colspan="2">
                     <asp:GridView ID="gvDPAccounts" runat="server" AutoGenerateColumns="False" CellPadding="4"
                         DataKeyNames="DpId" ForeColor="#333333" Width="624px" Height="78px" AllowSorting="True"
-                        Font-Size="Small" BackImageUrl="~/CSS/Images/HeaderGlassBlack.jpg" CssClass="GridViewStyle">
+                        Font-Size="Small"  CssClass="GridViewStyle">
                         <FooterStyle Font-Bold="True" ForeColor="White" />
                         <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                         <SelectedRowStyle Font-Bold="True" CssClass="SelectedRowStyle" />
