@@ -85,8 +85,8 @@ namespace VoUser
         private string m_BranchName;
         private string m_RelationShip;
         private DateTime m_MarriageDate;
-        private int m_IsProspect;
-        private int m_IsFPClient;
+        private int m_IsProspect=0;
+        private int m_IsFPClient=0;
 
       
         public DateTime MarriageDate
