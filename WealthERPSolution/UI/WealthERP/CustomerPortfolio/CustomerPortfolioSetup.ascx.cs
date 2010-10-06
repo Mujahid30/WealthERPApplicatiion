@@ -64,7 +64,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlPortfolioType.SelectedValue = dtPortfolioType.Rows[0]["XPT_PortfolioTypeCode"].ToString();
                     btnSubmit.Text = "Update";
                 }
-                
+
             }
         }
 
@@ -143,6 +143,7 @@ namespace WealthERP.CustomerPortfolio
         private void UpdatePortfolioDetails()
         {
             newCustomerPortfolioVo = new CustomerPortfolioVo();
+            dsPortfolioType = new DataSet();
             try
             {
                 if (txtCustomerId.Value != string.Empty)
@@ -150,8 +151,10 @@ namespace WealthERP.CustomerPortfolio
                     customerId = int.Parse(txtCustomerId.Value);
                 }
                 newCustomerPortfolioVo.PortfolioId = int.Parse(Session["PortfolioId"].ToString());
+                dsPortfolioType = portfolioBo.GetCustomerPortfolioDetails(newCustomerPortfolioVo.PortfolioId);
                 newCustomerPortfolioVo.CustomerId = customerId;
-                newCustomerPortfolioVo.IsMainPortfolio = 0;
+                if (dsPortfolioType.Tables[0].Rows[0]["CP_IsMainPortfolio"].ToString() != "")
+                    newCustomerPortfolioVo.IsMainPortfolio = int.Parse(dsPortfolioType.Tables[0].Rows[0]["CP_IsMainPortfolio"].ToString());
                 newCustomerPortfolioVo.PMSIdentifier = txtPMSIdentifier.Text;
                 newCustomerPortfolioVo.PortfolioName = txtPortfolioName.Text;
                 newCustomerPortfolioVo.PortfolioTypeCode = ddlPortfolioType.SelectedValue;
