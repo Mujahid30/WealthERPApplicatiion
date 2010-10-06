@@ -162,7 +162,7 @@ namespace WealthERP.CustomerPortfolio
 
 
             }
-            if (ddlTransactionType.SelectedItem.Value == "Buy")
+            if (ddlTransactionType.SelectedItem.Value == "Buy" || ddlTransactionType.SelectedItem.Value == "Holdings")
             {
                 tdUnitsLabel.Visible = true;
                 tdUnitsValue.Visible = true;
@@ -339,16 +339,30 @@ namespace WealthERP.CustomerPortfolio
                             customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
                         }
                     }
+                }
+                if (ddlTransactionType.SelectedItem.Value == "Holdings")
+                {
+                    mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                    mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                    mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                    mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
+                    mfTransactionVo.TransactionClassificationCode = "HLD";
+                    mfTransactionVo.BuySell = "B";
 
-                    if (ddlTransactionType.SelectedItem.Value == "Sell")
+                    if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
                     {
-                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
-                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
-                        mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
-                        mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
-                        mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
-                        mfTransactionVo.TransactionClassificationCode = "SEL";
-                        mfTransactionVo.BuySell = "S";
+                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                    }
+                }
+                if (ddlTransactionType.SelectedItem.Value == "Sell")
+                {
+                    mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                    mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                    mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                    mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
+                    mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
+                    mfTransactionVo.TransactionClassificationCode = "SEL";
+                    mfTransactionVo.BuySell = "S";
 
                         if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
                         {

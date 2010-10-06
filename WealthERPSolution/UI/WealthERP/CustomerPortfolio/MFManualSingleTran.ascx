@@ -147,6 +147,7 @@
                         <asp:ListItem>STP</asp:ListItem>
                         <asp:ListItem>Dividend Payout</asp:ListItem>
                         <asp:ListItem>Switch</asp:ListItem>
+                        <asp:ListItem>Holdings</asp:ListItem>
                     </asp:DropDownList>
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />Please select a transaction type"
