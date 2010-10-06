@@ -18,6 +18,15 @@ namespace BoCustomerProfiling
 {
     public class CustomerBo
     {
+
+        /// <summary>
+        /// Used to Create Customer
+        /// </summary>
+        /// <param name="customerVo"></param>
+        /// <param name="rmId"></param>
+        /// <param name="userId"></param>
+        /// <param name="ADULProcessId"></param>
+        /// <returns></returns>
         public int CreateCustomer(CustomerVo customerVo, int rmId, int userId, int ADULProcessId)
         {
             int customerId;
@@ -52,6 +61,12 @@ namespace BoCustomerProfiling
             return customerId;
         }
 
+
+        /// <summary>
+        /// Used to Get Customer Details
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public CustomerVo GetCustomer(int customerId)
         {
 
@@ -89,6 +104,13 @@ namespace BoCustomerProfiling
 
         }
 
+
+        /// <summary>
+        /// Used to Create Customer User
+        /// </summary>
+        /// <param name="customerVo"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public int CreateCustomerUser(CustomerVo customerVo, int userId)
         {
 
@@ -126,6 +148,12 @@ namespace BoCustomerProfiling
             return custUserId;
         }
 
+
+        /// <summary>
+        /// Used to Get Customer User Details
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public UserVo GetCustomerUser(int customerId)
         {
             UserVo userVo = null;
@@ -161,11 +189,23 @@ namespace BoCustomerProfiling
 
         }
 
+        /// <summary>
+        /// Used to Search mParticular Customer
+        /// </summary>
+        /// <param name="advisorId"></param>
+        /// <param name="firstName"></param>
+        /// <returns></returns>
         public DataSet SearchCustomers(int advisorId, string firstName)
         {
             CustomerDao customerDao = new CustomerDao();
             return customerDao.SearchCustomers(advisorId, firstName);
         }
+
+        /// <summary>
+        /// Used to Get details about that Particular Customer
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public CustomerVo GetCustomerInfo(int userId)
         {
 
@@ -201,6 +241,12 @@ namespace BoCustomerProfiling
 
             return customerVo;
         }
+
+        /// <summary>
+        /// Used to Update Customer Details
+        /// </summary>
+        /// <param name="customerVo"></param>
+        /// <returns></returns>
         public bool UpdateCustomer(CustomerVo customerVo)
         {
             bool bResult = false;
@@ -237,6 +283,15 @@ namespace BoCustomerProfiling
             return bResult;
         }
 
+
+        /// <summary>
+        /// Used to Get Customer Proof List
+        /// </summary>
+        /// <param name="customerType"></param>
+        /// <param name="KYCFlag"></param>
+        /// <param name="assetInterest"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public List<string> GetProofList(string customerType, int KYCFlag, string assetInterest, string path)
         {
             List<string> prooflist;
@@ -279,6 +334,14 @@ namespace BoCustomerProfiling
             return prooflist;
         }
 
+        /// <summary>
+        /// Used to Save Customer Proofs 
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="customerProof"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+
         public bool SaveCustomerProofs(int customerId, int customerProof, int userId)
         {
             bool bResult = false;
@@ -319,6 +382,13 @@ namespace BoCustomerProfiling
 
         }
 
+
+        /// <summary>
+        /// Used to get Customer Proofs Code
+        /// </summary>
+        /// <param name="proof"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public int GetCustomerProofCode(string proof, string path)
         {
             CustomerDao customerDao = new CustomerDao();
@@ -353,6 +423,14 @@ namespace BoCustomerProfiling
 
             return proofCode;
         }
+
+        /// <summary>
+        /// Used to Get Customer Proofs
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
 
         public DataSet GetCustomerProofs(int customerId,int currentPage,out int  Count)
         {
@@ -396,6 +474,13 @@ namespace BoCustomerProfiling
             return id.ToString();
         }
 
+
+        /// <summary>
+        /// Used to Delete Particular Customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool DeleteCustomer(int customerId, int userId)
         {
             bool bResult = false;
@@ -426,6 +511,15 @@ namespace BoCustomerProfiling
             return bResult;
         }
 
+
+        /// <summary>
+        /// Used to Create Complete Customer Details
+        /// </summary>
+        /// <param name="customerVo"></param>
+        /// <param name="userVo"></param>
+        /// <param name="customerPortfolioVo"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public List<int> CreateCompleteCustomer(CustomerVo customerVo, UserVo userVo, CustomerPortfolioVo customerPortfolioVo, int userId)
         {
             List<int> customerIds = new List<int>();
@@ -460,43 +554,15 @@ namespace BoCustomerProfiling
             }
             return customerIds;
         }
-        //public List<int> CreateCompleteCustomer(CustomerVo customerVo, UserVo userVo, CustomerPortfolioVo customerPortfolioVo, int userId)
-        //{
-        //    List<int> customerIds;
-        //    CustomerDao customerDao = new CustomerDao();
+        
 
-        //    try
-        //    {
-        //       // customerIds = customerDao.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, userId);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "CustomerBo.cs:CreateCompleteCustomer()");
-
-
-        //        object[] objects = new object[4];
-        //        objects[0] = customerVo;
-        //        objects[1] = userVo;
-        //        objects[2] = customerPortfolioVo;
-        //        objects[3] = userId;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-
-        //    }
-        //   // return customerIds;
-        //}
-
-
+        /// <summary>
+        /// Used to Get Customer Proof List
+        /// </summary>
+        /// <param name="customerType"></param>
+        /// <param name="proofCategory"></param>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public DataTable GetProofList(int customerType, int proofCategory, int customerId)
         {
             DataTable dt = new DataTable();
@@ -528,6 +594,13 @@ namespace BoCustomerProfiling
             return dt;
         }
 
+
+        /// <summary>
+        /// Used to Delete Customer Proofs
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="proofCode"></param>
+        /// <returns></returns>
         public bool DeleteCustomerProof(int customerId, int proofCode)
         {
             bool bResult = false;
@@ -588,6 +661,12 @@ namespace BoCustomerProfiling
             return bResult;
         }
 
+
+        /// <summary>
+        /// Used to Get Customer Income Details
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public DataTable GetCustomerIncomeDetails(int customerId)
         {
             DataTable dt = new DataTable();
@@ -615,6 +694,14 @@ namespace BoCustomerProfiling
             }
             return dt;
         }
+
+        /// <summary>
+        /// Used to add Customer Income Details
+        /// </summary>
+        /// <param name="rmUserId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="customerIncomeVo"></param>
+        /// <returns></returns>
 
         public bool AddCustomerIncomeDetails(int rmUserId,int customerId,CustomerIncomeVo customerIncomeVo)
         {
@@ -644,6 +731,14 @@ namespace BoCustomerProfiling
             return bResult;
         }
 
+
+        /// <summary>
+        /// Used to Update Customer Income Details
+        /// </summary>
+        /// <param name="rmUserId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="customerIncomeVo"></param>
+        /// <returns></returns>
         public bool UpdateCustomerIncomeDetails(int rmUserId, int customerId, CustomerIncomeVo customerIncomeVo)
         {
             bool bResult = false;
@@ -672,6 +767,11 @@ namespace BoCustomerProfiling
             return bResult;
         }
 
+        /// <summary>
+        /// Used to Get Customer Property Details
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public DataTable GetCustomerPropertyDetails(int customerId)
         {
             DataTable dt = new DataTable();
@@ -700,6 +800,12 @@ namespace BoCustomerProfiling
             return dt;
         }
 
+
+        /// <summary>
+        /// Used to Get Customer Expense Details
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public DataTable GetCustomerExpenseDetails(int customerId)
         {
             DataTable dt = new DataTable();
@@ -728,6 +834,14 @@ namespace BoCustomerProfiling
             return dt;
         }
 
+
+        /// <summary>
+        /// Used to Add Customer Expense Details
+        /// </summary>
+        /// <param name="rmUserId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="customerExpenseVo"></param>
+        /// <returns></returns>
         public bool AddCustomerExpenseDetails(int rmUserId, int customerId, CustomerExpenseVo customerExpenseVo)
         {
             bool bResult = false;
@@ -756,6 +870,13 @@ namespace BoCustomerProfiling
             return bResult;
         }
 
+        /// <summary>
+        /// Update Customer Expense Details
+        /// </summary>
+        /// <param name="rmUserId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="customerExpenseVo"></param>
+        /// <returns></returns>
         public bool UpdateCustomerExpenseDetails(int rmUserId, int customerId, CustomerExpenseVo customerExpenseVo)
         {
             bool bResult = false;
@@ -784,6 +905,13 @@ namespace BoCustomerProfiling
             return bResult;
         }
 
+        /// <summary>
+        /// Uesd to do Pan Number Duplication Check
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="panNumber"></param>
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
         public bool PANNumberDuplicateCheck(int adviserId, string panNumber,int CustomerId)
         {
             bool bResult = false;
@@ -813,6 +941,11 @@ namespace BoCustomerProfiling
             return bResult;
         }
 
+        /// <summary>
+        /// Used to Get Customer PaN Details and Address Details
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public DataTable GetCustomerPanAddress(int customerId)
         {
             DataTable dt = new DataTable();
@@ -829,7 +962,7 @@ namespace BoCustomerProfiling
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerExpenseDetails()");
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerPanAddress(int customerId)");
                 object[] objects = new object[1];
                 objects[0] = customerId;
 
@@ -1117,6 +1250,13 @@ namespace BoCustomerProfiling
             }
             return result;
         }
+        //FP SuperLite Related Functions
+        //===================================================================================================================================
+
+        /// <summary>
+        /// Used to get Customer Relation
+        /// </summary>
+        /// <returns></returns>
         public DataTable GetCustomerRelation()
         {
             CustomerDao customerDao = new CustomerDao();
@@ -1135,7 +1275,7 @@ namespace BoCustomerProfiling
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "CustomerBo.cs:GetAdviserCustomerName()");
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerRelation()");
 
 
                 object[] objects = new object[0];
@@ -1148,6 +1288,45 @@ namespace BoCustomerProfiling
 
             }
             return dtGetCustomerRelation;
+        }
+
+
+        /// <summary>
+        /// Used ot Get Customer Details for Prospect List
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
+        public DataTable GetCustomerDetailsForProspectList(int rmId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtGGetCustomerDetails = new DataTable();
+            try
+            {
+                dtGGetCustomerDetails = customerDao.GetCustomerDetailsForProspectList(rmId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerDetailsForProspectList(int rmId)");
+
+
+                object[] objects = new object[0];
+                objects[0] = rmId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGGetCustomerDetails;
         }
     }
 
