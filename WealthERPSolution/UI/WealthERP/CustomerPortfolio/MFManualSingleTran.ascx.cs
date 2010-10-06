@@ -21,11 +21,12 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
 
+
 namespace WealthERP.CustomerPortfolio
 {
     public partial class MFManualSingleTran : System.Web.UI.UserControl
     {
-
+        
         MFTransactionVo mfTransactionVo = new MFTransactionVo();
         ProductMFBo productMFBo = new ProductMFBo();
         CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
@@ -45,7 +46,7 @@ namespace WealthERP.CustomerPortfolio
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         PortfolioBo portfolioBo = new PortfolioBo();
         AssetBo assetBo = new AssetBo();
-
+        CommonProgrammingBo commonMethods = new CommonProgrammingBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -312,177 +313,185 @@ namespace WealthERP.CustomerPortfolio
 
             try
             {
-                mfTransactionVo.CustomerId = customerVo.CustomerId;
-                //mfTransactionVo.AccountId = "acc1";
-                mfTransactionVo.AccountId = int.Parse(ddlFolioNum.SelectedItem.Value.ToString());
-                mfTransactionVo.MFCode = int.Parse(txtSchemeCode.Value);
-                mfTransactionVo.FinancialFlag = 1;
-                mfTransactionVo.TransactionDate = DateTime.Parse(txtTransactionDate.Text);//ddlTransactionDateDay.SelectedItem.Value + "/" + ddlTransactionDateMonth.SelectedItem.Value + "/" + ddlTransactionDateYear.SelectedItem.Value
-                mfTransactionVo.Source = "WP";
-                mfTransactionVo.IsSourceManual = 1;
-
-
-                if (ddlTransactionType.SelectedItem.Value == "Buy")
+                if (txtSearchScheme.Text != "" && lblScheme.Text == txtSearchScheme.Text)
                 {
-                    mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
-                    mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
-                    mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
-                    mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
-                    mfTransactionVo.TransactionClassificationCode = "BUY";
-                    mfTransactionVo.BuySell = "B";
+                    mfTransactionVo.CustomerId = customerVo.CustomerId;
+                    //mfTransactionVo.AccountId = "acc1";
+                    mfTransactionVo.AccountId = int.Parse(ddlFolioNum.SelectedItem.Value.ToString());
+                    mfTransactionVo.MFCode = int.Parse(txtSchemeCode.Value);
+                    mfTransactionVo.FinancialFlag = 1;
+                    mfTransactionVo.TransactionDate = DateTime.Parse(txtTransactionDate.Text);//ddlTransactionDateDay.SelectedItem.Value + "/" + ddlTransactionDateMonth.SelectedItem.Value + "/" + ddlTransactionDateYear.SelectedItem.Value
+                    mfTransactionVo.Source = "WP";
+                    mfTransactionVo.IsSourceManual = 1;
 
-                    if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+
+                    if (ddlTransactionType.SelectedItem.Value == "Buy")
                     {
-                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
-                    }
-                }
+                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                        mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "BUY";
+                        mfTransactionVo.BuySell = "B";
 
-                if (ddlTransactionType.SelectedItem.Value == "Sell")
+                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+                    }
+
+                    if (ddlTransactionType.SelectedItem.Value == "Sell")
+                    {
+                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                        mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
+                        mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "SEL";
+                        mfTransactionVo.BuySell = "S";
+
+                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+                    }
+                    if (ddlTransactionType.SelectedItem.Value == "Dividend Reinvestment")
+                    {
+                        if (txtDividentRate.Text != string.Empty || txtDividentRate.Text != "")
+                            mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
+                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                        mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "DVR";
+
+                        mfTransactionVo.BuySell = "B";
+
+                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+                    }
+                    if (ddlTransactionType.SelectedItem.Value == "SIP")
+                    {
+                        //mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
+                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                        mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "SIP";
+                        mfTransactionVo.BuySell = "B";
+
+                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+                    }
+                    if (ddlTransactionType.SelectedItem.Value == "SWP")
+                    {
+                        //mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
+                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                        mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
+                        mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "SWP";
+                        mfTransactionVo.BuySell = "S";
+
+                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+                    }
+                    if (ddlTransactionType.SelectedItem.Value == "STP")
+                    {
+                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                        mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
+                        mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "STS";
+                        mfTransactionVo.BuySell = "S";
+
+                        if ((transactionId = customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId)) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+
+                        mfTransactionVo.MFCode = int.Parse(txtSwitchSchemeCode.Value);
+                        mfTransactionVo.NAV = float.Parse(txtNAVPurchased.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPricePurchased.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmtPurchased.Text.ToString());
+                        mfTransactionVo.Units = float.Parse(txtUnitsAlloted.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "STB";
+                        mfTransactionVo.SwitchSourceTrxId = transactionId;
+                        //mfTransactionVo.TransactionId = customerBo.GenerateId();
+                        mfTransactionVo.BuySell = "B";
+
+                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+                    }
+                    if (ddlTransactionType.SelectedItem.Value == "Dividend Payout")
+                    {
+                        if (txtDividentRate.Text != string.Empty || txtDividentRate.Text != "")
+                            mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
+                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "DVP";
+                        mfTransactionVo.BuySell = "S";
+
+                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+                    }
+                    if (ddlTransactionType.SelectedItem.Value == "Switch")
+                    {
+                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                        mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
+                        mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "SWS";
+                        mfTransactionVo.BuySell = "S";
+
+                        if ((transactionId = customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId)) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+
+                        //  transactionId = customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId);
+
+                        mfTransactionVo.MFCode = int.Parse(txtSwitchSchemeCode.Value);
+                        mfTransactionVo.NAV = float.Parse(txtNAVPurchased.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPricePurchased.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmtPurchased.Text.ToString());
+                        mfTransactionVo.Units = float.Parse(txtUnitsAlloted.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "SWB";
+                        mfTransactionVo.SwitchSourceTrxId = transactionId;
+                        //mfTransactionVo.TransactionId = customerBo.GenerateId();
+                        mfTransactionVo.BuySell = "B";
+                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+
+                    }
+
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
+
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
+
+                    Response.Redirect("ControlHost.aspx?pageid=TransactionsView", false);
+                }
+                else
                 {
-                    mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
-                    mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
-                    mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
-                    mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
-                    mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
-                    mfTransactionVo.TransactionClassificationCode = "SEL";
-                    mfTransactionVo.BuySell = "S";
-
-                    if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
-                    {
-                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
-                    }
+                    RequiredFieldValidator3.ErrorMessage = "Please Select Proper Scheme Name";
+                    RequiredFieldValidator3.IsValid = false;
                 }
-                if (ddlTransactionType.SelectedItem.Value == "Dividend Reinvestment")
-                {
-                    if (txtDividentRate.Text!=string.Empty || txtDividentRate.Text!="")
-                    mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
-                    mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
-                    mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
-                    mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
-                    mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
-                    mfTransactionVo.TransactionClassificationCode = "DVR";
-
-                    mfTransactionVo.BuySell = "B";
-
-                    if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
-                    {
-                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
-                    }
-                }
-                if (ddlTransactionType.SelectedItem.Value == "SIP")
-                {
-                    //mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
-                    mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
-                    mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
-                    mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
-                    mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
-                    mfTransactionVo.TransactionClassificationCode = "SIP";
-                    mfTransactionVo.BuySell = "B";
-
-                    if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
-                    {
-                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
-                    }
-                }
-                if (ddlTransactionType.SelectedItem.Value == "SWP")
-                {
-                    //mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
-                    mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
-                    mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
-                    mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
-                    mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
-                    mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
-                    mfTransactionVo.TransactionClassificationCode = "SWP";
-                    mfTransactionVo.BuySell = "S";
-
-                    if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
-                    {
-                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
-                    }
-                }
-                if (ddlTransactionType.SelectedItem.Value == "STP")
-                {
-                    mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
-                    mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
-                    mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
-                    mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
-                    mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
-                    mfTransactionVo.TransactionClassificationCode = "STS";
-                    mfTransactionVo.BuySell = "S";
-
-                    if ((transactionId = customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId)) != 0)
-                    {
-                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
-                    }
-
-                    mfTransactionVo.MFCode = int.Parse(txtSwitchSchemeCode.Value);
-                    mfTransactionVo.NAV = float.Parse(txtNAVPurchased.Text.ToString());
-                    mfTransactionVo.Price = float.Parse(txtPricePurchased.Text.ToString());
-                    mfTransactionVo.Amount = float.Parse(txtAmtPurchased.Text.ToString());
-                    mfTransactionVo.Units = float.Parse(txtUnitsAlloted.Text.ToString());
-                    mfTransactionVo.TransactionClassificationCode = "STB";
-                    mfTransactionVo.SwitchSourceTrxId = transactionId;
-                    //mfTransactionVo.TransactionId = customerBo.GenerateId();
-                    mfTransactionVo.BuySell = "B";
-
-                    if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
-                    {
-                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
-                    }
-                }
-                if (ddlTransactionType.SelectedItem.Value == "Dividend Payout")
-                {
-                    if (txtDividentRate.Text != string.Empty || txtDividentRate.Text != "")
-                    mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
-                    mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
-                    mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
-                    mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
-                    mfTransactionVo.TransactionClassificationCode = "DVP";
-                    mfTransactionVo.BuySell = "S";
-
-                    if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
-                    {
-                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
-                    }
-                }
-                if (ddlTransactionType.SelectedItem.Value == "Switch")
-                {
-                    mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
-                    mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
-                    mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
-                    mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
-                    mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
-                    mfTransactionVo.TransactionClassificationCode = "SWS";
-                    mfTransactionVo.BuySell = "S";
-
-                    if ((transactionId = customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId)) != 0)
-                    {
-                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
-                    }
-
-                    //  transactionId = customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId);
-
-                    mfTransactionVo.MFCode = int.Parse(txtSwitchSchemeCode.Value);
-                    mfTransactionVo.NAV = float.Parse(txtNAVPurchased.Text.ToString());
-                    mfTransactionVo.Price = float.Parse(txtPricePurchased.Text.ToString());
-                    mfTransactionVo.Amount = float.Parse(txtAmtPurchased.Text.ToString());
-                    mfTransactionVo.Units = float.Parse(txtUnitsAlloted.Text.ToString());
-                    mfTransactionVo.TransactionClassificationCode = "SWB";
-                    mfTransactionVo.SwitchSourceTrxId = transactionId;
-                    //mfTransactionVo.TransactionId = customerBo.GenerateId();
-                    mfTransactionVo.BuySell = "B";
-                    if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
-                    {
-                        customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
-                    }
-
-                }
-
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
-
-                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
-
-                Response.Redirect("ControlHost.aspx?pageid=TransactionsView", false);
             }
             catch (BaseApplicationException Ex)
             {
@@ -539,24 +548,50 @@ namespace WealthERP.CustomerPortfolio
 
         protected void txtAmount_TextChanged(object sender, EventArgs e)
         {
-            
-            txtUnits.Text = (Math.Round((double.Parse(txtAmount.Text) / double.Parse(txtPrice.Text)),4)).ToString();
-            txtSTT.Text = (Math.Round((double.Parse(txtAmount.Text) - Math.Round((double.Parse(txtUnits.Text) * double.Parse(txtNAV.Text)),2)),2)).ToString();
-            if (txtAmtPurchased.Visible)
-            {
-                txtAmtPurchased.Text = txtAmount.Text;
-                if (txtPricePurchased.Text != "" && txtAmtPurchased.Text != "" && txtAmtPurchased.Text != "0")
+            if (txtAmount.Text != "" && commonMethods.IsNumeric(txtAmount.Text))
+            {                
+                txtUnits.Text = (Math.Round((double.Parse(txtAmount.Text) / double.Parse(txtPrice.Text)), 4)).ToString();
+                txtSTT.Text = (Math.Round((double.Parse(txtAmount.Text) - Math.Round((double.Parse(txtUnits.Text) * double.Parse(txtNAV.Text)), 2)), 2)).ToString();
+                if (txtAmtPurchased.Visible)
                 {
-                    txtUnitsAlloted.Text = (Math.Round((double.Parse(txtAmtPurchased.Text) / double.Parse(txtPricePurchased.Text)),4)).ToString();
+                    txtAmtPurchased.Text = txtAmount.Text;
+                    if (txtPricePurchased.Text != "" && txtAmtPurchased.Text != "" && txtAmtPurchased.Text != "0")
+                    {
+                        txtUnitsAlloted.Text = (Math.Round((double.Parse(txtAmtPurchased.Text) / double.Parse(txtPricePurchased.Text)), 4)).ToString();
+                    }
                 }
+            }
+            else
+            {
+                txtUnits.Text = "";
+                txtSTT.Text = "";
             }
         }
 
         protected void txtUnits_TextChanged(object sender, EventArgs e)
         {
-            txtAmount.Text = (Math.Round((double.Parse(txtPrice.Text) * double.Parse(txtUnits.Text)),4)).ToString();
+            if (txtUnits.Text != "" && commonMethods.IsNumeric(txtUnits.Text))
+                txtAmount.Text = (Math.Round((double.Parse(txtPrice.Text) * double.Parse(txtUnits.Text)), 4)).ToString();
+            else
+            {
+                txtAmount.Text = "";
+                txtSTT.Text = "";
+            
+            }
            
         }
+        //public static bool IsNumeric(string s)
+        //{
+        //    try
+        //    {
+        //        Double.Parse(s);
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
 
         private void SaveCurrentPageState()
         {

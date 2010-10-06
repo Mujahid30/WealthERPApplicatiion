@@ -39,6 +39,9 @@
 
         return false;
     };
+    //****************************************************************
+    
+
     
 </script>
 
@@ -91,13 +94,13 @@
                     </asp:DropDownList>
                 </td>
             </tr>
-            <tr>
+            <tr style="width:100%">
                 <td class="leftField">
                     <asp:Label ID="lblSchemeSearch" runat="server" Text="Scheme Search :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField">
+                <td class="rightField" colspan="4">
                 <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
-                                    <asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtField" AutoComplete="Off"
+                                    <asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtSchemeName"  AutoComplete="Off"
                                         AutoPostBack="true"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
                                             runat="server" TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
                                         </cc1:TextBoxWatermarkExtender>
@@ -114,7 +117,10 @@
                                         ValidationGroup="MFSubmit">
                                     </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
                                         few characters of customer name.</span>
-                    
+                                        
+                                 <asp:CompareValidator ID="cmpSchemeName" runat="server" ErrorMessage="<br />Please select a transaction type"
+                                  ValidationGroup="MFSubmit" ControlToValidate="txtSearchScheme" Operator="NotEqual"
+                                  CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
             <tr>
@@ -124,6 +130,7 @@
                 <td style="display: run-in;">
                 </td>
             </tr>
+         
             <tr>
                 <td class="leftField">
                     <asp:Label ID="Label3" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
@@ -144,7 +151,7 @@
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />Please select a transaction type"
                         ValidationGroup="MFSubmit" ControlToValidate="ddlTransactionType" Operator="NotEqual"
-                        CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="rfvPCG" ValueToCompare="lblScheme" Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
             <tr>
@@ -230,7 +237,7 @@
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtDividentRate"
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Please enter a Dividend Rate"
                         Display="Dynamic" runat="server" InitialValue="">--%>
-                    </asp:RequiredFieldValidator>
+                   <%-- </asp:RequiredFieldValidator>--%>
                     <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Enter a numeric value"
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" Type="Double" ControlToValidate="txtDividentRate"
                         Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
@@ -277,7 +284,7 @@
                         CssClass="rfvPCG" runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPrice"
-                        CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        CssClass="rfvPCG" ValidationGroup="MFSubmit" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField" id="tdNAVPurchasedLabel" runat="server" colspan="2">
@@ -292,7 +299,7 @@
                         Display="Dynamic" runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtNAVPurchased"
-                        CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        CssClass="rfvPCG" ValidationGroup="MFSubmit" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
                 <td class="rightfield" runat="server" id="tdSwitchUseNAV" visible="false">                   
@@ -310,11 +317,11 @@
                         MaxLength="18" AutoPostBack="true"></asp:TextBox>
                     <span id="Span10" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtAmount"
-                        CssClass="rfvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Please enter an Amount"
+                        CssClass="rfvPCG" ValidationGroup="MFSubmit"  ErrorMessage="<br />Please enter an Amount"
                         Display="Dynamic" runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtAmount"
-                        CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        CssClass="rfvPCG" ValidationGroup="MFSubmit" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField" id="tdPricePurchasedLabel" runat="server" colspan="2">
@@ -329,7 +336,7 @@
                         Display="Dynamic" runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtPricePurchased"
-                        CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        CssClass="rfvPCG" ValidationGroup="MFSubmit" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
@@ -346,7 +353,7 @@
                         Display="Dynamic" runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtUnits"
-                        CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        CssClass="rfvPCG" ValidationGroup="MFSubmit" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
                <td class="leftField" id="tdAmtPurchasedLabel" runat="server" colspan="2">
@@ -361,7 +368,7 @@
                         Display="Dynamic" runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator9" ControlToValidate="txtAmtPurchased"
-                        CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        CssClass="rfvPCG" ValidationGroup="MFSubmit" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
@@ -377,7 +384,7 @@
                         Display="Dynamic" runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtSTT"
-                        CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        CssClass="rfvPCG" ValidationGroup="MFSubmit" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
                  <td class="leftField" id="tdUnitsAllotedLabel" runat="server" colspan="2">
@@ -386,11 +393,11 @@
                 <td class="rightField" id="tdUnitsAllotedValue" runat="server"  colspan="2">
                     <asp:TextBox ID="txtUnitsAlloted" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
                     <span id="Span13" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtUnitsAlloted"
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator50" ControlToValidate="txtUnitsAlloted"
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Please enter the units alloted"
                         Display="Dynamic" runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtUnitsAlloted"
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ValidationGroup="MFSubmit" ControlToValidate="txtUnitsAlloted"
                         CssClass="rfvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
