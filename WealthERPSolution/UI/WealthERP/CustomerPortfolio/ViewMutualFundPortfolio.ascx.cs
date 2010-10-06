@@ -90,7 +90,7 @@ namespace WealthERP.CustomerPortfolio
                     portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
                     BindPortfolioDropDown();
                     LoadMFPortfolio();
-                    BindPerformaceChart();
+                    //BindPerformaceChart();
                     
                    
                   
@@ -236,6 +236,10 @@ namespace WealthERP.CustomerPortfolio
                     gvMFPortfolioNotional.DataBind();
 
                     btnUpdateNP.Visible = false;
+                    hdnFolioFilter.Value = "";
+                    hdnSchemeFilter.Value = "";
+                    hdnSelectedCategory.Value = "All";
+                    btnPortfolioSearch.Focus();
                 }
                 else
                 {
@@ -481,6 +485,7 @@ namespace WealthERP.CustomerPortfolio
                     lblPortfolioMsg.Visible = true;
                 else
                     lblPortfolioMsg.Visible = false;
+                BindPerformaceChart();
             }
             catch (BaseApplicationException Ex)
             {
@@ -1633,8 +1638,9 @@ namespace WealthERP.CustomerPortfolio
                 hdnSchemeFilter.Value = txtSchemeName.Text.Trim();
                 hdnFolioFilter.Value = txtFolio.Text.Trim();
 
-                LoadMFPortfolio();
+                
             }
+            LoadMFPortfolio();
         }
 
         private TextBox GetPortfolioFolioTextBox()
@@ -2446,6 +2452,7 @@ namespace WealthERP.CustomerPortfolio
 
                         //chrtTotalAssets.Series["Assets"].XValueMember = "AssetType";
                         //chrtTotalAssets.Series["Assets"].YValueMembers = "AggrCurrentValue";
+                        chrtMFClassification.Legends.Clear();
                         chrtMFClassification.Legends.Add(legend);
                         chrtMFClassification.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
                         chrtMFClassification.Legends["AssetsLegend"].Title = "Assets";
