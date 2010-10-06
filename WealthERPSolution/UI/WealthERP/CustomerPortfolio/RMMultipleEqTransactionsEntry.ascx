@@ -4,7 +4,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
-        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+        <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 
@@ -24,11 +24,11 @@
         }
     }
     function SetValues() {
-    
-        var otherCharges = .05;
-        
-        var brokerage = 0.0;
-        var stt = 0.0;
+        debugger;
+        var otherCharges = document.getElementById("<%= hidOtherCharges.ClientID %>").value;
+
+        var brokerage = document.getElementById("<%= hidBrokerRate.ClientID %>").value;
+        var stt = 0.125;
         
         var rate = document.getElementById("<%= txtRate.ClientID %>").value
         isDelivery = document.getElementById("<%= rdoDelivery.ClientID %>").checked;
@@ -36,18 +36,11 @@
 
         if (quantity > 0 && rate > 0) {
 
-            if (isDelivery) {
-                brokerage = 0.5;
-                stt = 0.125;
-                document.getElementById("<%= txtBrokerage.ClientID %>").value = ((quantity * rate * brokerage)/100).toFixed(4);
-                document.getElementById("<%= txtSTT.ClientID %>").value = ((quantity * rate * stt) /100).toFixed(4);
-            }
-            else {
-                brokerage = 0.05;
-                stt = 0.025;
-                document.getElementById("<%= txtBrokerage.ClientID %>").value = ((quantity * rate * brokerage)/100).toFixed(4);
-                document.getElementById("<%= txtSTT.ClientID %>").value = ((quantity * rate * stt)/100).toFixed(4);
-            }
+
+            document.getElementById("<%= txtBrokerage.ClientID %>").value = ((quantity * rate * brokerage) / 100).toFixed(4);
+            document.getElementById("<%= txtSTT.ClientID %>").value = (document.getElementById("<%= txtBrokerage.ClientID %>").value * (stt / 100)).toFixed(4);         
+                
+            
             
             document.getElementById("<%= txtOtherCharges.ClientID %>").value = ((quantity * otherCharges)).toFixed(4);
             
@@ -111,7 +104,8 @@
         </td>
         <td>
             <%--<asp:TextBox ID="txtTradeAccountNo" runat="server" CssClass="txtField"></asp:TextBox>--%>
-            <asp:DropDownList ID="ddlTradeAccountNos" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlTradeAccountNos" runat="server" CssClass="cmbField" 
+                onselectedindexchanged="ddlTradeAccountNos_SelectedIndexChanged" AutoPostBack="true">
                 <asp:ListItem Text="" Value="-1"></asp:ListItem>
             </asp:DropDownList>
             <asp:Button ID="btnAddTradeAccount" runat="server" Text="Add"  CssClass="PCGButton" style=" width: 40px;"
@@ -151,6 +145,7 @@
                         <asp:ListItem Text="Select" Value="-1"></asp:ListItem>
                         <asp:ListItem Text="Purchase" Value="Purchase"></asp:ListItem>
                         <asp:ListItem Text="Sell" Value="Sell"></asp:ListItem>
+                         <asp:ListItem Text="Holdings" Value="Holdings"></asp:ListItem>
                     </asp:DropDownList>
                     <span id="Span3" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvTransactionType" runat="server"
@@ -215,7 +210,8 @@
             <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Rate(in Rs per unit) :"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtRate" runat="server" onblur="SetValues()" CssClass="txtField" ></asp:TextBox>
+            <asp:TextBox ID="txtRate" runat="server" onblur="SetValues()" 
+                CssClass="txtField" ></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span>
             <ajaxToolkit:FilteredTextBoxExtender ID="txtRate_Ex" runat="server" Enabled="True"
                 TargetControlID="txtRate" FilterType="Custom, Numbers" ValidChars=".">
@@ -238,9 +234,9 @@
         </td>
         <td>
             <asp:RadioButton ID="rdoDelivery" GroupName="Delivery" runat="server" Text="Delivery"
-                CssClass="txtField" onchange="SetValues()" />
-            <asp:RadioButton Checked="true" ID="rdoSpeculative" GroupName="Delivery" runat="server"
-                Text="Speculative:" CssClass="txtField" onchange="SetValues()" />
+                CssClass="txtField" onchange="SetValues()"  Checked="true" />
+            <asp:RadioButton ID="rdoSpeculative" GroupName="Delivery" runat="server"
+                Text="Speculative" CssClass="txtField" onchange="SetValues()" />
         </td>
         <td align="right">
             <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="Gross Price :"></asp:Label>
@@ -263,4 +259,6 @@
     </tr>
     <asp:HiddenField ID="hidScrip" runat="server" />
     <asp:HiddenField ID="hidCustomerId" runat="server" />
+    <asp:HiddenField ID="hidBrokerRate" runat="server" />
+    <asp:HiddenField ID="hidOtherCharges" runat="server" />
 </table>
