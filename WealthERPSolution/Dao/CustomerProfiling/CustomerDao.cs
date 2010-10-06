@@ -2596,6 +2596,9 @@ namespace DaoCustomerProfiling
             return result;
         }
 
+        //FP SuperLite Related Functions
+        //===================================================================================================================================
+
         /// <summary>
         /// Used to Get Customer Relation
         /// </summary>
@@ -2633,6 +2636,43 @@ namespace DaoCustomerProfiling
 
             }
             return dtGetCustomerRelation;
+        }
+
+
+        public DataTable GetCustomerDetailsForProspectList(int rmId)
+        {
+            Database db;
+            DataTable dtGetCustomerDetails=null;
+            DbCommand cmdGetCustomerDetails;
+            DataSet dsGetCustomerDetails = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetCustomerDetails = db.GetStoredProcCommand("SP_GetCustomerDetailsForProspectList");
+                db.AddInParameter(cmdGetCustomerDetails,"@AR_RMId", DbType.Int32, rmId);
+                dsGetCustomerDetails = db.ExecuteDataSet(cmdGetCustomerDetails);
+                dtGetCustomerDetails = dsGetCustomerDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerDetailsForProspectList(int rmId)");
+                object[] objects = new object[1];
+                objects[0] = rmId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetCustomerDetails;
         }
     }
 }
