@@ -16,6 +16,7 @@ using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using BoAdvisorProfiling;
 
 namespace WealthERP.Customer
 {
@@ -28,7 +29,7 @@ namespace WealthERP.Customer
         RMVo rmVo = new RMVo();
         UserVo userVo = new UserVo();
         UserBo userBo = new UserBo();
-
+        AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         UserVo tempUserVo = new UserVo();
         DataTable dtCustomerSubType = new DataTable();
         string assetInterest;
@@ -519,13 +520,20 @@ namespace WealthERP.Customer
         private void BindListBranch(int rmId, string userType)
         {
             UploadCommonBo uploadCommonBo = new UploadCommonBo();
-            DataSet ds = uploadCommonBo.GetAdviserBranchList(rmId, userType);
-
-            ddlAdviserBranchList.DataSource = ds.Tables[0];
-            ddlAdviserBranchList.DataTextField = "AB_BranchName";
-            ddlAdviserBranchList.DataValueField = "AB_BranchId";
-            ddlAdviserBranchList.DataBind();
-            ddlAdviserBranchList.Items.Insert(0, new ListItem("Select a Branch", "Select a Branch"));
+            //DataSet ds = uploadCommonBo.GetAdviserBranchList(rmId, userType);
+            DataSet dsAssociatedBranch=advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, 0, "A");
+            if (dsAssociatedBranch.Tables[0].Rows.Count > 0)
+            {
+                ddlAdviserBranchList.DataSource = dsAssociatedBranch.Tables[0];
+                ddlAdviserBranchList.DataTextField = "AB_BranchName";
+                ddlAdviserBranchList.DataValueField = "AB_BranchId";
+                ddlAdviserBranchList.DataBind();
+                ddlAdviserBranchList.Items.Insert(0, new ListItem("Select a Branch", "Select a Branch"));
+            }
+            else
+            {
+                ddlAdviserBranchList.Items.Insert(0, new ListItem("Please,Associate some branch to the RM", "Please,Associate some branch to the RM"));
+            }
         }
     }
 }
