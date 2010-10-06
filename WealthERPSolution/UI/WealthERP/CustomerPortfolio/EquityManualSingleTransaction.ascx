@@ -3,6 +3,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 
+
+
 <script type="text/javascript">
     function checkDate(sender, args) {
 
@@ -22,12 +24,12 @@
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
-        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+        <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 <asp:UpdatePanel ID="upnlEQTran" runat="server">
     <ContentTemplate>
-<table width="100%" class="TableBackground">
+<table width="100%" class="TableBackground" >
 <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Add Equity Transaction"></asp:Label>
@@ -37,7 +39,7 @@
 
 
     <tr>
-        <td colspan="3" class="tdRequiredText">
+        <td class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
                 Note: Fields marked with a ' * ' are compulsory</label>
         </td>
@@ -58,7 +60,7 @@
         <td class="leftField">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select the Portfolio Name :"></asp:Label>
         </td>
-        <td colspan="4" class="rightField">
+        <td colspan="2" class="rightField">
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
@@ -85,8 +87,11 @@
       
     </tr>
     <tr>
-      <td class="rightField" colspan="2">
-            <asp:Label ID="lblScripName" runat="server" Text="Scrip Particulars:" CssClass="FieldName"></asp:Label>
+      <td >
+            
+        </td>
+        <td align="left">
+        <asp:Label ID="lblScripName" runat="server" Text="Scrip Particulars:" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
     <tr id="trTransactionMode" runat="server">
@@ -95,7 +100,7 @@
         </td>
         <td class="rightField">
             <asp:RadioButton ID="rbtnDelivery" runat="server" CssClass="txtField" Text="For Delivery "
-                GroupName="TransactionMode" />
+                GroupName="TransactionMode" Checked="true" />
             <asp:RadioButton ID="rbtnSpeculation" runat="server" CssClass="txtField" Text="For Speculation"
                 GroupName="TransactionMode" />
         </td>
@@ -124,30 +129,33 @@
         <td class="rightField" colspan="2">
             <asp:DropDownList ID="ddlExchange" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-            <span id="Span3" class="spnRequiredField">*</span>
+           <%-- <span id="Span3" class="spnRequiredField">*</span>
             <br />
             <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlExchange" CssClass="rfvPCG"
                 ErrorMessage="Please select an Exchange" Operator="NotEqual" ValueToCompare="Select an Exchange"
-                ValidationGroup="EQ"></asp:CompareValidator>
+                ValidationGroup="EQ"></asp:CompareValidator>--%>
         </td>
     </tr>
-    <tr>
-        <td class="leftField">
+    <tr valign="center">
+        <td align="right">
             <asp:Label ID="lblDPAcc" runat="server" Text="Trade Account Number :" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" >
             <asp:DropDownList ID="ddlTradeAcc" runat="server" CssClass="cmbField" AutoPostBack="True"
                 OnSelectedIndexChanged="ddlTradeAcc_SelectedIndexChanged">
             </asp:DropDownList>
+             <div id="divTradeAcc" runat="server" class="dvInLine">
             <span id="Span4" class="spnRequiredField">*</span>
-            <br />
+                      
             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlTradeAcc"
                 ErrorMessage="Please select your Trade Number" Operator="NotEqual" ValueToCompare="Select the Trade Number"
-                ValidationGroup="EQ"></asp:CompareValidator>
-        </td>
-        <td>
-            <asp:Button ID="btnAddDP" runat="server" Text="Add Trade Account" CssClass="PCGButton"
+                ValidationGroup="EQ" CssClass="cvPCG"></asp:CompareValidator>
+                </div>
+                <asp:Button ID="btnAddDP" runat="server" Text="Add Trade Account" CssClass="PCGLongButton"
                 OnClick="btnAddDP_Click" />
+        </td>
+        <td class="rightField">
+            
         </td>
     </tr>
     <%--  <tr id="trScrip" runat="server">
@@ -163,12 +171,12 @@
             <asp:Label ID="lblTicker" runat="server" Text="Ticker :" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" colspan="2">
-            <asp:TextBox ID="txtTicker" runat="server" CssClass="txtField"></asp:TextBox>
-            <span id="Span6" class="spnRequiredField">*</span>
+            <asp:TextBox ID="txtTicker" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
+            <%--<span id="Span6" class="spnRequiredField">*</span>--%>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtTicker" CssClass="rfvPCG"
+            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtTicker" CssClass="rfvPCG"
                 ErrorMessage="Please enter a Ticker" runat="server" InitialValue="" ValidationGroup="EQ">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
         </td>
     </tr>
     <tr>
@@ -202,7 +210,8 @@
                     <asp:Label ID="lblRate" runat="server" Text="Rate (Rs) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" colspan="2">
-                    <asp:TextBox ID="txtRate" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
+                    <asp:TextBox ID="txtRate" runat="server" CssClass="txtField" MaxLength="18" 
+                        ontextchanged="txtRate_TextChanged" AutoPostBack="true"></asp:TextBox>
                     <span id="Span8" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtRate" CssClass="rfvPCG"
                         ErrorMessage="<br />Please enter a Rate" Display="Dynamic" runat="server" InitialValue=""
@@ -234,7 +243,7 @@
                     <asp:Label ID="lblBroker" runat="server" Text="Broker:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" colspan="2">
-                    <asp:TextBox ID="txtBroker" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtBroker" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
                 </td>
             </tr>
             <tr id="trBrokerage" runat="server">
@@ -243,11 +252,11 @@
                 </td>
                 <td class="rightField" colspan="2">
                     <asp:TextBox ID="txtBrokerage" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span11" class="spnRequiredField">*</span>
+                    <%--<span id="Span11" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtBrokerage" CssClass="rfvPCG"
                         ErrorMessage="<br />Please enter the Brokerage" Display="Dynamic" runat="server"
                         InitialValue="" ValidationGroup="EQ">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtBrokerage" CssClass="rfvPCG"
                         Display="Dynamic" runat="server" ErrorMessage="Not acceptable format." ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
@@ -258,17 +267,20 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtOtherCharge" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span12" class="spnRequiredField">*</span>
+                    <div id="divOtherCharge" runat="server" class="dvInLine">
+                    <%--<span id="Span12" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtOtherCharge"
                         ErrorMessage="<br />Please enter the other charges" Display="Dynamic" runat="server" CssClass="rfvPCG"
                         InitialValue="" ValidationGroup="EQ">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtOtherCharge" CssClass="rfvPCG"
                         Display="Dynamic" runat="server" ErrorMessage="Not acceptable format." ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
+                        </div>
+                         <asp:Button ID="btnCalculate" runat="server" Text="Calculate" CssClass="PCGButton"
+                        OnClick="btnCalculate_Click" style="margin-left: 0px" />
                 </td>
-                <td>
-                    <asp:Button ID="btnCalculate" runat="server" Text="Calculate" CssClass="PCGButton"
-                        OnClick="btnCalculate_Click" />
+                <td class="rightField">
+                   
                 </td>
             </tr>
             <tr id="trServiceTax" runat="server">
@@ -278,11 +290,11 @@
                 </td>
                 <td class="rightField" colspan="2">
                     <asp:TextBox ID="txtTax" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span13" class="spnRequiredField">*</span>
+                    <%--<span id="Span13" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtTax" CssClass="rfvPCG"
                         ErrorMessage="<br />Please enter the service tax" Display="Dynamic" runat="server"
                         InitialValue="" ValidationGroup="EQ">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                     <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="<br />Enter a numeric value"
                         Type="Double" ControlToValidate="txtTax" Operator="DataTypeCheck" Display="Dynamic"
                         ValidationGroup="EQ"></asp:CompareValidator>
@@ -294,11 +306,11 @@
                 </td>
                 <td class="rightField" colspan="2">
                     <asp:TextBox ID="txtSTT" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span14" class="spnRequiredField">*</span>
+                    <%--<span id="Span14" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtSTT" CssClass="rfvPCG"
                         ErrorMessage="<br />Please enter the STT" Display="Dynamic" runat="server" InitialValue=""
                         ValidationGroup="EQ">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                   <%--  <asp:CompareValidator ID="CompareValidator11" runat="server" ErrorMessage="<br />Enter a numeric value"
                         Type="Double" ControlToValidate="txtSTT" Operator="DataTypeCheck" Display="Dynamic"
                         ValidationGroup="EQ"></asp:CompareValidator>--%>
@@ -345,12 +357,14 @@
         </td>
     </tr>
 </table>
+
 </ContentTemplate> </asp:UpdatePanel>
+
 <table width="100%" class="TableBackground">
     <tr class="SubmitCell">
         <td colspan="3">
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EquityManualSingleTransaction__btnSubmit', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EquityManualSingleTransaction__btnSubmit', 'S');"
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EquityManualSingleTransaction_btnSubmit', 'S');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EquityManualSingleTransaction_btnSubmit', 'S');"
                 OnClick="btnSubmit_Click" ValidationGroup="EQ" />
         </td>
     </tr>
