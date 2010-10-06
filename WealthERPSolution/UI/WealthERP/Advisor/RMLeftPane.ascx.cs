@@ -196,7 +196,7 @@ namespace WealthERP.Advisor
                 else if (TreeView1.SelectedNode.Value.ToString() == "MMIS")
                 {
                     Session["UserType"] = "rm";
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCSchemewiseMIS','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCwiseMIS','login');", true);
                 }
                 else if (TreeView1.SelectedNode.Value.ToString() == "MAdd Transactions")
                 {
