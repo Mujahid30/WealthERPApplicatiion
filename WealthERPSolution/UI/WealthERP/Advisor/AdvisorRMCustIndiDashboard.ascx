@@ -40,7 +40,7 @@
         </td>
         <td width="50%" valign="top">
             <asp:Label runat="server" CssClass="FieldName" Text="You have not Added any Asset Details.." ID="lblAssetDetailsMsg"></asp:Label>
-            <asp:GridView ID="gvAssetAggrCurrentValue" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+            <asp:GridView ID="gvAssetAggrCurrentValue" runat="server" AutoGenerateColumns="False"
                 CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" 
                 Width="100%" onrowdatabound="gvAssetAggrCurrentValue_RowDataBound">
                 <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
@@ -58,7 +58,7 @@
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
-                    <asp:BoundField DataField="Current Value" HeaderText="Current Value" SortExpression="Current Value"
+                    <asp:BoundField DataField="Current Value" HeaderText="Current Value"
                         DataFormatString="{0:n2}" HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
                 </Columns>
             </asp:GridView>
