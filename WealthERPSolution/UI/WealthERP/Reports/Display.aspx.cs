@@ -830,19 +830,24 @@ namespace WealthERP.Reports
                 if (advisorVo.State != null)
                     state = CommonReport.GetState(path, advisorVo.State);
 
-                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + rmVo.FirstName + " " + rmVo.LastName);
-                crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
-                if (rmVo.Mobile != 0)
+                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + customerVo.RMName);
+                if (!string.IsNullOrEmpty(customerVo.RMEmail))
+                    crmain.SetParameterValue("RMContactDetails", "Email :  " + customerVo.RMEmail);
+                else
+                    crmain.SetParameterValue("RMContactDetails", "Email :--");
+                if (customerVo.RMMobile != 0)
                 {
-                    crmain.SetParameterValue("MobileNo", "Mobile :  " + "+91-" + rmVo.Mobile);
+                    crmain.SetParameterValue("MobileNo", "Mobile :  " + "+91-" + customerVo.RMMobile);
                 }
                 else
                 {
                     crmain.SetParameterValue("MobileNo", "Mobile :--");
                 }
                 crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + state);
-                crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.Email);
-                crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
+                //crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.Email);
+                //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
+                crmain.SetParameterValue("OrgDetails", "E-mail: " + customerVo.RMEmail);
+                crmain.SetParameterValue("OrgTelephone", "Phone: " + "+" + customerVo.RMOfficePhone);
                 crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
                 crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);
@@ -1188,10 +1193,10 @@ namespace WealthERP.Reports
             strMail.Append("<br/>Please find attached " + subject + ".");
            if(!string.IsNullOrEmpty(advisorVo.Website))
            {
-               strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website);
+               strMail.Append("<br/><br/>Regards,<br/>" + customerVo.RMName + "<br/>Mo: " + customerVo.RMMobile + "<br/>Ph: +" + customerVo.RMOfficePhone+ "<br/>Website: " + advisorVo.Website);
            }
            else
-               strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website);
+               strMail.Append("<br/><br/>Regards,<br/>" + customerVo.RMName + "<br/>Mo: " + customerVo.RMMobile + "<br/>Ph: +" + customerVo.RMOfficePhone );
 
             return strMail.ToString();
 

@@ -87,8 +87,32 @@ namespace VoUser
         private DateTime m_MarriageDate;
         private int m_IsProspect=0;
         private int m_IsFPClient=0;
+        private string m_RMName;
+        private string m_RMEmail;
+        private string m_RMOfficePhone;
+        private long m_RMMobile;
 
-      
+
+        public long RMMobile
+        {
+            get { return m_RMMobile; }
+            set { m_RMMobile = value; }
+        }
+        public string RMOfficePhone
+        {
+            get { return m_RMOfficePhone; }
+            set { m_RMOfficePhone = value; }
+        }
+        public string RMEmail
+        {
+            get { return m_RMEmail; }
+            set { m_RMEmail = value; }
+        }
+        public string RMName
+        {
+            get { return m_RMName; }
+            set { m_RMName = value; }
+        }
         public DateTime MarriageDate
         {
             get { return m_MarriageDate; }

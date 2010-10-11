@@ -303,6 +303,20 @@ namespace DaoCustomerProfiling
                     if (dr["XR_RelationshipCode"].ToString() != string.Empty)
                         customerVo.RelationShip = dr["XR_RelationshipCode"].ToString();
                     customerVo.ParentCustomer = dr["ParentCustomer"].ToString();
+                    customerVo.RMName = dr["AR_RM_FullName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AR_RM_Email"].ToString()))
+                        customerVo.RMEmail = dr["AR_RM_Email"].ToString();
+                    else
+                        customerVo.RMEmail = "";
+                    if (!string.IsNullOrEmpty(dr["AR_RM_OffiePhone"].ToString()))
+                        customerVo.RMOfficePhone = dr["AR_RM_OffiePhone"].ToString();
+                    else
+                        customerVo.RMOfficePhone = string.Empty;
+
+                    if (!string.IsNullOrEmpty(dr["AR_RM_Moble"].ToString()))
+                        customerVo.RMMobile = long.Parse(dr["AR_RM_Moble"].ToString());
+                    else
+                        customerVo.RMMobile = 0;
                 }
             }
 
