@@ -484,6 +484,14 @@ namespace BoCustomerGoalProfiling
             try
             {
                 dsGetCustomerRTDetails = RTDetails.GetCustomerRTDetails(CustomerID);
+                string futureValueOncurrentInvestment = null;
+                if (string.IsNullOrEmpty(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FutureValueOnCurrentInvest"].ToString()))
+                {
+                    futureValueOncurrentInvestment="0";
+
+                }
+                else
+                    futureValueOncurrentInvestment=Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FutureValueOnCurrentInvest"].ToString()),2).ToString();
                 if (dsGetCustomerRTDetails.Tables[0].Rows.Count > 0)
                 {
                     string StrRT1 = "We have done an extensive analysis of your" +
@@ -494,7 +502,7 @@ namespace BoCustomerGoalProfiling
 
                     string StrRT2 = "To meet the retirement goal you have already invested Rs." +  Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_CurrentInvestment"].ToString()),2).ToString() +
                     " which will grow at " +  Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_ROIEarned"].ToString()),2).ToString() + " % " +
-                    " and it's value at the time of your retirement will be Rs." +  Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FutureValueOnCurrentInvest"].ToString()),2).ToString() + ".";
+                    " and it's value at the time of your retirement will be Rs." +  futureValueOncurrentInvestment + ".";
 
                     string StrRT3 = "You have no investmensts attached to your retirement.";
 
