@@ -1188,10 +1188,10 @@ namespace WealthERP.Reports
             strMail.Append("<br/>Please find attached " + subject + ".");
            if(!string.IsNullOrEmpty(advisorVo.Website))
            {
-               strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website + "</i></b>");
+               strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website);
            }
            else
-               strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website + "</i></b>");
+               strMail.Append("<br/><br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website);
 
             return strMail.ToString();
 
@@ -1350,6 +1350,9 @@ namespace WealthERP.Reports
                 if (Session["advisorVo"] != null)
                     logoPath = "~/Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
                 //System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("~/Images/") + @"\3DSYRW_4009.JPG", "image/jpeg");
+                if (!File.Exists(Server.MapPath(logoPath)))
+                    logoPath = "~/Images/" + "spacer.jpg";
+
                 System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logoPath), "image/jpeg");
 
                 imageResource.ContentId = "HDIImage";
