@@ -428,8 +428,8 @@ namespace WealthERP.Reports
                 MFReportsBo mfReports = new MFReportsBo();
                 report = (MFReportVo)Session["reportParams"];
                 //customerVo = (CustomerVo)Session["CusVo"];
-                if (Session["CusVo"] != null)
-                    customerVo = (CustomerVo)Session["CusVo"];
+                //if (Session["CusVo"] != null)
+                //    customerVo = (CustomerVo)Session["CusVo"];
                 string fileExtension = ".pdf";
                 string exportFilename = string.Empty;
                 
