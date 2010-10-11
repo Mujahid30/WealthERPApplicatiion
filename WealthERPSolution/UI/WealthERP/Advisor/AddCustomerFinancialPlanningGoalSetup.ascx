@@ -351,6 +351,7 @@ function validate() {
                         <asp:DropDownList ID="ddlGoalType" runat="server" AutoPostBack="True" CssClass="cmbField"
                               OnSelectedIndexChanged="ddlGoalType_SelectedIndexChanged">
                         </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="ReqValidatorGoalType" runat="server" ErrorMessage="Please select a goal type" ControlToValidate="ddlGoalType" CssClass="rfvPCG" InitialValue="0" SetFocusOnError="True"/>
                     </td>
                 </tr>
                 <tr>
