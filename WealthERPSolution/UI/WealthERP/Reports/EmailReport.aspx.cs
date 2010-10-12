@@ -725,13 +725,17 @@ namespace WealthERP.Reports
             try
             {
                 //setLogo();
-                crmain.SetParameterValue("RMName", "Advisor :  " + rmVo.FirstName + " " + rmVo.LastName);
-                crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
-                crmain.SetParameterValue("MobileNo", "Mobile :  " + rmVo.Mobile);
+                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + customerVo.RMName);
+                crmain.SetParameterValue("RMContactDetails", "Email :  " + customerVo.RMEmail);
+                crmain.SetParameterValue("MobileNo", "Mobile :  " + customerVo.RMMobile);
 
                 crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + advisorVo.State);
-                crmain.SetParameterValue("OrgDetails", advisorVo.Email + ", " + advisorVo.Website);
-                crmain.SetParameterValue("OrgTelephone", "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
+                //crmain.SetParameterValue("OrgDetails", advisorVo.Email + ", " + advisorVo.Website);
+                //crmain.SetParameterValue("OrgTelephone", "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
+                //crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
+
+                crmain.SetParameterValue("OrgDetails", "E-mail: " + customerVo.RMEmail);
+                crmain.SetParameterValue("OrgTelephone", "Phone: " + "+" + customerVo.RMOfficePhone);
                 crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
                 crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);
@@ -1023,12 +1027,12 @@ namespace WealthERP.Reports
             strMail.Append("<br/> Please find attached " + subject + ".");
             //strMail.Append("<br/>Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName);
             if (advisorVo!=null)
-            if (!string.IsNullOrEmpty(advisorVo.Website))
-            {
-                strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website + "</i></b>");
-            }
-            else
-                strMail.Append("<br/><br/> <b> Regards,<br/>" + rmVo.FirstName + " " + rmVo.LastName + "<br/><i>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneExtStd + "-" + rmVo.OfficePhoneExtNumber + "<br/>Website: " + advisorVo.Website + "</i></b>");
+                if (!string.IsNullOrEmpty(advisorVo.Website))
+                {
+                    strMail.Append("<br/><br/>Regards,<br/>" + customerVo.RMName + "<br/>Mo: " + customerVo.RMMobile + "<br/>Ph: +" + customerVo.RMOfficePhone + "<br/>Website: " + advisorVo.Website);
+                }
+                else
+                    strMail.Append("<br/><br/>Regards,<br/>" + customerVo.RMName + "<br/>Mo: " + customerVo.RMMobile + "<br/>Ph: +" + customerVo.RMOfficePhone);
 
             return strMail.ToString();
 
