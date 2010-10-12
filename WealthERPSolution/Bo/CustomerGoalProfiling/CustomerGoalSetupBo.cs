@@ -477,14 +477,20 @@ namespace BoCustomerGoalProfiling
         /// <returns></returns>
         public string RTGoalDescriptionText(int CustomerID)
         {
+            
+          
             string GoalDescription="";
             DataSet dsGetCustomerRTDetails = new DataSet();
             CustomerGoalSetupDao RTDetails = new CustomerGoalSetupDao();
 
             try
             {
-                dsGetCustomerRTDetails = RTDetails.GetCustomerRTDetails(CustomerID);
                 string futureValueOncurrentInvestment = null;
+                string futureValueOncurrentInvestment2 = null;
+                string yearlySavingRequired = null;
+                string gapvalues = null;
+                dsGetCustomerRTDetails = RTDetails.GetCustomerRTDetails(CustomerID);
+               
                 if (string.IsNullOrEmpty(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FutureValueOnCurrentInvest"].ToString()))
                 {
                     futureValueOncurrentInvestment="0";
@@ -492,6 +498,34 @@ namespace BoCustomerGoalProfiling
                 }
                 else
                     futureValueOncurrentInvestment=Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FutureValueOnCurrentInvest"].ToString()),2).ToString();
+
+                if (string.IsNullOrEmpty(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_LumpsumInvestmentRequired"].ToString()))
+                {
+                    futureValueOncurrentInvestment2 = "0";
+
+                }
+                else
+                    futureValueOncurrentInvestment2 = Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_LumpsumInvestmentRequired"].ToString()), 2).ToString();
+
+               
+                if (string.IsNullOrEmpty(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_YearlySavingsRequired"].ToString()))
+                {
+                    yearlySavingRequired = "0";
+
+                }
+                else
+                    yearlySavingRequired = Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_YearlySavingsRequired"].ToString()), 2).ToString();
+
+
+                if (string.IsNullOrEmpty(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_GapValues"].ToString()))
+                {
+                    gapvalues = "0";
+
+                }
+                else
+                    gapvalues = Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_GapValues"].ToString()), 2).ToString();
+                
+
                 if (dsGetCustomerRTDetails.Tables[0].Rows.Count > 0)
                 {
                     string StrRT1 = "We have done an extensive analysis of your" +
@@ -506,11 +540,11 @@ namespace BoCustomerGoalProfiling
 
                     string StrRT3 = "You have no investmensts attached to your retirement.";
 
-                    string StrRT4 = "For the gap of Rs." +  Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_GapValues"].ToString()),2).ToString() +
+                    string StrRT4 = "For the gap of Rs." + gapvalues +
                     " for your retirement goal, you need to start planning soon." +
                     "You can opt for any of the following saving options to meet your retirement goal." +
-                    " Monthly savings required to meet the goal is Rs." +  Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString()),2).ToString() + 
-                    ".Yearly savings required to meet the goal is Rs." +  Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_YearlySavingsRequired"].ToString()),2).ToString() + ".Lumpsum investment required is Rs." +  Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_LumpsumInvestmentRequired"].ToString()),2).ToString() +
+                    " Monthly savings required to meet the goal is Rs." +  Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString()),2).ToString() +
+                    ".Yearly savings required to meet the goal is Rs." + yearlySavingRequired + ".Lumpsum investment required is Rs." + futureValueOncurrentInvestment2 +
                     ".We recommend you to start saving as per the retirement plan provided by us.";
                
               
