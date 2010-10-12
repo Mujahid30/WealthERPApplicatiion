@@ -25,6 +25,8 @@
 function validate() {
     var hidCustomerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
     var goalCost = document.getElementById("<%=txtGoalCostToday.ClientID %>").value;
+    var ddlGoalType = document.getElementById("<%=ddlGoalType.ClientID %>").value
+   
     var RetirementCorps = "-";
     if (document.getElementById("<%=txtROIFutureInvest.ClientID %>") != null)
         RetirementCorps =  document.getElementById("<%=txtROIFutureInvest.ClientID %>").value;
@@ -59,22 +61,27 @@ function validate() {
                   alert("Return on retirement corpus(%) should be greater than 0 ")
                    return false;
                }
-       
-      
-     
-   
-    if(hidCustomerId == "") {
-        document.getElementById("<%=txtPickCustomer.ClientID %>").focus();
-        alert("Please pick a customer");
-        return false;
-    }
-    else if (goalCost == "") {
-        document.getElementById("<%=txtGoalCostToday.ClientID %>").focus();
-        alert("Please enter Goal Cost Today");
-        return false;
-    }
-    else
-        return true;
+
+
+
+
+               if (hidCustomerId == "") {
+                   document.getElementById("<%=txtPickCustomer.ClientID %>").focus();
+                   alert("Please pick a customer");
+                   return false;
+               }
+               else if (ddlGoalType == 0) {
+               alert("Please select a GaolType");
+               return false;
+               
+                }
+               else if (goalCost == "") {
+                   document.getElementById("<%=txtGoalCostToday.ClientID %>").focus();
+                   alert("Please enter Goal Cost Today");
+                   return false;
+               }
+               else
+                   return true;
     
 }
     function GetParentCustomerId(source, eventArgs) {
@@ -209,6 +216,8 @@ function validate() {
                 return false;
             }
         }
+        //****************************************************
+        
 </script>
 
 <style type="text/css">
@@ -351,7 +360,8 @@ function validate() {
                         <asp:DropDownList ID="ddlGoalType" runat="server" AutoPostBack="True" CssClass="cmbField"
                               OnSelectedIndexChanged="ddlGoalType_SelectedIndexChanged">
                         </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="ReqValidatorGoalType" runat="server" ErrorMessage="Please select a goal type" ControlToValidate="ddlGoalType" CssClass="rfvPCG" InitialValue="0" SetFocusOnError="True"/>
+                         <span id="spanGoalType" class="spnRequiredField" runat="server">*</span>
+                        
                     </td>
                 </tr>
                 <tr>
@@ -582,11 +592,11 @@ function validate() {
                 <tr>
                     <td>
                         <asp:Button ID="btnCancel" runat="server" CssClass="PCGButton" Text="Cancel" CausesValidation="False"
-                            OnClick="btnCancel_Click" OnClientClick="return validate()"/>
+                            OnClick="btnCancel_Click" />
                         <asp:Button ID="btnSaveAdd" runat="server" CssClass="PCGMediumButton" OnClick="btnSaveAdd_Click"
-                            Text="Save & Add" ValidationGroup="btnSave" OnClientClick="return validate()" />
+                            Text="Save & Add" ValidationGroup="btnSave" OnClientClick="return validate()" CausesValidation="true" />
                         <asp:Button ID="btnNext" runat="server" CssClass="PCGMediumButton" Text="Save & Next" OnClick="btnNext_Click"
-                            ValidationGroup="btnSave"  OnClientClick="return validate()"/>
+                            ValidationGroup="btnSave"  OnClientClick="return validate()" CausesValidation="true"/>
                         <asp:Button ID="btnBackToAddMode" runat="server" CssClass="PCGButton" Text="AddNew"
                              ValidationGroup="btnSave" OnClick="btnBackToAddMode_Click"  OnClientClick="return validate()"/>
                          <asp:Button ID="btnBackToView" runat="server" CssClass="PCGButton" Text="Back" OnClick="btnBackToView_Click"/>
