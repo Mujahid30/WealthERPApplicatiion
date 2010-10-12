@@ -65,7 +65,8 @@ namespace WealthERP.Customer
                 {
                     lblDob.Text = customerVo.Dob.ToShortDateString().ToString();
                 }
-
+                
+                //hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerVo.CustomerId).ToString();
                 lblGuardianName.Text = customerVo.ContactFirstName + " " + customerVo.ContactMiddleName + " " + customerVo.ContactLastName;
                 lblName.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
                 lblCustCode.Text = customerVo.CustCode.ToString();
@@ -79,6 +80,11 @@ namespace WealthERP.Customer
                     lblBranch.Text = customerVo.BranchName.ToString();
                 else
                     lblBranch.Text = "";
+
+                if (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName != null && (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName).ToString() != "")
+                    lblRM.Text = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                else
+                    lblRM.Text = "";
 
                 if (customerVo.JobStartDate.Year == 1800 || customerVo.JobStartDate == DateTime.MinValue)
                 {
@@ -206,9 +212,43 @@ namespace WealthERP.Customer
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-           
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);   
         }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerVo.CustomerId).ToString();
+                string asc = Convert.ToString(hdnassociationcount.Value);
+
+                if (asc == "0")
+                
+                    DeleteCustomerProfile();
+                
+            
+            else
+            
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
+            }
+        }
+
+        protected void hiddenassociationfound_Click(object sender, EventArgs e)
+        {
+            string aso = Convert.ToString(hdnassociation.Value);
+            if (aso == "1")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+            }
+
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+            }
+        }
+
+
 
         private void DeleteCustomerProfile()
         {
@@ -217,7 +257,8 @@ namespace WealthERP.Customer
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 userVo = (UserVo)Session[SessionContents.UserVo];
 
-                if (customerBo.DeleteCustomer(customerVo.CustomerId, userVo.UserId))
+
+                if (customerBo.DeleteCustomer(customerVo.CustomerId, userVo.UserId,"D"))
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
                 }
@@ -244,14 +285,24 @@ namespace WealthERP.Customer
             }
         }
 
-        protected void hiddenDelete_Click(object sender, EventArgs e)
-        {
-            string val = Convert.ToString(hdnMsgValue.Value);
-            if (val == "1")
-            {
-                DeleteCustomerProfile();
-            }
+        //protected void hiddenDelete_Click(object sender, EventArgs e)
+        //{
+        //    string val = Convert.ToString(hdnMsgValue.Value);
+        //    if (val == "1")
+        //    {
+        //        DeleteCustomerProfile();
+        //    }
            
-        }
+        //}
+
+        //protected void hiddenassociation_Click(object sender, EventArgs e)
+        //{
+        //    string val = Convert.ToString(hdnMsgValue.Value);
+        //    if (val == "1")
+        //    {
+        //        DeleteCustomerProfile();
+        //    }
+
+        //}
     }
 }

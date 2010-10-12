@@ -20,19 +20,42 @@
     function showmessage() {
 
         var bool = window.confirm('Are you sure you want to delete this profile?');
+       
         if (bool) {
+           
             document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnMsgValue").value = 1;
-            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenDelete").click();
+            
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociation").click();
+         
             return false;
         }
         else {
             document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenDelete").click();
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociation").click();
+            return true;
+        }
+    }
+    //*****************************************************************
+
+    function showassocation() {
+
+        var bool = window.confirm('Customer has associations,cannot be deteted');
+        if (bool) {
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnassociation").value = 1;
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociationfound").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnassociation").value = 0;
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociationfound").click();
             return true;
         }
     }
    
+   
 </script>
+
+
 
 <table class="TableBackground" style="width: 100%">
     <tr>
@@ -55,6 +78,14 @@
         </td>
         <td class="rightField">
             <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -512,9 +543,15 @@
             <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"
                 CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ViewCustomerIndividualProfile_btnDelete', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewCustomerIndividualProfile_btnDelete', 'S');" />
-            <asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
+            <%--<asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
+                BorderStyle="None" BackColor="Transparent" />--%>
+                <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" Text=""
+                BorderStyle="None" Visible="true" />
+                <asp:Button ID="hdnassociationf" runat="server" OnClick="hiddenassociationfound_Click" Text=""
                 BorderStyle="None" BackColor="Transparent" />
             <asp:HiddenField ID="hdnMsgValue" runat="server" />
+             <asp:HiddenField ID="hdnassociation" runat="server" />
+            <asp:HiddenField ID="hdnassociationcount" runat="server" />
         </td>
     </tr>
 </table>
