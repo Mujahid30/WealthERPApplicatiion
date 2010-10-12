@@ -281,7 +281,8 @@
         </td>
     </tr>
     <tr>
-       <td colspan="3" style="padding-left: 242px;">
+    <td></td>
+       <td colspan="3">
             <%--<asp:label ID="FileType_lbl" runat="server" Font-Bold="false" CssClass="MsgInfo" text="Label"></asp:label>--%>
             <asp:Label ID="lblFileType" runat="server" Font-Bold="false" CssClass="MsgInfo" Text="Label"></asp:Label>
         </td>

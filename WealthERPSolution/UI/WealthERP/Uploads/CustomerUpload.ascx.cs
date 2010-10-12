@@ -23,6 +23,8 @@ using WealthERP.Base;
 using BoCommon;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using System.Globalization;
+
 
 
 namespace WealthERP.Uploads
@@ -110,9 +112,13 @@ namespace WealthERP.Uploads
             lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
             if (lastUploadDate != "")
             {
+                //DateTime dt = new DateTime();
+                //String.Format("{0:d}", dt);
+                
                 lblLastUploadDateText.Visible = true;
                 lblLastUploadDate.Visible = true;
-                lblLastUploadDate.Text = lastUploadDate;
+                DateTime uploadDate = DateTime.Parse(lastUploadDate, System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                lblLastUploadDate.Text = uploadDate.ToString();
             }
             if (Session["userVo"] != null)
             {
