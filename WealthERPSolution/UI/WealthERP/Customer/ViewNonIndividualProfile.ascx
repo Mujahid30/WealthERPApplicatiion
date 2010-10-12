@@ -3,6 +3,25 @@
 
 
 <script src="../Scripts/tabber.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+function showassocation() {
+
+        var bool = window.confirm('Customer has associations,cannot be deteted');
+        if (bool) {
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnassociation").value = 1;
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociationfound").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnassociation").value = 0;
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociationfound").click();
+            return true;
+        }
+    }
+   
+   
+</script>
+
 
 <table class="TableBackground" style="width: 50%;">
     <tr>
@@ -347,6 +366,7 @@
             <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"
                 CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ViewNonIndividualProfile_btnDelete');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewNonIndividualProfile_btnDelete');" />
+                <asp:HiddenField ID="hdnassociationcount" runat="server" />
         </td>
     </tr>
 </table>

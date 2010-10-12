@@ -143,10 +143,20 @@ namespace WealthERP.Customer
             {
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 userVo = (UserVo)Session[SessionContents.UserVo];
+                hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerVo.CustomerId).ToString();
+                string asc = Convert.ToString(hdnassociationcount.Value);
 
-                if (customerBo.DeleteCustomer(customerVo.CustomerId, userVo.UserId))
+                if (asc == "0")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+
+                    if (customerBo.DeleteCustomer(customerVo.CustomerId, userVo.UserId, "D"))
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+                    }
+                }
+                else
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -168,5 +178,21 @@ namespace WealthERP.Customer
                 throw exBase;
             }
         }
-    }
-}
+    
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+
+            }
+                 
+        }
+
+               
+
+                    
+            }
+        }
+   
+
