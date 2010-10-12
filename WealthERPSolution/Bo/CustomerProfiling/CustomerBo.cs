@@ -481,13 +481,13 @@ namespace BoCustomerProfiling
         /// <param name="customerId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public bool DeleteCustomer(int customerId, int userId)
+        public bool DeleteCustomer(int customerId, int userId, string Flag)
         {
             bool bResult = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                bResult = customerDao.DeleteCustomer(customerId, userId);
+                bResult = customerDao.DeleteCustomer(customerId, userId, Flag);
             }
             catch (BaseApplicationException Ex)
             {
@@ -509,6 +509,13 @@ namespace BoCustomerProfiling
                 throw exBase;
             }
             return bResult;
+        }
+
+        public int GetAssociationCount(string Flag, int CustomerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            return customerDao.CustomerAssociation(Flag, CustomerId);
+
         }
 
 
