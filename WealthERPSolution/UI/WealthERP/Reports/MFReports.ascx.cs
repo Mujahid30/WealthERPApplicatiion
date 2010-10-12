@@ -238,7 +238,18 @@ namespace WealthERP.Reports
 
                         CustomerBo customerBo = new CustomerBo();
                         DataTable dtGroupCustomerList = new DataTable();
-                        dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                        //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                        if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                        {
+                            dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                        }
+                        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                        {
+
+                            dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+                        }
+            
 
                         LBCustomer.DataSource = dtGroupCustomerList;
                         LBCustomer.DataTextField = "C_FirstName";
