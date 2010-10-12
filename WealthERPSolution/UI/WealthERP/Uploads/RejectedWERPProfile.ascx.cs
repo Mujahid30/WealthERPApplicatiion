@@ -186,7 +186,7 @@ namespace WealthERP.Uploads
                         ddlRejectReason.DataTextField = "Key";
                         ddlRejectReason.DataValueField = "Value";
                         ddlRejectReason.DataBind();
-                        ddlRejectReason.Items.Insert(0, new ListItem("Select Reject Reason", "Select Reject Reason"));
+                        ddlRejectReason.Items.Insert(0, new ListItem("Select", "Select"));
                     }
 
                     if (hdnRejectReasonFilter.Value != "")
@@ -253,7 +253,7 @@ namespace WealthERP.Uploads
                     ddlPanNum.DataTextField = "Key";
                     ddlPanNum.DataValueField = "Value";
                     ddlPanNum.DataBind();
-                    ddlPanNum.Items.Insert(0, new ListItem("Select PAN Number", "Select PAN Number"));
+                    ddlPanNum.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnPANFilter.Value != "")
