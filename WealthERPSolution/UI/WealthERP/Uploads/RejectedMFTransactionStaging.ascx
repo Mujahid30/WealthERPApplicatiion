@@ -199,7 +199,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <HeaderTemplate>
-                            <asp:Label ID="lblHdrTransactionType" runat="server" Text="Traansation Type"></asp:Label>
+                            <asp:Label ID="lblHdrTransactionType" runat="server" Text="Transation Type"></asp:Label>
                             <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbField"
                                 runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
                             </asp:DropDownList>
