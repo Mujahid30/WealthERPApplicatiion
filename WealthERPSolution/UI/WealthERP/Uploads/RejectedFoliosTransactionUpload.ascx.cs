@@ -54,7 +54,7 @@ namespace WealthERP.Uploads
                 upperlimit = (mypager.CurrentPage * 30).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
-                string PageRecords = string.Format("{0}- {1} of ", (int.Parse(lowerlimit.ToString())+1).ToString(), (int.Parse(upperlimit.ToString())+1).ToString());
+                string PageRecords = string.Format("{0}- {1} of ", (int.Parse(lowerlimit.ToString())+1).ToString(), (int.Parse(upperlimit.ToString())).ToString());
                 lblCurrentPage.Text = PageRecords;
 
                 hdnCurrentPage.Value = mypager.CurrentPage.ToString();
