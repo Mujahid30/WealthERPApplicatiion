@@ -247,7 +247,7 @@ namespace WealthERP.Customer
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 userVo = (UserVo)Session[SessionContents.UserVo];
 
-                if (customerBo.DeleteCustomer(customerVo.CustomerId, userVo.UserId))
+                if (customerBo.DeleteCustomer(customerVo.CustomerId, userVo.UserId,"D"))
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
                 }
