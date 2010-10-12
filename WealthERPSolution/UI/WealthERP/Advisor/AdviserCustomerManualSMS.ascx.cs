@@ -34,8 +34,11 @@ namespace WealthERP.Advisor
             dsAdviserSubscriptionDetails = adviserBo.GetAdviserSubscriptionDetails(adviserId);
             if (dsAdviserSubscriptionDetails != null)
             {
-                DataRow drAdviserSubscriptionDetails = dsAdviserSubscriptionDetails.Tables[0].Rows[0];
-                smsLicense = int.Parse(drAdviserSubscriptionDetails["AS_SMSLicenece"].ToString());
+                if (dsAdviserSubscriptionDetails.Tables[0].Rows.Count > 0)
+                {
+                    DataRow drAdviserSubscriptionDetails = dsAdviserSubscriptionDetails.Tables[0].Rows[0];
+                    smsLicense = int.Parse(drAdviserSubscriptionDetails["AS_SMSLicenece"].ToString());
+                }
             }
             if (smsLicense == 0)
             {
