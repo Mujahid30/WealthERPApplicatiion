@@ -192,9 +192,13 @@ namespace WealthERP.Reports
                             rdoCustomerGroup.Enabled = false;
                             rdoCustomerIndivisual.Checked = true;
                             divGroupCustomers.Visible = false;
+                            hndSelfOrGroup.Value = "self";
                         }
                         else
+                        {
                             rdoCustomerGroup.Checked = true;
+                            hndSelfOrGroup.Value = "";
+                        }
 
                     }
                     else
