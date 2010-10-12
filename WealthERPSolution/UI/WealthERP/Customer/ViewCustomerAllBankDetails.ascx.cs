@@ -35,8 +35,81 @@ namespace WealthERP.Customer
                 customerBankAccountVo = customerBankAccountBo.GetCustomerBankAccount(customerId, customerBankAccId);
 
                 lblAccNum.Text = customerBankAccountVo.AccountNum.ToString();
-                lblAccType.Text = customerBankAccountVo.AccountType;
-                lblModeOfOperation.Text = customerBankAccountVo.ModeOfOperation;
+                //lblAccType.Text = customerBankAccountVo.AccountType;
+                if (customerBankAccountVo.AccountType == "CC")
+                {
+                    lblAccType.Text = "C.C.";
+                }
+                if (customerBankAccountVo.AccountType == "CR")
+                {
+                    lblAccType.Text = "Current";
+                }
+                if (customerBankAccountVo.AccountType == "FR")
+                {
+                    lblAccType.Text = "F.C.N.R.";
+                }
+                if (customerBankAccountVo.AccountType == "NE")
+                {
+                    lblAccType.Text = "NRE";
+                }
+                if (customerBankAccountVo.AccountType == "NO")
+                {
+                    lblAccType.Text = "NRO";
+                }
+                if (customerBankAccountVo.AccountType == "OD")
+                {
+                    lblAccType.Text = "O.D.";
+                }
+                if (customerBankAccountVo.AccountType == "SV")
+                {
+                    lblAccType.Text = "Savings";
+                }
+                if (customerBankAccountVo.AccountType == "OT")
+                {
+                    lblAccType.Text = "Other";
+                }
+                if (customerBankAccountVo.AccountType == "TBC")
+                {
+                    lblAccType.Text = "To Be Categorized";
+                }
+                //lblAccType.Text = XMLBo.GetBankAccountTypes(path, customerBankAccountVo.AccountType);
+                if (customerBankAccountVo.ModeOfOperation == "SO")
+                {
+                    lblModeOfOperation.Text = "Self Only";
+                }
+                if (customerBankAccountVo.ModeOfOperation == "SI")
+                {
+                    lblModeOfOperation.Text = "Singly";
+                }
+                if (customerBankAccountVo.ModeOfOperation == "SE")
+                {
+                    lblModeOfOperation.Text = "Severaly";
+                }
+                if (customerBankAccountVo.ModeOfOperation == "JO")
+                {
+                    lblModeOfOperation.Text = "Jointly";
+                }
+                if (customerBankAccountVo.ModeOfOperation == "AS")
+                {
+                    lblModeOfOperation.Text = "Anyone or Survivor";
+                }
+                if (customerBankAccountVo.ModeOfOperation == "BR")
+                {
+                    lblModeOfOperation.Text = "As per Board Resolution";
+                }
+                if (customerBankAccountVo.ModeOfOperation == "ES")
+                {
+                    lblModeOfOperation.Text = "Either or Survivor";
+                }
+                if (customerBankAccountVo.ModeOfOperation == "FS")
+                {
+                    lblModeOfOperation.Text = "Former or Survivor";
+                }
+                if (customerBankAccountVo.ModeOfOperation == "TBC")
+                {
+                    lblModeOfOperation.Text = "To Be Categorized";
+                }
+                //lblModeOfOperation.Text = customerBankAccountVo.ModeOfOperation;
                 lblBankName.Text = customerBankAccountVo.BankName.ToString();
                 lblBranchName.Text = customerBankAccountVo.BranchName.ToString();
                 lblLine1.Text = customerBankAccountVo.BranchAdrLine1.ToString();
