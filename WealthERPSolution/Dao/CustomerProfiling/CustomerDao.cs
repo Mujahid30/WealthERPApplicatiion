@@ -1165,7 +1165,7 @@ namespace DaoCustomerProfiling
         /// <param name="customerId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public bool DeleteCustomer(int customerId, int userId)
+        public bool DeleteCustomer(int customerId, int userId, string Flag)
         {
             bool bResult = false;
             Database db;
@@ -1177,6 +1177,7 @@ namespace DaoCustomerProfiling
                 deleteCustomerBankCmd = db.GetStoredProcCommand("SP_DeleteCustomer");
                 db.AddInParameter(deleteCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(deleteCustomerBankCmd, "@U_UserId", DbType.Int32, userId);
+                db.AddInParameter(deleteCustomerBankCmd, "@Flag", DbType.String, Flag);
                 if (db.ExecuteNonQuery(deleteCustomerBankCmd) != 0)
                     bResult = true;
             }
@@ -1202,6 +1203,35 @@ namespace DaoCustomerProfiling
             }
             return bResult;
         }
+   
+        public int CustomerAssociation(string Flag, int CustomerId)
+        {
+           int associationcount = 0;
+           // bool bResultAssociation = false;
+            Database db;
+            DbCommand deleteCustomerBankCmd;
+
+           
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteCustomerBankCmd = db.GetStoredProcCommand("SP_DeleteCustomer");
+                db.AddInParameter(deleteCustomerBankCmd, "@Flag", DbType.String, Flag);
+                db.AddInParameter(deleteCustomerBankCmd, "@C_CustomerId", DbType.Int32, CustomerId);
+                db.AddOutParameter(deleteCustomerBankCmd, "@CountFlag", DbType.Int32, 0);
+                associationcount= db.ExecuteNonQuery(deleteCustomerBankCmd);
+                associationcount = (int)db.GetParameterValue(deleteCustomerBankCmd, "@CountFlag");
+                if (associationcount!=0)
+                    return 1;
+                else return 0;
+              
+                    
+
+
+              
+            }
+
+        }
+    
 
 
         /// <summary>
