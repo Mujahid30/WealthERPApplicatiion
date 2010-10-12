@@ -8,6 +8,7 @@ using System.Xml;
 using System.Configuration;
 using Microsoft.FSharp;
 using System.Web.UI.DataVisualization.Charting;
+
 using System.Drawing;
 using System.Data;
 using VoCustomerRiskProfiling;
@@ -275,28 +276,34 @@ namespace WealthERP.Advisor
                             //
                             //================================
 
+                            
                             if (txtRecommendedCash.Text != "" && txtRecommendedDebt.Text != "" && txtRecommendedEquity.Text != "")
                             {
                                 DataTable dt = new DataTable();
                                 DataRow dr;
                                 dt.Columns.Add("AssetType");
                                 dt.Columns.Add("Value");
-
+                                if(double.Parse(txtRecommendedEquity.Text)!=0)
+                                {
                                 dr = dt.NewRow();
                                 dr[0] = "Equity";
                                 dr[1] = txtRecommendedEquity.Text;
                                 dt.Rows.Add(dr);
-
+                                }
+                                if (double.Parse(txtRecommendedDebt.Text) != 0)
+                                {
                                 dr = dt.NewRow();
                                 dr[0] = "Debt";
                                 dr[1] = txtRecommendedDebt.Text;
                                 dt.Rows.Add(dr);
-
+                                }
+                                if (double.Parse(txtRecommendedCash.Text) != 0)
+                                {
                                 dr = dt.NewRow();
                                 dr[0] = "Cash";
                                 dr[1] = txtRecommendedCash.Text;
                                 dt.Rows.Add(dr);
-
+                                }
                                 tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
                                 Series seriesAssets = new Series("sActualAsset");
                                 seriesAssets.ChartType = SeriesChartType.Pie;
@@ -307,12 +314,18 @@ namespace WealthERP.Advisor
                                 cActualAsset.Series[0].XValueMember = "AssetType";
                                 cActualAsset.Series[0].YValueMembers = "Value";
 
+                                
+                                //Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
                                 // Enable X axis margin
                                 cActualAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
                                 cActualAsset.BackColor = Color.Transparent;
                                 cActualAsset.ChartAreas[0].BackColor = Color.Transparent;
                                 cActualAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
                                 cActualAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+
+                                //cActualAsset.Series[0]["PieLabelStyle"] = "Outside";
+                                 
+                                //cActualAsset.Series[0]["IsValueShownAsLabel"] = "true";
                                 cActualAsset.DataBind();
 
                             }
@@ -349,6 +362,11 @@ namespace WealthERP.Advisor
                 throw ex;
             }
         }
+
+   
+	
+
+
         public void SetCustomerId()
         {
             try
@@ -897,51 +915,61 @@ namespace WealthERP.Advisor
             dt.Columns.Add("Value");
             if (DScurrentAsset.Tables[0].Rows.Count > 0)
             {
-
-
-                dr = dt.NewRow();
-                dr[0] = "Equity";
                 if (DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString() != "")
                 {
                     txtCurrentEquity.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString();
-                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Equity"];
+                   
                 }
                 else
                 {
                     txtCurrentEquity.Text = "0";
-                    dr[1] = "0";
+                   
                 }
-                dt.Rows.Add(dr);
 
-                dr = dt.NewRow();
-                dr[0] = "Debt";
+                if (double.Parse(txtCurrentEquity.Text) != 0)
+                {
+                    dr = dt.NewRow();
+                    dr[0] = "Equity";
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Equity"];
+                    dt.Rows.Add(dr);
+                }
+
                 if (DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString() != "")
                 {
                     txtCurrentDebt.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString();
-                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Debt"];
+                    
                 }
                 else
                 {
                     txtCurrentDebt.Text = "0";
-                    dr[1] = "0";
+                   
                 }
 
-                dt.Rows.Add(dr);
+                if (double.Parse(txtCurrentDebt.Text) != 0)
+                {
+                    dr = dt.NewRow();
+                    dr[0] = "Debt";
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Debt"];
+                    dt.Rows.Add(dr);
+                }
 
-                dr = dt.NewRow();
-                dr[0] = "Cash";
                 if (DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString() != "")
                 {
                     txtCurrentCash.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString()), 2).ToString();
-                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Cash"];
+                    
                 }
                 else
                 {
                     txtCurrentCash.Text = "0";
-                    dr[1] = "0";
+                   
                 }
-
-                dt.Rows.Add(dr);
+                if (double.Parse(txtCurrentCash.Text) != 0)
+                {
+                    dr = dt.NewRow();
+                    dr[0] = "Cash";
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Cash"];
+                    dt.Rows.Add(dr);
+                }
 
             }
             else
@@ -965,7 +993,7 @@ namespace WealthERP.Advisor
                 dt.Rows.Add(dr);
             }
 
-            Series seriesAssets = new Series("sActualAsset");
+            Series seriesAssets = new Series("CurrentAsset");
             seriesAssets.ChartType = SeriesChartType.Pie;
             ChartCurrentAsset.Visible = true;
             ChartCurrentAsset.Series.Clear();
@@ -980,6 +1008,8 @@ namespace WealthERP.Advisor
             ChartCurrentAsset.ChartAreas[0].BackColor = Color.Transparent;
             ChartCurrentAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
             ChartCurrentAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+            //ChartCurrentAsset.Series[0]["PieLabelStyle"] = "Disabled";
+            //ChartCurrentAsset.Series[0]["IsValueShownAsLabel"] = "true";
             ChartCurrentAsset.DataBind();
  
         }
