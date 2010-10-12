@@ -83,7 +83,7 @@ namespace WealthERP.Customer
                     txtEmail.Text = customerVo.Email.ToString();
                     txtPanNumber.Text = customerVo.PANNum;
                     txtProfilingDate.Text = DateTime.Today.Date.ToShortDateString().ToString();
-                    txtRMName.Text = rmVo.FirstName;
+                    txtRMName.Text = rmVo.FirstName + " " + rmVo.MiddleName + " " + rmVo.LastName;
                     BindDropDowns(path);
                     
                 }
