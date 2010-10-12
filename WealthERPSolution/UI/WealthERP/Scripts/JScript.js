@@ -94,6 +94,9 @@ function loadcontrol(controlid, logintrue) {
     else if (controlid == "AdvisorRMCustIndiDashboard") {
         loadlinks("RMCustomerIndividualLeftPane");
     }
+    else if (controlid == "AdvisorRMCustGroupDashboard") {
+        loadlinks("RMCustomerIndividualLeftPane");
+    }
     else if (controlid == "AdviserRMCustNonIndiDashboard") {
         loadlinks("RMCustomerNonIndividualLeftPane");
     }
