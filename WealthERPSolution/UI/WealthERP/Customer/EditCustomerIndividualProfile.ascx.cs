@@ -65,6 +65,7 @@ namespace WealthERP.Customer
                     BindDropDowns();
 
                     //Bind Adviser Branch List
+
                     BindListBranch(customerVo.RmId, "rm");
 
 
@@ -77,6 +78,10 @@ namespace WealthERP.Customer
                         rbtnNonIndividual.Checked = true;
                     }
                     ddlAdviserBranchList.SelectedValue = customerVo.BranchId.ToString();
+                    if (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName != null && (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName).ToString() != "")
+                        lblRM.Text = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                    else
+                        lblRM.Text = "";
                     if (customerVo.MaritalStatus != null)
                         ddlMaritalStatus.SelectedValue = customerVo.MaritalStatus.ToString();
                     if (ddlMaritalStatus.SelectedValue == "MA")
