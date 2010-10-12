@@ -23,6 +23,7 @@ namespace WealthERP.Reports
         UserVo userVo = new UserVo();
         //string path = string.Empty;
         int AdvisorRMId=0;
+        string customerAddress = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             ////path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -72,10 +73,15 @@ namespace WealthERP.Reports
                     DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                     DataRow dr = dt.Rows[0];
 
-                    txtAddress.Text = customerVo.Adr1City;
+                    lblAddress1.Text = customerVo.Adr1Line1 + "," + customerVo.Adr1Line2 + "," + customerVo.Adr1Line3;
+                    lblAddress2.Text = customerVo.Adr1City + "," + customerVo.Adr2City;
+                    lblAddress3.Text = customerVo.Adr1State + "-" + customerVo.Adr2PinCode;
+
                     txtPanParent.Text = dr["C_PANNum"].ToString();
                     trCustomerDetails1.Visible = true;
                     trCustomerDetails2.Visible = true;
+                    trCustomerDetails3.Visible = true;
+                    trCustomerDetails4.Visible = true;
                     SessionBo.CheckSession();
                     txtCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
                 }
@@ -97,10 +103,16 @@ namespace WealthERP.Reports
 
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                 DataRow dr = dt.Rows[0];
-                txtAddress.Text = customerVo.Adr1City; ;
+               
+               
+                lblAddress1.Text = customerVo.Adr1Line1 + "," + customerVo.Adr1Line2 + "," + customerVo.Adr1Line3;
+                lblAddress2.Text = customerVo.Adr1City + "," + customerVo.Adr2City;
+                lblAddress3.Text = customerVo.Adr1State + "-" + customerVo.Adr2PinCode;
                 txtPanParent.Text = dr["C_PANNum"].ToString();
                 trCustomerDetails1.Visible = true;
                 trCustomerDetails2.Visible = true;
+                trCustomerDetails3.Visible = true;
+                trCustomerDetails4.Visible = true;
             }
            
 

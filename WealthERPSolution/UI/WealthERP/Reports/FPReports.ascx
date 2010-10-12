@@ -82,14 +82,38 @@
                 </tr>
                 
                 <tr id="trCustomerDetails2" runat="server" visible="false">
+                
                 <td align="right">
-                        <asp:Label ID="lblAddress" runat="server" CssClass="FieldName" Text="Address :"></asp:Label>
-                        
-                    </td>
-                    <td align="left">
-                    <asp:TextBox ID="txtAddress" runat="server" CssClass="txtField" BackColor="Transparent"
-                            BorderStyle="None"></asp:TextBox>
-                    </td>
+                     <asp:Label ID="lbladd"  CssClass="FieldName" Text="Address :" runat="server"></asp:Label>
+                 </td>
+                <td align="left">
+                       <asp:Label ID="lblAddress1" runat="server" CssClass="txtField" Text=""></asp:Label> 
+                         
+                 </td>
+                                        
+                </tr>
+                <tr id="trCustomerDetails3" runat="server" visible="false">
+                
+                <td align="right">
+                    
+                 </td>
+                <td align="left">
+                       <asp:Label ID="lblAddress2" runat="server" CssClass="txtField" Text=""></asp:Label> 
+                         
+                 </td>
+                                        
+                </tr>
+                 </tr>
+                <tr id="trCustomerDetails4" runat="server" visible="false">
+                
+                <td align="right">
+                    
+                 </td>
+                <td align="left">
+                       <asp:Label ID="lblAddress3" runat="server" CssClass="txtField" Text=""></asp:Label> 
+                         
+                 </td>
+                                        
                 </tr>
                 <tr>
                 
