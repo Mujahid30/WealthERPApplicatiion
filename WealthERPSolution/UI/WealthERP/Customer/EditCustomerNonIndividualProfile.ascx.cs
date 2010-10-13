@@ -13,6 +13,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Configuration;
 using BoCommon;
 using System.Data;
+using WealthERP.Base;
 namespace WealthERP.Customer
 {
     public partial class EditCustomerNonIndividualProfile : System.Web.UI.UserControl
@@ -39,6 +40,7 @@ namespace WealthERP.Customer
                     userVo = (UserVo)Session["userVo"];
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
+                        
                         rbtnIndividual.Checked = true;
                     }
                     else
@@ -378,6 +380,12 @@ namespace WealthERP.Customer
             ddlCustomerSubType.DataTextField = "CustomerTypeName";
             ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
             ddlCustomerSubType.DataBind();
+            if (customerVo != null)
+            {
+                customerVo.Type = "IND";
+                Session[SessionContents.CustomerVo] = customerVo;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerIndividualProfile','none');", true);
+            }
         }
 
         protected void rbtnNonIndividual_CheckedChanged(object sender, EventArgs e)
@@ -387,6 +395,11 @@ namespace WealthERP.Customer
             ddlCustomerSubType.DataTextField = "CustomerTypeName";
             ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
             ddlCustomerSubType.DataBind();
+            if (customerVo != null)
+            {
+                Session[SessionContents.CustomerVo] = customerVo;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
+            }
         }
         private void BindListBranch(int Id, string userType)
         {
