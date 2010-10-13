@@ -106,7 +106,7 @@ namespace WealthERP.Uploads
             rmUserVo = (UserVo)Session["userVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["UserVo"];
-
+            DateTime uploadDate;
             
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
@@ -117,8 +117,18 @@ namespace WealthERP.Uploads
                 
                 lblLastUploadDateText.Visible = true;
                 lblLastUploadDate.Visible = true;
-                DateTime uploadDate = DateTime.Parse(lastUploadDate, System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                lblLastUploadDate.Text = uploadDate.ToString();
+                if (lastUploadDate != "01/01/0001 00:00:00")
+                {
+                    uploadDate = DateTime.Parse(lastUploadDate);
+                    lastUploadDate = uploadDate.ToLongDateString();
+                }
+                else
+                {
+                    lastUploadDate = "No Uploaded History!";
+ 
+                }
+
+                lblLastUploadDate.Text = lastUploadDate.ToString();
             }
             if (Session["userVo"] != null)
             {
