@@ -179,5 +179,35 @@ namespace WealthERP.Customer
         {
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
         }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                customerBankAccId = int.Parse(Session["CustBankAccId"].ToString());
+
+
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditCustomerBankAccount','none');", true);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewCustomerAllBankDetails.ascx:btnDelete_Click()");
+                object[] objects = new object[1];
+                objects[0] = customerBankAccId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
     }
 }
