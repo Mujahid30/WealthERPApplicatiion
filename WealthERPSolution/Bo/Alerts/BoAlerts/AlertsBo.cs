@@ -1587,13 +1587,13 @@ namespace BoAlerts
         }
         #endregion
 
-        public DataSet GetAdviserCustomerSMSAlerts(int adviserId, int currentpage,  out int count)
+        public DataSet GetAdviserCustomerSMSAlerts(int id,string usertype, int currentpage,  out int count)
         {
             DataSet dsAdviserCustomerSMSAlerts;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                dsAdviserCustomerSMSAlerts = alertsDao.GetAdviserCustomerSMSAlerts(adviserId, currentpage, out count);
+                dsAdviserCustomerSMSAlerts = alertsDao.GetAdviserCustomerSMSAlerts(id, usertype, currentpage, out count);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1607,7 +1607,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:GetAdviserCustomerSMSAlerts(int adviserId))");
 
                 object[] objects = new object[4];
-                objects[0] = adviserId;
+                objects[0] = id;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
