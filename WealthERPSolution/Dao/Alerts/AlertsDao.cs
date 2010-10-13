@@ -2590,7 +2590,7 @@ namespace DaoAlerts
 
         #endregion
 
-        public DataSet GetAdviserCustomerSMSAlerts(int adviserId, int currentpage, out int count)
+        public DataSet GetAdviserCustomerSMSAlerts(int id,string usertype, int currentpage, out int count)
         {
             
             Database db;
@@ -2601,8 +2601,9 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdviserSMSAlertsCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerSMSAlerts");
-                db.AddInParameter(getAdviserSMSAlertsCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getAdviserSMSAlertsCmd, "@Id", DbType.Int32, id);
                 db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.Int32, currentpage);
+                db.AddInParameter(getAdviserSMSAlertsCmd, "@Usertype", DbType.String, usertype);
                 //db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.String, sortorder);
                 //db.AddInParameter(getAdviserSMSAlertsCmd, "@SortOrder", DbType.Int32, currentpage);
 
@@ -2622,7 +2623,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:GetAdviserCustomerSMSAlerts(int adviserId)");
 
                 object[] objects = new object[1];
-                objects[0] = adviserId;
+                objects[0] = id;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
