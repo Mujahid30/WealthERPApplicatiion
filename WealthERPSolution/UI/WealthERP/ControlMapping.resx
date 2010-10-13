@@ -1025,8 +1025,9 @@
     <value>Advisor//AddCustomerFinancialPlanningGoalSetup.ascx</value>
     <comment>Advisor//AddCustomerFinancialPlanningGoalSetup.ascx</comment>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="EditCustomerBankAccount" xml:space="preserve">
+    <value>Customer//EditCustomerBankAccount.ascx</value>
+    <comment>Customer//EditCustomerBankAccount.ascx</comment>
   </data>
   <data name="EquityReports" xml:space="preserve">
     <value>Reports//EquityReports.ascx</value>
