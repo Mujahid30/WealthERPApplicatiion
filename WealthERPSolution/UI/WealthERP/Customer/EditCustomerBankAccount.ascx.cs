@@ -96,6 +96,8 @@ namespace WealthERP.Customer
                 customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
 
                 customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId);
+
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
             }
 
             catch (BaseApplicationException Ex)

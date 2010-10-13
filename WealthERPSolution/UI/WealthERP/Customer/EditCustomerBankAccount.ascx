@@ -51,14 +51,15 @@
         <td class="style8" align="left">
             <asp:DropDownList ID="ddlAccountType" runat="server" CssClass="cmbField" Width="180px">
                 <asp:ListItem></asp:ListItem>
-                <asp:ListItem>Savings</asp:ListItem>
-                <asp:ListItem>Current</asp:ListItem>
-                <asp:ListItem>NRE</asp:ListItem>
-                <asp:ListItem>NRO</asp:ListItem>
-                <asp:ListItem>F.C.N.R</asp:ListItem>
-                <asp:ListItem>O.D.</asp:ListItem>
-                <asp:ListItem>C.C.</asp:ListItem>
-                <asp:ListItem>Others</asp:ListItem>
+                <asp:ListItem Text="Savings" Value="SV" ></asp:ListItem>
+                <asp:ListItem Text="C.C." Value="CC" ></asp:ListItem>
+                <asp:ListItem Text="Current" Value="CR" ></asp:ListItem>
+                <asp:ListItem Text="F.C.N.R." Value="FR" ></asp:ListItem>
+                <asp:ListItem Text="NRE" Value="NE" ></asp:ListItem>
+                <asp:ListItem Text="NRO" Value="NO" ></asp:ListItem>
+                <asp:ListItem Text="O.D." Value="OD" ></asp:ListItem>
+                <asp:ListItem Text="Other" Value="OT" ></asp:ListItem>
+                <asp:ListItem Text="To be categorized" Value="TBC" ></asp:ListItem>
             </asp:DropDownList>
         </td>
         <td class="style3" align="left">
@@ -89,12 +90,16 @@
         <td class="style8" align="left">
             <asp:DropDownList ID="ddlModeOfOperation" CssClass="cmbField" runat="server">
                 <asp:ListItem></asp:ListItem>
-                <asp:ListItem>Self Only</asp:ListItem>
-                <asp:ListItem>Either or Survivor</asp:ListItem>
-                <asp:ListItem>Former or Survivor</asp:ListItem>
-                <asp:ListItem>Anyone or Survivor</asp:ListItem>
-                <asp:ListItem>Jointly</asp:ListItem>
-                <asp:ListItem>Other</asp:ListItem>
+                <asp:ListItem Text="Anyone or Survivor" Value="AS" ></asp:ListItem>
+               <asp:ListItem Text="As Per Board Resolution" Value="BR" ></asp:ListItem>
+                <asp:ListItem Text="Either or Survivor" Value="ES" ></asp:ListItem>
+                <asp:ListItem Text="Former or Survivor" Value="FS" ></asp:ListItem>
+               <asp:ListItem Text="Jointly" Value="JO" ></asp:ListItem>
+                <asp:ListItem Text="Other" Value="OT" ></asp:ListItem>
+                <asp:ListItem Text="Severaly" Value="SE" ></asp:ListItem>
+                <asp:ListItem Text="Singly" Value="SI" ></asp:ListItem>
+                <asp:ListItem Text="Self Only" Value="SO" ></asp:ListItem>
+                <asp:ListItem Text="To be categorized" Value="TBC" ></asp:ListItem>
             </asp:DropDownList>
         </td>
         <td class="style3">
