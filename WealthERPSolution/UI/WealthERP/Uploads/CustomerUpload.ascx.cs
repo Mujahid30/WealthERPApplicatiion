@@ -3397,27 +3397,33 @@ namespace WealthERP.Uploads
             int noRowsSkip = Convert.ToInt32(txtNoOfRows.Text);
             DataRow dr = ds.Tables[0].Rows[noRowsSkip - 1];
             int count = ds.Tables[0].Columns.Count;
-            int i = 1;
-            
+            int i = 0;
 
-            //Replace all column names with arbitrary column names
-            foreach (DataColumn dc in ds.Tables[0].Columns)
+            try
             {
-                dc.ColumnName = "DataColumn" + i;
-                i++;
-            }
-
-            //Replace arbitrary names with columnanmes of the rows skipped
-            i = 0;
-            foreach (DataColumn dc in ds.Tables[0].Columns)
-            {
-                if (!string.IsNullOrEmpty(dr[i].ToString().Trim()))
+                //Replace all column names with arbitrary column names
+                foreach (DataColumn dc in ds.Tables[0].Columns)
                 {
-                    dc.ColumnName = dr[i].ToString();
+                    dc.ColumnName = "DataColumn" + i;
+                    i++;
                 }
-                i++;
+
+                //Replace arbitrary names with columnanmes of the rows skipped
+                i = 0;
+                foreach (DataColumn dc in ds.Tables[0].Columns)
+                {
+                    if (!string.IsNullOrEmpty(dr[i].ToString().Trim()))
+                    {
+                        dc.ColumnName = dr[i].ToString();
+                    }
+                    i++;
+                }
+                ds.Tables[0].Rows.Remove(dr);
             }
-            ds.Tables[0].Rows.Remove(dr);
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return ds;
         }
 
