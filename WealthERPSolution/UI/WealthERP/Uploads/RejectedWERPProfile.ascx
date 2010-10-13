@@ -59,7 +59,7 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged" CssClass="GridViewCmbField">
+                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged" CssClass="cmbLongField">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
