@@ -13,6 +13,7 @@ using BoCustomerProfiling;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Data;
+using WealthERP.Base;
 
 namespace WealthERP.Customer
 {
@@ -591,7 +592,11 @@ namespace WealthERP.Customer
             ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
             ddlCustomerSubType.DataBind();
             //  ddlCustomerSubType.SelectedValue = customerVo.SubType;
-
+            if (customerVo != null)
+            {
+                 Session["CustomerVo"]= customerVo;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerIndividualProfile','none');", true);
+            }
         }
 
         protected void rbtnNonIndividual_CheckedChanged(object sender, EventArgs e)
@@ -602,7 +607,12 @@ namespace WealthERP.Customer
             ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
             ddlCustomerSubType.DataBind();
             // ddlCustomerSubType.SelectedValue = customerVo.SubType;
-
+            if (customerVo != null)
+            {
+                customerVo.Type = "NIND";
+                Session["CustomerVo"] = customerVo;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
+            }
         }
 
         protected void ddlCustomerSubType_SelectedIndexChanged(object sender, EventArgs e)
