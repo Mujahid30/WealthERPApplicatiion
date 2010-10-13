@@ -130,7 +130,9 @@ namespace WealthERP.Advisor
         public void GetAdviserCustomerAlerts(out DataSet dsAdviserCustomerAlerts)
         {
             int adviserId = 0;
+            int id = 0;
             int Count = 0;
+            string usertype = null;
             hdnCustomerIdWithoutMobileNumber.Value = "";
             hdnCustomerNameWithoutMobileNumber.Value = "";
             if (hdnCurrentPage.Value.ToString() != "")
@@ -139,10 +141,26 @@ namespace WealthERP.Advisor
                 hdnCurrentPage.Value = "";
             }
             DataRow drAdviserCustomerAlert = null;
-            if (Session["advisorVo"] != null)
-                adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
+            if (Session["UserType"] == "rm")
+            {
+                if (Session["rmVo"] != null)
+                {
+                    id = ((RMVo)Session["rmVo"]).RMId;
+                    usertype = "rm";
+                    Session["UserType"] = null;
+                }
+            }
+            else
+            {
+                if (Session["advisorVo"] != null)
+                {
+                    id = ((AdvisorVo)Session["advisorVo"]).advisorId;
+                    usertype = "adviser";
+                }
+            }
             AlertsBo alertsBo = new AlertsBo();
-            dsAdviserCustomerAlerts = alertsBo.GetAdviserCustomerSMSAlerts(adviserId, mypager.CurrentPage, out Count);
+
+            dsAdviserCustomerAlerts = alertsBo.GetAdviserCustomerSMSAlerts(id, usertype, mypager.CurrentPage, out Count);
             ViewState["vsDsAdviserCustomerAlert"] = dsAdviserCustomerAlerts;
             lblTotalRows.Text = hdnCount.Value = Count.ToString();
             if (dsAdviserCustomerAlerts != null)
