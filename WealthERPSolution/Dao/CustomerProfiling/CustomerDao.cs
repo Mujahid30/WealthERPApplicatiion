@@ -225,7 +225,14 @@ namespace DaoCustomerProfiling
                     customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
                     customerVo.FirstName = dr["C_FirstName"].ToString();
                     customerVo.MiddleName = dr["C_MiddleName"].ToString();
-                    customerVo.DummyPAN = int.Parse(dr["C_IsDummyPAN"].ToString());
+                    if (dr["C_IsDummyPAN"] != null && dr["C_IsDummyPAN"] !="")
+                    {
+                        customerVo.DummyPAN = int.Parse(dr["C_IsDummyPAN"].ToString());
+                    }
+                    else
+                    {
+                        customerVo.DummyPAN = 0;
+                    }
                     customerVo.LastName = dr["C_LastName"].ToString();
                     customerVo.Gender = dr["C_Gender"].ToString();
                     customerVo.BranchName = dr["AB_BranchName"].ToString();
