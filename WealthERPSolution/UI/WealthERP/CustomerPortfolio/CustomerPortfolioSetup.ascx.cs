@@ -41,10 +41,10 @@ namespace WealthERP.CustomerPortfolio
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-
+            BindPortfolioTypeDropDown();
             if (!IsPostBack)
             {
-                BindPortfolioTypeDropDown();
+               
                 if (Request.QueryString["action"] == "EditCustomerPortfolio")
                 {
                     btnSave.Visible = false;
@@ -188,6 +188,7 @@ namespace WealthERP.CustomerPortfolio
             txtPMSIdentifier.Text = "";
             txtPortfolioName.Text = "";
             ddlPortfolioType.Items.Clear();
+            BindPortfolioTypeDropDown();
         }
     }
 }

@@ -123,8 +123,8 @@
         </td>
         <td class="SubmitCell">
             <asp:Button ID="btnSave" runat="server" Text="Save and Add More" OnClick="btnSave_Click"
-                ValidationGroup="btnSubmit" CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerPortfolioSetup_btnSave', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerPortfolioSetup_btnSave', 'S');" />
+                ValidationGroup="btnSubmit" CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerPortfolioSetup_btnSave', 'L');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerPortfolioSetup_btnSave', 'L');" />
         </td>
     </tr>
 </table>
