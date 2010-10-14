@@ -225,6 +225,7 @@ namespace DaoCustomerProfiling
                     customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
                     customerVo.FirstName = dr["C_FirstName"].ToString();
                     customerVo.MiddleName = dr["C_MiddleName"].ToString();
+                    customerVo.DummyPAN = int.Parse(dr["C_IsDummyPAN"].ToString());
                     customerVo.LastName = dr["C_LastName"].ToString();
                     customerVo.Gender = dr["C_Gender"].ToString();
                     customerVo.BranchName = dr["AB_BranchName"].ToString();
@@ -724,6 +725,10 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(editCustomerCmd, "@XCST_CustomerSubTypeCode", DbType.String, customerVo.SubType);
                 else
                     db.AddInParameter(editCustomerCmd, "@XCST_CustomerSubTypeCode", DbType.String, DBNull.Value);
+              
+               
+                db.AddInParameter(editCustomerCmd, "@C_DummyPAN", DbType.String, customerVo.DummyPAN);
+               
                 db.AddInParameter(editCustomerCmd, "@C_Salutation", DbType.String, customerVo.Salutation);
                 db.AddInParameter(editCustomerCmd, "@C_PANNum", DbType.String, customerVo.PANNum);
                 if (customerVo.ProfilingDate != DateTime.MinValue)
@@ -1420,6 +1425,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@CP_PortfolioName", DbType.String, customerPortfolioVo.PortfolioName);
                 db.AddInParameter(createCustomerCmd, "@C_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerCmd, "@C_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(createCustomerCmd, "@C_DummyPAN", DbType.Int32, customerVo.DummyPAN);
 
                 db.AddOutParameter(createCustomerCmd, "@C_CustomerId", DbType.Int32, 10);
                 db.AddOutParameter(createCustomerCmd, "@U_UserId", DbType.Int32, 10);
