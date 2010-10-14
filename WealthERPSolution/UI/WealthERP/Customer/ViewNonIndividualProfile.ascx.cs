@@ -53,7 +53,7 @@ namespace WealthERP.Customer
                 lblName.Text = customerVo.ContactFirstName+ " " + customerVo.ContactMiddleName + " " + customerVo.ContactLastName;
                 lblCustomerCode.Text = customerVo.CustCode.ToString();
                 lblPanNum.Text = customerVo.PANNum.ToString();
-                lblCompanyName.Text = customerVo.FirstName.ToString();
+                lblCompanyName.Text = customerVo.FirstName;
                 if (customerVo.BranchName != null)
                 {
                     lblBranch.Text = customerVo.BranchName.ToString();
@@ -77,6 +77,14 @@ namespace WealthERP.Customer
                 lblRegistrationNum.Text = customerVo.RegistrationNum.ToString();
                 lblRegistrationPlace.Text = customerVo.RegistrationPlace.ToString();
                 lblCompanyWebsite.Text = customerVo.CompanyWebsite.ToString();
+                if (customerVo.DummyPAN == 1)
+                {
+                    chkdummypan.Checked = true;
+                }
+                else
+                {
+                    chkdummypan.Checked = false;
+                }
 
                 lblCustomerCode.Text = customerVo.CustCode.ToString();
                 lblPanNum.Text = customerVo.PANNum.ToString();

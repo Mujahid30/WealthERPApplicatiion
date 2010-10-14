@@ -257,6 +257,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label lblPanNum;
         
         /// <summary>
+        /// chkdummypan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkdummypan;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>

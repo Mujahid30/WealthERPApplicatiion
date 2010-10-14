@@ -132,6 +132,11 @@ function showassocation() {
         </td>
         <td class="rightField">
             <asp:Label ID="lblPanNum" runat="server" Text="Label" CssClass="Field"></asp:Label>
+              &nbsp;
+            &nbsp;
+            &nbsp;
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="is Dummy PAN"
+                AutoPostBack="true"  Enabled = "false"/>
         </td>
     </tr>
     <tr>
