@@ -481,13 +481,13 @@ namespace BoCustomerProfiling
         /// <param name="customerId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public bool DeleteCustomer(int customerId, int userId, string Flag)
+        public bool DeleteCustomer(int customerId,string Flag)
         {
             bool bResult = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                bResult = customerDao.DeleteCustomer(customerId, userId, Flag);
+                bResult = customerDao.DeleteCustomer(customerId,Flag);
             }
             catch (BaseApplicationException Ex)
             {
