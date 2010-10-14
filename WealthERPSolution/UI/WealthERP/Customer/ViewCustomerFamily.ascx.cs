@@ -208,7 +208,23 @@ namespace WealthERP.Customer
 
             }
         }
+        protected void gvCustomerFamily_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            String str;
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (e.Row.FindControl("LinkButton1") != null)
+                {
+                    if (e.Row.Cells[2].Text.ToString()=="Self")
+                    {
+                        str = ((LinkButton)e.Row.FindControl("LinkButton1")).Text.ToString();
+                        e.Row.Cells[0].Controls.Remove(e.Row.FindControl("LinkButton1"));
+                        e.Row.Cells[0].Text = str;
+                    }
+                }
+            }
 
+        }
         protected void btnNameSearch_Click1(object sender, EventArgs e)
         {
             TextBox txtName = GetCustNameTextBox();
