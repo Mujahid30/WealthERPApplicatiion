@@ -113,6 +113,14 @@ namespace WealthERP.Customer
                         ddlSalutation.SelectedValue = customerVo.Salutation;
                     else
                         ddlSalutation.SelectedIndex = 0;
+                    if (customerVo.DummyPAN == 1)
+                    {
+                        chkdummypan.Checked = true;
+                    }
+                    else
+                    {
+                        chkdummypan.Checked = false;
+                    }
                     txtGuardianFirstName.Text = customerVo.ContactFirstName;
                     txtGuardianLastName.Text = customerVo.ContactLastName;
                     txtGuardianMiddleName.Text = customerVo.ContactMiddleName;
@@ -465,6 +473,16 @@ namespace WealthERP.Customer
                         customerVo.Occupation = null;
                     else
                         customerVo.Occupation = ddlOccupation.SelectedItem.Value.ToString();
+
+                    if (chkdummypan.Checked)
+                    {
+                        customerVo.DummyPAN = 1;
+                    }
+                    else
+                    {
+                        customerVo.DummyPAN = 0;
+                    }
+
 
                     if (ddlQualification.SelectedIndex == 0)
                         customerVo.Qualification = null;
