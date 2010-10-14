@@ -17,9 +17,9 @@ namespace WealthERP.Customer
             SessionBo.CheckSession();
             if (!IsPostBack)
             {
-                TreeView1.CollapseAll();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerNonIndividualLeftPane');", true);
+                TreeView1.CollapseAll();                
             }
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerNonIndividualLeftPane');", true);
         }
 
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)

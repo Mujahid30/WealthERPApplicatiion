@@ -9,13 +9,18 @@ using WealthERP.Base;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
+using BoUser;
 using BoCustomerProfiling;
 
 namespace WealthERP.CustomerPortfolio
 {
     public partial class PortfolioLeftPane : System.Web.UI.UserControl
     {
-        CustomerVo customerVo = new CustomerVo();
+        CustomerVo customerVo = new CustomerVo();        
+        List<string> roleList = new List<string>();
+        int count;
+        UserBo userBo = new UserBo();
+        UserVo userVo = new UserVo();        
         CustomerBo customerBo = new CustomerBo();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -24,9 +29,11 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 SessionBo.CheckSession();
+                customerVo = (CustomerVo)Session["CustomerVo"];
                 if (!IsPostBack)
                 {
-                    customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+                    //customerVo = (CustomerVo)Session["CustomerVo"];
+                    //customerVo = (CustomerVo)Session["CustomerVo"];
                     if (customerVo.FirstName != null && customerVo.MiddleName != null && customerVo.LastName != null)
                     {
                         string First = customerVo.FirstName.ToString();
@@ -52,14 +59,15 @@ namespace WealthERP.CustomerPortfolio
                     }
                     TreeView1.CollapseAll();
                     TreeView1.FindNode("Portfolio Dashboard").Expand();
-                    if (customerVo.UserType == "IND")
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerIndividualLeftPane');", true);
-                    }
-                    else
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerNonIndividualLeftPane');", true);
-                    }
+                    
+                }
+                if (customerVo.UserType == "IND")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerIndividualLeftPane');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerNonIndividualLeftPane');", true);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -88,9 +96,10 @@ namespace WealthERP.CustomerPortfolio
             try
                 
             {
-                if (TreeView1.SelectedNode.Value == "RM Home")
+                if (TreeView1.SelectedNode.Value == "Home")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('RMDashBoard', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
+
                 }
                 else if (TreeView1.SelectedNode.Value == "Group Dashboard")
                 {
@@ -99,7 +108,20 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else if (TreeView1.SelectedNode.Value == "Profile Dashboard")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard', 'none')", true);
+                }
+                else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
+                {
+                    if (customerVo.Type == "IND")
+                    {
+                        Session["IsDashboard"] = "CustDashboard";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+                    }
+                    else if (customerVo.Type == "NIND")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+                    }
+
                 }
                 else if (TreeView1.SelectedNode.Value == "Liabilities Dashboard")
                 {
@@ -114,27 +136,27 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else if (TreeView1.SelectedNode.Value == "Portfolio Dashboard")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Alerts")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Equity")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolios', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolios', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "View Equity Transaction")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('EquityTransactionsView','none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EquityTransactionsView','none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Equity Transaction")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Equity Account")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "View Equity Account")
                 {
@@ -142,35 +164,35 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else if (TreeView1.SelectedNode.Value == "MF")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "View MF Folio")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView', 'none')", true);
-                    
+
                 }
                 else if (TreeView1.SelectedNode.Value == "View MF Transaction")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('TransactionsView', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('TransactionsView', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add MF Transaction")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('MFManualSingleTran', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MFManualSingleTran', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add MF Folio")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?action=');", true);
-                   // ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd', 'none')", true);
+                    // ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Insurance")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Insurance")
                 {
                     Session.Remove("table");
                     Session.Remove("insuranceVo");
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=IN')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=IN')", true);
                 }
                 //else if (TreeView1.SelectedNode.Value == "General Insurance")
                 //{
@@ -182,77 +204,77 @@ namespace WealthERP.CustomerPortfolio
                 //}
                 else if (TreeView1.SelectedNode.Value == "Fixed Income")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioFixedIncomeView', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioFixedIncomeView', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Fixed Income")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=FI')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=FI')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Govt Savings")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('ViewGovtSavings', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGovtSavings', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Govt Savings")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=GS')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=GS')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Property")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioProperty', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioProperty', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Property")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=PR')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=PR')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Pension And Gratuities")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PensionPortfolio', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PensionPortfolio', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Pension and Gratuities")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=PG')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=PG')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Personal Assets")
                 {
-                  
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioPersonal', 'none')", true);
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioPersonal', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Personal Assets")
                 {
                     Session.Remove("personalVo");
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioPersonalEntry', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioPersonalEntry', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Gold Assets")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Gold Assets")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioGoldEntry', '?action=GoldEntry')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioGoldEntry', '?action=GoldEntry')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Collectibles")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('ViewCollectiblesPortfolio', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewCollectiblesPortfolio', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Collectibles")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry', '?action=Col')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry', '?action=Col')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Cash And Savings")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioCashSavingsView', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioCashSavingsView', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Cash and Savings")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=CS')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=CS')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Register Systematic Schemes")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry', '?action=entry')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry', '?action=entry')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "View Systematic Schemes")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicView', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicView', 'none')", true);
                 }
 
                 // Code to Expand/Collapse the Tree View Nodes based on selections

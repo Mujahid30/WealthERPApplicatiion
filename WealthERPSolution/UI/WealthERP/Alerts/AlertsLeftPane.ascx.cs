@@ -92,7 +92,7 @@ namespace WealthERP.Alerts
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
             }
-            if (TreeView1.SelectedNode.Value == "RM Home")
+            if (TreeView1.SelectedNode.Value == "Home")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMDashBoard','none');", true);
             }

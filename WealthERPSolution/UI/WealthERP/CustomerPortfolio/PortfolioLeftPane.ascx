@@ -71,7 +71,8 @@
                             <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px"
                                 VerticalPadding="0px" />
                             <Nodes>
-                                <asp:TreeNode Text="RM Home" Value="RM Home"></asp:TreeNode>
+                                <asp:TreeNode Text="Home" Value="Home"></asp:TreeNode>
+                                <asp:TreeNode Text="Customer Dashboard" Value="Customer Dashboard"></asp:TreeNode>
                                 <asp:TreeNode Text="Profile Dashboard" Value="Profile Dashboard"></asp:TreeNode>
                                 <asp:TreeNode Text="Alerts" Value="Alerts"></asp:TreeNode>
                                 <asp:TreeNode Text="Portfolio Dashboard" Value="Portfolio Dashboard">
