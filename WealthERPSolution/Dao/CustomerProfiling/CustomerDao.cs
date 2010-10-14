@@ -1170,7 +1170,7 @@ namespace DaoCustomerProfiling
         /// <param name="customerId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public bool DeleteCustomer(int customerId, int userId, string Flag)
+        public bool DeleteCustomer(int customerId, string Flag)
         {
             bool bResult = false;
             Database db;
@@ -1181,7 +1181,7 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deleteCustomerBankCmd = db.GetStoredProcCommand("SP_DeleteCustomer");
                 db.AddInParameter(deleteCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
-                db.AddInParameter(deleteCustomerBankCmd, "@U_UserId", DbType.Int32, userId);
+                //db.AddInParameter(deleteCustomerBankCmd, "@U_UserId", DbType.Int32, userId);
                 db.AddInParameter(deleteCustomerBankCmd, "@Flag", DbType.String, Flag);
                 if (db.ExecuteNonQuery(deleteCustomerBankCmd) != 0)
                     bResult = true;
@@ -1200,7 +1200,7 @@ namespace DaoCustomerProfiling
 
                 object[] objects = new object[2];
                 objects[0] = customerId;
-                objects[1] = userId;
+                //objects[1] = userId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
