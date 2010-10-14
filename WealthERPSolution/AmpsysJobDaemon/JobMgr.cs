@@ -31,6 +31,9 @@ namespace AmpsysJobDaemon
                 case 5:
                     J = new MutualFundNAVDownload();
                     break;
+                case 6:
+                    J = new JobAccordProductMaster();
+                    break;
                 default: J = new JobTest();
                     break;
             }

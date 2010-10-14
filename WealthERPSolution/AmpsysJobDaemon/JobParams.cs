@@ -22,7 +22,10 @@ namespace AmpsysJobDaemon
 
                 foreach (XmlNode XN in XNL)
                 {
-                    _Params.Add(XN.Attributes["name"].Value, XN.Attributes["value"].Value);
+                    string ParamName = XN.Attributes["name"].Value;
+                    string ParamValue = XN.Attributes["value"].Value;
+
+                    _Params.Add(ParamName, ParamValue);
                 }
             }
         }

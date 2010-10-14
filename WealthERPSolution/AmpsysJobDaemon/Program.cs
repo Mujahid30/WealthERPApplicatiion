@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace AmpsysJobDaemon
 {
@@ -11,6 +12,12 @@ namespace AmpsysJobDaemon
     {
         static void Main(string[] args)
         {
+            JobAccordProductMaster JAPM = new JobAccordProductMaster();
+            DateTime ImportDate = DateTime.Parse(ConfigurationManager.AppSettings["AccordImportDate"]);
+
+            JAPM.ProcessAccordProductMasterData(ImportDate);
+            return;
+
             Utils.Trace("Starting Daemon...");
             Process aProcess = Process.GetCurrentProcess();
             string aProcName = aProcess.ProcessName;
