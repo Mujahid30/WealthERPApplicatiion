@@ -41,6 +41,15 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessComplete;
         
         /// <summary>
+        /// msgReprocessincomplete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessincomplete;
+        
+        /// <summary>
         /// lnkBtnBack control.
         /// </summary>
         /// <remarks>

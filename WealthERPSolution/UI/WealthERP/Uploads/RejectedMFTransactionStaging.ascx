@@ -70,9 +70,13 @@
     </tr>
     <tr>
         <td colspan="4">
-           <div class="panel">
-              <p style="padding-top: 0; padding: 0; padding-bottom: 0;">View all the rejected transactions from your uploads, also the reason for rejection. <br /> Click here to view all the Reject reasons and solutions. -->&nbsp; <a href="http://www.wealtherp.com/help/#clientsetup" style="color: Red;" target="_blank">Reject Reasons and Solutions</a></p>
-           </div>
+            <div class="panel">
+                <p style="padding-top: 0; padding: 0; padding-bottom: 0;">
+                    View all the rejected transactions from your uploads, also the reason for rejection.
+                    <br />
+                    Click here to view all the Reject reasons and solutions. -->&nbsp; <a href="http://www.wealtherp.com/help/#clientsetup"
+                        style="color: Red;" target="_blank">Reject Reasons and Solutions</a></p>
+            </div>
         </td>
     </tr>
 </table>
@@ -81,10 +85,20 @@
         <td align="center">
             <div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
                 visible="false">
-            Reprocess successfully Completed
+                Reprocess successfully Completed
+            </div>
         </td>
     </tr>
-    </div>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
+                visible="false">
+                Reprocess Failed!
+            </div>
+        </td>
+    </tr>
 </table>
 <table style="width: 100%" class="TableBackground">
     <tr>
@@ -103,117 +117,117 @@
 <table>
     <tr>
         <td>
-        <asp:Panel runat="server">
-            <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="CMFTSId" AllowSorting="true"
-                OnSorting="gvWERPTrans_Sort">
-                <FooterStyle CssClass="FooterStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <EditRowStyle HorizontalAlign="Left" CssClass="EditRowStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                            <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true"
-                                runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
-                            <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="cmbField" runat="server"
-                                OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("ProcessId").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <asp:Label ID="lblHdrFileName" runat="server" Text="File Name"></asp:Label>
-                            <asp:DropDownList ID="ddlFileName" AutoPostBack="true" CssClass="cmbLongField" runat="server"
-                                OnSelectedIndexChanged="ddlFileName_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblFileName" runat="server" Text='<%# Eval("ExternalFileName").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <asp:Label ID="lblHdrSourceType" runat="server" Text="Source Type"></asp:Label>
-                            <asp:DropDownList ID="ddlSourceType" AutoPostBack="true" CssClass="cmbField"
-                                runat="server" OnSelectedIndexChanged="ddlSourceType_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblSourceType" runat="server" Text='<%# Eval("SourceType").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblInvName" runat="server" Text="Investor Name"></asp:Label><br />
-                            <asp:DropDownList ID="ddlInvName" AutoPostBack="true" CssClass="cmbLongField" runat="server"
-                                OnSelectedIndexChanged="ddlInvName_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblInvNameData" runat="server" Text='<%# Bind("InvestorName") %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False" />
-                    </asp:TemplateField>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <asp:Label ID="lblHdrFolioNumber" runat="server" Text="Folio Number"></asp:Label>
-                            <asp:DropDownList ID="ddlFolioNumber" AutoPostBack="true" CssClass="cmbField"
-                                runat="server" OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblFolioNumber" runat="server" Text='<%# Bind("FolioNumber") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Scheme" HeaderText="Scheme" DataFormatString="{0:f4}"
-                        ItemStyle-Wrap="false" >
-                    <ItemStyle Wrap="False" />
-                    </asp:BoundField>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <asp:Label ID="lblHdrSchemeName" runat="server" Text="Scheme Name"></asp:Label>
-                            <asp:DropDownList ID="ddlSchemeName" AutoPostBack="true" CssClass="cmbLongField"
-                                runat="server" OnSelectedIndexChanged="ddlSchemeName_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblSchemeName" runat="server" Text='<%# Bind("SchemeName") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <asp:Label ID="lblHdrTransactionType" runat="server" Text="Transation Type"></asp:Label>
-                            <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbField"
-                                runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblTransactionType" runat="server" Text='<%# Bind("TransactionType") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="TransactionDate" HeaderText="Transaction Date" />
-                    <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:f4}" />
-                    <asp:BoundField DataField="Units" HeaderText="Units" DataFormatString="{0:f4}" />
-                    <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:f4}" />
-                </Columns>
-            </asp:GridView>
+            <asp:Panel runat="server">
+                <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
+                    ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="CMFTSId" AllowSorting="true"
+                    OnSorting="gvWERPTrans_Sort">
+                    <FooterStyle CssClass="FooterStyle" />
+                    <RowStyle CssClass="RowStyle" />
+                    <EditRowStyle HorizontalAlign="Left" CssClass="EditRowStyle" />
+                    <SelectedRowStyle CssClass="SelectedRowStyle" />
+                    <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                    <HeaderStyle CssClass="HeaderStyle" />
+                    <AlternatingRowStyle CssClass="AltRowStyle" />
+                    <Columns>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
+                                <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true"
+                                    runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
+                                <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="cmbField" runat="server"
+                                    OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("ProcessId").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblHdrFileName" runat="server" Text="File Name"></asp:Label>
+                                <asp:DropDownList ID="ddlFileName" AutoPostBack="true" CssClass="cmbLongField" runat="server"
+                                    OnSelectedIndexChanged="ddlFileName_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblFileName" runat="server" Text='<%# Eval("ExternalFileName").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblHdrSourceType" runat="server" Text="Source Type"></asp:Label>
+                                <asp:DropDownList ID="ddlSourceType" AutoPostBack="true" CssClass="cmbField" runat="server"
+                                    OnSelectedIndexChanged="ddlSourceType_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblSourceType" runat="server" Text='<%# Eval("SourceType").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblInvName" runat="server" Text="Investor Name"></asp:Label><br />
+                                <asp:DropDownList ID="ddlInvName" AutoPostBack="true" CssClass="cmbLongField" runat="server"
+                                    OnSelectedIndexChanged="ddlInvName_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblInvNameData" runat="server" Text='<%# Bind("InvestorName") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle Wrap="False" />
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblHdrFolioNumber" runat="server" Text="Folio Number"></asp:Label>
+                                <asp:DropDownList ID="ddlFolioNumber" AutoPostBack="true" CssClass="cmbField" runat="server"
+                                    OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblFolioNumber" runat="server" Text='<%# Bind("FolioNumber") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="Scheme" HeaderText="Scheme" DataFormatString="{0:f4}"
+                            ItemStyle-Wrap="false">
+                            <ItemStyle Wrap="False" />
+                        </asp:BoundField>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblHdrSchemeName" runat="server" Text="Scheme Name"></asp:Label>
+                                <asp:DropDownList ID="ddlSchemeName" AutoPostBack="true" CssClass="cmbLongField"
+                                    runat="server" OnSelectedIndexChanged="ddlSchemeName_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblSchemeName" runat="server" Text='<%# Bind("SchemeName") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblHdrTransactionType" runat="server" Text="Transaction Type"></asp:Label>
+                                <asp:DropDownList ID="ddlTransactionType" AutoPostBack="true" CssClass="cmbField"
+                                    runat="server" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblTransactionType" runat="server" Text='<%# Bind("TransactionType") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="TransactionDate" HeaderText="Transaction Date" />
+                        <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:f4}" />
+                        <asp:BoundField DataField="Units" HeaderText="Units" DataFormatString="{0:f4}" />
+                        <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:f4}" />
+                    </Columns>
+                </asp:GridView>
             </asp:Panel>
         </td>
     </tr>

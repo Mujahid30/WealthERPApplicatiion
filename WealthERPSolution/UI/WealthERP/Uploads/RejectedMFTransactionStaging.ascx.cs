@@ -750,15 +750,16 @@ namespace WealthERP.Uploads
             if (error == "")
             {
                 // Success Message
-                trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Done Successfully!";
+                //trErrorMessage.Visible = true;
+                //lblError.Text = "Reprocess Done Successfully!";
                 msgReprocessComplete.Visible = true;
             }
             else
             {
                 // Failure Message
                 trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Failure!;" + error;
+                msgReprocessincomplete.Visible = true;
+                lblError.Text = "ErrorStatus:" + error;
             }
 
             BindEquityTransactionGrid(ProcessId);
