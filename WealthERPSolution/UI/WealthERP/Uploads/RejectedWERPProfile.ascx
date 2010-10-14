@@ -2,15 +2,76 @@
     Inherits="WealthERP.Uploads.RejectedWERPProfile" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
+<asp:ScriptManager ID="scptMgr" runat="server">
+</asp:ScriptManager>
+<link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
+<link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
 
+<script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.1/build/yahoo/yahoo-min.js"></script>
+
+<script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
+<script type="text/javascript">
+    function pageLoad() {
+        InitDialogs();
+        Loading(false);
+    }
+
+    function UpdateImg(ctrl, imgsrc) {
+        var img = document.getElementById(ctrl);
+        img.src = imgsrc;
+    }
+
+    // sets up all of the YUI dialog boxes
+    function InitDialogs() {
+        DialogBox_Loading = new YAHOO.widget.Panel("waitBox",
+	{ fixedcenter: true, modal: true, visible: false,
+	    width: "230px", close: false, draggable: true
+	});
+        DialogBox_Loading.setHeader("Processing, please wait...");
+        DialogBox_Loading.setBody('<div style="text-align:center;"><img src="/Images/Wait.gif" id="Image1" /></div>');
+        DialogBox_Loading.render(document.body);
+    }
+    function Loading(b) {
+        if (b == true) {
+            DialogBox_Loading.show();
+        }
+        else {
+            DialogBox_Loading.hide();
+        }
+    }
+</script>
 <table style="width: 100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Profile Rejects"></asp:Label>
         </td>
     </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
+                visible="false">
+                Reprocess successfully Completed
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
+                visible="false">
+                Reprocess Failed!
+            </div>
+        </td>
+    </tr>
+</table>
+<table style="width: 100%" class="TableBackground">
     <tr>
         <td>
             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
@@ -24,11 +85,9 @@
     </tr>
     <tr>
         <td class="leftField">
-        
             <asp:LinkButton ID="lnkProfile" runat="server" OnClick="lnkProfile_Click" CssClass="LinkButtons"></asp:LinkButton>
-            &nbsp;<asp:LinkButton ID="LinkInputRejects" runat="server" 
-                Text="View Input Rejects" CssClass="LinkButtons" 
-                onclick="LinkInputRejects_Click"></asp:LinkButton>
+            &nbsp;<asp:LinkButton ID="LinkInputRejects" runat="server" Text="View Input Rejects"
+                CssClass="LinkButtons" OnClick="LinkInputRejects_Click"></asp:LinkButton>
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
@@ -59,7 +118,8 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged" CssClass="cmbLongField">
+                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged"
+                                CssClass="cmbLongField">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -92,7 +152,8 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblPan" runat="server" Text="PAN Number"></asp:Label>
-                            <asp:DropDownList ID="ddlPanNumber" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlPanNumber_SelectedIndexChanged" CssClass="GridViewCmbField">
+                            <asp:DropDownList ID="ddlPanNumber" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlPanNumber_SelectedIndexChanged"
+                                CssClass="GridViewCmbField">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -138,8 +199,7 @@
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
-                CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedWERPProfile_btnReprocess','S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedWERPProfile_btnReprocess','S');" />
+                CssClass="PCGButton" OnClientClick="Loading(true);"     />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">
