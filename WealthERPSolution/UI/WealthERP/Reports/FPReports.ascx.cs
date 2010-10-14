@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using VoUser;
 using BoCustomerProfiling;
 using BoCommon;
+using BoReports;
 using WealthERP.Base;
 using System.Data;
 
@@ -21,9 +22,11 @@ namespace WealthERP.Reports
         //CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
         CustomerVo customerVo = new CustomerVo();
         UserVo userVo = new UserVo();
+        WERPReports CommonReport = new WERPReports();
         //string path = string.Empty;
         int AdvisorRMId=0;
         string customerAddress = null;
+        string fullState = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             ////path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -63,7 +66,9 @@ namespace WealthERP.Reports
                     
                 }
                 else
-                {
+                {                 
+                  
+
 
                     txtCustomer.Text = Session["FP_UserName"].ToString();
                     txtCustomerId.Value = Session["FP_UserID"].ToString();
@@ -73,9 +78,11 @@ namespace WealthERP.Reports
                     DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                     DataRow dr = dt.Rows[0];
 
-                    lblAddress1.Text = customerVo.Adr1Line1 + "," + customerVo.Adr1Line2 + "," + customerVo.Adr1Line3;
-                    lblAddress2.Text = customerVo.Adr1City + "," + customerVo.Adr2City;
-                    lblAddress3.Text = customerVo.Adr1State + "-" + customerVo.Adr2PinCode;
+                  
+
+                    //lblAddress1.Text = customerVo.Adr1Line1 + "," + customerVo.Adr1Line2 + "," + customerVo.Adr1Line3;
+                    //lblAddress2.Text = customerVo.Adr1City + "," + customerVo.Adr2City;
+                    //lblAddress3.Text = fullState + "-" + customerVo.Adr2PinCode;
 
                     txtPanParent.Text = dr["C_PANNum"].ToString();
                     trCustomerDetails1.Visible = true;
@@ -103,11 +110,14 @@ namespace WealthERP.Reports
 
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                 DataRow dr = dt.Rows[0];
+                string path = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+
+                if (advisorVo.State != null)
+                    fullState = CommonReport.GetState(path, customerVo.Adr1State);
                
-               
-                lblAddress1.Text = customerVo.Adr1Line1 + "," + customerVo.Adr1Line2 + "," + customerVo.Adr1Line3;
-                lblAddress2.Text = customerVo.Adr1City + "," + customerVo.Adr2City;
-                lblAddress3.Text = customerVo.Adr1State + "-" + customerVo.Adr2PinCode;
+                lblAddress1.Text = customerVo.Adr1Line1 + " " + customerVo.Adr1Line3;
+                lblAddress2.Text = customerVo.Adr1City ;
+                lblAddress3.Text = fullState + " " + customerVo.Adr2PinCode;
                 txtPanParent.Text = dr["C_PANNum"].ToString();
                 trCustomerDetails1.Visible = true;
                 trCustomerDetails2.Visible = true;
