@@ -10,9 +10,10 @@
 
 #pragma warning disable 1591
 
-namespace WealthERP.Reports {
-    
-    
+namespace WealthERP.Reports
+{
+
+
     /// <summary>
     ///Represents a strongly typed in-memory cache of data.
     ///</summary>
@@ -23,18 +24,28 @@ namespace WealthERP.Reports {
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
     [global::System.Xml.Serialization.XmlRootAttribute("FinancialPlanningDS")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class FinancialPlanningDS : global::System.Data.DataSet {
-        
+    public partial class FinancialPlanningDS : global::System.Data.DataSet
+    {
+
         private GoalDataTable tableGoal;
-        
+
         private RiskProfileDataTable tableRiskProfile;
-        
+
         private FamilyDetailsDataTable tableFamilyDetails;
-        
+
+        private CurrentAssetDataTable tableCurrentAsset;
+
+        private ChildDataTable tableChild;
+
+        private CustomerDataTable tableCustomer;
+
+        private SpouseDataTable tableSpouse;
+
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public FinancialPlanningDS() {
+        public FinancialPlanningDS()
+        {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -42,11 +53,13 @@ namespace WealthERP.Reports {
             base.Relations.CollectionChanged += schemaChangedHandler;
             this.EndInit();
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected FinancialPlanningDS(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                base(info, context, false) {
-            if ((this.IsBinarySerialized(info, context) == true)) {
+        protected FinancialPlanningDS(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) :
+            base(info, context, false)
+        {
+            if ((this.IsBinarySerialized(info, context) == true))
+            {
                 this.InitVars(false);
                 global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler1 = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
                 this.Tables.CollectionChanged += schemaChangedHandler1;
@@ -54,17 +67,37 @@ namespace WealthERP.Reports {
                 return;
             }
             string strSchema = ((string)(info.GetValue("XmlSchema", typeof(string))));
-            if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
+            if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema))
+            {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["Goal"] != null)) {
+                if ((ds.Tables["Goal"] != null))
+                {
                     base.Tables.Add(new GoalDataTable(ds.Tables["Goal"]));
                 }
-                if ((ds.Tables["RiskProfile"] != null)) {
+                if ((ds.Tables["RiskProfile"] != null))
+                {
                     base.Tables.Add(new RiskProfileDataTable(ds.Tables["RiskProfile"]));
                 }
-                if ((ds.Tables["FamilyDetails"] != null)) {
+                if ((ds.Tables["FamilyDetails"] != null))
+                {
                     base.Tables.Add(new FamilyDetailsDataTable(ds.Tables["FamilyDetails"]));
+                }
+                if ((ds.Tables["CurrentAsset"] != null))
+                {
+                    base.Tables.Add(new CurrentAssetDataTable(ds.Tables["CurrentAsset"]));
+                }
+                if ((ds.Tables["Child"] != null))
+                {
+                    base.Tables.Add(new ChildDataTable(ds.Tables["Child"]));
+                }
+                if ((ds.Tables["Customer"] != null))
+                {
+                    base.Tables.Add(new CustomerDataTable(ds.Tables["Customer"]));
+                }
+                if ((ds.Tables["Spouse"] != null))
+                {
+                    base.Tables.Add(new SpouseDataTable(ds.Tables["Spouse"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -75,7 +108,8 @@ namespace WealthERP.Reports {
                 this.Merge(ds, false, global::System.Data.MissingSchemaAction.Add);
                 this.InitVars();
             }
-            else {
+            else
+            {
                 this.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
             }
             this.GetSerializationData(info, context);
@@ -83,101 +117,183 @@ namespace WealthERP.Reports {
             base.Tables.CollectionChanged += schemaChangedHandler;
             this.Relations.CollectionChanged += schemaChangedHandler;
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public GoalDataTable Goal {
-            get {
+        public GoalDataTable Goal
+        {
+            get
+            {
                 return this.tableGoal;
             }
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public RiskProfileDataTable RiskProfile {
-            get {
+        public RiskProfileDataTable RiskProfile
+        {
+            get
+            {
                 return this.tableRiskProfile;
             }
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public FamilyDetailsDataTable FamilyDetails {
-            get {
+        public FamilyDetailsDataTable FamilyDetails
+        {
+            get
+            {
                 return this.tableFamilyDetails;
             }
         }
-        
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public CurrentAssetDataTable CurrentAsset
+        {
+            get
+            {
+                return this.tableCurrentAsset;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ChildDataTable Child
+        {
+            get
+            {
+                return this.tableChild;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public CustomerDataTable Customer
+        {
+            get
+            {
+                return this.tableCustomer;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public SpouseDataTable Spouse
+        {
+            get
+            {
+                return this.tableSpouse;
+            }
+        }
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
-        public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
-            get {
+        public override global::System.Data.SchemaSerializationMode SchemaSerializationMode
+        {
+            get
+            {
                 return this._schemaSerializationMode;
             }
-            set {
+            set
+            {
                 this._schemaSerializationMode = value;
             }
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public new global::System.Data.DataTableCollection Tables {
-            get {
+        public new global::System.Data.DataTableCollection Tables
+        {
+            get
+            {
                 return base.Tables;
             }
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public new global::System.Data.DataRelationCollection Relations {
-            get {
+        public new global::System.Data.DataRelationCollection Relations
+        {
+            get
+            {
                 return base.Relations;
             }
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected override void InitializeDerivedDataSet() {
+        protected override void InitializeDerivedDataSet()
+        {
             this.BeginInit();
             this.InitClass();
             this.EndInit();
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public override global::System.Data.DataSet Clone() {
+        public override global::System.Data.DataSet Clone()
+        {
             FinancialPlanningDS cln = ((FinancialPlanningDS)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected override bool ShouldSerializeTables() {
+        protected override bool ShouldSerializeTables()
+        {
             return false;
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected override bool ShouldSerializeRelations() {
+        protected override bool ShouldSerializeRelations()
+        {
             return false;
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected override void ReadXmlSerializable(global::System.Xml.XmlReader reader) {
-            if ((this.DetermineSchemaSerializationMode(reader) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
+        protected override void ReadXmlSerializable(global::System.Xml.XmlReader reader)
+        {
+            if ((this.DetermineSchemaSerializationMode(reader) == global::System.Data.SchemaSerializationMode.IncludeSchema))
+            {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["Goal"] != null)) {
+                if ((ds.Tables["Goal"] != null))
+                {
                     base.Tables.Add(new GoalDataTable(ds.Tables["Goal"]));
                 }
-                if ((ds.Tables["RiskProfile"] != null)) {
+                if ((ds.Tables["RiskProfile"] != null))
+                {
                     base.Tables.Add(new RiskProfileDataTable(ds.Tables["RiskProfile"]));
                 }
-                if ((ds.Tables["FamilyDetails"] != null)) {
+                if ((ds.Tables["FamilyDetails"] != null))
+                {
                     base.Tables.Add(new FamilyDetailsDataTable(ds.Tables["FamilyDetails"]));
+                }
+                if ((ds.Tables["CurrentAsset"] != null))
+                {
+                    base.Tables.Add(new CurrentAssetDataTable(ds.Tables["CurrentAsset"]));
+                }
+                if ((ds.Tables["Child"] != null))
+                {
+                    base.Tables.Add(new ChildDataTable(ds.Tables["Child"]));
+                }
+                if ((ds.Tables["Customer"] != null))
+                {
+                    base.Tables.Add(new CustomerDataTable(ds.Tables["Customer"]));
+                }
+                if ((ds.Tables["Spouse"] != null))
+                {
+                    base.Tables.Add(new SpouseDataTable(ds.Tables["Spouse"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,49 +304,92 @@ namespace WealthERP.Reports {
                 this.Merge(ds, false, global::System.Data.MissingSchemaAction.Add);
                 this.InitVars();
             }
-            else {
+            else
+            {
                 this.ReadXml(reader);
                 this.InitVars();
             }
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected override global::System.Xml.Schema.XmlSchema GetSchemaSerializable() {
+        protected override global::System.Xml.Schema.XmlSchema GetSchemaSerializable()
+        {
             global::System.IO.MemoryStream stream = new global::System.IO.MemoryStream();
             this.WriteXmlSchema(new global::System.Xml.XmlTextWriter(stream, null));
             stream.Position = 0;
             return global::System.Xml.Schema.XmlSchema.Read(new global::System.Xml.XmlTextReader(stream), null);
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal void InitVars() {
+        internal void InitVars()
+        {
             this.InitVars(true);
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal void InitVars(bool initTable) {
+        internal void InitVars(bool initTable)
+        {
             this.tableGoal = ((GoalDataTable)(base.Tables["Goal"]));
-            if ((initTable == true)) {
-                if ((this.tableGoal != null)) {
+            if ((initTable == true))
+            {
+                if ((this.tableGoal != null))
+                {
                     this.tableGoal.InitVars();
                 }
             }
             this.tableRiskProfile = ((RiskProfileDataTable)(base.Tables["RiskProfile"]));
-            if ((initTable == true)) {
-                if ((this.tableRiskProfile != null)) {
+            if ((initTable == true))
+            {
+                if ((this.tableRiskProfile != null))
+                {
                     this.tableRiskProfile.InitVars();
                 }
             }
             this.tableFamilyDetails = ((FamilyDetailsDataTable)(base.Tables["FamilyDetails"]));
-            if ((initTable == true)) {
-                if ((this.tableFamilyDetails != null)) {
+            if ((initTable == true))
+            {
+                if ((this.tableFamilyDetails != null))
+                {
                     this.tableFamilyDetails.InitVars();
                 }
             }
+            this.tableCurrentAsset = ((CurrentAssetDataTable)(base.Tables["CurrentAsset"]));
+            if ((initTable == true))
+            {
+                if ((this.tableCurrentAsset != null))
+                {
+                    this.tableCurrentAsset.InitVars();
+                }
+            }
+            this.tableChild = ((ChildDataTable)(base.Tables["Child"]));
+            if ((initTable == true))
+            {
+                if ((this.tableChild != null))
+                {
+                    this.tableChild.InitVars();
+                }
+            }
+            this.tableCustomer = ((CustomerDataTable)(base.Tables["Customer"]));
+            if ((initTable == true))
+            {
+                if ((this.tableCustomer != null))
+                {
+                    this.tableCustomer.InitVars();
+                }
+            }
+            this.tableSpouse = ((SpouseDataTable)(base.Tables["Spouse"]));
+            if ((initTable == true))
+            {
+                if ((this.tableSpouse != null))
+                {
+                    this.tableSpouse.InitVars();
+                }
+            }
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitClass() {
+        private void InitClass()
+        {
             this.DataSetName = "FinancialPlanningDS";
             this.Prefix = "";
             this.Namespace = "http://tempuri.org/FinancialPlanningDS.xsd";
@@ -242,32 +401,70 @@ namespace WealthERP.Reports {
             base.Tables.Add(this.tableRiskProfile);
             this.tableFamilyDetails = new FamilyDetailsDataTable();
             base.Tables.Add(this.tableFamilyDetails);
+            this.tableCurrentAsset = new CurrentAssetDataTable();
+            base.Tables.Add(this.tableCurrentAsset);
+            this.tableChild = new ChildDataTable();
+            base.Tables.Add(this.tableChild);
+            this.tableCustomer = new CustomerDataTable();
+            base.Tables.Add(this.tableCustomer);
+            this.tableSpouse = new SpouseDataTable();
+            base.Tables.Add(this.tableSpouse);
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeGoal() {
+        private bool ShouldSerializeGoal()
+        {
             return false;
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeRiskProfile() {
+        private bool ShouldSerializeRiskProfile()
+        {
             return false;
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeFamilyDetails() {
+        private bool ShouldSerializeFamilyDetails()
+        {
             return false;
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
-            if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
+        private bool ShouldSerializeCurrentAsset()
+        {
+            return false;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeChild()
+        {
+            return false;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeCustomer()
+        {
+            return false;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeSpouse()
+        {
+            return false;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e)
+        {
+            if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove))
+            {
                 this.InitVars();
             }
         }
-        
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+        public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs)
+        {
             FinancialPlanningDS ds = new FinancialPlanningDS();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
@@ -276,34 +473,43 @@ namespace WealthERP.Reports {
             sequence.Items.Add(any);
             type.Particle = sequence;
             global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-            if (xs.Contains(dsSchema.TargetNamespace)) {
+            if (xs.Contains(dsSchema.TargetNamespace))
+            {
                 global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
                 global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                try {
+                try
+                {
                     global::System.Xml.Schema.XmlSchema schema = null;
                     dsSchema.Write(s1);
-                    for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                    for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); )
+                    {
                         schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
                         s2.SetLength(0);
                         schema.Write(s2);
-                        if ((s1.Length == s2.Length)) {
+                        if ((s1.Length == s2.Length))
+                        {
                             s1.Position = 0;
                             s2.Position = 0;
-                            for (; ((s1.Position != s1.Length) 
-                                        && (s1.ReadByte() == s2.ReadByte())); ) {
+                            for (; ((s1.Position != s1.Length)
+                                        && (s1.ReadByte() == s2.ReadByte())); )
+                            {
                                 ;
                             }
-                            if ((s1.Position == s1.Length)) {
+                            if ((s1.Position == s1.Length))
+                            {
                                 return type;
                             }
                         }
                     }
                 }
-                finally {
-                    if ((s1 != null)) {
+                finally
+                {
+                    if ((s1 != null))
+                    {
                         s1.Close();
                     }
-                    if ((s2 != null)) {
+                    if ((s2 != null))
+                    {
                         s2.Close();
                     }
                 }
@@ -311,144 +517,201 @@ namespace WealthERP.Reports {
             xs.Add(dsSchema);
             return type;
         }
-        
+
         public delegate void GoalRowChangeEventHandler(object sender, GoalRowChangeEvent e);
-        
+
         public delegate void RiskProfileRowChangeEventHandler(object sender, RiskProfileRowChangeEvent e);
-        
+
         public delegate void FamilyDetailsRowChangeEventHandler(object sender, FamilyDetailsRowChangeEvent e);
-        
+
+        public delegate void CurrentAssetRowChangeEventHandler(object sender, CurrentAssetRowChangeEvent e);
+
+        public delegate void ChildRowChangeEventHandler(object sender, ChildRowChangeEvent e);
+
+        public delegate void CustomerRowChangeEventHandler(object sender, CustomerRowChangeEvent e);
+
+        public delegate void SpouseRowChangeEventHandler(object sender, SpouseRowChangeEvent e);
+
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class GoalDataTable : global::System.Data.TypedTableBase<GoalRow> {
-            
+        public partial class GoalDataTable : global::System.Data.TypedTableBase<GoalRow>
+        {
+
             private global::System.Data.DataColumn columnGoalId;
-            
+
             private global::System.Data.DataColumn columnGoalName;
-            
+
             private global::System.Data.DataColumn columnChildName;
-            
+
             private global::System.Data.DataColumn columnCostToday;
-            
+
             private global::System.Data.DataColumn columnMonthlySavingsRequired;
-            
+
             private global::System.Data.DataColumn columnCalculatedOn;
-            
+
             private global::System.Data.DataColumn columnYear;
-            
+
+            private global::System.Data.DataColumn columnYearlySavingsRequired;
+
+            private global::System.Data.DataColumn columnLumpsumRequired;
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public GoalDataTable() {
+            public GoalDataTable()
+            {
                 this.TableName = "Goal";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal GoalDataTable(global::System.Data.DataTable table) {
+            internal GoalDataTable(global::System.Data.DataTable table)
+            {
                 this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive))
+                {
                     this.CaseSensitive = table.CaseSensitive;
                 }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString()))
+                {
                     this.Locale = table.Locale;
                 }
-                if ((table.Namespace != table.DataSet.Namespace)) {
+                if ((table.Namespace != table.DataSet.Namespace))
+                {
                     this.Namespace = table.Namespace;
                 }
                 this.Prefix = table.Prefix;
                 this.MinimumCapacity = table.MinimumCapacity;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected GoalDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
+            protected GoalDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) :
+                base(info, context)
+            {
                 this.InitVars();
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn GoalIdColumn {
-                get {
+            public global::System.Data.DataColumn GoalIdColumn
+            {
+                get
+                {
                     return this.columnGoalId;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn GoalNameColumn {
-                get {
+            public global::System.Data.DataColumn GoalNameColumn
+            {
+                get
+                {
                     return this.columnGoalName;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn ChildNameColumn {
-                get {
+            public global::System.Data.DataColumn ChildNameColumn
+            {
+                get
+                {
                     return this.columnChildName;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn CostTodayColumn {
-                get {
+            public global::System.Data.DataColumn CostTodayColumn
+            {
+                get
+                {
                     return this.columnCostToday;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn MonthlySavingsRequiredColumn {
-                get {
+            public global::System.Data.DataColumn MonthlySavingsRequiredColumn
+            {
+                get
+                {
                     return this.columnMonthlySavingsRequired;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn CalculatedOnColumn {
-                get {
+            public global::System.Data.DataColumn CalculatedOnColumn
+            {
+                get
+                {
                     return this.columnCalculatedOn;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn YearColumn {
-                get {
+            public global::System.Data.DataColumn YearColumn
+            {
+                get
+                {
                     return this.columnYear;
                 }
             }
-            
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn YearlySavingsRequiredColumn
+            {
+                get
+                {
+                    return this.columnYearlySavingsRequired;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn LumpsumRequiredColumn
+            {
+                get
+                {
+                    return this.columnLumpsumRequired;
+                }
+            }
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
+            public int Count
+            {
+                get
+                {
                     return this.Rows.Count;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public GoalRow this[int index] {
-                get {
+            public GoalRow this[int index]
+            {
+                get
+                {
                     return ((GoalRow)(this.Rows[index]));
                 }
             }
-            
+
             public event GoalRowChangeEventHandler GoalRowChanging;
-            
+
             public event GoalRowChangeEventHandler GoalRowChanged;
-            
+
             public event GoalRowChangeEventHandler GoalRowDeleting;
-            
+
             public event GoalRowChangeEventHandler GoalRowDeleted;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddGoalRow(GoalRow row) {
+            public void AddGoalRow(GoalRow row)
+            {
                 this.Rows.Add(row);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public GoalRow AddGoalRow(string GoalId, string GoalName, string ChildName, double CostToday, double MonthlySavingsRequired, System.DateTime CalculatedOn, string Year) {
+            public GoalRow AddGoalRow(string GoalId, string GoalName, string ChildName, double CostToday, double MonthlySavingsRequired, System.DateTime CalculatedOn, string Year, double YearlySavingsRequired, double LumpsumRequired)
+            {
                 GoalRow rowGoalRow = ((GoalRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         GoalId,
@@ -457,26 +720,31 @@ namespace WealthERP.Reports {
                         CostToday,
                         MonthlySavingsRequired,
                         CalculatedOn,
-                        Year};
+                        Year,
+                        YearlySavingsRequired,
+                        LumpsumRequired};
                 rowGoalRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowGoalRow);
                 return rowGoalRow;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override global::System.Data.DataTable Clone() {
+            public override global::System.Data.DataTable Clone()
+            {
                 GoalDataTable cln = ((GoalDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Data.DataTable CreateInstance() {
+            protected override global::System.Data.DataTable CreateInstance()
+            {
                 return new GoalDataTable();
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
+            internal void InitVars()
+            {
                 this.columnGoalId = base.Columns["GoalId"];
                 this.columnGoalName = base.Columns["GoalName"];
                 this.columnChildName = base.Columns["ChildName"];
@@ -484,10 +752,13 @@ namespace WealthERP.Reports {
                 this.columnMonthlySavingsRequired = base.Columns["MonthlySavingsRequired"];
                 this.columnCalculatedOn = base.Columns["CalculatedOn"];
                 this.columnYear = base.Columns["Year"];
+                this.columnYearlySavingsRequired = base.Columns["YearlySavingsRequired"];
+                this.columnLumpsumRequired = base.Columns["LumpsumRequired"];
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
+            private void InitClass()
+            {
                 this.columnGoalId = new global::System.Data.DataColumn("GoalId", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGoalId);
                 this.columnGoalName = new global::System.Data.DataColumn("GoalName", typeof(string), null, global::System.Data.MappingType.Element);
@@ -502,62 +773,79 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnCalculatedOn);
                 this.columnYear = new global::System.Data.DataColumn("Year", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnYear);
+                this.columnYearlySavingsRequired = new global::System.Data.DataColumn("YearlySavingsRequired", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnYearlySavingsRequired);
+                this.columnLumpsumRequired = new global::System.Data.DataColumn("LumpsumRequired", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLumpsumRequired);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public GoalRow NewGoalRow() {
+            public GoalRow NewGoalRow()
+            {
                 return ((GoalRow)(this.NewRow()));
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder)
+            {
                 return new GoalRow(builder);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Type GetRowType() {
+            protected override global::System.Type GetRowType()
+            {
                 return typeof(GoalRow);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowChanged(e);
-                if ((this.GoalRowChanged != null)) {
+                if ((this.GoalRowChanged != null))
+                {
                     this.GoalRowChanged(this, new GoalRowChangeEvent(((GoalRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowChanging(e);
-                if ((this.GoalRowChanging != null)) {
+                if ((this.GoalRowChanging != null))
+                {
                     this.GoalRowChanging(this, new GoalRowChangeEvent(((GoalRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowDeleted(e);
-                if ((this.GoalRowDeleted != null)) {
+                if ((this.GoalRowDeleted != null))
+                {
                     this.GoalRowDeleted(this, new GoalRowChangeEvent(((GoalRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowDeleting(e);
-                if ((this.GoalRowDeleting != null)) {
+                if ((this.GoalRowDeleting != null))
+                {
                     this.GoalRowDeleting(this, new GoalRowChangeEvent(((GoalRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveGoalRow(GoalRow row) {
+            public void RemoveGoalRow(GoalRow row)
+            {
                 this.Rows.Remove(row);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs)
+            {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
                 FinancialPlanningDS ds = new FinancialPlanningDS();
@@ -582,34 +870,43 @@ namespace WealthERP.Reports {
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
+                if (xs.Contains(dsSchema.TargetNamespace))
+                {
                     global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
                     global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
+                    try
+                    {
                         global::System.Xml.Schema.XmlSchema schema = null;
                         dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); )
+                        {
                             schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
                             s2.SetLength(0);
                             schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
+                            if ((s1.Length == s2.Length))
+                            {
                                 s1.Position = 0;
                                 s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                for (; ((s1.Position != s1.Length)
+                                            && (s1.ReadByte() == s2.ReadByte())); )
+                                {
                                     ;
                                 }
-                                if ((s1.Position == s1.Length)) {
+                                if ((s1.Position == s1.Length))
+                                {
                                     return type;
                                 }
                             }
                         }
                     }
-                    finally {
-                        if ((s1 != null)) {
+                    finally
+                    {
+                        if ((s1 != null))
+                        {
                             s1.Close();
                         }
-                        if ((s2 != null)) {
+                        if ((s2 != null))
+                        {
                             s2.Close();
                         }
                     }
@@ -618,138 +915,165 @@ namespace WealthERP.Reports {
                 return type;
             }
         }
-        
+
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class RiskProfileDataTable : global::System.Data.TypedTableBase<RiskProfileRow> {
-            
+        public partial class RiskProfileDataTable : global::System.Data.TypedTableBase<RiskProfileRow>
+        {
+
             private global::System.Data.DataColumn columnRiskProfileId;
-            
+
             private global::System.Data.DataColumn columnRiskScore;
-            
+
             private global::System.Data.DataColumn columnRiskClass;
-            
+
             private global::System.Data.DataColumn columnRiskProfileDate;
-            
+
             private global::System.Data.DataColumn columnCashPer;
-            
+
             private global::System.Data.DataColumn columnEquityPer;
-            
+
             private global::System.Data.DataColumn columnDebtPer;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public RiskProfileDataTable() {
+            public RiskProfileDataTable()
+            {
                 this.TableName = "RiskProfile";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal RiskProfileDataTable(global::System.Data.DataTable table) {
+            internal RiskProfileDataTable(global::System.Data.DataTable table)
+            {
                 this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive))
+                {
                     this.CaseSensitive = table.CaseSensitive;
                 }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString()))
+                {
                     this.Locale = table.Locale;
                 }
-                if ((table.Namespace != table.DataSet.Namespace)) {
+                if ((table.Namespace != table.DataSet.Namespace))
+                {
                     this.Namespace = table.Namespace;
                 }
                 this.Prefix = table.Prefix;
                 this.MinimumCapacity = table.MinimumCapacity;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected RiskProfileDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
+            protected RiskProfileDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) :
+                base(info, context)
+            {
                 this.InitVars();
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn RiskProfileIdColumn {
-                get {
+            public global::System.Data.DataColumn RiskProfileIdColumn
+            {
+                get
+                {
                     return this.columnRiskProfileId;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn RiskScoreColumn {
-                get {
+            public global::System.Data.DataColumn RiskScoreColumn
+            {
+                get
+                {
                     return this.columnRiskScore;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn RiskClassColumn {
-                get {
+            public global::System.Data.DataColumn RiskClassColumn
+            {
+                get
+                {
                     return this.columnRiskClass;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn RiskProfileDateColumn {
-                get {
+            public global::System.Data.DataColumn RiskProfileDateColumn
+            {
+                get
+                {
                     return this.columnRiskProfileDate;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn CashPerColumn {
-                get {
+            public global::System.Data.DataColumn CashPerColumn
+            {
+                get
+                {
                     return this.columnCashPer;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn EquityPerColumn {
-                get {
+            public global::System.Data.DataColumn EquityPerColumn
+            {
+                get
+                {
                     return this.columnEquityPer;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn DebtPerColumn {
-                get {
+            public global::System.Data.DataColumn DebtPerColumn
+            {
+                get
+                {
                     return this.columnDebtPer;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
+            public int Count
+            {
+                get
+                {
                     return this.Rows.Count;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public RiskProfileRow this[int index] {
-                get {
+            public RiskProfileRow this[int index]
+            {
+                get
+                {
                     return ((RiskProfileRow)(this.Rows[index]));
                 }
             }
-            
+
             public event RiskProfileRowChangeEventHandler RiskProfileRowChanging;
-            
+
             public event RiskProfileRowChangeEventHandler RiskProfileRowChanged;
-            
+
             public event RiskProfileRowChangeEventHandler RiskProfileRowDeleting;
-            
+
             public event RiskProfileRowChangeEventHandler RiskProfileRowDeleted;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddRiskProfileRow(RiskProfileRow row) {
+            public void AddRiskProfileRow(RiskProfileRow row)
+            {
                 this.Rows.Add(row);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public RiskProfileRow AddRiskProfileRow(long RiskProfileId, double RiskScore, string RiskClass, System.DateTime RiskProfileDate, double CashPer, double EquityPer, double DebtPer) {
+            public RiskProfileRow AddRiskProfileRow(long RiskProfileId, double RiskScore, string RiskClass, System.DateTime RiskProfileDate, double CashPer, double EquityPer, double DebtPer)
+            {
                 RiskProfileRow rowRiskProfileRow = ((RiskProfileRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RiskProfileId,
@@ -763,21 +1087,24 @@ namespace WealthERP.Reports {
                 this.Rows.Add(rowRiskProfileRow);
                 return rowRiskProfileRow;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override global::System.Data.DataTable Clone() {
+            public override global::System.Data.DataTable Clone()
+            {
                 RiskProfileDataTable cln = ((RiskProfileDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Data.DataTable CreateInstance() {
+            protected override global::System.Data.DataTable CreateInstance()
+            {
                 return new RiskProfileDataTable();
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
+            internal void InitVars()
+            {
                 this.columnRiskProfileId = base.Columns["RiskProfileId"];
                 this.columnRiskScore = base.Columns["RiskScore"];
                 this.columnRiskClass = base.Columns["RiskClass"];
@@ -786,9 +1113,10 @@ namespace WealthERP.Reports {
                 this.columnEquityPer = base.Columns["EquityPer"];
                 this.columnDebtPer = base.Columns["DebtPer"];
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
+            private void InitClass()
+            {
                 this.columnRiskProfileId = new global::System.Data.DataColumn("RiskProfileId", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRiskProfileId);
                 this.columnRiskScore = new global::System.Data.DataColumn("RiskScore", typeof(double), null, global::System.Data.MappingType.Element);
@@ -804,61 +1132,74 @@ namespace WealthERP.Reports {
                 this.columnDebtPer = new global::System.Data.DataColumn("DebtPer", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDebtPer);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public RiskProfileRow NewRiskProfileRow() {
+            public RiskProfileRow NewRiskProfileRow()
+            {
                 return ((RiskProfileRow)(this.NewRow()));
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder)
+            {
                 return new RiskProfileRow(builder);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Type GetRowType() {
+            protected override global::System.Type GetRowType()
+            {
                 return typeof(RiskProfileRow);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowChanged(e);
-                if ((this.RiskProfileRowChanged != null)) {
+                if ((this.RiskProfileRowChanged != null))
+                {
                     this.RiskProfileRowChanged(this, new RiskProfileRowChangeEvent(((RiskProfileRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowChanging(e);
-                if ((this.RiskProfileRowChanging != null)) {
+                if ((this.RiskProfileRowChanging != null))
+                {
                     this.RiskProfileRowChanging(this, new RiskProfileRowChangeEvent(((RiskProfileRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowDeleted(e);
-                if ((this.RiskProfileRowDeleted != null)) {
+                if ((this.RiskProfileRowDeleted != null))
+                {
                     this.RiskProfileRowDeleted(this, new RiskProfileRowChangeEvent(((RiskProfileRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowDeleting(e);
-                if ((this.RiskProfileRowDeleting != null)) {
+                if ((this.RiskProfileRowDeleting != null))
+                {
                     this.RiskProfileRowDeleting(this, new RiskProfileRowChangeEvent(((RiskProfileRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveRiskProfileRow(RiskProfileRow row) {
+            public void RemoveRiskProfileRow(RiskProfileRow row)
+            {
                 this.Rows.Remove(row);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs)
+            {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
                 FinancialPlanningDS ds = new FinancialPlanningDS();
@@ -883,34 +1224,43 @@ namespace WealthERP.Reports {
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
+                if (xs.Contains(dsSchema.TargetNamespace))
+                {
                     global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
                     global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
+                    try
+                    {
                         global::System.Xml.Schema.XmlSchema schema = null;
                         dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); )
+                        {
                             schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
                             s2.SetLength(0);
                             schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
+                            if ((s1.Length == s2.Length))
+                            {
                                 s1.Position = 0;
                                 s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                for (; ((s1.Position != s1.Length)
+                                            && (s1.ReadByte() == s2.ReadByte())); )
+                                {
                                     ;
                                 }
-                                if ((s1.Position == s1.Length)) {
+                                if ((s1.Position == s1.Length))
+                                {
                                     return type;
                                 }
                             }
                         }
                     }
-                    finally {
-                        if ((s1 != null)) {
+                    finally
+                    {
+                        if ((s1 != null))
+                        {
                             s1.Close();
                         }
-                        if ((s2 != null)) {
+                        if ((s2 != null))
+                        {
                             s2.Close();
                         }
                     }
@@ -919,147 +1269,176 @@ namespace WealthERP.Reports {
                 return type;
             }
         }
-        
+
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class FamilyDetailsDataTable : global::System.Data.TypedTableBase<FamilyDetailsRow> {
-            
+        public partial class FamilyDetailsDataTable : global::System.Data.TypedTableBase<FamilyDetailsRow>
+        {
+
             private global::System.Data.DataColumn columnName;
-            
+
             private global::System.Data.DataColumn columnRelationShipCode;
-            
+
             private global::System.Data.DataColumn columnDOB;
-            
+
             private global::System.Data.DataColumn columnGoalCode;
-            
+
             private global::System.Data.DataColumn columnGoalYear;
-            
+
             private global::System.Data.DataColumn columnYearOfMarriage;
-            
+
             private global::System.Data.DataColumn columnYearOfEducation;
-            
+
             private global::System.Data.DataColumn columnIsGoalActive;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FamilyDetailsDataTable() {
+            public FamilyDetailsDataTable()
+            {
                 this.TableName = "FamilyDetails";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal FamilyDetailsDataTable(global::System.Data.DataTable table) {
+            internal FamilyDetailsDataTable(global::System.Data.DataTable table)
+            {
                 this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive))
+                {
                     this.CaseSensitive = table.CaseSensitive;
                 }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString()))
+                {
                     this.Locale = table.Locale;
                 }
-                if ((table.Namespace != table.DataSet.Namespace)) {
+                if ((table.Namespace != table.DataSet.Namespace))
+                {
                     this.Namespace = table.Namespace;
                 }
                 this.Prefix = table.Prefix;
                 this.MinimumCapacity = table.MinimumCapacity;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected FamilyDetailsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
+            protected FamilyDetailsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) :
+                base(info, context)
+            {
                 this.InitVars();
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn NameColumn {
-                get {
+            public global::System.Data.DataColumn NameColumn
+            {
+                get
+                {
                     return this.columnName;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn RelationShipCodeColumn {
-                get {
+            public global::System.Data.DataColumn RelationShipCodeColumn
+            {
+                get
+                {
                     return this.columnRelationShipCode;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn DOBColumn {
-                get {
+            public global::System.Data.DataColumn DOBColumn
+            {
+                get
+                {
                     return this.columnDOB;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn GoalCodeColumn {
-                get {
+            public global::System.Data.DataColumn GoalCodeColumn
+            {
+                get
+                {
                     return this.columnGoalCode;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn GoalYearColumn {
-                get {
+            public global::System.Data.DataColumn GoalYearColumn
+            {
+                get
+                {
                     return this.columnGoalYear;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn YearOfMarriageColumn {
-                get {
+            public global::System.Data.DataColumn YearOfMarriageColumn
+            {
+                get
+                {
                     return this.columnYearOfMarriage;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn YearOfEducationColumn {
-                get {
+            public global::System.Data.DataColumn YearOfEducationColumn
+            {
+                get
+                {
                     return this.columnYearOfEducation;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn IsGoalActiveColumn {
-                get {
+            public global::System.Data.DataColumn IsGoalActiveColumn
+            {
+                get
+                {
                     return this.columnIsGoalActive;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
+            public int Count
+            {
+                get
+                {
                     return this.Rows.Count;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FamilyDetailsRow this[int index] {
-                get {
+            public FamilyDetailsRow this[int index]
+            {
+                get
+                {
                     return ((FamilyDetailsRow)(this.Rows[index]));
                 }
             }
-            
+
             public event FamilyDetailsRowChangeEventHandler FamilyDetailsRowChanging;
-            
+
             public event FamilyDetailsRowChangeEventHandler FamilyDetailsRowChanged;
-            
+
             public event FamilyDetailsRowChangeEventHandler FamilyDetailsRowDeleting;
-            
+
             public event FamilyDetailsRowChangeEventHandler FamilyDetailsRowDeleted;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddFamilyDetailsRow(FamilyDetailsRow row) {
+            public void AddFamilyDetailsRow(FamilyDetailsRow row)
+            {
                 this.Rows.Add(row);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FamilyDetailsRow AddFamilyDetailsRow(string Name, string RelationShipCode, System.DateTime DOB, string GoalCode, string GoalYear, string YearOfMarriage, string YearOfEducation, string IsGoalActive) {
+            public FamilyDetailsRow AddFamilyDetailsRow(string Name, string RelationShipCode, System.DateTime DOB, string GoalCode, string GoalYear, string YearOfMarriage, string YearOfEducation, string IsGoalActive)
+            {
                 FamilyDetailsRow rowFamilyDetailsRow = ((FamilyDetailsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
@@ -1074,21 +1453,24 @@ namespace WealthERP.Reports {
                 this.Rows.Add(rowFamilyDetailsRow);
                 return rowFamilyDetailsRow;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override global::System.Data.DataTable Clone() {
+            public override global::System.Data.DataTable Clone()
+            {
                 FamilyDetailsDataTable cln = ((FamilyDetailsDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Data.DataTable CreateInstance() {
+            protected override global::System.Data.DataTable CreateInstance()
+            {
                 return new FamilyDetailsDataTable();
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
+            internal void InitVars()
+            {
                 this.columnName = base.Columns["Name"];
                 this.columnRelationShipCode = base.Columns["RelationShipCode"];
                 this.columnDOB = base.Columns["DOB"];
@@ -1098,9 +1480,10 @@ namespace WealthERP.Reports {
                 this.columnYearOfEducation = base.Columns["YearOfEducation"];
                 this.columnIsGoalActive = base.Columns["IsGoalActive"];
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
+            private void InitClass()
+            {
                 this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnName);
                 this.columnRelationShipCode = new global::System.Data.DataColumn("RelationShipCode", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1118,61 +1501,74 @@ namespace WealthERP.Reports {
                 this.columnIsGoalActive = new global::System.Data.DataColumn("IsGoalActive", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsGoalActive);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FamilyDetailsRow NewFamilyDetailsRow() {
+            public FamilyDetailsRow NewFamilyDetailsRow()
+            {
                 return ((FamilyDetailsRow)(this.NewRow()));
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder)
+            {
                 return new FamilyDetailsRow(builder);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override global::System.Type GetRowType() {
+            protected override global::System.Type GetRowType()
+            {
                 return typeof(FamilyDetailsRow);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowChanged(e);
-                if ((this.FamilyDetailsRowChanged != null)) {
+                if ((this.FamilyDetailsRowChanged != null))
+                {
                     this.FamilyDetailsRowChanged(this, new FamilyDetailsRowChangeEvent(((FamilyDetailsRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowChanging(e);
-                if ((this.FamilyDetailsRowChanging != null)) {
+                if ((this.FamilyDetailsRowChanging != null))
+                {
                     this.FamilyDetailsRowChanging(this, new FamilyDetailsRowChangeEvent(((FamilyDetailsRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowDeleted(e);
-                if ((this.FamilyDetailsRowDeleted != null)) {
+                if ((this.FamilyDetailsRowDeleted != null))
+                {
                     this.FamilyDetailsRowDeleted(this, new FamilyDetailsRowChangeEvent(((FamilyDetailsRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e)
+            {
                 base.OnRowDeleting(e);
-                if ((this.FamilyDetailsRowDeleting != null)) {
+                if ((this.FamilyDetailsRowDeleting != null))
+                {
                     this.FamilyDetailsRowDeleting(this, new FamilyDetailsRowChangeEvent(((FamilyDetailsRow)(e.Row)), e.Action));
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveFamilyDetailsRow(FamilyDetailsRow row) {
+            public void RemoveFamilyDetailsRow(FamilyDetailsRow row)
+            {
                 this.Rows.Remove(row);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs)
+            {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
                 FinancialPlanningDS ds = new FinancialPlanningDS();
@@ -1197,34 +1593,43 @@ namespace WealthERP.Reports {
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
+                if (xs.Contains(dsSchema.TargetNamespace))
+                {
                     global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
                     global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
+                    try
+                    {
                         global::System.Xml.Schema.XmlSchema schema = null;
                         dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); )
+                        {
                             schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
                             s2.SetLength(0);
                             schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
+                            if ((s1.Length == s2.Length))
+                            {
                                 s1.Position = 0;
                                 s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                for (; ((s1.Position != s1.Length)
+                                            && (s1.ReadByte() == s2.ReadByte())); )
+                                {
                                     ;
                                 }
-                                if ((s1.Position == s1.Length)) {
+                                if ((s1.Position == s1.Length))
+                                {
                                     return type;
                                 }
                             }
                         }
                     }
-                    finally {
-                        if ((s1 != null)) {
+                    finally
+                    {
+                        if ((s1 != null))
+                        {
                             s1.Close();
                         }
-                        if ((s2 != null)) {
+                        if ((s2 != null))
+                        {
                             s2.Close();
                         }
                     }
@@ -1233,690 +1638,2666 @@ namespace WealthERP.Reports {
                 return type;
             }
         }
-        
+
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class CurrentAssetDataTable : global::System.Data.TypedTableBase<CurrentAssetRow>
+        {
+
+            private global::System.Data.DataColumn columnEquity;
+
+            private global::System.Data.DataColumn columnDebt;
+
+            private global::System.Data.DataColumn columnCash;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CurrentAssetDataTable()
+            {
+                this.TableName = "CurrentAsset";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal CurrentAssetDataTable(global::System.Data.DataTable table)
+            {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive))
+                {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString()))
+                {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace))
+                {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected CurrentAssetDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) :
+                base(info, context)
+            {
+                this.InitVars();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn EquityColumn
+            {
+                get
+                {
+                    return this.columnEquity;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn DebtColumn
+            {
+                get
+                {
+                    return this.columnDebt;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn CashColumn
+            {
+                get
+                {
+                    return this.columnCash;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count
+            {
+                get
+                {
+                    return this.Rows.Count;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CurrentAssetRow this[int index]
+            {
+                get
+                {
+                    return ((CurrentAssetRow)(this.Rows[index]));
+                }
+            }
+
+            public event CurrentAssetRowChangeEventHandler CurrentAssetRowChanging;
+
+            public event CurrentAssetRowChangeEventHandler CurrentAssetRowChanged;
+
+            public event CurrentAssetRowChangeEventHandler CurrentAssetRowDeleting;
+
+            public event CurrentAssetRowChangeEventHandler CurrentAssetRowDeleted;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddCurrentAssetRow(CurrentAssetRow row)
+            {
+                this.Rows.Add(row);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CurrentAssetRow AddCurrentAssetRow(double Equity, double Debt, double Cash)
+            {
+                CurrentAssetRow rowCurrentAssetRow = ((CurrentAssetRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Equity,
+                        Debt,
+                        Cash};
+                rowCurrentAssetRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowCurrentAssetRow);
+                return rowCurrentAssetRow;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override global::System.Data.DataTable Clone()
+            {
+                CurrentAssetDataTable cln = ((CurrentAssetDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataTable CreateInstance()
+            {
+                return new CurrentAssetDataTable();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars()
+            {
+                this.columnEquity = base.Columns["Equity"];
+                this.columnDebt = base.Columns["Debt"];
+                this.columnCash = base.Columns["Cash"];
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass()
+            {
+                this.columnEquity = new global::System.Data.DataColumn("Equity", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEquity);
+                this.columnDebt = new global::System.Data.DataColumn("Debt", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDebt);
+                this.columnCash = new global::System.Data.DataColumn("Cash", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCash);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CurrentAssetRow NewCurrentAssetRow()
+            {
+                return ((CurrentAssetRow)(this.NewRow()));
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder)
+            {
+                return new CurrentAssetRow(builder);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Type GetRowType()
+            {
+                return typeof(CurrentAssetRow);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowChanged(e);
+                if ((this.CurrentAssetRowChanged != null))
+                {
+                    this.CurrentAssetRowChanged(this, new CurrentAssetRowChangeEvent(((CurrentAssetRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowChanging(e);
+                if ((this.CurrentAssetRowChanging != null))
+                {
+                    this.CurrentAssetRowChanging(this, new CurrentAssetRowChangeEvent(((CurrentAssetRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowDeleted(e);
+                if ((this.CurrentAssetRowDeleted != null))
+                {
+                    this.CurrentAssetRowDeleted(this, new CurrentAssetRowChangeEvent(((CurrentAssetRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowDeleting(e);
+                if ((this.CurrentAssetRowDeleting != null))
+                {
+                    this.CurrentAssetRowDeleting(this, new CurrentAssetRowChangeEvent(((CurrentAssetRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveCurrentAssetRow(CurrentAssetRow row)
+            {
+                this.Rows.Remove(row);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs)
+            {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                FinancialPlanningDS ds = new FinancialPlanningDS();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "CurrentAssetDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace))
+                {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try
+                    {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); )
+                        {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length))
+                            {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length)
+                                            && (s1.ReadByte() == s2.ReadByte())); )
+                                {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length))
+                                {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        if ((s1 != null))
+                        {
+                            s1.Close();
+                        }
+                        if ((s2 != null))
+                        {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ChildDataTable : global::System.Data.TypedTableBase<ChildRow>
+        {
+
+            private global::System.Data.DataColumn columnName;
+
+            private global::System.Data.DataColumn columnDob;
+
+            private global::System.Data.DataColumn columnYearMarriage;
+
+            private global::System.Data.DataColumn columnYearEducation;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ChildDataTable()
+            {
+                this.TableName = "Child";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal ChildDataTable(global::System.Data.DataTable table)
+            {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive))
+                {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString()))
+                {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace))
+                {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected ChildDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) :
+                base(info, context)
+            {
+                this.InitVars();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn NameColumn
+            {
+                get
+                {
+                    return this.columnName;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn DobColumn
+            {
+                get
+                {
+                    return this.columnDob;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn YearMarriageColumn
+            {
+                get
+                {
+                    return this.columnYearMarriage;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn YearEducationColumn
+            {
+                get
+                {
+                    return this.columnYearEducation;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count
+            {
+                get
+                {
+                    return this.Rows.Count;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ChildRow this[int index]
+            {
+                get
+                {
+                    return ((ChildRow)(this.Rows[index]));
+                }
+            }
+
+            public event ChildRowChangeEventHandler ChildRowChanging;
+
+            public event ChildRowChangeEventHandler ChildRowChanged;
+
+            public event ChildRowChangeEventHandler ChildRowDeleting;
+
+            public event ChildRowChangeEventHandler ChildRowDeleted;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddChildRow(ChildRow row)
+            {
+                this.Rows.Add(row);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ChildRow AddChildRow(string Name, System.DateTime Dob, string YearMarriage, string YearEducation)
+            {
+                ChildRow rowChildRow = ((ChildRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Name,
+                        Dob,
+                        YearMarriage,
+                        YearEducation};
+                rowChildRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowChildRow);
+                return rowChildRow;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override global::System.Data.DataTable Clone()
+            {
+                ChildDataTable cln = ((ChildDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataTable CreateInstance()
+            {
+                return new ChildDataTable();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars()
+            {
+                this.columnName = base.Columns["Name"];
+                this.columnDob = base.Columns["Dob"];
+                this.columnYearMarriage = base.Columns["YearMarriage"];
+                this.columnYearEducation = base.Columns["YearEducation"];
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass()
+            {
+                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnDob = new global::System.Data.DataColumn("Dob", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDob);
+                this.columnYearMarriage = new global::System.Data.DataColumn("YearMarriage", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnYearMarriage);
+                this.columnYearEducation = new global::System.Data.DataColumn("YearEducation", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnYearEducation);
+                this.columnDob.Caption = "DOB";
+                this.columnYearMarriage.Caption = "YearOfMarriage";
+                this.columnYearEducation.Caption = "YearOfEducation";
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ChildRow NewChildRow()
+            {
+                return ((ChildRow)(this.NewRow()));
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder)
+            {
+                return new ChildRow(builder);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Type GetRowType()
+            {
+                return typeof(ChildRow);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowChanged(e);
+                if ((this.ChildRowChanged != null))
+                {
+                    this.ChildRowChanged(this, new ChildRowChangeEvent(((ChildRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowChanging(e);
+                if ((this.ChildRowChanging != null))
+                {
+                    this.ChildRowChanging(this, new ChildRowChangeEvent(((ChildRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowDeleted(e);
+                if ((this.ChildRowDeleted != null))
+                {
+                    this.ChildRowDeleted(this, new ChildRowChangeEvent(((ChildRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowDeleting(e);
+                if ((this.ChildRowDeleting != null))
+                {
+                    this.ChildRowDeleting(this, new ChildRowChangeEvent(((ChildRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveChildRow(ChildRow row)
+            {
+                this.Rows.Remove(row);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs)
+            {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                FinancialPlanningDS ds = new FinancialPlanningDS();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ChildDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace))
+                {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try
+                    {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); )
+                        {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length))
+                            {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length)
+                                            && (s1.ReadByte() == s2.ReadByte())); )
+                                {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length))
+                                {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        if ((s1 != null))
+                        {
+                            s1.Close();
+                        }
+                        if ((s2 != null))
+                        {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class CustomerDataTable : global::System.Data.TypedTableBase<CustomerRow>
+        {
+
+            private global::System.Data.DataColumn columnName;
+
+            private global::System.Data.DataColumn columnDob;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CustomerDataTable()
+            {
+                this.TableName = "Customer";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal CustomerDataTable(global::System.Data.DataTable table)
+            {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive))
+                {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString()))
+                {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace))
+                {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected CustomerDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) :
+                base(info, context)
+            {
+                this.InitVars();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn NameColumn
+            {
+                get
+                {
+                    return this.columnName;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn DobColumn
+            {
+                get
+                {
+                    return this.columnDob;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count
+            {
+                get
+                {
+                    return this.Rows.Count;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CustomerRow this[int index]
+            {
+                get
+                {
+                    return ((CustomerRow)(this.Rows[index]));
+                }
+            }
+
+            public event CustomerRowChangeEventHandler CustomerRowChanging;
+
+            public event CustomerRowChangeEventHandler CustomerRowChanged;
+
+            public event CustomerRowChangeEventHandler CustomerRowDeleting;
+
+            public event CustomerRowChangeEventHandler CustomerRowDeleted;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddCustomerRow(CustomerRow row)
+            {
+                this.Rows.Add(row);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CustomerRow AddCustomerRow(string Name, System.DateTime Dob)
+            {
+                CustomerRow rowCustomerRow = ((CustomerRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Name,
+                        Dob};
+                rowCustomerRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowCustomerRow);
+                return rowCustomerRow;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override global::System.Data.DataTable Clone()
+            {
+                CustomerDataTable cln = ((CustomerDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataTable CreateInstance()
+            {
+                return new CustomerDataTable();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars()
+            {
+                this.columnName = base.Columns["Name"];
+                this.columnDob = base.Columns["Dob"];
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass()
+            {
+                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnDob = new global::System.Data.DataColumn("Dob", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDob);
+                this.columnDob.Caption = "DOB";
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CustomerRow NewCustomerRow()
+            {
+                return ((CustomerRow)(this.NewRow()));
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder)
+            {
+                return new CustomerRow(builder);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Type GetRowType()
+            {
+                return typeof(CustomerRow);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowChanged(e);
+                if ((this.CustomerRowChanged != null))
+                {
+                    this.CustomerRowChanged(this, new CustomerRowChangeEvent(((CustomerRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowChanging(e);
+                if ((this.CustomerRowChanging != null))
+                {
+                    this.CustomerRowChanging(this, new CustomerRowChangeEvent(((CustomerRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowDeleted(e);
+                if ((this.CustomerRowDeleted != null))
+                {
+                    this.CustomerRowDeleted(this, new CustomerRowChangeEvent(((CustomerRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowDeleting(e);
+                if ((this.CustomerRowDeleting != null))
+                {
+                    this.CustomerRowDeleting(this, new CustomerRowChangeEvent(((CustomerRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveCustomerRow(CustomerRow row)
+            {
+                this.Rows.Remove(row);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs)
+            {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                FinancialPlanningDS ds = new FinancialPlanningDS();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "CustomerDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace))
+                {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try
+                    {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); )
+                        {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length))
+                            {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length)
+                                            && (s1.ReadByte() == s2.ReadByte())); )
+                                {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length))
+                                {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        if ((s1 != null))
+                        {
+                            s1.Close();
+                        }
+                        if ((s2 != null))
+                        {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class SpouseDataTable : global::System.Data.TypedTableBase<SpouseRow>
+        {
+
+            private global::System.Data.DataColumn columnName;
+
+            private global::System.Data.DataColumn columnDob;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public SpouseDataTable()
+            {
+                this.TableName = "Spouse";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal SpouseDataTable(global::System.Data.DataTable table)
+            {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive))
+                {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString()))
+                {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace))
+                {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected SpouseDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) :
+                base(info, context)
+            {
+                this.InitVars();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn NameColumn
+            {
+                get
+                {
+                    return this.columnName;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn DobColumn
+            {
+                get
+                {
+                    return this.columnDob;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count
+            {
+                get
+                {
+                    return this.Rows.Count;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public SpouseRow this[int index]
+            {
+                get
+                {
+                    return ((SpouseRow)(this.Rows[index]));
+                }
+            }
+
+            public event SpouseRowChangeEventHandler SpouseRowChanging;
+
+            public event SpouseRowChangeEventHandler SpouseRowChanged;
+
+            public event SpouseRowChangeEventHandler SpouseRowDeleting;
+
+            public event SpouseRowChangeEventHandler SpouseRowDeleted;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddSpouseRow(SpouseRow row)
+            {
+                this.Rows.Add(row);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public SpouseRow AddSpouseRow(string Name, System.DateTime Dob)
+            {
+                SpouseRow rowSpouseRow = ((SpouseRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Name,
+                        Dob};
+                rowSpouseRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSpouseRow);
+                return rowSpouseRow;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override global::System.Data.DataTable Clone()
+            {
+                SpouseDataTable cln = ((SpouseDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataTable CreateInstance()
+            {
+                return new SpouseDataTable();
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars()
+            {
+                this.columnName = base.Columns["Name"];
+                this.columnDob = base.Columns["Dob"];
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass()
+            {
+                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnDob = new global::System.Data.DataColumn("Dob", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDob);
+                this.columnDob.Caption = "DOB";
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public SpouseRow NewSpouseRow()
+            {
+                return ((SpouseRow)(this.NewRow()));
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder)
+            {
+                return new SpouseRow(builder);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Type GetRowType()
+            {
+                return typeof(SpouseRow);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowChanged(e);
+                if ((this.SpouseRowChanged != null))
+                {
+                    this.SpouseRowChanged(this, new SpouseRowChangeEvent(((SpouseRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowChanging(e);
+                if ((this.SpouseRowChanging != null))
+                {
+                    this.SpouseRowChanging(this, new SpouseRowChangeEvent(((SpouseRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowDeleted(e);
+                if ((this.SpouseRowDeleted != null))
+                {
+                    this.SpouseRowDeleted(this, new SpouseRowChangeEvent(((SpouseRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e)
+            {
+                base.OnRowDeleting(e);
+                if ((this.SpouseRowDeleting != null))
+                {
+                    this.SpouseRowDeleting(this, new SpouseRowChangeEvent(((SpouseRow)(e.Row)), e.Action));
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveSpouseRow(SpouseRow row)
+            {
+                this.Rows.Remove(row);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs)
+            {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                FinancialPlanningDS ds = new FinancialPlanningDS();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "SpouseDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace))
+                {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try
+                    {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); )
+                        {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length))
+                            {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length)
+                                            && (s1.ReadByte() == s2.ReadByte())); )
+                                {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length))
+                                {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        if ((s1 != null))
+                        {
+                            s1.Close();
+                        }
+                        if ((s2 != null))
+                        {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class GoalRow : global::System.Data.DataRow {
-            
+        public partial class GoalRow : global::System.Data.DataRow
+        {
+
             private GoalDataTable tableGoal;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal GoalRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
+            internal GoalRow(global::System.Data.DataRowBuilder rb) :
+                base(rb)
+            {
                 this.tableGoal = ((GoalDataTable)(this.Table));
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string GoalId {
-                get {
-                    try {
+            public string GoalId
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableGoal.GoalIdColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'GoalId\' in table \'Goal\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableGoal.GoalIdColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string GoalName {
-                get {
-                    try {
+            public string GoalName
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableGoal.GoalNameColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'GoalName\' in table \'Goal\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableGoal.GoalNameColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string ChildName {
-                get {
-                    try {
+            public string ChildName
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableGoal.ChildNameColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'ChildName\' in table \'Goal\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableGoal.ChildNameColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public double CostToday {
-                get {
-                    try {
+            public double CostToday
+            {
+                get
+                {
+                    try
+                    {
                         return ((double)(this[this.tableGoal.CostTodayColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'CostToday\' in table \'Goal\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableGoal.CostTodayColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public double MonthlySavingsRequired {
-                get {
-                    try {
+            public double MonthlySavingsRequired
+            {
+                get
+                {
+                    try
+                    {
                         return ((double)(this[this.tableGoal.MonthlySavingsRequiredColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'MonthlySavingsRequired\' in table \'Goal\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableGoal.MonthlySavingsRequiredColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime CalculatedOn {
-                get {
-                    try {
+            public System.DateTime CalculatedOn
+            {
+                get
+                {
+                    try
+                    {
                         return ((global::System.DateTime)(this[this.tableGoal.CalculatedOnColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'CalculatedOn\' in table \'Goal\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableGoal.CalculatedOnColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Year {
-                get {
-                    try {
+            public string Year
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableGoal.YearColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'Year\' in table \'Goal\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableGoal.YearColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsGoalIdNull() {
+            public double YearlySavingsRequired
+            {
+                get
+                {
+                    try
+                    {
+                        return ((double)(this[this.tableGoal.YearlySavingsRequiredColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'YearlySavingsRequired\' in table \'Goal\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableGoal.YearlySavingsRequiredColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public double LumpsumRequired
+            {
+                get
+                {
+                    try
+                    {
+                        return ((double)(this[this.tableGoal.LumpsumRequiredColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LumpsumRequired\' in table \'Goal\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableGoal.LumpsumRequiredColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsGoalIdNull()
+            {
                 return this.IsNull(this.tableGoal.GoalIdColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetGoalIdNull() {
+            public void SetGoalIdNull()
+            {
                 this[this.tableGoal.GoalIdColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsGoalNameNull() {
+            public bool IsGoalNameNull()
+            {
                 return this.IsNull(this.tableGoal.GoalNameColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetGoalNameNull() {
+            public void SetGoalNameNull()
+            {
                 this[this.tableGoal.GoalNameColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsChildNameNull() {
+            public bool IsChildNameNull()
+            {
                 return this.IsNull(this.tableGoal.ChildNameColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetChildNameNull() {
+            public void SetChildNameNull()
+            {
                 this[this.tableGoal.ChildNameColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsCostTodayNull() {
+            public bool IsCostTodayNull()
+            {
                 return this.IsNull(this.tableGoal.CostTodayColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetCostTodayNull() {
+            public void SetCostTodayNull()
+            {
                 this[this.tableGoal.CostTodayColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsMonthlySavingsRequiredNull() {
+            public bool IsMonthlySavingsRequiredNull()
+            {
                 return this.IsNull(this.tableGoal.MonthlySavingsRequiredColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetMonthlySavingsRequiredNull() {
+            public void SetMonthlySavingsRequiredNull()
+            {
                 this[this.tableGoal.MonthlySavingsRequiredColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsCalculatedOnNull() {
+            public bool IsCalculatedOnNull()
+            {
                 return this.IsNull(this.tableGoal.CalculatedOnColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetCalculatedOnNull() {
+            public void SetCalculatedOnNull()
+            {
                 this[this.tableGoal.CalculatedOnColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsYearNull() {
+            public bool IsYearNull()
+            {
                 return this.IsNull(this.tableGoal.YearColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetYearNull() {
+            public void SetYearNull()
+            {
                 this[this.tableGoal.YearColumn] = global::System.Convert.DBNull;
             }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsYearlySavingsRequiredNull()
+            {
+                return this.IsNull(this.tableGoal.YearlySavingsRequiredColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetYearlySavingsRequiredNull()
+            {
+                this[this.tableGoal.YearlySavingsRequiredColumn] = global::System.Convert.DBNull;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsLumpsumRequiredNull()
+            {
+                return this.IsNull(this.tableGoal.LumpsumRequiredColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetLumpsumRequiredNull()
+            {
+                this[this.tableGoal.LumpsumRequiredColumn] = global::System.Convert.DBNull;
+            }
         }
-        
+
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class RiskProfileRow : global::System.Data.DataRow {
-            
+        public partial class RiskProfileRow : global::System.Data.DataRow
+        {
+
             private RiskProfileDataTable tableRiskProfile;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal RiskProfileRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
+            internal RiskProfileRow(global::System.Data.DataRowBuilder rb) :
+                base(rb)
+            {
                 this.tableRiskProfile = ((RiskProfileDataTable)(this.Table));
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public long RiskProfileId {
-                get {
-                    try {
+            public long RiskProfileId
+            {
+                get
+                {
+                    try
+                    {
                         return ((long)(this[this.tableRiskProfile.RiskProfileIdColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'RiskProfileId\' in table \'RiskProfile\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableRiskProfile.RiskProfileIdColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public double RiskScore {
-                get {
-                    try {
+            public double RiskScore
+            {
+                get
+                {
+                    try
+                    {
                         return ((double)(this[this.tableRiskProfile.RiskScoreColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'RiskScore\' in table \'RiskProfile\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableRiskProfile.RiskScoreColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string RiskClass {
-                get {
-                    try {
+            public string RiskClass
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableRiskProfile.RiskClassColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'RiskClass\' in table \'RiskProfile\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableRiskProfile.RiskClassColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime RiskProfileDate {
-                get {
-                    try {
+            public System.DateTime RiskProfileDate
+            {
+                get
+                {
+                    try
+                    {
                         return ((global::System.DateTime)(this[this.tableRiskProfile.RiskProfileDateColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'RiskProfileDate\' in table \'RiskProfile\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableRiskProfile.RiskProfileDateColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public double CashPer {
-                get {
-                    try {
+            public double CashPer
+            {
+                get
+                {
+                    try
+                    {
                         return ((double)(this[this.tableRiskProfile.CashPerColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'CashPer\' in table \'RiskProfile\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableRiskProfile.CashPerColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public double EquityPer {
-                get {
-                    try {
+            public double EquityPer
+            {
+                get
+                {
+                    try
+                    {
                         return ((double)(this[this.tableRiskProfile.EquityPerColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'EquityPer\' in table \'RiskProfile\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableRiskProfile.EquityPerColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public double DebtPer {
-                get {
-                    try {
+            public double DebtPer
+            {
+                get
+                {
+                    try
+                    {
                         return ((double)(this[this.tableRiskProfile.DebtPerColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'DebtPer\' in table \'RiskProfile\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableRiskProfile.DebtPerColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRiskProfileIdNull() {
+            public bool IsRiskProfileIdNull()
+            {
                 return this.IsNull(this.tableRiskProfile.RiskProfileIdColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRiskProfileIdNull() {
+            public void SetRiskProfileIdNull()
+            {
                 this[this.tableRiskProfile.RiskProfileIdColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRiskScoreNull() {
+            public bool IsRiskScoreNull()
+            {
                 return this.IsNull(this.tableRiskProfile.RiskScoreColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRiskScoreNull() {
+            public void SetRiskScoreNull()
+            {
                 this[this.tableRiskProfile.RiskScoreColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRiskClassNull() {
+            public bool IsRiskClassNull()
+            {
                 return this.IsNull(this.tableRiskProfile.RiskClassColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRiskClassNull() {
+            public void SetRiskClassNull()
+            {
                 this[this.tableRiskProfile.RiskClassColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRiskProfileDateNull() {
+            public bool IsRiskProfileDateNull()
+            {
                 return this.IsNull(this.tableRiskProfile.RiskProfileDateColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRiskProfileDateNull() {
+            public void SetRiskProfileDateNull()
+            {
                 this[this.tableRiskProfile.RiskProfileDateColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsCashPerNull() {
+            public bool IsCashPerNull()
+            {
                 return this.IsNull(this.tableRiskProfile.CashPerColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetCashPerNull() {
+            public void SetCashPerNull()
+            {
                 this[this.tableRiskProfile.CashPerColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsEquityPerNull() {
+            public bool IsEquityPerNull()
+            {
                 return this.IsNull(this.tableRiskProfile.EquityPerColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetEquityPerNull() {
+            public void SetEquityPerNull()
+            {
                 this[this.tableRiskProfile.EquityPerColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDebtPerNull() {
+            public bool IsDebtPerNull()
+            {
                 return this.IsNull(this.tableRiskProfile.DebtPerColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDebtPerNull() {
+            public void SetDebtPerNull()
+            {
                 this[this.tableRiskProfile.DebtPerColumn] = global::System.Convert.DBNull;
             }
         }
-        
+
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class FamilyDetailsRow : global::System.Data.DataRow {
-            
+        public partial class FamilyDetailsRow : global::System.Data.DataRow
+        {
+
             private FamilyDetailsDataTable tableFamilyDetails;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal FamilyDetailsRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
+            internal FamilyDetailsRow(global::System.Data.DataRowBuilder rb) :
+                base(rb)
+            {
                 this.tableFamilyDetails = ((FamilyDetailsDataTable)(this.Table));
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Name {
-                get {
-                    try {
+            public string Name
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableFamilyDetails.NameColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'Name\' in table \'FamilyDetails\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableFamilyDetails.NameColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string RelationShipCode {
-                get {
-                    try {
+            public string RelationShipCode
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableFamilyDetails.RelationShipCodeColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'RelationShipCode\' in table \'FamilyDetails\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableFamilyDetails.RelationShipCodeColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DOB {
-                get {
-                    try {
+            public System.DateTime DOB
+            {
+                get
+                {
+                    try
+                    {
                         return ((global::System.DateTime)(this[this.tableFamilyDetails.DOBColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'DOB\' in table \'FamilyDetails\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableFamilyDetails.DOBColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string GoalCode {
-                get {
-                    try {
+            public string GoalCode
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableFamilyDetails.GoalCodeColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'GoalCode\' in table \'FamilyDetails\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableFamilyDetails.GoalCodeColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string GoalYear {
-                get {
-                    try {
+            public string GoalYear
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableFamilyDetails.GoalYearColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'GoalYear\' in table \'FamilyDetails\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableFamilyDetails.GoalYearColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string YearOfMarriage {
-                get {
-                    try {
+            public string YearOfMarriage
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableFamilyDetails.YearOfMarriageColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'YearOfMarriage\' in table \'FamilyDetails\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableFamilyDetails.YearOfMarriageColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string YearOfEducation {
-                get {
-                    try {
+            public string YearOfEducation
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableFamilyDetails.YearOfEducationColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'YearOfEducation\' in table \'FamilyDetails\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableFamilyDetails.YearOfEducationColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string IsGoalActive {
-                get {
-                    try {
+            public string IsGoalActive
+            {
+                get
+                {
+                    try
+                    {
                         return ((string)(this[this.tableFamilyDetails.IsGoalActiveColumn]));
                     }
-                    catch (global::System.InvalidCastException e) {
+                    catch (global::System.InvalidCastException e)
+                    {
                         throw new global::System.Data.StrongTypingException("The value for column \'IsGoalActive\' in table \'FamilyDetails\' is DBNull.", e);
                     }
                 }
-                set {
+                set
+                {
                     this[this.tableFamilyDetails.IsGoalActiveColumn] = value;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsNameNull() {
+            public bool IsNameNull()
+            {
                 return this.IsNull(this.tableFamilyDetails.NameColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetNameNull() {
+            public void SetNameNull()
+            {
                 this[this.tableFamilyDetails.NameColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRelationShipCodeNull() {
+            public bool IsRelationShipCodeNull()
+            {
                 return this.IsNull(this.tableFamilyDetails.RelationShipCodeColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRelationShipCodeNull() {
+            public void SetRelationShipCodeNull()
+            {
                 this[this.tableFamilyDetails.RelationShipCodeColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDOBNull() {
+            public bool IsDOBNull()
+            {
                 return this.IsNull(this.tableFamilyDetails.DOBColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDOBNull() {
+            public void SetDOBNull()
+            {
                 this[this.tableFamilyDetails.DOBColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsGoalCodeNull() {
+            public bool IsGoalCodeNull()
+            {
                 return this.IsNull(this.tableFamilyDetails.GoalCodeColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetGoalCodeNull() {
+            public void SetGoalCodeNull()
+            {
                 this[this.tableFamilyDetails.GoalCodeColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsGoalYearNull() {
+            public bool IsGoalYearNull()
+            {
                 return this.IsNull(this.tableFamilyDetails.GoalYearColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetGoalYearNull() {
+            public void SetGoalYearNull()
+            {
                 this[this.tableFamilyDetails.GoalYearColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsYearOfMarriageNull() {
+            public bool IsYearOfMarriageNull()
+            {
                 return this.IsNull(this.tableFamilyDetails.YearOfMarriageColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetYearOfMarriageNull() {
+            public void SetYearOfMarriageNull()
+            {
                 this[this.tableFamilyDetails.YearOfMarriageColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsYearOfEducationNull() {
+            public bool IsYearOfEducationNull()
+            {
                 return this.IsNull(this.tableFamilyDetails.YearOfEducationColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetYearOfEducationNull() {
+            public void SetYearOfEducationNull()
+            {
                 this[this.tableFamilyDetails.YearOfEducationColumn] = global::System.Convert.DBNull;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsIsGoalActiveNull() {
+            public bool IsIsGoalActiveNull()
+            {
                 return this.IsNull(this.tableFamilyDetails.IsGoalActiveColumn);
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetIsGoalActiveNull() {
+            public void SetIsGoalActiveNull()
+            {
                 this[this.tableFamilyDetails.IsGoalActiveColumn] = global::System.Convert.DBNull;
             }
         }
-        
+
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class CurrentAssetRow : global::System.Data.DataRow
+        {
+
+            private CurrentAssetDataTable tableCurrentAsset;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal CurrentAssetRow(global::System.Data.DataRowBuilder rb) :
+                base(rb)
+            {
+                this.tableCurrentAsset = ((CurrentAssetDataTable)(this.Table));
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public double Equity
+            {
+                get
+                {
+                    try
+                    {
+                        return ((double)(this[this.tableCurrentAsset.EquityColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Equity\' in table \'CurrentAsset\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableCurrentAsset.EquityColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public double Debt
+            {
+                get
+                {
+                    try
+                    {
+                        return ((double)(this[this.tableCurrentAsset.DebtColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Debt\' in table \'CurrentAsset\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableCurrentAsset.DebtColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public double Cash
+            {
+                get
+                {
+                    try
+                    {
+                        return ((double)(this[this.tableCurrentAsset.CashColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Cash\' in table \'CurrentAsset\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableCurrentAsset.CashColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsEquityNull()
+            {
+                return this.IsNull(this.tableCurrentAsset.EquityColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetEquityNull()
+            {
+                this[this.tableCurrentAsset.EquityColumn] = global::System.Convert.DBNull;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDebtNull()
+            {
+                return this.IsNull(this.tableCurrentAsset.DebtColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDebtNull()
+            {
+                this[this.tableCurrentAsset.DebtColumn] = global::System.Convert.DBNull;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsCashNull()
+            {
+                return this.IsNull(this.tableCurrentAsset.CashColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetCashNull()
+            {
+                this[this.tableCurrentAsset.CashColumn] = global::System.Convert.DBNull;
+            }
+        }
+
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class ChildRow : global::System.Data.DataRow
+        {
+
+            private ChildDataTable tableChild;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal ChildRow(global::System.Data.DataRowBuilder rb) :
+                base(rb)
+            {
+                this.tableChild = ((ChildDataTable)(this.Table));
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Name
+            {
+                get
+                {
+                    try
+                    {
+                        return ((string)(this[this.tableChild.NameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Name\' in table \'Child\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableChild.NameColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime Dob
+            {
+                get
+                {
+                    try
+                    {
+                        return ((global::System.DateTime)(this[this.tableChild.DobColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Dob\' in table \'Child\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableChild.DobColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string YearMarriage
+            {
+                get
+                {
+                    try
+                    {
+                        return ((string)(this[this.tableChild.YearMarriageColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'YearMarriage\' in table \'Child\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableChild.YearMarriageColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string YearEducation
+            {
+                get
+                {
+                    try
+                    {
+                        return ((string)(this[this.tableChild.YearEducationColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'YearEducation\' in table \'Child\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableChild.YearEducationColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNameNull()
+            {
+                return this.IsNull(this.tableChild.NameColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNameNull()
+            {
+                this[this.tableChild.NameColumn] = global::System.Convert.DBNull;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDobNull()
+            {
+                return this.IsNull(this.tableChild.DobColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDobNull()
+            {
+                this[this.tableChild.DobColumn] = global::System.Convert.DBNull;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsYearMarriageNull()
+            {
+                return this.IsNull(this.tableChild.YearMarriageColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetYearMarriageNull()
+            {
+                this[this.tableChild.YearMarriageColumn] = global::System.Convert.DBNull;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsYearEducationNull()
+            {
+                return this.IsNull(this.tableChild.YearEducationColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetYearEducationNull()
+            {
+                this[this.tableChild.YearEducationColumn] = global::System.Convert.DBNull;
+            }
+        }
+
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class CustomerRow : global::System.Data.DataRow
+        {
+
+            private CustomerDataTable tableCustomer;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal CustomerRow(global::System.Data.DataRowBuilder rb) :
+                base(rb)
+            {
+                this.tableCustomer = ((CustomerDataTable)(this.Table));
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Name
+            {
+                get
+                {
+                    try
+                    {
+                        return ((string)(this[this.tableCustomer.NameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Name\' in table \'Customer\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableCustomer.NameColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime Dob
+            {
+                get
+                {
+                    try
+                    {
+                        return ((global::System.DateTime)(this[this.tableCustomer.DobColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Dob\' in table \'Customer\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableCustomer.DobColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNameNull()
+            {
+                return this.IsNull(this.tableCustomer.NameColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNameNull()
+            {
+                this[this.tableCustomer.NameColumn] = global::System.Convert.DBNull;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDobNull()
+            {
+                return this.IsNull(this.tableCustomer.DobColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDobNull()
+            {
+                this[this.tableCustomer.DobColumn] = global::System.Convert.DBNull;
+            }
+        }
+
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class SpouseRow : global::System.Data.DataRow
+        {
+
+            private SpouseDataTable tableSpouse;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal SpouseRow(global::System.Data.DataRowBuilder rb) :
+                base(rb)
+            {
+                this.tableSpouse = ((SpouseDataTable)(this.Table));
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Name
+            {
+                get
+                {
+                    try
+                    {
+                        return ((string)(this[this.tableSpouse.NameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Name\' in table \'Spouse\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableSpouse.NameColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime Dob
+            {
+                get
+                {
+                    try
+                    {
+                        return ((global::System.DateTime)(this[this.tableSpouse.DobColumn]));
+                    }
+                    catch (global::System.InvalidCastException e)
+                    {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Dob\' in table \'Spouse\' is DBNull.", e);
+                    }
+                }
+                set
+                {
+                    this[this.tableSpouse.DobColumn] = value;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNameNull()
+            {
+                return this.IsNull(this.tableSpouse.NameColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNameNull()
+            {
+                this[this.tableSpouse.NameColumn] = global::System.Convert.DBNull;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDobNull()
+            {
+                return this.IsNull(this.tableSpouse.DobColumn);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDobNull()
+            {
+                this[this.tableSpouse.DobColumn] = global::System.Convert.DBNull;
+            }
+        }
+
         /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class GoalRowChangeEvent : global::System.EventArgs {
-            
+        public class GoalRowChangeEvent : global::System.EventArgs
+        {
+
             private GoalRow eventRow;
-            
+
             private global::System.Data.DataRowAction eventAction;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public GoalRowChangeEvent(GoalRow row, global::System.Data.DataRowAction action) {
+            public GoalRowChangeEvent(GoalRow row, global::System.Data.DataRowAction action)
+            {
                 this.eventRow = row;
                 this.eventAction = action;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public GoalRow Row {
-                get {
+            public GoalRow Row
+            {
+                get
+                {
                     return this.eventRow;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataRowAction Action {
-                get {
+            public global::System.Data.DataRowAction Action
+            {
+                get
+                {
                     return this.eventAction;
                 }
             }
         }
-        
+
         /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class RiskProfileRowChangeEvent : global::System.EventArgs {
-            
+        public class RiskProfileRowChangeEvent : global::System.EventArgs
+        {
+
             private RiskProfileRow eventRow;
-            
+
             private global::System.Data.DataRowAction eventAction;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public RiskProfileRowChangeEvent(RiskProfileRow row, global::System.Data.DataRowAction action) {
+            public RiskProfileRowChangeEvent(RiskProfileRow row, global::System.Data.DataRowAction action)
+            {
                 this.eventRow = row;
                 this.eventAction = action;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public RiskProfileRow Row {
-                get {
+            public RiskProfileRow Row
+            {
+                get
+                {
                     return this.eventRow;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataRowAction Action {
-                get {
+            public global::System.Data.DataRowAction Action
+            {
+                get
+                {
                     return this.eventAction;
                 }
             }
         }
-        
+
         /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class FamilyDetailsRowChangeEvent : global::System.EventArgs {
-            
+        public class FamilyDetailsRowChangeEvent : global::System.EventArgs
+        {
+
             private FamilyDetailsRow eventRow;
-            
+
             private global::System.Data.DataRowAction eventAction;
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FamilyDetailsRowChangeEvent(FamilyDetailsRow row, global::System.Data.DataRowAction action) {
+            public FamilyDetailsRowChangeEvent(FamilyDetailsRow row, global::System.Data.DataRowAction action)
+            {
                 this.eventRow = row;
                 this.eventAction = action;
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FamilyDetailsRow Row {
-                get {
+            public FamilyDetailsRow Row
+            {
+                get
+                {
                     return this.eventRow;
                 }
             }
-            
+
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataRowAction Action {
-                get {
+            public global::System.Data.DataRowAction Action
+            {
+                get
+                {
+                    return this.eventAction;
+                }
+            }
+        }
+
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class CurrentAssetRowChangeEvent : global::System.EventArgs
+        {
+
+            private CurrentAssetRow eventRow;
+
+            private global::System.Data.DataRowAction eventAction;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CurrentAssetRowChangeEvent(CurrentAssetRow row, global::System.Data.DataRowAction action)
+            {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CurrentAssetRow Row
+            {
+                get
+                {
+                    return this.eventRow;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataRowAction Action
+            {
+                get
+                {
+                    return this.eventAction;
+                }
+            }
+        }
+
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class ChildRowChangeEvent : global::System.EventArgs
+        {
+
+            private ChildRow eventRow;
+
+            private global::System.Data.DataRowAction eventAction;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ChildRowChangeEvent(ChildRow row, global::System.Data.DataRowAction action)
+            {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ChildRow Row
+            {
+                get
+                {
+                    return this.eventRow;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataRowAction Action
+            {
+                get
+                {
+                    return this.eventAction;
+                }
+            }
+        }
+
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class CustomerRowChangeEvent : global::System.EventArgs
+        {
+
+            private CustomerRow eventRow;
+
+            private global::System.Data.DataRowAction eventAction;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CustomerRowChangeEvent(CustomerRow row, global::System.Data.DataRowAction action)
+            {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CustomerRow Row
+            {
+                get
+                {
+                    return this.eventRow;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataRowAction Action
+            {
+                get
+                {
+                    return this.eventAction;
+                }
+            }
+        }
+
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class SpouseRowChangeEvent : global::System.EventArgs
+        {
+
+            private SpouseRow eventRow;
+
+            private global::System.Data.DataRowAction eventAction;
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public SpouseRowChangeEvent(SpouseRow row, global::System.Data.DataRowAction action)
+            {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public SpouseRow Row
+            {
+                get
+                {
+                    return this.eventRow;
+                }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataRowAction Action
+            {
+                get
+                {
                     return this.eventAction;
                 }
             }

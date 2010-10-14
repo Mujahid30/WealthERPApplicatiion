@@ -11,7 +11,7 @@
     <Shape ID="DesignTable:FamilyDetails" ZOrder="5" X="365" Y="310" Height="181" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="177" />
     <Shape ID="DesignTable:CurrentAsset" ZOrder="4" X="167" Y="310" Height="78" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="74" />
     <Shape ID="DesignTable:Child" ZOrder="3" X="603" Y="110" Height="95" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="91" />
-    <Shape ID="DesignTable:Customer" ZOrder="2" X="605" Y="259" Height="61" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="57" />
+    <Shape ID="DesignTable:Customer" ZOrder="2" X="595" Y="243" Height="61" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="57" />
     <Shape ID="DesignTable:Spouse" ZOrder="1" X="602" Y="349" Height="61" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="57" />
   </Shapes>
   <Connectors />
