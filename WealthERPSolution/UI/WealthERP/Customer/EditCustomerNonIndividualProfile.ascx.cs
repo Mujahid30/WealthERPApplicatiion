@@ -88,7 +88,14 @@ namespace WealthERP.Customer
                     {
                         ddlCorrAdrState.SelectedValue = customerVo.Adr1State;
                     }
-
+                    if (customerVo.DummyPAN == 1)
+                    {
+                        chkdummypan.Checked = true;
+                    }
+                    else
+                    {
+                        chkdummypan.Checked = false;
+                    }
 
                     ddlCorrAdrCountry.SelectedItem.Value = customerVo.Adr1Country.ToString();
                     txtPermAdrLine1.Text = customerVo.Adr2Line1.ToString();
@@ -239,6 +246,14 @@ namespace WealthERP.Customer
                 customerVo.Adr2Line1 = txtPermAdrLine1.Text.ToString();
                 customerVo.Adr2Line2 = txtPermAdrLine2.Text.ToString();
                 customerVo.Adr2Line3 = txtPermAdrLine3.Text.ToString();
+                if (chkdummypan.Checked)
+                {
+                    customerVo.DummyPAN = 1;
+                }
+                else
+                {
+                    customerVo.DummyPAN = 0;
+                }
                 if (txtPermAdrPinCode.Text != "")
                 {
                     customerVo.Adr2PinCode = int.Parse(txtPermAdrPinCode.Text.ToString());

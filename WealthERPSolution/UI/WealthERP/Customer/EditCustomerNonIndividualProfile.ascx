@@ -168,6 +168,11 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField"></asp:TextBox>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="is Dummy PAN"
+                AutoPostBack="true" />
         </td>
     </tr>
     <tr>
