@@ -91,6 +91,7 @@ namespace VoUser
         private string m_RMEmail;
         private string m_RMOfficePhone;
         private long m_RMMobile;
+        private int m_dummypan;
 
 
         public long RMMobile
@@ -162,6 +163,12 @@ namespace VoUser
         {
             get { return m_BranchId; }
             set { m_BranchId = value; }
+        }
+
+        public int DummyPAN
+        {
+            get { return m_dummypan; }
+            set { m_dummypan = value; }
         }
         public string ContactFirstName
         {
