@@ -91,7 +91,7 @@
                 TargetControlID="txtMemberCustomer" WatermarkText="Type the Customer Name">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender runat="server" ID="txtMemberCustomer_AutoCompleteExtender"
-                TargetControlID="txtMemberCustomer" ServiceMethod="GetMemberCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                TargetControlID="txtMemberCustomer" ServiceMethod="GetMemberCustomerNamesForGrouping" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                 MinimumPrefixLength="2" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
@@ -146,13 +146,13 @@
     <tr>
         <td class="SubmitCell">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                ValidationGroup="btnSubmit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_FamilyDetailsChild_btnSubmit', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_FamilyDetailsChild_btnSubmit', 'S');" />
+                ValidationGroup="btnSubmit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_GroupAccountSetup_btnSubmit', 'S');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_GroupAccountSetup_btnSubmit', 'S');" />
         </td>
         <td class="SubmitCell">
             <asp:Button ID="btnSave" runat="server" Text="Save and Associate More" OnClick="btnSave_Click"
-                ValidationGroup="btnSubmit" CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_FamilyDetailsChild_btnSubmit', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_FamilyDetailsChild_btnSubmit', 'S');" />
+                ValidationGroup="btnSubmit" CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_GroupAccountSetup_btnSave', 'L');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_GroupAccountSetup_btnSave', 'L');" />
         </td>
     </tr>
 </table>

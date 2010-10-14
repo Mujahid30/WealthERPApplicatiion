@@ -57,7 +57,8 @@ namespace WealthERP.Customer
                     txtMemberCustomerId.Value = dtAssociateDetails.Rows[0]["MemberId"].ToString();
                     txtAddressMember.Text = dtAssociateDetails.Rows[0]["MemberAddress"].ToString();
                     txtPanMember.Text = dtAssociateDetails.Rows[0]["MemberPan"].ToString();
-
+                    txtParentCustomer.Enabled = false;
+                    txtMemberCustomer.Enabled = false;
                     BindRelationshipDropDown();
 
                     ddlRelationship.SelectedValue = dtAssociateDetails.Rows[0]["Relationship"].ToString();
@@ -103,6 +104,7 @@ namespace WealthERP.Customer
                 txtPanParent.Text = dr["C_PANNum"].ToString();
                 txtAddressParent.Text = dr["C_Adr1Line1"].ToString();
                 txtParentCustomerType.Value = dr["XCT_CustomerTypeCode"].ToString();
+                txtMemberCustomer_AutoCompleteExtender.ContextKey = rmVo.RMId.ToString() +"|"+ txtParentCustomerId.Value;
                 BindRelationshipDropDown();
             }
         }
