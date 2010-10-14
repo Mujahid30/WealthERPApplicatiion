@@ -28,6 +28,10 @@ namespace DaoReports
             Database db;
             DbCommand cmd;
             DataSet ds = null;
+            DataTable dtCustomerDetails = new DataTable();
+            DataTable dtSpouseDetails = new DataTable();
+            DataTable dtChildrenDetails = new DataTable();
+            
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -35,6 +39,80 @@ namespace DaoReports
                 db.AddInParameter(cmd, "@CustomerId", DbType.String, report.CustomerId);
                 
                 ds = db.ExecuteDataSet(cmd);
+                dtCustomerDetails.Columns.Add("Name",typeof(string));
+                dtCustomerDetails.Columns.Add("Dob", typeof(string));
+
+                dtSpouseDetails.Columns.Add("Name", typeof(string));
+                dtSpouseDetails.Columns.Add("Dob", typeof(string));
+
+                dtChildrenDetails.Columns.Add("Name", typeof(string));
+                dtChildrenDetails.Columns.Add("Dob", typeof(string));
+                dtChildrenDetails.Columns.Add("YearEducation", typeof(string));
+                dtChildrenDetails.Columns.Add("YearMarriage", typeof(string));
+
+                if (ds.Tables[2].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[2].Rows)
+                    {
+                        if (dr["RelationShipCode"].ToString() == "SELF")
+                        {
+                            DataRow drCustomer = dtCustomerDetails.NewRow();
+
+                            drCustomer["Name"] = dr["Name"].ToString();
+                            if (!string.IsNullOrEmpty(dr["DOB"].ToString().Trim()))
+                                drCustomer["Dob"] = String.Format("{0:dd MMM yyyy}", DateTime.Parse(dr["DOB"].ToString().Trim()));
+                            else
+                                drCustomer["Dob"] ="-";
+                            dtCustomerDetails.Rows.Add(drCustomer);
+                          
+                        }
+                        else if (dr["RelationShipCode"].ToString() == "SP")
+                        {
+                            DataRow drSpouse = dtSpouseDetails.NewRow();
+                            if (!string.IsNullOrEmpty(dr["Name"].ToString()))
+                                drSpouse["Name"] = dr["Name"].ToString();
+                            else
+                                drSpouse["Name"] = "-";
+                            if (!string.IsNullOrEmpty(dr["DOB"].ToString().Trim()))
+                                drSpouse["Dob"] = String.Format("{0:dd MMM yyyy}", DateTime.Parse(dr["DOB"].ToString().Trim()));
+                            else
+                                drSpouse["Dob"] = "-";
+                            dtSpouseDetails.Rows.Add(drSpouse);
+ 
+                        }
+                        else if (dr["RelationShipCode"].ToString() == "CH" && dr["IsGoalActive"].ToString()=="1")
+                        {
+                            DataRow drChild = dtChildrenDetails.NewRow();
+                            if (!string.IsNullOrEmpty(dr["Name"].ToString()))
+                            drChild["Name"] = dr["Name"].ToString();
+                            else
+                                drChild["Name"] ="-";
+                            if (!string.IsNullOrEmpty(dr["DOB"].ToString().Trim()))
+                                drChild["Dob"] = String.Format("{0:dd MMM yyyy}", DateTime.Parse(dr["DOB"].ToString().Trim()));
+                            else
+                                drChild["Dob"] = "-";
+                            if (!string.IsNullOrEmpty(dr["YearOfEducation"].ToString()))
+                                drChild["YearEducation"] = dr["YearOfEducation"].ToString();
+                            else
+                                drChild["YearEducation"] = "-";
+                            if (!string.IsNullOrEmpty(dr["YearOfMarriage"].ToString()))
+                                drChild["YearMarriage"] = dr["YearOfMarriage"].ToString();
+                            else
+                                drChild["YearMarriage"] = "-";
+                            dtChildrenDetails.Rows.Add(drChild);
+ 
+                        }
+
+ 
+                    }
+
+                }
+                ds.Tables.Add(dtCustomerDetails);
+                ds.Tables.Add(dtSpouseDetails);
+                ds.Tables.Add(dtChildrenDetails);
+
+
+
                 //if (ds.Tables[0].Rows.Count < 1)
                 //{
                 //    DataTable dtGoal = new DataTable();
