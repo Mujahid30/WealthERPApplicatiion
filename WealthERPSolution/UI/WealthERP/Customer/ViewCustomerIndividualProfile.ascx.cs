@@ -267,7 +267,7 @@ namespace WealthERP.Customer
                 userVo = (UserVo)Session[SessionContents.UserVo];
 
 
-                if (customerBo.DeleteCustomer(customerVo.CustomerId, userVo.UserId,"D"))
+                if (customerBo.DeleteCustomer(customerVo.CustomerId,"D"))
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
                 }
@@ -285,7 +285,7 @@ namespace WealthERP.Customer
                 FunctionInfo.Add("Method", "ViewCustomerIndividualProfile.ascx:btnDelete_Click()");
                 object[] objects = new object[3];
                 objects[0] = customerVo;
-                objects[1] = userVo;
+                //objects[1] = userVo;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
