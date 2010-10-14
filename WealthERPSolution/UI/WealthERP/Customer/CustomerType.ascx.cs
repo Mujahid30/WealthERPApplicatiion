@@ -357,6 +357,14 @@ namespace WealthERP.Customer
                         userVo.LastName = txtCompanyName.Text.ToString();
                     }
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
+                    if (chkdummypan.Checked)
+                    {
+                        customerVo.DummyPAN = 1;
+                    }
+                    else
+                    {
+                        customerVo.DummyPAN = 0;
+                    }
                     customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.PANNum = txtPanNumber.Text.ToString();

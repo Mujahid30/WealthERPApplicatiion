@@ -29,6 +29,12 @@
 </script>
 <%--<asp:UpdatePanel ID="upPnl" runat="server">
     <ContentTemplate>--%>
+<style type="text/css">
+    .style1
+    {
+        height: 49px;
+    }
+</style>
 <table class="TableBackground" style="width: 100%">
     <tr>
         <td colspan="2" class="tdRequiredText">
@@ -118,10 +124,10 @@
         </td>
     </tr>
     <tr id="trIndividualName" runat="server">
-        <td class="leftField">
+        <td class="style1">
             <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name (First/Middle/Last):"></asp:Label>
         </td>
-        <td>
+        <td class="style1">
             <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
                 Enabled="True" TargetControlID="txtFirstName" WatermarkText="FirstName">
@@ -147,6 +153,11 @@
         </td>
         <td class="rightField" width="75%">
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+             <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="is Dummy PAN"
+                AutoPostBack="true"  />
             <span id="Span6" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
