@@ -71,8 +71,39 @@
 <table width="100%">
     <tr>
         <td align="center">
-            <div id="divError" runat="server" class="success-msg" align="center" visible="false">
-                    <asp:Label ID="lblError" runat="server"></asp:Label>
+            <div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
+                visible="false">
+                Reprocess successfully Completed
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
+                visible="false">
+                Reprocess Failed!
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRollbackSuccessfull" runat="server" class="success-msg" align="center"
+                visible="false">
+                Rollback Successfully done!
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgStatus" runat="server" class="information-msg" align="center"
+                visible="false">
+                <asp:Label ID="lblError" runat="server"></asp:Label>
             </div>
         </td>
     </tr>

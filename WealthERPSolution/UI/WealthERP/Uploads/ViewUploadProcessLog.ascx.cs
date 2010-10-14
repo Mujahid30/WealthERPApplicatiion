@@ -115,9 +115,6 @@ namespace WealthERP.Uploads
             if (!IsPostBack)
             {
                 tblReprocess.Visible = false;
-
-                divError.Visible = false;
-                trTransactionMessage.Visible = false;
                 BindProcessHistoryGrid();
             }      
             
@@ -3146,8 +3143,7 @@ namespace WealthERP.Uploads
             if (blResult)
             {
                 // Display Success Message
-                divError.Visible = true;
-                lblError.Text = "Reprocess Successfully Done!";
+                msgReprocessComplete.Visible=true;
 
                 if (extracttype == "PO" || extracttype == "PAF")
                 {   // Check if Profile Upload
@@ -3206,8 +3202,7 @@ namespace WealthERP.Uploads
             else
             {
                 // Display Failure
-                divError.Visible = true;
-                lblError.Text = "Reprocess Failed!";
+                msgReprocessincomplete.Visible = true;
 
                 if (extracttype == "PO" || extracttype == "PAF")
                 {   // Check if Profile Upload
@@ -3296,8 +3291,7 @@ namespace WealthERP.Uploads
             if (blResult)
             {
                 // Display Success Message
-                divError.Visible = true;
-                lblError.Text = "Rollbacked Successfully!";
+                msgRollbackSuccessfull.Visible=true;
                 BindProcessHistoryGrid();
             }
             else
@@ -3305,33 +3299,33 @@ namespace WealthERP.Uploads
 
                 if (!blCustAssociateExists)
                 {
-                    divError.Visible = true;
+                    msgStatus.Visible = true;
                     lblError.Text = "Cannot rollback as few customers have other customers associated!";
                 }
                 else if (!blCustBankExists)
                 {
-                    divError.Visible = true;
+                    msgStatus.Visible = true;
                     lblError.Text = "Cannot rollback as few customers have Banks associated!";
                 }
                 else if (!blCustAssetExists)
                 {
-                    divError.Visible = true;
+                    msgStatus.Visible = true;
                     lblError.Text = "Cannot rollback as few customers have asset details entered!";
                 }
 
                 else if (!blCustEQTranNetPositionUpdated)
                 {
-                    divError.Visible = true;
+                    msgStatus.Visible = true;
                     lblError.Text = "Cannot rollback as few transactions have equity net positions updated!";
                 }
                 else if (!blCustMFTranNetPositionUpdated)
                 {
-                    divError.Visible = true;
+                    msgStatus.Visible = true;
                     lblError.Text = "Cannot rollback as few customers mutual fund accounts / MF net positions updated!";
                 }
                 else if (!blCustEQTranExist)
                 {
-                    divError.Visible = true;
+                    msgStatus.Visible = true;
                     lblError.Text = "Cannot rollback as Trade Accounts have Transactions!";
                 }
             }
