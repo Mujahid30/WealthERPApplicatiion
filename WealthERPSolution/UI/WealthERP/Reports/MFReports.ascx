@@ -776,7 +776,7 @@
                                                                         <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>&nbsp;&nbsp;
                                                                         <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField"></asp:TextBox><ajaxToolkit:CalendarExtender
                                                                             ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
-                                                                            Format="dd/MM/yyyy" Enabled="True">
+                                                                            Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
                                                                         </ajaxToolkit:CalendarExtender>
                                                                         <ajaxToolkit:TextBoxWatermarkExtender ID="txtFromDate_TextBoxWatermarkExtender" runat="server"
                                                                             TargetControlID="txtFromDate" WatermarkText="dd/mm/yyyy" Enabled="True">
@@ -790,7 +790,7 @@
                                                                         <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>&nbsp;&nbsp;
                                                                         <asp:TextBox ID="txtToDate" runat="server" CssClass="txtField"></asp:TextBox><ajaxToolkit:CalendarExtender
                                                                             ID="txtToDate_CalendarExtender" runat="server" TargetControlID="txtToDate" Format="dd/MM/yyyy"
-                                                                            Enabled="True">
+                                                                            Enabled="True" PopupPosition="TopRight">
                                                                         </ajaxToolkit:CalendarExtender>
                                                                         <ajaxToolkit:TextBoxWatermarkExtender ID="txtToDate_TextBoxWatermarkExtender" runat="server"
                                                                             TargetControlID="txtToDate" WatermarkText="dd/mm/yyyy" Enabled="True">
