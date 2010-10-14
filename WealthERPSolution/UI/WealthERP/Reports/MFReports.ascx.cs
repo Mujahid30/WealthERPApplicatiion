@@ -185,14 +185,15 @@ namespace WealthERP.Reports
                         
                         trAdminRM.Visible = false;
                         trCustomer.Visible = true;
-
+                       
                         isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
                         if (isGrpHead == false)
                         {
-                            rdoCustomerGroup.Enabled = false;
+                            trCustomerRadioList.Visible = false;
                             rdoCustomerIndivisual.Checked = true;
                             divGroupCustomers.Visible = false;
                             hndSelfOrGroup.Value = "self";
+                            ShowFolios();
                         }
                         else
                         {
@@ -275,7 +276,7 @@ namespace WealthERP.Reports
                     //trTranFilter1.Visible = false;
                     //trTranFilter2.Visible = false;
                     tabViewAndEmailReports.ActiveTabIndex = 0;
-                    
+                    //ShowFolios();
                 }
 
                 if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_MFReports$hidTabIndex"]))
@@ -472,7 +473,13 @@ namespace WealthERP.Reports
         
         protected void ddlPortfolioGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (rdoIndividual.Checked)
+            string selfCheck = string.Empty;
+            if (!string.IsNullOrEmpty(hndSelfOrGroup.Value.ToString()))
+            {
+                selfCheck = hndSelfOrGroup.Value.ToString();
+            }
+
+            if (rdoIndividual.Checked || selfCheck == "self")
                 ShowFolios();
             else
                 ShowGroupCustomers();
