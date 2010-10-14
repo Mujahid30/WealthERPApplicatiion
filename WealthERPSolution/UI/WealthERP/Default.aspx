@@ -331,7 +331,7 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('CustomerNonIndividualDashboard','login');"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('AdvisorRMCustIndiDashboard','login');"
                                                                 Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewNonIndividualProfile','login');"
                                                                 Text="Profile" Value="Profile" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
