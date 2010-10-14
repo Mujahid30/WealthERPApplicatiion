@@ -63,21 +63,11 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Child" msprop:Generator_UserTableName="Child" msprop:Generator_RowDeletedName="ChildRowDeleted" msprop:Generator_TableClassName="ChildDataTable" msprop:Generator_RowChangedName="ChildRowChanged" msprop:Generator_RowClassName="ChildRow" msprop:Generator_RowChangingName="ChildRowChanging" msprop:Generator_RowEvArgName="ChildRowChangeEvent" msprop:Generator_RowEvHandlerName="ChildRowChangeEventHandler" msprop:Generator_TablePropName="Child" msprop:Generator_TableVarName="tableChild" msprop:Generator_RowDeletingName="ChildRowDeleting">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInTable="NameColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="Dob" msdata:Caption="DOB" msprop:Generator_UserColumnName="Dob" msprop:Generator_ColumnPropNameInRow="Dob" msprop:Generator_ColumnVarNameInTable="columnDob" msprop:Generator_ColumnPropNameInTable="DobColumn" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="YearMarriage" msdata:Caption="YearOfMarriage" msprop:Generator_UserColumnName="YearMarriage" msprop:Generator_ColumnPropNameInRow="YearMarriage" msprop:Generator_ColumnVarNameInTable="columnYearMarriage" msprop:Generator_ColumnPropNameInTable="YearMarriageColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="YearEducation" msdata:Caption="YearOfEducation" msprop:Generator_UserColumnName="YearEducation" msprop:Generator_ColumnPropNameInRow="YearEducation" msprop:Generator_ColumnVarNameInTable="columnYearEducation" msprop:Generator_ColumnPropNameInTable="YearEducationColumn" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="Customer" msprop:Generator_UserTableName="Customer" msprop:Generator_RowDeletedName="CustomerRowDeleted" msprop:Generator_TableClassName="CustomerDataTable" msprop:Generator_RowChangedName="CustomerRowChanged" msprop:Generator_RowClassName="CustomerRow" msprop:Generator_RowChangingName="CustomerRowChanging" msprop:Generator_RowEvArgName="CustomerRowChangeEvent" msprop:Generator_RowEvHandlerName="CustomerRowChangeEventHandler" msprop:Generator_TablePropName="Customer" msprop:Generator_TableVarName="tableCustomer" msprop:Generator_RowDeletingName="CustomerRowDeleting">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInTable="NameColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="Dob" msdata:Caption="DOB" msprop:Generator_UserColumnName="Dob" msprop:Generator_ColumnPropNameInRow="Dob" msprop:Generator_ColumnVarNameInTable="columnDob" msprop:Generator_ColumnPropNameInTable="DobColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Dob" msprop:Generator_UserColumnName="Dob" msprop:Generator_ColumnPropNameInRow="Dob" msprop:Generator_ColumnVarNameInTable="columnDob" msprop:Generator_ColumnPropNameInTable="DobColumn" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -85,7 +75,17 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInTable="NameColumn" type="xs:string" minOccurs="0" />
-              <xs:element name="Dob" msdata:Caption="DOB" msprop:Generator_UserColumnName="Dob" msprop:Generator_ColumnPropNameInRow="Dob" msprop:Generator_ColumnVarNameInTable="columnDob" msprop:Generator_ColumnPropNameInTable="DobColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Dob" msprop:Generator_UserColumnName="Dob" msprop:Generator_ColumnPropNameInRow="Dob" msprop:Generator_ColumnVarNameInTable="columnDob" msprop:Generator_ColumnPropNameInTable="DobColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Child" msprop:Generator_UserTableName="Child" msprop:Generator_RowDeletedName="ChildRowDeleted" msprop:Generator_TableClassName="ChildDataTable" msprop:Generator_RowChangedName="ChildRowChanged" msprop:Generator_RowClassName="ChildRow" msprop:Generator_RowChangingName="ChildRowChanging" msprop:Generator_RowEvArgName="ChildRowChangeEvent" msprop:Generator_RowEvHandlerName="ChildRowChangeEventHandler" msprop:Generator_TablePropName="Child" msprop:Generator_TableVarName="tableChild" msprop:Generator_RowDeletingName="ChildRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInTable="NameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Dob" msprop:Generator_UserColumnName="Dob" msprop:Generator_ColumnPropNameInRow="Dob" msprop:Generator_ColumnVarNameInTable="columnDob" msprop:Generator_ColumnPropNameInTable="DobColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="YearEducation" msprop:Generator_UserColumnName="YearEducation" msprop:Generator_ColumnPropNameInRow="YearEducation" msprop:Generator_ColumnVarNameInTable="columnYearEducation" msprop:Generator_ColumnPropNameInTable="YearEducationColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="YearMarriage" msprop:Generator_UserColumnName="YearMarriage" msprop:Generator_ColumnPropNameInRow="YearMarriage" msprop:Generator_ColumnVarNameInTable="columnYearMarriage" msprop:Generator_ColumnPropNameInTable="YearMarriageColumn" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
