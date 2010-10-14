@@ -21,8 +21,14 @@ namespace WealthERP.Customer
             }
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerNonIndividualLeftPane');", true);
         }
-
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
+        public void SetNode()
         {
             string strNodeValue = null;
             try
@@ -78,6 +84,10 @@ namespace WealthERP.Customer
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+           
            
 
         }

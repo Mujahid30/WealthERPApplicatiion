@@ -30,7 +30,14 @@ namespace WealthERP.Advisor
             }
 
         }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
+        public void SetNode()
         {
             if (TreeView1.SelectedNode.Value == "RiskProfileAssetAllocation")
             {
@@ -47,6 +54,10 @@ namespace WealthERP.Advisor
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageLoadscript", "loadcontrol('FinancialPlanningReports','login')", true);
 
             }
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }

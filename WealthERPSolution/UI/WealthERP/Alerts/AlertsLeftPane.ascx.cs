@@ -83,8 +83,14 @@ namespace WealthERP.Alerts
             }
 
         }
-
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
+        public void SetNode()
         {
             string strNodeValue = "";
 
@@ -208,6 +214,11 @@ namespace WealthERP.Alerts
                     }
                 }
             }
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            
+               
         }
     }
 }

@@ -43,13 +43,18 @@ namespace WealthERP.Advisor
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
             }
         }
-
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
         protected void btnSearchRM_Click(object sender, EventArgs e)
         {
 
         }
-
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        public void SetNode()
         {
             string strNodeValue = null;
             if (TreeView1.SelectedNode.Value == "Switch Roles")
@@ -224,7 +229,7 @@ namespace WealthERP.Advisor
             else if (TreeView1.SelectedNode.Value.ToString() == "MFReports")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFReports','login');", true);
-                
+
             }
             else if (TreeView1.SelectedNode.Value.ToString() == "EquityReports")
             {
@@ -341,6 +346,10 @@ namespace WealthERP.Advisor
                     }
                 }
             }
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            
             //if (TreeView1.SelectedNode.Parent == null)
             //{
             //    foreach (TreeNode node in TreeView1.Nodes)
