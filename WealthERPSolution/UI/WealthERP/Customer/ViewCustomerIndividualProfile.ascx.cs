@@ -148,6 +148,15 @@ namespace WealthERP.Customer
                 lblMobile2.Text = customerVo.Mobile2.ToString();
                 lblEmail.Text = customerVo.Email.ToString();
                 lblAltEmail.Text = customerVo.AltEmail.ToString();
+                if (customerVo.DummyPAN == 1)
+                {
+                    chkdummypan.Checked = true;
+                }
+                else
+                {
+                    chkdummypan.Checked = false;
+                }
+
                 if (customerVo.Occupation != null)
                     lblOccupation.Text = XMLBo.GetOccupationName(path, customerVo.Occupation.ToString());
                 else

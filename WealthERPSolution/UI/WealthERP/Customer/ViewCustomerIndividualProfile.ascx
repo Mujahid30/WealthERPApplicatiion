@@ -142,6 +142,11 @@
         </td>
         <td class="rightField" width="75%">
             <asp:Label ID="lblPanNum" runat="server" Text="Label" CssClass="Field"></asp:Label>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="is Dummy PAN"
+                AutoPostBack="true"  Enabled = "false"/>
         </td>
     </tr>
     <tr id="trGuardianName" runat="server">
