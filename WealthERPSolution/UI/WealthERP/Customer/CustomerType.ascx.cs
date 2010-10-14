@@ -530,7 +530,7 @@ namespace WealthERP.Customer
             UploadCommonBo uploadCommonBo = new UploadCommonBo();
             //DataSet ds = uploadCommonBo.GetAdviserBranchList(rmId, userType);
             DataSet dsAssociatedBranch=advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, 0, "A");
-            if (dsAssociatedBranch.Tables[0].Rows.Count > 0)
+            if (dsAssociatedBranch!=null && dsAssociatedBranch.Tables[0].Rows.Count > 0)
             {
                 ddlAdviserBranchList.DataSource = dsAssociatedBranch.Tables[0];
                 ddlAdviserBranchList.DataTextField = "AB_BranchName";
@@ -540,7 +540,9 @@ namespace WealthERP.Customer
             }
             else
             {
-                ddlAdviserBranchList.Items.Insert(0, new ListItem("Please,Associate some branch to the RM", "Please,Associate some branch to the RM"));
+                ddlAdviserBranchList.Items.Insert(0, new ListItem("No Branches Available to Associate", "No Branches Available to Associate"));
+                ddlAdviserBranchList_CompareValidator2.ValueToCompare = "No Branches Available to Associate";
+                ddlAdviserBranchList_CompareValidator2.ErrorMessage = "Cannot Add Customer Without a Branch";
             }
         }
     }
