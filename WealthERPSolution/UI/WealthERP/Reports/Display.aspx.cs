@@ -268,6 +268,10 @@ namespace WealthERP.Reports
                                 crmain.Database.Tables["RiskProfile"].SetDataSource(dsEquitySectorwise.Tables[1]);
                                 crmain.Database.Tables["FamilyDetails"].SetDataSource(dsEquitySectorwise.Tables[2]);
                                 crmain.Database.Tables["CurrentAsset"].SetDataSource(DScurrentAsset.Tables[0]);
+
+                                crmain.Subreports["Customer"].Database.Tables["Customer"].SetDataSource(dsEquitySectorwise.Tables[3]);
+                                crmain.Subreports["Spouse"].Database.Tables["Spouse"].SetDataSource(dsEquitySectorwise.Tables[4]);
+                                crmain.Subreports["Children"].Database.Tables["Child"].SetDataSource(dsEquitySectorwise.Tables[5]);
                                 //crmain.Subreports[0].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
                                 //crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
                                 //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
@@ -285,6 +289,10 @@ namespace WealthERP.Reports
                                 crmain.Database.Tables["RiskProfile"].SetDataSource(dsEquitySectorwise.Tables[1]);
                                 crmain.Database.Tables["FamilyDetails"].SetDataSource(dsEquitySectorwise.Tables[2]);
                                 crmain.Database.Tables["CurrentAsset"].SetDataSource(DScurrentAsset.Tables[0]);
+
+                                //crmain.Subreports["Customer"].Database.Tables["Customer"].SetDataSource(dsEquitySectorwise.Tables[3]);
+                                //crmain.Subreports["Customer"].Database.Tables["Spouse"].SetDataSource(dsEquitySectorwise.Tables[4]);
+                                //crmain.Subreports["Customer"].Database.Tables["Child"].SetDataSource(dsEquitySectorwise.Tables[5]);
                                 //crmain.Subreports[0].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
                                 //crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
                                 //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
@@ -519,8 +527,13 @@ namespace WealthERP.Reports
                 //Customer Individual LogIn...
                  if (Session["hndCustomerLogin"].ToString() == "true")
                     {
-                        customerVo = customerBo.GetCustomer(int.Parse(Request.Form["ctrl_MFReports$hdnCustomerId1"]));
-                        Session["customerVo"] = customerVo;
+                        if (ViewState["CustomerId"] == null && Request.Form["ctrl_MFReports$hdnCustomerId1"]!=null)
+                         ViewState["CustomerId"] = Request.Form["ctrl_MFReports$hdnCustomerId1"];
+                        if (customerVo == null)
+                        {
+                            customerVo = customerBo.GetCustomer(int.Parse(ViewState["CustomerId"].ToString()));
+                            Session["customerVo"] = customerVo;
+                        }
 
                     }
                
