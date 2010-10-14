@@ -89,9 +89,9 @@
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
                 Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
-                PopupDragHandleControlID="Panel1">
+                PopupDragHandleControlID="Panel1" X="280" Y="35">
             </cc1:ModalPopupExtender>
-            <asp:ImageButton ID="imgBtnWord" ImageUrl="~/Images/Export_Word.jpg" runat="server"
+            <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/Images/Export_Word.jpg" runat="server"
                 AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click" OnClientClick="setFormat('word')" />
             <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/Images/Export_Pdf.gif" runat="server"
                 AlternateText="PDF" OnClientClick="setFormat('pdf')" ToolTip="Export To PDF"
@@ -99,7 +99,7 @@
             <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/Images/Print.gif" runat="server" AlternateText="Print"
                 OnClientClick="setFormat('print')" ToolTip="Print" OnClick="imgBtnPrint_Click" />
             <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />
+                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />--%>
         </td>
     </tr>
     <tr id="Tr1" runat="server">
