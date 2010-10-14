@@ -435,6 +435,8 @@ namespace DaoAdvisorProfiling
                     advisorVo.Phone2Number = int.Parse(dr["A_Phone2Number"].ToString());
                     if (dr["A_PinCode"] != null && dr["A_PinCode"].ToString() != "")
                     advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
+                    if (dr["A_AdviserLogo"] != DBNull.Value)
+                        advisorVo.LogoPath = dr["A_AdviserLogo"].ToString();
                 }
 
 
