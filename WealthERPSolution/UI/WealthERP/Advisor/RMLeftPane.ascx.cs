@@ -87,7 +87,7 @@ namespace WealthERP.Advisor
             {
                 if (TreeView1.SelectedNode.Value.ToString() == "Switch Roles")
                 {
-
+                    Session.Remove("UserType");
                     count = roleList.Count;
                     if (count == 3)
                     {
@@ -144,6 +144,11 @@ namespace WealthERP.Advisor
                 else if (TreeView1.SelectedNode.Value.ToString() == "Customer Alerts")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertDashBoard','none');", true);
+                }
+                else if (TreeView1.SelectedNode.Value.ToString() == "Notifications")
+                {
+                    Session["UserType"] = "rm";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomerSMSAlerts','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
                 {

@@ -48,7 +48,7 @@
                                               
                         <asp:TreeNode Text="Multi Asset Reports" Value="MultiAssetReports"></asp:TreeNode>
                         <asp:TreeNode Text="Alert Configuration" Value="Customer Alerts"></asp:TreeNode>
-
+                        <asp:TreeNode Text="Notifications" Value="Notifications"></asp:TreeNode>
                         
                     </asp:TreeNode>
                     <asp:TreeNode Text="Loan" Value="Loan">
