@@ -304,6 +304,12 @@ namespace WealthERP.CustomerPortfolio
             List<InsuranceULIPVo> insuranceULIPList = new List<InsuranceULIPVo>();
             try
             {
+                //Varibles to calculate the premium duration 
+                DateTime dtFrom = DateTime.MinValue;
+                DateTime dtTo = DateTime.MinValue;
+                DateBo dtBo = new DateBo();
+                float noOfMonths = 0;
+
 
                 // Loading Account Details Here
                 lblInsCategory.Text = customerAccountVo.AssetCategoryName.ToString();
@@ -360,6 +366,10 @@ namespace WealthERP.CustomerPortfolio
                         txtMPPrPayDate.Text = insuranceVo.PremiumPaymentDate.ToString();
                         txtMPFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtMPLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
+                        dtFrom = DateTime.Parse(txtMPFirstPremiumDate.Text);
+                        dtTo = DateTime.Parse(txtMPLastPremiumDate.Text);
+                        noOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                        txtMPPremiumDuration.Text = noOfMonths.ToString("f2");
                         txtMPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
                         txtMoneyBackEpisode.Text = Int32.Parse(insuranceVo.PolicyEpisode.ToString()).ToString();
                         txtMPPremiumAccumulated.Text = insuranceVo.PremiumAccumalated.ToString();
@@ -387,8 +397,8 @@ namespace WealthERP.CustomerPortfolio
 
                                 TextBox txtBox1 = new TextBox();
                                 txtBox1 = ((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString()));
-                                txtBox1.Text = moneyBackEpisodeVo.CIMBE_RepaymentDate.ToShortDateString();
-
+                                if(moneyBackEpisodeVo.CIMBE_RepaymentDate != DateTime.MinValue)
+                                    txtBox1.Text = moneyBackEpisodeVo.CIMBE_RepaymentDate.ToShortDateString();
                                 TextBox txtBox2 = new TextBox();
                                 txtBox2 = ((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString()));
                                 txtBox2.Text = moneyBackEpisodeVo.CIMBE_RepaidPer.ToString();
@@ -456,7 +466,7 @@ namespace WealthERP.CustomerPortfolio
                         }
 
                         txtULIPSurrenderValue.Text = insuranceVo.SurrenderValue.ToString();
-                        txtULIPMaturityValue.Text = insuranceVo.MaturityValue.ToString();
+                        txtULIPMaturityValue.Text = insuranceVo.BonusAccumalated.ToString();
                         txtULIPCharges.Text = insuranceVo.ULIPCharges.ToString();
                         txtULIPRemarks.Text = insuranceVo.Remarks.ToString();
                     }
@@ -688,16 +698,21 @@ namespace WealthERP.CustomerPortfolio
                         txtMPPolicyTerm.Enabled = false;
 
                         count = Int32.Parse(txtMoneyBackEpisode.Text);
-                        for (int i = 0; i < count; i++)
+                        if (count > 0)
                         {
-                            TextBox txtBox1 = new TextBox();
-                            txtBox1 = ((TextBox)PlaceHolder1.FindControl("txtPaymentDate" + i.ToString()));
-                            txtBox1.Enabled = false;
+                            for (int i = 0; i < count; i++)
+                            {
+                                TextBox txtBox1 = new TextBox();
+                                txtBox1 = ((TextBox)PlaceHolder1.FindControl("txtPaymentDate" + i.ToString()));
+                                txtBox1.Enabled = false;
 
-                            TextBox txtBox2 = new TextBox();
-                            txtBox2 = ((TextBox)PlaceHolder1.FindControl("txtRepaidPer" + i.ToString()));
-                            txtBox2.Enabled = false;
+                                TextBox txtBox2 = new TextBox();
+                                txtBox2 = ((TextBox)PlaceHolder1.FindControl("txtRepaidPer" + i.ToString()));
+                                txtBox2.Enabled = false;
+                            }
                         }
+                        else
+                            trMPDetails.Visible = false;
                     }
                     else if (CategoryCode == "INTP")
                     {
@@ -874,16 +889,21 @@ namespace WealthERP.CustomerPortfolio
                         txtMPPolicyTerm.Enabled = true;
 
                         count = Int32.Parse(txtMoneyBackEpisode.Text);
-                        for (int i = 0; i < count; i++)
+                        if (count > 0)
                         {
-                            TextBox txtBox1 = new TextBox();
-                            txtBox1 = ((TextBox)PlaceHolder1.FindControl("txtPaymentDate" + i.ToString()));
-                            txtBox1.Enabled = true;
+                            for (int i = 0; i < count; i++)
+                            {
+                                TextBox txtBox1 = new TextBox();
+                                txtBox1 = ((TextBox)PlaceHolder1.FindControl("txtPaymentDate" + i.ToString()));
+                                txtBox1.Enabled = true;
 
-                            TextBox txtBox2 = new TextBox();
-                            txtBox2 = ((TextBox)PlaceHolder1.FindControl("txtRepaidPer" + i.ToString()));
-                            txtBox2.Enabled = true;
+                                TextBox txtBox2 = new TextBox();
+                                txtBox2 = ((TextBox)PlaceHolder1.FindControl("txtRepaidPer" + i.ToString()));
+                                txtBox2.Enabled = true;
+                            }
                         }
+                        else
+                            trMPDetails.Visible = false;
                     }
                     else if (CategoryCode == "INTP")
                     {
@@ -924,7 +944,7 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPPrPayDate.Enabled = true;
                         txtULIPFirstPremiumDate.Enabled = true;
                         txtULIPLastPremiumDate.Enabled = true;
-                        txtULIPGracePeriod.Enabled = false;
+                        txtULIPGracePeriod.Enabled = true;
                         ddlUlipPlans.Enabled = true;
                         //ddlUlipSubPlans.Enabled = true;
 
@@ -1195,7 +1215,6 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo.ULIPCharges = 0;
                         insuranceVo.PremiumPaymentDate = 0;
 
-
                         if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INEP")
                         {
                             if (txtEPPremiumAmount.Text.Trim() != "")
@@ -1277,6 +1296,19 @@ namespace WealthERP.CustomerPortfolio
 
                             insuranceVo.PremiumAccumalated = 0;
                             insuranceVo.BonusAccumalated = 0;
+
+                            if (txtULIPGracePeriod.Text.Trim() != "")
+                                insuranceVo.GracePeriod = float.Parse(txtULIPGracePeriod.Text);
+                            if (txtULIPPrPayDate.Text.Trim() != "")
+                                insuranceVo.PremiumPaymentDate = Int16.Parse(txtULIPPrPayDate.Text.Trim());
+                            if (txtULIPMaturityValue.Text.Trim() != "")
+                                insuranceVo.BonusAccumalated = float.Parse(txtULIPMaturityValue.Text);
+                            if (txtULIPSurrenderValue.Text.Trim() != "")
+                                insuranceVo.SurrenderValue = float.Parse(txtULIPSurrenderValue.Text);
+                            if (txtULIPCharges.Text.Trim() != "")
+                                insuranceVo.ULIPCharges = float.Parse(txtULIPCharges.Text);
+                            insuranceVo.Remarks = txtULIPRemarks.Text.Trim();
+
 
                             DataSet ds = assetBo.GetULIPSubPlans(int.Parse(ddlUlipPlans.SelectedValue.ToString()));
                             int count = ds.Tables[0].Rows.Count;
@@ -1388,7 +1420,8 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.PremiumPaymentDate = Int16.Parse(txtMPPrPayDate.Text.Trim());
                             if (txtMPGracePeriod.Text.Trim() != "")
                                 insuranceVo.GracePeriod = float.Parse(txtMPGracePeriod.Text.Trim());
-
+                            if (txtMPPremiumDuration.Text.Trim() != "")
+                                insuranceVo.PremiumDuration = float.Parse(txtMPPremiumDuration.Text.Trim());
                             if (txtMoneyBackEpisode.Text.Trim() != "")
                                 insuranceVo.PolicyEpisode = float.Parse(txtMoneyBackEpisode.Text.Trim());
                             if (txtMPPremiumAccumulated.Text.Trim() != "")
@@ -1568,6 +1601,18 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.PremiumAccumalated = 0;
                             insuranceVo.BonusAccumalated = 0;
 
+                            if (txtULIPGracePeriod.Text.Trim() != "")
+                                insuranceVo.GracePeriod = float.Parse(txtULIPGracePeriod.Text);
+                            if (txtULIPPrPayDate.Text.Trim() != "")
+                                insuranceVo.PremiumPaymentDate = Int16.Parse(txtULIPPrPayDate.Text.Trim());
+                            if (txtULIPMaturityValue.Text.Trim() != "")
+                                insuranceVo.BonusAccumalated = float.Parse(txtULIPMaturityValue.Text);
+                            if (txtULIPSurrenderValue.Text.Trim() != "")
+                                insuranceVo.SurrenderValue = float.Parse(txtULIPSurrenderValue.Text);
+                            if (txtULIPCharges.Text.Trim() != "")
+                                insuranceVo.ULIPCharges = float.Parse(txtULIPCharges.Text);
+                            insuranceVo.Remarks = txtULIPRemarks.Text.Trim();
+
                             DataSet prevUlipSubPlansDS = assetBo.GetPrevULIPSubPlans(insuranceVo.CustInsInvId);
                             PrevUlipSubPlanCode = Int32.Parse(prevUlipSubPlansDS.Tables[0].Rows[0]["WUSP_ULIPSubPlanCode"].ToString().Trim());
                             DataSet prevUlipPlanCodeDS = assetBo.GetPrevUlipPlanCode(PrevUlipSubPlanCode);
@@ -1701,7 +1746,6 @@ namespace WealthERP.CustomerPortfolio
                                                 insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;
                                                 insuranceBo.CreateInsuranceULIPPlan(insuranceUlipVo);
                                             }
-
                                             Session.Remove("table");
                                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
                                         }
@@ -1712,6 +1756,7 @@ namespace WealthERP.CustomerPortfolio
                             {
                                 lblError.Text = "Check the Allocation";
                                 lblError.CssClass = "Error";
+                                trULIPError.Visible = true;
                             }
                         }
                         #endregion
@@ -1725,12 +1770,16 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.PremiumFrequencyCode = ddlMPPremiumFrequencyCode.SelectedValue.Trim();
                             insuranceVo.FirstPremiumDate = DateTime.Parse(txtMPFirstPremiumDate.Text.ToString());
                             insuranceVo.LastPremiumDate = DateTime.Parse(txtMPLastPremiumDate.Text.ToString());
-
                             insuranceVo.PremiumPaymentDate = Int16.Parse(txtMPPrPayDate.Text.Trim());
+                            if (txtMPPremiumDuration.Text.Trim() != "")
+                                insuranceVo.PremiumDuration = float.Parse(txtMPPremiumDuration.Text.Trim());
+                            else
+                                insuranceVo.PremiumDuration = 0.0F;
                             if (txtMPGracePeriod.Text.Trim() != "")
                                 insuranceVo.GracePeriod = float.Parse(txtMPGracePeriod.Text.Trim());
                             else
                                 insuranceVo.GracePeriod = 0.0F;
+
                             // Important Step for Updates
                             previousEpisodeCount = Int32.Parse(insuranceVo.PolicyEpisode.ToString());
                             if (txtMoneyBackEpisode.Text.Trim() != "")
@@ -1755,7 +1804,7 @@ namespace WealthERP.CustomerPortfolio
                             else
                                 insuranceVo.MaturityValue = 0.0F;
                             insuranceVo.PolicyPeriod = float.Parse(txtMPPolicyTerm.Text.Trim());
-
+                            
                             insuranceVo.Remarks = txtMPRemarks.Text.Trim();
 
                             // Put this under a C# Transaction Block
@@ -1778,9 +1827,15 @@ namespace WealthERP.CustomerPortfolio
                                     {
                                         moneyBackEpisodeVo = moneyBackEpisodeList[i];
                                         string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
-                                        moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
+                                        if (paymentDate != string.Empty && paymentDate != null)
+                                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
+                                        else
+                                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.MinValue;
                                         string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
-                                        moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
+                                        if (repaidPercent != string.Empty && repaidPercent != null)
+                                            moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
+                                        else
+                                            moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse("0.00");
                                         moneyBackEpisodeList[i] = moneyBackEpisodeVo;
                                     }
 
@@ -1824,9 +1879,15 @@ namespace WealthERP.CustomerPortfolio
                                     {
                                         moneyBackEpisodeVo = moneyBackEpisodeList[i];
                                         string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
-                                        moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
+                                        if (paymentDate != string.Empty && paymentDate != null)
+                                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
+                                        else
+                                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.MinValue;
                                         string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
-                                        moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
+                                        if(repaidPercent != string.Empty && repaidPercent != null)
+                                            moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
+                                        else
+                                            moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse("0.00");
                                         moneyBackEpisodeList[i] = moneyBackEpisodeVo;
                                     }
 
@@ -1934,14 +1995,20 @@ namespace WealthERP.CustomerPortfolio
             {
                 //Session["episodeCount"] = txtMoneyBackEpisode.Text;
                 pnlMoneyBackEpisode.Visible = true;
-                trMPDetails.Visible = true;
+                
                 if (txtMoneyBackEpisode.Text != "")
                 {
                     count = int.Parse(txtMoneyBackEpisode.Text);
                     if (count != 0)
+                    {
+                        trMPDetails.Visible = true;
                         ShowMoneyBackContent(count);
+                    }
                     else
+                    {
+                        pnlMoneyBackEpisode.Visible = false;
                         trMPDetails.Visible = false;
+                    }
                 }
                 else
                 {
@@ -2121,7 +2188,6 @@ namespace WealthERP.CustomerPortfolio
             ddlUlipPlans.DataValueField = ds.Tables[0].Columns["WUP_ULIPPlanCode"].ToString();
             ddlUlipPlans.DataBind();
             ddlUlipPlans.Items.Insert(0, new ListItem("Select a ULIP Plan", "Select a ULIP Plan"));
-            trULIPAllocation.Visible = true;
             pnlUlip.Visible = true;
         }
 
@@ -2130,102 +2196,139 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 PlaceHolder1.Controls.Clear();
-                DataSet ds = assetBo.GetULIPSubPlans(int.Parse(UlipPlan));
-                int count = ds.Tables[0].Rows.Count;
-                // LiteralControl literal = new LiteralControl();
-                Table tb = new Table();
-                TableCell tc;
-
-                for (int i = 0; i < count; i++)
+                if (UlipPlan != "Select a ULIP Plan")
                 {
-                    TableRow tr = new TableRow();
+                    DataSet ds = assetBo.GetULIPSubPlans(int.Parse(UlipPlan));
+                    int count = ds.Tables[0].Rows.Count;
+                    // LiteralControl literal = new LiteralControl();
+                    if (count > 0)
+                        trULIPAllocation.Visible = true;
+                    else
+                        trULIPAllocation.Visible = false;
 
-                    tc = new TableCell();
-                    TextBox txtBox1 = new TextBox();
-                    txtBox1.ID = "txtSubPlanId" + i.ToString();
-                    // txtBox1.ID = ds.Tables[0].Rows[i][0].ToString();                 
-                    txtBox1.CssClass = "txtField";
-                    txtBox1.Text = ds.Tables[0].Rows[i]["WUSP_ULIPSubPlanName"].ToString();
-                    txtBox1.Enabled = false;
-                    tc.Controls.Add(txtBox1);
-                    tr.Cells.Add(tc);
+                    Table tb = new Table();
+                    TableCell tc;
 
-                    tc = new TableCell();
-                    TextBox txtBox2 = new TextBox();
-                    txtBox2.ID = "txtUnitsId" + i.ToString();
-                    //txtBox2.ID = ds.Tables[0].Rows[i][0].ToString();
-                    txtBox2.CssClass = "txtField";
-                    tc.Controls.Add(txtBox2);
-                    tr.Cells.Add(tc);
+                    for (int i = 0; i < count; i++)
+                    {
+                        TableRow tr = new TableRow();
 
-                    tc = new TableCell();
-                    TextBox txtBox3 = new TextBox();
-                    txtBox3.ID = "txtPurchasePriceId" + i.ToString();
-                    // txtBox3.ID = ds.Tables[0].Rows[i][0].ToString();
-                    txtBox3.CssClass = "txtField";
-                    tc.Controls.Add(txtBox3);
-                    tr.Cells.Add(tc);
+                        tc = new TableCell();
+                        TextBox txtBox1 = new TextBox();
+                        txtBox1.ID = "txtSubPlanId" + i.ToString();
+                        // txtBox1.ID = ds.Tables[0].Rows[i][0].ToString();                 
+                        txtBox1.CssClass = "txtField";
+                        txtBox1.Text = ds.Tables[0].Rows[i]["WUSP_ULIPSubPlanName"].ToString();
+                        txtBox1.Enabled = false;
+                        tc.Controls.Add(txtBox1);
+                        tr.Cells.Add(tc);
 
-                    tc = new TableCell();
-                    TextBox txtBox4 = new TextBox();
-                    txtBox4.ID = "txtPurchaseDateId" + i.ToString();
-                    // txtBox3.ID = ds.Tables[0].Rows[i][0].ToString();
-                    txtBox4.CssClass = "txtField";
-                    CalendarExtender calExtender = new CalendarExtender();
-                    calExtender.ID = calExtender + i.ToString();
-                    calExtender.TargetControlID = txtBox4.ID;
-                    calExtender.Format = "dd/MM/yyyy";
-                    calExtender.OnClientDateSelectionChanged = "isFutureDate";
-                    calExtender.EnableViewState = true;
-                    TextBoxWatermarkExtender waterMarkExtender = new TextBoxWatermarkExtender();
-                    waterMarkExtender.ID = waterMarkExtender + i.ToString();
-                    waterMarkExtender.WatermarkText = "dd/mm/yyyy";
-                    waterMarkExtender.TargetControlID = txtBox4.ID;
-                    waterMarkExtender.EnableViewState = true;
-                    CompareValidator compareValidator = new CompareValidator();
-                    compareValidator.ID = compareValidator + i.ToString();
-                    compareValidator.ControlToValidate = txtBox4.ID;
-                    compareValidator.Type = ValidationDataType.Date;
-                    compareValidator.ErrorMessage = "The date format should be dd/mm/yyyyyy";
-                    compareValidator.Operator = ValidationCompareOperator.DataTypeCheck;
-                    compareValidator.CssClass = "cvPCG";
-                    compareValidator.Display = ValidatorDisplay.Dynamic;
-                    compareValidator.EnableViewState = true;
-                    tc.Controls.Add(txtBox4);
-                    tc.Controls.Add(calExtender);
-                    tc.Controls.Add(waterMarkExtender);
-                    tc.Controls.Add(compareValidator);
+                        tc = new TableCell();
+                        TextBox txtBox2 = new TextBox();
+                        txtBox2.ID = "txtUnitsId" + i.ToString();
+                        //txtBox2.ID = ds.Tables[0].Rows[i][0].ToString();
+                        txtBox2.CssClass = "txtField";
+                        RegularExpressionValidator regularExpressionValidator1 = new RegularExpressionValidator();
+                        regularExpressionValidator1.ID = regularExpressionValidator1 + i.ToString() + i.ToString();
+                        regularExpressionValidator1.ValidationExpression = "^\\d*\\.?\\d*$";
+                        regularExpressionValidator1.ControlToValidate = txtBox2.ID;
+                        regularExpressionValidator1.CssClass = "revPCG";
+                        regularExpressionValidator1.ErrorMessage = "<br />Please enter valid Units";
+                        regularExpressionValidator1.EnableViewState = true;
+                        regularExpressionValidator1.Display = ValidatorDisplay.Dynamic;
+                        tc.Controls.Add(txtBox2);
+                        tc.Controls.Add(regularExpressionValidator1);
+                        tr.Cells.Add(tc);
 
-                    //// Bind Ajax Date Controls
-                    //ce = new CalendarExtender();
-                    //ce.ID = "txtPurchaseDateId" + i.ToString() + "_CalendarExtender";
-                    //ce.TargetControlID = "txtPurchaseDateId" + i.ToString();
-                    //ce.Format = "dd/MM/yyyy";
-                    ////ce.EnableViewState = true;
+                        tc = new TableCell();
+                        TextBox txtBox3 = new TextBox();
+                        txtBox3.ID = "txtPurchasePriceId" + i.ToString();
+                        // txtBox3.ID = ds.Tables[0].Rows[i][0].ToString();
+                        txtBox3.CssClass = "txtField";
+                        RegularExpressionValidator regularExpressionValidator2 = new RegularExpressionValidator();
+                        regularExpressionValidator2.ID = regularExpressionValidator2 + i.ToString() + (i + 1).ToString();
+                        regularExpressionValidator2.ValidationExpression = "^\\d*\\.?\\d*$";
+                        regularExpressionValidator2.ControlToValidate = txtBox3.ID;
+                        regularExpressionValidator2.CssClass = "revPCG";
+                        regularExpressionValidator2.ErrorMessage = "<br />Please enter a valid Purchase Price";
+                        regularExpressionValidator2.EnableViewState = true;
+                        regularExpressionValidator2.Display = ValidatorDisplay.Dynamic;
+                        tc.Controls.Add(txtBox3);
+                        tc.Controls.Add(regularExpressionValidator2);
+                        tr.Cells.Add(tc);
 
-                    //txtWE = new TextBoxWatermarkExtender();
-                    //txtWE.ID = "txtPurchaseDateId" + i.ToString() + "_TextBoxWatermarkExtender";
-                    //txtWE.TargetControlID = "txtPurchaseDateId" + i.ToString();
-                    //txtWE.WatermarkText = "dd/mm/yyyy";
-                    ////txtWE.EnableViewState = true;
+                        tc = new TableCell();
+                        TextBox txtBox4 = new TextBox();
+                        txtBox4.ID = "txtPurchaseDateId" + i.ToString();
+                        // txtBox3.ID = ds.Tables[0].Rows[i][0].ToString();
+                        txtBox4.CssClass = "txtField";
+                        CalendarExtender calExtender = new CalendarExtender();
+                        calExtender.ID = calExtender + i.ToString();
+                        calExtender.TargetControlID = txtBox4.ID;
+                        calExtender.Format = "dd/MM/yyyy";
+                        calExtender.OnClientDateSelectionChanged = "isFutureDate";
+                        calExtender.EnableViewState = true;
+                        TextBoxWatermarkExtender waterMarkExtender = new TextBoxWatermarkExtender();
+                        waterMarkExtender.ID = waterMarkExtender + i.ToString();
+                        waterMarkExtender.WatermarkText = "dd/mm/yyyy";
+                        waterMarkExtender.TargetControlID = txtBox4.ID;
+                        waterMarkExtender.EnableViewState = true;
+                        CompareValidator compareValidator = new CompareValidator();
+                        compareValidator.ID = compareValidator + i.ToString();
+                        compareValidator.ControlToValidate = txtBox4.ID;
+                        compareValidator.Type = ValidationDataType.Date;
+                        compareValidator.ErrorMessage = "<br />The date format should be dd/mm/yyyyyy";
+                        compareValidator.Operator = ValidationCompareOperator.DataTypeCheck;
+                        compareValidator.CssClass = "cvPCG";
+                        compareValidator.Display = ValidatorDisplay.Dynamic;
+                        compareValidator.EnableViewState = true;
+                        tc.Controls.Add(txtBox4);
+                        tc.Controls.Add(calExtender);
+                        tc.Controls.Add(waterMarkExtender);
+                        tc.Controls.Add(compareValidator);
 
-                    //tc.Controls.Add(ce);
-                    //tc.Controls.Add(txtWE);
-                    tr.Cells.Add(tc);
+                        //// Bind Ajax Date Controls
+                        //ce = new CalendarExtender();
+                        //ce.ID = "txtPurchaseDateId" + i.ToString() + "_CalendarExtender";
+                        //ce.TargetControlID = "txtPurchaseDateId" + i.ToString();
+                        //ce.Format = "dd/MM/yyyy";
+                        ////ce.EnableViewState = true;
 
-                    tc = new TableCell();
-                    TextBox txtBox5 = new TextBox();
-                    txtBox5.ID = "txtAllocationId" + i.ToString();
-                    txtBox5.CssClass = "txtField";
-                    tc.Controls.Add(txtBox5);
-                    tr.Cells.Add(tc);
+                        //txtWE = new TextBoxWatermarkExtender();
+                        //txtWE.ID = "txtPurchaseDateId" + i.ToString() + "_TextBoxWatermarkExtender";
+                        //txtWE.TargetControlID = "txtPurchaseDateId" + i.ToString();
+                        //txtWE.WatermarkText = "dd/mm/yyyy";
+                        ////txtWE.EnableViewState = true;
 
-                    tb.Rows.Add(tr);
+                        //tc.Controls.Add(ce);
+                        //tc.Controls.Add(txtWE);
+                        tr.Cells.Add(tc);
+
+                        tc = new TableCell();
+                        TextBox txtBox5 = new TextBox();
+                        txtBox5.ID = "txtAllocationId" + i.ToString();
+                        txtBox5.CssClass = "txtField";
+                        RegularExpressionValidator regularExpressionValidator3 = new RegularExpressionValidator();
+                        regularExpressionValidator3.ID = regularExpressionValidator3 + i.ToString() + (i + 2).ToString();
+                        regularExpressionValidator3.ValidationExpression = "^\\d*\\.?\\d*$";
+                        regularExpressionValidator3.ControlToValidate = txtBox5.ID;
+                        regularExpressionValidator3.CssClass = "revPCG";
+                        regularExpressionValidator3.ErrorMessage = "<br />Please enter a valid Allocation Percentage";
+                        regularExpressionValidator3.EnableViewState = true;
+                        regularExpressionValidator3.Display = ValidatorDisplay.Dynamic;
+                        tc.Controls.Add(txtBox5);
+                        tc.Controls.Add(regularExpressionValidator3);
+                        tr.Cells.Add(tc);
+
+                        tb.Rows.Add(tr);
+                    }
+
+                    PlaceHolder1.Controls.Add(tb);
+                    trULIPAllocation.Visible = true;
+                    Session["table"] = tb;
                 }
-
-                PlaceHolder1.Controls.Add(tb);
-                trULIPAllocation.Visible = true;
-                Session["table"] = tb;
+                else
+                    trULIPAllocation.Visible = false;
             }
             catch (BaseApplicationException Ex)
             {
