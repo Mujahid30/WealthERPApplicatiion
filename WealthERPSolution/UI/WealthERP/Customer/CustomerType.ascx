@@ -124,10 +124,10 @@
         </td>
     </tr>
     <tr id="trIndividualName" runat="server">
-        <td class="style1">
+        <td class="leftField">
             <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name (First/Middle/Last):"></asp:Label>
         </td>
-        <td class="style1">
+        <td class="rightField">
             <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
                 Enabled="True" TargetControlID="txtFirstName" WatermarkText="FirstName">
@@ -153,12 +153,12 @@
         </td>
         <td class="rightField" width="75%">
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+            <span id="Span6" class="spnRequiredField">*</span>
             &nbsp;
-            &nbsp;
-            &nbsp;
+          
              <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="is Dummy PAN"
                 AutoPostBack="true"  />
-            <span id="Span6" class="spnRequiredField">*</span>
+            
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
