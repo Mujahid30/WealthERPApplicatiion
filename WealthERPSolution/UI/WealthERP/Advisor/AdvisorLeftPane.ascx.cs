@@ -60,7 +60,7 @@ namespace WealthERP.Advisor
             if (TreeView1.SelectedNode.Value == "Switch Roles")
             {
                 logoPath = Session[SessionContents.LogoPath].ToString();
-
+                Session[SessionContents.CurrentUserRole] = null;
                 roleList = userBo.GetUserRoles(userVo.UserId);
                 count = roleList.Count;
                 if (count == 3)
