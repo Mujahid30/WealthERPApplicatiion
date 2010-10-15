@@ -19,6 +19,7 @@ namespace WealthERP.Advisor
     public partial class AdviserCustomerSMSAlerts : System.Web.UI.UserControl
     {
         DataSet dsAdviserCustomerAlerts;
+        AlertsBo alertsBo = new AlertsBo();
         //DataSet dsTest = new DataSet();
         protected override void OnInit(EventArgs e)
         {
@@ -147,7 +148,7 @@ namespace WealthERP.Advisor
                 {
                     id = ((RMVo)Session["rmVo"]).RMId;
                     usertype = "rm";
-                    Session["UserType"] = null;
+                    //Session["UserType"] = null;
                 }
             }
             else
@@ -163,7 +164,7 @@ namespace WealthERP.Advisor
             dsAdviserCustomerAlerts = alertsBo.GetAdviserCustomerSMSAlerts(id, usertype, mypager.CurrentPage, out Count);
             ViewState["vsDsAdviserCustomerAlert"] = dsAdviserCustomerAlerts;
             lblTotalRows.Text = hdnCount.Value = Count.ToString();
-            if (dsAdviserCustomerAlerts != null)
+            if (dsAdviserCustomerAlerts.Tables[0].Rows.Count > 0)
             {
                 DataTable dtAdviserCustomerAlerts = new DataTable();
                 dtAdviserCustomerAlerts.Columns.Add("CustomerId");
@@ -251,16 +252,20 @@ namespace WealthERP.Advisor
                 gvCustomerSMSAlerts.DataBind();
                 gvCustomerSMSAlerts.Visible = true;
                 pnlCustomerSMSAlerts.Visible = true;
-                lblNoRecords.Visible = false;
+                //lblNoRecords.Visible = false;
+                divNoRecords.Visible = false;
                 btnSend.Visible = true;
                 this.GetPageCount();
             }
             else
             {
-                lblNoRecords.Visible = true;
+                //lblNoRecords.Visible = true;
+                divNoRecords.Visible = true;
                 gvCustomerSMSAlerts.Visible = false;
-                pnlCustomerSMSAlerts.Visible = true;
+                pnlCustomerSMSAlerts.Visible = false;
                 btnSend.Visible = false;
+                DivPager.Visible = false;
+                trPageCount.Visible = false;
             }
 
         }
@@ -425,6 +430,20 @@ namespace WealthERP.Advisor
         {
             gvCustomerSMSAlerts.PageIndex = e.NewPageIndex;
             gvCustomerSMSAlerts.DataBind();
+        }
+
+        protected void btnDeleteSelected_Click(object sender, EventArgs e)
+        {
+            foreach (GridViewRow dr in gvCustomerSMSAlerts.Rows)
+            {
+                CheckBox checkBox = (CheckBox)dr.FindControl("chkCustomerSMSAlert");
+                if (checkBox.Checked)
+                {
+                    long alertId = Convert.ToInt64(gvCustomerSMSAlerts.DataKeys[dr.RowIndex].Values[1]);
+                    alertsBo.DeleteAlertNotification(alertId);
+                }
+            }
+            GetAdviserCustomerAlerts(out dsAdviserCustomerAlerts);
         }
 
     }
