@@ -2711,7 +2711,47 @@ namespace DaoAlerts
             }
 
         }
+       
+        /// <summary>
+        /// Function to delete the notifications from the notifications grid view (MP)
+        /// </summary>
+        /// <param name="alertId"></param>
+        /// <returns></returns>
+        public bool DeleteAdviserCustomerSMSAlerts(int alertId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteSMSAlertsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteSMSAlertsCmd = db.GetStoredProcCommand("SP_DeleteAdviserCustomerSMSAlerts");
+                db.AddInParameter(deleteSMSAlertsCmd, "@AlertId", DbType.Int32, alertId);
 
+                if(db.ExecuteNonQuery(deleteSMSAlertsCmd)  != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AlertsDao.cs:DeleteAdviserCustomerSMSAlerts(int alertId)");
+
+                object[] objects = new object[1];
+                objects[0] = alertId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 
 }
