@@ -88,6 +88,7 @@ namespace WealthERP.Advisor
                 if (TreeView1.SelectedNode.Value.ToString() == "Switch Roles")
                 {
                     Session.Remove("UserType");
+                    Session[SessionContents.CurrentUserRole] = null;
                     count = roleList.Count;
                     if (count == 3)
                     {
