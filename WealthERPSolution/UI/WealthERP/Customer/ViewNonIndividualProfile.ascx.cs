@@ -87,6 +87,10 @@ namespace WealthERP.Customer
                 }
 
                 lblCustomerCode.Text = customerVo.CustCode.ToString();
+                if (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName != null && (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName).ToString() != "")
+                    lblRM.Text = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                else
+                    lblRM.Text = "";
                 lblPanNum.Text = customerVo.PANNum.ToString();
                 lblCorrLine1.Text = customerVo.Adr1Line1.ToString();
                 lblCorrLine2.Text = customerVo.Adr1Line2.ToString();

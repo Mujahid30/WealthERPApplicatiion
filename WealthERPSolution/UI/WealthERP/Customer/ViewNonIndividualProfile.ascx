@@ -39,6 +39,14 @@ function showassocation() {
         </td>
     </tr>
     <tr>
+    <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
+        </td>
+        </tr>
+    <tr>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
         </td>
