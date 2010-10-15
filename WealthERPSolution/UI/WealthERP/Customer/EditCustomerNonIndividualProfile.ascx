@@ -6,6 +6,14 @@
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
+<table width="100%" class="TableBackground">
+    <tr>
+        <td class="HeaderCell">
+            <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Edit Profile"></asp:Label>
+            <hr />
+        </td>
+    </tr>
+</table>
 <table style="width: 100%; height: 391px;">
     <tr>
         <td>
