@@ -23,9 +23,11 @@
         var msg = "";
 
         if (selectedDate > todayDate) {
-            sender._selectedDate = todayDate;
-            sender._textbox.set_Value(sender._selectedDate.format(sender._format));
-            alert("Warning! - Date Cannot be in the future");
+            //sender._selectedDate = todayDate;
+            //sender._textbox.set_Value(sender._selectedDate.format(sender._format));
+            sender._textbox.set_Value('');
+            alert("Warning! - Date cannot be in the future");
+            document.getElementById('<%= btnSubmit.ClientID %>').focus(); // to make the focus out of the textbox
         }
     }
     function OnMaritalStatusChange(ddlMaritalStatus) {
