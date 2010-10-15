@@ -661,7 +661,10 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateMoneybackEpisodeCmd = db.GetStoredProcCommand("SP_UpdateMoneyBackEpisode");
-                db.AddInParameter(updateMoneybackEpisodeCmd, "@CIMBE_RepaymentDate", DbType.DateTime, moneyBackEpisodeVo.CIMBE_RepaymentDate);
+                if(moneyBackEpisodeVo.CIMBE_RepaymentDate != DateTime.MinValue)
+                    db.AddInParameter(updateMoneybackEpisodeCmd, "@CIMBE_RepaymentDate", DbType.DateTime, moneyBackEpisodeVo.CIMBE_RepaymentDate);
+                else
+                    db.AddInParameter(updateMoneybackEpisodeCmd, "@CIMBE_RepaymentDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(updateMoneybackEpisodeCmd, "@CIMBE_RepaidPer", DbType.Double, moneyBackEpisodeVo.CIMBE_RepaidPer);
                 db.AddInParameter(updateMoneybackEpisodeCmd, "@CIMBE_EpisodeId", DbType.Int32, moneyBackEpisodeVo.MoneyBackId);
                 db.AddInParameter(updateMoneybackEpisodeCmd, "@CIMBE_ModifiedBy", DbType.Int32, moneyBackEpisodeVo.CIMBE_ModifiedBy);
@@ -747,6 +750,10 @@ namespace DaoCustomerPortfolio
                         insuranceUlipVo.CIUP_CreatedBy = int.Parse(dr["CIUP_CreatedBy"].ToString());
                         insuranceUlipVo.CIUP_ModifiedBy = int.Parse(dr["CIUP_ModifiedBy"].ToString());
                         insuranceUlipVo.CIUP_PurchasePrice = float.Parse(dr["CIUP_PurchasePrice"].ToString());
+                        if (dr["CIUP_PurchaseDate"].ToString() != null && dr["CIUP_PurchaseDate"].ToString() != string.Empty)
+                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(dr["CIUP_PurchaseDate"].ToString());
+                        else
+                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.MinValue;
                         insuranceUlipVo.CIUP_Unit = float.Parse(dr["CIUP_Unit"].ToString());
                         insuranceUlipVo.WUP_ULIPSubPlaCode = dr["WUSP_ULIPSubPlanCode"].ToString();
                         insuranceUlipList.Add(insuranceUlipVo);
@@ -842,7 +849,8 @@ namespace DaoCustomerPortfolio
                         moneyBackEpisodeVo = new MoneyBackEpisodeVo();
                         moneyBackEpisodeVo.MoneyBackId = Int32.Parse(dr["CIMBE_EpisodeId"].ToString());
                         moneyBackEpisodeVo.CustInsInvId = int.Parse(dr["CINP_InsuranceNPId"].ToString());
-                        moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(dr["CIMBE_RepaymentDate"].ToString());
+                        if (dr["CIMBE_RepaymentDate"].ToString() != null && dr["CIMBE_RepaymentDate"].ToString() != "")
+                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(dr["CIMBE_RepaymentDate"].ToString());
                         moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(dr["CIMBE_RepaidPer"].ToString());
 
                         moneyBackEpisodeList.Add(moneyBackEpisodeVo);
