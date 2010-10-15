@@ -2932,6 +2932,7 @@ namespace DaoUploads
                 cmdDeutcheProfile = db.GetStoredProcCommand("SP_RollbackDeutcheProfileWerp");
                 db.AddInParameter(cmdDeutcheProfile, "@processId", DbType.Int32, processId);
                 db.AddInParameter(cmdDeutcheProfile, "@stage", DbType.String, stage);
+                cmdDeutcheProfile.CommandTimeout = 60 * 60;
                 db.ExecuteNonQuery(cmdDeutcheProfile);
                 b1Result = true;
             }
