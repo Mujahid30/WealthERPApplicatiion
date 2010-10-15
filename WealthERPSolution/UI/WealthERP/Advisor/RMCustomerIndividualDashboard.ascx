@@ -42,7 +42,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="leftField" valign="top">
+                    <td valign="top" align="right">
                         <asp:Label ID="Label5" runat="server" Text="Address:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
