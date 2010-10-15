@@ -13,9 +13,11 @@
         var msg = "";
 
         if (selectedDate > todayDate) {
-            sender._selectedDate = todayDate;
-            sender._textbox.set_Value(sender._selectedDate.format(sender._format));
-            alert("Warning! - Date Cannot be in the future");
+            //sender._selectedDate = todayDate;
+            //sender._textbox.set_Value(sender._selectedDate.format(sender._format));
+            sender._textbox.set_Value('');
+            alert("Warning! - Date cannot be in the future");
+            document.getElementById('<%= btnEdit.ClientID %>').focus(); // to make the focus out of the textbox
         }
     }
     function OnMaritalStatusChange(ddlMaritalStatus) {
@@ -159,11 +161,11 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtDob" runat="server" CssClass="txtField"></asp:TextBox>
-            <asp:CompareValidator ID="cvDepositDate1" runat="server" ErrorMessage="<br/>The birth date should be less than current date."
-                Type="Date" ControlToValidate="txtDob" CssClass="cvPCG" Operator="LessThanEqual"
+            <asp:CompareValidator ID="cvDepositDate1" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                Type="Date" ControlToValidate="txtDob" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare=""></asp:CompareValidator>
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDob"
-                Format="dd/MM/yyyy">
+                Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" WatermarkText="dd/mm/yyyy"
                 TargetControlID="txtDob" runat="server">
