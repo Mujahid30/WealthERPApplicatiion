@@ -353,7 +353,7 @@ namespace WealthERP.Customer
                         customerVo.RmId = rmVo.RMId;
                         customerVo.Type = "NIND";
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
-                        customerVo.LastName = txtCompanyName.Text.ToString();
+                        customerVo.FirstName = txtCompanyName.Text.ToString();
                         userVo.LastName = txtCompanyName.Text.ToString();
                     }
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
