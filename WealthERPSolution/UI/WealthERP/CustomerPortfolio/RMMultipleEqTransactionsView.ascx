@@ -247,8 +247,8 @@
     <tr>
         <td colspan="2">
             <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
-                ValidationGroup="btnGo" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMMultipleTransactionView_btnGo', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMMultipleTransactionView_btnGo', 'S');" />
+                ValidationGroup="btnGo" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMEQMultipleTransactionsView_btnGo', 'S');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMEQMultipleTransactionsView_btnGo', 'S');" />
         </td>
         <td>
         </td>
