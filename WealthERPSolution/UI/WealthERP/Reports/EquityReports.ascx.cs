@@ -51,9 +51,9 @@ namespace WealthERP.Reports
                         txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                 }
 
-                if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_MFReports$hidTabIndex"]))
+                if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_EquityReports$hidTabIndex"]))
                 {
-                    activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
+                    activeTabIndex = Convert.ToInt32(Request.Form["ctrl_EquityReports$hidTabIndex"]);
                 }
 
 
@@ -84,11 +84,13 @@ namespace WealthERP.Reports
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
             CustomerBo customerBo = new CustomerBo();
+            CustomerVo customerVo = new CustomerVo();
             if (txtCustomerId.Value != string.Empty)
             {
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                 DataRow dr = dt.Rows[0];
-
+                customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+                Session["CusVo"] = customerVo;
                 txtPanParent.Text = dr["C_PANNum"].ToString();
                 trCustomerDetails.Visible = true;
                 trPortfolioDetails.Visible = true;

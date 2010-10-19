@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using VoUser;
 using BoUser;
 using BoCustomerProfiling;
+using BoAdvisorProfiling;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using WealthERP.Base;
@@ -19,6 +20,8 @@ namespace WealthERP.Customer
         UserVo userVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
+        RMVo customerRMVo = new RMVo();
+        AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
         string path = "";
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -87,8 +90,9 @@ namespace WealthERP.Customer
                 }
 
                 lblCustomerCode.Text = customerVo.CustCode.ToString();
-                if (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName != null && (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName).ToString() != "")
-                    lblRM.Text = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
+                    lblRM.Text = customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName;
                 else
                     lblRM.Text = "";
                 lblPanNum.Text = customerVo.PANNum.ToString();

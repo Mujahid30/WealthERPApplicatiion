@@ -522,6 +522,8 @@ namespace DaoCustomerProfiling
                     if (dr["XR_RelationshipCode"].ToString() != string.Empty)
                         customerVo.RelationShip = dr["XR_RelationshipCode"].ToString();
                     customerVo.ParentCustomer = dr["ParentCustomer"].ToString();
+                    if(dr["AB_BranchName"]!=null)
+                        customerVo.BranchName = dr["AB_BranchName"].ToString();
                 }
             }
             catch (BaseApplicationException Ex)

@@ -10,6 +10,7 @@ using BoCommon;
 using BoUploads;
 using VoCustomerProfiling;
 using BoCustomerProfiling;
+using BoAdvisorProfiling;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Data;
@@ -22,7 +23,7 @@ namespace WealthERP.Customer
         UserVo userVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
-
+        AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
         string path;
         DataTable dtMaritalStatus = new DataTable();
         DataTable dtNationality = new DataTable();
@@ -43,7 +44,7 @@ namespace WealthERP.Customer
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
-
+                RMVo customerRMVo = new RMVo();
                 if (!IsPostBack)
                 {
                     lblPanDuplicate.Visible = false;
@@ -79,8 +80,9 @@ namespace WealthERP.Customer
                         rbtnNonIndividual.Checked = true;
                     }
                     ddlAdviserBranchList.SelectedValue = customerVo.BranchId.ToString();
-                    if (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName != null && (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName).ToString() != "")
-                        lblRM.Text = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                    customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                    if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
+                        lblRM.Text = customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName;
                     else
                         lblRM.Text = "";
                     if (customerVo.MaritalStatus != null)

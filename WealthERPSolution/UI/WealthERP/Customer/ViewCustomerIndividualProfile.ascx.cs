@@ -8,6 +8,7 @@ using System.Configuration;
 using VoUser;
 using VoCustomerProfiling;
 using BoCustomerProfiling;
+using BoAdvisorProfiling;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using WealthERP.Base;
@@ -20,7 +21,7 @@ namespace WealthERP.Customer
         UserVo userVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
-        
+        AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
         string path;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -32,6 +33,7 @@ namespace WealthERP.Customer
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
+                RMVo customerRMVo = new RMVo();
                 if (customerVo.SubType == "MNR")
                 {
                     trGuardianName.Visible = true;
@@ -80,9 +82,9 @@ namespace WealthERP.Customer
                     lblBranch.Text = customerVo.BranchName.ToString();
                 else
                     lblBranch.Text = "";
-
-                if (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName != null && (userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName).ToString() != "")
-                    lblRM.Text = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
+                    lblRM.Text = customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName;
                 else
                     lblRM.Text = "";
 
