@@ -4,7 +4,16 @@
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<%--<script language="javascript" id="myscript>
+    function gettheme() {
+        var theme = '<%=Session["Theme"].ToString(); %>';
+        return theme;
+    }
+</script>--%>
+
 <link href="../App_Themes/Maroon/GridViewCss.css" rel="stylesheet" type="text/css" />
+
+
 <head id="Head1" runat="server">
     <title>WealthERP Reports</title>
     <style>
@@ -166,6 +175,7 @@
   </script>
 
 </head>
+
 <body class="pageBack" onload="hideProcessImage();">
 <div id="abc"  style="width:100%; position:relative; top:200px;left:430px;opacity: 0.6;">
 
@@ -255,12 +265,12 @@
                         <asp:Panel ID="panelReportStatus" runat="server" Width="90%" Height="80%" ScrollBars="Both">
                          <asp:GridView ID="gvEmailCustomerList" runat="server" AllowSorting="True" 
                             AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" 
-                            HorizontalAlign="Center" ShowFooter="True" EnableViewState="true" Width="100%">
+                            ItemStyle-HorizontalAlign="Left" HorizontalAlign="Left" ShowFooter="True" EnableViewState="true" Width="100%">
                              <FooterStyle CssClass="FooterStyle" />
                              <Columns>
                              
                                 <asp:TemplateField HeaderText="Customer Name">
-                                    <ItemTemplate>
+                                    <ItemTemplate >
                                         <asp:Label ID="lblCustomerName" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CustometName") %>'>
                                         </asp:Label>

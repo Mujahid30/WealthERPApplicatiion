@@ -24,6 +24,7 @@ using System.Net.Mime;
 using DanLudwig;
 using BoCustomerPortfolio;
 using VoCustomerPortfolio;
+using WealthERP.Base;
 
 
 namespace WealthERP.Reports
@@ -63,8 +64,18 @@ namespace WealthERP.Reports
         string capitalGainDetails = string.Empty;
         string capitalGainSummary = string.Empty;
         string mailSendStatus = "";
+        //protected void Page_PreInit(object sender, EventArgs e)
+        //{
+        //    if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
+        //    {
+        //        Session["Theme"] = "Maroon";
+        //    }
+
+        //    Page.Theme = Session["Theme"].ToString();
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
+           
         }
         /// <summary>
         /// Page Load Functionality called from Source code 
