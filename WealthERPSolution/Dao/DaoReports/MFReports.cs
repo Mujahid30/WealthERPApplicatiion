@@ -101,9 +101,15 @@ namespace DaoReports
                 db.AddInParameter(getCustomerNPListCmd, "@PortfolioIds", DbType.String, reports.PortfolioIds); //35437
                 db.AddInParameter(getCustomerNPListCmd, "@FromDate", DbType.DateTime, reports.FromDate);
                 db.AddInParameter(getCustomerNPListCmd, "@Todate", DbType.DateTime, reports.ToDate);
-                db.AddInParameter(getCustomerNPListCmd, "@TransType", DbType.String, reports.FilterBy);
-                db.AddInParameter(getCustomerNPListCmd, "@OrderBy", DbType.String, reports.OrderBy);
+                if (!string.IsNullOrEmpty(reports.FilterBy))
+                    db.AddInParameter(getCustomerNPListCmd, "@TransType", DbType.String, reports.FilterBy);
+                else
+                    db.AddInParameter(getCustomerNPListCmd, "@TransType", DbType.String, DBNull.Value);
 
+                if (!string.IsNullOrEmpty(reports.OrderBy))
+                     db.AddInParameter(getCustomerNPListCmd, "@OrderBy", DbType.String, reports.OrderBy);
+                else
+                    db.AddInParameter(getCustomerNPListCmd, "@OrderBy", DbType.String,DBNull.Value);
                 //getCustomerNPListCmd = db.GetSqlStringCommand("select top 20 CMFA_AccountID,CMFT_TransactionDate,PASP_SchemePlanName from CustomerMutualfundtransaction  CustomerMutualfundtransaction inner join ProductAMCSchemePlan AS ProductAMCSchemePlan ON CustomerMutualfundtransaction.PASP_SchemePlanCode = ProductAMCSchemePlan.PASP_SchemePlanCode;");  //db.GetStoredProcCommand("SP_GetAdviser");
                 //db.AddInParameter(getCustomerNPListCmd, "@A_AdviserId", DbType.Int32, 1049);
                 //db.AddInParameter(getCustomerNPListCmd, "@ValuationDate", DbType.DateTime, "2009-10-08");
