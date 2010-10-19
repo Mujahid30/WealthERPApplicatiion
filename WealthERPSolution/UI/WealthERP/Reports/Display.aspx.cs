@@ -529,11 +529,10 @@ namespace WealthERP.Reports
                     {
                         if (ViewState["CustomerId"] == null && Request.Form["ctrl_MFReports$hdnCustomerId1"]!=null)
                          ViewState["CustomerId"] = Request.Form["ctrl_MFReports$hdnCustomerId1"];
-                        if (customerVo == null)
-                        {
-                            customerVo = customerBo.GetCustomer(int.Parse(ViewState["CustomerId"].ToString()));
-                            Session["customerVo"] = customerVo;
-                        }
+                        
+                         customerVo = customerBo.GetCustomer(int.Parse(ViewState["CustomerId"].ToString()));
+                         Session["customerVo"] = customerVo;
+                        
 
                     }
                
