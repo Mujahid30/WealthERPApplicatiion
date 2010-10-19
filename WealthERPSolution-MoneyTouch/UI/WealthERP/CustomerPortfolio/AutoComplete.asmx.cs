@@ -135,7 +135,25 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+        [WebMethod]
+        public string[] GetAdviserParentCustomerName(string prefixText,string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtCustomerName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
 
+            dtCustomerName = customerBo.GetAdviserParentCustomerName(prefixText, int.Parse(contextKey));
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtCustomerName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
         [WebMethod]
         public string[] GetCustomerName(string prefixText, int count, string contextKey)
         {
