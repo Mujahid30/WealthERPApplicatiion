@@ -141,6 +141,7 @@ namespace DaoWerpAdmin
                 db.AddInParameter(Cmd, "@Search", DbType.String, Search);
                 db.AddInParameter(Cmd, "@Flag", DbType.String, Flag);
                 db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                Cmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(Cmd);
                 return ds;
             }
