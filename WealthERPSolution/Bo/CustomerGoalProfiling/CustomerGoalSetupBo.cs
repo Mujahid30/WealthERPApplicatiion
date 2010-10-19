@@ -647,9 +647,9 @@ namespace BoCustomerGoalProfiling
 
                     strMain = "Based on your inputs we have done an analysis of your life's major financial goals and savings required to achieve them.";
                     if (totalChildEducation != 0)
-                        strChildEducation = "Your monthly saving should be Rs." + Math.Round(totalChildMarriage,2).ToString() + " to meet your children's marriage expeneses.";
+                        strChildEducation = "You need to save Rs." + Math.Round(totalChildEducation,2).ToString() + " to meet your children's higher education expenses.";               
                     if (totalChildMarriage != 0)
-                        strChildMarriage = "You need to save Rs." + Math.Round(totalChildEducation,2).ToString() + " to meet your children's higher education expenses.";
+                        strChildMarriage = "Your monthly saving should be Rs." + Math.Round(totalChildMarriage, 2).ToString() + " to meet your children's marriage expeneses."; 
                     if (totalHome != 0)
                         strHome = "For buying house you need to save Rs." + Math.Round(totalHome,2).ToString() + " every month.";
                     if (totalOther != 0)
