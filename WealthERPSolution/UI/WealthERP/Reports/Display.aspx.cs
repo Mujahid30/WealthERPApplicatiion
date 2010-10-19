@@ -847,6 +847,8 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("RMContactDetails", "Email :  " + customerVo.RMEmail);
                 else
                     crmain.SetParameterValue("RMContactDetails", "Email :--");
+                if(CurrentReportType!=ReportType.EquityReports)
+                {
                 if (customerVo.RMMobile != 0)
                 {
                     crmain.SetParameterValue("MobileNo", "Mobile :  " + "+91-" + customerVo.RMMobile);
@@ -860,10 +862,13 @@ namespace WealthERP.Reports
                 //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                 crmain.SetParameterValue("OrgDetails", "E-mail: " + customerVo.RMEmail);
                 crmain.SetParameterValue("OrgTelephone", "Phone: " + "+" + customerVo.RMOfficePhone);
-                crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
-
                 crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);
                 crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
+                }
+                
+                crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
+
+                
             }
             catch (Exception ex)
             {
