@@ -999,7 +999,7 @@ namespace WealthERP.Reports
 
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
-                        if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "All")
+                        if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "ALL")
                         {
                             portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
                             portfolioIDs = portfolioIDs + ",";
