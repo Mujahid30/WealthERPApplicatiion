@@ -334,6 +334,44 @@ namespace DaoCustomerPortfolio
             }
             return pensionAndGratuitiesVo;
         }
+        public bool UpdatePensionandGratuitiesAccount(CustomerAccountsVo pensionAndGratuitiesAccVo, int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand updateGovtSavingsAccCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateGovtSavingsAccCmd = db.GetStoredProcCommand("SP_UpdatePensionGratuitiesAccount");
+                db.AddInParameter(updateGovtSavingsAccCmd, "@CPGA_AccountId", DbType.Int32, pensionAndGratuitiesAccVo.AccountId);
+                db.AddInParameter(updateGovtSavingsAccCmd, "@CPGA_AccountNum", DbType.String, pensionAndGratuitiesAccVo.AccountNum);
+                db.AddInParameter(updateGovtSavingsAccCmd, "@CPGA_AccountSource", DbType.String, pensionAndGratuitiesAccVo.AccountSource);
+                db.AddInParameter(updateGovtSavingsAccCmd, "@XMOH_ModeOfHoldingCode", DbType.String, pensionAndGratuitiesAccVo.ModeOfHolding);
+                if (pensionAndGratuitiesAccVo.AccountOpeningDate != DateTime.MinValue)
+                    db.AddInParameter(updateGovtSavingsAccCmd, "@CPGA_AccountOpeningDate", DbType.Date, pensionAndGratuitiesAccVo.AccountOpeningDate);
+                db.AddInParameter(updateGovtSavingsAccCmd, "@CPGA_ModifiedBy", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(updateGovtSavingsAccCmd) == 1)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "PensionAndGratuitiesDao.cs:UpdatePensionandGratuitiesAccount()");
+                object[] objects = new object[2];
+                objects[0] = pensionAndGratuitiesAccVo;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
 
     }
 }
