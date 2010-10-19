@@ -168,15 +168,12 @@
        
             <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
-            <span id="Span3" class="spnRequiredField">*</span>
+          
            
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtPhDirectPhoneNumber"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtPhDirectPhoneNumber"
-                ErrorMessage="Please enter a Contact Number" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
-                CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
+            
         </td>
     </tr>
     <tr>
@@ -258,10 +255,15 @@
         </td>
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+              <span id="Span3" class="spnRequiredField">*</span>
             <br />
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
-                Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
-                ValidationGroup="btnSubmit" ValidationExpression="^\d{10,10}$"></asp:RegularExpressionValidator>
+             <asp:CompareValidator ID="cvMobileNumber" runat="server" ErrorMessage="Please enter a Integer value"
+                Type="Integer" ControlToValidate="txtMobileNumber" Operator="DataTypeCheck" CssClass="cvPCG"
+                Display="Dynamic"></asp:CompareValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobileNumber"
+                ErrorMessage="Please enter a Mobile Number" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
+                CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>

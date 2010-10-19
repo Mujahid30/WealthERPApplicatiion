@@ -939,6 +939,38 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        public DataTable GetAdviserParentCustomerName(string prefixText, int adviserId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetAdviserParentCustomerName(prefixText, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerName()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
         public DataTable GetAdviserCustomerName(string prefixText, int adviserId)
         {
             CustomerDao customerDao = new CustomerDao();

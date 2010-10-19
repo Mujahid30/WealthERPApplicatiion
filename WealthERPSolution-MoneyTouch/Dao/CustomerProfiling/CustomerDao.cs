@@ -2244,6 +2244,49 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        public DataTable GetAdviserParentCustomerName(string prefixText, int adviserId)
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetAdviserParentCustomerNames");
+                db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetCustomerNames, "@A_AdviserId", DbType.Int32, adviserId);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerName()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
         public DataTable GetAdviserCustomerName(string prefixText, int adviserId)
         {
 

@@ -245,14 +245,14 @@ namespace WealthERP.CustomerPortfolio
 
                         if (premiumPayDate != 0)
                         {
-                            dtPremiumPayDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                            DateTime premiumPayDate1 = dtPremiumPayDate.AddDays(premiumPayDate - 1);
+                            
 
                             // Compare the two date time values
                             // Less than 0 -- dtNow is earlier than dtPremiumPayDate
                             // Greater than 0 -- dtNow is later than dtPremiumPayDate
                             // Equal to 0 -- dtNow is equal to dtPremiumPayDate
-                            int compare = DateTime.Compare(dtNow, dtPremiumPayDate);
+                            int compare = 0;
+                                
 
                             switch (insuranceVo.PremiumFrequencyCode.ToString())
                             {
@@ -260,13 +260,16 @@ namespace WealthERP.CustomerPortfolio
                                     drInsurance[5] = "N/A";
                                     break;
                                 case "DA":
+                                    dtPremiumPayDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                                    dtPremiumPayDate = dtPremiumPayDate.AddDays(premiumPayDate - 1);
+                                    compare = DateTime.Compare(dtNow, dtPremiumPayDate);
                                     if (compare < 0)
                                     { // Display the Premium Payment Date
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else if (compare > 0)
                                     { // Calculate the Next Payment Date and display it
-                                        dtPremiumPayDate.AddDays(1);
+                                        dtPremiumPayDate = dtNow.AddDays(1);
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else
@@ -275,13 +278,16 @@ namespace WealthERP.CustomerPortfolio
                                     }
                                     break;
                                 case "FN":
+                                    dtPremiumPayDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                                    dtPremiumPayDate = dtPremiumPayDate.AddDays(premiumPayDate - 1);
+                                    compare = DateTime.Compare(dtNow, dtPremiumPayDate);
                                     if (compare < 0)
                                     { // Display the Premium Payment Date
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else if (compare > 0)
                                     { // Calculate the Next Payment Date and display it
-                                        dtPremiumPayDate.AddDays(15);
+                                        dtPremiumPayDate=dtPremiumPayDate.AddDays(15);
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else
@@ -290,13 +296,20 @@ namespace WealthERP.CustomerPortfolio
                                     }
                                     break;
                                 case "HY":
+                                    dtPremiumPayDate = new DateTime(DateTime.Today.Year, insuranceVo.FirstPremiumDate.Month, 1);
+                                    dtPremiumPayDate = dtPremiumPayDate.AddDays(premiumPayDate - 1);
+                                    compare = DateTime.Compare(dtNow, dtPremiumPayDate);
                                     if (compare < 0)
                                     { // Display the Premium Payment Date
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else if (compare > 0)
                                     { // Calculate the Next Payment Date and display it
-                                        dtPremiumPayDate.AddMonths(6);
+                                        TimeSpan tsDiff = dtNow.Subtract(dtPremiumPayDate);
+                                        if((tsDiff.Days/30)>6)
+                                            dtPremiumPayDate=dtPremiumPayDate.AddMonths(12);
+                                        else
+                                            dtPremiumPayDate = dtPremiumPayDate.AddMonths(6);
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else
@@ -305,13 +318,16 @@ namespace WealthERP.CustomerPortfolio
                                     }
                                     break;
                                 case "MN":
+                                    dtPremiumPayDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                                    dtPremiumPayDate = dtPremiumPayDate.AddDays(premiumPayDate - 1);
+                                    compare = DateTime.Compare(dtNow, dtPremiumPayDate);
                                     if (compare < 0)
                                     { // Display the Premium Payment Date
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else if (compare > 0)
                                     { // Calculate the Next Payment Date and display it
-                                        dtPremiumPayDate.AddMonths(1);
+                                        dtPremiumPayDate=dtPremiumPayDate.AddMonths(1);
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else
@@ -323,13 +339,46 @@ namespace WealthERP.CustomerPortfolio
                                     drInsurance[5] = "N/A";
                                     break;
                                 case "QT":
+                                    dtPremiumPayDate = new DateTime(DateTime.Today.Year, insuranceVo.FirstPremiumDate.Month, 1);
+                                    dtPremiumPayDate = dtPremiumPayDate.AddDays(premiumPayDate - 1);
+                                    compare = DateTime.Compare(dtNow, dtPremiumPayDate);
                                     if (compare < 0)
                                     { // Display the Premium Payment Date
+                                        TimeSpan tsDiff = dtPremiumPayDate.Subtract(dtNow);
+                                        if ((tsDiff.Days / 30) < 3)
+                                        {
+                                        }
+                                        else if ((tsDiff.Days / 30) < 6)
+                                        {
+                                            dtPremiumPayDate = dtPremiumPayDate.AddMonths(-3);
+                                        }
+                                        else if ((tsDiff.Days / 30) < 9)
+                                        {
+                                            dtPremiumPayDate = dtPremiumPayDate.AddMonths(-6);
+                                        }
+                                        else if ((tsDiff.Days / 30) < 12)
+                                        {
+                                            dtPremiumPayDate = dtPremiumPayDate.AddMonths(-9);
+                                        }
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else if (compare > 0)
                                     { // Calculate the Next Payment Date and display it
-                                        dtPremiumPayDate.AddMonths(3);
+                                        TimeSpan tsDiff = dtNow.Subtract(dtPremiumPayDate);
+                                        if ((tsDiff.Days / 30) > 9)
+                                        {
+                                            dtPremiumPayDate = dtPremiumPayDate.AddMonths(12);
+                                        }
+                                        else if ((tsDiff.Days / 30) > 6)
+                                        {
+                                            dtPremiumPayDate = dtPremiumPayDate.AddMonths(9);
+                                        }
+                                        else if ((tsDiff.Days / 30) > 3)
+                                        {
+                                            dtPremiumPayDate = dtPremiumPayDate.AddMonths(6);
+                                        }
+                                        else
+                                            dtPremiumPayDate = dtPremiumPayDate.AddMonths(3);
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else
@@ -338,13 +387,24 @@ namespace WealthERP.CustomerPortfolio
                                     }
                                     break;
                                 case "WK":
+                                    dtPremiumPayDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                                    dtPremiumPayDate = dtPremiumPayDate.AddDays(premiumPayDate - 1);
+                                    compare = DateTime.Compare(dtNow, dtPremiumPayDate);
                                     if (compare < 0)
                                     { // Display the Premium Payment Date
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else if (compare > 0)
                                     { // Calculate the Next Payment Date and display it
-                                        dtPremiumPayDate.AddDays(7);
+                                        TimeSpan tsDiff = dtNow.Subtract(dtPremiumPayDate);
+                                        if((decimal.Parse(tsDiff.Days.ToString())/7>4))
+                                            dtPremiumPayDate=dtPremiumPayDate.AddDays(7*5);
+                                        else if ((decimal.Parse(tsDiff.Days.ToString()) / 7 > 3))
+                                            dtPremiumPayDate = dtPremiumPayDate.AddDays(7 * 4);
+                                        else if ((decimal.Parse(tsDiff.Days.ToString()) / 7 > 2))
+                                            dtPremiumPayDate = dtPremiumPayDate.AddDays(7 * 3);
+                                        else if ((decimal.Parse(tsDiff.Days.ToString()) / 7 > 1))
+                                            dtPremiumPayDate = dtPremiumPayDate.AddDays(7 * 2);
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else
@@ -353,13 +413,16 @@ namespace WealthERP.CustomerPortfolio
                                     }
                                     break;
                                 case "YR":
+                                    dtPremiumPayDate = new DateTime(DateTime.Today.Year, insuranceVo.FirstPremiumDate.Month, 1);
+                                    dtPremiumPayDate = dtPremiumPayDate.AddDays(premiumPayDate - 1);
+                                    compare = DateTime.Compare(dtNow, dtPremiumPayDate);
                                     if (compare < 0)
                                     { // Display the Premium Payment Date
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else if (compare > 0)
                                     { // Calculate the Next Payment Date and display it
-                                        dtPremiumPayDate.AddYears(1);
+                                        dtPremiumPayDate=dtPremiumPayDate = dtPremiumPayDate.AddYears(1);
                                         drInsurance[5] = dtPremiumPayDate.ToShortDateString();
                                     }
                                     else

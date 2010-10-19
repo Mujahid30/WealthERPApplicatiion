@@ -304,6 +304,11 @@ namespace WealthERP.CustomerPortfolio
                     eqTransactionVo.BuySell = "S";
                     eqTransactionVo.TransactionCode = 2;
                 }
+                if (ddlTranType.SelectedItem.Text.ToString() == "Holdings")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 13;
+                }
 
 
                 eqTransactionVo.CustomerId = customerVo.CustomerId;
@@ -330,7 +335,7 @@ namespace WealthERP.CustomerPortfolio
                 eqTransactionVo.Rate = float.Parse(txtRate.Text);
                 eqTransactionVo.RateInclBrokerage = float.Parse(txtRateIncBrokerage.Text);
                 temp = decimal.Round(Convert.ToDecimal(tempService), 3);
-                eqTransactionVo.ServiceTax = (float)temp;
+                eqTransactionVo.ServiceTax = float.Parse(txtTax.Text);
 
                 eqTransactionVo.STT = float.Parse(txtSTT.Text);
 
@@ -392,8 +397,32 @@ namespace WealthERP.CustomerPortfolio
         {
 
         }
+        protected void txtRate_TextChanged(object sender, EventArgs e)
+        {
+            SetBrokerage();             
+        }
+        public void SetBrokerage()
+        {
+            if (txtRate.Text != "" && txtBroker.Text != "")
+            {
+                double brokerage, otherCharges;
 
+                CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+                CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
+                customerAccountsVo = customerTransactionBo.GetCustomerEQAccountDetails(int.Parse(ddlTradeAcc.SelectedItem.Value.ToString()), portfolioId);
+                // Stax= Service Tax 
+                if (rbtnDelivery.Checked)
+                    brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageDeliveryPercentage / 100);
+                else
+                    brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageSpeculativePercentage / 100);
+                otherCharges = double.Parse(txtRate.Text) * (customerAccountsVo.OtherCharges / 100);
+                txtBrokerage.Text = Math.Round(brokerage, 4).ToString();
 
+                txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
+
+                Calculate();
+            }
+        }
 
         protected void txtScrip_TextChanged(object sender, EventArgs e)
         {
@@ -415,48 +444,64 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-
-            double Stax, STT, rateIncBroker;
-            decimal temp;
-
-
-            // Stax= Service Tax 
-
-            Stax = (12.36 / 100) * double.Parse(txtBrokerage.Text);
-            // temp = decimal.Round((decimal)Stax, 2);
-            // Stax = (double)temp;
-            txtTax.Text = Stax.ToString();
-
-
-            // STT 
-
-            STT = (0.125 / 100) * double.Parse(txtBrokerage.Text.ToString());
-            //  temp = decimal.Round((decimal)STT, 2);
-            // STT = (double)temp;
-            txtSTT.Text = STT.ToString();
-
-
-            // Rate Inclusive Brokerage
-
-            if (ddlTranType.SelectedItem.Text.ToString() == "Purchase")
+            Calculate();         
+        }
+        private void Calculate()
+        {
+            string alertMsg = "";
+            if (txtNumShares.Text != "" && txtRate.Text != "" && txtBroker.Text != "")
             {
-               // rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) + (decimal)STT + (decimal)Stax + (decimal)(double.Parse(txtBrokerage.Text)) + (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
-                rateIncBroker=double.Parse(txtRate.Text)+STT+Stax+double.Parse(txtBrokerage.Text)+double.Parse(txtOtherCharge.Text);
+                double Stax, STT, rateIncBroker, brokerage=0, otherCharges=0;
+                decimal temp;
+                if(txtBrokerage.Text!="")
+                    brokerage = double.Parse(txtBrokerage.Text);
+                Stax = (12.36 / 100) * brokerage;
+                // temp = decimal.Round((decimal)Stax, 2);
+                // Stax = (double)temp;
+                txtTax.Text = Math.Round(Stax, 4).ToString();
 
+
+                // STT 
+
+                STT = (0.125 / 100) * brokerage;
+                //  temp = decimal.Round((decimal)STT, 2);
+                // STT = (double)temp;
+                txtSTT.Text = Math.Round(STT, 5).ToString();
+
+
+                // Rate Inclusive Brokerage
+
+                if (ddlTranType.SelectedItem.Text.ToString() == "Purchase")
+                {
+                    // rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) + (decimal)STT + (decimal)Stax + (decimal)(double.Parse(txtBrokerage.Text)) + (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
+                    rateIncBroker = double.Parse(txtRate.Text) + STT + Stax + double.Parse(txtBrokerage.Text) + double.Parse(txtOtherCharge.Text);
+
+                }
+                else
+                {
+                    //rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) - (decimal)STT - (decimal)Stax - (decimal)(double.Parse(txtBrokerage.Text)) - (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
+                    rateIncBroker = double.Parse(txtRate.Text) - STT - Stax - double.Parse(txtBrokerage.Text) - double.Parse(txtOtherCharge.Text);
+                }
+
+                txtRateIncBrokerage.Text = Math.Round(rateIncBroker, 4).ToString();
+
+                txtTotal.Text = Math.Round(rateIncBroker * double.Parse(txtNumShares.Text), 4).ToString();
             }
             else
             {
-                //rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) - (decimal)STT - (decimal)Stax - (decimal)(double.Parse(txtBrokerage.Text)) - (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
-                rateIncBroker=double.Parse(txtRate.Text)-STT-Stax-double.Parse(txtBrokerage.Text)-double.Parse(txtOtherCharge.Text);
+                alertMsg = "Please Enter";
+                if (txtRate.Text == "")
+                    alertMsg = alertMsg + "\\r\\n      Rate";
+                if (txtNumShares.Text == "")
+                    alertMsg = alertMsg + "\\r\\n      Number Of Shares";                
+                if (txtBroker.Text == "")
+                    alertMsg = alertMsg + "\\r\\n      Broker";
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "alert('"+alertMsg+"')", true);
+
             }
 
-            txtRateIncBrokerage.Text = rateIncBroker.ToString();
-
-            txtTotal.Text = (decimal.Round((decimal)double.Parse(txtRateIncBrokerage.Text) * (decimal)double.Parse(txtNumShares.Text), 4)).ToString();
-
-
         }
-
         protected void ddlTradeAcc_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -470,7 +515,7 @@ namespace WealthERP.CustomerPortfolio
                 txtBroker.Enabled = true;
             }
 
-
+            SetBrokerage();
         }
 
         private void LoadBrokerCode()

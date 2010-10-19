@@ -9,7 +9,7 @@
 
 <script type="text/javascript" language="javascript">
     function validate(type) {
-        debugger;
+        
         var panel = "";
         var isPorfolioSelected = false;
 
@@ -141,7 +141,7 @@
     }
 
     function GetCustomerId(source, eventArgs) {
-        debugger;
+       
         document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value();
         return false;
     };
@@ -230,7 +230,7 @@
 
 
     function ChangeCustomerSelectionTextBox(value) {
-        debugger;
+        
         if (value == 'Group') {
             document.getElementById('trGroupCustomer').style.display = 'block';
             document.getElementById('trIndCustomer').style.display = 'none';
@@ -283,7 +283,7 @@
     }
 
     function replaceSpecialChars() {
-        alert('inside MF rep');
+       
         while (document.getElementById("txtBody").value.indexOf("<br/>") > -1) {
             document.getElementById("txtBody").value = document.getElementById("txtBody").value.replace("<br/>", "\n");
             document.getElementById("hidBody").value = document.getElementById("hidBody").value.replace("<br/>", "\n");

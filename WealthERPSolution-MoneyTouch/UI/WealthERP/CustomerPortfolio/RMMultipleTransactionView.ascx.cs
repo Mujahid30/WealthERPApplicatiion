@@ -32,6 +32,7 @@ namespace WealthERP.CustomerPortfolio
         CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
         CustomerBo customerBo = new CustomerBo();
         int GroupHead = 0;
+        int selectedRMId = 0;
         List<MFTransactionVo> mfTransactionList = null;
         MFTransactionVo mfTransactionVo = new MFTransactionVo();
         DateTime dtTo = new DateTime();
@@ -76,7 +77,8 @@ namespace WealthERP.CustomerPortfolio
                         ddlPortfolioGroup.SelectedValue = ds.Tables[0].Rows[0][0].ToString();
                         //hdnFolioNumber.Value = folionum;
                         PasssedFolioValue = folionum;
-
+                        if (Session["SelectedRMId"] != null)
+                            selectedRMId = int.Parse(Session["SelectedRMId"].ToString());
 
                         BindLastTradeDate();
                         string fromdate = "01-01-1990";
@@ -202,10 +204,14 @@ namespace WealthERP.CustomerPortfolio
         {
             Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
             DataSet ds = new DataSet();
+            int rmId=0;
             int Count = 0;
             totalAmount = 0;
             totalUnits = 0;
-            
+            if (selectedRMId != 0 && PasssedFolioValue!=null)
+                rmId = selectedRMId;
+            else
+                rmId = rmVo.RMId;
             try
             {//pramod
                 if (ExportGridView == 1)
@@ -235,7 +241,7 @@ namespace WealthERP.CustomerPortfolio
                     else
                     {
 
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue);
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue);
                         hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                     }
 

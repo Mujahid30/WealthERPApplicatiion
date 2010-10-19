@@ -106,7 +106,11 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdvisorBranchAggregateValueCmd = db.GetStoredProcCommand("SP_GetAdvisorBranchEQ_MF_IN_CurrentAggr");
                 db.AddInParameter(getAdvisorBranchAggregateValueCmd, "@A_AdviserId", DbType.Int16, advisorId);
-                db.AddInParameter(getAdvisorBranchAggregateValueCmd, "@CurrentPage", DbType.Int32, currentPage);
+                if(currentPage!=0)
+                    db.AddInParameter(getAdvisorBranchAggregateValueCmd, "@CurrentPage", DbType.Int32, currentPage);
+                else
+                    db.AddInParameter(getAdvisorBranchAggregateValueCmd, "@CurrentPage", DbType.Int32, DBNull.Value);
+
                 ds = db.ExecuteDataSet(getAdvisorBranchAggregateValueCmd);
                 if (ds.Tables[2].Rows.Count > 0)
                 {
@@ -850,7 +854,7 @@ namespace DaoCustomerPortfolio
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getPrevUlipSubPlanCmd = db.GetStoredProcCommand("SP_GetUlipSubPlanCodeFromInvInsID");
+                getPrevUlipSubPlanCmd = db.GetStoredProcCommand("SP_GetInsuranceULIPList");
                 db.AddInParameter(getPrevUlipSubPlanCmd, "@CINP_InsuranceNPId", DbType.Int32, InsuranceId);
                 getPrevUlipSubPlanDs = db.ExecuteDataSet(getPrevUlipSubPlanCmd);
             }

@@ -101,9 +101,13 @@ namespace WealthERP.CustomerPortfolio
                 {
                     ddlTranType.SelectedValue = "PUR";
                 }
-                else
+                else if (eqTransactionVo.TransactionCode == 2)
                 {
                     ddlTranType.SelectedValue = "SELL";
+                }
+                else if (eqTransactionVo.TransactionCode == 13)
+                {
+                    ddlTranType.SelectedValue = "HLD";
                 }
 
                 LoadEquityTradeNumbers();
@@ -348,7 +352,11 @@ namespace WealthERP.CustomerPortfolio
                     newEqTransactionVo.BuySell = "S";
                     newEqTransactionVo.TransactionCode = 2;
                 }
-
+                if (ddlTranType.SelectedItem.Text.ToString() == "Holdings")
+                {
+                    newEqTransactionVo.BuySell = "B";
+                    newEqTransactionVo.TransactionCode = 13;
+                }
                 newEqTransactionVo.CustomerId = customerVo.CustomerId;
                 newEqTransactionVo.IsCorpAction = 0;
                 newEqTransactionVo.EducationCess = (float)tempEducation;
@@ -369,7 +377,7 @@ namespace WealthERP.CustomerPortfolio
                 newEqTransactionVo.Rate = float.Parse(txtRate.Text);
                 newEqTransactionVo.RateInclBrokerage = float.Parse(txtRateIncBrokerage.Text);
                 temp = decimal.Round(Convert.ToDecimal(tempService), 3);
-                newEqTransactionVo.ServiceTax = (float)temp;
+                newEqTransactionVo.ServiceTax = float.Parse(txtTax.Text);
                 newEqTransactionVo.STT = float.Parse(txtSTT.Text);
                 newEqTransactionVo.TradeDate = DateTime.Parse(txtTradeDate.Text);
 
@@ -420,6 +428,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 txtBroker.Text = "";
             }
+            SetBrokerage();
         }
         private void LoadBrokerCode()
         {
@@ -451,41 +460,94 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-            double Stax, STT, rateIncBroker;
+            Calculate();
 
-
-            // Stax= Service Tax 
-            Stax = (12.36 / 100) * double.Parse(txtBrokerage.Text);
-            //temp = decimal.Round((decimal)Stax, 2);
-            //Stax = (double)temp;
-            txtTax.Text = Stax.ToString();
-
-
-            // STT 
-            STT = (0.125 / 100) * double.Parse(txtBrokerage.Text.ToString());
-            //temp = decimal.Round((decimal)STT, 2);
-            //STT = (double)temp;
-            txtSTT.Text = STT.ToString();
-
-
-            // Rate Inclusive Brokerage
-            if (ddlTranType.SelectedItem.Text.ToString() == "Purchase")
+        }
+        public void Calculate()
+        {
+            string alertMsg = "";
+            if (txtNumShares.Text != "" && txtRate.Text != "" && txtBroker.Text != "")
             {
-                rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) + (decimal)STT + (decimal)Stax + (decimal)(double.Parse(txtBrokerage.Text)) + (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
+                double Stax, STT, rateIncBroker, brokerage = 0;
+                decimal temp;
+                if (txtBrokerage.Text != "")
+                    brokerage = double.Parse(txtBrokerage.Text);
+                Stax = (12.36 / 100) * brokerage;
+                // temp = decimal.Round((decimal)Stax, 2);
+                // Stax = (double)temp;
+                txtTax.Text = Math.Round(Stax, 4).ToString();
+
+
+                // STT 
+
+                STT = (0.125 / 100) * brokerage;
+                //  temp = decimal.Round((decimal)STT, 2);
+                // STT = (double)temp;
+                txtSTT.Text = Math.Round(STT, 5).ToString();
+
+
+                // Rate Inclusive Brokerage
+
+                if (ddlTranType.SelectedItem.Text.ToString() == "Purchase")
+                {
+                    // rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) + (decimal)STT + (decimal)Stax + (decimal)(double.Parse(txtBrokerage.Text)) + (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
+                    rateIncBroker = double.Parse(txtRate.Text) + STT + Stax + double.Parse(txtBrokerage.Text) + double.Parse(txtOtherCharge.Text);
+
+                }
+                else
+                {
+                    //rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) - (decimal)STT - (decimal)Stax - (decimal)(double.Parse(txtBrokerage.Text)) - (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
+                    rateIncBroker = double.Parse(txtRate.Text) - STT - Stax - double.Parse(txtBrokerage.Text) - double.Parse(txtOtherCharge.Text);
+                }
+
+                txtRateIncBrokerage.Text = Math.Round(rateIncBroker, 4).ToString();
+
+                txtTotal.Text = Math.Round(rateIncBroker * double.Parse(txtNumShares.Text), 4).ToString();
             }
             else
             {
-                rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) - (decimal)STT - (decimal)Stax - (decimal)(double.Parse(txtBrokerage.Text)) - (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
+                alertMsg = "Please Enter";
+                if (txtRate.Text == "")
+                    alertMsg = alertMsg + "\\r\\n      Rate";
+                if (txtNumShares.Text == "")
+                    alertMsg = alertMsg + "\\r\\n      Number Of Shares";
+                if (txtBroker.Text == "")
+                    alertMsg = alertMsg + "\\r\\n      Broker";
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "alert('" + alertMsg + "')", true);
+
             }
-
-            txtRateIncBrokerage.Text = rateIncBroker.ToString();
-            txtTotal.Text = (decimal.Round((decimal)double.Parse(txtRateIncBrokerage.Text) * (decimal)double.Parse(txtNumShares.Text), 4)).ToString();
-
         }
-
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EquityTransactionsView','none');", true);
+        }
+
+        protected void txtRate_TextChanged(object sender, EventArgs e)
+        {
+            SetBrokerage();
+        }
+        public void SetBrokerage()
+        {
+            if (txtRate.Text != "" && txtBroker.Text != "")
+            {
+                double brokerage, otherCharges;
+
+                CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+                CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
+                customerAccountsVo = customerTransactionBo.GetCustomerEQAccountDetails(int.Parse(ddlTradeAcc.SelectedItem.Value.ToString()), portfolioId);
+                // Stax= Service Tax 
+                if (eqTransactionVo.IsSpeculative!=1)
+                    brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageDeliveryPercentage / 100);
+                else
+                    brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageSpeculativePercentage / 100);
+                otherCharges = double.Parse(txtRate.Text) * (customerAccountsVo.OtherCharges / 100);
+                txtBrokerage.Text = Math.Round(brokerage, 4).ToString();
+
+                txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
+
+                Calculate();
+            }
         }
     }
 }

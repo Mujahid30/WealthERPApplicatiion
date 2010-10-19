@@ -488,7 +488,9 @@ namespace WealthERP.Advisor
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session["customerPortfolioVo"] = customerPortfolioVo;
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
@@ -496,19 +498,22 @@ namespace WealthERP.Advisor
                     Session["IsDashboard"] = "false";
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session["customerPortfolioVo"] = customerPortfolioVo;
-
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
 
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
-                    
+                    Session["customerPortfolioVo"] = customerPortfolioVo;
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
+                    Session["customerPortfolioVo"] = customerPortfolioVo;
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
@@ -715,8 +720,8 @@ namespace WealthERP.Advisor
                         if (ddlParent != null)
                         {
                             ddlParent.DataSource = genDictParent;
-                            ddlParent.DataTextField = "Key";
-                            ddlParent.DataValueField = "Value";
+                            ddlParent.DataTextField = "Value";
+                            ddlParent.DataValueField = "Key";
                             ddlParent.DataBind();
                             ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                         }

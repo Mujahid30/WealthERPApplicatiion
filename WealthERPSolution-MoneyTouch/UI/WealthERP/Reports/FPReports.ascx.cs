@@ -34,6 +34,14 @@ namespace WealthERP.Reports
             {
                 txtCustomer.Text = Session["FP_UserName"].ToString();
                 txtCustomerId.Value = Session["FP_UserID"].ToString();
+                customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+                Session["CusVo"] = customerVo;
+
+                DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
+                DataRow dr = dt.Rows[0];
+
+                txtPanParent.Text = dr["C_PANNum"].ToString();
+                trCustomerDetails.Visible = true;
             }
         }
 

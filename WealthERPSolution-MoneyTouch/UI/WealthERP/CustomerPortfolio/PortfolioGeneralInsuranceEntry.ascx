@@ -22,7 +22,7 @@
 <script language="javascript" type="text/javascript">
     //Business Rules to happen on policy type change
     function ChangeGroupPolicy(value) {
-        debugger;
+        
         if (value == 'Yes') {
             document.getElementById('<%= ddlTypeOfPolicy.ClientID %>').value = 'PTFLT';
             document.getElementById('<%= hdnPolicyType.ClientID %>').value = 'PTFLT';
@@ -43,7 +43,7 @@
     }
 
     function ChangePolicyType() {
-        debugger;
+        
         var gridViewID = "<%=gvNominees.ClientID %>";
         var gridView = document.getElementById(gridViewID);
         var gridViewControls = gridView.getElementsByTagName("input");
@@ -80,7 +80,7 @@
         document.getElementById('<%= hdnPolicyType.ClientID %>').value = document.getElementById('<%= ddlTypeOfPolicy.ClientID %>').value;
     }
     function StateMaintain() {
-        debugger;
+        
         var gridViewControls;
         var gridViewID = "<%=gvNominees.ClientID %>";
         var gridView = document.getElementById(gridViewID);
@@ -132,7 +132,7 @@
         //document.getElementById('<%= txtSumAssured1.ClientID %>').value = document.getElementById('<%= hdnSumAssured.ClientID %>').value;
     }
     function CalculateSum() {
-        debugger;
+        
         var gridViewID = "<%=gvNominees.ClientID %>";
         var gridView = document.getElementById(gridViewID);
         var gridViewControls = gridView.getElementsByTagName("input");
@@ -150,7 +150,7 @@
     }
 
     function EnableDisableCheckUpDate(value) {
-        debugger;
+        
         if (value == 'Yes')
             document.getElementById('<%=txtCheckUpDate.ClientID %>').disabled = false;
         else {
@@ -160,7 +160,7 @@
     }
 
     function EnableDisableValidators() {
-        debugger;
+        
         if (document.getElementById('<%=chkIsPolicyByEmployer.ClientID %>').checked) {
             document.getElementById('span1').style.visibility = 'hidden';
             ValidatorEnable(document.getElementById('<%=cv_ddlPolicyIssuer.ClientID %>'), false);

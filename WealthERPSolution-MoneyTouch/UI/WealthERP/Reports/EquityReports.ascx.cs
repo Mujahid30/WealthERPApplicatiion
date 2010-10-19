@@ -17,6 +17,7 @@ namespace WealthERP.Reports
     public partial class EquityReports : System.Web.UI.UserControl
     {
         RMVo rmVo = new RMVo();
+        AdvisorVo advisorVo = new AdvisorVo();
         CustomerBo customerBo = new CustomerBo();
         CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
         DataTable dtRelationship = new DataTable();
@@ -38,10 +39,10 @@ namespace WealthERP.Reports
 
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-
+                advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 BindPeriodDropDown();
-                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
 
                 if (!IsPostBack)
                 {
@@ -55,12 +56,12 @@ namespace WealthERP.Reports
                 {
                     activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
                 }
-
+                
 
 
             }
 
-
+            TabContainer1.ActiveTabIndex = activeTabIndex;
         }
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
         {
@@ -94,8 +95,8 @@ namespace WealthERP.Reports
                 trPortfolioDetails.Visible = true;
                 ShowFolios();
             }
-            TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
-            TabContainer1.ActiveTabIndex = activeTabIndex;
+            TabContainer1.ActiveTab = TabContainer1.Tabs[1];
+            TabContainer1.ActiveTabIndex = 1;
 
         }
         protected void txtParentCustomerId_ValueChanged(object sender, EventArgs e)
@@ -210,7 +211,7 @@ namespace WealthERP.Reports
                         if (String.IsNullOrEmpty(custPortfolio.PortfolioName))
                             custPortfolio.PortfolioName = "No Name";
                         //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
-                        checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
+                        checkbox.Append("<input type='checkbox' checked='true' name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
                     }
                     divPortfolios.InnerHtml = checkbox.ToString();
                     //divPortfolios.Controls.Add(checkboxList);

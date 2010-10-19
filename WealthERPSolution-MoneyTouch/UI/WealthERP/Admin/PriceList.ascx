@@ -41,11 +41,15 @@
                         FromDate:</label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField"></asp:TextBox><cc1:CalendarExtender
+                    <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox><cc1:CalendarExtender
                         ID="FrmDate" TargetControlID="txtFromDate" runat="server" Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
-                    <%--<asp:RequiredFieldValidator ID="frmdatevalid" runat="server" ControlToValidate="txtFromDate"
-                        ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>--%>
+                    <cc1:TextBoxWatermarkExtender ID="txtTradeDate_TextBoxWatermarkExtender"
+                        runat="server" TargetControlID="txtFromDate" WatermarkText="dd/mm/yyyy">
+                    </cc1:TextBoxWatermarkExtender>
+                     <span id="Span7" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="frmdatevalid" runat="server" ControlToValidate="txtFromDate"
+                        ErrorMessage="Please Enter From Date" ForeColor="Red" Enabled="false" CssClass="rfvPCG"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr id="trToDate" runat="server">
@@ -54,11 +58,15 @@
                         ToDate:</label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtToDate" CssClass="txtField" runat="server"></asp:TextBox><cc1:CalendarExtender
+                    <asp:TextBox ID="txtToDate" CssClass="txtField" runat="server" Enabled="false"></asp:TextBox><cc1:CalendarExtender
                         ID="TDate" TargetControlID="txtToDate" runat="server" Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
-                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtToDate"
-                        ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>--%>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1"
+                        runat="server" TargetControlID="txtToDate" WatermarkText="dd/mm/yyyy">
+                    </cc1:TextBoxWatermarkExtender>
+                     <span id="Span1" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtToDate"
+                        ErrorMessage="Please Enter To Date" ForeColor="Red" Enabled="false" CssClass="rfvPCG"></asp:RequiredFieldValidator>
                 </td>
             </tr>
         </table>

@@ -4,15 +4,15 @@
     <DTSConfigurationFileInfo GeneratedBy="PCG\mpillai" GeneratedFromPackageName="UploadProfileStagingToXtrnlProfile" GeneratedFromPackageID="{7EBA9745-F137-46ED-8C89-E1EC98D35363}" GeneratedDate="7/7/2009 12:36:29 PM"/>
   </DTSConfigurationHeading>
   <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.wealtherpV2.sa].Properties[InitialCatalog]" ValueType="String">
-    <ConfiguredValue>WealthERPQA</ConfiguredValue>
+    <ConfiguredValue>TouchBase_Temp</ConfiguredValue>
   </Configuration>
   <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.wealtherpV2.sa].Properties[Password]" ValueType="String">
-    <ConfiguredValue>pcg123#</ConfiguredValue>
+    <ConfiguredValue>philipsSHL9550</ConfiguredValue>
   </Configuration>
   <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.wealtherpV2.sa].Properties[ServerName]" ValueType="String">
-    <ConfiguredValue>SERVER</ConfiguredValue>
+    <ConfiguredValue>192.168.0.1</ConfiguredValue>
   </Configuration>
   <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.wealtherpV2.sa].Properties[UserName]" ValueType="String">
-    <ConfiguredValue>sa</ConfiguredValue>
+    <ConfiguredValue>platinum</ConfiguredValue>
   </Configuration>
 </DTSConfiguration>

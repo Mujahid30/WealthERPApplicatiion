@@ -221,7 +221,7 @@
                                         CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                                         CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionSetCount="5"
                                         DelimiterCharacters="" EnableCaching="False" Enabled="True" MinimumPrefixLength="1"
-                                        OnClientItemSelected="GetParentCustomerId" ServiceMethod="GetParentCustomerName"
+                                        OnClientItemSelected="GetParentCustomerId" ServiceMethod="GetAdviserParentCustomerName"
                                         ServicePath="~/CustomerPortfolio/AutoComplete.asmx" TargetControlID="txtParentCustomer"
                                         UseContextKey="True">
                                     </ajaxToolkit:AutoCompleteExtender>
@@ -294,7 +294,7 @@
                                             runat="server" TargetControlID="txtCustomer" WatermarkText="Type the Customer Name">
                                         </cc1:TextBoxWatermarkExtender>
                                     <ajaxToolkit:AutoCompleteExtender ID="txtCustomer_autoCompleteExtender" runat="server"
-                                        TargetControlID="txtCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                                        TargetControlID="txtCustomer" ServiceMethod="GetAdviserCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                         MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
                                         CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                                         CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"

@@ -85,10 +85,19 @@
                     <asp:Label ID="Label1" runat="server" Text="Account Opening Date:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:Label ID="lblOpeningDate" runat="server" CssClass="Field" Text=""></asp:Label>
+                   <asp:TextBox ID="txtAccOpenDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
+             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAccOpenDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server"
+                TargetControlID="txtAccOpenDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:CompareValidator ID="CompareValidator26" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtAccOpenDate" Operator="DataTypeCheck" CssClass="cvPCG"
+                Display="Dynamic"></asp:CompareValidator>
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="Label2" runat="server" Text="Account With:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text="Account Source:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td colspan="2" class="rightField">
                     <asp:Label ID="lblAccWith" runat="server" CssClass="Field" Text=""></asp:Label>

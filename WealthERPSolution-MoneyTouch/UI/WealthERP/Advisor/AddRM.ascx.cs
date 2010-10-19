@@ -595,8 +595,10 @@ namespace WealthERP.Advisor
                 rmVo.MiddleName = txtMiddleName.Text.ToString();
                 if(txtMobileNumber.Text.ToString()!="")
                     rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
-                rmVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
-                rmVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
+                if(txtPhDirectISD.Text.ToString()!="")
+                    rmVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
+                if (txtPhDirectPhoneNumber.Text.ToString() != "")
+                    rmVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
 
                 if (txtPhExtISD.Text == "")
                 {

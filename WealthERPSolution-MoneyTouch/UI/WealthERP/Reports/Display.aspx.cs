@@ -183,6 +183,7 @@ namespace WealthERP.Reports
                             //crmain.Subreports[0].Database.Tables[0].SetDataSource(dsEquitySectorwise.Tables[2]);
                             //crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
                             //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("AdviserMessage", "We wish you and your family a comfortable financial future. "+advisorVo.OrganizationName+" will help you meet all your financial goals.");
                             AssignReportViewerProperties();
 
                             //AssignReportViewerProperties();
@@ -577,8 +578,8 @@ namespace WealthERP.Reports
                 crmain.SetParameterValue("MobileNo", "Mobile :  " + rmVo.Mobile);
 
                 crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + advisorVo.State);
-                crmain.SetParameterValue("OrgDetails", advisorVo.Email + ", " + advisorVo.Website);
-                crmain.SetParameterValue("OrgTelephone", "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
+                crmain.SetParameterValue("OrgDetails", "E-mail: "+advisorVo.Email);
+                crmain.SetParameterValue("OrgTelephone", "Phone: +91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                 crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
                 crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);
@@ -590,6 +591,10 @@ namespace WealthERP.Reports
             }
 
             CrystalReportViewer1.ReportSource = crmain;
+            if (crmain.PrintOptions.PaperOrientation == PaperOrientation.Landscape)
+            {
+                CrystalReportViewer1.Attributes.Add("ToolbarStyle-Width", "900px");
+            }
             CrystalReportViewer1.EnableDrillDown = true;
             CrystalReportViewer1.HasCrystalLogo = false;
         }

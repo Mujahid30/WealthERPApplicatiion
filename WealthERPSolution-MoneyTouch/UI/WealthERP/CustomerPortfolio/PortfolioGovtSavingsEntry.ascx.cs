@@ -178,9 +178,11 @@ namespace WealthERP.CustomerPortfolio
         {
             if (customerAccountsVo.AccountOpeningDate != DateTime.MinValue)
                 txtAccOpenDate.Text = customerAccountsVo.AccountOpeningDate.ToShortDateString();
+            txtAccOpenDate.Enabled = true;
             txtAccountId.Text = customerAccountsVo.AccountId.ToString();
             if (customerAccountsVo.AccountSource != null)
                 txtAccountWith.Text = customerAccountsVo.AccountSource.ToString();
+            txtAccountWith.Enabled = false;
             if (customerAccountsVo.AssetCategory != null)
                 lblInstrumentCategory.Text = customerAccountsVo.AssetCategory.ToString();
             ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHolding.Trim();
@@ -647,6 +649,7 @@ namespace WealthERP.CustomerPortfolio
                         btnSubmit.Visible = true;
                         btnSaveChanges.Visible = false;
                         lnkEdit.Visible = false;
+                        txtAccountWith.Enabled = false;
                     }
                 }
                 else
@@ -685,6 +688,8 @@ namespace WealthERP.CustomerPortfolio
         {
 
             govtSavingsVo = GetValuesFromFields();
+            customerAccountsVo = customerAccountBo.GetGovtSavingsAccount(govtSavingsVo.AccountId);
+            UpdateAccountDetails(customerAccountsVo);
             bool bResult = govtSavingsBo.CreateGovtSavingsNP(govtSavingsVo, userVo.UserId);
             if (bResult)
             {

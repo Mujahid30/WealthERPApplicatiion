@@ -122,7 +122,7 @@
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtCTC" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator15" ControlToValidate="txtCTC"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -178,20 +178,17 @@
         <td>
             <asp:TextBox ID="txtPhDirectSTD" runat="server" CssClass="txtField" Width="55px"
                 MaxLength="3"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="rfvphDirect" ControlToValidate="txtPhDirectSTD" ErrorMessage="Please enter STD Code"
-                Display="Dynamic" runat="server" CssClass="rfvPCG"></asp:RequiredFieldValidator>
+           
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPhDirectSTD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$">
+                </asp:RegularExpressionValidator>
         </td>
         <td>
-            <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px"
-                MaxLength="8"></asp:TextBox>
-            <span id="Span3" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPhDirectPhoneNumber"
-                ErrorMessage="Please enter phone number" Display="Dynamic" runat="server" CssClass="rfvPCG"></asp:RequiredFieldValidator>
+            <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px"></asp:TextBox>
+            
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtPhDirectPhoneNumber"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -202,20 +199,20 @@
         <td class="rightField">
             <asp:TextBox ID="txtPhExtISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator12" ControlToValidate="txtPhExtISD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
         <td>
             <asp:TextBox ID="txtExtSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtExtSTD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
         <td>
             <asp:TextBox ID="txtPhExtPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtPhExtPhoneNumber"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -226,20 +223,20 @@
         <td class="rightField">
             <asp:TextBox ID="txtPhResiISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtPhResiISD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
         <td>
             <asp:TextBox ID="txtResiSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtResiSTD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
         <td>
             <asp:TextBox ID="txtPhResiPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtPhResiPhoneNumber"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -250,19 +247,19 @@
         <td class="rightField">
             <asp:TextBox ID="txtFaxISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator9" ControlToValidate="txtFaxISD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
         <td>
             <asp:TextBox ID="txtFaxSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtFaxSTD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
         <td>
             <asp:TextBox ID="txtFaxNumber" runat="server" CssClass="txtField" Width="150px" MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtFaxNumber"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnSave" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -272,9 +269,16 @@
         </td>
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
+             <span id="Span4" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtMobileNumber"
+                ErrorMessage="Please enter Mobile number" Display="Dynamic" runat="server" CssClass="rfvPCG"></asp:RequiredFieldValidator>
+           <asp:CompareValidator ID="cvMobileNumber" runat="server" ErrorMessage="Please enter a Integer value"
+                Type="Integer" ControlToValidate="txtMobileNumber" Operator="DataTypeCheck" CssClass="cvPCG"
+                Display="Dynamic"></asp:CompareValidator>
+        
+            <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
-                ValidationGroup="btnSubmit" ValidationExpression="^\d{10,10}$"></asp:RegularExpressionValidator>
+                ValidationGroup="btnSave" ValidationExpression="^\d{10,10}$"></asp:RegularExpressionValidator>--%>
         </td>
     </tr>
     <tr>

@@ -19,24 +19,7 @@ namespace WealthERP.SuperAdmin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //    customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
-            //    string First = customerVo.FirstName.ToString();
-            //    string Middle = customerVo.MiddleName.ToString();
-            //    string Last = customerVo.LastName.ToString();
-
-            //    if (Middle != "")
-            //    {
-            //        lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
-            //    }
-            //    else
-            //    {
-            //        lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.LastName.ToString();
-            //    }
-
-            //    lblEmailIdValue.Text = customerVo.Email.ToString();
-            //}
+            
             SessionBo.CheckSession();
             Session["LoanSchemeView"] = "SuperAdmin";
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
@@ -46,16 +29,19 @@ namespace WealthERP.SuperAdmin
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('SuperAdminLeftPane');", true);
             }
         }
-
-        protected void SuperAdminTreeView_SelectedNodeChanged(object sender, EventArgs e)
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("SuperAdminTreeView"))
+            {
+                SetNode();
+            }
+        }
+        public void SetNode()
         {
             string strNodeValue = null;
             try
             {
-                //if (SuperAdminTreeView.SelectedNode.Value == "SuperAdminHome")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
-                //}
+               
                 if (SuperAdminTreeView.SelectedNode.Value == "IFF")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFF','none');", true);
@@ -71,27 +57,7 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SuperAdminMessageBroadcast','login')", true);
                 }
-                //else if (SuperAdminTreeView.SelectedNode.Value == "MFMIS")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrolCustomer('UnderConstruction','none')", true);
-                //}
-                //else if (SuperAdminTreeView.SelectedNode.Value == "MF")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('UnderConstruction', 'none')", true);
-                //}
-                //else if (SuperAdminTreeView.SelectedNode.Value == "Equity")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('UnderConstruction', 'none')", true);
-                //}
-                //else if (SuperAdminTreeView.SelectedNode.Value == "Loan")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('UnderConstruction', 'none')", true);
-                //}
-                //else if (SuperAdminTreeView.SelectedNode.Value == "UserManagement")
-                //{
-                //    Session["UserManagement"] = "Advisor";
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomerUserDetails','login');", true);
-                //}
+               
                 else if (SuperAdminTreeView.SelectedNode.Value == "LoanScheme")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('LoanSchemeView', 'none')", true);
@@ -101,8 +67,8 @@ namespace WealthERP.SuperAdmin
                     Session.Remove("LoanSchemeId");
                     Session.Remove("LoanSchemeViewStatus");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('LoanScheme', 'none')", true);
-                }    
-                    
+                }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -124,6 +90,10 @@ namespace WealthERP.SuperAdmin
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        protected void SuperAdminTreeView_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            
         }        
     }
 }

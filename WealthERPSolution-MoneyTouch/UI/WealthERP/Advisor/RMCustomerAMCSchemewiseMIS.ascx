@@ -225,7 +225,7 @@
         <asp:UpdatePanel ID="upnl" runat="server">
          <ContentTemplate>
             <asp:GridView ID="gvMFMIS" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" CssClass="GridViewStyle" ShowFooter="True" DataKeyNames="FolioNum"
+                CellPadding="4" CssClass="GridViewStyle" ShowFooter="True" DataKeyNames="FolioNum,RMId"
                 OnSelectedIndexChanged="gvMFMIS_SelectedIndexChanged">
                 <%--OnSorting="gvMFMIS_Sorting" OnDataBound="gvMFMIS_DataBound"--%>
                 <RowStyle CssClass="RowStyle" />

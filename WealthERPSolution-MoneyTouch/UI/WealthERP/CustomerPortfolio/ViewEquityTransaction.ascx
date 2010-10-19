@@ -145,7 +145,8 @@
                     <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Rate:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtRate" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtRate" runat="server" CssClass="txtField" 
+                        ontextchanged="txtRate_TextChanged" AutoPostBack="true"></asp:TextBox>
                     <div id="dvRate" runat="server" class="dvInLine">
                         <span id="Span8" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtRate"
@@ -228,7 +229,7 @@
                             Type="Double" ControlToValidate="txtOtherCharge" Operator="DataTypeCheck" Display="Dynamic"
                             ValidationGroup="EQ"></asp:CompareValidator>
                     </div>
-                    <asp:Button ID="btnCalculate" runat="server" Text="Calculate" CssClass="ButtonField"
+                    <asp:Button ID="btnCalculate" runat="server" Text="Calculate" CssClass="PCGButton"
                         OnClick="btnCalculate_Click" />
                 </td>
             </tr>
@@ -311,9 +312,11 @@
             </tr>
             <tr>
                 <td class="SubmitCell" colspan="2">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrlEquityManualSingleTransaction__btnSubmit','S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrlEquityManualSingleTransaction__btnSubmit','S');"
+                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton"                    
                         OnClick="btnSubmit_Click" />
+                        
+                        <%-- onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ViewEquityTransaction__btnSubmit','S');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewEquityTransaction__btnSubmit','S');" --%>
                 </td>
             </tr>
         </table>

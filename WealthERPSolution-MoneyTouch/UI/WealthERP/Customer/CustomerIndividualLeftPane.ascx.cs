@@ -19,24 +19,7 @@ namespace WealthERP.Customer
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //    customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
-            //    string First = customerVo.FirstName.ToString();
-            //    string Middle = customerVo.MiddleName.ToString();
-            //    string Last = customerVo.LastName.ToString();
-
-            //    if (Middle != "")
-            //    {
-            //        lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
-            //    }
-            //    else
-            //    {
-            //        lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.LastName.ToString();
-            //    }
-
-            //    lblEmailIdValue.Text = customerVo.Email.ToString();
-            //}
+            
             SessionBo.CheckSession();
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             if (!IsPostBack)
@@ -45,15 +28,18 @@ namespace WealthERP.Customer
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerIndividualLeftPane');", true);
 
             }
-            //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
-            //{
-            //    SetNode();
-            //}
+           
         }
-
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
-            SetNode();
+            
         }
         public void SetNode()
         {

@@ -328,8 +328,8 @@ namespace WealthERP.Reports
                 crmain.SetParameterValue("MobileNo", "Mobile :  " + rmVo.Mobile);
 
                 crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + advisorVo.State);
-                crmain.SetParameterValue("OrgDetails", advisorVo.Email + ", " + advisorVo.Website);
-                crmain.SetParameterValue("OrgTelephone", "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
+                crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.Email);
+                crmain.SetParameterValue("OrgTelephone", "Phone: +91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                 crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
                 crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);

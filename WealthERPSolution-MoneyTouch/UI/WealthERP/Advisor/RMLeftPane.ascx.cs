@@ -87,15 +87,21 @@ namespace WealthERP.Advisor
             }
 
         }
-
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
+        public void SetNode()
         {
             string strNodeValue = null;
             try
             {
-                
+
                 if (TreeView1.SelectedNode.Value.ToString() == "Switch Roles")
-                {                    
+                {
                     if (count == 3)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
@@ -159,21 +165,6 @@ namespace WealthERP.Advisor
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertDashBoard','none');", true);
                 }
-                //else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
-                //{
-                //    Session["UserType"] = "rm";
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanMIS','login');", true);
-                //}
-                //else if (TreeView1.SelectedNode.Value.ToString() == "Loan Proposal")
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanTrackingGrid','login');", true);
-                //}
-                //else if (TreeView1.SelectedNode.Value.ToString() == "Add Loan Proposal")
-                //{
-                //    Session["LoanProcessAction"] = "add";
-                //    Session[SessionContents.LoanProcessTracking] = null;
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanProcessTracking','login');", true);
-                //}
                 else if (TreeView1.SelectedNode.Value.ToString() == "MFReports")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFReports','none');", true);
@@ -186,11 +177,6 @@ namespace WealthERP.Advisor
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioReports','none');", true);
                 }
-                //else if (TreeView1.SelectedNode.Value.ToString() == "MFMIS")
-                //{
-                //    Session["UserType"] = "rm";
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
-                //}
                 else if (TreeView1.SelectedNode.Value.ToString() == "EView Transactions")
                 {
                     Session["UserType"] = "rm";
@@ -301,6 +287,10 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }

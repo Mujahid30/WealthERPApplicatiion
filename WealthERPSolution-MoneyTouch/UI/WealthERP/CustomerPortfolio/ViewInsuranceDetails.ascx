@@ -61,7 +61,7 @@
                     <asp:BoundField DataField="Premium Amount" HeaderText="Premium Amount (Rs)" ItemStyle-HorizontalAlign="Right">
                         <ItemStyle HorizontalAlign="Right"></ItemStyle>
                     </asp:BoundField>
-                    <asp:BoundField DataField="Next Premium Date" HeaderText="PremiumDate (dd/mm/yyyy)"
+                    <asp:BoundField DataField="Next Premium Date" HeaderText="Next Premium Date (dd/mm/yyyy)"
                         ItemStyle-HorizontalAlign="Center">
                         <ItemStyle HorizontalAlign="Center"></ItemStyle>
                     </asp:BoundField>

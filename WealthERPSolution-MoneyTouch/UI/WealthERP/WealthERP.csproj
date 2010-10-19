@@ -2205,13 +2205,6 @@
     <Compile Include="SessionExpired.aspx.designer.cs">
       <DependentUpon>SessionExpired.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SuperAdmin\AddIFF.ascx.cs">
-      <DependentUpon>AddIFF.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SuperAdmin\AddIFF.ascx.designer.cs">
-      <DependentUpon>AddIFF.ascx</DependentUpon>
-    </Compile>
     <Compile Include="SuperAdmin\IFF.ascx.cs">
       <DependentUpon>IFF.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2498,6 +2491,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\FinancialPlanning.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FinancialPlanning1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFDividend.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2749,7 +2743,6 @@
     <Content Include="Scripts\jquery-ui-1.7.2.custom.min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="SessionExpired.aspx" />
-    <Content Include="SuperAdmin\AddIFF.ascx" />
     <Content Include="SuperAdmin\IFF.ascx" />
     <Content Include="SuperAdmin\IFFAdd.ascx" />
     <Content Include="SuperAdmin\SuperAdminDashboard.ascx" />

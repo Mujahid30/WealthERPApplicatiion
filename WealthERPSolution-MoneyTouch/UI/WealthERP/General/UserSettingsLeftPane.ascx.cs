@@ -25,38 +25,25 @@ namespace WealthERP.General
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session["userVo"];
-            if (Page.Request.Params.Get("__EVENTTARGET")!=null &&(Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            
+        }
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
             {
                 SetNode();
             }
         }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
-            SetNode();
+           
         }
         public void SetNode()
         {
             string strNodeValue = null;
             try
             {
-                //if (Session["role"] != null)
-                //{
-                //    if (Session["role"].ToString() == "SUPER_ADMIN")
-                //    {
-                //        TreeNode tnHome = new TreeNode();
-                //        TreeNode tnChangePassword = new TreeNode();
-                //        TreeNode tnChangeLoginId = new TreeNode();
-                //        tnHome=TreeView1.FindNode("Home");
-                //        tnChangePassword = TreeView1.FindNode("Change Password");
-                //        tnChangeLoginId = TreeView1.FindNode("Change Login Id");
-                //        tnHome.SelectAction = TreeNodeSelectAction.None;
-                //        tnChangePassword.SelectAction = TreeNodeSelectAction.None;
-                //        tnChangeLoginId.SelectAction = TreeNodeSelectAction.None;
-
-                //    }
-                //}
-                //else
-                //{
+                
                 if (TreeView1.SelectedNode != null)
                 {
                     if (TreeView1.SelectedNode.Value.ToString() == "Home")

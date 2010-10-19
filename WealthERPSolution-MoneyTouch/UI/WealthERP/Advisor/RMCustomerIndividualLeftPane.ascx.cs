@@ -101,46 +101,23 @@ namespace WealthERP.Advisor
             }
 
         }
-
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
-            SetNode();
+            //SetNode();
         }
         public void SetNode()
         {
             string strNodeValue = null;
             try
             {
-                //if (TreeView1.SelectedNode.Value == "Home")
-                //{
-
-                //    roleList = userBo.GetUserRoles(userVo.UserId);
-                //    count = roleList.Count;
-                //    if (count == 3)
-                //    {
-                //        ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
-
-                //    }
-                //    if (count == 2)
-                //    {
-                //        for (int i = 0; i < 2; i++)
-                //        {
-                //            if (roleList[i] == "RM")
-                //            {
-
-                //                ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMDashBoard','none');", true);
-                //            }
-                //            if (roleList[i] == "BM")
-                //            {
-                //                ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "pageloadscript", "loadcontrol('AdvisorBMDashBoard','none');", true);
-                //            }
-                //        }
-                //    }
-
-
-                //}
-
-                //else 
+                
                 if (TreeView1.SelectedNode != null)
                 {
                     if (TreeView1.SelectedNode.Value == "RM Home")
@@ -213,23 +190,7 @@ namespace WealthERP.Advisor
                     {
                         Session["DematDetailsView"] = "Add";
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddDematAccountDetails','none');", true);
-                    }
-                    //else if (TreeView1.SelectedNode.Value == "Group Accounts")
-                    //{
-                    //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('ViewCustomerFamily','none');", true);
-                    //}
-                    //else if (TreeView1.SelectedNode.Value == "Add Group Member")
-                    //{
-                    //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('FamilyDetails','none');", true);
-                    //}
-                    //else if (TreeView1.SelectedNode.Value == "Associate Member")
-                    //{
-                    //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerAssociatesAdd','none');", true);
-                    //}
-                    //else if (TreeView1.SelectedNode.Value == "Portfolio Details")
-                    //{
-                    //    ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('CustomerPortfolio','none');", true);
-                    //}
+                    }                    
                     else if (TreeView1.SelectedNode.Value == "Add Liability")
                     {
                         Session["menu"] = null;
@@ -262,7 +223,6 @@ namespace WealthERP.Advisor
                         Session.Remove("table");
                         Session.Remove("insuranceVo");
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=IN')", true);
-                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','none');", true);
                     }
                     else if (TreeView1.SelectedNode.Value == "Life Insurance")
                     {
@@ -327,50 +287,7 @@ namespace WealthERP.Advisor
                             }
                         }
                     }
-                    //if (TreeView1.SelectedNode.Parent == null)
-                    //{
-                    //    foreach (TreeNode node in TreeView1.Nodes)
-                    //    {
-                    //        if (node.Value != TreeView1.SelectedNode.Value)
-                    //            node.Collapse();
-                    //        else
-                    //            node.Expand();
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    if (TreeView1.SelectedNode.Parent.Parent != null)
-                    //    {
-                    //        string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
-                    //        foreach (TreeNode node in TreeView1.Nodes)
-                    //        {
-                    //            if (node.Value != parentNode)
-                    //                node.Collapse();
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        if (TreeView1.SelectedNode.Parent == null)
-                    //        {
-                    //            foreach (TreeNode node in TreeView1.Nodes)
-                    //            {
-                    //                if (node.Value != TreeView1.SelectedNode.Value)
-                    //                    node.Collapse();
-                    //                else
-                    //                    node.Expand();
-                    //            }
-                    //        }
-                    //        else
-                    //        {
-                    //            strNodeValue = TreeView1.SelectedNode.Parent.Value;
-                    //            foreach (TreeNode node in TreeView1.Nodes)
-                    //            {
-                    //                if (node.Value != strNodeValue)
-                    //                    node.Collapse();
-                    //            }
-                    //        }
-                    //    }
-                    //}
+                   
                 }
             }
             catch (BaseApplicationException Ex)

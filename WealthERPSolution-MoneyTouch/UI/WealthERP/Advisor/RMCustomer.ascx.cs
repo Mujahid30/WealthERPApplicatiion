@@ -234,8 +234,8 @@ namespace WealthERP
                         if (ddlParent != null)
                         {
                             ddlParent.DataSource = genDictParent;
-                            ddlParent.DataTextField = "Key";
-                            ddlParent.DataValueField = "Value";
+                            ddlParent.DataTextField = "Value";
+                            ddlParent.DataValueField = "Key";
                             ddlParent.DataBind();
                             ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                         }
@@ -689,7 +689,9 @@ namespace WealthERP
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-                   
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session["customerPortfolioVo"] = customerPortfolioVo;
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                    
                 }
@@ -698,6 +700,7 @@ namespace WealthERP
                     Session["IsDashboard"] = "false";
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session["customerPortfolioVo"] = customerPortfolioVo;
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
                    
                 }
@@ -711,6 +714,9 @@ namespace WealthERP
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session["customerPortfolioVo"] = customerPortfolioVo;
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "User Details")

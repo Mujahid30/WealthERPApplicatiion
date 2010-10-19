@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
     function ValidateNominee() {
-        debugger;
+        
         var count = 0;
         var gridViewID = "<%=gvNominees.ClientID %>";
         var gridView = document.getElementById(gridViewID);

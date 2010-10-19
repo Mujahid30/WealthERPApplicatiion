@@ -203,11 +203,11 @@ namespace WealthERP.Advisor
             else
                 if (AllPageExport == true)
                 {
-                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseMISForAdviser(advisorVo.advisorId, branchId, rmid, Valuationdate, schemeplanid, CurrentPage, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), hdnCustomerNameVal.Value.ToString(), hdnFolioNumVal.Value.ToString(), out Count, int.Parse(hdnRecordCount.Value.ToString()));
+                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseMISForAdviser(advisorVo.advisorId, branchId, rmId, Valuationdate, schemeplanid, CurrentPage, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), hdnCustomerNameVal.Value.ToString(), hdnFolioNumVal.Value.ToString(), out Count, int.Parse(hdnRecordCount.Value.ToString()));
                 }
                 else
                 {
-                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseMISForAdviser(advisorVo.advisorId, branchId, rmid, Valuationdate, schemeplanid, CurrentPage, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), hdnCustomerNameVal.Value.ToString(), hdnFolioNumVal.Value.ToString(), out Count, 0);
+                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseMISForAdviser(advisorVo.advisorId, branchId, rmId, Valuationdate, schemeplanid, CurrentPage, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), hdnCustomerNameVal.Value.ToString(), hdnFolioNumVal.Value.ToString(), out Count, 0);
 
                 }
                 
@@ -248,7 +248,7 @@ namespace WealthERP.Advisor
                 dtMISReport.Columns.Add("Units");
                 dtMISReport.Columns.Add("AUM");
                 dtMISReport.Columns.Add("Percentage");
-                
+                dtMISReport.Columns.Add("RMId");
 
                 DataRow drMISReport;
 
@@ -280,7 +280,7 @@ namespace WealthERP.Advisor
                     }
 
                     drMISReport[8] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][10].ToString()), 2).ToString();
-                    
+                    drMISReport[9] = dsMISReport.Tables[0].Rows[i]["RMId"].ToString();
 
 
                     dtMISReport.Rows.Add(drMISReport);
@@ -348,7 +348,10 @@ namespace WealthERP.Advisor
         protected void gvMFMIS_SelectedIndexChanged(object sender, EventArgs e)
         {
             string folio;
+            int selectedRMId = 0;
             folio = gvMFMIS.SelectedDataKey[0].ToString();
+            selectedRMId = int.Parse(gvMFMIS.SelectedDataKey[1].ToString());
+            Session["SelectedRMId"] = selectedRMId;
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','?folionum=" + folio + "');", true);
             Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "", false);
         }

@@ -47,7 +47,7 @@ namespace WealthERP.Advisor
                     if (dsMessage.Tables[0].Rows[0]["ABM_IsActive"].ToString() == "1" && dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString()!="")
                     {
                         DateTime dtMessageDate=DateTime.Parse(dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessageDate"].ToString());
-                        lblSuperAdmnMessage.Text +="Message from SuperAdmin:"+ dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString()+Environment.NewLine+" Sent on:" + dtMessageDate.ToString();
+                        lblSuperAdmnMessage.Text="Message from SuperAdmin:"+ dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString()+Environment.NewLine+" Sent on:" + dtMessageDate.ToString();
                         //lblSuperAdmnMessage.Text+="\n Sent on:"+
                     }
                 }
@@ -287,7 +287,7 @@ namespace WealthERP.Advisor
             total = 0;
             try
             {
-                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, mypager.CurrentPage,out total);
+                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, 0,out total);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -304,12 +304,12 @@ namespace WealthERP.Advisor
                         drResult = ds.Tables[0].Rows[i];
                         dr[0] = drResult["AB_BranchName"].ToString();
                         dr[1] = drResult["AB_BranchCode"].ToString();
-                        tempEq = Convert.ToDouble(drResult["EquityAggr"].ToString());
-                        tempIns = Convert.ToDouble(drResult["MFAggr"].ToString());
-                        tempMf = Convert.ToDouble(drResult["InsuranceAggr"].ToString());
+                        tempEq = Math.Round(Convert.ToDouble(drResult["EquityAggr"].ToString()),2);
+                        tempIns = Math.Round(Convert.ToDouble(drResult["MFAggr"].ToString()),2);
+                        tempMf = Math.Round(Convert.ToDouble(drResult["InsuranceAggr"].ToString()),2);
                         if (tempEq == 0 && tempIns == 0 && tempMf == 0)
                             j = j + 1;
-                        dr[2] = (tempEq + tempIns + tempMf).ToString();
+                        dr[2] = Math.Round((tempEq + tempIns + tempMf),2).ToString();
                         dt.Rows.Add(dr);
 
                     }
@@ -320,16 +320,21 @@ namespace WealthERP.Advisor
                         // LoadChart       
 
 
-                        seriesAssets.ChartType = SeriesChartType.Column;
+                        seriesAssets.ChartType = SeriesChartType.Bar;
+                        
                         ChartBranchPerformance.DataSource = branchPerformanceDs.Tables[0].DefaultView;
                         ChartBranchPerformance.Series.Clear();
                         ChartBranchPerformance.Series.Add(seriesAssets);
                         ChartBranchPerformance.Series[0].XValueMember = "Branch Code";
+                        ChartBranchPerformance.Series[0].XValueType = ChartValueType.String;
                         ChartBranchPerformance.Series[0].YValueMembers = "Aggr";
+                       
                         ChartBranchPerformance.Series["BranchPerformance"].IsValueShownAsLabel = true;
                         ChartBranchPerformance.ChartAreas[0].AxisX.Title = "BranchCode";
+                        ChartBranchPerformance.ChartAreas[0].AxisX.Interval = 1;
                         ChartBranchPerformance.ChartAreas[0].AxisY.Title = "Aggregate Value";
-                        ChartBranchPerformance.ChartAreas[0].Area3DStyle.Enable3D = false;
+                        //ChartBranchPerformance.ChartAreas[0].AxisX.TextOrientation = TextOrientation.Rotated90;
+                        ChartBranchPerformance.ChartAreas[0].Area3DStyle.Enable3D = true;
                         ChartBranchPerformance.DataBind();
                     }
                     else
@@ -401,7 +406,7 @@ namespace WealthERP.Advisor
                         dr = dt.NewRow();
                         drResult = ds.Tables[0].Rows[i];
                         dr[0] = drResult["AR_FirstName"].ToString() + drResult["AR_LastName"].ToString();
-                        tempAggr = Convert.ToDouble(drResult["result"].ToString());
+                        tempAggr = Math.Round(Convert.ToDouble(drResult["result"].ToString()),2);
                         if (tempAggr == 0)
                             j = j + 1;
                         dr[1] = tempAggr.ToString();

@@ -51,8 +51,15 @@ namespace WealthERP.Admin
 
         protected void rbtnCurrent_CheckedChanged(object sender, EventArgs e)
         {
-            trFromDate.Style.Add("display", "none");
-            trToDate.Style.Add("display", "none");
+            if (rbtnCurrent.Checked)
+            {
+                trFromDate.Style.Add("display", "none");
+                trToDate.Style.Add("display", "none");
+                txtFromDate.Enabled = false;
+                txtToDate.Enabled = false;
+                frmdatevalid.Enabled = false;
+                RequiredFieldValidator1.Enabled = false;
+            }
         }
        
 
@@ -63,7 +70,11 @@ namespace WealthERP.Admin
             if (rbtnHistorical.Checked)
             {
                 trFromDate.Style.Add("display", "block");
+                txtFromDate.Enabled = true;
+                txtToDate.Enabled = true;
                 trToDate.Style.Add("display", "block");
+                frmdatevalid.Enabled = true;
+                RequiredFieldValidator1.Enabled = true;
             }
 
         }
@@ -88,7 +99,11 @@ namespace WealthERP.Admin
                                        
                     if (ddlAssetGroup.SelectedValue == Contants.Source.Equity.ToString())
                     {
-                        string Search = hdnCompanySearch.Value;
+                        string Search = "";
+                        if(gvEquityRecord.Rows.Count!=0)
+                            Search=hdnCompanySearch.Value;
+                        else
+                            hdnCompanySearch.Value="";
                         hdnEquityCount.Value = PriceObj.GetEquityCountSnapshot("C", Search, mypager.CurrentPage).ToString();
                         lblTotalRows.Text = hdnEquityCount.Value;
                         GetPageCount_Equity();
@@ -99,7 +114,11 @@ namespace WealthERP.Admin
                         DivPager.Style.Add("display", "visible");
                         DivMF.Style.Add("display", "none");
                         Search = null;
-                        hdnCompanySearch.Value = null;
+                        if (hdnCompanySearch.Value != null && gvEquityRecord.HeaderRow!=null)
+                        {
+                            ((TextBox)gvEquityRecord.HeaderRow.FindControl("txtCompanySearch")).Text = hdnCompanySearch.Value.ToString();
+                        }
+                        //hdnCompanySearch.Value = null;
 
                         
 
@@ -108,9 +127,11 @@ namespace WealthERP.Admin
                    
                     else    
                     {
-
-                       
-                        string Search = hdnSchemeSearch.Value;
+                        string Search="";
+                        if (gvMFRecord.Rows.Count > 0)
+                            Search = hdnSchemeSearch.Value;
+                        else
+                            hdnSchemeSearch.Value = "";
                         hdnMFCount.Value = PriceObj.GetAMFICountSnapshot("C", Search, mypager.CurrentPage).ToString();
                         lblMFTotalRows.Text = hdnMFCount.Value;
                         GetPageCount_MF();
@@ -121,7 +142,11 @@ namespace WealthERP.Admin
                         DivEquity.Style.Add("display", "none");
                         DivPager.Style.Add("display", "visible");
                         Search = null;
-                        hdnSchemeSearch.Value = null;
+                        if (hdnSchemeSearch.Value != null && gvMFRecord.HeaderRow!=null)
+                        {
+                            ((TextBox)gvMFRecord.HeaderRow.FindControl("txtSchemeSearch")).Text = hdnSchemeSearch.Value.ToString();
+                        }
+                        //hdnSchemeSearch.Value = null;
                     }
                 }
 
@@ -137,8 +162,12 @@ namespace WealthERP.Admin
                 hdnToDate.Value = EndDate.ToString();
                 if (ddlAssetGroup.SelectedValue == Contants.Source.Equity.ToString())
                 {
-                    
-                    string Search = hdnCompanySearch.Value;
+
+                    string Search = "";
+                    if (gvEquityRecord.Rows.Count != 0)
+                        Search = hdnCompanySearch.Value;
+                    else
+                        hdnCompanySearch.Value = "";
                     hdnEquityCount.Value = PriceObj.GetEquityCount("C", StartDate, EndDate, Search, mypager.CurrentPage).ToString();
                     lblTotalRows.Text = hdnEquityCount.Value;
                     GetPageCount_Equity();
@@ -149,14 +178,22 @@ namespace WealthERP.Admin
                     DivMF.Style.Add("display", "none");
                     DivPager.Style.Add("display", "visible");
                     Search = null;
-                    hdnCompanySearch.Value = null;
+                    if (hdnCompanySearch.Value != null && gvEquityRecord.HeaderRow!=null)
+                    {
+                        ((TextBox)gvEquityRecord.HeaderRow.FindControl("txtCompanySearch")).Text = hdnCompanySearch.Value.ToString();
+                    }
+                    //hdnCompanySearch.Value = null;
 
                 }
                 else if (ddlAssetGroup.SelectedValue == Contants.Source.MF.ToString())
                 {
-                   
 
-                    string Search = hdnSchemeSearch.Value;
+
+                    string Search = "";
+                    if (gvMFRecord.Rows.Count > 0)
+                        Search = hdnSchemeSearch.Value;
+                    else
+                        hdnSchemeSearch.Value = "";
                     hdnMFCount.Value = PriceObj.GetAMFICount("C", StartDate, EndDate, Search, mypager.CurrentPage).ToString();
                     lblMFTotalRows.Text = hdnMFCount.Value;
                     ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, mypager.CurrentPage);
@@ -167,7 +204,11 @@ namespace WealthERP.Admin
                     DivMF.Style.Add("display", "visible");
                     DivEquity.Style.Add("display", "none");
                     Search = null;
-                    hdnSchemeSearch.Value = null;
+                    if (hdnSchemeSearch.Value != null && gvMFRecord.HeaderRow!=null)
+                    {
+                        ((TextBox)gvMFRecord.HeaderRow.FindControl("txtSchemeSearch")).Text = hdnSchemeSearch.Value.ToString();
+                    }
+                    //hdnSchemeSearch.Value = null;
                     
                 }
             }
@@ -239,11 +280,11 @@ namespace WealthERP.Admin
         {
             string upperlimit;
             int rowCount = Convert.ToInt32(hdnEquityCount.Value);
-            int ratio = rowCount / 10;
-            mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+            int ratio = rowCount / 20;
+            mypager.PageCount = rowCount % 20 == 0 ? ratio : ratio + 1;
             mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-            string lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
-            upperlimit = (mypager.CurrentPage * 10).ToString();
+            string lowerlimit = (((mypager.CurrentPage - 1) * 20)+1).ToString();
+            upperlimit = (mypager.CurrentPage * 20).ToString();
             if (mypager.CurrentPage == mypager.PageCount)
                 upperlimit = hdnEquityCount.Value;
             string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
@@ -257,11 +298,11 @@ namespace WealthERP.Admin
             int rowCount = 0;
             string upperlimit;
             rowCount = Convert.ToInt32(hdnMFCount.Value);
-            int ratio = rowCount / 10;
-            mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+            int ratio = rowCount / 20;
+            mypager.PageCount = rowCount % 20 == 0 ? ratio : ratio + 1;
             mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-            string lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
-            upperlimit = (mypager.CurrentPage * 10).ToString();
+            string lowerlimit = (((mypager.CurrentPage - 1) * 20)+1).ToString();
+            upperlimit = (mypager.CurrentPage * 20).ToString();
             if (mypager.CurrentPage == mypager.PageCount)
                 upperlimit = hdnMFCount.Value;
             string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);

@@ -28,7 +28,7 @@ namespace WealthERP.UserManagement
                     {
                         parentNode.ChildNodes.AddAt(0, tnSuperAdmin);
                     }  
-                    //Session["SuperAdmin_Status_Check"] = "1";
+                    
 
                 }
             }
@@ -37,34 +37,36 @@ namespace WealthERP.UserManagement
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorBMLeftpane');", true);
             }
-            //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
-            //{
-            //    SetNode();
-            //}
+            
         }
-
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
-            SetNode();
+            
         }
         public void SetNode()
         {
             if (TreeView1.SelectedNode.Value == "Advisor")
             {
-                //Session.Remove("customerVo");
-                //Session.Remove("rmVo");
+                
                 Session["refreshTheme"] = true;
                 Session["FromUserLogin"] = "false";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFAAdminMainDashboard','login');", true);
-                //Session["SuperAdmin_Status_Check"] = "2";
+                
             }
             else if (TreeView1.SelectedNode.Value == "Branch Manager")
             {
-                //Session.Remove("customerVo");
+               
                 Session["refreshTheme"] = true;
                 Session["FromUserLogin"] = "false";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('BMDashBoard','login');", true);
-                //Session["SuperAdmin_Status_Check"] = "4";
+                
             }
             else if (TreeView1.SelectedNode.Value == "SuperAdmin")
             {
@@ -75,7 +77,7 @@ namespace WealthERP.UserManagement
                 Session.Remove(SessionContents.LogoPath);      
                 Session["refreshTheme"] = true;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loginloadcontrol('IFF')", true);
-                //Session["SuperAdmin_Status_Check"] = "0";
+               
             }
         }
     }

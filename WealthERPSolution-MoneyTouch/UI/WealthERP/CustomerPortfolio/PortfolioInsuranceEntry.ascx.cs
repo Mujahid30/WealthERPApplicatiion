@@ -350,6 +350,7 @@ namespace WealthERP.CustomerPortfolio
                         txtEPSurrenderValue.Text = insuranceVo.SurrenderValue.ToString();
                         txtEPMaturityValue.Text = insuranceVo.MaturityValue.ToString();
                         txtEPRemarks.Text = insuranceVo.Remarks.ToString();
+                        CalcualteEPPremiumPeriod();
 
                     }
                     else if (customerAccountVo.AssetCategory.Trim() == "INMP")
@@ -394,7 +395,7 @@ namespace WealthERP.CustomerPortfolio
                                 txtBox2.Text = moneyBackEpisodeVo.CIMBE_RepaidPer.ToString();
                             }
                         }
-
+                        CalculateMPPremiumPeriod();
                     }
                     else if (customerAccountVo.AssetCategory.Trim() == "INTP")
                     {
@@ -407,6 +408,7 @@ namespace WealthERP.CustomerPortfolio
                         txtTPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
                         txtTPPremiumAccum.Text = insuranceVo.PremiumAccumalated.ToString();
                         txtWLPRemarks.Text = insuranceVo.Remarks.ToString();
+                        CalcualteTPPremiumPeriod();
                     }
                     else if (customerAccountVo.AssetCategory.Trim() == "INUP")
                     {
@@ -458,6 +460,7 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPMaturityValue.Text = insuranceVo.MaturityValue.ToString();
                         txtULIPCharges.Text = insuranceVo.ULIPCharges.ToString();
                         txtULIPRemarks.Text = insuranceVo.Remarks.ToString();
+                        
                     }
                     else if (customerAccountVo.AssetCategory.Trim() == "INWP")
                     {
@@ -473,6 +476,7 @@ namespace WealthERP.CustomerPortfolio
                         txtWPSurrenderValue.Text = insuranceVo.SurrenderValue.ToString();
                         txtWPMaturityValue.Text = insuranceVo.MaturityValue.ToString();
                         txtWLPRemarks.Text = insuranceVo.Remarks.ToString();
+                        CalcualteWLPPremiumPeriod();
                     }
 
                     // Enable/Disable Controls
@@ -1273,7 +1277,7 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.FirstPremiumDate = DateTime.Parse(txtULIPFirstPremiumDate.Text.ToString());
                             insuranceVo.LastPremiumDate = DateTime.Parse(txtULIPLastPremiumDate.Text.ToString());
                             insuranceVo.PremiumFrequencyCode = ddlULIPPremiumFrequencyCode.SelectedValue;
-
+                            insuranceVo.PremiumPaymentDate = short.Parse(txtULIPPrPayDate.Text.ToString());
                             insuranceVo.PremiumAccumalated = 0;
                             insuranceVo.BonusAccumalated = 0;
 
@@ -1561,7 +1565,7 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.PremiumDuration = 0;
                             insuranceVo.FirstPremiumDate = DateTime.Parse(txtULIPFirstPremiumDate.Text.ToString());
                             insuranceVo.LastPremiumDate = DateTime.Parse(txtULIPLastPremiumDate.Text.ToString());
-
+                            insuranceVo.PremiumPaymentDate = short.Parse(txtULIPPrPayDate.Text.ToString());
                             insuranceVo.PremiumAccumalated = 0;
                             insuranceVo.BonusAccumalated = 0;
 
@@ -1606,7 +1610,7 @@ namespace WealthERP.CustomerPortfolio
 
                                     for (int i = 0; i < count; i++)
                                     {
-                                        insuranceUlipVo = insuranceUlipList[i];
+                                        //insuranceUlipVo = insuranceUlipList[i];
                                         string allocationPer = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString();
                                         string units = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString())).Text.ToString();
                                         string purchasePrice = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString())).Text.ToString();
@@ -1614,19 +1618,19 @@ namespace WealthERP.CustomerPortfolio
 
                                         if (allocationPer == "")
                                         {
-                                            insuranceUlipVo.CIUP_AllocationPer = 0;
-                                            insuranceUlipVo.CIUP_PurchasePrice = 0;
-                                            insuranceUlipVo.CIUP_Unit = 0;
-                                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse("1/1/1900");
+                                            insuranceUlipList[i].CIUP_AllocationPer = 0;
+                                            insuranceUlipList[i].CIUP_PurchasePrice = 0;
+                                            insuranceUlipList[i].CIUP_Unit = 0;
+                                            insuranceUlipList[i].CIUP_PurchaseDate = DateTime.Parse("1/1/1900");
                                         }
                                         else
                                         {
-                                            insuranceUlipVo.CIUP_AllocationPer = float.Parse(allocationPer.ToString());
-                                            insuranceUlipVo.CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
-                                            insuranceUlipVo.CIUP_Unit = float.Parse(units.ToString());
-                                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
+                                            insuranceUlipList[i].CIUP_AllocationPer = float.Parse(allocationPer.ToString());
+                                            insuranceUlipList[i].CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
+                                            insuranceUlipList[i].CIUP_Unit = float.Parse(units.ToString());
+                                            insuranceUlipList[i].CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
                                         }
-                                        insuranceUlipList.Add(insuranceUlipVo);
+                                        //insuranceUlipList.Add(insuranceUlipVo);
                                     }
 
                                     if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
@@ -2270,54 +2274,87 @@ namespace WealthERP.CustomerPortfolio
 
         protected void txtLastPremiumDate_TextChanged(object sender, EventArgs e)
         {
-            DateTime dtFrom = DateTime.Parse(txtFirstPremiumDate.Text);
-            DateTime dtTo = DateTime.Parse(txtLastPremiumDate.Text);
-            DateBo dtBo = new DateBo();
-
-            float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-            txtEPPremiumDuration.Text = NoOfMonths.ToString("f2");
+            CalcualteEPPremiumPeriod();
         }
+        public void CalcualteEPPremiumPeriod()
+        {
+            if (txtFirstPremiumDate.Text != "" && txtLastPremiumDate.Text!="")
+            {
+                DateTime dtFrom = DateTime.Parse(txtFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtLastPremiumDate.Text);
+                DateBo dtBo = new DateBo();
 
+                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtEPPremiumDuration.Text = NoOfMonths.ToString("f2");
+            }
+        }
+            
         protected void txtWLPLastPremiumDate_TextChanged(object sender, EventArgs e)
         {
-            DateTime dtFrom = DateTime.Parse(txtWLPFirstPremiumDate.Text);
-            DateTime dtTo = DateTime.Parse(txtWLPLastPremiumDate.Text);
-            DateBo dtBo = new DateBo();
+            CalcualteWLPPremiumPeriod();
+        }
+        public void CalcualteWLPPremiumPeriod()
+        {
+            if (txtWLPFirstPremiumDate.Text != "" && txtWLPLastPremiumDate.Text != "")
+            {
+                DateTime dtFrom = DateTime.Parse(txtWLPFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtWLPLastPremiumDate.Text);
+                DateBo dtBo = new DateBo();
 
-            float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-            txtWLPPremiumDuration.Text = NoOfMonths.ToString("f2");
+                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtWLPPremiumDuration.Text = NoOfMonths.ToString("f0");
+            }
         }
 
         protected void txtMPLastPremiumDate_TextChanged(object sender, EventArgs e)
         {
-            DateTime dtFrom = DateTime.Parse(txtMPFirstPremiumDate.Text);
-            DateTime dtTo = DateTime.Parse(txtMPLastPremiumDate.Text);
-            DateBo dtBo = new DateBo();
-
-            float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-            txtMPPremiumDuration.Text = NoOfMonths.ToString("f2");
+            CalculateMPPremiumPeriod();
         }
-
-        protected void txtTPLastPremiumDate_TextChanged(object sender, EventArgs e)
+        public void CalculateMPPremiumPeriod()
         {
-            DateTime dtFrom = DateTime.Parse(txtTPFirstPremiumDate.Text);
-            DateTime dtTo = DateTime.Parse(txtTPLastPremiumDate.Text);
-            DateBo dtBo = new DateBo();
-
-            float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-            txtTPPremiumDuration.Text = NoOfMonths.ToString("f2");
-        }
-
-        protected void txtPolicyMaturity_TextChanged(object sender, EventArgs e)
-        {
-            if (customerAccountVo.AssetCategory.Trim() == "INMP")
+            if (txtMPFirstPremiumDate.Text != "" && txtMPLastPremiumDate.Text != "")
             {
-                DateTime dtFrom = DateTime.Parse(txtPolicyCommencementDate.Text);
-                DateTime dtTo = DateTime.Parse(txtPolicyMaturity.Text);
+                DateTime dtFrom = DateTime.Parse(txtMPFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtMPLastPremiumDate.Text);
                 DateBo dtBo = new DateBo();
 
                 float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                txtMPPolicyTerm.Text = NoOfMonths.ToString("f2");
+                txtMPPremiumDuration.Text = NoOfMonths.ToString("f2");
+            }
+        }
+        protected void txtTPLastPremiumDate_TextChanged(object sender, EventArgs e)
+        {
+            CalcualteTPPremiumPeriod();
+        }
+        public void CalcualteTPPremiumPeriod()
+        {
+            if (txtTPFirstPremiumDate.Text != "" && txtTPLastPremiumDate.Text != "")
+            {
+                DateTime dtFrom = DateTime.Parse(txtTPFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtTPLastPremiumDate.Text);
+                DateBo dtBo = new DateBo();
+
+                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtTPPremiumDuration.Text = NoOfMonths.ToString("f2");
+            }
+        }
+        protected void txtPolicyMaturity_TextChanged(object sender, EventArgs e)
+        {
+            CalculateMPPolicyTerm();
+        }
+        public void CalculateMPPolicyTerm()
+        {
+            if (txtPolicyCommencementDate.Text != "" && txtPolicyMaturity.Text != "")
+            {
+                if (customerAccountVo.AssetCategory.Trim() == "INMP")
+                {
+                    DateTime dtFrom = DateTime.Parse(txtPolicyCommencementDate.Text);
+                    DateTime dtTo = DateTime.Parse(txtPolicyMaturity.Text);
+                    DateBo dtBo = new DateBo();
+
+                    float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                    txtMPPolicyTerm.Text = NoOfMonths.ToString("f2");
+                }
             }
         }
     }

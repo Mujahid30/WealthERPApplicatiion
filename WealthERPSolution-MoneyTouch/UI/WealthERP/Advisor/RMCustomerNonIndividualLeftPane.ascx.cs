@@ -96,10 +96,16 @@ namespace WealthERP.Advisor
 
 
         }
-
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
-            SetNode();
+            //SetNode();
         }
         public void SetNode()
         {
