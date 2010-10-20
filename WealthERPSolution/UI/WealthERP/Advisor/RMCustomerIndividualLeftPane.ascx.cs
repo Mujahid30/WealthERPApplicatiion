@@ -230,6 +230,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerExpense','none');", true);
                 }
+                else if (TreeView1.SelectedNode.Value == "Advisor Notes")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAdvisorsNote','none');", true);
+                }                    
                 else if (TreeView1.SelectedNode.Value == "General Insurance")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','none');", true);

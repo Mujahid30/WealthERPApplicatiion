@@ -1065,4 +1065,8 @@
     <value>Advisor//AdvisorRMCustGroupDashboard.ascx</value>
     <comment>Advisor//AdvisorRMCustGroupDashboard.ascx</comment>
   </data>
+  <data name="CustomerAdvisorsNote" xml:space="preserve">
+    <value>Customer//CustomerAdvisorsNote.ascx</value>
+    <comment>Customer//CustomerAdvisorsNote.ascx</comment>
+  </data>
 </root>

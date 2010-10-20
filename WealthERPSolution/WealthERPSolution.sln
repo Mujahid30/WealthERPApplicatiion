@@ -147,9 +147,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_COMMON", "NAV\WERP_COM
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 67
+		SccNumberOfProjects = 66
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
+		SccTeamFoundationServer = http://122.166.49.39:8080/
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Bo\\AdvisorProfiling\\BoAdvisorProfiling.csproj
 		SccProjectTopLevelParentUniqueName1 = WealthERPSolution.sln
@@ -401,9 +401,6 @@ Global
 		SccProjectUniqueName65 = NAV\\WERP_COMMON\\WERP_COMMON.csproj
 		SccProjectName65 = NAV/WERP_COMMON
 		SccLocalPath65 = NAV\\WERP_COMMON
-		SccProjectUniqueName66 = NAV\\WERP_NAVAPP\\WERP_NAVAPP.csproj
-		SccProjectName66 = NAV/WERP_NAVAPP
-		SccLocalPath66 = NAV\\WERP_NAVAPP
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

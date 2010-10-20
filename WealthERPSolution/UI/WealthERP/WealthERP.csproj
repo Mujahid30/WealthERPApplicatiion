@@ -1738,6 +1738,13 @@
     <Compile Include="Customer\AddDematAccountDetails.ascx.designer.cs">
       <DependentUpon>AddDematAccountDetails.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Customer\CustomerAdvisorsNote.ascx.cs">
+      <DependentUpon>CustomerAdvisorsNote.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerAdvisorsNote.ascx.designer.cs">
+      <DependentUpon>CustomerAdvisorsNote.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Customer\CustomerAssociatesAdd.ascx.cs">
       <DependentUpon>CustomerAssociatesAdd.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2133,7 +2140,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\FinancialPlanningDS.Designer.cs" />
-    <Compile Include="Reports\FPDataSet.Designer.cs" />
+    <Compile Include="Reports\FPDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FPDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\FPReports.ascx.cs">
       <DependentUpon>FPReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2705,6 +2716,7 @@
     <Content Include="CustomerPortfolio\RMMultipleTransactionView.ascx" />
     <Content Include="CustomerPortfolio\ViewGeneralInsuranceDetails.ascx" />
     <Content Include="Customer\AddDematAccountDetails.ascx" />
+    <Content Include="Customer\CustomerAdvisorsNote.ascx" />
     <Content Include="Customer\CustomerExpense.ascx" />
     <Content Include="Customer\CustomerIncome.ascx" />
     <Content Include="Customer\DematAccountDetails.ascx" />
@@ -2732,6 +2744,7 @@
     <Content Include="Images\info_image.png" />
     <Content Include="Images\loader.gif" />
     <Content Include="Images\Loading.gif" />
+    <Content Include="Images\MailSend-loader.gif" />
     <Content Include="Images\MenuSeparator.jpg" />
     <Content Include="Images\Portfolios.jpg" />
     <Content Include="Images\Print.gif" />
@@ -3234,9 +3247,9 @@
       <DependentUpon>FinancialPlanningDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\FinancialPlanningDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FinancialPlanningDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <None Include="Reports\FinancialPlanningDS.xss">
       <DependentUpon>FinancialPlanningDS.xsd</DependentUpon>
@@ -3245,9 +3258,9 @@
       <DependentUpon>FPDataSet.xsd</DependentUpon>
     </None>
     <None Include="Reports\FPDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>FPDataSet1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FPDataSet.Designer.cs</LastGenOutput>
     </None>
     <None Include="Reports\FPDataSet.xss">
       <DependentUpon>FPDataSet.xsd</DependentUpon>

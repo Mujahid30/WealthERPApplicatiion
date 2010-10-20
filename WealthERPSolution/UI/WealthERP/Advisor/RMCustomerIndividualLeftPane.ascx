@@ -93,7 +93,7 @@
                                 <%--<asp:TreeNode Text="Portfolio Details" Value="Portfolio Details"></asp:TreeNode>--%>
                                 <asp:TreeNode Text="Income Details" Value="Income Details"></asp:TreeNode>
                                 <asp:TreeNode Text="Expense Details" Value="Expense Details"></asp:TreeNode>
-                                
+                                <asp:TreeNode Text="Advisor Notes" Value="Advisor Notes"></asp:TreeNode>
                             </asp:TreeNode>
                             <asp:TreeNode Text="Insurance" Value="Insurance">
                                 <asp:TreeNode Text="Life Insurance" Value="Life Insurance">
