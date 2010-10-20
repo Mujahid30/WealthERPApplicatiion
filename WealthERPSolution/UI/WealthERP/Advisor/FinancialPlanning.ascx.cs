@@ -466,6 +466,8 @@ namespace WealthERP.Advisor
                     DataSet dsRiskClass = riskprofilebo.GetRiskClass(riskCode);
                     lblRClass.Text = dsRiskClass.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
 
+                    trRiskProfilingParagraph.Visible = true;
+                    trCustomerAssetText.Visible = true;
                     if (lblRClass.Text == "Aggressive")
                     {
 
@@ -528,7 +530,8 @@ namespace WealthERP.Advisor
 
                     LoadAssetAllocation(riskCode);
                     AddToAssetAllocation();
-                    
+                    //trRiskProfilingParagraph.Visible = true;
+                    //trCustomerAssetText.Visible = true;
                 }
             }
             catch (Exception ex)

@@ -181,7 +181,7 @@
                             </tr>
                             <tr id="trRiskProfilingParagraph" runat="server">
                                
-                                  <td width="100%" colspan="2">                    
+                                  <td width="100%" colspan="6">                    
                                                                 
                                     <asp:Label ID="lblRiskProfilingParagraph" runat="server" CssClass="GridViewCmbField" style="white-space:inherit" Text="">
                                     </asp:Label>
