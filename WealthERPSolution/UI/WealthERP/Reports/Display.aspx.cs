@@ -281,7 +281,7 @@ namespace WealthERP.Reports
                                 //AssignReportViewerProperties();
                                 crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
                                 crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
-                                crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString());
+                                crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                             }
                             else if (dsEquitySectorwise.Tables[0].Rows.Count > 0 || dsEquitySectorwise.Tables[2].Rows.Count > 0)
                             {
@@ -290,6 +290,9 @@ namespace WealthERP.Reports
                                 crmain.Database.Tables["FamilyDetails"].SetDataSource(dsEquitySectorwise.Tables[2]);
                                 crmain.Database.Tables["CurrentAsset"].SetDataSource(DScurrentAsset.Tables[0]);
 
+                                crmain.Subreports["Customer"].Database.Tables["Customer"].SetDataSource(dsEquitySectorwise.Tables[3]);
+                                crmain.Subreports["Spouse"].Database.Tables["Spouse"].SetDataSource(dsEquitySectorwise.Tables[4]);
+                                crmain.Subreports["Children"].Database.Tables["Child"].SetDataSource(dsEquitySectorwise.Tables[5]);
                                 //crmain.Subreports["Customer"].Database.Tables["Customer"].SetDataSource(dsEquitySectorwise.Tables[3]);
                                 //crmain.Subreports["Customer"].Database.Tables["Spouse"].SetDataSource(dsEquitySectorwise.Tables[4]);
                                 //crmain.Subreports["Customer"].Database.Tables["Child"].SetDataSource(dsEquitySectorwise.Tables[5]);
@@ -302,7 +305,7 @@ namespace WealthERP.Reports
                                 //AssignReportViewerProperties();
                                 crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
                                 crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
-                                crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString());
+                                crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                             }
                             else
                                 SetNoRecords();
