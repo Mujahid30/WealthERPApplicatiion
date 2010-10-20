@@ -125,9 +125,9 @@ namespace WealthERP.Reports
             if (advisorVo.State != null && !string.IsNullOrEmpty(customerVo.Adr1State))
                 fullState = CommonReport.GetState(path, customerVo.Adr1State);
 
-            lblAddress1.Text = customerVo.Adr1Line1 + " " + customerVo.Adr1Line3;
-            lblAddress2.Text = customerVo.Adr1City;
-            lblAddress3.Text = fullState + " " + customerVo.Adr2PinCode;
+            lblAddress1.Text = customerVo.Adr1Line1 + " " + customerVo.Adr1Line2 + " " + customerVo.Adr1Line3;
+            lblAddress2.Text = customerVo.Adr1City + " " + customerVo.Adr2PinCode;
+            lblAddress3.Text = fullState;
             txtPanParent.Text = dr["C_PANNum"].ToString();
             trCustomerDetails1.Visible = true;
             trCustomerDetails2.Visible = true;
