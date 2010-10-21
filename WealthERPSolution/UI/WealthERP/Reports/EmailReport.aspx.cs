@@ -147,8 +147,11 @@ namespace WealthERP.Reports
                         {
                             CustomerId = int.Parse(arrStr);
                             //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
-                            if (Request.Form[ctrlPrefix + "rbnGroup"] == "on")
+                            if (Request.Form[ctrlPrefix + "EmailGrpOrInd"] == "rbnGroup")
+                            {
+                                GroupCustomer = true;
                                 GroupCustometId = int.Parse(arrStr);
+                            }
                             else
                                 GroupCustomer = false;
 
@@ -828,13 +831,8 @@ namespace WealthERP.Reports
 
                     foreach (DataRow dr in dt.Rows)
                     {
-
-
-
                         AllFolioIds = AllFolioIds + GetAllPortfolioOfCustomer(Convert.ToInt32(dr["C_AssociateCustomerId"]));
-
-
-
+                        
                     }
                 }
                 AllFolioIds = AllFolioIds.Substring(0, AllFolioIds.Length - 1);
@@ -1440,5 +1438,113 @@ namespace WealthERP.Reports
         {
             System.Threading.Thread.Sleep(5000);
         }
+
+      /*  private string GetAllPortfolioIdsOfGroupCustomer(int customerId)
+        {
+             CustomerBo customerBo = new CustomerBo();
+             string allPortFolioIds;
+             StringBuilder strAllPortfolioIds = new StringBuilder();
+            if (!string.IsNullOrEmpty(customerId.ToString()))
+            {
+                CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
+                DataTable dt = customerFamilyBo.GetAllCustomerAssociates(customerId));
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                   
+                    //strCustomers.Append("<table border='0'>");
+
+                    //strCustomers.Append("<tr><td colspan='3'><b>All Customers Under Group Head :</b></td></tr>");
+                    ////strCustomers.Append("<tr><td>Customer Name</td><td>Customer Id</td><td>&nbsp;</td></tr>");
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        //strCustomers.Append("<tr>");
+                        //strCustomers.Append("<td>" + dr["CustomerName"].ToString() + "</td>");
+                        //strCustomers.Append("<td>" + dr["C_AssociateCustomerId"].ToString() + "</td>");
+                        //strCustomers.Append("<td>" + ShowGroupFolios(Convert.ToInt32(dr["C_AssociateCustomerId"])) + "</td>");
+                        //strCustomers.Append("</tr>");
+                        strAllPortfolioIds.Append(GetAllPortfolioOfCustomer(Convert.ToInt32(dr["C_AssociateCustomerId"].ToString())));
+                        strAllPortfolioIds.Append(",");
+                    }
+                   
+                }
+                
+                //DataRow dr = dt.Rows[0];
+
+                //txtPanParent.Text = dr["C_PANNum"].ToString();
+                //trCustomerDetails.Visible = true;
+                //trPortfolioDetails.Visible = true;
+                //ShowFolios();
+            }
+            allPortFolioIds=Convert.ToString(strAllPortfolioIds);
+             if (allPortFolioIds.EndsWith(","))
+                allPortFolioIds = allPortFolioIds.Substring(0, allPortFolioIds.Length - 1);
+            return allPortFolioIds;
+           
+        }
+
+        private string GetAllPortfolioOfACustomer(int customerId)
+        {
+            string portfolioIDs = "";
+            PortfolioBo portfolioBo = new PortfolioBo();
+            if (!String.IsNullOrEmpty(customerId.ToString())) 
+            {
+                //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
+                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
+                {
+
+                    foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
+                    {
+
+                        portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
+                        portfolioIDs = portfolioIDs + ",";
+
+
+                    //    if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "ALL")
+                    //    {
+                    //        portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
+                    //        portfolioIDs = portfolioIDs + ",";
+
+                    //    }
+                    //    else if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "MANAGED")
+                    //    {
+                    //        if (custPortfolio.PortfolioName == "MyPortfolio")
+                    //        {
+                    //            portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
+                    //            portfolioIDs = portfolioIDs + ",";
+                    //        }
+                    //    }
+                    //    else if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "UN_MANAGED")
+                    //    {
+                    //        if (custPortfolio.PortfolioName != "MyPortfolio")
+                    //        {
+                    //            portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
+                    //            portfolioIDs = portfolioIDs + ",";
+                    //        }
+
+                    //    }
+                    //    //checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
+                    //    //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
+                    }
+
+                }
+
+            }
+
+            if (portfolioIDs.EndsWith(","))
+                portfolioIDs = portfolioIDs.Substring(0, portfolioIDs.Length - 1);
+            return portfolioIDs;
+
+
+        }
+
+
+        */
+
+
+
+
+
     }
 }
