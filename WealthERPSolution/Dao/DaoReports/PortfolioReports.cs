@@ -37,7 +37,7 @@ namespace DaoReports
                 db.AddInParameter(cmd, "@StartDate", DbType.DateTime, DateBo.GetPreviousMonthLastDate(report.ToDate));
                 db.AddInParameter(cmd, "@EndDate", DbType.DateTime, report.ToDate);
                 db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
-                
+                cmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(cmd);
                 DataSet dsLiablities = GetLiabilities(report.PortfolioIds); //Get liability details (Customerwise)
                 if (dsLiablities != null && dsLiablities.Tables[0].Rows.Count > 0 ) //Add liabilities data table to Portfolio dataset
@@ -100,6 +100,8 @@ namespace DaoReports
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetLiabilities = db.GetStoredProcCommand("SP_RPT_GetLiabilities");
                 db.AddInParameter(cmdGetLiabilities, "@PortfolioIds", DbType.String, customerIds);
+                cmdGetLiabilities.CommandTimeout = 60 * 60;
+                
                 dsGetLiabilities = db.ExecuteDataSet(cmdGetLiabilities);
 
             }

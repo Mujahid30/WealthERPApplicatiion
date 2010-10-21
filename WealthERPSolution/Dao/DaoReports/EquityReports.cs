@@ -40,7 +40,7 @@ namespace DaoReports
                 db.AddInParameter(getCustomerNPListCmd, "@Todate", DbType.DateTime, reports.ToDate);
                 db.AddInParameter(getCustomerNPListCmd, "@AdviserId", DbType.Int32, adviserId);
 
-
+                getCustomerNPListCmd.CommandTimeout = 60 * 60;
                 dsEquitySectorwise = db.ExecuteDataSet(getCustomerNPListCmd);
 
 
@@ -243,7 +243,7 @@ namespace DaoReports
                 db.AddInParameter(getEquityTransactionsCmd, "@PortfolioIds", DbType.String, reports.PortfolioIds);
                 db.AddInParameter(getEquityTransactionsCmd, "@FromDate", DbType.DateTime, reports.FromDate);
                 db.AddInParameter(getEquityTransactionsCmd, "@Todate", DbType.DateTime, reports.ToDate);
-
+                getEquityTransactionsCmd.CommandTimeout = 60 * 60;
                 dsGetEquityTransactions = db.ExecuteDataSet(getEquityTransactionsCmd);
                 if (dsGetEquityTransactions.Tables.Count > 0 && dsGetEquityTransactions.Tables[0].Rows.Count > 0)
                 {

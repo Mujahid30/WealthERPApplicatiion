@@ -37,7 +37,7 @@ namespace DaoReports
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SP_RPT_GetFinancialPlanningReport");
                 db.AddInParameter(cmd, "@CustomerId", DbType.String, report.CustomerId);
-
+                cmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(cmd);
                 dtCustomerDetails.Columns.Add("Name", typeof(string));
                 dtCustomerDetails.Columns.Add("Dob", typeof(string));
