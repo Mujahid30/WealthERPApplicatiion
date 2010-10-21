@@ -88,6 +88,22 @@ namespace WealthERP.Customer
                 {
                     chkdummypan.Checked = false;
                 }
+                if (customerVo.ViaSMS == 1)
+                {
+                    chksmsn.Checked = true;
+                }
+                else
+                {
+                    chksmsn.Checked = false;
+                }
+                if (customerVo.AlertViaEmail == 1)
+                {
+                    chkmailn.Checked = true;
+                }
+                else
+                {
+                    chkmailn.Checked = false;
+                }
 
                 lblCustomerCode.Text = customerVo.CustCode.ToString();
                 customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);

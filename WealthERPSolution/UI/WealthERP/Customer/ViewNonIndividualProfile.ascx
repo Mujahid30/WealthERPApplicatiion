@@ -143,15 +143,23 @@ function showassocation() {
               &nbsp;
             &nbsp;
             &nbsp;
-            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="is Dummy PAN"
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Is Dummy PAN"
                 AutoPostBack="true"  Enabled = "false"/>
         </td>
     </tr>
-    <tr>
-        <td colspan="3">
-            &nbsp;&nbsp;
-        </td>
-    </tr>
+     <tr>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="Label27" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                 <asp:Checkbox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail"
+                AutoPostBack="true"  Enabled = "false"/>
+                &nbsp;
+            &nbsp;
+                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS"
+                AutoPostBack="true"  Enabled = "false"/>
+                            </td>
+                        </tr>
 </table>
 <div class="tabber" style="width: 100%">
     <div class="tabbertab" style="width: 100%">
