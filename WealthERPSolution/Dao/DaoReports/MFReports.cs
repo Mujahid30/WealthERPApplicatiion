@@ -38,7 +38,7 @@ namespace DaoReports
                 db.AddInParameter(getCustomerNPListCmd, "@StartDate", DbType.DateTime, DateBo.GetPreviousMonthLastDate(report.FromDate));
                 db.AddInParameter(getCustomerNPListCmd, "@EndDate", DbType.DateTime,report.ToDate);
                 db.AddInParameter(getCustomerNPListCmd, "@AdviserId", DbType.Int32, adviserId);
-
+                getCustomerNPListCmd.CommandTimeout = 60 * 60;
                 dsMFCategorySummary = db.ExecuteDataSet(getCustomerNPListCmd);
 
             }
@@ -69,7 +69,7 @@ namespace DaoReports
                 db.AddInParameter(getCustomerNPListCmd, "@StartDate", DbType.DateTime, DateBo.GetPreviousMonthLastDate(report.FromDate));
                 db.AddInParameter(getCustomerNPListCmd, "@EndDate", DbType.DateTime, report.ToDate);
                 db.AddInParameter(getCustomerNPListCmd, "@AdviserId", DbType.Int32, adviserId);
-
+                getCustomerNPListCmd.CommandTimeout = 60 * 60;
                 dsMFCategorySummary = db.ExecuteDataSet(getCustomerNPListCmd);
 
             }
@@ -114,7 +114,7 @@ namespace DaoReports
                 //db.AddInParameter(getCustomerNPListCmd, "@A_AdviserId", DbType.Int32, 1049);
                 //db.AddInParameter(getCustomerNPListCmd, "@ValuationDate", DbType.DateTime, "2009-10-08");
 
-
+                getCustomerNPListCmd.CommandTimeout = 60 * 60;
                 getCustomerNPDs = db.ExecuteDataSet(getCustomerNPListCmd);
                 ds = getCustomerNPDs;
 
@@ -153,7 +153,7 @@ namespace DaoReports
                 //db.AddInParameter(getCustomerNPListCmd, "@A_AdviserId", DbType.Int32, 1049);
                 //db.AddInParameter(getCustomerNPListCmd, "@ValuationDate", DbType.DateTime, "2009-10-08");
 
-
+                getCustomerNPListCmd.CommandTimeout = 60 * 60;
                 getCustomerNPDs = db.ExecuteDataSet(getCustomerNPListCmd);
                 ds = getCustomerNPDs;
 
@@ -183,7 +183,7 @@ namespace DaoReports
                 db.AddInParameter(cmdCustomerMFReturns, "@FromDate", DbType.DateTime, reports.FromDate);
                 //db.AddInParameter(cmdCustomerMFReturns, "@AdviserId", DbType.Int32, adviserId);
 
-
+                cmdCustomerMFReturns.CommandTimeout = 60 * 60;
                 dsCustomerMFReturns = db.ExecuteDataSet(cmdCustomerMFReturns);
                 //ds = dsCustomerMFReturns;
                 return dsCustomerMFReturns.Tables[0];
@@ -216,7 +216,7 @@ namespace DaoReports
                 db.AddInParameter(cmdCustomerMFReturns, "@FromDate", DbType.DateTime, reports.FromDate);
                 //db.AddInParameter(cmdCustomerMFReturns, "@AdviserId", DbType.Int32, adviserId);
 
-
+                cmdCustomerMFReturns.CommandTimeout = 60 * 60;
                 dsCustomerMFReturns = db.ExecuteDataSet(cmdCustomerMFReturns);
                 //ds = dsCustomerMFReturns;
                 return dsCustomerMFReturns;
@@ -249,7 +249,7 @@ namespace DaoReports
                 db.AddInParameter(cmdCustomerMFReturns, "@FromDate", DbType.DateTime, reports.FromDate);
                 //db.AddInParameter(cmdCustomerMFReturns, "@AdviserId", DbType.Int32, adviserId);
 
-
+                cmdCustomerMFReturns.CommandTimeout = 60 * 60;
                 dsCustomerMFReturns = db.ExecuteDataSet(cmdCustomerMFReturns);
                 //ds = dsCustomerMFReturns;
                 return dsCustomerMFReturns.Tables[0];
