@@ -26,15 +26,16 @@
 <td class="leftField">
 </td>
 <td class="rightField">
-<asp:CheckBox ID="chkDeactiveCustomer" CssClass="FieldName" runat="server" />
-<asp:Label ID="lblDeactiveCustomer" CssClass="FieldName" runat="server" Text="Deactivate Customer"></asp:Label>
+ <asp:Checkbox ID="chkdeactivatecustomer" runat="server" CssClass="txtField" Text="Deactivate Customer"
+                AutoPostBack="true"  />
 </td>
 </tr>
 <tr>
 <td class="leftField">
 </td>
 <td class="rightField">
-<asp:Button ID="btnSubmit" Text="Submit" CssClass="PCGButton" runat="server" />
+ <asp:Button ID="btnEdit" runat="server" Text="Submit" CssClass="PCGButton" 
+                OnClick="btnEdit_Click" />
 </td>
 </tr>
 </table>
