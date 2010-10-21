@@ -1,9 +1,20 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerAdvisorsNote.ascx.cs" Inherits="WealthERP.Customer.CustomerAdvisorsNote" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<table width="100%">
+<table class="TableBackground" style="width: 100%">
+<tr>
+<td class="HeaderCell" colspan="2">
+            <asp:Label ID="Label61" runat="server" CssClass="HeaderTextBig" Text="Advisor Note"></asp:Label>
+            <hr />
+ </td>
+</tr>
+<tr>
+<td colspan="2">
+
+</td>
+</tr>
 <tr>
 <td class="leftField">
-<asp:Label ID="lblClassification" Text="Customer Classissification" CssClass="FieldName" runat="server">
+<asp:Label ID="lblClassification" Text="Customer Classissification: " CssClass="FieldName" runat="server">
 </asp:Label>
 </td>
 <td class="rightField">
@@ -12,8 +23,8 @@
 </td>
 </tr>
 <tr>
-<td class="leftField">
-<asp:Label ID="lblComments" Text="Enter your comments" CssClass="FieldName" runat="server">
+<td class="leftField" style="vertical-align:top;">
+<asp:Label ID="lblComments" Text="Enter your comments: " CssClass="FieldName" runat="server">
 </asp:Label>
 </td>
 
@@ -27,7 +38,7 @@
 </td>
 <td class="rightField">
  <asp:Checkbox ID="chkdeactivatecustomer" runat="server" CssClass="txtField" Text="Deactivate Customer"
-                AutoPostBack="true"  />
+                AutoPostBack="false"  />
 </td>
 </tr>
 <tr>
