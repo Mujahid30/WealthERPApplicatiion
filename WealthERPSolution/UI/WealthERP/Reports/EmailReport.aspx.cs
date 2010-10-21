@@ -154,7 +154,7 @@ namespace WealthERP.Reports
 
                             customerVo = customerBo.GetCustomer(CustomerId);
 
-                            if (!string.IsNullOrEmpty(customerVo.Email))
+                            if (!string.IsNullOrEmpty(customerVo.Email.Trim()))
                             {
                                 clearAllReportString();
                                 ExportTODisk();
