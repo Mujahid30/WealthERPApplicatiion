@@ -872,5 +872,40 @@ namespace BoAdvisorProfiling
             id = Guid.NewGuid();
             return id.ToString();
         }
+        /// <summary>
+        /// Get all Classification List of the advisor
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetAdviserClassification(int adviserId)
+        {
+            AdvisorDao advisorDao = new AdvisorDao();
+            DataSet dsAdviserClassification;
+
+            try
+            {
+                dsAdviserClassification = advisorDao.GetAdviserClassification(adviserId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetAdviserClassification(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserClassification;
+
+        }
     }
 }
