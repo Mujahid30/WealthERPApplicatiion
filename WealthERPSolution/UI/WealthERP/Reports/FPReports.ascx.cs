@@ -122,7 +122,7 @@ namespace WealthERP.Reports
             DataRow dr = dt.Rows[0];
             string path = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["xmllookuppath"].ToString());
 
-            if (advisorVo.State != null && !string.IsNullOrEmpty(customerVo.Adr1State))
+            if (!string.IsNullOrEmpty(customerVo.Adr1State))
                 fullState = CommonReport.GetState(path, customerVo.Adr1State);
 
             lblAddress1.Text = customerVo.Adr1Line1 + " " + customerVo.Adr1Line2 + " " + customerVo.Adr1Line3;
