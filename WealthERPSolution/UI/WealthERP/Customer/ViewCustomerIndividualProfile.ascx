@@ -145,7 +145,7 @@
             &nbsp;
             &nbsp;
             &nbsp;
-            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="is Dummy PAN"
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Is Dummy PAN"
                 AutoPostBack="true"  Enabled = "false"/>
         </td>
     </tr>
@@ -522,6 +522,7 @@
                             <td class="rightField" width="25%">
                                 <asp:Label ID="lblMotherMaiden" runat="server" Text="Label" CssClass="Field"></asp:Label>
                             </td>
+                            
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
@@ -535,6 +536,19 @@
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:Label ID="lblRBIRefDate" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="Label3" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                 <asp:Checkbox ID="chkmail" runat="server" CssClass="txtField" Text="Via Mail"
+                AutoPostBack="true"  Enabled = "false"/>
+                &nbsp;
+            &nbsp;
+                 <asp:Checkbox ID="chksms" runat="server" CssClass="txtField" Text="Via SMS"
+                AutoPostBack="true"  Enabled = "false"/>
                             </td>
                         </tr>
                         

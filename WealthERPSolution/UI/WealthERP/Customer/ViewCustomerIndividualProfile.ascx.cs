@@ -158,6 +158,22 @@ namespace WealthERP.Customer
                 {
                     chkdummypan.Checked = false;
                 }
+                if (customerVo.ViaSMS == 1)
+                {
+                    chksms.Checked = true;
+                }
+                else
+                {
+                    chksms.Checked = false;
+                }
+                if (customerVo.AlertViaEmail == 1)
+                {
+                    chkmail.Checked = true;
+                }
+                else
+                {
+                    chkmail.Checked = false;
+                }
 
                 if (customerVo.Occupation != null)
                     lblOccupation.Text = XMLBo.GetOccupationName(path, customerVo.Occupation.ToString());
