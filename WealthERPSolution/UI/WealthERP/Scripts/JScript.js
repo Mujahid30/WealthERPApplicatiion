@@ -824,8 +824,8 @@ function loadtopmenu(menutype) {
     else if (menutype == "CustomerNonIndividualLeftPane") {
         //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "none";
-        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "block";
+        parent.document.getElementById("CustomerIndividualHeader").style.display = "block";
+        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
         parent.document.getElementById("RMHeader").style.display = "none";
         parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
         parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";

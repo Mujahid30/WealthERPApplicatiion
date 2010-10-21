@@ -445,7 +445,14 @@ namespace WealthERP.Advisor
                             else if (dr["AssetType"].ToString() == "Liabilities")
                                 drNetHoldings[12] = double.Parse(dr["CurrentValue"].ToString());
                             if (i == dsGrpAssetNetHoldings.Tables[0].Rows.Count)
+                            {
+                                drNetHoldings[11] = double.Parse(drNetHoldings[1].ToString()) + double.Parse(drNetHoldings[2].ToString()) +
+                                    double.Parse(drNetHoldings[3].ToString()) + double.Parse(drNetHoldings[4].ToString()) + double.Parse(drNetHoldings[5].ToString()) +
+                                    double.Parse(drNetHoldings[6].ToString()) + double.Parse(drNetHoldings[7].ToString()) + double.Parse(drNetHoldings[8].ToString()) +
+                                    double.Parse(drNetHoldings[9].ToString()) + double.Parse(drNetHoldings[10].ToString());
+                                drNetHoldings[13] = double.Parse(drNetHoldings[11].ToString()) - double.Parse(drNetHoldings[12].ToString());
                                 dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);
+                            }
                         }
                         else
                         {
@@ -472,7 +479,14 @@ namespace WealthERP.Advisor
                             else if (dr["AssetType"].ToString() == "Liabilities")
                                 drNetHoldings[12] = double.Parse(dr["CurrentValue"].ToString());
                             if (i == dsGrpAssetNetHoldings.Tables[0].Rows.Count)
+                            {
+                                drNetHoldings[11] = double.Parse(drNetHoldings[1].ToString()) + double.Parse(drNetHoldings[2].ToString()) +
+                                    double.Parse(drNetHoldings[3].ToString()) + double.Parse(drNetHoldings[4].ToString()) + double.Parse(drNetHoldings[5].ToString()) +
+                                    double.Parse(drNetHoldings[6].ToString()) + double.Parse(drNetHoldings[7].ToString()) + double.Parse(drNetHoldings[8].ToString()) +
+                                    double.Parse(drNetHoldings[9].ToString()) + double.Parse(drNetHoldings[10].ToString());
+                                drNetHoldings[13] = double.Parse(drNetHoldings[11].ToString()) - double.Parse(drNetHoldings[12].ToString());
                                 dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);
+                            }
                         }
                     }
 

@@ -97,7 +97,7 @@
                <asp:ListItem Text="Jointly" Value="JO" ></asp:ListItem>
                 <asp:ListItem Text="Other" Value="OT" ></asp:ListItem>
                 <asp:ListItem Text="Severaly" Value="SE" ></asp:ListItem>
-                <asp:ListItem Text="Singly" Value="SI" ></asp:ListItem>
+                <asp:ListItem Text="Singly" Value="SI" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Self Only" Value="SO" ></asp:ListItem>
                 <asp:ListItem Text="To be categorized" Value="TBC" ></asp:ListItem>
             </asp:DropDownList>

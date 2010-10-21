@@ -704,10 +704,10 @@ namespace WealthERP.CustomerPortfolio
             {
                 drMFPortfolio[13] = "0.00";
             }
-            if (mfPortfolioVo.CostOfSales+mfPortfolioVo.CostOfPurchase != 0)
+            if (mfPortfolioVo.CostOfSales+mfPortfolioVo.AcqCostExclDivReinvst != 0)
             {
-                
-                absolutereturn=(double.Parse(((mfPortfolioVo.TotalPNL/(mfPortfolioVo.CostOfSales+mfPortfolioVo.CostOfPurchase))*100).ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+
+                absolutereturn = (double.Parse(((mfPortfolioVo.TotalPNL / (mfPortfolioVo.CostOfSales + mfPortfolioVo.AcqCostExclDivReinvst)) * 100).ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 drMFPortfolio[14] = absolutereturn;
             }
             else
@@ -938,9 +938,9 @@ namespace WealthERP.CustomerPortfolio
             //======================================================================================================
             //This is for Absolute Returns
             //======================================================================================================
-            if (mfPortfolioVo.CostOfPurchase!=0)
+            if (mfPortfolioVo.AcqCostExclDivReinvst!=0)
             {
-                drMFPortfolioNotional[15] = (double.Parse((((mfPortfolioVo.UnRealizedPNL + mfPortfolioVo.DividendIncome) / mfPortfolioVo.CostOfPurchase) * 100).ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioNotional[15] = (double.Parse((((mfPortfolioVo.UnRealizedPNL + mfPortfolioVo.DividendIncome) / mfPortfolioVo.AcqCostExclDivReinvst) * 100).ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
             }
             else
             {
