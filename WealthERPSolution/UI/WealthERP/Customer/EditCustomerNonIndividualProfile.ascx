@@ -176,21 +176,25 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField"></asp:TextBox>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="is Dummy PAN"
+            
+           
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Is Dummy PAN"
                 AutoPostBack="true" />
         </td>
     </tr>
-    <tr>
-        <td colspan="3">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-    </tr>
+     <tr>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="Label6" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                 <asp:Checkbox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail"
+                AutoPostBack="false"  Enabled = "true"/>
+                &nbsp;
+            
+                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS"
+                AutoPostBack="false"  Enabled = "true"/>
+                            </td>
+                        </tr>
 </table>
 <div class="tabber">
     <div class="tabbertab">

@@ -96,6 +96,22 @@ namespace WealthERP.Customer
                     {
                         chkdummypan.Checked = false;
                     }
+                    if (customerVo.ViaSMS == 1)
+                    {
+                        chksmsn.Checked = true;
+                    }
+                    else
+                    {
+                        chksmsn.Checked = false;
+                    }
+                    if (customerVo.AlertViaEmail == 1)
+                    {
+                        chkmailn.Checked = true;
+                    }
+                    else
+                    {
+                        chkmailn.Checked = false;
+                    }
 
                     ddlCorrAdrCountry.SelectedItem.Value = customerVo.Adr1Country.ToString();
                     txtPermAdrLine1.Text = customerVo.Adr2Line1.ToString();
@@ -253,6 +269,22 @@ namespace WealthERP.Customer
                 else
                 {
                     customerVo.DummyPAN = 0;
+                }
+                if (chkmailn.Checked)
+                {
+                    customerVo.AlertViaEmail = 1;
+                }
+                else
+                {
+                    customerVo.AlertViaEmail = 0;
+                }
+                if (chksmsn.Checked)
+                {
+                    customerVo.ViaSMS = 1;
+                }
+                else
+                {
+                    customerVo.ViaSMS = 0;
                 }
                 if (txtPermAdrPinCode.Text != "")
                 {
