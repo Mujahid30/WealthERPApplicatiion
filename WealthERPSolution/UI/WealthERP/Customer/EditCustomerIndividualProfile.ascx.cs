@@ -123,6 +123,22 @@ namespace WealthERP.Customer
                     {
                         chkdummypan.Checked = false;
                     }
+                    if (customerVo.ViaSMS == 1)
+                    {
+                        chksms.Checked = true;
+                    }
+                    else
+                    {
+                        chksms.Checked = false;
+                    }
+                    if (customerVo.AlertViaEmail == 1)
+                    {
+                        chkmail.Checked = true;
+                    }
+                    else
+                    {
+                        chkmail.Checked = false;
+                    }
                     txtGuardianFirstName.Text = customerVo.ContactFirstName;
                     txtGuardianLastName.Text = customerVo.ContactLastName;
                     txtGuardianMiddleName.Text = customerVo.ContactMiddleName;
@@ -483,6 +499,22 @@ namespace WealthERP.Customer
                     else
                     {
                         customerVo.DummyPAN = 0;
+                    }
+                    if (chkmail.Checked)
+                    {
+                        customerVo.AlertViaEmail = 1;
+                    }
+                    else
+                    {
+                        customerVo.AlertViaEmail = 0;
+                    }
+                    if (chksms.Checked)
+                    {
+                        customerVo.ViaSMS = 1;
+                    }
+                    else
+                    {
+                        customerVo.ViaSMS = 0;
                     }
 
 

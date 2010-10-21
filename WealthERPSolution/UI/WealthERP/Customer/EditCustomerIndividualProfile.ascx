@@ -181,7 +181,7 @@
              &nbsp;
             &nbsp;
             &nbsp;
-            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="is Dummy PAN"
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Is Dummy PAN"
                 AutoPostBack="true" />
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
@@ -657,7 +657,19 @@
                     </cc1:TextBoxWatermarkExtender>
                 </td>
             </tr>
-            
+            <tr>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="Label9" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                 <asp:Checkbox ID="chkmail" runat="server" CssClass="txtField" Text="Via Mail"
+                AutoPostBack="false"  Enabled = "true"/>
+                &nbsp;
+            &nbsp;
+                 <asp:Checkbox ID="chksms" runat="server" CssClass="txtField" Text="Via SMS"
+                AutoPostBack="false"  Enabled = "true"/>
+                            </td>
+                        </tr>
         </table>
     </div>
 </div>
