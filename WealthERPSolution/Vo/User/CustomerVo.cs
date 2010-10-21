@@ -95,6 +95,8 @@ namespace VoUser
         private string m_advnote;
         private int m_custclassid;
         private int m_isact;
+        private int m_sms;
+        private int m_mail;
 
 
         public long RMMobile
@@ -106,6 +108,17 @@ namespace VoUser
         {
             get { return m_custclassid; }
             set { m_custclassid = value; }
+        }
+        public int ViaSMS
+        {
+            get { return m_sms; }
+            set { m_sms = value; }
+        }
+
+        public int AlertViaEmail
+        {
+            get { return m_mail; }
+            set { m_mail = value; }
         }
         public int IsActive
         {
