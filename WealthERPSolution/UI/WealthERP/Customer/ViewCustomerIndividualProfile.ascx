@@ -551,9 +551,9 @@
             <%--<asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
                 BorderStyle="None" BackColor="Transparent" />--%>
                 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" Text=""
-                BorderStyle="None" Visible="true" />
+                BorderStyle="None" Visible="false" />
                 <asp:Button ID="hdnassociationf" runat="server" OnClick="hiddenassociationfound_Click" Text=""
-                BorderStyle="None" BackColor="Transparent" />
+                BorderStyle="None" BackColor="Transparent" Visible="false" />
             <asp:HiddenField ID="hdnMsgValue" runat="server" />
              <asp:HiddenField ID="hdnassociation" runat="server" />
             <asp:HiddenField ID="hdnassociationcount" runat="server" />
