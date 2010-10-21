@@ -1441,6 +1441,47 @@ namespace DaoAdvisorProfiling
 
             return bResult;
         }
+        /// <summary>
+        /// Get all Classification List of the advisor
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetAdviserClassification(int adviserId)
+        {
+            Database db;
+            DbCommand GetAdviserClassificationCmd;
+            DataSet dsAdviserClassification;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserClassificationCmd = db.GetStoredProcCommand("SP_GetAllClassification");
+                db.AddInParameter(GetAdviserClassificationCmd, "@AdvisorId", DbType.Int32, adviserId);
+
+                dsAdviserClassification = db.ExecuteDataSet(GetAdviserClassificationCmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserClassification(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserClassification;
+
+        }
 
     }
 }
