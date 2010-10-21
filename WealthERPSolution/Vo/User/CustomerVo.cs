@@ -92,12 +92,30 @@ namespace VoUser
         private string m_RMOfficePhone;
         private long m_RMMobile;
         private int m_dummypan;
+        private string m_advnote;
+        private int m_custclassid;
+        private int m_isact;
 
 
         public long RMMobile
         {
             get { return m_RMMobile; }
             set { m_RMMobile = value; }
+        }
+        public int CustomerClassificationID
+        {
+            get { return m_custclassid; }
+            set { m_custclassid = value; }
+        }
+        public int IsActive
+        {
+            get { return m_isact; }
+            set { m_isact = value; }
+        }
+        public string AdviseNote
+        {
+            get { return m_advnote; }
+            set { m_advnote = value; }
         }
         public string RMOfficePhone
         {
