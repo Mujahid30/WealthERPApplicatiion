@@ -233,6 +233,26 @@ namespace DaoCustomerProfiling
                     {
                         customerVo.DummyPAN = 0;
                     }
+                    if (dr["C_IsActive"] != null && dr["C_IsActive"] != "")
+                    {
+                        customerVo.IsActive = 0;
+                        
+                    }
+                    else
+                    {
+                        customerVo.IsActive = int.Parse(dr["C_IsActive"].ToString());
+                    }
+                    customerVo.AdviseNote = dr["C_Comments"].ToString();
+                    if (dr["ACC_CustomerClassificationId"] != null && dr["ACC_CustomerClassificationId"] != "")
+                    {
+                        customerVo.CustomerClassificationID = 0;
+                        
+                    }
+                    else
+                    {
+                        customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerClassificationId"].ToString());
+                    }
+
                     customerVo.LastName = dr["C_LastName"].ToString();
                     customerVo.Gender = dr["C_Gender"].ToString();
                     customerVo.BranchName = dr["AB_BranchName"].ToString();
@@ -860,6 +880,9 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_RegistrationNum", DbType.String, customerVo.RegistrationNum);
                 db.AddInParameter(editCustomerCmd, "@C_CompanyWebsite", DbType.String, customerVo.CompanyWebsite);
                 db.AddInParameter(editCustomerCmd, "@C_MothersMaidenName", DbType.String, customerVo.MothersMaidenName);
+                db.AddInParameter(editCustomerCmd, "@C_AdvNote", DbType.String, customerVo.AdviseNote);
+                db.AddInParameter(editCustomerCmd, "@C_IsAct", DbType.Int32, customerVo.IsActive);
+                db.AddInParameter(editCustomerCmd, "@C_ClassCode", DbType.Int32, customerVo.CustomerClassificationID);
 
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;
