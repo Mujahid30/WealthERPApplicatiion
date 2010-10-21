@@ -192,7 +192,7 @@ namespace DaoCustomerProfiling
         /// <param name="customerId"></param>
         /// <returns></returns>
         public CustomerVo GetCustomer(int customerId)
-        {
+       {
             CustomerVo customerVo = null;
             Database db;
             DbCommand getCustomerCmd;
@@ -235,22 +235,46 @@ namespace DaoCustomerProfiling
                     }
                     if (dr["C_IsActive"] != null && dr["C_IsActive"] != "")
                     {
-                        customerVo.IsActive = 0;
+                        
+                        customerVo.IsActive = int.Parse(dr["C_IsActive"].ToString());
                         
                     }
                     else
                     {
-                        customerVo.IsActive = int.Parse(dr["C_IsActive"].ToString());
+                        customerVo.IsActive = 0;
+                    }
+                    if (dr["C_AlertViaSMS"] != null )
+                    {
+                        
+                        
+                        customerVo.ViaSMS = int.Parse(dr["C_AlertViaSMS"].ToString());
+
+                    }
+                    else
+                    {
+                        customerVo.ViaSMS = 0;
+                    }
+                    if (dr["C_AlertViaEmail"] != null)
+                    {
+                        
+                        customerVo.AlertViaEmail = int.Parse(dr["C_AlertViaEmail"].ToString());
+                        
+                    }
+                    else
+                    {
+                        customerVo.AlertViaEmail = 0;
+
                     }
                     customerVo.AdviseNote = dr["C_Comments"].ToString();
                     if (dr["ACC_CustomerClassificationId"] != null && dr["ACC_CustomerClassificationId"] != "")
                     {
-                        customerVo.CustomerClassificationID = 0;
+                        
+                        customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerClassificationId"].ToString());
                         
                     }
                     else
                     {
-                        customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerClassificationId"].ToString());
+                        customerVo.CustomerClassificationID = 0;
                     }
 
                     customerVo.LastName = dr["C_LastName"].ToString();
@@ -757,6 +781,8 @@ namespace DaoCustomerProfiling
               
                
                 db.AddInParameter(editCustomerCmd, "@C_DummyPAN", DbType.String, customerVo.DummyPAN);
+                db.AddInParameter(editCustomerCmd, "@C_mail", DbType.String, customerVo.AlertViaEmail);
+                db.AddInParameter(editCustomerCmd, "@C_sms", DbType.String, customerVo.ViaSMS);
                
                 db.AddInParameter(editCustomerCmd, "@C_Salutation", DbType.String, customerVo.Salutation);
                 db.AddInParameter(editCustomerCmd, "@C_PANNum", DbType.String, customerVo.PANNum);
