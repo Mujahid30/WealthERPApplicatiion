@@ -287,8 +287,8 @@ namespace WealthERP.Advisor
                         drLifeInsurance[0] = dr["CustomerName"].ToString();
                         drLifeInsurance[1] = dr["Policy"].ToString();
                         drLifeInsurance[2] = dr["InsuranceType"].ToString();
-                        drLifeInsurance[3] = dr["SumAssured"].ToString();
-                        drLifeInsurance[4] = dr["PremiumAmount"].ToString();
+                        drLifeInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drLifeInsurance[4] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
                         drLifeInsurance[5] = dr["PremiumFrequency"].ToString();
                         drLifeInsurance[6] = dr["CustomerId"].ToString();
 
@@ -319,8 +319,8 @@ namespace WealthERP.Advisor
                             drGeneralInsurance[0] = dr["CustomerName"].ToString();
                             drGeneralInsurance[1] = dr["PolicyIssuer"].ToString();
                             drGeneralInsurance[2] = dr["InsuranceType"].ToString();
-                            drGeneralInsurance[3] = dr["SumAssured"].ToString();
-                            drGeneralInsurance[4] = dr["PremiumAmount"].ToString();
+                            drGeneralInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                            drGeneralInsurance[4] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drGeneralInsurance[5] = dr["CustomerId"].ToString();
 
                             dtGenInsDetails.Rows.Add(drGeneralInsurance);
@@ -411,11 +411,11 @@ namespace WealthERP.Advisor
                         {
                             if (tempCustId != 0)
                             {
-                                drNetHoldings[11] = double.Parse(drNetHoldings[1].ToString()) + double.Parse(drNetHoldings[2].ToString()) +
+                                drNetHoldings[11] = String.Format("{0:n2}",(double.Parse(drNetHoldings[1].ToString()) + double.Parse(drNetHoldings[2].ToString()) +
                                     double.Parse(drNetHoldings[3].ToString()) + double.Parse(drNetHoldings[4].ToString()) + double.Parse(drNetHoldings[5].ToString()) +
                                     double.Parse(drNetHoldings[6].ToString()) + double.Parse(drNetHoldings[7].ToString()) + double.Parse(drNetHoldings[8].ToString()) +
-                                    double.Parse(drNetHoldings[9].ToString()) + double.Parse(drNetHoldings[10].ToString());
-                                drNetHoldings[13] = double.Parse(drNetHoldings[11].ToString()) - double.Parse(drNetHoldings[12].ToString());
+                                    double.Parse(drNetHoldings[9].ToString()) + double.Parse(drNetHoldings[10].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                drNetHoldings[13] = String.Format("{0:n2}", (double.Parse(drNetHoldings[11].ToString()) - double.Parse(drNetHoldings[12].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
                                 dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);
                             }
                             tempCustId = int.Parse(dr["CustomerId"].ToString());
@@ -423,27 +423,27 @@ namespace WealthERP.Advisor
                             drNetHoldings[0] = dr["CustomerName"].ToString();
                             drNetHoldings[14] = dr["CustomerId"].ToString();
                             if (dr["AssetType"].ToString() == "Equity")
-                                drNetHoldings[1] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[1] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Mutual Fund")
-                                drNetHoldings[2] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[2] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Fixed Income")
-                                drNetHoldings[3] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[3] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Government Savings")
-                                drNetHoldings[4] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[4] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Property")
-                                drNetHoldings[5] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[5] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Pension and Gratuities")
-                                drNetHoldings[6] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[6] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Personal Assets")
-                                drNetHoldings[7] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[7] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Gold Assets")
-                                drNetHoldings[8] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[8] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Collectibles")
-                                drNetHoldings[9] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[9] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Cash and Savings")
-                                drNetHoldings[10] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[10] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Liabilities")
-                                drNetHoldings[12] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[12] = String.Format("{0:n2}", double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             if (i == dsGrpAssetNetHoldings.Tables[0].Rows.Count)
                             {
                                 drNetHoldings[11] = double.Parse(drNetHoldings[1].ToString()) + double.Parse(drNetHoldings[2].ToString()) +
@@ -457,27 +457,27 @@ namespace WealthERP.Advisor
                         else
                         {
                             if (dr["AssetType"].ToString() == "Equity")
-                                drNetHoldings[1] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[1] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Mutual Fund")
-                                drNetHoldings[2] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[2] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Fixed Income")
-                                drNetHoldings[3] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[3] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Government Savings")
-                                drNetHoldings[4] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[4] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Property")
-                                drNetHoldings[5] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[5] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Pension and Gratuities")
-                                drNetHoldings[6] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[6] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Personal Assets")
-                                drNetHoldings[7] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[7] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Gold Assets")
-                                drNetHoldings[8] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[8] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Collectibles")
-                                drNetHoldings[9] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[9] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Cash and Savings")
-                                drNetHoldings[10] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[10] = String.Format("{0:n2}",double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else if (dr["AssetType"].ToString() == "Liabilities")
-                                drNetHoldings[12] = double.Parse(dr["CurrentValue"].ToString());
+                                drNetHoldings[12] = String.Format("{0:n2}", double.Parse(dr["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             if (i == dsGrpAssetNetHoldings.Tables[0].Rows.Count)
                             {
                                 drNetHoldings[11] = double.Parse(drNetHoldings[1].ToString()) + double.Parse(drNetHoldings[2].ToString()) +
@@ -494,19 +494,19 @@ namespace WealthERP.Advisor
                     drNetHoldings[0] = "Total :";
                     foreach (DataRow dr in dtGrpAssetNetHoldings.Rows)
                     {
-                        drNetHoldings[1] = double.Parse(drNetHoldings[1].ToString()) + double.Parse(dr[1].ToString());
-                        drNetHoldings[2] = double.Parse(drNetHoldings[2].ToString()) + double.Parse(dr[2].ToString());
-                        drNetHoldings[3] = double.Parse(drNetHoldings[3].ToString()) + double.Parse(dr[3].ToString());
-                        drNetHoldings[4] = double.Parse(drNetHoldings[4].ToString()) + double.Parse(dr[4].ToString());
-                        drNetHoldings[5] = double.Parse(drNetHoldings[5].ToString()) + double.Parse(dr[5].ToString());
-                        drNetHoldings[6] = double.Parse(drNetHoldings[6].ToString()) + double.Parse(dr[6].ToString());
-                        drNetHoldings[7] = double.Parse(drNetHoldings[7].ToString()) + double.Parse(dr[7].ToString());
-                        drNetHoldings[8] = double.Parse(drNetHoldings[8].ToString()) + double.Parse(dr[8].ToString());
-                        drNetHoldings[9] = double.Parse(drNetHoldings[9].ToString()) + double.Parse(dr[9].ToString());
-                        drNetHoldings[10] = double.Parse(drNetHoldings[10].ToString()) + double.Parse(dr[10].ToString());
-                        drNetHoldings[11] = double.Parse(drNetHoldings[11].ToString()) + double.Parse(dr[11].ToString());
-                        drNetHoldings[12] = double.Parse(drNetHoldings[12].ToString()) + double.Parse(dr[12].ToString());
-                        drNetHoldings[13] = double.Parse(drNetHoldings[13].ToString()) + double.Parse(dr[13].ToString());
+                        drNetHoldings[1] = String.Format("{0:n2}", (double.Parse(drNetHoldings[1].ToString()) + double.Parse(dr[1].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[2] = String.Format("{0:n2}", (double.Parse(drNetHoldings[2].ToString()) + double.Parse(dr[2].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[3] = String.Format("{0:n2}", (double.Parse(drNetHoldings[3].ToString()) + double.Parse(dr[3].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[4] = String.Format("{0:n2}", (double.Parse(drNetHoldings[4].ToString()) + double.Parse(dr[4].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[5] = String.Format("{0:n2}", (double.Parse(drNetHoldings[5].ToString()) + double.Parse(dr[5].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[6] = String.Format("{0:n2}", (double.Parse(drNetHoldings[6].ToString()) + double.Parse(dr[6].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[7] = String.Format("{0:n2}", (double.Parse(drNetHoldings[7].ToString()) + double.Parse(dr[7].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[8] = String.Format("{0:n2}", (double.Parse(drNetHoldings[8].ToString()) + double.Parse(dr[8].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[9] = String.Format("{0:n2}", (double.Parse(drNetHoldings[9].ToString()) + double.Parse(dr[9].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[10] = String.Format("{0:n2}", (double.Parse(drNetHoldings[10].ToString()) + double.Parse(dr[10].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[11] = String.Format("{0:n2}", (double.Parse(drNetHoldings[11].ToString()) + double.Parse(dr[11].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[12] = String.Format("{0:n2}", (double.Parse(drNetHoldings[12].ToString()) + double.Parse(dr[12].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drNetHoldings[13] = String.Format("{0:n2}", (double.Parse(drNetHoldings[13].ToString()) + double.Parse(dr[13].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     }
                     drNetHoldings[14] = "0";
 
