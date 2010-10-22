@@ -64,8 +64,8 @@ namespace WealthERP.UserManagement
             }
             else if (TreeView1.SelectedNode.Value == "Branch Manager")
             {
+                Session[SessionContents.CurrentUserRole] = "BM";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('BMDashBoard','login');", true);
-
             }
         }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
