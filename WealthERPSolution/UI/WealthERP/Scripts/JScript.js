@@ -52,7 +52,7 @@ function loadcontrol(controlid, logintrue) {
         loadlinks("AdvisorLeftPane");
 
     }
-    else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "none") {    
+    else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "none") {
         loadlinks("AdvisorRMBMLeftpane");
     }
 
@@ -60,9 +60,9 @@ function loadcontrol(controlid, logintrue) {
         loadlinks("AdvisorBMLeftpane");
     }
 
-    else if (controlid == "PortfolioDashboard") {
-        loadlinks("PortfolioLeftPane");
-    }
+    //    else if (controlid == "PortfolioDashboard") {
+    //        loadlinks("PortfolioLeftPane");
+    //    }
 
     else if (controlid == "AdvisorRMDashBoard") {
         loadlinks("AdvisorRMLeftpane");
@@ -100,8 +100,8 @@ function loadcontrol(controlid, logintrue) {
     else if (controlid == "AdviserRMCustNonIndiDashboard") {
         loadlinks("RMCustomerNonIndividualLeftPane");
     }
-    else if (controlid == "RMAlertNotifications" && logintrue == "none") {
-        loadlinks("AlertsLeftPane")
+    else if (controlid == "RMAlertNotifications") {
+        loadlinks("RMCustomerIndividualLeftPane")
     }
 
     else if (controlid == "AdminUpload") {
@@ -146,7 +146,6 @@ function loadsearchcontrol(controlid, searchtype, searchstring) {
 
     }
     var url = c_src + controlid;
-
 
     setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
     //parent.document.getElementById("mainframe").src = url;
@@ -463,7 +462,7 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
 }
 
 function logoutloadcontrol(controlid, logoPath, branchLogoPath) {
-    
+
 
     if (controlid != null)
         PageMethods.AjaxSetSession("Current_PageID", controlid);
@@ -877,20 +876,20 @@ function loadtopmenu(menutype) {
         //parent.document.getElementById("SuperAdminHeader").style.display = "none";
 
     }
-//    else if (menutype == "SuperAdminLeftPane") {
-//        //parent.document.getElementById("GeneralMenu").style.display = "none";
-//        parent.document.getElementById("AdvisorHeader").style.display = "none";
-//        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-//        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-//        parent.document.getElementById("RMHeader").style.display = "none";
-//        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-//        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-//        parent.document.getElementById("BMHeader").style.display = "none";
-//        parent.document.getElementById("AdminHeader").style.display = "none";
-//        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-//        //parent.document.getElementById("SuperAdminHeader").style.display = "block";
+    //    else if (menutype == "SuperAdminLeftPane") {
+    //        //parent.document.getElementById("GeneralMenu").style.display = "none";
+    //        parent.document.getElementById("AdvisorHeader").style.display = "none";
+    //        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+    //        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+    //        parent.document.getElementById("RMHeader").style.display = "none";
+    //        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+    //        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+    //        parent.document.getElementById("BMHeader").style.display = "none";
+    //        parent.document.getElementById("AdminHeader").style.display = "none";
+    //        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+    //        //parent.document.getElementById("SuperAdminHeader").style.display = "block";
 
-//    }
+    //    }
 }
 /*Loads Controls only it wont load any Left Link*/
 function loadcontrolonly(controlid, logintrue) {
