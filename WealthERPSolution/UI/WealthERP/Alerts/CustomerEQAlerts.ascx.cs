@@ -125,6 +125,7 @@ namespace WealthERP.Alerts
                 else
                 {
                     lblMessage.Visible = true;
+                    lblDisclaimer.Visible = false;
                 }
 
             }
