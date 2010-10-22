@@ -67,6 +67,8 @@
     }
 
     function HideColumn(columnNo) {
+        var lblDisclaimer = document.getElementById("<%=lblDisclaimer.ClientID %>");
+        lblDisclaimer.style.display = 'none';
         var dgTest = document.getElementById("<%=gvCustomerSMSAlerts.ClientID %>");
         try {
             for (var i = 0; i < dgTest.rows.length; i++) {
@@ -79,6 +81,8 @@
     }
 
     function ShowColumn(columnNo) {
+        var lblDisclaimer = document.getElementById("<%=lblDisclaimer.ClientID %>");
+        lblDisclaimer.style.display = 'block';
         var dgTest = document.getElementById("<%=gvCustomerSMSAlerts.ClientID %>");
         try {
             for (var i = 0; i < dgTest.rows.length; i++) {
@@ -141,7 +145,7 @@
     </tr>
     <tr>
         <td>
-            <asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="400px" Width="100%" ScrollBars="Vertical"
+            <asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="500px" Width="100%" ScrollBars="Vertical"
                 Visible="false" HorizontalAlign="Left">
                 <asp:GridView ID="gvCustomerSMSAlerts" DataKeyNames="CustomerId,AlertId" runat="server"
                     AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" Width="100%"
@@ -164,7 +168,16 @@
                                     runat="server" Text="Delete" />
                             </FooterTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="CustomerName" HeaderText="Customer" ReadOnly="true" />
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblCustNameHeader" runat="server" Text="Customer"></asp:Label>
+                                <br />
+                                <asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomerSMSAlerts_btnNameSearch');" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblCustomer" runat="server" Text='<%# Eval("CustomerName").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="Name" HeaderText="Details" ReadOnly="true" />
                         <asp:BoundField DataField="AlertMessage" HeaderText="Alert Message" ReadOnly="true" />
                         <asp:BoundField DataField="TimesSMSSent" HeaderText="No of Times SMS Sent" ReadOnly="true" />
@@ -193,6 +206,14 @@
                         </tr>
                     </table>
                 </div>
+                <table>
+                    <tr>
+                        <td align="left">
+                            <asp:Label ID="lblDisclaimer" runat="server" CssClass="FieldName" Text="Note: Change of phone number would reflect in the corresponding Customer Profile"
+                                Style="display: none" ForeColor="Red"></asp:Label>
+                        </td>
+                    </tr>
+                </table>
             </asp:Panel>
         </td>
     </tr>
@@ -208,3 +229,6 @@
 <asp:HiddenField ID="hdnCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="RMName ASC" />
+<asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />
+<asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
+    BorderStyle="None" BackColor="Transparent" />

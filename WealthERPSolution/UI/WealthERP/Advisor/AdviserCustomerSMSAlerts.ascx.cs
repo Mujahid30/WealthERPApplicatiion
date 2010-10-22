@@ -20,6 +20,7 @@ namespace WealthERP.Advisor
     {
         DataSet dsAdviserCustomerAlerts;
         AlertsBo alertsBo = new AlertsBo();
+        AdvisorVo advisorVo = new AdvisorVo();
         //DataSet dsTest = new DataSet();
         protected override void OnInit(EventArgs e)
         {
@@ -127,6 +128,7 @@ namespace WealthERP.Advisor
             }
             setAdviserSMSLicenseInfo();
             SuccessMessage.Visible = false;
+            advisorVo = (AdvisorVo)Session["AdvisorVo"];
         }
         public void GetAdviserCustomerAlerts(out DataSet dsAdviserCustomerAlerts)
         {
@@ -161,7 +163,7 @@ namespace WealthERP.Advisor
             }
             AlertsBo alertsBo = new AlertsBo();
 
-            dsAdviserCustomerAlerts = alertsBo.GetAdviserCustomerSMSAlerts(id, usertype, mypager.CurrentPage, out Count);
+            dsAdviserCustomerAlerts = alertsBo.GetAdviserCustomerSMSAlerts(id, usertype, mypager.CurrentPage,hdnNameFilter.Value.Trim(), out Count);
             ViewState["vsDsAdviserCustomerAlert"] = dsAdviserCustomerAlerts;
             lblTotalRows.Text = hdnCount.Value = Count.ToString();
             if (dsAdviserCustomerAlerts.Tables[0].Rows.Count > 0)
@@ -256,11 +258,21 @@ namespace WealthERP.Advisor
                 divNoRecords.Visible = false;
                 btnSend.Visible = true;
                 this.GetPageCount();
+
+                TextBox txtName = GetCustNameTextBox();
+                if (txtName != null)
+                {
+                    if (hdnNameFilter.Value != "")
+                    {
+                        txtName.Text = hdnNameFilter.Value.ToString();
+                    }
+                }
             }
             else
             {
                 //lblNoRecords.Visible = true;
                 divNoRecords.Visible = true;
+                lblDisclaimer.Visible = false;
                 gvCustomerSMSAlerts.Visible = false;
                 pnlCustomerSMSAlerts.Visible = false;
                 btnSend.Visible = false;
@@ -347,6 +359,7 @@ namespace WealthERP.Advisor
             AlertsBo alertsBo = new AlertsBo();
             string mobileNo;
             int adviserId = 0;
+            
             dsAdviserCustomerAlerts = (DataSet)ViewState["vsDsAdviserCustomerAlert"];
             if (Session["advisorVo"] != null)
                 adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
@@ -373,7 +386,10 @@ namespace WealthERP.Advisor
                                         smsVo.Mobile = Int64.Parse(mobileNo);
                                 }
                             }
-                            smsVo.Message = gvRow.Cells[3].Text.ToString();
+
+                            smsVo.Message = CreateSMSMessage(dsAdviserCustomerAlerts.Tables[0].Rows[i]["CustomerName"].ToString(), dsAdviserCustomerAlerts.Tables[0].Rows[i]["Name"].ToString(),
+                                                             dsAdviserCustomerAlerts.Tables[0].Rows[i]["AEL_EventCode"].ToString(), dsAdviserCustomerAlerts.Tables[0].Rows[i]["AEN_EventMessage"].ToString(),
+                                                             advisorVo.OrganizationName);
                             smsVo.CustomerId = int.Parse(gvCustomerSMSAlerts.DataKeys[gvRow.RowIndex].Values["CustomerId"].ToString());
                             smsVo.IsSent = 0;
                             if (dsAdviserCustomerAlerts.Tables[0].Rows[i]["AlertId"].ToString() != null)
@@ -444,6 +460,64 @@ namespace WealthERP.Advisor
                 }
             }
             GetAdviserCustomerAlerts(out dsAdviserCustomerAlerts);
+        }
+
+        protected void btnNameSearch_Click(object sender, EventArgs e)
+        {
+            TextBox txtName = GetCustNameTextBox();
+
+            if (txtName != null)
+            {
+                hdnNameFilter.Value = txtName.Text.Trim();
+                //if (Session["Customer"].ToString() == "Customer")
+                //{
+                this.GetAdviserCustomerAlerts(out dsAdviserCustomerAlerts);
+                //}
+                //else
+                //{
+                //    this.BindCustomer(mypager.CurrentPage);
+                //}
+            }
+        }
+
+        //returns the text in the customer name filter textbox in the grid
+        private TextBox GetCustNameTextBox()
+        {
+            TextBox txt = new TextBox();
+            if (gvCustomerSMSAlerts.HeaderRow != null)
+            {
+                if ((TextBox)gvCustomerSMSAlerts.HeaderRow.FindControl("txtCustNameSearch") != null)
+                {
+                    txt = (TextBox)gvCustomerSMSAlerts.HeaderRow.FindControl("txtCustNameSearch");
+                }
+            }
+            else
+                txt = null;
+
+            return txt;
+        }
+
+        private string CreateSMSMessage(string customerName,string schemeName, string eventCode, string message, string adviserName)
+        {
+            string smsMessage = null;
+            string identifierType = null;
+            if (eventCode == "SIP" || eventCode == "SWP" || eventCode == "MF Dividend" || eventCode == "ELSS Maturity" || eventCode == "MF Absolute Stop Loss" || eventCode == "MF Absolute Profit booking")
+                identifierType = "Scheme Name : ";
+            else if (eventCode == "Insurance Premium payment")
+                identifierType = "Insurance Plan : ";
+            else if (eventCode == "FD/Recurring Deposit" || eventCode == "Bank FD Maturity")
+                identifierType = "Account : ";
+            else if (eventCode == "Equity Absolute stop Loss" || eventCode == "Equity Absolute Profit booking")
+                identifierType = "Scrip Name : ";
+            else
+                identifierType = "";
+            
+            smsMessage = identifierType + schemeName + "\n" + "Message :" + message + "\n" + adviserName;
+
+            smsMessage = smsMessage.Replace("%", "%25");
+            smsMessage= smsMessage.Replace("\n", "%0A");
+
+            return smsMessage;
         }
 
     }
