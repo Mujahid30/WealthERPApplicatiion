@@ -1586,14 +1586,23 @@ namespace BoAlerts
             return bResult;
         }
         #endregion
-
-        public DataSet GetAdviserCustomerSMSAlerts(int id,string usertype, int currentpage,  out int count)
+        
+        /// <summary>
+        /// Modified the function to add a name filter in the Alert notifications gridview.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="usertype"></param>
+        /// <param name="currentpage"></param>
+        /// <param name="nameFilter"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public DataSet GetAdviserCustomerSMSAlerts(int id, string usertype, int currentpage, string nameFilter, out int count)
         {
             DataSet dsAdviserCustomerSMSAlerts;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                dsAdviserCustomerSMSAlerts = alertsDao.GetAdviserCustomerSMSAlerts(id, usertype, currentpage, out count);
+                dsAdviserCustomerSMSAlerts = alertsDao.GetAdviserCustomerSMSAlerts(id, usertype, currentpage,nameFilter, out count);
             }
             catch (BaseApplicationException Ex)
             {
