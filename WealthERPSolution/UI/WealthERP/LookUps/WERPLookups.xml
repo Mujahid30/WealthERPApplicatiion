@@ -333,6 +333,7 @@
     <ModeOfHolding ModeOfHoldingCode="ES" ModeOfHolding="Either or Survivor" Deleted="False" />
     <ModeOfHolding ModeOfHoldingCode="FS" ModeOfHolding="Former or Survivor" Deleted="False" />
     <ModeOfHolding ModeOfHoldingCode="TBC" ModeOfHolding="To Be Categorized" Deleted="False" />
+    <ModeOfHolding ModeOfHoldingCode="MTG" ModeOfHolding="Minor Through Guardian" Deleted="False" />
   </ModeOfHoldings>
 
   <CustomerNationality>
