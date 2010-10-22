@@ -171,13 +171,13 @@
             <ajaxToolKit:TextBoxWatermarkExtender TargetControlID="txtAccountOpeningDate" WatermarkText="dd/mm/yyyy"
                 runat="server" ID="wmtxtAccountOpeningDate">
             </ajaxToolKit:TextBoxWatermarkExtender>
-            <span id="Span7" class="spnRequiredField">*</span>
+            <%--<span id="Span7" class="spnRequiredField">*</span>--%>
         </td>
         <td>
             
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
+            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
                 ControlToValidate="txtAccountOpeningDate" 
-                ErrorMessage="Account Opening Date Required" CssClass="cvPCG"></asp:RequiredFieldValidator>
+                ErrorMessage="Account Opening Date Required" CssClass="cvPCG"></asp:RequiredFieldValidator>--%>
             
         </td>
     </tr>
@@ -204,10 +204,10 @@
         </td>
         <td>
             <asp:TextBox ID="txtBeneficiaryAcctNbr" runat="server" CssClass="txtField"></asp:TextBox>
-            <span id="Span4" class="spnRequiredField">*  </td>
+            <%--<span id="Span4" class="spnRequiredField">*  </td>--%>
         <td>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Beneficiary Account Number Required"
-                ControlToValidate="txtBeneficiaryAcctNbr" CssClass="cvPCG"></asp:RequiredFieldValidator>
+            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Beneficiary Account Number Required"
+                ControlToValidate="txtBeneficiaryAcctNbr" CssClass="cvPCG"></asp:RequiredFieldValidator>--%>
         </td>
     </tr>
     <tr>
