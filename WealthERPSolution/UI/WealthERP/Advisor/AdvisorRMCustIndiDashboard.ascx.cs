@@ -539,8 +539,8 @@ namespace WealthERP.Advisor
 
                         drLifeInsurance[0] = dr["Policy"].ToString();
                         drLifeInsurance[1] = dr["InsuranceType"].ToString();
-                        drLifeInsurance[2] = dr["SumAssured"].ToString();
-                        drLifeInsurance[3] = dr["PremiumAmount"].ToString();
+                        drLifeInsurance[2] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drLifeInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
                         drLifeInsurance[4] = dr["PremiumFrequency"].ToString();
 
                         dtLifeInsDetails.Rows.Add(drLifeInsurance);
@@ -568,8 +568,8 @@ namespace WealthERP.Advisor
 
                         drGeneralInsurance[0] = dr["PolicyIssuer"].ToString();
                         drGeneralInsurance[1] = dr["InsuranceType"].ToString();
-                        drGeneralInsurance[2] = dr["SumAssured"].ToString();
-                        drGeneralInsurance[3] = dr["PremiumAmount"].ToString();
+                        drGeneralInsurance[2] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drGeneralInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
 
                         dtGenInsDetails.Rows.Add(drGeneralInsurance);
                     }
