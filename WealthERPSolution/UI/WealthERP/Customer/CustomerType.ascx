@@ -115,6 +115,8 @@
                 <asp:ListItem>Mr.</asp:ListItem>
                 <asp:ListItem>Mrs.</asp:ListItem>
                 <asp:ListItem>Ms.</asp:ListItem>
+                <asp:ListItem>M/S.</asp:ListItem>
+                
             </asp:DropDownList>
             <span id="Span3" class="spnRequiredField">*</span>
                <br />
@@ -157,7 +159,7 @@
             &nbsp;
           
              <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="is Dummy PAN"
-                AutoPostBack="true"  />
+                AutoPostBack="false"  />
             
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
