@@ -68,12 +68,12 @@
                     HorizontalAlign="Center" ShowFooter="True" EnableViewState="true">
                     <%-- OnRowEditing="gvDateAlerts_RowEditing" OnRowCommand="gvDateAlerts_RowCommand" OnRowUpdating="gvDateAlerts_RowUpdating" OnRowCancelingEdit="gvDateAlerts_RowCancelingEdit"
                     OnRowDataBound="gvDateAlerts_RowDataBound" --%>
-                    <FooterStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle Font-Size="Small" CssClass="RowStyle" HorizontalAlign="Center" />
+                    <FooterStyle Font-Bold="True" ForeColor="White"/>
+                    <RowStyle Font-Size="Small" CssClass="RowStyle"/>
                     <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" CssClass="SelectedRowStyle" />
                     <PagerStyle ForeColor="White" HorizontalAlign="Center" CssClass="PagerStyle" />
                     <HeaderStyle Font-Bold="True" ForeColor="White" Font-Size="Small" HorizontalAlign="Center" />
-                    <AlternatingRowStyle BackColor="White" Font-Size="Small" HorizontalAlign="Center" />
+                    <AlternatingRowStyle BackColor="White" Font-Size="Small" />
                     <Columns>
                         <%--Check Boxes--%>
                         <%--<asp:TemplateField HeaderText="Select">
@@ -89,7 +89,7 @@
                         <asp:BoundField DataField="Alert" HeaderText="Sub Category" />
                         <asp:BoundField DataField="Scheme" HeaderText="Detail" />
                         <asp:BoundField DataField="Message" HeaderText="Message" />
-                        <asp:BoundField DataField="NotifiedDate" HeaderText="Notified Date" />
+                        <asp:BoundField DataField="NotifiedDate" HeaderText="Notified Date" ItemStyle-HorizontalAlign="Center"/>
                     </Columns>
                 </asp:GridView>
                 <br />
