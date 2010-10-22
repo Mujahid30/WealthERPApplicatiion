@@ -12,7 +12,7 @@
         </td>
     </tr>
     <tr>
-        <td style="width: 50%">
+        <td style="width: 50%" valign="top">
             <table style="width: 100%">
                 <tr>
                     <td colspan="3">
@@ -114,10 +114,6 @@
                     <td>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="3">
-                    </td>
-                </tr>
             </table>
         </td>
         <td valign="top">
@@ -145,6 +141,10 @@
                                 <asp:BoundField DataField="EventMessage" HeaderText="EventMessage" />
                             </Columns>
                         </asp:GridView>
+                        <asp:Label ID="lblDisclaimer" runat="server" CssClass="FieldName" Text="Note: Only Five most recent Alerts will be visible on the dashboard.Please click here to view all Notifications"
+                            Visible="true"></asp:Label>
+                        <asp:LinkButton ID="lnkAlertNotifications" Text=" -->More" runat="server" OnClick="lnkAlertNotifications_Click"
+                            CssClass="LinkButtons"></asp:LinkButton>
                     </td>
                 </tr>
             </table>
