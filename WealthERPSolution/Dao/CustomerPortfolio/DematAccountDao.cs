@@ -175,7 +175,10 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematDetails,"@CEDA_DPName",DbType.String,demataccountvo.DpName);
                 db.AddInParameter(dbDematDetails,"@XMOH_ModeOfHoldingCode",DbType.String,demataccountvo.ModeOfHolding);
                 db.AddInParameter(dbDematDetails,"@CEDA_IsJointlyHeld",DbType.Int16,demataccountvo.IsHeldJointly);
+                if (demataccountvo.AccountOpeningDate!=DateTime.MinValue)
                 db.AddInParameter(dbDematDetails,"@CEDA_AccountOpeningDate",DbType.DateTime,demataccountvo.AccountOpeningDate);
+                else
+                    db.AddInParameter(dbDematDetails, "@CEDA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(dbDematDetails,"@CEDA_BeneficiaryAccountNum",DbType.String,demataccountvo.BeneficiaryAccountNbr);
                 db.AddInParameter(dbDematDetails,"@CEDA_CreatedBy",DbType.Int32,rmvo.RMId);
                 db.AddInParameter(dbDematDetails,"@CEDA_ModifiedBy",DbType.Int32,rmvo.RMId);
@@ -613,7 +616,14 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematDetails, "@CEDA_DPName", DbType.String, demataccountvo.DpName);
                 db.AddInParameter(dbDematDetails, "@XMOH_ModeOfHoldingCode", DbType.String, demataccountvo.ModeOfHolding);
                 db.AddInParameter(dbDematDetails, "@CEDA_IsJointlyHeld", DbType.Int16, demataccountvo.IsHeldJointly);
-                db.AddInParameter(dbDematDetails, "@CEDA_AccountOpeningDate", DbType.DateTime, demataccountvo.AccountOpeningDate);
+                if (demataccountvo.AccountOpeningDate == DateTime.MinValue)
+                {
+                    db.AddInParameter(dbDematDetails, "@CEDA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
+                }
+                else
+                {
+                    db.AddInParameter(dbDematDetails, "@CEDA_AccountOpeningDate", DbType.DateTime, demataccountvo.AccountOpeningDate);
+                }
                 db.AddInParameter(dbDematDetails, "@CEDA_BeneficiaryAccountNum", DbType.String, demataccountvo.BeneficiaryAccountNbr);              
                 db.AddInParameter(dbDematDetails, "@C_CustomerId", DbType.Int32, customerId);                
                 db.ExecuteNonQuery(dbDematDetails);
