@@ -2589,8 +2589,17 @@ namespace DaoAlerts
 
 
         #endregion
-
-        public DataSet GetAdviserCustomerSMSAlerts(int id,string usertype, int currentpage, out int count)
+        
+        /// <summary>
+        /// Modified the function to add a name filter in the Alert notifications gridview.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="usertype"></param>
+        /// <param name="currentpage"></param>
+        /// <param name="nameFilter"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public DataSet GetAdviserCustomerSMSAlerts(int id,string usertype, int currentpage,string nameFilter, out int count)
         {
             
             Database db;
@@ -2604,6 +2613,7 @@ namespace DaoAlerts
                 db.AddInParameter(getAdviserSMSAlertsCmd, "@Id", DbType.Int32, id);
                 db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.Int32, currentpage);
                 db.AddInParameter(getAdviserSMSAlertsCmd, "@Usertype", DbType.String, usertype);
+                db.AddInParameter(getAdviserSMSAlertsCmd, "@nameFilter", DbType.String, nameFilter);
                 //db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.String, sortorder);
                 //db.AddInParameter(getAdviserSMSAlertsCmd, "@SortOrder", DbType.Int32, currentpage);
 
@@ -2633,6 +2643,7 @@ namespace DaoAlerts
 
             return dsAdviserSMSAlerts;
         }
+
         public bool UpdateAlertStatus(int alertId, int alertStatus)
         {
             bool bResult = false;
