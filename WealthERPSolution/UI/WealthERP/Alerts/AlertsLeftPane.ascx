@@ -49,7 +49,7 @@
         <asp:TreeNode Text="Customer Dashboard" Value="Customer Dashboard"></asp:TreeNode>
         <asp:TreeNode Text="Profile Dashboard" Value="Profile Dashboard"></asp:TreeNode>
         <asp:TreeNode Text="Portfolio Dashboard" Value="Portfolio Dashboard"></asp:TreeNode>
-        <asp:TreeNode Text="Alert Dashboard" Value="Alert Dashboard">
+        <asp:TreeNode Text="Alerts Dashboard" Value="Alert Dashboard">
             <asp:TreeNode Text="View Notifications" Value="View Notifications"></asp:TreeNode>
             <asp:TreeNode Text="MF Alerts" Value="MF Alerts"></asp:TreeNode>
             <asp:TreeNode Text="FI Alerts" Value="FI Alerts"></asp:TreeNode>
