@@ -1060,7 +1060,7 @@ namespace DaoAdvisorProfiling
             return customerList;
         }
 
-        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
+        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string Active, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
             CustomerVo customerVo;
@@ -1096,6 +1096,10 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
                 db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
                 db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
+                if (Active != "")
+                    db.AddInParameter(getCustomerListCmd, "@active", DbType.String, Active);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@active", DbType.String, "2");
 
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
@@ -1108,6 +1112,7 @@ namespace DaoAdvisorProfiling
                         customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
                         customerVo.MiddleName = dr["C_MiddleName"].ToString();
                         customerVo.LastName = dr["C_LastName"].ToString();
+                        customerVo.IsActive = int.Parse(dr["C_IsActive"].ToString());
                         customerVo.CustCode = dr["C_CustCode"].ToString();
                         if (dr["C_PANNum"].ToString() != string.Empty)
                             customerVo.PANNum = dr["C_PANNum"].ToString();
