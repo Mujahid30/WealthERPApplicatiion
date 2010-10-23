@@ -175,6 +175,7 @@ namespace WealthERP.Advisor
             userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
+                
                 //trPageChoice.Visible = false;
                 
                 if (Session["Current_Link"].ToString() == "AdvisorLeftPane"  || Session["Current_Link"].ToString() =="RMCustomerIndividualLeftPane")
@@ -227,7 +228,7 @@ namespace WealthERP.Advisor
 
                     int Count;
 
-                    customerList = advisorBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictRM, out genDictReassignRM);
+                    customerList = advisorBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value , hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value,hdnactive.Value, out genDictParent, out genDictRM, out genDictReassignRM);
                     lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 }
 
@@ -254,6 +255,7 @@ namespace WealthERP.Advisor
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("Pincode");
                     dtRMCustomer.Columns.Add("Assigned RM");
+                    dtRMCustomer.Columns.Add("IsActive");
                     DataRow drRMCustomer;
 
                     for (int i = 0; i < customerList.Count; i++)
@@ -328,6 +330,20 @@ namespace WealthERP.Advisor
                         drRMCustomer[12] = customerVo.Adr1PinCode.ToString();
                         //customerRMVo = advisorStaffBo.GetAdvisorStaff(advisorStaffBo.GetUserId(customerVo.RmId));
                         drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        //if (hdnactive.Value == 'A')
+                        //{
+
+                        //}
+                        drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        if (customerVo.IsActive == 1)
+                        {
+                            drRMCustomer[14] = "Active";
+                        }
+                        else
+                        {
+                            drRMCustomer[14] = "In Active";
+ 
+                        }
                         //customerRMVo.FirstName.ToString() + " " + customerRMVo.MiddleName.ToString() + " " + customerRMVo.LastName.ToString();
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
@@ -606,7 +622,7 @@ namespace WealthERP.Advisor
                 // Search Term is input into this hidden field
                 hdnNameFilter.Value = customer;
 
-                customerList = adviserBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value,hdnactive.Value, out genDictParent, out genDictRM, out genDictReassignRM);
 
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
@@ -1453,6 +1469,23 @@ namespace WealthERP.Advisor
             }
         }
 
+        protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlFilter=(DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
+            if (int.Parse(ddlFilter.SelectedValue) == 1)
+            {
+                hdnactive.Value = "A";
+            }
+            if (int.Parse(ddlFilter.SelectedValue) == 0)
+            {
+                hdnactive.Value = "I";
+            }
+            if (int.Parse(ddlFilter.SelectedValue) == 2)
+            {
+                hdnactive.Value = "D";
+            }
+            this.BindGrid(mypager.CurrentPage, 0);
+        }
         protected void ddlParent_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlParent = GetParentDDL();

@@ -253,6 +253,26 @@
                             </ItemTemplate>
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>
+                                             <asp:TemplateField HeaderText="IsActive">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblIsActive" runat="server" 
+                                            Text='<%#Eval("IsActive") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderTemplate>
+                                        <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" 
+                                            CssClass="cmbField"  
+                                            OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
+                                            <asp:ListItem Text="Active" Value="1">
+                                            </asp:ListItem>
+                                            <asp:ListItem Text="InActive" Value="0">
+                                            </asp:ListItem>
+                                            <asp:ListItem Text="All" Value="2">
+                                            </asp:ListItem>
+                                        </asp:DropDownList>
+                                         </HeaderTemplate>
+                                         </asp:TemplateField>
+                                        
                         <%--<asp:BoundField DataField="Assigned RM" HeaderText="Assigned RM" HeaderStyle-Wrap="false"
                             ItemStyle-Wrap="false" />--%>
                     </Columns>
@@ -289,3 +309,4 @@
 <asp:HiddenField ID="hdnReassignRM" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
+<asp:HiddenField ID="hdnactive" runat="server" Visible="false" />
