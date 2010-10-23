@@ -1069,4 +1069,8 @@
     <value>Customer//CustomerAdvisorsNote.ascx</value>
     <comment>Customer//CustomerAdvisorsNote.ascx</comment>
   </data>
+  <data name="CuCustomerAssociationSetup" xml:space="preserve">
+    <value>Advisor//CustomerAssociationSetup.ascx</value>
+    <comment>Advisor//CustomerAssociationSetup.ascx</comment>
+  </data>
 </root>
