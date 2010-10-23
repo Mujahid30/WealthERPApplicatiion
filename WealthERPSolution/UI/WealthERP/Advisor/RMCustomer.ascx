@@ -255,6 +255,25 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <%--<asp:BoundField DataField="Pincode" HeaderText="Pincode" />--%>
+                         <asp:TemplateField HeaderText="IsActive">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblIsActive" runat="server" 
+                                            Text='<%#Eval("IsActive") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderTemplate>
+                                        <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" 
+                                            CssClass="cmbField"  
+                                            OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
+                                            <asp:ListItem Text="Active" Value="1">
+                                            </asp:ListItem>
+                                            <asp:ListItem Text="InActive" Value="0">
+                                            </asp:ListItem>
+                                            <asp:ListItem Text="All" Value="2">
+                                            </asp:ListItem>
+                                        </asp:DropDownList>
+                                         </HeaderTemplate>
+                                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </td>
@@ -281,3 +300,4 @@
 <asp:HiddenField ID="hdnCityFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnParentFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
+<asp:HiddenField ID="hdnactive" runat="server" Visible="false" />

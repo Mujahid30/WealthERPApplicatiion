@@ -147,7 +147,7 @@ namespace WealthERP
 
                 hdnNameFilter.Value = customer;
 
-                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, out genDictParent, out genDictCity);
+                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnactive.Value, out genDictParent, out genDictCity);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerList == null)
@@ -175,6 +175,7 @@ namespace WealthERP
                     dtRMCustomer.Columns.Add("Area");
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("Pincode");
+                    dtRMCustomer.Columns.Add("IsActive");
 
                     DataRow drRMCustomer;
 
@@ -224,6 +225,15 @@ namespace WealthERP
                         drRMCustomer[9] = customerVo.Adr1Line3.ToString();
                         drRMCustomer[10] = customerVo.Adr1City.ToString();
                         drRMCustomer[11] = customerVo.Adr1PinCode.ToString();
+                        if (customerVo.IsActive == 1)
+                        {
+                            drRMCustomer[12] = "Active";
+                        }
+                        else
+                        {
+                            drRMCustomer[12] = "In Active";
+
+                        }
 
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
@@ -450,7 +460,7 @@ namespace WealthERP
                     int Count;
 
                     //advisorStaffBo.GetCustomerList(rmVo.RMId, "C").ToString();
-                    customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value.Trim(), hdnAreaFilter.Value.Trim(), hdnPincodeFilter.Value.Trim(), hdnParentFilter.Value.Trim(), hdnCityFilter.Value.Trim(), out genDictParent, out genDictCity);
+                    customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value.Trim(), hdnAreaFilter.Value.Trim(), hdnPincodeFilter.Value.Trim(), hdnParentFilter.Value.Trim(), hdnCityFilter.Value.Trim(), hdnactive.Value, out genDictParent, out genDictCity);
                     lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 }
 
@@ -485,6 +495,7 @@ namespace WealthERP
                     dtRMCustomer.Columns.Add("Area");
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("Pincode");
+                    dtRMCustomer.Columns.Add("IsActive");
                     DataRow drRMCustomer;
 
                     for (int i = 0; i < customerList.Count; i++)
@@ -533,6 +544,15 @@ namespace WealthERP
                         drRMCustomer[9] = customerVo.Adr1Line3.ToString();
                         drRMCustomer[10] = customerVo.Adr1City.ToString();
                         drRMCustomer[11] = customerVo.Adr1PinCode.ToString();
+                        if (customerVo.IsActive == 1)
+                        {
+                            drRMCustomer[12] = "Active";
+                        }
+                        else
+                        {
+                            drRMCustomer[12] = "In Active";
+
+                        }
 
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
@@ -1181,6 +1201,23 @@ namespace WealthERP
         //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_RMCustomer_tbl','ctrl_RMCustomer_btnGridSearch');", true);
 
         //}
+        protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
+            if (int.Parse(ddlFilter.SelectedValue) == 1)
+            {
+                hdnactive.Value = "A";
+            }
+            if (int.Parse(ddlFilter.SelectedValue) == 0)
+            {
+                hdnactive.Value = "I";
+            }
+            if (int.Parse(ddlFilter.SelectedValue) == 2)
+            {
+                hdnactive.Value = "D";
+            }
+            this.BindGrid(mypager.CurrentPage,0);
+        }
 
         protected void btnPrintGrid_Click(object sender, EventArgs e)
         {
