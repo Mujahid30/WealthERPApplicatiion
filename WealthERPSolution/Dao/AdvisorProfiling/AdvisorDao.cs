@@ -924,7 +924,7 @@ namespace DaoAdvisorProfiling
             return customerList;
         }
 
-        public List<CustomerVo> GetAdviserCustomerList(int adviserId, int CurrentPage, out int Count, string SortExpression, string NameFilter, string AreaFilter, string PincodeFilter, string ParentFilter, string RMFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        public List<CustomerVo> GetAdviserCustomerList(int adviserId, int CurrentPage, out int Count, string SortExpression, string NameFilter, string AreaFilter, string PincodeFilter, string ParentFilter, string RMFilter,string Active, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> customerList = null;
             CustomerVo customerVo;
@@ -968,6 +968,10 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, RMFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, DBNull.Value);
+                if (Active != "")
+                    db.AddInParameter(getCustomerListCmd, "@active", DbType.String, Active);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@active", DbType.String, "2" );
 
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
 
@@ -995,6 +999,7 @@ namespace DaoAdvisorProfiling
                         customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
                         customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
                         customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
+                        customerVo.IsActive =int.Parse( dr["C_IsActive"].ToString());
                         customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
                         if (dr["Parent"].ToString() != "")
                             customerVo.ParentCustomer = dr["Parent"].ToString();
