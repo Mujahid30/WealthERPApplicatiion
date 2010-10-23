@@ -243,30 +243,31 @@ namespace DaoCustomerProfiling
                     {
                         customerVo.IsActive = 0;
                     }
-                    if (dr["C_AlertViaSMS"] != null )
+                    if (dr["C_AlertViaSMS"] == null )
                     {
-                        
-                        
+
+                        customerVo.ViaSMS = 0;
+                       
+                    }
+                    else
+                    {
                         customerVo.ViaSMS = int.Parse(dr["C_AlertViaSMS"].ToString());
 
-                    }
-                    else
-                    {
-                        customerVo.ViaSMS = 0;
-                    }
-                    if (dr["C_AlertViaEmail"] != null)
-                    {
-                        
-                        customerVo.AlertViaEmail = int.Parse(dr["C_AlertViaEmail"].ToString());
                         
                     }
-                    else
+                    if (dr["C_AlertViaEmail"] == null)
                     {
                         customerVo.AlertViaEmail = 0;
+                        
+                        
+                    }
+                    else
+                    {
+                        customerVo.AlertViaEmail = int.Parse(dr["C_AlertViaEmail"].ToString());
 
                     }
                     customerVo.AdviseNote = dr["C_Comments"].ToString();
-                    if (dr["ACC_CustomerClassificationId"] != null && dr["ACC_CustomerClassificationId"] != "")
+                    if (!string.IsNullOrEmpty(dr["ACC_CustomerClassificationId"].ToString()))
                     {
                         
                         customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerClassificationId"].ToString());
@@ -274,7 +275,7 @@ namespace DaoCustomerProfiling
                     }
                     else
                     {
-                        customerVo.CustomerClassificationID = 0;
+                        customerVo.CustomerClassificationID = '0';
                     }
 
                     customerVo.LastName = dr["C_LastName"].ToString();
