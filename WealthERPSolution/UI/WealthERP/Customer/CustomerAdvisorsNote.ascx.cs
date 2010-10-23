@@ -53,12 +53,19 @@ namespace WealthERP.Customer{
                 {
                     txtComments.Text = "";
                 }
+
+                 bindClassification();
                 if (!string.IsNullOrEmpty(customerVo.CustomerClassificationID.ToString()))
                 {
+                    if (customerVo.CustomerClassificationID == 0)
+                    {
+                        ddlClassification.SelectedIndex = 0;
+                    }
+                    else
                     ddlClassification.SelectedValue = customerVo.CustomerClassificationID.ToString();
 
                 }
-                bindClassification();
+              
  
             }
         }
