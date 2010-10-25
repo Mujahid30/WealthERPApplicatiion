@@ -54,6 +54,23 @@ div#MainDivLeft
     color: #16518A;
     width: 145px;
 }
+.txtLongAddField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 250px;
+}
+.AddLongField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    vertical-align: middle;
+    color: #16518A;
+    width: 250px;
+}
 .txtSchemeName
 {
     font-family: Verdana,Tahoma;
