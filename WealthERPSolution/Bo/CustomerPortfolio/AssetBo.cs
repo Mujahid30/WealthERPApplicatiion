@@ -9,6 +9,7 @@ using DaoCustomerPortfolio;
 using BoUser;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using BoCalculator;
 
 namespace BoCustomerPortfolio
 {
@@ -50,10 +51,26 @@ namespace BoCustomerPortfolio
         {
             double liabilityValue = 0;
             AssetDao assetDao = new AssetDao();
-            
+            Calculator calculator = new Calculator();
+            List<LiabilitiesVo> listLiabilitiesVo = new List<LiabilitiesVo>();
+            LiabilitiesVo liabilityVo = new LiabilitiesVo();
             try
             {
-                liabilityValue = assetDao.GetCustomerPortfolioLiability(portfolioId);
+                listLiabilitiesVo = assetDao.GetCustomerPortfolioLiability(portfolioId);
+                for (int i = 0; i < listLiabilitiesVo.Count; i++)
+                {
+                    liabilityVo = new LiabilitiesVo();
+                    liabilityVo = listLiabilitiesVo[i];
+                    if (liabilityVo.PaymentOptionCode == 1)
+                    {
+                        liabilityValue = liabilityValue + calculator.GetLoanOutstanding(liabilityVo.CompoundFrequency, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 1, liabilityVo.LumpsumRepaymentAmount, liabilityVo.NoOfInstallments);
+                    }
+                    else if (liabilityVo.PaymentOptionCode == 2)
+                    {
+                        liabilityValue = liabilityValue + calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
+                    }
+
+                }
 
             }
             catch (BaseApplicationException Ex)
