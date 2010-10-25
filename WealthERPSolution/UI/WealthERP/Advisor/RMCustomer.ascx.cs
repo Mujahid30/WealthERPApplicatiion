@@ -147,7 +147,7 @@ namespace WealthERP
 
                 hdnNameFilter.Value = customer;
 
-                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnactive.Value, out genDictParent, out genDictCity);
+                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value,hdnactive.Value, out genDictParent, out genDictCity);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerList == null)
@@ -256,6 +256,12 @@ namespace WealthERP
                         {
                             ddlParent.SelectedValue = hdnParentFilter.Value.ToString();
                         }
+
+                        DropDownList ddlActiveFilter = GetActiveDDL();
+                        if (hdnactive.Value != "")
+                        {
+                            ddlActiveFilter.SelectedValue = hdnactive.Value.ToString();
+                        }
                     }
 
                     if (genDictCity.Count > 0)
@@ -302,6 +308,7 @@ namespace WealthERP
                         }
                     }
 
+                  
                     this.GetPageCount();
                 }
             }
@@ -574,6 +581,12 @@ namespace WealthERP
                         if (hdnParentFilter.Value != "")
                         {
                             ddlParent.SelectedValue = hdnParentFilter.Value.ToString();
+                        }
+
+                        DropDownList ddlActiveFilter = GetActiveDDL();
+                        if (hdnactive.Value != "")
+                        {
+                            ddlActiveFilter.SelectedValue = hdnactive.Value.ToString();
                         }
                     }
 
@@ -1204,18 +1217,9 @@ namespace WealthERP
         protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
-            if (int.Parse(ddlFilter.SelectedValue) == 1)
-            {
-                hdnactive.Value = "A";
-            }
-            if (int.Parse(ddlFilter.SelectedValue) == 0)
-            {
-                hdnactive.Value = "I";
-            }
-            if (int.Parse(ddlFilter.SelectedValue) == 2)
-            {
-                hdnactive.Value = "D";
-            }
+
+            hdnactive.Value = ddlFilter.SelectedValue; ;
+            
             this.BindGrid(mypager.CurrentPage,0);
         }
 
@@ -1409,6 +1413,22 @@ namespace WealthERP
                 txt = null;
 
             return txt;
+        }
+
+        private DropDownList GetActiveDDL()
+        {
+            DropDownList ddl = new DropDownList();
+            if (gvCustomers.HeaderRow != null)
+            {
+                if ((DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter") != null)
+                {
+                    ddl = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
+                }
+            }
+            else
+                ddl = null;
+
+            return ddl;
         }
 
     }
