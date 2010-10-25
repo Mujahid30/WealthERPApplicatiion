@@ -29,9 +29,11 @@ namespace WealthERP.Advisor
         RMVo rmVo = new RMVo();
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
+        AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         List<CustomerVo> customerList = null;
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         int customerId;
+        int bmID;
         AdvisorVo adviserVo = new AdvisorVo();
         AdvisorBo advisorBo = new AdvisorBo();
         static string user = "";
@@ -79,7 +81,7 @@ namespace WealthERP.Advisor
             try
             {
                 GetPageCount();
-                if (Session["Customer"].ToString() == "Customer")
+                if (Session["Customer"] == "Customer")
                 {
                     this.BindGrid(mypager.CurrentPage, 0);
                 }
@@ -136,7 +138,7 @@ namespace WealthERP.Advisor
 
                 hdnNameFilter.Value = customer;
 
-                customerList = advisorStaffBo.GetBMCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictCity, out genDictRM);
+                customerList = advisorStaffBo.GetAllBMCustomerList(int.Parse(hndBranchID.Value.ToString()), int.Parse(hndBranchHeadId.Value.ToString()), int.Parse(hndAll.Value.ToString()), rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictCity, out genDictRM);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerList == null)
@@ -308,14 +310,14 @@ namespace WealthERP.Advisor
                 object[] objects = new object[3];
                 objects[1] = rmVo;
                 objects[2] = customerVo;
-                objects[3] = customerList;
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
         }
-        
+
         private void GetPageCount()
         {
             string upperlimit = null;
@@ -373,15 +375,22 @@ namespace WealthERP.Advisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
+            userVo = (UserVo)Session["userVo"];
+            rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
+            bmID = rmVo.RMId;
+
             try
             {
-                SessionBo.CheckSession();
-                userVo = (UserVo)Session["userVo"];
                 if (!IsPostBack)
                 {
+                    BindBranchDropDown();
                     string session = Session["Current_Link"].ToString();
                     if (Session["Current_Link"].ToString() == "BMLeftpane")
                     {
+                        hndAll.Value = "1";
+                        hndBranchID.Value = "0";
+                        hndBranchHeadId.Value = ddlBMBranchList.SelectedValue.ToString();
                         if (Session["Customer"] != null)
                         {
                             string sessionCust = Session["Customer"].ToString();
@@ -449,7 +458,7 @@ namespace WealthERP.Advisor
                     }
 
                     int Count;
-                    
+
                     customerList = advisorStaffBo.GetBMCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictCity, out genDictRM);
                     lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 }
@@ -770,6 +779,276 @@ namespace WealthERP.Advisor
 
         }
 
+        private void ExportGridView(string Filetype)
+        {
+            {
+                HtmlForm frm = new HtmlForm();
+                HtmlImage image = new HtmlImage();
+
+                frm.Controls.Clear();
+                frm.Attributes["runat"] = "server";
+                if (Filetype.ToLower() == "print")
+                {
+                    //GridView_Print();
+                }
+                else if (Filetype.ToLower() == "excel")
+                {
+                    // gvCustomer.Columns.Remove(this.gvCustomer.Columns[0]);
+                    string temp = userVo.FirstName + userVo.LastName + "Customer.xls";
+                    string attachment = "attachment; filename=" + temp;
+                    Response.ClearContent();
+                    Response.AddHeader("content-disposition", attachment);
+                    Response.ContentType = "application/ms-excel";
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    Response.Output.Write("<table border=\"0\"><tbody><tr><td>");
+                    Response.Output.Write("Advisor Name : ");
+                    Response.Output.Write("</td>");
+                    Response.Output.Write("<td>");
+                    Response.Output.Write(userVo.FirstName + userVo.LastName);
+                    Response.Output.Write("</td></tr>");
+                    Response.Output.Write("<tr><td>");
+                    Response.Output.Write("Report  : ");
+                    Response.Output.Write("</td>");
+                    Response.Output.Write("<td>");
+                    Response.Output.Write("Customer List");
+                    Response.Output.Write("</td></tr><tr><td>");
+                    Response.Output.Write("Date : ");
+                    Response.Output.Write("</td><td>");
+                    System.DateTime tDate1 = System.DateTime.Now;
+                    Response.Output.Write(tDate1);
+                    Response.Output.Write("</td></tr>");
+                    Response.Output.Write("</tbody></table>");
+
+                    PrepareGridViewForExport(gvCustomers);
+
+                    if (gvCustomers.HeaderRow != null)
+                    {
+                        PrepareControlForExport(gvCustomers.HeaderRow);
+                        //tbl.Rows.Add(gvMFTransactions.HeaderRow);
+                    }
+                    foreach (GridViewRow row in gvCustomers.Rows)
+                    {
+
+                        PrepareControlForExport(row);
+
+                        //tbl.Rows.Add(row);
+                    }
+                    if (gvCustomers.FooterRow != null)
+                    {
+                        PrepareControlForExport(gvCustomers.FooterRow);
+                        // tbl.Rows.Add(gvMFTransactions.FooterRow);
+                    }
+
+                    gvCustomers.Parent.Controls.Add(frm);
+                    frm.Controls.Add(gvCustomers);
+                    frm.RenderControl(htw);
+                    HttpContext.Current.Response.Write(sw.ToString());
+                    HttpContext.Current.Response.End();
+                }
+
+
+                else if (Filetype.ToLower() == "pdf")
+                {
+                    string temp = userVo.FirstName + userVo.LastName + "_Customer List";
+
+                    gvCustomers.AllowPaging = false;
+                    gvCustomers.DataBind();
+                    iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(gvCustomers.Columns.Count - 1);
+
+                    table.HeaderRows = 4;
+                    iTextSharp.text.pdf.PdfPTable headerTable = new iTextSharp.text.pdf.PdfPTable(2);
+                    Phrase phApplicationName = new Phrase("WWW.PrincipalConsulting.net", FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
+                    PdfPCell clApplicationName = new PdfPCell(phApplicationName);
+                    clApplicationName.Border = PdfPCell.NO_BORDER;
+                    clApplicationName.HorizontalAlignment = Element.ALIGN_LEFT;
+
+
+                    Phrase phDate = new Phrase(DateTime.Now.Date.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
+                    PdfPCell clDate = new PdfPCell(phDate);
+                    clDate.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    clDate.Border = PdfPCell.NO_BORDER;
+
+
+                    headerTable.AddCell(clApplicationName);
+                    headerTable.AddCell(clDate);
+                    headerTable.DefaultCell.Border = PdfPCell.NO_BORDER;
+
+                    PdfPCell cellHeader = new PdfPCell(headerTable);
+                    cellHeader.Border = PdfPCell.NO_BORDER;
+                    cellHeader.Colspan = gvCustomers.Columns.Count - 1;
+                    table.AddCell(cellHeader);
+
+                    Phrase phHeader = new Phrase(temp, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD));
+                    PdfPCell clHeader = new PdfPCell(phHeader);
+                    clHeader.Colspan = gvCustomers.Columns.Count - 1;
+                    clHeader.Border = PdfPCell.NO_BORDER;
+                    clHeader.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table.AddCell(clHeader);
+
+
+                    Phrase phSpace = new Phrase("\n");
+                    PdfPCell clSpace = new PdfPCell(phSpace);
+                    clSpace.Border = PdfPCell.NO_BORDER;
+                    clSpace.Colspan = gvCustomers.Columns.Count - 1;
+                    table.AddCell(clSpace);
+
+                    GridViewRow HeaderRow = gvCustomers.HeaderRow;
+                    if (HeaderRow != null)
+                    {
+                        string cellText = "";
+                        for (int j = 1; j < gvCustomers.Columns.Count; j++)
+                        {
+                            if (j == 1)
+                            {
+                                cellText = "Parent";
+                            }
+                            else if (j == 2)
+                            {
+                                cellText = "Customer Name / Company Name";
+                            }
+                            else if (j == 7)
+                            {
+                                cellText = "Area";
+                            }
+                            else if (j == 9)
+                            {
+                                cellText = "Pincode";
+                            }
+                            else if (j == 10)
+                            {
+                                cellText = "Assigned RM";
+                            }
+                            else
+                            {
+                                cellText = Server.HtmlDecode(gvCustomers.HeaderRow.Cells[j].Text);
+                            }
+
+                            Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.BOLD));
+                            table.AddCell(ph);
+                        }
+
+                    }
+
+                    for (int i = 0; i < gvCustomers.Rows.Count; i++)
+                    {
+                        string cellText = "";
+                        if (gvCustomers.Rows[i].RowType == DataControlRowType.DataRow)
+                        {
+                            for (int j = 1; j < gvCustomers.Columns.Count; j++)
+                            {
+                                if (j == 1)
+                                {
+                                    cellText = ((Label)gvCustomers.Rows[i].FindControl("lblParenteHeader")).Text;
+                                }
+                                else if (j == 2)
+                                {
+                                    cellText = ((Label)gvCustomers.Rows[i].FindControl("lblCustNameHeader")).Text;
+                                }
+                                else if (j == 7)
+                                {
+                                    cellText = ((Label)gvCustomers.Rows[i].FindControl("lblAreaHeader")).Text;
+                                }
+                                else if (j == 9)
+                                {
+                                    cellText = ((Label)gvCustomers.Rows[i].FindControl("lblPincodeHeader")).Text;
+                                }
+                                else if (j == 10)
+                                {
+                                    cellText = ((Label)gvCustomers.Rows[i].FindControl("lblAssignedRMHeader")).Text;
+                                }
+                                else
+                                {
+                                    cellText = Server.HtmlDecode(gvCustomers.Rows[i].Cells[j].Text);
+                                }
+                                Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.NORMAL));
+                                iTextSharp.text.Cell cell = new iTextSharp.text.Cell(cellText);
+                                table.AddCell(ph);
+
+                            }
+
+                        }
+
+                    }
+
+
+
+                    //Create the PDF Document
+
+                    Document pdfDoc = new Document(PageSize.A5, 10f, 10f, 10f, 0f);
+                    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+                    pdfDoc.Open();
+                    pdfDoc.Add(table);
+                    pdfDoc.Close();
+                    Response.ContentType = "application/pdf";
+                    temp = "filename=" + temp + ".pdf";
+                    //    Response.AddHeader("content-disposition", "attachment;" + "filename=GridViewExport.pdf");
+                    Response.AddHeader("content-disposition", "attachment;" + temp);
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    Response.Write(pdfDoc);
+                    Response.End();
+
+
+
+                }
+                else if (Filetype.ToLower() == "word")
+                {
+                    gvCustomers.Columns.Remove(this.gvCustomers.Columns[0]);
+                    string temp = userVo.FirstName + userVo.LastName + "_Customer.doc";
+                    string attachment = "attachment; filename=" + temp;
+                    Response.ClearContent();
+                    Response.AddHeader("content-disposition", attachment);
+                    Response.ContentType = "application/msword";
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                    Response.Output.Write("<table border=\"0\"><tbody><tr><td>");
+                    Response.Output.Write("Advisor Name : ");
+                    Response.Output.Write("</td>");
+                    Response.Output.Write("<td>");
+                    Response.Output.Write(userVo.FirstName + userVo.LastName);
+                    Response.Output.Write("</td></tr>");
+                    Response.Output.Write("<tr><td>");
+                    Response.Output.Write("Report  : ");
+                    Response.Output.Write("</td>");
+                    Response.Output.Write("<td>");
+                    Response.Output.Write("Customer List");
+                    Response.Output.Write("</td></tr><tr><td>");
+                    Response.Output.Write("Date : ");
+                    Response.Output.Write("</td><td>");
+                    System.DateTime tDate1 = System.DateTime.Now;
+                    Response.Output.Write(tDate1);
+                    Response.Output.Write("</td></tr>");
+                    Response.Output.Write("</tbody></table>");
+
+                    PrepareGridViewForExport(gvCustomers);
+
+
+                    if (gvCustomers.HeaderRow != null)
+                    {
+                        PrepareControlForExport(gvCustomers.HeaderRow);
+                    }
+                    foreach (GridViewRow row in gvCustomers.Rows)
+                    {
+                        PrepareControlForExport(row);
+                    }
+                    if (gvCustomers.FooterRow != null)
+                    {
+                        PrepareControlForExport(gvCustomers.FooterRow);
+                    }
+                    gvCustomers.Parent.Controls.Add(frm);
+                    frm.Controls.Add(gvCustomers);
+                    frm.RenderControl(htw);
+                    Response.Write(sw.ToString());
+                    Response.End();
+
+                }
+
+            }
+
+        }
+
+
         protected void gvCustomers_Sort(object sender, GridViewSortEventArgs e)
         {
             string sortExpression = null;
@@ -813,42 +1092,42 @@ namespace WealthERP.Advisor
 
         }
 
-        protected void btnExport_Click(object sender, EventArgs e)
-        {
-            gvCustomers.Columns[0].Visible = false;
-            if (rbtnMultiple.Checked)
-            {
-                BindGrid(mypager.CurrentPage, 1);
-            }
-            else
-            {
-                BindGrid(mypager.CurrentPage, 0);
-            }
-            PrepareGridViewForExport(gvCustomers);
-            if (rbtnExcel.Checked)
-            {
-                ExportGridView("Excel");
-            }
-            else if (rbtnPDF.Checked)
-            {
+        //protected void btnExport_Click(object sender, EventArgs e)
+        //{
+        //    gvCustomers.Columns[0].Visible = false;
+        //    if (rbtnMultiple.Checked)
+        //    {
+        //        BindGrid(mypager.CurrentPage, 1);
+        //    }
+        //    else
+        //    {
+        //        BindGrid(mypager.CurrentPage, 0);
+        //    }
+        //    PrepareGridViewForExport(gvCustomers);
+        //    if (rbtnExcel.Checked)
+        //    {
+        //        ExportGridView("Excel");
+        //    }
+        //    else if (rbtnPDF.Checked)
+        //    {
 
-                ExportGridView("PDF");
-            }
-            else if (rbtnWord.Checked)
-            {
-                ExportGridView("Word");
-            }
-            BindGrid(mypager.CurrentPage, 0);
-            gvCustomers.Columns[0].Visible = true;
+        //        ExportGridView("PDF");
+        //    }
+        //    else if (rbtnWord.Checked)
+        //    {
+        //        ExportGridView("Word");
+        //    }
+        //    BindGrid(mypager.CurrentPage, 0);
+        //    gvCustomers.Columns[0].Visible = true;
 
-        }
+        //}
 
-        private void ExportGridView(string Filetype)
+        private void ExportGridTO(string Filetype)
         {
             HtmlForm frm = new HtmlForm();
             frm.Controls.Clear();
             frm.Attributes["runat"] = "server";
-            if (Filetype == "Excel")
+            if (Filetype == "excel")
             {
                 // gvCustomer.Columns.Remove(this.gvCustomer.Columns[0]);
                 string temp = userVo.FirstName + userVo.LastName + "_Customer.xls";
@@ -876,6 +1155,9 @@ namespace WealthERP.Advisor
                 Response.Output.Write(tDate1);
                 Response.Output.Write("</td></tr>");
                 Response.Output.Write("</tbody></table>");
+
+                PrepareGridViewForExport(gvCustomers);
+
                 if (gvCustomers.HeaderRow != null)
                 {
                     PrepareControlForExport(gvCustomers.HeaderRow);
@@ -1142,44 +1424,44 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void rbtnSingle_CheckedChanged(object sender, EventArgs e)
-        {
+        //protected void rbtnSingle_CheckedChanged(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
-        protected void rbtnMultiple_CheckedChanged(object sender, EventArgs e)
-        {
-            BindGrid(mypager.CurrentPage, 1);
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "AferExportAll('ctrl_RMCustomer_btnPrintGrid');", true);
-        }
+        //protected void rbtnMultiple_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    BindGrid(mypager.CurrentPage, 1);
+        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "AferExportAll('ctrl_RMCustomer_btnPrintGrid');", true);
+        //}
 
-        protected void btnPrint_Click(object sender, EventArgs e)
-        {
-            gvCustomers.Columns[0].Visible = false;
-            if (rbtnMultiple.Checked)
-            {
-                BindGrid(mypager.CurrentPage, 1);
-            }
-            else
-            {
-                BindGrid(mypager.CurrentPage, 0);
-            }
+        //protected void btnPrint_Click(object sender, EventArgs e)
+        //{
+        //    gvCustomers.Columns[0].Visible = false;
+        //    if (rbtnMultiple.Checked)
+        //    {
+        //        BindGrid(mypager.CurrentPage, 1);
+        //    }
+        //    else
+        //    {
+        //        BindGrid(mypager.CurrentPage, 0);
+        //    }
 
-            if (gvCustomers.HeaderRow != null)
-            {
-                PrepareGridViewForExport(gvCustomers.HeaderRow);
-            }
-            foreach (GridViewRow row in gvCustomers.Rows)
-            {
-                PrepareGridViewForExport(row);
-            }
-            if (gvCustomers.FooterRow != null)
-            {
-                PrepareGridViewForExport(gvCustomers.FooterRow);
-            }
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_RMCustomer_tbl','ctrl_RMCustomer_btnGridSearch');", true);
+        //    if (gvCustomers.HeaderRow != null)
+        //    {
+        //        PrepareGridViewForExport(gvCustomers.HeaderRow);
+        //    }
+        //    foreach (GridViewRow row in gvCustomers.Rows)
+        //    {
+        //        PrepareGridViewForExport(row);
+        //    }
+        //    if (gvCustomers.FooterRow != null)
+        //    {
+        //        PrepareGridViewForExport(gvCustomers.FooterRow);
+        //    }
+        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_RMCustomer_tbl','ctrl_RMCustomer_btnGridSearch');", true);
 
-        }
+        //}
 
         protected void btnPrintGrid_Click(object sender, EventArgs e)
         {
@@ -1201,8 +1483,9 @@ namespace WealthERP.Advisor
                 {   // Bind the Grid with Only All Values
                     hdnCityFilter.Value = "";
                 }
-
-                if (Session["Customer"].ToString() == "Customer")
+                //string sessionCust = Session["Customer"].ToString();
+                //if (Session["Customer"].ToString() == "Customer")
+                if (Session["Customer"] != null)
                 {
                     this.BindGrid(mypager.CurrentPage, 0);
                 }
@@ -1246,32 +1529,32 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void ddlAssignedRM_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlRM = GetRMDDL();
+        //protected void ddlAssignedRM_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlRM = GetRMDDL();
 
-            if (ddlRM != null)
-            {
-                if (ddlRM.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnRMFilter.Value = ddlRM.SelectedValue;
-                    //hdnRMFilter.Value = ddlRM.SelectedItem.Text;
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnRMFilter.Value = "";
-                }
+        //    if (ddlRM != null)
+        //    {
+        //        if (ddlRM.SelectedIndex != 0)
+        //        {   // Bind the Grid with Only Selected Values
+        //            hdnRMFilter.Value = ddlRM.SelectedValue;
+        //            //hdnRMFilter.Value = ddlRM.SelectedItem.Text;
+        //        }
+        //        else
+        //        {   // Bind the Grid with Only All Values
+        //            hdnRMFilter.Value = "";
+        //        }
 
-                if (Session["Customer"].ToString() == "Customer")
-                {
-                    this.BindGrid(mypager.CurrentPage, 0);
-                }
-                else
-                {
-                    this.BindCustomer(mypager.CurrentPage);
-                }
-            }
-        }
+        //        if (Session["Customer"].ToString() == "Customer")
+        //        {
+        //            this.BindGrid(mypager.CurrentPage, 0);
+        //        }
+        //        else
+        //        {
+        //            this.BindCustomer(mypager.CurrentPage);
+        //        }
+        //    }
+        //}
 
         protected void btnPincodeSearch_Click(object sender, EventArgs e)
         {
@@ -1422,5 +1705,98 @@ namespace WealthERP.Advisor
 
             return txt;
         }
+
+        protected void ddlBMBranchList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlBMBranchList.SelectedIndex == 0)
+            {
+                hndAll.Value = "1";
+                hndBranchID.Value = "0";
+                hndBranchHeadId.Value = ddlBMBranchList.SelectedValue;
+                this.BindCustomer(mypager.CurrentPage);
+            }
+            else
+            {
+                hndAll.Value = "0";
+                hndBranchID.Value = ddlBMBranchList.SelectedValue;
+                hndBranchHeadId.Value = "0";
+                this.BindCustomer(mypager.CurrentPage);
+            }
+        }
+
+        protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
+        {
+            ModalPopupExtender1.TargetControlID = "imgBtnExport";
+            ModalPopupExtender1.Show();
+        }
+
+        protected void btnExportExcel_Click2(object sender, EventArgs e)
+        {
+            gvCustomers.Columns[0].Visible = false;
+            gvCustomers.HeaderRow.Visible = true;
+
+            if (hdnDownloadPageType.Value.ToString() == "single")
+            {
+                this.BindCustomer(mypager.CurrentPage);
+            }
+            else
+            {
+                BindGrid(mypager.CurrentPage, 1);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "AferExportAll('ctrl_AdviserCustomer_btnPrintGrid');", true);
+            }
+
+            ExportGridTO(hdnDownloadFormat.Value.ToString());
+            
+            this.BindCustomer(mypager.CurrentPage);
+            gvCustomers.Columns[0].Visible = true;
+
+        }
+
+        protected void imageExcel_Click(object sender, ImageClickEventArgs e)
+        {
+            ModalPopupExtender1.TargetControlID = "imageExcel";
+            ModalPopupExtender1.Show();
+
+        }
+
+        /* For Binding the Branch Dropdowns */
+
+        private void BindBranchDropDown()
+        {
+
+            try
+            {
+
+                DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(0, bmID, 0);
+                if (ds != null)
+                {
+                    ddlBMBranchList.DataSource = ds.Tables[1]; ;
+                    ddlBMBranchList.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString();
+                    ddlBMBranchList.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
+                    ddlBMBranchList.DataBind();
+                }
+                ddlBMBranchList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ViewRM.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        /* End For Binding the Branch Dropdowns */
     }
 }
