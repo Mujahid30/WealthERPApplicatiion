@@ -363,6 +363,7 @@ namespace WealthERP.Advisor
             try
             {
                 dsGrpAssetNetHoldings = assetBo.GetGrpAssetNetHoldings(customerId);
+                
                 //liabilityValue = assetBo.GetCustomerPortfolioLiability(portfolioId);
                 if (dsGrpAssetNetHoldings.Tables[0].Rows.Count == 0)
                 {
@@ -370,8 +371,10 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
+                    dsGrpAssetNetHoldings.Tables[0].DefaultView.Sort = "CustomerName ASC";
+                    
                     lblAssetDetailsMsg.Visible = false;
-
+                    DataTable dt = dsGrpAssetNetHoldings.Tables[0].DefaultView.Table;
 
                     dtGrpAssetNetHoldings.Columns.Add("Customer_Name");
                     dtGrpAssetNetHoldings.Columns.Add("Equity");
@@ -404,7 +407,7 @@ namespace WealthERP.Advisor
                     dtGrpAssetNetHoldings.Columns["Net_Worth"].DefaultValue = "0";
 
 
-                    foreach (DataRow dr in dsGrpAssetNetHoldings.Tables[0].Rows)
+                    foreach (DataRow dr in dsGrpAssetNetHoldings.Tables[0].DefaultView.Table.Rows)
                     {
                         i++;
                         if (int.Parse(dr["CustomerId"].ToString()) != tempCustId)

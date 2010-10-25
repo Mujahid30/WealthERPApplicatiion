@@ -12,6 +12,7 @@ using System.Data;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
+using BoCalculator;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -20,6 +21,7 @@ namespace WealthERP.CustomerPortfolio
         List<LiabilitiesVo> liabilitiesListVo = null;
         LiabilitiesBo liabilitiesBo = new LiabilitiesBo();
         CustomerVo customerVo = null;
+        Calculator calculator = new Calculator();
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -38,6 +40,8 @@ namespace WealthERP.CustomerPortfolio
             liabilitiesListVo = liabilitiesBo.GetLiabilities(customerVo.CustomerId);
             DataTable dt = new DataTable();
             DataRow dr;
+            Double loanOutStanding=0;
+            DateTime nextInsDate=new DateTime();
             if (liabilitiesListVo != null)
             {
                 lblMsg.Visible = false;
@@ -46,6 +50,11 @@ namespace WealthERP.CustomerPortfolio
                 dt.Columns.Add("Lender");
                 dt.Columns.Add("Amount");
                 dt.Columns.Add("Rate of Interest");
+                dt.Columns.Add("PaymentType");
+                dt.Columns.Add("LumpsusmInstallment");
+                dt.Columns.Add("LoanOutstanding");
+                dt.Columns.Add("NextInstallmentDate");
+                dt.Columns.Add("Frequency");
                 for (int i = 0; i < liabilitiesListVo.Count; i++)
                 {
                     dr = dt.NewRow();
@@ -55,6 +64,55 @@ namespace WealthERP.CustomerPortfolio
                     dr[2] = liabilityVo.LoanPartner.ToString();
                     dr[3] = decimal.Parse(liabilityVo.LoanAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")); 
                     dr[4] = liabilityVo.RateOfInterest.ToString();
+                    if (liabilityVo.PaymentOptionCode == 1)
+                    {
+                        dr[5] = "Lumpsum";
+                        dr[6] = Math.Round(liabilityVo.LumpsumRepaymentAmount, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        loanOutStanding = calculator.GetLoanOutstanding(liabilityVo.CompoundFrequency, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 1, liabilityVo.LumpsumRepaymentAmount, liabilityVo.NoOfInstallments);
+                        dr[7] = Math.Round(loanOutStanding, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        dr[8] = "-";
+                        dr[9] = "-";
+                    }
+                    else if (liabilityVo.PaymentOptionCode == 2)
+                    {
+                        dr[5] = "Installment";
+                        dr[6] = Math.Round(liabilityVo.EMIAmount, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        loanOutStanding = calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
+                        dr[7] = Math.Round(loanOutStanding, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        nextInsDate = calculator.GetNextPremiumDate(liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, liabilityVo.FrequencyCodeEMI);
+                        if (nextInsDate != DateTime.MinValue)
+                            dr[8] = nextInsDate.ToLongDateString();
+                        else
+                            dr[8] = "-";
+                        switch (liabilityVo.FrequencyCodeEMI)
+                        {
+
+                            case "MN":
+                                dr[9] = "Monthly";
+                                break;
+                            case "QT":
+                                dr[9] = "Quarterly";
+                                break;
+
+                            case "HY":
+                                dr[9] = "Half Yearly";
+                                break;
+
+                            case "YR":
+                                dr[9] = "Yearly";
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        dr[5] = "-";
+                        dr[6] = "-";
+                        //loanOutStanding = calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
+                        dr[7] = "-";
+                        //nextInsDate = calculator.GetNextPremiumDate(liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, liabilityVo.FrequencyCodeEMI);
+                        dr[8] = "-";
+                        dr[9] = "-";
+                    }
                     dt.Rows.Add(dr);
                 }
                 gvLiabilities.DataSource = dt;

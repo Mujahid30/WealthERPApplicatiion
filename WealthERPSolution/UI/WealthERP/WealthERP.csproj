@@ -2140,11 +2140,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\FinancialPlanningDS.Designer.cs" />
-    <Compile Include="Reports\FPDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FPDataSet.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="Reports\FPDataSet.Designer.cs" />
     <Compile Include="Reports\FPReports.ascx.cs">
       <DependentUpon>FPReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2203,6 +2199,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\MultiAssetReportDS.Designer.cs" />
+    <Compile Include="Reports\MultiiAssetReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiiAssetReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\PortfolioReports.ascx.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2744,7 +2746,6 @@
     <Content Include="Images\info_image.png" />
     <Content Include="Images\loader.gif" />
     <Content Include="Images\Loading.gif" />
-    <Content Include="Images\MailSend-loader.gif" />
     <Content Include="Images\MenuSeparator.jpg" />
     <Content Include="Images\Portfolios.jpg" />
     <Content Include="Images\Print.gif" />
@@ -3247,9 +3248,9 @@
       <DependentUpon>FinancialPlanningDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\FinancialPlanningDS.xsd">
-      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FinancialPlanningDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Reports\FinancialPlanningDS.xss">
       <DependentUpon>FinancialPlanningDS.xsd</DependentUpon>
@@ -3258,9 +3259,9 @@
       <DependentUpon>FPDataSet.xsd</DependentUpon>
     </None>
     <None Include="Reports\FPDataSet.xsd">
-      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>FPDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>FPDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Reports\FPDataSet.xss">
       <DependentUpon>FPDataSet.xsd</DependentUpon>
