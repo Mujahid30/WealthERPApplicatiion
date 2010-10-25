@@ -9,6 +9,7 @@ using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Data.Common;
 using VoCustomerPortfolio;
 using VoUser;
+using BoCalculator;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 
@@ -17,13 +18,15 @@ namespace DaoCustomerPortfolio
     public class AssetDao
     {
 
-        public double GetCustomerPortfolioLiability(int portfolioId)
+        public List<LiabilitiesVo> GetCustomerPortfolioLiability(int portfolioId)
         {
             double liabilityValue = 0;
+            LiabilitiesVo liabilitiesVo = new LiabilitiesVo();
+            List<LiabilitiesVo> listLiabilitiesVo = new List<LiabilitiesVo>();
             Database db;
             DbCommand getCustomerPortfolioLiabilityCmd;
             DataSet CustomerPortfolioLiabilityDs = null;
-            DataRow dr;
+            
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -32,9 +35,61 @@ namespace DaoCustomerPortfolio
                 CustomerPortfolioLiabilityDs = db.ExecuteDataSet(getCustomerPortfolioLiabilityCmd);
                 if (CustomerPortfolioLiabilityDs != null && CustomerPortfolioLiabilityDs.Tables[0].Rows.Count != 0)
                 {
-                    dr=CustomerPortfolioLiabilityDs.Tables[0].Rows[0];
-                    if (dr["LiabilityValue"] != null && dr["LiabilityValue"].ToString() != string.Empty)
-                        liabilityValue = double.Parse(dr["LiabilityValue"].ToString());
+                    foreach (DataRow dr in CustomerPortfolioLiabilityDs.Tables[0].Rows)
+                    {
+                        liabilitiesVo = new LiabilitiesVo();
+                        liabilitiesVo.LiabilitiesId = int.Parse(dr["CL_LiabilitiesId"].ToString());
+                        
+                        if (!String.IsNullOrEmpty(dr["CL_LoanAmount"].ToString()))
+                            liabilitiesVo.LoanAmount = double.Parse(dr["CL_LoanAmount"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_RateOfInterest"].ToString()))
+                            liabilitiesVo.RateOfInterest = float.Parse(dr["CL_RateOfInterest"].ToString());
+                        if (!String.IsNullOrEmpty(dr["XLP_LoanPartnerCode"].ToString()))
+                            liabilitiesVo.LoanPartnerCode = int.Parse(dr["XLP_LoanPartnerCode"].ToString());
+                        if (!String.IsNullOrEmpty(dr["XLT_LoanTypeCode"].ToString()))
+                            liabilitiesVo.LoanTypeCode = int.Parse(dr["XLT_LoanTypeCode"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_IsFloatingRateInterest"].ToString()))
+                            liabilitiesVo.IsFloatingRateInterest = int.Parse(dr["CL_IsFloatingRateInterest"].ToString());
+                        if (!String.IsNullOrEmpty(dr["ALP_LoanProposalId"].ToString()))
+                            liabilitiesVo.LoanProposalId = int.Parse(dr["ALP_LoanProposalId"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_EMIAmount"].ToString()))
+                            liabilitiesVo.EMIAmount = double.Parse(dr["CL_EMIAmount"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_NoOfInstallments"].ToString()))
+                            liabilitiesVo.NoOfInstallments = int.Parse(dr["CL_NoOfInstallments"].ToString());
+                        if (!String.IsNullOrEmpty(dr["XRT_RepaymentTypeCode"].ToString()))
+                            liabilitiesVo.RepaymentTypeCode = dr["XRT_RepaymentTypeCode"].ToString();
+                        if (!String.IsNullOrEmpty(dr["XF_FrequencyCodeEMI"].ToString()))
+                            liabilitiesVo.FrequencyCodeEMI = dr["XF_FrequencyCodeEMI"].ToString();
+                        if (!String.IsNullOrEmpty(dr["CL_InstallmentStartDate"].ToString()))
+                            liabilitiesVo.InstallmentStartDate = DateTime.Parse(dr["CL_InstallmentStartDate"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_InstallmentEndDate"].ToString()))
+                            liabilitiesVo.InstallmentEndDate = DateTime.Parse(dr["CL_InstallmentEndDate"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_CommissionAmount"].ToString()))
+                            liabilitiesVo.CommissionAmount = double.Parse(dr["CL_CommissionAmount"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_CommissionPer"].ToString()))
+                            liabilitiesVo.CommissionPer = float.Parse(dr["CL_CommissionPer"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_LoanStartDate"].ToString()))
+                            liabilitiesVo.LoanStartDate = DateTime.Parse(dr["CL_LoanStartDate"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_OtherLenderName"].ToString()))
+                            liabilitiesVo.OtherLenderName = dr["CL_OtherLenderName"].ToString();
+                        if (!String.IsNullOrEmpty(dr["CL_CompoundFrequency"].ToString()))
+                            liabilitiesVo.CompoundFrequency = dr["CL_CompoundFrequency"].ToString();
+                        if (!String.IsNullOrEmpty(dr["XPO_PaymentOptionCode"].ToString()))
+                            liabilitiesVo.PaymentOptionCode = int.Parse(dr["XPO_PaymentOptionCode"].ToString());
+                        if (!String.IsNullOrEmpty(dr["XIT_InstallmentTypeCode"].ToString()))
+                            liabilitiesVo.InstallmentTypeCode = int.Parse(dr["XIT_InstallmentTypeCode"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_LumpsumRepaymentAmount"].ToString()))
+                            liabilitiesVo.LumpsumRepaymentAmount = double.Parse(dr["CL_LumpsumRepaymentAmount"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_OutstandingAmount"].ToString()))
+                            liabilitiesVo.OutstandingAmount = double.Parse(dr["CL_OutstandingAmount"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_Guarantor"].ToString()))
+                            liabilitiesVo.Guarantor = dr["CL_Guarantor"].ToString();
+                        if (!String.IsNullOrEmpty(dr["CL_Tenure"].ToString()))
+                            liabilitiesVo.Tenure = int.Parse(dr["CL_Tenure"].ToString());
+
+
+                        listLiabilitiesVo.Add(liabilitiesVo);
+                    }
                 }
             }
             catch (BaseApplicationException Ex)
@@ -56,7 +111,7 @@ namespace DaoCustomerPortfolio
                 throw exBase;
 
             }
-            return liabilityValue;
+            return listLiabilitiesVo;
         }
         public DataSet GetAssetGroups()
         {
@@ -1062,13 +1117,52 @@ namespace DaoCustomerPortfolio
             Database db;
             DbCommand getGrpAssetNetHoldingsCmd;
             DataSet assetGrpNetHoldings = null;
-
+            LiabilitiesVo liabilityVo = new LiabilitiesVo();
+            List<LiabilitiesVo> liabilityVoList = new List<LiabilitiesVo>();
+            double liabilityValue = 0;
+            DataRow drLiability;
+            PortfolioDao portfolioDao = new PortfolioDao();
+            Calculator calculator = new Calculator();
+            LiabilitiesDao liabilitiesDao = new LiabilitiesDao();
+            List<CustomerPortfolioVo> customerPortfolioVoList=new List<CustomerPortfolioVo>();
+            int tempId = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getGrpAssetNetHoldingsCmd = db.GetStoredProcCommand("SP_GrpDashBoard_GetGroupHoldings");
                 db.AddInParameter(getGrpAssetNetHoldingsCmd, "CustomerId", DbType.Int32, CustomerId);
                 assetGrpNetHoldings = db.ExecuteDataSet(getGrpAssetNetHoldingsCmd);
+                if (assetGrpNetHoldings.Tables[0].Rows.Count > 0)
+                {
+                    for(int i=0;i<assetGrpNetHoldings.Tables[0].Rows.Count;i++)
+                    {
+                        if (assetGrpNetHoldings.Tables[0].Rows[i]["AssetType"].ToString() == "Liabilities")
+                        {
+                            tempId = int.Parse(assetGrpNetHoldings.Tables[0].Rows[i]["CustomerId"].ToString());
+                            liabilityVoList = liabilitiesDao.GetLiabilities(tempId);
+                            liabilityValue = 0;
+                            if (liabilityVoList != null)
+                            {
+                                for (int j = 0; j < liabilityVoList.Count; j++)
+                                {
+                                    liabilityVo = new LiabilitiesVo();
+                                    liabilityVo = liabilityVoList[j];
+                                    if (liabilityVo.PaymentOptionCode == 1)
+                                    {
+                                        liabilityValue = liabilityValue + calculator.GetLoanOutstanding(liabilityVo.CompoundFrequency, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 1, liabilityVo.LumpsumRepaymentAmount, liabilityVo.NoOfInstallments);
+                                    }
+                                    else if (liabilityVo.PaymentOptionCode == 2)
+                                    {
+                                        liabilityValue = liabilityValue + calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
+                                    }
+                                }
+                            }
+
+                            assetGrpNetHoldings.Tables[0].Rows[i]["CurrentValue"] = liabilityValue.ToString();
+                        }
+                    }
+
+                }
             }
             catch (BaseApplicationException Ex)
             {
