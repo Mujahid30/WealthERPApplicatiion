@@ -175,10 +175,8 @@ namespace WealthERP.Advisor
             userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
-                
                 //trPageChoice.Visible = false;
-                
-                if (Session["Current_Link"].ToString() == "AdvisorLeftPane"  || Session["Current_Link"].ToString() =="RMCustomerIndividualLeftPane")
+                if (Session["Current_Link"].ToString() == "AdvisorLeftPane" || Session["Current_Link"].ToString() == "RMCustomerIndividualLeftPane")
                 {
                     if (Session["Customer"].ToString() == "Customer")
                     {
@@ -228,7 +226,7 @@ namespace WealthERP.Advisor
 
                     int Count;
 
-                    customerList = advisorBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value , hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value,hdnactive.Value, out genDictParent, out genDictRM, out genDictReassignRM);
+                    customerList = advisorBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, hdnactive.Value, out genDictParent, out genDictRM, out genDictReassignRM);
                     lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 }
 
@@ -330,10 +328,8 @@ namespace WealthERP.Advisor
                         drRMCustomer[12] = customerVo.Adr1PinCode.ToString();
                         //customerRMVo = advisorStaffBo.GetAdvisorStaff(advisorStaffBo.GetUserId(customerVo.RmId));
                         drRMCustomer[13] = customerVo.AssignedRM.ToString();
-                        //if (hdnactive.Value == 'A')
-                        //{
+                        //customerRMVo.FirstName.ToString() + " " + customerRMVo.MiddleName.ToString() + " " + customerRMVo.LastName.ToString();
 
-                        //}
                         drRMCustomer[13] = customerVo.AssignedRM.ToString();
                         if (customerVo.IsActive == 1)
                         {
@@ -342,15 +338,14 @@ namespace WealthERP.Advisor
                         else
                         {
                             drRMCustomer[14] = "In Active";
- 
+
                         }
-                        //customerRMVo.FirstName.ToString() + " " + customerRMVo.MiddleName.ToString() + " " + customerRMVo.LastName.ToString();
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
                     gvCustomers.DataSource = dtRMCustomer;
                     gvCustomers.DataBind();
 
-                    ReAssignRMControl(genDictReassignRM);
+                    //ReAssignRMControl(genDictReassignRM);
 
                     if (genDictParent.Count > 0)
                     {
@@ -358,8 +353,8 @@ namespace WealthERP.Advisor
                         if (ddlParent != null)
                         {
                             ddlParent.DataSource = genDictParent;
-                            ddlParent.DataTextField = "Key";
-                            ddlParent.DataValueField = "Value";
+                            ddlParent.DataTextField = "Value";
+                            ddlParent.DataValueField = "Key";
                             ddlParent.DataBind();
                             ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                         }
@@ -367,24 +362,29 @@ namespace WealthERP.Advisor
                         {
                             ddlParent.SelectedValue = hdnParentFilter.Value.ToString();
                         }
+                        DropDownList ddlActiveFilter = GetActiveDDL();
+                        if (hdnactive.Value != "")
+                        {
+                            ddlActiveFilter.SelectedValue = hdnactive.Value.ToString();
+                        }
                     }
 
-                    if (genDictRM.Count > 0)
-                    {
-                        DropDownList ddlRM = GetRMDDL();
-                        if (ddlRM != null)
-                        {
-                            ddlRM.DataSource = genDictRM;
-                            ddlRM.DataTextField = "Value";
-                            ddlRM.DataValueField = "Key";
-                            ddlRM.DataBind();
-                            ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-                        }
-                        if (hdnRMFilter.Value != "")
-                        {
-                            ddlRM.SelectedValue = hdnRMFilter.Value.ToString();
-                        }
-                    }
+                    //if (genDictRM.Count > 0)
+                    //{
+                    //    DropDownList ddlRM = GetRMDDL();
+                    //    if (ddlRM != null)
+                    //    {
+                    //        ddlRM.DataSource = genDictRM;
+                    //        ddlRM.DataTextField = "Value";
+                    //        ddlRM.DataValueField = "Key";
+                    //        ddlRM.DataBind();
+                    //        ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                    //    }
+                    //    if (hdnRMFilter.Value != "")
+                    //    {
+                    //        ddlRM.SelectedValue = hdnRMFilter.Value.ToString();
+                    //    }
+                    //}
 
                     TextBox txtName = GetCustNameTextBox();
                     if (txtName != null)
@@ -403,6 +403,16 @@ namespace WealthERP.Advisor
                             txtPincode.Text = hdnPincodeFilter.Value.ToString();
                         }
                     }
+
+                    TextBox txtPAN = GetPANTextBox();
+                    if (txtPAN != null)
+                    {
+                        if (hndPAN.Value != "")
+                        {
+                            txtPAN.Text = hndPAN.Value.ToString();
+                        }
+                    }
+
 
                     TextBox txtArea = GetAreaTextBox();
                     if (txtArea != null)
@@ -496,7 +506,6 @@ namespace WealthERP.Advisor
             {
                 Session.Remove(SessionContents.PortfolioId);
             }
-
             try
             {
                 ddlAction = (DropDownList)sender;
@@ -588,19 +597,19 @@ namespace WealthERP.Advisor
             try
             {
 
-                DropDownList ddl = new DropDownList();
-                Label lbl = new Label();
-                if (gvCustomers.HeaderRow != null)
-                {
-                    if ((DropDownList)gvCustomers.HeaderRow.FindControl("ddlReassignRM") != null)
-                    {
-                        ddl = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlReassignRM");
-                        lbl = (Label)(gvCustomers.HeaderRow.FindControl("lblAssignedRMHeader"));
-                        ddl.Visible = false;
-                        lbl.Visible = true;
+                //DropDownList ddl = new DropDownList();
+                //Label lbl = new Label();
+                //if (gvCustomers.HeaderRow != null)
+                //{
+                //    if ((DropDownList)gvCustomers.HeaderRow.FindControl("ddlReassignRM") != null)
+                //    {
+                //        ddl = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlReassignRM");
+                //        lbl = (Label)(gvCustomers.HeaderRow.FindControl("lblAssignedRMHeader"));
+                //        ddl.Visible = false;
+                //        lbl.Visible = true;
 
-                    }
-                }
+                //    }
+                //}
 
 
                 customer = Session["Customer"].ToString();
@@ -622,7 +631,7 @@ namespace WealthERP.Advisor
                 // Search Term is input into this hidden field
                 hdnNameFilter.Value = customer;
 
-                customerList = adviserBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value,hdnactive.Value, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value,hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value,hdnactive.Value, out genDictParent, out genDictRM, out genDictReassignRM);
 
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
@@ -656,7 +665,7 @@ namespace WealthERP.Advisor
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("Pincode");
                     dtRMCustomer.Columns.Add("Assigned RM");
-
+                    dtRMCustomer.Columns.Add("IsActive");
                     DataRow drRMCustomer;
 
                     for (int i = 0; i < customerList.Count; i++)
@@ -727,14 +736,22 @@ namespace WealthERP.Advisor
                         drRMCustomer[11] = customerVo.Adr1City.ToString();
                         drRMCustomer[12] = customerVo.Adr1PinCode.ToString();
                         drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        if (customerVo.IsActive == 1)
+                        {
+                            drRMCustomer[14] = "Active";
+                        }
+                        else
+                        {
+                            drRMCustomer[14] = "In Active";
 
+                        }
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
 
                     gvCustomers.DataSource = dtRMCustomer;
                     gvCustomers.DataBind();
 
-                    ReAssignRMControl(genDictRM);
+                    //ReAssignRMControl(genDictRM);
 
                     if (genDictParent.Count > 0)
                     {
@@ -753,22 +770,22 @@ namespace WealthERP.Advisor
                         }
                     }
 
-                    if (genDictRM.Count > 0)
-                    {
-                        DropDownList ddlRM = GetRMDDL();
-                        if (ddlRM != null)
-                        {
-                            ddlRM.DataSource = genDictRM;
-                            ddlRM.DataTextField = "Value";
-                            ddlRM.DataValueField = "Key";
-                            ddlRM.DataBind();
-                            ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-                        }
-                        if (hdnRMFilter.Value != "")
-                        {
-                            ddlRM.SelectedValue = hdnRMFilter.Value.ToString();
-                        }
-                    }
+                    //if (genDictRM.Count > 0)
+                    //{
+                    //    DropDownList ddlRM = GetRMDDL();
+                    //    if (ddlRM != null)
+                    //    {
+                    //        ddlRM.DataSource = genDictRM;
+                    //        ddlRM.DataTextField = "Value";
+                    //        ddlRM.DataValueField = "Key";
+                    //        ddlRM.DataBind();
+                    //        ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                    //    }
+                    //    if (hdnRMFilter.Value != "")
+                    //    {
+                    //        ddlRM.SelectedValue = hdnRMFilter.Value.ToString();
+                    //    }
+                    //}
 
                     TextBox txtName = GetCustNameTextBox();
                     if (txtName != null)
@@ -787,6 +804,16 @@ namespace WealthERP.Advisor
                             txtPincode.Text = hdnPincodeFilter.Value.ToString();
                         }
                     }
+
+                    TextBox txtPAN = GetPANTextBox();
+                    if (txtPAN != null)
+                    {
+                        if (hndPAN.Value != "")
+                        {
+                            txtPAN.Text = hndPAN.Value.ToString();
+                        }
+                    }
+
 
                     TextBox txtArea = GetAreaTextBox();
                     if (txtArea != null)
@@ -819,7 +846,7 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
-
+/*
         private void ReAssignRMControl(Dictionary<string, string> genDictReassignRM)
         {
             // genDictRM = new Dictionary<string, string>();
@@ -871,7 +898,7 @@ namespace WealthERP.Advisor
 
             }
         }
-
+        */
         protected void gvCustomers_Sort(object sender, GridViewSortEventArgs e)
         {
             string sortExpression = null;
@@ -1363,6 +1390,24 @@ namespace WealthERP.Advisor
             return txt;
         }
 
+        private TextBox GetPANTextBox()
+        {
+            TextBox txt = new TextBox();
+            if (gvCustomers.HeaderRow != null)
+            {
+                if ((TextBox)gvCustomers.HeaderRow.FindControl("txtPAN") != null)
+                {
+                    txt = (TextBox)gvCustomers.HeaderRow.FindControl("txtPAN");
+                }
+            }
+            else
+                txt = null;
+
+            return txt;
+        }
+
+        
+
         private DropDownList GetParentDDL()
         {
             DropDownList ddl = new DropDownList();
@@ -1378,7 +1423,22 @@ namespace WealthERP.Advisor
 
             return ddl;
         }
+        private DropDownList GetActiveDDL()
+        {
+            DropDownList ddl = new DropDownList();
+            if (gvCustomers.HeaderRow != null)
+            {
+                if ((DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter") != null)
+                {
+                    ddl = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
+                }
+            }
+            else
+                ddl = null;
 
+            return ddl;
+        }
+        /*
         private DropDownList GetRMDDL()
         {
             DropDownList ddl = new DropDownList();
@@ -1394,7 +1454,7 @@ namespace WealthERP.Advisor
 
             return ddl;
         }
-
+        */
         protected void btnPincodeSearch_Click(object sender, EventArgs e)
         {
             TextBox txtPincode = GetPincodeTextBox();
@@ -1412,7 +1472,23 @@ namespace WealthERP.Advisor
                 }
             }
         }
+        protected void btnPANSearch_Click(object sender, EventArgs e)
+        {
+            TextBox txtPAN = GetPANTextBox();
 
+            if (txtPAN != null)
+            {
+                hndPAN.Value = txtPAN.Text.Trim();
+                if (Session["Customer"].ToString() == "Customer")
+                {
+                    this.BindGrid(mypager.CurrentPage, 0);
+                }
+                else
+                {
+                    this.BindCustomer(mypager.CurrentPage);
+                }
+            }
+        }
         protected void btnAreaSearch_Click(object sender, EventArgs e)
         {
             TextBox txtArea = GetAreaTextBox();
@@ -1441,7 +1517,7 @@ namespace WealthERP.Advisor
                 this.BindGrid(mypager.CurrentPage, 0);
             }
         }
-
+        /*
         protected void ddlAssignedRM_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlRM = GetRMDDL();
@@ -1451,7 +1527,8 @@ namespace WealthERP.Advisor
                 if (ddlRM.SelectedIndex != 0)
                 {   // Bind the Grid with Only Selected Values
                     //hdnRMFilter.Value = ddlRM.SelectedValue;
-                    hdnRMFilter.Value = ddlRM.SelectedItem.Text;
+                    hdnRMFilter.Value = ddlRM.SelectedItem.Value;
+                    hdnCurrentPage.Value = "";
                 }
                 else
                 {   // Bind the Grid with Only All Values
@@ -1468,22 +1545,21 @@ namespace WealthERP.Advisor
                 }
             }
         }
-
+        */
         protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ddlFilter=(DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
-            if (int.Parse(ddlFilter.SelectedValue) == 1)
-            {
-                hdnactive.Value = "A";
-            }
-            if (int.Parse(ddlFilter.SelectedValue) == 0)
-            {
-                hdnactive.Value = "I";
-            }
-            if (int.Parse(ddlFilter.SelectedValue) == 2)
-            {
-                hdnactive.Value = "D";
-            }
+            DropDownList ddlFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
+
+            hdnactive.Value = ddlFilter.SelectedValue;
+            
+            //if (int.Parse(ddlFilter.SelectedValue) == 0)
+            //{
+            //    hdnactive.Value = "I";
+            //}
+            //if (int.Parse(ddlFilter.SelectedValue) == 2)
+            //{
+            //    hdnactive.Value = "D";
+            //}
             this.BindGrid(mypager.CurrentPage, 0);
         }
         protected void ddlParent_SelectedIndexChanged(object sender, EventArgs e)
@@ -1511,9 +1587,12 @@ namespace WealthERP.Advisor
                 }
             }
         }
-
+        /*
         protected void chkReassignRM_CheckedChanged(object sender, EventArgs e)
         {
+            AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+            DataTable ds = new DataTable();
+           
             if (((CheckBox)gvCustomers.HeaderRow.FindControl("chkReassignRM")).Checked)
             {
                 hdnReassignRM.Value = "1";
@@ -1521,11 +1600,29 @@ namespace WealthERP.Advisor
             else
             {
                 hdnReassignRM.Value = "";
+                BindGrid(mypager.CurrentPage, 0);
             }
-            ReAssignRMControl(genDictReassignRM);
+            if (genDictReassignRM != null)
+            {
+                ReAssignRMControl(genDictReassignRM);
+            }
+            else
+            {
+                ds=advisorStaffBo.GetAdviserRM(((AdvisorVo)Session["advisorVo"]).advisorId);
+                genDictReassignRM=new Dictionary<string,string>();
+                foreach (DataRow dr in ds.Rows)
+                {
+                    if (dr["RMName"].ToString().Trim() != "")
+                    {
+                        genDictReassignRM.Add(dr["AR_RMId"].ToString(), dr["RMName"].ToString());
+                    }
+                }
+                ReAssignRMControl(genDictReassignRM);
+            }
 
         }
-
+        */
+        /*
         protected void btnSave_Click(object sender, EventArgs e)
         {
             int[] customerIds;
@@ -1561,7 +1658,7 @@ namespace WealthERP.Advisor
 
 
         }
-
+        */
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
             gvCustomers.Columns[0].Visible = false;

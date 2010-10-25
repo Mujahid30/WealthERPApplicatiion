@@ -92,7 +92,18 @@
     </tr>
     <tr id="Tr1" runat="server">
         <td>
-            <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" style="display:none">
+            <%--<asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" Width="150px">
+                <input type="radio" id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" />
+                <label for="rbtnSin" class="cmbField">Current Page</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                <input type="radio" id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')" />
+                <label for="Radio1" class="cmbField">All Pages</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                <div align="center">
+                    <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                </div>--%>
+                 <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" style="display:none">
                 <br />
                 <table width="100%">
                     <tr>
@@ -130,7 +141,9 @@
                             <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
                         </td>
                     </tr>
-                </table>
+                </table> 
+                
+                
             </asp:Panel>
             <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
                 OnClick="btnExportExcel_Click" Height="31px" Width="35px" />
@@ -142,7 +155,8 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%">
+<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" Height="400px"
+    ScrollBars="Auto">
     <table>
         <caption>
             <img id="AdvisorLogo" runat="server" alt="Advisor Logo" style="display: none" />
@@ -175,9 +189,9 @@
                                     <asp:ListItem Text="Alerts" Value="Alerts" />
                                 </asp:DropDownList>
                             </ItemTemplate>
-                            <FooterTemplate>
+                           <%-- <FooterTemplate>
                                 <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" />
-                            </FooterTemplate>
+                            </FooterTemplate>--%>
                         </asp:TemplateField>
                         <%--<asp:BoundField DataField="Parent" HeaderText="Parent" SortExpression="Parent" ItemStyle-Wrap="false" />--%>
                         <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
@@ -205,7 +219,21 @@
                             </ItemTemplate>
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>
-                        <asp:BoundField DataField="PAN Number" HeaderStyle-Wrap="false" HeaderText="PAN Number" />
+                       <%-- <asp:BoundField DataField="PAN" HeaderStyle-Wrap="false" HeaderText="PAN Number" />--%>
+                        <asp:TemplateField ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblPAN" runat="server" Text="PAN"></asp:Label>
+                                <br />
+                                <asp:TextBox ID="txtPAN" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnPANSearch');" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblPANHeader" runat="server" Text='<%# Eval("PAN Number").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
+                       
+                                              
+                       
                         <asp:BoundField DataField="Mobile Number" HeaderText="Mobile Number" />
                         <asp:BoundField DataField="Phone Number" HeaderText="Phone Number" />
                         <asp:BoundField DataField="Email" HeaderText="Email" />
@@ -222,6 +250,8 @@
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>
                         <%--<asp:BoundField DataField="Area" HeaderText="Area" />--%>
+                        
+                        
                         <asp:BoundField DataField="City" HeaderText="City" />
                         <asp:TemplateField ItemStyle-Wrap="false">
                             <HeaderTemplate>
@@ -235,7 +265,7 @@
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>
                         <%--<asp:BoundField DataField="Pincode" HeaderText="Pincode" ItemStyle-HorizontalAlign="Right"/>--%>
-                        <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                        <%--<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblAssignedRM" runat="server" Text="Assigned RM"></asp:Label>
                                 <br />
@@ -252,8 +282,11 @@
                                 </asp:DropDownList>
                             </ItemTemplate>
                             <ItemStyle Wrap="False" />
-                        </asp:TemplateField>
-                                             <asp:TemplateField HeaderText="IsActive">
+                        </asp:TemplateField>--%>
+                        <%--<asp:BoundField DataField="Assigned RM" HeaderText="Assigned RM" HeaderStyle-Wrap="false"
+                            ItemStyle-Wrap="false" />--%>
+                            
+                            <asp:TemplateField HeaderText="IsActive">
                                     <ItemTemplate>
                                         <asp:Label ID="lblIsActive" runat="server" 
                                             Text='<%#Eval("IsActive") %>'>
@@ -263,18 +296,16 @@
                                         <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" 
                                             CssClass="cmbField"  
                                             OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
+                                            <asp:ListItem Text="All" Value="2">
+                                            </asp:ListItem>
                                             <asp:ListItem Text="Active" Value="1">
                                             </asp:ListItem>
                                             <asp:ListItem Text="InActive" Value="0">
                                             </asp:ListItem>
-                                            <asp:ListItem Text="All" Value="2">
-                                            </asp:ListItem>
+                                            
                                         </asp:DropDownList>
                                          </HeaderTemplate>
-                                         </asp:TemplateField>
-                                        
-                        <%--<asp:BoundField DataField="Assigned RM" HeaderText="Assigned RM" HeaderStyle-Wrap="false"
-                            ItemStyle-Wrap="false" />--%>
+                                   </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </td>
@@ -292,6 +323,8 @@
         </td>
     </tr>
 </table>
+<asp:Button ID="btnPANSearch" runat="server" Text="" OnClick="btnPANSearch_Click"
+    BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnPincodeSearch" runat="server" Text="" OnClick="btnPincodeSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnAreaSearch" runat="server" Text="" OnClick="btnAreaSearch_Click"
@@ -302,6 +335,7 @@
 <asp:HiddenField ID="hdnSort" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnPincodeFilter" runat="server" Visible="false" />
+<asp:HiddenField ID="hndPAN" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAreaFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnRMFilter" runat="server" Visible="false" />
