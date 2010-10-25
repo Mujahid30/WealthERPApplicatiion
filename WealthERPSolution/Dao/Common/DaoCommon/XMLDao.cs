@@ -1358,6 +1358,63 @@ namespace DaoCommon
             return dt;
         }
 
+        public static DataTable GetInstallmentType(string path)
+        {
+            DataSet ds;
+            DataTable dt;
+            try
+            {
+                ds = new DataSet();
+                ds.ReadXml(path);
+                dt = ds.Tables["InstallmentType"];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "XMLDao.cs:InstallmentType()");
+                object[] objects = new object[1];
+                objects[0] = path;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
+
+        public static DataTable GetPaymentOption(string path)
+        {
+            DataSet ds;
+            DataTable dt;
+            try
+            {
+                ds = new DataSet();
+                ds.ReadXml(path);
+                dt = ds.Tables["PaymentOption"];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "XMLDao.cs:GetPaymentOption()");
+                object[] objects = new object[1];
+                objects[0] = path;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
         public static DataTable GetCustomerCategory(string path)
         {
             DataSet ds;
