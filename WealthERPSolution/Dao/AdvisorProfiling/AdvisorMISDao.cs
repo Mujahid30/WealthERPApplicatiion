@@ -13,7 +13,7 @@ namespace DaoAdvisorProfiling
     public class AdvisorMISDao
     {
 
-        public DataSet GetMFMIS(string userType, int Id, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetMFMIS(string userType, int Id, DateTime dtFrom, DateTime dtTo,int RMId, int branchId, int branchHeadId, int all)
         {
             Database db;
             DbCommand getMFMICmd;
@@ -26,6 +26,11 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getMFMICmd, "@id", DbType.Int32, Id);
                 db.AddInParameter(getMFMICmd, "@dtFrom", DbType.DateTime, dtFrom);
                 db.AddInParameter(getMFMICmd, "@dtTo", DbType.DateTime, dtTo);
+                db.AddInParameter(getMFMICmd, "@RMId", DbType.Int16, RMId);
+                db.AddInParameter(getMFMICmd, "@branchId", DbType.Int16, branchId);
+                db.AddInParameter(getMFMICmd, "@branchHeadId", DbType.Int16, branchHeadId);
+                db.AddInParameter(getMFMICmd, "@all", DbType.Int16, all);
+
                 dsGetMFMIS = db.ExecuteDataSet(getMFMICmd);
             }
             catch (BaseApplicationException Ex)
@@ -39,11 +44,15 @@ namespace DaoAdvisorProfiling
 
                 FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetMFMIS()");
 
-                object[] objects = new object[1];
+                object[] objects = new object[7];
                 objects[0] = userType;
                 objects[1] = Id;
                 objects[2] = dtFrom;
                 objects[3] = dtTo;
+                objects[4] = branchId;
+                objects[5] = branchHeadId;
+                objects[6] = all;
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -53,7 +62,8 @@ namespace DaoAdvisorProfiling
             return dsGetMFMIS;
         }
 
-        public DataSet GetEQMIS(string userType, int Id, DateTime dtFrom, DateTime dtTo)
+
+        public DataSet GetEQMIS(string userType, int Id, DateTime dtFrom, DateTime dtTo,int rmId, int branchId, int branchHeadId, int all )
         {
             Database db;
             DbCommand getEQMICmd;
@@ -66,6 +76,16 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getEQMICmd, "@id", DbType.Int32, Id);
                 db.AddInParameter(getEQMICmd, "@dtFrom", DbType.DateTime, dtFrom);
                 db.AddInParameter(getEQMICmd, "@dtTo", DbType.DateTime, dtTo);
+                if (rmId != 0)
+                    db.AddInParameter(getEQMICmd, "@rmId", DbType.Int16, rmId);  
+                if (branchId != 0)
+                      db.AddInParameter(getEQMICmd, "@branchId", DbType.Int16, branchId);
+                if (branchHeadId != 0)
+                    db.AddInParameter(getEQMICmd, "@branchHeadId", DbType.Int16, branchHeadId);
+                if (all == 1)
+                    db.AddInParameter(getEQMICmd, "@all", DbType.Int16, all);
+
+
                 dsGetEQMIS = db.ExecuteDataSet(getEQMICmd);
             }
             catch (BaseApplicationException Ex)
@@ -385,8 +405,13 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getLoanMICmd, "@A_AdviserId", DbType.Int32, adviserid);
                 if (branchid != 0)
                     db.AddInParameter(getLoanMICmd, "@AB_BranchId", DbType.Int32, branchid);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AB_BranchId", DbType.Int32, DBNull.Value);
                 if (rmid != 0)
                     db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, rmid);
+                else
+                    db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, DBNull.Value);
+
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
                 db.AddInParameter(getLoanMICmd, "@SchemePlanCode", DbType.Int32, schemeplanid);
                 db.AddInParameter(getLoanMICmd, "@currentPage", DbType.Int32, CurrentPage);
@@ -398,6 +423,7 @@ namespace DaoAdvisorProfiling
                 {
                     db.AddInParameter(getLoanMICmd, "@AllPageExportCount", DbType.Int32, AllPageExportCount);
                 }
+                getLoanMICmd.CommandTimeout = 60 * 60;
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
             catch (BaseApplicationException Ex)
@@ -482,8 +508,12 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getLoanMICmd, "@A_AdviserId", DbType.Int32, adviserid);
                 if (branchid != 0)
                     db.AddInParameter(getLoanMICmd, "@AB_BranchId", DbType.Int32, branchid);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AB_BranchId", DbType.Int32, DBNull.Value);
                 if (rmid != 0)
                     db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, rmid);
+                else
+                    db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, DBNull.Value);
 
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
 
@@ -518,6 +548,70 @@ namespace DaoAdvisorProfiling
             return AMCSchemewiseMIS;
 
         }
+
+
+        /* For BMMIS for Scheeme wise */
+
+        public DataSet GetMISForBM(int rmid, int branchID, int branchHeadId, int XWise, int all, DateTime valuationDate, string AMCSearchVal, out int Count, int AllPageExportCount)
+        {
+            Database db;
+            DbCommand getLoanMICmd;
+            DataSet AMCSchemewiseMIS = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getLoanMICmd = db.GetStoredProcCommand("SP_GetAllAMCwiseMISforBM");
+
+                db.AddInParameter(getLoanMICmd, "@RMId", DbType.Int32, rmid);
+
+
+
+                db.AddInParameter(getLoanMICmd, "@BranchId", DbType.Int32, branchID);
+                db.AddInParameter(getLoanMICmd, "@BranchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(getLoanMICmd, "@all", DbType.Int32, all);
+                db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
+                db.AddInParameter(getLoanMICmd, "@XWise", DbType.Int32, XWise);
+                if (AMCSearchVal != "")
+                    db.AddInParameter(getLoanMICmd, "@AMCSearchVal", DbType.String, AMCSearchVal);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AMCSearchVal", DbType.String, DBNull.Value);
+
+                if (AllPageExportCount != 0)
+                {
+                    db.AddInParameter(getLoanMICmd, "@AllPageExportCount", DbType.Int32, AllPageExportCount);
+                }
+
+                AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetMISForBM()");
+
+                object[] objects = new object[6];
+                objects[0] = rmid;
+                objects[1] = branchID;
+                objects[2] = branchHeadId;
+                objects[3] = all;
+                objects[4] = valuationDate;
+                objects[5] = AMCSearchVal;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            Count = Int32.Parse(AMCSchemewiseMIS.Tables[1].Rows[0]["CNT"].ToString());
+            return AMCSchemewiseMIS;
+
+        }
+        /* *************** */
 
     }
 }
