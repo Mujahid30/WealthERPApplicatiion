@@ -12,11 +12,11 @@ namespace AmpsysJobDaemon
     {
         static void Main(string[] args)
         {
-            JobAccordProductMaster JAPM = new JobAccordProductMaster();
-            DateTime ImportDate = DateTime.Parse(ConfigurationManager.AppSettings["AccordImportDate"]);
+            //JobAccordProductMaster JAPM = new JobAccordProductMaster();
+            //DateTime ImportDate = DateTime.Parse(ConfigurationManager.AppSettings["AccordImportDate"]);
 
-            JAPM.ProcessAccordProductMasterData(ImportDate);
-            return;
+            //JAPM.ProcessAccordProductMasterData(ImportDate);
+            //return;
 
             Utils.Trace("Starting Daemon...");
             Process aProcess = Process.GetCurrentProcess();

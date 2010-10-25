@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.ApplicationBlocks.ExceptionManagement.CustomPublisher;
 using System.Data.Common;
 
 namespace AmpsysJobDaemon
@@ -93,6 +94,8 @@ namespace AmpsysJobDaemon
         {
             Console.WriteLine(DateTime.Now.ToString() + ": " + Msg);
             _TraceFile.WriteLine(DateTime.Now.ToString() + ": " + Msg);
+            EmailExceptionPublisher emailExPublisher = new EmailExceptionPublisher();
+            emailExPublisher.SendMail("admin@wealtherp.com", "ssujith@ampsys.in", "schaluvadi@ampsys.in", "", "Exception at Job Processor", Msg);
 
         }
 

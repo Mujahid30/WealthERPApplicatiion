@@ -93,6 +93,9 @@ namespace AmpsysJobDaemon
                     {
                         string Msg = "Unable to process job queue. " + Ex.ToString();
                         Utils.LogError(Msg);
+
+                        if (Ex.ToString().IndexOf("Login failed") != -1)
+                            break;
                     }
                 }
         }

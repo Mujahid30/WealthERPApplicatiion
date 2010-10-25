@@ -103,7 +103,8 @@ namespace AmpsysDaemon
                 Message = Message.Substring(0, 150);
 
             string URL = _SMSURL.Replace("#NUMBER#", Number);
-            URL = URL.Replace("#MESSAGE#", HttpUtility.UrlEncode(Message));
+           // URL = URL.Replace("#MESSAGE#", HttpUtility.UrlEncode(Message));
+            URL = URL.Replace("#MESSAGE#",Message);
             URL = URL.Replace("#USERNAME#", _SMSUsername);
             URL = URL.Replace("#PASSWORD#", _SMSPassword);
             string Response = GetURL(URL);
