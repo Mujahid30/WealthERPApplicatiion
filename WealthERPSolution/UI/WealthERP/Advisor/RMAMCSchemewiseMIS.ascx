@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMAMCSchemewiseMIS.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="RMAMCSchemewiseMIS.ascx.cs"
     Inherits="WealthERP.Advisor.RMAMCSchemewiseMIS" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
@@ -85,6 +85,9 @@
         <td>
             <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged"
                 AutoPostBack="true">
+                 <%--<asp:ListItem Value="1086" Text="All"></asp:ListItem>
+                 <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>
+                 <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem> --%>
             </asp:DropDownList>
             </span>
         </td>
@@ -111,7 +114,8 @@
                 <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
         </td>
         <td valign="top">
-            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" 
+                AutoPostBack="true" onselectedindexchanged="ddlRM_SelectedIndexChanged">
             </asp:DropDownList>
             </span>
         </td>
@@ -539,3 +543,10 @@
 <asp:HiddenField ID="hdnCategoryFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="ValuationDate" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
+
+<asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnXWise" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnValuationDate" runat="server" Visible="false" />
