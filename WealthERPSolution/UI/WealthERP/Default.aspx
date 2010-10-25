@@ -513,7 +513,7 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewBranchDetails','login');"
                                                                 Text="Branch Details" Value="Branch Details" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRM','login');" Text="View RMs"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRM','login');" Text="Staffs"
                                                                 Value="View RMs" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
