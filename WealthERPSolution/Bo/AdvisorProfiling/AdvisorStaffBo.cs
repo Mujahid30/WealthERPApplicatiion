@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -653,7 +654,7 @@ namespace BoAdvisorProfiling
         /// <param name="genDictParent"></param>
         /// <param name="genDictCity"></param>
         /// <returns></returns>
-        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string Active, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
+        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter,string active, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
         {
             List<CustomerVo> customerList = null;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
@@ -663,7 +664,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                customerList = advisorStaffDao.GetCustomerList(rmId, currentPage, out count, sortExpression, nameFilter, areaFilter, pincodeFilter, parentFilter, cityFilter, Active, out genDictParent, out genDictCity);
+                customerList = advisorStaffDao.GetCustomerList(rmId, currentPage, out count, sortExpression, nameFilter, areaFilter, pincodeFilter, parentFilter, cityFilter, active, out genDictParent, out genDictCity);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1108,6 +1109,40 @@ namespace BoAdvisorProfiling
                 throw exBase;
             }
             return dtAdviserRMList;
+        }
+
+
+        /// <summary>
+        /// Checks the RM BM Role Have4 any dependency...
+        /// </summary>
+        /// <param name="RMID"></param>
+        /// <returns></returns>
+        public Hashtable CheckRMDependency(int RMID)
+        {
+            Hashtable ht = new Hashtable();
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+
+            try
+            {
+                ht = advisorStaffDao.CheckRMDependency(RMID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:CheckRMDependency()");
+                object[] objects = new object[1];
+                objects[0] = RMID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ht;
         }
     }
 }
