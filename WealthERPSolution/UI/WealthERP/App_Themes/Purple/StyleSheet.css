@@ -139,6 +139,12 @@ div#MainDivLeft
     color: #16518A;
 }
 
+.lblChooseBranch
+{
+    float: left;
+    color: #1E103F;
+}
+
 .Message
 {
     background-color: White;
