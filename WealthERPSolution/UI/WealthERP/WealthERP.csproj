@@ -773,6 +773,13 @@
     <Compile Include="Advisor\ChangePassword.ascx.designer.cs">
       <DependentUpon>ChangePassword.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\CustomerAssociationSetup.ascx.cs">
+      <DependentUpon>CustomerAssociationSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\CustomerAssociationSetup.ascx.designer.cs">
+      <DependentUpon>CustomerAssociationSetup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\CustomerUserDetails.ascx.cs">
       <DependentUpon>CustomerUserDetails.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2539,6 +2546,7 @@
     <Content Include="Advisor\AssociateCategory.ascx" />
     <Content Include="Advisor\BMCustomer.ascx" />
     <Content Include="Advisor\BMStaffView.ascx" />
+    <Content Include="Advisor\CustomerAssociationSetup.ascx" />
     <Content Include="Advisor\EditRMDetails.ascx" />
     <Content Include="Advisor\FinancialPlanning.ascx" />
     <Content Include="Advisor\FinancialPlanningLeftPane.ascx" />
