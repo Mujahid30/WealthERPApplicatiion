@@ -128,7 +128,7 @@
                     <td colspan="2">
                         <asp:Label ID="lblAlertsMessage" runat="server" CssClass="HeaderTextSmall" Text="No Alerts..."></asp:Label>
                         <asp:GridView ID="gvCustomerAlerts" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                            CellPadding="4" CssClass="GridViewStyle" ShowFooter="true" Width="100%">
+                            CellPadding="4" CssClass="GridViewStyle" ShowFooter="true" Width="100%" >
                             <FooterStyle CssClass="FooterStyle" />
                             <RowStyle CssClass="RowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
