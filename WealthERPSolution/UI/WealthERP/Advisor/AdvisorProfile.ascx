@@ -64,7 +64,7 @@
             <asp:Label ID="lblLine1" runat="server" CssClass="FieldName" Text="Line1 (House No/ Building) :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:Label ID="lblLine_1" runat="server" Text="" CssClass="Field"></asp:Label>
+            <asp:Label ID="lblLine_1" runat="server" Text="" CssClass="AddLongField"></asp:Label>
         </td>
         <td>
         </td>
@@ -74,7 +74,7 @@
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Line2 ( Street) :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:Label ID="lblLine_2" runat="server" Text="" CssClass="Field"></asp:Label>
+            <asp:Label ID="lblLine_2" runat="server" Text="" CssClass="AddLongField"></asp:Label>
         </td>
         <td>
         </td>
@@ -84,7 +84,7 @@
             <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Line3  (Area) :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:Label ID="lblLine_3" runat="server" Text="" CssClass="Field"></asp:Label>
+            <asp:Label ID="lblLine_3" runat="server" Text="" CssClass="AddLongField"></asp:Label>
         </td>
         <td class="style7">
         </td>
