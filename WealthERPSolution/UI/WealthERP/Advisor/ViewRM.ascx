@@ -29,13 +29,13 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
-    <tr>
+    <tr width="100%">
         <td>
-            <div id="print" runat="server">
+            <div id="print" runat="server" width="100%">
                 <asp:GridView ID="gvRMList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                     DataKeyNames="UserId"  OnSorting="gvRMList_Sorting"
                     CssClass="GridViewStyle"
-                    ShowFooter="True">
+                    ShowFooter="True" width="100%" RowStyle-Wrap="false">
                     <RowStyle CssClass="RowStyle" />
                     <FooterStyle CssClass="FooterStyle" />
                     <PagerStyle CssClass="PagerStyle" />
@@ -43,24 +43,30 @@
                     <HeaderStyle CssClass="HeaderStyle" />
                     <EditRowStyle CssClass="EditRowStyle" />
                     <AlternatingRowStyle CssClass="AltRowStyle" />
+                    
                     <Columns>
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
                                     <asp:ListItem>Select </asp:ListItem>
-                                    <asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>
+                                    <%--<asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>--%>
                                     <asp:ListItem Text="View profile" Value="View profile">View profile  </asp:ListItem>
+                                    <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
                                     <asp:ListItem Text="RM Dashboard" Value="RM Dashboard">RM Dashboard</asp:ListItem>
+                                    
+                                    
+                                    
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="RMName" HeaderText="RM Name" SortExpression="RMName" />
+                        <asp:BoundField DataField="RMName" HeaderText="Name" SortExpression="RMName" ItemStyle-Wrap="false" />
                         <%--<asp:BoundField DataField="RM Main Branch" HeaderText="RM Main Branch" />--%>
-                        <asp:BoundField DataField="StaffType" HeaderText="Staff Type" />
-                        <asp:BoundField DataField="StaffRole" HeaderText="Staff Role" />
+                        <asp:BoundField DataField="StaffType" HeaderText="Type" />
+                        <asp:BoundField DataField="StaffRole" HeaderText="Role" />
+                        <asp:BoundField DataField="BranchList" HeaderText="Branch" />
                         <asp:BoundField DataField="Email" HeaderText="Email" />                        
-                        <asp:BoundField DataField="Mobile Number" HeaderText="Mobile Number" />                        
-                        <asp:BoundField DataField="WealthERP Id" HeaderText="WealthERP Id"  />
+                        <asp:BoundField DataField="Mobile Number" HeaderText="Mobile" />                        
+                        <asp:BoundField DataField="WealthERP Id" HeaderText="Id"  />
                         
                     </Columns>
                 </asp:GridView>
