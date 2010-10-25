@@ -531,6 +531,43 @@ namespace BoUser
             }
             return getRoleAssociationDt;
         }
+        /// <summary>
+        /// Function to delete the role association of a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public bool DeleteRoleAssociation(int userId, int roleId)
+        {
+            bool bResult = false;
+            UserDao userDao = new UserDao();
+            try
+            {
+                bResult = userDao.DeleteRoleAssociation(userId, roleId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserBo.cs:CreateRoleAssociation()");
+                object[] objects = new object[4];
+                objects[0] = userId;
+                objects[1] = roleId;
+                objects[2] = bResult;
+                objects[3] = userDao;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+        }
+
 
     }
 }
