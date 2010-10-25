@@ -31,6 +31,14 @@ function showassocation() {
         </td>
     </tr>
     <tr>
+    <td>
+    </td>
+    <td>
+    <asp:Checkbox ID="chkprospectn" runat="server" CssClass="txtField"  Text="Prospect" 
+                AutoPostBack="false"  Enabled = "false" /></asp:Label>
+                </td>
+    </tr>
+    <tr>
         <td class="leftField" style="width: 35%">
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
@@ -143,23 +151,11 @@ function showassocation() {
               &nbsp;
             &nbsp;
             &nbsp;
-            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Is Dummy PAN"
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
                 AutoPostBack="true"  Enabled = "false"/>
         </td>
     </tr>
-     <tr>
-                        <td class="leftField" width="25%">
-                                <asp:Label ID="Label27" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
-                            </td>
-                            <td class="rightField" width="25%">
-                                 <asp:Checkbox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail"
-                AutoPostBack="true"  Enabled = "false"/>
-                &nbsp;
-            &nbsp;
-                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS"
-                AutoPostBack="true"  Enabled = "false"/>
-                            </td>
-                        </tr>
+     
 </table>
 <div class="tabber" style="width: 100%">
     <div class="tabbertab" style="width: 100%">
@@ -380,6 +376,40 @@ function showassocation() {
             </tr>
         </table>
     </div>
+    <div class="tabbertab">
+                    <h6>
+                        Additional Information</h6>
+                    <table width="100%">
+                        <tr>
+                            <td colspan="4">
+                                <asp:Label ID="Label44" runat="server" Text="Additional Information" CssClass="HeaderTextSmall"></asp:Label>
+                                <hr />
+                            </td>
+                        </tr>
+                        
+                         
+                        <tr>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="Label27" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                 <asp:Checkbox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail"
+                AutoPostBack="true"  Enabled = "false"/>
+                &nbsp;
+            &nbsp;
+                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS"
+                AutoPostBack="true"  Enabled = "false"/>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        
+                       
+                        
+                    </table>
+                </div>
 </div>
 <table width="100%">
     <tr id="trDelete" runat="server">

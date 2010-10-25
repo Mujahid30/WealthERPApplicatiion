@@ -88,6 +88,14 @@ namespace WealthERP.Customer
                 {
                     chkdummypan.Checked = false;
                 }
+                if (customerVo.IsProspect == 1)
+                {
+                    chkprospectn.Checked = true;
+                }
+                else
+                {
+                    chkprospectn.Checked = false;
+                }
                 if (customerVo.ViaSMS == 1)
                 {
                     chksmsn.Checked = true;
