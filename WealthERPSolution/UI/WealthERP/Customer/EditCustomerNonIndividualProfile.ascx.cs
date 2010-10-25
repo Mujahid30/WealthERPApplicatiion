@@ -96,6 +96,14 @@ namespace WealthERP.Customer
                     {
                         chkdummypan.Checked = false;
                     }
+                    if (customerVo.IsProspect == 1)
+                    {
+                        chkprospectn.Checked = true;
+                    }
+                    else
+                    {
+                        chkprospectn.Checked = false;
+                    }
                     if (customerVo.ViaSMS == 1)
                     {
                         chksmsn.Checked = true;
@@ -269,6 +277,14 @@ namespace WealthERP.Customer
                 else
                 {
                     customerVo.DummyPAN = 0;
+                }
+                if (chkprospectn.Checked)
+                {
+                    customerVo.IsProspect = 1;
+                }
+                else
+                {
+                    customerVo.IsProspect = 0;
                 }
                 if (chkmailn.Checked)
                 {
@@ -458,6 +474,11 @@ namespace WealthERP.Customer
             ddlAdviserBranchList.DataValueField = "AB_BranchId";
             ddlAdviserBranchList.DataBind();
             ddlAdviserBranchList.Items.Insert(0, new ListItem("Select a Branch", "Select a Branch"));
+        }
+
+        protected void txtCorrAdrLine1_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

@@ -24,6 +24,14 @@
         </td>
     </tr>
     <tr>
+    <td>
+    </td>
+    <td>
+    <asp:Checkbox ID="chkprospectn" runat="server" CssClass="txtField"  Text="Prospect" 
+                AutoPostBack="false"  Enabled = "true" /></asp:Label>
+                </td>
+    </tr>
+    <tr>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
         </td>
@@ -161,17 +169,7 @@
             <asp:TextBox ID="txtCompanyWebsite" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox>
-            <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField"></asp:TextBox>
-            <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>
-    </tr>
-    <tr>
+     <tr>
         <td class="leftField">
             <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
         </td>
@@ -179,23 +177,24 @@
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField"></asp:TextBox>
             
            
-            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Is Dummy PAN"
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
                 AutoPostBack="true" />
         </td>
     </tr>
-     <tr>
-                        <td class="leftField" width="25%">
-                                <asp:Label ID="Label6" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
-                            </td>
-                            <td class="rightField" width="25%">
-                                 <asp:Checkbox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail"
-                AutoPostBack="false"  Enabled = "true"/>
-                &nbsp;
-            
-                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS"
-                AutoPostBack="false"  Enabled = "true"/>
-                            </td>
-                        </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+            &nbsp;
+            <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+            &nbsp;
+            <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+        </td>
+    </tr>
+   
+     
 </table>
 <div class="tabber">
     <div class="tabbertab">
@@ -212,7 +211,7 @@
                     <asp:Label ID="Label19" runat="server" Text="Line1(House No./Building):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField" style="width: 30%" ></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -226,7 +225,7 @@
                     <asp:Label ID="Label20" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCorrAdrLine2" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrLine2" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -240,7 +239,7 @@
                     <asp:Label ID="Label21" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -303,7 +302,7 @@
                     <asp:Label ID="Label27" runat="server" Text="Line1(House No./Building):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -317,7 +316,7 @@
                     <asp:Label ID="Label28" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPermAdrLine2" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtPermAdrLine2" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -331,7 +330,7 @@
                     <asp:Label ID="Label29" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;
@@ -469,7 +468,7 @@
                     <asp:Label ID="Label37" runat="server" Text="Email Id:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
                         ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
                         ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
@@ -481,6 +480,41 @@
                     &nbsp;
                 </td>
             </tr>
+        </table>
+    </div>
+    <div class="tabbertab" style="height: 250px;">
+        <h6>
+            Additional Information</h6>
+        <table style="width: 100%; height: 163px;">
+            <tr>
+                <td colspan="4">
+                    <asp:Label ID="Label44" CssClass="HeaderTextSmall" runat="server" Text="Additional Information"></asp:Label>
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="Label6" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                 <asp:Checkbox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail"
+                AutoPostBack="false"  Enabled = "true"/>
+                &nbsp;
+            
+                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS"
+                AutoPostBack="false"  Enabled = "true"/>
+                            </td>
+                            <td>
+                            &nbsp;
+                            </td>
+                            <td>
+                            &nbsp;
+                            </td>
+                        </tr>
+            
+           
+            
+            
         </table>
     </div>
 </div>
