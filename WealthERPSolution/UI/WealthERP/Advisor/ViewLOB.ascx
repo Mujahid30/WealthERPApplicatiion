@@ -22,15 +22,9 @@
         </td>
     </tr>
 </table>
-<table id="ErrorMessage" align="center" runat="server">
-    <tr>
-        <td>
-            <div class="failure-msg" align="center">
-                No Records found.....
-            </div>
-        </td>
-    </tr>
-</table>
+<div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center" >
+           No Records found.....
+ </div>
 <table class="TableBackground" style="width:100%">
     <%--<tr>
         <td class="HeaderCell">
@@ -39,9 +33,9 @@
     </tr>--%>
     
     <tr>
-        <td>
+        <%--<td>
            <asp:Label ID="lblMsg" runat="server" CssClass="Error"></asp:Label>
-        </td>
+        </td>--%>
     </tr>
     <tr>
         <td>

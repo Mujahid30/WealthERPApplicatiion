@@ -72,8 +72,9 @@ namespace WealthERP.Advisor
 
                 if (advisorLOBList.Tables[0].Rows.Count > 0)
                 {
-                    //lblMsg.Visible = false;
+                    gvLOBList.Visible = true;
                     ErrorMessage.Visible = false;
+
                     DataTable dtAdvisorLOB = new DataTable();
                     dtAdvisorLOB.Columns.Add("SI.No");
                     dtAdvisorLOB.Columns.Add("LOBId");
@@ -114,10 +115,8 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    //lblMsg.Visible = true;
-                    //lblMsg.Text = "LOB List is Empty..";
-                    ErrorMessage.Visible = true;
                     gvLOBList.Visible = false;
+                    ErrorMessage.Visible = true;                    
                 }
             }
             catch (BaseApplicationException Ex)
@@ -310,7 +309,7 @@ namespace WealthERP.Advisor
                 if (menu == "Edit")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditLOB','none');", true);
-                    Session["LOBGridAction"] = "LOBEdit";
+                    Session["LOBGridAction"] = "AdvisorLOBEdit";
                 }
                 else if (menu == "View")
                 {
