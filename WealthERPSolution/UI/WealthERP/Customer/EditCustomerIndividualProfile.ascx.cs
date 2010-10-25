@@ -123,6 +123,14 @@ namespace WealthERP.Customer
                     {
                         chkdummypan.Checked = false;
                     }
+                    if (customerVo.IsProspect == 1)
+                    {
+                        chkprospect.Checked = true;
+                    }
+                    else
+                    {
+                        chkprospect.Checked = false;
+                    }
                     if (customerVo.ViaSMS == 1)
                     {
                         chksms.Checked = true;
@@ -499,6 +507,14 @@ namespace WealthERP.Customer
                     else
                     {
                         customerVo.DummyPAN = 0;
+                    }
+                    if (chkprospect.Checked)
+                    {
+                        customerVo.IsProspect = 1;
+                    }
+                    else
+                    {
+                        customerVo.IsProspect = 0;
                     }
                     if (chkmail.Checked)
                     {
