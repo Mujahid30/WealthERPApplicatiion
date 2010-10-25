@@ -51,12 +51,13 @@
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="BranchName" HeaderText="Branch/Associate Name"  />
-                    <asp:BoundField DataField="BranchCode" HeaderText="Branch/Associate Code"/>
+                    <asp:BoundField DataField="BranchName" HeaderText="Name"  />
+                    <asp:BoundField DataField="BranchCode" HeaderText="Code"/>
+                    <asp:BoundField DataField="BranchHead" HeaderText="Head"  />
                     <asp:BoundField DataField="Email" HeaderText="Email"  />
-                    <asp:BoundField DataField="Phone" HeaderText="Phone Number"  />
-                    <asp:BoundField DataField="BranchHead" HeaderText="Branch Head Name"  />
-                    <asp:BoundField DataField="BranchType" HeaderText="Branch Type"  />
+                    <asp:BoundField DataField="Phone" HeaderText="Phone"  />
+                   
+                    <asp:BoundField DataField="BranchType" HeaderText="Type"  />
                 </Columns>
             </asp:GridView>
         </td>
