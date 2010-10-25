@@ -68,7 +68,10 @@
             <span id="spnBranch" runat="server">
                 <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
                 <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged"
-                    AutoPostBack="true">
+                    AutoPostBack="true"> 
+                    <%-- <asp:ListItem Value="1086" Text="All"></asp:ListItem>
+                     <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>
+                     <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem>--%>                   
                 </asp:DropDownList>
             </span>
         </td>
@@ -95,14 +98,15 @@
             </asp:DropDownList>
             &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
-                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAMCwiseMIS_btnGo', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAMCwiseMIS_btnGo', 'S');"
+                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AdviserMFMIS_btnGo', 'S');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AdviserMFMIS_btnGo', 'S');"
                 OnClick="btnGo_Click" />
         </td>
         <td>
             <span id="spnRM" runat="server">&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
-                <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField">
+                <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" 
+                onselectedindexchanged="ddlRM_SelectedIndexChanged" AutoPostBack="true">
                 </asp:DropDownList>
             </span>
         </td>
@@ -170,3 +174,8 @@
     OnClick="btnSearch_Click" />
 <asp:HiddenField ID="hdnAMCSearchVal" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnValuationDate" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnXWise" runat="server" Visible="false" />
