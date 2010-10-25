@@ -29,13 +29,18 @@ namespace VoUser
         private int m_Fax;
         private long m_Mobile;
         private string m_RMRole;
+        private string m_RoleList;
         private string m_MainBranch;
-        
+        private string m_BranchList;
         
         #endregion Fields
 
         #region Properties
-
+        public string BranchList
+        {
+            get { return m_BranchList; }
+            set { m_BranchList = value; }
+        }
         public string MainBranch
         {
             get { return m_MainBranch; }
@@ -142,7 +147,11 @@ namespace VoUser
             get { return m_RMRole; }
             set { m_RMRole = value; }
         }
-
+        public string RMRoleList
+        {
+            get { return m_RoleList; }
+            set { m_RoleList = value; }
+        }
         public Int16 IsExternal { get; set; }
 
         public Double CTC { get; set; }
