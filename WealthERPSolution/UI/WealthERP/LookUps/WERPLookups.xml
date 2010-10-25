@@ -797,6 +797,14 @@
     <RepaymentType XRT_RepaymentTypeCode="ECS" XRT_RepaymentType="ECS" Deleted="False"/>
     <RepaymentType XRT_RepaymentTypeCode="PDC" XRT_RepaymentType="PDC" Deleted="False"/>
   </WERPRepaymentType>
+  <WERPInstallmentType>
+    <InstallmentType XIT_InstallmentTypeCode="1" XIT_InstallmentType="Principal + Interest" Deleted="False"/>
+    <InstallmentType XIT_InstallmentTypeCode="2" XIT_InstallmentType="Equated" Deleted="False"/>
+  </WERPInstallmentType>
+  <WERPPaymentOption>
+    <PaymentOption XPO_PaymentOptionCode="1" XPO_PaymentOption="Lumpsum" Deleted="False"/>
+    <PaymentOption XPO_PaymentOptionCode="2" XPO_PaymentOption="Installment" Deleted="False"/>
+  </WERPPaymentOption>
   <WERPCustomerCategory>
     <CustomerCategory XCC_CustomerCategoryCode="1" XCC_CustomerCategory="Individual Resident" Deleted="False"/>
     <CustomerCategory XCC_CustomerCategoryCode="2" XCC_CustomerCategory="Individual NRI" Deleted="False"/>
