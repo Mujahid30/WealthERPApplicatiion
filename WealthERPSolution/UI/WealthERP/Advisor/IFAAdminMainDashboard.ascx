@@ -43,7 +43,7 @@
                     <asp:BoundField DataField="Branch Name" HeaderText="Branch Name"  />
                     <asp:BoundField DataField="Branch Code" HeaderText="Branch Code"  />
                     <asp:BoundField DataField="Equity" HeaderText="Equity (Rs)" 
-                        DataFormatString="{0:c}" HtmlEncode="false" ApplyFormatInEditMode="True" ItemStyle-HorizontalAlign="Right">
+                        DataFormatString="{0:b}" HtmlEncode="false" ApplyFormatInEditMode="True" ItemStyle-HorizontalAlign="Right">
                         <ItemStyle HorizontalAlign="Right"></ItemStyle>
                     </asp:BoundField>
                     <asp:BoundField DataField="MF" HeaderText="MF (Rs)"  HtmlEncode="false"
