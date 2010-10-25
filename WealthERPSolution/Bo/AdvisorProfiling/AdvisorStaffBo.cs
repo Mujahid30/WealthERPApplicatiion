@@ -1111,20 +1111,41 @@ namespace BoAdvisorProfiling
             return dtAdviserRMList;
         }
 
+        /* For Getting Staffs according to Branch selection */ 
 
-        /// <summary>
-        /// Checks the RM BM Role Have4 any dependency...
-        /// </summary>
-        /// <param name="RMID"></param>
-        /// <returns></returns>
-        public Hashtable CheckRMDependency(int RMID)
+        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, int currentPage, out int Count)
         {
-            Hashtable ht = new Hashtable();
+            List<RMVo> rmList = new List<RMVo>();
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            Count = 0;
+            try
+            {
+                rmList = advisorStaffDao.GetBMRMList(branchId, branchHeadId, all, currentPage, out Count);
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message.ToString();
+            }
+
+            return rmList;
+        }
+
+        /* End */
+
+
+        /* To Get All Customers Associated to the Perticular BM */
+
+        public List<CustomerVo> GetAllBMCustomerList(int branchId, int branchHeadId, int all, int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
+        {
+            List<CustomerVo> customerList = null;
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            genDictParent = new Dictionary<string, string>();
+            genDictCity = new Dictionary<string, string>();
+            genDictRM = new Dictionary<string, string>();
 
             try
             {
-                ht = advisorStaffDao.CheckRMDependency(RMID);
+                customerList = advisorStaffDao.GetAllBMCustomerList(branchId, branchHeadId, all, rmId, currentPage, out count, sortExpression, nameFilter, areaFilter, pincodeFilter, parentFilter, cityFilter, RMFilter, out genDictParent, out genDictCity, out genDictRM);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1134,15 +1155,57 @@ namespace BoAdvisorProfiling
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:CheckRMDependency()");
+
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetBMCustomerList()");
+
                 object[] objects = new object[1];
-                objects[0] = RMID;
+                objects[0] = rmId;
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return ht;
+
+            return customerList;
         }
+
+        /* End */
+
+
+        /* Branc Dropdown For BM */
+
+        public DataTable GetRMListForBranchDP(int branchId, int branchHeadId, int all)
+        {
+            DataTable dtBranchRMList;
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            try
+            {
+                dtBranchRMList = advisorStaffDao.GetRMListForBranchDP(branchId, branchHeadId, all);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetBranchRMList()");
+                object[] objects = new object[2];
+                objects[0] = branchId;
+                objects[1] = branchHeadId;
+                objects[2] = all;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtBranchRMList;
+        }
+
+        /* ******************** */
+
+
     }
 }
