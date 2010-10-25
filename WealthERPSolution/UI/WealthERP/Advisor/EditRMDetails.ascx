@@ -57,6 +57,51 @@
         }
         //alert(selectedBranches)
     }
+
+    function CheckItem(sender, args) {
+        var chkControlId = '<%=ChklistRMBM.ClientID%>';
+        var options = document.getElementById(chkControlId).getElementsByTagName('input');
+        var ischecked = false;
+        args.IsValid = false;
+        for (i = 0; i < options.length; i++) {
+            var opt = options[i];
+            if (opt.type == "checkbox") {
+                var check = opt.checked;
+                if (!check && i == 0) {
+                    var count = document.getElementById("ctrl_EditRMDetails_hndRmCustomerCount").value;
+                    if (count > 0) {
+                        alert("Please deassociate Customer First");
+                        return false;
+                    }
+                }
+                if (check) {
+                    ischecked = true;
+                    args.IsValid = true;
+                }
+            }
+        }
+    }
+
+    function CheckRMBMRole() {
+        alert("pra..");
+        var chkControlId = '<%=ChklistRMBM.ClientID%>';
+        var options = document.getElementById(chkControlId).getElementsByTagName('input');
+        var ischecked = false;
+        for (i = 0; i < options.length; i++) {
+            var opt = options[i];
+            if (opt.type == "checkbox") {
+                if (!opt.checked) {
+                    var count=document.getElementById("ctrl_EditRMDetails_hndRmCustomerCount").value;
+                    if (count > 0) {
+                        alert("Please deassociate Customer First");
+                        return false;                     
+                    }
+                    
+                }
+            }
+        }
+    }
+
 </script>
 
 <p>
@@ -94,7 +139,7 @@
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtFirstName" ErrorMessage="Please Enter the Name"
+            <asp:RequiredFieldValidator ID="rfvName" ValidationGroup="btnUpdate" ControlToValidate="txtFirstName" ErrorMessage="<br />Please Enter the Name"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
@@ -122,7 +167,7 @@
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtCTC" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator15" ControlToValidate="txtCTC"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -134,38 +179,32 @@
             <asp:Label ID="lblPerMonth" runat="server" CssClass="FieldName" Text="per month"></asp:Label>
         </td>
     </tr>
-    <tr>
+     <tr>
         <td class="leftField">
             <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="Staff Role:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlRMRole" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlRMRole_SelectedIndexChanged"
-                AutoPostBack="True">
-                <asp:ListItem Value="Select a Role" Text="Select a Role"></asp:ListItem>
-                <asp:ListItem Value="RM" Text="RM"></asp:ListItem>
-                <asp:ListItem Value="BM" Text="Branch Manager"></asp:ListItem>
-            </asp:DropDownList>
-            <span id="Span4" class="spnRequiredField">*</span>
-            <br />
-            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlRMRole"
-                CssClass="rfvPCG" ErrorMessage="Please Select a Role" Operator="NotEqual" ValueToCompare="Select a Role"></asp:CompareValidator>
+            
+              
+            <asp:CheckBoxList ID="ChklistRMBM" runat="server" CausesValidation="True"
+                RepeatDirection="Horizontal" CssClass="cmbField" RepeatLayout="Flow" 
+                ondatabound="ChklistRMBM_DataBound">
+                 <asp:ListItem Value="1001">RM</asp:ListItem>
+                <asp:ListItem Value="1002">BM</asp:ListItem>
+               
+            </asp:CheckBoxList>&nbsp;<span id="Span4" class="spnRequiredField">*</span>
+           <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail" ValidationGroup="btnUpdate" ErrorMessage="select at least one role" ClientValidationFunction="CheckItem" ValidateEmptyText="true"></asp:CustomValidator>
+           
+            
+              
         </td>
-        <td class="style1" colspan="2">
-            <asp:CheckBox ID="chkRM" runat="server" Text="RM" CssClass="cmbField" />
-            &nbsp;
-            <asp:CheckBox ID="chkExternalStaff" runat="server" Text="IsExternalStaff" CssClass="cmbField"
-                AutoPostBack="true" OnCheckedChanged="chkExternalStaff_CheckedChanged" />
+        <td class="style1">
+        
+          <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged" runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
+           
         </td>
     </tr>
-    <%--<tr>
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            <asp:CheckBox ID="chkExternalStaff" runat="server" Text="IsExternalStaff" CssClass="cmbField"
-                AutoPostBack="true" OnCheckedChanged="chkExternalStaff_CheckedChanged" />
-        </td>
-    </tr>--%>
+    
     <tr>
         <td>
             &nbsp;
@@ -180,13 +219,11 @@
     <tr>
         <td>
         </td>
-        <td>
+        <td colspan="3">
             <asp:Label ID="lblISD" runat="server" Text="ISD" CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="lblSTD" runat="server" Text="STD" CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        
             <asp:Label ID="lblPhoneNumber" runat="server" CssClass="FieldName" Text="PhoneNumber"></asp:Label>
         </td>
     </tr>
@@ -194,27 +231,25 @@
         <td class="leftField">
             <asp:Label ID="lblPhoneDirectNumber" runat="server" CssClass="FieldName" Text="Telephone Number Direct :"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" colspan="4">
             <asp:TextBox ID="txtPhDirectISD" runat="server" CssClass="txtField" Width="55px"
                 MaxLength="3"></asp:TextBox>
-        </td>
-        <td>
+        
             <asp:TextBox ID="txtPhDirectSTD" runat="server" CssClass="txtField" Width="55px"
                 MaxLength="3"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rfvphDirect" ControlToValidate="txtPhDirectSTD" ErrorMessage="Please enter STD Code"
                 Display="Dynamic" runat="server" CssClass="rfvPCG"></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPhDirectSTD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-        </td>
-        <td>
+        
             <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPhDirectPhoneNumber"
                 ErrorMessage="Please enter phone number" Display="Dynamic" runat="server" CssClass="rfvPCG"></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtPhDirectPhoneNumber"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -222,23 +257,21 @@
         <td class="leftField">
             <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Telephone Number Extention :"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" colspan="3">
             <asp:TextBox ID="txtPhExtISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator12" ControlToValidate="txtPhExtISD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-        </td>
-        <td>
+        
             <asp:TextBox ID="txtExtSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtExtSTD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-        </td>
-        <td>
+        
             <asp:TextBox ID="txtPhExtPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtPhExtPhoneNumber"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -246,23 +279,21 @@
         <td class="leftField">
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Telephone Number Residence :"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" colspan="3">
             <asp:TextBox ID="txtPhResiISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtPhResiISD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-        </td>
-        <td>
+        
             <asp:TextBox ID="txtResiSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtResiSTD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-        </td>
-        <td>
+        
             <asp:TextBox ID="txtPhResiPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtPhResiPhoneNumber"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -270,22 +301,20 @@
         <td class="leftField">
             <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Fax :"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" colspan="3">
             <asp:TextBox ID="txtFaxISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator9" ControlToValidate="txtFaxISD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-        </td>
-        <td>
+        
             <asp:TextBox ID="txtFaxSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtFaxSTD"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-        </td>
-        <td>
+        
             <asp:TextBox ID="txtFaxNumber" runat="server" CssClass="txtField" Width="150px" MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtFaxNumber"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -297,7 +326,7 @@
             <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
-                ValidationGroup="btnSubmit" ValidationExpression="^\d{10,10}$"></asp:RegularExpressionValidator>
+                ValidationGroup="btnUpdate" ValidationExpression="^\d{10,10}$"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -307,10 +336,10 @@
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEmail"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEmail" ValidationGroup="btnUpdate"
                 ErrorMessage="Please enter an Email ID" Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
+            <asp:RegularExpressionValidator ValidationGroup="btnUpdate" ID="RegularExpressionValidator1" ControlToValidate="txtEmail" 
                 ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
                 ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
         </td>
@@ -358,7 +387,7 @@
 <table>
     <tr>
         <td class="SubmitCell" colspan="4">
-            <asp:Button ID="btnSave" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditRMDetails_btnSave');"
+            <asp:Button ID="btnSave" runat="server" ValidationGroup="btnUpdate" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditRMDetails_btnSave');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EditRMDetails_btnSave');"
                 Text="Save" OnClick="btnSave_Click" Style="height: 26px" OnClientClick="GetSelectedBranches()" />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -380,6 +409,8 @@
             <br />
             <asp:HiddenField ID="hdnExistingBranches" runat="server" />
             <asp:HiddenField ID="hdnSelectedBranches" runat="server" />
+            <asp:HiddenField ID="hndRmCustomerCount" runat="server" />
+            <asp:HiddenField ID="hndBMBranchHead" runat="server"/>
             <br />
             <br />
         </td>
@@ -391,3 +422,4 @@
         </td>
     </tr>
 </table>
+

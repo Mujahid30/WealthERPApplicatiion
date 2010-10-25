@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,7 +18,7 @@ namespace WealthERP.Advisor
 {
     public partial class EditRMDetails : System.Web.UI.UserControl
     {
-        AdvisorBranchVo advisorBranchVo = null;
+        AdvisorBranchVo advisorBranchVo = null;        
         AdvisorVo advisorVo = new AdvisorVo();
         UserBo userBo = new UserBo();
         int rmId;
@@ -26,27 +27,46 @@ namespace WealthERP.Advisor
         RMVo rmVo = new RMVo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         UserVo userVo = new UserVo();
-
+        Hashtable htRMInfo = new Hashtable();
         List<AdvisorBranchVo> advisorBranchList = null;
-
+       
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         DataSet _commondatasetSource;
         DataSet _commondatasetdestination;
         UserVo uvo = new UserVo();
+        int branchHead;
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+
+            CheckRMBM.Attributes.Add("onClick", "CheckRMBMRole();");
+         
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // addBranch.Attributes.Add("onclick", "return addbranches('availableBranch','associatedBranch')");
+           // addBranch.Attributes.Add("onclick", "return addbranches('availableBranch','associatedBranch')");
             //deleteBranch.Attributes.Add("onclick", "return deletebranches('associatedBranch','availableBranch')");
-            if (!IsPostBack)
-            {
-                chkRM.Visible = false;
-            }
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            rmVo = (RMVo)Session["rmVo"];
+            if (Session["CurrentrmVo"] != null)
+            {
+                rmVo = (RMVo)Session["CurrentrmVo"];
+            }
+            else
+            {
+                rmVo = (RMVo)Session["rmVo"];
+            }
+            if (!Page.IsPostBack)
+            {
+               
+                htRMInfo = advisorStaffBo.CheckRMDependency(rmVo.RMId);
+                hndRmCustomerCount.Value = htRMInfo["RMCustomerCount"].ToString();
+                hndBMBranchHead.Value = htRMInfo["BMBranchHead"].ToString(); 
+                editRMDetails();
+            }
+            SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
-            editRMDetails();
+            
             lblEmail.CssClass = "FieldName";
             lblISD.CssClass = "FieldName";
             //lblName.CssClass = "FieldName";
@@ -56,8 +76,7 @@ namespace WealthERP.Advisor
             lblPhoneDirectNumber.CssClass = "FieldName";
             lblPhoneNumber.CssClass = "FieldName";
             lblSTD.CssClass = "FieldName";
-            
-
+          
         }
 
         //protected void rbtnMainBranch_CheckedChanged(object sender, EventArgs e)
@@ -69,8 +88,8 @@ namespace WealthERP.Advisor
         //    RadioButton rbtn = (RadioButton)sender;
         //    GridViewRow tempRow = (GridViewRow)rbtn.NamingContainer;
         //    ((RadioButton)tempRow.FindControl("rbtnMainBranch")).Checked = true;
-
-
+           
+           
 
         //}
 
@@ -116,7 +135,7 @@ namespace WealthERP.Advisor
                 if (!ChkMailId(txtEmail.Text.ToString()))
                 {
                     result = false;
-                    // lblEmail.CssClass = "Error";
+                   // lblEmail.CssClass = "Error";
                 }
 
                 //if (txtFirstName.Text.ToString() == "")
@@ -221,7 +240,14 @@ namespace WealthERP.Advisor
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             try
             {
-                rmVo = (RMVo)Session["rmVo"];
+                if (Session["CurrentrmVo"] != null)
+                {
+                    rmVo = (RMVo)Session["CurrentrmVo"];
+                }
+                else
+                {
+                    rmVo = (RMVo)Session["rmVo"];
+                }
 
                 if (Session["advisorVo"] != null)
                 {
@@ -259,9 +285,9 @@ namespace WealthERP.Advisor
                         hdnExistingBranches.Value += drList["BranchId"].ToString() + ",";
                     }
 
-
+                    Session["AssociatedBranch"] = dtList;
                     //gvBranchList.DataSource = dt;
-
+                    
                     //gvBranchList.DataBind();
                     //gvBranchList.Visible = true;
 
@@ -270,7 +296,7 @@ namespace WealthERP.Advisor
                     associatedBranch.DataTextField = "Branch";
                     associatedBranch.DataValueField = "BranchId";
                     associatedBranch.DataBind();
-
+                    
                     if (chkExternalStaff.Checked == true)
                     {
                         setBranchList("Y");
@@ -278,12 +304,11 @@ namespace WealthERP.Advisor
                     else
                     {
                         setBranchList("N");
-                    }
-
+                    }                  
+                    
                 }
                 else
                 {
-
                     if (chkExternalStaff.Checked == true)
                     {
                         setBranchList("Y");
@@ -291,7 +316,7 @@ namespace WealthERP.Advisor
                     else
                     {
                         setBranchList("N");
-                    }
+                    } 
                     //gvBranchList.Visible = false;
                 }
             }
@@ -322,7 +347,7 @@ namespace WealthERP.Advisor
             UserVo rmUserVo = null;
             DataRow drAdvisorBranch;
             DataTable dtAdvisorBranch = new DataTable();
-            
+            bool tracker = false;
             try
             {
                 rmUserVo = (UserVo)Session["rmUserVo"];
@@ -334,68 +359,43 @@ namespace WealthERP.Advisor
                 {
                     advisorBranchList = advisorBranchBo.GetAdvisorBranches(advisorVo.advisorId, "N");
                 }
-                //dtAdvisorBranch.Columns.Add("Sl.No.");
-                //dtAdvisorBranch.Columns.Add("BranchId");
-                //dtAdvisorBranch.Columns.Add("Branch Name");
+              
                 dtAdvisorBranch.Columns.Add("Branch");
                 dtAdvisorBranch.Columns.Add("Branch Code");
-                //dtAdvisorBranch.Columns.Add("Branch Address");
-                //dtAdvisorBranch.Columns.Add("Branch Phone");
 
-                for (int i = 0; i < advisorBranchList.Count; i++)
+                if (advisorBranchList != null)
                 {
-                    drAdvisorBranch = dtAdvisorBranch.NewRow();
-                    advisorBranchVo = new AdvisorBranchVo();
-                    advisorBranchVo = advisorBranchList[i];
-                    //drAdvisorBranch[0] = (i + 1).ToString();
-                    //drAdvisorBranch[1] = advisorBranchVo.BranchId.ToString();
-                    //drAdvisorBranch[2] = advisorBranchVo.BranchName.ToString();
-                    //if (advisorBranchVo.State != "" && advisorBranchVo.State != "Select a State")
-                    //{
-                    //    drAdvisorBranch[3] = advisorBranchVo.AddressLine1.ToString() + "'" + advisorBranchVo.AddressLine2.ToString() + "'" + advisorBranchVo.AddressLine3.ToString() + "," + advisorBranchVo.City.ToString() + "'" + XMLBo.GetStateName(path, advisorBranchVo.State.ToString());
-                    //}
-                    //else
-                    //{
-                    //    drAdvisorBranch[3] = advisorBranchVo.AddressLine1.ToString() + "'" + advisorBranchVo.AddressLine2.ToString() + "'" + advisorBranchVo.AddressLine3.ToString() + "," + advisorBranchVo.City.ToString() + "'";
-                    //}
-
-                    //drAdvisorBranch[4] = advisorBranchVo.Phone1Isd + "-" + advisorBranchVo.Phone1Std + "-" + advisorBranchVo.Phone1Number;
-                    //dtAdvisorBranch.Rows.Add(drAdvisorBranch);
-
-                    //foreach(ListItem li in associatedBranch.Items)
-                    //{
-                    //    if (li.Value != advisorBranchVo.BranchId.ToString())
-                    //    {
-                    //        tracker = true;
-                    //        break;
-                    //    }
-
-
-                    //}
-                    if (associatedBranch.Items.FindByValue(advisorBranchVo.BranchId.ToString()) == null)
+                    for (int i = 0; i < advisorBranchList.Count; i++)
                     {
-                        //if (tracker)
-                        //{
-                        if (drAdvisorBranch["Branch"] != null && drAdvisorBranch["Branch Code"] != null)
+                        drAdvisorBranch = dtAdvisorBranch.NewRow();
+                        advisorBranchVo = new AdvisorBranchVo();
+                        advisorBranchVo = advisorBranchList[i];
+
+                        if (associatedBranch.Items.FindByValue(advisorBranchVo.BranchId.ToString()) == null)
                         {
-                            drAdvisorBranch["Branch"] = advisorBranchVo.BranchName.ToString() + "," + advisorBranchVo.BranchId.ToString();
-                            drAdvisorBranch["Branch Code"] = advisorBranchVo.BranchId.ToString();
-                            dtAdvisorBranch.Rows.Add(drAdvisorBranch);
+                            //if (tracker)
+                            //{
+                            if (drAdvisorBranch["Branch"] != null && drAdvisorBranch["Branch Code"] != null)
+                            {
+                                drAdvisorBranch["Branch"] = advisorBranchVo.BranchName.ToString() + "," + advisorBranchVo.BranchId.ToString();
+                                drAdvisorBranch["Branch Code"] = advisorBranchVo.BranchId.ToString();
+                                dtAdvisorBranch.Rows.Add(drAdvisorBranch);
+                            }
+
                         }
 
+
+
                     }
-
-
-
                 }
                 //_commondatasetSource.Tables.Add(dtAdvisorBranch);
                 availableBranch.DataSource = dtAdvisorBranch;
                 availableBranch.DataTextField = "Branch";
                 availableBranch.DataValueField = "Branch Code";
-
+                
                 availableBranch.DataBind();
-
-
+                
+              
 
             }
             catch (BaseApplicationException Ex)
@@ -418,14 +418,17 @@ namespace WealthERP.Advisor
 
             }
         }
-        
         public void editRMDetails()
         {
-            int bmFlag = 0;
-            int rmFlag = 0;
             RMVo rmVo = new RMVo();
-            DataTable roleAssociationDt;
-            rmVo = (RMVo)Session["rmVo"];
+            if (Session["CurrentrmVo"] != null)
+            {
+                rmVo = (RMVo)Session["CurrentrmVo"];
+            }
+            else
+            {
+                rmVo = (RMVo)Session["rmVo"];
+            }
             txtFirstName.Text = rmVo.FirstName.ToString();
             txtLastName.Text = rmVo.LastName.ToString();
             txtMiddleName.Text = rmVo.MiddleName.ToString();
@@ -444,36 +447,21 @@ namespace WealthERP.Advisor
             txtPhResiPhoneNumber.Text = rmVo.ResPhoneNumber.ToString();
             txtResiSTD.Text = rmVo.ResPhoneStd.ToString();
             txtCTC.Text = rmVo.CTC.ToString();
+            string[] RoleListArray =rmVo.RMRoleList.Split(new char[] { ',' });
+            foreach (string Role in RoleListArray)
+            {
+                if(Role=="RM" ||Role=="BM")
+                {
+                    ChklistRMBM.Items.FindByText(Role).Selected=true;
+                }
+            }
+
+
+
             if (rmVo.IsExternal == 1)
                 chkExternalStaff.Checked = true;
             else
                 chkExternalStaff.Checked = false;
-
-            roleAssociationDt = userBo.GetRoleAssociation(rmVo.UserId);
-
-            //setting the flag for each role
-            foreach (DataRow dr in roleAssociationDt.Rows)
-            {
-                if (dr[0].ToString() == "BM")
-                {
-                    ddlRMRole.SelectedValue = "BM";
-                    chkRM.Visible = true;
-                    bmFlag = 1;
-                }
-                else if (dr[0].ToString() == "RM")
-                {
-                    rmFlag = 1;
-                }
-            }
-            if (bmFlag == 1)
-            {
-                if (rmFlag == 1)
-                    chkRM.Checked = true;
-                else
-                    chkRM.Checked = false;
-            }
-            else
-                ddlRMRole.SelectedValue = "RM";
 
             BindBranchAssociation();
             Session["rmId"] = rmVo.RMId;
@@ -482,12 +470,13 @@ namespace WealthERP.Advisor
 
         }
 
+ 
         protected void btnSave_Click(object sender, EventArgs e)
         {
             UserBo userBo = new UserBo();
             UserVo userVo = new UserVo();
             UserVo userVo2 = new UserVo();
-
+            bool branchDeletion=true;
             Random id = new Random();
             AdvisorBo advisorBo = new AdvisorBo();
             AdvisorBranchBo advisorBrBo = new AdvisorBranchBo();
@@ -504,6 +493,8 @@ namespace WealthERP.Advisor
                     userVo.FirstName = txtFirstName.Text.ToString();
                     userVo.LastName = txtLastName.Text.ToString();
                     userVo.MiddleName = txtMiddleName.Text.ToString();
+
+
 
                     rmVo.RMId = int.Parse(Session["rmId"].ToString());
                     rmVo.Email = txtEmail.Text.ToString();
@@ -593,51 +584,180 @@ namespace WealthERP.Advisor
                             rmVo.IsExternal = 0;
                         }
                     }
-                    rmVo.RMRole = ddlRMRole.SelectedValue.ToString();
+
+                    //Update the User details in the User Table
+                    userBo.UpdateUser(userVo);
+                    //Update the RM details in the AdvisorRM Table
+                    advisorStaffBo.UpdateStaff(rmVo);
+
+
+
+
+
+ //*************Role Association Creation and deletion************************
+
+                    bool RMBMRole = false;
+                    string[] RoleListArray = rmVo.RMRoleList.Split(new char[] { ',' });
+                    foreach (ListItem Items in ChklistRMBM.Items)
+                    {
+                        
+                            if (Items.Text == "RM")
+                            {
+                                foreach (string Role in RoleListArray)
+                                {
+                                    if (Role == "RM")
+                                    {
+                                        RMBMRole = true;
+                                    }
+                                }
+                                // Create Role Association for RM
+                                if (RMBMRole == false && Items.Selected==true)
+                                {
+                                    userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                                }
+                                else if (RMBMRole == true && Items.Selected == false)
+                                {
+
+                                    userBo.DeleteRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+ 
+                                }
+                                RMBMRole = false;
+                            }
+                            else if (Items.Text == "BM")
+                            {
+                                foreach (string Role in RoleListArray)
+                                {
+                                    if (Role == "BM")
+                                    {
+                                        RMBMRole = true;
+                                    }
+                                }
+                                // Create Role Association for BM
+                                if (RMBMRole == false && Items.Selected == true)
+                                {
+                                    userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                                }
+                                else if (RMBMRole == true && Items.Selected == false)
+                                {
+                                    branchHead = advisorBranchBo.CheckBranchHead(rmVo.RMId, 0);
+                                    if (branchHead == 0)
+                                        userBo.DeleteRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                                    else
+                                    {
+                                        ChklistRMBM.Items[1].Selected = true;
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", "alert('Can't remove BM role,staff is Group Head of Branch');", true);
+                                        return;
+                                    }
+                                }
+
+                                RMBMRole = false;
+
+                            }
+
+                    }
+
+    //*************Role Association Creation and deletion************************   
+
+
+
+    //**************Branch Association Creation and deletion*********************
+
 
                     //string hdnExistingString = hdnExistingBranches.Value.ToString();
                     string hdnSelectedString = hdnSelectedBranches.Value.ToString();
                     //string[] existingBranchesList = hdnExistingString.Split(',');
-                    string[] selectedBranchesList = hdnSelectedString.Split(',');
-
-                    advisorBranchBo.DeleteRMBranchAssociation1(rmIDRef);
-
-
-
-
-                    foreach (string SelectedBranches in selectedBranchesList)
+                    string[] selectedBranchesList=hdnSelectedString.Split(',');
+                    DataTable dtSelectedBranch = new DataTable();
+                    dtSelectedBranch.Columns.Add("Branch");
+                    dtSelectedBranch.Columns.Add("BranchId");
+                    DataTable dtAssociated = new DataTable();
+                    List<int> deletedBRList = new List<int>();
+                    List<int> addedBRList=new List<int>();
+                    dtAssociated=(DataTable)Session["AssociatedBranch"];
+                    if (dtAssociated != null)
                     {
-                        if (SelectedBranches != "")
+                        foreach (string str in selectedBranchesList)
                         {
-                            ListBoxIteration(int.Parse(SelectedBranches));
-                        }
-                    }
-
-                    if (blUpdate)
-                    {
-                        userBo.UpdateUser(userVo);
-                        userBo.DeleteRoleAssociation(rmVo.UserId);
-                        if (rmVo.RMRole == "RM")
-                        {
-                            // Create Association for RM
-                            userBo.CreateRoleAssociation(rmVo.UserId, 1001);
-                            // 1001 - RM
-                            // 1000 - Adviser
-                            // 1003 - Customer
-                        }
-                        else
-                        {
-                            // Create Association if BM
-                            userBo.CreateRoleAssociation(rmVo.UserId, 1002);
-                            // 1002 - BM
-                            if (chkRM.Checked)
+                            if (str != "")
                             {
-                                // Create Association for RM
-                                userBo.CreateRoleAssociation(rmVo.UserId, 1001);
+
+                                dtAssociated.DefaultView.Sort = "BranchId";
+                                int i = dtAssociated.DefaultView.Find(str);
+                                if (i == (0 - 1))
+                                {
+                                    addedBRList.Add(int.Parse(str));
+                                }
+                            }
+                            DataRow dr = dtSelectedBranch.NewRow();
+                            dr["Branch"] = str;
+                            dr["BranchId"] = str;
+                            dtSelectedBranch.Rows.Add(dr);
+                        }
+
+                       
+
+                        foreach (DataRow dr in dtAssociated.Rows)
+                        {
+                            dtSelectedBranch.DefaultView.Sort = "BranchId";
+                            int j = dtSelectedBranch.DefaultView.Find(dr["BranchId"].ToString());
+                            if (j == (0 - 1))
+                            {
+                                if (dr["BranchId"].ToString() != "")
+                                    deletedBRList.Add(int.Parse(dr["BranchId"].ToString()));
                             }
                         }
 
-                        advisorStaffBo.UpdateStaff(rmVo);
+                        for (int i = 0; i < addedBRList.Count; i++)
+                        {
+                            advisorBranchBo.CreateRMBranchAssociation(rmVo.RMId, addedBRList[i], advisorVo.advisorId, advisorVo.advisorId);
+
+                        }
+                        for (int i = 0; i < deletedBRList.Count; i++)
+                        {
+                            bool IsBranchDependency = false;
+                            IsBranchDependency = advisorBranchBo.CheckRMBranchDependency(rmVo.RMId, deletedBRList[i]);
+                            if (IsBranchDependency == true)
+                            {
+                                branchDeletion = false;
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Sorry... You need to delete your internal associations first');", true);
+
+                            }
+                            else
+                                advisorBranchBo.DeleteBranchAssociation(rmVo.RMId, deletedBRList[i]);
+
+
+                        }
+
+                        if (branchDeletion == false)
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewRMDetails','none');", true);
+
+                        }
+                    }
+                    else
+                    {
+                        foreach (string str in selectedBranchesList)
+                        {
+                            if (str != "")
+                            {
+                                advisorBranchBo.CreateRMBranchAssociation(rmVo.RMId,int.Parse(str) , advisorVo.advisorId, advisorVo.advisorId);
+                                
+                            }
+                            
+                        }
+
+                        
+                    }
+                        //advisorBranchBo.DeleteRMBranchAssociation1(rmIDRef);
+
+       //**************Branch Association Creation and deletion*********************
+
+
+
+                    if (blUpdate)
+                    {
+                                         
+
 
                         btnSave.Enabled = false;
                         if (Session["FromAdvisorView"] != null)
@@ -656,7 +776,7 @@ namespace WealthERP.Advisor
                         {
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);
                         }
-
+                       
                     }
                     else
                     {
@@ -670,8 +790,8 @@ namespace WealthERP.Advisor
                         }
                     }
                 }
-
-
+                
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -706,19 +826,36 @@ namespace WealthERP.Advisor
         {
 
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-
+          
         }
 
         private void DeleteRM()
         {
             int userId = 0; ;
+            
             bool result = false;
             try
             {
-                rmVo = (RMVo)Session["rmVo"];
+                if (Session["CurrentrmVo"] != null)
+                {
+                    rmVo = (RMVo)Session["CurrentrmVo"];
+                }
+                else
+                {
+                    rmVo = (RMVo)Session["rmVo"];
+                }
                 userId = int.Parse(Session["userId"].ToString());
 
-                result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
+                if (int.Parse(hndRmCustomerCount.Value.ToString()) > 0 || int.Parse(hndBMBranchHead.Value.ToString()) > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Sorry... You need to delete your internal associations first');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewRMDetails','none');", true);
+
+                }
+                else
+                {
+                    result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
+                }
                 if (result)
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewRM','none');", true);
@@ -735,7 +872,7 @@ namespace WealthERP.Advisor
 
                 FunctionInfo.Add("Method", "EditRMDetails.ascx.cs:btnDelete_Click()");
 
-                object[] objects = new object[1];
+                object[] objects = new object[2];
                 objects[0] = rmVo;
                 objects[1] = userId;
                 objects[2] = result;
@@ -763,13 +900,13 @@ namespace WealthERP.Advisor
 
         //protected void btnSaveBranchAssociation_Click(object sender, EventArgs e)
         //{
-
+          
         //    if (gvBranchList.Rows.Count != 0)
         //    {
 
         //        foreach (GridViewRow gvr in this.gvBranchList.Rows)
         //        {
-
+                    
         //              int  branchId = int.Parse(gvBranchList.DataKeys[gvr.RowIndex].Value.ToString());
         //                //if (((RadioButton)gvr.FindControl("rbtnMainBranch")).Checked == true)
         //                //{
@@ -797,7 +934,7 @@ namespace WealthERP.Advisor
 
 
         //            }
-
+                
         //    }
         //}
 
@@ -899,6 +1036,11 @@ namespace WealthERP.Advisor
         //    }
         //}
 
+        protected void chkExternalStaff_CheckedChanged(object sender, EventArgs e)
+        {
+ 
+        }
+
         //protected void gvBranchList_SelectedIndexChanged(object sender, EventArgs e)
         //{
 
@@ -906,10 +1048,10 @@ namespace WealthERP.Advisor
 
         public void ListBoxIteration(int selectedBranch)
         {
-
+            
             Int16 m = 1;
-            advisorBranchBo.UpdateRMBranchAssociation(rmIDRef, selectedBranch, userVo.UserId, m);
-
+            advisorBranchBo.UpdateRMBranchAssociation(rmIDRef,selectedBranch, userVo.UserId, m);
+                        
         }
 
         protected void HiddenField1_ValueChanged(object sender, EventArgs e)
@@ -917,30 +1059,16 @@ namespace WealthERP.Advisor
 
         }
 
-        protected void ddlRMRole_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ChklistRMBM_DataBound(object sender, EventArgs e)
         {
-            if (ddlRMRole.SelectedValue == "BM")
+            CheckBoxList chklist = (CheckBoxList)sender;
+
+            foreach (ListItem lstitem in chklist.Items)
             {
-                chkRM.Visible = true;
-                chkExternalStaff.Visible = true;
+                lstitem.Attributes.Add("onclick", "CheckRMBMRole(this);");
             }
-            else
-            {
-                chkRM.Visible = false;
-                chkExternalStaff.Visible = true;
-            }
+
         }
 
-        protected void chkExternalStaff_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkExternalStaff.Checked)
-            {
-                setBranchList("Y");
-            }
-            else
-            {
-                setBranchList("N");
-            }
-        }
     }
 }
