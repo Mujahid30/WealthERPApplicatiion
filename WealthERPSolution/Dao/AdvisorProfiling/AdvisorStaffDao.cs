@@ -339,6 +339,8 @@ namespace DaoAdvisorProfiling
             return ds;
         }
 
+        /* Commented For Enter the new for Branch Manager Module */
+
         public List<RMVo> GetBMRMList(int branchId, int currentPage, out int Count)
         {
             List<RMVo> rmList = new List<RMVo>();
@@ -403,6 +405,64 @@ namespace DaoAdvisorProfiling
             }
             return rmList;
         }
+
+        /* End Commented For Enter the new for Branch Manager Module */
+
+
+
+        /* Function For Branch Manager */
+        
+        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, int currentPage, out int Count)
+        {
+            List<RMVo> rmList = new List<RMVo>();
+            int rmId;
+            RMVo rmVo;
+            Database db;
+            DbCommand getRMListCmd;
+            DataSet getRMListDs;
+            Count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getRMListCmd = db.GetStoredProcCommand("SP_GetAllBMStaffs");
+                db.AddInParameter(getRMListCmd, "@AB_BranchId", DbType.String, branchId);
+                db.AddInParameter(getRMListCmd, "@branchHeadId", DbType.String, branchHeadId);
+                db.AddInParameter(getRMListCmd, "@all", DbType.String, all);
+                db.AddInParameter(getRMListCmd, "@CurrentPage", DbType.Int32, currentPage);
+
+                getRMListDs = db.ExecuteDataSet(getRMListCmd);
+                if (getRMListDs.Tables[0].Rows.Count > 0)
+                {
+
+                    foreach (DataRow dr in getRMListDs.Tables[0].Rows)
+                    {
+                        rmVo = new RMVo();
+                        rmVo.UserId = int.Parse(dr["U_UserId"].ToString());
+                        rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
+                        rmVo.FirstName = dr["AR_FirstName"].ToString();
+                        rmVo.MiddleName = dr["AR_MiddleName"].ToString();
+                        rmVo.LastName = dr["AR_LastName"].ToString();
+                        rmVo.Mobile = Convert.ToInt64(dr["AR_Mobile"].ToString());
+                        rmVo.Email = dr["AR_Email"].ToString();
+                        rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
+                        rmList.Add(rmVo);
+                    }
+                }
+                else
+                    rmList = null;
+                if (getRMListDs.Tables[1].Rows.Count > 0)
+                {
+                    Count = int.Parse(getRMListDs.Tables[1].Rows[0][0].ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message.ToString();
+            }
+            return rmList;
+        }
+
+        /* End */
 
         public List<RMVo> GetRMList(int advisorId)
         {
@@ -1838,6 +1898,182 @@ namespace DaoAdvisorProfiling
 
             return dt;
         }
+
+        /* BM Customer List */ 
+
+        public List<CustomerVo> GetAllBMCustomerList(int branchId, int branchHeadId, int all, int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
+        {
+            List<CustomerVo> customerList = new List<CustomerVo>();
+            CustomerVo customerVo;
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet getCustomerDs;
+            genDictParent = new Dictionary<string, string>();
+            genDictCity = new Dictionary<string, string>();
+            genDictRM = new Dictionary<string, string>();
+
+            count = 0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerListCmd = db.GetStoredProcCommand("SP_GetALLCustomersForBM");
+                db.AddInParameter(getCustomerListCmd, "@AB_BranchId", DbType.Int32, branchId);
+                db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(getCustomerListCmd, "@all", DbType.Int32, all);
+
+                db.AddInParameter(getCustomerListCmd, "@CurrentPage", DbType.Int32, currentPage);
+                db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, sortExpression);
+                if (nameFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, nameFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, DBNull.Value);
+                if (areaFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, areaFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, DBNull.Value);
+                db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
+                db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
+                db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
+                if (RMFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, RMFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, DBNull.Value);
+
+                getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+                if (getCustomerDs.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in getCustomerDs.Tables[0].Rows)
+                    {
+                        customerVo = new CustomerVo();
+                        customerVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        customerVo.FirstName = dr["C_FirstName"].ToString();
+                        customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
+                        customerVo.MiddleName = dr["C_MiddleName"].ToString();
+                        customerVo.LastName = dr["C_LastName"].ToString();
+                        customerVo.CustCode = dr["C_CustCode"].ToString();
+                        customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
+                        customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
+                        customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
+                        customerVo.Email = dr["C_Email"].ToString();
+                        customerVo.RmId = int.Parse(dr["AR_RMId"].ToString());
+                        customerVo.Adr1City = dr["C_Adr1City"].ToString();
+                        customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
+                        customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
+                        customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
+                        customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
+                        if (dr["Parent"].ToString() != "")
+                            customerVo.ParentCustomer = dr["Parent"].ToString();
+                        customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
+                        if (dr["RMName"] != "")
+                            customerVo.AssignedRM = dr["RMName"].ToString();
+                        if (dr["C_PANNum"].ToString() != string.Empty)
+                            customerVo.PANNum = dr["C_PANNum"].ToString();
+                        if (dr["C_Mobile1"].ToString() != "")
+                            customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
+                        customerList.Add(customerVo);
+                    }
+                }
+                else
+                    customerList = null;
+
+                if (getCustomerDs.Tables[2].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
+                    {
+                        genDictParent.Add(dr["Parent"].ToString(), dr["Parent"].ToString());
+                    }
+                }
+
+                if (getCustomerDs.Tables[3].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in getCustomerDs.Tables[3].Rows)
+                    {
+                        genDictCity.Add(dr["C_Adr1City"].ToString(), dr["C_Adr1City"].ToString());
+                    }
+                }
+
+                if (getCustomerDs.Tables[4].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in getCustomerDs.Tables[4].Rows)
+                    {
+                        if (dr["RMName"].ToString().Trim() != "")
+                        {
+                            genDictRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:GetBMCustomerList()");
+
+                object[] objects = new object[1];
+                objects[0] = rmId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            if (getCustomerDs.Tables[1].Rows.Count > 0)
+                count = Int32.Parse(getCustomerDs.Tables[1].Rows[0]["CNT"].ToString());
+
+            return customerList;
+        }
+
+        /*  End For BM Customers */
+
+        /* BM Branch Dropdown */
+
+         public DataTable GetRMListForBranchDP(int branchId, int branchHeadId, int all)
+        {
+            Database db;
+            DbCommand getBranchRMListCmd;
+            DataSet getBranchRMListDs;
+            DataTable dt = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBranchRMListCmd = db.GetStoredProcCommand("SP_GetAllBMRMList");
+                db.AddInParameter(getBranchRMListCmd, "@AB_BranchId", DbType.Int32, branchId);
+                db.AddInParameter(getBranchRMListCmd, "@AB_BranchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(getBranchRMListCmd, "@all", DbType.Int32, all);
+                getBranchRMListDs = db.ExecuteDataSet(getBranchRMListCmd);
+                dt = getBranchRMListDs.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:GetRMListForBranchDP()");
+                object[] objects = new object[2];
+                objects[0] = branchId;
+                objects[1] = branchHeadId;
+                objects[2] = all;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dt;
+        }
+
+        /* ****************** */
+
 
 
         /// <summary>
