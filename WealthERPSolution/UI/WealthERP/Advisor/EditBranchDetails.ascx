@@ -20,7 +20,17 @@
    
 </script>
 
-<table class="TableBackground" style="width: 666px">
+<style type="text/css">
+.txtGridMediumField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 80px;
+}
+</style>
+<table class="TableBackground" style="width:100%">
     <tr>
         <td colspan="2">
             <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Edit Branch Details"></asp:Label>
@@ -209,17 +219,14 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;
-            <asp:Label ID="lblISD" runat="server" CssClass="FieldName" Font-Names="Arial" Font-Size="X-Small"
-                Text="ISD"></asp:Label>
+    <td>&nbsp;&nbsp;</td>
+        <td>
+           
+            <asp:Label ID="lblISD" runat="server" CssClass="FieldName" Text="ISD"></asp:Label>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Label ID="lblSTD" runat="server" CssClass="FieldName" Font-Names="Arial" Font-Size="X-Small"
-                Text="STD"></asp:Label>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Label ID="lblPhone" runat="server" CssClass="FieldName" Font-Names="Arial" Font-Size="X-Small"
-                Text="Phone Number"></asp:Label>
+            <asp:Label ID="lblSTD" runat="server" CssClass="FieldName" Text="STD"></asp:Label>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Label ID="lblPhone" runat="server" CssClass="FieldName" Text="Phone Number"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -229,16 +236,16 @@
         <td class="rightField">
             <asp:TextBox ID="txtIsdPhone1" runat="server" Width="55px" MaxLength="3" CssClass="txtField"></asp:TextBox>
             <asp:TextBox ID="txtStdPhone1" runat="server" Width="55px" MaxLength="3" CssClass="txtField"></asp:TextBox>
-            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br/>Enter a numeric value"
-                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtStdPhone1"
-                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
             <asp:TextBox ID="txtPhone1" runat="server" Width="119px" MaxLength="8" CssClass="txtField"></asp:TextBox>
             <span id="Span4" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ControlToValidate="txtPhone1" ErrorMessage="Please enter the Contact Number"
+            <asp:RequiredFieldValidator ControlToValidate="txtPhone1" ErrorMessage="<br />Please enter the Contact Number"
                 Display="Dynamic" ID="RequiredFieldValidator3" ValidationGroup="btnSubmit" runat="server"
                 CssClass="rfvPCG"></asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br/>Enter a numeric value"
                 ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPhone1"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br/>Enter a numeric value"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtStdPhone1"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
@@ -249,12 +256,15 @@
         <td class="rightField">
             <asp:TextBox ID="txtIsdPhone2" runat="server" Width="55px" MaxLength="3" CssClass="txtField"></asp:TextBox>
             <asp:TextBox ID="txtStdPhone2" runat="server" Width="55px" MaxLength="3" CssClass="txtField"></asp:TextBox>
-            <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br/>Enter a numeric value"
-                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtStdPhone2"
-                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
             <asp:TextBox ID="txtPhone2" runat="server" Width="119px" MaxLength="8" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br/>Enter a numeric value"
                 ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPhone2"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br/>Enter a numeric value"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtStdPhone2"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br/>Enter a numeric value"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtIsdPhone2"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
@@ -265,12 +275,15 @@
         <td class="rightField">
             <asp:TextBox ID="txtIsdFax" runat="server" Width="55px" MaxLength="3" CssClass="txtField"></asp:TextBox>
             <asp:TextBox ID="txtStdFax" runat="server" Width="55px" CssClass="txtField" MaxLength="3"></asp:TextBox>
-            <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="<br/>Enter a numeric value"
-                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtStdFax"
-                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
             <asp:TextBox ID="txtFax" runat="server" Width="119px" MaxLength="8" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br/>Enter a numeric value"
                 ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtFax"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="<br/>Enter a numeric value"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtStdFax"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                            <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="<br/>Enter a numeric value"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtIsdFax"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
@@ -301,7 +314,7 @@
         <td colspan="4">
             <asp:GridView ID="gvCommStructure" runat="server" AutoGenerateColumns="False" CssClass="GridViewStyle"
                 ShowFooter="True" CellPadding="4" OnRowDataBound="gvCommStructure_RowDataBound"
-                DataKeyNames="AACS_Id" EnableViewState="true">
+                DataKeyNames="AACS_Id" EnableViewState="true" Visible="true">
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle CssClass="PagerStyle" />
@@ -314,47 +327,91 @@
                         <ItemTemplate>
                             <asp:DropDownList ID="ddlAssetGroup" runat="server" CssClass="cmbField">
                             </asp:DropDownList>
+                             <asp:CompareValidator ID="cmpValidatorAssetGroup" runat="server" ControlToValidate="ddlAssetGroup"
+                ErrorMessage="Please select a asset group" Operator="NotEqual" ValueToCompare="Select Asset Group" Display="Dynamic"
+                CssClass="cvPCG" ValidationGroup="btnAdd">
+                 </asp:CompareValidator>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Commission Fee(%)">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtCommFee" runat="server" CssClass="txtField" Text='<%# Bind("CommissionFee","{0:f2}") %>'></asp:TextBox>
+                            <asp:TextBox ID="txtCommFee" runat="server" CssClass="txtGridMediumField" Text='<%# Bind("CommissionFee","{0:f2}") %>'></asp:TextBox>
+                            <cc1:filteredtextboxextender id="txtCommFee_E" runat="server" enabled="True" targetcontrolid="txtCommFee"
+                                filtertype="Custom,Numbers" validchars=".">
+                            </cc1:filteredtextboxextender>
+                            <asp:RequiredFieldValidator ControlToValidate="txtCommFee" ErrorMessage="Please enter Commission Fee(%)"
+                             CssClass="rfvPCG" Display="Dynamic" ID="reqtxtCommFee" ValidationGroup="btnAdd"
+                                runat="server"></asp:RequiredFieldValidator>
+                            <asp:RangeValidator ID="RangeValidator1" SetFocusOnError="true" Type="Double" ErrorMessage="Margin should be 0 - 100%"
+                                MinimumValue="0" MaximumValue="100" Display="Dynamic" ControlToValidate="txtCommFee"  ValidationGroup="btnAdd"
+                                runat="server"></asp:RangeValidator>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Revenue Upper Limit">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtRevUpperLimit" runat="server" CssClass="txtField" Text='<%# Bind("RevenueUpperLimit","{0:f2}") %>'></asp:TextBox>
+                            <asp:TextBox ID="txtRevUpperLimit" runat="server" CssClass="txtGridMediumField" Text='<%# Bind("RevenueUpperLimit","{0:f2}") %>'></asp:TextBox>
+                            <cc1:filteredtextboxextender id="txtRevUpperLimit_E" runat="server" enabled="True"
+                                targetcontrolid="txtRevUpperLimit" filtertype="Custom, Numbers" validchars=".">
+                            </cc1:filteredtextboxextender>
+                            <asp:RequiredFieldValidator ControlToValidate="txtRevUpperLimit" ErrorMessage="Please enter Commission upper limit"
+                             CssClass="rfvPCG" Display="Dynamic" ID="reqtxtRevUpperLimit" ValidationGroup="btnAdd"
+                                runat="server"></asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtRevUpperLimit"
+                                Display="Dynamic" CssClass="rfvPCG" runat="server" ErrorMessage="Not acceptable format" ValidationGroup="btnAdd"
+                                ValidationExpression="^\d*(\.(\d{0,2}))?$"></asp:RegularExpressionValidator>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Revenue Lower Limit">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtRevLowerLimit" runat="server" CssClass="txtField" Text='<%# Bind("RevenueLowerLimit","{0:f2}") %>'></asp:TextBox>
+                            <asp:TextBox ID="txtRevLowerLimit" runat="server" CssClass="txtGridMediumField" Text='<%# Bind("RevenueLowerLimit","{0:f2}") %>'></asp:TextBox>
+                             <cc1:filteredtextboxextender id="txtRevLowerLimit_E" runat="server" enabled="True"
+                                targetcontrolid="txtRevLowerLimit" filtertype="Custom, Numbers" validchars=".">
+                            </cc1:filteredtextboxextender>
+                             <asp:RequiredFieldValidator ControlToValidate="txtRevLowerLimit" ErrorMessage="Please enter Commission lower limit"
+                             CssClass="rfvPCG" Display="Dynamic" ID="reqtxtRevLowerLimit" ValidationGroup="btnAdd"
+                                runat="server"></asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="txtRevLowerLimit"
+                                ErrorMessage="Lower Limit should be less than the Upper Limit" Type="Double"
+                                Operator="LessThan" ControlToCompare="txtRevUpperLimit" CssClass="cvPCG" ValidationGroup="btnAdd"
+                                Display="Dynamic"></asp:CompareValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtRevLowerLimit"
+                                Display="Dynamic" CssClass="rfvPCG" runat="server" ValidationGroup="btnAdd" ErrorMessage="Not acceptable format"
+                                ValidationExpression="^\d*(\.(\d{0,2}))?$"></asp:RegularExpressionValidator>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Start Date">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtField" Text='<%# Eval("StartDate", "{0:dd/MM/yyyy}") %>'></asp:TextBox>
-                            <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtStartDate"
-                                Format="dd/MM/yyyy">
-                            </cc1:CalendarExtender>
-                            <cc1:TextBoxWatermarkExtender ID="txtStartDate_TextBoxWatermarkExtender" runat="server"
-                                TargetControlID="txtStartDate" WatermarkText="dd/mm/yyyy">
-                            </cc1:TextBoxWatermarkExtender>
+                            <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtGridMediumField" Text='<%# Eval("StartDate", "{0:dd/MM/yyyy}") %>'></asp:TextBox>
+                            <cc1:calendarextender id="txtStartDate_CalendarExtender" runat="server" targetcontrolid="txtStartDate"
+                                format="dd/MM/yyyy">
+                            </cc1:calendarextender>
+                            <cc1:textboxwatermarkextender id="txtStartDate_TextBoxWatermarkExtender" runat="server"
+                                targetcontrolid="txtStartDate" watermarktext="dd/mm/yyyy">
+                            </cc1:textboxwatermarkextender>
+                            <asp:RequiredFieldValidator ID="reqtxtStartDate" runat="server" ControlToValidate="txtStartDate" Display="Dynamic"
+                            CssClass="rfvPCG" ValidationGroup="btnAdd" ErrorMessage="Please select a start Date"></asp:RequiredFieldValidator>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="End Date">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtEndDate" runat="server" CssClass="txtField" Text='<%# Eval("EndDate", "{0:dd/MM/yyyy}") %>'></asp:TextBox>
-                            <cc1:CalendarExtender ID="txtEndDate_CalendarExtender" runat="server" TargetControlID="txtEndDate"
-                                Format="dd/MM/yyyy">
-                            </cc1:CalendarExtender>
-                            <cc1:TextBoxWatermarkExtender ID="txtEndDate_TextBoxWatermarkExtender" runat="server"
-                                TargetControlID="txtEndDate" WatermarkText="dd/MM/yyyy">
-                            </cc1:TextBoxWatermarkExtender>
+                            <asp:TextBox ID="txtEndDate" runat="server" CssClass="txtGridMediumField" Text='<%# Eval("EndDate", "{0:dd/MM/yyyy}") %>'></asp:TextBox>
+                            <cc1:calendarextender id="txtEndDate_CalendarExtender" runat="server" targetcontrolid="txtEndDate"
+                                format="dd/MM/yyyy">
+                            </cc1:calendarextender>
+                            <asp:RequiredFieldValidator ID="reqtxtEndDate" runat="server" ControlToValidate="txtEndDate" Display="Dynamic"
+                            CssClass="rfvPCG" ValidationGroup="btnAdd" ErrorMessage="Please select a End Date"></asp:RequiredFieldValidator>
+                            <cc1:textboxwatermarkextender id="txtEndDate_TextBoxWatermarkExtender" runat="server"
+                                targetcontrolid="txtEndDate" watermarktext="dd/mm/yyyy">
+                            </cc1:textboxwatermarkextender>
+                            <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtEndDate"
+                                ErrorMessage="End Date should be greater than Start Date" Type="Date" Operator="GreaterThanEqual"
+                                ControlToCompare="txtStartDate" CssClass="cvPCG" ValidationGroup="btnSubmit"
+                                Display="Dynamic">
+                            </asp:CompareValidator>
                         </ItemTemplate>
                         <FooterTemplate>
-                            <asp:Button ID="ButtonAdd" runat="server" CssClass="PCGLongButton" OnClick="ButtonAdd_Click"
-                                Text="Add More" />
+                            <asp:Button ID="ButtonAdd" runat="server" CssClass="PCGButton" OnClick="ButtonAdd_Click"
+                                Text="Add More" ValidationGroup="btnAdd"/>
                         </FooterTemplate>
                     </asp:TemplateField>
                     <%--   <asp:TemplateField HeaderText="End Date">
