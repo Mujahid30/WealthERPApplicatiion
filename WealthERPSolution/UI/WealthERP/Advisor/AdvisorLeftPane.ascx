@@ -76,6 +76,7 @@
                             </asp:TreeNode>
                             <asp:TreeNode Text="Customer" Value="Customer">
                                 <asp:TreeNode Text="Customer Accounts" Value="Customer Accounts"></asp:TreeNode>
+                                 <asp:TreeNode Text="Association" Value="Association"></asp:TreeNode>
                                 <%--<asp:TreeNode Text="Add Branch Association" Value="Add Branch Association"></asp:TreeNode>--%>
                             </asp:TreeNode>
                             <asp:TreeNode Text="User Management" Value="User Management">

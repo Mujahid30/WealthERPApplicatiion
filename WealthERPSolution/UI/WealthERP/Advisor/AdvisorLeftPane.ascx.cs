@@ -149,6 +149,10 @@ namespace WealthERP.Advisor
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','login');", true);
             }
+            else if (TreeView1.SelectedNode.Value.ToString() == "Association")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CuCustomerAssociationSetup','login');", true);
+            }
             else if (TreeView1.SelectedNode.Value.ToString() == "View Branch Association")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranchAssociation','login');", true);
