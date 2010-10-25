@@ -16,7 +16,8 @@ using BoCommon;
 namespace WealthERP.Advisor
 {
     public partial class ViewRMDetails : System.Web.UI.UserControl
-    {
+    {   
+        AdvisorBranchVo advisorBranchVo = null;   
         AdvisorVo advisorVo = new AdvisorVo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
@@ -24,6 +25,8 @@ namespace WealthERP.Advisor
         string rmId;
         string userId;
         RMVo rmVo = new RMVo();
+        List<AdvisorBranchVo> advisorBranchList = null;
+        DataSet _commondatasetdestination;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,6 +37,7 @@ namespace WealthERP.Advisor
 
                 if (!IsPostBack)
                 {
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
                     ViewRMDetail();
                     BindBranchAssociation();
 
@@ -75,14 +79,119 @@ namespace WealthERP.Advisor
 
         }
 
+        //private void BindBranchAssociation()
+        //{
+        //    DataSet ds;
+        //    DataTable dt;
+        //    DataRow dr;
+        //    try
+        //    {
+        //        if (rmVo.IsExternal == 1)
+        //        {
+        //            setBranchList("Y");
+        //        }
+        //        else
+        //        {
+        //            setBranchList("N");
+        //        }
+                
+
+        //        if (Session["CurrentrmVo"] != null)
+        //        {
+        //            rmVo = (RMVo)Session["CurrentrmVo"];
+        //        }
+        //        else
+        //        {
+        //            rmVo = (RMVo)Session["rmVo"];
+        //        }
+                
+
+        //        if (Session["advisorVo"] != null)
+        //        {
+        //            ds = advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, advisorVo.advisorId, "A");
+        //        }
+        //        else
+        //        {
+        //            ds = advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, 0, "A");
+        //        }
+
+        //        if (ds != null)
+        //        {
+        //            trBranchAssoication.Visible = true;
+        //            dt = new DataTable();
+        //            dt.Columns.Add("BranchId");
+                   
+        //            dt.Columns.Add("Branch Code");
+        //            dt.Columns.Add("Branch Name");
+
+        //            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+        //            {
+        //                dr = dt.NewRow();
+        //                dr["BranchId"] = ds.Tables[0].Rows[i]["AB_BranchId"].ToString();
+        //                dr["Branch Code"] = ds.Tables[0].Rows[i]["AB_BranchCode"].ToString();
+        //                dr["Branch Name"] = ds.Tables[0].Rows[i]["AB_BranchName"].ToString();
+        //                dt.Rows.Add(dr);
+        //            }
+        //            associatedBranch.DataSource = dt;
+        //            associatedBranch.DataTextField = "Branch Name";
+        //            associatedBranch.DataValueField = "Branch Code";
+        //            associatedBranch.DataBind();
+        //            associatedBranch.Enabled = false;
+        //            availableBranch.Enabled = false;
+        //            //gvRMBranch.DataSource = dt;
+        //            //gvRMBranch.DataBind();
+        //            //gvRMBranch.Visible = true;
+        //        }
+        //        else
+        //        {
+        //            //trBranchAssoication.Visible = false;
+        //            //gvRMBranch.DataSource = null;
+        //            //gvRMBranch.DataBind();
+        //            //gvRMBranch.Visible = false;
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "ViewRMDetails.ascx.cs:BindBranchAssociation()");
+
+        //        object[] objects = new object[2];
+        //        objects[0] = rmVo;
+        //        objects[1] = advisorVo;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+
+
+        //}
+
         private void BindBranchAssociation()
         {
             DataSet ds;
-            DataTable dt;
-            DataRow dr;
+            //DataTable dt;
+            DataTable dtList;
+            //DataRow dr;
+            DataRow drList;
+            AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             try
             {
-                rmVo = (RMVo)Session["rmVo"];
+                if (Session["CurrentrmVo"] != null)
+                {
+                    rmVo = (RMVo)Session["CurrentrmVo"];
+                }
+                else
+                {
+                    rmVo = (RMVo)Session["rmVo"];
+                }
 
                 if (Session["advisorVo"] != null)
                 {
@@ -95,33 +204,68 @@ namespace WealthERP.Advisor
 
                 if (ds != null)
                 {
-                    trBranchAssoication.Visible = true;
-                    dt = new DataTable();
-                    dt.Columns.Add("BranchId");
-                    dt.Columns.Add("Branch Name");
-                    dt.Columns.Add("Branch Code");
-
-
+                    _commondatasetdestination = ds;
+                    //dt = new DataTable();
+                    //dt.Columns.Add("BranchId");
+                    //dt.Columns.Add("RMId");
+                    //dt.Columns.Add("Branch Name");
+                    //dt.Columns.Add("Branch Code");
+                    dtList = new DataTable();
+                    dtList.Columns.Add("Branch");
+                    dtList.Columns.Add("BranchId");
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                     {
-                        dr = dt.NewRow();
-                        dr["BranchId"] = ds.Tables[0].Rows[i]["AB_BranchId"].ToString();
-                        dr["Branch Code"] = ds.Tables[0].Rows[i]["AB_BranchCode"].ToString();
-                        dr["Branch Name"] = ds.Tables[0].Rows[i]["AB_BranchName"].ToString();
-                        dt.Rows.Add(dr);
+                        //dr = dt.NewRow();
+                        //dr["BranchId"] = ds.Tables[0].Rows[i]["AB_BranchId"].ToString();
+                        //dr["RMId"] = ds.Tables[0].Rows[i]["AR_RMId"].ToString();
+                        //dr["Branch Code"] = ds.Tables[0].Rows[i]["AB_BranchCode"].ToString();
+                        //dr["Branch Name"] = ds.Tables[0].Rows[i]["AB_BranchName"].ToString();
+
+                        drList = dtList.NewRow();
+                        drList["Branch"] = ((ds.Tables[0].Rows[i]["AB_BranchName"].ToString()) + "," + (ds.Tables[0].Rows[i]["AB_BranchCode"].ToString()));
+                        drList["BranchId"] = ds.Tables[0].Rows[i]["AB_BranchId"].ToString();
+                        //dt.Rows.Add(dr);
+                        dtList.Rows.Add(drList);
+                        hdnExistingBranches.Value += drList["BranchId"].ToString() + ",";
                     }
 
-                    gvRMBranch.DataSource = dt;
-                    gvRMBranch.DataBind();
-                    gvRMBranch.Visible = true;
+                    Session["AssociatedBranch"] = dtList;
+                    
+                    // Show binded contents in List box
+                    associatedBranch.DataSource = dtList;
+                    associatedBranch.DataTextField = "Branch";
+                    associatedBranch.DataValueField = "BranchId";
+                    associatedBranch.DataBind();
+
+                  
+
+                    if (rmVo.IsExternal == 1)
+                    {
+                        setBranchList("Y");
+                    }
+                    else
+                    {
+                        setBranchList("N");
+                    }
+
                 }
                 else
                 {
-                    trBranchAssoication.Visible = false;
-                    gvRMBranch.DataSource = null;
-                    gvRMBranch.DataBind();
-                    gvRMBranch.Visible = false;
+                    if (rmVo.IsExternal == 1)
+                    {
+                        setBranchList("Y");
+                    }
+                    else
+                    {
+                        setBranchList("N");
+                    }
+
+                    //gvBranchList.Visible = false;
                 }
+                associatedBranch.Enabled = false;
+                availableBranch.Enabled = false;
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -143,16 +287,22 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
-
         }
+
         public void ViewRMDetail()
         {
             try
             {
                 if (Session["rmVo"] != null)
                 {
-                    rmVo = (RMVo)Session["rmVo"];
+                    if (Session["CurrentrmVo"] != null)
+                    {
+                        rmVo = (RMVo)Session["CurrentrmVo"];
+                    }
+                    else
+                    {
+                        rmVo = (RMVo)Session["rmVo"];
+                    }
                     lblMail.Text = rmVo.Email.ToString();
                     lblFax.Text = rmVo.FaxIsd.ToString() + "-" + rmVo.FaxStd.ToString() + "-" + rmVo.Fax.ToString();
                     lblMobile.Text = rmVo.Mobile.ToString();
@@ -214,8 +364,14 @@ namespace WealthERP.Advisor
 
             try
             {
-                newrmVo = (RMVo)Session["rmVo"];
-
+                if (Session["CurrentrmVo"] != null)
+                {
+                    newrmVo = (RMVo)Session["CurrentrmVo"];
+                }
+                else
+                {
+                    newrmVo = (RMVo)Session["rmVo"];
+                }
 
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','none');", true);
             }
@@ -298,13 +454,13 @@ namespace WealthERP.Advisor
 
         //}
 
-        protected void lnkBtnBack_Click(object sender, EventArgs e)
+     protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
             string url = string.Empty;
             url = Request.UrlReferrer.ToString();
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);
         }
-        protected void gvRMBranch_RowDataBound(object sender, GridViewRowEventArgs e)
+     protected void gvRMBranch_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             DataTable dt = new DataTable();
             RadioButton rbtn;
@@ -330,5 +486,82 @@ namespace WealthERP.Advisor
             }
         }
 
+     public void setBranchList(string IsExternal)
+        {
+            UserVo rmUserVo = null;
+            DataRow drAdvisorBranch;
+            DataTable dtAdvisorBranch = new DataTable();
+            bool tracker = false;
+            try
+            {
+                rmUserVo = (UserVo)Session["rmUserVo"];
+                if (IsExternal == "Y")
+                {
+                    advisorBranchList = advisorBranchBo.GetAdvisorBranches(advisorVo.advisorId, "Y");
+                }
+                else if (IsExternal == "N")
+                {
+                    advisorBranchList = advisorBranchBo.GetAdvisorBranches(advisorVo.advisorId, "N");
+                }
+
+                dtAdvisorBranch.Columns.Add("Branch");
+                dtAdvisorBranch.Columns.Add("Branch Code");
+
+                if (advisorBranchList != null)
+                {
+                    for (int i = 0; i < advisorBranchList.Count; i++)
+                    {
+                        drAdvisorBranch = dtAdvisorBranch.NewRow();
+                        advisorBranchVo = new AdvisorBranchVo();
+                        advisorBranchVo = advisorBranchList[i];
+
+                        if (associatedBranch.Items.FindByValue(advisorBranchVo.BranchId.ToString()) == null)
+                        {
+                            //if (tracker)
+                            //{
+                            if (drAdvisorBranch["Branch"] != null && drAdvisorBranch["Branch Code"] != null)
+                            {
+                                drAdvisorBranch["Branch"] = advisorBranchVo.BranchName.ToString() + "," + advisorBranchVo.BranchId.ToString();
+                                drAdvisorBranch["Branch Code"] = advisorBranchVo.BranchId.ToString();
+                                dtAdvisorBranch.Rows.Add(drAdvisorBranch);
+                            }
+
+                        }
+
+
+
+                    }
+                }
+                //_commondatasetSource.Tables.Add(dtAdvisorBranch);
+                availableBranch.DataSource = dtAdvisorBranch;
+                availableBranch.DataTextField = "Branch";
+                availableBranch.DataValueField = "Branch Code";
+                availableBranch.DataBind();
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RMBranchAssocistion.ascx:setBranchList()");
+                object[] objects = new object[3];
+                objects[0] = rmUserVo;
+                objects[1] = advisorBranchList;
+                objects[2] = advisorBranchVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
     }
+
+   
 }

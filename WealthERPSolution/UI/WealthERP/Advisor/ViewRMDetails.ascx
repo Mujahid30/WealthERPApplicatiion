@@ -135,9 +135,47 @@
             &nbsp;
         </td>
     </tr>
+   <tr>
+   <td>
+   <table border="1">
+    <tr>
+        <td>
+            <asp:Label ID="Label1" runat="server" Text="Available Branches" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+        </td>
+        <td>
+            <asp:Label ID="Label3" runat="server" Text="Associated Branches" CssClass="FieldName"></asp:Label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:ListBox ID="availableBranch" runat="server" Height="150px" Width="130px"></asp:ListBox>
+        </td>
+        <td>
+            <table border="1">
+                <tr>
+                    <td>
+                        <input type="button" id="addBranch" value=">>" onclick="addbranches();return false;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" id="deleteBranch" value="<<" onclick="deletebranches();return false;" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <asp:ListBox ID="associatedBranch" runat="server" Height="150px" Width="128px"></asp:ListBox>
+        </td>
+    </tr>
+</table>
+   </td>
+   </tr> 
     <tr>
         <td class="leftField">
-            <asp:GridView ID="gvRMBranch" runat="server"  AutoGenerateColumns="False"
+            <asp:GridView ID="gvRMBranch" runat="server" AutoGenerateColumns="False"
                 CssClass="GridViewStyle" DataKeyNames="BranchId" ShowFooter="True" 
                 OnRowDataBound="gvRMBranch_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
@@ -162,7 +200,7 @@
                                 Enabled="false" />
                         </ItemTemplate>
                     </asp:TemplateField>--%>
-                    <asp:BoundField DataField="Branch Code" HeaderText="Branch Code" />
+                    <asp:BoundField DataField="Branch Code" HeaderText="Branch Code"  />
                     <asp:BoundField DataField="Branch Name" HeaderText="Branch Name"  />
                 </Columns>
             </asp:GridView>
@@ -195,6 +233,7 @@
 <table class="TableBackground" width="100%">
     <tr>
         <td>
+        <asp:HiddenField ID="hdnExistingBranches" runat="server" />
         </td>
     </tr>
 </table>
