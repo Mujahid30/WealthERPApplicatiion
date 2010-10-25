@@ -195,7 +195,7 @@ namespace WealthERP.Advisor
 
                 int Count = 0;
 
-                customerUserList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", hdnNameFilter.Value.Trim(), "", "", "","", "", out genDictParent, out genDictRM, out genDicReassigntRM);
+                customerUserList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", hdnNameFilter.Value.Trim(), "", "", "", "", "", "", out genDictParent, out genDictRM, out genDicReassigntRM);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerUserList != null)
@@ -426,7 +426,7 @@ namespace WealthERP.Advisor
 
                         if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
                         {
-                            email.From = new MailAddress(emailer.smtpUserName, "WealthERP");
+                            email.From = new MailAddress(emailer.smtpUserName, "MoneyTouch");
                         }
                     }
                     //Sending mail...
