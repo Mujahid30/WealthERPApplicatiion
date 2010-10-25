@@ -73,6 +73,14 @@
         </td>
     </tr>
     <tr>
+    <td>
+    </td>
+    <td>
+    <asp:Checkbox ID="chkprospect" runat="server" CssClass="txtField"  Text="Prospect" 
+                AutoPostBack="false"  Enabled = "false" /></asp:Label>
+                </td>
+    </tr>
+    <tr>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
@@ -114,7 +122,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label4" runat="server" Text="Name (First/Middle/Last):" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label4" runat="server" Text="Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" width="75%">
             <asp:Label ID="lblName" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -145,13 +153,15 @@
             &nbsp;
             &nbsp;
             &nbsp;
-            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Is Dummy PAN"
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="Field" 
                 AutoPostBack="true"  Enabled = "false"/>
+                <asp:Label ID="Label6" runat="server"  Text="Dummy PAN" CssClass="Field" Style="vertical-align:top Important;"></asp:Label>
+               
         </td>
     </tr>
     <tr id="trGuardianName" runat="server">
         <td class="leftField">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Guardian Name(First/Middle/Last):"></asp:Label>
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Guardian Name:"></asp:Label>
         </td>
         <td class="rightField" width="75%">
             <asp:Label ID="lblGuardianName" runat="server" CssClass="Field"></asp:Label>

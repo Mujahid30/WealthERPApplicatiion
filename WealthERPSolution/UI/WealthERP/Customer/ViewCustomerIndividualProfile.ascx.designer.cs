@@ -23,6 +23,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label Label61;
         
         /// <summary>
+        /// chkprospect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkprospect;
+        
+        /// <summary>
         /// lblBranchName control.
         /// </summary>
         /// <remarks>
@@ -192,6 +201,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkdummypan;
+        
+        /// <summary>
+        /// Label6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
         /// trGuardianName control.
