@@ -38,7 +38,7 @@ namespace WealthERP
         AdvisorBo advisorBo = new AdvisorBo();
         static string user = "";
         UserVo userVo = new UserVo();
-        
+
 
         private SortDirection GridViewSortDirection
         {
@@ -147,7 +147,7 @@ namespace WealthERP
 
                 hdnNameFilter.Value = customer;
 
-                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value,hdnactive.Value, out genDictParent, out genDictCity);
+                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnactive.Value, out genDictParent, out genDictCity);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerList == null)
@@ -158,7 +158,7 @@ namespace WealthERP
                 }
                 else
                 {
-                    ErrorMessage.Visible = false;                    
+                    ErrorMessage.Visible = false;
                     tbl.Visible = true;
                     mypager.Visible = true;
                     DataTable dtRMCustomer = new DataTable();
@@ -308,7 +308,7 @@ namespace WealthERP
                         }
                     }
 
-                  
+
                     this.GetPageCount();
                 }
             }
@@ -352,7 +352,7 @@ namespace WealthERP
                 ratio = rowCount / 20;
                 mypager.PageCount = rowCount % 20 == 0 ? ratio : ratio + 1;
                 mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 20)+1).ToString();
+                lowerlimit = (((mypager.CurrentPage - 1) * 20) + 1).ToString();
                 upperlimit = (mypager.CurrentPage * 20).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
@@ -395,7 +395,7 @@ namespace WealthERP
                 userVo = (UserVo)Session["userVo"];
                 if (!IsPostBack)
                 {
-                  //  if (Session["Current_Link"].ToString() == "RMLeftPane")
+                    //  if (Session["Current_Link"].ToString() == "RMLeftPane")
                     //{
                     if (Session["Customer"] != null)
                     {
@@ -415,8 +415,8 @@ namespace WealthERP
                         this.BindCustomer(mypager.CurrentPage);
                     }
 
-                        
-                   // }
+
+                    // }
                 }
             }
             catch (BaseApplicationException Ex)
@@ -450,7 +450,7 @@ namespace WealthERP
 
                 if (export == 1)
                 {
-                    ErrorMessage.Visible = true;                    
+                    ErrorMessage.Visible = true;
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
                     gvCustomers.AllowPaging = false;
@@ -474,7 +474,7 @@ namespace WealthERP
                 if (customerList == null)
                 {
                     hdnRecordCount.Value = "0";
-                    ErrorMessage.Visible = true;                    
+                    ErrorMessage.Visible = true;
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
                     tbl.Visible = false;
@@ -482,7 +482,7 @@ namespace WealthERP
                 }
                 else
                 {
-                    ErrorMessage.Visible = false;                    
+                    ErrorMessage.Visible = false;
                     trPager.Visible = true;
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
@@ -663,7 +663,7 @@ namespace WealthERP
             try
             {
                 customerId = int.Parse(gvCustomers.SelectedDataKey.Value.ToString());
-                
+
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
                 if (customerVo.Type == "Individual")
@@ -715,7 +715,7 @@ namespace WealthERP
 
             if (Session[SessionContents.PortfolioId] != null)
             {
-                Session.Remove(SessionContents.PortfolioId); 
+                Session.Remove(SessionContents.PortfolioId);
             }
             try
             {
@@ -732,10 +732,10 @@ namespace WealthERP
                 {
                     Session["IsDashboard"] = "true";
                     isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
-                   if(isGrpHead == true)
-                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
-                   else
-                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+                    if (isGrpHead == true)
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+                    else
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
@@ -744,13 +744,13 @@ namespace WealthERP
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Session["customerPortfolioVo"] = customerPortfolioVo;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
-                   
+
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','list');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
@@ -931,7 +931,7 @@ namespace WealthERP
             gvCustomers.Columns[0].Visible = false;
             gvCustomers.HeaderRow.Visible = true;
 
-            if(hdnDownloadPageType.Value == "single")
+            if (hdnDownloadPageType.Value == "single")
             {
                 GridViewCultureFlag = false;
                 BindGrid(mypager.CurrentPage, 0);
@@ -1294,8 +1294,8 @@ namespace WealthERP
             DropDownList ddlFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
 
             hdnactive.Value = ddlFilter.SelectedValue; ;
-            
-            this.BindGrid(mypager.CurrentPage,0);
+
+            this.BindGrid(mypager.CurrentPage, 0);
         }
 
         protected void btnPrintGrid_Click(object sender, EventArgs e)
