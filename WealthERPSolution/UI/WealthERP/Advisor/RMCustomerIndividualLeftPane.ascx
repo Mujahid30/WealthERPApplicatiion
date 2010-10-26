@@ -18,10 +18,15 @@
 
             var searchstring = document.getElementById('<%= txtFindCustomer.ClientID %>').value;
             var userRole = document.getElementById('<%=hdnUserRole.ClientID %>').value;
-            if (userRole == "RM")
+            if (userRole == "RM") {
                 loadsearchcontrol('RMCustomer', 'Customer', searchstring);
-            else
+            }
+            else if (userRole == "Adviser") {
                 loadsearchcontrol('AdviserCustomer', 'Customer', searchstring);
+            }
+            else if (userRole == "BM") {
+            loadsearchcontrol('BMCustomer', 'Customer', searchstring);
+            }
         }
     }
 </script>

@@ -44,9 +44,17 @@ namespace WealthERP.Advisor
                     Middle = customerVo.MiddleName.ToString();
                     Last = customerVo.LastName.ToString();
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    {
                         hdnUserRole.Value = "RM";
-                    else
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                    {
+                        hdnUserRole.Value = "BM";
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Adviser")
+                    {
                         hdnUserRole.Value = "Adviser";
+                    }
                     if (Middle != "")
                     {
                         lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
@@ -139,10 +147,18 @@ namespace WealthERP.Advisor
 
                 if (TreeView1.SelectedNode.Value == "RM Home")
                 {
-                    if(Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                    {
+                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('BMDashBoard','none');", true);
+                    }
+                    else if(Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
-                    else
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('IFAAdminMainDashboard','none');", true);
+                    }
                 }
                 else if (TreeView1.SelectedNode.Value == "Group Dashboard")
                 {
