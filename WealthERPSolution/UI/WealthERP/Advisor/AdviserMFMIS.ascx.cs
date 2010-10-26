@@ -120,15 +120,8 @@ namespace WealthERP.Advisor
                     hdnall.Value = "2";
                     hdnbranchId.Value = "0";
                     hdnrmId.Value = "0";
-                   
-
-
                 }
-
-
                 //to hide the dropdown selection for mis type for adviser and bm
-
-
                 if (!IsPostBack)
                 {
                     rbtnPickDate.Checked = true;
@@ -161,14 +154,8 @@ namespace WealthERP.Advisor
 
         private void BindGrid(DateTime dtFrom, DateTime dtTo)
         {
-
-            
-
-
             int.TryParse(ddlBranch.SelectedValue, out branchId);
             int.TryParse(ddlRM.SelectedValue, out rmId);
-
-
 
             if (userType == "adviser")
                 ID = advisorVo.advisorId;
@@ -350,44 +337,51 @@ namespace WealthERP.Advisor
 
 
             /* For BM Branch wise MIS */
+            if (userType == "adviser")
+            {
+                dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, branchId, rmId, dtFrom, dtTo);
+            }
+            else if (userType == "bm")
+            {
+                if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "2";
+                    hdnrmId.Value = "0";
+                    //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "3";
+                    hdnrmId.Value = ddlRM.SelectedValue;
 
-            if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
-            {
-                hdnbranchId.Value = "0";
-                hdnbranchHeadId.Value = ddlBranch.SelectedValue;
-                hdnall.Value = "2";
-                hdnrmId.Value = "0";
-                //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
-                this.BindGrid(convertedFromDate, convertedToDate);
-            }
-            else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
-            {
-                hdnbranchId.Value = "0";
-                hdnbranchHeadId.Value = ddlBranch.SelectedValue;
-                hdnall.Value = "3";
-                hdnrmId.Value = ddlRM.SelectedValue;
+                    //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 3);
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                {
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "1";
+                    //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "0";
+                    hdnrmId.Value = ddlRM.SelectedValue;
 
-                //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 3);
-                this.BindGrid(convertedFromDate, convertedToDate);
+                    //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 0);
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
             }
-            else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
-            {
-                hdnbranchId.Value = ddlBranch.SelectedValue;
-                hdnbranchHeadId.Value = "0";
-                hdnall.Value = "1";
-                //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
-                this.BindGrid(convertedFromDate, convertedToDate);
-            }
-            else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
-            {
-                hdnbranchId.Value = ddlBranch.SelectedValue;
-                hdnbranchHeadId.Value = "0";
-                hdnall.Value = "0";
-                hdnrmId.Value = ddlRM.SelectedValue;
-
-                //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 0);
-                this.BindGrid(convertedFromDate, convertedToDate);
-            }
+            
         }
 
         /* ********************** */
