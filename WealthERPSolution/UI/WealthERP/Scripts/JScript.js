@@ -30,7 +30,7 @@ function loadcontrol(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
-    if (logintrue != "none" && logintrue != "login") {
+    if (logintrue != "none" && logintrue != "login" && logintrue != "list") {
         var c_src = "ControlHost.aspx" + logintrue + "&pageid=";
     }
     else {
@@ -60,9 +60,9 @@ function loadcontrol(controlid, logintrue) {
         loadlinks("AdvisorBMLeftpane");
     }
 
-    //    else if (controlid == "PortfolioDashboard") {
-    //        loadlinks("PortfolioLeftPane");
-    //    }
+        else if (controlid == "PortfolioDashboard" && logintrue == "list") {
+        loadlinks("RMCustomerIndividualLeftPane");
+       }
 
     else if (controlid == "AdvisorRMDashBoard") {
         loadlinks("AdvisorRMLeftpane");
