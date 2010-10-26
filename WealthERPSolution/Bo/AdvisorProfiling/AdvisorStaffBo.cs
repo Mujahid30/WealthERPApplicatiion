@@ -1111,7 +1111,41 @@ namespace BoAdvisorProfiling
             return dtAdviserRMList;
         }
 
-        /* For Getting Staffs according to Branch selection */ 
+
+        /// <summary>
+        /// Checks the RM BM Role Have4 any dependency...
+        /// </summary>
+        /// <param name="RMID"></param>
+        /// <returns></returns>
+        public Hashtable CheckRMDependency(int RMID)
+        {
+            Hashtable ht = new Hashtable();
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+
+            try
+            {
+                ht = advisorStaffDao.CheckRMDependency(RMID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:CheckRMDependency()");
+                object[] objects = new object[1];
+                objects[0] = RMID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ht;
+        }
+
+        /* For Getting Staffs according to Branch selection */
 
         public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, int currentPage, out int Count)
         {
@@ -1205,7 +1239,5 @@ namespace BoAdvisorProfiling
         }
 
         /* ******************** */
-
-
     }
 }
