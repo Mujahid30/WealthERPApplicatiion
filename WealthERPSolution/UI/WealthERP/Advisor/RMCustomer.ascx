@@ -329,8 +329,8 @@
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
- <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" Text="gdfgdfgfg"
-                BorderStyle="None" Visible="true"  />
+ <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" 
+                BorderStyle="None" Visible="false"  />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
