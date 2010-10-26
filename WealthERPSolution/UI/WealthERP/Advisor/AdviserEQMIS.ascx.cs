@@ -283,7 +283,7 @@ namespace WealthERP.Advisor
            
 
             /* For BM MIS */
-            if (userType == "bm")
+            if (userType == "advisor") 
             {
                 if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex == 0))
                 {
@@ -297,57 +297,52 @@ namespace WealthERP.Advisor
                     this.BindGrid(convertedFromDate, convertedToDate);
                 }
             }
-            else if (userType == "advisor")
+            else if (userType == "bm")
             {
-                hdnbranchId.Value = "0";
-                hdnbranchHeadId.Value = advisorId.ToString();
-                hdnall.Value = "2";
-               // hdnXWise.Value = "1";
-                hdnrmId.Value = ddlRMEQ.SelectedValue;
+                if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
 
-               // dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), hdnAMCSearchVal.Value.ToString(), out count, 0);
-                this.BindGrid(convertedFromDate, convertedToDate);
-            }
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "2";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
 
-            if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex == 0))
-            {
-                hdnbranchId.Value = "0";
-                hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
-                hdnall.Value = "2";
-                hdnrmId.Value = ddlRMEQ.SelectedValue;
 
-               
-                this.BindGrid(convertedFromDate, convertedToDate);
-            }
-            else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
-            {
-                hdnbranchId.Value = "0";
-                hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
-                hdnall.Value = "3";
-                hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
 
+                else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "3";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+
+
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
+
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
+
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "1";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
+
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "0";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
                 
-                this.BindGrid(convertedFromDate, convertedToDate);
             }
-            else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
-            {
-                hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
-                hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
-                hdnall.Value = "1";
-                hdnrmId.Value = ddlRMEQ.SelectedValue;
-
-                this.BindGrid(convertedFromDate, convertedToDate);
-            }
-            else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
-            {
-                hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
-                hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
-                hdnall.Value = "0";
-                hdnrmId.Value = ddlRMEQ.SelectedValue;
-
-                this.BindGrid(convertedFromDate, convertedToDate);
-            }
-
             /* ********** */
         }
 
