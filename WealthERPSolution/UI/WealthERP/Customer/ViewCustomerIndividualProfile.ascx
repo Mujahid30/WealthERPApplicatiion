@@ -569,7 +569,7 @@
     </tr>
     <tr id="trDelete" runat="server">
         <td colspan="2" class="SubmitCell">
-            <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"
+            <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" Visible="false"
                 CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ViewCustomerIndividualProfile_btnDelete', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewCustomerIndividualProfile_btnDelete', 'S');" />
             <%--<asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
