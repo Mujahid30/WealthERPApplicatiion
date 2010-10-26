@@ -222,7 +222,7 @@ namespace WealthERP.Advisor
                 else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
                 {
                     hdnbranchId.Value = "0";
-                    hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                    hdnbranchHeadId.Value = bmID.ToString();
                     hdnAll.Value = "3";
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnXWise.Value = "1";
@@ -233,7 +233,7 @@ namespace WealthERP.Advisor
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
                 {
                     hdnbranchId.Value = ddlBranch.SelectedValue;
-                    hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                    hdnbranchHeadId.Value = bmID.ToString();
                     hdnAll.Value = "1";
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnXWise.Value = "1";
@@ -244,7 +244,7 @@ namespace WealthERP.Advisor
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
                 {
                     hdnbranchId.Value = ddlBranch.SelectedValue;
-                    hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                    hdnbranchHeadId.Value = bmID.ToString();
                     hdnAll.Value = "0";
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnXWise.Value = "1";
