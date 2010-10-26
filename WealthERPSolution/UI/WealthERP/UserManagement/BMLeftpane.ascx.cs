@@ -48,7 +48,7 @@ namespace WealthERP.UserManagement
         }
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("BMLeftTree"))
             {
                 SetNode();
             }
