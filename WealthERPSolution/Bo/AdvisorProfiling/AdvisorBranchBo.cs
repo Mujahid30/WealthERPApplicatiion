@@ -1054,16 +1054,325 @@ namespace BoAdvisorProfiling
             return count;
         }
 
+        /// <summary>
+        /// Creating RM Branch Association......
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="userid"></param>
+        /// <param name="IsMainBranch"></param>
+        /// <returns></returns>
+        public bool CreateRMBranchAssociation(int rmId, int branchId, int createdBy, int modifiedBy)
+        {
+            bool bResult = false;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                bResult = advisorBranchDao.CreateRMBranchAssociation(rmId, branchId, createdBy, modifiedBy);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CreateRMBranchAssociation()");
+                object[] objects = new object[2];
+                objects[0] = rmId;
+                objects[1] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+
+        /// <summary>
+        /// Checking RM Branch Association......
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="userid"></param>
+        /// <param name="IsMainBranch"></param>
+        /// <returns></returns>
+        public bool CheckRMBranchDependency(int rmId, int branchId)
+        {
+
+            bool isBranchDependency = false;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                isBranchDependency = advisorBranchDao.CheckRMBranchDependency(rmId, branchId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CheckRMBranchDependency()");
+                object[] objects = new object[2];
+                objects[0] = rmId;
+                objects[1] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isBranchDependency;
+        }
+
+
+        /// <summary>
+        ///Converting One External Branch to Internal and Vice-versa Checking any RM is associated to the branch
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="userid"></param>
+        /// <param name="IsMainBranch"></param>
+        /// <returns></returns>
+        public bool CheckBranchDependency(int branchId)
+        {
+            bool isBranchRMDependency = false;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+
+            try
+            {
+                isBranchRMDependency = advisorBranchDao.CheckBranchDependency(branchId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CheckBranchDependency()");
+                object[] objects = new object[1];
+                objects[0] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isBranchRMDependency;
+        }
+
+        /// <summary>
+        ///Before deletion of any branch check the branch depedency with customer
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="userid"></param>
+        /// <param name="IsMainBranch"></param>
+        /// <returns></returns>
+        public bool CheckBranchCustomerDependency(int branchId)
+        {
+            bool isBranchCustomerDependency = false;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                isBranchCustomerDependency = advisorBranchDao.CheckBranchCustomerDependency(branchId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CheckBranchCustomerDependency()");
+                object[] objects = new object[1];
+                objects[0] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isBranchCustomerDependency;
+        }
+
+        /// <summary>
+        ///BBefore deleting a associate category checking dependency of category in AdvisorBranch
+        /// </summary>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="userid"></param>
+        /// <param name="IsMainBranch"></param>
+        /// <returns></returns>
+        public bool CheckAssociateCategoryDependency(int categoryId)
+        {
+            bool isAssociateCategoryDependent = false;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                isAssociateCategoryDependent = advisorBranchDao.CheckAssociateCategoryDependency(categoryId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CheckAssociateCategoryDependency()");
+                object[] objects = new object[1];
+                objects[0] = categoryId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isAssociateCategoryDependent;
+        }
+
+        /// <summary>
+        /// Get all customer of advisor for bulk assignment
+        /// </summary>
+        /// <param name="branchIdFilter"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="sortExpression"></param>
+        /// <param name="custNameFilter"></param>
+        /// <param name="branchNameFilter"></param>
+        /// <param name="rmNameFilter"></param>
+        /// <param name="areaFilter"></param>
+        /// <param name="cityFilter"></param>
+        /// <param name="advisorBranchList"></param>
+        /// <returns></returns>
+        public List<CustomerVo> GetAdviserCustomerListForAssociation(int branchIdFilter, int adviserId, int currentPage, out int count, string sortExpression, string custNameFilter, string branchNameFilter, string rmNameFilter, string areaFilter, string cityFilter, out Dictionary<string, string> advisorBranchList)
+        {
+            List<CustomerVo> customerList = null;
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+
+
+            count = 0;
+
+            try
+            {
+                customerList = advisorBranchDao.GetAdviserCustomerListForAssociation(branchIdFilter, adviserId, currentPage, out count, sortExpression, custNameFilter, branchNameFilter, rmNameFilter, areaFilter, cityFilter, out advisorBranchList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetAdviserCustomerListForAssociation()");
+
+                object[] objects = new object[11];
+                objects[0] = adviserId;
+                objects[1] = currentPage;
+                objects[2] = count;
+                objects[3] = sortExpression;
+                objects[4] = custNameFilter;
+                objects[5] = areaFilter;
+                objects[6] = branchNameFilter;
+                objects[7] = rmNameFilter;
+                objects[8] = branchIdFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return customerList;
+        }
+
+        /// <summary>
+        /// Checking any of one customer is GroupHead(Customer are associated to him) 
+        /// </summary>
+        /// <param name="customerIds"></param>
+        /// <returns></returns>
+        public bool CheckCustomerGroupHead(string customerIds)
+        {
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            bool flag = false;
+            try
+            {
+                flag = advisorBranchDao.CheckCustomerGroupHead(customerIds);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CheckCustomerGroupHead()");
+                object[] objects = new object[1];
+                objects[0] = customerIds;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return flag;
+        }
+        /// <summary>
+        /// Customer RM Bulk assignment for a branch. 
+        /// </summary>
+        /// <param name="customerIds"></param>
+        /// <param name="branchId"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
+        public bool ReassignCustomersBranchRM(string customerIds, int branchId, int rmId)
+        {
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            bool bResult = false;
+            try
+            {
+                bResult = advisorBranchDao.ReassignCustomersBranchRM(customerIds, branchId, rmId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:ReassignCustomersBranchRM()");
+                object[] objects = new object[3];
+                objects[0] = customerIds;
+                objects[1] = branchId;
+                objects[2] = rmId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
 
         /* For Branch Assets */
 
         public DataSet GetBranchAssets(int advisorBranchId, int branchHeadId, int all)
         {
+
+
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             DataSet ds = new DataSet();
             try
             {
                 ds = advisorBranchDao.GetBranchAssets(advisorBranchId, branchHeadId, all);
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1089,11 +1398,13 @@ namespace BoAdvisorProfiling
 
         /* End For Branch Assets */
 
+
         /* For Branch Dropdowns */
 
 
         public DataSet GetBranchsRMForBMDp(int branchId, int branchHeadId, int all)
         {
+
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
             DataSet ds = new DataSet();
             try
@@ -1120,10 +1431,10 @@ namespace BoAdvisorProfiling
             }
             return ds;
 
+
         }
 
         /* End For Branch Dropdowns */
-
 
 
 
