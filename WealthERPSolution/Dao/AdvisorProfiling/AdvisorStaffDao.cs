@@ -339,8 +339,6 @@ namespace DaoAdvisorProfiling
             return ds;
         }
 
-        /* Commented For Enter the new for Branch Manager Module */
-
         public List<RMVo> GetBMRMList(int branchId, int currentPage, out int Count)
         {
             List<RMVo> rmList = new List<RMVo>();
@@ -405,64 +403,6 @@ namespace DaoAdvisorProfiling
             }
             return rmList;
         }
-
-        /* End Commented For Enter the new for Branch Manager Module */
-
-
-
-        /* Function For Branch Manager */
-        
-        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, int currentPage, out int Count)
-        {
-            List<RMVo> rmList = new List<RMVo>();
-            int rmId;
-            RMVo rmVo;
-            Database db;
-            DbCommand getRMListCmd;
-            DataSet getRMListDs;
-            Count = 0;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                getRMListCmd = db.GetStoredProcCommand("SP_GetAllBMStaffs");
-                db.AddInParameter(getRMListCmd, "@AB_BranchId", DbType.String, branchId);
-                db.AddInParameter(getRMListCmd, "@branchHeadId", DbType.String, branchHeadId);
-                db.AddInParameter(getRMListCmd, "@all", DbType.String, all);
-                db.AddInParameter(getRMListCmd, "@CurrentPage", DbType.Int32, currentPage);
-
-                getRMListDs = db.ExecuteDataSet(getRMListCmd);
-                if (getRMListDs.Tables[0].Rows.Count > 0)
-                {
-
-                    foreach (DataRow dr in getRMListDs.Tables[0].Rows)
-                    {
-                        rmVo = new RMVo();
-                        rmVo.UserId = int.Parse(dr["U_UserId"].ToString());
-                        rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
-                        rmVo.FirstName = dr["AR_FirstName"].ToString();
-                        rmVo.MiddleName = dr["AR_MiddleName"].ToString();
-                        rmVo.LastName = dr["AR_LastName"].ToString();
-                        rmVo.Mobile = Convert.ToInt64(dr["AR_Mobile"].ToString());
-                        rmVo.Email = dr["AR_Email"].ToString();
-                        rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
-                        rmList.Add(rmVo);
-                    }
-                }
-                else
-                    rmList = null;
-                if (getRMListDs.Tables[1].Rows.Count > 0)
-                {
-                    Count = int.Parse(getRMListDs.Tables[1].Rows[0][0].ToString());
-                }
-            }
-            catch (Exception e)
-            {
-                string msg = e.Message.ToString();
-            }
-            return rmList;
-        }
-
-        /* End */
 
         public List<RMVo> GetRMList(int advisorId)
         {
@@ -1899,7 +1839,108 @@ namespace DaoAdvisorProfiling
             return dt;
         }
 
-        /* BM Customer List */ 
+
+        /// <summary>
+        /// Checks the RM BM Role Have4 any dependency...
+        /// </summary>
+        /// <param name="RMID"></param>
+        /// <returns></returns>
+        public Hashtable CheckRMDependency(int RMID)
+        {
+            System.Collections.Hashtable ht = new System.Collections.Hashtable();
+            Database db;
+            DbCommand CheckRMCustomerCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CheckRMCustomerCmd = db.GetStoredProcCommand("SP_CheckRMDependency");
+                db.AddInParameter(CheckRMCustomerCmd, "@RMId", DbType.Int32, RMID);
+                db.AddOutParameter(CheckRMCustomerCmd, "@CustomerCount", DbType.Int32, 50000);
+                db.AddOutParameter(CheckRMCustomerCmd, "@BranchHead", DbType.Int32, 1000);
+                if (db.ExecuteNonQuery(CheckRMCustomerCmd) != 0)
+                {
+                    ht.Add("RMCustomerCount", db.GetParameterValue(CheckRMCustomerCmd, "CustomerCount").ToString());
+                    ht.Add("BMBranchHead", db.GetParameterValue(CheckRMCustomerCmd, "BranchHead").ToString());
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:CheckRMDependency()");
+                object[] objects = new object[1];
+                objects[0] = RMID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ht;
+        }
+
+
+        /* Function For Branch Manager */
+
+        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, int currentPage, out int Count)
+        {
+            List<RMVo> rmList = new List<RMVo>();
+            int rmId;
+            RMVo rmVo;
+            Database db;
+            DbCommand getRMListCmd;
+            DataSet getRMListDs;
+            Count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getRMListCmd = db.GetStoredProcCommand("SP_GetAllBMStaffs");
+                db.AddInParameter(getRMListCmd, "@AB_BranchId", DbType.String, branchId);
+                db.AddInParameter(getRMListCmd, "@branchHeadId", DbType.String, branchHeadId);
+                db.AddInParameter(getRMListCmd, "@all", DbType.String, all);
+                db.AddInParameter(getRMListCmd, "@CurrentPage", DbType.Int32, currentPage);
+
+                getRMListDs = db.ExecuteDataSet(getRMListCmd);
+                if (getRMListDs.Tables[0].Rows.Count > 0)
+                {
+
+                    foreach (DataRow dr in getRMListDs.Tables[0].Rows)
+                    {
+                        rmVo = new RMVo();
+                        rmVo.UserId = int.Parse(dr["U_UserId"].ToString());
+                        rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
+                        rmVo.FirstName = dr["AR_FirstName"].ToString();
+                        rmVo.MiddleName = dr["AR_MiddleName"].ToString();
+                        rmVo.LastName = dr["AR_LastName"].ToString();
+                        rmVo.Mobile = Convert.ToInt64(dr["AR_Mobile"].ToString());
+                        rmVo.Email = dr["AR_Email"].ToString();
+                        rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
+                        rmList.Add(rmVo);
+                    }
+                }
+                else
+                    rmList = null;
+                if (getRMListDs.Tables[1].Rows.Count > 0)
+                {
+                    Count = int.Parse(getRMListDs.Tables[1].Rows[0][0].ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message.ToString();
+            }
+            return rmList;
+        }
+
+        /* End */
+
+
+        /* BM Customer List */
 
         public List<CustomerVo> GetAllBMCustomerList(int branchId, int branchHeadId, int all, int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
         {
@@ -2034,7 +2075,7 @@ namespace DaoAdvisorProfiling
 
         /* BM Branch Dropdown */
 
-         public DataTable GetRMListForBranchDP(int branchId, int branchHeadId, int all)
+        public DataTable GetRMListForBranchDP(int branchId, int branchHeadId, int all)
         {
             Database db;
             DbCommand getBranchRMListCmd;
@@ -2074,50 +2115,5 @@ namespace DaoAdvisorProfiling
 
         /* ****************** */
 
-
-
-        /// <summary>
-        /// Checks the RM BM Role Have4 any dependency...
-        /// </summary>
-        /// <param name="RMID"></param>
-        /// <returns></returns>
-        public Hashtable CheckRMDependency(int RMID)
-        {
-            System.Collections.Hashtable ht = new System.Collections.Hashtable();
-            Database db;
-            DbCommand CheckRMCustomerCmd;
-
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                CheckRMCustomerCmd = db.GetStoredProcCommand("SP_CheckRMDependency");
-                db.AddInParameter(CheckRMCustomerCmd, "@RMId", DbType.Int32, RMID);
-                db.AddOutParameter(CheckRMCustomerCmd, "@CustomerCount", DbType.Int32, 50000);
-                db.AddOutParameter(CheckRMCustomerCmd, "@BranchHead", DbType.Int32, 1000);
-                if (db.ExecuteNonQuery(CheckRMCustomerCmd) != 0)
-                {
-                    ht.Add("RMCustomerCount", db.GetParameterValue(CheckRMCustomerCmd, "CustomerCount").ToString());
-                    ht.Add("BMBranchHead", db.GetParameterValue(CheckRMCustomerCmd, "BranchHead").ToString());
-                }
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:CheckRMDependency()");
-                object[] objects = new object[1];
-                objects[0] = RMID;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return ht;
-        }
     }
 }
