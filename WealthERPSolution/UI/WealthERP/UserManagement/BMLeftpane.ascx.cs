@@ -44,6 +44,8 @@ namespace WealthERP.UserManagement
         /* For BM Left Treeview */
 
         protected void BMLeftTree_SelectedNodeChanged(object sender, EventArgs e)
+        { 
+        }
         protected void Page_PreRender(object sender, EventArgs e)
         {
             if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
