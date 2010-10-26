@@ -158,7 +158,7 @@
         
     <tr>
         <td>
-        <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="lblChooseBranch" Text="Branch: "></asp:Label>
+        <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
             <asp:DropDownList ID="ddlBMBranchList" runat="server" 
                 onselectedindexchanged="ddlBMBranchList_SelectedIndexChanged" AutoPostBack="true">
            <%-- <asp:ListItem Value="1086" Text="All"></asp:ListItem>
@@ -215,7 +215,7 @@
                             <HeaderTemplate>
                                 <asp:Label ID="lblCustName" runat="server" Text="Customer / Company"></asp:Label>
                                 <br />
-                                <asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomer_btnNameSearch');" />
+                                <asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_BMCustomer_btnNameSearch');" />
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblCustNameHeader" runat="server" Text='<%# Eval("Cust_Comp_Name").ToString() %>'></asp:Label>
@@ -228,7 +228,7 @@
                             <HeaderTemplate>
                                 <asp:Label ID="lblArea" runat="server" Text="Area"></asp:Label>
                                 <br />
-                                <asp:TextBox ID="txtAreaSearch" runat="server" Width="120px" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomer_btnAreaSearch');" />
+                                <asp:TextBox ID="txtAreaSearch" runat="server" Width="120px" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_BMCustomer_btnAreaSearch');" />
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblAreaHeader" runat="server" Text='<%# Eval("Area").ToString() %>'></asp:Label>
