@@ -101,7 +101,7 @@ namespace WealthERP.UserManagement
             else if (BMLeftTree.SelectedNode.Value == "MFMIS")
             {
                 Session["UserType"] = "bm";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCwiseMIS','login');", true);
             }
             else if (BMLeftTree.SelectedNode.Value == "EQMIS")
             {
