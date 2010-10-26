@@ -385,6 +385,17 @@ namespace WealthERP.Advisor
             
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
         }
+
+        /// <summary>
+        /// Goes to Alert Notifications on the click of the Link below the Alerst grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lnkAlertNotifications_Click(object sender, EventArgs e)
+        {
+            Session["UserType"] = "rm";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomerSMSAlerts','none');", true);
+        }
         
     }
 }
