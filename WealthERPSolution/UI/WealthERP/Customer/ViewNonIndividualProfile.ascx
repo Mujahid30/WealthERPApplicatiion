@@ -414,7 +414,7 @@ function showassocation() {
 <table width="100%">
     <tr id="trDelete" runat="server">
         <td colspan="3" class="SubmitCell">
-            <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"
+            <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" Visible="false"
                 CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ViewNonIndividualProfile_btnDelete');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewNonIndividualProfile_btnDelete');" />
                 <asp:HiddenField ID="hdnassociationcount" runat="server" />
