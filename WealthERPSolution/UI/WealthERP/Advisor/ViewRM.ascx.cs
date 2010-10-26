@@ -310,6 +310,7 @@ namespace WealthERP.Advisor
                     dtAdvisorStaff.Columns.Add("StaffType");
                     dtAdvisorStaff.Columns.Add("StaffRole");
                     dtAdvisorStaff.Columns.Add("Email");
+                    dtAdvisorStaff.Columns.Add("BranchList");
                     dtAdvisorStaff.Columns.Add("Mobile Number");
                     //dtAdvisorStaff.Columns.Add("Branch Name");
                     DataRow dr;
@@ -328,11 +329,14 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[3] = "Internal";
                         drAdvisorStaff[4] = dr["AR_JobFunction"].ToString();
                         drAdvisorStaff[5] = dr["AR_Email"].ToString();
-                        drAdvisorStaff[6] = dr["AR_Mobile"].ToString();
+                        drAdvisorStaff[6] = dr["BranchList"];
+                        drAdvisorStaff[7] =  dr["AR_Mobile"].ToString();
                         dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                     }
 
                     gvRMList.DataSource = dtAdvisorStaff;
+                    
+                    //gvRMList.Columns[4].Visible = false;
                     gvRMList.DataBind();
                     this.GetPageCount();
                 }
@@ -391,8 +395,11 @@ namespace WealthERP.Advisor
                         dtAdvisorStaff.Columns.Add("WealthERP Id");
                         dtAdvisorStaff.Columns.Add("RMName");
                         dtAdvisorStaff.Columns.Add("StaffType");
+                        dtAdvisorStaff.Columns.Add("StaffRole");
                         dtAdvisorStaff.Columns.Add("Email");
+                        dtAdvisorStaff.Columns.Add("BranchList");
                         dtAdvisorStaff.Columns.Add("Mobile Number");
+                        
                         DataRow drAdvisorStaff;
                         for (int i = 0; i < rmList.Count; i++)
                         {
@@ -406,11 +413,17 @@ namespace WealthERP.Advisor
                                 drAdvisorStaff[3] = "External";
                             else
                                 drAdvisorStaff[3] = "Internal";
-                            drAdvisorStaff[4] = rmVo.Email.ToString();
-                            drAdvisorStaff[5] = rmVo.Mobile.ToString();
+                            drAdvisorStaff[4] = string.Empty;
+                            drAdvisorStaff[5] = rmVo.Email.ToString();
+                            drAdvisorStaff[6] = string.Empty;
+                            drAdvisorStaff[7]=rmVo.Mobile.ToString();
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
                         gvRMList.DataSource = dtAdvisorStaff;
+                        gvRMList.Columns[3].Visible = false;
+                        gvRMList.Columns[4].Visible = false;
+                        //dtAdvisorStaff.Columns.Remove("StaffRole");
+                        //dtAdvisorStaff.Columns.Remove("BranchList");
                         gvRMList.DataBind();
                         this.GetPageCount();
                     }

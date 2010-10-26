@@ -47,7 +47,7 @@
         <td>
             <div id="print" runat="server" width="100%">
                 <asp:GridView ID="gvRMList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                    DataKeyNames="UserId"  OnSorting="gvRMList_Sorting" width="100%" RowStyle-Wrap="false"
+                    DataKeyNames="UserId"  OnSorting="gvRMList_Sorting" width="100%" RowStyle-Wrap="true"
                     CssClass="GridViewStyle"
                     ShowFooter="True">
                     <RowStyle CssClass="RowStyle" />
