@@ -33,6 +33,43 @@
         var btn = document.getElementById(btnID);
         btn.click();
     }
+    //***********************************
+
+    function showmessage() {
+
+        var bool = window.confirm('Are you sure you want to delete this profile?');
+  
+        if (bool) {            
+            document.getElementById("ctrl_RMCustomer_hdnMsgValue").value = 1;
+
+            document.getElementById("ctrl_RMCustomer_hiddenassociation").click();
+
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_RMCustomer_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_RMCustomer_hiddenassociation").click();
+            return true;
+        }
+    }
+
+    //***********************************************
+
+
+    function showassocation() {
+
+        var bool = window.confirm('Customer has associations,cannot be deteted');
+        if (bool) {           
+            document.getElementById("ctrl_RMCustomer_hdnassociation").value = 1;
+            document.getElementById("ctrl_RMCustomer_hiddenassociationfound").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_RMCustomer_hdnassociation").value = 0;
+            document.getElementById("ctrl_RMCustomer_hiddenassociationfound").click();
+            return true;
+        }
+    }
 </script>
 
 <table id="Table1" class="TableBackground" width="100%" runat="server">
@@ -193,6 +230,7 @@
                                     <asp:ListItem Text="Portfolio" />
                                     <asp:ListItem Text="User Details" />
                                     <asp:ListItem Text="Alerts" />
+                                    <asp:ListItem Text="Delete Profile"/>
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -270,11 +308,10 @@
                                             <asp:ListItem Text="Active" Value="1">
                                             </asp:ListItem>
                                             <asp:ListItem Text="InActive" Value="0">
-                                            </asp:ListItem>
-                                            
+                                            </asp:ListItem>                                            
                                         </asp:DropDownList>
-                                         </HeaderTemplate>
-                                         </asp:TemplateField>
+                                        </HeaderTemplate>
+                                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </td>
@@ -292,6 +329,8 @@
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
+ <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" Text="gdfgdfgfg"
+                BorderStyle="None" Visible="true"  />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
@@ -302,3 +341,6 @@
 <asp:HiddenField ID="hdnParentFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnactive" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="hdnassociation" runat="server" Visible="true" />
+<asp:HiddenField ID="hdnassociationcount" runat="server" />

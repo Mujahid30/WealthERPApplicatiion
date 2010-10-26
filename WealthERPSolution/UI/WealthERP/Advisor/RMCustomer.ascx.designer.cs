@@ -221,6 +221,15 @@ namespace WealthERP {
         protected global::System.Web.UI.WebControls.Button btnNameSearch;
         
         /// <summary>
+        /// hiddenassociation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hiddenassociation;
+        
+        /// <summary>
         /// hdnRecordCount control.
         /// </summary>
         /// <remarks>
@@ -309,5 +318,32 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnactive;
+        
+        /// <summary>
+        /// hdnMsgValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnMsgValue;
+        
+        /// <summary>
+        /// hdnassociation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnassociation;
+        
+        /// <summary>
+        /// hdnassociationcount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnassociationcount;
     }
 }
