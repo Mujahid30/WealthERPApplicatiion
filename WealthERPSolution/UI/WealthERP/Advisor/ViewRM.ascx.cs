@@ -20,6 +20,7 @@ using System.Data.SqlClient;
 using System.Text;
 using BoCommon;
 using WealthERP.Base;
+using BoUploads;
 
 
 namespace WealthERP.Advisor
@@ -33,12 +34,17 @@ namespace WealthERP.Advisor
         UserBo userBo = new UserBo();
         UserVo userVo = new UserVo();
         int rmId;
+        int bmID;
         int userId;
         int branchId;
+        string userType;
+        int adviserID;
+
         int index;
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
         List<int> rmList = new List<int>();
+        string currentRole = "";
 
         protected override void OnInit(EventArgs e)
         {
@@ -105,11 +111,11 @@ namespace WealthERP.Advisor
                     rowCount = Convert.ToInt32(hdnCount.Value);
                 if (rowCount > 0)
                 {
-                    ratio = rowCount / 15;
-                    mypager.PageCount = rowCount % 15 == 0 ? ratio : ratio + 1;
+                    ratio = rowCount / 10;
+                    mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
                     mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    lowerlimit = (((mypager.CurrentPage - 1) * 15) + 1).ToString();
-                    upperlimit = (mypager.CurrentPage * 15).ToString();
+                    lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
+                    upperlimit = (mypager.CurrentPage * 10).ToString();
                     if (mypager.CurrentPage == mypager.PageCount)
                         upperlimit = hdnCount.Value;
                     PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
@@ -151,6 +157,10 @@ namespace WealthERP.Advisor
                     mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
                     hdnCurrentPage.Value = "";
                 }
+                if (userType == "advisor")
+                {
+                    ShowRM();
+                }
                 if (Session["RM"] != null)
                 {
 
@@ -158,7 +168,7 @@ namespace WealthERP.Advisor
                     Session.Remove("RM");
 
                 }
-                else
+                else if(userType == "bm")
                 {
                     showRMList();
                 }
@@ -184,11 +194,60 @@ namespace WealthERP.Advisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
+
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+                userType = "advisor";
+            else
+                userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+
+            userVo = (UserVo)Session["userVo"];
+            rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
+            bmID = rmVo.RMId;
+            adviserID = advisorVo.advisorId;
+
+
+
+            if (userType == "bm")
+            {
+                lblChooseBr.Visible = true;
+                ddlBMStaffList.Visible = true;
+                if (!IsPostBack)
+                {
+                    BindBranchForBMDropDown();
+                    hdnbranchID.Value = "0";
+                    hdnbranchHeadId.Value = ddlBMStaffList.SelectedValue;
+                    hdnall.Value = "1";
+
+                    mypager.CurrentPage = 1;
+                    this.BindGrid();
+                }
+            }
+            if (userType == "advisor")
+            {
+                lblChooseBr.Visible = false;
+                ddlBMStaffList.Visible = false;
+                if (!IsPostBack)
+                {
+                    BindBranchDropDown();
+                    hdnbranchID.Value = "0";
+                    hdnbranchHeadId.Value = adviserID.ToString();
+                    hdnall.Value = "1";
+
+                    mypager.CurrentPage = 1;
+                    this.BindGrid();
+                }
+            }
+
+
             string rm = "";
             try
             {
                 if (!IsPostBack)
                 {
+                    
+
                     mypager.CurrentPage = 1;
                     this.BindGrid();
                 }
@@ -226,11 +285,18 @@ namespace WealthERP.Advisor
             int count = 0;
             try
             {
-                rm = Session["RM"].ToString();
+                if (Session["RM"]!=null)
+                    rm = Session["RM"].ToString();
+                else
+                    rm = string.Empty;
+              
                 if (rm.ToLower().Trim() == "find rm" || rm.ToLower().Trim() == "")
                     rm = "";
 
-                ds = advisorStaffBo.FindRM(rm, advisorVo.advisorId, mypager.CurrentPage, hdnSort.Value.ToString(), out count);
+                if(userType == "advisor")
+
+
+                    ds = advisorStaffBo.FindRM(rm, advisorVo.advisorId, mypager.CurrentPage, hdnSort.Value.ToString(), out count);
 
                 lblTotalRows.Text = hdnCount.Value = count.ToString();
                 if (ds.Tables[0].Rows.Count != 0)
@@ -252,7 +318,7 @@ namespace WealthERP.Advisor
                         drAdvisorStaff = dtAdvisorStaff.NewRow();
                         dr = dt.Rows[i];
                         rmVo = new RMVo();
-
+                       
                         drAdvisorStaff[0] = dr["u_userId"].ToString();
                         drAdvisorStaff[1] = dr["ar_rmid"].ToString();
                         drAdvisorStaff[2] = dr["ar_firstname"].ToString() + " " + dr["ar_middlename"].ToString() + " " + dr["ar_lastname"].ToString();
@@ -303,124 +369,49 @@ namespace WealthERP.Advisor
 
         public void showRMList()
         {
+            /* Coding For Staff under branches in BM */ 
             rmVo = new RMVo();
             int Count = 0;
+            int currentPage = 1;
             List<RMVo> rmList = new List<RMVo>();
             List<string> roleList = new List<string>();
-            //roleList = userBo.GetUserRoles(userVo.UserId);
+            string role = "BM";
             try
             {
-                //if (roleList.Contains("BM") && Session["CurrentUserRole"] == "BM")
-                if (Session[SessionContents.CurrentUserRole] == "BM")
+                if (Session[SessionContents.CurrentUserRole] != null)
+                    currentRole = Session[SessionContents.CurrentUserRole].ToString();
+                if (currentRole == role)
                 {
-                    rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
-
-                    branchId = advisorBranchBo.GetBranchId(rmVo.RMId);
-                    if (branchId != 0)
-                    {
-                        //lblMsg.Visible = true;
-                        //lblMsg.Text = "You dont have RM.. !";
-
-                        rmList = advisorStaffBo.GetBMRMList(branchId, mypager.CurrentPage, out Count);
-
-                        if (rmList.Count != 0)
-                        {
-                            lblTotalRows.Text = hdnCount.Value = Count.ToString();
-                            DataTable dtAdvisorStaff = new DataTable();
-
-                            dtAdvisorStaff.Columns.Add("UserId");
-                            dtAdvisorStaff.Columns.Add("WealthERP Id");
-                            dtAdvisorStaff.Columns.Add("RMName");
-                            dtAdvisorStaff.Columns.Add("StaffType");
-                            dtAdvisorStaff.Columns.Add("StaffRole");
-                            dtAdvisorStaff.Columns.Add("Email");
-                            dtAdvisorStaff.Columns.Add("Mobile Number");
-                            DataRow drAdvisorStaff;
-
-                            for (int i = 0; i < rmList.Count; i++)
-                            {
-                                drAdvisorStaff = dtAdvisorStaff.NewRow();
-                                rmVo = new RMVo();
-                                rmVo = rmList[i];
-                                drAdvisorStaff[0] = rmVo.UserId.ToString();
-                                drAdvisorStaff[1] = rmVo.RMId.ToString();
-                                drAdvisorStaff[2] = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
-                                //drAdvisorStaff[3] = rmVo.MainBranch.ToString();
-                                if (rmVo.IsExternal == 1)
-                                    drAdvisorStaff[3] = "External";
-                                else
-                                    drAdvisorStaff[3] = "Internal";
-                                drAdvisorStaff[4] = rmVo.RMRole.ToString();
-                                drAdvisorStaff[5] = rmVo.Email.ToString();
-                                drAdvisorStaff[6] = rmVo.Mobile.ToString();
-                                dtAdvisorStaff.Rows.Add(drAdvisorStaff);
-                            }
-
-                            gvRMList.DataSource = dtAdvisorStaff;
-                            gvRMList.DataBind();
-
-                            this.GetPageCount();
-                        }
-                        else
-                        {
-                            gvRMList.DataSource = null;
-                            gvRMList.DataBind();
-                            DivPager.Visible = false;
-                            lblCurrentPage.Visible = false;
-                            lblTotalRows.Visible = false;
-                            trMessage.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        trMessage.Visible = true;
-                    }
-                    Session[SessionContents.CurrentUserRole] = null;
-                }
-                else
-                {
-                    trMessage.Visible = false;
-                    advisorStaffBo = new AdvisorStaffBo();
-                    List<RMVo> advisorStaffList = null;
-                    advisorStaffList = advisorStaffBo.GetRMList(advisorVo.advisorId, mypager.CurrentPage, hdnSort.Value, out Count, string.Empty);
-                    if (advisorStaffList != null)
+                    rmList = advisorStaffBo.GetBMRMList(int.Parse(hdnbranchID.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnall.Value.ToString()), currentPage, out Count);
+                    if (rmList.Count != 0)
                     {
                         lblTotalRows.Text = hdnCount.Value = Count.ToString();
                         DataTable dtAdvisorStaff = new DataTable();
-
                         dtAdvisorStaff.Columns.Add("UserId");
                         dtAdvisorStaff.Columns.Add("WealthERP Id");
                         dtAdvisorStaff.Columns.Add("RMName");
                         dtAdvisorStaff.Columns.Add("StaffType");
-                        dtAdvisorStaff.Columns.Add("StaffRole");
                         dtAdvisorStaff.Columns.Add("Email");
                         dtAdvisorStaff.Columns.Add("Mobile Number");
-                        dtAdvisorStaff.Columns.Add("BranchList");
                         DataRow drAdvisorStaff;
-
-                        for (int i = 0; i < advisorStaffList.Count; i++)
+                        for (int i = 0; i < rmList.Count; i++)
                         {
                             drAdvisorStaff = dtAdvisorStaff.NewRow();
                             rmVo = new RMVo();
-                            rmVo = advisorStaffList[i];
+                            rmVo = rmList[i];
                             drAdvisorStaff[0] = rmVo.UserId.ToString();
                             drAdvisorStaff[1] = rmVo.RMId.ToString();
                             drAdvisorStaff[2] = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
-                            //drAdvisorStaff[3] = rmVo.MainBranch.ToString();
                             if (rmVo.IsExternal == 1)
                                 drAdvisorStaff[3] = "External";
                             else
                                 drAdvisorStaff[3] = "Internal";
-                            drAdvisorStaff[4] = rmVo.RMRole.ToString();
-                            drAdvisorStaff[5] = rmVo.Email.ToString();
-                            drAdvisorStaff[6] = rmVo.Mobile.ToString();
-                            drAdvisorStaff[7] = rmVo.BranchList.ToString();
+                            drAdvisorStaff[4] = rmVo.Email.ToString();
+                            drAdvisorStaff[5] = rmVo.Mobile.ToString();
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
-
                         gvRMList.DataSource = dtAdvisorStaff;
                         gvRMList.DataBind();
-
                         this.GetPageCount();
                     }
                     else
@@ -433,11 +424,17 @@ namespace WealthERP.Advisor
                         trMessage.Visible = true;
                     }
                 }
-
-
-
-
+                else
+                {
+                    gvRMList.DataSource = null;
+                    gvRMList.DataBind();
+                    DivPager.Visible = false;
+                    lblCurrentPage.Visible = false;
+                    lblTotalRows.Visible = false;
+                    trMessage.Visible = true;
+                }
             }
+
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -446,42 +443,33 @@ namespace WealthERP.Advisor
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-
                 FunctionInfo.Add("Method", "ViewRM.ascx:showRMList()");
-
-
                 object[] objects = new object[4];
                 objects[0] = advisorVo;
                 objects[1] = rmVo;
                 objects[2] = rmId;
                 objects[3] = userId;
-
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
             }
-
         }
-
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             string menu;
             try
             {
-                
                 DropDownList MyDropDownList = (DropDownList)sender;
                 GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
                 int selectedRow = gvr.RowIndex;
                 userId = int.Parse(gvRMList.DataKeys[selectedRow].Value.ToString());
                 Session["userId"] = userId;
                 rmVo = advisorStaffBo.GetAdvisorStaff(userId);
-                Session["CurrentrmVo"] = rmVo;
+                Session["rmVo"] = rmVo;
                 menu = MyDropDownList.SelectedItem.Value.ToString();
-                if (menu == "Edit Profile")
+                if (menu == "Edit profile")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','none');", true);
                 }
@@ -493,7 +481,7 @@ namespace WealthERP.Advisor
                 }
                 if (menu == "RM Dashboard")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolonly('RMDashBoard','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
                 }
                 if (menu == "User Profile")
                 {
@@ -510,14 +498,10 @@ namespace WealthERP.Advisor
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
                 FunctionInfo.Add("Method", "ViewRM.ascx:ddlMenu_SelectedIndexChanged()");
-
-
                 object[] objects = new object[3];
                 objects[0] = advisorStaffBo;
                 objects[1] = rmVo;
                 objects[2] = userId;
-
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -555,11 +539,8 @@ namespace WealthERP.Advisor
                 GridViewSortDirection = SortDirection.Ascending;
                 hdnSort.Value = sortExpression + " ASC";
                 this.BindGrid();
-
             }
-
         }
-
         private void sortGridViewRM(string sortExpression, string direction)
         {
             AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
@@ -613,6 +594,125 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+
+        protected void ddlBMStaffList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlBMStaffList.SelectedIndex == 0)
+            {
+                hdnbranchID.Value = "0";
+                hdnbranchHeadId.Value = ddlBMStaffList.SelectedValue;
+                hdnall.Value = "1";
+                showRMList();
+            }
+            else
+            {
+                hdnbranchID.Value = ddlBMStaffList.SelectedValue;
+                hdnbranchHeadId.Value = bmID.ToString();
+                hdnall.Value = "0";
+                showRMList();
+
+            }
+        }
+
+
+        private void BindBranchDropDown()
+        {
+            try
+            {
+                UploadCommonBo uploadsCommonDao = new UploadCommonBo();
+                DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+                if (ds != null)
+                {
+                    ddlBMStaffList.DataSource = ds;
+                    ddlBMStaffList.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
+                    ddlBMStaffList.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
+                    ddlBMStaffList.DataBind();
+                }
+                ddlBMStaffList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        
+        /* For Binding the Branch Dropdowns */
+
+        private void BindBranchForBMDropDown()
+        {
+
+            try
+            {
+
+                DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(0, bmID, 0);
+                if (ds != null)
+                {
+                    ddlBMStaffList.DataSource = ds.Tables[1]; ;
+                    ddlBMStaffList.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString();
+                    ddlBMStaffList.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
+                    ddlBMStaffList.DataBind();
+                }
+                ddlBMStaffList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdviserMFMIS.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        /* End For Binding the Branch Dropdowns */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         //protected void btn_Print_Click(object sender, EventArgs e)
@@ -921,10 +1021,3 @@ namespace WealthERP.Advisor
 
 
 
-
-    }
-
-
-
-
-}
