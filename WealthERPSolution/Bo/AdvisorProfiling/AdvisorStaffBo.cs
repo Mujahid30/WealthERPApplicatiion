@@ -1239,5 +1239,36 @@ namespace BoAdvisorProfiling
         }
 
         /* ******************** */
+
+
+        /// <summary>
+        ///  Getting all BM staffs accoring to Branch selection 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <param name="branchHeadId"></param>
+        /// <param name="all"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
+
+        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, int currentPage, out int Count)
+        {
+            List<RMVo> rmList = new List<RMVo>();
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            Count = 0;
+            try
+            {
+                rmList = advisorStaffDao.GetBMRMList(branchId, branchHeadId, all, currentPage, out Count);
+            }
+            catch (Exception e)
+            {
+                string msg = e.Message.ToString();
+            }
+
+            return rmList;
+        }
+
+        
     }
+
 }
