@@ -466,6 +466,20 @@ namespace WealthERP.Advisor
                     gvCommStructure.DataSource = dt;
                     gvCommStructure.DataBind();
                     gvCommStructure.Visible = true;
+                    
+                }
+
+                if (dt.Rows.Count > 0)
+                {
+                    CommSharingStructureHdr.Visible = true;
+                    trAssocCategory.Visible = true;
+
+                }
+                else
+                {
+                    CommSharingStructureHdr.Visible = false;
+                    trAssocCategory.Visible = false;
+
                 }
             }
             catch (BaseApplicationException Ex)

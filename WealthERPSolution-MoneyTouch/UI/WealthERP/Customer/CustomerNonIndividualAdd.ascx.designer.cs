@@ -491,6 +491,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtCorrAdrPinCode;
         
         /// <summary>
+        /// txtCorrAdrPinCode_comparevalidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtCorrAdrPinCode_comparevalidator;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -644,6 +653,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtPermAdrPinCode;
         
         /// <summary>
+        /// txtPermAdrPinCode_CompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtPermAdrPinCode_CompareValidator;
+        
+        /// <summary>
         /// Label25 control.
         /// </summary>
         /// <remarks>
@@ -716,6 +734,33 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtPhoneNo1;
         
         /// <summary>
+        /// txtPhoneNo1Isd_CompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtPhoneNo1Isd_CompareValidator;
+        
+        /// <summary>
+        /// txtPhoneNo1Std_CompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtPhoneNo1Std_CompareValidator;
+        
+        /// <summary>
+        /// txtPhoneNo1_CompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtPhoneNo1_CompareValidator;
+        
+        /// <summary>
         /// Label35 control.
         /// </summary>
         /// <remarks>
@@ -752,6 +797,33 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtPhoneNo2;
         
         /// <summary>
+        /// txtPhoneNo2Isd_CompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtPhoneNo2Isd_CompareValidator;
+        
+        /// <summary>
+        /// txtPhoneNo2Std_CompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtPhoneNo2Std_CompareValidator;
+        
+        /// <summary>
+        /// txtPhoneNo2_CompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtPhoneNo2_CompareValidator;
+        
+        /// <summary>
         /// Label36 control.
         /// </summary>
         /// <remarks>
@@ -786,6 +858,33 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFax;
+        
+        /// <summary>
+        /// txtFaxIsd_CompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtFaxIsd_CompareValidator;
+        
+        /// <summary>
+        /// txtFaxStd_CompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtFaxStd_CompareValidator;
+        
+        /// <summary>
+        /// txtFax_CompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator txtFax_CompareValidator;
         
         /// <summary>
         /// Label37 control.

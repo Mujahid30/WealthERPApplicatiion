@@ -224,33 +224,33 @@ namespace WealthERP.Alerts
             pnlNotifications.Visible = true;
         }
 
-        protected void btnDeleteSelected_Click(object sender, EventArgs e)
-        {
-            userVo = (UserVo)Session[SessionContents.UserVo];
-            customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
-            userId = userVo.UserId;
-            customerId = customerVo.CustomerId;
+        //protected void btnDeleteSelected_Click(object sender, EventArgs e)
+        //{
+        //    userVo = (UserVo)Session[SessionContents.UserVo];
+        //    customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+        //    userId = userVo.UserId;
+        //    customerId = customerVo.CustomerId;
 
-            foreach (GridViewRow dr in gvNotification.Rows)
-            {
-                CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
-                if (checkBox.Checked)
-                {
-                    long NotificationID = Convert.ToInt64(gvNotification.DataKeys[dr.RowIndex].Value);
+        //    foreach (GridViewRow dr in gvNotification.Rows)
+        //    {
+        //        CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
+        //        if (checkBox.Checked)
+        //        {
+        //            long NotificationID = Convert.ToInt64(gvNotification.DataKeys[dr.RowIndex].Value);
                     
-                     //Need an Extra Column in the Notification Table to mark a row as deleted
+        //             //Need an Extra Column in the Notification Table to mark a row as deleted
 
-                    if (alertsBo.DeleteAlertNotification(NotificationID))
-                    {
+        //            if (alertsBo.DeleteAlertNotification(NotificationID))
+        //            {
                         
-                    }
-                }
-            }
-            BindCustomerSpecificNotifications(customerVo);
+        //            }
+        //        }
+        //    }
+        //    BindCustomerSpecificNotifications(customerVo);
 
-            // Success Message
-            BindNotificationsGridView(customerVo);
-        }
+        //    // Success Message
+        //    BindNotificationsGridView(customerVo);
+        //}
 
         private void BindNotificationsGridView(CustomerVo CustVO)
         {

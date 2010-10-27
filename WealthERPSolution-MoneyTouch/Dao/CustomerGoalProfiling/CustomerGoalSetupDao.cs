@@ -58,6 +58,8 @@ namespace DaoCustomerGoalProfiling
                 db.AddInParameter(createCustomerGoalProfileCmd, "@GoalDescription", DbType.String, GoalProfileVo.GoalDescription);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@ROIOnFuture", DbType.Double, GoalProfileVo.RateofInterestOnFture);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@CreatedBy", DbType.Int32, GoalProfileVo.CreatedBy);
+                db.AddInParameter(createCustomerGoalProfileCmd, "@LumpsumInvestmentRequired", DbType.Double, GoalProfileVo.LumpsumInvestRequired);
+                db.AddInParameter(createCustomerGoalProfileCmd, "@FutureValueOnCurrentInvest", DbType.Double, GoalProfileVo.FutureValueOnCurrentInvest);
 
                 db.ExecuteNonQuery(createCustomerGoalProfileCmd);
 

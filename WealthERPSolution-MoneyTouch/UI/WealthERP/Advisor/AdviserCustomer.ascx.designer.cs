@@ -230,6 +230,15 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label lblTotalRows;
         
         /// <summary>
+        /// btnPANSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPANSearch;
+        
+        /// <summary>
         /// btnPincodeSearch control.
         /// </summary>
         /// <remarks>
@@ -293,6 +302,15 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.HiddenField hdnPincodeFilter;
         
         /// <summary>
+        /// hndPAN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hndPAN;
+        
+        /// <summary>
         /// hdnAreaFilter control.
         /// </summary>
         /// <remarks>
@@ -354,5 +372,14 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnDownloadFormat;
+        
+        /// <summary>
+        /// hdnactive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnactive;
     }
 }

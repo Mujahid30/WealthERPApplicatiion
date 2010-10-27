@@ -19,6 +19,16 @@
     }
    
 </script>
+<style type="text/css">
+.txtGridMediumField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 80px;
+}
+</style>
 
 <table class="TableBackground" width="100%">
     <tr>

@@ -195,7 +195,7 @@
     <tr id="trInterestAmount" runat="server" visible="false">
         <td class="leftField">
             <asp:Label ID="lblInterestAmount" runat="server" CssClass="FieldName" Text="Interest Amount:"
-                Enabled="False"></asp:Label>
+                ></asp:Label>
         </td>
         <td colspan="3">
             <asp:TextBox ID="txtInterestAmountAccum" runat="server" CssClass="txtField" 

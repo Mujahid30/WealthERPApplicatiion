@@ -25,9 +25,9 @@ namespace AmpsysJobDaemon
 
         public void Start()
         {
-            try
+            while (1 == 1)
             {
-                while (1 == 1)
+                try
                 {
                     Trace("Polling DB for job parts...");
 
@@ -92,11 +92,14 @@ namespace AmpsysJobDaemon
                         Thread.Sleep(5 * 60 * 1000);
                     }
                 }
-            }
-            catch (Exception Ex)
-            {
-                string Msg = "Unable to process job parts queue. " + Ex.ToString();
-                Utils.LogError(Msg);
+                catch (Exception Ex)
+                {
+                    string Msg = "Unable to process job parts queue. " + Ex.ToString();
+                    Utils.LogError(Msg);
+
+                    if (Ex.ToString().IndexOf("Login failed") != -1)
+                        break;
+                }
             }
         }
 

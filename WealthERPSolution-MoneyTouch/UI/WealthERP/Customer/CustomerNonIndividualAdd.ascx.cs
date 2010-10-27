@@ -45,7 +45,7 @@ namespace WealthERP.Customer
                     txtRmName.Text = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
                     txtEmail.Text = customerVo.Email.ToString();
                     txtPanNumber.Text = customerVo.PANNum.ToString();
-                    txtCompanyName.Text = customerVo.CompanyName.ToString();
+                    txtCompanyName.Text = customerVo.FirstName.ToString();
                 }
                 else if (Session["Current_Link"].ToString() == "RMCustomerNonIndividualLeftPane")
                 {
@@ -142,12 +142,12 @@ namespace WealthERP.Customer
 
                         txtDateofProfiling.Text = DateTime.Today.Date.ToString();
 
-                        customerVo.FirstName = txtFirstName.Text.ToString();
-                        customerVo.MiddleName = txtMiddleName.Text.ToString();
-                        customerVo.LastName = txtLastName.Text.ToString();
+                        customerVo.ContactFirstName = txtFirstName.Text.ToString();
+                        customerVo.ContactMiddleName = txtMiddleName.Text.ToString();
+                        customerVo.ContactLastName = txtLastName.Text.ToString();
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
                         customerVo.CustCode = txtCustomerCode.Text.ToString();
-                        customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
+                        //customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
                         if (txtDateofRegistration.Text != "")
                         {
                             customerVo.RegistrationDate = DateTime.Parse(txtDateofRegistration.Text.ToString());
@@ -214,9 +214,6 @@ namespace WealthERP.Customer
                         customerVo.ISDFax = int.Parse(txtFaxIsd.Text.ToString());
                         customerVo.STDFax = int.Parse(txtFaxStd.Text.ToString());
                         customerVo.Email = txtEmail.Text.ToString();
-                        customerVo.ContactFirstName = txtFirstName.Text;
-                        customerVo.ContactLastName = txtLastName.Text;
-                        customerVo.ContactMiddleName = txtMiddleName.Text;
                         customerVo.MaritalStatus = null;
                         Session["Customer"] = "Customer";
                         //  customerBo.CreateCustomer(customerVo, customerVo.RmId,userVo.UserId);

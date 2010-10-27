@@ -32,7 +32,7 @@
             <asp:GridView ID="gvCustomerFamily" runat="server" CellPadding="4" HorizontalAlign="Center"
                 CssClass="GridViewStyle" AutoGenerateColumns="False" DataKeyNames="AssociationId"
                 ShowFooter="True" OnRowCommand="gvCustomerFamily_RowCommand" 
-                AllowPaging="true" onpageindexchanging="gvCustomerFamily_PageIndexChanging">
+                AllowPaging="true" onpageindexchanging="gvCustomerFamily_PageIndexChanging" OnRowDataBound="gvCustomerFamily_RowDataBound">
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />

@@ -12,7 +12,7 @@
     <link href="../CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
 </head>
 <body class="TableBackground">
-    <form id="form1" runat="server"> 
+    <form id="form1" runat="server">
     <div style="width: 180px;">
         <asp:Panel ID="leftpanel" runat="server">
             <asp:PlaceHolder ID="phLeft" EnableViewState="true" runat="server"></asp:PlaceHolder>

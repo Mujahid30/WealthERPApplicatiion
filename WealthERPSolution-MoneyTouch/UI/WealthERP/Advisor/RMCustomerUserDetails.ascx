@@ -14,6 +14,34 @@
             $(".loadmediv").colorbox({ width: "240px",overlayClose:false, inline: true, open: true, href: "#LoadImage" });
         });
     });
+
+
+  //***************************************************************************************************
+    
+    function checkAllBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvCustomers.Rows.Count %>');
+        var gvCustomers = document.getElementById('<%= gvCustomers.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkId";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkBoxAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvCustomers.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template            
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+  //********************************************************************************************************
 </script>
 
 <%--
@@ -75,11 +103,25 @@
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                 <HeaderStyle CssClass="HeaderStyle" />
                 <Columns>
-                    <asp:TemplateField HeaderText="Select">
+                    <%--<asp:TemplateField HeaderText="Select">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkId" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>--%>
+                    
+                     <asp:TemplateField HeaderText="Select">
+                     <HeaderTemplate>
+                           <%-- <asp:Label ID="LblSelect" runat="server" Text="Select All"></asp:Label>--%>
+                            <br />
+                            <%--<asp:Button ID="lnkSelectAll" Text="All" runat="server"  OnClientClick="return CheckAll();" />--%>
+                           <input id="chkBoxAll"  name="CheckAllCustomer" value="Customer" type="checkbox" onclick="checkAllBoxes()" />
+                        </HeaderTemplate>
                         <ItemTemplate>
                             <asp:CheckBox ID="chkId" runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
+                    
+                    
                     <%--<asp:BoundField DataField="Customer Name" HeaderText="Customer Name"  />--%>
                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                         <HeaderTemplate>
@@ -88,9 +130,9 @@
                             <asp:TextBox ID="txtCustNameSearch" runat="server" Text = '<%# hdnNameFilter.Value %>' CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMCustomerUserDetails_btnNameSearch');" />
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <%--<asp:Label ID="lblNameHeader" runat="server" Text='<%# Eval("CustomerName").ToString() %>'></asp:Label>--%>
-                            <asp:LinkButton ID="lnkCustomerNames" runat="server" CausesValidation="false" CommandName="ViewDetails"
-                                Text='<%# Eval("CustomerName").ToString() %>' CommandArgument='<%# Eval("UserId") %>'></asp:LinkButton>
+                           <asp:Label ID="lblNameHeader" runat="server" Text='<%# Eval("CustomerName").ToString() %>'></asp:Label>
+                            <%--<asp:LinkButton ID="lnkCustomerNames" runat="server" CausesValidation="false" CommandName="ViewDetails"
+                                Text='<%# Eval("CustomerName").ToString() %>' CommandArgument='<%# Eval("UserId") %>'></asp:LinkButton>--%>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>

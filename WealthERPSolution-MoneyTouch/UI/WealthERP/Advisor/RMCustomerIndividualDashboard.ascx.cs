@@ -24,9 +24,14 @@ namespace WealthERP.Advisor
         RMVo rmVo = new RMVo();
         CustomerBo customerBo = new CustomerBo();
         CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
+        CustomerBankAccountVo customerBankAccountVo = new CustomerBankAccountVo();
+        CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
+        List<CustomerBankAccountVo> customerBankAccountList = new List<CustomerBankAccountVo>();
         string path = "";
-        List<CustomerFamilyVo> customerFamilyList=null;
+        List<CustomerFamilyVo> customerFamilyList = null;
         DataSet ds = new DataSet();
+        DataSet dsBankDetails = new DataSet();
+        int customerId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,10 +44,12 @@ namespace WealthERP.Advisor
 
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 rmVo = (RMVo)Session["RmVo"];
+                customerId = customerVo.CustomerId;
                 StringBuilder sbAddress = new StringBuilder();
                 
                 lblName.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
                 lblPhone.Text = customerVo.ResISDCode.ToString() + " - " + customerVo.ResSTDCode.ToString() + " - " + customerVo.ResPhoneNum.ToString();
+                lblEmail.Text = customerVo.Email.ToString();
 
                 sbAddress.Append(customerVo.Adr1Line1.ToString());
                 sbAddress.Append("<br />");
@@ -69,12 +76,17 @@ namespace WealthERP.Advisor
                 // Session["CustomerVo"] = customerVo;
                 Session["Check"] = "Dashboard";
 
+                //Binding the Customer Family Grid
                 customerFamilyList = customerFamilyBo.GetCustomerFamily(customerVo.CustomerId);
-                if (customerFamilyList != null)
+                if (customerFamilyList == null)
                 {
-                    trFamilyMembers.Visible = true;
+                    tdFamilyDetailsHeader.Visible=false;
+                    tdFamilyDetailsGrid.Visible=false;
+                }
+                else
+                {
                     DataTable dtCustomerFamilyList = new DataTable();
-                    dtCustomerFamilyList.Columns.Add("AssociationId");
+                    dtCustomerFamilyList.Columns.Add("CustomerId");
                     dtCustomerFamilyList.Columns.Add("Name");
                     dtCustomerFamilyList.Columns.Add("Relationship");
 
@@ -84,7 +96,7 @@ namespace WealthERP.Advisor
                         drCustomerFamily = dtCustomerFamilyList.NewRow();
                         CustomerFamilyVo customerFamilyVo = new CustomerFamilyVo();
                         customerFamilyVo = customerFamilyList[i];
-                        drCustomerFamily[0] = customerFamilyVo.AssociationId.ToString();
+                        drCustomerFamily[0] = customerFamilyVo.AssociateCustomerId.ToString();
                         drCustomerFamily[1] = customerFamilyVo.AssociateCustomerName.ToString();
                         drCustomerFamily[2] = customerFamilyVo.Relationship;
                         dtCustomerFamilyList.Rows.Add(drCustomerFamily);
@@ -95,27 +107,17 @@ namespace WealthERP.Advisor
                         gvFamilyMembers.DataSource = dtCustomerFamilyList;
                         gvFamilyMembers.DataBind();
                         gvFamilyMembers.Visible = true;
-                        trFamilyMembers.Visible = true;
                     }
                     else
                     {
                         gvFamilyMembers.DataSource = null;
                         gvFamilyMembers.DataBind();
-                        trFamilyMembers.Visible = false;
                     }
-                    
                 }
-                else
-                {
-                    gvFamilyMembers.DataSource = null;
-                    gvFamilyMembers.DataBind();
-                    trFamilyMembers.Visible = false;
-                    
-                }
-                //lblMobile.Text = customerVo.Mobile1.ToString();
-                //lblArea.Text = customerVo.Adr1Line3.ToString();
-                //lblEmail.Text = customerVo.Email.ToString();
-                //lblPanNum.Text = customerVo.PANNum.ToString();
+
+                //Call the function to bind the Bank Details
+                lblBankDetailsMsg.Visible = false;
+                BindBankDetails();
             }
             catch (BaseApplicationException Ex)
             {
@@ -144,6 +146,110 @@ namespace WealthERP.Advisor
             gvFamilyMembers.DataBind();
         }
 
-        
+        /// <summary>
+        /// Function to bind the Details to the Bank Grid
+        /// </summary>
+        public void BindBankDetails()
+        {
+            try
+            {
+                customerBankAccountList = customerBankAccountBo.GetCustomerBankAccounts(customerId);
+                if (customerBankAccountList.Count != 0)
+                {
+                    DataTable dtCustomerBankAccounts = new DataTable();
+                    //dtCustomerBankAccounts.Columns.Add("CustBankAccId");
+                    dtCustomerBankAccounts.Columns.Add("Bank Name");
+                    //dtCustomerBankAccounts.Columns.Add("Branch Name");
+                    dtCustomerBankAccounts.Columns.Add("Account Type");
+                    //dtCustomerBankAccounts.Columns.Add("Mode Of Operation");
+                    dtCustomerBankAccounts.Columns.Add("Account Number");
+
+
+                    DataRow drCustomerBankAccount;
+                    for (int i = 0; i < customerBankAccountList.Count; i++)
+                    {
+                        drCustomerBankAccount = dtCustomerBankAccounts.NewRow();
+                        customerBankAccountVo = new CustomerBankAccountVo();
+                        customerBankAccountVo = customerBankAccountList[i];
+                        //drCustomerBankAccount[0] = customerBankAccountVo.CustBankAccId.ToString();
+                        drCustomerBankAccount[0] = customerBankAccountVo.BankName.ToString();
+                        //drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
+                        drCustomerBankAccount[1] = customerBankAccountVo.AccountType.ToString();
+                        //drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
+                        drCustomerBankAccount[2] = customerBankAccountVo.AccountNum.ToString();
+
+                        dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
+                    }
+
+                    gvBankDetails.DataSource = dtCustomerBankAccounts;
+                    gvBankDetails.DataBind();
+                    gvBankDetails.Visible = true;
+                }
+                else
+                {
+                    gvBankDetails.Visible = false;
+                    lblBankDetailsMsg.Visible = true;
+                    lnkMoreBankDetails.Visible = false;
+                    gvBankDetails.DataSource = null;
+                    gvBankDetails.DataBind();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RMCustIndividualDashboard.ascx:BindBankDetails()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
+        /// <summary>
+        /// Goes to the Bank Details Dashboard when we click on the Member name on the Bank Details Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lnkMoreBankDetails_Click(object sender, EventArgs e)
+        {
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
+        }
+
+        /// <summary>
+        /// Goes to the Customer Dashboard when we click on the Member name on the Customer Family Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lnkCustomerNameFamilyGrid_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvFamilyMembers.DataKeys[rowIndex];
+            int customerId = Convert.ToInt32(dk.Value);
+
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+            Session["IsDashboard"] = "CustDashboard";
+
+            if(Session["S_CurrentUserRole"] == "Customer")
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustIndiDashboard','none');", true);
+            else
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+
+        }
     }
 }

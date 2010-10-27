@@ -26,7 +26,6 @@ namespace WealthERP.Advisor
 {
     public partial class LOB : System.Web.UI.UserControl
     {
-
         AdvisorVo advisorVo = new AdvisorVo();
         ProductMFBo productMfBo = new ProductMFBo();
         UserVo userVo = new UserVo();
@@ -61,7 +60,8 @@ namespace WealthERP.Advisor
         String connectionstring;
 
 
-        
+       
+
 
         protected void Page_Load(object sender, EventArgs e)
         {

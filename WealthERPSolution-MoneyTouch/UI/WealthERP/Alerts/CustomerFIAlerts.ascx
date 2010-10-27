@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFIAlerts.ascx.cs"
     Inherits="WealthERP.Alerts.CustomerFIAlerts" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-
 <div>
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
@@ -16,16 +15,20 @@
         <table style="width: 100%;" id="tblFIAlertGrid" runat="server" cssclass="TableBackground">
             <tr>
                 <td>
-                    <asp:Label ID="lblMessage" Text="There are no Fixed Income Records" class="Error" runat="server"></asp:Label>
+                    <asp:Label ID="lblMessage" Text="There are no Fixed Income Records" class="Error"
+                        runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
+                    <asp:Label ID="lblDisclaimer" runat="server" CssClass="FieldName" Text="Note: To edit alert setup, please delete alert subscription and re-subscribe"
+                        Visible="true" ForeColor="Red"></asp:Label>
+                    <br />
+                    <br />
                     <asp:GridView ID="gvFIAlerts" runat="server" AutoGenerateColumns="False" CellPadding="4"
                         CssClass="GridViewStyle" DataKeyNames="FINPId,AccountId" AllowSorting="True"
-                        Font-Size="Small" HorizontalAlign="Center"
-                        ShowFooter="True" OnRowDataBound="gvFIAlerts_RowDataBound" EnableViewState="true"
-                        PageSize="30">
+                        Font-Size="Small" HorizontalAlign="Center" ShowFooter="True" OnRowDataBound="gvFIAlerts_RowDataBound"
+                        EnableViewState="true" PageSize="30">
                         <%--OnRowDataBound="gvAlertDashboard_RowDataBound"--%>
                         <FooterStyle CssClass="FooterStyle" />
                         <RowStyle CssClass="RowStyle" HorizontalAlign="Center" />
@@ -45,7 +48,7 @@
                                 </FooterTemplate>
                             </asp:TemplateField>
                             <%--Fixed Income Investment--%>
-                            <asp:BoundField DataField="FIInvestment" HeaderText="Fixed Income Investment" />
+                            <asp:BoundField DataField="FIInvestment" HeaderText="Fixed Income Investment" ItemStyle-HorizontalAlign="Left" />
                             <%--Reccurring Deposit Reminder Column--%>
                             <asp:TemplateField HeaderText="Reccurring Deposit Reminder">
                                 <ItemTemplate>
@@ -94,8 +97,8 @@
                 </td>
                 <td class="rightField">
                     <asp:Button ID="btnSubmitReminder" runat="server" Text="Submit" CssClass="PCGButton"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerFIAlerts_btnSubmitReminder', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerFIAlerts_btnSubmitReminder', 'S');"
+                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
                         OnClick="btnSubmitReminder_Click" />
                 </td>
             </tr>

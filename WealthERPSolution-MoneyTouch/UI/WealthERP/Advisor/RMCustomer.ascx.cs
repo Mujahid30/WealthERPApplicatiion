@@ -32,10 +32,13 @@ namespace WealthERP
         List<CustomerVo> customerList = null;
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         int customerId;
+        bool GridViewCultureFlag = true;
+        bool AllPageExport = false;
         AdvisorVo adviserVo = new AdvisorVo();
         AdvisorBo advisorBo = new AdvisorBo();
         static string user = "";
         UserVo userVo = new UserVo();
+        
 
         private SortDirection GridViewSortDirection
         {
@@ -144,19 +147,19 @@ namespace WealthERP
 
                 hdnNameFilter.Value = customer;
 
-                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, out genDictParent, out genDictCity);
+                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value,hdnactive.Value, out genDictParent, out genDictCity);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerList == null)
                 {
-                    ErrorMessage.Visible = true;                    
-                    tblGv.Visible = false;
+                    ErrorMessage.Visible = true;
+                    tbl.Visible = false;
                     mypager.Visible = false;
                 }
                 else
                 {
                     ErrorMessage.Visible = false;                    
-                    tblGv.Visible = true;
+                    tbl.Visible = true;
                     mypager.Visible = true;
                     DataTable dtRMCustomer = new DataTable();
 
@@ -172,6 +175,7 @@ namespace WealthERP
                     dtRMCustomer.Columns.Add("Area");
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("Pincode");
+                    dtRMCustomer.Columns.Add("IsActive");
 
                     DataRow drRMCustomer;
 
@@ -221,6 +225,15 @@ namespace WealthERP
                         drRMCustomer[9] = customerVo.Adr1Line3.ToString();
                         drRMCustomer[10] = customerVo.Adr1City.ToString();
                         drRMCustomer[11] = customerVo.Adr1PinCode.ToString();
+                        if (customerVo.IsActive == 1)
+                        {
+                            drRMCustomer[12] = "Active";
+                        }
+                        else
+                        {
+                            drRMCustomer[12] = "In Active";
+
+                        }
 
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
@@ -234,14 +247,20 @@ namespace WealthERP
                         if (ddlParent != null)
                         {
                             ddlParent.DataSource = genDictParent;
-                            ddlParent.DataTextField = "Value";
-                            ddlParent.DataValueField = "Key";
+                            ddlParent.DataTextField = "Key";
+                            ddlParent.DataValueField = "Value";
                             ddlParent.DataBind();
                             ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                         }
                         if (hdnParentFilter.Value != "")
                         {
                             ddlParent.SelectedValue = hdnParentFilter.Value.ToString();
+                        }
+
+                        DropDownList ddlActiveFilter = GetActiveDDL();
+                        if (hdnactive.Value != "")
+                        {
+                            ddlActiveFilter.SelectedValue = hdnactive.Value.ToString();
                         }
                     }
 
@@ -289,6 +308,7 @@ namespace WealthERP
                         }
                     }
 
+                  
                     this.GetPageCount();
                 }
             }
@@ -447,7 +467,7 @@ namespace WealthERP
                     int Count;
 
                     //advisorStaffBo.GetCustomerList(rmVo.RMId, "C").ToString();
-                    customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value.Trim(), hdnAreaFilter.Value.Trim(), hdnPincodeFilter.Value.Trim(), hdnParentFilter.Value.Trim(), hdnCityFilter.Value.Trim(), out genDictParent, out genDictCity);
+                    customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value.Trim(), hdnAreaFilter.Value.Trim(), hdnPincodeFilter.Value.Trim(), hdnParentFilter.Value.Trim(), hdnCityFilter.Value.Trim(), hdnactive.Value, out genDictParent, out genDictCity);
                     lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 }
 
@@ -457,7 +477,7 @@ namespace WealthERP
                     ErrorMessage.Visible = true;                    
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
-                    tblGv.Visible = false;
+                    tbl.Visible = false;
 
                 }
                 else
@@ -466,7 +486,7 @@ namespace WealthERP
                     trPager.Visible = true;
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
-                    tblGv.Visible = true;
+                    tbl.Visible = true;
                     DataTable dtRMCustomer = new DataTable();
 
                     //dtRMCustomer.Columns.Add("S.No");
@@ -482,6 +502,7 @@ namespace WealthERP
                     dtRMCustomer.Columns.Add("Area");
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("Pincode");
+                    dtRMCustomer.Columns.Add("IsActive");
                     DataRow drRMCustomer;
 
                     for (int i = 0; i < customerList.Count; i++)
@@ -530,6 +551,15 @@ namespace WealthERP
                         drRMCustomer[9] = customerVo.Adr1Line3.ToString();
                         drRMCustomer[10] = customerVo.Adr1City.ToString();
                         drRMCustomer[11] = customerVo.Adr1PinCode.ToString();
+                        if (customerVo.IsActive == 1)
+                        {
+                            drRMCustomer[12] = "Active";
+                        }
+                        else
+                        {
+                            drRMCustomer[12] = "In Active";
+
+                        }
 
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
@@ -543,14 +573,20 @@ namespace WealthERP
                         if (ddlParent != null)
                         {
                             ddlParent.DataSource = genDictParent;
-                            ddlParent.DataTextField = "Value";
-                            ddlParent.DataValueField = "Key";
+                            ddlParent.DataTextField = "Key";
+                            ddlParent.DataValueField = "Value";
                             ddlParent.DataBind();
                             ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                         }
                         if (hdnParentFilter.Value != "")
                         {
                             ddlParent.SelectedValue = hdnParentFilter.Value.ToString();
+                        }
+
+                        DropDownList ddlActiveFilter = GetActiveDDL();
+                        if (hdnactive.Value != "")
+                        {
+                            ddlActiveFilter.SelectedValue = hdnactive.Value.ToString();
                         }
                     }
 
@@ -627,6 +663,7 @@ namespace WealthERP
             try
             {
                 customerId = int.Parse(gvCustomers.SelectedDataKey.Value.ToString());
+                
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
                 if (customerVo.Type == "Individual")
@@ -674,7 +711,12 @@ namespace WealthERP
             UserBo userBo = new UserBo();
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
             PortfolioBo portfolioBo = new PortfolioBo();
+            bool isGrpHead = false;
 
+            if (Session[SessionContents.PortfolioId] != null)
+            {
+                Session.Remove(SessionContents.PortfolioId); 
+            }
             try
             {
                 ddlAction = (DropDownList)sender;
@@ -682,41 +724,36 @@ namespace WealthERP
                 selectedRow = gvr.RowIndex;
                 customerId = int.Parse(gvCustomers.DataKeys[selectedRow].Values["CustomerId"].ToString());
                 userId = int.Parse(gvCustomers.DataKeys[selectedRow].Values["UserId"].ToString());
-
+                Session["CustomerIdForDelete"] = customerId;
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
 
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-                    Session["customerPortfolioVo"] = customerPortfolioVo;
-                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
-                   
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                   if(isGrpHead == true)
+                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+                   else
+                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
                     Session["IsDashboard"] = "false";
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-                    Session["customerPortfolioVo"] = customerPortfolioVo;
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                    Session["customerPortfolioVo"] = customerPortfolioVo;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
                    
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
-                    
-                    
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
-                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-                    Session["customerPortfolioVo"] = customerPortfolioVo;
-                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
@@ -728,7 +765,10 @@ namespace WealthERP
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
                 }
-
+                else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                }
             }
             catch (Exception Ex)
             {
@@ -754,6 +794,77 @@ namespace WealthERP
 
             }
 
+        }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                customerId = int.Parse(Session["CustomerIdForDelete"].ToString());
+                hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerId).ToString();
+                string asc = Convert.ToString(hdnassociationcount.Value);
+
+                if (asc == "0")
+
+                    DeleteCustomerProfile();
+
+
+                else
+
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
+            }
+        }
+
+        protected void hiddenassociationfound_Click(object sender, EventArgs e)
+        {
+            string aso = Convert.ToString(hdnassociation.Value);
+            if (aso == "1")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+            }
+
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+            }
+        }
+
+
+
+        private void DeleteCustomerProfile()
+        {
+            try
+            {
+                customerVo = (CustomerVo)Session["CustomerVo"];
+                userVo = (UserVo)Session[SessionContents.UserVo];
+
+
+                if (customerBo.DeleteCustomer(customerVo.CustomerId, "D"))
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewCustomerIndividualProfile.ascx:btnDelete_Click()");
+                object[] objects = new object[3];
+                objects[0] = customerVo;
+                //objects[1] = userVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
         }
 
         protected void gvCustomers_Sort(object sender, GridViewSortEventArgs e)
@@ -799,34 +910,46 @@ namespace WealthERP
 
         }
 
-        protected void btnExport_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Fuction to show the modal pop-up controller when clicking the export image button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
+        {
+            ModalPopupExtender1.TargetControlID = "imgBtnExport";
+            ModalPopupExtender1.Show();
+        }
+
+        /// <summary>
+        /// Function called when we click on the Export OK button.This function to control the export options(single and multiple page)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnExportExcel_Click(object sender, EventArgs e)
         {
             gvCustomers.Columns[0].Visible = false;
-            if (rbtnMultiple.Checked)
+            gvCustomers.HeaderRow.Visible = true;
+
+            if(hdnDownloadPageType.Value == "single")
             {
-                BindGrid(mypager.CurrentPage, 1);
+                GridViewCultureFlag = false;
+                BindGrid(mypager.CurrentPage, 0);
+                PrepareGridViewForExport(gvCustomers);
+                GridViewCultureFlag = true;
             }
             else
             {
-                BindGrid(mypager.CurrentPage, 0);
+                GridViewCultureFlag = false;
+                AllPageExport = true;
+                BindGrid(mypager.CurrentPage, 1);
+                PrepareGridViewForExport(gvCustomers);
+                GridViewCultureFlag = true;
+                AllPageExport = false;
             }
-            PrepareGridViewForExport(gvCustomers);
-            if (rbtnExcel.Checked)
-            {
-                ExportGridView("Excel");
-            }
-            else if (rbtnPDF.Checked)
-            {
 
-                ExportGridView("PDF");
-            }
-            else if (rbtnWord.Checked)
-            {
-                ExportGridView("Word");
-            }
-            BindGrid(mypager.CurrentPage, 0);
+            ExportGridView("Excel");
             gvCustomers.Columns[0].Visible = true;
-
         }
 
         private void ExportGridView(string Filetype)
@@ -1139,32 +1262,40 @@ namespace WealthERP
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "AferExportAll('ctrl_RMCustomer_btnPrintGrid');", true);
         }
 
-        protected void btnPrint_Click(object sender, EventArgs e)
+        //protected void btnPrint_Click(object sender, EventArgs e)
+        //{
+        //    gvCustomers.Columns[0].Visible = false;
+        //    if (rbtnMultiple.Checked)
+        //    {
+        //        BindGrid(mypager.CurrentPage, 1);
+        //    }
+        //    else
+        //    {
+        //        BindGrid(mypager.CurrentPage, 0);
+        //    }
+
+        //    if (gvCustomers.HeaderRow != null)
+        //    {
+        //        PrepareGridViewForExport(gvCustomers.HeaderRow);
+        //    }
+        //    foreach (GridViewRow row in gvCustomers.Rows)
+        //    {
+        //        PrepareGridViewForExport(row);
+        //    }
+        //    if (gvCustomers.FooterRow != null)
+        //    {
+        //        PrepareGridViewForExport(gvCustomers.FooterRow);
+        //    }
+        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_RMCustomer_tbl','ctrl_RMCustomer_btnGridSearch');", true);
+
+        //}
+        protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            gvCustomers.Columns[0].Visible = false;
-            if (rbtnMultiple.Checked)
-            {
-                BindGrid(mypager.CurrentPage, 1);
-            }
-            else
-            {
-                BindGrid(mypager.CurrentPage, 0);
-            }
+            DropDownList ddlFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
 
-            if (gvCustomers.HeaderRow != null)
-            {
-                PrepareGridViewForExport(gvCustomers.HeaderRow);
-            }
-            foreach (GridViewRow row in gvCustomers.Rows)
-            {
-                PrepareGridViewForExport(row);
-            }
-            if (gvCustomers.FooterRow != null)
-            {
-                PrepareGridViewForExport(gvCustomers.FooterRow);
-            }
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_RMCustomer_tbl','ctrl_RMCustomer_btnGridSearch');", true);
-
+            hdnactive.Value = ddlFilter.SelectedValue; ;
+            
+            this.BindGrid(mypager.CurrentPage,0);
         }
 
         protected void btnPrintGrid_Click(object sender, EventArgs e)
@@ -1357,6 +1488,22 @@ namespace WealthERP
                 txt = null;
 
             return txt;
+        }
+
+        private DropDownList GetActiveDDL()
+        {
+            DropDownList ddl = new DropDownList();
+            if (gvCustomers.HeaderRow != null)
+            {
+                if ((DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter") != null)
+                {
+                    ddl = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
+                }
+            }
+            else
+                ddl = null;
+
+            return ddl;
         }
 
     }

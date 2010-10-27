@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerMFAlert.ascx.cs"
     Inherits="WealthERP.Alerts.CustomerMFAlert" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-
 <div>
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
@@ -22,16 +21,19 @@
         <table style="width: 100%;" id="tblMFAlertGrid" runat="server" cssclass="TableBackground">
             <tr>
                 <td>
-                    <asp:Label ID="lblMessage" Text="There are no MF Net Position Records" class="Error" runat="server"></asp:Label>
+                    <asp:Label ID="lblMessage" Text="There are no MF Net Position Records" class="Error"
+                        runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
+                    <asp:Label ID="lblDisclaimer" runat="server" CssClass="FieldName" Text="Note: To edit alert setup, please delete alert subscription and re-subscribe"
+                        Visible="true" ForeColor="Red"></asp:Label>
+                    <br /><br />
                     <asp:GridView ID="gvMFAlerts" runat="server" AutoGenerateColumns="False" CellPadding="4"
                         CssClass="GridViewStyle" DataKeyNames="SchemeId,AccountId" AllowSorting="True"
-                        Font-Size="Small" HorizontalAlign="Center" 
-                        ShowFooter="True" OnRowDataBound="gvMFAlerts_RowDataBound" EnableViewState="true"
-                        PageSize="30">
+                        Font-Size="Small" HorizontalAlign="Center" ShowFooter="True" OnRowDataBound="gvMFAlerts_RowDataBound"
+                        EnableViewState="true" PageSize="30">
                         <%--OnRowDataBound="gvAlertDashboard_RowDataBound"--%>
                         <FooterStyle CssClass="FooterStyle" />
                         <RowStyle CssClass="RowStyle" HorizontalAlign="Center" />
@@ -51,7 +53,7 @@
                                 </FooterTemplate>
                             </asp:TemplateField>
                             <%--Scheme Name--%>
-                            <asp:BoundField DataField="Scheme" HeaderText="Scheme Name" />
+                            <asp:BoundField DataField="Scheme" HeaderText="Scheme Name" ItemStyle-HorizontalAlign="Left" />
                             <%--SIP Reminder Column--%>
                             <asp:TemplateField HeaderText="SIP Reminder">
                                 <ItemTemplate>

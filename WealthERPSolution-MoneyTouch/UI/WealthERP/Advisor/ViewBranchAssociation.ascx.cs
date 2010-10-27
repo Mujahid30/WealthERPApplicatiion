@@ -16,7 +16,6 @@ namespace WealthERP.Advisor
 {
     public partial class ViewBranchAssociation : System.Web.UI.UserControl
     {
-
         static Dictionary<string, string> genDictRM;
         static Dictionary<string, string> genDictBranch;
 
@@ -150,7 +149,7 @@ namespace WealthERP.Advisor
             DataSet ds = null;
             try
             {
-                userVo = (UserVo)Session["userVo"];
+                userVo = (UserVo)Session["UserVo"];
                 int Count;
                 ds = advisorBranchBo.GetBranchAssociation(userVo.UserId, currentPage, out Count, hdnBranchFilter.Value, hdnRMFilter.Value, hdnSort.Value, out genDictBranch, out genDictRM);
 

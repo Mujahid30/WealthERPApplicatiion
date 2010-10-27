@@ -12,1577 +12,7 @@ using VoAlerts;
 namespace DaoAlerts
 {
     public class AlertsDao
-    {
-        #region OldAlert
-        //public DataSet GetListofAlerts(string type)
-        //{
-        //    DataSet dsAlertList = new DataSet();
-        //    Database db;
-        //    DbCommand getListOfAlertsCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getListOfAlertsCmd = db.GetStoredProcCommand("SP_GetListofAlerts");
-        //        db.AddInParameter(getListOfAlertsCmd, "@Type", DbType.String, type);
-        //        dsAlertList = db.ExecuteDataSet(getListOfAlertsCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetListofAlerts()");
-
-        //        //object[] objects = new object[1];
-        //        //objects[0] = rmId;
-
-        //        //FunctionInfo = exBase.AddObject(FunctionInfo, null);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-
-        //    }
-        //    return dsAlertList;
-        //}
-
-        //public List<AlertsSetupVo> GetListofEventsSubscribedByCustomer(int CustomerID, int EventID)
-        //{
-        //    List<AlertsSetupVo> alertSetupList = null;
-        //    AlertsSetupVo alertVo;// = new CustomerCashSavingsPortfolioVo();
-        //    Database db;
-        //    DbCommand getCustSubscribedEventsCmd;
-        //    DataSet dsGetCustSubscribedEvents;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getCustSubscribedEventsCmd = db.GetStoredProcCommand("SP_GetCustomerSubscribedEvents");
-        //        db.AddInParameter(getCustSubscribedEventsCmd, "@C_CustomerId", DbType.Int32, CustomerID);
-        //        db.AddInParameter(getCustSubscribedEventsCmd, "@EventID", DbType.Int32, EventID);
-
-        //        dsGetCustSubscribedEvents = db.ExecuteDataSet(getCustSubscribedEventsCmd);
-        //        if (dsGetCustSubscribedEvents.Tables[0].Rows.Count > 0)
-        //        {
-        //            alertSetupList = new List<AlertsSetupVo>();
-        //            foreach (DataRow dr in dsGetCustSubscribedEvents.Tables[0].Rows)
-        //            {
-        //                alertVo = new AlertsSetupVo();
-
-        //                alertVo.EventSetupID = Int64.Parse(dr["AES_EventSetupID"].ToString());
-        //                alertVo.EventID = Int32.Parse(dr["AEL_EventID"].ToString());
-        //                alertVo.CustomerID = Int32.Parse(dr["AES_TargetID"].ToString());
-        //                alertVo.DeliveryMode = dr["AES_DeliveryMode"].ToString();
-
-        //                if (dr["AES_EndDate"].ToString() != "")
-        //                {
-        //                    alertVo.EndDate = DateTime.Parse(dr[""].ToString());
-        //                }
-
-        //                if (dr["AES_EventMessage"].ToString() != "")
-        //                {
-        //                    alertVo.EventMessage = dr["AES_EventMessage"].ToString();
-        //                }
-
-        //                if (dr["CL_CycleID"].ToString() != "")
-        //                {
-        //                    alertVo.FrequencyID = Int16.Parse(dr["CL_CycleID"].ToString());
-        //                }
-
-        //                if (dr["AEL_EventCode"].ToString() != "")
-        //                {
-        //                    alertVo.EventName = dr["AEL_EventCode"].ToString();
-        //                }
-
-        //                alertVo.Reminder = dr["AEL_Reminder"].ToString();
-        //                alertVo.EventSubscriptionDate = DateTime.Parse(dr["AES_EventSubscriptionDate"].ToString());
-        //                if (dr["AES_NextOccurence"].ToString() != "")
-        //                    alertVo.NextOccurence = DateTime.Parse(dr["AES_NextOccurence"].ToString());
-        //                if (dr["AES_LastOccurence"].ToString() != "")
-        //                    alertVo.LastOccurence = DateTime.Parse(dr["AES_LastOccurence"].ToString());
-        //                if (dr["AES_SchemeID"].ToString() != "")
-        //                {
-        //                    alertVo.SchemeID = Int32.Parse(dr["AES_SchemeID"].ToString());
-        //                }
-        //                alertVo.SentToQueue = dr["AES_SentToQueue"].ToString();
-        //                alertVo.AllFieldNames = dr["AllFieldNames"].ToString();
-
-        //                alertSetupList.Add(alertVo);
-        //            }
-        //        }
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetListofEventsSubscribedByCustomer()");
-
-        //        object[] objects = new object[2];
-        //        objects[0] = CustomerID;
-        //        objects[1] = EventID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-        //    return alertSetupList;
-        //}
-
-        //public DataSet GetTableFieldNames(int EventID)
-        //{
-        //    Database db;
-        //    DbCommand getTableFieldsCmd;
-        //    DataSet dsGetTableFields;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getTableFieldsCmd = db.GetStoredProcCommand("SP_GetTableAndFieldNamesFromEventLookup");
-        //        db.AddInParameter(getTableFieldsCmd, "@EventID", DbType.Int32, EventID);
-        //        dsGetTableFields = db.ExecuteDataSet(getTableFieldsCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetTableFieldNames()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = EventID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsGetTableFields;
-        //}
-
-        //public DataSet GetCustomerSchemeList(string TableName, string CustomerIDField, int CustomerID, string EventCode, string SchemeIDFieldName, string TypeCodeField, string StartDateField, string EndDateField, string SystematicDateField, string FrequencyField)
-        //{
-        //    Database db;
-        //    DbCommand getCustomerSchemeListCmd;
-        //    DataSet dsGetCustomerSchemeList;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getCustomerSchemeListCmd = db.GetStoredProcCommand("SP_GetCustomerSchemeList");
-        //        db.AddInParameter(getCustomerSchemeListCmd, "@TableName", DbType.String, TableName);
-        //        db.AddInParameter(getCustomerSchemeListCmd, "@CustomerFieldName", DbType.String, CustomerIDField);
-        //        db.AddInParameter(getCustomerSchemeListCmd, "@TypeCodeFieldName", DbType.String, TypeCodeField);
-        //        db.AddInParameter(getCustomerSchemeListCmd, "@CustomerId", DbType.Int32, CustomerID);
-        //        db.AddInParameter(getCustomerSchemeListCmd, "@TypeCode", DbType.String, EventCode);
-        //        db.AddInParameter(getCustomerSchemeListCmd, "@SchemeIDFieldName", DbType.String, SchemeIDFieldName);
-
-        //        if (StartDateField != "")
-        //            db.AddInParameter(getCustomerSchemeListCmd, "@StartDateField", DbType.String, StartDateField);
-        //        else
-        //            db.AddInParameter(getCustomerSchemeListCmd, "@StartDateField", DbType.String, DBNull.Value);
-
-        //        if (EndDateField != "")
-        //            db.AddInParameter(getCustomerSchemeListCmd, "@EndDateField", DbType.String, EndDateField);
-        //        else
-        //            db.AddInParameter(getCustomerSchemeListCmd, "@EndDateField", DbType.String, DBNull.Value);
-
-        //        if (SystematicDateField != "")
-        //            db.AddInParameter(getCustomerSchemeListCmd, "@SystematicDateField", DbType.String, SystematicDateField);
-        //        else
-        //            db.AddInParameter(getCustomerSchemeListCmd, "@SystematicDateField", DbType.String, DBNull.Value);
-
-        //        if (FrequencyField != "")
-        //            db.AddInParameter(getCustomerSchemeListCmd, "@FrequencyField", DbType.String, FrequencyField);
-        //        else
-        //            db.AddInParameter(getCustomerSchemeListCmd, "@FrequencyField", DbType.String, DBNull.Value);
-
-        //        dsGetCustomerSchemeList = db.ExecuteDataSet(getCustomerSchemeListCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetCustomerSchemeList()");
-
-        //        object[] objects = new object[3];
-        //        objects[0] = TableName;
-        //        objects[1] = CustomerIDField;
-        //        objects[2] = CustomerID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsGetCustomerSchemeList;
-        //}
-
-        //public bool SaveAlert(int EventID, int CustomerId, DateTime NextOccurence, int Frequency)
-        //{
-        //    bool blResult = false;
-
-        //    Database db;
-        //    DbCommand addEventCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        addEventCmd = db.GetStoredProcCommand("SP_AddCustomerEvent");
-
-        //        db.AddInParameter(addEventCmd, "@C_CustomerId", DbType.Int32, CustomerId);
-        //        db.AddInParameter(addEventCmd, "@AEL_EventID", DbType.Int32, EventID);
-        //        db.AddInParameter(addEventCmd, "@AES_SchemeID", DbType.String, DBNull.Value);
-        //        db.AddInParameter(addEventCmd, "@AES_NextOccurence", DbType.DateTime, NextOccurence);
-        //        db.AddInParameter(addEventCmd, "@CL_CycleID", DbType.Int32, Frequency);
-        //        // The Below code needs to be changed... The Right UserId has to be sent
-        //        db.AddInParameter(addEventCmd, "@AES_CreatedFor", DbType.Int32, CustomerId);
-        //        db.AddInParameter(addEventCmd, "@CCSP_CreatedBy", DbType.Int32, CustomerId);
-        //        db.AddInParameter(addEventCmd, "@CCSP_ModifiedBy", DbType.Int32, CustomerId);
-
-        //        db.ExecuteNonQuery(addEventCmd);
-        //        blResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:SaveAlert()");
-
-        //        object[] objects = new object[2];
-        //        objects[0] = EventID;
-        //        objects[1] = CustomerId;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return blResult;
-        //}
-
-        //public bool SaveAlert(int EventID, string eventMessage, int targetID, int custId, int SchemeID, DateTime NextOccurence, int Frequency, int userId)
-        //{
-        //    bool blResult = false;
-
-        //    Database db;
-        //    DbCommand addEventCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        addEventCmd = db.GetStoredProcCommand("SP_AddCustomerEvent");
-
-        //        db.AddInParameter(addEventCmd, "@C_CustomerId", DbType.Int32, targetID);
-        //        db.AddInParameter(addEventCmd, "@AES_TargetId", DbType.Int32, targetID);
-        //        db.AddInParameter(addEventCmd, "@EventMessage", DbType.String, eventMessage);
-        //        db.AddInParameter(addEventCmd, "@AEL_EventID", DbType.Int32, EventID);
-        //        db.AddInParameter(addEventCmd, "@AES_SchemeID", DbType.Int32, SchemeID);
-        //        db.AddInParameter(addEventCmd, "@AES_NextOccurence", DbType.DateTime, NextOccurence);
-        //        if (Frequency != 0)
-        //            db.AddInParameter(addEventCmd, "@CL_CycleID", DbType.Int32, Frequency);
-        //        else
-        //            db.AddInParameter(addEventCmd, "@CL_CycleID", DbType.Int32, DBNull.Value);
-        //        // The Below code needs to be changed... The Right UserId has to be sent
-        //        db.AddInParameter(addEventCmd, "@AES_CreatedFor", DbType.Int32, custId);
-        //        db.AddInParameter(addEventCmd, "@CCSP_CreatedBy", DbType.Int32, userId);
-        //        db.AddInParameter(addEventCmd, "@CCSP_ModifiedBy", DbType.Int32, userId);
-
-        //        db.ExecuteNonQuery(addEventCmd);
-        //        blResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:SaveAlert()");
-
-        //        object[] objects = new object[3];
-        //        objects[0] = EventID;
-        //        objects[1] = custId;
-        //        objects[2] = SchemeID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return blResult;
-        //}
-
-        //public bool SaveAlert(int customerId, string eventMessage, int targetId, int SchemeID, string Condition, double PresetValue, int EventID, int userId)
-        //{
-        //    bool blResult = false;
-
-        //    Database db;
-        //    DbCommand addEventCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        addEventCmd = db.GetStoredProcCommand("SP_AddCustomerConditionalEvent");
-
-        //        db.AddInParameter(addEventCmd, "@C_CustomerId", DbType.Int32, customerId);
-        //        db.AddInParameter(addEventCmd, "@EventMessage", DbType.String, eventMessage);
-        //        db.AddInParameter(addEventCmd, "@AES_TargetId", DbType.Int32, targetId);
-        //        db.AddInParameter(addEventCmd, "@AEL_EventID", DbType.Int32, EventID);
-        //        db.AddInParameter(addEventCmd, "@AES_SchemeID", DbType.Int32, SchemeID);
-        //        db.AddInParameter(addEventCmd, "@Condition", DbType.String, Condition);
-        //        db.AddInParameter(addEventCmd, "@PresetValue", DbType.Double, PresetValue);
-        //        db.AddInParameter(addEventCmd, "@UserId", DbType.Int32, userId);
-
-        //        db.ExecuteNonQuery(addEventCmd);
-        //        blResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:SaveAlert()");
-
-        //        object[] objects = new object[5];
-        //        objects[0] = EventID;
-        //        objects[1] = SchemeID;
-        //        objects[2] = Condition;
-        //        objects[3] = customerId;
-        //        objects[4] = PresetValue;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return blResult;
-        //}
-
-        //public bool SaveAlert(int customerId,string eventMessage,int targetId, int SchemeID, int EventID, int userId)
-        //{
-        //    bool blResult = false;
-
-        //    Database db;
-        //    DbCommand addEventCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        addEventCmd = db.GetStoredProcCommand("SP_AddCustomerTranxEvent");
-
-        //        db.AddInParameter(addEventCmd, "@CustomerID", DbType.Int32, customerId);
-        //        db.AddInParameter(addEventCmd, "@EventMessage", DbType.String, eventMessage);
-        //        db.AddInParameter(addEventCmd, "@TargetId", DbType.Int32, targetId);
-        //        db.AddInParameter(addEventCmd, "@EventID", DbType.Int32, EventID);
-        //        db.AddInParameter(addEventCmd, "@SchemeID", DbType.Int32, SchemeID);
-        //        // The Below code needs to be changed... The Right UserId has to be sent
-        //        db.AddInParameter(addEventCmd, "@CreatedFor", DbType.Int32, customerId);
-        //        db.AddInParameter(addEventCmd, "@CCSP_CreatedBy", DbType.Int32, userId);
-        //        db.AddInParameter(addEventCmd, "@CCSP_ModifiedBy", DbType.Int32, userId);
-
-        //        db.ExecuteNonQuery(addEventCmd);
-        //        blResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:SaveAlert()");
-
-        //        object[] objects = new object[3];
-        //        objects[0] = EventID;
-        //        objects[1] = customerId;
-        //        objects[2] = SchemeID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return blResult;
-        //}
-
-        //public DataSet CheckDOBSubscribed(int EventID, int CustomerId)
-        //{
-        //    DataSet dsDOB = new DataSet();
-        //    Database db;
-        //    DbCommand getCheckDOBCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getCheckDOBCmd = db.GetStoredProcCommand("SP_CheckDOBSubscribed");
-        //        db.AddInParameter(getCheckDOBCmd, "@EventID", DbType.Int32, EventID);
-        //        db.AddInParameter(getCheckDOBCmd, "@CustomerID", DbType.Int32, CustomerId);
-        //        dsDOB = db.ExecuteDataSet(getCheckDOBCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:CheckDOBSubscribed()");
-
-        //        object[] objects = new object[2];
-        //        objects[0] = EventID;
-        //        objects[1] = CustomerId;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-
-        //    }
-        //    return dsDOB;
-        //}
-
-        //public DataSet GetSubscribedSchemeList(int EventID, int CustomerId)
-        //{
-        //    DataSet dsSubscribedSchemes;
-        //    Database db;
-        //    DbCommand getSubscribedSchemeCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getSubscribedSchemeCmd = db.GetStoredProcCommand("SP_GetSubscribedSchemeList");
-        //        db.AddInParameter(getSubscribedSchemeCmd, "@EventID", DbType.Int32, EventID);
-        //        db.AddInParameter(getSubscribedSchemeCmd, "@CustomerID", DbType.Int32, CustomerId);
-        //        dsSubscribedSchemes = db.ExecuteDataSet(getSubscribedSchemeCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetSubscribedSchemeList()");
-
-        //        object[] objects = new object[2];
-        //        objects[0] = EventID;
-        //        objects[1] = CustomerId;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-
-        //    }
-        //    return dsSubscribedSchemes;
-        //}
-
-        //public string GetEventCode(int EventID)
-        //{
-        //    string EventCode = string.Empty;
-        //    DataSet dsEventCode;
-        //    Database db;
-        //    DbCommand getEventCodeCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getEventCodeCmd = db.GetStoredProcCommand("SP_GetEventCodeFromID");
-        //        db.AddInParameter(getEventCodeCmd, "@EventID", DbType.Int32, EventID);
-        //        dsEventCode = db.ExecuteDataSet(getEventCodeCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetSubscribedSchemeList()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = EventID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-
-        //    }
-
-        //    if (dsEventCode.Tables[0].Rows.Count > 0)
-        //    {
-        //        EventCode = dsEventCode.Tables[0].Rows[0]["AEL_EventCode"].ToString();
-        //    }
-
-        //    return EventCode;
-        //}
-
-        //public bool DeleteEvent(long EventSetupID)
-        //{
-        //    bool blResult = false;
-        //    Database db;
-        //    DbCommand deleteDateEventCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        deleteDateEventCmd = db.GetStoredProcCommand("SP_DeleteEvent");
-        //        db.AddInParameter(deleteDateEventCmd, "@EventSetupID", DbType.Int64, EventSetupID);
-        //        db.ExecuteNonQuery(deleteDateEventCmd);
-        //        blResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:DeleteDateEvent()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = EventSetupID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return blResult;
-        //}
-
-        //public bool DeleteConditionalEvent(long EventSetupID, int EventID, int CustomerID, int SchemeID)
-        //{
-        //    bool blResult = false;
-        //    Database db;
-        //    DbCommand deleteConditionalEventCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        deleteConditionalEventCmd = db.GetStoredProcCommand("SP_DeleteConditionalEvent");
-        //        db.AddInParameter(deleteConditionalEventCmd, "@EventSetupID", DbType.Int64, EventSetupID);
-        //        db.AddInParameter(deleteConditionalEventCmd, "@EventID", DbType.Int32, EventID);
-        //        db.AddInParameter(deleteConditionalEventCmd, "@CustomerID", DbType.Int32, CustomerID);
-        //        db.AddInParameter(deleteConditionalEventCmd, "@SchemeID", DbType.Int32, SchemeID);
-        //        db.ExecuteNonQuery(deleteConditionalEventCmd);
-        //        blResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:DeleteConditionalEvent()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = EventSetupID;
-        //        objects[1] = EventSetupID;
-        //        objects[2] = EventSetupID;
-        //        objects[3] = EventSetupID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return blResult;
-        //}
-
-        //public DataSet GetFrequencyList()
-        //{
-        //    DataSet ds;
-        //    Database db;
-        //    DbCommand getFrequencyListCmd;
-
-        //    try 
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getFrequencyListCmd = db.GetStoredProcCommand("SP_GetFrequencyList");
-        //        ds = db.ExecuteDataSet(getFrequencyListCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetFrequencyList()");
-
-        //        //object[] objects = new object[1];
-        //        //objects[0] = EventSetupID;
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, null);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return ds;
-        //}
-
-        //public bool IsReminder(int EventID)
-        //{
-        //    bool blResult = false;
-        //    DataSet ds;
-        //    Database db;
-        //    DbCommand isReminderCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        isReminderCmd = db.GetStoredProcCommand("SP_CheckEventReminder");
-        //        db.AddInParameter(isReminderCmd, "@EventID", DbType.Int32, EventID);
-        //        ds = db.ExecuteDataSet(isReminderCmd);
-
-        //        if (ds.Tables[0].Rows.Count > 0)
-        //        {
-        //            if (ds.Tables[0].Rows[0]["AEL_Reminder"].ToString().ToLower() == "true")
-        //                blResult = true;
-        //            else if (ds.Tables[0].Rows[0]["AEL_Reminder"].ToString().ToLower() == "false")
-        //                blResult = false;
-        //        }
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:IsReminder()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = EventID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return blResult;
-        //}
-
-        //public bool CustEventExists(int customerId, int EventlookupID, int schemeId, bool Reminder)
-        //{
-        //    bool blResult = false;
-        //    DataSet ds;
-        //    Database db;
-        //    DbCommand custEventExistsCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        custEventExistsCmd = db.GetStoredProcCommand("SP_CheckCustEventExists");
-        //        db.AddInParameter(custEventExistsCmd, "@C_CustomerId", DbType.Int32, customerId);
-        //        db.AddInParameter(custEventExistsCmd, "@AEL_EventID", DbType.Int32, EventlookupID);
-        //        db.AddInParameter(custEventExistsCmd, "@AES_SchemeID", DbType.Int32, schemeId);
-        //        if (Reminder)
-        //            db.AddInParameter(custEventExistsCmd, "@AES_Reminder", DbType.Int32, 1);
-        //        else
-        //            db.AddInParameter(custEventExistsCmd, "@AEL_Reminder", DbType.Int32, 0);
-
-        //        ds = db.ExecuteDataSet(custEventExistsCmd);
-
-        //        if (Int32.Parse(ds.Tables[0].Rows[0]["CNT"].ToString()) > 0)
-        //            blResult = true;
-        //        else
-        //            blResult = false;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:CustEventExists()");
-
-        //        object[] objects = new object[4];
-        //        objects[0] = customerId;
-        //        objects[1] = EventlookupID;
-        //        objects[2] = schemeId;
-        //        objects[3] = Reminder;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return blResult;
-        //}
-
-        //public DateTime GetEventNextOcurrence(int customerId, string EventCode, int SchemeID, string Reminder)
-        //{
-        //    DateTime dtNxtOccr = new DateTime();
-        //    DataSet ds;
-        //    Database db;
-        //    DbCommand getEventNextOcurrenceCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getEventNextOcurrenceCmd = db.GetStoredProcCommand("SP_GetEventNextOcurrence");
-        //        db.AddInParameter(getEventNextOcurrenceCmd, "@C_CustomerId", DbType.Int32, customerId);
-        //        db.AddInParameter(getEventNextOcurrenceCmd, "@AEL_EventCode", DbType.String, EventCode);
-        //        db.AddInParameter(getEventNextOcurrenceCmd, "@AES_SchemeID", DbType.Int32, SchemeID);
-        //        if (Reminder == "false")
-        //            db.AddInParameter(getEventNextOcurrenceCmd, "@AEL_Reminder", DbType.Int32, 0);
-        //        else
-        //            db.AddInParameter(getEventNextOcurrenceCmd, "@AEL_Reminder", DbType.Int32, 1);
-
-        //        ds = db.ExecuteDataSet(getEventNextOcurrenceCmd);
-
-        //        if (ds.Tables[0].Rows.Count > 0)
-        //        {
-        //            dtNxtOccr = DateTime.Parse(ds.Tables[0].Rows[0]["AES_NextOccurence"].ToString());
-        //        }
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetEventNextOcurrence()");
-
-        //        object[] objects = new object[4];
-        //        objects[0] = customerId;
-        //        objects[1] = EventCode;
-        //        objects[2] = SchemeID;
-        //        objects[3] = Reminder;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dtNxtOccr;
-        //}
-
-        //public DataSet GetSchemeDetailsFromMasterTable(string Table1, string CustomerIDField, string SchemeIDField, int customerId)
-        //{
-        //    DataSet dsSchemeDetails;
-        //    Database db;
-        //    DbCommand getSchemeDetailsCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getSchemeDetailsCmd = db.GetStoredProcCommand("SP_GetDOBDetailsFromMasterTable");
-        //        db.AddInParameter(getSchemeDetailsCmd, "@TableName", DbType.String, Table1);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@CustomerIDField", DbType.String, CustomerIDField);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@SchemeIDField", DbType.String, SchemeIDField);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@C_CustomerId", DbType.Int32, customerId);
-
-        //        dsSchemeDetails = db.ExecuteDataSet(getSchemeDetailsCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetSchemeDetailsFromMasterTable()");
-
-        //        object[] objects = new object[4];
-        //        objects[0] = customerId;
-        //        objects[1] = Table1;
-        //        objects[2] = CustomerIDField;
-        //        objects[3] = SchemeIDField;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsSchemeDetails;
-        //}
-
-        //public DataSet GetSchemeDetailsFromMasterTable(string Table1, string CustomerIDField, string SchemeIDField, string SchemeDateField, string StartDateField, string EndDateField, string SystematicDateField, string FrequencyField, int customerId, int SchemeID)
-        //{
-        //    DataSet dsSchemeDetails;
-        //    Database db;
-        //    DbCommand getSchemeDetailsCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getSchemeDetailsCmd = db.GetStoredProcCommand("SP_GetSchemeDetailsFromMasterTable");
-        //        db.AddInParameter(getSchemeDetailsCmd, "@TableName", DbType.String, Table1);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@CustomerIDField", DbType.String, CustomerIDField);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@SchemeIDField", DbType.String, SchemeIDField);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@SchemeDateField", DbType.String, SchemeDateField);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@StartDateField", DbType.String, StartDateField);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@EndDateField", DbType.String, EndDateField);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@SystematicDateField", DbType.String, SystematicDateField);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@FrequencyField", DbType.String, FrequencyField);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@C_CustomerId", DbType.Int32, customerId);
-        //        db.AddInParameter(getSchemeDetailsCmd, "@SchemeID", DbType.Int32, SchemeID);
-
-        //        dsSchemeDetails = db.ExecuteDataSet(getSchemeDetailsCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetSchemeDetailsFromMasterTable()");
-
-        //        object[] objects = new object[10];
-        //        objects[0] = customerId;
-        //        objects[1] = Table1;
-        //        objects[2] = CustomerIDField;
-        //        objects[3] = SchemeIDField;
-        //        objects[4] = SchemeDateField;
-        //        objects[5] = StartDateField;
-        //        objects[6] = EndDateField;
-        //        objects[7] = SystematicDateField;
-        //        objects[8] = FrequencyField;
-        //        objects[9] = SchemeID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsSchemeDetails;
-        //}
-
-        //public bool UpdateGridEventDetails(long EventSetupID, DateTime NextOccurMod)
-        //{
-        //    bool blResult = false;
-        //    Database db;
-        //    DbCommand updateEventDetailsCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        updateEventDetailsCmd = db.GetStoredProcCommand("SP_UpdateGridEventDetails");
-        //        db.AddInParameter(updateEventDetailsCmd, "@AES_EventSetupID", DbType.Int64, EventSetupID);
-        //        db.AddInParameter(updateEventDetailsCmd, "@AES_NextOccurence", DbType.DateTime, NextOccurMod);
-
-        //        db.ExecuteNonQuery(updateEventDetailsCmd);
-        //        blResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:UpdateGridEventDetails()");
-
-        //        object[] objects = new object[2];
-        //        objects[0] = EventSetupID;
-        //        objects[1] = NextOccurMod;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return blResult;
-        //}
-
-        //public bool UpdateGridEventDataConditions(int customerId, int SchemeID, int EventID, string Condition, double PresetValue)
-        //{
-        //    bool blResult = false;
-        //    Database db;
-        //    DbCommand updateEventDataConditionsCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        updateEventDataConditionsCmd = db.GetStoredProcCommand("SP_UpdateGridEventDataConditions");
-        //        db.AddInParameter(updateEventDataConditionsCmd, "@CustomerID", DbType.Int32, customerId);
-        //        db.AddInParameter(updateEventDataConditionsCmd, "@SchemeID", DbType.Int32, SchemeID);
-        //        db.AddInParameter(updateEventDataConditionsCmd, "@EventID", DbType.Int32, EventID);
-        //        db.AddInParameter(updateEventDataConditionsCmd, "@Condition", DbType.String, Condition);
-        //        db.AddInParameter(updateEventDataConditionsCmd, "@PresetValue", DbType.Double, PresetValue);
-
-        //        db.ExecuteNonQuery(updateEventDataConditionsCmd);
-        //        blResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:UpdateGridEventDataConditions()");
-
-        //        object[] objects = new object[5];
-        //        objects[0] = customerId;
-        //        objects[1] = SchemeID;
-        //        objects[2] = EventID;
-        //        objects[3] = Condition;
-        //        objects[4] = PresetValue;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return blResult;
-        //}
-
-        //public DataSet GetEventDetails(long EventSetupID)
-        //{
-        //    DataSet ds;
-        //    Database db;
-        //    DbCommand getEventDetailsCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getEventDetailsCmd = db.GetStoredProcCommand("SP_GetEventDetailsFromID");
-        //        db.AddInParameter(getEventDetailsCmd, "@AES_EventSetupID", DbType.Int64, EventSetupID);
-        //        ds = db.ExecuteDataSet(getEventDetailsCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetEventDetails()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = EventSetupID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return ds;
-        //}
-
-        //public List<AlertsNotificationVo> GetCustomerNotifications(int CustomerId)
-        //{
-        //    List<AlertsNotificationVo> alertNotificationList = null;
-        //    AlertsNotificationVo alertNotificationVo;
-        //    Database db;
-        //    DbCommand getCustomerNotificationsCmd;
-        //    DataSet dsGetCustomerNotifications;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getCustomerNotificationsCmd = db.GetStoredProcCommand("SP_GetCustomerNotifications");
-        //        db.AddInParameter(getCustomerNotificationsCmd, "@C_CustomerId", DbType.Int32, CustomerId);
-
-        //        dsGetCustomerNotifications = db.ExecuteDataSet(getCustomerNotificationsCmd);
-        //        if (dsGetCustomerNotifications.Tables[0].Rows.Count > 0)
-        //        {
-        //            alertNotificationList = new List<AlertsNotificationVo>();
-        //            foreach (DataRow dr in dsGetCustomerNotifications.Tables[0].Rows)
-        //            {
-        //                alertNotificationVo = new AlertsNotificationVo();
-
-        //                alertNotificationVo.NotificationID = Int64.Parse(dr["AEN_EventQueueID"].ToString());
-        //                alertNotificationVo.Category = dr["AEL_EventType"].ToString();
-        //                alertNotificationVo.EventSetupID = Int64.Parse(dr["AES_EventSetupID"].ToString());
-        //                alertNotificationVo.EventID = Int32.Parse(dr["AEL_EventID"].ToString());
-        //                alertNotificationVo.CustomerID = Int32.Parse(dr["AEN_TargetID"].ToString());
-        //                alertNotificationVo.EventCode = dr["AEL_EventCode"].ToString();
-        //                alertNotificationVo.EventMessage = dr["AEN_EventMessage"].ToString();
-        //                if (dr["AEN_SchemeID"].ToString() != "")
-        //                {
-        //                    alertNotificationVo.SchemeID = Int32.Parse(dr["AEN_SchemeID"].ToString());
-        //                }
-        //                alertNotificationVo.PopulatedDate = DateTime.Parse(dr["AEN_PopulatedDate"].ToString());
-        //                alertNotificationVo.ModeId = Int16.Parse(dr["ADML_ModeId"].ToString());
-        //                alertNotificationVo.IsAlerted = dr["AEN_IsAlerted"].ToString();
-        //                alertNotificationVo.Reminder = dr["AEL_Reminder"].ToString();
-        //                //alertNotificationVo.IsDeleted = Int16.Parse(dr["ADML_ModeId"].ToString());
-
-        //                alertNotificationList.Add(alertNotificationVo);
-        //            }
-        //        }
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetCustomerNotifications()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = CustomerId;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-        //    return alertNotificationList;
-        //}
-
-        //public DataSet GetCustomerConditionalSchemeList(string TableName, string CustomerIDField, string SchemeIDFieldName, string CurrentValueFieldName, int CustomerId, string EventCode, string SchemeNameFieldName)
-        //{
-        //    Database db;
-        //    DbCommand getCustomerConditionalSchemeListCmd;
-        //    DataSet dsGetCustomerConditionalSchemeList;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getCustomerConditionalSchemeListCmd = db.GetStoredProcCommand("SP_GetCustomerConditionalSchemeList");
-        //        db.AddInParameter(getCustomerConditionalSchemeListCmd, "@TableName", DbType.String, TableName);
-        //        db.AddInParameter(getCustomerConditionalSchemeListCmd, "@CustomerFieldName", DbType.String, CustomerIDField);
-        //        db.AddInParameter(getCustomerConditionalSchemeListCmd, "@SchemeIDFieldName", DbType.String, SchemeIDFieldName);
-        //        db.AddInParameter(getCustomerConditionalSchemeListCmd, "@CurrentValueFieldName", DbType.String, CurrentValueFieldName);
-        //        db.AddInParameter(getCustomerConditionalSchemeListCmd, "@CustomerId", DbType.Int32, CustomerId);
-        //        db.AddInParameter(getCustomerConditionalSchemeListCmd, "@EventCode", DbType.String, EventCode);
-        //        db.AddInParameter(getCustomerConditionalSchemeListCmd, "@SchemeNameFieldName", DbType.String, SchemeNameFieldName);
-
-        //        dsGetCustomerConditionalSchemeList = db.ExecuteDataSet(getCustomerConditionalSchemeListCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetCustomerSchemeList()");
-
-        //        object[] objects = new object[6];
-        //        objects[0] = TableName;
-        //        objects[1] = CustomerIDField;
-        //        objects[2] = SchemeIDFieldName;
-        //        objects[3] = CurrentValueFieldName;
-        //        objects[4] = CustomerId;
-        //        objects[5] = EventCode;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsGetCustomerConditionalSchemeList;
-        //}
-
-        //public DataSet GetCustomerDataConditions(int customerId, int SchemeID, int EventID)
-        //{
-        //    Database db;
-        //    DbCommand getCustomerDataConditionsCmd;
-        //    DataSet dsGetCustomerDataConditions;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getCustomerDataConditionsCmd = db.GetStoredProcCommand("SP_GetCustomerDataConditions");
-        //        db.AddInParameter(getCustomerDataConditionsCmd, "@CustomerID", DbType.Int32, customerId);
-        //        db.AddInParameter(getCustomerDataConditionsCmd, "@SchemeID", DbType.Int32, SchemeID);
-        //        db.AddInParameter(getCustomerDataConditionsCmd, "@EventID", DbType.String, EventID);
-
-        //        dsGetCustomerDataConditions = db.ExecuteDataSet(getCustomerDataConditionsCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetCustomerDataConditions()");
-
-        //        object[] objects = new object[3];
-        //        objects[0] = customerId;
-        //        objects[1] = SchemeID;
-        //        objects[2] = EventID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsGetCustomerDataConditions;
-        //}
-
-        //public DataSet GetSchemeCurrentValue(string SchemeTableName, string CustomerIDFieldName, string SchemeIDFieldName, string CurrentValueFieldName, int customerId, int SchemeID)
-        //{
-        //    Database db;
-        //    DbCommand getSchemeCurrentValueCmd;
-        //    DataSet dsGetSchemeCurrentValue;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getSchemeCurrentValueCmd = db.GetStoredProcCommand("SP_GetSchemeCurrentValue");
-        //        db.AddInParameter(getSchemeCurrentValueCmd, "@SchemeTableName", DbType.String, SchemeTableName);
-        //        db.AddInParameter(getSchemeCurrentValueCmd, "@CustomerIDFieldName", DbType.String, CustomerIDFieldName);
-        //        db.AddInParameter(getSchemeCurrentValueCmd, "@SchemeIDFieldName", DbType.String, SchemeIDFieldName);
-        //        db.AddInParameter(getSchemeCurrentValueCmd, "@CurrentValueFieldName", DbType.String, CurrentValueFieldName);
-        //        db.AddInParameter(getSchemeCurrentValueCmd, "@CustomerID", DbType.Int32, customerId);
-        //        db.AddInParameter(getSchemeCurrentValueCmd, "@SchemeID", DbType.Int32, SchemeID);
-
-        //        dsGetSchemeCurrentValue = db.ExecuteDataSet(getSchemeCurrentValueCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetSchemeCurrentValue()");
-
-        //        object[] objects = new object[6];
-        //        objects[0] = SchemeTableName;
-        //        objects[1] = CustomerIDFieldName;
-        //        objects[2] = SchemeIDFieldName;
-        //        objects[3] = CurrentValueFieldName;
-        //        objects[4] = customerId;
-        //        objects[5] = SchemeID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsGetSchemeCurrentValue;
-        //}
-
-        //public DataSet GetCustomerDashboard(int CustomerID)
-        //{
-        //    Database db;
-        //    DbCommand getCustomerDashboardCmd;
-        //    DataSet dsGetCustomerDashboard;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getCustomerDashboardCmd = db.GetStoredProcCommand("SP_GetCustomerAlertDashboard");
-        //        db.AddInParameter(getCustomerDashboardCmd, "@CustomerID", DbType.Int32, CustomerID);
-
-        //        dsGetCustomerDashboard = db.ExecuteDataSet(getCustomerDashboardCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetCustomerDashboard()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = CustomerID;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsGetCustomerDashboard;
-        //}
-
-        //public DataSet GetMetatableDetails(string primaryKey)
-        //{
-        //    Database db;
-        //    DbCommand getMetatableCmd;
-        //    DataSet dsGetMetatableDetails;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getMetatableCmd = db.GetStoredProcCommand("SP_GetMetatableDetails");
-        //        db.AddInParameter(getMetatableCmd, "@WM_PrimaryKey", DbType.String, primaryKey);
-
-        //        dsGetMetatableDetails = db.ExecuteDataSet(getMetatableCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetMetatableDetails()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = primaryKey;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsGetMetatableDetails;
-        //}
-
-        //public DataSet GetSchemeDescription(string description, string tableName, string metatablePrimaryKey, int SchemeId)
-        //{
-        //    Database db;
-        //    DbCommand getSchemeDescriptionCmd;
-        //    DataSet dsGetSchemeDescription;
-        //    string query;
-
-        //    try
-        //    {
-        //        query = "select " + description + " from " + tableName + " where " + metatablePrimaryKey + " = " + SchemeId.ToString();
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getSchemeDescriptionCmd = db.GetSqlStringCommand(query);
-
-
-        //        dsGetSchemeDescription = db.ExecuteDataSet(getSchemeDescriptionCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetSchemeDescription()");
-
-        //        object[] objects = new object[4];
-        //        objects[0] = description;
-        //        objects[1] = tableName;
-        //        objects[2] = metatablePrimaryKey;
-        //        objects[3] = SchemeId;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsGetSchemeDescription;
-        //}
-
-        //public DataSet GetCustomerPortfolioSchemeList(int customerId)
-        //{
-        //    Database db;
-        //    DbCommand getCustomerPortfolioSchemeListCmd;
-        //    DataSet dsGetCustomerPortfolioSchemeList;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getCustomerPortfolioSchemeListCmd = db.GetStoredProcCommand("SP_GetCustomerPortfolioSchemeList");
-        //        db.AddInParameter(getCustomerPortfolioSchemeListCmd, "@CustomerID", DbType.Int32, customerId);
-
-        //        dsGetCustomerPortfolioSchemeList = db.ExecuteDataSet(getCustomerPortfolioSchemeListCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetCustomerPortfolioSchemeList()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = customerId;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsGetCustomerPortfolioSchemeList;
-        //}
-
-        //public bool DeleteAlertNotification(long notificationId)
-        //{
-        //    bool bResult = false;
-        //    Database db;
-        //    DbCommand deleteAlertNotificationCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        deleteAlertNotificationCmd = db.GetStoredProcCommand("SP_DeleteAlertNotification");
-        //        db.AddInParameter(deleteAlertNotificationCmd, "@NotificationID", DbType.Int64, notificationId);
-        //        db.ExecuteNonQuery(deleteAlertNotificationCmd);
-        //        bResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:DeleteAlertNotification()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = notificationId;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return bResult;
-
-        //}
-
-        //public bool ExecuteDateAlert()
-        //{
-        //    bool bResult = false;
-        //    Database db;
-        //    DbCommand executeDateAlertCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        executeDateAlertCmd = db.GetStoredProcCommand("sproc_AlertDiscoveryForDate");
-
-        //        db.ExecuteNonQuery(executeDateAlertCmd);
-        //        bResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:ExecuteDateAlert()");
-
-        //        object[] objects = new object[0];
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return bResult;
-        //}
-
-        //public bool ExecuteDataAlert()
-        //{
-        //    bool bResult = false;
-        //    Database db;
-        //    DbCommand executeDataAlertCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        executeDataAlertCmd = db.GetStoredProcCommand("sproc_AlertDiscoveryForData");
-
-        //        db.ExecuteNonQuery(executeDataAlertCmd);
-        //        bResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:ExecuteDataAlert()");
-
-        //        object[] objects = new object[0];
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return bResult;
-        //}
-
-        //public bool ExecuteTransactionAlert()
-        //{
-        //    bool bResult = false;
-        //    Database db;
-        //    DbCommand executeTransactionAlertCmd;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        executeTransactionAlertCmd = db.GetStoredProcCommand("sproc_AlertDiscoveryForTrans");
-
-        //        db.ExecuteNonQuery(executeTransactionAlertCmd);
-        //        bResult = true;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:ExecuteTransactionAlert()");
-
-        //        object[] objects = new object[0];
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return bResult;
-        //}
-
-        //public DataSet GetCustomerDashboardAlerts(int customerId)
-        //{
-        //    Database db;
-        //    DbCommand getCustomerAlertsCmd;
-        //    DataSet dsGetCustomerAlertsList;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getCustomerAlertsCmd = db.GetStoredProcCommand("SP_GetCustomerDashboardAlerts");
-        //        db.AddInParameter(getCustomerAlertsCmd, "@CustomerID", DbType.Int32, customerId);
-
-        //        dsGetCustomerAlertsList = db.ExecuteDataSet(getCustomerAlertsCmd);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "AlertsDao.cs:GetCustomerDashboardAlerts()");
-
-        //        object[] objects = new object[1];
-        //        objects[0] = customerId;
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //    return dsGetCustomerAlertsList;
-        //}
-        //
-        #endregion
+    {    
 
         #region NewAlertSetup
 
@@ -2599,6 +1029,43 @@ namespace DaoAlerts
             return dsGetCustomerAlertsList;
         }
 
+        public DataSet GetCustomerGrpDashboardAlerts(int customerId)
+        {
+            Database db;
+            DbCommand getCustomerGrpAlertsCmd;
+            DataSet dsGetCustomerGrpAlertsList;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerGrpAlertsCmd = db.GetStoredProcCommand("SP_GetCustomerGrpDashboardAlerts");
+                db.AddInParameter(getCustomerGrpAlertsCmd, "@C_CustomerID", DbType.Int32, customerId);
+
+                dsGetCustomerGrpAlertsList = db.ExecuteDataSet(getCustomerGrpAlertsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AlertsDao.cs:GetCustomerGrpDashboardAlerts()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsGetCustomerGrpAlertsList;
+        }
+
         public DataSet GetRMCustomerDashboardAlerts(int rmId)
         {
             Database db;
@@ -2654,7 +1121,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 executeReminderAlertCmd = db.GetStoredProcCommand("sproc_AlertDiscoveryForDate");
-
+                executeReminderAlertCmd.CommandTimeout = 60 * 60; //in Seconds
                 db.ExecuteNonQuery(executeReminderAlertCmd);
                 bResult = true;
             }
@@ -2691,7 +1158,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 executeProcessAlertstoEmailQueueCmd = db.GetStoredProcCommand("sproc_Job_ProcessAlerts");
-
+                executeProcessAlertstoEmailQueueCmd.CommandTimeout = 60 * 60; //in Seconds
                 db.ExecuteNonQuery(executeProcessAlertstoEmailQueueCmd);
                 bResult = true;
             }
@@ -2731,7 +1198,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 executeOccurrenceAlertCmd = db.GetStoredProcCommand("sproc_AlertDiscoveryForData");
-
+                executeOccurrenceAlertCmd.CommandTimeout = 60 * 60; //in Seconds
                 db.ExecuteNonQuery(executeOccurrenceAlertCmd);
                 bResult = true;
             }
@@ -2771,6 +1238,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 executeConfirmationAlertCmd = db.GetStoredProcCommand("sproc_AlertDiscoveryForTrans");
+                executeConfirmationAlertCmd.CommandTimeout = 60 * 60; //in Seconds
 
                 db.ExecuteNonQuery(executeConfirmationAlertCmd);
                 bResult = true;
@@ -3854,7 +2322,6 @@ namespace DaoAlerts
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerMFAlertsCmd = db.GetStoredProcCommand("SP_GetCustomerMFAlerts");
                 db.AddInParameter(getCustomerMFAlertsCmd, "@CustomerId", DbType.Int32, customerId);
-                getCustomerMFAlertsCmd.CommandTimeout = 60 * 60;
                 dsGetCustomerMFAlerts = db.ExecuteDataSet(getCustomerMFAlertsCmd);
 
             }
@@ -4122,8 +2589,17 @@ namespace DaoAlerts
 
 
         #endregion
-
-        public DataSet GetAdviserCustomerSMSAlerts(int adviserId)
+        
+        /// <summary>
+        /// Modified the function to add a name filter in the Alert notifications gridview.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="usertype"></param>
+        /// <param name="currentpage"></param>
+        /// <param name="nameFilter"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public DataSet GetAdviserCustomerSMSAlerts(int id,string usertype, int currentpage,string nameFilter, out int count)
         {
             
             Database db;
@@ -4134,10 +2610,15 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdviserSMSAlertsCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerSMSAlerts");
-                db.AddInParameter(getAdviserSMSAlertsCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getAdviserSMSAlertsCmd, "@Id", DbType.Int32, id);
+                db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.Int32, currentpage);
+                db.AddInParameter(getAdviserSMSAlertsCmd, "@Usertype", DbType.String, usertype);
+                db.AddInParameter(getAdviserSMSAlertsCmd, "@nameFilter", DbType.String, nameFilter);
+                //db.AddInParameter(getAdviserSMSAlertsCmd, "@CurrentPage", DbType.String, sortorder);
+                //db.AddInParameter(getAdviserSMSAlertsCmd, "@SortOrder", DbType.Int32, currentpage);
 
                 dsAdviserSMSAlerts = db.ExecuteDataSet(getAdviserSMSAlertsCmd);
-
+                count = Int32.Parse(dsAdviserSMSAlerts.Tables[1].Rows[0][0].ToString());
                 
             }
             catch (BaseApplicationException Ex)
@@ -4152,7 +2633,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:GetAdviserCustomerSMSAlerts(int adviserId)");
 
                 object[] objects = new object[1];
-                objects[0] = adviserId;
+                objects[0] = id;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -4162,6 +2643,7 @@ namespace DaoAlerts
 
             return dsAdviserSMSAlerts;
         }
+
         public bool UpdateAlertStatus(int alertId, int alertStatus)
         {
             bool bResult = false;
@@ -4204,6 +2686,83 @@ namespace DaoAlerts
 
         }
 
+        public void UpdateCustomerMobileNumber(int customerId, Int64 mobileNo)
+        {
+
+            Database db;
+            DbCommand updateCustomerMobileNumber;  
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateCustomerMobileNumber = db.GetStoredProcCommand("SP_UpdateMobileNumberForAlertCustomer");
+                db.AddInParameter(updateCustomerMobileNumber, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(updateCustomerMobileNumber, "@MobileNo", DbType.Int64, mobileNo);
+                db.ExecuteNonQuery(updateCustomerMobileNumber);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AlertsDao.cs:UpdateCustomerMobileNumber(int customerId, int mobileNo)");
+
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1] = mobileNo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+       
+        /// <summary>
+        /// Function to delete the notifications from the notifications grid view (MP)
+        /// </summary>
+        /// <param name="alertId"></param>
+        /// <returns></returns>
+        public bool DeleteAdviserCustomerSMSAlerts(int alertId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteSMSAlertsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteSMSAlertsCmd = db.GetStoredProcCommand("SP_DeleteAdviserCustomerSMSAlerts");
+                db.AddInParameter(deleteSMSAlertsCmd, "@AlertId", DbType.Int32, alertId);
+
+                if(db.ExecuteNonQuery(deleteSMSAlertsCmd)  != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AlertsDao.cs:DeleteAdviserCustomerSMSAlerts(int alertId)");
+
+                object[] objects = new object[1];
+                objects[0] = alertId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 
 }

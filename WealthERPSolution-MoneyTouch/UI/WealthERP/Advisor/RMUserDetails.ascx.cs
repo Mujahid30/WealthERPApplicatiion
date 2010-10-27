@@ -34,10 +34,12 @@ namespace WealthERP.Advisor
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            ErrorMessage.Visible = false;
             if (!IsPostBack)
             {
                 ViewState["rmId"] = 0;
-                trNoRecords.Visible = false;
+                //trNoRecords.Visible = false;
+                ErrorMessage.Visible = false;
                 showRMUserDetails();
             }
         }
@@ -211,7 +213,10 @@ namespace WealthERP.Advisor
                     lblCurrentPage.Visible = false;
                     lblTotalRows.Visible = false;
                     tblPager.Visible = false;
-                    trNoRecords.Visible = true;
+                    //trNoRecords.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "No Records Found...!";
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -359,11 +364,14 @@ namespace WealthERP.Advisor
 
                 if (isSuccess)
                 {
-                    lblStatusMsg.Text = "Password has been reset.";
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText= "Password has been reset.";
+                  
                 }
                 else
                 {
-                    lblStatusMsg.Text = "An error occurred while reseting password.";
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText= "An error occurred while reseting password.";
 
                 }
             }
@@ -378,74 +386,78 @@ namespace WealthERP.Advisor
         {
             int selectedRecords = 0;
             string statusMessage = string.Empty;
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "$.colorbox({width: '700px', overlayClose: false, inline: true, href: '#LoadImage'});", true);
-            try
+            if (Page.IsValid)
             {
-                foreach (GridViewRow gvr in gvRMUsers.Rows)
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "$.colorbox({width: '700px', overlayClose: false, inline: true, href: '#LoadImage'});", true);
+                try
                 {
-                    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                    foreach (GridViewRow gvr in gvRMUsers.Rows)
                     {
-                        selectedRecords++;
-
-                        userId = int.Parse(gvRMUsers.DataKeys[gvr.RowIndex].Value.ToString());
-
-                        Emailer emailer = new Emailer();
-                        EmailMessage email = new EmailMessage();
-
-                        userVo = userBo.GetUserDetails(userId);
-                        string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
-                        email.GetAdviserRMAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
-                        email.To.Add(userVo.Email);
-
-                        AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
-                        int rmId = Convert.ToInt32(ViewState["rmId"]);
-                        AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(rmId);
-                        if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
+                        if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                         {
-                            emailer.isDefaultCredentials = !Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired);
+                            selectedRecords++;
 
-                            if (!String.IsNullOrEmpty(adviserStaffSMTPVo.Password))
-                                emailer.smtpPassword = Encryption.Decrypt(adviserStaffSMTPVo.Password);
-                            emailer.smtpPort = int.Parse(adviserStaffSMTPVo.Port);
-                            emailer.smtpServer = adviserStaffSMTPVo.HostServer;
-                            emailer.smtpUserName = adviserStaffSMTPVo.Email;
+                            userId = int.Parse(gvRMUsers.DataKeys[gvr.RowIndex].Value.ToString());
 
-                            if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
+                            Emailer emailer = new Emailer();
+                            EmailMessage email = new EmailMessage();
+
+                            userVo = userBo.GetUserDetails(userId);
+                            string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                            email.GetAdviserRMAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
+                            email.To.Add(userVo.Email);
+
+                            AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
+                            int rmId = Convert.ToInt32(ViewState["rmId"]);
+                            AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(rmId);
+                            if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
                             {
-                                email.From = new MailAddress(emailer.smtpUserName, "MoneyTouch");
+                                emailer.isDefaultCredentials = !Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired);
+
+                                if (!String.IsNullOrEmpty(adviserStaffSMTPVo.Password))
+                                    emailer.smtpPassword = Encryption.Decrypt(adviserStaffSMTPVo.Password);
+                                emailer.smtpPort = int.Parse(adviserStaffSMTPVo.Port);
+                                emailer.smtpServer = adviserStaffSMTPVo.HostServer;
+                                emailer.smtpUserName = adviserStaffSMTPVo.Email;
+
+                                if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
+                                {
+                                    email.From = new MailAddress(emailer.smtpUserName, "MoneyTouch");
+                                }
+                            }
+                            bool isMailSent = emailer.SendMail(email);
+
+                            if (isMailSent)
+                            {
+                                statusMessage += "Credentials have been sent to selected customers " ;
+                            }
+                            else
+                            {
+                                statusMessage += "<br/>An error occurred while sending mail to selected customers" ;
+
                             }
                         }
-                        bool isMailSent = emailer.SendMail(email);
-
-                        if (isMailSent)
-                        {
-                            statusMessage += "<br/>Credentials have been sent to " + userVo.Email;
-                        }
-                        else
-                        {
-                            statusMessage += "<br/>An error occurred while sending mail to " + userVo.Email;
-
-                        }
                     }
+                    //if (selectedRecords == 0)
+                    //statusMessage = "Please select RM to send Password";
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText= statusMessage;
+
                 }
-                if (selectedRecords == 0)
-                    statusMessage = "Please select RM to send Password";
-                lblStatusMsg.Text = statusMessage;
+                catch (BaseApplicationException Ex)
+                {
+                    throw Ex;
+                }
+                catch (Exception Ex)
+                {
+                    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                    NameValueCollection FunctionInfo = new NameValueCollection();
+                    FunctionInfo.Add("Method", "RMCustomerUserDetails.ascx:btnGenerate_Click()");
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "RMCustomerUserDetails.ascx:btnGenerate_Click()");
-
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+                    exBase.AdditionalInformation = FunctionInfo;
+                    ExceptionManager.Publish(exBase);
+                    throw exBase;
+                }
             }
         }
 

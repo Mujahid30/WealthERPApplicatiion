@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerEQAlerts.ascx.cs"
     Inherits="WealthERP.Alerts.CustomerEQAlerts" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-
 <div>
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
@@ -22,11 +21,14 @@
             </tr>
             <tr>
                 <td>
+                    <asp:Label ID="lblDisclaimer" runat="server" CssClass="FieldName" Text="Note: To edit alert setup, please delete alert subscription and re-subscribe"
+                        Visible="true" ForeColor="Red"></asp:Label>
+                    <br />
+                    <br />
                     <asp:GridView ID="gvEQAlerts" runat="server" AutoGenerateColumns="False" CellPadding="4"
                         CssClass="GridViewStyle" DataKeyNames="ScripId,AccountId" AllowSorting="True"
-                        Font-Size="Small" HorizontalAlign="Center"
-                        ShowFooter="True" OnRowDataBound="gvEQAlerts_RowDataBound" EnableViewState="true"
-                        PageSize="30">
+                        Font-Size="Small" HorizontalAlign="Center" ShowFooter="True" OnRowDataBound="gvEQAlerts_RowDataBound"
+                        EnableViewState="true" PageSize="30">
                         <%--OnRowDataBound="gvAlertDashboard_RowDataBound"--%>
                         <FooterStyle CssClass="FooterStyle" />
                         <RowStyle CssClass="RowStyle" HorizontalAlign="Center" />
@@ -46,7 +48,7 @@
                                 </FooterTemplate>
                             </asp:TemplateField>
                             <%--Scrip--%>
-                            <asp:BoundField DataField="Scrip" HeaderText="Scrip" />
+                            <asp:BoundField DataField="Scrip" HeaderText="Scrip" ItemStyle-HorizontalAlign="Left" />
                             <%--Absolute Stop Loss Column--%>
                             <asp:TemplateField HeaderText="Absolute Stop Loss">
                                 <ItemTemplate>
@@ -113,8 +115,8 @@
                 </td>
                 <td align="center" width="15%">
                     <asp:Button ID="btnSubmitOccurrence" runat="server" Text="Submit" CssClass="PCGButton"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAlerts_btnSubmitOccurrence', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAlerts_btnSubmitOccurrence', 'S');"
+                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
                         OnClick="btnSubmitOccurrence_Click" />
                 </td>
                 <td class="rightField">

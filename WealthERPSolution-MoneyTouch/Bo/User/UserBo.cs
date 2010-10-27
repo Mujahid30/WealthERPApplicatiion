@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using DaoUser;
 using VoUser;
+using System.Data;
 
 namespace BoUser
 {
@@ -358,39 +359,6 @@ namespace BoUser
 
             return bResult;
         }
-
-        public bool DeleteRoleAssociation(int userId, int roleId)
-        {
-            bool bResult = false;
-            UserDao userDao = new UserDao();
-            try
-            {
-                bResult = userDao.DeleteRoleAssociation(userId, roleId);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection functionInfo = new NameValueCollection();
-                functionInfo.Add("Method", "UserBo.cs:CreateRoleAssociation()");
-                object[] objects = new object[4];
-                objects[0] = userId;
-                objects[1] = roleId;
-                objects[2] = bResult;
-                objects[3] = userDao;
-                functionInfo = exBase.AddObject(functionInfo, objects);
-                exBase.AdditionalInformation = functionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-            return bResult;
-        }
-
-
         public List<string> GetUserRoles(int userId)
         {
             List<string> roleList = new List<string>();
@@ -499,5 +467,107 @@ namespace BoUser
             }
             return bResult;
         }
+
+        /// <summary>
+        /// Function to delete the role association of a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool DeleteRoleAssociation(int userId)
+        {
+            bool bResult = false;
+            UserDao userDao = new UserDao();
+            try
+            {
+                bResult = userDao.DeleteRoleAssociation(userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserBo.cs:DeleteRoleAssociation()");
+                object[] objects = new object[1];
+                objects[0] = userId;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        /// <summary>
+        /// Function to get the role Association of a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public DataTable GetRoleAssociation(int userId)
+        {
+            UserDao userDao = new UserDao();
+            DataTable getRoleAssociationDt;
+            try
+            {
+                getRoleAssociationDt = userDao.GetRoleAssociation(userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserBo.cs:GetRoleAssociation()");
+                object[] objects = new object[1];
+                objects[0] = userId;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getRoleAssociationDt;
+        }
+        /// <summary>
+        /// Function to delete the role association of a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public bool DeleteRoleAssociation(int userId, int roleId)
+        {
+            bool bResult = false;
+            UserDao userDao = new UserDao();
+            try
+            {
+                bResult = userDao.DeleteRoleAssociation(userId, roleId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserBo.cs:CreateRoleAssociation()");
+                object[] objects = new object[4];
+                objects[0] = userId;
+                objects[1] = roleId;
+                objects[2] = bResult;
+                objects[3] = userDao;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+        }
+
+
     }
 }

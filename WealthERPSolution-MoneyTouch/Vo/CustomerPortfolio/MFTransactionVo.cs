@@ -23,6 +23,9 @@ namespace VoCustomerPortfolio
 
         private int m_MFCode;
         private string m_SchemePlan;
+        private string m_Category;
+        private string m_CategoryCode;
+
         private int m_FinancialFlag;
         private DateTime m_TransactionDate;
         private float m_DividendRate;
@@ -117,7 +120,19 @@ namespace VoCustomerPortfolio
             get { return m_SchemePlan; }
             set { m_SchemePlan = value; }
         }
+        
 
+        public string Category
+        {
+            get { return m_Category; }
+            set { m_Category = value; }
+        }
+       
+        public string CategoryCode
+        {
+            get { return m_CategoryCode; }
+            set { m_CategoryCode = value; }
+        }
         public int FinancialFlag
         {
             get { return m_FinancialFlag; }
@@ -242,6 +257,8 @@ namespace VoCustomerPortfolio
             clone.m_PortfolioName = m_PortfolioName;
             clone.m_Price = m_Price;
             clone.m_SchemePlan = m_SchemePlan;
+            clone.m_Category = m_Category;
+            clone.m_CategoryCode = m_CategoryCode;
             clone.m_Source = m_Source;
             clone.m_STT = m_STT;
             clone.m_SwitchSourceTrxId = m_SwitchSourceTrxId;

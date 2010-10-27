@@ -178,11 +178,9 @@ namespace WealthERP.CustomerPortfolio
         {
             if (customerAccountsVo.AccountOpeningDate != DateTime.MinValue)
                 txtAccOpenDate.Text = customerAccountsVo.AccountOpeningDate.ToShortDateString();
-            txtAccOpenDate.Enabled = true;
             txtAccountId.Text = customerAccountsVo.AccountId.ToString();
             if (customerAccountsVo.AccountSource != null)
                 txtAccountWith.Text = customerAccountsVo.AccountSource.ToString();
-            txtAccountWith.Enabled = false;
             if (customerAccountsVo.AssetCategory != null)
                 lblInstrumentCategory.Text = customerAccountsVo.AssetCategory.ToString();
             ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHolding.Trim();
@@ -649,7 +647,6 @@ namespace WealthERP.CustomerPortfolio
                         btnSubmit.Visible = true;
                         btnSaveChanges.Visible = false;
                         lnkEdit.Visible = false;
-                        txtAccountWith.Enabled = false;
                     }
                 }
                 else
@@ -688,9 +685,8 @@ namespace WealthERP.CustomerPortfolio
         {
 
             govtSavingsVo = GetValuesFromFields();
-            customerAccountsVo = customerAccountBo.GetGovtSavingsAccount(govtSavingsVo.AccountId);
-            UpdateAccountDetails(customerAccountsVo);
             bool bResult = govtSavingsBo.CreateGovtSavingsNP(govtSavingsVo, userVo.UserId);
+            UpdateAccountDetails(customerAccountsVo);
             if (bResult)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewGovtSavings','none');", true);
@@ -755,9 +751,13 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
+
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGovtSavings', 'none')", true);
+            if(mode==Mode.Edit || mode == Mode.View)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGovtSavings', 'none')", true);
+            else
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=GS')", true);
         }
         #endregion Events
     }

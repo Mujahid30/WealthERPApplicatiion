@@ -129,11 +129,11 @@
         <td class="rightField" colspan="2">
             <asp:DropDownList ID="ddlExchange" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-            <span id="Span3" class="spnRequiredField">*</span>
+           <%-- <span id="Span3" class="spnRequiredField">*</span>
             <br />
             <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlExchange" CssClass="rfvPCG"
                 ErrorMessage="Please select an Exchange" Operator="NotEqual" ValueToCompare="Select an Exchange"
-                ValidationGroup="EQ"></asp:CompareValidator>
+                ValidationGroup="EQ"></asp:CompareValidator>--%>
         </td>
     </tr>
     <tr valign="center">
@@ -243,7 +243,7 @@
                     <asp:Label ID="lblBroker" runat="server" Text="Broker:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" colspan="2">
-                    <asp:TextBox ID="txtBroker" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtBroker" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
                 </td>
             </tr>
             <tr id="trBrokerage" runat="server">
@@ -252,11 +252,11 @@
                 </td>
                 <td class="rightField" colspan="2">
                     <asp:TextBox ID="txtBrokerage" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span11" class="spnRequiredField">*</span>
+                    <%--<span id="Span11" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtBrokerage" CssClass="rfvPCG"
                         ErrorMessage="<br />Please enter the Brokerage" Display="Dynamic" runat="server"
                         InitialValue="" ValidationGroup="EQ">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtBrokerage" CssClass="rfvPCG"
                         Display="Dynamic" runat="server" ErrorMessage="Not acceptable format." ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
@@ -268,11 +268,11 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtOtherCharge" runat="server" CssClass="txtField"></asp:TextBox>
                     <div id="divOtherCharge" runat="server" class="dvInLine">
-                    <span id="Span12" class="spnRequiredField">*</span>
+                    <%--<span id="Span12" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtOtherCharge"
                         ErrorMessage="<br />Please enter the other charges" Display="Dynamic" runat="server" CssClass="rfvPCG"
                         InitialValue="" ValidationGroup="EQ">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtOtherCharge" CssClass="rfvPCG"
                         Display="Dynamic" runat="server" ErrorMessage="Not acceptable format." ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                         </div>
@@ -290,11 +290,11 @@
                 </td>
                 <td class="rightField" colspan="2">
                     <asp:TextBox ID="txtTax" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span13" class="spnRequiredField">*</span>
+                    <%--<span id="Span13" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtTax" CssClass="rfvPCG"
                         ErrorMessage="<br />Please enter the service tax" Display="Dynamic" runat="server"
                         InitialValue="" ValidationGroup="EQ">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                     <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="<br />Enter a numeric value"
                         Type="Double" ControlToValidate="txtTax" Operator="DataTypeCheck" Display="Dynamic"
                         ValidationGroup="EQ"></asp:CompareValidator>
@@ -306,11 +306,11 @@
                 </td>
                 <td class="rightField" colspan="2">
                     <asp:TextBox ID="txtSTT" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="Span14" class="spnRequiredField">*</span>
+                    <%--<span id="Span14" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtSTT" CssClass="rfvPCG"
                         ErrorMessage="<br />Please enter the STT" Display="Dynamic" runat="server" InitialValue=""
                         ValidationGroup="EQ">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                   <%--  <asp:CompareValidator ID="CompareValidator11" runat="server" ErrorMessage="<br />Enter a numeric value"
                         Type="Double" ControlToValidate="txtSTT" Operator="DataTypeCheck" Display="Dynamic"
                         ValidationGroup="EQ"></asp:CompareValidator>--%>

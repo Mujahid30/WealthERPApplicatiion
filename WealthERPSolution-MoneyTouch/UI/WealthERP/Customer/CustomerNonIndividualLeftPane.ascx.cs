@@ -17,13 +17,9 @@ namespace WealthERP.Customer
             SessionBo.CheckSession();
             if (!IsPostBack)
             {
-                TreeView1.CollapseAll();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerNonIndividualLeftPane');", true);
+                TreeView1.CollapseAll();                
             }
-            //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
-            //{
-            //    SetNode();
-            //}
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerNonIndividualLeftPane');", true);
         }
         protected void Page_PreRender(object sender, EventArgs e)
         {
@@ -31,11 +27,6 @@ namespace WealthERP.Customer
             {
                 SetNode();
             }
-        }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-           
-
         }
         public void SetNode()
         {
@@ -93,6 +84,12 @@ namespace WealthERP.Customer
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+           
+           
+
         }
 
     

@@ -18,7 +18,6 @@
         }
     }
 </script>
-
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 <table class="TableBackground" style="width: 100%;">
@@ -45,18 +44,20 @@
             <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click">Edit</asp:LinkButton>
         </td>
     </tr>
-</table>
+    </table>
 <table class="TableBackground" style="width: 100%;">
     <tr>
-        <tr>
-            <td class="leftField">
-                <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
-            </td>
-            <td class="rightField">
-                <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
-                </asp:DropDownList>
-            </td>
-        </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" 
+                Text="Portfolio Name:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" 
+                onselectedindexchanged="ddlPortfolio_SelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+    </tr>
         <td class="leftField">
             <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Asset Category:"></asp:Label>
         </td>
@@ -65,9 +66,9 @@
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span>
             <br />
-            <asp:CompareValidator ID="cvInsuranceIssuerCode" runat="server" ControlToValidate="ddlCategory"
-                ValidationGroup="btnSubmit" ErrorMessage="Please select an Category" Operator="NotEqual"
-                ValueToCompare="Select a Category" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+            <asp:CompareValidator ID="cvInsuranceIssuerCode" runat="server" ControlToValidate="ddlCategory" ValidationGroup="btnSubmit"
+                ErrorMessage="Please select an Category" Operator="NotEqual" ValueToCompare="Select a Category"
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -76,6 +77,7 @@
         </td>
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtName" runat="server" CssClass="txtField"></asp:TextBox>
+            
         </td>
     </tr>
     <tr>
@@ -84,12 +86,18 @@
         </td>
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtPurchaseDate" runat="server" CssClass="txtField"></asp:TextBox>
-            <cc1:CalendarExtender ID="CalendarExtender_txtPurchaseDate" runat="server" TargetControlID="txtPurchaseDate"
-                Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender_txtPurchaseDate" runat="server"
-                TargetControlID="txtPurchaseDate" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            <span id="Span22" class="spnRequiredField">*</span>
+                      <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPurchaseDate"
+                        ErrorMessage="Please enter the Purchase Date" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG" ValidationGroup="btnSubmit">
+                         </asp:RequiredFieldValidator>
+           <cc1:CalendarExtender ID="CalendarExtender_txtPurchaseDate" runat="server" TargetControlID="txtPurchaseDate"
+                        Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+                    </cc1:CalendarExtender>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender_txtPurchaseDate" runat="server"
+                        TargetControlID="txtPurchaseDate" WatermarkText="dd/mm/yyyy">
+                    </cc1:TextBoxWatermarkExtender>
+                
         </td>
     </tr>
     <tr>
@@ -98,27 +106,29 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtPurchaseValue" runat="server" CssClass="txtField"></asp:TextBox>
-            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPurchaseValue"
+          
+                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPurchaseValue"
                         ErrorMessage="Please enter the Purchase Value" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>--%>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPurchaseValue"
-                ValidationGroup="btnSubmit" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
-                ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
-        </td>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPurchaseValue" ValidationGroup="btnSubmit"
+                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                </td>
         <td class="leftField">
             <asp:Label ID="lblCurrentValue" runat="server" CssClass="FieldName" Text="Current Value(Rs):"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField" ></asp:TextBox>
             <span id="Span5" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtCurrentValue"
-                ValidationGroup="btnSubmit" ErrorMessage="<br />Please enter the Current Value"
-                Display="Dynamic" runat="server" CssClass="cvPCG">
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtCurrentValue" ValidationGroup="btnSubmit"
+                ErrorMessage="<br />Please enter the Current Value" Display="Dynamic" runat="server"
+                CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" CssClass="cvPCG"
-                ControlToValidate="txtCurrentValue" ValidationGroup="btnSubmit" Display="Dynamic"
-                runat="server" ErrorMessage="Please Enter Numeric Values" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtCurrentValue" ValidationGroup="btnSubmit"
+                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+             
+            
+           
         </td>
     </tr>
     <tr>
@@ -141,11 +151,11 @@
     </tr>
     <tr>
         <td class="SubmitCell" colspan="4">
-            <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnSubmit_Click"
-                ValidationGroup="btnSubmit" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioCollectiblesEntry_btnSubmit');"
+            <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit"
+                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioCollectiblesEntry_btnSubmit');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioCollectiblesEntry_btnSubmit');" />
-            <asp:Button ID="btnSaveChanges" runat="server" Text="Update" CssClass="PCGButton"
-                ValidationGroup="btnSubmit" OnClick="btnSaveChanges_Click" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioCollectiblesEntry_btnSubmit');"
+            <asp:Button ID="btnSaveChanges" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="btnSubmit"
+                OnClick="btnSaveChanges_Click" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioCollectiblesEntry_btnSubmit');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioCollectiblesEntry_btnSubmit');" />
         </td>
     </tr>

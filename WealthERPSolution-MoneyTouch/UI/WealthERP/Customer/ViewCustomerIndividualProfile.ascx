@@ -20,19 +20,42 @@
     function showmessage() {
 
         var bool = window.confirm('Are you sure you want to delete this profile?');
+       
         if (bool) {
+           
             document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnMsgValue").value = 1;
-            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenDelete").click();
+            
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociation").click();
+         
             return false;
         }
         else {
             document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenDelete").click();
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociation").click();
+            return true;
+        }
+    }
+    //*****************************************************************
+
+    function showassocation() {
+
+        var bool = window.confirm('Customer has associations,cannot be deteted');
+        if (bool) {
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnassociation").value = 1;
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociationfound").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnassociation").value = 0;
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociationfound").click();
             return true;
         }
     }
    
+   
 </script>
+
+
 
 <table class="TableBackground" style="width: 100%">
     <tr>
@@ -50,11 +73,27 @@
         </td>
     </tr>
     <tr>
+    <td>
+    </td>
+    <td>
+    <asp:Checkbox ID="chkprospect" runat="server" CssClass="txtField"  Text="Prospect" 
+                AutoPostBack="false"  Enabled = "false" /></asp:Label>
+                </td>
+    </tr>
+    <tr>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -83,7 +122,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label4" runat="server" Text="Name (First/Middle/Last):" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label4" runat="server" Text="Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" width="75%">
             <asp:Label ID="lblName" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -111,11 +150,18 @@
         </td>
         <td class="rightField" width="75%">
             <asp:Label ID="lblPanNum" runat="server" Text="Label" CssClass="Field"></asp:Label>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="Field" 
+                AutoPostBack="true"  Enabled = "false"/>
+                <asp:Label ID="Label6" runat="server"  Text="Dummy PAN" CssClass="Field" Style="vertical-align:top Important;"></asp:Label>
+               
         </td>
     </tr>
     <tr id="trGuardianName" runat="server">
         <td class="leftField">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Guardian Name(First/Middle/Last):"></asp:Label>
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Guardian Name:"></asp:Label>
         </td>
         <td class="rightField" width="75%">
             <asp:Label ID="lblGuardianName" runat="server" CssClass="Field"></asp:Label>
@@ -151,7 +197,7 @@
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="Label11" runat="server" Text="Line1(HouseNo/Building):" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="Label11" runat="server" Text="Line1(House No./Building):" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField" colspan="3">
                                 <asp:Label ID="lblCorrLine1" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -167,7 +213,7 @@
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="Label13" runat="server" Text="Line3(Building):" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="Label13" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
                                 <asp:Label ID="lblCorrLine3" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -225,7 +271,7 @@
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="Label60" runat="server" Text="Line1(House No/Building):" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="Label60" runat="server" Text="Line1(House No./Building):" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField" colspan="3">
                                 <asp:Label ID="lblPermLine1" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -301,7 +347,7 @@
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="Label27" runat="server" Text="Line1(House No/Building):" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="Label27" runat="server" Text="Line1(House No./Building):" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField" colspan="3">
                                 <asp:Label ID="lblOfcLine1" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -375,7 +421,7 @@
                         </tr>
                         <tr>
                             <td class="leftField" width="25%">
-                                <asp:Label ID="Label36" runat="server" Text="Telephone No. (Res):" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="Label36" runat="server" Text="Telephone No.(Res):" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField" width="25%">
                                 <asp:Label ID="lblResPhone" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -474,6 +520,21 @@
                             </td>
                         </tr>
                         <tr>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="lblMarriageDat" runat="server" Text="Marriage Date:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                <asp:Label ID="lblMarriageDate" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                            </td>
+                            <td class="leftField" width="25%">
+                                <asp:Label ID="lblMotherMaidenName" runat="server" Text="Mother's Maiden Name:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                <asp:Label ID="lblMotherMaiden" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                            </td>
+                            
+                        </tr>
+                        <tr>
                             <td class="leftField" width="25%">
                                 <asp:Label ID="Label49" runat="server" Text="RBI Reference No:" CssClass="FieldName"></asp:Label>
                             </td>
@@ -488,13 +549,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="leftField" width="25%">
-                                <asp:Label ID="lblMotherMaidenName" runat="server" Text="Mother's Maiden Name:" CssClass="FieldName"></asp:Label>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="Label3" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField" width="25%">
-                                <asp:Label ID="lblMotherMaiden" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                                 <asp:Checkbox ID="chkmail" runat="server" CssClass="txtField" Text="Via Mail"
+                AutoPostBack="true"  Enabled = "false"/>
+                &nbsp;
+            &nbsp;
+                 <asp:Checkbox ID="chksms" runat="server" CssClass="txtField" Text="Via SMS"
+                AutoPostBack="true"  Enabled = "false"/>
                             </td>
                         </tr>
+                        
                     </table>
                 </div>
             </div>
@@ -502,12 +569,18 @@
     </tr>
     <tr id="trDelete" runat="server">
         <td colspan="2" class="SubmitCell">
-            <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"
+            <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" Visible="false"
                 CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ViewCustomerIndividualProfile_btnDelete', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewCustomerIndividualProfile_btnDelete', 'S');" />
-            <asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
-                BorderStyle="None" BackColor="Transparent" />
+            <%--<asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
+                BorderStyle="None" BackColor="Transparent" />--%>
+                <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" Text=""
+                BorderStyle="None" Visible="false" />
+                <asp:Button ID="hdnassociationf" runat="server" OnClick="hiddenassociationfound_Click" Text=""
+                BorderStyle="None" BackColor="Transparent" Visible="false" />
             <asp:HiddenField ID="hdnMsgValue" runat="server" />
+             <asp:HiddenField ID="hdnassociation" runat="server" />
+            <asp:HiddenField ID="hdnassociationcount" runat="server" />
         </td>
     </tr>
 </table>

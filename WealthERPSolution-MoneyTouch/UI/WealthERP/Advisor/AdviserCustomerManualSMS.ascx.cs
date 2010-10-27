@@ -32,10 +32,13 @@ namespace WealthERP.Advisor
             if (Session["advisorVo"] != null)
                 adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
             dsAdviserSubscriptionDetails = adviserBo.GetAdviserSubscriptionDetails(adviserId);
-            if (dsAdviserSubscriptionDetails != null && dsAdviserSubscriptionDetails.Tables[0].Rows.Count!=0)
+            if (dsAdviserSubscriptionDetails != null)
             {
-                DataRow drAdviserSubscriptionDetails = dsAdviserSubscriptionDetails.Tables[0].Rows[0];
-                smsLicense = int.Parse(drAdviserSubscriptionDetails["AS_SMSLicenece"].ToString());
+                if (dsAdviserSubscriptionDetails.Tables[0].Rows.Count > 0)
+                {
+                    DataRow drAdviserSubscriptionDetails = dsAdviserSubscriptionDetails.Tables[0].Rows[0];
+                    smsLicense = int.Parse(drAdviserSubscriptionDetails["AS_SMSLicenece"].ToString());
+                }
             }
             if (smsLicense == 0)
             {
@@ -115,7 +118,7 @@ namespace WealthERP.Advisor
             
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                if (e.Row.Cells[2].Text == "0" || e.Row.Cells[2].Text == "" ||  e.Row.Cells[2].Text =="&nbsp;")
+                if (e.Row.Cells[2].Text == "0" || e.Row.Cells[2].Text == "")
                 {
                     ((CheckBox)e.Row.FindControl("chkCustomerSMSAlert")).Visible = false;
                     e.Row.Cells[2].Text = "";

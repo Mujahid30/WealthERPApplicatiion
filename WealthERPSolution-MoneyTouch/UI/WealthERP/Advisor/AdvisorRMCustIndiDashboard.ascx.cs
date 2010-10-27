@@ -35,23 +35,25 @@ namespace WealthERP.Advisor
         CustomerBo customerBo = new CustomerBo();
         UserVo userVo = new UserVo();
         AssetBo assetBo = new AssetBo();
+        InsuranceBo insuranceBo = new InsuranceBo();
         PortfolioBo portfolioBo = new PortfolioBo();
         DataSet dsCustomerAssetMaturityDates = new DataSet();
         DataSet dsAssetAggrCurrentValues = new DataSet();
         DataSet dsCustomerAlerts = new DataSet();
+        DataSet dsInsuranceDetails = new DataSet();
         DataRow drMaturityDates;
         DataRow drCurrentValues;
         DataRow drCustomerAlerts;
+        DataRow drLifeInsurance;
+        DataRow drGeneralInsurance;
         int customerId;
         int portfolioId;
         int memberCustomerId;
         int userId;
         string metatablePrimaryKey;
-        double sum=0;
+        double sum = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
             try
             {
                 SessionBo.CheckSession();
@@ -63,13 +65,15 @@ namespace WealthERP.Advisor
                 customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                 portfolioId = customerPortfolioVo.PortfolioId;
                 Session[SessionContents.PortfolioId] = portfolioId;
-                lblMessage.Visible = false;
+                //lblMessage.Visible = false;
                 //trlblerrormsg.Visible = false;
                 lblMaturityMsg.Visible = false;
-                BindCustomerFamilyGrid();
+                lblLifeInsurance.Visible = false;
+                lblGeneralInsurance.Visible = false;
                 BindCustomerAssetMaturityDates();
                 BindAssetInvestments();
                 BindAssetCurrentValChart();
+                BindCustInsuranceDetails();
                 BindCustomerAlerts();
             }
 
@@ -106,76 +110,6 @@ namespace WealthERP.Advisor
             }
 
         }
-        //Function to populate the Customer Family Member details in the Grid
-        public void BindCustomerFamilyGrid()
-        {
-            DataTable dtCustomerFamily = new DataTable();
-            DataRow drCustomerFamily;
-            try
-            {
-                customerFamilyList = customerFamilyBo.GetCustomerFamily(customerId);
-                if (customerFamilyList == null)
-                {
-                    lblMessage.Visible = true;
-                    //trlblerrormsg.Visible = true;
-                    lblFamilyMembersNum.Text = "0";
-                }
-                else
-                {
-                    lblMessage.Visible = false;
-                    //trlblerrormsg.Visible = false;
-                   
-                    dtCustomerFamily.Columns.Add("Member Name");
-                    dtCustomerFamily.Columns.Add("Relationship");
-                    lblFamilyMembersNum.Text = customerFamilyList.Count.ToString();
-
-                    
-                    for (int i = 0; i < customerFamilyList.Count; i++)
-                    {
-                        drCustomerFamily = dtCustomerFamily.NewRow();
-
-                        customerFamilyVo = customerFamilyList[i];
-                        memberCustomerId = customerFamilyVo.AssociateCustomerId;
-                        customerMemberVo = customerBo.GetCustomer(memberCustomerId);
-                        drCustomerFamily[0] = customerMemberVo.FirstName.ToString() + " " + customerMemberVo.MiddleName.ToString() + " " + customerMemberVo.LastName.ToString();
-                        drCustomerFamily[1] = customerFamilyVo.Relationship.ToString();
-
-                        dtCustomerFamily.Rows.Add(drCustomerFamily);
-
-                    }
-
-                    gvCustomerFamily.DataSource = dtCustomerFamily;
-                    gvCustomerFamily.DataBind();
-                    gvCustomerFamily.Visible = true; 
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "AdvisorRMCustIndiDashboard.ascx:BindCustomerFamilyGrid()");
-
-
-                object[] objects = new object[4];
-
-                objects[0] = customerVo;                
-                objects[2] = customerMemberVo;                
-                objects[4] = customerFamilyVo;
-                objects[5] = customerFamilyList;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-        }
 
         //function to populate the maturity dates in the grid
         public void BindCustomerAssetMaturityDates()
@@ -190,7 +124,7 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    
+
                     dtMaturityDates.Columns.Add("Asset Group");
                     dtMaturityDates.Columns.Add("Asset Particulars");
                     dtMaturityDates.Columns.Add("Maturity Date");
@@ -252,36 +186,60 @@ namespace WealthERP.Advisor
             {
                 dsAssetAggrCurrentValues = assetBo.GetPortfolioAssetAggregateCurrentValues(portfolioId);
                 liabilityValue = assetBo.GetCustomerPortfolioLiability(portfolioId);
-                if (dsAssetAggrCurrentValues.Tables[0].Rows.Count == 0)
+                if (dsAssetAggrCurrentValues.Tables[0].Rows.Count == 0 && liabilityValue == 0)
                 {
                     lblAssetDetailsMsg.Visible = true;
                 }
                 else
                 {
                     lblAssetDetailsMsg.Visible = false;
-                    
+
                     dtAssetAggrCurrentValues.Columns.Add("Asset Class");
                     dtAssetAggrCurrentValues.Columns.Add("Current Value");
 
 
                     foreach (DataRow dr in dsAssetAggrCurrentValues.Tables[0].Rows)
                     {
-                        drCurrentValues = dtAssetAggrCurrentValues.NewRow();
+                        if (double.Parse(dr["AggrCurrentValue"].ToString()) != 0)
+                        {
 
-                        drCurrentValues[0] = dr["AssetType"].ToString();
-                        drCurrentValues[1] = String.Format("{0:n2}", double.Parse(dr["AggrCurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                            drCurrentValues = dtAssetAggrCurrentValues.NewRow();
 
-                        dtAssetAggrCurrentValues.Rows.Add(drCurrentValues);
+                            drCurrentValues[0] = dr["AssetType"].ToString();
+                            drCurrentValues[1] = double.Parse(dr["AggrCurrentValue"].ToString()).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
-                        sum=sum+double.Parse(dr["AggrCurrentValue"].ToString());
+                            dtAssetAggrCurrentValues.Rows.Add(drCurrentValues);
+
+                            sum = sum + double.Parse(dr["AggrCurrentValue"].ToString());
+                        }
                     }
+                    //Adding Assets total to the data table to display in the gridview
+                    drCurrentValues = dtAssetAggrCurrentValues.NewRow();
+                    drCurrentValues[0] = "Assets Total";
+                    drCurrentValues[1] = double.Parse(sum.ToString()).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")); ;
+                    dtAssetAggrCurrentValues.Rows.Add(drCurrentValues);
+
+                    //Adding Liabilities to the data table to display in the gridview
+                    drCurrentValues = dtAssetAggrCurrentValues.NewRow();
+                    drCurrentValues[0] = "Liabilities";
+                    drCurrentValues[1] = double.Parse(liabilityValue.ToString()).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")); ;
+                    dtAssetAggrCurrentValues.Rows.Add(drCurrentValues);
+
+                    //Adding Net Worth to the data table to display in the gridview
+                    drCurrentValues = dtAssetAggrCurrentValues.NewRow();
+                    drCurrentValues[0] = "Net Worth";
+                    networth = sum - liabilityValue;
+                    drCurrentValues[1] = double.Parse(networth.ToString()).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")); ;
+                    dtAssetAggrCurrentValues.Rows.Add(drCurrentValues);
+
                     gvAssetAggrCurrentValue.DataSource = dtAssetAggrCurrentValues;
                     gvAssetAggrCurrentValue.DataBind();
                     gvAssetAggrCurrentValue.Visible = true;
-                    networth = sum - liabilityValue;
-                    lblAssets.Text = String.Format("{0:n2}", double.Parse(sum.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    lblLiabilityValue.Text = String.Format("{0:n2}", double.Parse(liabilityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    lblNetWorth.Text = String.Format("{0:n2}", double.Parse(networth.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+
+                    //networth = sum - liabilityValue;
+                    //lblAssets.Text = String.Format("{0:n2}", double.Parse(sum.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    //lblLiabilityValue.Text = String.Format("{0:n2}", double.Parse(liabilityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    //lblNetWorth.Text = String.Format("{0:n2}", double.Parse(networth.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 }
             }
             catch (BaseApplicationException Ex)
@@ -309,11 +267,11 @@ namespace WealthERP.Advisor
 
         public void BindAssetCurrentValChart()
         {
-              Series seriesAssets=null;
-              Legend legend = null;
-              int i = 0;
-              string[] XValues = null;
-              double[] YValues = null;
+            Series seriesAssets = null;
+            Legend legend = null;
+            int i = 0;
+            string[] XValues = null;
+            double[] YValues = null;
             try
             {
 
@@ -323,7 +281,7 @@ namespace WealthERP.Advisor
                 legend.Enabled = true;
                 XValues = new string[dsAssetAggrCurrentValues.Tables[0].Rows.Count];
                 YValues = new double[dsAssetAggrCurrentValues.Tables[0].Rows.Count];
-               
+
                 seriesAssets.ChartType = SeriesChartType.Pie;
 
 
@@ -434,7 +392,7 @@ namespace WealthERP.Advisor
                     {
                         drCustomerAlerts = dtCustomerAlerts.NewRow();
 
-                        drCustomerAlerts[0] = dr["EventCode"].ToString() +" : "+ dr["Name"].ToString();
+                        drCustomerAlerts[0] = dr["EventCode"].ToString() + " : " + dr["Name"].ToString();
                         drCustomerAlerts[1] = dr["EventMessage"].ToString();
 
                         dtCustomerAlerts.Rows.Add(drCustomerAlerts);
@@ -473,12 +431,12 @@ namespace WealthERP.Advisor
 
         protected string GetSchemeName(string alertType, int SchemeID)
         {
-            string schemeName="";
+            string schemeName = "";
 
-            DataSet dsmetatableDetails=null;
-            DataSet dsSchemeName=null;
-            string tableName="";
-            string description="";
+            DataSet dsmetatableDetails = null;
+            DataSet dsSchemeName = null;
+            string tableName = "";
+            string description = "";
 
 
             try
@@ -509,7 +467,7 @@ namespace WealthERP.Advisor
                 {
                     schemeName = "N/A";
                 }
-               
+
 
             }
             catch (BaseApplicationException Ex)
@@ -549,5 +507,209 @@ namespace WealthERP.Advisor
 
         //    }
         //}
+
+        //function to populate the Life Insurance and General Insurance Grids  
+
+        /// <summary>
+        /// function to Bind the Life Insurance and General Insurance of the Customer to the grids
+        /// </summary>
+        public void BindCustInsuranceDetails()
+        {
+            DataTable dtLifeInsDetails = new DataTable();
+            DataTable dtGenInsDetails = new DataTable();
+            try
+            {
+                //Binding the Life Insurance Gid
+                dsInsuranceDetails = insuranceBo.GetCustomerDashboardInsuranceDetails(customerId);
+                if (dsInsuranceDetails.Tables[0].Rows.Count == 0)
+                {
+                    lblLifeInsurance.Visible = true;
+                }
+                else
+                {
+                    dtLifeInsDetails.Columns.Add("Policy");
+                    dtLifeInsDetails.Columns.Add("InsuranceType");
+                    dtLifeInsDetails.Columns.Add("SumAssured");
+                    dtLifeInsDetails.Columns.Add("PremiumAmount");
+                    dtLifeInsDetails.Columns.Add("PremiumFrequency");
+
+                    foreach (DataRow dr in dsInsuranceDetails.Tables[0].Rows)
+                    {
+                        drLifeInsurance = dtLifeInsDetails.NewRow();
+
+                        drLifeInsurance[0] = dr["Policy"].ToString();
+                        drLifeInsurance[1] = dr["InsuranceType"].ToString();
+                        drLifeInsurance[2] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drLifeInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
+                        drLifeInsurance[4] = dr["PremiumFrequency"].ToString();
+
+                        dtLifeInsDetails.Rows.Add(drLifeInsurance);
+                    }
+                    gvLifeInsurance.DataSource = dtLifeInsDetails;
+                    gvLifeInsurance.DataBind();
+                    gvLifeInsurance.Visible = true;
+                }
+
+                //Binding the General Insurance Gid
+                if (dsInsuranceDetails.Tables[1].Rows.Count == 0)
+                {
+                    lblGeneralInsurance.Visible = true;
+                }
+                else
+                {
+                    dtGenInsDetails.Columns.Add("PolicyIssuer");
+                    dtGenInsDetails.Columns.Add("InsuranceType");
+                    dtGenInsDetails.Columns.Add("SumAssured");
+                    dtGenInsDetails.Columns.Add("PremiumAmount");
+
+                    foreach (DataRow dr in dsInsuranceDetails.Tables[1].Rows)
+                    {
+                        drGeneralInsurance = dtGenInsDetails.NewRow();
+
+                        drGeneralInsurance[0] = dr["PolicyIssuer"].ToString();
+                        drGeneralInsurance[1] = dr["InsuranceType"].ToString();
+                        drGeneralInsurance[2] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drGeneralInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
+
+                        dtGenInsDetails.Rows.Add(drGeneralInsurance);
+                    }
+                    gvGeneralInsurance.DataSource = dtGenInsDetails;
+                    gvGeneralInsurance.DataBind();
+                    gvGeneralInsurance.Visible = true;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorRMCustIndiDashboard.ascx:BindCustInsuranceDetails()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        /// <summary>
+        /// Goes to the corresponding Grids on the click on the Assets class on the Assets Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lnkAssetClassAssetsGrid_Click(object sender, EventArgs e)
+        {
+            string str = ((LinkButton)sender).Text;
+            //GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            //int rowIndex = gvRow.RowIndex;
+            //DataKey dk = gvAssetAggrCurrentValue.DataKeys[rowIndex];
+            //int customerId = Convert.ToInt32(dk.Value);
+
+            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+            Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+            if (str == "Mutual Fund")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewMutualFundPortfolio','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
+            }
+            else if (str == "Fixed Income")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioFixedIncomeView','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioFixedIncomeView','none');", true);
+            }
+            else if (str == "Govt Savings")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewGovtSavings','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGovtSavings','none');", true);
+            }
+            else if (str == "Property")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioProperty','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioProperty','none');", true);
+            }
+            else if (str == "Pension & Gratuities")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PensionPortfolio','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionPortfolio','none');", true);
+            }
+            else if (str == "Personal Items")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioPersonal','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPersonal','none');", true);
+            }
+            else if (str == "Gold")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewGoldPortfolio','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio','none');", true);
+            }
+            else if (str == "Collectibles")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewCollectiblesPortfolio','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCollectiblesPortfolio','none');", true);
+            }
+            else if (str == "Cash&Savings")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioCashSavingsView','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCashSavingsView','none');", true);
+            }
+            else if (str == "Direct Equity")
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewEquityPortfolios','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolios','none');", true);
+            }
+            else 
+            {
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('LiabilityView','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('LiabilityView','none');", true);
+            }
+
+        }
+
+        protected void gvAssetAggrCurrentValue_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            String str;
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (e.Row.FindControl("lnkAssetClass") != null)
+                {
+                    if (((LinkButton)e.Row.FindControl("lnkAssetClass")).Text.ToString() == "Assets Total" || ((LinkButton)e.Row.FindControl("lnkAssetClass")).Text.ToString() == "Net Worth")
+                    {
+                        str = ((LinkButton)e.Row.FindControl("lnkAssetClass")).Text.ToString();
+                        e.Row.Cells[0].Controls.Remove(e.Row.FindControl("lnkAssetClass"));
+                        e.Row.Cells[0].Text = str;
+                    }
+                }
+            }
+
+        }
     }
 }

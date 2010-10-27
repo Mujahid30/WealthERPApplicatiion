@@ -16,6 +16,7 @@ using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using BoAdvisorProfiling;
 
 namespace WealthERP.Customer
 {
@@ -28,7 +29,7 @@ namespace WealthERP.Customer
         RMVo rmVo = new RMVo();
         UserVo userVo = new UserVo();
         UserBo userBo = new UserBo();
-
+        AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         UserVo tempUserVo = new UserVo();
         DataTable dtCustomerSubType = new DataTable();
         string assetInterest;
@@ -238,6 +239,7 @@ namespace WealthERP.Customer
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
         {
             BindSubTypeDropDown();
+            trSalutation.Visible = true;
         }
 
         private void BindSubTypeDropDown()
@@ -291,6 +293,7 @@ namespace WealthERP.Customer
                 ddlCustomerSubType.Items.Insert(0, new ListItem("Select a Sub-Type", "Select a Sub-Type"));
                 trIndividualName.Visible = false;
                 trNonIndividualName.Visible = true;
+                trSalutation.Visible = false;
             }
             catch (BaseApplicationException Ex)
             {
@@ -331,7 +334,14 @@ namespace WealthERP.Customer
                         customerVo.FirstName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
-
+                        if (ddlSalutation.SelectedIndex==0)
+                        {
+                            customerVo.Salutation = "";
+                        }
+                        else
+                        {
+                            customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
+                        }
                         userVo.FirstName = txtFirstName.Text.ToString();
                         userVo.MiddleName = txtMiddleName.Text.ToString();
                         userVo.LastName = txtLastName.Text.ToString();
@@ -343,10 +353,27 @@ namespace WealthERP.Customer
                         customerVo.RmId = rmVo.RMId;
                         customerVo.Type = "NIND";
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
-                        customerVo.LastName = txtCompanyName.Text.ToString();
+                        customerVo.FirstName = txtCompanyName.Text.ToString();
                         userVo.LastName = txtCompanyName.Text.ToString();
                     }
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
+                    if (chkdummypan.Checked)
+                    {
+                        customerVo.DummyPAN = 1;
+                    }
+                    else
+                    {
+                        customerVo.DummyPAN = 0;
+                    }
+                    if (chkprospect.Checked)
+                    {
+                        customerVo.IsProspect = 1;
+                    }
+                    else
+                    {
+                        customerVo.IsProspect = 0;
+                    }
+
                     customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.PANNum = txtPanNumber.Text.ToString();
@@ -414,7 +441,14 @@ namespace WealthERP.Customer
                         customerVo.FirstName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
-
+                        if (ddlSalutation.SelectedIndex == 0)
+                        {
+                            customerVo.Salutation = "";
+                        }
+                        else
+                        {
+                            customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
+                        }
                         userVo.FirstName = txtFirstName.Text.ToString();
                         userVo.MiddleName = txtMiddleName.Text.ToString();
                         userVo.LastName = txtLastName.Text.ToString();
@@ -422,12 +456,11 @@ namespace WealthERP.Customer
                     else if (rbtnNonIndividual.Checked)
                     {
                         customerVo.Type = "NIND";
-                        customerVo.CompanyName = txtCompanyName.Text.ToString();
-                        customerVo.LastName = txtCompanyName.Text.ToString();
-                        customerVo.MiddleName = "";
-                        customerVo.FirstName = "";
+                        customerVo.FirstName = txtCompanyName.Text.ToString();
+                        customerVo.LastName = txtFirstName.Text.ToString();
+                        customerVo.MiddleName = txtMiddleName.Text.ToString();
+                        //customerVo.FirstName = txtLastName.Text.ToString();
                         userVo.LastName = txtCompanyName.Text.ToString();
-
                     }
                     //customerVo.CustomerId = customerBo.GenerateId();
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
@@ -504,13 +537,22 @@ namespace WealthERP.Customer
         private void BindListBranch(int rmId, string userType)
         {
             UploadCommonBo uploadCommonBo = new UploadCommonBo();
-            DataSet ds = uploadCommonBo.GetAdviserBranchList(rmId, userType);
-
-            ddlAdviserBranchList.DataSource = ds.Tables[0];
-            ddlAdviserBranchList.DataTextField = "AB_BranchName";
-            ddlAdviserBranchList.DataValueField = "AB_BranchId";
-            ddlAdviserBranchList.DataBind();
-            ddlAdviserBranchList.Items.Insert(0, new ListItem("Select a Branch", "Select a Branch"));
+            //DataSet ds = uploadCommonBo.GetAdviserBranchList(rmId, userType);
+            DataSet dsAssociatedBranch=advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, 0, "A");
+            if (dsAssociatedBranch!=null && dsAssociatedBranch.Tables[0].Rows.Count > 0)
+            {
+                ddlAdviserBranchList.DataSource = dsAssociatedBranch.Tables[0];
+                ddlAdviserBranchList.DataTextField = "AB_BranchName";
+                ddlAdviserBranchList.DataValueField = "AB_BranchId";
+                ddlAdviserBranchList.DataBind();
+                ddlAdviserBranchList.Items.Insert(0, new ListItem("Select a Branch", "Select a Branch"));
+            }
+            else
+            {
+                ddlAdviserBranchList.Items.Insert(0, new ListItem("No Branches Available to Associate", "No Branches Available to Associate"));
+                ddlAdviserBranchList_CompareValidator2.ValueToCompare = "No Branches Available to Associate";
+                ddlAdviserBranchList_CompareValidator2.ErrorMessage = "Cannot Add Customer Without a Branch";
+            }
         }
     }
 }

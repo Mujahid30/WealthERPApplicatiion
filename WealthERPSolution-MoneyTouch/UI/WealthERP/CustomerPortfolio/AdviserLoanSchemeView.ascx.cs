@@ -56,7 +56,7 @@ namespace WealthERP.Loans
            }
 
             int count;
-            gvAdviserLoanSchemeView.DataSource = LiabilitiesBo.GetLoanSchemes(mypager.CurrentPage, out count);
+            gvAdviserLoanSchemeView.DataSource = LiabilitiesBo.GetLoanSchemes(advisorVo.advisorId, mypager.CurrentPage, out count);
             gvAdviserLoanSchemeView.DataBind();
             hdnRecordCount.Value = count.ToString();
 
@@ -125,31 +125,19 @@ namespace WealthERP.Loans
                 schemeId = int.Parse(gvAdviserLoanSchemeView.DataKeys[selectedRow].Values["SchemeId"].ToString());
                 if (ddlAction.SelectedValue == "Edit")
                 {
-                    if (Session["LoanSchemeView"].ToString() == "SuperAdmin")
-                    {
-                        string url = "?schemeId=" + schemeId + "&mode=Edit";
-                        Session["LoanSchemeId"] = schemeId;
-                        Session["LoanSchemeViewStatus"] = "Edit";
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','" + url + "');", true);
-                    }
-                    else
-                    {
-                        EditDisabledMessage.Visible = true;
-                        lblEditMessageDisabled.Text = "Advisor dont have rights to Edit Scheme";
-                    }
+                    string url = "?schemeId=" + schemeId + "&mode=Edit";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','" + url + "');", true);
                 }
                 else if (ddlAction.SelectedValue == "View")
                 {
                     string url = "?schemeId=" + schemeId + "&mode=View";
-                    Session["LoanSchemeId"] = schemeId;
-                    Session["LoanSchemeViewStatus"] = "View";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','" + url + "');", true);
                 }
 
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
 
         }
@@ -158,7 +146,6 @@ namespace WealthERP.Loans
         {
             //string url = "?schemeId=" + schemeId + "&mode=View";
             string url = "?mode=Add";
-            Session["LoanSchemeViewStatus"] = "Add";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','" + url + "');", true);
         }
     }

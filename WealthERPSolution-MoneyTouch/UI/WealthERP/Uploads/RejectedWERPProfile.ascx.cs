@@ -83,6 +83,7 @@ namespace WealthERP.Uploads
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            btnReprocess.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             ProcessId = 0;
             uploadsCommonBo = new UploadCommonBo();
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
@@ -186,7 +187,7 @@ namespace WealthERP.Uploads
                         ddlRejectReason.DataTextField = "Key";
                         ddlRejectReason.DataValueField = "Value";
                         ddlRejectReason.DataBind();
-                        ddlRejectReason.Items.Insert(0, new ListItem("Select Reject Reason", "Select Reject Reason"));
+                        ddlRejectReason.Items.Insert(0, new ListItem("Select", "Select"));
                     }
 
                     if (hdnRejectReasonFilter.Value != "")
@@ -253,7 +254,7 @@ namespace WealthERP.Uploads
                     ddlPanNum.DataTextField = "Key";
                     ddlPanNum.DataValueField = "Value";
                     ddlPanNum.DataBind();
-                    ddlPanNum.Items.Insert(0, new ListItem("Select PAN Number", "Select PAN Number"));
+                    ddlPanNum.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnPANFilter.Value != "")
@@ -444,18 +445,18 @@ namespace WealthERP.Uploads
                 }
             }
 
-
+            
             if (blResult)
             {
                 // Success Message
-                trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Done Successfully!";
+                //trErrorMessage.Visible = true;
+                //lblError.Text = "Reprocess Done Successfully!";
+                msgReprocessComplete.Visible = true;
             }
             else
             {
-                // Failure Message
-                trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Failure!";
+                // Failure Message                
+                msgReprocessincomplete.Visible = true;
             }
 
             BindWerpProfileGrid(ProcessId);

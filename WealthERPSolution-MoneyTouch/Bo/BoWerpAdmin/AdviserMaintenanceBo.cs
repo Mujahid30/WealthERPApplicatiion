@@ -13,14 +13,14 @@ namespace BoWerpAdmin
 {
     public class AdviserMaintenanceBo
     {
-        public List<AdvisorVo> GetAdviserListWithPager(int CurrentPage, out int Count, string SortExpression,string filterExpression)
+        public List<AdvisorVo> GetAdviserListWithPager(int CurrentPage, out int Count, string SortExpression, string filterExpression)
         {
 
             List<AdvisorVo> adviserVoList = new List<AdvisorVo>();
             AdviserMaintenanceDao adviserMaintenanceDao = new AdviserMaintenanceDao();
             try
             {
-                adviserVoList = adviserMaintenanceDao.GetAdviserListWithPager(CurrentPage, out Count, SortExpression,filterExpression);
+                adviserVoList = adviserMaintenanceDao.GetAdviserListWithPager(CurrentPage, out Count, SortExpression, filterExpression);
             }
             catch (BaseApplicationException Ex)
             {
@@ -72,19 +72,20 @@ namespace BoWerpAdmin
 
         public DataSet GetMessageBroadcast()
         {
-            AdviserMaintenanceDao advisormaintanencedao=new AdviserMaintenanceDao();
+            AdviserMaintenanceDao advisormaintanencedao = new AdviserMaintenanceDao();
             DataSet dsGetMessageBroadcast = advisormaintanencedao.GetMessageBroadcast();
             return dsGetMessageBroadcast;
         }
         public void UpdateMessageBroadcast(int BroadcastMessageId, Int16 IsActive)
         {
-            AdviserMaintenanceDao advisormaintanencedao=new AdviserMaintenanceDao();
+            AdviserMaintenanceDao advisormaintanencedao = new AdviserMaintenanceDao();
             advisormaintanencedao.UpdateMessageBroadcast(BroadcastMessageId, IsActive);
         }
-        public void MessageBroadcastSendMessage(string BroadcastMessage, DateTime Broadcasttime)
+        public void MessageBroadcastSendMessage(string BroadcastMessage, DateTime Broadcasttime, DateTime ExpiryDate)
         {
             AdviserMaintenanceDao advisormaintanencedao = new AdviserMaintenanceDao();
-            advisormaintanencedao.MessageBroadcastSendMessage(BroadcastMessage, Broadcasttime);
+            advisormaintanencedao.MessageBroadcastSendMessage(BroadcastMessage, Broadcasttime,ExpiryDate);
         }
     }
 }
+

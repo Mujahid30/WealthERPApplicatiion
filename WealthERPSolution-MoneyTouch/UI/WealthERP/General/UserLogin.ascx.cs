@@ -28,6 +28,7 @@ namespace WealthERP.General
         {
 
         }
+
         protected void btnSignIn_Click(object sender, EventArgs e)
         {
             UserVo userVo = new UserVo();
@@ -44,9 +45,9 @@ namespace WealthERP.General
             string sourcePath = "";
             string branchLogoSourcePath = "";
             int count;
+            bool isGrpHead = false;
             if (!CheckSuperAdmin())
             {
-
                 if (txtLoginId.Text == "" || txtPassword.Text == "")
                 {
                     lblIllegal.Visible = true;
@@ -83,32 +84,9 @@ namespace WealthERP.General
                             string UserName = userVo.FirstName + " " + userVo.LastName;
 
 
-
-                            //if (userVo.UserType == "Branch Man")
-                            //{
-                            //    roleList = userBo.GetUserRoles(userVo.UserId);
-                            //    count = roleList.Count;
-
-                            //    Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
-                            //    rmVo = (RMVo)Session["rmVo"];
-                            //    sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
-                            //    branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
-                            //    Session[SessionContents.LogoPath] = sourcePath;
-                            //    Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
-                            //    advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
-                            //    Session["advisorBranchVo"] = advisorBranchVo;
-                            //    if (count == 2)
-                            //    {
-                            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
-                            //    }
-                            //    if (count == 1)
-                            //    {
-                            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
-                            //    }
-                            //}
                             if (userVo.UserType == "Advisor")
                             {
-                                
+                                Session[SessionContents.CurrentUserRole] = "Admin";
                                 Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
                                 Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -129,7 +107,6 @@ namespace WealthERP.General
                                 {
                                     advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                     Session["advisorBranchVo"] = advisorBranchVo;
-                                    Session["FromUserLogin"] = "true";
                                     branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                     Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
@@ -142,7 +119,6 @@ namespace WealthERP.General
                                     {
                                         advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                         Session["advisorBranchVo"] = advisorBranchVo;
-                                        Session["FromUserLogin"] = "true";
                                         //login user role Type
                                         Session["S_CurrentUserRole"] = "RM";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
@@ -153,7 +129,6 @@ namespace WealthERP.General
                                     {
                                         advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                         Session["advisorBranchVo"] = advisorBranchVo;
-                                        Session["FromUserLogin"] = "true";
                                         //login user role Type
                                         Session["S_CurrentUserRole"] = "Admin";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
@@ -164,25 +139,26 @@ namespace WealthERP.General
                                     {
                                         advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                         Session["advisorBranchVo"] = advisorBranchVo;
-                                        Session["FromUserLogin"] = "true";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                         Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                         //login user role Type
                                         Session["S_CurrentUserRole"] = "Admin";
                                     }
-                                }     
+                                }
+
+
                                 if (count == 1)
                                 {
                                     if (roleList.Contains("RM"))
                                     {
                                         Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
                                         //Session["advisorVo"]=advisorBo.GetAdvisor(
-                                        Session["S_CurrentUserRole"] = "RM";
-                                        Session["FromUserLogin"] = "true";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                         sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
                                         Session[SessionContents.LogoPath] = sourcePath;
                                         Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                        //login user role Type Issue Reported by Ajay on July 1 2010
+                                        Session["S_CurrentUserRole"] = "RM";
                                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
 
                                     }
@@ -190,39 +166,27 @@ namespace WealthERP.General
                                     {
                                         advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                         Session["advisorBranchVo"] = advisorBranchVo;
-                                        Session["FromUserLogin"] = "true";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                         Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                        //login user role Type Issue Reported by Ajay on July 1 2010
+                                        Session["S_CurrentUserRole"] = "BM";
                                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
 
                                     }
                                     else
                                     {
-                                        Session["FromUserLogin"] = "true";
+
                                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                                     }
                                 }
                                 GetLatestValuationDate();
                             }
-                            //else if (userVo.UserType == "RM")
-                            //{
-                            //    Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
-                            //    rmVo = (RMVo)Session["rmVo"];
-                            //    Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
-                            //    //Session["advisorVo"]=advisorBo.GetAdvisor(
-                            //    branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
-                            //    sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
-                            //    Session[SessionContents.LogoPath] = sourcePath;
-                            //    Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
-                            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
 
-                            //}
                             else if (userVo.UserType == "Customer")
                             {
                                 customerVo = customerBo.GetCustomerInfo(userVo.UserId);
                                 //Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
                                 Session["CustomerVo"] = customerVo;
-                                Session["FromUserLogin"] = "true";
                                 customerVo = (CustomerVo)Session["CustomerVo"];
 
                                 advisorVo = advisorBo.GetAdvisor(advisorBranchBo.GetBranch(customerVo.BranchId).AdviserId);
@@ -234,17 +198,16 @@ namespace WealthERP.General
 
                                 sourcePath = "Images/" + userBo.GetCustomerLogo(customerVo.CustomerId);
                                 Session[SessionContents.LogoPath] = sourcePath;
+                                Session["S_CurrentUserRole"] = "Customer";
                                 GetLatestValuationDate();
-                                if (customerVo.Type == "IND")
-                                {
-                                    Session["FromUserLogin"] = "false";
+
+                                Session["IsDashboard"] = "true";
+                                isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                                if (isGrpHead == true)
+                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustGroupDashboard','login','" + UserName + "','" + sourcePath + "');", true);
+                                else
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
-                                }
-                                if (customerVo.Type == "NIND")
-                                {
-                                    Session["FromUserLogin"] = "false";
-                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
-                                }
+
                             }
 
                             else if (userVo.UserType == "Admin")
@@ -270,11 +233,11 @@ namespace WealthERP.General
 
                 }
             }
-            
+
         }
         private bool CheckSuperAdmin()
         {
-            string UserName = "";            
+            string UserName = "";
             UserVo userVo = new UserVo();
             UserBo userBo = new UserBo();
 
@@ -291,7 +254,7 @@ namespace WealthERP.General
                     Session["role"] = "SUPER_ADMIN";
                     Session["UserVo"] = userVo;
                     Session["SuperAdminRetain"] = userVo;
-                    UserName = userVo.FirstName+" "+userVo.LastName;
+                    UserName = userVo.FirstName + " " + userVo.LastName;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFF','login','" + UserName + "','');", true);
                     if (userVo.theme != null)
                     {
@@ -304,107 +267,7 @@ namespace WealthERP.General
                         Session["refreshTheme"] = true;
                     }
                     return true;
-                }
-                //else if (txtLoginId.Text.ToLower() == "mfadmin" && txtPassword.Text.ToLower() == "mfadmin")
-                //{
-                //    Session[SessionContents.LogoPath] = "Images/abc_MF.jpg";
-                //    Session[SessionContents.BranchLogoPath] = "Images/abc_MF.jpg";
-                //    Session["role"] = "MF_ADMIN";
-                //    userVo = userBo.GetUser(txtLoginId.Text);
-                //    Session["UserVo"] = userVo;
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
-                //    if (userVo.theme != null)
-                //    {
-                //        Session["Theme"] = userVo.theme;
-                //        Session["refreshTheme"] = true;
-                //    }
-                //    else
-                //    {
-                //        Session["Theme"] = "Purple";
-                //        Session["refreshTheme"] = true;
-                //    }
-                //    return true;
-                //}
-                //else if (txtLoginId.Text.ToLower() == "eqadmin" && txtPassword.Text.ToLower() == "eqadmin")
-                //{
-                //    Session[SessionContents.LogoPath] = "Images/abc_securities.jpg";
-                //    Session[SessionContents.BranchLogoPath] = "Images/abc_securities.jpg";
-                //    Session["role"] = "EQ_ADMIN";
-                //    userVo = userBo.GetUser(txtLoginId.Text);
-                //    Session["UserVo"] = userVo;
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
-                //    if (userVo.theme != null)
-                //    {
-                //        Session["Theme"] = userVo.theme.ToString();
-                //        Session["refreshTheme"] = true;
-                //    }
-                //    else
-                //    {
-                //        Session["Theme"] = "Purple";
-                //        Session["refreshTheme"] = true;
-                //    }
-                //    return true;
-                //}
-                //else if (txtLoginId.Text.ToLower() == "liadmin" && txtPassword.Text.ToLower() == "liadmin")
-                //{
-                //    Session[SessionContents.LogoPath] = "Images/abc_life_insurance.jpg";
-                //    Session[SessionContents.BranchLogoPath] = "Images/abc_life_insurance.jpg";
-                //    Session["role"] = "LI_ADMIN";
-                //    userVo = userBo.GetUser(txtLoginId.Text);
-                //    Session["UserVo"] = userVo;
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
-                //    if (userVo.theme != null)
-                //    {
-                //        Session["Theme"] = userVo.theme.ToString();
-                //        Session["refreshTheme"] = true;
-                //    }
-                //    else
-                //    {
-                //        Session["Theme"] = "Purple";
-                //        Session["refreshTheme"] = true;
-                //    }
-                //    return true;
-                //}
-                //else if (txtLoginId.Text.ToLower() == "giadmin" && txtPassword.Text.ToLower() == "giadmin")
-                //{
-                //    Session[SessionContents.LogoPath] = "Images/abc_general_insurance.jpg";
-                //    Session[SessionContents.BranchLogoPath] = "Images/abc_general_insurance.jpg";
-                //    Session["role"] = "GI_ADMIN";
-                //    userVo = userBo.GetUser(txtLoginId.Text);
-                //    Session["UserVo"] = userVo;
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
-                //    if (userVo.theme != null)
-                //    {
-                //        Session["Theme"] = userVo.theme.ToString();
-                //        Session["refreshTheme"] = true;
-                //    }
-                //    else
-                //    {
-                //        Session["Theme"] = "Purple";
-                //        Session["refreshTheme"] = true;
-                //    }
-                //    return true;
-                //}
-                //else if (txtLoginId.Text.ToLower() == "cfadmin" && txtPassword.Text.ToLower() == "cfadmin")
-                //{
-                //    Session[SessionContents.LogoPath] = "Images/abc_consumer_finance.jpg";
-                //    Session[SessionContents.BranchLogoPath] = "Images/abc_consumer_finance.jpg";
-                //    Session["role"] = "CF_ADMIN";
-                //    userVo = userBo.GetUser(txtLoginId.Text);
-                //    Session["UserVo"] = userVo;
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('MFAdminDashboard');", true);
-                //    if (userVo.theme != null)
-                //    {
-                //        Session["Theme"] = userVo.theme.ToString();
-                //        Session["refreshTheme"] = true;
-                //    }
-                //    else
-                //    {
-                //        Session["Theme"] = "Purple";
-                //        Session["refreshTheme"] = true;
-                //    }
-                //    return true;
-                //}
+                }                
                 else
                     return false;
             }
@@ -415,6 +278,7 @@ namespace WealthERP.General
                 AddLoginTrack(txtLoginId.Text, txtPassword.Text, false, 0);
                 return false;
             }
+
         }
         private void GetLatestValuationDate()
         {
@@ -501,5 +365,3 @@ namespace WealthERP.General
 
     }
 }
-
-

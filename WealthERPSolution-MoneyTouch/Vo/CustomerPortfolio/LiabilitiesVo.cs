@@ -31,13 +31,22 @@ namespace VoCustomerPortfolio
         private int m_ModifiedBy;
         private double m_CommissionAmount;
         private float m_CommissionPer;
+        private string m_OtherLenderName;
+        private string m_CompoundFrequency;
+        private int m_PaymentOptionCode;
+        private int m_InstallmentTypeCode;
+        private double m_LumpsumRepaymentAmount;
+        private double m_OutstandingAmount;
         private string m_Guarantor;
+        private DateTime m_LoanStartDate;
         private int m_Tenure;
 
 
         #endregion Fields
 
         #region Properties
+
+        
         public string LoanPartner
         {
             get { return m_LoanPartner; }
@@ -182,11 +191,55 @@ namespace VoCustomerPortfolio
             get { return m_CommissionPer; }
             set { m_CommissionPer = value; }
         }
+        public string OtherLenderName
+        {
+            get { return m_OtherLenderName; }
+            set { m_OtherLenderName = value; }
+        }
+
+
+        public string CompoundFrequency
+        {
+            get { return m_CompoundFrequency; }
+            set { m_CompoundFrequency = value; }
+        }
+
+        public int PaymentOptionCode
+        {
+            get { return m_PaymentOptionCode; }
+            set { m_PaymentOptionCode = value; }
+        }
+
+        public int InstallmentTypeCode
+        {
+            get { return m_InstallmentTypeCode; }
+            set { m_InstallmentTypeCode = value; }
+        }
+
+        public double LumpsumRepaymentAmount
+        {
+            get { return m_LumpsumRepaymentAmount; }
+            set { m_LumpsumRepaymentAmount = value; }
+        }
+
+        public double OutstandingAmount
+        {
+            get { return m_OutstandingAmount; }
+            set { m_OutstandingAmount = value; }
+        }
+
         public string Guarantor
         {
             get { return m_Guarantor; }
             set { m_Guarantor = value; }
         }
+
+        public DateTime LoanStartDate
+        {
+            get { return m_LoanStartDate; }
+            set { m_LoanStartDate = value; }
+        }
+
         public int Tenure
         {
             get { return m_Tenure; }

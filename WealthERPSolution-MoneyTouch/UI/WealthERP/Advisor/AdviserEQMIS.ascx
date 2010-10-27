@@ -73,6 +73,25 @@
         </td>
     </tr>
     <tr>
+    <td>
+    <asp:Label ID="lblChooseBranchBM" runat="server" Font-Bold="true"  CssClass="FieldName"  Text="Branch: "></asp:Label>
+    <asp:DropDownList ID="ddlBranchForEQ" style="vertical-align: middle"  CssClass="cmbField" runat="server" 
+            AutoPostBack="true" 
+            onselectedindexchanged="ddlBranchForEQ_SelectedIndexChanged">
+    <%--<asp:ListItem Value="1086" Text="All"></asp:ListItem>
+                 <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>
+                 <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem>--%>
+    </asp:DropDownList>
+    </td>
+    <td>
+    <asp:Label ID="lblChooseRM" runat="server" Font-Bold="true"  CssClass="FieldName"  Text="RM: "></asp:Label>
+    <asp:DropDownList ID="ddlRMEQ" style="vertical-align: middle"  CssClass="cmbField" runat="server" 
+            AutoPostBack="true" 
+            onselectedindexchanged="ddlRMEQ_SelectedIndexChanged">
+    </asp:DropDownList>
+    </td>
+    </tr>
+    <tr>
         <td>
             <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
                 ValidationGroup="btnGo" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AdviserEQMIS_btnGo', 'S');"
@@ -87,7 +106,7 @@
     <tr>
         <td colspan="2">
             <asp:GridView ID="gvEQMIS" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle" ShowFooter="True">
+                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle" GridLines="Both" ShowFooter="True">
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -114,3 +133,8 @@
         </td>
     </tr>
 </table>
+
+<asp:HiddenField ID="hdnbranchId" runat="server" />
+<asp:HiddenField ID="hdnbranchHeadId" runat="server" />
+<asp:HiddenField ID="hdnall" runat="server" />
+<asp:HiddenField ID="hdnrmId" runat="server" />

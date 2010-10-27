@@ -16,7 +16,7 @@ namespace VoAdvisorProfiling
         private Int32 m_AdviserId;
 
         private string m_LOBClassificationCode;
-        private string m_LOBClassificationType;      
+        private string m_LOBClassificationType;
         private string m_IdentifierTypeCode;             
         private DateTime m_ValidityDate;
         private string m_LicenseNumber;
@@ -32,8 +32,7 @@ namespace VoAdvisorProfiling
         private string m_AgentNum;
         private string m_BrokerCode;
         private Int16 m_IsDependent;
-
-    
+      
         
 #endregion Fields
 

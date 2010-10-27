@@ -9,6 +9,11 @@ namespace BoAdvisorProfiling
 {
     public class AdviserLoanCommsnStrucWithLoanPartnerBo
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AdviserId"></param>
+        /// <returns></returns>
         public DataSet GetAdvisorLoanPartnerCommissionForAdviser(int AdviserId)
         {
             DataSet ds = null;
@@ -43,7 +48,13 @@ namespace BoAdvisorProfiling
 
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="LoanType"></param>
+        /// <param name="LoanPartner"></param>
+        /// <param name="AdviserId"></param>
+        /// <returns></returns>
         public DataSet GetAdviserLoanSchemeNameForLnPtnrLnType(int LoanType, int LoanPartner, int AdviserId)
         {
             DataSet ds = null;
@@ -79,7 +90,11 @@ namespace BoAdvisorProfiling
 
             return ds;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AdviserLoanCommsnStrucWithLoanPartner"></param>
+        /// <returns></returns>
         public bool InsertAdviserLoanSchemeNameForLnPtnrLnType(AdviserLoanCommsnStrucWithLoanPartnerVo AdviserLoanCommsnStrucWithLoanPartner)
         {
             bool result = false;
@@ -111,7 +126,11 @@ namespace BoAdvisorProfiling
 
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AdviserLoanCommsnStrucWithLoanPartner"></param>
+        /// <returns></returns>
         public bool UpdateAdviserLoanSchemeNameForLnPtnrLnType(AdviserLoanCommsnStrucWithLoanPartnerVo AdviserLoanCommsnStrucWithLoanPartner)
         {
             bool result = false;
@@ -143,7 +162,11 @@ namespace BoAdvisorProfiling
 
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AdvisorLoanPartnerCommissionId"></param>
+        /// <returns></returns>
         public bool DeleteAdvisorLoanPartnerCommission(int AdvisorLoanPartnerCommissionId)
         {
             bool result = false;

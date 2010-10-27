@@ -273,7 +273,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 lblAccountNum.Text = customerAccountVo.AccountNum.ToString();
                 if (customerAccountVo.AccountOpeningDate != DateTime.MinValue)
-                   txtAccOpenDate.Text = customerAccountVo.AccountOpeningDate.ToShortDateString();
+                    lblOpeningDate.Text = customerAccountVo.AccountOpeningDate.ToShortDateString();
                 lblAccWith.Text = customerAccountVo.AccountSource.ToString();
                 lblModeOfHolding.Text = XMLBo.GetModeOfHoldingName(xmlPath, customerAccountVo.ModeOfHolding.ToString());
             }
@@ -303,8 +303,7 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 lblInstrumentCategory.Text = customerAccountVo.AssetCategoryName;
-                if (customerAccountVo.AccountOpeningDate != DateTime.MinValue)
-                    txtAccOpenDate.Text = customerAccountVo.AccountOpeningDate.ToShortDateString();
+
                 // Enable/Disable Concerned trs of table
                 if (customerAccountVo.AssetCategory.ToString().Trim() == "PGGY")
                 {
@@ -356,8 +355,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlEPFAccumFiscalYear.Enabled = true;
                     ddlPPFAccumFiscal.Enabled = true;
                     ddlSuperAccumFiscal.Enabled = true;
-                    txtAccOpenDate.Enabled = true;
-                    
+
                     // Clear Control Values Here
                     if (customerAccountVo.AssetCategory.ToString().Trim() == "PGGY")
                     {
@@ -554,7 +552,6 @@ namespace WealthERP.CustomerPortfolio
                     trEditSpace.Visible = false;
                     trButton.Visible = true;
                     btnSubmit.Text = "Update";
-                    txtAccOpenDate.Enabled = true;
                 }
                 else if (action == "view")
                 {
@@ -562,7 +559,6 @@ namespace WealthERP.CustomerPortfolio
                     trEditSpace.Visible = true;
                     trButton.Visible = false;
                     btnSubmit.Text = "";
-                    txtAccOpenDate.Enabled = false;
                 }
 
                 if (AssetCategoryCode == "PGGY")
@@ -696,13 +692,10 @@ namespace WealthERP.CustomerPortfolio
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["customerVo"];
                 customerAccountVo = (CustomerAccountsVo)Session["customerAccountVo"];
-                if (txtAccOpenDate.Text != "")
-                    customerAccountVo.AccountOpeningDate = DateTime.Parse(txtAccOpenDate.Text);
-                pensionAndGratuitiesBo.UpdatePensionandGratuitiesAccount(customerAccountVo, userVo.UserId);
+
                 if (btnSubmit.Text == "Submit")
                 {
                     // Bind Account Details Here
-                   
                     pensionAndGratuitiesVo.AccountId = customerAccountVo.AccountId;
                     pensionAndGratuitiesVo.AssetGroupCode = customerAccountVo.AssetClass.ToString().Trim();
                     pensionAndGratuitiesVo.AssetInstrumentCategoryCode = customerAccountVo.AssetCategory.ToString().Trim();
@@ -1120,7 +1113,11 @@ namespace WealthERP.CustomerPortfolio
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PensionPortfolio', 'none')", true);
+            if(Manage=="Edit" || Manage=="View")
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PensionPortfolio', 'none')", true);
+            else
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=PG')", true);
+
         }
     }
 }

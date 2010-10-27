@@ -33,10 +33,11 @@
                             <p>
                                 So, login and use the platform to the maximum benefit for yourself, your clients
                                 and give a tough fight to your competitors
+
                             </p>
                         </ul>
                     </td>
-                    <td valign="top">
+                                        <td valign="top">
                         <table align="center" border="0">
                             <tr>
                                 <td align="right" width="50%">
@@ -71,12 +72,12 @@
                                 <td colspan="2">
                                     <span class="FieldName">
                                         <asp:HyperLink ID="hlRegistration" runat="server" NavigateUrl="~/Register.aspx"></asp:HyperLink>
-                                        <%--    <asp:LinkButton ID="NewUser" runat="server" OnClick="NewUser_Click">Register Here</asp:LinkButton>--%>
+                                    <%--    <asp:LinkButton ID="NewUser" runat="server" OnClick="NewUser_Click">Register Here</asp:LinkButton>--%>
                                     </span>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">
+                            <td colspan="2">
                                     <span class="FieldName">Forgot Password?
                                         <asp:LinkButton ID="lnkForgotPassword" runat="server" OnClick="ForgotPassword_Click">Click Here</asp:LinkButton>
                                     </span>

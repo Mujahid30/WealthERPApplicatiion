@@ -23,7 +23,6 @@ namespace WealthERP.CustomerPortfolio
     public partial class CustomerAccountAdd : System.Web.UI.UserControl
     {
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
-
         CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
         CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo();
         List<InsuranceULIPVo> insuranceUlipList = new List<InsuranceULIPVo>();
@@ -57,7 +56,7 @@ namespace WealthERP.CustomerPortfolio
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 insuranceUlipList = (List<InsuranceULIPVo>)Session["ulipList"];
                 group = Session["action"].ToString().Trim();
-                if(portfolioId==0 || portfolioId == null)
+                if(portfolioId==0)
                     portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 this.Page.Culture = "en-GB";
                 if (!IsPostBack)

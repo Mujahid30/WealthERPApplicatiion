@@ -70,7 +70,6 @@ namespace BoCustomerPortfolio
 
             return bResult;
         }
-
         public bool UpdatePensionandGratuitiesAccount(CustomerAccountsVo pensionAndGratuitiesAccVo, int userId)
         {
             bool bResult = false;

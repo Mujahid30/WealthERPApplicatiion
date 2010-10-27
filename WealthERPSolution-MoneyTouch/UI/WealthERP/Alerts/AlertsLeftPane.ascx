@@ -45,18 +45,20 @@
     <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px"
         VerticalPadding="0px" />
     <Nodes>
-        <asp:TreeNode Text="RM Home" Value="RM Home"></asp:TreeNode>
+        <asp:TreeNode Text="Home" Value="Home"></asp:TreeNode>
         <asp:TreeNode Text="Customer Dashboard" Value="Customer Dashboard"></asp:TreeNode>
         <asp:TreeNode Text="Profile Dashboard" Value="Profile Dashboard"></asp:TreeNode>
         <asp:TreeNode Text="Portfolio Dashboard" Value="Portfolio Dashboard"></asp:TreeNode>
-        <asp:TreeNode Text="Alert Dashboard" Value="Alert Dashboard">
+        <asp:TreeNode Text="Alerts Dashboard" Value="Alert Dashboard">
             <asp:TreeNode Text="View Notifications" Value="View Notifications"></asp:TreeNode>
             <asp:TreeNode Text="MF Alerts" Value="MF Alerts"></asp:TreeNode>
             <asp:TreeNode Text="FI Alerts" Value="FI Alerts"></asp:TreeNode>
             <asp:TreeNode Text="Insurance Alerts" Value="Insurance Alerts"></asp:TreeNode>
             <asp:TreeNode Text="Equity Alerts" Value="Equity Alerts"></asp:TreeNode>
         </asp:TreeNode>
-        <asp:TreeNode Text="Liabilities Dashboard" Value="Liabilities Dashboard"></asp:TreeNode>
+        <asp:TreeNode Text="Liabilities Dashboard" Value="Liabilities Dashboard">
+            <asp:TreeNode Text="Add Liability" Value="Add Liability"></asp:TreeNode>
+        </asp:TreeNode>
     </Nodes>
     <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
         NodeSpacing="0px" VerticalPadding="0px" />

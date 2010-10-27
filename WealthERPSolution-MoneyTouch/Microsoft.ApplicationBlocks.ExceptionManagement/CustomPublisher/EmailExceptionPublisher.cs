@@ -152,7 +152,7 @@ namespace Microsoft.ApplicationBlocks.ExceptionManagement.CustomPublisher
 		/// <param name="mailBCC">BCC Email address</param>
 		/// <param name="subject">Subject of the mail</param>
 		/// <param name="mailBody">Content of the mail</param>
-		private void SendMail(string mailFrom, string mailTo,string mailCC, string mailBCC,string subject,string mailBody)
+		public void SendMail(string mailFrom, string mailTo,string mailCC, string mailBCC,string subject,string mailBody)
 		{
 			try
 			{

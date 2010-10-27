@@ -47,11 +47,12 @@
         <td class="rightField">
             <asp:TextBox ID="txtSMTPHost" runat="server" CssClass="txtField"></asp:TextBox>
               <span id="Span2" class="spnRequiredField">*<br />
-            </span>
-            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtSMTPHost"
+              </span>
+              
+          <asp:RequiredFieldValidator ID="reqtxtSMTPHost" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
                 ErrorMessage="Please enter the SMTP Host" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>--%>
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
@@ -65,6 +66,10 @@
             </cc1:FilteredTextBoxExtender>
               <span id="Span1" class="spnRequiredField">*<br />
             </span>
+            <asp:RequiredFieldValidator ID="reqtxtSMTPPort" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
+                ErrorMessage="Please enter the SMTP Port" Display="Dynamic" runat="server"
+                CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr id="trEmail">
@@ -75,9 +80,15 @@
             <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span4" class="spnRequiredField">*<br />
             </span>
-              <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
-                ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>--%>
+            
+            <asp:RequiredFieldValidator ID="reqtxtEmail" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
+                ErrorMessage="Please enter the Email address" Display="Dynamic" runat="server"
+                CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
+                ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server" ValidationGroup="btnSave"
+                CssClass="rfvPCG" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+            </asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr id="trPassword">
@@ -87,6 +98,10 @@
         <td class="rightField">
             <asp:TextBox ID="txtPassword" runat="server" CssClass="txtField" TextMode="Password"></asp:TextBox>
               <span id="Span3" class="spnRequiredField">*<br />
+              <asp:RequiredFieldValidator ID="reqtxtPassword" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
+                ErrorMessage="Please enter the password" Display="Dynamic" runat="server"
+                CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
             </span>
         </td>
     </tr>
@@ -95,7 +110,7 @@
             <asp:Label ID="Label5" runat="server" Text="SMTP Authentication Required:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:CheckBox ID="chkAthenticationRequired" runat="server" onchange="ToggleCredentialDisplay(this)" />
+            <asp:CheckBox ID="chkAthenticationRequired" Checked="true" runat="server" onchange="ToggleCredentialDisplay(this)" />
         </td>
     </tr>
     <tr>
@@ -109,10 +124,10 @@
         <td class="leftField">
         </td>
         <td>
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="PCGButton" OnClick="btnSave_Click" />
+            <asp:Button ID="btnSave" runat="server" ValidationGroup="btnSave" Text="Save" CssClass="PCGButton" OnClick="btnSave_Click" />
             &nbsp; &nbsp; &nbsp; &nbsp;
-            <asp:Button ID="btnTest" runat="server" Text="Test Credentials" CssClass="PCGMediumButton"
-                OnClick="btnTest_Click" />
+            <asp:Button ID="btnTest" runat="server" Text="Test Credentials" ValidationGroup="btnSave" CssClass="PCGMediumButton"
+             OnClick="btnTest_Click" />
         </td>
     </tr>
     <tr id="trInsertMessage" runat="server">

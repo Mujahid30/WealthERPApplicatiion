@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using VoUser;
 using BoUser;
 using BoCustomerProfiling;
+using BoAdvisorProfiling;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using WealthERP.Base;
@@ -19,6 +20,8 @@ namespace WealthERP.Customer
         UserVo userVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
+        RMVo customerRMVo = new RMVo();
+        AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
         string path = "";
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,7 +56,7 @@ namespace WealthERP.Customer
                 lblName.Text = customerVo.ContactFirstName+ " " + customerVo.ContactMiddleName + " " + customerVo.ContactLastName;
                 lblCustomerCode.Text = customerVo.CustCode.ToString();
                 lblPanNum.Text = customerVo.PANNum.ToString();
-                lblCompanyName.Text = customerVo.LastName.ToString();
+                lblCompanyName.Text = customerVo.FirstName;
                 if (customerVo.BranchName != null)
                 {
                     lblBranch.Text = customerVo.BranchName.ToString();
@@ -77,8 +80,45 @@ namespace WealthERP.Customer
                 lblRegistrationNum.Text = customerVo.RegistrationNum.ToString();
                 lblRegistrationPlace.Text = customerVo.RegistrationPlace.ToString();
                 lblCompanyWebsite.Text = customerVo.CompanyWebsite.ToString();
+                if (customerVo.DummyPAN == 1)
+                {
+                    chkdummypan.Checked = true;
+                }
+                else
+                {
+                    chkdummypan.Checked = false;
+                }
+                if (customerVo.IsProspect == 1)
+                {
+                    chkprospectn.Checked = true;
+                }
+                else
+                {
+                    chkprospectn.Checked = false;
+                }
+                if (customerVo.ViaSMS == 1)
+                {
+                    chksmsn.Checked = true;
+                }
+                else
+                {
+                    chksmsn.Checked = false;
+                }
+                if (customerVo.AlertViaEmail == 1)
+                {
+                    chkmailn.Checked = true;
+                }
+                else
+                {
+                    chkmailn.Checked = false;
+                }
 
                 lblCustomerCode.Text = customerVo.CustCode.ToString();
+                customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
+                    lblRM.Text = customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName;
+                else
+                    lblRM.Text = "";
                 lblPanNum.Text = customerVo.PANNum.ToString();
                 lblCorrLine1.Text = customerVo.Adr1Line1.ToString();
                 lblCorrLine2.Text = customerVo.Adr1Line2.ToString();
@@ -143,10 +183,20 @@ namespace WealthERP.Customer
             {
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 userVo = (UserVo)Session[SessionContents.UserVo];
+                hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerVo.CustomerId).ToString();
+                string asc = Convert.ToString(hdnassociationcount.Value);
 
-                if (customerBo.DeleteCustomer(customerVo.CustomerId, userVo.UserId))
+                if (asc == "0")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+
+                    if (customerBo.DeleteCustomer(customerVo.CustomerId, "D"))
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+                    }
+                }
+                else
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -168,5 +218,21 @@ namespace WealthERP.Customer
                 throw exBase;
             }
         }
-    }
-}
+    
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+
+            }
+                 
+        }
+
+               
+
+                    
+            }
+        }
+   
+

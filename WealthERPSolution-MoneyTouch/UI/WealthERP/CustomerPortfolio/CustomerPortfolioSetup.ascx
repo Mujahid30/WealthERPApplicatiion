@@ -4,7 +4,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 
@@ -118,13 +118,13 @@
     <tr>
         <td class="SubmitCell">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                ValidationGroup="btnSubmit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_FamilyDetailsChild_btnSubmit', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_FamilyDetailsChild_btnSubmit', 'S');" />
+                ValidationGroup="btnSubmit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerPortfolioSetup_btnSubmit', 'S');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerPortfolioSetup_btnSubmit', 'S');" />
         </td>
         <td class="SubmitCell">
             <asp:Button ID="btnSave" runat="server" Text="Save and Add More" OnClick="btnSave_Click"
-                ValidationGroup="btnSubmit" CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_FamilyDetailsChild_btnSubmit', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_FamilyDetailsChild_btnSubmit', 'S');" />
+                ValidationGroup="btnSubmit" CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerPortfolioSetup_btnSave', 'L');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerPortfolioSetup_btnSave', 'L');" />
         </td>
     </tr>
 </table>

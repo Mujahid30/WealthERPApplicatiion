@@ -10,11 +10,9 @@
                     <asp:Label ID="lblEdit" runat="server" CssClass="HeaderTextBig" Text="Edit LOB"></asp:Label>
                     
                 </td>
-            </tr> 
+            </tr>
         </table>
         <table width="100%" class="TableBackground">
-        
-        
             <tr>
                 <td class="HeaderCell">
                     <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="View LOB"></asp:Label>

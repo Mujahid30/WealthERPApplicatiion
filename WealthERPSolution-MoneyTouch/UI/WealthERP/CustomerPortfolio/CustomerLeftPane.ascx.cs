@@ -14,13 +14,23 @@ namespace WealthERP.CustomerPortfolio
         {
             SessionBo.CheckSession();
         }
-
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
+        public void SetNode()
         {
             if (TreeView1.SelectedNode.Value == "Manual Single")
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','login');", true);
             }
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

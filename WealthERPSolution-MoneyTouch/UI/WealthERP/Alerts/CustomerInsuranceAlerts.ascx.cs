@@ -121,6 +121,7 @@ namespace WealthERP.Alerts
                 else
                 {
                     lblMessage.Visible = true;
+                    lblDisclaimer.Visible = false;
                 }
 
             }
@@ -223,11 +224,10 @@ namespace WealthERP.Alerts
                 accountId = int.Parse(Session["AccountId"].ToString());
                 inNPId = int.Parse(Session["INNPId"].ToString());
                 eventType = Session["AlertType"].ToString();
-                
-                
+
                 if (eventType == "PremiumReminder")
                 {
-                    alertsBo.SaveAdviserInsuranceReminderAlert(customerVo.RmId, customerVo.CustomerId, accountId, inNPId, 0, reminderDays, userVo.UserId);
+                    alertsBo.SaveAdviserInsuranceReminderAlert(rmVo.RMId, customerVo.CustomerId, accountId, inNPId, 0, reminderDays, userVo.UserId);
                 }
 
                 BindCustomerINAlertGrid();

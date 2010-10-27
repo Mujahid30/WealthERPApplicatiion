@@ -22,6 +22,65 @@
         var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
         return result;
     }
+    function CheckItem(sender, args) {
+        var chkControlId = '<%=ChklistRMBM.ClientID%>';
+        var options = document.getElementById(chkControlId).getElementsByTagName('input');
+        var ischecked = false;
+        args.IsValid = false;
+        for (i = 0; i < options.length; i++) {
+            var opt = options[i];
+            if (opt.type == "checkbox") {
+                if (opt.checked) {
+                    ischecked = true;
+                    args.IsValid = true;
+                }
+            }
+        }
+    }
+
+    function addbranches() {
+
+        ///var isSuccess = false;
+        var Source = document.getElementById("<%= availableBranch.ClientID %>");
+        var Target = document.getElementById("<%= associatedBranch.ClientID %>");
+
+        if ((Source != null) && (Target != null) && Source.selectedIndex >= 0) {
+            var newOption = new Option();
+            newOption.text = Source.options[Source.selectedIndex].text;
+            newOption.value = Source.options[Source.selectedIndex].value;
+            Target.options[Target.length] = newOption;
+            Source.remove(Source.selectedIndex);
+
+        }
+        return false;
+    }
+
+
+
+    function deletebranches() {
+        var Source = document.getElementById("<%= associatedBranch.ClientID %>");
+        var Target = document.getElementById("<%= availableBranch.ClientID %>");
+
+        if ((Source != null) && (Target != null) && Source.selectedIndex >= 0) {
+
+            var newOption = new Option();
+            newOption.text = Source.options[Source.selectedIndex].text;
+            newOption.value = Source.options[Source.selectedIndex].value;
+            Target.options[Target.length] = newOption;
+            Source.remove(Source.selectedIndex);
+        }
+        return false;
+    }
+    function GetSelectedBranches() {
+        var Target = document.getElementById("<%= associatedBranch.ClientID %>");
+        var selectedBranches = document.getElementById("<%= hdnSelectedBranches.ClientID %>");
+        for (var i = 0; i < Target.length; i++) {
+            selectedBranches.value += Target.options[i].value + ",";
+        }
+        //alert(selectedBranches)
+    }  
+
+    
 
 </script>
 
@@ -38,7 +97,8 @@
     </tr>
 </table>
 
-<table class="TableBackground">
+<table class="TableBackground" width="100%" >
+
     <tr>
         <td colspan="4" class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
@@ -76,24 +136,22 @@
             <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="Staff Role:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlRMRole" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlRMRole_SelectedIndexChanged"
-                AutoPostBack="True">
-                <asp:ListItem Value="Select a Role" Text="Select a Role"></asp:ListItem>
-                <asp:ListItem Value="RM" Text="RM"></asp:ListItem>
-                <asp:ListItem Value="BM" Text="Branch Manager"></asp:ListItem>
-            </asp:DropDownList>
-            <span id="Span4" class="spnRequiredField">*</span>
-            <br />
-            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlRMRole"
-                CssClass="rfvPCG" ErrorMessage="Please Select a Role" Operator="NotEqual" ValueToCompare="Select a Role"
-                ValidationGroup="btnSubmit"></asp:CompareValidator>
+            
+              
+            <asp:CheckBoxList ID="ChklistRMBM" runat="server" CausesValidation="True" 
+                RepeatDirection="Horizontal" CssClass="cmbField" RepeatLayout="Flow">
+                <asp:ListItem Value="1001">RM</asp:ListItem>
+                <asp:ListItem Value="1002">BM</asp:ListItem>
+            </asp:CheckBoxList>&nbsp;<span id="Span4" class="spnRequiredField">*</span>
+           <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail" ValidationGroup="btnSubmit" ErrorMessage="select at least one role" ClientValidationFunction="CheckItem" ValidateEmptyText="true"></asp:CustomValidator>
+           
+            
+              
         </td>
         <td class="style1">
-            <asp:CheckBox ID="chkRM" runat="server" Text="RM" CssClass="cmbField" OnCheckedChanged="chkRM_CheckedChanged"
-                AutoPostBack="true" />
-            &nbsp;
-            <asp:CheckBox ID="chkExternalStaff" runat="server" Text="IsExternalStaff" CssClass="cmbField"
-                AutoPostBack="true" OnCheckedChanged="chkExternalStaff_CheckedChanged" />
+        
+          <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged" runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
+           
         </td>
     </tr>
     <tr>
@@ -109,7 +167,8 @@
                 Operator="DataTypeCheck" ErrorMessage="Enter a numeric value" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
         </td>
         <td class="rightField" colspan="2">
-            &nbsp;</td>
+            &nbsp;
+       </td>
     </tr>
     <tr>
         <td>
@@ -168,12 +227,12 @@
        
             <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
-          
+            
            
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtPhDirectPhoneNumber"
                 ValidationGroup="btnSubmit" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            
+           
         </td>
     </tr>
     <tr>
@@ -255,13 +314,14 @@
         </td>
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-              <span id="Span3" class="spnRequiredField">*</span>
+            <span id="Span3" class="spnRequiredField">*</span>
             <br />
-             <asp:CompareValidator ID="cvMobileNumber" runat="server" ErrorMessage="Please enter a Integer value"
-                Type="Integer" ControlToValidate="txtMobileNumber" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobileNumber"
-                ErrorMessage="Please enter a Mobile Number" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
+                ValidationGroup="btnSubmit" ValidationExpression="^\d{10,10}$">
+            </asp:RegularExpressionValidator>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobileNumber"
+                ErrorMessage="Please enter a Contact Number" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
@@ -289,9 +349,51 @@
             <hr />
         </td>
     </tr>
-    <tr>
+     <tr>
         <td colspan="4">
             <asp:Label ID="lblError" runat="server" CssClass="FieldName" Text="Branch List"></asp:Label>
+         </td>
+     </tr>
+    <tr>
+        <table border="1">
+    <tr>
+        <td>
+            <asp:Label ID="Label6" runat="server" Text="Available Branches" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+        </td>
+        <td>
+            <asp:Label ID="Label7" runat="server" Text="Associated Branches" CssClass="FieldName"></asp:Label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:ListBox ID="availableBranch" runat="server" Height="150px" Width="130px"></asp:ListBox>
+        </td>
+        <td>
+            <table border="1">
+                <tr>
+                    <td>
+                        <input type="button" id="addBranch" value=">>" onclick="addbranches();return false;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" id="deleteBranch" value="<<" onclick="deletebranches();return false;" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <asp:ListBox ID="associatedBranch" runat="server" Height="150px" Width="128px"></asp:ListBox>
+        </td>
+    </tr>
+    
+</table>
+    </tr>
+    <tr>
+        <td colspan="4">
+            &nbsp;
         </td>
     </tr>
     <tr>
@@ -330,6 +432,21 @@
         </td>
     </tr>
     <tr>
+        <td colspan="4">
+            &nbsp;
+        </td>
+    </tr>
+     <tr>
+        <td colspan="4">            
+            <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"  CssClass="cmbField"/>
+        </td>
+    </tr>
+     <tr>
+        <td colspan="4">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
         <td colspan="4" class="SubmitCell">
             <asp:Button ID="btnNext" runat="server" OnClick="btnNext_Click" Text="Submit" CssClass="PCGButton"
                 ValidationGroup="btnSubmit" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddRM_btnNext', 'S');"
@@ -342,5 +459,6 @@
         </td>
     </tr>
 </table>
-<%--</ContentTemplate>--%>
-<%--</asp:UpdatePanel>--%>
+<asp:HiddenField ID="hdnExistingBranches" runat="server" />
+<asp:HiddenField ID="hdnSelectedBranches" runat="server" />
+<%--</ContentTemplate>--%><%--</asp:UpdatePanel>--%>

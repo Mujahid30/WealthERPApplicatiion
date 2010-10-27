@@ -8,6 +8,7 @@ using System.Configuration;
 using VoUser;
 using VoCustomerProfiling;
 using BoCustomerProfiling;
+using BoAdvisorProfiling;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using WealthERP.Base;
@@ -20,7 +21,7 @@ namespace WealthERP.Customer
         UserVo userVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
-        
+        AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
         string path;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -32,6 +33,7 @@ namespace WealthERP.Customer
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
+                RMVo customerRMVo = new RMVo();
                 if (customerVo.SubType == "MNR")
                 {
                     trGuardianName.Visible = true;
@@ -65,7 +67,8 @@ namespace WealthERP.Customer
                 {
                     lblDob.Text = customerVo.Dob.ToShortDateString().ToString();
                 }
-
+                
+                //hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerVo.CustomerId).ToString();
                 lblGuardianName.Text = customerVo.ContactFirstName + " " + customerVo.ContactMiddleName + " " + customerVo.ContactLastName;
                 lblName.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
                 lblCustCode.Text = customerVo.CustCode.ToString();
@@ -79,6 +82,11 @@ namespace WealthERP.Customer
                     lblBranch.Text = customerVo.BranchName.ToString();
                 else
                     lblBranch.Text = "";
+                customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
+                    lblRM.Text = customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName;
+                else
+                    lblRM.Text = "";
 
                 if (customerVo.JobStartDate.Year == 1800 || customerVo.JobStartDate == DateTime.MinValue)
                 {
@@ -142,6 +150,39 @@ namespace WealthERP.Customer
                 lblMobile2.Text = customerVo.Mobile2.ToString();
                 lblEmail.Text = customerVo.Email.ToString();
                 lblAltEmail.Text = customerVo.AltEmail.ToString();
+                if (customerVo.DummyPAN == 1)
+                {
+                    chkdummypan.Checked = true;
+                }
+                else
+                {
+                    chkdummypan.Checked = false;
+                }
+                if (customerVo.IsProspect == 1)
+                {
+                    chkprospect.Checked = true;
+                }
+                else
+                {
+                    chkprospect.Checked = false;
+                }
+                if (customerVo.ViaSMS == 1)
+                {
+                    chksms.Checked = true;
+                }
+                else
+                {
+                    chksms.Checked = false;
+                }
+                if (customerVo.AlertViaEmail == 1)
+                {
+                    chkmail.Checked = true;
+                }
+                else
+                {
+                    chkmail.Checked = false;
+                }
+
                 if (customerVo.Occupation != null)
                     lblOccupation.Text = XMLBo.GetOccupationName(path, customerVo.Occupation.ToString());
                 else
@@ -150,6 +191,10 @@ namespace WealthERP.Customer
                     lblMaritalStatus.Text = XMLBo.GetMaritalStatusName(path, customerVo.MaritalStatus.ToString());
                 else
                     lblMaritalStatus.Text = "";
+                if (customerVo.MarriageDate.Year == 1800 || customerVo.MarriageDate == DateTime.MinValue)
+                    lblMarriageDate.Text = "";
+                else
+                    lblMarriageDate.Text = customerVo.MarriageDate.ToShortDateString();
                 if (customerVo.Qualification != null)
                     lblQualification.Text = XMLBo.GetQualificationName(path, customerVo.Qualification.ToString());
                 else
@@ -202,9 +247,43 @@ namespace WealthERP.Customer
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-           
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);   
         }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerVo.CustomerId).ToString();
+                string asc = Convert.ToString(hdnassociationcount.Value);
+
+                if (asc == "0")
+                
+                    DeleteCustomerProfile();
+                
+            
+            else
+            
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
+            }
+        }
+
+        protected void hiddenassociationfound_Click(object sender, EventArgs e)
+        {
+            string aso = Convert.ToString(hdnassociation.Value);
+            if (aso == "1")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+            }
+
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+            }
+        }
+
+
 
         private void DeleteCustomerProfile()
         {
@@ -213,7 +292,8 @@ namespace WealthERP.Customer
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 userVo = (UserVo)Session[SessionContents.UserVo];
 
-                if (customerBo.DeleteCustomer(customerVo.CustomerId, userVo.UserId))
+
+                if (customerBo.DeleteCustomer(customerVo.CustomerId,"D"))
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
                 }
@@ -231,7 +311,7 @@ namespace WealthERP.Customer
                 FunctionInfo.Add("Method", "ViewCustomerIndividualProfile.ascx:btnDelete_Click()");
                 object[] objects = new object[3];
                 objects[0] = customerVo;
-                objects[1] = userVo;
+                //objects[1] = userVo;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -240,14 +320,24 @@ namespace WealthERP.Customer
             }
         }
 
-        protected void hiddenDelete_Click(object sender, EventArgs e)
-        {
-            string val = Convert.ToString(hdnMsgValue.Value);
-            if (val == "1")
-            {
-                DeleteCustomerProfile();
-            }
+        //protected void hiddenDelete_Click(object sender, EventArgs e)
+        //{
+        //    string val = Convert.ToString(hdnMsgValue.Value);
+        //    if (val == "1")
+        //    {
+        //        DeleteCustomerProfile();
+        //    }
            
-        }
+        //}
+
+        //protected void hiddenassociation_Click(object sender, EventArgs e)
+        //{
+        //    string val = Convert.ToString(hdnMsgValue.Value);
+        //    if (val == "1")
+        //    {
+        //        DeleteCustomerProfile();
+        //    }
+
+        //}
     }
 }

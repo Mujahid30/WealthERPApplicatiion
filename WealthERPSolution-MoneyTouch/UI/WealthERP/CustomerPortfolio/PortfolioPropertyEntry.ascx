@@ -14,8 +14,8 @@
 <link href="../Scripts/Calender/skins/aqua/theme.css" rel="stylesheet" type="text/css" />
 <%--Javascript Calendar Controls - Required Files--%>
 <asp:ScriptManager ID="scrptMgr" runat="server">
-</asp:ScriptManager>
 
+</asp:ScriptManager>
 <script type="text/javascript" language="javascript">
     var content_Prefix = "ctrl_PortfolioPropertyEntry_";
     function CalculateCost(txtPurchasePrice, txtQuantity, txtPurchaseValue) {
@@ -29,7 +29,6 @@
         }
     }
 </script>
-
 <%--<asp:UpdatePanel ID="up1" runat="server">
     <ContentTemplate>--%>
 <table class="TableBackground" style="width: 100%">
@@ -258,12 +257,12 @@
             <cc1:TextBoxWatermarkExtender ID="txtPurchaseDate_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtPurchaseDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
-            <%--<span id="Span9" class="spnRequiredField">*</span>
+            <span id="Span9" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvPurchaseDate" ControlToValidate="txtPurchaseDate"
                 ErrorMessage="<br/>Please select a Purchase Date" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>--%>
-            <asp:CompareValidator ID="cvPurchaseDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="cvPurchaseDate" runat="server" ErrorMessage="<br/>The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtPurchaseDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="cvPurchaseDate1" runat="server" ErrorMessage="<br/>The purchase date should not be greater than current date."
@@ -351,14 +350,14 @@
         </td>
         <td colspan="2" class="rightField">
             <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField"></asp:TextBox>
-            <span id="Span14" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="rfvCurrentValue" ControlToValidate="txtCurrentValue"
-                ErrorMessage="<br />Please enter the Current Value" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>           
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG"
-                ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtCurrentValue"
-                Display="Dynamic"></asp:RegularExpressionValidator>
+            <%--<span id="Span14" class="spnRequiredField">*</span>--%>
+            <%--<asp:RequiredFieldValidator ID="rfvCurrentValue" ControlToValidate="txtCurrentValue"
+                        ErrorMessage="Please enter the Current Value" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>--%>
+            <asp:CompareValidator ID="cvCurrentValue" runat="server" ErrorMessage="<br>Please enter a numeric value"
+                Type="Double" ControlToValidate="txtCurrentValue" Operator="DataTypeCheck" CssClass="cvPCG"
+                Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>

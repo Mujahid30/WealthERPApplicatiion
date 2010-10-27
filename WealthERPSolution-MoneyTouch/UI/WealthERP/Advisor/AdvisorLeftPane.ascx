@@ -1,4 +1,4 @@
-﻿ <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdvisorLeftPane.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdvisorLeftPane.ascx.cs"
     Inherits="WealthERP.Advisor.AdvisorLeftPane" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
@@ -39,8 +39,8 @@
             <tr>
                 <td valign="top" height="400">
                     <asp:TreeView ID="TreeView1" runat="server" Font-Size="X-Small" ImageSet="Arrows"
-                        ShowLines="True" OnSelectedNodeChanged="TreeView1_SelectedNodeChanged" >
-                        <ParentNodeStyle Font-Bold="False"  />
+                        ShowLines="True" OnSelectedNodeChanged="TreeView1_SelectedNodeChanged">
+                        <ParentNodeStyle Font-Bold="False" />
                         <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
                         <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px"
                             VerticalPadding="0px" />
@@ -55,17 +55,17 @@
                             <asp:TreeNode Text="Preferences" Value="Preferences">
                                 <asp:TreeNode Text="Setup Associate Category" Value="SetupAssociateCategory"></asp:TreeNode>
                                 <asp:TreeNode Text=" Setup Advisor Staff SMTP" Value="AdviserStaffSMTP"></asp:TreeNode>
-                                <%--<asp:TreeNode Text="Set Theme" Value="Set Theme" />--%>
-                            </asp:TreeNode>
+<%--                                <asp:TreeNode Text="Set Theme" Value="Set Theme" />
+--%>                            </asp:TreeNode>
                             <asp:TreeNode Text="LOB" Value="LOB">
-                                <%--<asp:TreeNode Text="Add LOB" Value="Add LOB"></asp:TreeNode>--%>
-                            </asp:TreeNode>
+<%--                                <asp:TreeNode Text="Add LOB" Value="Add LOB"></asp:TreeNode>
+--%>                            </asp:TreeNode>
                             <asp:TreeNode Text="Staff" Value="Staff">
                                 <asp:TreeNode Text="Add Staff" Value="Add Staff"></asp:TreeNode>
                                 <%--<asp:TreeNode Text="Add Branch Association" Value="Add Branch Association"></asp:TreeNode>--%>
                             </asp:TreeNode>
                             <asp:TreeNode Text="Branch / Association" Value="Branch">
-                                <asp:TreeNode Text="Add Branch/Associates" Value="Add Branch"></asp:TreeNode>
+                                <asp:TreeNode Text="Add Branch" Value="Add Branch"></asp:TreeNode>
                                 <asp:TreeNode Text="View Branch Association" Value="View Branch Association"></asp:TreeNode>
                                 <%--<asp:TreeNode Text="Add Branch Association" Value="Add Branch Association"></asp:TreeNode>--%>
                             </asp:TreeNode>
@@ -76,6 +76,7 @@
                             </asp:TreeNode>
                             <asp:TreeNode Text="Customer" Value="Customer">
                                 <asp:TreeNode Text="Customer Accounts" Value="Customer Accounts"></asp:TreeNode>
+                                 <asp:TreeNode Text="Association" Value="Association"></asp:TreeNode>
                                 <%--<asp:TreeNode Text="Add Branch Association" Value="Add Branch Association"></asp:TreeNode>--%>
                             </asp:TreeNode>
                             <asp:TreeNode Text="User Management" Value="User Management">
@@ -98,7 +99,7 @@
                                 <asp:TreeNode Text="Add Transactions" Value="MAddTransactions"></asp:TreeNode>
                                 <asp:TreeNode Text="MF Reports" Value="MFReports"></asp:TreeNode>
                                 <asp:TreeNode Text="Systematic Recon" Value="CustomerMFSystematicTransactionReport"></asp:TreeNode>
-                                <asp:TreeNode Text="Reversal Trxn Exception Handling" Value="MFReversal"></asp:TreeNode>
+                                <asp:TreeNode Text="Reversal Trxn Handling" Value="MFReversal"></asp:TreeNode>
                             </asp:TreeNode>
                             <asp:TreeNode Text="Equity" Value="Equity">
                                 <asp:TreeNode Text="MIS" Value="EMIS"></asp:TreeNode>
@@ -106,13 +107,14 @@
                                 <asp:TreeNode Text="Add Transactions" Value="EAdd Transactions"></asp:TreeNode>
                                 <asp:TreeNode Text="Equity Reports" Value="EquityReports"></asp:TreeNode>
                             </asp:TreeNode>
-<%--                            <asp:TreeNode Text="Loan" Value="Loan">
-                                <asp:TreeNode Text="Schemes" Value="Schemes">                                    
-                                </asp:TreeNode>
+                            <asp:TreeNode Text="Loan" Value="Loan">
+                                <asp:TreeNode Text="Schemes" Value="Schemes">
+<%--                                    <asp:TreeNode Text="Add Schemes" Value="Add Schemes"></asp:TreeNode>
+--%>                                </asp:TreeNode>
                                 <asp:TreeNode Text="Loan Partner Commission" Value="AdviserLoanCommsnStrucWithLoanPartner">
                                 </asp:TreeNode>
                                 <asp:TreeNode Text="Loan MIS" Value="LoanMis"></asp:TreeNode>
-                            </asp:TreeNode>--%>
+                            </asp:TreeNode>
                         </Nodes>
                         <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
                             NodeSpacing="0px" VerticalPadding="0px" />
@@ -127,8 +129,8 @@
         <table>
             <tr>
                 <td>
-                    <div style="display: inline">
-                        <asp:TextBox runat="server" ID="txtFindRM" Style="width: 110px" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchRM');" />
+                    <div style="vertical-align:middle;">
+                        <asp:TextBox runat="server" ID="txtFindRM" Style="width: 110px;" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchRM');" />
                         <cc1:TextBoxWatermarkExtender ID="txtFindRM_TextBoxWatermarkExtender" runat="server"
                             TargetControlID="txtFindRM" WatermarkText="Find RM">
                         </cc1:TextBoxWatermarkExtender>

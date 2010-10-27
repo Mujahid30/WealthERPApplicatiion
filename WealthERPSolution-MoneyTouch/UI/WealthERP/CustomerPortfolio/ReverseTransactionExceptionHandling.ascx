@@ -3,7 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scptMgr" runat="server">
     <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 <script src="../Scripts/jquery.js" type="text/javascript"></script>

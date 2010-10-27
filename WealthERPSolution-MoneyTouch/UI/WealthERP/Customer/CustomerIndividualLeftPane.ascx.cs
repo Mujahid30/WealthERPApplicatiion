@@ -10,25 +10,81 @@ using WealthERP.Base;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
+using BoCustomerProfiling;
 
 namespace WealthERP.Customer
 {
     public partial class CustomerLeftPane : System.Web.UI.UserControl
     {
         CustomerVo customerVo = new CustomerVo();
+        CustomerBo customerBo = new CustomerBo();
+        bool isGrpHead = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            //if (!IsPostBack)
+            //{
+            //    customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+            //    string First = customerVo.FirstName.ToString();
+            //    string Middle = customerVo.MiddleName.ToString();
+            //    string Last = customerVo.LastName.ToString();
+
+            //    if (Middle != "")
+            //    {
+            //        lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+            //    }
+            //    else
+            //    {
+            //        lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.LastName.ToString();
+            //    }
+
+            //    lblEmailIdValue.Text = customerVo.Email.ToString();
+            //}
             SessionBo.CheckSession();
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             if (!IsPostBack)
             {
-                TreeView1.CollapseAll();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerIndividualLeftPane');", true);
+                isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                if (isGrpHead == true)
+                {
+                    TreeView1.Nodes.AddAt(0, new TreeNode("Group Home"));
+                    Session["IsDashboard"] = "true";
+                }
+                else
+                    Session["IsDashboard"] = "CustDashboard";
 
+                string IsDashboard = string.Empty;
+
+                if (Session["IsDashboard"] != null)
+                    IsDashboard = Session["IsDashboard"].ToString();
+                if (IsDashboard == "true")
+                {
+                    TreeView1.CollapseAll();
+
+                    if (customerVo.RelationShip == "SELF")
+                    {
+                        TreeView1.FindNode("Group Home").Selected = true;
+                    }
+                    else
+                    {
+                        TreeView1.FindNode("Customer Dashboard").Selected = true;
+                    }
+                    Session["IsDashboard"] = "false";
+                }
+                else if (IsDashboard == "CustDashboard")
+                {
+                    TreeView1.CollapseAll();
+                    TreeView1.FindNode("Customer Dashboard").Selected = true;
+                }
+                else
+                {
+                    TreeView1.CollapseAll();
+                    TreeView1.FindNode("Profile Dashboard").Expand();
+                    TreeView1.FindNode("Profile Dashboard").Selected = true;
+                }
+                
             }
-           
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerIndividualLeftPane');", true);
         }
         protected void Page_PreRender(object sender, EventArgs e)
         {
@@ -37,18 +93,25 @@ namespace WealthERP.Customer
                 SetNode();
             }
         }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-            
-        }
         public void SetNode()
         {
             string strNodeValue = null;
             try
             {
-                if (TreeView1.SelectedNode.Value == "Customer Dashboard")
+                if (TreeView1.SelectedNode.Value == "Group Home")
                 {
+                    if (customerVo.RelationShip != "SELF")
+                    {
+                        customerVo = customerBo.GetCustomer(int.Parse(customerVo.ParentCustomer));
+                        Session["CustomerVo"] = customerVo;
+                    }
+
                     Session["IsDashboard"] = "true";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustGroupDashboard','none');", true);
+                }
+                else if (TreeView1.SelectedNode.Value == "Customer Dashboard")
+                {
+                    Session["IsDashboard"] = "CustDashboard";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustIndiDashboard','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Portfolio Dashboard")
@@ -90,6 +153,10 @@ namespace WealthERP.Customer
                 else if (TreeView1.SelectedNode.Value == "View MF Folio")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView', 'none')", true);
+                }
+                else if (TreeView1.SelectedNode.Value == "MFReports")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MFReports', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Insurance")
                 {
@@ -356,6 +423,10 @@ namespace WealthERP.Customer
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
         }
     }
 }

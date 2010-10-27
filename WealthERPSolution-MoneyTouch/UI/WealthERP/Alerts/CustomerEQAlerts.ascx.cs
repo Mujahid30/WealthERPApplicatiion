@@ -125,6 +125,7 @@ namespace WealthERP.Alerts
                 else
                 {
                     lblMessage.Visible = true;
+                    lblDisclaimer.Visible = false;
                 }
 
             }
@@ -296,11 +297,11 @@ namespace WealthERP.Alerts
 
                 if (eventType == "EQAbsoluteStopLoss")
                 {
-                    alertsBo.SaveAdviserEQStopLossOccurrenceAlert(customerVo.RmId, customerVo.CustomerId, accountId, scripId, 0, userVo.UserId, condition, preset);
+                    alertsBo.SaveAdviserEQStopLossOccurrenceAlert(rmVo.RMId, customerVo.CustomerId, accountId, scripId, 0, userVo.UserId, condition, preset);
                 }
                 if (eventType == "EQAbsoluteProfitBooking")
                 {
-                    alertsBo.SaveAdviserEQProfitBookingOccurrenceAlert(customerVo.RmId, customerVo.CustomerId, accountId, scripId, 0, userVo.UserId, condition, preset);
+                    alertsBo.SaveAdviserEQProfitBookingOccurrenceAlert(rmVo.RMId, customerVo.CustomerId, accountId, scripId, 0, userVo.UserId, condition, preset);
                 }
 
                 BindCustomerEQAlertGrid();

@@ -30,41 +30,27 @@ namespace WealthERP.Advisor
             try
             {
                 SessionBo.CheckSession();
+                Session["dashBoard"] = "RM";
+                Session["FromAdvisorView"] = "FromRMView";
+                userVo = (UserVo)Session["userVo"];
+                UserName = userVo.FirstName + userVo.LastName;
+                roleList = userBo.GetUserRoles(userVo.UserId);
+
                 if (!IsPostBack)
                 {
+                    
+                    if (roleList.Count == 1 && roleList.Contains("RM"))
+                    {
+                        TreeView1.Nodes.RemoveAt(0);
+                    }
                     TreeView1.CollapseAll();
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMLeftPane');", true);
                 }
-                Session["dashBoard"] = "RM";
-                Session["FromAdvisorView"] = "FromRMView";
-                Session[SessionContents.CurrentUserRole] = "RM";
-                userVo = (UserVo)Session["userVo"];
-                UserName = userVo.FirstName + userVo.LastName;
+                
                 sourcepath = Session[SessionContents.LogoPath].ToString();
                 if (Session[SessionContents.BranchLogoPath] != null)
                     branchLogoSourcePath = Session[SessionContents.BranchLogoPath].ToString();
-
-                if (userVo.UserType == "SuperAdmin")
-                {
-                    rmVo = (RMVo)Session["rmVo"];
-                    roleList = userBo.GetUserRoles(advisorStaffBo.GetUserId(rmVo.RMId));
-                }
-                else
-                {
-                    roleList = userBo.GetUserRoles(userVo.UserId);
-                }
-                count = roleList.Count;
-
-                if (count == 1)
-                {
-                    
-                    TreeNode tn = (TreeNode)TreeView1.FindNode("Switch Roles");
-                    if (TreeView1.Nodes.Contains(tn) == true)
-                    {
-                        TreeView1.Nodes.Remove(tn);
-                    }
-                }
-
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -99,9 +85,11 @@ namespace WealthERP.Advisor
             string strNodeValue = null;
             try
             {
-
                 if (TreeView1.SelectedNode.Value.ToString() == "Switch Roles")
                 {
+                    Session.Remove("UserType");
+                    Session[SessionContents.CurrentUserRole] = null;
+                    count = roleList.Count;
                     if (count == 3)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
@@ -119,13 +107,6 @@ namespace WealthERP.Advisor
                         }
 
                     }
-                    //if (count == 1)
-                    //{
-                    //    if (roleList.Contains("RM"))
-                    //    {
-                    //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
-                    //    }
-                    //}
                     //   Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value.ToString() == "Dashboard")
@@ -165,6 +146,26 @@ namespace WealthERP.Advisor
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertDashBoard','none');", true);
                 }
+                else if (TreeView1.SelectedNode.Value.ToString() == "Notifications")
+                {
+                    Session["UserType"] = "rm";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomerSMSAlerts','none');", true);
+                }
+                else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
+                {
+                    Session["UserType"] = "rm";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanMIS','login');", true);
+                }
+                else if (TreeView1.SelectedNode.Value.ToString() == "Loan Proposal")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanTrackingGrid','login');", true);
+                }
+                else if (TreeView1.SelectedNode.Value.ToString() == "Add Loan Proposal")
+                {
+                    Session["LoanProcessAction"] = "add";
+                    Session[SessionContents.LoanProcessTracking] = null;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanProcessTracking','login');", true);
+                }
                 else if (TreeView1.SelectedNode.Value.ToString() == "MFReports")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFReports','none');", true);
@@ -177,6 +178,11 @@ namespace WealthERP.Advisor
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioReports','none');", true);
                 }
+                //else if (TreeView1.SelectedNode.Value.ToString() == "MFMIS")
+                //{
+                //    Session["UserType"] = "rm";
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
+                //}
                 else if (TreeView1.SelectedNode.Value.ToString() == "EView Transactions")
                 {
                     Session["UserType"] = "rm";
@@ -202,7 +208,7 @@ namespace WealthERP.Advisor
                 else if (TreeView1.SelectedNode.Value.ToString() == "MMIS")
                 {
                     Session["UserType"] = "rm";
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCSchemewiseMIS','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCwiseMIS','login');", true);
                 }
                 else if (TreeView1.SelectedNode.Value.ToString() == "MAdd Transactions")
                 {

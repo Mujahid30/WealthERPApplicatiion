@@ -62,14 +62,14 @@ namespace WealthERP.CustomerPortfolio
                     portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                     BindPortfolioDropDown();
                     lblScripName.Visible = false;
-                   
-                  
+
+
                 }
                 else
                 {
 
                     portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
-                   // btnAddDP.Visible = false;
+                    // btnAddDP.Visible = false;
                 }
                 LoadExchangeType(path);
                 LoadTransactionType(path);
@@ -87,25 +87,25 @@ namespace WealthERP.CustomerPortfolio
                     Session.Remove("Trade");
 
                 }
-                    //trTransactionMode.Visible = false;
-                    //trScrip.Visible = false;
-                    //
-                    //LoadExchangeType(path);
-                    //SetFields(0);
-                    //if (Session["Trade"] != null)
-                    //{
-                    //    ht = (Hashtable)Session["EqHT"];
-                    //    txtScrip.Text = ht["Scrip"].ToString();
-                    //    ddlExchange.SelectedValue = ht["Exchange"].ToString();
-                    //    LoadExchangeType(path);
-                    //    ddlTranType.SelectedValue = ht["TranType"].ToString();
-                    //    LoadTransactionType(path);
-                    //    txtTicker.Text = ht["Ticker"].ToString();
-                    //    SetFields(1);
-                    //    Session.Remove("Trade");
+                //trTransactionMode.Visible = false;
+                //trScrip.Visible = false;
+                //
+                //LoadExchangeType(path);
+                //SetFields(0);
+                //if (Session["Trade"] != null)
+                //{
+                //    ht = (Hashtable)Session["EqHT"];
+                //    txtScrip.Text = ht["Scrip"].ToString();
+                //    ddlExchange.SelectedValue = ht["Exchange"].ToString();
+                //    LoadExchangeType(path);
+                //    ddlTranType.SelectedValue = ht["TranType"].ToString();
+                //    LoadTransactionType(path);
+                //    txtTicker.Text = ht["Ticker"].ToString();
+                //    SetFields(1);
+                //    Session.Remove("Trade");
 
-                    
-                
+
+
 
             }
 
@@ -177,7 +177,8 @@ namespace WealthERP.CustomerPortfolio
                 trServiceTax.Visible = true;
                 trSTT.Visible = true;
                 trTotal.Visible = true;
-                trTradeDate.Visible = true;            }
+                trTradeDate.Visible = true;
+            }
         }
         private void LoadTransactionType(string path)
         {
@@ -252,7 +253,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                   // btnAddDP.Visible = false;
+                    // btnAddDP.Visible = false;
                     DataTable dtCustomerAccounts = dsEqutiyTradeNumbers.Tables[0];
                     ddlTradeAcc.DataSource = dtCustomerAccounts;
                     ddlTradeAcc.DataTextField = "CETA_TradeAccountNum";
@@ -292,7 +293,8 @@ namespace WealthERP.CustomerPortfolio
                 dt = productEquityBo.GetBrokerCode(portfolioId, ddlTradeAcc.SelectedItem.Text.ToString());
 
                 eqTransactionVo.IsSourceManual = 1;
-                eqTransactionVo.Brokerage = float.Parse(txtBrokerage.Text);
+                if (txtBrokerage.Text != "")
+                    eqTransactionVo.Brokerage = float.Parse(txtBrokerage.Text);
                 eqTransactionVo.BrokerCode = dt.Rows[0]["XB_BrokerCode"].ToString();
                 if (ddlTranType.SelectedItem.Text.ToString() == "Purchase")
                 {
@@ -321,10 +323,15 @@ namespace WealthERP.CustomerPortfolio
                 {
                     eqTransactionVo.IsSpeculative = 1;
                 }
+
                 eqTransactionVo.EducationCess = (float)tempEducation;
                 eqTransactionVo.ScripCode = scripCode;
-                eqTransactionVo.Exchange = ddlExchange.SelectedItem.Value.ToString();
-                eqTransactionVo.OtherCharges = float.Parse(txtOtherCharge.Text);
+                if (ddlExchange.SelectedItem.Value.ToString() != "Select an Exchange")
+                    eqTransactionVo.Exchange = ddlExchange.SelectedItem.Value.ToString();
+                else
+                    eqTransactionVo.Exchange = "NSE";
+                if (txtOtherCharge.Text != "")
+                    eqTransactionVo.OtherCharges = float.Parse(txtOtherCharge.Text);
                 eqTransactionVo.Quantity = float.Parse(txtNumShares.Text);
                 eqTransactionVo.IsSpeculative = 0;
                 eqTransactionVo.TradeType = "D";
@@ -335,9 +342,10 @@ namespace WealthERP.CustomerPortfolio
                 eqTransactionVo.Rate = float.Parse(txtRate.Text);
                 eqTransactionVo.RateInclBrokerage = float.Parse(txtRateIncBrokerage.Text);
                 temp = decimal.Round(Convert.ToDecimal(tempService), 3);
-                eqTransactionVo.ServiceTax = float.Parse(txtTax.Text);
-
-                eqTransactionVo.STT = float.Parse(txtSTT.Text);
+                if (txtTax.Text != "")
+                    eqTransactionVo.ServiceTax = float.Parse(txtTax.Text);
+                if (txtSTT.Text != "")
+                    eqTransactionVo.STT = float.Parse(txtSTT.Text);
 
                 eqTransactionVo.TradeDate = Convert.ToDateTime(txtTradeDate.Text.Trim(), ci);// DateTime.Parse(txtTradeDate.Text);//ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
                 eqTransactionVo.TradeTotal = float.Parse(txtTotal.Text);
@@ -345,7 +353,7 @@ namespace WealthERP.CustomerPortfolio
                 //long.Parse(ddlTradeAcc.SelectedItem.Text.ToString());
                 if (customerTransactionBo.AddEquityTransaction(eqTransactionVo, customerVo.UserId))
                 {
-                    customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId,"EQ",eqTransactionVo.TradeDate);
+                    customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "EQ", eqTransactionVo.TradeDate);
                 }
                 btnSubmit.Enabled = false;
 
@@ -384,7 +392,7 @@ namespace WealthERP.CustomerPortfolio
             Session["EqHT"] = ht;
             Session["Trade"] = "NewTrade";
             string queryString = "?prevPage=EquityManualSingleTransaction";
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd','"+queryString+"');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd','" + queryString + "');", true);
         }
 
 
@@ -399,7 +407,7 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void txtRate_TextChanged(object sender, EventArgs e)
         {
-            SetBrokerage();             
+            SetBrokerage();
         }
         public void SetBrokerage()
         {
@@ -444,17 +452,24 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-            Calculate();         
+            Calculate();
         }
         private void Calculate()
         {
-            string alertMsg = "";
-            if (txtNumShares.Text != "" && txtRate.Text != "" && txtBroker.Text != "")
+
+            double Stax = 0, STT = 0, rateIncBroker = 0, brokerage = 0, otherCharges = 0;
+
+            if (txtRate.Text != "" && txtBroker.Text != "")
             {
-                double Stax, STT, rateIncBroker, brokerage=0, otherCharges=0;
-                decimal temp;
-                if(txtBrokerage.Text!="")
+
+                if (txtBrokerage.Text != "")
                     brokerage = double.Parse(txtBrokerage.Text);
+                else
+                    brokerage = 0;
+                if (txtOtherCharge.Text != "")
+                    otherCharges = double.Parse(txtOtherCharge.Text);
+                else
+                    otherCharges = 0;
                 Stax = (12.36 / 100) * brokerage;
                 // temp = decimal.Round((decimal)Stax, 2);
                 // Stax = (double)temp;
@@ -474,32 +489,21 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlTranType.SelectedItem.Text.ToString() == "Purchase")
                 {
                     // rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) + (decimal)STT + (decimal)Stax + (decimal)(double.Parse(txtBrokerage.Text)) + (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
-                    rateIncBroker = double.Parse(txtRate.Text) + STT + Stax + double.Parse(txtBrokerage.Text) + double.Parse(txtOtherCharge.Text);
+                    rateIncBroker = double.Parse(txtRate.Text) + STT + Stax + brokerage + otherCharges;
 
                 }
                 else
                 {
                     //rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) - (decimal)STT - (decimal)Stax - (decimal)(double.Parse(txtBrokerage.Text)) - (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
-                    rateIncBroker = double.Parse(txtRate.Text) - STT - Stax - double.Parse(txtBrokerage.Text) - double.Parse(txtOtherCharge.Text);
+                    rateIncBroker = double.Parse(txtRate.Text) - STT - Stax - brokerage - brokerage;
                 }
 
                 txtRateIncBrokerage.Text = Math.Round(rateIncBroker, 4).ToString();
 
+
+            }
+            if (txtNumShares.Text != "")
                 txtTotal.Text = Math.Round(rateIncBroker * double.Parse(txtNumShares.Text), 4).ToString();
-            }
-            else
-            {
-                alertMsg = "Please Enter";
-                if (txtRate.Text == "")
-                    alertMsg = alertMsg + "\\r\\n      Rate";
-                if (txtNumShares.Text == "")
-                    alertMsg = alertMsg + "\\r\\n      Number Of Shares";                
-                if (txtBroker.Text == "")
-                    alertMsg = alertMsg + "\\r\\n      Broker";
-
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "alert('"+alertMsg+"')", true);
-
-            }
 
         }
         protected void ddlTradeAcc_SelectedIndexChanged(object sender, EventArgs e)

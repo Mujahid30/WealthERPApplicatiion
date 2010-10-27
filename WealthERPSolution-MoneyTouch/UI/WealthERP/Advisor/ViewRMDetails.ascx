@@ -135,9 +135,47 @@
             &nbsp;
         </td>
     </tr>
+   <tr>
+   <td>
+   <table border="1">
+    <tr>
+        <td>
+            <asp:Label ID="Label1" runat="server" Text="Available Branches" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+        </td>
+        <td>
+            <asp:Label ID="Label3" runat="server" Text="Associated Branches" CssClass="FieldName"></asp:Label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:ListBox ID="availableBranch" runat="server" Height="150px" Width="130px"></asp:ListBox>
+        </td>
+        <td>
+            <table border="1">
+                <tr>
+                    <td>
+                        <input type="button" id="addBranch" value=">>" onclick="addbranches();return false;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" id="deleteBranch" value="<<" onclick="deletebranches();return false;" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <asp:ListBox ID="associatedBranch" runat="server" Height="150px" Width="128px"></asp:ListBox>
+        </td>
+    </tr>
+</table>
+   </td>
+   </tr> 
     <tr>
         <td class="leftField">
-            <asp:GridView ID="gvRMBranch" runat="server" AllowSorting="false" AutoGenerateColumns="False"
+            <asp:GridView ID="gvRMBranch" runat="server" AutoGenerateColumns="False"
                 CssClass="GridViewStyle" DataKeyNames="BranchId" ShowFooter="True" 
                 OnRowDataBound="gvRMBranch_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
@@ -149,7 +187,7 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Select">
                         <ItemTemplate>
-                            <asp:CheckBox ID="chkBx" runat="server" />
+                            <asp:CheckBox ID="chkBx" runat="server" Enabled="false"/>
                         </ItemTemplate>
                         <FooterTemplate>
                             <%--<asp:Button ID="btnDeleteSelected" CssClass="FieldName" runat="server" Text="Delete"
@@ -195,6 +233,7 @@
 <table class="TableBackground" width="100%">
     <tr>
         <td>
+        <asp:HiddenField ID="hdnExistingBranches" runat="server" />
         </td>
     </tr>
 </table>

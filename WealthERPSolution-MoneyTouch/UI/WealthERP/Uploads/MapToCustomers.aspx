@@ -95,8 +95,8 @@ function ClosePopUp(){
                         <EditRowStyle CssClass="EditRowStyle" />
                         <AlternatingRowStyle CssClass="AltRowStyle " />
                         <Columns>
-                            <asp:BoundField DataField="Name" HeaderText="Name" />
-                            <asp:BoundField DataField="PANNum" HeaderText="Pan No" />
+                            <asp:BoundField DataField="Name" HeaderText="WERP Name" />
+                            <asp:BoundField DataField="PANNum" HeaderText="WERP Pan No" />
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>
                                     

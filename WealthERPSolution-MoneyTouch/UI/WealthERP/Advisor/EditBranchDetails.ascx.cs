@@ -17,6 +17,7 @@ using WealthERP.Base;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.IO;
+using System.Globalization;
 
 namespace WealthERP.Advisor
 {
@@ -42,7 +43,7 @@ namespace WealthERP.Advisor
         MemoryStream ms = null;
         string UploadImagePath = string.Empty;
         string imgPath = string.Empty;
-
+        bool branchRMDependendency = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -52,6 +53,7 @@ namespace WealthERP.Advisor
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 imgPath = Server.MapPath("Images") + "\\";
                 advisorBranchVo = (AdvisorBranchVo)Session["advisorBranchVo"];
+                branchRMDependendency = advisorBranchBo.CheckBranchDependency(advisorBranchVo.BranchId);
                 advisorVo =(AdvisorVo) Session[SessionContents.AdvisorVo];
                 userVo = (UserVo)Session[SessionContents.UserVo];
                 if (!IsPostBack)
@@ -69,6 +71,7 @@ namespace WealthERP.Advisor
                         CommSharingStructureHdr.Visible = false;
                         SetInitialRow();
                     }
+                   
                     
                 }
             }
@@ -209,6 +212,11 @@ namespace WealthERP.Advisor
                 if(advisorBranchVo.AssociateCategoryId != 0)
                     ddlAssociateCategory.SelectedValue = advisorBranchVo.AssociateCategoryId.ToString();
                 ddlBranchAssociateType.SelectedValue = advisorBranchVo.BranchTypeCode.ToString();
+                if (branchRMDependendency == true)
+                {
+                    ddlBranchAssociateType.Enabled = false;
+ 
+                }
                 txtBranchCode.Text = advisorBranchVo.BranchCode.ToString();
                 txtBranchName.Text = advisorBranchVo.BranchName.ToString();
                 txtEmail.Text = advisorBranchVo.Email.ToString();
@@ -232,6 +240,11 @@ namespace WealthERP.Advisor
                 showRM();
                 ddlRmlist.SelectedValue = advisorBranchVo.BranchHeadId.ToString();
                 txtMobileNumber.Text = advisorBranchVo.MobileNumber.ToString();
+                if (advisorBranchVo.MobileNumber!=0)
+                {
+                    txtMobileNumber.Enabled = false;
+ 
+                }
                 txtBranchCode.Enabled = true;
                 txtBranchName.Enabled = true;
                 txtEmail.Enabled = true;
@@ -413,6 +426,7 @@ namespace WealthERP.Advisor
                     newAdvisorBranchVo.BranchTypeCode = Int32.Parse(ddlBranchAssociateType.SelectedItem.Value.ToString());
                     if (ddlBranchAssociateType.SelectedValue.ToString() == "2")
                     {
+                        if (ddlAssociateCategory.SelectedIndex!=0)
                         newAdvisorBranchVo.AssociateCategoryId = Int32.Parse(ddlAssociateCategory.SelectedItem.Value.ToString());
                         if (logoChange.HasFile)
                         {
@@ -644,18 +658,28 @@ namespace WealthERP.Advisor
         private void DeleteBranch()
         {
             bool res = false;
+            bool branchCustomerDependency = false;
             advisorBranchVo = (AdvisorBranchVo)Session["advisorBranchVo"];
-
-            res = advisorBranchBo.DeleteBranch(advisorBranchVo.BranchId);
-            if (res)
+            branchCustomerDependency = advisorBranchBo.CheckBranchCustomerDependency(advisorBranchVo.BranchId);
+            if (branchCustomerDependency == true)
             {
-
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Sorry... Branch is not deleted...');", true);
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
+
             }
             else
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Sorry... Branch is not deleted...');", true);
+                res = advisorBranchBo.DeleteBranch(advisorBranchVo.BranchId);
+ 
             }
+            if (res == true)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Branch deleted Sucessfully');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
+ 
+            }
+      
+            
         }
 
         protected void ddlBranchAssociateType_SelectedIndexChanged(object sender, EventArgs e)
@@ -690,8 +714,28 @@ namespace WealthERP.Advisor
                     gvCommStructure.DataSource = dt;
                     gvCommStructure.DataBind();
                     gvCommStructure.Visible = true;
-                    
+
                 }
+                else
+                {
+                    
+                    gvCommStructure.DataSource = dt;
+                    gvCommStructure.DataBind();
+                    gvCommStructure.Visible = true;
+ 
+                }
+                //if (dt.Rows.Count > 0)
+                //{
+                //    CommSharingStructureHdr.Visible = true;
+                  
+
+                //}
+                //else
+                //{
+                //    CommSharingStructureHdr.Visible = false;
+                  
+
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -744,6 +788,72 @@ namespace WealthERP.Advisor
             gvCommStructure.DataBind();
         } 
 
+        //private void AddNewRowToGrid()
+        //{
+
+        //    int rowIndex = 0;
+
+        //    if (ViewState["CurrentTable"] != null)
+        //    {
+
+        //        DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
+
+        //        DataRow drCurrentRow = null;
+
+        //        if (dtCurrentTable.Rows.Count > 0)
+        //        {
+
+        //            for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+        //            {
+
+        //                //extract the TextBox values
+
+        //                DropDownList ddl1 = (DropDownList)gvCommStructure.Rows[rowIndex].Cells[0].FindControl("ddlAssetGroup");
+        //                TextBox box1 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[1].FindControl("txtCommFee");
+        //                TextBox box2 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[2].FindControl("txtRevUpperLimit");
+        //                TextBox box3 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[3].FindControl("txtRevLowerLimit");
+        //                TextBox box4 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[4].FindControl("txtStartDate");
+        //                TextBox box5 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[5].FindControl("txtEndDate");
+
+        //                drCurrentRow = dtCurrentTable.NewRow();
+        //                drCurrentRow["RowNumber"] = i + 1;
+        //                dtCurrentTable.Rows[i - 1]["AssetGroupCode"] = ddl1.SelectedValue;
+        //                dtCurrentTable.Rows[i - 1]["CommissionFee"] = box1.Text;
+        //                dtCurrentTable.Rows[i - 1]["RevenueUpperLimit"] = box2.Text;
+        //                dtCurrentTable.Rows[i - 1]["RevenueLowerLimit"] = box3.Text;
+        //                dtCurrentTable.Rows[i - 1]["StartDate"] = box4.Text;
+        //                dtCurrentTable.Rows[i - 1]["EndDate"] = box5.Text;
+        //                rowIndex++;
+        //            }
+
+        //            dtCurrentTable.Rows.Add(drCurrentRow);
+
+        //            ViewState["CurrentTable"] = dtCurrentTable;
+
+        //            gvCommStructure.DataSource = dtCurrentTable;
+
+        //            gvCommStructure.DataBind();
+
+        //        }
+
+        //    }
+
+        //    else
+        //    {
+
+        //        Response.Write("ViewState is null");
+
+        //    }
+
+
+
+        //    //Set Previous Data on Postbacks
+
+        //    SetPreviousData();
+
+        //}
+
+
         private void AddNewRowToGrid()
         {
 
@@ -753,6 +863,14 @@ namespace WealthERP.Advisor
             {
 
                 DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
+                DataTable dtNewTable = new DataTable();
+                dtNewTable.Columns.Add(new DataColumn("AACS_Id", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("AssetGroupCode", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("CommissionFee", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("RevenueUpperLimit", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("RevenueLowerLimit", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("StartDate", typeof(string)));
+                dtNewTable.Columns.Add(new DataColumn("EndDate", typeof(string)));
 
                 DataRow drCurrentRow = null;
 
@@ -773,21 +891,27 @@ namespace WealthERP.Advisor
 
                         drCurrentRow = dtCurrentTable.NewRow();
                         //drCurrentRow["RowNumber"] = i + 1;
-                        dtCurrentTable.Rows[i - 1]["AssetGroupCode"] = ddl1.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["CommissionFee"] = box1.Text;
-                        dtCurrentTable.Rows[i - 1]["RevenueUpperLimit"] = box2.Text;
-                        dtCurrentTable.Rows[i - 1]["RevenueLowerLimit"] = box3.Text;
-                        dtCurrentTable.Rows[i - 1]["StartDate"] = box4.Text;
-                        dtCurrentTable.Rows[i - 1]["EndDate"] = box5.Text;
+                        drCurrentRow = dtNewTable.NewRow();
+                        //drCurrentRow["RowNumber"] = i + 1;
+                        drCurrentRow["AACS_Id"] = dtCurrentTable.Rows[i - 1]["AACS_Id"];
+                        drCurrentRow["AssetGroupCode"] = ddl1.SelectedValue;
+                        drCurrentRow["CommissionFee"] = box1.Text;
+                        drCurrentRow["RevenueUpperLimit"] = box2.Text;
+                        drCurrentRow["RevenueLowerLimit"] = box3.Text;
+                        drCurrentRow["StartDate"] = box4.Text;
+                        drCurrentRow["EndDate"] = box5.Text;
+                        dtNewTable.Rows.Add(drCurrentRow);
                         rowIndex++;
                     }
 
-                    dtCurrentTable.Rows.Add(drCurrentRow);
+                    drCurrentRow = dtNewTable.NewRow();
+                    dtNewTable.Rows.Add(drCurrentRow);
 
-                    ViewState["CurrentTable"] = dtCurrentTable;
 
-                    gvCommStructure.DataSource = dtCurrentTable;
 
+                    ViewState["CurrentTable"] = dtNewTable;
+
+                    gvCommStructure.DataSource = dtNewTable;
                     gvCommStructure.DataBind();
 
                 }

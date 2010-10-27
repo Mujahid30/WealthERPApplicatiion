@@ -31,6 +31,11 @@
             border:1px solid #F5E082;
             padding:10px;
         }
+        .revPCG
+        {
+            font-family: Verdana,Tahoma;
+            font-size: x-small;
+        }
 
     </style>
 
@@ -39,7 +44,7 @@
            
             document.getElementById('btnSend').value ="Sending Email.Please wait..";
             document.getElementById('btnSend').disabled = true;
-
+            
         }
         function echeck(str) {
 
@@ -89,18 +94,18 @@
                 document.getElementById("txtTo").focus();
                 return false
             }
-            return true; 
+            return true;
         }
-        function sendMail() {   
+        function sendMail() {
             if (document.getElementById("txtTo").value == "") {
                 alert("Please enter To Email Address.");
                 return false;
             }
-//            if (document.getElementById("txtTo").value.indexOf("@") < 2 || document.getElementById("txtTo").value.indexOf(".") < 4) {
-//                alert("Please enter  a valid To Email Address.");
-//                document.getElementById("txtTo").focus();
-//                return false;
-//            }
+            //            if (document.getElementById("txtTo").value.indexOf("@") < 2 || document.getElementById("txtTo").value.indexOf(".") < 4) {
+            //                alert("Please enter  a valid To Email Address.");
+            //                document.getElementById("txtTo").focus();
+            //                return false;
+            //            }
             if (echeck(document.getElementById("txtTo").value)) {
                 document.getElementById("hidTo").value = document.getElementById("txtTo").value
                 document.getElementById("hidSubject").value = document.getElementById("txtSubject").value
@@ -120,6 +125,7 @@
 
 
         }
+        
         function replaceSpecialChars() {
             
             while (document.getElementById("txtBody").value.indexOf("<br/>") > -1) {
@@ -146,12 +152,12 @@
            
            if(<%= isMail %> == "1")
            {
-             $(".sendEmail").colorbox({ width: "700px", inline: true, open:true, href: "#divEmail" });
+             $(".sendEmail").colorbox({ width: "700px", inline: true, overlayClose:false, open:true, href: "#divEmail" });
              replaceSpecialChars();
            }
            else
            {
-             $(".sendEmail").colorbox({ width: "50%", inline: true, href: "#divEmail",onClosed:function(){
+             $(".sendEmail").colorbox({ width: "630px", inline: true,overlayClose:false, href: "#divEmail",onClosed:function(){
                 ConvertnlTobr(); 
               } 
               });
@@ -164,7 +170,7 @@
 <body>
     <form id="form1" runat="server">
     <table width="100%" border="0">
-        <tr>
+         <tr>
             <td>
                 <table border="0" width="910px">
                     <tr>
@@ -172,8 +178,7 @@
                             &nbsp;  &nbsp;  &nbsp;  &nbsp; 
                         </td>--%>
                         <td align="center">
-                            <asp:Button ID="btnSendMail" runat="server" class='sendEmail ButtonField'  
-                                Text="Send Report by Email" OnClientClick="replaceSpecialChars()" />
+                            
                         </td>
                         <td align="right" valign="bottom">
                             <div style="display: none">
@@ -212,6 +217,10 @@
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="txtTo" runat="server" Width="500px"></asp:TextBox>
+                                                  <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtTo"
+                                                     ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server" ValidationGroup="btnSend"
+                                                     ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG">
+                                                 </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -220,6 +229,10 @@
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="txtCC" runat="server" Width="500px"></asp:TextBox>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtCC"
+                                                     ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server" ValidationGroup="btnSend"
+                                                     ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG">
+                                                </asp:RegularExpressionValidator>
                                             </td>
                                         </tr>
                                         <tr>
@@ -234,7 +247,7 @@
                                             <td colspan="2">
                                                 <asp:CheckBox ID="chkCopy" runat="server" Text="Send a copy to me" Checked="true" />
                                                 <asp:HiddenField ID="hidRMEmailId" runat="server" />
-                                                <asp:Button ID="btnSend" runat="server" Text="Send" CssClass="PCGButton" OnClientClick="sendMail()" />
+                                                <asp:Button ID="btnSend" runat="server" ValidationGroup="btnSend" Text="Send" CssClass="PCGButton" OnClientClick="sendMail()"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -253,15 +266,21 @@
                 </table>
             </td>
         </tr>
-        <tr>
-            <td>
+         <tr>
+            <td width="100%" align="center">
+            <asp:Button ID="btnSendMail" runat="server" class='sendEmail ButtonField'  
+                                Text="Send Report by Email" OnClientClick="replaceSpecialChars()" />
+            </td>
+         </tr>
+         <tr>
+            <td width="100%" align="left">
                 <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true"
                     BorderColor="#789FC8" BorderStyle="Solid" BorderWidth="1" EnableDatabaseLogonPrompt="True"
                      DisplayGroupTree="False" EnableViewState="true" 
                     OnNavigate="CrystalReportViewer1_Navigate" ToolbarStyle-Width="770px" Width="100%"  />
             </td>
         </tr>
-        <tr>
+         <tr>
             <td align="center">
                 <asp:Label ID="lblNoRecords" runat="server" CssClass="HeaderTextSmall" Text="No records found."
                     Visible="false" EnableViewState="false"></asp:Label>

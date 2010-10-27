@@ -1,5 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SuperAdminMessageBroadcast.ascx.cs"
     Inherits="WealthERP.SuperAdmin.SuperAdminMessageBroadcast" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
+<style type="text/css">
+    .style1
+    {
+        width: 463px;
+    }
+    .style2
+    {
+        width: 46px;
+    }
+</style>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
@@ -95,7 +106,23 @@
     </tr>
     <tr>
         <td>
-            &nbsp;
+            <table width="100%">
+            <tr align="center">
+            <td  align="right"><asp:Label ID="lblExpiryDate" Text="Expiry Date:" runat="server" CssClass="FieldName"></asp:Label>
+              
+            <td align="left">
+            <asp:TextBox ID="txtExpiryDate" CssClass="txtField" runat="server" Width="175px"></asp:TextBox>
+            <ajaxToolKit:CalendarExtender runat="server" Format="dd/MM/yyyy" TargetControlID="txtExpiryDate"
+                ID="calExeActivationDate" Enabled="true">
+            </ajaxToolKit:CalendarExtender>
+            <ajaxToolKit:TextBoxWatermarkExtender TargetControlID="txtExpiryDate" WatermarkText="dd/mm/yyyy"
+                runat="server" ID="wmtxtActivationDate">
+            </ajaxToolKit:TextBoxWatermarkExtender>
+            <span id="Span9" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtExpiryDate"
+                ErrorMessage="Expiry Date Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
+            </td>
+            </tr></table>
         </td>
     </tr>
 </table>

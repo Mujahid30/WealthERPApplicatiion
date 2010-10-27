@@ -16,13 +16,6 @@ namespace DaoCustomerPortfolio
 {
     public class LiabilitiesDao
     {
-        /// <summary>
-        /// Contains Parameter and Functions related to Loan Schemes and liabilities
-        /// </summary>
-        /// <param name="loanTypeId"></param>
-        /// <param name="loanPartnerId"></param>
-        /// <param name="rmId"></param>
-        /// <returns></returns>
         #region Joshan Code - Created 16/9/2009
 
         public DataSet GetLoanScheme(int loanTypeId, int loanPartnerId, int rmId)
@@ -1539,7 +1532,7 @@ namespace DaoCustomerPortfolio
         }
 
         #endregion
-         
+
         #region robin
         /// <summary>
         /// Returns all the loan schemes for the adviser.
@@ -1548,7 +1541,7 @@ namespace DaoCustomerPortfolio
         /// <param name="page"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static DataSet GetLoanSchemes(int page, out int count)
+        public static DataSet GetLoanSchemes(int advisorId,int page, out int count)
         {
             Database db;
             DbCommand cmd;
@@ -1560,7 +1553,7 @@ namespace DaoCustomerPortfolio
                 //Get all loan schemes for the adviser.
                 cmd = db.GetStoredProcCommand("SP_LoanGetSchemes"); 
 
-                //db.AddInParameter(cmd, "@AdviserId", DbType.Int32, advisorId);
+                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, advisorId);
                 db.AddInParameter(cmd, "@CurrentPage", DbType.Int32, page);
                 db.AddOutParameter(cmd, "@Count", DbType.Int32, count);
 
@@ -1577,7 +1570,16 @@ namespace DaoCustomerPortfolio
             }
             catch (Exception Ex)
             {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);               
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("GetLoanSchemes", "LiabilitiesDao.cs:GetLoanSchemes()");
+
+                object[] objects = new object[1];
+                objects[0] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
@@ -1778,7 +1780,7 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateCmd = db.GetStoredProcCommand("SP_LoanSchemeCreateScheme");
-                //db.AddInParameter(updateCmd, "@A_AdviserId", DbType.Int32, schemeDetailsVo.AdviserId);
+                db.AddInParameter(updateCmd, "@A_AdviserId", DbType.Int32, schemeDetailsVo.AdviserId);
                 db.AddInParameter(updateCmd, "@ALS_CreatedBy", DbType.Int32, schemeDetailsVo.CreatedBy);
                 db.AddInParameter(updateCmd, "@ALS_IsFloatingRateInterest", DbType.Int16, schemeDetailsVo.IsFloatingRateInterest);
                 db.AddInParameter(updateCmd, "@ALS_LoanSchemeName", DbType.String, schemeDetailsVo.LoanSchemeName);
@@ -2200,15 +2202,19 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdCreateLiability, "@CL_ModifiedBy", DbType.Int32, liabilitiesVo.ModifiedBy);
                 db.AddInParameter(cmdCreateLiability, "@CL_CommissionAmount", DbType.Double, liabilitiesVo.CommissionAmount);
                 db.AddInParameter(cmdCreateLiability, "@CL_CommissionPer", DbType.Decimal, liabilitiesVo.CommissionPer);
-                db.AddInParameter(cmdCreateLiability, "@CL_Guarantor", DbType.String, liabilitiesVo.Guarantor);
-                if (liabilitiesVo.Tenure != null)
-                {
-                    db.AddInParameter(cmdCreateLiability, "@CL_Tenure", DbType.Int32, liabilitiesVo.Tenure);
-                }
+                if(liabilitiesVo.LoanStartDate!=DateTime.MinValue)
+                    db.AddInParameter(cmdCreateLiability, "@CL_LoanStartDate", DbType.DateTime, liabilitiesVo.LoanStartDate);
                 else
-                {
-                    db.AddInParameter(cmdCreateLiability, "@CL_Tenure", DbType.Int32, 0);
-                }
+                    db.AddInParameter(cmdCreateLiability, "@CL_LoanStartDate", DbType.DateTime, DBNull.Value);
+                db.AddInParameter(cmdCreateLiability, "@CL_OtherLenderName", DbType.String, liabilitiesVo.OtherLenderName);
+                db.AddInParameter(cmdCreateLiability, "@CL_CompoundFrequency", DbType.String, liabilitiesVo.CompoundFrequency);
+                db.AddInParameter(cmdCreateLiability, "@XPO_PaymentOptionCode", DbType.Int16, liabilitiesVo.PaymentOptionCode);
+                db.AddInParameter(cmdCreateLiability, "@XIT_InstallmentTypeCode", DbType.Int16, liabilitiesVo.InstallmentTypeCode);
+                db.AddInParameter(cmdCreateLiability, "@CL_LumpsumRepaymentAmount", DbType.Double, liabilitiesVo.LumpsumRepaymentAmount);
+                db.AddInParameter(cmdCreateLiability, "@CL_OutstandingAmount", DbType.Double, liabilitiesVo.OutstandingAmount);
+                db.AddInParameter(cmdCreateLiability, "@CL_Guarantor", DbType.String, liabilitiesVo.Guarantor);
+                db.AddInParameter(cmdCreateLiability, "@CL_Tenure", DbType.Int32, liabilitiesVo.Tenure);
+
                 db.AddOutParameter(cmdCreateLiability, "@LiabilityId", DbType.Int32, 100);
                 if (db.ExecuteNonQuery(cmdCreateLiability) != 0)
                 {
@@ -2247,7 +2253,7 @@ namespace DaoCustomerPortfolio
             DbCommand cmdGetLiabilities;
             DataSet dsGetLiabilities;
             DataTable dtGetLiabilities;
-
+            bool Result=false;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2264,9 +2270,54 @@ namespace DaoCustomerPortfolio
                         liabilitiesVo.LiabilitiesId = int.Parse(dr["CL_LiabilitiesId"].ToString());
                         liabilitiesVo.LoanType = (dr["XLT_LoanType"].ToString());
                         liabilitiesVo.LoanPartner = dr["XLP_LoanPartner"].ToString();
-                        liabilitiesVo.LoanAmount = double.Parse(dr["CL_LoanAmount"].ToString());
-                        liabilitiesVo.RateOfInterest = float.Parse(dr["CL_RateOfInterest"].ToString());
-
+                        if(!String.IsNullOrEmpty(dr["CL_LoanAmount"].ToString()))
+                            liabilitiesVo.LoanAmount = double.Parse(dr["CL_LoanAmount"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_RateOfInterest"].ToString()))
+                            liabilitiesVo.RateOfInterest = float.Parse(dr["CL_RateOfInterest"].ToString());
+                        if (!String.IsNullOrEmpty(dr["XLP_LoanPartnerCode"].ToString()))
+                            liabilitiesVo.LoanPartnerCode=int.Parse(dr["XLP_LoanPartnerCode"].ToString());
+                        if (!String.IsNullOrEmpty(dr["XLT_LoanTypeCode"].ToString()))
+			                liabilitiesVo.LoanTypeCode=int.Parse(dr["XLT_LoanTypeCode"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_IsFloatingRateInterest"].ToString()))
+                            liabilitiesVo.IsFloatingRateInterest=int.Parse(dr["CL_IsFloatingRateInterest"].ToString());
+                        if (!String.IsNullOrEmpty(dr["ALP_LoanProposalId"].ToString()))
+                            liabilitiesVo.LoanProposalId=int.Parse(dr["ALP_LoanProposalId"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_EMIAmount"].ToString()))
+                            liabilitiesVo.EMIAmount=double.Parse(dr["CL_EMIAmount"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_NoOfInstallments"].ToString()))
+                            liabilitiesVo.NoOfInstallments=int.Parse(dr["CL_NoOfInstallments"].ToString());
+                        if (!String.IsNullOrEmpty(dr["XRT_RepaymentTypeCode"].ToString()))
+                            liabilitiesVo.RepaymentTypeCode=dr["XRT_RepaymentTypeCode"].ToString();
+                        if (!String.IsNullOrEmpty(dr["XF_FrequencyCodeEMI"].ToString()))
+                            liabilitiesVo.FrequencyCodeEMI=dr["XF_FrequencyCodeEMI"].ToString();
+                        if (!String.IsNullOrEmpty(dr["CL_InstallmentStartDate"].ToString()))
+                            liabilitiesVo.InstallmentStartDate=DateTime.Parse(dr["CL_InstallmentStartDate"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_InstallmentEndDate"].ToString()))
+                            liabilitiesVo.InstallmentEndDate=DateTime.Parse(dr["CL_InstallmentEndDate"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_CommissionAmount"].ToString()))
+                            liabilitiesVo.CommissionAmount=double.Parse(dr["CL_CommissionAmount"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_CommissionPer"].ToString()))
+                            liabilitiesVo.CommissionPer=float.Parse(dr["CL_CommissionPer"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_LoanStartDate"].ToString()))
+                            liabilitiesVo.LoanStartDate=DateTime.Parse(dr["CL_LoanStartDate"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_OtherLenderName"].ToString()))
+                            liabilitiesVo.OtherLenderName=dr["CL_OtherLenderName"].ToString();
+                        if (!String.IsNullOrEmpty(dr["CL_CompoundFrequency"].ToString()))
+                            liabilitiesVo.CompoundFrequency=dr["CL_CompoundFrequency"].ToString();
+                        if (!String.IsNullOrEmpty(dr["XPO_PaymentOptionCode"].ToString()))
+                            liabilitiesVo.PaymentOptionCode=int.Parse(dr["XPO_PaymentOptionCode"].ToString());
+                        if (!String.IsNullOrEmpty(dr["XIT_InstallmentTypeCode"].ToString()))
+                            liabilitiesVo.InstallmentTypeCode=int.Parse(dr["XIT_InstallmentTypeCode"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_LumpsumRepaymentAmount"].ToString()))
+                            liabilitiesVo.LumpsumRepaymentAmount=double.Parse(dr["CL_LumpsumRepaymentAmount"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_OutstandingAmount"].ToString()))
+                            liabilitiesVo.OutstandingAmount=double.Parse(dr["CL_OutstandingAmount"].ToString());
+                        if (!String.IsNullOrEmpty(dr["CL_Guarantor"].ToString()))
+                            liabilitiesVo.Guarantor=dr["CL_Guarantor"].ToString();
+                        if (!String.IsNullOrEmpty(dr["CL_Tenure"].ToString()))
+                            liabilitiesVo.Tenure=int.Parse(dr["CL_Tenure"].ToString());                   
+                        
+			 
                         liabilitiesList.Add(liabilitiesVo);
                     }
                 }
@@ -2372,8 +2423,20 @@ namespace DaoCustomerPortfolio
                     liabilitiesVo.InstallmentStartDate = DateTime.Parse(dr["CL_InstallmentStartDate"].ToString());
                     liabilitiesVo.InstallmentEndDate = DateTime.Parse(dr["CL_InstallmentEndDate"].ToString());
                     liabilitiesVo.IsInProcess = int.Parse(dr["CL_IsInProcess"].ToString());
-                    liabilitiesVo.Tenure = int.Parse(dr["CL_Tenure"].ToString());
-                    liabilitiesVo.Guarantor = dr["CL_Guarantor"].ToString();
+                    liabilitiesVo.OtherLenderName = dr["CL_OtherLenderName"].ToString();
+                    if (dr["CL_LoanStartDate"] != null && dr["CL_LoanStartDate"].ToString() != "")
+                        liabilitiesVo.LoanStartDate = DateTime.Parse(dr["CL_LoanStartDate"].ToString());
+                    liabilitiesVo.CompoundFrequency = dr["CL_CompoundFrequency"].ToString();
+                    liabilitiesVo.PaymentOptionCode=int.Parse(dr["XPO_PaymentOptionCode"].ToString());
+                    liabilitiesVo.InstallmentTypeCode = int.Parse(dr["XIT_InstallmentTypeCode"].ToString());
+                    if(!String.IsNullOrEmpty(dr["CL_LumpsumRepaymentAmount"].ToString()))
+                        liabilitiesVo.LumpsumRepaymentAmount = double.Parse(dr["CL_LumpsumRepaymentAmount"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_OutstandingAmount"].ToString()))
+                        liabilitiesVo.OutstandingAmount = double.Parse(dr["CL_OutstandingAmount"].ToString());
+                    if(dr["CL_Guarantor"]!=null)
+                        liabilitiesVo.Guarantor = dr["CL_Guarantor"].ToString();
+                    if (dr["CL_Tenure"] != null && dr["CL_Tenure"].ToString()!="")
+                        liabilitiesVo.Tenure = int.Parse(dr["CL_Tenure"].ToString());
                 }
 
             }
@@ -2522,17 +2585,20 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdUpdateLiability, "@CL_ModifiedBy", DbType.Int32, liabilitiesVo.ModifiedBy);
                 db.AddInParameter(cmdUpdateLiability, "@CL_CommissionAmount", DbType.Double, liabilitiesVo.CommissionAmount);
                 db.AddInParameter(cmdUpdateLiability, "@CL_CommissionPer", DbType.Decimal, liabilitiesVo.CommissionPer);
-                db.AddInParameter(cmdUpdateLiability, "@CL_LiabilitiesId", DbType.Decimal, liabilitiesVo.LiabilitiesId);
-                db.AddInParameter(cmdUpdateLiability, "@CL_Guarantor", DbType.String, liabilitiesVo.Guarantor);
-                //db.AddInParameter(cmdUpdateLiability, "@CL_Tenure", DbType.String, liabilitiesVo.Tenure);
-                if (liabilitiesVo.Tenure != null)
-                {
-                    db.AddInParameter(cmdUpdateLiability, "@CL_Tenure", DbType.Int32, liabilitiesVo.Tenure);
-                }
+                if(liabilitiesVo.LoanStartDate!=DateTime.MinValue)
+                    db.AddInParameter(cmdUpdateLiability, "@CL_LoanStartDate", DbType.DateTime, liabilitiesVo.LoanStartDate);
                 else
-                {
-                    db.AddInParameter(cmdUpdateLiability, "@CL_Tenure", DbType.Int32, 0);
-                }
+                    db.AddInParameter(cmdUpdateLiability, "@CL_LoanStartDate", DbType.DateTime,DBNull.Value);
+                db.AddInParameter(cmdUpdateLiability, "@CL_OtherLenderName", DbType.String, liabilitiesVo.OtherLenderName);
+	            db.AddInParameter(cmdUpdateLiability, "@CL_CompoundFrequency", DbType.String, liabilitiesVo.CompoundFrequency);
+	            db.AddInParameter(cmdUpdateLiability, "@XPO_PaymentOptionCode", DbType.Int16, liabilitiesVo.PaymentOptionCode);
+	            db.AddInParameter(cmdUpdateLiability, "@XIT_InstallmentTypeCode", DbType.Int16, liabilitiesVo.InstallmentTypeCode);
+	            db.AddInParameter(cmdUpdateLiability, "@CL_LumpsumRepaymentAmount", DbType.Double, liabilitiesVo.LumpsumRepaymentAmount);
+	            db.AddInParameter(cmdUpdateLiability, "@CL_OutstandingAmount", DbType.Double, liabilitiesVo.OutstandingAmount);
+	            db.AddInParameter(cmdUpdateLiability, "@CL_Guarantor", DbType.String, liabilitiesVo.Guarantor);
+                db.AddInParameter(cmdUpdateLiability, "@CL_Tenure", DbType.Int32, liabilitiesVo.Tenure);
+                db.AddInParameter(cmdUpdateLiability, "@CL_LiabilitiesId", DbType.Decimal, liabilitiesVo.LiabilitiesId);
+
                 if (db.ExecuteNonQuery(cmdUpdateLiability) != 0)
                 {
                     bResult = true;
@@ -2807,7 +2873,7 @@ namespace DaoCustomerPortfolio
         }
         #endregion SV's COde
 
-                
+
 
 
 

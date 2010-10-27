@@ -12,6 +12,12 @@
         var id = t.id; /* ID of the main tabber DIV */
         var i = argsObj.index; /* Which tab was clicked (0 is the first tab) */
         var e = argsObj.event; /* Event object */
+        if (i == 3) {
+            document.getElementById('<%= imgBtnExport.ClientID  %>').style.visibility = 'hidden';
+        }
+        else {
+            document.getElementById('<%= imgBtnExport.ClientID  %>').style.visibility = 'visible';
+        }
 
         document.getElementById('<%= hdnSelectedTab.ClientID %>').value = i;
     }
@@ -45,9 +51,6 @@
         btn = document.getElementById('<%= btnExportExcel.ClientID %>');
         btn.click();
     }
-   
-    
-    
 </script>
 
 <table>
@@ -59,13 +62,13 @@
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
                 Height="25px" Width="25px" />
             <asp:ImageButton ID="imgBtnWord" ImageUrl="~/Images/Export_Word.jpg" runat="server"
-                AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click" />
+                AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click" Visible="false" />
             <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/Images/Export_Pdf.gif" runat="server"
-                AlternateText="PDF" ToolTip="Export To PDF" OnClick="imgBtnPdf_Click" />
+                AlternateText="PDF" ToolTip="Export To PDF" OnClick="imgBtnPdf_Click" Visible="false" />
             <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/Images/Print.gif" runat="server" AlternateText="Print"
-                ToolTip="Print" OnClick="imgBtnPrint_Click" />
+                ToolTip="Print" OnClick="imgBtnPrint_Click" Visible="false"/>
             <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />
+                BorderStyle="None" BackColor="Transparent" ToolTip="Print" Visible="false"/>
             <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
                 OnClick="btnExportExcel_Click" Height="31px" Width="35px" />
         </td>
@@ -336,7 +339,7 @@
                 =======================================================================================================
                 --%>
                 <div class="tabbertab" runat="server" id="divRealized">
-                    <h6 class="HeaderText">
+                    <h6 class="HeaderText" >
                         Realized</h6>
                     <table>
                         <tr>
@@ -451,7 +454,7 @@
                     </table>
                 </div>
                 <div id="Div1" class="tabbertab" runat="server">
-                    <h6 class="HeaderText">
+                    <h6 class="HeaderText" >
                         Performance and Analysis</h6>
                     <table id="Table1" runat="server">
                         <tr id="trMFCode" runat="server">

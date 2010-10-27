@@ -90,7 +90,10 @@ namespace WealthERP.SuperAdmin
             try
             {
                 AdviserMaintenanceBo advisermaintanencebo = new AdviserMaintenanceBo();
-                advisermaintanencebo.MessageBroadcastSendMessage(MessageBox.Text, DateTime.Now);
+                DateTime dtExpiry = new DateTime();
+                bool result=false;
+                result = DateTime.TryParse(txtExpiryDate.Text.ToString(), out dtExpiry);
+                advisermaintanencebo.MessageBroadcastSendMessage(MessageBox.Text, DateTime.Now,dtExpiry);
                 SuccessMessage.Visible = true;
             }
             catch (Exception ex)

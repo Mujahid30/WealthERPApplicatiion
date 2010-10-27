@@ -9,6 +9,7 @@ using DaoCustomerPortfolio;
 using BoUser;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using BoCalculator;
 
 namespace BoCustomerPortfolio
 {
@@ -50,10 +51,26 @@ namespace BoCustomerPortfolio
         {
             double liabilityValue = 0;
             AssetDao assetDao = new AssetDao();
-            
+            Calculator calculator = new Calculator();
+            List<LiabilitiesVo> listLiabilitiesVo = new List<LiabilitiesVo>();
+            LiabilitiesVo liabilityVo = new LiabilitiesVo();
             try
             {
-                liabilityValue = assetDao.GetCustomerPortfolioLiability(portfolioId);
+                listLiabilitiesVo = assetDao.GetCustomerPortfolioLiability(portfolioId);
+                for (int i = 0; i < listLiabilitiesVo.Count; i++)
+                {
+                    liabilityVo = new LiabilitiesVo();
+                    liabilityVo = listLiabilitiesVo[i];
+                    if (liabilityVo.PaymentOptionCode == 1)
+                    {
+                        liabilityValue = liabilityValue + calculator.GetLoanOutstanding(liabilityVo.CompoundFrequency, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 1, liabilityVo.LumpsumRepaymentAmount, liabilityVo.NoOfInstallments);
+                    }
+                    else if (liabilityVo.PaymentOptionCode == 2)
+                    {
+                        liabilityValue = liabilityValue + calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
+                    }
+
+                }
 
             }
             catch (BaseApplicationException Ex)
@@ -416,7 +433,7 @@ namespace BoCustomerPortfolio
             return assetSubCategories;
         }
 
-        public DataSet GetAdviserBranchMF_EQ_In_AggregateCurrentValues(int advisorId,out int Count,int currentPage,out double total)
+        public DataSet GetAdviserBranchMF_EQ_In_AggregateCurrentValues(int advisorId,out int Count,int currentPage, out double total)
         {
             AssetDao assetDao = new AssetDao();
             DataSet ds = new DataSet();
@@ -697,7 +714,6 @@ namespace BoCustomerPortfolio
 
         }
 
-
         public DataTable GetInterestBasis(string path)
         {
             AssetDao assetDao = new AssetDao();
@@ -726,6 +742,7 @@ namespace BoCustomerPortfolio
             return dt;
 
         }
+
         public DataTable GetFrequencyCode(string path)
         {
             AssetDao assetDao = new AssetDao();
@@ -839,6 +856,39 @@ namespace BoCustomerPortfolio
             return getAssetMaturityDatesDs;
         }
 
+        /// <summary>
+        /// Function calling the DAO function to get the Top 5 Asset Maturity Dates of a Group 
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public DataSet GetGrpAssetMaturityDates(int customerId)
+        {
+            AssetDao assetDao = new AssetDao();
+            DataSet getGrpAssetMaturityDatesDs;
+            try
+            {
+                getGrpAssetMaturityDatesDs = assetDao.GetGrpAssetMaturityDates(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssetBo.cs:GetGrpAssetMaturityDates()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return getGrpAssetMaturityDatesDs;
+        }
+
         public DataSet GetAssetOwnerShip(int AssetId, string AssetGroupCode, int customerId, int associateId, Int16 IsMainCustomer)
         {
             AssetDao assetDao = new AssetDao();
@@ -867,6 +917,38 @@ namespace BoCustomerPortfolio
                 throw exBase;
             }
             return getAssetOwnerShipDs;
+        }
+
+        //Retrieve all the member customers Net Holdings for Group Dashboard
+        public DataSet GetGrpAssetNetHoldings(int CustomerId)
+        {
+            AssetDao assetDao = new AssetDao();
+            DataSet grpNetHoldings;
+            try
+            {
+                grpNetHoldings = assetDao.GetGrpAssetNetHoldings(CustomerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AssetBo.cs:GetGrpAssetNetHoldings()");
+
+                object[] objects = new object[1];
+                objects[0] = CustomerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return grpNetHoldings;
         }
     }
 }

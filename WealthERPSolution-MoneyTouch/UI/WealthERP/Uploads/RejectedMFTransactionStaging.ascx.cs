@@ -80,7 +80,9 @@ namespace WealthERP.Uploads
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             SessionBo.CheckSession();
+            btnReprocess.Attributes.Add("onclick","setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
@@ -152,7 +154,10 @@ namespace WealthERP.Uploads
                     // Get the Reject Reason Codes Available into Generic Dictionary
                     foreach (DataRow dr in dsRejectedRecords.Tables[2].Rows)
                     {
-                        genDictRejectReason.Add(dr["RejectReason"].ToString(), dr["RejectReasonCode"].ToString());
+                        if (dr["RejectReasonCode"].ToString() != "7")
+                        {
+                            genDictRejectReason.Add(dr["RejectReason"].ToString(), dr["RejectReasonCode"].ToString());
+                        }
                     }
 
                     DropDownList ddlRejectReason = GetRejectReasonDDL();
@@ -162,7 +167,7 @@ namespace WealthERP.Uploads
                         ddlRejectReason.DataTextField = "Key";
                         ddlRejectReason.DataValueField = "Value";
                         ddlRejectReason.DataBind();
-                        ddlRejectReason.Items.Insert(0, new ListItem("Select Reject Reason", "Select Reject Reason"));
+                        ddlRejectReason.Items.Insert(0, new ListItem("Select", "Select"));
                     }
 
                     if (hdnRejectReasonFilter.Value != "")
@@ -239,7 +244,7 @@ namespace WealthERP.Uploads
                     ddlProcessId.DataTextField = "Key";
                     ddlProcessId.DataValueField = "Value";
                     ddlProcessId.DataBind();
-                    ddlProcessId.Items.Insert(0, new ListItem("Select ProcessId", "Select ProcessId"));
+                    ddlProcessId.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnProcessIdFilter.Value != "")
@@ -303,7 +308,7 @@ namespace WealthERP.Uploads
                     ddlInvName.DataTextField = "Key";
                     ddlInvName.DataValueField = "Value";
                     ddlInvName.DataBind();
-                    ddlInvName.Items.Insert(0, new ListItem("Select Inv. Name", "Select Inv. Name"));
+                    ddlInvName.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnInvNameFilter.Value != "")
@@ -367,7 +372,7 @@ namespace WealthERP.Uploads
                     ddlFileName.DataTextField = "Key";
                     ddlFileName.DataValueField = "Value";
                     ddlFileName.DataBind();
-                    ddlFileName.Items.Insert(0, new ListItem("Select File Name", "Select File Name"));
+                    ddlFileName.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnFileNameFilter.Value != "")
@@ -431,7 +436,7 @@ namespace WealthERP.Uploads
                     ddlSourceType.DataTextField = "Key";
                     ddlSourceType.DataValueField = "Value";
                     ddlSourceType.DataBind();
-                    ddlSourceType.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+                    ddlSourceType.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnSourceTypeFilter.Value != "")
@@ -495,7 +500,7 @@ namespace WealthERP.Uploads
                     ddlFolioNumber.DataTextField = "Key";
                     ddlFolioNumber.DataValueField = "Value";
                     ddlFolioNumber.DataBind();
-                    ddlFolioNumber.Items.Insert(0, new ListItem("Select Folio Number", "Select Folio Number"));
+                    ddlFolioNumber.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnFolioFilter.Value != "")
@@ -559,7 +564,7 @@ namespace WealthERP.Uploads
                     ddlSchemeName.DataTextField = "Key";
                     ddlSchemeName.DataValueField = "Value";
                     ddlSchemeName.DataBind();
-                    ddlSchemeName.Items.Insert(0, new ListItem("Select Scheme Name", "Select Scheme Name"));
+                    ddlSchemeName.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnSchemeNameFilter.Value != "")
@@ -623,7 +628,7 @@ namespace WealthERP.Uploads
                     ddlTransationType.DataTextField = "Key";
                     ddlTransationType.DataValueField = "Value";
                     ddlTransationType.DataBind();
-                    ddlTransationType.Items.Insert(0, new ListItem("Select Transaction Type", "Select Transaction Type"));
+                    ddlTransationType.Items.Insert(0, new ListItem("Select", "Select"));
                 }
 
                 if (hdnTransactionTypeFilter.Value != "")
@@ -702,6 +707,7 @@ namespace WealthERP.Uploads
 
         protected void btnReprocess_Click(object sender, EventArgs e)
         {
+            //System.Threading.Thread.Sleep(5000);
             bool blResult = false;
             uploadsCommonBo = new UploadCommonBo();
             UploadProcessLogVo processlogVo = new UploadProcessLogVo();
@@ -723,7 +729,7 @@ namespace WealthERP.Uploads
             }
             else
             {
-                
+
                 DataSet ds = uploadsCommonBo.GetUploadDistinctProcessIdForAdviser(adviserVo.advisorId);
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -742,21 +748,23 @@ namespace WealthERP.Uploads
             }
 
             if (error == "")
-             {
-                 // Success Message
-                 trErrorMessage.Visible = true;
-                 lblError.Text = "Reprocess Done Successfully!";
-             }
-             else
-             {
-                 // Failure Message
-                 trErrorMessage.Visible = true;
-                 lblError.Text = "Reprocess Failure!;" + error;
-             }
+            {
+                // Success Message
+                //trErrorMessage.Visible = true;
+                //lblError.Text = "Reprocess Done Successfully!";
+                msgReprocessComplete.Visible = true;
+            }
+            else
+            {
+                // Failure Message
+                trErrorMessage.Visible = true;
+                msgReprocessincomplete.Visible = true;
+                lblError.Text = "ErrorStatus:" + error;
+            }
 
-             BindEquityTransactionGrid(ProcessId);
+            BindEquityTransactionGrid(ProcessId);
+            //used to display alert msg after completion of reprocessing
              
-            
         }
 
         private bool MFWERPTransactionWERPInsertion(int ProcessId, out int countTransactionsInserted, out int countRejectedRecords, int fileTypeId)

@@ -71,9 +71,10 @@
                             <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px"
                                 VerticalPadding="0px" />
                             <Nodes>
-                                <asp:TreeNode Text="RM Home" Value="RM Home"></asp:TreeNode>
+                                <asp:TreeNode Text="Home" Value="Home"></asp:TreeNode>
+                                <asp:TreeNode Text="Customer Dashboard" Value="Customer Dashboard"></asp:TreeNode>
                                 <asp:TreeNode Text="Profile Dashboard" Value="Profile Dashboard"></asp:TreeNode>
-                                <asp:TreeNode Text="Alerts" Value="Alerts"></asp:TreeNode>
+                                <asp:TreeNode Text="Alerts Dashboard" Value="Alerts"></asp:TreeNode>
                                 <asp:TreeNode Text="Portfolio Dashboard" Value="Portfolio Dashboard">
                                     <asp:TreeNode Text="Equity" Value="Equity">
                                         <asp:TreeNode Text="View Equity Transaction" Value="View Equity Transaction"></asp:TreeNode>
@@ -89,7 +90,6 @@
                                         <asp:TreeNode Text="View Systematic Schemes" Value="View Systematic Schemes"></asp:TreeNode>
                                         <asp:TreeNode Text="Register Systematic Schemes" Value="Register Systematic Schemes">
                                         </asp:TreeNode>
-                                        
                                     </asp:TreeNode>
                                     <asp:TreeNode Text="Fixed Income" Value="Fixed Income">
                                         <asp:TreeNode Text="Add Fixed Income" Value="Add Fixed Income"></asp:TreeNode>

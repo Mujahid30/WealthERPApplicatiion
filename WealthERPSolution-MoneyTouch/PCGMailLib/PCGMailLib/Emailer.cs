@@ -86,8 +86,11 @@ namespace PCGMailLib
                     smtpClient.Port = smtpPort;
 
                 //Hardcoding SSL settings for gmail SMTP
-                if (smtpServer.Contains("smtp.gmail.com"))
+                if (smtpServer.Contains("smtp.gmail.com") || smtpServer.Contains("smtp.live.com"))
+                {
                     smtpClient.EnableSsl = true;
+                    
+                }
 
                 mail.From = email.From;
 
@@ -109,11 +112,13 @@ namespace PCGMailLib
                 }
 
                 mail.Subject = email.Subject;
-                mail.IsBodyHtml = true;                
-                mail.Body = email.Body;                
+                mail.IsBodyHtml = true;
+                mail.Body = email.Body;
 
                 ////Send message
                 ProcessMailForInlineAttachments(ref mail, mail.Body);
+
+               
                 SaveMail(mail);
 
                 smtpClient.Send(mail);
@@ -187,6 +192,7 @@ namespace PCGMailLib
             //                oAV = AlternateView.CreateAlternateViewFromString("Plain Text View", null, MediaTypeNames.Text.Plain);
             //              oMM.AlternateViews.Add(oAV);
         }
+
         /// <summary>
         /// Save mail as an HTML file.
         /// </summary>

@@ -16,7 +16,6 @@
             document.getElementById("ctrl_ViewBranchAssociation_hdnMsgValue").value = 0;
             document.getElementById("ctrl_ViewBranchAssociation_hiddenDelete").click();
             return true;
-            
         }
     }
    

@@ -25,6 +25,8 @@
 function validate() {
     var hidCustomerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
     var goalCost = document.getElementById("<%=txtGoalCostToday.ClientID %>").value;
+    var ddlGoalType = document.getElementById("<%=ddlGoalType.ClientID %>").value
+   
     var RetirementCorps = "-";
     if (document.getElementById("<%=txtROIFutureInvest.ClientID %>") != null)
         RetirementCorps =  document.getElementById("<%=txtROIFutureInvest.ClientID %>").value;
@@ -59,22 +61,27 @@ function validate() {
                   alert("Return on retirement corpus(%) should be greater than 0 ")
                    return false;
                }
-       
-      
-     
-   
-    if(hidCustomerId == "") {
-        document.getElementById("<%=txtPickCustomer.ClientID %>").focus();
-        alert("Please pick a customer");
-        return false;
-    }
-    else if (goalCost == "") {
-        document.getElementById("<%=txtGoalCostToday.ClientID %>").focus();
-        alert("Please enter Goal Cost Today");
-        return false;
-    }
-    else
-        return true;
+
+
+
+
+               if (hidCustomerId == "") {
+                   document.getElementById("<%=txtPickCustomer.ClientID %>").focus();
+                   alert("Please pick a customer");
+                   return false;
+               }
+               else if (ddlGoalType == 0) {
+               alert("Please select a GaolType");
+               return false;
+               
+                }
+               else if (goalCost == "") {
+                   document.getElementById("<%=txtGoalCostToday.ClientID %>").focus();
+                   alert("Please enter Goal Cost Today");
+                   return false;
+               }
+               else
+                   return true;
     
 }
     function GetParentCustomerId(source, eventArgs) {
@@ -138,10 +145,8 @@ function validate() {
                     .style.backgroundPosition = 'right';
     };
     function HideImage() {
-        if (document.getElementById('txtPickCustomer').value != null) {
-            document.getElementById('txtPickCustomer')
+        document.getElementById('txtPickCustomer')
                       .style.backgroundImage = 'none';
-        }
     };
 
     function DeleteConfirmation()
@@ -211,6 +216,8 @@ function validate() {
                 return false;
             }
         }
+        //****************************************************
+        
 </script>
 
 <style type="text/css">
@@ -282,7 +289,8 @@ function validate() {
                     TargetControlID="txtPickCustomer" UseContextKey="True" 
                     DelimiterCharacters=""
                     CompletionSetCount="5"
-                    ServiceMethod="GetCustomerName"                   
+                    
+                   
                     Enabled="True">
                 </ajaxToolkit:AutoCompleteExtender>
             <span id="SpanPicCustomerReq" class="spnRequiredField" runat="server">*</span>
@@ -352,6 +360,8 @@ function validate() {
                         <asp:DropDownList ID="ddlGoalType" runat="server" AutoPostBack="True" CssClass="cmbField"
                               OnSelectedIndexChanged="ddlGoalType_SelectedIndexChanged">
                         </asp:DropDownList>
+                         <span id="spanGoalType" class="spnRequiredField" runat="server">*</span>
+                        
                     </td>
                 </tr>
                 <tr>
@@ -582,11 +592,11 @@ function validate() {
                 <tr>
                     <td>
                         <asp:Button ID="btnCancel" runat="server" CssClass="PCGButton" Text="Cancel" CausesValidation="False"
-                            OnClick="btnCancel_Click" OnClientClick="return validate()"/>
+                            OnClick="btnCancel_Click" />
                         <asp:Button ID="btnSaveAdd" runat="server" CssClass="PCGMediumButton" OnClick="btnSaveAdd_Click"
-                            Text="Save & Add" ValidationGroup="btnSave" OnClientClick="return validate()" />
+                            Text="Save & Add" ValidationGroup="btnSave" OnClientClick="return validate()" CausesValidation="true" />
                         <asp:Button ID="btnNext" runat="server" CssClass="PCGMediumButton" Text="Save & Next" OnClick="btnNext_Click"
-                            ValidationGroup="btnSave"  OnClientClick="return validate()"/>
+                            ValidationGroup="btnSave"  OnClientClick="return validate()" CausesValidation="true"/>
                         <asp:Button ID="btnBackToAddMode" runat="server" CssClass="PCGButton" Text="AddNew"
                              ValidationGroup="btnSave" OnClick="btnBackToAddMode_Click"  OnClientClick="return validate()"/>
                          <asp:Button ID="btnBackToView" runat="server" CssClass="PCGButton" Text="Back" OnClick="btnBackToView_Click"/>
@@ -725,6 +735,18 @@ function validate() {
                         </asp:GridView>
                     </td>
                 </tr>
+                <tr id="trOtherGoalParagraph" runat="server" >
+                    <td width="100%">
+                    
+                    <div id="divOtherGoal" style="width: 100%;height: 100%; border: Solid 1px #EBEFF9 !important; border-color: #EBEFF9 !important" >
+                         <br />
+                        <asp:Label ID="lblOtherGoalParagraph" runat="server" CssClass="GridViewCmbField" style="font-size:20 !important" Text="";>
+                        </asp:Label>
+                 
+                    </div>
+                    <br />
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <asp:GridView ID="gvRetirement" runat="server" AllowSorting="True" 
@@ -760,6 +782,20 @@ function validate() {
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Lumpsum Investment Required(Rs.)">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblLumpsumInvReq" runat="server" CssClass="GridViewCmbField" 
+                                            Text='<%#Eval("CG_LumpsumInvestmentRequired") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Amount To be Saved Per Year(Rs.)">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblYSavingReq" runat="server" CssClass="GridViewCmbField" 
+                                            Text='<%#Eval("CG_YearlySavingsRequired") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)">
                                     <ItemTemplate>
                                         <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
@@ -783,6 +819,14 @@ function validate() {
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
                         </asp:GridView>
                     </td>
+                </tr>
+                <tr id="trRTParaGraph" runat="server" >
+                <td width="100%" style="width: 100%;height: 100%; border-width:medium !important; border-color:Blue !important">
+                <br />
+                <asp:Label ID="lblRTParagraph" runat="server" CssClass="GridViewCmbField" style="font-size:20 !important" Text="";>
+                </asp:Label>
+                <br />
+                </td>
                 </tr>
                 <tr>
                     <td>

@@ -124,6 +124,7 @@ namespace WealthERP.Alerts
                 else
                 {
                     lblMessage.Visible = true;
+                    lblDisclaimer.Visible = false;
                 }
 
             }
@@ -285,11 +286,11 @@ namespace WealthERP.Alerts
 
                 if (eventType == "RDReminder")
                 {
-                    alertsBo.SaveAdviserFDRecurringDepositReminderAlert(customerVo.RmId, customerVo.CustomerId, accountId, fiNPId, 0, reminderDays, userVo.UserId);
+                    alertsBo.SaveAdviserFDRecurringDepositReminderAlert(rmVo.RMId, customerVo.CustomerId, accountId, fiNPId, 0, reminderDays, userVo.UserId);
                 }
                 if (eventType == "FDMaturityReminder")
                 {
-                    alertsBo.SaveAdviserFDMaturityReminderAlert(customerVo.RmId, customerVo.CustomerId, accountId, fiNPId, 0, reminderDays, userVo.UserId);
+                    alertsBo.SaveAdviserFDMaturityReminderAlert(rmVo.RMId, customerVo.CustomerId, accountId, fiNPId, 0, reminderDays, userVo.UserId);
                 }
 
                 BindCustomerFIAlertGrid();

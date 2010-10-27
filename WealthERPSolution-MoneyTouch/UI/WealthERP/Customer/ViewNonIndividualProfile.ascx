@@ -3,13 +3,40 @@
 
 
 <script src="../Scripts/tabber.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+function showassocation() {
 
-<table class="TableBackground">
+        var bool = window.confirm('Customer has associations,cannot be deteted');
+        if (bool) {
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnassociation").value = 1;
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociationfound").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hdnassociation").value = 0;
+            document.getElementById("ctrl_ViewCustomerIndividualProfile_hiddenassociationfound").click();
+            return true;
+        }
+    }
+   
+   
+</script>
+
+
+<table class="TableBackground" style="width: 50%;">
     <tr>
         <td class="rightField" colspan="2">
             <asp:Label ID="Label26" runat="server" CssClass="HeaderTextBig" Text="Profile"></asp:Label>
             <hr />
         </td>
+    </tr>
+    <tr>
+    <td>
+    </td>
+    <td>
+    <asp:Checkbox ID="chkprospectn" runat="server" CssClass="txtField"  Text="Prospect" 
+                AutoPostBack="false"  Enabled = "false" /></asp:Label>
+                </td>
     </tr>
     <tr>
         <td class="leftField" style="width: 35%">
@@ -19,6 +46,14 @@
             <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
     </tr>
+    <tr>
+    <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
+        </td>
+        </tr>
     <tr>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
@@ -77,7 +112,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label12" runat="server" CssClass="FieldName" Text="Registration No with ROC-Registrar :"></asp:Label>
+            <asp:Label ID="Label12" runat="server" CssClass="FieldName" Text="Reg. No. with ROC-Registrar :"></asp:Label>
         </td>
         <td class="rightField">
             <asp:Label ID="lblRegistrationNum" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -101,7 +136,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name (First/Middle/Last) :"></asp:Label>
+            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Contact Person Name :"></asp:Label>
         </td>
         <td class="rightField">
             <asp:Label ID="lblName" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -113,13 +148,14 @@
         </td>
         <td class="rightField">
             <asp:Label ID="lblPanNum" runat="server" Text="Label" CssClass="Field"></asp:Label>
+              &nbsp;
+            &nbsp;
+            &nbsp;
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
+                AutoPostBack="true"  Enabled = "false"/>
         </td>
     </tr>
-    <tr>
-        <td colspan="3">
-            &nbsp;&nbsp;
-        </td>
-    </tr>
+     
 </table>
 <div class="tabber" style="width: 100%">
     <div class="tabbertab" style="width: 100%">
@@ -134,7 +170,7 @@
             </tr>
             <tr>
                 <td class="leftField">
-                    <asp:Label ID="Label3" runat="server" Text="Line1(House No/Building) :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label3" runat="server" Text="Line1(House No./Building) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
                     <asp:Label ID="lblCorrLine1" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -162,7 +198,7 @@
             </tr>
             <tr>
                 <td class="leftField">
-                    <asp:Label ID="Label7" runat="server" Text="Line3(Building) :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label7" runat="server" Text="Line3(Area) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
                     <asp:Label ID="lblCorrLine3" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -216,7 +252,7 @@
             </tr>
             <tr>
                 <td class="leftField">
-                    <asp:Label ID="Label60" runat="server" Text="Line1(House No/Building) :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label60" runat="server" Text="Line1(House No./Building) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
                     <asp:Label ID="lblPermLine1" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -298,7 +334,7 @@
             </tr>
             <tr>
                 <td class="leftField" width="25%">
-                    <asp:Label ID="Label36" runat="server" Text="Telephone No. (Res) :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label36" runat="server" Text="Telephone No.(Res) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" width="25%">
                     <asp:Label ID="lblResPhone" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -312,7 +348,7 @@
             </tr>
             <tr>
                 <td class="leftField" width="25%">
-                    <asp:Label ID="Label37" runat="server" Text="Telephone No.(Ofc) :" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label37" runat="server" Text="Telephone No.(Off) :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" width="25%">
                     <asp:Label ID="lblOfcPhone" runat="server" Text="Label" CssClass="Field"></asp:Label>
@@ -340,13 +376,48 @@
             </tr>
         </table>
     </div>
+    <div class="tabbertab">
+                    <h6>
+                        Additional Information</h6>
+                    <table width="100%">
+                        <tr>
+                            <td colspan="4">
+                                <asp:Label ID="Label44" runat="server" Text="Additional Information" CssClass="HeaderTextSmall"></asp:Label>
+                                <hr />
+                            </td>
+                        </tr>
+                        
+                         
+                        <tr>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="Label27" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                 <asp:Checkbox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail"
+                AutoPostBack="true"  Enabled = "false"/>
+                &nbsp;
+            &nbsp;
+                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS"
+                AutoPostBack="true"  Enabled = "false"/>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        
+                       
+                        
+                    </table>
+                </div>
 </div>
 <table width="100%">
     <tr id="trDelete" runat="server">
         <td colspan="3" class="SubmitCell">
-            <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"
+            <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" Visible="false"
                 CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ViewNonIndividualProfile_btnDelete');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewNonIndividualProfile_btnDelete');" />
+                <asp:HiddenField ID="hdnassociationcount" runat="server" />
         </td>
     </tr>
 </table>

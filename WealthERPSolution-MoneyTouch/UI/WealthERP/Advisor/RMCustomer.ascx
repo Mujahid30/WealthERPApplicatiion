@@ -1,11 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMCustomer.ascx.cs"
     Inherits="WealthERP.RMCustomer" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<asp:ScriptManager ID="scptMgr" runat="server">
+</asp:ScriptManager>
 <script language="javascript" type="text/javascript">
     function Print_Click(div, btnID) {
         var ContentToPrint = document.getElementById(div);
-
         var myWindowToPrint = window.open('', '', 'width=200,height=100,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,directories=0');
         myWindowToPrint.document.write(document.getElementById(div).innerHTML);
         // myWindowToPrint.document.write(ContentToPrint.innerHTML);
@@ -13,21 +14,72 @@
         myWindowToPrint.focus();
         myWindowToPrint.print();
         myWindowToPrint.close();
-
         var btn2 = document.getElementById(btnID);
         btn2.click();
+    }
+    function DownloadScript() {
+        if (document.getElementById('<%= gvCustomers.ClientID %>') == null) {
+            alert("No records to export");
+            return false;
+        }
+        btn = document.getElementById('<%= btnExportExcel.ClientID %>');
+        btn.click();
+    }
+    function setPageType(pageType) {
+        document.getElementById('<%= hdnDownloadPageType.ClientID %>').value = pageType;
+
     }
     function AferExportAll(btnID) {
         var btn = document.getElementById(btnID);
         btn.click();
     }
+    //***********************************
+
+    function showmessage() {
+
+        var bool = window.confirm('Are you sure you want to delete this profile?');
+  
+        if (bool) {            
+            document.getElementById("ctrl_RMCustomer_hdnMsgValue").value = 1;
+
+            document.getElementById("ctrl_RMCustomer_hiddenassociation").click();
+
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_RMCustomer_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_RMCustomer_hiddenassociation").click();
+            return true;
+        }
+    }
+
+    //***********************************************
+
+
+    function showassocation() {
+
+        var bool = window.confirm('Customer has associations,cannot be deteted');
+        if (bool) {           
+            document.getElementById("ctrl_RMCustomer_hdnassociation").value = 1;
+            document.getElementById("ctrl_RMCustomer_hiddenassociationfound").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_RMCustomer_hdnassociation").value = 0;
+            document.getElementById("ctrl_RMCustomer_hiddenassociationfound").click();
+            return true;
+        }
+    }
 </script>
 
-<%--<tr>
-        <td colspan="2" class="rightField">
+<table id="Table1" class="TableBackground" width="100%" runat="server">
+    <tr>
+        <td class="HeaderCell">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer List"></asp:Label>
+            <hr />
         </td>
-    </tr>--%>
+    </tr>
+</table>
 <table id="ErrorMessage" align="center" runat="server">
     <tr>
         <td>
@@ -37,12 +89,7 @@
         </td>
     </tr>
 </table>
-<table class="TableBackground" width="100%" id="tblGv" runat="server">
-    <%--<tr>
-        <td colspan="2" class="rightField">
-            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer List"></asp:Label>
-        </td>
-    </tr>--%>
+<%--<table class="TableBackground" width="100%" id="tblGv" runat="server">
     <tr id="Tr1" runat="server" visible="true">
         <td>
             <asp:RadioButton ID="rbtnExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -74,9 +121,91 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
-</table>
+</table>--%>
 <div id="tbl" runat="server">
     <table>
+        <tr id="trModalPopup" runat="server">
+            <td>
+                <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
+                    TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
+                    Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
+                    PopupDragHandleControlID="Panel1" X="280" Y="35">
+                </cc1:ModalPopupExtender>
+            </td>
+        </tr>
+        <tr id="trExportPopup" runat="server">
+            <td>
+                <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" style="display:none">
+                    <br />
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td align="right">
+                                <input id="rbCurrent" runat="server" name="Radio" onclick="setPageType('single')"
+                                    type="radio" />
+                            </td>
+                            <td align="left">
+                                <label for="rbCurrent" style="color: Black; font-family: Verdana; font-size: 8pt;
+                                    text-decoration: none">
+                                    Current Page</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td align="right">
+                                <input id="rbAll" runat="server" name="Radio" onclick="setPageType('multiple')" type="radio" />
+                            </td>
+                            <td align="left">
+                                <label for="rbAll" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
+                                    All Pages</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%">
+                        <tr>
+                            <td align="right">
+                                <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
+                            </td>
+                            <td align="left">
+                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                            </td>
+                        </tr>
+                    </table>
+                </asp:Panel>
+                <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
+                    OnClick="btnExportExcel_Click" Height="31px" Width="30px" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+                    cellspacing="0">
+                    <tr>
+                        <td>
+                            <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td class="leftField" align="right">
+                            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+                            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
         <tr>
             <td class="rightField" colspan="2">
                 <asp:GridView ID="gvCustomers" runat="server" AutoGenerateColumns="False" CellPadding="4"
@@ -101,6 +230,7 @@
                                     <asp:ListItem Text="Portfolio" />
                                     <asp:ListItem Text="User Details" />
                                     <asp:ListItem Text="Alerts" />
+                                    <asp:ListItem Text="Delete Profile"/>
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -126,7 +256,6 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <%--<asp:BoundField DataField="Parent" HeaderText="Parent" SortExpression="Parent" />--%>
-                        
                         <asp:BoundField DataField="PAN Number" HeaderText="PAN Number" />
                         <asp:BoundField DataField="Mobile Number" HeaderText="Mobile Number" />
                         <asp:BoundField DataField="Phone Number" HeaderText="Phone Number" />
@@ -164,6 +293,25 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <%--<asp:BoundField DataField="Pincode" HeaderText="Pincode" />--%>
+                         <asp:TemplateField HeaderText="IsActive">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblIsActive" runat="server" 
+                                            Text='<%#Eval("IsActive") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderTemplate>
+                                        <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" 
+                                            CssClass="cmbField"  
+                                            OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
+                                            <asp:ListItem Text="All" Value="2">
+                                            </asp:ListItem>
+                                            <asp:ListItem Text="Active" Value="1">
+                                            </asp:ListItem>
+                                            <asp:ListItem Text="InActive" Value="0">
+                                            </asp:ListItem>                                            
+                                        </asp:DropDownList>
+                                        </HeaderTemplate>
+                                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </td>
@@ -181,6 +329,8 @@
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
+ <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" 
+                BorderStyle="None" Visible="false"  />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
@@ -189,3 +339,8 @@
 <asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnCityFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnParentFilter" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
+<asp:HiddenField ID="hdnactive" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="hdnassociation" runat="server" Visible="true" />
+<asp:HiddenField ID="hdnassociationcount" runat="server" />

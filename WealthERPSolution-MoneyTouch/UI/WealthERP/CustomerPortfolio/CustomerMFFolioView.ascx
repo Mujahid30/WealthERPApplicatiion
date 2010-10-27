@@ -4,7 +4,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 
@@ -104,6 +104,7 @@
                     </asp:TemplateField>
                     <asp:BoundField DataField="Folio No" HeaderText="Folio No" />
                     <asp:BoundField DataField="AMC Name" HeaderText="AMC Name" />
+                    <asp:BoundField DataField="Name" HeaderText="Name" />
                     <asp:BoundField DataField="Mode Of Holding" HeaderText="Mode Of Holding" />
                     <asp:BoundField DataField="A/C Opening Date" HeaderText="A/C Opening Date" />
                 </Columns>

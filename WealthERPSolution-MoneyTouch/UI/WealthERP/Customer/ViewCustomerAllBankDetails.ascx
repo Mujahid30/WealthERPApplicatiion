@@ -139,6 +139,10 @@
             <asp:Button ID="btnBack" runat="server" OnClick="btnBack_Click" Text="Back" CssClass="PCGButton"
                 onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ViewCustomerAllBankDetails_btnBack', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewCustomerAllBankDetails_btnBack', 'S');" />
+                &nbsp;
+                <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Edit" CssClass="PCGButton"
+                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ViewCustomerAllBankDetails_btnEdit', 'S');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewCustomerAllBankDetails_btnEdit', 'S');" />
         </td>
     </tr>
 </table>

@@ -17,7 +17,6 @@ namespace WealthERP.Reports
     public partial class EquityReports : System.Web.UI.UserControl
     {
         RMVo rmVo = new RMVo();
-        AdvisorVo advisorVo = new AdvisorVo();
         CustomerBo customerBo = new CustomerBo();
         CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
         DataTable dtRelationship = new DataTable();
@@ -39,10 +38,10 @@ namespace WealthERP.Reports
 
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-                advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+
                 BindPeriodDropDown();
-                txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
 
                 if (!IsPostBack)
                 {
@@ -52,16 +51,16 @@ namespace WealthERP.Reports
                         txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                 }
 
-                if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_MFReports$hidTabIndex"]))
+                if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_EquityReports$hidTabIndex"]))
                 {
-                    activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
+                    activeTabIndex = Convert.ToInt32(Request.Form["ctrl_EquityReports$hidTabIndex"]);
                 }
-                
+
 
 
             }
 
-            TabContainer1.ActiveTabIndex = activeTabIndex;
+
         }
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
         {
@@ -85,18 +84,20 @@ namespace WealthERP.Reports
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
             CustomerBo customerBo = new CustomerBo();
+            CustomerVo customerVo = new CustomerVo();
             if (txtCustomerId.Value != string.Empty)
             {
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                 DataRow dr = dt.Rows[0];
-
+                customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+                Session["CusVo"] = customerVo;
                 txtPanParent.Text = dr["C_PANNum"].ToString();
                 trCustomerDetails.Visible = true;
                 trPortfolioDetails.Visible = true;
                 ShowFolios();
             }
-            TabContainer1.ActiveTab = TabContainer1.Tabs[1];
-            TabContainer1.ActiveTabIndex = 1;
+            TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
+            TabContainer1.ActiveTabIndex = activeTabIndex;
 
         }
         protected void txtParentCustomerId_ValueChanged(object sender, EventArgs e)
@@ -211,7 +212,7 @@ namespace WealthERP.Reports
                         if (String.IsNullOrEmpty(custPortfolio.PortfolioName))
                             custPortfolio.PortfolioName = "No Name";
                         //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
-                        checkbox.Append("<input type='checkbox' checked='true' name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
+                        checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
                     }
                     divPortfolios.InnerHtml = checkbox.ToString();
                     //divPortfolios.Controls.Add(checkboxList);

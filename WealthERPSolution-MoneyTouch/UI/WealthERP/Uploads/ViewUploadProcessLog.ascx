@@ -1,16 +1,113 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewUploadProcessLog.ascx.cs"
     Inherits="WealthERP.Uploads.ViewUploadProcessLog" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<%--This is for Progress bar. Those reference pointing to Yahoo User Interface--%>
+<%--Script manager is needed in order to have ajax based Page loading event triggerer that is bounded to that progress  bar--%>
+<asp:ScriptManager ID="scptMgr" runat="server">
+</asp:ScriptManager>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>  
+<link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
+<link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
+
+<script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
+
+<script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
+<%--This scripts includes the JQuery coding about the screen info--%>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+<%--End--%>
+<%--This script is used to add Progress bar--%>
+<script type="text/javascript">
+    function pageLoad() {
+        InitDialogs();
+        Loading(false);
+    }
+
+    function UpdateImg(ctrl, imgsrc) {
+        var img = document.getElementById(ctrl);
+        img.src = imgsrc;
+    }
+
+    // sets up all of the YUI dialog boxes
+    function InitDialogs() {
+        DialogBox_Loading = new YAHOO.widget.Panel("waitBox",
+	{ fixedcenter: true, modal: true, visible: false,
+	    width: "230px", close: false, draggable: true
+	});
+        DialogBox_Loading.setHeader("Processing, please wait...");
+        DialogBox_Loading.setBody('<div style="text-align:center;"><img src="/Images/Wait.gif" id="Image1" /></div>');
+        DialogBox_Loading.render(document.body);
+    }
+    function Loading(b) {
+        if (b == true && (typeof (Page_IsValid) == "undefined" || Page_IsValid == true)) {
+            DialogBox_Loading.show();
+        }
+        else {
+            DialogBox_Loading.hide();
+        }
+    }
+</script>
 
 <table width="100%" class="TableBackground">
 <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Upload History"></asp:Label>
+         <td class="HeaderCell">
+            <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;" class="flip" />
+           <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Upload History"></asp:Label>
             <hr />
         </td>
     </tr>
+    <tr>
+       <td colspan="4">
+          <div class="panel">
+             <p>View all the details for the uploads done such as number of records created, number of records rejected etc. You can also manage you rejected transactions, rollback or reprocess your uploads.</p>
+          </div>
+       </td>
+    </tr>
 </table>
 
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
+                visible="false">
+                Reprocess successfully Completed
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
+                visible="false">
+                Reprocess Failed!
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRollbackSuccessfull" runat="server" class="success-msg" align="center"
+                visible="false">
+                Rollback Successfully done!
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgStatus" runat="server" class="information-msg" align="center"
+                visible="false">
+                <asp:Label ID="lblError" runat="server"></asp:Label>
+            </div>
+        </td>
+    </tr>
+</table>
 <table style="width: 100%;" class="TableBackground">
     <tr>
         <td class="leftField">
@@ -22,7 +119,7 @@
         <td>
             <asp:GridView ID="gvProcessLog" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 CssClass="GridViewStyle" DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode" AllowSorting="true"
-                OnSorting="gvProcessLog_Sort" ShowFooter="true">
+                OnSorting="gvProcessLog_Sort" ShowFooter="true" OnRowDataBound="gvProcessLog_RowDataBound">
                 <FooterStyle CssClass="FieldName" />
                 <RowStyle CssClass="RowStyle" />
                 <EditRowStyle HorizontalAlign="Left" CssClass="EditRowStyle" />
@@ -41,29 +138,30 @@
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:BoundField HeaderText="Status" />
                     <asp:BoundField DataField="ADUL_ProcessId" HeaderText="Process Id" />
                     <asp:BoundField DataField="ADUL_FileName" HeaderText="Actual FileName" />
                     <asp:BoundField DataField="WUXFT_XMLFileName" HeaderText = "File Type" />
                     <asp:BoundField DataField="XUET_ExtractType" HeaderText = "Extract Type" />
                     <asp:BoundField DataField="ADUL_XMLFileName" HeaderText="XML FileName" />
-                    <asp:BoundField DataField="ADUL_StartTime" HeaderText="Start Time" SortExpression="ADUL_StartTime" />
-                    <asp:BoundField DataField="ADUL_EndTime" HeaderText="End Time" />
-                    <asp:BoundField DataField="ADUL_TotalNoOfRecords" HeaderText="Total No of Records" />
-                    <asp:BoundField DataField="ADUL_NoOfCustomersCreated" HeaderText="No of Customers Created" />
-                    <asp:BoundField DataField="ADUL_NoOfAccountsCreated" HeaderText="No of Accounts Created" />
-                    <asp:BoundField DataField="ADUL_NoOfTransactionsCreated" HeaderText="No of Transactions Created" />
-                    <asp:BoundField DataField="ADUL_NoOfCustomerDuplicates" HeaderText="No of Duplicate Customers" />
-                    <asp:BoundField DataField="ADUL_NoOfAccountDuplicate" HeaderText="No of Duplicate Accounts" />
-                    <asp:BoundField DataField="ADUL_NoOfTransactionDuplicate" HeaderText="No of Duplicate Transactions" />
-                    <asp:BoundField DataField="ADUL_NoOfRejectRecords" HeaderText="No of Rejected Records" />
-                    <asp:BoundField DataField="ADUL_NoOfRecordsInserted" HeaderText="No of Records Inserted" />
-                    <asp:BoundField DataField="ADUL_NoOfInputRejects" HeaderText="No of Input Rejects" />
+                    <asp:BoundField DataField="ADUL_StartTime" HeaderText="Start Time" SortExpression="ADUL_StartTime" ItemStyle-Wrap="false" />
+                    <asp:BoundField DataField="ADUL_EndTime" HeaderText="End Time" ItemStyle-Wrap="false" />
+                    <asp:BoundField DataField="ADUL_TotalNoOfRecords" HeaderText="Total No. of Records" />
+                    <asp:BoundField DataField="ADUL_NoOfCustomersCreated" HeaderText="No. of Customers Created" />
+                    <asp:BoundField DataField="ADUL_NoOfAccountsCreated" HeaderText="No. of Accounts Created" />
+                    <asp:BoundField DataField="ADUL_NoOfTransactionsCreated" HeaderText="No. of Transactions Created" />
+                    <asp:BoundField DataField="ADUL_NoOfCustomerDuplicates" HeaderText="No. of Duplicate Customers" />
+                    <asp:BoundField DataField="ADUL_NoOfAccountDuplicate" HeaderText="No. of Duplicate Accounts" />
+                    <asp:BoundField DataField="ADUL_NoOfTransactionDuplicate" HeaderText="No. of Duplicate Transactions" />
+                    <asp:BoundField DataField="ADUL_NoOfRejectRecords" HeaderText="No. of Rejected Records" />
+                    <asp:BoundField DataField="ADUL_NoOfRecordsInserted" HeaderText="No. of Records Inserted" />
+                    <%--<asp:BoundField DataField="ADUL_NoOfInputRejects" HeaderText="No of Input Rejects" />
                     <asp:BoundField DataField="ADUL_IsXMLConvesionComplete" HeaderText="XML Conversion Status" />
                     <asp:BoundField DataField="ADUL_IsInsertionToInputComplete" HeaderText="Input Insertion Status" />
                     <asp:BoundField DataField="ADUL_IsInsertionToFirstStagingComplete" HeaderText="First Staging Status" />
                     <asp:BoundField DataField="ADUL_IsInsertionToSecondStagingComplete" HeaderText="Second Staging Status" />
-                    <asp:BoundField DataField="ADUL_IsInsertionToWerpComplete" HeaderText="WERP Insertion Status" />
-                    <asp:BoundField DataField="ADUL_IsInsertionToXtrnlComplete" HeaderText="External Insertion Status" />
+                    <asp:BoundField DataField="ADUL_IsInsertionToWerpComplete" HeaderText="WERP Insertion Status" />--%>
+                    <%--<asp:BoundField DataField="ADUL_IsInsertionToXtrnlComplete" HeaderText="External Insertion Status" />--%>
                 </Columns>
             </asp:GridView>
         </td>
@@ -80,11 +178,7 @@
             &nbsp;
         </td>
     </tr>
-    <tr id="trError" runat="server" visible="false">
-        <td class="Message">
-            <asp:Label ID="lblError" CssClass="Error" runat="server"></asp:Label>
-        </td>
-    </tr>
+   
 </table>
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">

@@ -588,44 +588,6 @@ namespace DaoUser
 
         }
 
-        public bool DeleteRoleAssociation(int userId, int roleId)
-        {
-            bool bResult = false;
-            Database db;
-            DbCommand createRoleAssociationCmd;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                createRoleAssociationCmd = db.GetStoredProcCommand("SP_DeleteRoleAssociation");
-                db.AddInParameter(createRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
-                db.AddInParameter(createRoleAssociationCmd, "@UR_RoleId", DbType.Int32, roleId);
-                db.AddInParameter(createRoleAssociationCmd, "@URA_CreatedBy", DbType.Int32, 100);
-                db.AddInParameter(createRoleAssociationCmd, "@URA_ModifiedBy", DbType.Int32, 100);
-                db.ExecuteNonQuery(createRoleAssociationCmd);
-                bResult = true;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection functionInfo = new NameValueCollection();
-                functionInfo.Add("Method", "UserDao.cs:CreateRoleAssociation()");
-                object[] objects = new object[2];
-                objects[0] = userId;
-                objects[1] = roleId;
-                functionInfo = exBase.AddObject(functionInfo, objects);
-                exBase.AdditionalInformation = functionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-            return bResult;
-
-        }
-
         public List<string> GetUserRoles(int userId)
         {
             List<string> roleList = new List<string>();
@@ -804,8 +766,6 @@ namespace DaoUser
             }
         }
 
-
-
         public bool UpdateUserTheme(int userId, string theme)
         {
             bool bResult = false;
@@ -846,5 +806,121 @@ namespace DaoUser
             return bResult;
         }
 
+        /// <summary>
+        /// Function to delete the role association of a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool DeleteRoleAssociation(int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createRoleAssociationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createRoleAssociationCmd = db.GetStoredProcCommand("SP_DeleteRoleAssociation");
+                db.AddInParameter(createRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
+                db.ExecuteNonQuery(createRoleAssociationCmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserDao.cs:DeleteRoleAssociation()");
+                object[] objects = new object[1];
+                objects[0] = userId;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        /// <summary>
+        /// Function to get the role association  of a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public DataTable GetRoleAssociation(int userId)
+        {
+            Database db;
+            DbCommand getRoleAssociationCmd;
+            DataSet getRoleAssociationDs;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getRoleAssociationCmd = db.GetStoredProcCommand("SP_GetRoleAssociation");
+                db.AddInParameter(getRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
+                getRoleAssociationDs = db.ExecuteDataSet(getRoleAssociationCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserDao.cs:GetRoleAssociation()");
+                object[] objects = new object[1];
+                objects[0] = userId;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getRoleAssociationDs.Tables[0];
+        }
+        /// <summary>
+        /// Function to delete the role association of a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public bool DeleteRoleAssociation(int userId, int roleId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createRoleAssociationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createRoleAssociationCmd = db.GetStoredProcCommand("SP_DeleteStaffRoleAssociation");
+                db.AddInParameter(createRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
+                db.AddInParameter(createRoleAssociationCmd, "@UR_RoleId", DbType.Int32, roleId);
+                db.AddInParameter(createRoleAssociationCmd, "@URA_CreatedBy", DbType.Int32, 100);
+                db.AddInParameter(createRoleAssociationCmd, "@URA_ModifiedBy", DbType.Int32, 100);
+                db.ExecuteNonQuery(createRoleAssociationCmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserDao.cs:CreateRoleAssociation()");
+                object[] objects = new object[2];
+                objects[0] = userId;
+                objects[1] = roleId;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+
+        }
     }
 }

@@ -28,12 +28,6 @@ namespace WealthERP.Advisor
                     }
                 }
             }
-            //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
-            //{
-            //    SetNode();
-            //}
-                  
-        
 
         }
         protected void Page_PreRender(object sender, EventArgs e)
@@ -42,10 +36,6 @@ namespace WealthERP.Advisor
             {
                 SetNode();
             }
-        }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-            //SetNode();
         }
         public void SetNode()
         {
@@ -64,6 +54,10 @@ namespace WealthERP.Advisor
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageLoadscript", "loadcontrol('FinancialPlanningReports','login')", true);
 
             }
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }

@@ -297,7 +297,7 @@ namespace DaoAdvisorProfiling
       		            advisorLOBVo.TargetAmount=double.Parse(dr["AL_TargetAmount"].ToString());
                     if (dr["AL_TargetPremiumAmount"].ToString() != string.Empty)
                         advisorLOBVo.TargetPremiumAmount=double.Parse(dr["AL_TargetPremiumAmount"].ToString());
-			        if (dr["AL_IsDependent"].ToString() != string.Empty)
+                    if (dr["AL_IsDependent"].ToString() != string.Empty)
                         advisorLOBVo.IsDependent = Int16.Parse(dr["AL_IsDependent"].ToString());
 
                     advisorLOBList.Add(advisorLOBVo);
@@ -331,9 +331,9 @@ namespace DaoAdvisorProfiling
 
         public void UpdateAdvisorLOB(int lobId, int IsDependent)
         {
-            
+
             Database db;
-            DbCommand UpdateAdvisorLOBCmd;            
+            DbCommand UpdateAdvisorLOBCmd;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -341,7 +341,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(UpdateAdvisorLOBCmd, "@LOBId", DbType.Int32, lobId);
                 db.AddInParameter(UpdateAdvisorLOBCmd, "@IsDependent", DbType.Int32, IsDependent);
                 db.ExecuteNonQuery(UpdateAdvisorLOBCmd);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -363,7 +363,7 @@ namespace DaoAdvisorProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
 
-            }            
+            }
 
         }
 

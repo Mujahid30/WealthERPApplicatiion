@@ -12,7 +12,7 @@
         </td>
     </tr>
     <tr>
-        <td style="width: 50%">
+        <td style="width: 50%" valign="top">
             <table style="width: 100%">
                 <tr>
                     <td colspan="3">
@@ -109,13 +109,9 @@
                         <asp:Label ID="lblTotalLabel" runat="server" CssClass="FieldName" Text="Total:"></asp:Label>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="lblTotalValue" runat="server" CssClass="Field" Text="0"></asp:Label>
+                        <asp:Label ID="lblTotalValue" runat="server" CssClass="Field" Text="Total"></asp:Label>
                     </td>
                     <td>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
                     </td>
                 </tr>
             </table>
@@ -132,7 +128,7 @@
                     <td colspan="2">
                         <asp:Label ID="lblAlertsMessage" runat="server" CssClass="HeaderTextSmall" Text="No Alerts..."></asp:Label>
                         <asp:GridView ID="gvCustomerAlerts" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                            CellPadding="4" CssClass="GridViewStyle" ShowFooter="true" Width="100%">
+                            CellPadding="4" CssClass="GridViewStyle" ShowFooter="true" Width="100%" >
                             <FooterStyle CssClass="FooterStyle" />
                             <RowStyle CssClass="RowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -145,6 +141,10 @@
                                 <asp:BoundField DataField="EventMessage" HeaderText="EventMessage" />
                             </Columns>
                         </asp:GridView>
+                        <asp:Label ID="lblDisclaimer" runat="server" CssClass="FieldName" Text="Note: Only Five most recent Alerts will be visible on the dashboard.Please click here to view all Notifications"
+                            Visible="true"></asp:Label>
+                        <asp:LinkButton ID="lnkAlertNotifications" Text=" -->More" runat="server" OnClick="lnkAlertNotifications_Click"
+                            CssClass="LinkButtons"></asp:LinkButton>
                     </td>
                 </tr>
             </table>
@@ -169,9 +169,9 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <asp:GridView ID="gvrRMClinetList" runat="server" AllowSorting="True" AutoGenerateColumns="False" ShowFooter="true"
-                            CellPadding="4" DataKeyNames="CustomerId" EnableViewState="false" EmptyDataText="There are no records"
-                            Width="90%" CssClass="GridViewStyle" PageSize="5">
+                        <asp:GridView ID="gvrRMClinetList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                            ShowFooter="true" CellPadding="4" DataKeyNames="CustomerId" EnableViewState="false"
+                            EmptyDataText="There are no records" Width="90%" CssClass="GridViewStyle" PageSize="5">
                             <RowStyle CssClass="RowStyle" />
                             <FooterStyle CssClass="FooterStyle" />
                             <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -180,10 +180,18 @@
                             <EditRowStyle CssClass="EditRowStyle" />
                             <AlternatingRowStyle CssClass="AltRowStyle" />
                             <Columns>
-                                <asp:BoundField DataField="Customer_Name" HeaderText="Customer Name" />
+                                <asp:TemplateField HeaderText="Customer Name">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkCustomerName" runat="server" CssClass="GridViewCmbField" OnClick="lnkCustomerNameClientListGrid_Click"
+                                            Text='<%# Eval("Customer_Name") %>'>
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:BoundField DataField="EQCurrentVal" HeaderText="Equity Cur Value" ItemStyle-HorizontalAlign="Right"
                                     DataFormatString="{0:n2}" HtmlEncode="false" />
                                 <asp:BoundField DataField="MFCurrentVal" HeaderText="MF Cur Value" ItemStyle-HorizontalAlign="Right"
+                                    DataFormatString="{0:n2}" HtmlEncode="false" />
+                                <asp:BoundField DataField="Total" HeaderText="Total" ItemStyle-HorizontalAlign="Right"
                                     DataFormatString="{0:n2}" HtmlEncode="false" />
                             </Columns>
                         </asp:GridView>

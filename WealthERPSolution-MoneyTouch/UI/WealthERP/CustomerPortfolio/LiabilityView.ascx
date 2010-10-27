@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LiabilityView.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.LiabilityView" %>
 
-<table>
+<table width="100%">
 <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Liabilities"></asp:Label>
@@ -37,19 +37,39 @@
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="Loan Type" HeaderText="Loan Type"  ItemStyle-HorizontalAlign="Right">
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                    <asp:BoundField DataField="Loan Type" HeaderText="Loan Type"  ItemStyle-HorizontalAlign="Left"   HeaderStyle-HorizontalAlign="Left">
+                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
                     </asp:BoundField>
-                    <asp:BoundField DataField="Lender" HeaderText="Lender"  ItemStyle-HorizontalAlign="Right">
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                    <asp:BoundField DataField="Lender" HeaderText="Lender"  ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left">
+                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
                     </asp:BoundField>
                     
-                    <asp:BoundField DataField="Amount" HeaderText="Amount (Rs)"  ItemStyle-HorizontalAlign="Right">
+                    <asp:BoundField DataField="Amount" HeaderText="Amount(Rs)"  ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right">
                         <ItemStyle HorizontalAlign="Right"></ItemStyle>
                     </asp:BoundField>
                     <asp:BoundField DataField="Rate of Interest" HeaderText="Rate of Interest (%)" 
-                        ItemStyle-HorizontalAlign="Right">
+                        ItemStyle-HorizontalAlign="Right"  HeaderStyle-HorizontalAlign="Right">
                         <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                    </asp:BoundField>
+                    <asp:BoundField DataField="PaymentType" HeaderText="Payment Type" 
+                        ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left">
+                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                    </asp:BoundField>
+                    <asp:BoundField DataField="LumpsusmInstallment" HeaderText="Lumpsum/Installment" 
+                        ItemStyle-HorizontalAlign="Right"  HeaderStyle-HorizontalAlign="Right">
+                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                    </asp:BoundField>
+                    <asp:BoundField DataField="LoanOutstanding" HeaderText="OutStanding Amount" 
+                        ItemStyle-HorizontalAlign="Right"  HeaderStyle-HorizontalAlign="Right">
+                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                    </asp:BoundField>
+                    <asp:BoundField DataField="Frequency" HeaderText="Frequency" 
+                        ItemStyle-HorizontalAlign="left" HeaderStyle-HorizontalAlign="left">
+                        <ItemStyle HorizontalAlign="left"></ItemStyle>
+                    </asp:BoundField>
+                    <asp:BoundField DataField="NextInstallmentDate" HeaderText="Next Installment Date" 
+                        ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
+                        <ItemStyle HorizontalAlign="Center"></ItemStyle>
                     </asp:BoundField>
                   <%--  <asp:BoundField DataField="Tenure(in Months)" HeaderText="Tenure(in Months)" Visible="false"
                         ItemStyle-HorizontalAlign="Right">

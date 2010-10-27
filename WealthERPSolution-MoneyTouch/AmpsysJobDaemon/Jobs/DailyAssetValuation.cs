@@ -32,10 +32,10 @@ namespace AmpsysJobDaemon
             DataSet dsEQValuationDate = new DataSet();
             DateTime tradeDate = new DateTime();
             int LogId = 0;
-            if (DateTime.Now.TimeOfDay.Hours < 1)
+           // if (DateTime.Now.TimeOfDay.Hours < 1)
                 tradeDate = DateTime.Today.AddDays(-1);
-            else
-                tradeDate = DateTime.Today;
+           // else
+              //  tradeDate = DateTime.Today;
 
             DateTime MFValuationDate;
             DateTime EQValuationDate;
@@ -51,49 +51,52 @@ namespace AmpsysJobDaemon
                 foreach (DataRow drMF in dsMFValuationDate.Tables[0].Rows)
                 {
                     MFValuationDate = DateTime.Parse(drMF["WTD_Date"].ToString());
-                    if (drMF["STAT"].ToString() == "Pending. Changes Found")
+                    if (MFValuationDate != DateTime.Today)
                     {
-                        customerPortfolioBo.DeleteAdviserEODLog(adviserVoList[i].advisorId, "MF", MFValuationDate,0);
-                    }
-                    if (drMF["STAT"].ToString() != "Completed")
-                    {
-                        if (DateTime.Compare(MFValuationDate, DateTime.Today) <= 0)
+                        if (drMF["STAT"].ToString() == "Pending. Changes Found")
                         {
-                            if (customerList_MF != null && customerList_MF.Count != 0)
+                            customerPortfolioBo.DeleteAdviserEODLog(adviserVoList[i].advisorId, "MF", MFValuationDate, 0);
+                        }
+                        if (drMF["STAT"].ToString() != "Completed")
+                        {
+                            if (DateTime.Compare(MFValuationDate, DateTime.Today) <= 0)
                             {
-                                LogId = CreateAdviserEODLog("MF", MFValuationDate, adviserVoList[i].advisorId);
-                                for (int j = 0; j < customerList_MF.Count; j++)
+                                if (customerList_MF != null && customerList_MF.Count != 0)
                                 {
-                                    customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList_MF[j]);
-                                    customerPortfolioBo.DeleteMutualFundNetPosition(customerList_MF[j], MFValuationDate);
-                                    if (customerPortfolioList != null && customerPortfolioList.Count != 0)
+                                    LogId = CreateAdviserEODLog("MF", MFValuationDate, adviserVoList[i].advisorId);
+                                    for (int j = 0; j < customerList_MF.Count; j++)
                                     {
-                                        for (int k = 0; k < customerPortfolioList.Count; k++)
+                                        customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList_MF[j]);
+                                        customerPortfolioBo.DeleteMutualFundNetPosition(customerList_MF[j], MFValuationDate);
+                                        if (customerPortfolioList != null && customerPortfolioList.Count != 0)
                                         {
-                                            try
-                                            {
-                                                mfPortfolioList = customerPortfolioBo.GetCustomerMFPortfolio(customerList_MF[j], customerPortfolioList[k].PortfolioId, MFValuationDate, "", "","");
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                Console.WriteLine("Exception: " + ex.ToString());
-                                            }
-                                            if (mfPortfolioList != null && mfPortfolioList.Count != 0)
+                                            for (int k = 0; k < customerPortfolioList.Count; k++)
                                             {
                                                 try
                                                 {
-                                                    customerPortfolioBo.AddMutualFundNetPosition(mfPortfolioList, adviserVoList[i].UserId);
+                                                    mfPortfolioList = customerPortfolioBo.GetCustomerMFPortfolio(customerList_MF[j], customerPortfolioList[k].PortfolioId, MFValuationDate, "", "", "");
                                                 }
-                                                catch (Exception Ex)
+                                                catch (Exception ex)
                                                 {
-                                                    Console.WriteLine("Exception: " + Ex.ToString());
+                                                    Console.WriteLine("Exception: " + ex.ToString());
                                                 }
+                                                if (mfPortfolioList != null && mfPortfolioList.Count != 0)
+                                                {
+                                                    try
+                                                    {
+                                                        customerPortfolioBo.AddMutualFundNetPosition(mfPortfolioList, adviserVoList[i].UserId);
+                                                    }
+                                                    catch (Exception Ex)
+                                                    {
+                                                        Console.WriteLine("Exception: " + Ex.ToString());
+                                                    }
 
+                                                }
                                             }
                                         }
                                     }
+                                    UpdateAdviserEODLog("MF", 1, LogId);
                                 }
-                                UpdateAdviserEODLog("MF", 1, LogId);
                             }
                         }
                     }
@@ -102,48 +105,51 @@ namespace AmpsysJobDaemon
                 foreach (DataRow drEQ in dsEQValuationDate.Tables[0].Rows)
                 {
                     EQValuationDate = DateTime.Parse(drEQ["WTD_Date"].ToString());
-                    if (drEQ["STAT"].ToString() == "Pending. Changes Found")
+                    if (EQValuationDate != DateTime.Today)
                     {
-                        customerPortfolioBo.DeleteAdviserEODLog(adviserVoList[i].advisorId, "EQ", EQValuationDate, 0);
-                    }
-                    if (drEQ["STAT"].ToString() != "Completed")
-                    {
-                        if (DateTime.Compare(EQValuationDate, DateTime.Today) <= 0)
+                        if (drEQ["STAT"].ToString() == "Pending. Changes Found")
                         {
-                            if (customerList_EQ != null && customerList_EQ.Count != 0)
+                            customerPortfolioBo.DeleteAdviserEODLog(adviserVoList[i].advisorId, "EQ", EQValuationDate, 0);
+                        }
+                        if (drEQ["STAT"].ToString() != "Completed")
+                        {
+                            if (DateTime.Compare(EQValuationDate, DateTime.Today) <= 0)
                             {
-                                LogId = CreateAdviserEODLog("EQ", EQValuationDate, adviserVoList[i].advisorId);
-                                for (int j = 0; j < customerList_EQ.Count; j++)
+                                if (customerList_EQ != null && customerList_EQ.Count != 0)
                                 {
-                                    customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList_EQ[j]);
-                                    customerPortfolioBo.DeleteEquityNetPosition(customerList_EQ[j], EQValuationDate);
-                                    if (customerPortfolioList != null && customerPortfolioList.Count != 0)
+                                    LogId = CreateAdviserEODLog("EQ", EQValuationDate, adviserVoList[i].advisorId);
+                                    for (int j = 0; j < customerList_EQ.Count; j++)
                                     {
-                                        for (int k = 0; k < customerPortfolioList.Count; k++)
+                                        customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList_EQ[j]);
+                                        customerPortfolioBo.DeleteEquityNetPosition(customerList_EQ[j], EQValuationDate);
+                                        if (customerPortfolioList != null && customerPortfolioList.Count != 0)
                                         {
-                                            try
-                                            {
-                                                eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList_EQ[j], customerPortfolioList[k].PortfolioId, EQValuationDate, "");
-                                            }
-                                            catch (Exception Ex)
-                                            {
-                                                Console.WriteLine("Exception: " + Ex.ToString());
-                                            }
-                                            if (eqPortfolioList != null && eqPortfolioList.Count != 0)
+                                            for (int k = 0; k < customerPortfolioList.Count; k++)
                                             {
                                                 try
                                                 {
-                                                    customerPortfolioBo.AddEquityNetPosition(eqPortfolioList, adviserVoList[i].UserId);
+                                                    eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList_EQ[j], customerPortfolioList[k].PortfolioId, EQValuationDate, "");
                                                 }
                                                 catch (Exception Ex)
                                                 {
                                                     Console.WriteLine("Exception: " + Ex.ToString());
                                                 }
+                                                if (eqPortfolioList != null && eqPortfolioList.Count != 0)
+                                                {
+                                                    try
+                                                    {
+                                                        customerPortfolioBo.AddEquityNetPosition(eqPortfolioList, adviserVoList[i].UserId);
+                                                    }
+                                                    catch (Exception Ex)
+                                                    {
+                                                        Console.WriteLine("Exception: " + Ex.ToString());
+                                                    }
+                                                }
                                             }
                                         }
                                     }
+                                    UpdateAdviserEODLog("EQ", 1, LogId);
                                 }
-                                UpdateAdviserEODLog("EQ", 1, LogId);
                             }
                         }
                     }

@@ -75,9 +75,11 @@
             <asp:Label ID="lblLine1" runat="server" CssClass="FieldName" Text="Line1 (House No/Building) :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtAddressLine1" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtAddressLine1" runat="server" CssClass="txtLongAddField"></asp:TextBox>
             <span id="Span4" class="spnRequiredField">*<br />
             </span>
+            
+
             <asp:RequiredFieldValidator ID="rfvAddressLine1" ControlToValidate="txtAddressLine1"
                 ErrorMessage="Please enter the Address Line 1" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnSubmit">
@@ -89,7 +91,7 @@
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Line2 (Street) :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtAddressLine2" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtAddressLine2" runat="server" CssClass="txtLongAddField"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -97,7 +99,7 @@
             <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Line3 (Area) :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtAddressLine3" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtAddressLine3" runat="server" CssClass="txtLongAddField"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -305,7 +307,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Associate Model Type :"></asp:Label>
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Associate Model :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
             <asp:RadioButton ID="rbtnAssModelTypeYes" runat="server" CssClass="txtField" Text="Yes" GroupName="grpAssModel" />
@@ -337,10 +339,16 @@
             <hr />
         </td>
     </tr>
+    <tr >
+    <td colspan="4">
+     <asp:Label ID="lblCaption" runat="server" CssClass="txtField" Text="Note: For logo upload and change reflect only after relogin"></asp:Label>
+    </td>
+    </tr>
     <tr id="AdviserLogoRow" runat="server">
         <td>
             <asp:LinkButton ID="lnklogoChange" runat="server" CssClass="LinkButtons" OnClick="DisplayLogoControl">Click to change Logo</asp:LinkButton>
-        </td></tr>
+        </td>
+     </tr>
         <tr>
         <td class="leftField">
             <asp:Label ID="lblLogoChange" runat="server" CssClass="FieldName" Text="Change Adviser's Logo:"

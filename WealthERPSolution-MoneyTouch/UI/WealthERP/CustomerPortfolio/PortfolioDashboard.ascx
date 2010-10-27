@@ -253,8 +253,8 @@
     </tr>
     <tr>
         <td colspan="2">
-            <asp:Label ID="lblGovHeader" runat="server" CssClass="HeaderTextSmall" Text="FI, Govt Savings, Insurance"></asp:Label>
-            &nbsp;(Top 2 Each)<hr />
+            <asp:Label ID="lblGovHeader" runat="server" CssClass="HeaderTextSmall" Text="FI, Govt Savings, Insurance (Top 2 Each)"></asp:Label>
+            &nbsp;<hr />
         </td>
     </tr>
     <tr id="trGovNoRecords" runat="server" visible="false">

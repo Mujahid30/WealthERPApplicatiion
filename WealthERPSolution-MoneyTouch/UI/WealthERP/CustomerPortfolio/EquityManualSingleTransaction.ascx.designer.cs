@@ -185,15 +185,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.DropDownList ddlExchange;
         
         /// <summary>
-        /// CompareValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
-        
-        /// <summary>
         /// lblDPAcc control.
         /// </summary>
         /// <remarks>
@@ -210,6 +201,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTradeAcc;
+        
+        /// <summary>
+        /// divTradeAcc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTradeAcc;
         
         /// <summary>
         /// CompareValidator3 control.
@@ -446,15 +446,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.TextBox txtBrokerage;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
-        /// <summary>
         /// RegularExpressionValidator1 control.
         /// </summary>
         /// <remarks>
@@ -491,13 +482,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.TextBox txtOtherCharge;
         
         /// <summary>
-        /// RequiredFieldValidator8 control.
+        /// divOtherCharge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOtherCharge;
         
         /// <summary>
         /// RegularExpressionValidator2 control.
@@ -545,15 +536,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.TextBox txtTax;
         
         /// <summary>
-        /// RequiredFieldValidator9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator9;
-        
-        /// <summary>
         /// CompareValidator10 control.
         /// </summary>
         /// <remarks>
@@ -588,15 +570,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSTT;
-        
-        /// <summary>
-        /// RequiredFieldValidator10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator10;
         
         /// <summary>
         /// trRateInc control.

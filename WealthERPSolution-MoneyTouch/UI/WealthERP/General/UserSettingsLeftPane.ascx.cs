@@ -25,93 +25,87 @@ namespace WealthERP.General
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session["userVo"];
-            
         }
-        protected void Page_PreRender(object sender, EventArgs e)
+         protected void Page_PreRender(object sender, EventArgs e)
         {
             if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
             {
                 SetNode();
             }
         }
+         public void SetNode()
+         {
+             string strNodeValue = null;
+             try
+             {
+                 if (TreeView1.SelectedNode.Value.ToString() == "Home")
+                 {
+                     if (userVo.UserType == "SuperAdmin")
+                     {
+                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFF','login','" + userVo.FirstName + " " + userVo.LastName + "','');", true);
+                     }
+                     else
+                     {
+                         roleList = userBo.GetUserRoles(userVo.UserId);
+                         count = roleList.Count;
+                         if (count == 3)
+                         {
+                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
+                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFAAdminDashboard','login','" + UserName + "','" + sourcePath + "');", true);
+                         }
+                         else if (count == 2)
+                         {
+                             if (roleList.Contains("RM") && roleList.Contains("BM"))
+                             {
+                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
+                             }
+                             else if (roleList.Contains("RM") && roleList.Contains("Admin"))
+                             {
+                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
+                             }
+
+                         }
+                         else
+                         {
+                             if (roleList.Contains("RM"))
+                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
+                             else
+                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcepath + "');", true);
+                         }
+                     }
+                 }
+                 else if (TreeView1.SelectedNode.Value.ToString() == "Change Password")
+                 {
+                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ChangePassword','none');", true);
+                 }
+                 else if (TreeView1.SelectedNode.Value.ToString() == "Change Login Id")
+                 {
+                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ChangeLoginId','none');", true);
+                 }
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+
+                 FunctionInfo.Add("Method", "RMLeftPane.ascx.cs:TreeView1_SelectedNodeChanged()");
+
+                 object[] objects = new object[1];
+                 objects[0] = strNodeValue;
+
+                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+         }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
-           
-        }
-        public void SetNode()
-        {
-            string strNodeValue = null;
-            try
-            {
-                
-                if (TreeView1.SelectedNode != null)
-                {
-                    if (TreeView1.SelectedNode.Value.ToString() == "Home")
-                    {
-                        roleList = userBo.GetUserRoles(userVo.UserId);
-                        count = roleList.Count;
-                        if (count == 3)
-                        {
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
-                            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFAAdminDashboard','login','" + UserName + "','" + sourcePath + "');", true);
-                        }
-                        else if (count == 2)
-                        {
-                            if (roleList.Contains("RM") && roleList.Contains("BM"))
-                            {
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
-                            }
-                            else if (roleList.Contains("RM") && roleList.Contains("Admin"))
-                            {
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
-                            }
-
-                        }
-                        else if (count == 1)
-                        {
-                            if (roleList.Contains("RM"))
-                            {
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
-                            }
-                        }
-                        else if (userVo.UserType == "SuperAdmin")
-                        {
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFF','login','" + userVo.FirstName + " " + userVo.LastName + "','');", true);
-                        }
-                        else
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerIndividualDashboard','none');", true);
-                    }
-                    else if (TreeView1.SelectedNode.Value.ToString() == "Change Password")
-                    {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ChangePassword','none');", true);
-                    }
-                    else if (TreeView1.SelectedNode.Value.ToString() == "Change Login Id")
-                    {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ChangeLoginId','none');", true);
-                    }
-                    //}
-                }
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "RMLeftPane.ascx.cs:TreeView1_SelectedNodeChanged()");
-
-                object[] objects = new object[1];
-                objects[0] = strNodeValue;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            
         }
     }
 }

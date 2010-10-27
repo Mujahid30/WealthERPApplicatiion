@@ -11,7 +11,9 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using VoReports;
 using BoCommon;
-
+using BoCalculator;
+using VoCustomerPortfolio;
+using BoCustomerPortfolio;
 
 namespace DaoReports
 {
@@ -37,10 +39,10 @@ namespace DaoReports
                 db.AddInParameter(cmd, "@StartDate", DbType.DateTime, DateBo.GetPreviousMonthLastDate(report.ToDate));
                 db.AddInParameter(cmd, "@EndDate", DbType.DateTime, report.ToDate);
                 db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
-                
+                cmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(cmd);
                 DataSet dsLiablities = GetLiabilities(report.PortfolioIds); //Get liability details (Customerwise)
-                if (dsLiablities != null && dsLiablities.Tables[0].Rows.Count > 0 ) //Add liabilities data table to Portfolio dataset
+                if (dsLiablities != null && dsLiablities.Tables[0].Rows.Count > 0) //Add liabilities data table to Portfolio dataset
                 {
                     dsLiablities.Tables[0].TableName = "Liabilities";
                     ds.Tables.Add(dsLiablities.Tables[0].Copy());
@@ -51,13 +53,15 @@ namespace DaoReports
                     dtLiabilities.Columns.Add("CustomerId", Type.GetType("System.Int64"));
                     dtLiabilities.Columns.Add("LoanType");
                     dtLiabilities.Columns.Add("LoanAmount", Type.GetType("System.Int64"));
+                    dtLiabilities.Columns.Add("CustomerName");
                     DataRow drLiabilities = dtLiabilities.NewRow();
                     drLiabilities["CustomerId"] = "-1"; //customer Id is -1 so that it will not be displayed in report.
+                    drLiabilities["CustomerName"] = "CustomerName";
                     drLiabilities["LoanType"] = "LoanType";
                     drLiabilities["LoanAmount"] = 0;
                     dtLiabilities.Rows.Add(drLiabilities);
                     ds.Tables.Add(dtLiabilities);
-                   
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -92,13 +96,37 @@ namespace DaoReports
             Database db;
             DbCommand cmdGetLiabilities;
             DataSet dsGetLiabilities;
-
+            int tempId = 0;
+            Calculator calculator = new Calculator();
+            List<LiabilitiesVo> liabilitiesVoList = new List<LiabilitiesVo>();
+            LiabilitiesVo liabilityVo = new LiabilitiesVo();
+            LiabilitiesBo liabilitiesBo = new LiabilitiesBo();
+            double liabilityValue = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetLiabilities = db.GetStoredProcCommand("SP_RPT_GetLiabilities");
                 db.AddInParameter(cmdGetLiabilities, "@PortfolioIds", DbType.String, customerIds);
+                cmdGetLiabilities.CommandTimeout = 60 * 60;
+
                 dsGetLiabilities = db.ExecuteDataSet(cmdGetLiabilities);
+                if (dsGetLiabilities.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < dsGetLiabilities.Tables[0].Rows.Count; i++)
+                    {
+                        liabilityValue = 0;
+                        liabilityVo = liabilitiesBo.GetLiabilityDetails(int.Parse(dsGetLiabilities.Tables[0].Rows[i]["CL_LiabilitiesId"].ToString()));
+                        if (liabilityVo.PaymentOptionCode == 1)
+                        {
+                            liabilityValue = liabilityValue + calculator.GetLoanOutstanding(liabilityVo.CompoundFrequency, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 1, liabilityVo.LumpsumRepaymentAmount, liabilityVo.NoOfInstallments);
+                        }
+                        else if (liabilityVo.PaymentOptionCode == 2)
+                        {
+                            liabilityValue = liabilityValue + calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
+                        }
+                        dsGetLiabilities.Tables[0].Rows[i]["LoanAmount"] = liabilityValue.ToString();
+                    }
+                }
 
             }
             catch (BaseApplicationException Ex)

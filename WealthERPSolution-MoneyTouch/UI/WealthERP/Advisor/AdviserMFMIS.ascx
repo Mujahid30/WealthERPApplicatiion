@@ -76,6 +76,14 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                 </tr>
+                <tr id="trPeriod" runat="server">
+                <td>
+            <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlPeriod" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPeriod_SelectedIndexChanged" CssClass="cmbField">
+            </asp:DropDownList>
+        </td></tr>
                 <tr>
                     <td align="right">
                         <span id="spnBranch" runat="server">
@@ -84,6 +92,9 @@
                     <td>
                         <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged"
                             AutoPostBack="true">
+                             <%--<asp:ListItem Value="1086" Text="All"></asp:ListItem>
+                             <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>
+                             <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem>--%>
                         </asp:DropDownList>
                     </td>
                     </span>
@@ -93,7 +104,8 @@
                     <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" 
+                AutoPostBack="true" onselectedindexchanged="ddlRM_SelectedIndexChanged">
             </asp:DropDownList>
             </span>
         </td>
@@ -101,15 +113,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </td>
     </tr>
-    <tr id="trPeriod" visible="false" runat="server">
-        <td>
-            <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlPeriod" runat="server" AutoPostBack="true" CssClass="cmbField">
-            </asp:DropDownList>
-        </td>
-    </tr>
+    
     <tr>
         <td colspan="3">
             <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" ValidationGroup="btnGo"
@@ -135,7 +139,7 @@
     <tr>
         <td colspan="3">
             <asp:GridView ID="gvMFMIS" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle" ShowFooter="True">
+                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle" GridLines="Both" ShowFooter="True">
                 <%--OnSorting="gvMFMIS_Sorting" OnDataBound="gvMFMIS_DataBound"--%>
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
@@ -162,3 +166,9 @@
         </td>
     </tr>
 </table>
+
+
+<asp:HiddenField ID="hdnbranchId" runat="server" />
+<asp:HiddenField ID="hdnbranchHeadId" runat="server" />
+<asp:HiddenField ID="hdnall" runat="server" />
+<asp:HiddenField ID="hdnrmId" runat="server" />

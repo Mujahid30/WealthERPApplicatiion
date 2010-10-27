@@ -3,6 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 
+
 <script>
     var content_Prefix = "ctrl_CustomerIncome_";
     function CalculateMonth(txtYear, txtMonthName) {
@@ -29,7 +30,7 @@
 
         }
         else {
-            
+
             txtYear.value = "0.00";
             txtMonth.value = "0.00";
         }
@@ -64,15 +65,13 @@
 <table class="TableBackground">
     <tr>
         <td>
-            <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="PCGButton" CausesValidation="false"
-                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerIndividualAdd_btnSubmit');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerIndividualAdd_btnSubmit', 'S');"
+            <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="PCGButton" CausesValidation="false"                
                 OnClick="btnEdit_Click" />
         </td>
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label1" runat="server" Text="Income as of" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="Income as of :" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtDateOfEntry" runat="server" CssClass="txtField" Style="text-align: center"></asp:TextBox>
@@ -93,17 +92,19 @@
         </td>
     </tr>
     <tr>
-        <td class="HeaderCell">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <td align="right">            
             <asp:Label ID="Label2" runat="server" Text="Category" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="HeaderCell">
+        <td >
+        &nbsp;&nbsp;
             <asp:Label ID="Label3" runat="server" Text="Amount/Month" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="HeaderCell">
+        <td >
+        &nbsp;&nbsp;
             <asp:Label ID="Label4" runat="server" Text="Currency" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="HeaderCell">
+        <td >
+        &nbsp;&nbsp;
             <asp:Label ID="Label5" runat="server" Text="Yearly" CssClass="FieldName"></asp:Label>
         </td>
     </tr>   

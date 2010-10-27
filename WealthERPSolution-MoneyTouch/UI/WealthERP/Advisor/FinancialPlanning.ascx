@@ -82,7 +82,8 @@
     }
     function GoalDeactiveConfirm()
     {
-    
+     if(document.getElementById("<%= hidGoalCount.ClientID %>")!=null)
+     {
      if(document.getElementById("<%= hidGoalCount.ClientID %>").value >0)
      {  
       
@@ -97,6 +98,7 @@
           return false;
        }
        
+      }
       }
     }
 
@@ -142,7 +144,7 @@
     <tr>
         <td>
             <ajaxtoolkit:tabcontainer id="tabRiskProfilingAndAssetAllocation" runat="server"
-                activetabindex="0" width="100%" style="visibility: visible">
+                activetabindex="1" width="100%" style="visibility: visible">
                 <ajaxToolkit:TabPanel ID="tabRiskProfiling" runat="server" HeaderText="Risk Profiling"
                     Visible="true">
                     <HeaderTemplate>
@@ -158,7 +160,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <table id="tblRiskScore" runat="server" style="background-color: Gray; border: thin solid #FF0000"
+                                    <table id="tblRiskScore" runat="server" style="background-color:#D3D3D3; border: thin solid #FF0000"
                                         visible="False" width="100%">
                                         <tr id="Tr1" runat="server">
                                             <td id="Td1" runat="server">
@@ -177,6 +179,18 @@
                                     </table>
                                 </td>
                             </tr>
+                            <tr id="trRiskProfilingParagraph" runat="server">
+                               
+                                  <td width="100%" colspan="6">                    
+                                                                
+                                    <asp:Label ID="lblRiskProfilingParagraph" runat="server" CssClass="GridViewCmbField" style="white-space:inherit" Text="">
+                                    </asp:Label>
+                                               
+                                <br />
+                               </td> 
+                                
+                            </tr>
+                            
                             <tr>
                                 <td>
                                     <table width="100%">
@@ -258,7 +272,7 @@
                                 <td>
                                 </td>
                             </tr>
-                            <tr>
+                                <tr>
                                 <td>
                                     <asp:Chart ID="cActualAsset" runat="server" Height="165px" Width="214px">
                                         <Series>
@@ -275,7 +289,7 @@
                                     <table id="tblRecommended" runat="server">
                                         <tr id="Tr2" runat="server">
                                             <td id="Td4" runat="server" align="center" colspan="2">
-                                                <asp:Label ID="lblRecommended" runat="server" CssClass="HeaderTextSmaller" Text="Recommended"></asp:Label>
+                                                <asp:Label ID="lblRecommended" runat="server" CssClass="HeaderTextSmaller" Text="Recommended Asset Allocation"></asp:Label>
                                             </td>
                                         </tr>
                                         <tr id="Tr3" runat="server">
@@ -303,6 +317,7 @@
                                             <td id="Td10" runat="server">
                                                 <asp:TextBox ID="txtRecommendedCash" runat="server" CssClass="Field" 
                                                     ReadOnly="True"></asp:TextBox>
+                                                
                                             </td>
                                         </tr>
                                     </table>
@@ -316,13 +331,77 @@
                                 <td>
                                 </td>
                             </tr>
-                            <tr>
+                            
+                                <tr id="trCurrentAssetAllocation" runat="server">
+                                <td>
+                                    <asp:Chart ID="ChartCurrentAsset" runat="server" Height="165px" Width="214px">
+                                        <Series>
+                                            <asp:Series ChartArea="caActualAsset" Name="sActualAsset">
+                                            </asp:Series>
+                                        </Series>
+                                        <ChartAreas>
+                                            <asp:ChartArea Name="caActualAsset">
+                                            </asp:ChartArea>
+                                        </ChartAreas>
+                                    </asp:Chart>
+                                </td>
+                                <td colspan="2">
+                                    <table id="tblCurrent" runat="server">
+                                        <tr id="Tr6" runat="server">
+                                            <td id="Td11" runat="server" align="center" colspan="2">
+                                                <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmaller" Text="Current Asset Allocation"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr id="Tr7" runat="server">
+                                            <td id="Td12" runat="server" align="right">
+                                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Equity:"></asp:Label>
+                                            </td>
+                                            <td id="Td13" runat="server">
+                                                <asp:TextBox ID="txtCurrentEquity" runat="server" CssClass="Field" 
+                                                    ReadOnly="True"></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                        <tr id="Tr8" runat="server">
+                                            <td id="Td14" runat="server" align="right">
+                                                <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Debt:"></asp:Label>
+                                            </td>
+                                            <td id="Td15" runat="server">
+                                                <asp:TextBox ID="txtCurrentDebt" runat="server" CssClass="Field" 
+                                                    ReadOnly="True"></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                        <tr id="Tr9" runat="server">
+                                            <td id="Td16" runat="server" align="right">
+                                                <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Cash:"></asp:Label>
+                                            </td>
+                                            <td id="Td17" runat="server">
+                                                <asp:TextBox ID="txtCurrentCash" runat="server" CssClass="Field" 
+                                                    ReadOnly="True"></asp:TextBox>
+                                                
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
                                 <td>
                                 </td>
-                                <td class="style1">
-                                    &nbsp;
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
                                 </td>
                             </tr>
+                            
+                            <tr id="trCustomerAssetText" runat="server">
+                            <td colspan="6" width="100%">
+                                                            
+                             <asp:Label ID="lblCustomerParagraph" runat="server" BackColor="Transparent" CssClass="Field"></asp:Label>
+                            </td>
+                            </tr>
+                            
+                            
+                            
+                            
                             <tr>
                                 <td>
                                     <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" CssClass="PCGButton"

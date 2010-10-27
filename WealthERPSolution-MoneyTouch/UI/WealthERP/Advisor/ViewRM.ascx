@@ -30,10 +30,24 @@
         </td>
     </tr>
     <tr>
+         <td colspan="2" class="leftField" style="float: left">
+            <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
+            &nbsp;&nbsp;
+            <asp:DropDownList ID="ddlBMStaffList" runat="server" AutoPostBack="true" 
+                onselectedindexchanged="ddlBMStaffList_SelectedIndexChanged">
+            <%--<asp:ListItem Value="1005" Text="All"></asp:ListItem>
+            <asp:ListItem Value="1000" Text="BTM"></asp:ListItem>
+            <asp:ListItem Value="1001" Text="Malleshwaram"></asp:ListItem>
+            <asp:ListItem Value="1002" Text="Vijaynagar"></asp:ListItem>
+            <asp:ListItem Value="1003" Text="Banashankri"></asp:ListItem>--%>
+            </asp:DropDownList>
+        </td>
+        </tr>
+    <tr width="100%">
         <td>
-            <div id="print" runat="server">
+            <div id="print" runat="server" width="100%">
                 <asp:GridView ID="gvRMList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                    DataKeyNames="UserId"  OnSorting="gvRMList_Sorting"
+                    DataKeyNames="UserId"  OnSorting="gvRMList_Sorting" width="100%" RowStyle-Wrap="true"
                     CssClass="GridViewStyle"
                     ShowFooter="True">
                     <RowStyle CssClass="RowStyle" />
@@ -48,19 +62,21 @@
                             <ItemTemplate>
                                 <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
                                     <asp:ListItem>Select </asp:ListItem>
-                                    <%--<asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>--%>
+                                   <%-- <asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>--%>
                                     <asp:ListItem Text="View profile" Value="View profile">View profile  </asp:ListItem>
+                                     <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
                                     <asp:ListItem Text="RM Dashboard" Value="RM Dashboard">RM Dashboard</asp:ListItem>
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="RMName" HeaderText="RM Name" SortExpression="RMName" />
+                      <asp:BoundField DataField="RMName" HeaderText="Name" SortExpression="RMName" ItemStyle-Wrap="false" />
                         <%--<asp:BoundField DataField="RM Main Branch" HeaderText="RM Main Branch" />--%>
-                        <asp:BoundField DataField="StaffType" HeaderText="Staff Type" />
-                        <asp:BoundField DataField="StaffRole" HeaderText="Staff Role" />
+                        <asp:BoundField DataField="StaffType" HeaderText="Type" />
+                        <asp:BoundField DataField="StaffRole" HeaderText="Role" />
+                        <asp:BoundField DataField="BranchList" HeaderText="Branch" />
                         <asp:BoundField DataField="Email" HeaderText="Email" />                        
-                        <asp:BoundField DataField="Mobile Number" HeaderText="Mobile Number" />                        
-                        <asp:BoundField DataField="WealthERP Id" HeaderText="Staff Id"  />
+                        <asp:BoundField DataField="Mobile Number" HeaderText="Mobile" />                        
+                        <asp:BoundField DataField="WealthERP Id" HeaderText="Id"  />
                         
                     </Columns>
                 </asp:GridView>
@@ -80,3 +96,9 @@
 <asp:HiddenField ID="hdnCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="RMName ASC" />
+
+<%-- Hiddenfields for BranchId, BranchHeadId and all parameters --%>
+<asp:HiddenField ID="hdnbranchID" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnall" runat="server" Visible="false" />
+<%-- End --%>

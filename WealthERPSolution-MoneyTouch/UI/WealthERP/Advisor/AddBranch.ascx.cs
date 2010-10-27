@@ -80,6 +80,7 @@ namespace WealthERP.Advisor
                     AssociateLogoHdr.Visible = false;
                     CommSharingStructureGv.Visible = false;
                     CommSharingStructureHdr.Visible = false;
+                    trCommsharingHeading.Visible = false; ;
                     SetInitialRow();
                     CheckAdviserEquityLob();    //Making invisible Terminal id add row if there is no Equity LOB
                 }
@@ -214,7 +215,7 @@ namespace WealthERP.Advisor
             string id = "";
             try
             {
-                id = txtEmail.Text;
+                id = txtEmail.Text.Trim();
                 result = userBo.ChkAvailability(id);
             }
             catch (BaseApplicationException Ex)
@@ -381,12 +382,13 @@ namespace WealthERP.Advisor
                     advisorBranchVo.BranchName = txtBranchName.Text.ToString();
                     advisorBranchVo.City = txtCity.Text.Trim();
                     advisorBranchVo.Country = ddlCountry.SelectedItem.Value.ToString();
-                    advisorBranchVo.Email = txtEmail.Text.ToString();
+                    advisorBranchVo.Email = txtEmail.Text.Trim().ToString();
 
                     advisorBranchVo.BranchTypeCode = Int32.Parse(ddlBranchAssociateType.SelectedItem.Value.ToString());
                     if (ddlBranchAssociateType.SelectedValue.ToString() == "2")
                     {
-                        advisorBranchVo.AssociateCategoryId = Int32.Parse(ddlAssociateCategory.SelectedItem.Value.ToString());
+                        if (ddlAssociateCategory.SelectedIndex != 0)
+                         advisorBranchVo.AssociateCategoryId = Int32.Parse(ddlAssociateCategory.SelectedItem.Value.ToString());
                         if (FileUpload.HasFile)
                         {
                             advisorBranchVo.LogoPath = advisorVo.advisorId + "_" + txtBranchCode.Text.ToString() + ".jpg";
@@ -690,16 +692,19 @@ namespace WealthERP.Advisor
 
         protected void ddlBranchAssociateType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlBranchAssociateType.SelectedValue == "2")
+            if (ddlBranchAssociateType.SelectedIndex ==2)
             {
+                trCommsharingHeading.Visible = true;
                 AssociateCategoryRow.Visible = true;
                 AssociateLogoRow.Visible = true;
                 AssociateLogoHdr.Visible = true;
                 CommSharingStructureHdr.Visible = true;
                 CommSharingStructureGv.Visible = true;
+                
             }
             else
             {
+                trCommsharingHeading.Visible = false;
                 AssociateCategoryRow.Visible = false;
                 AssociateLogoRow.Visible = false;
                 AssociateLogoHdr.Visible = false;

@@ -207,6 +207,7 @@ namespace WealthERP.Advisor
             if (btnSave.Visible == false)
                 btnSave.Visible = true;
         }
+
         private void FillGrid()
         {
             DataSet ds;
@@ -290,9 +291,9 @@ namespace WealthERP.Advisor
                     associatecategory.Modifiedon = DateTime.Now;
 
                     bool result = AdviserAssociateCategorySetup.UpdateAdviserAssociateCategory(associatecategory);
-                  
+                    
                 }
-                
+                FillGrid();
             }
             else if (gvAssocCatSetUp.Rows.Count > 0)
             {
@@ -310,36 +311,39 @@ namespace WealthERP.Advisor
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserAssociateCategorySetup','login');", true);
                 //FillGrid();
             }
-            
-                
-
         }
 
         protected void DeleteAssocCategory(object sender, GridViewDeleteEventArgs e)
         {
             int AssocCategoryId =0;
             int rowindexval = e.RowIndex;
+            int count = 0;
             bool result = false;
+            AdviserAssociateCategorySetupBo AdviserAssociateCategorySetup = new AdviserAssociateCategorySetupBo();
+            AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
 
             if (gvAssocCatSetUpBounded.DataKeys[rowindexval].Value != System.DBNull.Value)
             {
                 AssocCategoryId = Convert.ToInt32(gvAssocCatSetUpBounded.DataKeys[rowindexval].Value);
             }
-            AdviserAssociateCategorySetupBo AdviserAssociateCategorySetup = new AdviserAssociateCategorySetupBo();
 
-            result = AdviserAssociateCategorySetup.DeleteAdviserAssociateCategory(AssocCategoryId);
+            count = advisorBranchBo.CheckAssociateBranchCategory(AssocCategoryId);
+
+            if (count > 0)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Sorry, This category cannot be deleted as this is associated with one or more branches !');", true);
+            }
+            else
+            {
+                result = AdviserAssociateCategorySetup.DeleteAdviserAssociateCategory(AssocCategoryId);
+            }
 
             if (result)
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserAssociateCategorySetup','login');", true);
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserAssociateCategorySetup','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Deleted Successfully !');", true);
+                FillGrid();
             }
-            
-
-            
-
-
-
-            
         }
     }
 }

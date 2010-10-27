@@ -7,7 +7,7 @@
  <table style="width:100%">
  <tr >
   <td  class="HeaderCell">
-    <label id="lblheader" class="HeaderTextBig" title="Mapping Screen">WERP Mapping Screen</label> 
+    <label id="lblheader" class="HeaderTextBig" title="Mapping Screen">Mapping Screen</label> 
   </td>
  </tr>
  </table>    
@@ -206,8 +206,8 @@
         </tr>
         <tr>
             <td class="leftField">
-                <label id="lblMFWERP" class="FieldName" title="CODE">
-                    CODE:</label>
+                <label id="lblMFWERP" class="FieldName" title="WERP CODE">
+                    WERP CODE:</label>
             </td>
             <td class="rightField">
                 <asp:Label class="Field" ID="lblSchMapWerpCode" runat="server" Enabled="false"></asp:Label>

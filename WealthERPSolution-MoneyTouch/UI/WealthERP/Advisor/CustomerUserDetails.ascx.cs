@@ -122,7 +122,7 @@ namespace WealthERP.Advisor
 
                 int Count = 0;
 
-                customerList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", "", "", "", "", "", out genDictParent, out genDictRM,out genDictReassignRM);
+                customerList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", "", "", "", "","", "","", out genDictParent, out genDictRM,out genDictReassignRM);
 
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 

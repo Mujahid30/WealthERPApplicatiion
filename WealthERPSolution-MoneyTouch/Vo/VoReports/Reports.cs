@@ -15,6 +15,8 @@ namespace VoReports
         public string SubType;
         public DateTime FromDate;
         public DateTime ToDate;
+        public string OrderBy;
+        public string FilterBy;
 
     }
     public struct EquityReportVo

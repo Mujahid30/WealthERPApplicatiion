@@ -38,16 +38,9 @@ namespace WealthERP.Customer
         protected void Page_Load(object sender, EventArgs e)
         {
             rmvo =(RMVo) Session["rmvo"];
-            PortfolioBo portfoliobo=new PortfolioBo();
-            if (Session["customerPortfolioVo"] != null)
-            {
-                customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
-            }
-            else
-            {
-                customerportfoliovo = portfoliobo.GetCustomerDefaultPortfolio(((CustomerVo)Session["CustomerVo"]).CustomerId);
-                Session["customerPortfolioVo"] = customerportfoliovo;
-            }
+            
+            
+            customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
             
                 if (Session["DematDetailsView"].ToString() == "View")
                 {
@@ -218,8 +211,19 @@ namespace WealthERP.Customer
                 listItemCount++;
             }
             ddlModeOfHolding.SelectedIndex = listItemCount;
-            accountopeningdate = (DateTime)dsDematDetails.Tables[0].Rows[0]["AccountOpeningDate"];
-            txtAccountOpeningDate.Text = accountopeningdate.ToShortDateString();
+            if (!string.IsNullOrEmpty (dsDematDetails.Tables[0].Rows[0]["AccountOpeningDate"].ToString()))
+            {
+                accountopeningdate = (DateTime)dsDematDetails.Tables[0].Rows[0]["AccountOpeningDate"];
+                txtAccountOpeningDate.Text = accountopeningdate.ToShortDateString();
+                
+            }
+            else
+            {
+                txtAccountOpeningDate.Text = " ";
+               
+            }
+          
+            
 
             //Filling Associated Trades
             lstAssocaitedTrades.DataSource = dsDematDetails.Tables[1];
@@ -351,6 +355,7 @@ namespace WealthERP.Customer
                 {
                     if (Session["DematDetailsView"].ToString() == "Add")
                     {
+                        if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
                         demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
                         demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
                         demataccountvo.DpclientId = txtDpClientId.Text;
@@ -403,7 +408,16 @@ namespace WealthERP.Customer
                     }
                     else if (Session["DematDetailsView"].ToString() == "Edit")
                     {
-                        demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
+                        if (!string.IsNullOrEmpty(accountopeningdate.ToString()))
+                        {
+                            demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
+                            
+                        }
+                        else
+                        {
+                            demataccountvo.AccountOpeningDate = DateTime.MinValue;
+                            
+                        }
                         demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
                         demataccountvo.DpclientId = txtDpClientId.Text;
                         demataccountvo.DpId = txtDPId.Text;

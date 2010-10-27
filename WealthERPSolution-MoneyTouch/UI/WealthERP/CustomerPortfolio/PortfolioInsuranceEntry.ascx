@@ -15,13 +15,15 @@
         var todayDate = new Date();
 
         if (Date.parse(maturityDate) < Date.parse(commDate)) {
-            sender._selectedDate = todayDate;
-            sender._textbox.set_Value(sender._selectedDate.format(sender._format));
+            //sender._selectedDate = todayDate;
+            //sender._textbox.set_Value(sender._selectedDate.format(sender._format));
+            sender._textbox.set_Value('dd/mm/yyyy');
             alert("Warning! - Maturity date cannot be less than the commencement date");
         }
     }
 
     function CheckLastPremiumDate(sender, args) {
+        debugger;
         var lastPremiumDate = '';
 
         var firstPremiumDate = document.getElementById('ctrl_PortfolioInsuranceEntry_txtFirstPremiumDate');
@@ -63,8 +65,9 @@
         var todayDate = new Date();
 
         if (Date.parse(dtFirstPremiumDate) > Date.parse(dtLastPremiumDate)) {
-            sender._selectedDate = todayDate;
-            sender._textbox.set_Value(sender._selectedDate.format(sender._format));
+            //sender._selectedDate = todayDate;
+            //sender._textbox.set_Value(sender._selectedDate.format(sender._format));
+            sender._textbox.set_Value('dd/mm/yyyy');
             alert("Warning! - First Premium date cannot be greater than the last premium date");
         }
     }
@@ -182,7 +185,7 @@
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Policy Issuer:"></asp:Label>
         </td>
         <td colspan="4">
-            <asp:DropDownList ID="ddlInsuranceIssuerCode" runat="server" CssClass="cmbField"
+            <asp:DropDownList ID="ddlInsuranceIssuerCode" runat="server" CssClass="cmbField" Width="42%"
                 AutoPostBack="True" OnSelectedIndexChanged="ddlInsuranceIssuerCode_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
@@ -213,7 +216,7 @@
         <td colspan="4">
             <asp:TextBox ID="txtPolicyCommencementDate" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtPolicyCommencementDate_CalendarExtender" runat="server"
-                TargetControlID="txtPolicyCommencementDate" Format="dd/MM/yyyy">
+                TargetControlID="txtPolicyCommencementDate" Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckMaturityDate">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="txtPolicyCommencementDate_TextBoxWatermarkExtender"
                 runat="server" TargetControlID="txtPolicyCommencementDate" WatermarkText="dd/mm/yyyy">
@@ -351,9 +354,10 @@
             <asp:Label ID="lblFirstPremiumDate" runat="server" CssClass="FieldName" Text="First Premium Date:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtFirstPremiumDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtFirstPremiumDate" runat="server" CssClass="txtField" OnTextChanged="txtLastPremiumDate_TextChanged"
+                AutoPostBack="true"></asp:TextBox>
             <cc1:CalendarExtender ID="CEFirstPremiumDate" runat="server" TargetControlID="txtFirstPremiumDate"
-                Format="dd/MM/yyyy">
+                Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckLastPremiumDate">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtFirstPremiumDate"
                 WatermarkText="dd/mm/yyyy">
@@ -470,9 +474,10 @@
             <asp:Label ID="lblWLPFirstPremiumDate" runat="server" CssClass="FieldName" Text="First Premium Date:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtWLPFirstPremiumDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtWLPFirstPremiumDate" runat="server" CssClass="txtField" OnTextChanged="txtWLPLastPremiumDate_TextChanged"
+                AutoPostBack="true"></asp:TextBox>
             <cc1:CalendarExtender ID="ceWLPFirstPremiumDate" runat="server" TargetControlID="txtWLPFirstPremiumDate"
-                Format="dd/MM/yyyy">
+                Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckLastPremiumDate">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="tbweWLPFirstPremiumDate" runat="server" TargetControlID="txtWLPFirstPremiumDate"
                 WatermarkText="dd/mm/yyyy">
@@ -589,9 +594,10 @@
             <asp:Label ID="lblMPFirstPremiumDate" runat="server" CssClass="FieldName" Text="First Premium Date:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtMPFirstPremiumDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtMPFirstPremiumDate" runat="server" CssClass="txtField" OnTextChanged="txtMPLastPremiumDate_TextChanged"
+                AutoPostBack="true"></asp:TextBox>
             <cc1:CalendarExtender ID="ceMPFirstPremiumDate" runat="server" TargetControlID="txtMPFirstPremiumDate"
-                Format="dd/MM/yyyy">
+                Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckLastPremiumDate">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="tbweMPFirstPremiumDate" runat="server" TargetControlID="txtMPFirstPremiumDate"
                 WatermarkText="dd/mm/yyyy">
@@ -683,7 +689,7 @@
         <td>
             <asp:TextBox ID="txtULIPFirstPremiumDate" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="ceULIPFirstPremiumDate" runat="server" TargetControlID="txtULIPFirstPremiumDate"
-                Format="dd/MM/yyyy">
+                Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckLastPremiumDate">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="tbweULIPFirstPremiumDate" runat="server" TargetControlID="txtULIPFirstPremiumDate"
                 WatermarkText="dd/mm/yyyy">
@@ -796,9 +802,10 @@
             <asp:Label ID="lblTPFirstPremiumDate" runat="server" CssClass="FieldName" Text="First Premium Date:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtTPFirstPremiumDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtTPFirstPremiumDate" runat="server" CssClass="txtField" OnTextChanged="txtTPLastPremiumDate_TextChanged"
+                AutoPostBack="true"></asp:TextBox>
             <cc1:CalendarExtender ID="ceTPFirstPremiumDate" runat="server" TargetControlID="txtTPFirstPremiumDate"
-                Format="dd/MM/yyyy">
+                Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckLastPremiumDate">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="tbweTPFirstPremiumDate" runat="server" TargetControlID="txtTPFirstPremiumDate"
                 WatermarkText="dd/mm/yyyy">

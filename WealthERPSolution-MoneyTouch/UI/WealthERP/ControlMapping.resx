@@ -421,9 +421,6 @@
     <value>CustomerPortfolio//EquityProrate.aspx</value>
     <comment>CustomerPortfolio//EquityProrate.aspx</comment>
   </data>
-  <data name="TransactionView" xml:space="preserve">
-    <value />
-  </data>
   <data name="RMUserDetails" xml:space="preserve">
     <value>Advisor//RMUserDetails.ascx</value>
     <comment>Advisor//RMUserDetails.ascx</comment>
@@ -1028,6 +1025,10 @@
     <value>Advisor//AddCustomerFinancialPlanningGoalSetup.ascx</value>
     <comment>Advisor//AddCustomerFinancialPlanningGoalSetup.ascx</comment>
   </data>
+  <data name="EditCustomerBankAccount" xml:space="preserve">
+    <value>Customer//EditCustomerBankAccount.ascx</value>
+    <comment>Customer//EditCustomerBankAccount.ascx</comment>
+  </data>
   <data name="EquityReports" xml:space="preserve">
     <value>Reports//EquityReports.ascx</value>
     <comment>Reports//EquityReports.ascx</comment>
@@ -1059,6 +1060,18 @@
   <data name="FinancialPlanningReports" xml:space="preserve">
     <value>Reports//FPReports.ascx</value>
     <comment>Reports//FPReports.ascx</comment>
+  </data>
+  <data name="AdvisorRMCustGroupDashboard" xml:space="preserve">
+    <value>Advisor//AdvisorRMCustGroupDashboard.ascx</value>
+    <comment>Advisor//AdvisorRMCustGroupDashboard.ascx</comment>
+  </data>
+  <data name="CustomerAdvisorsNote" xml:space="preserve">
+    <value>Customer//CustomerAdvisorsNote.ascx</value>
+    <comment>Customer//CustomerAdvisorsNote.ascx</comment>
+  </data>
+  <data name="CuCustomerAssociationSetup" xml:space="preserve">
+    <value>Advisor//CustomerAssociationSetup.ascx</value>
+    <comment>Advisor//CustomerAssociationSetup.ascx</comment>
   </data>
   <data name="SuperAdminLeftPane" xml:space="preserve">
     <value>SuperAdmin//SuperAdminLeftPane.ascx</value>

@@ -8,8 +8,7 @@
         <table style="width: 100%;">
             <tr>
                 <td colspan="6">
-                    <asp:Label ID="lblHeader" Text="Pension & Gratuities Portfolio Details" runat="server"
-                        CssClass="HeaderTextBig"></asp:Label>
+                    <asp:Label ID="lblHeader" Text="Pension & Gratuities Portfolio Details" runat="server" CssClass="HeaderTextBig"></asp:Label>
                     <hr />
                 </td>
             </tr>
@@ -36,13 +35,14 @@
             </tr>
         </table>
         <table style="width: 100%;">
+          
             <tr>
                 <td colspan="6">
                     <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
                         OnClick="lnkBtnBack_Click"></asp:LinkButton>
                 </td>
             </tr>
-            <tr id="trEditButton" runat="server" visible="false">
+             <tr id="trEditButton" runat="server" visible="false">
                 <td colspan="6">
                     <asp:LinkButton ID="lnkEdit" runat="server" Text="Edit" OnClick="lnkEdit_Click" CssClass="LinkButtons">
                     </asp:LinkButton>
@@ -85,19 +85,10 @@
                     <asp:Label ID="Label1" runat="server" Text="Account Opening Date:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                   <asp:TextBox ID="txtAccOpenDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
-             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAccOpenDate"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server"
-                TargetControlID="txtAccOpenDate" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-            <asp:CompareValidator ID="CompareValidator26" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
-                Type="Date" ControlToValidate="txtAccOpenDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                    <asp:Label ID="lblOpeningDate" runat="server" CssClass="Field" Text=""></asp:Label>
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="Label2" runat="server" Text="Account Source:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text="Account With:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td colspan="2" class="rightField">
                     <asp:Label ID="lblAccWith" runat="server" CssClass="Field" Text=""></asp:Label>
@@ -116,6 +107,7 @@
                     &nbsp;
                 </td>
             </tr>
+           
             <tr id="trEditSpace" runat="server" visible="false">
                 <td colspan="6">
                     &nbsp;
@@ -130,7 +122,7 @@
                     <span id="Span1" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtGraOrganisationName"
                         ErrorMessage="Please enter the Organisation Name" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                 </td>
             </tr>
@@ -143,10 +135,10 @@
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtGraAmount"
                         ErrorMessage="Please enter the Gratuity Amount" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="Please enter a numeric value"
-                        Type="Double" ControlToValidate="txtGraAmount" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                        Type="Double" ControlToValidate="txtGraAmount" Operator="DataTypeCheck" CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trGraRemarks" runat="server">
@@ -166,7 +158,7 @@
                     <span id="Span3" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEPFOrganisationName"
                         ErrorMessage="Please enter the OrganisationName" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                 </td>
             </tr>
@@ -180,10 +172,10 @@
                     <span id="Span4" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtEPFAccum"
                         ErrorMessage="Please enter the EPF Accumulated Amount" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="Please enter a numeric value"
-                        Type="Double" ControlToValidate="txtEPFAccum" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                        Type="Double" ControlToValidate="txtEPFAccum" Operator="DataTypeCheck" CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
                 <td colspan="2" class="leftField">
                     <asp:Label ID="lblEPFAccumFiscal" Text="Fiscal Year:" runat="server" CssClass="FieldName"></asp:Label>
@@ -195,7 +187,7 @@
                     <span id="Span27" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator24" runat="server" ControlToValidate="ddlEPFAccumFiscalYear"
                         ErrorMessage="Please select a Fiscal Year" Operator="NotEqual" ValueToCompare="Select a Fiscal Year"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trEPFEmployee" runat="server">
@@ -208,11 +200,11 @@
                     <span id="Span6" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtEPFEmployeeContribution"
                         ErrorMessage="Please enter the Employee Contribution" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtEPFEmployeeContribution" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
                 <td colspan="2" class="leftField">
                     <asp:Label ID="lblEPFEmployerContribution" Text="Employer Contribution(Rs):" runat="server"
@@ -223,11 +215,11 @@
                     <span id="Span5" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtEPFEmployerContribution"
                         ErrorMessage="Please enter the Employer Contribution" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtEPFEmployerContribution" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trEPFSpace1" runat="server">
@@ -250,11 +242,11 @@
                     <span id="Span7" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtEPFInterestRate"
                         ErrorMessage="Please enter the Interest Rate" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator11" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtEPFInterestRate" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trEPFInterestBasis" runat="server">
@@ -268,7 +260,7 @@
                     <span id="Span8" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="cvInsuranceIssuerCode" runat="server" ControlToValidate="ddlEPFInterestBasis"
                         ErrorMessage="Please select an Interest Basis" Operator="NotEqual" ValueToCompare="Select an Interest Basis"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
                 <td colspan="2" class="leftField">
                     <asp:Label ID="lblEPFInterestCalFreq" Text="Interest Calculation Frequency:" runat="server"
@@ -281,7 +273,7 @@
                     <span id="Span9" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlEPFInterestCalFreq"
                         ErrorMessage="Please select a frequency" Operator="NotEqual" ValueToCompare="Select a Frequency"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trEPFInterestAccum" runat="server">
@@ -294,11 +286,11 @@
                     <span id="Span10" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtEPFInterestAccum"
                         ErrorMessage="Please enter the Interest Accumulated" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator12" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtEPFInterestAccum" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trEPFCurrentVal" runat="server">
@@ -310,11 +302,11 @@
                     <span id="Span11" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtEPFCurrentValue"
                         ErrorMessage="Please enter the Current Value" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator13" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtEPFCurrentValue" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trEPFRemarks" runat="server">
@@ -335,10 +327,11 @@
                     <span id="Span12" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtPPFAccum"
                         ErrorMessage="Please enter the PPF Accumulated" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="Please enter a numeric value"
-                        Type="Double" ControlToValidate="txtPPFAccum" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                        Type="Double" ControlToValidate="txtPPFAccum" Operator="DataTypeCheck" CssClass="cvPCG" 
+                         ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
                 <td colspan="2" class="leftField">
                     <asp:Label ID="lblPPFAccumFiscal" Text="Fiscal Year:" runat="server" CssClass="FieldName"></asp:Label>
@@ -350,7 +343,7 @@
                     <span id="Span13" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPPFAccumFiscal"
                         ErrorMessage="Please select a Fiscal Year" Operator="NotEqual" ValueToCompare="Select a Fiscal Year"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trPPFYearlyContribution" runat="server">
@@ -363,11 +356,11 @@
                     <span id="Span14" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPPFYearlyContribution"
                         ErrorMessage="Please enter the Yearly Contribution" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator15" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtPPFYearlyContribution" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trPPFSpace1" runat="server">
@@ -390,11 +383,11 @@
                     <span id="Span15" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtPPFInterestRate"
                         ErrorMessage="Please enter the Interest Rate" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator16" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtPPFInterestRate" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trPPFInterestBasis" runat="server">
@@ -408,7 +401,7 @@
                     <span id="Span16" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlPPFInterestBasis"
                         ErrorMessage="Please select an Interest Basis" Operator="NotEqual" ValueToCompare="Select an Interest Basis"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
                 <td colspan="2" class="leftField">
                     <asp:Label ID="lblPPFInterestFrequency" Text="Interest Calculation Frequency:" runat="server"
@@ -421,7 +414,7 @@
                     <span id="Span17" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlPPFInterestFrequency"
                         ErrorMessage="Please select a Frequency" Operator="NotEqual" ValueToCompare="Select a Frequency"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trPPFInterestAccumulated" runat="server">
@@ -434,11 +427,11 @@
                     <span id="Span18" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtPPFInterestAccumulated"
                         ErrorMessage="Please enter the Interest Accumulated" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator17" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtPPFInterestAccumulated" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trPPFCurrentValue" runat="server">
@@ -450,11 +443,11 @@
                     <span id="Span19" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtPPFCurrentValue"
                         ErrorMessage="Please enter the Current Value" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator18" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtPPFCurrentValue" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trPPFRemarks" runat="server">
@@ -475,10 +468,10 @@
                     <span id="Span20" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator14" ControlToValidate="txtSuperAccum"
                         ErrorMessage="Please enter the Superannuation Accumulated Amount" Display="Dynamic"
-                        runat="server" CssClass="rfvPCG">
+                        runat="server" CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator19" runat="server" ErrorMessage="Please enter a numeric value"
-                        Type="Double" ControlToValidate="txtSuperAccum" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                        Type="Double" ControlToValidate="txtSuperAccum" Operator="DataTypeCheck" CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
                 <td colspan="2" class="leftField">
                     <asp:Label ID="lblSuperAccumFiscal" Text="Fiscal Year:" runat="server" CssClass="FieldName"></asp:Label>
@@ -490,7 +483,7 @@
                     <span id="Span28" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator25" runat="server" ControlToValidate="ddlSuperAccumFiscal"
                         ErrorMessage="Please select a Fiscal Year" Operator="NotEqual" ValueToCompare="Select a Fiscal Year"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trSuperYearlyContribution" runat="server">
@@ -503,11 +496,11 @@
                     <span id="Span21" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator15" ControlToValidate="txtSuperYearlyContribution"
                         ErrorMessage="Please enter the Yearly Contribution" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator20" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtSuperYearlyContribution" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trSuperSpace1" runat="server">
@@ -530,11 +523,11 @@
                     <span id="Span22" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator16" ControlToValidate="txtSuperInterestRate"
                         ErrorMessage="Please enter the Interest Rate" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator21" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtSuperInterestRate" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trSuperInterestBasis" runat="server">
@@ -548,7 +541,7 @@
                     <span id="Span23" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlSuperInterestBasis"
                         ErrorMessage="Please select an Interest Basis" Operator="NotEqual" ValueToCompare="Select an Interest Basis"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
                 <td colspan="2" class="leftField">
                     <asp:Label ID="lblSuperInterestCalcFreq" Text="Interest Calculation Frequency:" runat="server"
@@ -561,7 +554,7 @@
                     <span id="Span24" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlSuperInterestCalcFreq"
                         ErrorMessage="Please select a Frequency" Operator="NotEqual" ValueToCompare="Select a Frequency"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trSuperInterestAccum" runat="server">
@@ -574,11 +567,11 @@
                     <span id="Span25" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator17" ControlToValidate="txtSuperInterestAccum"
                         ErrorMessage="Please enter the Interest Accumulated" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator22" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtSuperInterestAccum" Operator="DataTypeCheck"
-                        CssClass="cvPCG"></asp:CompareValidator>
+                        CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trSuperCurrentValue" runat="server">
@@ -590,14 +583,11 @@
                     <span id="Span26" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="txtSuperCurrentValue"
                         ErrorMessage="Please enter the Current Value" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                        CssClass="rfvPCG" ValidationGroup="buttonSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator23" runat="server" ErrorMessage="Please enter a numeric value"
-                        Type="Double" ControlToValidate="txtSuperCurrentValue" Operator="DataTypeCheck"
+                        Type="Double" ControlToValidate="txtSuperCurrentValue" Operator="DataTypeCheck" ValidationGroup="buttonSubmit"
                         CssClass="cvPCG"></asp:CompareValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG"
-                        ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtSuperCurrentValue"
-                        Display="Dynamic"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trSuperRemarks" runat="server">
@@ -618,7 +608,7 @@
             </tr>
             <tr id="trButton" runat="server" visible="false">
                 <td colspan="6" class="SubmitCell">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="Button1_Click"
+                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" ValidationGroup="buttonSubmit" CssClass="PCGButton" OnClick="Button1_Click"
                         onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PensionAndGratuities_btnSubmit');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PensionAndGratuities_btnSubmit');" />
                 </td>

@@ -8,6 +8,7 @@ using System.Xml;
 using System.Configuration;
 using Microsoft.FSharp;
 using System.Web.UI.DataVisualization.Charting;
+
 using System.Drawing;
 using System.Data;
 using VoCustomerRiskProfiling;
@@ -15,6 +16,7 @@ using BoCustomerRiskProfiling;
 using VoUser;
 using BoCustomerGoalProfiling;
 using WealthERP.Base;
+using BoCommon;
 
 namespace WealthERP.Advisor
 {
@@ -34,6 +36,7 @@ namespace WealthERP.Advisor
         string riskCode;
         CustomerGoalSetupBo GoalSetupBo = new CustomerGoalSetupBo();
         
+
         /// <summary>
         /// For Java script coding variables are declared here
         /// </summary>
@@ -50,7 +53,7 @@ namespace WealthERP.Advisor
             dsGetRiskProfileQuestion = riskprofilebo.GetRiskProfileQuestion();
             totalquestion = dsGetRiskProfileQuestion.Tables[0].Rows.Count;
             int optioncounttemp = 1;
-            
+            hidGoalCount.Value = null;
             //PlaceHolder1.Controls.Add(new LiteralControl("<table>"));
             for (int i = 0; i < totalquestion; i++)
             {
@@ -111,20 +114,18 @@ namespace WealthERP.Advisor
             //    Session.Remove("FP_UserName");
             //    Session.Remove("FP_UserID");                
             //}
-            if (Session[SessionContents.CurrentUserRole] != null)
+            SessionBo.CheckSession();  
+            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
             {
-                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                {
-                    rmvo = (RMVo)Session[SessionContents.RmVo];
-                    AdvisorRMId = rmvo.RMId;
-                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetCustomerName";
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                {
-                    advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-                    AdvisorRMId = advisorVo.advisorId;
-                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                }
+                rmvo = (RMVo)Session[SessionContents.RmVo];
+                AdvisorRMId = rmvo.RMId;
+                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetCustomerName";
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            {
+                advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                AdvisorRMId = advisorVo.advisorId;
+                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
             }
             
             rmvo=(RMVo)Session["rmVo"];
@@ -192,6 +193,7 @@ namespace WealthERP.Advisor
         
         public void LoadAssetAllocation(string riskcode)
         {
+            int age = 0;
             try
             {
                 
@@ -201,7 +203,7 @@ namespace WealthERP.Advisor
                     {
                         dsGetCustomerDOBById = riskprofilebo.GetCustomerDOBById(customerId);
 
-                        int age = 0;
+                        
                         if (dsGetCustomerDOBById.Tables[0].Rows[0]["C_DOB"].ToString() != "" && dsGetCustomerDOBById.Tables[0].Rows[0]["C_DOB"].ToString() != null)
                         {
                             DateTime bday = DateTime.Parse(dsGetCustomerDOBById.Tables[0].Rows[0]["C_DOB"].ToString());
@@ -248,7 +250,7 @@ namespace WealthERP.Advisor
                                 txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
                                 txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
                                 txtRecommendedCash.Text = cashPercentage.ToString();
-
+                                lblRiskProfilingParagraph.Text= riskprofilebo.GetRiskProfileText("Conservative");
 
                             }
                             else if (lblRClassRs.Text == "Moderate")
@@ -257,13 +259,15 @@ namespace WealthERP.Advisor
                                 txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
                                 txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
                                 txtRecommendedCash.Text = cashPercentage.ToString();
+                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                             }
-                            else if (lblRClassRs.Text == "Aggresive")
+                            else if (lblRClassRs.Text == "Aggressive")
                             {
                                 equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
                                 txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
                                 txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
                                 txtRecommendedCash.Text = cashPercentage.ToString();
+                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
                             }
 
                             //================================
@@ -272,28 +276,34 @@ namespace WealthERP.Advisor
                             //
                             //================================
 
+                            
                             if (txtRecommendedCash.Text != "" && txtRecommendedDebt.Text != "" && txtRecommendedEquity.Text != "")
                             {
                                 DataTable dt = new DataTable();
                                 DataRow dr;
                                 dt.Columns.Add("AssetType");
                                 dt.Columns.Add("Value");
-
+                                if(double.Parse(txtRecommendedEquity.Text)!=0)
+                                {
                                 dr = dt.NewRow();
                                 dr[0] = "Equity";
                                 dr[1] = txtRecommendedEquity.Text;
                                 dt.Rows.Add(dr);
-
+                                }
+                                if (double.Parse(txtRecommendedDebt.Text) != 0)
+                                {
                                 dr = dt.NewRow();
                                 dr[0] = "Debt";
                                 dr[1] = txtRecommendedDebt.Text;
                                 dt.Rows.Add(dr);
-
+                                }
+                                if (double.Parse(txtRecommendedCash.Text) != 0)
+                                {
                                 dr = dt.NewRow();
                                 dr[0] = "Cash";
                                 dr[1] = txtRecommendedCash.Text;
                                 dt.Rows.Add(dr);
-
+                                }
                                 tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
                                 Series seriesAssets = new Series("sActualAsset");
                                 seriesAssets.ChartType = SeriesChartType.Pie;
@@ -304,12 +314,18 @@ namespace WealthERP.Advisor
                                 cActualAsset.Series[0].XValueMember = "AssetType";
                                 cActualAsset.Series[0].YValueMembers = "Value";
 
+                                
+                                //Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
                                 // Enable X axis margin
                                 cActualAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
                                 cActualAsset.BackColor = Color.Transparent;
                                 cActualAsset.ChartAreas[0].BackColor = Color.Transparent;
                                 cActualAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
                                 cActualAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+
+                                //cActualAsset.Series[0]["PieLabelStyle"] = "Outside";
+                                 
+                                //cActualAsset.Series[0]["IsValueShownAsLabel"] = "true";
                                 cActualAsset.DataBind();
 
                             }
@@ -321,147 +337,36 @@ namespace WealthERP.Advisor
                             AssetFormClear();
                             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No age set for this customer');", true);
                         }
+                        trCurrentAssetAllocation.Visible = true;
+                        ShowCurrentAssetAllocationPieChart();
                     }
                     else
                     {
                         tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
                         AssetFormClear();
+                        trCurrentAssetAllocation.Visible = false;
                     }
                 }
 
                 # region Dont need this
-                // double unadjustedCash=0;
-                // double unadjustedEquity=0;
-                // double unadjustedDebt=0;
-                // if (lblRClass.Text != "")
-                // {
-                //     lblRClassRs.Text = lblRClass.Text;
-                // }
-                // if (lblRScore.Text != "" && lblRClass.Text != "" && lblAgeResult.Text!="")
-                // {
-                //     tblRecommended.Visible = true;
-                //     cRecommendedAsset.Visible = true;
-
-                //     if (lblRClass.Text == "Conservative")
-                //     {
-                //         unadjustedCash = double.Parse(txtCashAdjConservative.Text);
-                //         unadjustedEquity = double.Parse((100 - int.Parse(lblAgeResult.Text) - (unadjustedCash / 2)).ToString());
-                //         unadjustedDebt = 100 - unadjustedEquity - unadjustedCash;
-
-                //         txtRecommendedEquity.Text = (unadjustedEquity + double.Parse(txtEqConservative.Text)).ToString("n2");
-                //         txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text)-unadjustedCash).ToString("n2");
-                //         txtRecommendedCash.Text = unadjustedCash.ToString("n2");
-                //     }
-                //     else if (lblRClass.Text == "Moderate")
-                //     {
-                //         unadjustedCash = double.Parse(txtCashAdjModerate.Text);
-                //         unadjustedEquity = double.Parse((100 - int.Parse(lblAgeResult.Text) - (unadjustedCash / 2)).ToString());
-                //         unadjustedDebt = 100 - unadjustedEquity - unadjustedCash;
-
-                //         txtRecommendedEquity.Text = (unadjustedEquity + double.Parse(txtEqModerate.Text)).ToString("n2");
-                //         txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - unadjustedCash).ToString("n2");
-                //         txtRecommendedCash.Text = unadjustedCash.ToString("n2");
-                //     }
-                //     else if (lblRClass.Text == "Aggressive")
-                //     {
-                //         unadjustedCash = double.Parse(txtCashAdjAggressive.Text);
-                //         unadjustedEquity = double.Parse((100 - int.Parse(lblAgeResult.Text) - (unadjustedCash / 2)).ToString());
-                //         unadjustedDebt = 100 - unadjustedEquity - unadjustedCash;
-
-                //         txtRecommendedEquity.Text = (unadjustedEquity + double.Parse(txtEqAggressive.Text)).ToString("n2");
-                //         txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - unadjustedCash).ToString("n2");
-                //         txtRecommendedCash.Text = unadjustedCash.ToString("n2");
-                //     }
-                // }
-                // if (txtActualCash.Text != "" && txtActualDebt.Text != "" && txtActualEquity.Text != "")
-                // {
-                //     DataTable dt = new DataTable();
-                //     DataRow dr;
-                //     dt.Columns.Add("AssetType");
-                //     dt.Columns.Add("Value");
-
-                //     dr = dt.NewRow();
-                //     dr[0] = "Equity";
-                //     dr[1] = txtActualEquity.Text;
-                //     dt.Rows.Add(dr);
-
-                //     dr = dt.NewRow();
-                //     dr[0] = "Debt";
-                //     dr[1] = txtActualDebt.Text;
-                //     dt.Rows.Add(dr);
-
-                //     dr = dt.NewRow();
-                //     dr[0] = "Cash";
-                //     dr[1] = txtActualCash.Text;
-                //     dt.Rows.Add(dr);
-
-
-                //     Series seriesAssets = new Series("sActualAsset");
-                //     seriesAssets.ChartType = SeriesChartType.Pie;
-
-                //     cActualAsset.Series.Clear();
-                //     cActualAsset.Series.Add(seriesAssets);
-                //     cActualAsset.DataSource = dt;
-                //     cActualAsset.Series[0].XValueMember = "AssetType";
-                //     cActualAsset.Series[0].YValueMembers = "Value";
-
-                //     // Enable X axis margin
-                //     cActualAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
-                //     cActualAsset.BackColor = Color.Transparent;
-                //     cActualAsset.ChartAreas[0].BackColor = Color.Transparent;
-                //     cActualAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
-                //     cActualAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
-                //     cActualAsset.DataBind();
-                //     cActualAsset.Visible=true;
-                // }
-                //if (txtRecommendedCash.Text != "" && txtRecommendedDebt.Text != "" && txtRecommendedEquity.Text != "")
-                // {
-                //     DataTable dtr = new DataTable();
-                //     DataRow drr;
-                //     dtr.Columns.Add("AssetType");
-                //     dtr.Columns.Add("Value");
-
-                //     drr = dtr.NewRow();
-                //     drr[0] = "Equity";
-                //     drr[1] = txtRecommendedEquity.Text;
-                //     dtr.Rows.Add(drr);
-
-                //     drr = dtr.NewRow();
-                //     drr[0] = "Debt";
-                //     drr[1] = txtRecommendedDebt.Text;
-                //     dtr.Rows.Add(drr);
-
-                //     drr = dtr.NewRow();
-                //     drr[0] = "Cash";
-                //     drr[1] = txtRecommendedCash.Text;
-                //     dtr.Rows.Add(drr);
-
-
-                //     Series seriesAssetsR = new Series("sRecommendedAsset");
-                //     seriesAssetsR.ChartType = SeriesChartType.Pie;
-
-                //     cRecommendedAsset.Series.Clear();
-                //     cRecommendedAsset.Series.Add(seriesAssetsR);
-                //     cRecommendedAsset.DataSource = dtr;
-                //     cRecommendedAsset.Series[0].XValueMember = "AssetType";
-                //     cRecommendedAsset.Series[0].YValueMembers = "Value";
-
-                //     // Enable X axis margin
-                //     cRecommendedAsset.ChartAreas["caRecommendedAsset"].AxisX.IsMarginVisible = true;
-                //     cRecommendedAsset.BackColor = Color.Transparent;
-                //     cRecommendedAsset.ChartAreas[0].BackColor = Color.Transparent;
-                //     cRecommendedAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
-                //     cRecommendedAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
-                //     cRecommendedAsset.DataBind();
-                //     cRecommendedAsset.Visible = true;
-                // }
+               
                 # endregion
+                if (customerId != 0 && age!=0)
+                {
+                    lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
+                }
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
+   
+	
+
+
         public void SetCustomerId()
         {
             try
@@ -561,23 +466,27 @@ namespace WealthERP.Advisor
                     DataSet dsRiskClass = riskprofilebo.GetRiskClass(riskCode);
                     lblRClass.Text = dsRiskClass.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
 
-                    if (lblRClass.Text == "Aggresive")
+                    trRiskProfilingParagraph.Visible = true;
+                    trCustomerAssetText.Visible = true;
+                    if (lblRClass.Text == "Aggressive")
                     {
 
-                        lblRClass.BackColor = System.Drawing.Color.Green;
+                        lblRClass.ForeColor = System.Drawing.Color.Green;
                         lblRScore.ForeColor = System.Drawing.Color.Green;
+                        lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
+
                     }
                     else if (lblRClass.Text == "Moderate")
                     {
-
-
-                        lblRClass.BackColor = System.Drawing.Color.Yellow;
+                        lblRClass.ForeColor = System.Drawing.Color.Yellow;
                         lblRScore.ForeColor = System.Drawing.Color.Yellow;
+                        lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                     }
                     else if (lblRClass.Text == "Conservative")
                     {
-                        lblRClass.BackColor = System.Drawing.Color.Red;
+                        lblRClass.ForeColor = System.Drawing.Color.Red;
                         lblRScore.ForeColor = System.Drawing.Color.Red;
+                        lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
                     }
 
 
@@ -621,7 +530,8 @@ namespace WealthERP.Advisor
 
                     LoadAssetAllocation(riskCode);
                     AddToAssetAllocation();
-                    
+                    //trRiskProfilingParagraph.Visible = true;
+                    //trCustomerAssetText.Visible = true;
                 }
             }
             catch (Exception ex)
@@ -757,6 +667,8 @@ namespace WealthERP.Advisor
         }
         protected void txtPickCustomer_TextChanged(object sender, EventArgs e)
         {
+            trRiskProfilingParagraph.Visible = true;
+            trCustomerAssetText.Visible = true;
             LoadRiskProfiling();         
        
         }
@@ -821,28 +733,33 @@ namespace WealthERP.Advisor
                             LoadAssetAllocation(riskCode);
                         }
 
-
+                        trRiskProfilingParagraph.Visible = true;
 
                         if (lblRClass.Text == "Aggressive")
                         {
 
-                            lblRClass.BackColor = System.Drawing.Color.Green;
+                            //lblRClass.BackColor = System.Drawing.Color.Green;
                             lblRScore.ForeColor = System.Drawing.Color.Green;
+                            lblRClass.ForeColor = System.Drawing.Color.Green;
+                            lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
+                            
                         }
                         else if (lblRClass.Text == "Moderate")
                         {
 
 
-                            lblRClass.BackColor = System.Drawing.Color.Yellow;
+                            lblRClass.ForeColor = System.Drawing.Color.Yellow;
                             lblRScore.ForeColor = System.Drawing.Color.Yellow;
+                            lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                         }
                         else if (lblRClass.Text == "Conservative")
                         {
-                            lblRClass.BackColor = System.Drawing.Color.Red;
+                            lblRClass.ForeColor = System.Drawing.Color.Red;
                             lblRScore.ForeColor = System.Drawing.Color.Red;
+                            lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
                         }
 
-
+                       
                         //SetAdjustment();
 
                         Session["FP_UserName"] = txtPickCustomer.Text;
@@ -854,7 +771,8 @@ namespace WealthERP.Advisor
                     else
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Risk profile for this customer');", true);
-                        
+                        trRiskProfilingParagraph.Visible = false;
+                        trCustomerAssetText.Visible = false;
                         Session["FP_UserName"] = txtPickCustomer.Text;
                         Session["FP_UserID"] = txtCustomerId.Value;
                         GoalCount = GoalSetupBo.CheckGoalProfile(customerId);
@@ -981,8 +899,125 @@ namespace WealthERP.Advisor
             txtRecommendedDebt.Text = "";
             txtRecommendedCash.Text = "";
             cActualAsset.Visible = false;
+            ChartCurrentAsset.Visible = false;
+            txtCurrentCash.Text = "";
+            txtCurrentDebt.Text = "";
+            txtCurrentEquity.Text = "";
+
             
             
         }
+
+        protected void ShowCurrentAssetAllocationPieChart()
+        {
+            DataSet DScurrentAsset=new DataSet();
+            DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId);
+                DataTable dt = new DataTable();
+            DataRow dr;
+            dt.Columns.Add("AssetType");
+            dt.Columns.Add("Value");
+            if (DScurrentAsset.Tables[0].Rows.Count > 0)
+            {
+                if (DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString() != "")
+                {
+                    txtCurrentEquity.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString();
+                   
+                }
+                else
+                {
+                    txtCurrentEquity.Text = "0";
+                   
+                }
+
+                if (double.Parse(txtCurrentEquity.Text) != 0)
+                {
+                    dr = dt.NewRow();
+                    dr[0] = "Equity";
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Equity"];
+                    dt.Rows.Add(dr);
+                }
+
+                if (DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString() != "")
+                {
+                    txtCurrentDebt.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString();
+                    
+                }
+                else
+                {
+                    txtCurrentDebt.Text = "0";
+                   
+                }
+
+                if (double.Parse(txtCurrentDebt.Text) != 0)
+                {
+                    dr = dt.NewRow();
+                    dr[0] = "Debt";
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Debt"];
+                    dt.Rows.Add(dr);
+                }
+
+                if (DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString() != "")
+                {
+                    txtCurrentCash.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString()), 2).ToString();
+                    
+                }
+                else
+                {
+                    txtCurrentCash.Text = "0";
+                   
+                }
+                if (double.Parse(txtCurrentCash.Text) != 0)
+                {
+                    dr = dt.NewRow();
+                    dr[0] = "Cash";
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Cash"];
+                    dt.Rows.Add(dr);
+                }
+
+            }
+            else
+            {
+                dr = dt.NewRow();
+                dr[0] = "Equity";                
+                txtCurrentEquity.Text = "0";
+                dr[1] = "0";                
+                dt.Rows.Add(dr);
+
+                dr = dt.NewRow();
+                dr[0] = "Debt";                
+                txtCurrentDebt.Text = "0";
+                dr[1] = "0";              
+                dt.Rows.Add(dr);
+
+                dr = dt.NewRow();
+                dr[0] = "Cash";                
+                txtCurrentCash.Text = "0";
+                dr[1] = "0";              
+                dt.Rows.Add(dr);
+            }
+
+            Series seriesAssets = new Series("CurrentAsset");
+            seriesAssets.ChartType = SeriesChartType.Pie;
+            ChartCurrentAsset.Visible = true;
+            ChartCurrentAsset.Series.Clear();
+            ChartCurrentAsset.Series.Add(seriesAssets);
+            ChartCurrentAsset.DataSource = dt;
+            ChartCurrentAsset.Series[0].XValueMember = "AssetType";
+            ChartCurrentAsset.Series[0].YValueMembers = "Value";
+
+            // Enable X axis margin
+            ChartCurrentAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
+            ChartCurrentAsset.BackColor = Color.Transparent;
+            ChartCurrentAsset.ChartAreas[0].BackColor = Color.Transparent;
+            ChartCurrentAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
+            ChartCurrentAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+            //ChartCurrentAsset.Series[0]["PieLabelStyle"] = "Disabled";
+            //ChartCurrentAsset.Series[0]["IsValueShownAsLabel"] = "true";
+            ChartCurrentAsset.DataBind();
+ 
+        }
+
+
+
     }
 }

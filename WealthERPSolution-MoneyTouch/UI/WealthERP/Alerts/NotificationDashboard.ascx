@@ -5,7 +5,7 @@
 <asp:Panel ID="pnlHeader" runat="server" Visible="true">
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
-            <td colspan="2" align="center">
+            <td align="center">
                 <asp:Label ID="lblNotificationHeader" runat="server" CssClass="HeaderTextBig" Text="Notifications">
                 </asp:Label>
             </td>
@@ -39,7 +39,7 @@
 <asp:Panel ID="pnlNotifications" runat="server" Visible="false">
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
-            <td colspan="2" align="center">
+            <td align="center">
                 <asp:Label ID="lblCustomerName" runat="server" CssClass="HeaderTextSmall"></asp:Label>
             </td>
         </tr>
@@ -48,7 +48,7 @@
             </td>
         </tr>
         <tr id="pnlNoEntries" runat="server" visible="false">
-            <td colspan="2" align="center">
+            <td align="center">
                 <label id="lblNoEntries" class="FieldName">
                     You have no Notifications!</label>
             </td>
@@ -60,23 +60,23 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2" align="center">
+            <td align="center">
                 <%-- <asp:UpdatePanel ID="upPnlDateGrid" runat="server">
                     <ContentTemplate>--%>
                 <asp:GridView ID="gvNotification" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                    CssClass="GridViewStyle" DataKeyNames="EventQueueID"  Font-Size="Small"
+                    CssClass="GridViewStyle" DataKeyNames="EventQueueID" AllowSorting="false" Font-Size="Small"
                     HorizontalAlign="Center" ShowFooter="True" EnableViewState="true">
                     <%-- OnRowEditing="gvDateAlerts_RowEditing" OnRowCommand="gvDateAlerts_RowCommand" OnRowUpdating="gvDateAlerts_RowUpdating" OnRowCancelingEdit="gvDateAlerts_RowCancelingEdit"
                     OnRowDataBound="gvDateAlerts_RowDataBound" --%>
-                    <FooterStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle Font-Size="Small" CssClass="RowStyle" HorizontalAlign="Center" />
+                    <FooterStyle Font-Bold="True" ForeColor="White"/>
+                    <RowStyle Font-Size="Small" CssClass="RowStyle"/>
                     <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" CssClass="SelectedRowStyle" />
                     <PagerStyle ForeColor="White" HorizontalAlign="Center" CssClass="PagerStyle" />
                     <HeaderStyle Font-Bold="True" ForeColor="White" Font-Size="Small" HorizontalAlign="Center" />
-                    <AlternatingRowStyle BackColor="White" Font-Size="Small" HorizontalAlign="Center" />
+                    <AlternatingRowStyle BackColor="White" Font-Size="Small" />
                     <Columns>
                         <%--Check Boxes--%>
-                        <asp:TemplateField HeaderText="Select">
+                        <%--<asp:TemplateField HeaderText="Select">
                             <ItemTemplate>
                                 <asp:CheckBox ID="chkBx" runat="server" />
                             </ItemTemplate>
@@ -84,12 +84,12 @@
                                 <asp:Button ID="btnDeleteSelected" CssClass="FieldName" OnClick="btnDeleteSelected_Click"
                                     runat="server" Text="Delete" />
                             </FooterTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Category" HeaderText="Category" SortExpression="Category" />
-                        <asp:BoundField DataField="Alert" HeaderText="Sub Category" SortExpression="SubCategory" />
+                        </asp:TemplateField>--%>
+                        <asp:BoundField DataField="Category" HeaderText="Category" />
+                        <asp:BoundField DataField="Alert" HeaderText="Sub Category" />
                         <asp:BoundField DataField="Scheme" HeaderText="Detail" />
                         <asp:BoundField DataField="Message" HeaderText="Message" />
-                        <asp:BoundField DataField="NotifiedDate" HeaderText="Notified Date" SortExpression="NotifiedDate" />
+                        <asp:BoundField DataField="NotifiedDate" HeaderText="Notified Date" ItemStyle-HorizontalAlign="Center"/>
                     </Columns>
                 </asp:GridView>
                 <br />
@@ -123,5 +123,5 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:HiddenField ID="hdnSort" runat="server" Value="NotificationDate ASC" />
+<asp:HiddenField ID="hdnSort" runat="server" Value="NotifiedDate Desc" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />

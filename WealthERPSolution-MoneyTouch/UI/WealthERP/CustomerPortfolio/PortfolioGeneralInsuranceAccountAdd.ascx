@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
     function ValidateNominee() {
-        
+        debugger;
         var count = 0;
         var gridViewID = "<%=gvNominees.ClientID %>";
         var gridView = document.getElementById(gridViewID);
@@ -28,38 +28,50 @@
 
 <table style="width: 100%;">
     <tr>
-        <td colspan="6">
+        <td colspan="4">
             <asp:Label ID="lblGeneralInsuranceEntryHeader" class="HeaderTextBig" runat="server"
                 Text="General Insurance Add Account Screen"></asp:Label>
             <hr />
         </td>
     </tr>
     <tr>
-        <td colspan="6">
+        <td colspan="4">
             &nbsp;
         </td>
     </tr>
     <tr>
-        <td colspan="6" class="tdRequiredText">
+        <td colspan="4" class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
                 Note: Fields marked with ' * ' are compulsory</label>
         </td>
     </tr>
     <tr>
-        <td colspan="6">
+        <td colspan="4">
             &nbsp;
         </td>
     </tr>
     <tr>
-        <td colspan="2" align="left">
+        <td align="right" style="width:15%">
             <asp:Label ID="lblAssetCategory" runat="server" Text="Asset Category:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" style="width:50%">
             <asp:DropDownList ID="ddlAssetCategory" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlAssetCategory_SelectedIndexChanged"
                 AutoPostBack="true">
                 <%--<asp:ListItem Text="Select Asset Category" Value="Select Asset Category"></asp:ListItem>--%>
             </asp:DropDownList>
         </td>
-        <td colspan="2" align="left">
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td align="right" style="width:15%">
             <asp:Label ID="lblAssetSubCategory" runat="server" Text="Asset Sub Category:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" style="width:50%">
             <asp:DropDownList ID="ddlAssetSubCategory" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select Asset Sub-Category" Value="Select Asset Sub-Category"></asp:ListItem>
             </asp:DropDownList>
@@ -69,13 +81,17 @@
                 Display="Dynamic" CssClass="cvPCG"></asp:CompareValidator>
         </td>
         <td>
+            &nbsp;
         </td>
         <td>
+            &nbsp;
         </td>
     </tr>
     <tr>
-        <td colspan="2" align="left">
+        <td align="right" style="width:15%">
             <asp:Label ID="lblPolicyNumber" runat="server" Text=" Policy Number:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" style="width:50%">
             <asp:TextBox ID="txtPolicyNumber" runat="server" CssClass="txtField">
             </asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
@@ -85,20 +101,24 @@
             </asp:RequiredFieldValidator>
         </td>
         <td>
-            &nbsp;&nbsp;&nbsp;
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
         </td>
     </tr>
     <tr>
-&nbsp;&nbsp;&nbsp;
+        <td colspan="4">
+            &nbsp;&nbsp;&nbsp;
         </td>
     </tr>
     <tr id="trNominees" visible="false" runat="server">
-        <td>
+        <td colspan="4">
             <asp:Label ID="lblNominees" Text="Nominees" runat="server" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="4">
             <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" DataKeyNames="MemberCustomerId, AssociationId"
                 AllowSorting="False" CssClass="GridViewStyle">
                 <FooterStyle CssClass="FooterStyle" />
@@ -121,12 +141,12 @@
         </td>
     </tr>
     <tr>
-        <td colspan="6">
+        <td colspan="4">
             &nbsp;
         </td>
     </tr>
     <tr>
-        <td colspan="6">
+        <td colspan="4">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioGeneralInsuranceAccountAdd_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioGeneralInsuranceAccountAdd_btnSubmit', 'S');"
                 CausesValidation="true" OnClientClick="if(Page_ClientValidate()){return ValidateNominee()};"

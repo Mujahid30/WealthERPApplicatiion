@@ -97,7 +97,7 @@ Inherits="WealthERP.Uploads.RejectedFoliosTransactionUpload" %>
     </tr>
     <tr>
         <td>
-            <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
+            <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to WERP Customer"
                 OnClientClick="return ShowPopup()" onclick="btnMapToCustomer_Click" />
         </td>
     </tr>

@@ -11,7 +11,7 @@ using System.Data;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
-using System.Configuration;
+using System.Configuration; 
 
 namespace WealthERP.CustomerPortfolio
 {

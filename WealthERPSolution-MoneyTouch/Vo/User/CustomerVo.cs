@@ -85,7 +85,66 @@ namespace VoUser
         private string m_BranchName;
         private string m_RelationShip;
         private DateTime m_MarriageDate;
+        private int m_IsProspect=0;
+        private int m_IsFPClient=0;
+        private string m_RMName;
+        private string m_RMEmail;
+        private string m_RMOfficePhone;
+        private long m_RMMobile;
+        private int m_dummypan;
+        private string m_advnote;
+        private int m_custclassid;
+        private int m_isact;
+        private int m_sms;
+        private int m_mail;
 
+
+        public long RMMobile
+        {
+            get { return m_RMMobile; }
+            set { m_RMMobile = value; }
+        }
+        public int CustomerClassificationID
+        {
+            get { return m_custclassid; }
+            set { m_custclassid = value; }
+        }
+        public int ViaSMS
+        {
+            get { return m_sms; }
+            set { m_sms = value; }
+        }
+
+        public int AlertViaEmail
+        {
+            get { return m_mail; }
+            set { m_mail = value; }
+        }
+        public int IsActive
+        {
+            get { return m_isact; }
+            set { m_isact = value; }
+        }
+        public string AdviseNote
+        {
+            get { return m_advnote; }
+            set { m_advnote = value; }
+        }
+        public string RMOfficePhone
+        {
+            get { return m_RMOfficePhone; }
+            set { m_RMOfficePhone = value; }
+        }
+        public string RMEmail
+        {
+            get { return m_RMEmail; }
+            set { m_RMEmail = value; }
+        }
+        public string RMName
+        {
+            get { return m_RMName; }
+            set { m_RMName = value; }
+        }
         public DateTime MarriageDate
         {
             get { return m_MarriageDate; }
@@ -135,6 +194,12 @@ namespace VoUser
         {
             get { return m_BranchId; }
             set { m_BranchId = value; }
+        }
+
+        public int DummyPAN
+        {
+            get { return m_dummypan; }
+            set { m_dummypan = value; }
         }
         public string ContactFirstName
         {
@@ -471,6 +536,17 @@ namespace VoUser
             set { m_AssignedRM = value; }
         }
 
+        public int IsFPClient
+        {
+            get { return m_IsFPClient; }
+            set { m_IsFPClient = value; }
+        }
+
+        public int IsProspect
+        {
+            get { return m_IsProspect; }
+            set { m_IsProspect = value; }
+        }
         #endregion Properties
 
     }

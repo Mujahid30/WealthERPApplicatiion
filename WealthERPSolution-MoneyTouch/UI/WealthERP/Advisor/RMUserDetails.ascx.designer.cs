@@ -23,6 +23,15 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label lblTitle;
         
         /// <summary>
+        /// ErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;
+        
+        /// <summary>
         /// trNoRecords control.
         /// </summary>
         /// <remarks>
@@ -41,13 +50,13 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label lblMsg;
         
         /// <summary>
-        /// lblStatusMsg control.
+        /// trStatusMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStatusMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trStatusMessage;
         
         /// <summary>
         /// lblCurrentPage control.

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace VoCustomerPortfolio
 {
+    /// <summary>
+    /// added field name to capture original costumer name
+    /// </summary>
     public class CustomerAccountsVo
     {
         #region Fields
@@ -26,6 +29,7 @@ namespace VoCustomerPortfolio
         private string m_BankName;
         private int m_AMCCode;
         private string m_AMCName;
+        private string m_Name; // original costumer name
         private string m_PolicyNum;
         private DateTime m_AccountOpeningDate;
         private string m_BrokerCode;
@@ -137,6 +141,11 @@ namespace VoCustomerPortfolio
         {
             get { return m_AMCName; }
             set { m_AMCName = value; }
+        }
+        public string Name //original costumer name
+        {
+            get { return m_Name; }
+            set { m_Name = value; }
         }
         public string BrokerCode
         {

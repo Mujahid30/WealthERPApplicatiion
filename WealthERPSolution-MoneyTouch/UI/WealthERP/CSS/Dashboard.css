@@ -1,0 +1,115 @@
+﻿.onecolumn
+{
+    width:48.5%;
+}
+.twocolumn
+{
+    width:97%;
+}
+.cPanel
+{
+    margin: 5px 2px 20px 5px;
+    background: #fff;
+    position: relative;
+    border: 1px solid #336699;
+    float:left;
+    width:96%;
+}
+.cPanelHeader
+{
+    margin: 0;
+    font-size: 12px;
+    padding: 5px;
+    background: #336699;
+    color: #ffffff;
+    border-bottom: 1px solid #eee;
+    font-family: Verdana;
+    cursor: move;
+}
+.cPanelBody
+{
+    background: #fff;
+    min-height: 100px;
+    margin: 5px;
+    font-family: 'Lucida Grande' , Verdana;
+    font-size: 0.8em;
+    line-height: 1.5em;
+}
+
+.bPanel
+{
+    width: 100%;
+    float: left;
+}
+
+.PartList
+{
+    width: 100%;
+}
+
+.cLink
+{
+    margin-right:4%;
+    text-align: right;
+    font-family: Verdana;
+    font-size: 0.8em;
+    line-height: 1.5em;
+}
+
+.btnClose
+{
+}
+
+.column
+{
+    width: 98%;
+    margin-right: .5%;
+    min-height: 300px;
+    background: #fff;
+    float: left;
+}
+.column .dragbox
+{
+    margin: 5px 5px 20px;
+    background: #fff;
+    position: relative;
+    border: 1px solid #336699;
+    float:left;
+}
+.column .dragbox h2
+{
+    margin: 0;
+    font-size: 12px;
+    padding: 5px;
+    background: #336699;
+    color: #ffffff;
+    border-bottom: 1px solid #eee;
+    font-family: Verdana;
+    cursor: move;
+}
+.dragbox-content
+{
+    background: #fff;
+    min-height: 100px;
+    margin: 5px;
+    font-family: 'Lucida Grande' , Verdana;
+    font-size: 0.8em;
+    line-height: 1.5em;
+}
+.column .placeholder
+{
+    margin: 5px 2px 20px;
+    background: #336699;
+    border: 1px dashed #ddd;
+}
+.dragbox h2.collapse
+{
+    background: #336699 url('/Images/collapse.png') no-repeat top right;
+}
+.success
+{
+    background: #d9f9e0;
+    border: 1px solid #339933;
+    padding: 5px;
+    font-weight: bold;
+}

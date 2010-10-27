@@ -9,13 +9,13 @@ namespace VoUser
     /// <summary>
     /// Class containing Advisor Details of a particular Advisor.
     /// </summary>
-    public  class AdvisorVo:UserVo
+    public class AdvisorVo : UserVo
     {
 
         #region Fields
-        private int m_advisorId;       
+        private int m_advisorId;
         private string m_OrganizationName;
-        private string m_BusinessCode;       
+        private string m_BusinessCode;
         private string m_AddressLine1;
         private string m_AddressLine2;
         private string m_AddressLine3;
@@ -54,8 +54,8 @@ namespace VoUser
         {
             get { return advisorLOBVoList; }
             set { advisorLOBVoList = value; }
-        }      
-       
+        }
+
 
         #endregion Fields
 
@@ -114,76 +114,76 @@ namespace VoUser
             get { return m_AddressLine1; }
             set { m_AddressLine1 = value; }
         }
-        
+
         public string AddressLine2
         {
             get { return m_AddressLine2; }
             set { m_AddressLine2 = value; }
         }
-       
+
         public string AddressLine3
         {
             get { return m_AddressLine3; }
             set { m_AddressLine3 = value; }
         }
-        
+
         public string City
         {
             get { return m_City; }
             set { m_City = value; }
         }
-       
+
         public string State
         {
             get { return m_State; }
             set { m_State = value; }
         }
-       
+
         public int PinCode
         {
             get { return m_PinCode; }
             set { m_PinCode = value; }
         }
-       
+
 
         public string Country
         {
             get { return m_Country; }
             set { m_Country = value; }
         }
-       
+
 
         public int Phone1Std
         {
             get { return m_Phone1Std; }
             set { m_Phone1Std = value; }
         }
-       
+
 
         public int Phone1Isd
         {
             get { return m_Phone1Isd; }
             set { m_Phone1Isd = value; }
         }
-       
+
         public int Phone1Number
         {
             get { return m_Phone1Number; }
             set { m_Phone1Number = value; }
         }
-      
+
         public int Phone2Std
         {
             get { return m_Phone2Std; }
             set { m_Phone2Std = value; }
         }
-       
+
         public int Phone2Isd
         {
             get { return m_Phone2Isd; }
             set { m_Phone2Isd = value; }
         }
-       
+
         public int Phone2Number
         {
             get { return m_Phone2Number; }
@@ -194,53 +194,53 @@ namespace VoUser
             get { return m_MobileNumber; }
             set { m_MobileNumber = value; }
         }
-       
-     
+
+
         public int FaxIsd
         {
             get { return m_FaxIsd; }
             set { m_FaxIsd = value; }
         }
-    
+
 
         public int FaxStd
         {
             get { return m_FaxStd; }
             set { m_FaxStd = value; }
         }
-       
+
 
         public int Fax
         {
             get { return m_Fax; }
             set { m_Fax = value; }
         }
-       
+
         public string ContactPersonFirstName
         {
             get { return m_ContactPersonFirstName; }
             set { m_ContactPersonFirstName = value; }
         }
-       
+
         public string ContactPersonMiddleName
         {
             get { return m_ContactPersonMiddleName; }
             set { m_ContactPersonMiddleName = value; }
         }
-       
+
         public string ContactPersonLastName
         {
             get { return m_ContactPersonLastName; }
             set { m_ContactPersonLastName = value; }
         }
-     
+
         public int MultiBranch
         {
             get { return m_MultiBranch; }
             set { m_MultiBranch = value; }
         }
-       
-            
+
+
         public int advisorId
         {
             get { return m_advisorId; }
@@ -274,3 +274,4 @@ namespace VoUser
 
     }
 }
+

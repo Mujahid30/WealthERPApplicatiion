@@ -56,7 +56,32 @@ namespace BoUploads
 
             return dsColumnNames;
         }
-
+        public string GetLastUploadDate(int advisorid)
+        {
+            string lastUploadDate="";
+            UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
+            try
+            {
+                lastUploadDate = uploadscommonDao.GetLastUploadDate(advisorid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetLastUploadDate()");
+                object[] objects = new object[1];
+                objects[0] = advisorid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return lastUploadDate;
+        }
         public DataSet GetUploadWERPNameForExternalColumnNames(int xmlfiletypeId)
         {
             DataSet dsColumnNames = new DataSet();
@@ -502,7 +527,7 @@ namespace BoUploads
                                 // 2) Remove details from werp tables onwards
 
                                 // Checking for dependant data - Net Postion Updated for the transaction
-                                blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
+                                //blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
                                 if (blCustMFTranNetPositionUpdated)
                                 {
@@ -524,7 +549,7 @@ namespace BoUploads
                             {   // MF Karvy Transaction Upload
 
                                 // Checking for dependant data - Net Postion Updated for the transaction
-                                blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
+                                //blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
                                 if (blCustMFTranNetPositionUpdated)
                                 {
@@ -647,7 +672,7 @@ namespace BoUploads
                                 // Checking for dependant data - Net Postion Updated for the transaction
                                 //blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
-                                blCustEQTranNetPositionUpdated = CustEQNetPositionUpdated(ProcessID);
+                               // blCustEQTranNetPositionUpdated = CustEQNetPositionUpdated(ProcessID);
 
                                 if (blCustEQTranNetPositionUpdated)
                                 {
@@ -734,7 +759,7 @@ namespace BoUploads
                                 // 2) Remove details from werp tables onwards
 
                                 // Checking for dependant data - Net Postion Updated for the transaction
-                                blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
+                               // blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
                                 if (blCustMFTranNetPositionUpdated)
                                 {
@@ -761,7 +786,7 @@ namespace BoUploads
                                 // 2) Remove details from werp tables onwards
 
                                 // Checking for dependant data - Net Postion Updated for the transaction
-                                blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
+                               // blCustMFTranNetPositionUpdated = CustMFNetPositionUpdated(ProcessID);
 
                                 if (blCustMFTranNetPositionUpdated)
                                 {

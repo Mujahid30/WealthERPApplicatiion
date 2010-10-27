@@ -39,29 +39,29 @@ namespace WealthERP.UserManagement
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('BMLeftpane');", true);
             }
+        }
 
+        /* For BM Left Treeview */
+
+        protected void BMLeftTree_SelectedNodeChanged(object sender, EventArgs e)
+        { 
         }
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("BMLeftTree"))
             {
                 SetNode();
             }
         }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-           
-        }
         public void SetNode()
         {
-            if (TreeView1.SelectedNode.Value == "Switch Roles")
+            if (BMLeftTree.SelectedNode.Value == "Switch Roles")
             {
                 roleList = userBo.GetUserRoles(userVo.UserId);
                 count = roleList.Count;
                 if (count == 3)
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login');", true);
-                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFAAdminDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                 }
                 if (count == 2)
                 {
@@ -80,35 +80,40 @@ namespace WealthERP.UserManagement
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login');", true);
                 }
             }
-            else if (TreeView1.SelectedNode.Value == "BM")
+            else if (BMLeftTree.SelectedNode.Value == "Dashboard")
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBMProfile','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login');", true);
             }
-            else if (TreeView1.SelectedNode.Value == "View Branch Details")
-            {
-                Session["FromAdvisorView"] = "FromBMView";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBranchDetails','login');", true);
-            }
-            else if (TreeView1.SelectedNode.Value == "Staff")
+            //else if (BMLeftTree.SelectedNode.Value == "View Branch Details")
+            //{
+            //    Session["FromAdvisorView"] = "FromBMView";
+            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBranchDetails','login');", true);
+            //}
+            else if (BMLeftTree.SelectedNode.Value == "Staff")
             {
                 Session[SessionContents.CurrentUserRole] = "BM";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewRM','login');", true);
             }
-            else if (TreeView1.SelectedNode.Value == "Customer")
+            else if (BMLeftTree.SelectedNode.Value == "Customer")
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('BMCustomer','login');", true);
             }
-            else if (TreeView1.SelectedNode.Value == "MFMIS")
+            else if (BMLeftTree.SelectedNode.Value == "MFMIS")
             {
                 Session["UserType"] = "bm";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCwiseMIS','login');", true);
             }
-            else if (TreeView1.SelectedNode.Value == "EQMIS")
+            else if (BMLeftTree.SelectedNode.Value == "EQMIS")
             {
                 Session["UserType"] = "bm";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
             }
         }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            
+        }
 
+        /* End For BM Left Treeview */ 
     }
 }

@@ -1,9 +1,19 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EmailReport.aspx.cs" Inherits="WealthERP.Reports.EmailReport" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Buffer="false" CodeBehind="EmailReport.aspx.cs" Inherits="WealthERP.Reports.EmailReport" %>
 
 <%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<%--<script language="javascript" id="myscript>
+    function gettheme() {
+        var theme = '<%=Session["Theme"].ToString(); %>';
+        return theme;
+    }
+</script>--%>
+
+<link href="../App_Themes/Maroon/GridViewCss.css" rel="stylesheet" type="text/css" />
+
+
 <head id="Head1" runat="server">
     <title>WealthERP Reports</title>
     <style>
@@ -31,6 +41,17 @@
             border: 1px solid #F5E082;
             padding: 10px;
         }
+        .PageBackGround
+        {
+         background-color:Gray;
+         filter: alpha(opacity=100);
+         opacity: 0.7;
+        }
+        .pageBack
+        {
+            background-color:#EBEFF9; 
+        }
+        
     </style>
 
     <script>
@@ -39,12 +60,26 @@
             document.getElementById('btnSend').disabled = true;
 
         }
-        function sendMail() {
+        function ShowProcesss() {
+            document.getElementById('Button1').value = "Sending Email.Please wait..";
+            document.getElementById('Button1').disabled = true;
 
+        }
+        function sendMail() {
+            
             if (document.getElementById("txtTo").value == "") {
                 alert("Please enter To Email Address.");
                 return false;
             }
+           
+            if (document.getElementById("txtCC").value != "") {                
+                if (document.getElementById("txtCC").value.indexOf("@") < 2 || document.getElementById("txtCC").value.indexOf(".") < 4) {
+                    alert("Please enter  a valid CC Email Address.");
+                    document.getElementById("txtCC").focus();
+                    return false;
+                }
+            }
+            
             if (document.getElementById("txtTo").value.indexOf("@") < 2 || document.getElementById("txtTo").value.indexOf(".") < 4) {
                 alert("Please enter  a valid To Email Address.");
                 document.getElementById("txtTo").focus();
@@ -60,6 +95,8 @@
             document.getElementById("btnSendMail").click()
 
         }
+        
+       
         function replaceSpecialChars() {
 
             while (document.getElementById("txtBody").value.indexOf("<br/>") > -1) {
@@ -99,19 +136,62 @@
         });
         
     </script>
+    
+    <script language="JavaScript">
+
+        var Page;
+
+        var postBackElement;
+
+        function pageLoad() {
+
+            Page = Sys.WebForms.PageRequestManager.getInstance();
+
+            Page.add_beginRequest(OnBeginRequest);
+
+            Page.add_endRequest(endRequest);
+
+        }
+
+        function OnBeginRequest(sender, args) {
+
+            $get("IMGDIV").style.display = "";
+
+        }
+
+        function endRequest(sender, args) {
+
+            $get("IMGDIV").style.display = "none";
+
+        }
+      
+        function hideProcessImage(){
+        
+        $("#abc").hide();
+        }
+        
+ 
+
+  </script>
 
 </head>
-<body>
+
+<body class="pageBack" onload="hideProcessImage();">
+<div id="abc"  style="width:100%; position:relative; top:200px;left:430px;opacity: 0.6;">
+
+<img id="Img1" src="images/MailSend-loader.gif" />
+</div>
+ 
+ <% sendMailFunction(); %>   
     <form id="form1" runat="server">
     <table width="100%" border="0">
         <tr>
             <td>
-                <table border="0" width="910px">
+                <table border="0" width="100%">
                     <tr>
                         <td align="center">
-                            <asp:Button ID="btnSendEmail" runat="server" class='sendEmail ButtonField' Text="Send Report by Email" style="display:none" />
-                        </td>
-                        <td align="right" valign="bottom">
+                            <asp:Button ID="btnSendEmail" runat="server" CssClass='sendEmail ButtonField' Text="Send Report by Email" style="display:none" />
+                            
                             <div style="display: none">
                                 <div id='divEmail' style='padding: 10px; background: #fff;'>
                                     <table border="0">
@@ -143,6 +223,7 @@
                                             </td>
                                             <td>
                                                 <asp:TextBox ID="txtCC" runat="server" Width="500px"></asp:TextBox>
+                                                   
                                             </td>
                                         </tr>
                                         <tr>
@@ -163,14 +244,119 @@
                                     </table>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <div runat="server" id="divMessage" class="yellow-box" visible="false" enableviewstate="false">
+                            <%--<div runat="server" id="divMessage" class="yellow-box" visible="false" enableviewstate="false" style="width:100%">
                                 <asp:Label ID="lblEmailStatus" runat="server" Text="" EnableViewState="false" Style="font-weight: bolder;
                                     color: Green;"></asp:Label>
-                            </div>
+                            </div>--%>
+                        </td>
+                    </tr>
+                    <tr id="trCustomerlist" runat="server" visible="false">
+                    <td align="center">
+                    <div runat="server" id="divCustomerlist" class="yellow-box" visible="true" enableviewstate="false">
+                                <asp:Label ID="Label1" runat="server" 
+                                    Text="Status of selected report for all selected customer" 
+                                    EnableViewState="False" Style="color: Green;text-align:center" Font-Bold="True"></asp:Label>
+                    </div>
+                    
+                    </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="width:100%" >
+                        <asp:Panel ID="panelReportStatus" runat="server" Width="90%" Height="80%" ScrollBars="Both">
+                         <asp:GridView ID="gvEmailCustomerList" runat="server" AllowSorting="True" 
+                            AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" 
+                            ItemStyle-HorizontalAlign="Left" HorizontalAlign="Left" ShowFooter="True" EnableViewState="true" Width="100%">
+                             <FooterStyle CssClass="FooterStyle" />
+                             <Columns>
+                             
+                                <asp:TemplateField HeaderText="Customer Name">
+                                    <ItemTemplate >
+                                        <asp:Label ID="lblCustomerName" runat="server" CssClass="GridViewCmbField" 
+                                            Text='<%#Eval("CustometName") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Mutual Fund Summary">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMutualFund" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("MFundSummary") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Portfolio Return-Holdoing">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblPortfolioReturnHolding" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("PortfolioRHolding") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Comprehensive Report">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblComprehensiveReport" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("Comprehensive") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="EligibleCapitalGainDetails">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEligibleCapitalGainDetails" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("ECapitalGainDetails") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="EligibleCapitalGainsSummary">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEligibleCapitalGainsSummary" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("ECapitalGainsSummary") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="TransactionReport">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblTransactionReport" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("TransactionReport") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Dividend Statement">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDevidendStatement" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("DividendStatement") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Dividend Summary">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDividendSummary" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("DividendSummary") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Capital Gain Details">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCapitalGainDetails" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("CapitalGainDetails") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Capital Gain Summary">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCapitalGainSummary" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("CapitalGainSummary") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                   
+                                </asp:TemplateField>
+                                
+                                
+                             </Columns>
+                             <HeaderStyle CssClass="HeaderStyle" />
+                            <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
+                            <RowStyle CssClass="RowStyle" />
+                            <SelectedRowStyle CssClass="SelectedRowStyle" />
+                            </asp:GridView>
+                        </asp:Panel>
+                           
                         </td>
                     </tr>
                 </table>
@@ -182,7 +368,17 @@
                     Visible="false" EnableViewState="false"></asp:Label>
             </td>
         </tr>
+        <tr>
+            <td align="center">
+                <DIV id="IMGDIV" style="display:none;position:absolute;left: 35%;top: 25%;vertical-align:middle;border-style:inset;border-color:black;background-color:White;z-index:40;">
+                   
+                    <img src="images/loading.gif" />               
+
+                </DIV>
+            </td>
+        </tr>
     </table>
+    
     <asp:Button ID="btnSendMail" runat="server" Text="" OnClick="btnSendEmail_Click" OnClientClick="ShowProcesssing(this)"
         BorderStyle="None" BackColor="Transparent" />
     <asp:HiddenField ID="hidFormat" runat="server" />
@@ -194,8 +390,16 @@
     </form>
 </body>
 
+           
+
 <script>
     ConvertnlTobr();
 </script>
+
+
+   
+                   
+
+  
 
 </html>

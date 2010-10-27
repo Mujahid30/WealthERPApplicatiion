@@ -28,7 +28,8 @@ namespace VoCustomerGoalProfiling
         private string G_GoalDescription;
         private double G_RateofInterestOnFture;
         private int G_CreatedBy;
-
+        private double G_lumpsumInvestRequired;
+        private double G_FutureValueOnCurrentInvest;
 
 
 
@@ -185,6 +186,18 @@ namespace VoCustomerGoalProfiling
             set { G_GoalId = value; }
         }
 
+        public double LumpsumInvestRequired
+        {
+            get { return G_lumpsumInvestRequired; }
+            set { G_lumpsumInvestRequired = value; }
+        }
+
+        public double FutureValueOnCurrentInvest
+        {
+            get { return G_FutureValueOnCurrentInvest; }
+            set { G_FutureValueOnCurrentInvest = value; }
+        }
+        
        
     }
 }

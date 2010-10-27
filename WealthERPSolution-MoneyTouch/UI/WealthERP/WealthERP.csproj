@@ -65,6 +65,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\CrystalDecisions.Web.dll</HintPath>
     </Reference>
+    <Reference Include="DanLudwig.Controls.AspAjax.ListBox, Version=0.3.3856.27484, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -716,6 +717,13 @@
     <Compile Include="Advisor\AdvisorRegistration.ascx.designer.cs">
       <DependentUpon>AdvisorRegistration.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\AdvisorRMCustGroupDashboard.ascx.cs">
+      <DependentUpon>AdvisorRMCustGroupDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdvisorRMCustGroupDashboard.ascx.designer.cs">
+      <DependentUpon>AdvisorRMCustGroupDashboard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\AdvisorRMCustIndiDashboard.ascx.cs">
       <DependentUpon>AdvisorRMCustIndiDashboard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -764,6 +772,13 @@
     </Compile>
     <Compile Include="Advisor\ChangePassword.ascx.designer.cs">
       <DependentUpon>ChangePassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\CustomerAssociationSetup.ascx.cs">
+      <DependentUpon>CustomerAssociationSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\CustomerAssociationSetup.ascx.designer.cs">
+      <DependentUpon>CustomerAssociationSetup.ascx</DependentUpon>
     </Compile>
     <Compile Include="Advisor\CustomerUserDetails.ascx.cs">
       <DependentUpon>CustomerUserDetails.ascx</DependentUpon>
@@ -1730,6 +1745,13 @@
     <Compile Include="Customer\AddDematAccountDetails.ascx.designer.cs">
       <DependentUpon>AddDematAccountDetails.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Customer\CustomerAdvisorsNote.ascx.cs">
+      <DependentUpon>CustomerAdvisorsNote.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerAdvisorsNote.ascx.designer.cs">
+      <DependentUpon>CustomerAdvisorsNote.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Customer\CustomerAssociatesAdd.ascx.cs">
       <DependentUpon>CustomerAssociatesAdd.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2125,6 +2147,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\FinancialPlanningDS.Designer.cs" />
+    <Compile Include="Reports\FPDataSet.Designer.cs" />
     <Compile Include="Reports\FPReports.ascx.cs">
       <DependentUpon>FPReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2155,20 +2178,12 @@
     </Compile>
     <Compile Include="Reports\MFReportsDS.cs">
       <DependentUpon>MFReportsDS.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\MFReportsDS.Designer.cs">
-      <DependentUpon>MFReportsDS.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\MFReturns.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\MFReturnsDS.cs">
       <DependentUpon>MFReturnsDS.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\MFReturnsDS.Designer.cs">
-      <DependentUpon>MFReturnsDS.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\MFReturnsTransactions.cs">
       <SubType>Component</SubType>
@@ -2191,6 +2206,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\MultiAssetReportDS.Designer.cs" />
+    <Compile Include="Reports\MultiiAssetReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MultiiAssetReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\PortfolioReports.ascx.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2481,6 +2502,14 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CapitalGainSummary1.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\EligibleCapitalGainsDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EligibleCapitalGainsDetails.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\EligibleCapitalGainsSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EligibleCapitalGainsSummary.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\EqSectorwise.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>EqSectorwise.cs</LastGenOutput>
@@ -2505,9 +2534,17 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MFFundSummary1.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFPortfolioAnalytics.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFPortfolioAnalytics.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFReturns.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MFReturns1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFReturnsRealized.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFReturnsRealized.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFReturnsTransactions.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2520,6 +2557,10 @@
     <EmbeddedResource Include="Reports\MultiAssetReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MultiAssetReport1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MultiiAssetReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MultiiAssetReport.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -2543,9 +2584,11 @@
     <Content Include="Advisor\AdviserLoanMIS.ascx" />
     <Content Include="Advisor\AdviserMFMIS.ascx" />
     <Content Include="Advisor\AdviserStaffSMTP.ascx" />
+    <Content Include="Advisor\AdvisorRMCustGroupDashboard.ascx" />
     <Content Include="Advisor\AssociateCategory.ascx" />
     <Content Include="Advisor\BMCustomer.ascx" />
     <Content Include="Advisor\BMStaffView.ascx" />
+    <Content Include="Advisor\CustomerAssociationSetup.ascx" />
     <Content Include="Advisor\EditRMDetails.ascx" />
     <Content Include="Advisor\FinancialPlanning.ascx" />
     <Content Include="Advisor\FinancialPlanningLeftPane.ascx" />
@@ -2565,6 +2608,23 @@
     <Content Include="Alerts\CustomerTransactionalAlertManagement.ascx" />
     <Content Include="App_Themes\Maroon\GridViewCss.css" />
     <Content Include="App_Themes\Maroon\Images\alert.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-B-tail.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-B.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-BL-corner.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-BR-corner.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-IE.css" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-L-R.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-L-tail.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-L.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-R-tail.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-R.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-T-B.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-T-tail.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-T.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-TL-corner.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip-TR-corner.png" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip.css" />
+    <Content Include="App_Themes\Maroon\Images\bubbletip.png" />
     <Content Include="App_Themes\Maroon\Images\calendar.jpg" />
     <Content Include="App_Themes\Maroon\Images\calendar2.jpg" />
     <Content Include="App_Themes\Maroon\Images\calendar3.jpg" />
@@ -2617,6 +2677,23 @@
     <Content Include="App_Themes\Maroon\StyleSheet.css" />
     <Content Include="App_Themes\Purple\GridViewCss.css" />
     <Content Include="App_Themes\Purple\Images\alert.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-B-tail.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-B.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-BL-corner.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-BR-corner.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-IE.css" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-L-R.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-L-tail.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-L.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-R-tail.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-R.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-T-B.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-T-tail.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-T.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-TL-corner.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip-TR-corner.png" />
+    <Content Include="App_Themes\Purple\Images\bubbletip.css" />
+    <Content Include="App_Themes\Purple\Images\bubbletip.png" />
     <Content Include="App_Themes\Purple\Images\calendar.jpg" />
     <Content Include="App_Themes\Purple\Images\calendar2.jpg" />
     <Content Include="App_Themes\Purple\Images\calendar3.jpg" />
@@ -2640,6 +2717,7 @@
     <Content Include="App_Themes\Purple\Images\ImgNextMD.gif" />
     <Content Include="App_Themes\Purple\Images\ImgPrevMD.gif" />
     <Content Include="App_Themes\Purple\Images\ImgPrevMN.gif" />
+    <Content Include="App_Themes\Purple\Images\information.png" />
     <Content Include="App_Themes\Purple\Images\MenuSeparator.jpg" />
     <Content Include="App_Themes\Purple\Images\nav-arrow-right.png" />
     <Content Include="App_Themes\Purple\Images\nav-arrow-right2.png" />
@@ -2670,6 +2748,8 @@
     <Content Include="App_Themes\Purple\StyleSheet.css" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\AjaxControlToolkit.pdb" />
+    <Content Include="CSS\colorbox.css" />
+    <Content Include="CSS\Dashboard.css" />
     <Content Include="CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="CSS\Images\splitter_bar_right_pointer.jpg" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
@@ -2691,6 +2771,7 @@
     <Content Include="CustomerPortfolio\RMMultipleTransactionView.ascx" />
     <Content Include="CustomerPortfolio\ViewGeneralInsuranceDetails.ascx" />
     <Content Include="Customer\AddDematAccountDetails.ascx" />
+    <Content Include="Customer\CustomerAdvisorsNote.ascx" />
     <Content Include="Customer\CustomerExpense.ascx" />
     <Content Include="Customer\CustomerIncome.ascx" />
     <Content Include="Customer\DematAccountDetails.ascx" />
@@ -2698,25 +2779,41 @@
     <Content Include="Emails\Templates\AdviserRegistration.html" />
     <Content Include="Emails\Templates\AdviserRegistrationNotification.html" />
     <Content Include="Emails\Templates\AdviserRMAccounts.html" />
+    <Content Include="Emails\Templates\CustomerCredentials.html" />
+    <Content Include="Emails\Templates\ForgotPassword.html" />
+    <Content Include="Emails\Templates\ResetPassword.htm" />
+    <Content Include="Emails\Templates\ResetPassword.html" />
+    <Content Include="favicon.ico" />
     <Content Include="General\SetTheme.ascx" />
     <Content Include="General\UserSettings.ascx" />
     <Content Include="General\UserSettingsLeftPane.ascx" />
     <Content Include="Help.htm" />
     <Content Include="Images\arrow_double_up_7.gif" />
+    <Content Include="Images\collapse.png" />
+    <Content Include="Images\Error_Icon.png" />
     <Content Include="Images\Export_Excel.png" />
     <Content Include="Images\Export_Pdf.gif" />
     <Content Include="Images\Export_Word.jpg" />
     <Content Include="Images\greenStatus.png" />
     <Content Include="Images\h2_trigger_a.gif" />
+    <Content Include="Images\help.png" />
+    <Content Include="Images\helpImage.png" />
+    <Content Include="Images\helpInfo.png" />
+    <Content Include="Images\help_button.png" />
+    <Content Include="Images\info.png" />
+    <Content Include="Images\info_image.png" />
     <Content Include="Images\loader.gif" />
     <Content Include="Images\Loading.gif" />
     <Content Include="Images\MenuSeparator.jpg" />
-    <Content Include="Images\Money_Touch_360_logo1.gif" />
     <Content Include="Images\Portfolios.jpg" />
     <Content Include="Images\Print.gif" />
+    <Content Include="Images\QuestionImage\QM1006.jpg" />
     <Content Include="Images\redStatus.png" />
+    <Content Include="Images\ScreenInfo.png" />
+    <Content Include="Images\securedownload.jpg" />
     <Content Include="Images\spacer.png" />
     <Content Include="Images\submit.png" />
+    <Content Include="Images\Success_Icon.png" />
     <Content Include="Images\toggle_block_btm.gif" />
     <Content Include="Images\toggle_block_stretch.gif" />
     <Content Include="Images\Trans.png" />
@@ -2736,12 +2833,18 @@
     <Content Include="Reports\FPReports.ascx" />
     <Content Include="Reports\images\controls.png" />
     <Content Include="Reports\images\loading.gif" />
+    <Content Include="Reports\images\MailSend-loader.gif" />
     <Content Include="Reports\MFReports.ascx" />
     <Content Include="Reports\PortfolioReports.ascx" />
     <Content Include="Scripts\Dashboard.js" />
+    <Content Include="Scripts\jquery-1.3.1.min.js" />
     <Content Include="Scripts\jquery-1.4.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.7.2.custom.min.js" />
+    <Content Include="Scripts\jquery.betterTooltip.js" />
+    <Content Include="Scripts\jQuery.bubbletip-1.0.6.js" />
+    <Content Include="Scripts\jquery.colorbox-min.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="SessionExpired.aspx" />
     <Content Include="SuperAdmin\IFF.ascx" />
     <Content Include="SuperAdmin\IFFAdd.ascx" />
@@ -2766,6 +2869,382 @@
     <Content Include="Uploads\StandardProfileInputRejects.ascx" />
     <Content Include="Uploads\TempletonProfileFolioInputRejects.ascx" />
     <Content Include="Uploads\TempletonTransInputRejects.ascx" />
+    <Content Include="YUI\build\animation\animation-debug.js" />
+    <Content Include="YUI\build\animation\animation-min.js" />
+    <Content Include="YUI\build\animation\animation.js" />
+    <Content Include="YUI\build\assets\skins\sam\ajax-loader.gif" />
+    <Content Include="YUI\build\assets\skins\sam\asc.gif" />
+    <Content Include="YUI\build\assets\skins\sam\autocomplete.css" />
+    <Content Include="YUI\build\assets\skins\sam\bg-h.gif" />
+    <Content Include="YUI\build\assets\skins\sam\bg-v.gif" />
+    <Content Include="YUI\build\assets\skins\sam\blankimage.png" />
+    <Content Include="YUI\build\assets\skins\sam\button.css" />
+    <Content Include="YUI\build\assets\skins\sam\calendar.css" />
+    <Content Include="YUI\build\assets\skins\sam\carousel.css" />
+    <Content Include="YUI\build\assets\skins\sam\colorpicker.css" />
+    <Content Include="YUI\build\assets\skins\sam\container.css" />
+    <Content Include="YUI\build\assets\skins\sam\datatable.css" />
+    <Content Include="YUI\build\assets\skins\sam\desc.gif" />
+    <Content Include="YUI\build\assets\skins\sam\dt-arrow-dn.png" />
+    <Content Include="YUI\build\assets\skins\sam\dt-arrow-up.png" />
+    <Content Include="YUI\build\assets\skins\sam\editor-knob.gif" />
+    <Content Include="YUI\build\assets\skins\sam\editor-sprite-active.gif" />
+    <Content Include="YUI\build\assets\skins\sam\editor-sprite.gif" />
+    <Content Include="YUI\build\assets\skins\sam\editor.css" />
+    <Content Include="YUI\build\assets\skins\sam\header_background.png" />
+    <Content Include="YUI\build\assets\skins\sam\hue_bg.png" />
+    <Content Include="YUI\build\assets\skins\sam\imagecropper.css" />
+    <Content Include="YUI\build\assets\skins\sam\layout.css" />
+    <Content Include="YUI\build\assets\skins\sam\layout_sprite.png" />
+    <Content Include="YUI\build\assets\skins\sam\loading.gif" />
+    <Content Include="YUI\build\assets\skins\sam\logger.css" />
+    <Content Include="YUI\build\assets\skins\sam\menu-button-arrow-disabled.png" />
+    <Content Include="YUI\build\assets\skins\sam\menu-button-arrow.png" />
+    <Content Include="YUI\build\assets\skins\sam\menu.css" />
+    <Content Include="YUI\build\assets\skins\sam\menubaritem_submenuindicator.png" />
+    <Content Include="YUI\build\assets\skins\sam\menubaritem_submenuindicator_disabled.png" />
+    <Content Include="YUI\build\assets\skins\sam\menuitem_checkbox.png" />
+    <Content Include="YUI\build\assets\skins\sam\menuitem_checkbox_disabled.png" />
+    <Content Include="YUI\build\assets\skins\sam\menuitem_submenuindicator.png" />
+    <Content Include="YUI\build\assets\skins\sam\menuitem_submenuindicator_disabled.png" />
+    <Content Include="YUI\build\assets\skins\sam\paginator.css" />
+    <Content Include="YUI\build\assets\skins\sam\picker_mask.png" />
+    <Content Include="YUI\build\assets\skins\sam\profilerviewer.css" />
+    <Content Include="YUI\build\assets\skins\sam\resize.css" />
+    <Content Include="YUI\build\assets\skins\sam\simpleeditor.css" />
+    <Content Include="YUI\build\assets\skins\sam\skin.css" />
+    <Content Include="YUI\build\assets\skins\sam\slider.css" />
+    <Content Include="YUI\build\assets\skins\sam\split-button-arrow-active.png" />
+    <Content Include="YUI\build\assets\skins\sam\split-button-arrow-disabled.png" />
+    <Content Include="YUI\build\assets\skins\sam\split-button-arrow-focus.png" />
+    <Content Include="YUI\build\assets\skins\sam\split-button-arrow-hover.png" />
+    <Content Include="YUI\build\assets\skins\sam\split-button-arrow.png" />
+    <Content Include="YUI\build\assets\skins\sam\sprite.png" />
+    <Content Include="YUI\build\assets\skins\sam\tabview.css" />
+    <Content Include="YUI\build\assets\skins\sam\treeview-loading.gif" />
+    <Content Include="YUI\build\assets\skins\sam\treeview-sprite.gif" />
+    <Content Include="YUI\build\assets\skins\sam\treeview.css" />
+    <Content Include="YUI\build\assets\skins\sam\wait.gif" />
+    <Content Include="YUI\build\assets\skins\sam\yuitest.css" />
+    <Content Include="YUI\build\autocomplete\assets\autocomplete-core.css" />
+    <Content Include="YUI\build\autocomplete\assets\skins\sam\autocomplete-skin.css" />
+    <Content Include="YUI\build\autocomplete\assets\skins\sam\autocomplete.css" />
+    <Content Include="YUI\build\autocomplete\autocomplete-debug.js" />
+    <Content Include="YUI\build\autocomplete\autocomplete-min.js" />
+    <Content Include="YUI\build\autocomplete\autocomplete.js" />
+    <Content Include="YUI\build\base\base-min.css" />
+    <Content Include="YUI\build\base\base.css" />
+    <Content Include="YUI\build\button\assets\button-core.css" />
+    <Content Include="YUI\build\button\assets\skins\sam\button-skin.css" />
+    <Content Include="YUI\build\button\assets\skins\sam\button.css" />
+    <Content Include="YUI\build\button\assets\skins\sam\menu-button-arrow-disabled.png" />
+    <Content Include="YUI\build\button\assets\skins\sam\menu-button-arrow.png" />
+    <Content Include="YUI\build\button\assets\skins\sam\split-button-arrow-active.png" />
+    <Content Include="YUI\build\button\assets\skins\sam\split-button-arrow-disabled.png" />
+    <Content Include="YUI\build\button\assets\skins\sam\split-button-arrow-focus.png" />
+    <Content Include="YUI\build\button\assets\skins\sam\split-button-arrow-hover.png" />
+    <Content Include="YUI\build\button\assets\skins\sam\split-button-arrow.png" />
+    <Content Include="YUI\build\button\button-debug.js" />
+    <Content Include="YUI\build\button\button-min.js" />
+    <Content Include="YUI\build\button\button.js" />
+    <Content Include="YUI\build\calendar\assets\calendar-core.css" />
+    <Content Include="YUI\build\calendar\assets\calendar.css" />
+    <Content Include="YUI\build\calendar\assets\calgrad.png" />
+    <Content Include="YUI\build\calendar\assets\callt.gif" />
+    <Content Include="YUI\build\calendar\assets\calrt.gif" />
+    <Content Include="YUI\build\calendar\assets\calx.gif" />
+    <Content Include="YUI\build\calendar\assets\skins\sam\calendar-skin.css" />
+    <Content Include="YUI\build\calendar\assets\skins\sam\calendar.css" />
+    <Content Include="YUI\build\calendar\calendar-debug.js" />
+    <Content Include="YUI\build\calendar\calendar-min.js" />
+    <Content Include="YUI\build\calendar\calendar.js" />
+    <Content Include="YUI\build\carousel\assets\ajax-loader.gif" />
+    <Content Include="YUI\build\carousel\assets\carousel-core.css" />
+    <Content Include="YUI\build\carousel\assets\skins\sam\ajax-loader.gif" />
+    <Content Include="YUI\build\carousel\assets\skins\sam\carousel-skin.css" />
+    <Content Include="YUI\build\carousel\assets\skins\sam\carousel.css" />
+    <Content Include="YUI\build\carousel\carousel-debug.js" />
+    <Content Include="YUI\build\carousel\carousel-min.js" />
+    <Content Include="YUI\build\carousel\carousel.js" />
+    <Content Include="YUI\build\charts\assets\charts.swf" />
+    <Content Include="YUI\build\charts\charts-debug.js" />
+    <Content Include="YUI\build\charts\charts-min.js" />
+    <Content Include="YUI\build\charts\charts.js" />
+    <Content Include="YUI\build\colorpicker\assets\colorpicker-core.css" />
+    <Content Include="YUI\build\colorpicker\assets\hue_thumb.png" />
+    <Content Include="YUI\build\colorpicker\assets\picker_mask.png" />
+    <Content Include="YUI\build\colorpicker\assets\picker_thumb.png" />
+    <Content Include="YUI\build\colorpicker\assets\skins\sam\colorpicker-skin.css" />
+    <Content Include="YUI\build\colorpicker\assets\skins\sam\colorpicker.css" />
+    <Content Include="YUI\build\colorpicker\assets\skins\sam\hue_bg.png" />
+    <Content Include="YUI\build\colorpicker\assets\skins\sam\picker_mask.png" />
+    <Content Include="YUI\build\colorpicker\colorpicker-debug.js" />
+    <Content Include="YUI\build\colorpicker\colorpicker-min.js" />
+    <Content Include="YUI\build\colorpicker\colorpicker.js" />
+    <Content Include="YUI\build\connection\connection-debug.js" />
+    <Content Include="YUI\build\connection\connection-min.js" />
+    <Content Include="YUI\build\connection\connection.js" />
+    <Content Include="YUI\build\container\assets\alrt16_1.gif" />
+    <Content Include="YUI\build\container\assets\blck16_1.gif" />
+    <Content Include="YUI\build\container\assets\close12_1.gif" />
+    <Content Include="YUI\build\container\assets\container-core.css" />
+    <Content Include="YUI\build\container\assets\container.css" />
+    <Content Include="YUI\build\container\assets\hlp16_1.gif" />
+    <Content Include="YUI\build\container\assets\info16_1.gif" />
+    <Content Include="YUI\build\container\assets\skins\sam\container-skin.css" />
+    <Content Include="YUI\build\container\assets\skins\sam\container.css" />
+    <Content Include="YUI\build\container\assets\tip16_1.gif" />
+    <Content Include="YUI\build\container\assets\warn16_1.gif" />
+    <Content Include="YUI\build\container\container-debug.js" />
+    <Content Include="YUI\build\container\container-min.js" />
+    <Content Include="YUI\build\container\container.js" />
+    <Content Include="YUI\build\container\container_core-debug.js" />
+    <Content Include="YUI\build\container\container_core-min.js" />
+    <Content Include="YUI\build\container\container_core.js" />
+    <Content Include="YUI\build\cookie\cookie-debug.js" />
+    <Content Include="YUI\build\cookie\cookie-min.js" />
+    <Content Include="YUI\build\cookie\cookie.js" />
+    <Content Include="YUI\build\datasource\datasource-debug.js" />
+    <Content Include="YUI\build\datasource\datasource-min.js" />
+    <Content Include="YUI\build\datasource\datasource.js" />
+    <Content Include="YUI\build\datatable\assets\datatable-core.css" />
+    <Content Include="YUI\build\datatable\assets\datatable.css" />
+    <Content Include="YUI\build\datatable\assets\skins\sam\datatable-skin.css" />
+    <Content Include="YUI\build\datatable\assets\skins\sam\datatable.css" />
+    <Content Include="YUI\build\datatable\assets\skins\sam\dt-arrow-dn.png" />
+    <Content Include="YUI\build\datatable\assets\skins\sam\dt-arrow-up.png" />
+    <Content Include="YUI\build\datatable\datatable-debug.js" />
+    <Content Include="YUI\build\datatable\datatable-min.js" />
+    <Content Include="YUI\build\datatable\datatable.js" />
+    <Content Include="YUI\build\dom\dom-debug.js" />
+    <Content Include="YUI\build\dom\dom-min.js" />
+    <Content Include="YUI\build\dom\dom.js" />
+    <Content Include="YUI\build\dragdrop\dragdrop-debug.js" />
+    <Content Include="YUI\build\dragdrop\dragdrop-min.js" />
+    <Content Include="YUI\build\dragdrop\dragdrop.js" />
+    <Content Include="YUI\build\editor\assets\editor-core.css" />
+    <Content Include="YUI\build\editor\assets\simpleeditor-core.css" />
+    <Content Include="YUI\build\editor\assets\skins\sam\blankimage.png" />
+    <Content Include="YUI\build\editor\assets\skins\sam\editor-knob.gif" />
+    <Content Include="YUI\build\editor\assets\skins\sam\editor-skin.css" />
+    <Content Include="YUI\build\editor\assets\skins\sam\editor-sprite-active.gif" />
+    <Content Include="YUI\build\editor\assets\skins\sam\editor-sprite.gif" />
+    <Content Include="YUI\build\editor\assets\skins\sam\editor.css" />
+    <Content Include="YUI\build\editor\assets\skins\sam\simpleeditor-skin.css" />
+    <Content Include="YUI\build\editor\assets\skins\sam\simpleeditor.css" />
+    <Content Include="YUI\build\editor\editor-debug.js" />
+    <Content Include="YUI\build\editor\editor-min.js" />
+    <Content Include="YUI\build\editor\editor.js" />
+    <Content Include="YUI\build\editor\simpleeditor-debug.js" />
+    <Content Include="YUI\build\editor\simpleeditor-min.js" />
+    <Content Include="YUI\build\editor\simpleeditor.js" />
+    <Content Include="YUI\build\element\element-debug.js" />
+    <Content Include="YUI\build\element\element-min.js" />
+    <Content Include="YUI\build\element\element.js" />
+    <Content Include="YUI\build\event\event-debug.js" />
+    <Content Include="YUI\build\event\event-min.js" />
+    <Content Include="YUI\build\event\event.js" />
+    <Content Include="YUI\build\fonts\fonts-min.css" />
+    <Content Include="YUI\build\fonts\fonts.css" />
+    <Content Include="YUI\build\get\get-debug.js" />
+    <Content Include="YUI\build\get\get-min.js" />
+    <Content Include="YUI\build\get\get.js" />
+    <Content Include="YUI\build\grids\grids-min.css" />
+    <Content Include="YUI\build\grids\grids.css" />
+    <Content Include="YUI\build\history\assets\blank.html" />
+    <Content Include="YUI\build\history\history-debug.js" />
+    <Content Include="YUI\build\history\history-min.js" />
+    <Content Include="YUI\build\history\history.js" />
+    <Content Include="YUI\build\imagecropper\assets\imagecropper-core.css" />
+    <Content Include="YUI\build\imagecropper\assets\skins\sam\imagecropper-skin.css" />
+    <Content Include="YUI\build\imagecropper\assets\skins\sam\imagecropper.css" />
+    <Content Include="YUI\build\imagecropper\imagecropper-debug.js" />
+    <Content Include="YUI\build\imagecropper\imagecropper-min.js" />
+    <Content Include="YUI\build\imagecropper\imagecropper.js" />
+    <Content Include="YUI\build\imageloader\imageloader-debug.js" />
+    <Content Include="YUI\build\imageloader\imageloader-min.js" />
+    <Content Include="YUI\build\imageloader\imageloader.js" />
+    <Content Include="YUI\build\json\json-debug.js" />
+    <Content Include="YUI\build\json\json-min.js" />
+    <Content Include="YUI\build\json\json.js" />
+    <Content Include="YUI\build\layout\assets\layout-core.css" />
+    <Content Include="YUI\build\layout\assets\skins\sam\layout-skin.css" />
+    <Content Include="YUI\build\layout\assets\skins\sam\layout.css" />
+    <Content Include="YUI\build\layout\assets\skins\sam\layout_sprite.png" />
+    <Content Include="YUI\build\layout\layout-debug.js" />
+    <Content Include="YUI\build\layout\layout-min.js" />
+    <Content Include="YUI\build\layout\layout.js" />
+    <Content Include="YUI\build\logger\assets\logger-core.css" />
+    <Content Include="YUI\build\logger\assets\logger.css" />
+    <Content Include="YUI\build\logger\assets\skins\sam\logger-skin.css" />
+    <Content Include="YUI\build\logger\assets\skins\sam\logger.css" />
+    <Content Include="YUI\build\logger\logger-debug.js" />
+    <Content Include="YUI\build\logger\logger-min.js" />
+    <Content Include="YUI\build\logger\logger.js" />
+    <Content Include="YUI\build\menu\assets\menu-core.css" />
+    <Content Include="YUI\build\menu\assets\menu.css" />
+    <Content Include="YUI\build\menu\assets\menubaritem_submenuindicator.png" />
+    <Content Include="YUI\build\menu\assets\menubaritem_submenuindicator_disabled.png" />
+    <Content Include="YUI\build\menu\assets\menubaritem_submenuindicator_selected.png" />
+    <Content Include="YUI\build\menu\assets\menuitem_checkbox.png" />
+    <Content Include="YUI\build\menu\assets\menuitem_checkbox_disabled.png" />
+    <Content Include="YUI\build\menu\assets\menuitem_checkbox_selected.png" />
+    <Content Include="YUI\build\menu\assets\menuitem_submenuindicator.png" />
+    <Content Include="YUI\build\menu\assets\menuitem_submenuindicator_disabled.png" />
+    <Content Include="YUI\build\menu\assets\menuitem_submenuindicator_selected.png" />
+    <Content Include="YUI\build\menu\assets\menu_down_arrow.png" />
+    <Content Include="YUI\build\menu\assets\menu_down_arrow_disabled.png" />
+    <Content Include="YUI\build\menu\assets\menu_up_arrow.png" />
+    <Content Include="YUI\build\menu\assets\menu_up_arrow_disabled.png" />
+    <Content Include="YUI\build\menu\assets\skins\sam\menu-skin.css" />
+    <Content Include="YUI\build\menu\assets\skins\sam\menu.css" />
+    <Content Include="YUI\build\menu\assets\skins\sam\menubaritem_submenuindicator.png" />
+    <Content Include="YUI\build\menu\assets\skins\sam\menubaritem_submenuindicator_disabled.png" />
+    <Content Include="YUI\build\menu\assets\skins\sam\menuitem_checkbox.png" />
+    <Content Include="YUI\build\menu\assets\skins\sam\menuitem_checkbox_disabled.png" />
+    <Content Include="YUI\build\menu\assets\skins\sam\menuitem_submenuindicator.png" />
+    <Content Include="YUI\build\menu\assets\skins\sam\menuitem_submenuindicator_disabled.png" />
+    <Content Include="YUI\build\menu\menu-debug.js" />
+    <Content Include="YUI\build\menu\menu-min.js" />
+    <Content Include="YUI\build\menu\menu.js" />
+    <Content Include="YUI\build\paginator\assets\paginator-core.css" />
+    <Content Include="YUI\build\paginator\assets\skins\sam\paginator-skin.css" />
+    <Content Include="YUI\build\paginator\assets\skins\sam\paginator.css" />
+    <Content Include="YUI\build\paginator\paginator-debug.js" />
+    <Content Include="YUI\build\paginator\paginator-min.js" />
+    <Content Include="YUI\build\paginator\paginator.js" />
+    <Content Include="YUI\build\profilerviewer\assets\profilerviewer-core.css" />
+    <Content Include="YUI\build\profilerviewer\assets\skins\sam\asc.gif" />
+    <Content Include="YUI\build\profilerviewer\assets\skins\sam\desc.gif" />
+    <Content Include="YUI\build\profilerviewer\assets\skins\sam\header_background.png" />
+    <Content Include="YUI\build\profilerviewer\assets\skins\sam\profilerviewer-skin.css" />
+    <Content Include="YUI\build\profilerviewer\assets\skins\sam\profilerviewer.css" />
+    <Content Include="YUI\build\profilerviewer\assets\skins\sam\wait.gif" />
+    <Content Include="YUI\build\profilerviewer\profilerviewer-debug.js" />
+    <Content Include="YUI\build\profilerviewer\profilerviewer-min.js" />
+    <Content Include="YUI\build\profilerviewer\profilerviewer.js" />
+    <Content Include="YUI\build\profiler\profiler-debug.js" />
+    <Content Include="YUI\build\profiler\profiler-min.js" />
+    <Content Include="YUI\build\profiler\profiler.js" />
+    <Content Include="YUI\build\reset-fonts-grids\reset-fonts-grids.css" />
+    <Content Include="YUI\build\reset-fonts\reset-fonts.css" />
+    <Content Include="YUI\build\reset\reset-min.css" />
+    <Content Include="YUI\build\reset\reset.css" />
+    <Content Include="YUI\build\resize\assets\resize-core.css" />
+    <Content Include="YUI\build\resize\assets\skins\sam\layout_sprite.png" />
+    <Content Include="YUI\build\resize\assets\skins\sam\resize-skin.css" />
+    <Content Include="YUI\build\resize\assets\skins\sam\resize.css" />
+    <Content Include="YUI\build\resize\resize-debug.js" />
+    <Content Include="YUI\build\resize\resize-min.js" />
+    <Content Include="YUI\build\resize\resize.js" />
+    <Content Include="YUI\build\selector\selector-debug.js" />
+    <Content Include="YUI\build\selector\selector-min.js" />
+    <Content Include="YUI\build\selector\selector.js" />
+    <Content Include="YUI\build\slider\assets\bg-fader.gif" />
+    <Content Include="YUI\build\slider\assets\bg-h.gif" />
+    <Content Include="YUI\build\slider\assets\bg-v-e.gif" />
+    <Content Include="YUI\build\slider\assets\bg-v.gif" />
+    <Content Include="YUI\build\slider\assets\left-thumb.png" />
+    <Content Include="YUI\build\slider\assets\right-thumb.png" />
+    <Content Include="YUI\build\slider\assets\skins\sam\bg-h.gif" />
+    <Content Include="YUI\build\slider\assets\skins\sam\bg-v.gif" />
+    <Content Include="YUI\build\slider\assets\skins\sam\slider-skin.css" />
+    <Content Include="YUI\build\slider\assets\skins\sam\slider.css" />
+    <Content Include="YUI\build\slider\assets\slider-core.css" />
+    <Content Include="YUI\build\slider\assets\slider-skin.css" />
+    <Content Include="YUI\build\slider\assets\thumb-bar.gif" />
+    <Content Include="YUI\build\slider\assets\thumb-e.gif" />
+    <Content Include="YUI\build\slider\assets\thumb-fader.gif" />
+    <Content Include="YUI\build\slider\assets\thumb-n.gif" />
+    <Content Include="YUI\build\slider\assets\thumb-s.gif" />
+    <Content Include="YUI\build\slider\assets\thumb-w.gif" />
+    <Content Include="YUI\build\slider\slider-debug.js" />
+    <Content Include="YUI\build\slider\slider-min.js" />
+    <Content Include="YUI\build\slider\slider.js" />
+    <Content Include="YUI\build\stylesheet\stylesheet-debug.js" />
+    <Content Include="YUI\build\stylesheet\stylesheet-min.js" />
+    <Content Include="YUI\build\stylesheet\stylesheet.js" />
+    <Content Include="YUI\build\tabview\assets\border_tabs.css" />
+    <Content Include="YUI\build\tabview\assets\loading.gif" />
+    <Content Include="YUI\build\tabview\assets\skin-sam.css" />
+    <Content Include="YUI\build\tabview\assets\skins\sam\tabview-skin.css" />
+    <Content Include="YUI\build\tabview\assets\skins\sam\tabview.css" />
+    <Content Include="YUI\build\tabview\assets\tabview-core.css" />
+    <Content Include="YUI\build\tabview\assets\tabview.css" />
+    <Content Include="YUI\build\tabview\tabview-debug.js" />
+    <Content Include="YUI\build\tabview\tabview-min.js" />
+    <Content Include="YUI\build\tabview\tabview.js" />
+    <Content Include="YUI\build\treeview\assets\check0.gif" />
+    <Content Include="YUI\build\treeview\assets\check1.gif" />
+    <Content Include="YUI\build\treeview\assets\check2.gif" />
+    <Content Include="YUI\build\treeview\assets\loading.gif" />
+    <Content Include="YUI\build\treeview\assets\skins\sam\loading.gif" />
+    <Content Include="YUI\build\treeview\assets\skins\sam\treeview-loading.gif" />
+    <Content Include="YUI\build\treeview\assets\skins\sam\treeview-skin.css" />
+    <Content Include="YUI\build\treeview\assets\skins\sam\treeview-sprite.gif" />
+    <Content Include="YUI\build\treeview\assets\skins\sam\treeview.css" />
+    <Content Include="YUI\build\treeview\assets\treeview-core.css" />
+    <Content Include="YUI\build\treeview\assets\treeview-loading.gif" />
+    <Content Include="YUI\build\treeview\assets\treeview-skin.css" />
+    <Content Include="YUI\build\treeview\assets\treeview-sprite.gif" />
+    <Content Include="YUI\build\treeview\treeview-debug.js" />
+    <Content Include="YUI\build\treeview\treeview-min.js" />
+    <Content Include="YUI\build\treeview\treeview.js" />
+    <Content Include="YUI\build\uploader\assets\uploader.swf" />
+    <Content Include="YUI\build\uploader\uploader-debug.js" />
+    <Content Include="YUI\build\uploader\uploader-experimental-debug.js" />
+    <Content Include="YUI\build\uploader\uploader-min.js" />
+    <Content Include="YUI\build\uploader\uploader.js" />
+    <Content Include="YUI\build\utilities\utilities.js" />
+    <Content Include="YUI\build\yahoo-dom-event\yahoo-dom-event.js" />
+    <Content Include="YUI\build\yahoo\yahoo-debug.js" />
+    <Content Include="YUI\build\yahoo\yahoo-min.js" />
+    <Content Include="YUI\build\yahoo\yahoo.js" />
+    <Content Include="YUI\build\yuiloader-dom-event\yuiloader-dom-event.js" />
+    <Content Include="YUI\build\yuiloader\yuiloader-debug.js" />
+    <Content Include="YUI\build\yuiloader\yuiloader-min.js" />
+    <Content Include="YUI\build\yuiloader\yuiloader.js" />
+    <Content Include="YUI\build\yuitest\assets\skins\sam\yuitest-skin.css" />
+    <Content Include="YUI\build\yuitest\assets\skins\sam\yuitest.css" />
+    <Content Include="YUI\build\yuitest\assets\testlogger.css" />
+    <Content Include="YUI\build\yuitest\assets\yuitest-core.css" />
+    <Content Include="YUI\build\yuitest\yuitest-debug.js" />
+    <Content Include="YUI\build\yuitest\yuitest-min.js" />
+    <Content Include="YUI\build\yuitest\yuitest.js" />
+    <Content Include="YUI\build\yuitest\yuitest_core-debug.js" />
+    <Content Include="YUI\build\yuitest\yuitest_core-min.js" />
+    <Content Include="YUI\build\yuitest\yuitest_core.js" />
+    <Content Include="YUI\colorpicker\assets\colorpicker_core.css" />
+    <Content Include="YUI\colorpicker\assets\hue_thumb.png" />
+    <Content Include="YUI\colorpicker\assets\picker_mask.png" />
+    <Content Include="YUI\colorpicker\assets\picker_thumb.png" />
+    <Content Include="YUI\colorpicker\assets\skins\sam\colorpicker-skin.css" />
+    <Content Include="YUI\colorpicker\assets\skins\sam\colorpicker.css" />
+    <Content Include="YUI\colorpicker\assets\skins\sam\hue_bg.png" />
+    <Content Include="YUI\colorpicker\assets\skins\sam\picker_mask.png" />
+    <Content Include="YUI\colorpicker\colorpicker-min.js" />
+    <Content Include="YUI\container\assets\alrt16_1.gif" />
+    <Content Include="YUI\container\assets\blck16_1.gif" />
+    <Content Include="YUI\container\assets\close12_1.gif" />
+    <Content Include="YUI\container\assets\container-core.css" />
+    <Content Include="YUI\container\assets\container.css" />
+    <Content Include="YUI\container\assets\hlp16_1.gif" />
+    <Content Include="YUI\container\assets\info16_1.gif" />
+    <Content Include="YUI\container\assets\tip16_1.gif" />
+    <Content Include="YUI\container\assets\warn16_1.gif" />
+    <Content Include="YUI\container\container-min.js" />
+    <Content Include="YUI\menu\assets\skins\sam\menu-skin.css" />
+    <Content Include="YUI\menu\assets\skins\sam\menu.css" />
+    <Content Include="YUI\menu\assets\skins\sam\menubaritem_submenuindicator.png" />
+    <Content Include="YUI\menu\assets\skins\sam\menubaritem_submenuindicator_disabled.png" />
+    <Content Include="YUI\menu\assets\skins\sam\menuitem_checkbox.png" />
+    <Content Include="YUI\menu\assets\skins\sam\menuitem_checkbox_disabled.png" />
+    <Content Include="YUI\menu\assets\skins\sam\menuitem_submenuindicator.png" />
+    <Content Include="YUI\menu\assets\skins\sam\menuitem_submenuindicator_disabled.png" />
+    <Content Include="YUI\menu\menu-min.js" />
+    <Content Include="YUI\rel_interstitial_loading.gif" />
+    <Content Include="YUI\slider\slider-min.js" />
+    <Content Include="YUI\utilities\utilities.js" />
     <None Include="Reports\CapitalGainDetailsDs.xsc">
       <DependentUpon>CapitalGainDetailsDs.xsd</DependentUpon>
     </None>
@@ -2787,6 +3266,28 @@
     </None>
     <None Include="Reports\CapitalGainSummaryDS.xss">
       <DependentUpon>CapitalGainSummaryDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EligibleCapitalGainsDetailsDS.xsc">
+      <DependentUpon>EligibleCapitalGainsDetailsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EligibleCapitalGainsDetailsDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EligibleCapitalGainsDetailsDS.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\EligibleCapitalGainsDetailsDS.xss">
+      <DependentUpon>EligibleCapitalGainsDetailsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EligibleCapitalGainsSummaryDS.xsc">
+      <DependentUpon>EligibleCapitalGainsSummaryDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EligibleCapitalGainsSummaryDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EligibleCapitalGainsSummaryDS.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\EligibleCapitalGainsSummaryDS.xss">
+      <DependentUpon>EligibleCapitalGainsSummaryDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\EqSectorwiseDS.xsc">
       <DependentUpon>EqSectorwiseDS.xsd</DependentUpon>
@@ -2820,6 +3321,17 @@
     </None>
     <None Include="Reports\FinancialPlanningDS.xss">
       <DependentUpon>FinancialPlanningDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\FPDataSet.xsc">
+      <DependentUpon>FPDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\FPDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FPDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\FPDataSet.xss">
+      <DependentUpon>FPDataSet.xsd</DependentUpon>
     </None>
     <None Include="Reports\Images.xsc">
       <DependentUpon>Images.xsd</DependentUpon>
@@ -2876,6 +3388,17 @@
     <None Include="Reports\MFReturnsDS.xss">
       <DependentUpon>MFReturnsDS.xsd</DependentUpon>
     </None>
+    <None Include="Reports\MFReturnsRealizedDS.xsc">
+      <DependentUpon>MFReturnsRealizedDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFReturnsRealizedDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFReturnsRealizedDS.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\MFReturnsRealizedDS.xss">
+      <DependentUpon>MFReturnsRealizedDS.xsd</DependentUpon>
+    </None>
     <None Include="Reports\MFReturnsTransactionsDS.xsc">
       <DependentUpon>MFReturnsTransactionsDS.xsd</DependentUpon>
     </None>
@@ -2928,6 +3451,12 @@
     <None Include="Reports\TempReports\PortfolioReports_634044463554070187.pdf" />
     <None Include="Reports\TempReports\PortfolioReports_634044466546257687.pdf" />
     <None Include="Reports\TempReports\PortfolioReports_634044469450163937.pdf" />
+    <None Include="Standard Upload Files\All Standard Upload Files.zip" />
+    <None Include="Standard Upload Files\CustomerProfile.xlsx" />
+    <None Include="Standard Upload Files\EquityTradeAccount.xlsx" />
+    <None Include="Standard Upload Files\EquityTransaction.xlsx" />
+    <None Include="Standard Upload Files\MFFolio.xlsx" />
+    <None Include="Standard Upload Files\MFTransaction.xlsx" />
     <None Include="UploadFiles\CAMSProfileXls.xls" />
     <None Include="UploadFiles\CPD.dbf" />
     <None Include="UploadFiles\cp_1004.dbf" />
@@ -3096,14 +3625,13 @@
     <None Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew\UploadTransactionDataFromWERPMFStagingToWERPTable.dtsx" />
     <None Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew.database" />
     <None Include="UploadPackages\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew\WERPMFUploadTransactionNew.dtproj" />
+    <None Include="YUI\build\assets\skins\sam\sprite.psd" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Email\" />
-    <Folder Include="Images\QuestionImage\" />
     <Folder Include="MarketDataDownloadFiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -3121,7 +3649,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53958</DevelopmentServerPort>
+          <DevelopmentServerPort>56466</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

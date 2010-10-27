@@ -907,5 +907,70 @@ namespace BoAdvisorProfiling
             return dsAdviserClassification;
 
         }
+        public void UpdateCompleteAdviser(UserVo userVo, AdvisorVo adviserVo, RMVo rmVo)
+        {
+
+            AdvisorDao advisorDao = new AdvisorDao();
+
+
+            try
+            {
+                advisorDao.UpdateCompleteAdviser(userVo, adviserVo, rmVo);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:CreateCompleteAdviser()");
+                object[] objects = new object[3];
+                objects[0] = adviserVo;
+                objects[1] = rmVo;
+                objects[2] = userVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+
+
+            }
+        }
+        public DataSet GetXMLAdvisorCategory()
+        {
+            DataSet dsGetXMLAdvisorCategory;
+            AdvisorDao advisorDao = new AdvisorDao();
+            try
+            {
+                dsGetXMLAdvisorCategory = advisorDao.GetXMLAdvisorCategory();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetAdviserSubscriptionDetails(int adviserId)");
+
+
+                object[] objects = new object[1];
+                objects[0] = "GetXMLAdvisorCategory";
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetXMLAdvisorCategory;
+        }
+
     }
 }

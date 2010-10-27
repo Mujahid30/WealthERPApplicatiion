@@ -26,7 +26,7 @@ namespace VoCustomerPortfolio
         private float m_PeriodLapsed;
         private DateTime m_StartDate;
         private Int16 m_PremiumPaymentDate;        
-        private float m_SumAssured;
+        private double m_SumAssured;
         private float m_PremiumDuration;
         private double m_PremiumAmount;
         private string m_PolicyNumber;
@@ -168,7 +168,7 @@ namespace VoCustomerPortfolio
         }
         
 
-        public float SumAssured
+        public double SumAssured
         {
             get { return m_SumAssured; }
             set { m_SumAssured = value; }

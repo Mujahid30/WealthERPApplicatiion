@@ -989,10 +989,11 @@ namespace WealthERP.CustomerPortfolio
                 customerAccountVo = customerAccountsBo.GetCashAndSavingsAccount(Convert.ToInt32(cashSavingsVo.AccountId));
 
                 newAccountVo.AccountId = customerAccountVo.AccountId;
-                newAccountVo.AccountNum = txtAccountNumber.Text.ToString();
-
+                //newAccountVo.AccountNum = txtAccountNumber.Text.ToString();
+                newAccountVo.AccountNum = lblAccId.Text.ToString();
                 //newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountOpeningDate.Text.ToString());
-                newAccountVo.BankName = txtAccountWith.Text;
+                //newAccountVo.BankName = txtAccountWith.Text;
+                newAccountVo.BankName = lblAccWith.Text.ToString();
                 newAccountVo.ModeOfHolding = customerAccountVo.ModeOfHolding.ToString();
                 cashSavingsBo.UpdateCashSavingsAccount(newAccountVo, userVo.UserId);
             }

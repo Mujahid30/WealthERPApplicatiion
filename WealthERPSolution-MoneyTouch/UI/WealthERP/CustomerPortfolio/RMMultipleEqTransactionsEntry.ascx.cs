@@ -39,7 +39,7 @@ namespace WealthERP.CustomerPortfolio
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             rmVo = (RMVo)Session[SessionContents.RmVo];
 
-           
+
 
             txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
             cvTransactionDate.ValueToCompare = DateTime.Now.ToShortDateString();
@@ -72,13 +72,13 @@ namespace WealthERP.CustomerPortfolio
             //txtTicker.Text = ds.Tables[0].Rows[0]["PEM_Ticker"].ToString();
             //scripCode = int.Parse(ds.Tables[0].Rows[0]["PEM_ScripCode"].ToString());
         }
-        
+
         protected void btnSaveAndAdd_Click1(object sender, EventArgs e)
         {
             SaveEquityTransaction();
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','none');", true);
         }
-        
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             SaveEquityTransaction();
@@ -132,7 +132,11 @@ namespace WealthERP.CustomerPortfolio
                     eqTransactionVo.BuySell = "S";
                     eqTransactionVo.TransactionCode = 2;
                 }
-
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Holdings")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 13;
+                }
                 if (txtParentCustomerId.Value != string.Empty)
                     eqTransactionVo.CustomerId = Convert.ToInt32(txtParentCustomerId.Value); //customerVo.CustomerId;
                 eqTransactionVo.IsCorpAction = 0;
@@ -297,6 +301,32 @@ namespace WealthERP.CustomerPortfolio
             }
             //txtToDate.Text = DateTime.Parse(ds.Tables[0].Rows[0][0].ToString()).ToShortDateString();
 
+        }
+
+        protected void ddlTradeAccountNos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlTradeAccountNos.SelectedValue != "-1")
+            {
+                CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+                CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
+                CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+                PortfolioBo portfolioBo = new PortfolioBo();
+                CustomerVo customerVo = customerBo.GetCustomer(Convert.ToInt32(txtParentCustomerId.Value));
+
+                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
+                customerAccountsVo = customerTransactionBo.GetCustomerEQAccountDetails(int.Parse(ddlTradeAccountNos.SelectedValue.ToString()), customerPortfolioVo.PortfolioId);
+                if (rdoDelivery.Checked)
+                    hidBrokerRate.Value = customerAccountsVo.BrokerageDeliveryPercentage.ToString();
+                else
+                    hidBrokerRate.Value = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
+                hidOtherCharges.Value = customerAccountsVo.OtherCharges.ToString();
+
+            }
+            else
+            {
+                hidBrokerRate.Value = "0";
+                hidOtherCharges.Value = "0";
+            }
         }
 
     }

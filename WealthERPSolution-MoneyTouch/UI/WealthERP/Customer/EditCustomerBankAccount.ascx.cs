@@ -32,7 +32,8 @@ namespace WealthERP.Customer
 
                 txtAccountNumber.Text = customerBankAccountVo.AccountNum.ToString();
                 ddlAccountType.SelectedValue = customerBankAccountVo.AccountType;
-                ddlModeOfOperation.SelectedValue = customerBankAccountVo.ModeOfOperation;
+                if(customerBankAccountVo.ModeOfOperation!=null && customerBankAccountVo.ModeOfOperation!="")
+                    ddlModeOfOperation.SelectedValue = customerBankAccountVo.ModeOfOperation;
                 txtBankName.Text = customerBankAccountVo.BankName.ToString();
                 txtBranchName.Text = customerBankAccountVo.BranchName.ToString();
                 txtBankAdrLine1.Text = customerBankAccountVo.BranchAdrLine1.ToString();
@@ -96,6 +97,8 @@ namespace WealthERP.Customer
                 customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
 
                 customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId);
+
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
             }
 
             catch (BaseApplicationException Ex)

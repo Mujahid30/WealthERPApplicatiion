@@ -265,8 +265,8 @@ namespace WealthERP.CustomerPortfolio
                                 drCustomerCashSavings[3] = String.Format("{0:n2}", decimal.Parse(customerCashSavingsVo.DepositAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             else
                                 drCustomerCashSavings[3] = 0;
-                            if (customerCashSavingsVo.InterestAmntAccumulated != null)
-                                drCustomerCashSavings[4] = String.Format("{0:n2}", decimal.Parse(customerCashSavingsVo.InterestAmntAccumulated.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                            if (customerCashSavingsVo.InterestAmntPaidOut != null)
+                                drCustomerCashSavings[4] = String.Format("{0:n2}", decimal.Parse(customerCashSavingsVo.InterestAmntPaidOut.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                             dtCustomerCashSavings.Rows.Add(drCustomerCashSavings);
                         }

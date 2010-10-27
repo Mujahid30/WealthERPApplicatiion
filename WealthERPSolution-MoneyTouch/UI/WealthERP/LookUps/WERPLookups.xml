@@ -1945,11 +1945,11 @@
 
   <DebtIssue>
     <DebtIssuer DebtIssuerCode="BK" DebtIssuerName="Bank" Deleted="False" />
-    <DebtIssuer DebtIssuerCode="CG" DebtIssuerName="Central Govt" Deleted="False" />
+    <DebtIssuer DebtIssuerCode="CG" DebtIssuerName="Central Govt." Deleted="False" />
     <DebtIssuer DebtIssuerCode="CO" DebtIssuerName="Company" Deleted="False" />
     <DebtIssuer DebtIssuerCode="NC" DebtIssuerName="NBFC" Deleted="False" />
     <DebtIssuer DebtIssuerCode="PS" DebtIssuerName="PSU" Deleted="False" />
-    <DebtIssuer DebtIssuerCode="SG" DebtIssuerName="State Govt" Deleted="False" />
+    <DebtIssuer DebtIssuerCode="SG" DebtIssuerName="State Govt." Deleted="False" />
   </DebtIssue>
 
   <ExtSource>
@@ -2015,6 +2015,7 @@
     <ModeOfHolding ModeOfHoldingCode="ES" ModeOfHolding="Either or Survivor" Deleted="False" />
     <ModeOfHolding ModeOfHoldingCode="FS" ModeOfHolding="Former or Survivor" Deleted="False" />
     <ModeOfHolding ModeOfHoldingCode="TBC" ModeOfHolding="To Be Categorized" Deleted="False" />
+    <ModeOfHolding ModeOfHoldingCode="MTG" ModeOfHolding="Minor Through Guardian" Deleted="False" />
   </ModeOfHoldings>
 
   <CustomerNationality>
@@ -2478,6 +2479,14 @@
     <RepaymentType XRT_RepaymentTypeCode="ECS" XRT_RepaymentType="ECS" Deleted="False"/>
     <RepaymentType XRT_RepaymentTypeCode="PDC" XRT_RepaymentType="PDC" Deleted="False"/>
   </WERPRepaymentType>
+  <WERPInstallmentType>
+    <InstallmentType XIT_InstallmentTypeCode="1" XIT_InstallmentType="Principal + Interest" Deleted="False"/>
+    <InstallmentType XIT_InstallmentTypeCode="2" XIT_InstallmentType="Equated" Deleted="False"/>
+  </WERPInstallmentType>
+  <WERPPaymentOption>
+    <PaymentOption XPO_PaymentOptionCode="1" XPO_PaymentOption="Lumpsum" Deleted="False"/>
+    <PaymentOption XPO_PaymentOptionCode="2" XPO_PaymentOption="Installment" Deleted="False"/>
+  </WERPPaymentOption>
   <WERPCustomerCategory>
     <CustomerCategory XCC_CustomerCategoryCode="1" XCC_CustomerCategory="Individual Resident" Deleted="False"/>
     <CustomerCategory XCC_CustomerCategoryCode="2" XCC_CustomerCategory="Individual NRI" Deleted="False"/>

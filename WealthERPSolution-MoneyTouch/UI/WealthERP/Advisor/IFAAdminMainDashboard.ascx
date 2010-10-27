@@ -14,10 +14,10 @@
         <td align="center" colspan="2">
             &nbsp;
         </td>
-    </tr> 
+    </tr>
     <tr>
         <td align="left" colspan="2">
-            <asp:Label ID="Label1" runat="server" Text="Branch/Associates AUM" CssClass="HeaderTextSmall"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="Branch AUM" CssClass="HeaderTextSmall"></asp:Label>
             <hr />
         </td>
     </tr>
@@ -40,10 +40,10 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:BoundField DataField="Branch Name" HeaderText="Branch/Associates Name"  />
-                    <asp:BoundField DataField="Branch Code" HeaderText="Branch/Associates Code"  />
+                    <asp:BoundField DataField="Branch Name" HeaderText="Branch Name"  />
+                    <asp:BoundField DataField="Branch Code" HeaderText="Branch Code"  />
                     <asp:BoundField DataField="Equity" HeaderText="Equity (Rs)" 
-                        DataFormatString="{0:c}" HtmlEncode="false" ApplyFormatInEditMode="True" ItemStyle-HorizontalAlign="Right">
+                        DataFormatString="{0:b}" HtmlEncode="false" ApplyFormatInEditMode="True" ItemStyle-HorizontalAlign="Right">
                         <ItemStyle HorizontalAlign="Right"></ItemStyle>
                     </asp:BoundField>
                     <asp:BoundField DataField="MF" HeaderText="MF (Rs)"  HtmlEncode="false"
@@ -54,6 +54,7 @@
                         DataFormatString="{0:c}" HtmlEncode="false" ItemStyle-HorizontalAlign="Right">
                         <ItemStyle HorizontalAlign="Right"></ItemStyle>
                     </asp:BoundField>
+                    <asp:BoundField DataField="NoOfCustomers" HeaderText="No. of Customers" HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
                 </Columns>
             </asp:GridView>
         </td>
@@ -88,14 +89,14 @@
             <hr />
         </td>
         <td>
-            <asp:Label ID="lblBranchPerformChart" runat="server" Text="Branch/Associates AUM" CssClass="HeaderTextSmall"></asp:Label>
+            <asp:Label ID="lblBranchPerformChart" runat="server" Text="Branch AUM" CssClass="HeaderTextSmall"></asp:Label>
             <hr />
         </td>
     </tr>
     <tr>
         <td align="left">
             <asp:Chart ID="ChartRMPerformance" runat="server" BackColor="LightSteelBlue" 
-                Width="459px" Height="327px">
+                Width="400px" Height="325px">
                 <Series>
                     <asp:Series Name="Series1">
                     </asp:Series>
@@ -108,7 +109,7 @@
         </td>
         <td>
             <asp:Chart ID="ChartBranchPerformance" runat="server" BackColor="LightSteelBlue"
-                Height="327px" Width="459px">
+                Height="325px" Width="400px">
                 <Series>
                     <asp:Series Name="Series1" XValueMember="Branch Code" YValueMembers="Aggr">
                     </asp:Series>
@@ -127,7 +128,7 @@
         <td>
             &nbsp;
         </td>
-    </tr>    
+        </tr>    
 </table>
 <table width="100%">
 <tr><td align="center">

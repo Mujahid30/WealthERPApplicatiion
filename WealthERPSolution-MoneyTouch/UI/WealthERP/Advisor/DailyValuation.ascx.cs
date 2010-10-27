@@ -450,7 +450,7 @@ namespace WealthERP.Advisor
                                                                 if (eqPortfolioList != null)
                                                                 {
 
-                                                                   customerPortfolioBo.AddEquityNetPosition(eqPortfolioList, userVo.UserId);
+                                                                    customerPortfolioBo.AddEquityNetPosition(eqPortfolioList, userVo.UserId);
 
                                                                 }
                                                             }
@@ -460,21 +460,23 @@ namespace WealthERP.Advisor
 
                                                     }
                                                 }
-                                            }
-                                            if (cnt == customerList.Count)
-                                            {
-                                                UpdateAdviserEODLog("EQ", 1, LogId);
-                                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Equity Valuation done...!');", true);
 
+                                                if (cnt == customerList.Count)
+                                                {
+                                                    UpdateAdviserEODLog("EQ", 1, LogId);
+                                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Equity Valuation done...!');", true);
+
+                                                }
+                                                else
+                                                {
+                                                    UpdateAdviserEODLog("EQ", 0, LogId);
+                                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Equity Valuation not done...!');", true);
+                                                }
+
+                                                //  
                                             }
                                             else
-                                            {
-                                                UpdateAdviserEODLog("EQ", 0, LogId);
-                                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Equity Valuation not done...!');", true);
-                                            }
-
-                                            //  
-
+                                                break;
                                         }
 
                                     }

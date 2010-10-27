@@ -449,6 +449,7 @@ namespace DaoCustomerRiskProfiling
             }
             return dsGetAssetAllocationDetails;
         }
+
         public void UpdateAssetAllocationDetails(int riskprofileid, double cashpercentage, double equitypercentage, double debitpercentage, DateTime clientapprovedon, RMVo rmvo)
         {
             Database db;
@@ -484,6 +485,42 @@ namespace DaoCustomerRiskProfiling
                 throw baseEx;
             }
 
+        }
+        /// <summary>
+        /// Its gives the All Assets for a paticular Customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public DataSet GetCustomerAssets(int customerId)
+        {
+            Database db;
+            DataSet dsGetCustomerAsset;
+            DbCommand dbGetCustomerAsset;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbGetCustomerAsset = db.GetStoredProcCommand("SP_GetCustomerAssets");
+                db.AddInParameter(dbGetCustomerAsset, "@CustomerId", DbType.Int32, customerId);
+                dsGetCustomerAsset = db.ExecuteDataSet(dbGetCustomerAsset);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RiskProfileDao.cs:GetCustomerAssets()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = baseEx.AddObject(FunctionInfo, objects);
+                baseEx.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(baseEx);
+                throw baseEx;
+            }
+            return dsGetCustomerAsset;
         }
     }
 }

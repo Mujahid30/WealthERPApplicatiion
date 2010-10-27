@@ -245,7 +245,7 @@ namespace WealthERP.Customer
             EnableAllControls();
             btnSave.Text = "Update";
             btnSave.Visible = true;
-            txttotalyear.Visible = false;
+            txttotalyear.Visible = true;
             txttotal.Visible = true;
             lbltotal.Visible = true;
             ddlTotal.Visible = true;

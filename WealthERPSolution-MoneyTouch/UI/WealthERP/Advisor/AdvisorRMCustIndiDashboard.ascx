@@ -16,17 +16,18 @@
     <tr>
         <td width="50%">
             <asp:Label ID="Label4" runat="server" Text="Current Value" Class="HeaderTextSmall"></asp:Label>
-            <hr style="width: 408px" />
+            <hr />
         </td>
         <td width="50%">
-            <asp:Label ID="Label5" runat="server" Text="Family Details" Class="HeaderTextSmall"></asp:Label>
+            <asp:Label runat="server" CssClass="HeaderTextSmall" Text="Asset Class Wise Investments"
+                ID="Label5"></asp:Label>
             <hr />
         </td>
     </tr>
     <tr>
-        <td width="50%">  
-        <br />              
-           <asp:Chart ID="Chart1" runat="server" Height="250px" Palette="SemiTransparent" Width="400px">
+        <td width="50%" valign="top">
+            <br />
+            <asp:Chart ID="Chart1" runat="server" Height="250px" Palette="SemiTransparent" Width="400px">
                 <Series>
                     <asp:Series Name="Series1">
                     </asp:Series>
@@ -37,87 +38,11 @@
                 </ChartAreas>
             </asp:Chart>
         </td>
-            
-        <td width="50%">
-            <asp:Label ID="Label1" runat="server" Text="No. of Family Members" Class="HeaderTextSmall">
-            </asp:Label>
-            &nbsp;:
-            <asp:Label ID="lblFamilyMembersNum" runat="server" Text="Label" CssClass="Field"></asp:Label>
-            <br />
-            <asp:Label ID="lblMessage" runat="server" Text="You have not Added Family Details.." Class="HeaderTextSmall">
-            </asp:Label>
-            <asp:GridView ID="gvCustomerFamily" runat="server" CellPadding="4" HorizontalAlign="Center"
-                CssClass="GridViewStyle" Width="100%">
-                <RowStyle CssClass="RowStyle" />
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-            </asp:GridView>
-            <br />
-            <br />
-                     
-        </td>
-        
-    </tr>
-    <tr>
-        <td colspan="2">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:Label runat="server" CssClass="HeaderTextSmall" Text="Net Worth Summary" ID="Label6"></asp:Label>
-            <hr />
-        </td>
-        <td>
-            <asp:Label runat="server" CssClass="HeaderTextSmall" Text="Asset Class Wise Investments"
-                ID="Label3"></asp:Label>
-            <hr />
-        </td>
-    </tr>
-    <tr>
         <td width="50%" valign="top">
-            <table width="100%">
-                <tr>
-                    <td class="leftField" width="50%">
-                        <asp:Label runat="server" CssClass="HeaderTextSmall" Text="Assets  (Rs):" ID="Label7"></asp:Label>
-                    </td>
-                    <td class="rightField" width="50%">
-                        <asp:Label runat="server" CssClass="Field" ID="lblAssets"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField" width="50%">
-                        <asp:Label runat="server" CssClass="HeaderTextSmall" Text="Liabilities (Rs) :" ID="lblLiabilityName"></asp:Label>
-                    </td>
-                    <td class="rightField" width="50%">
-                        <asp:Label runat="server" CssClass="Field" ID="lblLiabilityValue"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField" width="50%">
-                        <asp:Label runat="server" CssClass="HeaderTextSmall" Text="Net Worth (Rs) :" ID="Label8"></asp:Label>
-                    </td>
-                    <td class="rightField" width="50%">
-                        <asp:Label runat="server" CssClass="Field" ID="lblNetWorth"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                    </td>
-                </tr>
-            </table>
-            &nbsp;
-        </td>
-        <td width="50%">
-            <br />
-            <asp:Label runat="server" CssClass="HeaderTextSmall" Text="You have not Added any Asset Details.."
-                ID="lblAssetDetailsMsg"></asp:Label>
-            <asp:GridView ID="gvAssetAggrCurrentValue" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" HorizontalAlign="Center"
-                Width="100%">
+            <asp:Label runat="server" CssClass="FieldName" Text="You have not Added any Asset Details.." ID="lblAssetDetailsMsg"></asp:Label>
+            <asp:GridView ID="gvAssetAggrCurrentValue" runat="server" AutoGenerateColumns="False"
+                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" 
+                Width="100%" onrowdatabound="gvAssetAggrCurrentValue_RowDataBound">
                 <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
                 <RowStyle CssClass="RowStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -125,34 +50,96 @@
                 <HeaderStyle CssClass="HeaderStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:BoundField DataField="Asset Class" HeaderText="Asset Class" SortExpression="Asset Class" />
-                    <asp:BoundField DataField="Current Value" HeaderText="Current Value" SortExpression="Current Value" DataFormatString="{0:n2}" HtmlEncode="false"
-                        ItemStyle-HorizontalAlign="Right" />
+                    <%--<asp:BoundField DataField="Asset Class" HeaderText="Asset Class" SortExpression="Asset Class" />--%>
+                    <asp:TemplateField HeaderText="Asset Class">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkAssetClass" runat="server" CssClass="GridViewCmbField" OnClick="lnkAssetClassAssetsGrid_Click"
+                                    Text='<%# Eval("Asset Class") %>'>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    <asp:BoundField DataField="Current Value" HeaderText="Current Value"
+                        DataFormatString="{0:n2}" HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
                 </Columns>
             </asp:GridView>
         </td>
     </tr>
     <tr>
         <td colspan="2">
-            &nbsp;
         </td>
     </tr>
     <tr>
         <td width="50%">
-            <asp:Label runat="server" CssClass="HeaderTextSmall" Text="Alerts"></asp:Label>
+            <asp:Label ID="Label3" runat="server" CssClass="HeaderTextSmall" Text="Life Insurance"></asp:Label>
             <hr />
         </td>
         <td width="50%">
-            <asp:Label runat="server" CssClass="HeaderTextSmall" Text="Investment Maturity Schedule"
-                ID="Label2"></asp:Label>
+            <asp:Label runat="server" CssClass="HeaderTextSmall" Text="General Insurance" ID="Label6"></asp:Label>
             <hr />
         </td>
     </tr>
     <tr>
         <td width="50%" valign="top">
-            <br />
-            <asp:Label ID="lblAlertsMessage" runat="server" CssClass="HeaderTextSmall" 
-                Text="No Alerts..."></asp:Label>
+            <asp:Label ID="lblLifeInsurance" runat="server" CssClass="FieldName" Text="No Details to display..."></asp:Label>
+            <asp:GridView ID="gvLifeInsurance" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="97%">
+                <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
+                <RowStyle CssClass="RowStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <PagerStyle CssClass="PagerStyle" HorizontalAlign="center" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+                <Columns>
+                    <asp:BoundField DataField="Policy" HeaderText="Policy" />
+                    <asp:BoundField DataField="InsuranceType" HeaderText="Type" />
+                    <asp:BoundField DataField="SumAssured" HeaderText="Sum Assured" />
+                    <asp:BoundField DataField="PremiumAmount" HeaderText="Premium Amount" />
+                    <asp:BoundField DataField="PremiumFrequency" HeaderText="Premium Frequency" />
+                </Columns>
+            </asp:GridView>
+        </td>
+        <td width="50%" valign="top">
+            <asp:Label ID="lblGeneralInsurance" runat="server" CssClass="FieldName" Text="No Details to display..."></asp:Label>
+            <asp:GridView ID="gvGeneralInsurance" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
+                <RowStyle CssClass="RowStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+                <Columns>
+                    <asp:BoundField DataField="PolicyIssuer" HeaderText="Policy Issuer" />
+                    <asp:BoundField DataField="InsuranceType" HeaderText="Type" />
+                    <asp:BoundField DataField="SumAssured" HeaderText="Sum Assured" />
+                    <asp:BoundField DataField="PremiumAmount" HeaderText="Premium Amount" />
+                </Columns>
+            </asp:GridView>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            &nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            &nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td width="50%">
+            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Alerts"></asp:Label>
+            <hr />
+        </td>
+        <td width="50%">
+            <asp:Label runat="server" CssClass="HeaderTextSmall" Text="Investment Maturity Schedule"
+                ID="Label11"></asp:Label>
+            <hr />
+        </td>
+    </tr>
+    <tr>
+        <td width="50%" valign="top">
+            <asp:Label ID="lblAlertsMessage" runat="server" CssClass="FieldName" Text="No Alerts..."></asp:Label>
             <asp:GridView ID="gvCustomerAlerts" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
                 <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
@@ -167,9 +154,8 @@
                 </Columns>
             </asp:GridView>
         </td>
-        <td width="50%">
-            <br />
-            <asp:Label ID="lblMaturityMsg" runat="server" CssClass="HeaderTextSmall" Text="No Upcoming Maturity Dates.."></asp:Label>
+        <td width="50%" valign="top">
+            <asp:Label ID="lblMaturityMsg" runat="server" CssClass="FieldName" Text="No Upcoming Maturity Dates.."></asp:Label>
             <asp:GridView ID="gvMaturitySchedule" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
                 <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
@@ -179,9 +165,9 @@
                 <HeaderStyle CssClass="HeaderStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:BoundField DataField="Asset Group" HeaderText="Asset Group"  />
-                    <asp:BoundField DataField="Asset Particulars" HeaderText="Asset Particulars"  />
-                    <asp:BoundField DataField="Maturity Date" HeaderText="Maturity Date (dd/mm/yyyy)"  />
+                    <asp:BoundField DataField="Asset Group" HeaderText="Asset Group" />
+                    <asp:BoundField DataField="Asset Particulars" HeaderText="Asset Particulars" />
+                    <asp:BoundField DataField="Maturity Date" HeaderText="Maturity Date (dd/mm/yyyy)" />
                 </Columns>
             </asp:GridView>
         </td>

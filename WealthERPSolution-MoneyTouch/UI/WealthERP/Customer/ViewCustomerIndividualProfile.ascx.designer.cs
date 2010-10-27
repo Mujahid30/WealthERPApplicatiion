@@ -23,6 +23,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label Label61;
         
         /// <summary>
+        /// chkprospect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkprospect;
+        
+        /// <summary>
         /// lblBranchName control.
         /// </summary>
         /// <remarks>
@@ -39,6 +48,24 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBranch;
+        
+        /// <summary>
+        /// lblRMName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRMName;
+        
+        /// <summary>
+        /// lblRM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRM;
         
         /// <summary>
         /// lblCustomerType control.
@@ -165,6 +192,24 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPanNum;
+        
+        /// <summary>
+        /// chkdummypan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkdummypan;
+        
+        /// <summary>
+        /// Label6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
         /// trGuardianName control.
@@ -887,6 +932,42 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label lblNationality;
         
         /// <summary>
+        /// lblMarriageDat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMarriageDat;
+        
+        /// <summary>
+        /// lblMarriageDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMarriageDate;
+        
+        /// <summary>
+        /// lblMotherMaidenName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMotherMaidenName;
+        
+        /// <summary>
+        /// lblMotherMaiden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMotherMaiden;
+        
+        /// <summary>
         /// Label49 control.
         /// </summary>
         /// <remarks>
@@ -923,22 +1004,31 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Label lblRBIRefDate;
         
         /// <summary>
-        /// lblMotherMaidenName control.
+        /// Label3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMotherMaidenName;
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// lblMotherMaiden control.
+        /// chkmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMotherMaiden;
+        protected global::System.Web.UI.WebControls.CheckBox chkmail;
+        
+        /// <summary>
+        /// chksms control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chksms;
         
         /// <summary>
         /// trDelete control.
@@ -959,13 +1049,22 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Button btnDelete;
         
         /// <summary>
-        /// hiddenDelete control.
+        /// hiddenassociation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button hiddenDelete;
+        protected global::System.Web.UI.WebControls.Button hiddenassociation;
+        
+        /// <summary>
+        /// hdnassociationf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hdnassociationf;
         
         /// <summary>
         /// hdnMsgValue control.
@@ -975,5 +1074,23 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnMsgValue;
+        
+        /// <summary>
+        /// hdnassociation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnassociation;
+        
+        /// <summary>
+        /// hdnassociationcount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnassociationcount;
     }
 }

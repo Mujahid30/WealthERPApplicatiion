@@ -21,7 +21,6 @@ namespace WealthERP.Advisor
     public partial class EditLOB : System.Web.UI.UserControl
     {
     
-
         AdvisorLOBBo advisorLOBBo = new AdvisorLOBBo();
         ProductMFBo productMfBo = new ProductMFBo();
         UserVo userVo = new UserVo();
@@ -2859,10 +2858,10 @@ namespace WealthERP.Advisor
                
         private void PageRedirect()
         {
-            
-                if (Session["LOBGridAction"] != null)
+
+            if (Session["LOBGridAction"] != null)
             {
-                if (Session["LOBGridAction"].ToString() == "LOBEdit" &&((UserVo)Session["userVo"]).UserType=="SuperAdmin")
+                if (Session["LOBGridAction"].ToString() == "LOBEdit" && ((UserVo)Session["userVo"]).UserType == "SuperAdmin")
                 {
 
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','?action=ViewLOB');", true);
@@ -2880,8 +2879,7 @@ namespace WealthERP.Advisor
             else
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','?action=ViewLOB');", true);
-            }
-                
+            }                
         }
         
         protected void btnSave_Click(object sender, EventArgs e)

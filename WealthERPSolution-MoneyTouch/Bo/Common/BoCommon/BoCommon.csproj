@@ -56,6 +56,7 @@
     <Reference Include="VoEmailSMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonProgrammingBo.cs" />
     <Compile Include="DateBo.cs" />
     <Compile Include="EmailSMSBo.cs" />
     <Compile Include="Encryption.cs" />

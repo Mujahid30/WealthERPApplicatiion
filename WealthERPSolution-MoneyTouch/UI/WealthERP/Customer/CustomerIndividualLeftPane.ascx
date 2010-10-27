@@ -35,6 +35,7 @@
                         <asp:TreeNode Text="Register Systematic Schemes" Value="Register Systematic Schemes">
                         </asp:TreeNode>
                         <asp:TreeNode Text="View MF Folio" Value="View MF Folio"></asp:TreeNode>
+                        <asp:TreeNode Text="MF Reports" Value="MFReports"></asp:TreeNode>
                     </asp:TreeNode>
                     <asp:TreeNode Text="Fixed Income" Value="Fixed Income">
                         <asp:TreeNode Text="Add Fixed Income" Value="Add Fixed Income"></asp:TreeNode>

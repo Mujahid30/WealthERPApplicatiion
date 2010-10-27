@@ -13,6 +13,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Configuration;
 using BoCommon;
 using System.Data;
+using WealthERP.Base;
 namespace WealthERP.Customer
 {
     public partial class EditCustomerNonIndividualProfile : System.Web.UI.UserControl
@@ -39,6 +40,7 @@ namespace WealthERP.Customer
                     userVo = (UserVo)Session["userVo"];
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
+                        
                         rbtnIndividual.Checked = true;
                     }
                     else
@@ -73,7 +75,7 @@ namespace WealthERP.Customer
                     }
                     else
                         txtDateofCommencement.Text = customerVo.CommencementDate.ToShortDateString();
-                    txtCompanyName.Text = customerVo.LastName;
+                    txtCompanyName.Text = customerVo.FirstName;
                     txtCustomerCode.Text = customerVo.CustCode.ToString();
                     txtPanNumber.Text = customerVo.PANNum.ToString();
                     //txtRmName.Text = customerVo.RmId.ToString();
@@ -86,7 +88,38 @@ namespace WealthERP.Customer
                     {
                         ddlCorrAdrState.SelectedValue = customerVo.Adr1State;
                     }
-
+                    if (customerVo.DummyPAN == 1)
+                    {
+                        chkdummypan.Checked = true;
+                    }
+                    else
+                    {
+                        chkdummypan.Checked = false;
+                    }
+                    if (customerVo.IsProspect == 1)
+                    {
+                        chkprospectn.Checked = true;
+                    }
+                    else
+                    {
+                        chkprospectn.Checked = false;
+                    }
+                    if (customerVo.ViaSMS == 1)
+                    {
+                        chksmsn.Checked = true;
+                    }
+                    else
+                    {
+                        chksmsn.Checked = false;
+                    }
+                    if (customerVo.AlertViaEmail == 1)
+                    {
+                        chkmailn.Checked = true;
+                    }
+                    else
+                    {
+                        chkmailn.Checked = false;
+                    }
 
                     ddlCorrAdrCountry.SelectedItem.Value = customerVo.Adr1Country.ToString();
                     txtPermAdrLine1.Text = customerVo.Adr2Line1.ToString();
@@ -178,7 +211,7 @@ namespace WealthERP.Customer
                 customerVo.ContactFirstName = txtFirstName.Text.ToString();
                 customerVo.ContactMiddleName = txtMiddleName.Text.ToString();
                 customerVo.ContactLastName = txtLastName.Text.ToString();
-                customerVo.LastName = txtCompanyName.Text.ToString();
+                customerVo.FirstName = txtCompanyName.Text.ToString();
                 customerVo.CustCode = txtCustomerCode.Text.ToString();
                 customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
                 if (customerVo.Salutation == "Mr.")
@@ -237,6 +270,38 @@ namespace WealthERP.Customer
                 customerVo.Adr2Line1 = txtPermAdrLine1.Text.ToString();
                 customerVo.Adr2Line2 = txtPermAdrLine2.Text.ToString();
                 customerVo.Adr2Line3 = txtPermAdrLine3.Text.ToString();
+                if (chkdummypan.Checked)
+                {
+                    customerVo.DummyPAN = 1;
+                }
+                else
+                {
+                    customerVo.DummyPAN = 0;
+                }
+                if (chkprospectn.Checked)
+                {
+                    customerVo.IsProspect = 1;
+                }
+                else
+                {
+                    customerVo.IsProspect = 0;
+                }
+                if (chkmailn.Checked)
+                {
+                    customerVo.AlertViaEmail = 1;
+                }
+                else
+                {
+                    customerVo.AlertViaEmail = 0;
+                }
+                if (chksmsn.Checked)
+                {
+                    customerVo.ViaSMS = 1;
+                }
+                else
+                {
+                    customerVo.ViaSMS = 0;
+                }
                 if (txtPermAdrPinCode.Text != "")
                 {
                     customerVo.Adr2PinCode = int.Parse(txtPermAdrPinCode.Text.ToString());
@@ -378,6 +443,12 @@ namespace WealthERP.Customer
             ddlCustomerSubType.DataTextField = "CustomerTypeName";
             ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
             ddlCustomerSubType.DataBind();
+            if (customerVo != null)
+            {
+                customerVo.Type = "IND";
+                Session[SessionContents.CustomerVo] = customerVo;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerIndividualProfile','none');", true);
+            }
         }
 
         protected void rbtnNonIndividual_CheckedChanged(object sender, EventArgs e)
@@ -387,6 +458,11 @@ namespace WealthERP.Customer
             ddlCustomerSubType.DataTextField = "CustomerTypeName";
             ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
             ddlCustomerSubType.DataBind();
+            if (customerVo != null)
+            {
+                Session[SessionContents.CustomerVo] = customerVo;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
+            }
         }
         private void BindListBranch(int Id, string userType)
         {
@@ -398,6 +474,11 @@ namespace WealthERP.Customer
             ddlAdviserBranchList.DataValueField = "AB_BranchId";
             ddlAdviserBranchList.DataBind();
             ddlAdviserBranchList.Items.Insert(0, new ListItem("Select a Branch", "Select a Branch"));
+        }
+
+        protected void txtCorrAdrLine1_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

@@ -20,7 +20,348 @@ namespace WealthERP.Alerts
     public partial class AlertDashboard : UserControl
     {
 
+        #region OldAlert
 
+        //RMVo rmVo = new RMVo();
+        //CustomerVo customerVo = new CustomerVo();
+        //AdvisorStaffBo advStaffBo = new AdvisorStaffBo();
+        //CustomerBo customerBo = new CustomerBo();
+        //UserVo userVo = new UserVo();
+        //AlertsBo alertsBo = new AlertsBo();
+        //int rmId;
+        //int userId;
+        //int EventID;
+
+        //protected void Page_Load(object sender, EventArgs e)
+        //{
+
+        //    if (!IsPostBack)
+        //    {
+        //        userVo = (UserVo)Session[SessionContents.UserVo];
+        //        rmVo = (RMVo)Session[SessionContents.RmVo];
+        //        rmId = rmVo.RMId;
+        //        userId = userVo.UserId;
+
+        //        if (Request.QueryString["Clear"] != null)
+        //        {
+        //            Session[SessionContents.CustomerVo] = null;
+        //        }
+
+        //        if (Session[SessionContents.CustomerVo] != null)
+        //        {
+        //            customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+        //            BindCustomerDashboardGrid(customerVo.CustomerId);
+        //            pnlDashboardGrid.Visible = true;
+        //            //ddlRMCustList.Visible = false;
+        //            trChooseCustomer.Visible = false;
+        //        }
+        //        else
+        //        {
+        //            BindCustomerListDropDown(rmId);
+        //            pnlDashboardGrid.Visible = false;
+        //            //ddlRMCustList.Visible = true;
+        //            trChooseCustomer.Visible = true;
+        //        }
+        //    }
+        //}
+
+        //private void BindCustomerListDropDown(int rmId)
+        //{
+        //    DataSet dsCustomerList = new DataSet();
+
+        //    try
+        //    {
+        //        dsCustomerList = advStaffBo.GetRMCustomerList(rmId);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "AlertDashboard.ascx:BindCustomerListDropDown()");
+
+        //        object[] objects = new object[1];
+        //        objects[0] = rmId;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+
+        //    if (dsCustomerList.Tables[0].Rows.Count > 0)
+        //    {
+        //        ddlRMCustList.DataSource = dsCustomerList.Tables[0];
+        //        ddlRMCustList.DataTextField = "CustomerName";
+        //        ddlRMCustList.DataValueField = "CustomerID";
+        //        ddlRMCustList.DataBind();
+        //        ddlRMCustList.Items.Insert(0, "Select your Customer");
+        //    }
+        //}
+
+        //private void BindCustomerSpecificAlerts(string CustomerID)
+        //{
+        //    int CustID = Int32.Parse(CustomerID);
+        //    AlertsBo alertsBo = new AlertsBo();
+        //    DataSet dsAlerts;
+
+        //    try
+        //    {
+        //        dsAlerts = alertsBo.GetListofAlerts("all");
+
+        //        if (dsAlerts.Tables[0].Rows.Count > 0)
+        //        {
+        //            ddlAlertTypes.DataSource = dsAlerts.Tables[0];
+        //            ddlAlertTypes.DataTextField = "EventName";
+        //            ddlAlertTypes.DataValueField = "AEL_EventID";
+        //            ddlAlertTypes.DataBind();
+        //            ddlAlertTypes.Items.Insert(0, "Select an Alert Type");
+
+        //            Session["AlertDS"] = dsAlerts;
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "AlertDashboard.ascx:BindCustomerSpecificAlerts()");
+
+        //        object[] objects = new object[1];
+        //        objects[0] = rmId;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
+
+        //protected void ddlRMCustList_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    //if (ddlRMCustList.SelectedIndex != 0)
+        //    //{
+        //    //    BindCustomerSpecificAlerts(ddlRMCustList.SelectedValue);
+        //    //}
+
+        //    if (ddlRMCustList.SelectedIndex != 0)
+        //    {
+        //        customerVo = customerBo.GetCustomer(Int32.Parse(ddlRMCustList.SelectedValue));
+        //        Session[SessionContents.CustomerVo] = customerVo;
+        //        BindCustomerDashboardGrid(Int32.Parse(ddlRMCustList.SelectedValue));
+        //        pnlDashboardGrid.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        pnlDashboardGrid.Visible = false;
+        //    }
+        //}
+
+        //private void BindCustomerDashboardGrid(int CustomerID)
+        //{
+        //    DataSet customerDashBoard;
+
+        //    gvAlertDashboard.DataSource = null;
+        //    gvAlertDashboard.DataBind();
+
+        //    customerDashBoard = alertsBo.GetCustomerDashboard(CustomerID);
+
+        //    if (customerDashBoard.Tables[0].Rows.Count > 0)
+        //    {
+        //        DataTable dtAlertDashboard = new DataTable();
+
+        //        dtAlertDashboard.Columns.Add("EventID");
+        //        //dtAlertDashboard.Columns.Add("Subscribed");
+        //        dtAlertDashboard.Columns.Add("Alert");
+        //        dtAlertDashboard.Columns.Add("Type");
+        //        //dtAlertDashboard.Columns.Add("Reminder");
+
+        //        DataRow drAlertDash;
+        //        foreach (DataRow dr in customerDashBoard.Tables[0].Rows)
+        //        {
+        //            drAlertDash = dtAlertDashboard.NewRow();
+
+        //            drAlertDash[0] = dr["AEL_EventID"].ToString();
+        //            //if (dr["SubscriptionStatus"].ToString() == "0")
+        //            //    drAlertDash[1] = "false";
+        //            //else
+        //            //    drAlertDash[1] = "true";
+
+        //            drAlertDash[1] = dr["AEL_EventCode"].ToString().Trim();
+
+        //            if (dr["AEL_EventType"].ToString().Trim() == "Date")
+        //            {
+        //                drAlertDash[2] = "Reminder";
+        //            }
+        //            else if (dr["AEL_EventType"].ToString().Trim() == "Data")
+        //            {
+        //                drAlertDash[2] = "Occurence (Of Condition)";
+        //            }
+        //            else if (dr["AEL_EventType"].ToString().Trim() == "Transactional")
+        //            {
+        //                drAlertDash[2] = "Confirmation";
+        //            }
+        //            //if (dr["AEL_Reminder"].ToString().ToLower() == "false")
+        //            //    drAlertDash[4] = "No";
+        //            //else
+        //            //    drAlertDash[4] = "Yes";
+
+        //            dtAlertDashboard.Rows.Add(drAlertDash);
+        //        }
+
+        //        gvAlertDashboard.DataSource = dtAlertDashboard;
+        //        gvAlertDashboard.DataBind();
+        //        gvAlertDashboard.Visible = true;
+        //    }
+        //}
+
+        //protected void ddlAlertTypes_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddlAlertTypes.SelectedIndex != 0)
+        //    {   //A selection is made
+        //        DataSet dsAlerts = (DataSet)Session["AlertDS"];
+        //        customerVo = customerBo.GetCustomer(Int32.Parse(ddlRMCustList.SelectedValue));
+
+        //        foreach (DataRow dr in dsAlerts.Tables[0].Rows)
+        //        {
+        //            if (ddlAlertTypes.SelectedValue == dr["AEL_EventID"].ToString())
+        //            {
+        //                if (dr["AEL_EventType"].ToString().Trim().ToLower() == "date")
+        //                {
+        //                    Session[SessionContents.EventID] = dr["AEL_EventID"];
+        //                    //Session[SessionContents.EventCode] = dr["AEL_EventCode"];
+        //                    Session[SessionContents.Reminder] = dr["AEL_Reminder"];
+        //                    Session[SessionContents.CustomerVo] = customerVo;
+
+        //                    // Redirect to the Customer Alert Management Screen
+        //                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadscript", "loadcontrol('CustomerDateAlertManage','none');", true);
+        //                }
+        //                else if (dr["AEL_EventType"].ToString().Trim().ToLower() == "data")
+        //                {
+        //                    Session[SessionContents.EventID] = dr["AEL_EventID"];
+        //                    //Session[SessionContents.EventCode] = dr["AEL_EventCode"];
+        //                    Session[SessionContents.Reminder] = dr["AEL_Reminder"];
+        //                    Session[SessionContents.CustomerVo] = customerVo;
+
+        //                    // Redirect to the Customer Alert Management Screen
+        //                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadscript", "loadcontrol('CustomerConditionalAlertManage','none');", true);
+        //                }
+        //                else if (dr["AEL_EventType"].ToString().Trim().ToLower() == "transactional")
+        //                {
+        //                    Session[SessionContents.EventID] = dr["AEL_EventID"];
+        //                    //Session[SessionContents.EventCode] = dr["AEL_EventCode"];
+        //                    Session[SessionContents.Reminder] = dr["AEL_Reminder"];
+        //                    Session[SessionContents.CustomerVo] = customerVo;
+
+        //                    // Redirect to the Customer Alert Management Screen
+        //                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadscript", "loadcontrol('CustomerTransactionalAlertManage','none');", true);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        //protected void gvAlertDashboard_RowCommand(object sender, GridViewCommandEventArgs e)
+        //{
+        //    int index = 0;
+
+        //    try
+        //    {
+        //        if (e.CommandName == "subscribe")
+        //        {
+        //            index = Convert.ToInt32(e.CommandArgument);
+        //            EventID = int.Parse(gvAlertDashboard.DataKeys[index].Value.ToString());
+        //            DataSet dsAlerts = alertsBo.GetListofAlerts("all");
+        //            customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+        //            //customerVo = customerBo.GetCustomer(Int32.Parse(ddlRMCustList.SelectedValue));
+
+        //            foreach (DataRow dr in dsAlerts.Tables[0].Rows)
+        //            {
+        //                if (EventID.ToString() == dr["AEL_EventID"].ToString())
+        //                {
+        //                    if (dr["AEL_EventType"].ToString().Trim().ToLower() == "date")
+        //                    {
+        //                        Session[SessionContents.EventID] = dr["AEL_EventID"];
+        //                        Session[SessionContents.Reminder] = dr["AEL_Reminder"];
+        //                        Session[SessionContents.CustomerVo] = customerVo;
+
+        //                        // Redirect to the Customer Alert Management Screen
+        //                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadscript", "loadcontrol('CustomerDateAlertManage','none');", true);
+        //                    }
+        //                    else if (dr["AEL_EventType"].ToString().Trim().ToLower() == "data")
+        //                    {
+        //                        Session[SessionContents.EventID] = dr["AEL_EventID"];
+        //                        Session[SessionContents.Reminder] = dr["AEL_Reminder"];
+        //                        Session[SessionContents.CustomerVo] = customerVo;
+
+        //                        // Redirect to the Customer Alert Management Screen
+        //                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadscript", "loadcontrol('CustomerConditionalAlertManage','none');", true);
+        //                    }
+        //                    else if (dr["AEL_EventType"].ToString().Trim().ToLower() == "transactional")
+        //                    {
+        //                        Session[SessionContents.EventID] = dr["AEL_EventID"];
+        //                        Session[SessionContents.Reminder] = dr["AEL_Reminder"];
+        //                        Session[SessionContents.CustomerVo] = customerVo;
+
+        //                        // Redirect to the Customer Alert Management Screen
+        //                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadscript", "loadcontrol('CustomerTransactionalAlertManage','none');", true);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "ViewBranches.ascx:gvBranchlist_RowCommand()");
+
+        //        object[] objects = new object[1];
+        //        objects[0] = index;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
+
+        //protected void gvAlertDashboard_RowEditing(object sender, GridViewEditEventArgs e)
+        //{
+
+        //}
+
+        //protected void gvAlertDashboard_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        DropDownList ddlCond;
+        //        ddlCond = e.Row.FindControl("ddlCondition") as DropDownList;
+        //        HiddenField hdnCond = e.Row.FindControl("hdnCondition") as HiddenField;
+
+        //        if (hdnCond != null)
+        //        {
+
+        //        }
+        //    }
+        //}
+        //}
+        #endregion
 
         #region NewAlert
 
@@ -184,17 +525,15 @@ namespace WealthERP.Alerts
                     //{
                     //    Session[SessionContents.CustomerVo] = null;
                     //}
-                    BindSystemAlertsGrid();
-                    pnlDashboardGrid.Visible = true;
 
                     if (Session[SessionContents.CustomerVo] != null)
                     {
                         customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
-                        BindSystemAlertsGrid();
                         pnlDashboardGrid.Visible = true;
                         //ddlRMCustList.Visible = false;
                         //trChooseCustomer.Visible = false;
                     }
+                    BindSystemAlertsGrid();
                     //else
                     //{
                     //    BindCustomerListDropDown(rmId);
@@ -248,10 +587,8 @@ namespace WealthERP.Alerts
                     dtSystemAlerts.Columns.Add("Alert");
                     dtSystemAlerts.Columns.Add("Default");
 
-
                     foreach (DataRow dr in dsSystemAlerts.Tables[0].Rows)
                     {
-
                         drAlertType = dtSystemAlerts.NewRow();
 
                         drAlertType[0] = dr["AEL_EventID"].ToString();
@@ -324,14 +661,12 @@ namespace WealthERP.Alerts
 
                         dtSystemAlerts.Rows.Add(drAlertType);
                     }
-
+                    pnlDashboardGrid.Visible = true;
                     gvSystemAlerts.DataSource = dtSystemAlerts;
                     gvSystemAlerts.DataBind();
                     gvSystemAlerts.Visible = true;
                     this.GetPageCount();
                 }
-
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -433,7 +768,7 @@ namespace WealthERP.Alerts
                 rmVo = (RMVo)Session[SessionContents.RmVo];
                 rmId = rmVo.RMId;
                 userId = userVo.UserId;
-                
+
                 foreach (GridViewRow gvr in this.gvSystemAlerts.Rows)
                 {
                     if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
@@ -472,7 +807,7 @@ namespace WealthERP.Alerts
                                 alertsBo.SaveAdviserSIPConfirmationAlert(rmId, 0, 0, 0, 1, userId);
                             else
                             {
-                                lblError.Text = lblError.Text + "<br>" + eventCode.ToString()+ " Confirmation";
+                                lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Confirmation";
                                 lblError.Visible = true;
                                 lblSolution.Visible = true;
                             }
@@ -571,7 +906,7 @@ namespace WealthERP.Alerts
                                 alertsBo.SaveAdviserPropertyOccurrenceAlert(rmId, 0, 0, 0, 1, userId, propertyCondition, propertyOccurrence);
                             else
                             {
-                                lblError.Text = lblError.Text + "<br>" + eventCode.ToString()+ " Occurrence";
+                                lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Occurrence";
                                 lblError.Visible = true;
                                 lblSolution.Visible = true;
                             }

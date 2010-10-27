@@ -31,11 +31,11 @@ namespace WealthERP.CustomerPortfolio
         DataTable dtDPAccountsRaw = new DataTable();
         DataRow drDPAccounts;
         int tradeAccountId;
-        static  int portfolioId;
+        static int portfolioId;
         int dpAccountId;
-        int isDefault=0;
+        int isDefault = 0;
         string path;
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -47,7 +47,7 @@ namespace WealthERP.CustomerPortfolio
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
 
-                             
+
                 if (!IsPostBack)
                 {
                     if (Session[SessionContents.PortfolioId] != null)
@@ -55,7 +55,7 @@ namespace WealthERP.CustomerPortfolio
                         portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                         BindPortfolioDropDown();
 
-                                       
+
 
                         dtBroker = XMLBo.GetBroker(path);
                         ddlBrokerCode.DataSource = dtBroker;
@@ -75,7 +75,7 @@ namespace WealthERP.CustomerPortfolio
                                 BtnSetVisiblity(0);
                                 lnkBack.Visible = true;
                                 ViewEQAccountDetails();
-                               
+
                             }
 
                         }
@@ -87,7 +87,7 @@ namespace WealthERP.CustomerPortfolio
                         }
                     }
                 }
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -131,6 +131,7 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
+                btnSubmit.Enabled = false;
                 customerAccountsVo.CustomerId = customerVo.CustomerId;
                 customerAccountsVo.PortfolioId = int.Parse(ddlPortfolio.SelectedValue.ToString());
                 customerAccountsVo.TradeNum = txtTradeNum.Text.ToString();
@@ -150,34 +151,39 @@ namespace WealthERP.CustomerPortfolio
                     customerAccountsVo.OtherCharges = 0.0;
 
                 }
-                tradeAccountId = customerAccountBo.CreateCustomerEQAccount(customerAccountsVo, userVo.UserId);               
+                tradeAccountId = customerAccountBo.CreateCustomerEQAccount(customerAccountsVo, userVo.UserId);
+
                 //if (rbtnYes.Checked)
                 //{
-                    //foreach (GridViewRow gvr in this.gvDPAccounts.Rows)
-                    //{
-                    //    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
-                    //    {
+                //foreach (GridViewRow gvr in this.gvDPAccounts.Rows)
+                //{
+                //    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                //    {
 
-                    //        dpAccountId = int.Parse(gvDPAccounts.DataKeys[gvr.RowIndex].Value.ToString());
-                    //        customerAccountBo.CreateEQTradeDPAssociation(tradeAccountId, dpAccountId, isDefault, userVo.UserId);
-                    //    }
-                    //}
+                //        dpAccountId = int.Parse(gvDPAccounts.DataKeys[gvr.RowIndex].Value.ToString());
+                //        customerAccountBo.CreateEQTradeDPAssociation(tradeAccountId, dpAccountId, isDefault, userVo.UserId);
+                //    }
+                //}
                 //}
                 if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "MultipleEqEntry")
                 {
                     string queryString = "?prevPage=TradeAccAdd";
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
+                    // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
+
                 }
                 else if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "EquityManualSingleTransaction")
                 {
                     string queryString = "?prevPage=TradeAccAdd";
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
                 }
                 else
                 {
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
                 }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -204,72 +210,7 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        //////protected void rbtnYes_CheckedChanged(object sender, EventArgs e)
-        //////{
-        //////    try
-        //////    {
-        //////        if (rbtnYes.Checked)
-        //////        {
-        //////            trDPAccount.Visible = true;
-        //////            trDPAccountsGrid.Visible = true;
 
-        //////            dsDPAccounts = customerAccountBo.GetCustomerEQDPAccounts(customerVo.CustomerId);
-        //////            dtDPAccountsRaw = dsDPAccounts.Tables[0];
-
-        //////            dtDPAccounts.Columns.Add("DpId");
-        //////            dtDPAccounts.Columns.Add("DP Name");
-        //////            dtDPAccounts.Columns.Add("DP Id");
-
-        //////            foreach (DataRow dr in dtDPAccountsRaw.Rows)
-        //////            {
-
-        //////                drDPAccounts = dtDPAccounts.NewRow();
-        //////                drDPAccounts[0] = dr["CEDA_Id"].ToString();
-        //////                drDPAccounts[1] = dr["CEDA_DPName"].ToString();
-        //////                drDPAccounts[2] = dr["CEDA_DPId"].ToString();
-
-        //////                dtDPAccounts.Rows.Add(drDPAccounts);
-        //////            }
-
-        //////            if (dtDPAccountsRaw.Rows.Count > 0)
-        //////            {
-        //////                trDPAccount.Visible = true;
-        //////                trDPAccountsGrid.Visible = true;
-
-        //////                gvDPAccounts.DataSource = dtDPAccounts;
-        //////                gvDPAccounts.DataBind();
-        //////            }
-        //////            else
-        //////            {
-        //////                trDPAccount.Visible = false;
-        //////                trDPAccountsGrid.Visible = false;
-        //////            }
-        //////        }
-        //////        else
-        //////        {
-        //////            trDPAccount.Visible = false;
-        //////            trDPAccountsGrid.Visible = false;
-        //////        }
-        //////    }
-        //////    catch (BaseApplicationException Ex)
-        //////    {
-        //////        throw Ex;
-        //////    }
-
-        //////    catch (Exception Ex)
-        //////    {
-        //////        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //////        NameValueCollection FunctionInfo = new NameValueCollection();
-        //////        FunctionInfo.Add("Method", "CustomerEQAccountAdd.ascx:rbtnYes_CheckedChanged()");
-        //////        object[] objects = new object[1];
-        //////        objects[0] = customerVo;
-        //////        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //////        exBase.AdditionalInformation = FunctionInfo;
-        //////        ExceptionManager.Publish(exBase);
-        //////        throw exBase;
-
-        //////    }
-        //////}
 
         private void ViewEQAccountDetails()
         {
@@ -296,7 +237,7 @@ namespace WealthERP.CustomerPortfolio
             txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
             BtnSetVisiblity(1);
             SetVisiblity(1);
-            
+
         }
 
         private void SetVisiblity(int p)
@@ -311,9 +252,9 @@ namespace WealthERP.CustomerPortfolio
                 txtBrokeragePerDelivery.Enabled = false;
                 txtBrokeragePerSpeculative.Enabled = false;
                 txtOtherCharges.Enabled = false;
-                
-                
-                
+
+
+
             }
             else
             {
@@ -325,12 +266,12 @@ namespace WealthERP.CustomerPortfolio
                 txtBrokeragePerDelivery.Enabled = true;
                 txtBrokeragePerSpeculative.Enabled = true;
                 txtOtherCharges.Enabled = true;
-               
+
 
 
             }
         }
-         private void BtnSetVisiblity(int p)
+        private void BtnSetVisiblity(int p)
         {
             if (p == 0)
             {   //for view selected
@@ -340,7 +281,7 @@ namespace WealthERP.CustomerPortfolio
                 btnSubmit.Visible = false;
                 btnUpdate.Visible = false;
                 lnkBack.Visible = false;
-                
+
             }
             else
             {  //for Edit selected 
@@ -351,10 +292,10 @@ namespace WealthERP.CustomerPortfolio
                 btnUpdate.Visible = true;
                 lnkBack.Visible = true;
             }
-           
 
-         }
-        
+
+        }
+
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -399,14 +340,14 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
-           
+
         }
 
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
-            
+
             EditEQAccountDetails();
-            
+
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)

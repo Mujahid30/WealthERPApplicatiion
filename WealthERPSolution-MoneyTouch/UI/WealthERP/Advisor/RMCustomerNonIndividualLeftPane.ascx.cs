@@ -64,12 +64,8 @@ namespace WealthERP.Advisor
                         TreeView1.FindNode("Profile Dashboard").Expand();
                         TreeView1.FindNode("Profile Dashboard").Selected = true;
                     }
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMCustomerNonIndividualLeftPane');", true);
                 }
-                //if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
-                //{
-                //    SetNode();
-                //}
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('CustomerNonIndividualLeftPane');", true);
             }
             catch (BaseApplicationException Ex)
             {
@@ -102,10 +98,6 @@ namespace WealthERP.Advisor
             {
                 SetNode();
             }
-        }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-            //SetNode();
         }
         public void SetNode()
         {
@@ -236,6 +228,10 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }

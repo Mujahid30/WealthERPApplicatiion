@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerInsuranceAlerts.ascx.cs"
     Inherits="WealthERP.Alerts.CustomerInsuranceAlerts" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-
 <div>
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
@@ -21,11 +20,14 @@
             </tr>
             <tr>
                 <td>
+                    <asp:Label ID="lblDisclaimer" runat="server" CssClass="FieldName" Text="Note: To edit alert setup, please delete alert subscription and re-subscribe"
+                        Visible="true" ForeColor="Red"></asp:Label>
+                    <br />
+                    <br />
                     <asp:GridView ID="gvINAlerts" runat="server" AutoGenerateColumns="False" CellPadding="4"
                         CssClass="GridViewStyle" DataKeyNames="INNPId,AccountId" AllowSorting="True"
-                        Font-Size="Small" HorizontalAlign="Center"
-                        ShowFooter="True" OnRowDataBound="gvINAlerts_RowDataBound" EnableViewState="true"
-                        PageSize="30">
+                        Font-Size="Small" HorizontalAlign="Center" ShowFooter="True" OnRowDataBound="gvINAlerts_RowDataBound"
+                        EnableViewState="true" PageSize="30">
                         <%--OnRowDataBound="gvAlertDashboard_RowDataBound"--%>
                         <FooterStyle CssClass="FooterStyle" />
                         <RowStyle CssClass="RowStyle" HorizontalAlign="Center" />
@@ -45,7 +47,7 @@
                                 </FooterTemplate>
                             </asp:TemplateField>
                             <%--Insurance Policy--%>
-                            <asp:BoundField DataField="InsurancePolicy" HeaderText="Insurance Policy" />
+                            <asp:BoundField DataField="InsurancePolicy" HeaderText="Insurance Policy" ItemStyle-HorizontalAlign="Left" />
                             <%--Premium Payment Reminder Column--%>
                             <asp:TemplateField HeaderText="Premium Payment Reminder">
                                 <ItemTemplate>
@@ -87,8 +89,8 @@
                 </td>
                 <td class="rightField">
                     <asp:Button ID="btnSubmitReminder" runat="server" Text="Submit" CssClass="PCGButton"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerInsuranceAlerts_btnSubmitReminder', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerInsuranceAlerts_btnSubmitReminder', 'S');"
+                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
                         OnClick="btnSubmitReminder_Click" />
                 </td>
             </tr>

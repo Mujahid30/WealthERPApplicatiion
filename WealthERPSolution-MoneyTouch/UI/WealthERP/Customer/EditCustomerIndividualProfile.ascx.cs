@@ -10,9 +10,11 @@ using BoCommon;
 using BoUploads;
 using VoCustomerProfiling;
 using BoCustomerProfiling;
+using BoAdvisorProfiling;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Data;
+using WealthERP.Base;
 
 namespace WealthERP.Customer
 {
@@ -21,7 +23,7 @@ namespace WealthERP.Customer
         UserVo userVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
-
+        AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
         string path;
         DataTable dtMaritalStatus = new DataTable();
         DataTable dtNationality = new DataTable();
@@ -32,14 +34,17 @@ namespace WealthERP.Customer
         protected void Page_Load(object sender, EventArgs e)
         {
             cvDepositDate1.ValueToCompare = DateTime.Now.ToShortDateString();
-            
+            txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
+            cvJobStartDate.ValueToCompare = DateTime.Now.ToShortDateString();
+            txtMarriageDate_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
+
             try
             {
                 SessionBo.CheckSession();
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
-
+                RMVo customerRMVo = new RMVo();
                 if (!IsPostBack)
                 {
                     lblPanDuplicate.Visible = false;
@@ -62,6 +67,7 @@ namespace WealthERP.Customer
                     BindDropDowns();
 
                     //Bind Adviser Branch List
+
                     BindListBranch(customerVo.RmId, "rm");
 
 
@@ -74,8 +80,21 @@ namespace WealthERP.Customer
                         rbtnNonIndividual.Checked = true;
                     }
                     ddlAdviserBranchList.SelectedValue = customerVo.BranchId.ToString();
+                    customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                    if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
+                        lblRM.Text = customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName;
+                    else
+                        lblRM.Text = "";
                     if (customerVo.MaritalStatus != null)
                         ddlMaritalStatus.SelectedValue = customerVo.MaritalStatus.ToString();
+                    if (ddlMaritalStatus.SelectedValue == "MA")
+                        txtMarriageDate.Enabled = true;
+                    else
+                        txtMarriageDate.Enabled = false;
+                    if (customerVo.MarriageDate == DateTime.MinValue)
+                        txtMarriageDate.Text = "";
+                    else
+                        txtMarriageDate.Text = customerVo.MarriageDate.ToShortDateString();
                     if (customerVo.Nationality != null)
                         ddlNationality.SelectedValue = customerVo.Nationality.ToString();
                     if (customerVo.Occupation != null)
@@ -92,7 +111,42 @@ namespace WealthERP.Customer
                         txtDob.Text = "";
                     else
                         txtDob.Text = customerVo.Dob.ToShortDateString();
-
+                    if (!string.IsNullOrEmpty(customerVo.Salutation))
+                        ddlSalutation.SelectedValue = customerVo.Salutation;
+                    else
+                        ddlSalutation.SelectedIndex = 0;
+                    if (customerVo.DummyPAN == 1)
+                    {
+                        chkdummypan.Checked = true;
+                    }
+                    else
+                    {
+                        chkdummypan.Checked = false;
+                    }
+                    if (customerVo.IsProspect == 1)
+                    {
+                        chkprospect.Checked = true;
+                    }
+                    else
+                    {
+                        chkprospect.Checked = false;
+                    }
+                    if (customerVo.ViaSMS == 1)
+                    {
+                        chksms.Checked = true;
+                    }
+                    else
+                    {
+                        chksms.Checked = false;
+                    }
+                    if (customerVo.AlertViaEmail == 1)
+                    {
+                        chkmail.Checked = true;
+                    }
+                    else
+                    {
+                        chkmail.Checked = false;
+                    }
                     txtGuardianFirstName.Text = customerVo.ContactFirstName;
                     txtGuardianLastName.Text = customerVo.ContactLastName;
                     txtGuardianMiddleName.Text = customerVo.ContactMiddleName;
@@ -291,6 +345,7 @@ namespace WealthERP.Customer
                 if (Validation())
                 {
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue.ToString());
+                    customerVo.Salutation = ddlSalutation.SelectedValue;
                     customerVo.FirstName = txtFirstName.Text.ToString();
                     customerVo.MiddleName = txtMiddleName.Text.ToString();
                     customerVo.LastName = txtLastName.Text.ToString();
@@ -445,6 +500,40 @@ namespace WealthERP.Customer
                     else
                         customerVo.Occupation = ddlOccupation.SelectedItem.Value.ToString();
 
+                    if (chkdummypan.Checked)
+                    {
+                        customerVo.DummyPAN = 1;
+                    }
+                    else
+                    {
+                        customerVo.DummyPAN = 0;
+                    }
+                    if (chkprospect.Checked)
+                    {
+                        customerVo.IsProspect = 1;
+                    }
+                    else
+                    {
+                        customerVo.IsProspect = 0;
+                    }
+                    if (chkmail.Checked)
+                    {
+                        customerVo.AlertViaEmail = 1;
+                    }
+                    else
+                    {
+                        customerVo.AlertViaEmail = 0;
+                    }
+                    if (chksms.Checked)
+                    {
+                        customerVo.ViaSMS = 1;
+                    }
+                    else
+                    {
+                        customerVo.ViaSMS = 0;
+                    }
+
+
                     if (ddlQualification.SelectedIndex == 0)
                         customerVo.Qualification = null;
                     else
@@ -466,6 +555,13 @@ namespace WealthERP.Customer
                         customerVo.MaritalStatus = null;
                     else
                         customerVo.MaritalStatus = ddlMaritalStatus.SelectedItem.Value.ToString();
+
+                    if (txtMarriageDate.Text != string.Empty && txtMarriageDate.Text != "dd/mm/yyyy")
+                    {
+                        customerVo.MarriageDate = DateTime.Parse(txtMarriageDate.Text);
+                    }
+                    else
+                        customerVo.MarriageDate = DateTime.MinValue;
 
                     if (txtLivingSince.Text == "")
                         customerVo.ResidenceLivingDate = DateTime.MinValue;
@@ -564,7 +660,11 @@ namespace WealthERP.Customer
             ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
             ddlCustomerSubType.DataBind();
             //  ddlCustomerSubType.SelectedValue = customerVo.SubType;
-
+            if (customerVo != null)
+            {
+                 Session["CustomerVo"]= customerVo;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerIndividualProfile','none');", true);
+            }
         }
 
         protected void rbtnNonIndividual_CheckedChanged(object sender, EventArgs e)
@@ -575,7 +675,12 @@ namespace WealthERP.Customer
             ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
             ddlCustomerSubType.DataBind();
             // ddlCustomerSubType.SelectedValue = customerVo.SubType;
-
+            if (customerVo != null)
+            {
+                customerVo.Type = "NIND";
+                Session["CustomerVo"] = customerVo;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "PageLoadScript", "loadcontrol('EditCustomerNonIndividualProfile','none');", true);
+            }
         }
 
         protected void ddlCustomerSubType_SelectedIndexChanged(object sender, EventArgs e)

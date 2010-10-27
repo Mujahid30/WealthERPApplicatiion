@@ -146,6 +146,16 @@ namespace WealthERP.Advisor
                         txtCountry.Text=advisorVo.Country.ToString();
                     if (advisorVo.State != null)
                         ddlState.SelectedValue = advisorVo.State.ToString();
+
+                    if (!string.IsNullOrEmpty(advisorVo.LogoPath))
+                    {
+                        lnklogoChange.Text = "Click to change Logo";
+                    }
+                    else
+                    {
+                        lnklogoChange.Text = "Click to upload Logo";
+ 
+                    }
                 }
             }
             catch (BaseApplicationException Ex)

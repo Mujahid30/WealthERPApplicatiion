@@ -39,7 +39,7 @@ namespace WealthERP
             if (Session["refreshTheme"] != null && Convert.ToBoolean(Session["refreshTheme"]) == true)
             {
                 //Session["refreshTheme"] = null;
-               // ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "pageloadscript","window.parent.location.href = window.parent.location.href;", true);
+                // ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "pageloadscript","window.parent.location.href = window.parent.location.href;", true);
             }
 
             //if (Request.QueryString["FromTopMenuFP"] != null)
@@ -196,57 +196,57 @@ namespace WealthERP
             UserDao userDao = new UserDao();
             return userDao.ChkAvailability(loginId);
         }
-    //    [WebMethod]
-    //    [ScriptMethod(UseHttpGet = false,
-    //XmlSerializeString = true, ResponseFormat = ResponseFormat.Xml)]
-    //    public XmlDocument XmlData()
-    //    {
-    //        int page = 1;
-    //        int total = 4;
-    //        XDocument xmlDoc = new XDocument(
-    //            new XDeclaration("1.0", "utf-8", "yes"),
-    //            new XElement("rows",
-    //            new XElement("page", page.ToString()),
-    //            new XElement("total", total.ToString(),
-    //                new XElement("row", new XAttribute("id", "111"),
-    //                    new XElement("cell", "111"),
-    //                    new XElement("cell", "row1"),
-    //                    new XElement("cell", "rowDescription1"),
-    //                    new XElement("cell", "rowUnit1"),
-    //                    new XElement("cell", "rowUnitPrice1"),
-    //                    new XElement("cell", DateTime.Now.ToShortDateString())
-    //    ),
-    //    new XElement("row", new XAttribute("id", "222"),
-    //                    new XElement("cell", "222"),
-    //                    new XElement("cell", "row2"),
-    //                    new XElement("cell", "rowDescription2"),
-    //                    new XElement("cell", "rowUnit2"),
-    //                    new XElement("cell", "rowUnitPrice2"),
-    //                    new XElement("cell", DateTime.Now.ToShortDateString())
-    //    ),
-    //     new XElement("row", new XAttribute("id", "333"),
-    //                    new XElement("cell", "333"),
-    //                    new XElement("cell", "row3"),
-    //                    new XElement("cell", "rowDescription3"),
-    //                    new XElement("cell", "rowUnit3"),
-    //                    new XElement("cell", "rowUnitPrice3"),
-    //                    new XElement("cell", DateTime.Now.ToShortDateString())
-    //    ),
-    //       new XElement("row", new XAttribute("id", "444"),
-    //                    new XElement("cell", "444"),
-    //                    new XElement("cell", "row4"),
-    //                    new XElement("cell", "rowDescription4"),
-    //                    new XElement("cell", "rowUnit4"),
-    //                    new XElement("cell", "rowUnitPrice4"),
-    //                    new XElement("cell", DateTime.Now.ToShortDateString())
-    //    )
-    //                                       )
-    //                            )
-    //    );
+        //    [WebMethod]
+        //    [ScriptMethod(UseHttpGet = false,
+        //XmlSerializeString = true, ResponseFormat = ResponseFormat.Xml)]
+        //    public XmlDocument XmlData()
+        //    {
+        //        int page = 1;
+        //        int total = 4;
+        //        XDocument xmlDoc = new XDocument(
+        //            new XDeclaration("1.0", "utf-8", "yes"),
+        //            new XElement("rows",
+        //            new XElement("page", page.ToString()),
+        //            new XElement("total", total.ToString(),
+        //                new XElement("row", new XAttribute("id", "111"),
+        //                    new XElement("cell", "111"),
+        //                    new XElement("cell", "row1"),
+        //                    new XElement("cell", "rowDescription1"),
+        //                    new XElement("cell", "rowUnit1"),
+        //                    new XElement("cell", "rowUnitPrice1"),
+        //                    new XElement("cell", DateTime.Now.ToShortDateString())
+        //    ),
+        //    new XElement("row", new XAttribute("id", "222"),
+        //                    new XElement("cell", "222"),
+        //                    new XElement("cell", "row2"),
+        //                    new XElement("cell", "rowDescription2"),
+        //                    new XElement("cell", "rowUnit2"),
+        //                    new XElement("cell", "rowUnitPrice2"),
+        //                    new XElement("cell", DateTime.Now.ToShortDateString())
+        //    ),
+        //     new XElement("row", new XAttribute("id", "333"),
+        //                    new XElement("cell", "333"),
+        //                    new XElement("cell", "row3"),
+        //                    new XElement("cell", "rowDescription3"),
+        //                    new XElement("cell", "rowUnit3"),
+        //                    new XElement("cell", "rowUnitPrice3"),
+        //                    new XElement("cell", DateTime.Now.ToShortDateString())
+        //    ),
+        //       new XElement("row", new XAttribute("id", "444"),
+        //                    new XElement("cell", "444"),
+        //                    new XElement("cell", "row4"),
+        //                    new XElement("cell", "rowDescription4"),
+        //                    new XElement("cell", "rowUnit4"),
+        //                    new XElement("cell", "rowUnitPrice4"),
+        //                    new XElement("cell", DateTime.Now.ToShortDateString())
+        //    )
+        //                                       )
+        //                            )
+        //    );
 
-    //        XmlDocument newDoc = new XmlDocument();
-    //        newDoc.LoadXml(xmlDoc.ToString());
-    //        return newDoc;
-    //    }
+        //        XmlDocument newDoc = new XmlDocument();
+        //        newDoc.LoadXml(xmlDoc.ToString());
+        //        return newDoc;
+        //    }
     }
 }

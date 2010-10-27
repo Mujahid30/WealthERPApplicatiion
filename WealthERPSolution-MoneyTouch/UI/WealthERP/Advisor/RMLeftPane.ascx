@@ -48,10 +48,10 @@
                                               
                         <asp:TreeNode Text="Multi Asset Reports" Value="MultiAssetReports"></asp:TreeNode>
                         <asp:TreeNode Text="Alert Configuration" Value="Customer Alerts"></asp:TreeNode>
-
+                        <asp:TreeNode Text="Notifications" Value="Notifications"></asp:TreeNode>
                         
                     </asp:TreeNode>
-<%--                    <asp:TreeNode Text="Loan" Value="Loan">
+                    <%--<asp:TreeNode Text="Loan" Value="Loan">
                         <asp:TreeNode Text="Loan Proposal" Value="Loan Proposal"></asp:TreeNode>
                         <asp:TreeNode Text="Add Loan Proposal" Value="Add Loan Proposal"></asp:TreeNode>
                         <asp:TreeNode Text="LoanMIS" Value="LoanMIS"></asp:TreeNode>
