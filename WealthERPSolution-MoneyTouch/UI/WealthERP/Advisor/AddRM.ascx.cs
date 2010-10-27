@@ -668,7 +668,14 @@ namespace WealthERP.Advisor
                 {
                     rmVo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.ToString());
                 }
-
+                if (ChklistRMBM.Items[0].Selected == true)
+                {
+                    rmVo.RMRole = "RM";
+                }
+                else
+                {
+                    rmVo.RMRole = "BM";
+                }
                 //rmVo.RMRole = ddlRMRole.SelectedValue.ToString();
 
                 rmVo.AdviserId = advisorVo.advisorId;
