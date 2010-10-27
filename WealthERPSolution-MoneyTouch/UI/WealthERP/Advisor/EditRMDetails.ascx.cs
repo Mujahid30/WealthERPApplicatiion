@@ -558,6 +558,15 @@ namespace WealthERP.Advisor
                     else
                         rmVo.CTC = Convert.ToDouble(txtCTC.Text.Trim());
 
+                    if (ChklistRMBM.Items[0].Selected == true)
+                    {
+                        rmVo.RMRole = "RM";
+                    }
+                    else
+                    {
+                        rmVo.RMRole = "BM";
+                    }
+
                     if (chkExternalStaff.Checked)
                     {
                         // Check for Internal Associations, if they exist do not update.
@@ -583,14 +592,7 @@ namespace WealthERP.Advisor
                         {
                             rmVo.IsExternal = 0;
                         }
-                    }
-
-                    //Update the User details in the User Table
-                    userBo.UpdateUser(userVo);
-                    //Update the RM details in the AdvisorRM Table
-                    advisorStaffBo.UpdateStaff(rmVo);
-
-
+                    }                 
 
 
 
@@ -657,6 +659,11 @@ namespace WealthERP.Advisor
                     }
 
     //*************Role Association Creation and deletion************************   
+
+                    //Update the User details in the User Table
+                    userBo.UpdateUser(userVo);
+                    //Update the RM details in the AdvisorRM Table
+                    advisorStaffBo.UpdateStaff(rmVo);
 
 
 
