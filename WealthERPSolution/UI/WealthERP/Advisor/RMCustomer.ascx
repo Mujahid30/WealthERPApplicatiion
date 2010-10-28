@@ -41,7 +41,7 @@
   
         if (bool) {            
             document.getElementById("ctrl_RMCustomer_hdnMsgValue").value = 1;
-
+            alert(bool);
             document.getElementById("ctrl_RMCustomer_hiddenassociation").click();
 
             return false;
@@ -330,7 +330,7 @@
 <asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
  <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" 
-                BorderStyle="None" Visible="false"  />
+                BorderStyle="None" BackColor="Transparent" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
