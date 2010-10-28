@@ -393,7 +393,7 @@ namespace WealthERP.Advisor
                 {
                     foreach (GridViewRow gvr in gvRMUsers.Rows)
                     {
-                        if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                        if (((CheckBox)gvr.FindControl("chkBoxChild")).Checked == true)
                         {
                             selectedRecords++;
 
