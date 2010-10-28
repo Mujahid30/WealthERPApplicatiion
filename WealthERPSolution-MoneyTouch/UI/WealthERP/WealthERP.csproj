@@ -2121,6 +2121,16 @@
     <Compile Include="Reports\Display.aspx.designer.cs">
       <DependentUpon>Display.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\EligibleCapitalGainsDetailsDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EligibleCapitalGainsDetailsDS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\EligibleCapitalGainsSummaryDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EligibleCapitalGainsSummaryDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\EmailReport.aspx.cs">
       <DependentUpon>EmailReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2148,6 +2158,11 @@
     </Compile>
     <Compile Include="Reports\FinancialPlanningDS.Designer.cs" />
     <Compile Include="Reports\FPDataSet.Designer.cs" />
+    <Compile Include="Reports\FPDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FPDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\FPReports.ascx.cs">
       <DependentUpon>FPReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2185,6 +2200,11 @@
     <Compile Include="Reports\MFReturnsDS.cs">
       <DependentUpon>MFReturnsDS.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reports\MFReturnsRealizedDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MFReturnsRealizedDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\MFReturnsTransactions.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -2206,12 +2226,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\MultiAssetReportDS.Designer.cs" />
-    <Compile Include="Reports\MultiiAssetReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MultiiAssetReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reports\PortfolioReports.ascx.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2674,6 +2688,7 @@
     <Content Include="App_Themes\Maroon\Images\success.png" />
     <Content Include="App_Themes\Maroon\Images\TBGridViewHeaderGlass2.jpg" />
     <Content Include="App_Themes\Maroon\Images\warning.png" />
+    <Content Include="App_Themes\Maroon\PCG.skin" />
     <Content Include="App_Themes\Maroon\StyleSheet.css" />
     <Content Include="App_Themes\Purple\GridViewCss.css" />
     <Content Include="App_Themes\Purple\Images\alert.png" />
@@ -2863,7 +2878,6 @@
     <Content Include="Uploads\KarvyProfileFolioInputRejects.ascx" />
     <Content Include="Uploads\KarvyTransInputRejects.ascx" />
     <Content Include="Uploads\MapToCustomers.aspx" />
-    <Content Include="App_Themes\Maroon\PCG.skin" />
     <Content Include="App_Themes\Purple\TB.skin" />
     <Content Include="Uploads\RejectedFoliosTransactionUpload.ascx" />
     <Content Include="Uploads\StandardProfileInputRejects.ascx" />
@@ -3271,9 +3285,9 @@
       <DependentUpon>EligibleCapitalGainsDetailsDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\EligibleCapitalGainsDetailsDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EligibleCapitalGainsDetailsDS.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <None Include="Reports\EligibleCapitalGainsDetailsDS.xss">
       <DependentUpon>EligibleCapitalGainsDetailsDS.xsd</DependentUpon>
@@ -3282,9 +3296,9 @@
       <DependentUpon>EligibleCapitalGainsSummaryDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\EligibleCapitalGainsSummaryDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EligibleCapitalGainsSummaryDS.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <None Include="Reports\EligibleCapitalGainsSummaryDS.xss">
       <DependentUpon>EligibleCapitalGainsSummaryDS.xsd</DependentUpon>
@@ -3326,9 +3340,9 @@
       <DependentUpon>FPDataSet.xsd</DependentUpon>
     </None>
     <None Include="Reports\FPDataSet.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FPDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <None Include="Reports\FPDataSet.xss">
       <DependentUpon>FPDataSet.xsd</DependentUpon>
@@ -3392,9 +3406,9 @@
       <DependentUpon>MFReturnsRealizedDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\MFReturnsRealizedDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFReturnsRealizedDS.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <None Include="Reports\MFReturnsRealizedDS.xss">
       <DependentUpon>MFReturnsRealizedDS.xsd</DependentUpon>

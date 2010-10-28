@@ -327,10 +327,12 @@ namespace WealthERP.Advisor
                         drRMCustomer[11] = customerVo.Adr1City.ToString();
                         drRMCustomer[12] = customerVo.Adr1PinCode.ToString();
                         //customerRMVo = advisorStaffBo.GetAdvisorStaff(advisorStaffBo.GetUserId(customerVo.RmId));
-                        drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        //drRMCustomer[13] = customerVo.AssignedRM.ToString();
                         //customerRMVo.FirstName.ToString() + " " + customerRMVo.MiddleName.ToString() + " " + customerRMVo.LastName.ToString();
-
-                        drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        if(customerVo.AssignedRM!=null)
+                            drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        else
+                            drRMCustomer[13]="-";
                         if (customerVo.IsActive == 1)
                         {
                             drRMCustomer[14] = "Active";
