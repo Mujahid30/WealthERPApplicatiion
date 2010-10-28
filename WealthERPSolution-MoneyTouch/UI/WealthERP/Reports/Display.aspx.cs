@@ -536,9 +536,9 @@ namespace WealthERP.Reports
                     {
                         if (ViewState["CustomerId"] == null && Request.Form["ctrl_MFReports$hdnCustomerId1"]!=null)
                          ViewState["CustomerId"] = Request.Form["ctrl_MFReports$hdnCustomerId1"];
-                        
-                         customerVo = customerBo.GetCustomer(int.Parse(ViewState["CustomerId"].ToString()));
-                         Session["customerVo"] = customerVo;
+                        if(customerVo==null)      
+                            customerVo = customerBo.GetCustomer(int.Parse(ViewState["CustomerId"].ToString()));
+                        Session["customerVo"] = customerVo;
                         
 
                     }
@@ -837,6 +837,8 @@ namespace WealthERP.Reports
         private void AssignReportViewerProperties()
         {
             RMVo rmVo = (RMVo)Session["rmVo"];
+            RMVo customerRMVo=new RMVo();
+            AdvisorStaffBo adviserStaffBo=new AdvisorStaffBo();
             string state = "";
             if (Session["CusVo"] != null)
                 customerVo = (CustomerVo)Session["CusVo"];
@@ -848,17 +850,17 @@ namespace WealthERP.Reports
                 //setLogo();
                 if (advisorVo.State != null)
                     state = CommonReport.GetState(path, advisorVo.State);
-
-                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + customerVo.RMName);
-                if (!string.IsNullOrEmpty(customerVo.RMEmail))
-                    crmain.SetParameterValue("RMContactDetails", "Email :  " + customerVo.RMEmail);
+                customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + (customerRMVo.FirstName+" "+customerRMVo.MiddleName+" "+customerRMVo.LastName).Trim());
+                if (!string.IsNullOrEmpty(customerRMVo.Email))
+                    crmain.SetParameterValue("RMContactDetails", "Email :  " + customerRMVo.Email);
                 else
                     crmain.SetParameterValue("RMContactDetails", "Email :--");
                 if(CurrentReportType!=ReportType.EquityReports)
                 {
-                if (customerVo.RMMobile != 0)
+                    if (customerRMVo.Mobile != 0)
                 {
-                    crmain.SetParameterValue("MobileNo", "Mobile :  " + "+91-" + customerVo.RMMobile);
+                    crmain.SetParameterValue("MobileNo", "Mobile :  " + "+91-" + customerRMVo.Mobile);
                 }
                 else
                 {
@@ -867,9 +869,9 @@ namespace WealthERP.Reports
                 crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + state);
                 //crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.Email);
                 //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
-                crmain.SetParameterValue("OrgDetails", "E-mail: " + customerVo.RMEmail);
-                crmain.SetParameterValue("OrgTelephone", "Phone: " + "+" + customerVo.RMOfficePhone);
-                crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);
+                crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.OrganizationName);
+                crmain.SetParameterValue("OrgTelephone", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
+                crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + advisorVo.City);
                 crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
                 }
                 

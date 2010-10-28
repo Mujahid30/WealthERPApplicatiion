@@ -33,7 +33,7 @@ namespace WealthERP.SuperAdmin
         RMVo rmVo = new RMVo();
         UserVo user;
         int rm;
-        //int bm;
+        int bm;
         int advisor;
         int advisorId;
         int result = 0;
@@ -306,9 +306,10 @@ namespace WealthERP.SuperAdmin
                             CreateMainBranch();
                             advisor = 1000;
                             rm = 1001;
-
+                            bm = 1002;
                             userBo.CreateRoleAssociation(Ids[0], advisor);
                             userBo.CreateRoleAssociation(Ids[0], rm);
+                            userBo.CreateRoleAssociation(Ids[0], bm);
                             GridValidationForIsDependent();
                         }
                         try
@@ -650,14 +651,17 @@ namespace WealthERP.SuperAdmin
             advisorVo.Country = txtCountry.Text;
             Session["IFFCountry"] = txtCountry.Text;
             advisorVo.LoginId = txtLoginId.Text;
-            advisorVo.Phone1Number = int.Parse(txtTelephoneNumber.Text);
+            if (txtTelephoneNumber.Text != "")
+            {
+                advisorVo.Phone1Number = int.Parse(txtTelephoneNumber.Text);                
+            }
             Session["IFFTelephoneNumber"] = txtTelephoneNumber.Text;
             advisorVo.ContactPersonFirstName = txtContactPerson.Text.ToString();            
             advisorVo.MobileNumber = Convert.ToInt64(txtMobileNo.Text.Trim());
             advisorVo.MultiBranch = 1;
             advisorVo.OrganizationName = txtNameofIFF.Text.Trim();
             Session["IFFNameofIFF"] = txtNameofIFF.Text.Trim();
-            advisorVo.Email1 = userVo.Email;
+            advisorVo.Email = userVo.Email;
             //advisorVo.Email = userVo.Email;
             advisorVo.Category = ddlCategory.SelectedValue.ToString();
             Session["IFFCategory"] = ddlCategory.SelectedValue.ToString();

@@ -77,6 +77,11 @@ namespace WealthERP.CustomerPortfolio
                 if (Session["ValuationDate"] == null)
                     GetLatestValuationDate();
                 genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
+                if (DateTime.Parse(genDict["MFDate"].ToString()) == DateTime.MinValue)
+                {
+                    GetLatestValuationDate();
+                    genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
+                }
                 lblMFDate.Text ="Valuation as on  " +  DateTime.Parse(genDict["MFDate"].ToString()).ToLongDateString();
                 
                 if (Session["folioNum"] != null)

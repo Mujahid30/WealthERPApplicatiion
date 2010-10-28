@@ -2158,11 +2158,6 @@
     </Compile>
     <Compile Include="Reports\FinancialPlanningDS.Designer.cs" />
     <Compile Include="Reports\FPDataSet.Designer.cs" />
-    <Compile Include="Reports\FPDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FPDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Reports\FPReports.ascx.cs">
       <DependentUpon>FPReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

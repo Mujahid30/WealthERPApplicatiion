@@ -302,12 +302,12 @@
         <td>
             <asp:TextBox ID="txtTelephoneNumber" CssClass="txtField" runat="server" MaxLength="8"
                 Width="175px"></asp:TextBox>
-            <span id="Span7" class="spnRequiredField">*</span>
+            <%--<span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtTelephoneNumber"
                 ErrorMessage="Telephone No Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
             <%--            <asp:CompareValidator ID="telephoneValidator" ControlToValidate="txtTelephoneNumber"
                 runat="server" Display="Dynamic" ErrorMessage="Please give only numbers" Operator="DataTypeCheck"
-                Type="Integer"></asp:CompareValidator>--%>
+                Type="Integer"></asp:CompareValidator>--%>--%>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG"
                 ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtTelephoneNumber"
                 Display="Dynamic"></asp:RegularExpressionValidator>

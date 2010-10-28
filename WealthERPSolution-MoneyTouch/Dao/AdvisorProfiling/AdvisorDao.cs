@@ -412,7 +412,7 @@ namespace DaoAdvisorProfiling
                     advisorVo.ContactPersonLastName = dr["A_ContactPersonLastName"].ToString();
                     advisorVo.ContactPersonMiddleName = dr["A_ContactPersonMiddleName"].ToString();
                     advisorVo.Country = dr["A_Country"].ToString();
-                    advisorVo.Email1 = dr["A_Email"].ToString();
+                    advisorVo.Email = dr["A_Email"].ToString();
                     advisorVo.Website = dr["A_Website"].ToString();
                     if (dr["A_Fax"] != null && dr["A_Fax"].ToString() != "")
                         advisorVo.Fax = int.Parse(dr["A_Fax"].ToString());
@@ -444,7 +444,8 @@ namespace DaoAdvisorProfiling
                         advisorVo.IsActive = Int16.Parse(dr["A_IsActive"].ToString());
                     if (dr["A_DeactivateDate"] != null && dr["A_DeactivateDate"].ToString() != "")
                         advisorVo.DeactivationDate = DateTime.Parse(dr["A_DeactivateDate"].ToString());
-
+                    if (dr["A_AdviserLogo"] != null && dr["A_AdviserLogo"].ToString() != "")
+                        advisorVo.LogoPath = dr["A_AdviserLogo"].ToString();
                     if (dr["XAC_AdviserCategoryCode"] != null && dr["XAC_AdviserCategoryCode"].ToString() != "")
                         advisorVo.Category = dr["XAC_AdviserCategoryCode"].ToString();
                 }

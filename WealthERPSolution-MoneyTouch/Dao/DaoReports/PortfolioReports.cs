@@ -110,7 +110,7 @@ namespace DaoReports
                 cmdGetLiabilities.CommandTimeout = 60 * 60;
 
                 dsGetLiabilities = db.ExecuteDataSet(cmdGetLiabilities);
-                if (dsGetLiabilities.Tables[0].Rows.Count > 0)
+                if (dsGetLiabilities!=null && dsGetLiabilities.Tables[0].Rows.Count > 0)
                 {
                     for (int i = 0; i < dsGetLiabilities.Tables[0].Rows.Count; i++)
                     {

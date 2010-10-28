@@ -569,8 +569,8 @@ namespace WealthERP.Advisor
 
                     // Updating Adviser , User and RM
                     advisorBo.UpdateAdvisorUser(advisorVo);
-                    userBo.UpdateUser(userVo);
-                    advisorStaffBo.UpdateStaff(newRmVo);
+                    //userBo.UpdateUser(userVo);
+                    //advisorStaffBo.UpdateStaff(newRmVo);
 
                      
                     rbtnYes.Enabled = false;
@@ -659,8 +659,8 @@ namespace WealthERP.Advisor
                 int new_width, new_height;
                 //string thumbnail_id;
 
-                int target_width = 70;
-                int target_height = 78;
+                int target_width = 80;
+                int target_height = 88;
                 CreateThumbnail(original_image, ref final_image, ref graphic, ref ms, jpeg_image_upload, width, height, target_width, target_height, "", true, false, out new_width, out new_height, fileName); // , out thumbnail_id
 
                 File.Delete(UploadImagePath + "O_" + System.IO.Path.GetFileName(jpeg_image_upload.FileName));
@@ -691,13 +691,13 @@ namespace WealthERP.Advisor
             {
                 if (image_ratio > 1.5)
                 {   // If Image width is lot greater than height, then do following
-                    if (width > 100 && width < 200)
+                    if (width > 100 && width < 300)
                     {
                         target_width = width;
                     }
-                    else if (width > 200)
+                    else if (width > 300)
                     {
-                        target_width = 200;
+                        target_width = 300;
                     }
                 }
             }

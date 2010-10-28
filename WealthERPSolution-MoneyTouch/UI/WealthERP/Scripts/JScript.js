@@ -280,7 +280,7 @@ function loadlinks(controlid) {
 }
 
 
-function loadfrommenu(controlid, logintrue) {
+function loadfrommenu(controlid, logintrue, frombm) {
 
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
@@ -357,7 +357,12 @@ function loadfrommenu(controlid, logintrue) {
                 loadlinksfromDefault("RMLeftPane");
             }
             else if (controlid == "ViewRM" && logintrue == "login") {
-                loadlinksfromDefault("AdvisorLeftPane");
+                if (frombm != null) {
+
+                }
+                else {
+                    loadlinksfromDefault("AdvisorLeftPane");
+                }
             }
             else if (controlid == "RMCustomer" && logintrue == "login") {
                 loadlinksfromDefault("RMLeftPane");
@@ -426,7 +431,12 @@ function loadfrommenu(controlid, logintrue) {
             loadlinksfromDefault("BMLeftpane");
         }
         else if (controlid == "ViewRM" && logintrue == "login") {
-            loadlinksfromDefault("AdvisorLeftPane");
+            if (frombm != null) {
+
+            }
+            else {
+                loadlinksfromDefault("AdvisorLeftPane");
+            }
         }
         else if (controlid == "RMDashBoard" && logintrue == "login") {
             loadlinksfromDefault("RMLeftPane");
@@ -658,6 +668,7 @@ function JSdoPostback(e, btnID) {
 }
 
 function loadcontrolCustomer(controlid, logintrue) {
+    
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 

@@ -856,6 +856,13 @@ namespace WealthERP.CustomerPortfolio
                     //familyVo = customerFamilyBo.GetCustomerFamilyAssociateDetails(customerVo.CustomerId);
                     //liabilityAssociateVo.AssociationId = int.Parse(familyVo.AssociationId.ToString());
                     liabilityAssociateVo.LiabilitiesId = LiabilityId;
+                    if (customerVo.AssociationId == 0)
+                    {
+                        DataTable dt = new DataTable();
+                        dt=customerFamilyBo.GetAllCustomerAssociates(customerVo.CustomerId);
+                        if (dt != null && dt.Rows.Count > 0)
+                            customerVo.AssociationId = int.Parse(dt.Rows[0]["CA_AssociationId"].ToString());
+                    }
                     liabilityAssociateVo.AssociationId = customerVo.AssociationId;
                     liabilityAssociateVo.LoanAssociateCode = "MC";
                     liabilityAssociateVo.LiabilitySharePer = 100;
@@ -1208,7 +1215,7 @@ namespace WealthERP.CustomerPortfolio
             bool mResult = int.TryParse(txtTenureMonths.Text.ToString(), out noOfMonths);
 
             //bool result=int.TryParse(txtTenture.Text.ToString(),out i);
-            if (yResult && mResult && ddlEMIFrequency.SelectedValue != "Select the Frequency")
+            if (ddlEMIFrequency.SelectedValue != "Select the Frequency")
             {
                 switch (ddlEMIFrequency.SelectedValue)
                 {
@@ -1248,7 +1255,7 @@ namespace WealthERP.CustomerPortfolio
             bool yResult = int.TryParse(txtTenture.Text.ToString(), out noOfYears);
             bool mResult = int.TryParse(txtTenureMonths.Text.ToString(), out noOfMonths);
             
-            if (laResult && iResult && yResult && mResult && ddlCompoundFrequency.SelectedValue.ToString() != "Select the Frequency")
+            if (laResult && iResult &&  ddlCompoundFrequency.SelectedValue.ToString() != "Select the Frequency")
             {
                 switch (ddlCompoundFrequency.SelectedValue)
                 {
@@ -2295,6 +2302,84 @@ namespace WealthERP.CustomerPortfolio
                 CalcualteLumpSum();
             }
                 
+        }
+
+        protected void txtTenture_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlPaymentOption.SelectedValue.ToString() == "1")
+            {
+                CalcualteLumpSum();
+            }
+            else if (ddlPaymentOption.SelectedValue.ToString() == "2")
+            {
+                CalculateNumberOfInvestements();
+                CalculateInstallmentAmount();
+            }
+        }
+
+        protected void txtTenureMonths_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlPaymentOption.SelectedValue.ToString() == "1")
+            {
+                CalcualteLumpSum();
+            }
+            else if (ddlPaymentOption.SelectedValue.ToString() == "2")
+            {
+                CalculateNumberOfInvestements();
+                CalculateInstallmentAmount();
+            }
+        }
+
+        protected void txtLoanAmount_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlPaymentOption.SelectedValue.ToString() == "1")
+            {
+                CalcualteLumpSum();
+            }
+            else if (ddlPaymentOption.SelectedValue.ToString() == "2")
+            {
+                CalculateNumberOfInvestements();
+                CalculateInstallmentAmount();
+            }
+        }
+
+        protected void txtInterestRate_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlPaymentOption.SelectedValue.ToString() == "1")
+            {
+                CalcualteLumpSum();
+            }
+            else if (ddlPaymentOption.SelectedValue.ToString() == "2")
+            {
+                CalculateNumberOfInvestements();
+                CalculateInstallmentAmount();
+            }
+        }
+
+        protected void txtInstallmentStartDt_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlPaymentOption.SelectedValue.ToString() == "1")
+            {
+                CalcualteLumpSum();
+            }
+            else if (ddlPaymentOption.SelectedValue.ToString() == "2")
+            {
+                CalculateNumberOfInvestements();
+                CalculateInstallmentAmount();
+            }
+        }
+
+        protected void txtInstallmentEndDt_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlPaymentOption.SelectedValue.ToString() == "1")
+            {
+                CalcualteLumpSum();
+            }
+            else if (ddlPaymentOption.SelectedValue.ToString() == "2")
+            {
+                CalculateNumberOfInvestements();
+                CalculateInstallmentAmount();
+            }
         }
 
     }

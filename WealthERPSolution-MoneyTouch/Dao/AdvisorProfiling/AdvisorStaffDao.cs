@@ -842,7 +842,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_Email", DbType.String, rmVo.Email);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_CTC", DbType.String, rmVo.CTC);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_IsExternalStaff", DbType.String, rmVo.IsExternal);
-                db.AddInParameter(updateAdvisorStaffCmd, "@AR_JobFunction", DbType.String, rmVo.RMRole);
+                
                 if (db.ExecuteNonQuery(updateAdvisorStaffCmd) != 0)
 
                     bResult = true;

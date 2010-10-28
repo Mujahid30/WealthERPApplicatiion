@@ -160,7 +160,7 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "Insurance")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('ViewInsuranceDetails', 'none')", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('ViewInsuranceDetails', 'none')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Insurance")
                 {
@@ -252,23 +252,23 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "View Notifications")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrolCustomer('RMAlertNotifications','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('RMAlertNotifications','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "MF Alerts")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrolCustomer('CustomerMFAlert','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerMFAlert','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "FI Alerts")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrolCustomer('CustomerFIAlerts','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerFIAlerts','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Insurance Alerts")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrolCustomer('CustomerInsuranceAlerts','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerInsuranceAlerts','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Equity Alerts")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrolCustomer('CustomerEQAlerts','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerEQAlerts','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "View Profile")
                 {

@@ -122,7 +122,9 @@ namespace BoReports
                 double CustomerId = 0;
                 Double PreviousValues = 0;
                 Double PresentValues = 0;
-                Double TempCustomerID = Double.Parse(dtPortfolioSummary.Rows[0]["CustomerId"].ToString());
+                Double TempCustomerID = 0;
+                if(dtPortfolioSummary.Rows.Count>0)
+                    TempCustomerID = Double.Parse(dtPortfolioSummary.Rows[0]["CustomerId"].ToString());
                 string CustomerName = "";
                 double LoanAmount = 0;
                 foreach (DataRow drAssets in dtPortfolioSummary.Rows)
@@ -168,7 +170,8 @@ namespace BoReports
 
 
                 /* ******************************************************** */
-                   TempCustomerID = Double.Parse(dtLiabilities.Rows[0]["CustomerId"].ToString());
+                    if(dtLiabilities.Rows.Count>0)
+                        TempCustomerID = Double.Parse(dtLiabilities.Rows[0]["CustomerId"].ToString());
                    foreach (DataRow drliabilities in dtLiabilities.Rows)
                    {
                         CustomerId = Int32.Parse(drliabilities["CustomerId"].ToString());
