@@ -241,22 +241,24 @@ namespace WealthERP.Advisor
            
             int.TryParse(ddlBranch.SelectedValue, out branchId);
             int.TryParse(ddlRM.SelectedValue, out rmId);
-            DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
-            if (userType == "rm")
+            if (hdnValuationDate.Value.ToString() != "")
             {
-                dsMISReport = adviserMISBo.GetAMCwiseMISForRM(rmid, Valuation_Date, hdnAMCSearchVal.Value.ToString());
+                DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
+                if (userType == "rm")
+                {
+                    dsMISReport = adviserMISBo.GetAMCwiseMISForRM(rmid, Valuation_Date, hdnAMCSearchVal.Value.ToString());
+                }
+                else if (userType == "adviser")
+                {
+                    dsMISReport = adviserMISBo.GetAMCwiseMISForAdviser(advisorVo.advisorId, branchId, rmId, Valuation_Date, hdnAMCSearchVal.Value.ToString());
+                }
+                else if (userType == "bm")
+                {
+                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), hdnAMCSearchVal.Value.ToString(), out count, 0);
+                }
             }
-            else if (userType == "adviser")
-            {
-                dsMISReport = adviserMISBo.GetAMCwiseMISForAdviser(advisorVo.advisorId, branchId, rmId, Valuation_Date, hdnAMCSearchVal.Value.ToString());
-            }
-            else if (userType == "bm")
-            {
-                dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), hdnAMCSearchVal.Value.ToString(),out count,0);
-            }
-            
 
-            if (dsMISReport.Tables[0].Rows.Count == 0)
+            if (dsMISReport==null || dsMISReport.Tables[0].Rows.Count == 0)
             {
                 trMessage.Visible = true;
                 gvMFMIS.DataSource = dsMISReport;
