@@ -122,6 +122,9 @@
             <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
+    <tr>
+        
+    </tr>
     
     <tr>
         <td class="leftField">
@@ -666,12 +669,14 @@
                            
         <td class="leftField">
             <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Date of Birth:"></asp:Label>
+           
         </td>
         <td class="rightField">
+         
             <asp:TextBox ID="txtDob" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="cvDepositDate1" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtDob" CssClass="cvPCG" Operator="DataTypeCheck"
-                ValueToCompare=""></asp:CompareValidator>
+                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDob"
                 Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
             </cc1:CalendarExtender>
