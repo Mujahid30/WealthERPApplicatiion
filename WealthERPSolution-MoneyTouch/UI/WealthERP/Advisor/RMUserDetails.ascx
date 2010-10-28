@@ -98,11 +98,15 @@
         </td>
     </tr>--%>
 </table>
-    <table width="100%" cellspacing="0" cellpadding="0">
+    
+  <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
     <tr>
     <td align="center">
-    <div class="success-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+    <div class="success-msg" id="SuccessMsg" runat="server" visible="false" align="center">
        
+    </div>
+    <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+      
     </div>
     </td>
     </tr>

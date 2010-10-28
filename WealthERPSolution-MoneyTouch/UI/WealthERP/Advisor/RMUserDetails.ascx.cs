@@ -34,12 +34,15 @@ namespace WealthERP.Advisor
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+           
+            tblMessage.Visible = false;
+            SuccessMsg.Visible = false;
             ErrorMessage.Visible = false;
             if (!IsPostBack)
             {
                 ViewState["rmId"] = 0;
                 //trNoRecords.Visible = false;
-                ErrorMessage.Visible = false;
+               
                 showRMUserDetails();
             }
         }
@@ -214,9 +217,11 @@ namespace WealthERP.Advisor
                     lblTotalRows.Visible = false;
                     tblPager.Visible = false;
                     //trNoRecords.Visible = true;
+                    tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
+                    SuccessMsg.Visible = false;
                     ErrorMessage.InnerText = "No Records Found...!";
-
+                   
                 }
             }
             catch (BaseApplicationException Ex)
@@ -364,12 +369,16 @@ namespace WealthERP.Advisor
 
                 if (isSuccess)
                 {
-                    ErrorMessage.Visible = true;
-                    ErrorMessage.InnerText= "Password has been reset.";
+                    tblMessage.Visible = true;
+                    SuccessMsg.Visible = true;
+                    ErrorMessage.Visible = false;
+                    SuccessMsg.InnerText = "Password has been reset successfully...";
                   
                 }
                 else
                 {
+                    tblMessage.Visible = true;
+                    SuccessMsg.Visible = false;
                     ErrorMessage.Visible = true;
                     ErrorMessage.InnerText= "An error occurred while reseting password.";
 
@@ -386,6 +395,10 @@ namespace WealthERP.Advisor
         {
             int selectedRecords = 0;
             string statusMessage = string.Empty;
+            if (advisorVo == null)
+            {
+                advisorVo=(AdvisorVo)Session["advisoVo"];
+            }
             if (Page.IsValid)
             {
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "$.colorbox({width: '700px', overlayClose: false, inline: true, href: '#LoadImage'});", true);
@@ -405,6 +418,7 @@ namespace WealthERP.Advisor
                             userVo = userBo.GetUserDetails(userId);
                             string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
                             email.GetAdviserRMAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
+                            email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                             email.To.Add(userVo.Email);
 
                             AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
@@ -433,15 +447,17 @@ namespace WealthERP.Advisor
                             }
                             else
                             {
-                                statusMessage += "<br/>An error occurred while sending mail to selected customers" ;
+                                statusMessage += "An error occurred while sending mail to selected customers" ;
 
                             }
                         }
                     }
                     //if (selectedRecords == 0)
                     //statusMessage = "Please select RM to send Password";
-                    ErrorMessage.Visible = true;
-                    ErrorMessage.InnerText= statusMessage;
+                    tblMessage.Visible = true;
+                    SuccessMsg.Visible = true;
+                    ErrorMessage.Visible = false;
+                    SuccessMsg.InnerText = statusMessage;
 
                 }
                 catch (BaseApplicationException Ex)
