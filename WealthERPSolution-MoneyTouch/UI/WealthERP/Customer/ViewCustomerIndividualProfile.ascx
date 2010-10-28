@@ -136,14 +136,7 @@
             <asp:Label ID="lblCustCode" runat="server" Text="Label" CssClass="Field"></asp:Label>
         </td>
     </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label7" runat="server" Text="Date of Birth:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField" width="75%">
-            <asp:Label ID="lblDob" runat="server" Text="Label" CssClass="Field"></asp:Label>
-        </td>
-    </tr>
+    
     <tr>
         <td class="leftField">
             <asp:Label ID="Label8" runat="server" Text="PAN Number:" CssClass="FieldName"></asp:Label>
@@ -560,6 +553,14 @@
                  <asp:Checkbox ID="chksms" runat="server" CssClass="txtField" Text="Via SMS"
                 AutoPostBack="true"  Enabled = "false"/>
                             </td>
+                            
+        <td class="leftField">
+            <asp:Label ID="Label7" runat="server" Text="Date of Birth:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" width="75%">
+            <asp:Label ID="lblDob" runat="server" Text="Label" CssClass="Field"></asp:Label>
+        </td>
+    
                         </tr>
                         
                     </table>
