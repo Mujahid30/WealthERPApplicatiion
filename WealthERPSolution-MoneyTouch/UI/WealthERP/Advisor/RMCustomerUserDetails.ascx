@@ -71,6 +71,20 @@
 </div>
 </td></tr>
 </table>
+
+ <table width="100%" cellspacing="0" cellpadding="0" id="tblMessage" runat="server" visible="false">
+    <tr>
+    <td align="center">
+    <div class="success-msg" id="SuccessMsg" runat="server" visible="false" align="center">
+       
+    </div>
+    <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+      
+    </div>
+    </td>
+    </tr>
+ </table>
+
 <table style="width: 100%;" class="TableBackground">
     <tr>
         <td>
@@ -78,12 +92,7 @@
             <hr />
         </td>
     </tr>
-   <tr>
-        <td align="center">
-            <asp:Label ID="lblStatusMsg" class="Error" runat="server" 
-                EnableViewState="False"></asp:Label>
-        </td>
-    </tr>
+
     <tr>
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
