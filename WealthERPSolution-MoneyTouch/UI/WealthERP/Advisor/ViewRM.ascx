@@ -29,17 +29,12 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
-    <tr>
+     <tr id="trBMBranchs" runat="server">
          <td colspan="2" class="leftField" style="float: left">
             <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
             &nbsp;&nbsp;
-            <asp:DropDownList ID="ddlBMStaffList" runat="server" AutoPostBack="true" 
-                onselectedindexchanged="ddlBMStaffList_SelectedIndexChanged">
-            <%--<asp:ListItem Value="1005" Text="All"></asp:ListItem>
-            <asp:ListItem Value="1000" Text="BTM"></asp:ListItem>
-            <asp:ListItem Value="1001" Text="Malleshwaram"></asp:ListItem>
-            <asp:ListItem Value="1002" Text="Vijaynagar"></asp:ListItem>
-            <asp:ListItem Value="1003" Text="Banashankri"></asp:ListItem>--%>
+            <asp:DropDownList ID="ddlBMStaffList" runat="server" AutoPostBack="true" CssClass="cmbField"
+                onselectedindexchanged="ddlBMStaffList_SelectedIndexChanged">            
             </asp:DropDownList>
         </td>
         </tr>
@@ -47,9 +42,9 @@
         <td>
             <div id="print" runat="server" width="100%">
                 <asp:GridView ID="gvRMList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                    DataKeyNames="UserId"  OnSorting="gvRMList_Sorting" width="100%" RowStyle-Wrap="true"
+                    DataKeyNames="UserId"  OnSorting="gvRMList_Sorting"
                     CssClass="GridViewStyle"
-                    ShowFooter="True">
+                    ShowFooter="True" width="100%" RowStyle-Wrap="false">
                     <RowStyle CssClass="RowStyle" />
                     <FooterStyle CssClass="FooterStyle" />
                     <PagerStyle CssClass="PagerStyle" />
@@ -57,19 +52,23 @@
                     <HeaderStyle CssClass="HeaderStyle" />
                     <EditRowStyle CssClass="EditRowStyle" />
                     <AlternatingRowStyle CssClass="AltRowStyle" />
+                    
                     <Columns>
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
                                     <asp:ListItem>Select </asp:ListItem>
-                                   <%-- <asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>--%>
+                                    <%--<asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>--%>
                                     <asp:ListItem Text="View profile" Value="View profile">View profile  </asp:ListItem>
-                                     <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
+                                    <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
                                     <asp:ListItem Text="RM Dashboard" Value="RM Dashboard">RM Dashboard</asp:ListItem>
+                                    
+                                    
+                                    
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>
-                      <asp:BoundField DataField="RMName" HeaderText="Name" SortExpression="RMName" ItemStyle-Wrap="false" />
+                        <asp:BoundField DataField="RMName" HeaderText="Name" SortExpression="RMName" ItemStyle-Wrap="false" />
                         <%--<asp:BoundField DataField="RM Main Branch" HeaderText="RM Main Branch" />--%>
                         <asp:BoundField DataField="StaffType" HeaderText="Type" />
                         <asp:BoundField DataField="StaffRole" HeaderText="Role" />
@@ -96,9 +95,3 @@
 <asp:HiddenField ID="hdnCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="RMName ASC" />
-
-<%-- Hiddenfields for BranchId, BranchHeadId and all parameters --%>
-<asp:HiddenField ID="hdnbranchID" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnall" runat="server" Visible="false" />
-<%-- End --%>
