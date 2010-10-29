@@ -793,7 +793,7 @@ namespace DaoCustomerProfiling
               
                
                 db.AddInParameter(editCustomerCmd, "@C_DummyPAN", DbType.String, customerVo.DummyPAN);
-                db.AddInParameter(editCustomerCmd, "@C_Prospect", DbType.String, customerVo.IsProspect);
+                db.AddInParameter(editCustomerCmd, "@C_IsProspect", DbType.String, customerVo.IsProspect);
                 db.AddInParameter(editCustomerCmd, "@C_mail", DbType.String, customerVo.AlertViaEmail);
                 db.AddInParameter(editCustomerCmd, "@C_sms", DbType.String, customerVo.ViaSMS);
                
@@ -1497,7 +1497,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerCmd, "@C_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerCmd, "@C_DummyPAN", DbType.Int32, customerVo.DummyPAN);
-                db.AddInParameter(createCustomerCmd, "@C_Prospect", DbType.Int32, customerVo.IsProspect);
+                db.AddInParameter(createCustomerCmd, "@C_IsProspect", DbType.Int32, customerVo.IsProspect);
 
                 db.AddOutParameter(createCustomerCmd, "@C_CustomerId", DbType.Int32, 10);
                 db.AddOutParameter(createCustomerCmd, "@U_UserId", DbType.Int32, 10);
