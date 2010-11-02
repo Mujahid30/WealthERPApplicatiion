@@ -294,7 +294,7 @@ namespace WealthERP.SuperAdmin
                         drAdvisor[5] = advisorVo.City;
                         drAdvisor[6] = advisorVo.ContactPersonFirstName;
                         drAdvisor[7] = advisorVo.MobileNumber;
-                        drAdvisor[8] = advisorVo.Email1;
+                        drAdvisor[8] = advisorVo.Email;
                         drAdvisor[9] = "";
                         drAdvisor[10] = "";
                         drAdvisor[11] = "";

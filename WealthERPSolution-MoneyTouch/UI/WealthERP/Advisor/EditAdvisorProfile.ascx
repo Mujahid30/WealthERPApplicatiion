@@ -209,7 +209,7 @@
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtISD2"
                 ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic" runat="server"
-                ErrorMessage="<br/>Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                ErrorMessage="<br/>Not acceptable format" ValidationExpression="^\d[0-9]$"></asp:RegularExpressionValidator>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtSTD2" runat="server" Width="55px" MaxLength="4" CssClass="txtField"></asp:TextBox>

@@ -41,16 +41,17 @@
         <td>
             <table border="0">
                 <tr>
-                    <td class="leftField" style="width: 160px">
+                    <td class="leftField">
                         <asp:Label ID="Label2" Text="Scheme Name:" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td class="rightField" style="width: 210px">
-                        <asp:TextBox CssClass="txtField" ID="txtSchemeName" runat="server" Width="190px"></asp:TextBox>
-                        <span id="span3" class="spnRequiredField">*</span>
+                    <td class="rightField">
+                        <asp:TextBox CssClass="txtField" ID="txtSchemeName" runat="server" Width="190px"></asp:TextBox>                       
+                        <span id="span3" class="spnRequiredField">*</span>                         
                         <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvSchemeName" runat="server"
-                            ControlToValidate="txtSchemeName" ErrorMessage="<br/>Enter Scheme Name" ValidationGroup="main"></asp:RequiredFieldValidator>
+                            ControlToValidate="txtSchemeName" ErrorMessage="<br/>Enter Scheme Name" ValidationGroup="main" Display="Dynamic"></asp:RequiredFieldValidator>
+                                                        
                     </td>
-                    <td class="leftField" style="width: 160px">
+                    <td class="leftField">
                         <asp:Label ID="lblSchemeId" runat="server" Text="Scheme ID : " CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
@@ -68,7 +69,7 @@
                         <span id="Span2" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvLoanType" runat="server"
                             ControlToValidate="ddlLoanType" ErrorMessage="<br>Select Loan Type." InitialValue="0"
-                            ValidationGroup="main"></asp:RequiredFieldValidator>
+                            ValidationGroup="main"  Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="Label4" Text="Loan Partner:" runat="server" CssClass="FieldName"></asp:Label>
@@ -79,7 +80,7 @@
                         <span id="Span1" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvLoanPartner" runat="server"
                             ControlToValidate="ddlLoanPartner" ErrorMessage="<br>Select Loan Partner" InitialValue="0"
-                            ValidationGroup="main"></asp:RequiredFieldValidator>
+                            ValidationGroup="main"  Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -93,7 +94,7 @@
                         <span id="Span3" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvBorrowerType" runat="server"
                             ControlToValidate="ddlBorrowerType" ErrorMessage="<br>Select Borrower Type" InitialValue="0"
-                            ValidationGroup="main"></asp:RequiredFieldValidator>
+                            ValidationGroup="main"  Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                     <td colspan="2">
                         &nbsp;

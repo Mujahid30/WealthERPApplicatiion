@@ -2935,7 +2935,8 @@ namespace WealthERP.Advisor
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','none');", true);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewLOB', 'none')", true);
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewLOB', 'none')", true);
+            PageRedirect();
         }
 
         protected void hiddenDelete_Click(object sender, EventArgs e)

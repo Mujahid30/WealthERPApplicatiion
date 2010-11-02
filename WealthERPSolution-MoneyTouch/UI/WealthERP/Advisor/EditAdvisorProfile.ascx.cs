@@ -387,6 +387,12 @@ namespace WealthERP.Advisor
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             RMVo newRmVo = new RMVo();
+            int isd2 = 0;
+            int std2 = 0;
+            int phone2 = 0;
+            int fisd = 0;
+            int fstd = 0;
+            int fphone = 0;
             try
             {
                 if (Validation())
@@ -449,8 +455,9 @@ namespace WealthERP.Advisor
                     }
                     else
                     {
-                        advisorVo.Fax = int.Parse(txtFax.Text.Trim().ToString());
-                        newRmVo.Fax = int.Parse(txtFax.Text.Trim().ToString());
+                        int.TryParse(txtFax.Text.ToString(), out fphone);
+                        advisorVo.Fax = fphone;
+                        newRmVo.Fax = fphone;
                     }
                     if (txtFaxISD.Text.Trim() == "")
                     {
@@ -459,8 +466,9 @@ namespace WealthERP.Advisor
                     }
                     else
                     {
-                        advisorVo.FaxIsd = int.Parse(txtFaxISD.Text.Trim().ToString());
-                        newRmVo.FaxIsd = int.Parse(txtFaxISD.Text.Trim().ToString());
+                        int.TryParse(txtFaxISD.Text.ToString(), out fisd);
+                        advisorVo.FaxIsd = fisd;
+                        newRmVo.FaxIsd = fisd;
                     }
                     if (txtFaxSTD.Text.Trim() == "")
                     {
@@ -469,15 +477,20 @@ namespace WealthERP.Advisor
                     }
                     else
                     {
-                        advisorVo.FaxStd = int.Parse(txtFaxSTD.Text.Trim().ToString());
-                        newRmVo.FaxStd = int.Parse(txtFaxSTD.Text.Trim().ToString());
+                        int.TryParse(txtFaxSTD.Text.ToString(), out fstd);
+                        advisorVo.FaxStd = fstd;
+                        newRmVo.FaxStd = fstd;
                     }
                     if (txtMobileNumber.Text.Trim() != string.Empty)
                     {
                         advisorVo.MobileNumber = Convert.ToInt64(txtMobileNumber.Text.Trim().ToString());
                         newRmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.Trim().ToString());
                     }
-
+                    else
+                    {
+                        advisorVo.MobileNumber = 0;
+                        newRmVo.Mobile =0;
+                    }
                     if (rbtnNo.Checked)
                     {
                         advisorVo.MultiBranch = 0;
@@ -532,13 +545,15 @@ namespace WealthERP.Advisor
                     }
                     else
                     {
-                        advisorVo.Phone2Isd = int.Parse(txtISD2.Text.Trim().ToString());
-                        newRmVo.OfficePhoneExtIsd = int.Parse(txtISD2.Text.Trim().ToString());
+                        int.TryParse(txtISD2.Text.ToString(), out isd2);
+                        advisorVo.Phone2Isd = isd2;
+                        newRmVo.OfficePhoneExtIsd = isd2;
                     }
                     if (txtPhoneNumber2.Text.Trim() != "")
                     {
-                        advisorVo.Phone2Number = int.Parse(txtPhoneNumber2.Text.Trim().ToString());
-                        newRmVo.OfficePhoneExtNumber = int.Parse(txtPhoneNumber2.Text.Trim().ToString());
+                        int.TryParse(txtPhoneNumber2.Text.ToString(), out std2);
+                        advisorVo.Phone2Number = std2;
+                        newRmVo.OfficePhoneExtNumber = std2;
 
                     }
                     else
@@ -558,8 +573,9 @@ namespace WealthERP.Advisor
                     }
                     else
                     {
-                        advisorVo.Phone2Std = int.Parse(txtSTD2.Text.Trim().ToString());
-                        newRmVo.OfficePhoneExtStd = int.Parse(txtSTD2.Text.Trim().ToString());
+                        int.TryParse(txtSTD2.Text.ToString(), out std2);
+                        advisorVo.Phone2Std = std2;
+                        newRmVo.OfficePhoneExtStd = std2;
                     }
                     if (ddlState.SelectedIndex != 0)
                     {

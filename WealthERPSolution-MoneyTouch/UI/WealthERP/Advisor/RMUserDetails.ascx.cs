@@ -395,10 +395,8 @@ namespace WealthERP.Advisor
         {
             int selectedRecords = 0;
             string statusMessage = string.Empty;
-            if (advisorVo == null)
-            {
-                advisorVo=(AdvisorVo)Session["advisoVo"];
-            }
+            advisorVo=(AdvisorVo)Session["advisorVo"];
+            
             if (Page.IsValid)
             {
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "$.colorbox({width: '700px', overlayClose: false, inline: true, href: '#LoadImage'});", true);

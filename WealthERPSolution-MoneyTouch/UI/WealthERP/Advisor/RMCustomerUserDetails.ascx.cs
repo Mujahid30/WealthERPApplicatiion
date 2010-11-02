@@ -405,11 +405,9 @@ namespace WealthERP.Advisor
         private bool SendMail(UserVo userVo)
         {
             Emailer emailer = new Emailer();
-            EmailMessage email = new EmailMessage();
-            if(advisorVo==null)
-            {
-                advisorVo = (AdvisorVo)Session["advisorVo"];
-            }
+            EmailMessage email = new EmailMessage();           
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+           
             bool isMailSent = false;
             bool isEmailIdBlank = false;
             try

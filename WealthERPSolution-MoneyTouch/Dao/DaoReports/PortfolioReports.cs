@@ -124,6 +124,10 @@ namespace DaoReports
                         {
                             liabilityValue = liabilityValue + calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
                         }
+                        else
+                        {
+                            liabilityValue = liabilityVo.LoanAmount;
+                        }
                         dsGetLiabilities.Tables[0].Rows[i]["LoanAmount"] = liabilityValue.ToString();
                     }
                 }

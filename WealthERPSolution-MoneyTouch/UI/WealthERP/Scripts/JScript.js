@@ -245,7 +245,8 @@ function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogo
         loadlinks("BMLeftpane");
     }
     else if (controlid == "AdminUpload") {
-        loadlinks("LeftPanel_Links");
+    loadlinks("LeftPanel_Links");
+    parent.document.getElementById("AdminHeader").style.display = "block";
     }
     setHeaderLinksFromControl(UserName, "Sign Out", "", "false");
 }

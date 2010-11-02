@@ -92,11 +92,16 @@ namespace WealthERP.General
                                 advisorVo = (AdvisorVo)Session["advisorVo"];
                                 rmVo = (RMVo)Session["rmVo"];
                                 Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
-                                if (advisorVo.LogoPath == null)
+                                if (advisorVo.LogoPath == null || advisorVo.LogoPath == "")
                                 {
-                                    advisorVo.LogoPath = "";
+                                    advisorVo.LogoPath = "spacer.png";
                                 }
-                                sourcePath = "Images/" + advisorVo.LogoPath.ToString();
+                                else
+                                {
+                                    sourcePath = "Images/" + advisorVo.LogoPath.ToString();
+                                    if (!System.IO.File.Exists(Server.MapPath(sourcePath))) 
+                                        sourcePath = "";
+                                }
 
                                 Session[SessionContents.LogoPath] = sourcePath;
 

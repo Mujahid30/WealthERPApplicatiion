@@ -2407,35 +2407,53 @@ namespace DaoCustomerPortfolio
                     dr = dsGetLiabilityDetails.Tables[0].Rows[0];
 
                     liabilitiesVo = new LiabilitiesVo();
+                    if (!String.IsNullOrEmpty(dr["CL_LiabilitiesId"].ToString()))
                     liabilitiesVo.LiabilitiesId = int.Parse(dr["CL_LiabilitiesId"].ToString());
+                    if (!String.IsNullOrEmpty(dr["XLT_LoanTypeCode"].ToString()))
                     liabilitiesVo.LoanTypeCode = int.Parse(dr["XLT_LoanTypeCode"].ToString());
-                    liabilitiesVo.LoanPartnerCode = int.Parse(dr["XLP_LoanPartnerCode"].ToString());
-                    liabilitiesVo.IsFloatingRateInterest = int.Parse(dr["CL_IsFloatingRateInterest"].ToString());
-                    liabilitiesVo.LoanAmount = double.Parse(dr["CL_LoanAmount"].ToString());
-                    liabilitiesVo.RateOfInterest = float.Parse(dr["CL_RateOfInterest"].ToString());
-                    liabilitiesVo.EMIAmount = double.Parse(dr["CL_EMIAmount"].ToString());
-                    if(dr["CL_EMIDate"].ToString()!=string.Empty)
+                    if (!String.IsNullOrEmpty(dr["XLP_LoanPartnerCode"].ToString()))
+                        liabilitiesVo.LoanPartnerCode = int.Parse(dr["XLP_LoanPartnerCode"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_IsFloatingRateInterest"].ToString()))
+                        liabilitiesVo.IsFloatingRateInterest = int.Parse(dr["CL_IsFloatingRateInterest"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_LoanAmount"].ToString()))
+                        liabilitiesVo.LoanAmount = double.Parse(dr["CL_LoanAmount"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_RateOfInterest"].ToString()))
+                        liabilitiesVo.RateOfInterest = float.Parse(dr["CL_RateOfInterest"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_EMIAmount"].ToString()))
+                        liabilitiesVo.EMIAmount = double.Parse(dr["CL_EMIAmount"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_EMIDate"].ToString()))
                         liabilitiesVo.EMIDate = int.Parse(dr["CL_EMIDate"].ToString());
-                    liabilitiesVo.NoOfInstallments = int.Parse(dr["CL_NoOfInstallments"].ToString());
-                    liabilitiesVo.AmountPrepaid = double.Parse(dr["CL_AmountPrepaid"].ToString());
-                    liabilitiesVo.RepaymentTypeCode = dr["XRT_RepaymentTypeCode"].ToString();
-                    liabilitiesVo.FrequencyCodeEMI = dr["XF_FrequencyCodeEMI"].ToString();
-                    liabilitiesVo.InstallmentStartDate = DateTime.Parse(dr["CL_InstallmentStartDate"].ToString());
-                    liabilitiesVo.InstallmentEndDate = DateTime.Parse(dr["CL_InstallmentEndDate"].ToString());
-                    liabilitiesVo.IsInProcess = int.Parse(dr["CL_IsInProcess"].ToString());
-                    liabilitiesVo.OtherLenderName = dr["CL_OtherLenderName"].ToString();
-                    if (dr["CL_LoanStartDate"] != null && dr["CL_LoanStartDate"].ToString() != "")
+                    if (!String.IsNullOrEmpty(dr["CL_NoOfInstallments"].ToString()))
+                        liabilitiesVo.NoOfInstallments = int.Parse(dr["CL_NoOfInstallments"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_AmountPrepaid"].ToString()))
+                        liabilitiesVo.AmountPrepaid = double.Parse(dr["CL_AmountPrepaid"].ToString());
+                    if (!String.IsNullOrEmpty(dr["XRT_RepaymentTypeCode"].ToString()))
+                        liabilitiesVo.RepaymentTypeCode = dr["XRT_RepaymentTypeCode"].ToString();
+                    if (!String.IsNullOrEmpty(dr["XF_FrequencyCodeEMI"].ToString()))
+                        liabilitiesVo.FrequencyCodeEMI = dr["XF_FrequencyCodeEMI"].ToString();
+                    if (!String.IsNullOrEmpty(dr["CL_InstallmentStartDate"].ToString()))
+                        liabilitiesVo.InstallmentStartDate = DateTime.Parse(dr["CL_InstallmentStartDate"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_InstallmentEndDate"].ToString()))
+                        liabilitiesVo.InstallmentEndDate = DateTime.Parse(dr["CL_InstallmentEndDate"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_IsInProcess"].ToString()))
+                        liabilitiesVo.IsInProcess = int.Parse(dr["CL_IsInProcess"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_OtherLenderName"].ToString()))
+                        liabilitiesVo.OtherLenderName = dr["CL_OtherLenderName"].ToString();
+                    if (!String.IsNullOrEmpty(dr["CL_LoanStartDate"].ToString()))                   
                         liabilitiesVo.LoanStartDate = DateTime.Parse(dr["CL_LoanStartDate"].ToString());
-                    liabilitiesVo.CompoundFrequency = dr["CL_CompoundFrequency"].ToString();
-                    liabilitiesVo.PaymentOptionCode=int.Parse(dr["XPO_PaymentOptionCode"].ToString());
-                    liabilitiesVo.InstallmentTypeCode = int.Parse(dr["XIT_InstallmentTypeCode"].ToString());
+                    if (!String.IsNullOrEmpty(dr["CL_CompoundFrequency"].ToString()))
+                        liabilitiesVo.CompoundFrequency = dr["CL_CompoundFrequency"].ToString();
+                    if(!String.IsNullOrEmpty(dr["XPO_PaymentOptionCode"].ToString()))
+                        liabilitiesVo.PaymentOptionCode=int.Parse(dr["XPO_PaymentOptionCode"].ToString());
+                    if (!String.IsNullOrEmpty(dr["XIT_InstallmentTypeCode"].ToString()))
+                        liabilitiesVo.InstallmentTypeCode = int.Parse(dr["XIT_InstallmentTypeCode"].ToString());
                     if(!String.IsNullOrEmpty(dr["CL_LumpsumRepaymentAmount"].ToString()))
                         liabilitiesVo.LumpsumRepaymentAmount = double.Parse(dr["CL_LumpsumRepaymentAmount"].ToString());
                     if (!String.IsNullOrEmpty(dr["CL_OutstandingAmount"].ToString()))
                         liabilitiesVo.OutstandingAmount = double.Parse(dr["CL_OutstandingAmount"].ToString());
-                    if(dr["CL_Guarantor"]!=null)
+                    if (!String.IsNullOrEmpty(dr["CL_Guarantor"].ToString()))
                         liabilitiesVo.Guarantor = dr["CL_Guarantor"].ToString();
-                    if (dr["CL_Tenure"] != null && dr["CL_Tenure"].ToString()!="")
+                    if (!String.IsNullOrEmpty(dr["CL_Tenure"].ToString()))
                         liabilitiesVo.Tenure = int.Parse(dr["CL_Tenure"].ToString());
                 }
 

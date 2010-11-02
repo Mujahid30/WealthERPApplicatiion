@@ -730,11 +730,16 @@
                             </td>
                         </tr>
                         <tr>
+                         <td class="leftField">
+                         <asp:Label ID="Label5" runat="server" CssClass="HeaderTextSmaller" Text="Minimum Business Criteria"></asp:Label>
+                         </td>
+                        </tr>
+                        <tr>
                             <td class="leftField">
-                                <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Minimum Business Criteria"></asp:Label>
+                                
                             </td>
                             <td class="leftField">
-                                &nbsp;&nbsp;&nbsp;
+                                
                                 <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Target No. of policies:"></asp:Label>
                                 <asp:TextBox ID="txtInsTargetPolicies" runat="server" CssClass="txtField" MaxLength="5"></asp:TextBox>
                                 <asp:CompareValidator ID="cvtxtInsTargetPolicies" runat="server" ErrorMessage="<br/>Sorry, Please enter a numeric value !"
@@ -753,7 +758,7 @@
                             <td class="leftField">
                             </td>
                             <td class="leftField">
-                                &nbsp;&nbsp;&nbsp;
+                                
                                 <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="Target Sum Assured amount:"></asp:Label>
                                 <asp:TextBox ID="txtInsTargetSumAssuredAmt" runat="server" CssClass="txtField" MaxLength="19"></asp:TextBox>
                                 <asp:CompareValidator ID="cvtxtInsTargetSumAssuredAmt" runat="server" ErrorMessage="<br/>Sorry, Please enter a numeric value !"
@@ -772,7 +777,7 @@
                             <td class="leftField">
                             </td>
                             <td class="leftField">
-                                &nbsp;&nbsp;&nbsp;
+                               
                                 <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Target Premium amount:"></asp:Label>
                                 <asp:TextBox ID="txtInsTargetPremiumAmt" runat="server" CssClass="txtField" MaxLength="19"></asp:TextBox>
                                 <asp:CompareValidator ID="cvtxtInsTargetPremiumAmt" runat="server" ErrorMessage="<br/>Sorry, Please enter a numeric value !"
@@ -856,8 +861,12 @@
                             </td>
                         </tr>
                         <tr>
+                        <td class="leftField">
+                                <asp:Label ID="Label15" runat="server" CssClass="HeaderTextSmaller" Text="Minimum Business Criteria"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="leftField">
-                                <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Minimum Business Criteria"></asp:Label>
                             </td>
                             <td style="vertical-align: middle;">
                                 &nbsp;&nbsp;&nbsp;
@@ -961,8 +970,12 @@
                             </td>
                         </tr>
                         <tr>
+                         <td class="leftField">
+                                <asp:Label ID="Label53" runat="server" CssClass="HeaderTextSmaller" Text="Minimum Business Criteria"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="leftField">
-                                <asp:Label ID="Label53" runat="server" CssClass="FieldName" Text="Minimum Business Criteria"></asp:Label>
                             </td>
                             <td style="vertical-align: middle;">
                                 &nbsp;&nbsp;&nbsp;
@@ -1068,8 +1081,13 @@
                             </td>
                         </tr>
                         <tr>
+                                                    <td class="leftField">
+                                <asp:Label ID="Label60" runat="server" CssClass="HeaderTextSmaller" Text="Minimum Business Criteria"></asp:Label>
+                            </td>
+
+                        </tr>
+                        <tr>
                             <td class="leftField">
-                                <asp:Label ID="Label60" runat="server" CssClass="FieldName" Text="Minimum Business Criteria"></asp:Label>
                             </td>
                             <td style="vertical-align: middle;">
                                 &nbsp;&nbsp;&nbsp;
@@ -1190,8 +1208,13 @@
                             </td>
                         </tr>
                         <tr>
+                                                    <td class="leftField">
+                                <asp:Label ID="Label46" runat="server" CssClass="HeaderTextSmaller" Text="Minimum Business Criteria"></asp:Label>
+                            </td>
+
+                        </tr>
+                        <tr>
                             <td class="leftField">
-                                <asp:Label ID="Label46" runat="server" CssClass="FieldName" Text="Minimum Business Criteria"></asp:Label>
                             </td>
                             <td style="vertical-align: middle;" class="style1">
                                 &nbsp;&nbsp;&nbsp;
