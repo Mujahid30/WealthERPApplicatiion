@@ -42,7 +42,7 @@ namespace WealthERP.Advisor
                 LoadBranchPerfomanceChart();
                 LoadRMPerformanceChart();
                 DataSet dsMessage = advisermaintanencebo.GetMessageBroadcast();
-                if (dsMessage != null)
+                if (dsMessage != null && dsMessage.Tables[0].Rows.Count>0)
                 {
                     MessageReceived.Visible = true;
                     if (dsMessage.Tables[0].Rows[0]["ABM_IsActive"].ToString() == "1" && dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString() != "")
