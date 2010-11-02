@@ -44,6 +44,7 @@ namespace WealthERP.Advisor
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
         AdvisorBranchBo advisorBranchBO = new AdvisorBranchBo();
+        
         protected override void OnInit(EventArgs e)
         {
             try
@@ -109,6 +110,12 @@ namespace WealthERP.Advisor
 
                 this.BindCustomer(mypager.CurrentPage);
                 setShowHideControls(1);
+                if (hdnRecordCount.Value == "0")
+                {
+                    ErrorMessage.Visible = true;
+                    trSelectAll.Visible = false;
+                    tblReassign.Visible = false;
+                }
 
             }
             
@@ -856,10 +863,21 @@ namespace WealthERP.Advisor
         protected void rdReassignRM_CheckedChanged(object sender, EventArgs e)
         {
             setShowHideControls(0);
-            ddlBranchList.SelectedIndex=0;
+            //ddlBranchList.SelectedIndex=0;
             hndBranchIdFilter.Value = "0";
             this.BindCustomer(mypager.CurrentPage);
-            ddlBranchList.SelectedIndex = 0;
+            if (ddlBranchList.Items.Count > 0)
+            {
+                ddlBranchList.SelectedIndex = 0;
+                
+            }
+            else
+            {
+                trReassignRMCustomer.Visible = false;
+                tblReassign.Visible = false;
+                trSelectAll.Visible = false;
+ 
+            }
             trReassignRM.Visible = false;
             //bindBranchRMDropdown(int.Parse(ddlBranchList.SelectedValue));
         }
@@ -888,6 +906,12 @@ namespace WealthERP.Advisor
             hndBranchIdFilter.Value = "0";
             this.BindCustomer(mypager.CurrentPage);          
             setShowHideControls(1);
+            if (hdnRecordCount.Value == "0")
+            {
+                ErrorMessage.Visible = true;
+                trSelectAll.Visible = false;
+                tblReassign.Visible = false;
+            }
           
         }
         /// <summary>
