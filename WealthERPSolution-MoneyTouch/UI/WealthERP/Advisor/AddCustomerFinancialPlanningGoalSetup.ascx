@@ -565,6 +565,21 @@ function validate() {
                 </tr>
                 <tr>
                     <td class="leftField">
+                        <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Inflation(%) :"></asp:Label>
+                    </td>
+                    <td class="rightField" colspan="2">
+                        <asp:TextBox ID="txtInflation" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
+                            TextMode="SingleLine" ></asp:TextBox>
+                              <span id="spnInflation" class="spnRequiredField" runat="server">*</span>
+                             <span id="Span1" class="spnRequiredField" runat="server">*</span>
+                            <asp:RangeValidator ID="RangeValidator4"  Display="Dynamic" SetFocusOnError="true" Type="Double" ErrorMessage="Value  should not be more than 100"
+                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtInflation" runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtInflation"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
                         <asp:Label ID="lblComment" runat="server" CssClass="FieldName" Text="Comments :"></asp:Label>
                     </td>
                     <td class="rightField" colspan="2">
