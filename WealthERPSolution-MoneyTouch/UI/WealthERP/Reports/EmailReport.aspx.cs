@@ -115,6 +115,7 @@ namespace WealthERP.Reports
                     if (strSplitArr.Count() > 0)
                     {
                         dtCustomerReportMailStatus.Columns.Add("CustometName");
+                        dtCustomerReportMailStatus.Columns.Add("EmailId"); 
                         dtCustomerReportMailStatus.Columns.Add("MFundSummary");
                         dtCustomerReportMailStatus.Columns.Add("PortfolioRHolding");
                         dtCustomerReportMailStatus.Columns.Add("Comprehensive");
@@ -166,6 +167,7 @@ namespace WealthERP.Reports
                                 drCustomerReportMailStatus = dtCustomerReportMailStatus.NewRow();
                                 string CustometName = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
                                 drCustomerReportMailStatus["CustometName"] = CustometName;
+                                drCustomerReportMailStatus["EmailId"] = customerVo.Email.Trim();
                                 if(!string.IsNullOrEmpty(mFundSummary))
                                     drCustomerReportMailStatus["MFundSummary"] = mFundSummary;
                                 else
@@ -224,6 +226,7 @@ namespace WealthERP.Reports
                                 drCustomerReportMailStatus = dtCustomerReportMailStatus.NewRow();
                                 string CustometName=customerVo.FirstName+ " " + customerVo.MiddleName + " " + customerVo.LastName;
                                 drCustomerReportMailStatus["CustometName"] = CustometName;
+                                drCustomerReportMailStatus["EmailId"] = "Email-Id Not in Profile";
                                 drCustomerReportMailStatus["MFundSummary"] = "Email-Id Not in Profile";
                                 drCustomerReportMailStatus["PortfolioRHolding"] = "Email-Id Not in Profile";
                                 drCustomerReportMailStatus["Comprehensive"] = "Email-Id Not in Profile";
@@ -686,7 +689,7 @@ namespace WealthERP.Reports
                         break;
                       
                     case "ELIGIBLE_CAPITAL_GAIN_SUMMARY":
-                        crmain.Load(Server.MapPath("EligibleCapitalGainsDetails.rpt"));
+                        crmain.Load(Server.MapPath("EligibleCapitalGainsSummary.rpt"));
                         DataTable dtEligibleCapitalGainsSummary = mfReports.GetEligibleCapitalGainDetailsReport(report);
                         if (dtEligibleCapitalGainsSummary.Rows.Count > 0)
                         {
