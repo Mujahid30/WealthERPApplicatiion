@@ -118,9 +118,14 @@
          <td>
           <asp:TextBox ID="txtLine1" CssClass="txtLongAddField" runat="server"></asp:TextBox>
          </td>
-         <td>
+        <td>
          <span id="Span3" class="spnRequiredField">*</span>
-          <br />
+        </td>
+        
+        </tr>
+        <tr>
+         <td colspan="2">
+            
             <asp:RequiredFieldValidator ControlToValidate="txtLine1" ErrorMessage="Please enter the Address Line1"
                 CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator2" ValidationGroup="btnSubmit"
                 runat="server"></asp:RequiredFieldValidator>
