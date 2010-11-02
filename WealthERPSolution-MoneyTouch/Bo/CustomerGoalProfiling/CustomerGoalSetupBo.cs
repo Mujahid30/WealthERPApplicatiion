@@ -111,6 +111,13 @@ namespace BoCustomerGoalProfiling
             return result;
         }
 
+        public decimal GetInflationPercent()
+        {
+            CustomerGoalSetupDao CustomerGoalDao = new CustomerGoalSetupDao();
+            decimal InflationPercent = CustomerGoalDao.GetInflationPercent();
+            return InflationPercent;
+        }
+
         public GoalProfileSetupVo CalculateGoalProfile(GoalProfileSetupVo GoalProfileVo) 
         {
             double futureInvValue = 0;
@@ -188,7 +195,7 @@ namespace BoCustomerGoalProfiling
             double retirementCorpus = 0;
             double monthlySavings = 0;
             double lumpsumInvestRequired = 0;
-            double InflationPercent = (Double)CustomerGoalDao.GetInflationPercent();
+            double InflationPercent = GoalProfileVo.InflationPercent;
             double InflationValue = InflationPercent / 100;
             
             try
