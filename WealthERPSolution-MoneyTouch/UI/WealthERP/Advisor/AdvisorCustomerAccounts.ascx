@@ -12,13 +12,18 @@
     </tr>
 </table>
 
+<table id="lblMsg" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+    <tr>
+    <td align="center">
+    <div class="failure-msg" id="ErrorMessage1" runat="server" visible="true" align="center">
+    No Records found.....
+   </div>
+    </td>
+    </tr>
+</table>
 
 <table style="width: 100%;">
-    <tr>
-        <td colspan="3">
-            <asp:Label ID="lblMsg" runat="server" CssClass="Error" Text="No Records Found"></asp:Label>
-        </td>
-    </tr>
+    
     <tr>
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
