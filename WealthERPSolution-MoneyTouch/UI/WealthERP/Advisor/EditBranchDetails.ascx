@@ -125,7 +125,7 @@
             <asp:Label ID="lblLine1" runat="server" CssClass="FieldName" Text="Line1 (House No/Building) :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtLine1" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtLine1" runat="server" CssClass="txtLongAddField"></asp:TextBox>
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ControlToValidate="txtLine1" ErrorMessage="Please enter the Address Line1"
                 Display="Dynamic" ID="RequiredFieldValidator2" ValidationGroup="btnSubmit" runat="server"
@@ -137,7 +137,7 @@
             <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Line2 (Street) :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtLine2" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtLine2" runat="server" CssClass="txtLongAddField"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -145,7 +145,7 @@
             <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Line3 (Area) :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtLine3" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtLine3" runat="server" CssClass="txtLongAddField"></asp:TextBox>
         </td>
     </tr>
     <tr>

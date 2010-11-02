@@ -69,7 +69,17 @@ namespace WealthERP.Advisor
                         AssociateLogoHdr.Visible = false;
                         CommSharingStructureGv.Visible = false;
                         CommSharingStructureHdr.Visible = false;
+                       
+                    }
+                    else if (ddlBranchAssociateType.SelectedValue == "2")
+                    {
+                        AssociateCategoryRow.Visible = true;
+                        AssociateLogoRow.Visible = true;
+                        AssociateLogoHdr.Visible = true;
+                        CommSharingStructureGv.Visible = true;
+                        CommSharingStructureHdr.Visible = true;
                         SetInitialRow();
+ 
                     }
                    
                     
@@ -235,7 +245,10 @@ namespace WealthERP.Advisor
                 txtStdPhone2.Text = advisorBranchVo.Phone2Std.ToString();
                 txtCity.Text = advisorBranchVo.City.ToString();
                 ddlCountry.Items.Clear();
-                ddlCountry.Items.Add(advisorBranchVo.Country.ToString());
+                if (!string.IsNullOrEmpty(advisorBranchVo.Country.ToString().Trim()))
+                    ddlCountry.Items.Add(advisorBranchVo.Country.ToString());
+                else
+                    ddlCountry.Items.Add("India");
                 ddlState.SelectedValue = advisorBranchVo.State.ToString().Trim();
                 showRM();
                 ddlRmlist.SelectedValue = advisorBranchVo.BranchHeadId.ToString();
@@ -605,7 +618,11 @@ namespace WealthERP.Advisor
 
         protected void ddlRmlist_SelectedIndexChanged(object sender, EventArgs e)
         {
-             
+            if (ddlRmlist.SelectedIndex == 0)
+            {
+                return;
+            }
+                         
             try
             {
                 int userId = advisorStaffBo.GetUserId(int.Parse(ddlRmlist.SelectedItem.Value.ToString()));
