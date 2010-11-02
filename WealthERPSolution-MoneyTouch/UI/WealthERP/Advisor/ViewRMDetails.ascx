@@ -59,10 +59,31 @@
             <asp:Label ID="lblStaffTypeValue" runat="server" Text="" CssClass="Field"></asp:Label>
         </td>
     </tr>
-    <tr>
-        <td colspan="2">
-            &nbsp;
+      <tr>
+        <td class="leftField">
+            <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="Staff Role:"></asp:Label>
         </td>
+        <td class="rightField">
+            
+              
+            <asp:CheckBoxList ID="ChklistRMBM" runat="server" 
+                RepeatDirection="Horizontal" CssClass="cmbField" RepeatLayout="Flow" >
+                 <asp:ListItem Value="1001" Enabled="false">RM</asp:ListItem>
+                <asp:ListItem Value="1002" Enabled="false">BM</asp:ListItem>
+               
+            </asp:CheckBoxList>
+          
+           
+            
+              
+        </td>
+        
+    </tr>
+    <tr>
+    <td colspan="2">
+    &nbsp;
+    </td>
+      
     </tr>
     <tr>
         <td colspan="2">

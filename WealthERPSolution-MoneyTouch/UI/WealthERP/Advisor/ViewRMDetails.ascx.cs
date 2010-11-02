@@ -311,6 +311,15 @@ namespace WealthERP.Advisor
                     lblPhExt.Text = rmVo.OfficePhoneExtIsd.ToString() + "-" + rmVo.OfficePhoneExtStd.ToString() + "-" + rmVo.OfficePhoneExtNumber.ToString();
                     lblPhResi.Text = rmVo.ResPhoneIsd.ToString() + "-" + rmVo.ResPhoneStd.ToString() + "-" + rmVo.ResPhoneNumber.ToString();
                     lblCTCValue.Text = rmVo.CTC.ToString() + " per month";
+                    string[] RoleListArray = rmVo.RMRoleList.Split(new char[] { ',' });
+                    foreach (string Role in RoleListArray)
+                    {
+                        if (Role == "RM" || Role == "BM")
+                        {
+                            ChklistRMBM.Items.FindByText(Role).Selected = true;
+                        }
+                    }                                     
+
                     if (rmVo.IsExternal == 1)
                     {
                         lblStaffTypeValue.Text = "External";
