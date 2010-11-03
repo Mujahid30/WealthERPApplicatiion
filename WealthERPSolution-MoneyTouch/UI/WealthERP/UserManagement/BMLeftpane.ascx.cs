@@ -37,6 +37,7 @@ namespace WealthERP.UserManagement
             branchLogoSourcePath = Session[SessionContents.BranchLogoPath].ToString();
             if (!IsPostBack)
             {
+                BMLeftTree.CollapseAll();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('BMLeftpane');", true);
             }
         }
