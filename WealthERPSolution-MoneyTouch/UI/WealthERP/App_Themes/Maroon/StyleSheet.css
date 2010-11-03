@@ -543,11 +543,9 @@ a.aBreadCrumbCurrent
 
 .GridViewCmbField
 {
-    font-family:Verdana,tahoma;
-	font-weight:normal;
-	font-size:x-small;
-	color:#16518A;
-	width:100px;
+    font-family: Verdana,tahoma;
+    font-size: 11px;
+    background-color: #DCF7FE;
 }
 
 
