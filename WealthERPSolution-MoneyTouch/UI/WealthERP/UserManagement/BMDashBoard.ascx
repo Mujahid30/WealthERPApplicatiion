@@ -26,10 +26,7 @@
             <td>
             <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
             <asp:DropDownList ID="ddlBMBranch" runat="server"  
-                    onselectedindexchanged="ddlBMBranch_SelectedIndexChanged" style="vertical-align: middle" AutoPostBack="true">
-            <%--<asp:ListItem Value="1086" Text="All"></asp:ListItem>
-                <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem>
-                <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>--%>
+                    onselectedindexchanged="ddlBMBranch_SelectedIndexChanged" CssClass="cmbField" style="vertical-align: middle" AutoPostBack="true">
             </asp:DropDownList>
             <br /> 
               <br /> 
@@ -69,12 +66,12 @@
                 CssClass="GridViewStyle" Width="550px" Height="330px"
                 OnRowDataBound="BMDashBoardGrid_RowDataBound" 
                     ToolTip="Branch Asset GridView" >
-                   <FooterStyle CssClass="FooterStyle" />
-               <RowStyle CssClass="RowStyle" />
-                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                    <FooterStyle CssClass="FooterStyle" />
+                <RowStyle CssClass="RowStyle" />
+                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
-               <HeaderStyle CssClass="HeaderStyle" />
-                 <EditRowStyle CssClass="EditRowStyle" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
                     <asp:TemplateField HeaderText="Asset" ItemStyle-ForeColor="Black" >
@@ -91,7 +88,7 @@
                                         </asp:Label>
                                     </FooterTemplate>
                    </asp:TemplateField>
-                     <asp:TemplateField HeaderText="CurrentValue(RS.)" HeaderStyle-HorizontalAlign="Right" >
+                     <asp:TemplateField HeaderText="Current Value (Rs.)" HeaderStyle-HorizontalAlign="Right" >
                      <ItemStyle HorizontalAlign="Right" />
                      <FooterStyle HorizontalAlign="Right" />
                                     <ItemTemplate>
@@ -110,7 +107,7 @@
                 <br />
                </td>
                <td >
-        <asp:Chart ID="ChartBranchAssets" runat="server" BackColor="#EBEFF9"
+        <asp:Chart ID="ChartBranchAssets" runat="server" BackColor="#F1F9FC"
                 Width="550px" Height="300px"  >
             <Series>
             <asp:Series Name="seriesBranchAssets" LabelBackColor="Red" ChartType="Pie" 
@@ -157,7 +154,7 @@
         <td style="vertical-align: top">
          <asp:GridView ID="gvRMCustNetworth" runat="server" AllowSorting="True" 
                     Width="550px" AutoGenerateColumns="False" GridLines="Both"
-                CellPadding="4" EnableViewState="false" AllowPaging="True" ShowFooter="true"
+                CellPadding="4" EnableViewState="false" AllowPaging="True" RowStyle-Wrap="true" ShowFooter="true"
                 CssClass="GridViewStyle" ToolTip="Top 5 Customers Networth GridView" >
                 <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
@@ -178,7 +175,7 @@
         <br />
         </td>
         <td>
-        <asp:Chart ID="CharttopfiveRMCustNetworth" runat="server" BackColor="#EBEFF9"
+        <asp:Chart ID="CharttopfiveRMCustNetworth" runat="server" BackColor="#F1F9FC"
                 Height="380px" Width="600px">
                 <Series>
                     <asp:Series Name="RMCustNet" XValueMember="Customers" YValueMembers="NetWorth" 
@@ -214,7 +211,7 @@
              <hr id="hrTop5Cust" runat="server" />
         </td>
         <td >
-        <asp:Label ID="chartCustNetworth" runat="server" CssClass="HeaderTextSmall" Text="Top 5 Customers(Networth)"></asp:Label>
+        <asp:Label ID="chartCustNetworth" runat="server" CssClass="HeaderTextSmall" Text="Top 5 Customers (Networth)"></asp:Label>
         <hr />
         </td>
         </tr>
@@ -222,7 +219,7 @@
         <td style="vertical-align: top">
         
          <asp:GridView ID="gvCustNetWorth" runat="server" AllowSorting="True" 
-                    Width="540px" AutoGenerateColumns="False" GridLines="Both"
+                    Width="550px" AutoGenerateColumns="False" GridLines="Both"
                 CellPadding="4" EnableViewState="false" AllowPaging="True" ShowFooter="true"
                 CssClass="GridViewStyle" ToolTip="Top 5 Customers Networth GridView" >
                   <FooterStyle CssClass="FooterStyle" />
@@ -243,7 +240,7 @@
         </td>
         <td>
         
-        <asp:Chart ID="ChartCustomerNetworth" runat="server" BackColor="#EBEFF9"
+        <asp:Chart ID="ChartCustomerNetworth" runat="server" BackColor="#F1F9FC"
                 Height="380px" Width="600px">
                 <Series>
                     <asp:Series Name="CustNetworth" Font="Microsoft Sans Serif, 10pt, style=Bold" XValueMember="Customers" YValueMembers="NetWorth">
