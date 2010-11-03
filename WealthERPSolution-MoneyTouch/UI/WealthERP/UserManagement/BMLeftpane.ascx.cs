@@ -37,8 +37,8 @@ namespace WealthERP.UserManagement
             branchLogoSourcePath = Session[SessionContents.BranchLogoPath].ToString();
             if (!IsPostBack)
             {
-                BMLeftTree.CollapseAll();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('BMLeftpane');", true);
+                BMLeftTree.CollapseAll();
             }
         }
 
@@ -62,7 +62,7 @@ namespace WealthERP.UserManagement
                 count = roleList.Count;
                 if (count == 3)
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
                 }
                 if (count == 2)
                 {
@@ -78,12 +78,12 @@ namespace WealthERP.UserManagement
                 }
                 if (count == 1 && userVo.UserType == "Branch Man")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
                 }
             }
             else if (BMLeftTree.SelectedNode.Value == "Dashboard")
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
             }
             //else if (BMLeftTree.SelectedNode.Value == "View Branch Details")
             //{
