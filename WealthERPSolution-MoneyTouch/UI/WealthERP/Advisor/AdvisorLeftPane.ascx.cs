@@ -242,6 +242,7 @@ namespace WealthERP.Advisor
 
             else if (TreeView1.SelectedNode.Value.ToString() == "CustomerSMSAlerts")
             {
+                Session["UserType"] = "Adviser";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomerSMSAlerts','none');", true);
             }
             else if (TreeView1.SelectedNode.Value.ToString() == "SendSMS")

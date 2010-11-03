@@ -162,7 +162,7 @@ namespace WealthERP.Reports
                             {
                                 clearAllReportString();
                                 ExportTODisk();
-                                MailSending();
+                                MailSending(customerVo);
 
                                 drCustomerReportMailStatus = dtCustomerReportMailStatus.NewRow();
                                 string CustometName = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
@@ -1142,7 +1142,7 @@ namespace WealthERP.Reports
         /// <summary>
         /// Send the mail with report to receipient(s)
         /// </summary>
-        private bool SendMail()
+        private bool SendMail(CustomerVo customerVo)
         {
             Emailer emailer = new Emailer();
             EmailMessage email = new EmailMessage();
@@ -1259,10 +1259,7 @@ namespace WealthERP.Reports
                     EmailVo emailVo = new EmailVo();
                     emailVo.AdviserId = advisorVo.advisorId;
                     emailVo.AttachmentPath = attPath;
-                    if (Session["CusVo"] != null)
-                        emailVo.CustomerId = ((CustomerVo)Session["CusVo"]).CustomerId;
-                    else
-                        emailVo.CustomerId = 0;
+                    emailVo.CustomerId = customerVo.CustomerId;
                     emailVo.EmailQueueId = 0;
                     emailVo.EmailType = "Report";
                     emailVo.FileName = fileNames;
@@ -1345,7 +1342,7 @@ namespace WealthERP.Reports
         /// <summary>
         /// Mail Sending Functinality
         /// </summary>
-        private void MailSending()
+        private void MailSending(CustomerVo customerVo)
         {           
             DirectoryInfo di = null;
             int reportExistFlag = 0;
@@ -1364,7 +1361,7 @@ namespace WealthERP.Reports
 
             if (di.GetFiles().Length != 0)
             {
-                bool isMailSent = SendMail();
+                bool isMailSent = SendMail(customerVo);
                 if (isMailSent)
                 {
                     mailSendStatus = "Email sent successfully";

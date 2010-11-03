@@ -793,7 +793,7 @@ namespace DaoCustomerProfiling
               
                
                 db.AddInParameter(editCustomerCmd, "@C_DummyPAN", DbType.String, customerVo.DummyPAN);
-                db.AddInParameter(editCustomerCmd, "@C_IsProspect", DbType.String, customerVo.IsProspect);
+                db.AddInParameter(editCustomerCmd, "@C_Prospect", DbType.String, customerVo.IsProspect);
                 db.AddInParameter(editCustomerCmd, "@C_mail", DbType.String, customerVo.AlertViaEmail);
                 db.AddInParameter(editCustomerCmd, "@C_sms", DbType.String, customerVo.ViaSMS);
                
@@ -922,7 +922,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_AdvNote", DbType.String, customerVo.AdviseNote);
                 db.AddInParameter(editCustomerCmd, "@C_IsAct", DbType.Int32, customerVo.IsActive);
                 db.AddInParameter(editCustomerCmd, "@C_ClassCode", DbType.Int32, customerVo.CustomerClassificationID);
-
+                //db.AddInParameter(editCustomerCmd, "@C_Prospect", DbType.Int16, customerVo.IsProspect);
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;
 

@@ -180,8 +180,11 @@ function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogo
     }
 
     if (SourcePath != "") {
-        parent.document.getElementById("AdvisorLogo").style.display = "block"
+        parent.document.getElementById("AdvisorLogo").style.display = "block";
         parent.document.getElementById("AdvisorLogo").src = SourcePath;
+    }
+    else {
+        parent.document.getElementById("AdvisorLogo").style.display = "none";
     }
     if (controlid == "IFF") {
         loadlinks("SuperAdminLeftPane");

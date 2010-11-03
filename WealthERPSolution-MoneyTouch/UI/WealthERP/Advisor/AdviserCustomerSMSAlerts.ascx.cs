@@ -146,7 +146,12 @@ namespace WealthERP.Advisor
             DataRow drAdviserCustomerAlert = null;
             if (Session["UserType"] == "rm")
             {
-                if (Session["rmVo"] != null)
+                if (Session["CurrentrmVo"] != null)
+                {
+                    id = ((RMVo)Session["CurrentrmVo"]).RMId;
+                    usertype = "rm";
+                }
+                else if (Session["rmVo"] != null)
                 {
                     id = ((RMVo)Session["rmVo"]).RMId;
                     usertype = "rm";

@@ -114,9 +114,18 @@ namespace PCGMailLib
                 mail.Subject = email.Subject;
                 mail.IsBodyHtml = true;
                 mail.Body = email.Body;
-
-                ////Send message
-                ProcessMailForInlineAttachments(ref mail, mail.Body);
+                if (email.AlternateViews.Count > 0)
+                {
+                    foreach (AlternateView alternateView in email.AlternateViews)
+                    {
+                        mail.AlternateViews.Add(alternateView);
+                    }
+                }
+                else
+                {
+                    ////Send message
+                    ProcessMailForInlineAttachments(ref mail, mail.Body);
+                }
 
                
                 SaveMail(mail);

@@ -60,6 +60,10 @@ namespace WealthERP.UserManagement
             else if (TreeView1.SelectedNode.Value == "RM")
             {
                 Session[SessionContents.CurrentUserRole] = "RM";
+                if (Session["CurrentrmVo"] != null)
+                {
+                    Session.Remove("CurrentrmVo");
+                }
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
             }
             else if (TreeView1.SelectedNode.Value == "Branch Manager")

@@ -247,8 +247,8 @@ namespace WealthERP
                         if (ddlParent != null)
                         {
                             ddlParent.DataSource = genDictParent;
-                            ddlParent.DataTextField = "Key";
-                            ddlParent.DataValueField = "Value";
+                            ddlParent.DataTextField = "Value";
+                            ddlParent.DataValueField = "Key";
                             ddlParent.DataBind();
                             ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                         }
@@ -573,8 +573,8 @@ namespace WealthERP
                         if (ddlParent != null)
                         {
                             ddlParent.DataSource = genDictParent;
-                            ddlParent.DataTextField = "Key";
-                            ddlParent.DataValueField = "Value";
+                            ddlParent.DataTextField = "Value";
+                            ddlParent.DataValueField = "Key";
                             ddlParent.DataBind();
                             ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                         }

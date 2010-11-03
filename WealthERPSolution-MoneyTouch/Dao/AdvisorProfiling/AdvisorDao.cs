@@ -1038,7 +1038,7 @@ namespace DaoAdvisorProfiling
                 {
                     foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
                     {
-                        genDictParent.Add(dr["Parent"].ToString(), dr["Parent"].ToString());
+                        genDictParent.Add(dr["CustomerId"].ToString(), dr["Parent"].ToString());
                     }
                 }
 

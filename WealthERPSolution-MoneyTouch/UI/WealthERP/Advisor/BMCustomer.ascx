@@ -204,7 +204,7 @@
                             <HeaderTemplate>
                                 <asp:Label ID="lblParent" runat="server" Text="Parent"></asp:Label>
                                 <br />
-                                <asp:DropDownList ID="ddlParent" AutoPostBack="true" runat="server" Font-Size="13px" Width="170px" OnSelectedIndexChanged="ddlParent_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlParent" AutoPostBack="true" runat="server" Font-Size="13px" Width="170px" OnSelectedIndexChanged="ddlParent_SelectedIndexChanged" CssClass="GridViewCmbLongField">
                                 </asp:DropDownList>
                             </HeaderTemplate>
                             <ItemTemplate>

@@ -218,7 +218,7 @@
                             <HeaderTemplate>
                                 <asp:Label ID="lblParent" runat="server" Text="Group"></asp:Label>
                                 <br />
-                                <asp:DropDownList ID="ddlParent" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                <asp:DropDownList ID="ddlParent" runat="server" AutoPostBack="true" CssClass="GridViewCmbLongField"
                                     OnSelectedIndexChanged="ddlParent_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </HeaderTemplate>
