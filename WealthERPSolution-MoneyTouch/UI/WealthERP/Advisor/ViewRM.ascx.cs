@@ -192,7 +192,7 @@ namespace WealthERP.Advisor
             {
                 if (!IsPostBack)
                 {
-                    trBMBranchs.Visible = false;
+                    
                     mypager.CurrentPage = 1;
                     this.BindGrid();
                 }
@@ -321,6 +321,7 @@ namespace WealthERP.Advisor
                 //if (roleList.Contains("BM") && Session["CurrentUserRole"] == "BM")
                if (role==Session[SessionContents.CurrentUserRole].ToString())
                 {
+                    trBMBranchs.Visible = true;
                     if (!Page.IsPostBack)
                     {
                          branchId=0;
@@ -450,6 +451,7 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
+                    trBMBranchs.Visible = false;
                     trMessage.Visible = false;
                     advisorStaffBo = new AdvisorStaffBo();
                     List<RMVo> advisorStaffList = null;
