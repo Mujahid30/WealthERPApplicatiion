@@ -531,7 +531,14 @@ a.aBreadCrumbCurrent
     font-size: 11px;
     background-color: #DCF7FE;
 }
-
+.GridViewCmbLongField
+{
+    font-family:Verdana,tahoma;
+	font-weight:normal;
+	font-size:x-small;
+	color:#16518A;
+	width:200px;
+}
 
 .HeaderTextSmall
 {
