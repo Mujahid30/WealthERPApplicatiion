@@ -277,7 +277,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
-                                 <asp:TemplateField HeaderText="Mutual Fund Summary">
+                                 <asp:TemplateField HeaderText="Email">
                                     <ItemTemplate>
                                         <asp:Label ID="lblMutualFund" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("EmailId") %>'>
                                         </asp:Label>
