@@ -353,16 +353,16 @@ namespace WealthERP.Advisor
                     {
                         if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                         {
-                            string password = r.Next(20000, 100000).ToString();
+                            //string password = r.Next(20000, 100000).ToString();
                             userId = int.Parse(gvCustomers.DataKeys[gvr.RowIndex].Value.ToString());
                             userVo = new UserVo();
                             userVo = userBo.GetUserDetails(userId);
 
-                            userVo.LoginId = r.Next(10000000, 99999999).ToString();
-                            userVo.Password = Encryption.Encrypt(password);
-                            userVo.IsTempPassword = 1;
+                            //userVo.LoginId = r.Next(10000000, 99999999).ToString();
+                            //userVo.Password = Encryption.Encrypt(password);
+                            //userVo.IsTempPassword = 1;
 
-                            userBo.UpdateUser(userVo);
+                            //userBo.UpdateUser(userVo);
 
                             //Send email to customer
                             //
