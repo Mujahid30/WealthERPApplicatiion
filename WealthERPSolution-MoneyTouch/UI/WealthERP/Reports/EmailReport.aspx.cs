@@ -271,46 +271,46 @@ namespace WealthERP.Reports
         {
             if (Request.Form[ctrlPrefix + "chkMFSummary"] != "on")
             {
-                gvEmailCustomerList.Columns[1].Visible = false;
+                gvEmailCustomerList.Columns[2].Visible = false;
             }
             if (Request.Form[ctrlPrefix + "chkPortfolioReturns"] != "on")
             {
-                gvEmailCustomerList.Columns[2].Visible = false;
+                gvEmailCustomerList.Columns[3].Visible = false;
             }
             if (Request.Form[ctrlPrefix + "chkPortfolioAnalytics"] != "on")
             {
-                gvEmailCustomerList.Columns[3].Visible = false;                
+                gvEmailCustomerList.Columns[4].Visible = false;                
             }
                     
             if (Request.Form[ctrlPrefix + "chkEligibleCapitalgainsDetail"] != "on")
             {
-                gvEmailCustomerList.Columns[4].Visible = false;
+                gvEmailCustomerList.Columns[5].Visible = false;
             }
             if (Request.Form[ctrlPrefix + "chkEligibleCapitalGainsSummary"] != "on")
             {
-                gvEmailCustomerList.Columns[5].Visible = false;
+                gvEmailCustomerList.Columns[6].Visible = false;
             }
             if (Request.Form[ctrlPrefix + "chkTransactionReport"] != "on")
             {
-                gvEmailCustomerList.Columns[6].Visible = false;
+                gvEmailCustomerList.Columns[7].Visible = false;
             }
             if (Request.Form[ctrlPrefix + "chkDividendDetail"] != "on")
             {
-                gvEmailCustomerList.Columns[7].Visible = false;
+                gvEmailCustomerList.Columns[8].Visible = false;
             }
             if (Request.Form[ctrlPrefix + "chkDividendSummary"] != "on")
-            {
-                gvEmailCustomerList.Columns[8].Visible = false;
-
-            }
-            if (Request.Form[ctrlPrefix + "chkCapitalGainDetails"] != "on")
             {
                 gvEmailCustomerList.Columns[9].Visible = false;
 
             }
-            if (Request.Form[ctrlPrefix + "chkCapitalGainSummary"] != "on")
+            if (Request.Form[ctrlPrefix + "chkCapitalGainDetails"] != "on")
             {
                 gvEmailCustomerList.Columns[10].Visible = false;
+
+            }
+            if (Request.Form[ctrlPrefix + "chkCapitalGainSummary"] != "on")
+            {
+                gvEmailCustomerList.Columns[11].Visible = false;
 
             }
             
@@ -1230,7 +1230,7 @@ namespace WealthERP.Reports
                 System.Net.Mail.AlternateView htmlView;
                 System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
                 //System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(hidBody.Value.Trim() + "<image src=cid:HDIImage>", null, "text/html");
-                htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + MailBody + "</p>'<img src='cid:HDIImage'></body></html>", null, "text/html");
+                htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + MailBody + "</p><img src='cid:HDIImage'></body></html>", null, "text/html");
                 //Add image to HTML version
                 if (Session["advisorVo"] != null)
                     logoPath = "~/Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
