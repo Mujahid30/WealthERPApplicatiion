@@ -424,13 +424,13 @@ namespace BoAdvisorProfiling
 
         /* For BM Scheeme wise MIS */
 
-        public DataSet GetMISForBM(int rmid, int branchID, int branchHeadId, int XWise, int all, DateTime valuationDate, string AMCSearchVal, out int Count, int AllPageExportCount)
+        public DataSet GetMISForBM(int rmid, int branchID, int branchHeadId, int XWise, int all, DateTime valuationDate,int CurrentPage, string AMCSearchVal, out int Count, int AllPageExportCount)
         {
             DataSet dsBMMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsBMMIS = MISDao.GetMISForBM(rmid, branchID, branchHeadId, XWise, all, valuationDate, AMCSearchVal, out Count, AllPageExportCount);
+                dsBMMIS = MISDao.GetMISForBM(rmid, branchID, branchHeadId, XWise, all, valuationDate,CurrentPage, AMCSearchVal, out Count, AllPageExportCount);
             }
             catch (BaseApplicationException Ex)
             {
@@ -450,7 +450,8 @@ namespace BoAdvisorProfiling
                 objects[3] = XWise;
                 objects[4] = all;
                 objects[5] = valuationDate;
-                objects[6] = AMCSearchVal;
+                objects[6] = CurrentPage;
+                objects[7] = AMCSearchVal;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
