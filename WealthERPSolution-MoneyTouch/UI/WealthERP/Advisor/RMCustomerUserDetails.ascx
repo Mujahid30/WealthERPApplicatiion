@@ -9,10 +9,33 @@
 <link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
+//    $(document).ready(function() {
+//        $('.loadme').click(function() {
+//            $(".loadmediv").colorbox({ width: "240px",overlayClose:false, inline: true, open: true, href: "#LoadImage" });
+//        });
+//    });
+
     $(document).ready(function() {
         $('.loadme').click(function() {
-            $(".loadmediv").colorbox({ width: "240px",overlayClose:false, inline: true, open: true, href: "#LoadImage" });
+        var panel = document.getElementById('<%= gvCustomers.ClientID %>');
+            var chkArray = panel.getElementsByTagName("input");
+            var checked = 0;
+            for (var i = 0; i < chkArray.length; i++) {
+                if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
+                    checked = 1;
+                    break;
+                }
+            }
+
+            if (checked != 1) {
+                alert('Please select Customer to send Password');
+                return false;
+            }
+            else {
+                $(".loadmediv").colorbox({ width: "240px", overlayClose: false, inline: true, open: true, href: "#LoadImage" });
+            }
         });
+
     });
 
 

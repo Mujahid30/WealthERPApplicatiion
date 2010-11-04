@@ -453,7 +453,7 @@ namespace WealthERP.Advisor
                     statusMessage += "<br/>No email Id specified for " + userVo.FirstName + " " + userVo.LastName;
                 else if (isMailSent)
                 {
-                    statusMessage += "Credentials have been sent to selected customers "; 
+                    statusMessage = "Credentials have been sent to selected customers "; 
                 }
                 else
                 {
