@@ -149,8 +149,8 @@
                 <HeaderStyle CssClass="HeaderStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:BoundField DataField="Details" HeaderText="Details" SortExpression="Details" />
-                    <asp:BoundField DataField="EventMessage" HeaderText="EventMessage" SortExpression="EventMessage" />
+                    <asp:BoundField DataField="Details" HeaderText="Details"/>
+                    <asp:BoundField DataField="EventMessage" HeaderText="EventMessage"/>
                 </Columns>
             </asp:GridView>
         </td>
