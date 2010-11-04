@@ -160,7 +160,7 @@
         <td>
         <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
             <asp:DropDownList ID="ddlBMBranchList" runat="server" 
-                onselectedindexchanged="ddlBMBranchList_SelectedIndexChanged" AutoPostBack="true">
+                onselectedindexchanged="ddlBMBranchList_SelectedIndexChanged" CssClass="cmbField" AutoPostBack="true">
            <%-- <asp:ListItem Value="1086" Text="All"></asp:ListItem>
             <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem>
             <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>--%>
