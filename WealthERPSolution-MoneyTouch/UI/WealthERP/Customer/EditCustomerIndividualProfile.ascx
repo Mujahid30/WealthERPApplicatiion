@@ -550,7 +550,7 @@
                     <asp:Label ID="Label39" CssClass="FieldName" runat="server" Text="Email:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField" style="width: 30%" ></asp:TextBox>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"  ></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
                         ErrorMessage="<br />Please enter a valid Email ID" Display="Dynamic" runat="server"
                         ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
@@ -559,7 +559,7 @@
                     <asp:Label ID="Label40" CssClass="FieldName" runat="server" Text="Alternate Email:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtAltEmail" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+                    <asp:TextBox ID="txtAltEmail" runat="server" CssClass="txtField" ></asp:TextBox>
                     <asp:RegularExpressionValidator ID="txtAltEmail_RegularExpressionValidator" ControlToValidate="txtAltEmail"
                         ErrorMessage="<br />Please enter a valid Email ID" Display="Dynamic" runat="server"
                         ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
