@@ -552,7 +552,7 @@ namespace DaoAdvisorProfiling
 
         /* For BMMIS for Scheeme wise */
 
-        public DataSet GetMISForBM(int rmid, int branchID, int branchHeadId, int XWise, int all, DateTime valuationDate, string AMCSearchVal, out int Count, int AllPageExportCount)
+        public DataSet GetMISForBM(int rmid, int branchID, int branchHeadId, int XWise, int all, DateTime valuationDate, int CurrentPage, string AMCSearchVal, out int Count, int AllPageExportCount)
         {
             Database db;
             DbCommand getLoanMICmd;
@@ -570,6 +570,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getLoanMICmd, "@BranchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(getLoanMICmd, "@all", DbType.Int32, all);
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
+                db.AddInParameter(getLoanMICmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getLoanMICmd, "@XWise", DbType.Int32, XWise);
                 if (AMCSearchVal != "")
                     db.AddInParameter(getLoanMICmd, "@AMCSearchVal", DbType.String, AMCSearchVal);
