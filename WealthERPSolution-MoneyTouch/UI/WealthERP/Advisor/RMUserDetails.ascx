@@ -117,12 +117,8 @@
             <asp:Label ID="lblMsg" class="Error" runat="server" Visible="false" Text="No Records Found...!"></asp:Label>
         </td>
     </tr>
-    <tr id="trStatusMessage" runat="server">
-        <%--<td align="center">
-            <asp:Label ID="lblStatusMsg" class="Error" runat="server" Text=""></asp:Label>
-        </td>--%>
-    </tr>
-    <tr>
+    
+    <tr id="trPagger" runat="server">
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
