@@ -15,7 +15,7 @@
 
 
 <head id="Head1" runat="server">
-    <title>WealthERP Reports</title>
+    <title>MoneyTouch 360&deg Reports</title>
     <style>
         body
         {
