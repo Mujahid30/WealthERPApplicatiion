@@ -613,14 +613,13 @@ namespace WealthERP.Advisor
                                     }
                                 }
                                 // Create Role Association for RM
-                                if (RMBMRole == false && Items.Selected==true)
+                                if (RMBMRole == true && Items.Selected == false)
                                 {
-                                    userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
-                                }
-                                else if (RMBMRole == true && Items.Selected == false)
-                                {
-
                                     userBo.DeleteRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                                }
+                                else if (RMBMRole == false && Items.Selected==true)
+                                {
+                                    userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));                                 
  
                                 }
                                 RMBMRole = false;
