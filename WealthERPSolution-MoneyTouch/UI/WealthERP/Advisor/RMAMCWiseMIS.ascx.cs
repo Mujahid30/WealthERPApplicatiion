@@ -105,7 +105,7 @@ namespace WealthERP.Advisor
                     hdnAll.Value = "2";
                     hdnrmId.Value = "0";
                     hdnXWise.Value = "0";
-                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), hdnAMCSearchVal.Value.ToString(), out count, 0);
+                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()),1, hdnAMCSearchVal.Value.ToString(), out count, 0);
                 }
 
                 if (valuedate != "")
@@ -238,6 +238,7 @@ namespace WealthERP.Advisor
             }
             hdnAMCSearchVal.Value = AMCSearchval.Text;
 
+
             /* For BM MIS */
 
             if (userType == "adviser")
@@ -252,6 +253,9 @@ namespace WealthERP.Advisor
                 bindgrid(LatestValuationdate);
             }
 
+           
+
+
             else if (userType == "bm")
             {
                 if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
@@ -259,10 +263,10 @@ namespace WealthERP.Advisor
                     hdnbranchId.Value = "0";
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnAll.Value = "2";
-                    hdnXWise.Value = "1";
+                    hdnXWise.Value = "0";
                     hdnrmId.Value = ddlRM.SelectedValue;
 
-                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), hdnAMCSearchVal.Value.ToString(), out count, 0);
+                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()),1, hdnAMCSearchVal.Value.ToString(), out count, 0);
                     bindgrid(LatestValuationdate);
                 }
                 else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
@@ -273,7 +277,7 @@ namespace WealthERP.Advisor
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnXWise.Value = "0";
 
-                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), hdnAMCSearchVal.Value.ToString(), out count, 0);
+                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()),1, hdnAMCSearchVal.Value.ToString(), out count, 0);
                     bindgrid(LatestValuationdate);
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
@@ -284,7 +288,7 @@ namespace WealthERP.Advisor
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnXWise.Value = "0";
 
-                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), hdnAMCSearchVal.Value.ToString(), out count, 0);
+                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()),1, hdnAMCSearchVal.Value.ToString(), out count, 0);
                     bindgrid(LatestValuationdate);
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
@@ -295,7 +299,7 @@ namespace WealthERP.Advisor
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnXWise.Value = "0";
 
-                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), hdnAMCSearchVal.Value.ToString(), out count, 0);
+                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()),1, hdnAMCSearchVal.Value.ToString(), out count, 0);
                     bindgrid(LatestValuationdate);
                 }
 
@@ -330,7 +334,7 @@ namespace WealthERP.Advisor
                 }
                 else if (userType == "bm")
                 {
-                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), hdnAMCSearchVal.Value.ToString(), out count, 0);
+                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()),1, hdnAMCSearchVal.Value.ToString(), out count, 0);
                 }
             }
 
