@@ -123,44 +123,45 @@ namespace WealthERP.Advisor
                 int Count = 0;
 
                 customerList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", "", "", "", "","", "","", out genDictParent, out genDictRM,out genDictReassignRM);
-
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
+                   
                 if (customerList.Count == 0)
-                {
-                    lblMessage.Visible = true;
-                }
-                else
-                {
-                    lblMessage.Visible = false;
-                    DataTable dtRMCustomer = new DataTable();
-
-                    dtRMCustomer.Columns.Add("S.No");
-                    dtRMCustomer.Columns.Add("CustomerId");
-                    dtRMCustomer.Columns.Add("Customer Name");
-                    dtRMCustomer.Columns.Add("Email");
-                    dtRMCustomer.Columns.Add("Phone Number");
-
-                    DataRow drRMCustomer;
-
-
-                    for (int i = 0; i < customerList.Count; i++)
                     {
-                        drRMCustomer = dtRMCustomer.NewRow();
-                        customerVo = new CustomerVo();
-                        customerVo = customerList[i];
-                        drRMCustomer[0] = (i + 1).ToString();
-                        drRMCustomer[1] = customerVo.CustomerId.ToString();
-                        drRMCustomer[2] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
-                        drRMCustomer[3] = customerVo.Email.ToString();
-                        drRMCustomer[4] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
-                        dtRMCustomer.Rows.Add(drRMCustomer);
+                        lblMessage.Visible = true;
                     }
-                    gvCustomers.DataSource = dtRMCustomer;
-                    gvCustomers.DataBind();
-                    this.GetPageCount();
+                    else
+                    {
+                        lblMessage.Visible = false;
+                        DataTable dtRMCustomer = new DataTable();
 
-                }
+                        dtRMCustomer.Columns.Add("S.No");
+                        dtRMCustomer.Columns.Add("CustomerId");
+                        dtRMCustomer.Columns.Add("Customer Name");
+                        dtRMCustomer.Columns.Add("Email");
+                        dtRMCustomer.Columns.Add("Phone Number");
+
+                        DataRow drRMCustomer;
+
+
+                        for (int i = 0; i < customerList.Count; i++)
+                        {
+                            drRMCustomer = dtRMCustomer.NewRow();
+                            customerVo = new CustomerVo();
+                            customerVo = customerList[i];
+                            drRMCustomer[0] = (i + 1).ToString();
+                            drRMCustomer[1] = customerVo.CustomerId.ToString();
+                            drRMCustomer[2] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+                            drRMCustomer[3] = customerVo.Email.ToString();
+                            drRMCustomer[4] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
+                            dtRMCustomer.Rows.Add(drRMCustomer);
+                        }
+                        gvCustomers.DataSource = dtRMCustomer;
+                        gvCustomers.DataBind();
+                        this.GetPageCount();
+
+                    }
+                
             }
             catch (BaseApplicationException Ex)
             {
