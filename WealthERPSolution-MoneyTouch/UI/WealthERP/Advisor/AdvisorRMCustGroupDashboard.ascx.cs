@@ -562,13 +562,35 @@ namespace WealthERP.Advisor
                 seriesAssets.ChartType = SeriesChartType.Pie;
 
                 cnt = dtGrpAssetNetHoldings.Rows.Count - 1;
-
+                DataRow dr = dtGrpAssetNetHoldings.NewRow();
                 if (dtGrpAssetNetHoldings.Rows.Count > 0)
                 {
+                    for (int j = 0; j < dtGrpAssetNetHoldings.Rows.Count; j++)
+                    {
+                        if(j==0)
+                        {
+                            dr = dtGrpAssetNetHoldings.Rows[j];
+                        }
+                        else
+                        {
+                            dr[1] = (double.Parse(dr[1].ToString()) + double.Parse(dtGrpAssetNetHoldings.Rows[j][1].ToString())).ToString();
+                            dr[2] = (double.Parse(dr[2].ToString()) + double.Parse(dtGrpAssetNetHoldings.Rows[j][2].ToString())).ToString();
+                            dr[3] = (double.Parse(dr[3].ToString()) + double.Parse(dtGrpAssetNetHoldings.Rows[j][3].ToString())).ToString();
+                            dr[4] = (double.Parse(dr[4].ToString()) + double.Parse(dtGrpAssetNetHoldings.Rows[j][4].ToString())).ToString();
+                            dr[5] = (double.Parse(dr[5].ToString()) + double.Parse(dtGrpAssetNetHoldings.Rows[j][5].ToString())).ToString();
+                            dr[6] = (double.Parse(dr[6].ToString()) + double.Parse(dtGrpAssetNetHoldings.Rows[j][6].ToString())).ToString();
+                            dr[7] = (double.Parse(dr[7].ToString()) + double.Parse(dtGrpAssetNetHoldings.Rows[j][7].ToString())).ToString();
+                            dr[8] = (double.Parse(dr[8].ToString()) + double.Parse(dtGrpAssetNetHoldings.Rows[j][8].ToString())).ToString();
+                            dr[9] = (double.Parse(dr[9].ToString()) + double.Parse(dtGrpAssetNetHoldings.Rows[j][9].ToString())).ToString();
+                            dr[10] = (double.Parse(dr[10].ToString()) + double.Parse(dtGrpAssetNetHoldings.Rows[j][10].ToString())).ToString();
+
+
+                        }
+                    }
                     for (i = 1; i <= 10; i++)
                     {
                         XValues[i - 1] = dtGrpAssetNetHoldings.Columns[i].ColumnName;
-                        YValues[i - 1] = double.Parse(dtGrpAssetNetHoldings.Rows[cnt][i].ToString());
+                        YValues[i - 1] = double.Parse(dr[i].ToString());
                     }
                 }
 
