@@ -53,7 +53,17 @@ namespace WealthERP.CustomerPortfolio
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                userType = Session["UserType"].ToString().ToLower();
+                if (userType == "rm")
+                {
+                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                }
+                else
+                {
+                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+                    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                }
 
                 if (!IsPostBack)
                 {
@@ -209,37 +219,67 @@ namespace WealthERP.CustomerPortfolio
             int Count = 0;
             totalAmount = 0;
             totalUnits = 0;
-            
+            userType = Session["UserType"].ToString().ToLower();
             try
             {//pramod
                 if (ExportGridView == 1)
                 {
                     if (rbtnGroup.Checked)
                     {
+                        if (userType == "rm")
+                        {
+                            mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, 5000, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                        }
+                        else
+                        {
+                            mfTransactionList = customerTransactionBo.GetAdviserCustomerMFTransactions(out Count, 5000, advisorVo.advisorId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
 
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, 5000, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue,hdnCategory.Value.ToString(),int.Parse(hdnAMC.Value.ToString()),out genDictCategory,out genDictAMC);
+                        }
                         hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                     }
                     else
                     {
+                        if (userType == "rm")
+                        {
+                            mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, 5000, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                        }
+                        else
+                        {
+                            mfTransactionList = customerTransactionBo.GetAdviserCustomerMFTransactions(out Count, 5000, advisorVo.advisorId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
 
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, 5000, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                        }
                         hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                     }
 
                 }
-                else 
+                else
                 {
                     if (rbtnGroup.Checked)
                     {
+                        if (userType == "rm")
+                        {
+                            mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                        }
+                        else
+                        {
+                            mfTransactionList = customerTransactionBo.GetAdviserCustomerMFTransactions(out Count, currentPage, advisorVo.advisorId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
 
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                        }
                         hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
+
                     }
                     else
                     {
+                        if (userType == "rm")
+                        {
+                            mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                        }
+                        else
+                        {
+                            mfTransactionList = customerTransactionBo.GetAdviserCustomerMFTransactions(out Count, currentPage, advisorVo.advisorId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
 
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                        }
+
                         hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                     }
 
@@ -434,14 +474,27 @@ namespace WealthERP.CustomerPortfolio
 
                 if (rbtnGroup.Checked)
                 {
-
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue,hdnCategory.Value.ToString(),int.Parse(hdnAMC.Value.ToString()),out genDictCategory,out genDictAMC);
+                    if (userType == "rm")
+                    {
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                    }
+                    else
+                    {
+                        mfTransactionList = customerTransactionBo.GetAdviserCustomerMFTransactions(out Count, currentPage, advisorVo.advisorId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                    }
                     hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                 }
                 else
                 {
+                    if (userType == "rm")
+                    {
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                    }
+                    else
+                    {
+                        mfTransactionList = customerTransactionBo.GetAdviserCustomerMFTransactions(out Count, currentPage, advisorVo.advisorId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
 
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
+                    }
                     hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                 }
                 if (mfTransactionList.Count != 0)

@@ -54,7 +54,17 @@ namespace WealthERP.CustomerPortfolio
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                userType = Session["UserType"].ToString().ToLower();
+                if (userType == "rm")
+                {
+                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                }
+                else
+                {
+                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+                    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                }
 
                 if (!IsPostBack)
                 {
@@ -212,23 +222,44 @@ namespace WealthERP.CustomerPortfolio
             Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
             DataSet ds = new DataSet();
             int Count = 0;
-
+            userType = Session["UserType"].ToString().ToLower();
 
             string extraSearch = "";
             try
             {
 
-                if (rbtnGroup.Checked)
+                if (userType == "rm")
                 {
-                    //rmVo.RMId = 1037;
-                    ds = customerTransactionBo.GetRMCustomerEqTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), out genDictTranType, extraSearch, exportFlag);
-                    hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
+
+                    if (rbtnGroup.Checked)
+                    {
+                        //rmVo.RMId = 1037;
+                        ds = customerTransactionBo.GetRMCustomerEqTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), out genDictTranType, extraSearch, exportFlag);
+                        hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
+                    }
+                    else
+                    {
+                        //rmVo.RMId = 1037;
+                        ds = customerTransactionBo.GetRMCustomerEqTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), out genDictTranType, extraSearch, exportFlag);
+                        hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
+                    }
                 }
                 else
                 {
-                    //rmVo.RMId = 1037;
-                    ds = customerTransactionBo.GetRMCustomerEqTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), out genDictTranType, extraSearch, exportFlag);
-                    hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
+
+                    if (rbtnGroup.Checked)
+                    {
+                        //rmVo.RMId = 1037;
+                        ds = customerTransactionBo.GetAdviserCustomerEqTransactions(out Count, currentPage, advisorVo.advisorId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), out genDictTranType, extraSearch, exportFlag);
+                        hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
+                    }
+                    else
+                    {
+                        //rmVo.RMId = 1037;
+                        ds = customerTransactionBo.GetAdviserCustomerEqTransactions(out Count, currentPage, advisorVo.advisorId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), out genDictTranType, extraSearch, exportFlag);
+                        hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
+                    }
+
                 }
                 DataTable dtTransactions = new DataTable();
                 dtTransactions = ds.Tables[0];

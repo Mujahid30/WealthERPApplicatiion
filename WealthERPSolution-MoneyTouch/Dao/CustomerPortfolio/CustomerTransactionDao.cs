@@ -2385,7 +2385,190 @@ namespace DaoCustomerPortfolio
             }
             return mfTransactionsList;
         }
+        public List<MFTransactionVo> GetAdviserCustomerMFTransactions(out int Count, int CurrentPage, int adviserId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC)
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getRMCustomerMFTransactionsCmd;
+            List<MFTransactionVo> mfTransactionsList = new List<MFTransactionVo>();
+            MFTransactionVo mfTransactionVo = new MFTransactionVo();
+            DataTable dtGetMFTransactions;
+            Count = 0;
+            genDictTranType = new Dictionary<string, string>();
+            genDictCategory = new Dictionary<string, string>();
+            genDictAMC = new Dictionary<string, int>();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //pramod
+                if (CurrentPage == 5000)
+                {
+                    getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetALLAdviserCustomerMFTransactions");
 
+                }
+                else
+                {
+                    getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerMFTransactions");
+                }
+
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserId", DbType.Int32, adviserId);
+                if (GroupHeadId != 0)
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, GroupHeadId);
+                }
+                else
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, DBNull.Value);
+                }
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
+                if (CustomerName != string.Empty)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, CustomerName);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, DBNull.Value);
+                if (Scheme != string.Empty)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Scheme", DbType.String, Scheme);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Scheme", DbType.String, DBNull.Value);
+                if (TranType != string.Empty)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TranType", DbType.String, TranType);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TranType", DbType.String, DBNull.Value);
+                if (FolioNumber != string.Empty)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FolioNumber", DbType.String, FolioNumber);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FolioNumber", DbType.String, DBNull.Value);
+                if (PasssedFolioValue != string.Empty)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@PasssedFolioValue", DbType.String, PasssedFolioValue);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@PasssedFolioValue", DbType.String, DBNull.Value);
+                if (transactionStatus == "")
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TransactionStatus", DbType.String, "1");
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TransactionStatus", DbType.String, transactionStatus);
+                if (categoryCode == "")
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CategoryCode", DbType.String, DBNull.Value);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CategoryCode", DbType.String, categoryCode);
+                if (AMCCode == 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMCCode", DbType.Int32, DBNull.Value);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMCCode", DbType.String, AMCCode);
+                getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
+                ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    dtGetMFTransactions = ds.Tables[0];
+                    mfTransactionsList = new List<MFTransactionVo>();
+                    foreach (DataRow dr in dtGetMFTransactions.Rows)
+                    {
+                        mfTransactionVo = new MFTransactionVo();
+                        mfTransactionVo.TransactionId = int.Parse(dr["CMFT_MFTransId"].ToString());
+                        mfTransactionVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        mfTransactionVo.CustomerName = dr["Name"].ToString();
+                        mfTransactionVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
+                        mfTransactionVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
+                        mfTransactionVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        mfTransactionVo.AMCName = dr["PA_AMCName"].ToString();
+                        mfTransactionVo.MFCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                        mfTransactionVo.SchemePlan = dr["PASP_SchemePlanName"].ToString();
+                        mfTransactionVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        mfTransactionVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfTransactionVo.BuySell = dr["CMFT_BuySell"].ToString();
+                        mfTransactionVo.DividendRate = float.Parse(dr["CMFT_DividendRate"].ToString());
+                        mfTransactionVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
+                        mfTransactionVo.NAV = float.Parse(dr["CMFT_NAV"].ToString());
+                        mfTransactionVo.Price = float.Parse(dr["CMFT_Price"].ToString());
+                        mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
+                        mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
+                        mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
+                        mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
+                        mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
+                        mfTransactionVo.TransactionClassificationCode = dr["WMTT_TransactionClassificationCode"].ToString();
+                        mfTransactionVo.TransactionType = dr["WMTT_TransactionClassificationName"].ToString();
+                        mfTransactionVo.TransactionTrigger = dr["WMTT_Trigger"].ToString();
+                        mfTransactionVo.FinancialFlag = int.Parse(dr["WMTT_FinancialFlag"].ToString());
+                        mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
+                        mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
+                        if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
+                            mfTransactionVo.TransactionStatusCode = int.Parse(dr["WTS_TransactionStatusCode"].ToString());
+                        }
+                        else
+                        {
+                            mfTransactionVo.TransactionStatus = "OK";
+                            mfTransactionVo.TransactionStatusCode = 1;
+
+                        }
+                        mfTransactionsList.Add(mfTransactionVo);
+                    }
+                }
+                //pramod
+                if (ds.Tables.Count > 1)
+                {
+                    if (ds.Tables[2].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in ds.Tables[2].Rows)
+                        {
+                            genDictTranType.Add(dr["WMTT_TransactionClassificationName"].ToString(), dr["WMTT_TransactionClassificationName"].ToString());
+                        }
+                    }
+                    if (ds.Tables[3].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in ds.Tables[3].Rows)
+                        {
+                            genDictCategory.Add(dr["PAIC_AssetInstrumentCategoryName"].ToString(), dr["PAIC_AssetInstrumentCategoryCode"].ToString());
+                        }
+                    }
+                    if (ds.Tables[4].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in ds.Tables[4].Rows)
+                        {
+                            genDictAMC.Add(dr["PA_AMCName"].ToString(), int.Parse(dr["PA_AMCCode"].ToString()));
+                        }
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetAdviserCustomerMFTransactions()");
+                object[] objects = new object[11];
+                objects[0] = adviserId;
+                objects[1] = GroupHeadId;
+                objects[2] = From;
+                objects[3] = To;
+                objects[4] = Manage;
+                objects[5] = Scheme;
+                objects[6] = genDictTranType;
+                objects[7] = FolioNumber;
+                objects[8] = CustomerName;
+                objects[9] = CurrentPage;
+                objects[10] = PasssedFolioValue;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            //
+            if (ds.Tables.Count > 1)
+            {
+                if (ds.Tables[1].Rows.Count > 0)
+                    Count = Int32.Parse(ds.Tables[1].Rows[0]["CNT"].ToString());
+            }
+            return mfTransactionsList;
+        }
         #endregion MF MUltiple Transaction View
 
 
@@ -2478,8 +2661,93 @@ namespace DaoCustomerPortfolio
             return ds;
             //return eqTransactionsList;
         }
+        public DataSet GetAdviserCustomerEqTransactions(out int Count, int CurrentPage, int adviserId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scrip, string TranType, out Dictionary<string, string> genDictTranType, string FolioNumber, int exportFlag)
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getRMCustomerMFTransactionsCmd;
+            List<EQTransactionVo> eqTransactionsList = new List<EQTransactionVo>();
+            EQTransactionVo EqTransactionVo = new EQTransactionVo();
 
-        #endregion MF MUltiple Transaction View
+            Count = 0;
+            genDictTranType = new Dictionary<string, string>();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerEQTransactions");
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserId", DbType.Int32, adviserId);
+                if (GroupHeadId != 0)
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, GroupHeadId);
+                }
+                else
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, DBNull.Value);
+                }
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
+
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ExportFlag", DbType.Int32, exportFlag);
+
+                if (CustomerName != string.Empty)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, CustomerName);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, DBNull.Value);
+                if (Scrip != string.Empty)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Scrip", DbType.String, Scrip);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Scrip", DbType.String, DBNull.Value);
+                if (TranType != string.Empty)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TranType", DbType.String, TranType);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@TranType", DbType.String, DBNull.Value);
+                if (FolioNumber != string.Empty)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FolioNumber", DbType.String, FolioNumber);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FolioNumber", DbType.String, DBNull.Value);
+
+
+                ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
+
+
+                if (ds.Tables.Count > 1 && ds.Tables[2].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[2].Rows)
+                    {
+                        genDictTranType.Add(dr["WETT_TransactionTypeName"].ToString(), dr["WETT_TransactionCode"].ToString());
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetAdviserCustomerMFTransactions()");
+                object[] objects = new object[5];
+                objects[0] = adviserId;
+                objects[1] = GroupHeadId;
+                objects[2] = From;
+                objects[3] = To;
+                objects[4] = Manage;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
+                Count = Int32.Parse(ds.Tables[1].Rows[0]["CNT"].ToString());
+
+            return ds;
+            //return eqTransactionsList;
+        }
+        #endregion Equity Multiple Transaction View
 
 
         #region MFFolio
