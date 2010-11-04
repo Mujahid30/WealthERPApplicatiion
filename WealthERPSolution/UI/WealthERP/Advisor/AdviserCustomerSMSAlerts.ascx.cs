@@ -512,7 +512,7 @@ namespace WealthERP.Advisor
             else
                 identifierType = "";
             
-            smsMessage = identifierType + schemeName + "\n" + "Message :" + message + "\n - " + adviserName;
+            smsMessage = identifierType + schemeName + "\n" + "Message : " + message + "\n - " + adviserName;
 
             smsMessage = smsMessage.Replace("%", "%25");
             smsMessage= smsMessage.Replace("\n", "%0A");
