@@ -116,7 +116,7 @@
         </td>
     </tr>
 
-    <tr>
+    <tr id="trPagger" runat="server">
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>

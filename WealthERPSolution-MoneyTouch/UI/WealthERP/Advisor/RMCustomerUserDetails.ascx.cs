@@ -257,6 +257,8 @@ namespace WealthERP.Advisor
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
                     SuccessMsg.Visible = false;
+                    trPagger.Visible = false;
+                    btnGenerate.Visible = false;
                     ErrorMessage.InnerText = "No Records Found...!";
                 }
             }
