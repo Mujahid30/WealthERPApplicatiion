@@ -889,7 +889,7 @@ namespace BoCustomerPortfolio
                         {
                             if (j != 0)
                             {
-                                eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j - 1].NetCost - (eqPortfolioTransactionVoList[j].SellQuantity * eqPortfolioTransactionVoList[j].SellPrice);
+                                eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j - 1].NetCost - (eqPortfolioTransactionVoList[j].SellQuantity * eqPortfolioTransactionVoList[j-1].AveragePrice);
                             }
                             else
                             {
