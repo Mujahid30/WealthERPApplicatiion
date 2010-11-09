@@ -540,14 +540,20 @@ a.aBreadCrumbCurrent
 	color:#16518A;
 	width:100px
 }
-
 .GridViewCmbField
+{
+    font-family:Verdana,tahoma;
+	font-weight:normal;
+	font-size:x-small;
+	color:#16518A;
+	width:100px;
+}
+
+.GridViewCmbFieldforBM
 {
     font-family: Verdana,tahoma;
     font-size: 11px;
-    background-color: #DCF7FE;
 }
-
 
 .HeaderTextSmall
 {
