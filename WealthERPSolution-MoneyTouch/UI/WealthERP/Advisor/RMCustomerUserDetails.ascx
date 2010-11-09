@@ -93,6 +93,16 @@
     </table>
 </div>
 </td></tr>
+
+    
+</table>
+<table align="center" width="100%">
+<tr>
+        <td>
+            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer User Details"></asp:Label>
+            <hr />
+        </td>
+    </tr>
 </table>
 
  <table width="100%" cellspacing="0" cellpadding="0" id="tblMessage" runat="server" visible="false">
@@ -109,12 +119,7 @@
  </table>
 
 <table style="width: 100%;" class="TableBackground">
-    <tr>
-        <td>
-            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer User Details"></asp:Label>
-            <hr />
-        </td>
-    </tr>
+    
 
     <tr id="trPagger" runat="server">
         <td class="leftField">
@@ -192,11 +197,11 @@
             </table>
         </td>
     </tr> --%>
-    <tr>
+    <%--<tr>
         <td>
             <asp:Label ID="lblMsg" class="Error" runat="server" Text="No Records Found...!"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Send Login Password"

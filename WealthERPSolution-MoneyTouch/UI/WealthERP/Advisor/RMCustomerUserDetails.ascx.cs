@@ -206,7 +206,7 @@ namespace WealthERP.Advisor
 
                 if (customerUserList != null)
                 {
-                    lblMsg.Visible = false;
+                    //lblMsg.Visible = false;
                     dtRMCustomer.Columns.Add("UserId");
                     dtRMCustomer.Columns.Add("CustomerName");
                     dtRMCustomer.Columns.Add("Login Id");
@@ -250,6 +250,7 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
+                    mypager.Visible = false;
                     lblCurrentPage.Visible = false;
                     lblTotalRows.Visible = false;
                     //tblPager.Visible = false;
