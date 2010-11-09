@@ -239,6 +239,9 @@ namespace WealthERP.Advisor
                 lblTotalRows.Text = hdnCount.Value = count.ToString();
                 if (ds.Tables[0].Rows.Count != 0)
                 {
+                    trBMBranchs.Visible = false;
+                    trMessage.Visible = false;
+
                     dt = ds.Tables[0];
                     trMessage.Visible = false;
                     dtAdvisorStaff.Columns.Add("UserId");
@@ -278,6 +281,7 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
+                    trBMBranchs.Visible = false;
                     gvRMList.DataSource = null;
                     gvRMList.DataBind();
                     DivPager.Visible = false;
@@ -321,6 +325,7 @@ namespace WealthERP.Advisor
                 //if (roleList.Contains("BM") && Session["CurrentUserRole"] == "BM")
                if (role==Session[SessionContents.CurrentUserRole].ToString())
                 {
+                   
                     trBMBranchs.Visible = true;
                     if (!Page.IsPostBack)
                     {
@@ -366,7 +371,7 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[7] = rmVo.Mobile.ToString();
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
-
+                        //gvRMList.Style.Add("Width", "580px");
                         gvRMList.DataSource = dtAdvisorStaff;
                         gvRMList.Columns[3].Visible = false;
                         gvRMList.Columns[4].Visible = false;
@@ -754,12 +759,5 @@ namespace WealthERP.Advisor
             }
         }
         /* End For Binding the Branch Dropdowns */
-
-
-
     }
-
-
-
-
 }
