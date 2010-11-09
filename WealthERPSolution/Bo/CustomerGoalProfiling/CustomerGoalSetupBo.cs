@@ -529,14 +529,23 @@ namespace BoCustomerGoalProfiling
 
                     if (dsGetCustomerRTDetails.Tables[0].Rows.Count > 0)
                     {
+                        double fvCostOfToday = 0;
+                        double currentInvestment = 0;
+                        double roiEarned = 0;
+                        double monthlySavingsRequired = 0;
+                        double.TryParse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FVofCostToday"].ToString(), out fvCostOfToday);
+                        double.TryParse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_CurrentInvestment"].ToString(), out currentInvestment);
+                        double.TryParse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_ROIEarned"].ToString(), out roiEarned);
+                        double.TryParse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString(), out monthlySavingsRequired);
+
                         string StrRT1 = "We have done an extensive analysis of your" +
                         " retirement goal needs and savings required per month to meet those " +
                         "needs.Based on the inputs provided by you we have calculated that at " +
-                        "the time of your retirement you'll need a corpus of Rs." + Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_FVofCostToday"].ToString()), 2).ToString() +
+                        "the time of your retirement you'll need a corpus of Rs." + Math.Round(fvCostOfToday, 2).ToString() +
                         " to lead a financialy stable retired life.";
 
-                        string StrRT2 = "To meet the retirement goal you have already invested Rs." + Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_CurrentInvestment"].ToString()), 2).ToString() +
-                        " which will grow at " + Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_ROIEarned"].ToString()), 2).ToString() + " % " +
+                        string StrRT2 = "To meet the retirement goal you have already invested Rs." + Math.Round(currentInvestment, 2).ToString() +
+                        " which will grow at " + Math.Round(roiEarned, 2).ToString() + " % " +
                         " and it's value at the time of your retirement will be Rs." + futureValueOncurrentInvestment + ".";
 
                         string StrRT3 = "You have no investmensts attached to your retirement.";
@@ -544,13 +553,13 @@ namespace BoCustomerGoalProfiling
                         string StrRT4 = "For the gap of Rs." + gapvalues +
                         " for your retirement goal, you need to start planning soon." +
                         "You can opt for any of the following saving options to meet your retirement goal." +
-                        " Monthly savings required to meet the goal is Rs." + Math.Round(double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString()), 2).ToString() +
+                        " Monthly savings required to meet the goal is Rs." + Math.Round(monthlySavingsRequired, 2).ToString() +
                         ".Yearly savings required to meet the goal is Rs." + yearlySavingRequired + ".Lumpsum investment required is Rs." + futureValueOncurrentInvestment2 +
                         ".We recommend you to start saving as per the retirement plan provided by us.";
 
 
 
-                        if (double.Parse(dsGetCustomerRTDetails.Tables[0].Rows[0]["CG_CurrentInvestment"].ToString()) == 0)
+                        if (currentInvestment == 0)
                         {
                             GoalDescription = StrRT1 + StrRT3 + StrRT4;
 
