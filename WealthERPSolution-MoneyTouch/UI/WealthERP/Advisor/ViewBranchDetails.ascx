@@ -263,8 +263,8 @@
                     <asp:BoundField DataField="CommissionFee" HeaderText = "Commission Fee" />
                     <asp:BoundField DataField="RevenueUpperLimit" HeaderText = "Revenue Upper Limit" />
                     <asp:BoundField DataField="RevenueLowerLimit" HeaderText = "Revenue Lower Limit" />
-                    <asp:BoundField DataField="StartDate" HeaderText = "Start Date" DataFormatString = "{0:MM-dd-yyyy}"/>
-                    <asp:BoundField DataField="EndDate" HeaderText = "End Date" DataFormatString = "{0:MM-dd-yyyy}"/>
+                    <asp:BoundField DataField="StartDate" HeaderText = "Start Date" DataFormatString = "{0:dd/MM/yyyy}"/>
+                    <asp:BoundField DataField="EndDate" HeaderText = "End Date" DataFormatString ="{0:dd/MM/yyyy}"/>
                 </Columns>
             </asp:GridView>
         </td>
