@@ -1599,14 +1599,14 @@ namespace WealthERP.Advisor
             if (txtName != null)
             {
                 hdnNameFilter.Value = txtName.Text.Trim();
-                //if (Session["Customer"].ToString() == "Customer")
-                //{
-                this.BindGrid(mypager.CurrentPage, 0);
-                //}
-                //else
-                //{
-                //    this.BindCustomer(mypager.CurrentPage);
-                //}
+                if (Session["Customer"] == null || Session["Customer"].ToString() == "Customer")
+                {
+                      this.BindGrid(mypager.CurrentPage, 0);
+                }
+                else
+                {
+                      this.BindCustomer(mypager.CurrentPage);
+                }
             }
         }
 
