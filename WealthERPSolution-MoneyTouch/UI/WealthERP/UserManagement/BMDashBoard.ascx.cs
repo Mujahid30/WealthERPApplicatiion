@@ -393,8 +393,6 @@ namespace WealthERP.UserManagement
                 TotalValue.Text = drValues[branchDetailsDS.Tables[0].Columns.Count - 1].ToString();
                 if (GridViewCultureFlag == true)
                 {
-
-
                     double tempTotalValue = 0;
                     double.TryParse(drValues[branchDetailsDS.Tables[0].Columns.Count - 1].ToString(), out tempTotalValue);
                     tempTotalValue = Math.Round(tempTotalValue, 2);

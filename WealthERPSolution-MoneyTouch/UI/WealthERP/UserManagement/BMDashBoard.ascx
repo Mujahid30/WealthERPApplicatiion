@@ -78,7 +78,7 @@
                     <ItemStyle HorizontalAlign="left"  />
                      <FooterStyle HorizontalAlign="left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbFieldforBM" 
                                             Text='<%#Eval("Asset") %>' ForeColor="Black">
                                         </asp:Label>
                                     </ItemTemplate>
@@ -92,7 +92,7 @@
                      <ItemStyle HorizontalAlign="Right" />
                      <FooterStyle HorizontalAlign="Right" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbFieldforBM" 
                                             Text='<%#Eval("CurrentValue") %>' ForeColor="Black">
                                         </asp:Label>
                                     </ItemTemplate>
