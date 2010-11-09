@@ -253,9 +253,6 @@ namespace WealthERP.Advisor
                 bindgrid(LatestValuationdate);
             }
 
-           
-
-
             else if (userType == "bm")
             {
                 if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
