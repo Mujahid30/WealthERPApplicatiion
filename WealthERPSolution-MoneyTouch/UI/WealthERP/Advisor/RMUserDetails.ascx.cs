@@ -443,11 +443,11 @@ namespace WealthERP.Advisor
 
                             if (isMailSent)
                             {
-                                statusMessage = "Credentials have been sent to selected customers " ;
+                                statusMessage = "Credentials have been sent to selected user" ;
                             }
                             else
                             {
-                                statusMessage = "An error occurred while sending mail to selected customers" ;
+                                statusMessage = "An error occurred while sending mail to selected user";
 
                             }
                         }
