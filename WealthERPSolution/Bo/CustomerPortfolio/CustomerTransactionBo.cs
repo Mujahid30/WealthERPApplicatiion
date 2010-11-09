@@ -1387,6 +1387,44 @@ namespace BoCustomerPortfolio
             return mfTransactionsList;
 
         }
+        public List<MFTransactionVo> GetAdviserCustomerMFTransactions(out int Count, int CurrentPage, int adviserId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC)
+        {
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            List<MFTransactionVo> mfTransactionsList = new List<MFTransactionVo>();
+            try
+            {
+
+                mfTransactionsList = customerTransactionDao.GetAdviserCustomerMFTransactions(out Count, CurrentPage, adviserId, GroupHeadId, From, To, Manage, CustomerName, Scheme, TranType, transactionStatus, out genDictTranType, FolioNumber, PasssedFolioValue, categoryCode, AMCCode, out genDictCategory, out genDictAMC);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetAdviserCustomerMFTransactions()");
+                object[] objects = new object[9];
+                objects[0] = adviserId;
+                objects[1] = GroupHeadId;
+                objects[2] = From;
+                objects[3] = To;
+                objects[4] = Manage;
+                objects[5] = CurrentPage;
+                objects[6] = CustomerName;
+                objects[7] = Scheme;
+                objects[8] = PasssedFolioValue;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return mfTransactionsList;
+
+        }
         #endregion Multiple MF Transaction
 
         #region MFFolio
@@ -1572,6 +1610,42 @@ namespace BoCustomerPortfolio
                 FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetRMCustomerMFTransactions()");
                 object[] objects = new object[8];
                 objects[0] = RMId;
+                objects[1] = GroupHeadId;
+                objects[2] = From;
+                objects[3] = To;
+                objects[4] = Manage;
+                objects[5] = CurrentPage;
+                objects[6] = CustomerName;
+                objects[7] = Scheme;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+        public DataSet GetAdviserCustomerEqTransactions(out int Count, int CurrentPage, int adviserId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, out Dictionary<string, string> genDictTranType, string FolioNumber, int exportFlag)
+        {
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            DataSet ds = null;
+            try
+            {
+
+                ds = customerTransactionDao.GetAdviserCustomerEqTransactions(out Count, CurrentPage, adviserId, GroupHeadId, From, To, Manage, CustomerName, Scheme, TranType, out genDictTranType, FolioNumber, exportFlag);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetadviserCustomerMFTransactions()");
+                object[] objects = new object[8];
+                objects[0] = adviserId;
                 objects[1] = GroupHeadId;
                 objects[2] = From;
                 objects[3] = To;
