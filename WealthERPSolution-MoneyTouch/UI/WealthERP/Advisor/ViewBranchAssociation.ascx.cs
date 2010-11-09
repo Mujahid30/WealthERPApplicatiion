@@ -138,7 +138,8 @@ namespace WealthERP.Advisor
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            LoadBranchAssociation(mypager.CurrentPage);
+            if(!IsPostBack)
+                LoadBranchAssociation(mypager.CurrentPage);
         }
 
         private void LoadBranchAssociation(int currentPage)
@@ -454,6 +455,9 @@ namespace WealthERP.Advisor
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('" + asscNotDeleted + "\\n \\n Above associations cannot be deleted as the RM is the Branch head of that Branch');", true);
                 }
+
+               
+                mypager.CurrentPage = int.Parse(hdnCurrentPage.Value.ToString());
 
                 LoadBranchAssociation(mypager.CurrentPage);
             }
