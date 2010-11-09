@@ -534,6 +534,12 @@ a.aBreadCrumbCurrent
 	width:100px;
 }
 
+.GridViewCmbFieldforBM
+{
+    font-family: Verdana,tahoma;
+    font-size: 11px;
+}
+
 
 .HeaderTextSmall
 {
@@ -722,6 +728,7 @@ ul.tabbernav li.tabberactive a:hover
         font-size: 14px;
         width: 600px;
         Z-Index:-1;
+        text-align: center;
     }
     .success-msg
     {
