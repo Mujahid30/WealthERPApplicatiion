@@ -143,15 +143,14 @@ namespace WealthERP.Advisor
 
                 if (customerList == null)
                 {
-                    trMessage.Visible = true;
-                    lblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    gvCustomers.Visible = false;
                     tblGv.Visible = false;
                     mypager.Visible = false;
                 }
                 else
                 {
-                    trMessage.Visible = false;
-                    lblMessage.Visible = false;
+                    gvCustomers.Visible = true;
                     tblGv.Visible = true;
                     mypager.Visible = true;
                     DataTable dtRMCustomer = new DataTable();
@@ -379,9 +378,11 @@ namespace WealthERP.Advisor
             userVo = (UserVo)Session["userVo"];
             rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
             bmID = rmVo.RMId;
+            ErrorMessage.Visible = false;
 
             try
             {
+               
                 if (!IsPostBack)
                 {
                     BindBranchDropDown();
@@ -442,8 +443,7 @@ namespace WealthERP.Advisor
 
                 if (export == 1)
                 {
-                    trMessage.Visible = true;
-                    lblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
                     gvCustomers.AllowPaging = false;
@@ -466,16 +466,14 @@ namespace WealthERP.Advisor
                 if (customerList == null)
                 {
                     hdnRecordCount.Value = "0";
-                    trMessage.Visible = true;
-                    lblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
                     tblGv.Visible = false;
                 }
                 else
                 {
-                    trMessage.Visible = false;
-                    lblMessage.Visible = false;
+                    ErrorMessage.Visible = false;
                     trPager.Visible = true;
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
@@ -1581,7 +1579,7 @@ namespace WealthERP.Advisor
             if (txtArea != null)
             {
                 hdnAreaFilter.Value = txtArea.Text.Trim();
-                if (Session["Customer"].ToString() == "Customer")
+                if (Session["Customer"] == null || Session["Customer"].ToString() == "Customer")
                 {
                     this.BindGrid(mypager.CurrentPage, 0);
                 }
@@ -1599,14 +1597,14 @@ namespace WealthERP.Advisor
             if (txtName != null)
             {
                 hdnNameFilter.Value = txtName.Text.Trim();
-                //if (Session["Customer"].ToString() == "Customer")
-                //{
-                this.BindGrid(mypager.CurrentPage, 0);
-                //}
-                //else
-                //{
-                //    this.BindCustomer(mypager.CurrentPage);
-                //}
+                if (Session["Customer"] == null || Session["Customer"].ToString() == "Customer")
+                {
+                    this.BindGrid(mypager.CurrentPage, 0);
+                }
+                else
+                {
+                    this.BindCustomer(mypager.CurrentPage);
+                }
             }
         }
 

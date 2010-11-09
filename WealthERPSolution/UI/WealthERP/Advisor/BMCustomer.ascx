@@ -53,13 +53,6 @@
 
 </script>
 
-<table>
-    <tr id="trMessage" runat="server" visible="false">
-        <td>
-            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found..."></asp:Label>
-        </td>
-    </tr>
-</table>
 <table class="TableBackground" width="100%" id="tblGv" runat="server">
 <tr>
 <td>
@@ -157,16 +150,6 @@
     </tr>--%>
         
     <tr>
-        <td>
-        <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
-            <asp:DropDownList ID="ddlBMBranchList" runat="server" 
-                onselectedindexchanged="ddlBMBranchList_SelectedIndexChanged" AutoPostBack="true">
-           <%-- <asp:ListItem Value="1086" Text="All"></asp:ListItem>
-            <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem>
-            <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>--%>
-            </asp:DropDownList>
-        </td>
-        
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
@@ -175,6 +158,26 @@
      </table>
 <div id="tbl" runat="server">
     <table>
+    <tr>
+        <td>
+            <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
+            <asp:DropDownList ID="ddlBMBranchList" CssClass="cmbField"  runat="server" onselectedindexchanged="ddlBMBranchList_SelectedIndexChanged" AutoPostBack="true">
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table id="ErrorMessage" width="100%" align="center" runat="server">
+                <tr>
+                    <td style="width: 100%">
+                        <div class="failure-msg" style="text-align: center" align="center">
+                            No Customers found for selected Branch...
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
         <tr>
             <td class="rightField" colspan="2">
                 <asp:GridView ID="gvCustomers" runat="server" AutoGenerateColumns="False" CellPadding="4"
