@@ -60,7 +60,7 @@ namespace WealthERP.Advisor
                 {
                     BindStates(path);
                     BindDropDowns(path);
-                    BindCommnGridView();
+                  
                     editBranchDetails();
                     if (ddlBranchAssociateType.SelectedValue == "1")
                     {
@@ -77,8 +77,8 @@ namespace WealthERP.Advisor
                         AssociateLogoRow.Visible = true;
                         AssociateLogoHdr.Visible = true;
                         CommSharingStructureGv.Visible = true;
-                        CommSharingStructureHdr.Visible = true;
-                        SetInitialRow();
+                        CommSharingStructureHdr.Visible = true;                      
+                        BindCommnGridView();
  
                     }
                    
@@ -725,7 +725,8 @@ namespace WealthERP.Advisor
             DataTable dt = new DataTable();
             try
             {
-                if ((dt = advisorBranchBo.GetBranchAssociateCommission(advisorBranchVo.BranchId)) != null)
+                dt = advisorBranchBo.GetBranchAssociateCommission(advisorBranchVo.BranchId);
+                if (dt.Rows.Count>0)
                 {
                     ViewState["CurrentTable"] = dt;
                     gvCommStructure.DataSource = dt;
@@ -735,9 +736,9 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    
-                    gvCommStructure.DataSource = dt;
-                    gvCommStructure.DataBind();
+                    SetInitialRow();
+                    //gvCommStructure.DataSource = dt;
+                    //gvCommStructure.DataBind();
                     gvCommStructure.Visible = true;
  
                 }
@@ -984,10 +985,10 @@ namespace WealthERP.Advisor
         protected void gvCommStructure_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             DataTable dtViewState = (DataTable)ViewState["CurrentTable"];
-            
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                
+
                 DropDownList ddlAssetGroup = e.Row.FindControl("ddlAssetGroup") as DropDownList;
                 DataTable dt = new DataTable();
                 try
@@ -997,7 +998,7 @@ namespace WealthERP.Advisor
                     ddlAssetGroup.DataTextField = "XALAG_LOBAssetGroup";
                     ddlAssetGroup.DataValueField = "XALAG_LOBAssetGroupsCode";
                     ddlAssetGroup.DataBind();
-                    ddlAssetGroup.Items.Insert(0,new ListItem("Select Asset Group", "Select Asset Group")); 
+                    ddlAssetGroup.Items.Insert(0, new ListItem("Select Asset Group", "Select Asset Group"));
                     ddlAssetGroup.SelectedValue = dtViewState.Rows[e.Row.RowIndex]["AssetGroupCode"].ToString();
                 }
                 catch (BaseApplicationException Ex)
@@ -1179,6 +1180,7 @@ namespace WealthERP.Advisor
                 if (codecs[i].MimeType == mimeType)
                     return codecs[i];
             return null;
-        }   
+        }
+         
     }
 }
