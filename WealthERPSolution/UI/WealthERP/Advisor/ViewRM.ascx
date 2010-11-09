@@ -29,17 +29,12 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
-    <tr>
+   <tr id="trBMBranchs" runat="server">
          <td colspan="2" class="leftField" style="float: left">
             <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
             &nbsp;&nbsp;
-            <asp:DropDownList ID="ddlBMStaffList" runat="server" AutoPostBack="true" 
-                onselectedindexchanged="ddlBMStaffList_SelectedIndexChanged">
-            <%--<asp:ListItem Value="1005" Text="All"></asp:ListItem>
-            <asp:ListItem Value="1000" Text="BTM"></asp:ListItem>
-            <asp:ListItem Value="1001" Text="Malleshwaram"></asp:ListItem>
-            <asp:ListItem Value="1002" Text="Vijaynagar"></asp:ListItem>
-            <asp:ListItem Value="1003" Text="Banashankri"></asp:ListItem>--%>
+            <asp:DropDownList ID="ddlBMStaffList" runat="server" AutoPostBack="true" CssClass="cmbField"
+                onselectedindexchanged="ddlBMStaffList_SelectedIndexChanged">            
             </asp:DropDownList>
         </td>
         </tr>
