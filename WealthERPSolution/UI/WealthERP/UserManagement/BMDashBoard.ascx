@@ -26,10 +26,7 @@
             <td>
             <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
             <asp:DropDownList ID="ddlBMBranch" runat="server"  
-                    onselectedindexchanged="ddlBMBranch_SelectedIndexChanged" style="vertical-align: middle" AutoPostBack="true">
-            <%--<asp:ListItem Value="1086" Text="All"></asp:ListItem>
-                <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem>
-                <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>--%>
+                    onselectedindexchanged="ddlBMBranch_SelectedIndexChanged" CssClass="cmbField" style="vertical-align: middle" AutoPostBack="true">
             </asp:DropDownList>
             <br /> 
               <br /> 
@@ -81,7 +78,7 @@
                     <ItemStyle HorizontalAlign="left"  />
                      <FooterStyle HorizontalAlign="left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbFieldforBM" 
                                             Text='<%#Eval("Asset") %>' ForeColor="Black">
                                         </asp:Label>
                                     </ItemTemplate>
@@ -91,11 +88,11 @@
                                         </asp:Label>
                                     </FooterTemplate>
                    </asp:TemplateField>
-                     <asp:TemplateField HeaderText="CurrentValue(RS.)" HeaderStyle-HorizontalAlign="Right" >
+                     <asp:TemplateField HeaderText="Current Value (Rs.)" HeaderStyle-HorizontalAlign="Right" >
                      <ItemStyle HorizontalAlign="Right" />
                      <FooterStyle HorizontalAlign="Right" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbFieldforBM" 
                                             Text='<%#Eval("CurrentValue") %>' ForeColor="Black">
                                         </asp:Label>
                                     </ItemTemplate>
@@ -214,7 +211,7 @@
              <hr id="hrTop5Cust" runat="server" />
         </td>
         <td >
-        <asp:Label ID="chartCustNetworth" runat="server" CssClass="HeaderTextSmall" Text="Top 5 Customers(Networth)"></asp:Label>
+        <asp:Label ID="chartCustNetworth" runat="server" CssClass="HeaderTextSmall" Text="Top 5 Customers (Networth)"></asp:Label>
         <hr />
         </td>
         </tr>
@@ -222,7 +219,7 @@
         <td style="vertical-align: top">
         
          <asp:GridView ID="gvCustNetWorth" runat="server" AllowSorting="True" 
-                    Width="540px" AutoGenerateColumns="False" GridLines="Both"
+                    Width="550px" AutoGenerateColumns="False" GridLines="Both"
                 CellPadding="4" EnableViewState="false" AllowPaging="True" ShowFooter="true"
                 CssClass="GridViewStyle" ToolTip="Top 5 Customers Networth GridView" >
                   <FooterStyle CssClass="FooterStyle" />

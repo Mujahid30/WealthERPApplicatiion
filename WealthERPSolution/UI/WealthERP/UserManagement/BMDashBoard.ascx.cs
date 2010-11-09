@@ -216,6 +216,8 @@ namespace WealthERP.UserManagement
 
                     CharttopfiveRMCustNetworth.Series["CustomerNetworth"].IsValueShownAsLabel = true;
                     CharttopfiveRMCustNetworth.ChartAreas[0].AxisX.Title = "RM Name";
+                    CharttopfiveRMCustNetworth.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
+                    CharttopfiveRMCustNetworth.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep90;
                     
                     CharttopfiveRMCustNetworth.ChartAreas[0].AxisX.Interval = 1;
                     CharttopfiveRMCustNetworth.ChartAreas[0].AxisY.Title = "Customer NetWorth";
@@ -303,7 +305,10 @@ namespace WealthERP.UserManagement
                     ChartCustomerNetworth.Series["CustomerNetworth"].IsValueShownAsLabel = true;
                     ChartCustomerNetworth.ChartAreas[0].AxisX.Title = "Customer Name";
 
+                    ChartCustomerNetworth.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep90;
                     ChartCustomerNetworth.ChartAreas[0].AxisX.Interval = 1;
+                    ChartCustomerNetworth.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
+                    ChartCustomerNetworth.ChartAreas[0].AxisX.LabelAutoFitMaxFontSize = 5;
                     ChartCustomerNetworth.ChartAreas[0].AxisY.Title = "Customer NetWorth";
                     ChartCustomerNetworth.ChartAreas[0].Area3DStyle.Enable3D = true;
 
@@ -363,12 +368,18 @@ namespace WealthERP.UserManagement
 
                     if (GridViewCultureFlag == true)
                     {
-                        decimal tempCurrValue = System.Math.Round(decimal.Parse(drValues[i].ToString()), 2);
+                        double tempCurrValue = 0;
+                        double.TryParse(drValues[i].ToString(), out tempCurrValue);
+                        tempCurrValue = Math.Round(tempCurrValue, 2);
                         drAssets["CurrentValue"] = tempCurrValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     }
                     else
                     {
-                        drAssets["CurrentValue"] = decimal.Parse(drValues[i].ToString());
+                        
+                        double tempCurrValue = 0;
+                        double.TryParse(drValues[i].ToString(), out tempCurrValue);
+                        tempCurrValue = Math.Round(tempCurrValue, 2);
+                        drAssets["CurrentValue"] = tempCurrValue;
 
                     }
                 }
@@ -384,7 +395,9 @@ namespace WealthERP.UserManagement
                 TotalValue.Text = drValues[branchDetailsDS.Tables[0].Columns.Count - 1].ToString();
                 if (GridViewCultureFlag == true)
                 {
-                    decimal tempTotalValue = System.Math.Round(decimal.Parse(drValues[branchDetailsDS.Tables[0].Columns.Count - 1].ToString()), 2);
+                    double tempTotalValue = 0;
+                    double.TryParse(drValues[branchDetailsDS.Tables[0].Columns.Count - 1].ToString(), out tempTotalValue);
+                    tempTotalValue = Math.Round(tempTotalValue, 2);
                     TotalValue.Text = tempTotalValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 }
                 
