@@ -333,6 +333,7 @@ namespace WealthERP.Advisor
         protected void btnGenerate_Click(object sender, EventArgs e)
         {
             int Count = 0;
+            bool loginReset = false;
             try
             {
                 foreach (GridViewRow gvr in this.gvCustomers.Rows)
@@ -354,25 +355,30 @@ namespace WealthERP.Advisor
                     {
                         if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                         {
-                            //string password = r.Next(20000, 100000).ToString();
+                            string password = r.Next(20000, 100000).ToString();
                             userId = int.Parse(gvCustomers.DataKeys[gvr.RowIndex].Value.ToString());
                             userVo = new UserVo();
                             userVo = userBo.GetUserDetails(userId);
 
-                            //userVo.LoginId = r.Next(10000000, 99999999).ToString();
-                            //userVo.Password = Encryption.Encrypt(password);
-                            //userVo.IsTempPassword = 1;
-
-                            //userBo.UpdateUser(userVo);
-
+                            if (string.IsNullOrEmpty(userVo.LoginId))
+                            {
+                                loginReset = true;
+                                userVo.LoginId = r.Next(10000000, 99999999).ToString();
+                                userVo.Password = Encryption.Encrypt(password);
+                                userVo.IsTempPassword = 1;
+                                userBo.UpdateUser(userVo);
+                               
+                            }
                             //Send email to customer
                             //
                             //string EmailPath = Server.MapPath(ConfigurationManager.AppSettings["EmailPath"].ToString());
                             //email.SendCustomerLoginPassMail(advisorUserVo.Email, userVo.Email, advisorUserVo.LastName, userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName, userVo.LoginId, password, EmailPath);
                             SendMail(userVo);
+                           
 
                         }
                     }
+                   
                    //*********************** lblStatusMsg.Text = statusMessage;
                     //lblMailSent.Visible = true;
                     tblMessage.Visible = true;
