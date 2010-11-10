@@ -98,11 +98,15 @@
         </td>
     </tr>--%>
 </table>
-    <table width="100%" cellspacing="0" cellpadding="0">
+    
+  <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
     <tr>
     <td align="center">
-    <div class="success-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+    <div class="success-msg" id="SuccessMsg" runat="server" visible="false" align="center">
        
+    </div>
+    <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+      
     </div>
     </td>
     </tr>
@@ -113,12 +117,8 @@
             <asp:Label ID="lblMsg" class="Error" runat="server" Visible="false" Text="No Records Found...!"></asp:Label>
         </td>
     </tr>
-    <tr id="trStatusMessage" runat="server">
-        <%--<td align="center">
-            <asp:Label ID="lblStatusMsg" class="Error" runat="server" Text=""></asp:Label>
-        </td>--%>
-    </tr>
-    <tr>
+    
+    <tr id="trPagger" runat="server">
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
@@ -190,8 +190,9 @@
     </tr>
     <tr>
         <td>
-            <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Send Login Password"
-                CssClass="loadme PCGMediumButton" />
+            <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Send Login Password" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMUserDetails_btnGenerate', 'L');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMUserDetails_btnGenerate', 'L');" 
+                CssClass="loadme PCGLongButton" />
             <div class='loadmediv'>
             </div>
         </td>
