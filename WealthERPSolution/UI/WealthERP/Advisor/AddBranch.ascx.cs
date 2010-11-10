@@ -532,11 +532,11 @@ namespace WealthERP.Advisor
                     else
                         advisorBranchBo.AssociateBranch(advisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 0, userId);
 
-                    if (!advisorBranchBo.CheckBranchMgrRole(advisorBranchVo.BranchHeadId))
-                    {
-                        int rmUserId = advisorStaffBo.GetUserId(advisorBranchVo.BranchHeadId);
-                        userBo.CreateRoleAssociation(rmUserId, 1002);
-                    }
+                    //if (!advisorBranchBo.CheckBranchMgrRole(advisorBranchVo.BranchHeadId))
+                    //{
+                    //    int rmUserId = advisorStaffBo.GetUserId(advisorBranchVo.BranchHeadId);
+                    //    userBo.CreateRoleAssociation(rmUserId, 1002);
+                    //}
                     //if (branchAdd == "forAdvisor")
                     //{
                     //    rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);

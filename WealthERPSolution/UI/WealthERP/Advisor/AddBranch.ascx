@@ -118,9 +118,14 @@
          <td>
           <asp:TextBox ID="txtLine1" CssClass="txtLongAddField" runat="server"></asp:TextBox>
          </td>
-         <td>
+        <td>
          <span id="Span3" class="spnRequiredField">*</span>
-          <br />
+        </td>
+        
+        </tr>
+        <tr>
+         <td colspan="2">
+            
             <asp:RequiredFieldValidator ControlToValidate="txtLine1" ErrorMessage="Please enter the Address Line1"
                 CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator2" ValidationGroup="btnSubmit"
                 runat="server"></asp:RequiredFieldValidator>
@@ -149,9 +154,11 @@
         </td>
         <td class="leftField">
             <asp:Label ID="lblPinCode" runat="server" CssClass="FieldName" Text="Pin Code :"></asp:Label>
+            
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtPinCode" runat="server" MaxLength="6" CssClass="txtField"></asp:TextBox>
+            <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtPinCode"
                 ErrorMessage="Pincode Required" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG"
@@ -212,7 +219,7 @@
             <asp:TextBox ID="txtMobileNumber" CssClass="txtField" runat="server" MaxLength="10"></asp:TextBox>
             <br />           
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG"
-                ErrorMessage="Please give only 8 digit Numbers" ValidationGroup="btnSubmit" ValidationExpression="^[0-9]{10}"  ControlToValidate="txtMobileNumber"
+                ErrorMessage="Please give only 10 digit Numbers" ValidationGroup="btnSubmit" ValidationExpression="^[0-9]{10}"  ControlToValidate="txtMobileNumber"
                 Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -286,7 +293,7 @@
             <asp:TextBox ID="txtIsdPhone2" CssClass="txtField" runat="server" Width="55px" MaxLength="5">91</asp:TextBox>
             <asp:TextBox ID="txtStdPhone2" CssClass="txtField" runat="server" Width="55px" MaxLength="4"></asp:TextBox>
             <asp:TextBox ID="txtPhone2" CssClass="txtField" runat="server" MaxLength="8"></asp:TextBox>
-            <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br />Enter a numeric value"
+ <%--         <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="cvPCG" Type="Integer" ControlToValidate="txtPhone2" Operator="DataTypeCheck"
                 Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br />Enter a numeric value"
@@ -294,7 +301,17 @@
                 Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="cvPCG" Type="Integer" ControlToValidate="txtStdPhone2" Operator="DataTypeCheck"
-                Display="Dynamic"></asp:CompareValidator>
+                Display="Dynamic"></asp:CompareValidator>--%>
+                
+              <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" CssClass="cvPCG"
+                ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtIsdPhone2"
+                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server" CssClass="cvPCG"
+                ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtStdPhone2"
+                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" CssClass="cvPCG" ValidationGroup="btnSubmit"
+                ErrorMessage="<br />Please give only Numbers" ValidationExpression="^[0-9]+$" ControlToValidate="txtPhone2"
+                Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -305,7 +322,7 @@
             <asp:TextBox ID="txtIsdFax" CssClass="txtField" runat="server" Width="55px" MaxLength="5">91</asp:TextBox>
             <asp:TextBox ID="txtStdFax" CssClass="txtField" runat="server" Width="55px" MaxLength="4"></asp:TextBox>
             <asp:TextBox ID="txtFax" CssClass="txtField" runat="server" MaxLength="8"></asp:TextBox>
-            <asp:CompareValidator ID="CompareValidator11" runat="server" ErrorMessage="<br />Enter a numeric value"
+          <%--  <asp:CompareValidator ID="CompareValidator11" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="cvPCG" Type="Integer" ControlToValidate="txtFax" Operator="DataTypeCheck"
                 Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />Enter a numeric value"
@@ -313,7 +330,17 @@
                 Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="cvPCG" Type="Integer" ControlToValidate="txtStdFax" Operator="DataTypeCheck"
-                Display="Dynamic"></asp:CompareValidator>
+                Display="Dynamic"></asp:CompareValidator>--%>
+                   
+              <asp:RegularExpressionValidator ID="RegularExpressionValidator13" runat="server" CssClass="cvPCG"
+                ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtIsdFax"
+                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator14" runat="server" CssClass="cvPCG"
+                ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtStdFax"
+                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator15" runat="server" CssClass="cvPCG" ValidationGroup="btnSubmit"
+                ErrorMessage="<br />Please give only Numbers" ValidationExpression="^[0-9]+$" ControlToValidate="txtFax"
+                Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
