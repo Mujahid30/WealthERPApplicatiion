@@ -216,3 +216,4 @@
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="C_FirstName ASC" />
 <asp:HiddenField ID="hdnNameFilter" runat="server" />
+<asp:HiddenField ID="hdnCurrentPage" runat="server" />

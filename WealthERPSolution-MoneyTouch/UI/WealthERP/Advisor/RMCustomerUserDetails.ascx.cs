@@ -158,6 +158,7 @@ namespace WealthERP.Advisor
                     upperlimit = hdnRecordCount.Value;
                 PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
                 lblCurrentPage.Text = PageRecords;
+                hdnCurrentPage.Value = mypager.CurrentPage.ToString();
             }
             catch (BaseApplicationException Ex)
             {
@@ -374,7 +375,7 @@ namespace WealthERP.Advisor
                             //string EmailPath = Server.MapPath(ConfigurationManager.AppSettings["EmailPath"].ToString());
                             //email.SendCustomerLoginPassMail(advisorUserVo.Email, userVo.Email, advisorUserVo.LastName, userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName, userVo.LoginId, password, EmailPath);
                             SendMail(userVo);
-                           
+                            
 
                         }
                     }
@@ -384,7 +385,11 @@ namespace WealthERP.Advisor
                     tblMessage.Visible = true;
                     SuccessMsg.Visible = true;
                     SuccessMsg.InnerText = statusMessage;
-                    
+                    if (loginReset==true)
+                    {
+                        mypager.CurrentPage=int.Parse(hdnCurrentPage.Value.ToString());
+                        BindGrid();
+                    }
                 }
 
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
@@ -455,18 +460,36 @@ namespace WealthERP.Advisor
                     }
                     //Sending mail...
                     isMailSent = emailer.SendMail(email);
-                }
-                else
+                }                
+              else
                     isEmailIdBlank = true;
                 if (isEmailIdBlank)
-                    statusMessage += "<br/>No email Id specified for " + userVo.FirstName + " " + userVo.LastName;
+                    statusMessage = "No email Id specified for slected User";
+                if (isEmailIdBlank)
+                {
+                    if (string.IsNullOrEmpty(statusMessage))
+                    {
+                        statusMessage = "No email Id specified for slected User";
+                    }
+                    else
+                        statusMessage = statusMessage + " and some selected User don't have E-mail id";
+
+                }
+
                 else if (isMailSent)
                 {
-                    statusMessage = "Credentials have been sent to selected customers "; 
+                    if (string.IsNullOrEmpty(statusMessage))
+                    {
+                        statusMessage = "Credentials have been sent to selected User";
+                    }
+                    else if (statusMessage == "No email Id specified for slected User")
+                        statusMessage = "some selected User don't have E-mail id and Credentials have been sent sucessfully to rest of User";
                 }
+
+
                 else
                 {
-                    statusMessage += "An error occurred while sending mail .. " ;
+                    statusMessage = "An error occurred while sending mail .. ";
 
                 }
 
