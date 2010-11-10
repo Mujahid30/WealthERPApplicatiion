@@ -190,7 +190,8 @@
     </tr>
     <tr>
         <td>
-            <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Send Login Password"
+            <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Send Login Password" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMUserDetails_btnGenerate', 'L');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMUserDetails_btnGenerate', 'L');" 
                 CssClass="loadme PCGLongButton" />
             <div class='loadmediv'>
             </div>
