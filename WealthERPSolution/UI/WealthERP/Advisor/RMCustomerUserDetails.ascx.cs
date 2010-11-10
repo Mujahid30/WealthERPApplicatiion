@@ -36,6 +36,7 @@ namespace WealthERP.Advisor
         Random r = new Random();
         PcgMailMessage email = new PcgMailMessage();
         string statusMessage = string.Empty;
+        AdvisorVo advisorVo = new AdvisorVo();
 
         private SortDirection GridViewSortDirection
         {
@@ -52,13 +53,18 @@ namespace WealthERP.Advisor
         {
             try
             {
+                tblMessage.Visible = false;
+                SuccessMsg.Visible = false;
+                ErrorMessage.Visible = false;
                 SessionBo.CheckSession();
                 if (!IsPostBack)
                 {
                     this.BindGrid();
                 }
+                
                 advisorUserVo = (UserVo)Session[SessionContents.UserVo];
-                lblStatusMsg.Text = string.Empty;
+
+                //**************************lblStatusMsg.Text = string.Empty;
                 //lblMailSent.Visible = false;
             }
             catch (BaseApplicationException Ex)
@@ -152,6 +158,7 @@ namespace WealthERP.Advisor
                     upperlimit = hdnRecordCount.Value;
                 PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
                 lblCurrentPage.Text = PageRecords;
+                hdnCurrentPage.Value = mypager.CurrentPage.ToString();
             }
             catch (BaseApplicationException Ex)
             {
@@ -195,12 +202,12 @@ namespace WealthERP.Advisor
 
                 int Count = 0;
 
-                customerUserList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", hdnNameFilter.Value.Trim(), "", "", "", "", "", "", out genDictParent, out genDictRM, out genDicReassigntRM);
+                customerUserList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", "", hdnNameFilter.Value.Trim(), "", "", "", "", "", out genDictParent, out genDictRM, out genDicReassigntRM);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerUserList != null)
                 {
-                    lblMsg.Visible = false;
+                    //lblMsg.Visible = false;
                     dtRMCustomer.Columns.Add("UserId");
                     dtRMCustomer.Columns.Add("CustomerName");
                     dtRMCustomer.Columns.Add("Login Id");
@@ -228,26 +235,33 @@ namespace WealthERP.Advisor
                     gvCustomers.DataSource = dtRMCustomer;
                     gvCustomers.DataBind();
 
-                    //TextBox txtName = new TextBox();
-                    //if (gvCustomers.HeaderRow != null)
-                    //{
-                    //    if ((TextBox)gvCustomers.HeaderRow.FindControl("txtCustNameSearch") != null)
-                    //    {
-                    //        txtName = (TextBox)gvCustomers.HeaderRow.FindControl("txtCustNameSearch");
-                    //        txtName.Text = hdnNameFilter.Value.Trim();
-                    //    }
-                    //}
-                    //else
-                    //    txtName = null;
+                    TextBox txtName = new TextBox();
+                    if (gvCustomers.HeaderRow != null)
+                    {
+                        if ((TextBox)gvCustomers.HeaderRow.FindControl("txtCustNameSearch") != null)
+                        {
+                            txtName = (TextBox)gvCustomers.HeaderRow.FindControl("txtCustNameSearch");
+                            txtName.Text = hdnNameFilter.Value.Trim();
+                        }
+                    }
+                    else
+                        txtName = null;
                     
                     this.GetPageCount();
                 }
                 else
                 {
+                    mypager.Visible = false;
                     lblCurrentPage.Visible = false;
                     lblTotalRows.Visible = false;
                     //tblPager.Visible = false;
-                    lblMsg.Visible = true;
+                   // lblMsg.Visible = true;
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    SuccessMsg.Visible = false;
+                    trPagger.Visible = false;
+                    btnGenerate.Visible = false;
+                    ErrorMessage.InnerText = "No Records Found...!";
                 }
             }
             catch (BaseApplicationException Ex)
@@ -320,6 +334,7 @@ namespace WealthERP.Advisor
         protected void btnGenerate_Click(object sender, EventArgs e)
         {
             int Count = 0;
+            bool loginReset = false;
             try
             {
                 foreach (GridViewRow gvr in this.gvCustomers.Rows)
@@ -332,7 +347,7 @@ namespace WealthERP.Advisor
                 if (Count == 0)
                 {
                     //lblMailSent.Text = "Please select the Customer..!";
-                    lblStatusMsg.Text = "Please select the Customer";
+                   //********************* lblStatusMsg.Text = "Please select the Customer";
                     //lblMailSent.Visible = true;
                 }
                 else
@@ -346,22 +361,35 @@ namespace WealthERP.Advisor
                             userVo = new UserVo();
                             userVo = userBo.GetUserDetails(userId);
 
-                            userVo.LoginId = r.Next(10000000, 99999999).ToString();
-                            userVo.Password = Encryption.Encrypt(password);
-                            userVo.IsTempPassword = 1;
-
-                            userBo.UpdateUser(userVo);
-
+                            if (string.IsNullOrEmpty(userVo.LoginId))
+                            {
+                                loginReset = true;
+                                userVo.LoginId = r.Next(10000000, 99999999).ToString();
+                                userVo.Password = Encryption.Encrypt(password);
+                                userVo.IsTempPassword = 1;
+                                userBo.UpdateUser(userVo);
+                               
+                            }
                             //Send email to customer
                             //
                             //string EmailPath = Server.MapPath(ConfigurationManager.AppSettings["EmailPath"].ToString());
                             //email.SendCustomerLoginPassMail(advisorUserVo.Email, userVo.Email, advisorUserVo.LastName, userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName, userVo.LoginId, password, EmailPath);
                             SendMail(userVo);
+                            
 
                         }
                     }
-                    lblStatusMsg.Text = statusMessage;
+                   
+                   //*********************** lblStatusMsg.Text = statusMessage;
                     //lblMailSent.Visible = true;
+                    tblMessage.Visible = true;
+                    SuccessMsg.Visible = true;
+                    SuccessMsg.InnerText = statusMessage;
+                    if (loginReset==true)
+                    {
+                        mypager.CurrentPage=int.Parse(hdnCurrentPage.Value.ToString());
+                        BindGrid();
+                    }
                 }
 
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
@@ -391,8 +419,9 @@ namespace WealthERP.Advisor
         private bool SendMail(UserVo userVo)
         {
             Emailer emailer = new Emailer();
-            EmailMessage email = new EmailMessage();
-
+            EmailMessage email = new EmailMessage();           
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+           
             bool isMailSent = false;
             bool isEmailIdBlank = false;
             try
@@ -407,12 +436,12 @@ namespace WealthERP.Advisor
                 AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(advrm.RMId);
 
                 //Get the mail contents
-                if (userVo.Email != string.Empty)
+                if (userVo.Email.Trim() != string.Empty)
                 {
                     email.To.Add(userVo.Email);
                     string name = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
                     email.GetCustomerAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), name);
-
+                    email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                     //Assign SMTP Credentials if configured.
                     if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
                     {
@@ -435,14 +464,30 @@ namespace WealthERP.Advisor
                 else
                     isEmailIdBlank = true;
                 if (isEmailIdBlank)
-                    statusMessage += "<br/>No email Id specified for " + userVo.FirstName + " " + userVo.LastName;
+                {
+                    if (string.IsNullOrEmpty(statusMessage))
+                    {
+                        statusMessage = "No email Id specified for slected User";
+                    }
+                    else
+                        statusMessage = statusMessage + " and some selected User don't have E-mail id";
+
+                }
+                    
                 else if (isMailSent)
                 {
-                    statusMessage += "<br/>Credentials have been sent to " + userVo.Email;
-                }
+                    if (string.IsNullOrEmpty(statusMessage))
+                    {
+                        statusMessage = "Credentials have been sent to selected User";
+                    }
+                    else if (statusMessage == "No email Id specified for slected User")
+                        statusMessage = "some selected User don't have E-mail id and Credentials have been sent sucessfully to rest of User";
+                    }
+
+                    
                 else
                 {
-                    statusMessage += "<br/>An error occurred while sending mail to " + userVo.Email;
+                    statusMessage = "An error occurred while sending mail .. " ;
 
                 }
 
@@ -474,12 +519,18 @@ namespace WealthERP.Advisor
                 }
                 if (isSuccess)
                 {
-                    lblStatusMsg.Text = "Password has been reset.";
+                    //********************lblStatusMsg.Text = "Password has been reset.";
+                    tblMessage.Visible = true;
+                    SuccessMsg.Visible = true;
+                    SuccessMsg.InnerText = "Password has been reset.";
                 }
                 else
                 {
-                    lblStatusMsg.Text = "An error occurred while reseting password.";
-
+                    //************************lblStatusMsg.Text = "An error occurred while reseting password.";
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "An error occurred while reseting password.";
+                    
                 }
             }
             else if (e.CommandName == "ViewDetails")

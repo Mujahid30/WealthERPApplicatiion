@@ -9,10 +9,33 @@
 <link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
+//    $(document).ready(function() {
+//        $('.loadme').click(function() {
+//            $(".loadmediv").colorbox({ width: "240px",overlayClose:false, inline: true, open: true, href: "#LoadImage" });
+//        });
+//    });
+
     $(document).ready(function() {
         $('.loadme').click(function() {
-            $(".loadmediv").colorbox({ width: "240px",overlayClose:false, inline: true, open: true, href: "#LoadImage" });
+        var panel = document.getElementById('<%= gvCustomers.ClientID %>');
+            var chkArray = panel.getElementsByTagName("input");
+            var checked = 0;
+            for (var i = 0; i < chkArray.length; i++) {
+                if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
+                    checked = 1;
+                    break;
+                }
+            }
+
+            if (checked != 1) {
+                alert('Please select Customer to send Password');
+                return false;
+            }
+            else {
+                $(".loadmediv").colorbox({ width: "240px", overlayClose: false, inline: true, open: true, href: "#LoadImage" });
+            }
         });
+
     });
 
 
@@ -70,21 +93,35 @@
     </table>
 </div>
 </td></tr>
+
+    
 </table>
-<table style="width: 100%;" class="TableBackground">
-    <tr>
+<table align="center" width="100%">
+<tr>
         <td>
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer User Details"></asp:Label>
             <hr />
         </td>
     </tr>
-   <tr>
-        <td align="center">
-            <asp:Label ID="lblStatusMsg" class="Error" runat="server" 
-                EnableViewState="False"></asp:Label>
-        </td>
-    </tr>
+</table>
+
+ <table width="100%" cellspacing="0" cellpadding="0" id="tblMessage" runat="server" visible="false">
     <tr>
+    <td align="center">
+    <div class="success-msg" id="SuccessMsg" runat="server" visible="false" align="center">
+       
+    </div>
+    <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+      
+    </div>
+    </td>
+    </tr>
+ </table>
+
+<table style="width: 100%;" class="TableBackground">
+    
+
+    <tr id="trPagger" runat="server">
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
@@ -160,16 +197,16 @@
             </table>
         </td>
     </tr> --%>
-    <tr>
+    <%--<tr>
         <td>
             <asp:Label ID="lblMsg" class="Error" runat="server" Text="No Records Found...!"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Send Login Password"
-                CssClass="loadme PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerProofsAdd_btnSubmit', 'L');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerProofsAdd_btnSubmit', 'L');" />
+                CssClass="loadme PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMCustomerUserDetails_btnGenerate', 'L');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMCustomerUserDetails_btnGenerate', 'L');" />
                  <div class='loadmediv'></div>
         </td>
     </tr>
@@ -179,3 +216,4 @@
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="C_FirstName ASC" />
 <asp:HiddenField ID="hdnNameFilter" runat="server" />
+<asp:HiddenField ID="hdnCurrentPage" runat="server" />
