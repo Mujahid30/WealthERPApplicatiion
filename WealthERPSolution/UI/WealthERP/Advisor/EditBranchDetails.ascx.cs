@@ -501,7 +501,7 @@ namespace WealthERP.Advisor
                             TextBox startDate = (TextBox)row.FindControl("txtStartDate");
                             TextBox endDate = (TextBox)row.FindControl("txtEndDate");
 
-                            if (ddlAssGp.SelectedValue.ToString() != "Select Asset Group")
+                            if (ddlAssGp.SelectedIndex != 0 && !string.IsNullOrEmpty(commfee.Text.Trim()) && !string.IsNullOrEmpty(revUpper.Text.Trim()) && !string.IsNullOrEmpty(revLower.Text.Trim()) && !string.IsNullOrEmpty(startDate.Text.Trim()) && !string.IsNullOrEmpty(endDate.Text.Trim()))
                             {
                                 advisorAssociateCommissionVo.LOBAssetGroupsCode = ddlAssGp.SelectedValue.ToString();
                                 if (commfee.Text.ToString() != string.Empty)
@@ -906,20 +906,20 @@ namespace WealthERP.Advisor
                         TextBox box3 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[3].FindControl("txtRevLowerLimit");
                         TextBox box4 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[4].FindControl("txtStartDate");
                         TextBox box5 = (TextBox)gvCommStructure.Rows[rowIndex].Cells[5].FindControl("txtEndDate");
-
-                        drCurrentRow = dtCurrentTable.NewRow();
-                        //drCurrentRow["RowNumber"] = i + 1;
-                        drCurrentRow = dtNewTable.NewRow();
-                        //drCurrentRow["RowNumber"] = i + 1;
-                        drCurrentRow["AACS_Id"] = dtCurrentTable.Rows[i - 1]["AACS_Id"];
-                        drCurrentRow["AssetGroupCode"] = ddl1.SelectedValue;
-                        drCurrentRow["CommissionFee"] = box1.Text;
-                        drCurrentRow["RevenueUpperLimit"] = box2.Text;
-                        drCurrentRow["RevenueLowerLimit"] = box3.Text;
-                        drCurrentRow["StartDate"] = box4.Text;
-                        drCurrentRow["EndDate"] = box5.Text;
-                        dtNewTable.Rows.Add(drCurrentRow);
-                        rowIndex++;
+                       
+                            drCurrentRow = dtCurrentTable.NewRow();
+                            //drCurrentRow["RowNumber"] = i + 1;
+                            drCurrentRow = dtNewTable.NewRow();
+                            //drCurrentRow["RowNumber"] = i + 1;
+                            drCurrentRow["AACS_Id"] = dtCurrentTable.Rows[i - 1]["AACS_Id"];
+                            drCurrentRow["AssetGroupCode"] = ddl1.SelectedValue;
+                            drCurrentRow["CommissionFee"] = box1.Text;
+                            drCurrentRow["RevenueUpperLimit"] = box2.Text;
+                            drCurrentRow["RevenueLowerLimit"] = box3.Text;
+                            drCurrentRow["StartDate"] = box4.Text;
+                            drCurrentRow["EndDate"] = box5.Text;
+                            dtNewTable.Rows.Add(drCurrentRow);                       
+                            rowIndex++;
                     }
 
                     drCurrentRow = dtNewTable.NewRow();
