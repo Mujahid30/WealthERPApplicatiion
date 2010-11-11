@@ -40,8 +40,7 @@
         var bool = window.confirm('Are you sure you want to delete this profile?');
   
         if (bool) {            
-            document.getElementById("ctrl_RMCustomer_hdnMsgValue").value = 1;
-            alert(bool);
+            document.getElementById("ctrl_RMCustomer_hdnMsgValue").value = 1;           
             document.getElementById("ctrl_RMCustomer_hiddenassociation").click();
 
             return false;
