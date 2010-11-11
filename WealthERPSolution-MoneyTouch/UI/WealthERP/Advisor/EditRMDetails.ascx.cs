@@ -646,8 +646,8 @@ namespace WealthERP.Advisor
                                     else
                                     {
                                         ChklistRMBM.Items[1].Selected = true;
-                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", "alert('Can't remove BM role,staff is Group Head of Branch');", true);
-                                        return;
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('BM Role can not be removed as this staff is a Branch Head');", true);
+                                       
                                     }
                                 }
 

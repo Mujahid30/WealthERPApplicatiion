@@ -22,7 +22,7 @@
         var Source = document.getElementById("<%= availableBranch.ClientID %>");
         var Target = document.getElementById("<%= associatedBranch.ClientID %>");
 
-        if ((Source != null) && (Target != null) && Source.selectedIndex >= 0) {
+        if ((Source != null) && (Target != null) && (Source.selectedIndex >= 0)) {
             var newOption = new Option();
             newOption.text = Source.options[Source.selectedIndex].text;
             newOption.value = Source.options[Source.selectedIndex].value;
@@ -39,7 +39,7 @@
         var Source = document.getElementById("<%= associatedBranch.ClientID %>");
         var Target = document.getElementById("<%= availableBranch.ClientID %>");
 
-        if ((Source != null) && (Target != null) && Source.selectedIndex >= 0) {
+        if ((Source != null) && (Target != null) && (Source.selectedIndex >= 0)) {
 
             var newOption = new Option();
             newOption.text = Source.options[Source.selectedIndex].text;
@@ -57,6 +57,8 @@
         }
         //alert(selectedBranches)
     }
+
+
 
     function CheckItem(sender, args) {
         var chkControlId = '<%=ChklistRMBM.ClientID%>';
@@ -81,9 +83,10 @@
             }
         }
     }
+    
+    
 
-    function CheckRMBMRole() {
-        alert("pra..");
+    function CheckRMBMRole() {        
         var chkControlId = '<%=ChklistRMBM.ClientID%>';
         var options = document.getElementById(chkControlId).getElementsByTagName('input');
         var ischecked = false;
