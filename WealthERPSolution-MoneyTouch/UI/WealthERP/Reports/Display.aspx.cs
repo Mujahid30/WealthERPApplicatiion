@@ -846,36 +846,37 @@ namespace WealthERP.Reports
                 customerVo = (CustomerVo)Session["customerVo"];
             try
             {
-                string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                //string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 //setLogo();
-                if (advisorVo.State != null)
-                    state = CommonReport.GetState(path, advisorVo.State);
+                //if (advisorVo.State != null)
+                //    state = CommonReport.GetState(path, advisorVo.State);
                 customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
                 crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + (customerRMVo.FirstName+" "+customerRMVo.MiddleName+" "+customerRMVo.LastName).Trim());
                 if (!string.IsNullOrEmpty(customerRMVo.Email))
-                    crmain.SetParameterValue("RMContactDetails", "Email :  " + customerRMVo.Email);
+                    crmain.SetParameterValue("OrgDetails", "Email :  " + customerRMVo.Email);
                 else
-                    crmain.SetParameterValue("RMContactDetails", "Email :--");
+                    crmain.SetParameterValue("OrgDetails", "Email :--");
                 if(CurrentReportType!=ReportType.EquityReports)
                 {
                     if (customerRMVo.Mobile != 0)
                 {
-                    crmain.SetParameterValue("MobileNo", "Mobile :  " + "+91-" + customerRMVo.Mobile);
+                    crmain.SetParameterValue("OrgTelephone", "Mobile :  " + "+91-" + customerRMVo.Mobile);
                 }
                 else
                 {
-                    crmain.SetParameterValue("MobileNo", "Mobile :--");
+                    crmain.SetParameterValue("OrgTelephone", "Mobile :--");
                 }
                 crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + state);
                 //crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.Email);
                 //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
-                crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.OrganizationName);
-                crmain.SetParameterValue("OrgTelephone", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
+                crmain.SetParameterValue("RMContactDetails", "E-mail: " + advisorVo.Email);
+                crmain.SetParameterValue("MobileNo", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
                 crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + advisorVo.City);
                 crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
+                crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
                 }
                 
-                crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
+               
 
                 
             }
@@ -1380,7 +1381,7 @@ namespace WealthERP.Reports
                 System.Net.Mail.AlternateView htmlView;
                 System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
                 //System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(hidBody.Value.Trim() + "<image src=cid:HDIImage>", null, "text/html");
-                htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + MailBody + "</p>'<img src='cid:HDIImage'></body></html>", null, "text/html");
+                htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + MailBody + "</p><img src='cid:HDIImage'></body></html>", null, "text/html");
                 //Add image to HTML version
                 if (Session["advisorVo"] != null)
                     logoPath = "~/Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
