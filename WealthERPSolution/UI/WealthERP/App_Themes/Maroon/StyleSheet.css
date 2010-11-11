@@ -356,6 +356,7 @@ div#MainDivLeft
     color: White;
     font-size: x-small;
     font-family: Verdana,Tahoma;
+    height: 22px;
     width: 165px;
     cursor: pointer;
 }
