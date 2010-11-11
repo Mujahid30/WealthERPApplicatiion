@@ -64,9 +64,17 @@
         </td>
     </tr>
 </table>
-<div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+<table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+    <tr>
+    <td align="center">
+    <div class="failure-msg" id="ErrorMessage1" runat="server" visible="true" align="center">
     No Records found.....
-</div>
+   </div>
+    </td>
+    </tr>
+</table>
+    
+
 <table class="TableBackground" width="100%" id="tblGV" runat="server">
     <tr>
         <td>
@@ -210,7 +218,7 @@
                             <HeaderTemplate>
                                 <asp:Label ID="lblParent" runat="server" Text="Group"></asp:Label>
                                 <br />
-                                <asp:DropDownList ID="ddlParent" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                <asp:DropDownList ID="ddlParent" runat="server" AutoPostBack="true" CssClass="GridViewCmbLongField"
                                     OnSelectedIndexChanged="ddlParent_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </HeaderTemplate>

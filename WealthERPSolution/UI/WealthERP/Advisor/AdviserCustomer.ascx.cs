@@ -193,6 +193,7 @@ namespace WealthERP.Advisor
 
         protected void BindGrid(int CurrentPage, int export)
         {
+            
             Dictionary<string, string> genDictParent = new Dictionary<string, string>();
             genDictReassignRM = new Dictionary<string, string>();
             genDictRM = new Dictionary<string, string>();
@@ -327,10 +328,12 @@ namespace WealthERP.Advisor
                         drRMCustomer[11] = customerVo.Adr1City.ToString();
                         drRMCustomer[12] = customerVo.Adr1PinCode.ToString();
                         //customerRMVo = advisorStaffBo.GetAdvisorStaff(advisorStaffBo.GetUserId(customerVo.RmId));
-                        drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        //drRMCustomer[13] = customerVo.AssignedRM.ToString();
                         //customerRMVo.FirstName.ToString() + " " + customerRMVo.MiddleName.ToString() + " " + customerRMVo.LastName.ToString();
-
-                        drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        if(customerVo.AssignedRM!=null)
+                            drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        else
+                            drRMCustomer[13]="-";
                         if (customerVo.IsActive == 1)
                         {
                             drRMCustomer[14] = "Active";
@@ -735,7 +738,10 @@ namespace WealthERP.Advisor
                         drRMCustomer[10] = customerVo.Adr1Line3.ToString();
                         drRMCustomer[11] = customerVo.Adr1City.ToString();
                         drRMCustomer[12] = customerVo.Adr1PinCode.ToString();
-                        drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        if (customerVo.AssignedRM != null)
+                            drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                        else
+                            drRMCustomer[13] = "";
                         if (customerVo.IsActive == 1)
                         {
                             drRMCustomer[14] = "Active";
@@ -759,8 +765,8 @@ namespace WealthERP.Advisor
                         if (ddlParent != null)
                         {
                             ddlParent.DataSource = genDictParent;
-                            ddlParent.DataTextField = "Key";
-                            ddlParent.DataValueField = "Value";
+                            ddlParent.DataTextField = "Value";
+                            ddlParent.DataValueField = "Key";
                             ddlParent.DataBind();
                             ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                         }
