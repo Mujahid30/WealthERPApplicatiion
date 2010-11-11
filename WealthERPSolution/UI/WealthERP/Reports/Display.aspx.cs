@@ -833,6 +833,8 @@ namespace WealthERP.Reports
         private void AssignReportViewerProperties()
         {
             RMVo rmVo = (RMVo)Session["rmVo"];
+            RMVo customerRMVo = new RMVo();
+            AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
             string state = "";
             if (Session["CusVo"] != null)
                 customerVo = (CustomerVo)Session["CusVo"];
@@ -840,38 +842,39 @@ namespace WealthERP.Reports
                 customerVo = (CustomerVo)Session["customerVo"];
             try
             {
-                string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                //string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 //setLogo();
-                if (advisorVo.State != null)
-                    state = CommonReport.GetState(path, advisorVo.State);
-
-                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + customerVo.RMName);
-                if (!string.IsNullOrEmpty(customerVo.RMEmail))
-                    crmain.SetParameterValue("RMContactDetails", "Email :  " + customerVo.RMEmail);
+                //if (advisorVo.State != null)
+                //    state = CommonReport.GetState(path, advisorVo.State);
+                customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).Trim());
+                if (!string.IsNullOrEmpty(customerRMVo.Email))
+                    crmain.SetParameterValue("OrgDetails", "Email :  " + customerRMVo.Email);
                 else
-                    crmain.SetParameterValue("RMContactDetails", "Email :--");
-                if(CurrentReportType!=ReportType.EquityReports)
+                    crmain.SetParameterValue("OrgDetails", "Email :--");
+                if (CurrentReportType != ReportType.EquityReports)
                 {
-                if (customerVo.RMMobile != 0)
-                {
-                    crmain.SetParameterValue("MobileNo", "Mobile :  " + "+91-" + customerVo.RMMobile);
+                    if (customerRMVo.Mobile != 0)
+                    {
+                        crmain.SetParameterValue("OrgTelephone", "Mobile :  " + "+91-" + customerRMVo.Mobile);
+                    }
+                    else
+                    {
+                        crmain.SetParameterValue("OrgTelephone", "Mobile :--");
+                    }
+                    crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + state);
+                    //crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.Email);
+                    //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
+                    crmain.SetParameterValue("RMContactDetails", "E-mail: " + advisorVo.Email);
+                    crmain.SetParameterValue("MobileNo", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
+                    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + advisorVo.City);
+                    crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
+                    crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
                 }
-                else
-                {
-                    crmain.SetParameterValue("MobileNo", "Mobile :--");
-                }
-                crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + state);
-                //crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.Email);
-                //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
-                crmain.SetParameterValue("OrgDetails", "E-mail: " + customerVo.RMEmail);
-                crmain.SetParameterValue("OrgTelephone", "Phone: " + "+" + customerVo.RMOfficePhone);
-                crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);
-                crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
-                }
-                
-                crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
-                
+
+
+
             }
             catch (Exception ex)
             {
@@ -879,6 +882,10 @@ namespace WealthERP.Reports
             }
 
             CrystalReportViewer1.ReportSource = crmain;
+            if (crmain.PrintOptions.PaperOrientation == PaperOrientation.Landscape)
+            {
+                CrystalReportViewer1.Attributes.Add("ToolbarStyle-Width", "900px");
+            }
             CrystalReportViewer1.EnableDrillDown = true;
             CrystalReportViewer1.HasCrystalLogo = false;
         }
@@ -1370,7 +1377,7 @@ namespace WealthERP.Reports
                 System.Net.Mail.AlternateView htmlView;
                 System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
                 //System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(hidBody.Value.Trim() + "<image src=cid:HDIImage>", null, "text/html");
-                htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + MailBody + "</p>'<img src='cid:HDIImage'></body></html>", null, "text/html");
+                htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + MailBody + "</p><img src='cid:HDIImage'></body></html>", null, "text/html");
                 //Add image to HTML version
                 if (Session["advisorVo"] != null)
                     logoPath = "~/Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
