@@ -35,7 +35,7 @@
     font-weight: normal;
     font-size: x-small;
     color: #16518A;
-    width: 80px;
+    width: 100px;
 }
 </style>
 <table width="100%" class="TableBackground">
@@ -443,7 +443,7 @@
                                 targetcontrolid="txtStartDate" watermarktext="dd/mm/yyyy">
                             </cc1:textboxwatermarkextender>
                              <asp:RequiredFieldValidator ID="reqtxtStartDate" runat="server" ControlToValidate="txtStartDate"
-                            CssClass="rfvPCG" ValidationGroup="btnAdd" ErrorMessage="Please select a start Date"></asp:RequiredFieldValidator>
+                            CssClass="rfvPCG" ValidationGroup="btnAdd" Display="Dynamic" ErrorMessage="Please select a start Date"></asp:RequiredFieldValidator>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="End Date">
@@ -459,7 +459,7 @@
                                 targetcontrolid="txtEndDate" watermarktext="dd/mm/yyyy">
                             </cc1:textboxwatermarkextender>
                              <asp:RequiredFieldValidator ID="reqtxtEndDate" runat="server" ControlToValidate="txtEndDate"
-                            CssClass="rfvPCG" ValidationGroup="btnAdd" ErrorMessage="Please select a End Date"></asp:RequiredFieldValidator>
+                            CssClass="rfvPCG" ValidationGroup="btnAdd" Display="Dynamic" ErrorMessage="Please select a End Date"></asp:RequiredFieldValidator>
                             <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtEndDate"
                                 ErrorMessage="End Date should be greater than Start Date" Type="Date" Operator="GreaterThanEqual"
                                 ControlToCompare="txtStartDate" CssClass="cvPCG" ValidationGroup="btnSubmit"
