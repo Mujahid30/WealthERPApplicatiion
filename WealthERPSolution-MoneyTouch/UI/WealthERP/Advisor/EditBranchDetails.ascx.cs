@@ -501,7 +501,7 @@ namespace WealthERP.Advisor
                             TextBox startDate = (TextBox)row.FindControl("txtStartDate");
                             TextBox endDate = (TextBox)row.FindControl("txtEndDate");
 
-                            if (ddlAssGp.SelectedValue.ToString() != "Select Asset Group")
+                            if (ddlAssGp.SelectedIndex != 0 && !string.IsNullOrEmpty(commfee.Text.Trim()) && !string.IsNullOrEmpty(revUpper.Text.Trim()) && !string.IsNullOrEmpty(revLower.Text.Trim()) && !string.IsNullOrEmpty(startDate.Text.Trim()) && !string.IsNullOrEmpty(endDate.Text.Trim()))
                             {
                                 advisorAssociateCommissionVo.LOBAssetGroupsCode = ddlAssGp.SelectedValue.ToString();
                                 if (commfee.Text.ToString() != string.Empty)
