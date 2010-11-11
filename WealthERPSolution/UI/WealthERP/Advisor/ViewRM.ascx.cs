@@ -486,7 +486,7 @@ namespace WealthERP.Advisor
                 rmVo = advisorStaffBo.GetAdvisorStaff(userId);
                 Session["rmVo"] = rmVo;
                 menu = MyDropDownList.SelectedItem.Value.ToString();
-                if (menu == "Edit profile")
+                if (menu == "Edit Profile")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','none');", true);
                 }

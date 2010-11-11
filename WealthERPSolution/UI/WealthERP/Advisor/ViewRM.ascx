@@ -58,7 +58,7 @@
                                 <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
                                     <asp:ListItem>Select </asp:ListItem>
                                    <%-- <asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>--%>
-                                    <asp:ListItem Text="View profile" Value="View profile">View profile  </asp:ListItem>
+                                    <asp:ListItem Text="View profile" Value="View profile">View profile</asp:ListItem>
                                      <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
                                     <asp:ListItem Text="RM Dashboard" Value="RM Dashboard">RM Dashboard</asp:ListItem>
                                 </asp:DropDownList>
