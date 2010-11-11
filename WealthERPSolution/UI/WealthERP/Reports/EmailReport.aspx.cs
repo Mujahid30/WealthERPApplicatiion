@@ -735,21 +735,34 @@ namespace WealthERP.Reports
         {
             RMVo rmVo = (RMVo)Session["rmVo"];
             //customerVo = (CustomerVo)Session["CusVo"];
-
+            RMVo customerRMVo = new RMVo();
+            AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
             try
             {
                 //setLogo();
-                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + customerVo.RMName);
-                crmain.SetParameterValue("RMContactDetails", "Email :  " + customerVo.RMEmail);
-                crmain.SetParameterValue("MobileNo", "Mobile :  " + customerVo.RMMobile);
+                customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).Trim());
+                if (!string.IsNullOrEmpty(customerRMVo.Email))
+                    crmain.SetParameterValue("OrgDetails", "Email :  " + customerRMVo.Email);
+                else
+                    crmain.SetParameterValue("OrgDetails", "Email :--");
+
+                if (customerRMVo.Mobile != 0)
+                {
+                    crmain.SetParameterValue("OrgTelephone", "Mobile :  " + "+91-" + customerRMVo.Mobile);
+                }
+                else
+                {
+                    crmain.SetParameterValue("OrgTelephone", "Mobile :--");
+                }
 
                 crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + advisorVo.State);
                 //crmain.SetParameterValue("OrgDetails", advisorVo.Email + ", " + advisorVo.Website);
                 //crmain.SetParameterValue("OrgTelephone", "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                 //crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
-                crmain.SetParameterValue("OrgDetails", "E-mail: " + customerVo.RMEmail);
-                crmain.SetParameterValue("OrgTelephone", "Phone: " + "+" + customerVo.RMOfficePhone);
+                crmain.SetParameterValue("RMContactDetails", "E-mail: " + customerVo.RMEmail);
+                crmain.SetParameterValue("MobileNo", "Phone: " + "+" + customerVo.RMOfficePhone);
                 crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
 
                 crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + customerVo.Adr1City);
@@ -1227,7 +1240,7 @@ namespace WealthERP.Reports
                 System.Net.Mail.AlternateView htmlView;
                 System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
                 //System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(hidBody.Value.Trim() + "<image src=cid:HDIImage>", null, "text/html");
-                htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + MailBody + "</p>'<img src='cid:HDIImage'></body></html>", null, "text/html");
+                htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + MailBody + "</p><img src='cid:HDIImage'></body></html>", null, "text/html");
                 //Add image to HTML version
                 if (Session["advisorVo"] != null)
                     logoPath = "~/Images/" + ((AdvisorVo)Session["advisorVo"]).LogoPath;
