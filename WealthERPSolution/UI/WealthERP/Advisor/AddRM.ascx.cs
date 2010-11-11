@@ -668,7 +668,14 @@ namespace WealthERP.Advisor
                 {
                     rmVo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.ToString());
                 }
-
+                if (ChklistRMBM.Items[0].Selected == true)
+                {
+                    rmVo.RMRole = "RM";
+                }
+                else
+                {
+                    rmVo.RMRole = "BM";
+                }
                 //rmVo.RMRole = ddlRMRole.SelectedValue.ToString();
 
                 rmVo.AdviserId = advisorVo.advisorId;
@@ -738,35 +745,21 @@ namespace WealthERP.Advisor
                     
                 }
 
+               string hdnSelectedString = hdnSelectedBranches.Value.ToString();
 
-                if (gvBranchList.Rows.Count!=0)
+                if (!string.IsNullOrEmpty(hdnSelectedString ))
                 {
-                    foreach (GridViewRow gvr in this.gvBranchList.Rows)
+                   string[] selectedBranchesList = hdnSelectedString.Split(',');
+
+                    foreach (string str in selectedBranchesList)
                     {
-                        if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                        if (str != "")
                         {
-                            branchId = int.Parse(gvBranchList.DataKeys[gvr.RowIndex].Value.ToString());
-                            //if (((RadioButton)gvr.FindControl("rbtnMainBranch")).Checked == true)
-                            //{
-                            //    if (advisorBranchBo.AssociateBranch(rmIds[1], branchId, 1, userVo.UserId))
-                            //    {
-                            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert(' Association is done successfully');", true);
-                            //    }
-                            //    else
-                            //    {
-                            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Sorry.. Association is not done');", true);
-                            //    }
-                            //}
-                            //else
-                            //{
-                                if (!advisorBranchBo.AssociateBranch(rmIds[1], branchId, 0, userVo.UserId))
-                                {
-                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Sorry.. Association is not done');", true);
-                                }
-                                
-                            //}
+                            advisorBranchBo.CreateRMBranchAssociation(rmIds[1], int.Parse(str), advisorVo.advisorId, advisorVo.advisorId);
+
                         }
-                    }
+                    }                  
+                   
                 }
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);

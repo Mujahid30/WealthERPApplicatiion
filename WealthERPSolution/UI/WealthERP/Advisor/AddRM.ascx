@@ -448,7 +448,7 @@
     </tr>
     <tr>
         <td colspan="4" class="SubmitCell">
-            <asp:Button ID="btnNext" runat="server" OnClick="btnNext_Click" Text="Submit" CssClass="PCGButton"
+            <asp:Button ID="btnNext" runat="server" OnClick="btnNext_Click" Text="Submit" CssClass="PCGButton" OnClientClick="GetSelectedBranches()"
                 ValidationGroup="btnSubmit" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddRM_btnNext', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddRM_btnNext', 'S');" />
         </td>
