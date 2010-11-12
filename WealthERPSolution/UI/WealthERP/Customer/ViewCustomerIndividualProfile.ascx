@@ -543,7 +543,7 @@
                         </tr>
                         <tr>
                         <td class="leftField" width="25%">
-                                <asp:Label ID="Label3" runat="server" Text="Alert Preferances:" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="Label3" runat="server" Text="Alert Preferences:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField" width="25%">
                                  <asp:Checkbox ID="chkmail" runat="server" CssClass="txtField" Text="Via Mail"
