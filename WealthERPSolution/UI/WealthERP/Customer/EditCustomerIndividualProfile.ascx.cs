@@ -90,7 +90,7 @@ namespace WealthERP.Customer
                     if (ddlMaritalStatus.SelectedValue == "MA")
                         txtMarriageDate.Enabled = true;
                     else
-                        txtMarriageDate.Enabled = false;
+                        txtMarriageDate.Enabled = true;
                     if (customerVo.MarriageDate == DateTime.MinValue)
                         txtMarriageDate.Text = "";
                     else

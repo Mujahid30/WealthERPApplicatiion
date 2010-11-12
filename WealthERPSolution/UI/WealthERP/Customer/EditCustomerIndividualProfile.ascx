@@ -132,12 +132,14 @@
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+            
+             <span id="Span4" class="spnRequiredField">*</span>
+            
+            &nbsp;
              &nbsp;
-            &nbsp;
-            &nbsp;
             <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
                 AutoPostBack="true" />
-            <span id="Span4" class="spnRequiredField">*</span>
+            
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
