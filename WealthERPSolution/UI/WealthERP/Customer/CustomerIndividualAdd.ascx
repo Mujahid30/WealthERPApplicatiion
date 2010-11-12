@@ -148,23 +148,7 @@
                 GroupName="rbtnGender" />
         </td>
     </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblDob" runat="server" CssClass="FieldName" Text="Date of Birth:"></asp:Label>
-        </td>
-        <td class="rightField" width="75%">
-            <div class="dvInLine">
-                <asp:TextBox ID="txtDob" runat="server" CssClass="txtField"></asp:TextBox>
-                <%--<img alt="Calendar" src="../CSS/Images/calendar3.jpg" id="imgCalendar" />--%>
-                <cc1:CalendarExtender ID="txtDob_CalendarExtender" runat="server" TargetControlID="txtDob"
-                    Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
-                </cc1:CalendarExtender>
-                <cc1:TextBoxWatermarkExtender ID="txtDob_TextBoxWatermarkExtender" runat="server"
-                    TargetControlID="txtDob" WatermarkText="dd/mm/yyyy">
-                </cc1:TextBoxWatermarkExtender>
-            </div>
-        </td>
-    </tr>
+    
     <tr>
         <td class="leftField">
             <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
@@ -714,6 +698,23 @@
                                 </cc1:TextBoxWatermarkExtender>
                             </td>
                         </tr>
+                        <tr>
+        <td class="leftField">
+            <asp:Label ID="lblDob" runat="server" CssClass="FieldName" Text="Date of Birth:"></asp:Label>
+        </td>
+        <td class="rightField" >
+            <div class="dvInLine">
+                <asp:TextBox ID="txtDob" runat="server" CssClass="txtField"></asp:TextBox>
+                <%--<img alt="Calendar" src="../CSS/Images/calendar3.jpg" id="imgCalendar" />--%>
+                <cc1:CalendarExtender ID="txtDob_CalendarExtender" runat="server" TargetControlID="txtDob"
+                    Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+                </cc1:CalendarExtender>
+                <cc1:TextBoxWatermarkExtender ID="txtDob_TextBoxWatermarkExtender" runat="server"
+                    TargetControlID="txtDob" WatermarkText="dd/mm/yyyy">
+                </cc1:TextBoxWatermarkExtender>
+            </div>
+        </td>
+    </tr>
                     </table>
                 </div>
             </div>
