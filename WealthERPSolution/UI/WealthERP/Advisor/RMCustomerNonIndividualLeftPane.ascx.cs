@@ -18,7 +18,7 @@ namespace WealthERP.Advisor
         List<string> roleList = new List<string>();
         int count;
         UserBo userBo = new UserBo();
-        UserVo userVo=new UserVo();
+        UserVo userVo = new UserVo();
         protected void Page_Load(object sender, EventArgs e)
         {
             string First = null;
@@ -92,14 +92,8 @@ namespace WealthERP.Advisor
 
 
         }
-        protected void Page_PreRender(object sender, EventArgs e)
-        {
-            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
-            {
-                SetNode();
-            }
-        }
-        public void SetNode()
+
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
             string strNodeValue = null;
             try
@@ -228,10 +222,6 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-        }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-           
         }
     }
 }
