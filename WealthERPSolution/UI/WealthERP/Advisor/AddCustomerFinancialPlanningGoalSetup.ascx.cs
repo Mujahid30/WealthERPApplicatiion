@@ -30,7 +30,7 @@ namespace WealthERP.Advisor
         CustomerGoalSetupDao customerGoalSetupDao = new CustomerGoalSetupDao();
         CustomerVo customerVo = new CustomerVo();
         List<GoalProfileSetupVo> GoalProfileList = new List<GoalProfileSetupVo>();
-        decimal InflationPercent;
+
         double RTSaveReq = 0.0;
         string ActiveFilter = "";
         int activeTabIndex = 0;
@@ -40,591 +40,582 @@ namespace WealthERP.Advisor
         AdvisorVo advisorVo = new AdvisorVo();
         int AdvisorRMId = 0;
 
- protected void Page_Load(object sender, EventArgs e)
-   {
-       try 
-       {
-
-           this.txtPickCustomer.Attributes.Add("onkeypress", "ShowImage()");
-           this.txtPickCustomer.Attributes.Add("onblur", "HideImage()");
-                      
-           SessionBo.CheckSession();  
-           if (ViewState["FilterValue"]!= null)     
-                ActiveFilter = ViewState["FilterValue"].ToString();
-             
-            if (!IsPostBack)
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
             {
-                
-                //Session["FP_UserID"] = "";
-                //Session["FP_UserName"] = "";
-                //Session[SessionContents.CurrentUserRole] = "RM";
-                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                {
-                    rmVo = (RMVo)Session[SessionContents.RmVo];
-                    AdvisorRMId = rmVo.RMId;
-                    txtPickCustomer_autoCompleteExtender.ServiceMethod = "GetCustomerName";
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                {
-                    advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-                    AdvisorRMId = advisorVo.advisorId;
-                    txtPickCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                }
-                               
-                if ((Session["FP_UserID"]== null) && (Session["FP_UserName"]== null))
-                {
-                    SessionBo.CheckSession();
-                    //rmVo = (RMVo)Session[SessionContents.RmVo];
-                    //txtPickCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
 
-                    txtPickCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
-                    BindGoalObjTypeDropDown();
-                    InitialPageLoadState();
-                    Tab2ControlVisibility(0);
-                    TabContainer1.ActiveTabIndex = 0;
-                }
-                else
-                {
-
-                    txtPickCustomer.Text = Session["FP_UserName"].ToString();
-                    txtCustomerId.Value = Session["FP_UserID"].ToString();
-                    SessionBo.CheckSession();
-                    txtPickCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
-                    InitialPageLoadState();
-                    double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
-                    txtExpRateOfReturn.Text = ExpROI.ToString();
-                    ddlGoalType.Enabled = true;
-                    txtCurrentInvestPurpose.Text = "0";
-                    txtAboveRateOfInterst.Text = "0";
-                    BindGoalObjTypeDropDown();
-                    
-                    int gvRT = this.BindRTGoalOutputGridView();
-                    int gvOUT=this.BindGoalOutputGridView(2);
+                //this.txtPickCustomer.Attributes.Add("onkeypress", "ShowImage()");
+                //this.txtPickCustomer.Attributes.Add("onblur", "HideImage()");
 
 
-                    if (gvRT == 0 && gvOUT == 0)
+                SessionBo.CheckSession();
+                if (ViewState["FilterValue"] != null)
+                    ActiveFilter = ViewState["FilterValue"].ToString();
+
+                if (!IsPostBack)
+                {
+
+                    //Session["FP_UserID"] = "";
+                    //Session["FP_UserName"] = "";
+                    //Session[SessionContents.CurrentUserRole] = "RM";
+                    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                     {
-                        
-                        //There is no goal exist for this customer.
+                        rmVo = (RMVo)Session[SessionContents.RmVo];
+                        AdvisorRMId = rmVo.RMId;
+                        //txtPickCustomer_autoCompleteExtender.ServiceMethod = "GetCustomerName";
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    {
+                        advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                        AdvisorRMId = advisorVo.advisorId;
+                        //txtPickCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                    }
+
+                    if ((Session["FP_UserID"] == null) && (Session["FP_UserName"] == null))
+                    {
+                        SessionBo.CheckSession();
+                        //rmVo = (RMVo)Session[SessionContents.RmVo];
+                        //txtPickCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+
+                        //txtPickCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
+                        BindGoalObjTypeDropDown();
+                        InitialPageLoadState();
                         Tab2ControlVisibility(0);
-                        lblHeaderOutPut.Text = "No Records Found";
                         TabContainer1.ActiveTabIndex = 0;
+                    }
+                    else
+                    {
+
+                        //txtPickCustomer.Text = Session["FP_UserName"].ToString();
+                        //txtCustomerId.Value = Session[SessionContents.FPS_ProspectList_CustomerId].ToString();
+                        SessionBo.CheckSession();
+                        //txtPickCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
+                        InitialPageLoadState();
+                        double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
+                        txtExpRateOfReturn.Text = ExpROI.ToString();
+                        ddlGoalType.Enabled = true;
+                        txtCurrentInvestPurpose.Text = "0";
+                        txtAboveRateOfInterst.Text = "0";
+                        BindGoalObjTypeDropDown();
+
+                        int gvRT = this.BindRTGoalOutputGridView();
+                        int gvOUT = this.BindGoalOutputGridView(2);
+
+
+                        if (gvRT == 0 && gvOUT == 0)
+                        {
+
+                            //There is no goal exist for this customer.
+                            Tab2ControlVisibility(0);
+                            lblHeaderOutPut.Text = "No Records Found";
+                            TabContainer1.ActiveTabIndex = 0;
+                            trRTParaGraph.Visible = false;
+                            trOtherGoalParagraph.Visible = false;
+
+                        }
+                        else
+                            if (gvRT == 1 && gvOUT == 1)
+                            {
+
+
+                                Tab2ControlVisibility(1);
+                                this.BindGoalOutputGridView(1);
+                                TabContainer1.ActiveTabIndex = 1;
+                                trRTParaGraph.Visible = true;
+                                trOtherGoalParagraph.Visible = true;
+
+                            }
+                            //this.BindGoalOutputGridView(1);
+                            else
+                                if (gvOUT == 1 && gvRT == 0)
+                                {
+
+                                    lblHeaderOutPut.Text = "Customer Goal Profile Details";
+                                    gvGoalOutPut.Visible = true;
+                                    Delete.Visible = true;
+                                    Activate.Visible = true;
+                                    Deactive.Visible = true;
+
+                                    hidRTSaveReq.Value = string.Empty;
+                                    this.BindGoalOutputGridView(1);
+                                    TabContainer1.ActiveTabIndex = 1;
+                                    trRTParaGraph.Visible = false;
+                                    trOtherGoalParagraph.Visible = true;
+
+                                    //gvRetirement.Visible = true;
+                                    //lblTotalText.Visible = true;
+                                    //lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
+
+                                }
+                                else
+                                    if (gvOUT == 0 && gvRT == 1)
+                                    {
+
+                                        lblHeaderOutPut.Text = "Customer Goal Profile Details";
+                                        gvRetirement.Visible = true;
+                                        lblTotalText.Visible = true;
+                                        lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
+                                        TabContainer1.ActiveTabIndex = 1;
+                                        trRTParaGraph.Visible = true;
+                                        trOtherGoalParagraph.Visible = false;
+                                    }
+
+
+
+
+                    }
+                    Trigger();
+                }
+
+
+
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddCustomerFinancialPlanningGoalSetup.ascx:Page_Load()");
+                object[] objects = new object[1];
+                objects[0] = rmVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
+        protected void Trigger()
+        {
+
+
+            if (Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != string.Empty && Session[SessionContents.FPS_ProspectList_CustomerId] != null)
+            {
+                //ParentcustomerID = int.Parse(txtCustomerId.Value);
+
+                Session["FP_UserID"] = Session[SessionContents.FPS_ProspectList_CustomerId].ToString();
+                //Session["FP_UserName"] = txtPickCustomer.Text;
+
+
+                BindGoalObjTypeDropDown();
+                ShowOutPutTab();
+
+            }
+
+            //For Tab1 Add mode.....................
+            SetPageLoadState(1);
+            BtnSetVisiblity(1);
+            ControlSetVisiblity(1);
+
+        }
+
+        protected void ShowOutPutTab()
+        {
+
+            int gvRT = this.BindRTGoalOutputGridView();
+            int gvOUT = this.BindGoalOutputGridView(2);
+            Tab2ControlVisibility(0);
+
+            if (gvRT == 0 && gvOUT == 0)
+            {
+
+                //There is no goal exist for this customer.
+                Tab2ControlVisibility(0);
+                lblHeaderOutPut.Text = "No Records Found";
+                TabContainer1.ActiveTabIndex = 0;
+                trRTParaGraph.Visible = false;
+                trOtherGoalParagraph.Visible = false;
+
+            }
+            else
+                if (gvRT == 1 && gvOUT == 1)
+                {
+
+
+                    Tab2ControlVisibility(1);
+                    this.BindGoalOutputGridView(1);
+                    TabContainer1.ActiveTabIndex = 1;
+                    trRTParaGraph.Visible = true;
+                    trOtherGoalParagraph.Visible = true;
+                }
+                //this.BindGoalOutputGridView(1);
+                else
+                    if (gvOUT == 1 && gvRT == 0)
+                    {
+
+                        lblHeaderOutPut.Text = "Customer Goal Profile Details";
+                        gvGoalOutPut.Visible = true;
+                        Delete.Visible = true;
+                        Activate.Visible = true;
+                        Deactive.Visible = true;
+
+                        hidRTSaveReq.Value = string.Empty;
+                        this.BindGoalOutputGridView(1);
                         trRTParaGraph.Visible = false;
-                        trOtherGoalParagraph.Visible = false;
+                        trOtherGoalParagraph.Visible = true;
+                        TabContainer1.ActiveTabIndex = 1;
+
+                        //gvRetirement.Visible = true;
+                        //lblTotalText.Visible = true;
+                        //lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
 
                     }
                     else
-                        if (gvRT == 1 && gvOUT == 1)
+                        if (gvOUT == 0 && gvRT == 1)
                         {
 
-                            
-                            Tab2ControlVisibility(1);
-                            this.BindGoalOutputGridView(1);
-                            TabContainer1.ActiveTabIndex = 1;
+                            lblHeaderOutPut.Text = "Customer Goal Profile Details";
+                            gvRetirement.Visible = true;
+                            lblTotalText.Visible = true;
+                            lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
                             trRTParaGraph.Visible = true;
-                            trOtherGoalParagraph.Visible = true;
+                            trOtherGoalParagraph.Visible = false;
+                            TabContainer1.ActiveTabIndex = 1;
 
                         }
-                        //this.BindGoalOutputGridView(1);
-                        else
-                            if (gvOUT == 1 && gvRT == 0)
-                            {
-                                
-                                lblHeaderOutPut.Text = "Customer Goal Profile Details";
-                                gvGoalOutPut.Visible = true;
-                                Delete.Visible = true;
-                                Activate.Visible = true;
-                                Deactive.Visible = true;
 
-                                hidRTSaveReq.Value = string.Empty;
-                                this.BindGoalOutputGridView(1);
-                                TabContainer1.ActiveTabIndex = 1;
-                                trRTParaGraph.Visible = false;
-                                trOtherGoalParagraph.Visible = true;
-
-                                //gvRetirement.Visible = true;
-                                //lblTotalText.Visible = true;
-                                //lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
-
-                            }
-                            else
-                                if (gvOUT == 0 && gvRT == 1)
-                                {
-                                    
-                                    lblHeaderOutPut.Text = "Customer Goal Profile Details";
-                                    gvRetirement.Visible = true;
-                                    lblTotalText.Visible = true;
-                                    lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
-                                    TabContainer1.ActiveTabIndex = 1;
-                                    trRTParaGraph.Visible = true;
-                                    trOtherGoalParagraph.Visible = false;
-                                }
-
-                 
-
- 
-                }
-
-            }
-
-
-
-
-
-            
-           }
-       catch (BaseApplicationException Ex)
-       {
-           throw Ex;
-       }
-
-       catch (Exception Ex)
-       {
-           BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-           NameValueCollection FunctionInfo = new NameValueCollection();
-           FunctionInfo.Add("Method", "AddCustomerFinancialPlanningGoalSetup.ascx:Page_Load()");
-           object[] objects = new object[1];
-           objects[0] = rmVo;
-           FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-           exBase.AdditionalInformation = FunctionInfo;
-           ExceptionManager.Publish(exBase);
-           throw exBase;
-
-       }
-   }
-
-    protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
-    {
-
-
-        if (txtCustomerId.Value != string.Empty)
-        {
-            //ParentcustomerID = int.Parse(txtCustomerId.Value);
-
-            Session["FP_UserID"] = txtCustomerId.Value;
-            Session["FP_UserName"] = txtPickCustomer.Text;
-
-                      
-            BindGoalObjTypeDropDown();
-            ShowOutPutTab();
 
         }
 
-        //For Tab1 Add mode.....................
-        SetPageLoadState(1);
-        BtnSetVisiblity(1);
-        ControlSetVisiblity(1);
-      
-    }
 
-    protected void ShowOutPutTab()
-    {
 
-        int gvRT = this.BindRTGoalOutputGridView();
-        int gvOUT = this.BindGoalOutputGridView(2);
-        Tab2ControlVisibility(0);
-
-        if (gvRT == 0 && gvOUT == 0)
+        protected void InitialPageLoadState()
         {
-           
-            //There is no goal exist for this customer.
-            Tab2ControlVisibility(0);
-            lblHeaderOutPut.Text = "No Records Found";
+
+            //lblGoalDescription.Visible = false;
+            //txtGoalDescription.Visible = false;
+            trGoalDesc.Visible = false;
+            RequiredFieldValidator6.Visible = false;
+            //ddlPickChild.Visible = false;
+            //lblPickChild.Visible = false;
+            trPickChild.Visible = false;
+            btnBackToAddMode.Visible = false;
+
+            txtGoalDate.Text = DateTime.Now.ToShortDateString();
+
+            //TabContainer1_ActiveTabChanged(TabContainer1, null);
+            ddlGoalType.Enabled = false;
+            //chkApprove.Visible = true;
+            trchkApprove.Visible = true;
+
+            //lblApproveOn.Visible = false;
+            trlblApproveOn.Visible = false;
+
+
+            //lblROIFutureInvest.Visible = false;
+            //txtROIFutureInvest.Visible = false;
+            //SpanROIFutureInvest.Visible = false;
+            //RangeValidator2.Visible = false;
+            //RequiredFieldValidator6.Visible = false;
+            trROIFutureInvestment.Visible = false;
+
+            btnEdit.Visible = false;
+            btnUpdate.Visible = false;
+            btnBackToView.Visible = false;
+        }
+
+        protected void lnkRTGoalType_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvRetirement.DataKeys[rowIndex];
+            int GoalId = Convert.ToInt32(dk.Value);
             TabContainer1.ActiveTabIndex = 0;
-            trRTParaGraph.Visible = false;
-            trOtherGoalParagraph.Visible = false;
+            ControlSetVisiblity(0);
+            ViewState["ViewEditID"] = GoalId;
+            ShowGoalDetails(int.Parse((string)Session["FP_UserID"]), GoalId);
+            //lblPickCustomer.Text = "Customer Name";
+            lblGoalbjective.Text = "Goal Objective :";
+            lblPickChild.Text = "Child Name :";
+            //chkApprove.Visible = false;
+            trchkApprove.Visible = false;
+        }
+
+        protected void lnkGoalType_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvGoalOutPut.DataKeys[rowIndex];
+            int GoalId = Convert.ToInt32(dk.Value);
+            if (chkApprove.Checked == true)
+                chkApprove.Checked = false;
+            TabContainer1.ActiveTabIndex = 0;
+            ControlSetVisiblity(0);
+            ViewState["ViewEditID"] = GoalId;
+            ShowGoalDetails(int.Parse((string)Session["FP_UserID"]), GoalId);
+            //lblPickCustomer.Text = "Customer Name";
+            lblGoalbjective.Text = "Goal Objective :";
+
+
+
+
 
         }
-        else
-            if (gvRT == 1 && gvOUT == 1)
+        protected void ShowGoalDetails(int CustomerId, int GoalId)
+        {
+            GoalProfileSetupVo goalProfileSetupVo = new GoalProfileSetupVo();
+            goalProfileSetupVo = GoalSetupBo.GetCustomerGoal(CustomerId, GoalId);
+            BtnSetVisiblity(0);
+            lblNote.Visible = false;
+            //lblReqNote.Visible = false;
+            trRequiedNote.Visible = false;
+            lblHeader.Text = "Goal Details";
+
+
+            switch (goalProfileSetupVo.Goalcode)
             {
+                case "BH":
+                    lblGoalCostToday.Text = "Home Cost Today :";
+                    lblGoalYear.Text = "Goal Year :";
 
-               
-                Tab2ControlVisibility(1);
-                this.BindGoalOutputGridView(1);
-                TabContainer1.ActiveTabIndex = 1;
-                trRTParaGraph.Visible = true;
-                trOtherGoalParagraph.Visible = true;
-            }
-            //this.BindGoalOutputGridView(1);
-            else
-                if (gvOUT == 1 && gvRT == 0)
-                {
-                   
-                    lblHeaderOutPut.Text = "Customer Goal Profile Details";
-                    gvGoalOutPut.Visible = true;
-                    Delete.Visible = true;
-                    Activate.Visible = true;
-                    Deactive.Visible = true;
+                    //lblGoalDescription.Visible = false;
+                    //txtGoalDescription.Visible = false;
+                    trGoalDesc.Visible = false;
+                    //lblROIFutureInvest.Visible = false;
+                    //txtROIFutureInvest.Visible = false;
+                    //RequiredFieldValidator6.Visible = false;
+                    trROIFutureInvestment.Visible = false;
 
-                    hidRTSaveReq.Value = string.Empty;
-                    this.BindGoalOutputGridView(1);
-                    trRTParaGraph.Visible = false;
-                    trOtherGoalParagraph.Visible = true;
-                    TabContainer1.ActiveTabIndex = 1;
-                   
-                    //gvRetirement.Visible = true;
-                    //lblTotalText.Visible = true;
-                    //lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
-
-                }
-                else
-                    if (gvOUT == 0 && gvRT == 1)
+                    //lblPickChild.Visible = false;
+                    //ddlPickChild.Visible = false;
+                    trPickChild.Visible = false;
+                    ddlGoalType.Text = goalProfileSetupVo.Goalcode;
+                    txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
+                    txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
+                    ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
+                    txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
+                    txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
+                    txtComment.Text = goalProfileSetupVo.Comments;
+                    if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
                     {
-                       
-                        lblHeaderOutPut.Text = "Customer Goal Profile Details";
-                        gvRetirement.Visible = true;
-                        lblTotalText.Visible = true;
-                        lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
-                        trRTParaGraph.Visible = true;
-                        trOtherGoalParagraph.Visible = false;
-                        TabContainer1.ActiveTabIndex = 1;
+                        //lblApproveOn.Visible = true;
+                        trlblApproveOn.Visible = true;
+                        lblApproveOn.Text = "Customer Approved On " + goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
+                        chkApprove.Checked = true;
+                        //chkApprove.Visible = false;
+                        trchkApprove.Visible = false;
 
                     }
-         
- 
-    }
+                    else
+                    {
+                        //lblApproveOn.Visible = false;
+                        trlblApproveOn.Visible = false;
+                        //chkApprove.Visible = true;
+                        trchkApprove.Visible = true;
+                        chkApprove.Enabled = false;
 
+                    }
+                    break;
+                case "ED":
+                    lblGoalCostToday.Text = "Education Cost Today :";
+                    lblGoalYear.Text = "Goal Year :";
+                    //lblPickChild.Visible = true;
+                    //ddlPickChild.Visible = true;
+                    trPickChild.Visible = true;
+                    //txtGoalDescription.Visible = false;
+                    //lblGoalDescription.Visible = false;
+                    trGoalDesc.Visible = false;
+                    //lblROIFutureInvest.Visible = false;
+                    //txtROIFutureInvest.Visible = false;
+                    //RequiredFieldValidator6.Visible = false;
+                    trROIFutureInvestment.Visible = false;
+                    ddlGoalType.Text = goalProfileSetupVo.Goalcode;
+                    txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
+                    BindPickChildDropDown(CustomerId);
+                    ddlPickChild.SelectedValue = goalProfileSetupVo.AssociateId.ToString();
+                    ddlPickChild.Enabled = false;
+                    txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
+                    ddlPickChild.Enabled = false;
+                    ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
+                    txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
+                    txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
+                    txtComment.Text = goalProfileSetupVo.Comments;
+                    if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
+                    {
+                        //lblApproveOn.Visible = true;
+                        trlblApproveOn.Visible = true;
+                        lblApproveOn.Text = "Customer Approved On " + goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
+                        chkApprove.Checked = true;
+                        //chkApprove.Visible = false;
+                        trchkApprove.Visible = false;
 
+                    }
+                    else
+                    {
+                        //lblApproveOn.Visible = false;
+                        trlblApproveOn.Visible = false;
+                        //chkApprove.Visible = true;
+                        trchkApprove.Visible = true;
+                        chkApprove.Enabled = false;
 
-    protected void InitialPageLoadState()
-    {
-        
-        //lblGoalDescription.Visible = false;
-        //txtGoalDescription.Visible = false;
-        trGoalDesc.Visible = false;
-        RequiredFieldValidator6.Visible = false;
-        //ddlPickChild.Visible = false;
-        //lblPickChild.Visible = false;
-        trPickChild.Visible = false;
-        btnBackToAddMode.Visible = false;
-       
-        txtGoalDate.Text = DateTime.Now.ToShortDateString();
+                    }
+                    break;
+                case "MR":
+                    lblGoalCostToday.Text = "Mariage Cost Today :";
+                    lblGoalYear.Text = "Goal Year :";
+                    //lblPickChild.Visible = true;
+                    //ddlPickChild.Visible = true;
+                    trPickChild.Visible = true;
+                    //txtGoalDescription.Visible = false;
+                    //lblGoalDescription.Visible = false;
+                    trGoalDesc.Visible = false;
+                    //lblROIFutureInvest.Visible = false;
+                    //txtROIFutureInvest.Visible = false;
+                    //RequiredFieldValidator6.Visible = false;
+                    trROIFutureInvestment.Visible = false;
+                    ddlGoalType.Text = goalProfileSetupVo.Goalcode;
+                    txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
+                    //ListItem lstPickChild2 = new ListItem(goalProfileSetupVo.ChildName);
+                    //ddlPickChild.Items.Add(lstPickChild2);
+                    BindPickChildDropDown(CustomerId);
+                    ddlPickChild.SelectedValue = goalProfileSetupVo.AssociateId.ToString();
+                    ddlPickChild.Enabled = false;
+                    txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
+                    ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
+                    txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
+                    txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
+                    txtComment.Text = goalProfileSetupVo.Comments;
+                    if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
+                    {
+                        //lblApproveOn.Visible = true;
+                        trlblApproveOn.Visible = true;
+                        lblApproveOn.Text = "Customer Approved On " + goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
+                        chkApprove.Checked = true;
+                        //chkApprove.Visible = false;
+                        trchkApprove.Visible = false;
 
-        //TabContainer1_ActiveTabChanged(TabContainer1, null);
-         ddlGoalType.Enabled = false;
-        //chkApprove.Visible = true;
-        trchkApprove.Visible = true;
-       
-        //lblApproveOn.Visible = false;
-        trlblApproveOn.Visible = false;
+                    }
+                    else
+                    {
+                        //lblApproveOn.Visible = false;
+                        trlblApproveOn.Visible = false;
+                        //chkApprove.Visible = true;
+                        trchkApprove.Visible = true;
+                        chkApprove.Enabled = false;
 
+                    }
+                    break;
+                case "OT":
+                    //ddlPickChild.Visible = false;
+                    //lblPickChild.Visible = false;
+                    trPickChild.Visible = false;
+                    //txtGoalDescription.Visible = true;
+                    //lblGoalDescription.Visible = true;
+                    trGoalDesc.Visible = true;
+                    lblGoalCostToday.Text = "Goal Cost Today :";
+                    lblGoalYear.Text = "Goal Year :";
+                    //lblROIFutureInvest.Visible = false;
+                    //txtROIFutureInvest.Visible = false;
+                    //RequiredFieldValidator6.Visible = false;
+                    trROIFutureInvestment.Visible = false;
+                    ddlGoalType.Text = goalProfileSetupVo.Goalcode;
+                    txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
+                    BindPickChildDropDown(CustomerId);
+                    ddlPickChild.SelectedValue = goalProfileSetupVo.AssociateId.ToString();
+                    ddlPickChild.Enabled = false;
+                    txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;
+                    txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
+                    ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
+                    txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
+                    txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
+                    txtComment.Text = goalProfileSetupVo.Comments;
+                    if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
+                    {
+                        //lblApproveOn.Visible = true;
+                        trlblApproveOn.Visible = true;
+                        lblApproveOn.Text = "Customer Approved On " + goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
+                        chkApprove.Checked = true;
+                        //chkApprove.Visible = false;
+                        trchkApprove.Visible = false;
 
-        //lblROIFutureInvest.Visible = false;
-        //txtROIFutureInvest.Visible = false;
-        //SpanROIFutureInvest.Visible = false;
-        //RangeValidator2.Visible = false;
-        //RequiredFieldValidator6.Visible = false;
-        trROIFutureInvestment.Visible = false;
+                    }
+                    else
+                    {
+                        //lblApproveOn.Visible = false;
+                        trlblApproveOn.Visible = false;
+                        //chkApprove.Visible = true;
+                        trchkApprove.Visible = true;
+                        chkApprove.Enabled = false;
 
-        btnEdit.Visible = false;
-        btnUpdate.Visible = false;
-        btnBackToView.Visible = false;
-    }
+                    }
+                    break;
+                case "RT":
+                    //ddlPickChild.Visible = false;
+                    //lblPickChild.Visible = false;
+                    trPickChild.Visible = false;
+                    //txtGoalDescription.Visible = false;
+                    //lblGoalDescription.Visible = false;
+                    trGoalDesc.Visible = false;
+                    //lblROIFutureInvest.Visible = true;
+                    //txtROIFutureInvest.Visible = true;
+                    //RequiredFieldValidator6.Visible = true;
+                    trROIFutureInvestment.Visible = true;
 
-    protected void lnkRTGoalType_Click(object sender, EventArgs e)
-    {
-        GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
-        int rowIndex = gvRow.RowIndex;
-        DataKey dk = gvRetirement.DataKeys[rowIndex];
-        int GoalId = Convert.ToInt32(dk.Value);
-        TabContainer1.ActiveTabIndex = 0;
-        ControlSetVisiblity(0);
-        ViewState["ViewEditID"] = GoalId;
-        ShowGoalDetails(int.Parse((string)Session["FP_UserID"]), GoalId);
-        lblPickCustomer.Text = "Customer Name";
-        lblGoalbjective.Text = "Goal Objective :";
-        lblPickChild.Text = "Child Name :";
-        //chkApprove.Visible = false;
-        trchkApprove.Visible = false;
-    }
+                    lblGoalYear.Text = "Goal Year :";
+                    lblGoalCostToday.Text = "Annual Requirment Today :";
+                    ddlGoalType.Text = goalProfileSetupVo.Goalcode;
+                    txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
+                    txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
+                    ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
+                    txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
+                    txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
+                    txtROIFutureInvest.Text = goalProfileSetupVo.RateofInterestOnFture.ToString();
+                    txtComment.Text = goalProfileSetupVo.Comments;
+                    if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
+                    {
+                        //lblApproveOn.Visible = true;
+                        trlblApproveOn.Visible = true;
+                        lblApproveOn.Text = "Customer Approved On " + goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
+                        chkApprove.Checked = true;
+                        //chkApprove.Visible = false;
+                        trchkApprove.Visible = false;
 
-    protected void lnkGoalType_Click(object sender, EventArgs e)
-    {
-        GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
-        int rowIndex = gvRow.RowIndex;
-        DataKey dk = gvGoalOutPut.DataKeys[rowIndex];
-        int GoalId = Convert.ToInt32(dk.Value);
-        if (chkApprove.Checked == true)
-            chkApprove.Checked = false;
-        TabContainer1.ActiveTabIndex = 0;
-        ControlSetVisiblity(0);
-        ViewState["ViewEditID"] = GoalId;
-        ShowGoalDetails(int.Parse((string)Session["FP_UserID"]), GoalId);
-        lblPickCustomer.Text = "Customer Name";
-        lblGoalbjective.Text = "Goal Objective :";
-      
-       
-        
-             
+                    }
+                    else
+                    {
+                        //lblApproveOn.Visible = false;
+                        trlblApproveOn.Visible = false;
+                        //chkApprove.Visible = true;
+                        trchkApprove.Visible = true;
+                        chkApprove.Enabled = false;
 
-    }
-    protected void ShowGoalDetails(int CustomerId, int GoalId)
-    {
-        GoalProfileSetupVo goalProfileSetupVo = new GoalProfileSetupVo();
-        goalProfileSetupVo = GoalSetupBo.GetCustomerGoal(CustomerId, GoalId);
-        BtnSetVisiblity(0);
-        lblNote.Visible = false;
-        //lblReqNote.Visible = false;
-        trRequiedNote.Visible = false;
-        lblHeader.Text = "Goal Details";
+                    }
+                    break;
+                default:
+                    break;
+            }
 
-        txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString(); ;
-        switch (goalProfileSetupVo.Goalcode)
-        {
-            case "BH":
-                lblGoalCostToday.Text = "Home Cost Today :";
-                lblGoalYear.Text = "Goal Year :";
-
-                //lblGoalDescription.Visible = false;
-                //txtGoalDescription.Visible = false;
-                trGoalDesc.Visible = false;
-                //lblROIFutureInvest.Visible = false;
-                //txtROIFutureInvest.Visible = false;
-                //RequiredFieldValidator6.Visible = false;
-                trROIFutureInvestment.Visible = false;
-
-                //lblPickChild.Visible = false;
-                //ddlPickChild.Visible = false;
-                trPickChild.Visible = false;
-                ddlGoalType.Text = goalProfileSetupVo.Goalcode;
-                txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
-                txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
-                ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
-                txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
-                txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
-                txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
-                txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
-                txtComment.Text = goalProfileSetupVo.Comments;
-                if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
-                {
-                    //lblApproveOn.Visible = true;
-                    trlblApproveOn.Visible = true;
-                    lblApproveOn.Text = "Customer Approved On " + goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
-                    chkApprove.Checked = true;
-                    //chkApprove.Visible = false;
-                    trchkApprove.Visible = false;
-
-                }
-                else
-                {
-                    //lblApproveOn.Visible = false;
-                    trlblApproveOn.Visible = false;
-                    //chkApprove.Visible = true;
-                    trchkApprove.Visible = true;
-                    chkApprove.Enabled = false;
-
-                }
-                break;
-            case "ED":
-                lblGoalCostToday.Text = "Education Cost Today :";
-                lblGoalYear.Text = "Goal Year :";
-                //lblPickChild.Visible = true;
-                //ddlPickChild.Visible = true;
-                trPickChild.Visible = true;
-                //txtGoalDescription.Visible = false;
-                //lblGoalDescription.Visible = false;
-                trGoalDesc.Visible = false;
-                //lblROIFutureInvest.Visible = false;
-                //txtROIFutureInvest.Visible = false;
-                //RequiredFieldValidator6.Visible = false;
-                trROIFutureInvestment.Visible = false;
-                ddlGoalType.Text = goalProfileSetupVo.Goalcode;
-                txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
-                BindPickChildDropDown(CustomerId);
-                ddlPickChild.SelectedValue = goalProfileSetupVo.AssociateId.ToString();
-                ddlPickChild.Enabled = false;
-                txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
-                ddlPickChild.Enabled = false;
-                ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
-                txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
-                txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
-                txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
-                txtComment.Text = goalProfileSetupVo.Comments;
-                if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
-                {
-                    //lblApproveOn.Visible = true;
-                    trlblApproveOn.Visible = true;
-                    lblApproveOn.Text = "Customer Approved On " + goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
-                    chkApprove.Checked = true;
-                    //chkApprove.Visible = false;
-                    trchkApprove.Visible = false;
-
-                }
-                else
-                {
-                    //lblApproveOn.Visible = false;
-                    trlblApproveOn.Visible = false;
-                    //chkApprove.Visible = true;
-                    trchkApprove.Visible = true;
-                    chkApprove.Enabled = false;
-
-                }
-                break;
-            case "MR":
-                lblGoalCostToday.Text = "Mariage Cost Today :";
-                lblGoalYear.Text = "Goal Year :";
-                //lblPickChild.Visible = true;
-                //ddlPickChild.Visible = true;
-                trPickChild.Visible = true;
-                //txtGoalDescription.Visible = false;
-                //lblGoalDescription.Visible = false;
-                trGoalDesc.Visible = false;
-                //lblROIFutureInvest.Visible = false;
-                //txtROIFutureInvest.Visible = false;
-                //RequiredFieldValidator6.Visible = false;
-                trROIFutureInvestment.Visible = false;
-                ddlGoalType.Text = goalProfileSetupVo.Goalcode;
-                txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
-                //ListItem lstPickChild2 = new ListItem(goalProfileSetupVo.ChildName);
-                //ddlPickChild.Items.Add(lstPickChild2);
-                BindPickChildDropDown(CustomerId);
-                ddlPickChild.SelectedValue = goalProfileSetupVo.AssociateId.ToString();
-                ddlPickChild.Enabled = false;
-                txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
-                ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
-                txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
-                txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
-                txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
-                txtComment.Text = goalProfileSetupVo.Comments;
-                if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
-                {
-                    //lblApproveOn.Visible = true;
-                    trlblApproveOn.Visible = true;
-                    lblApproveOn.Text = "Customer Approved On " + goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
-                    chkApprove.Checked = true;
-                    //chkApprove.Visible = false;
-                    trchkApprove.Visible = false;
-
-                }
-                else
-                {
-                    //lblApproveOn.Visible = false;
-                    trlblApproveOn.Visible = false;
-                    //chkApprove.Visible = true;
-                    trchkApprove.Visible = true;
-                    chkApprove.Enabled = false;
-
-                }
-                break;
-            case "OT":
-                //ddlPickChild.Visible = false;
-                //lblPickChild.Visible = false;
-                trPickChild.Visible = false;
-                //txtGoalDescription.Visible = true;
-                //lblGoalDescription.Visible = true;
-                trGoalDesc.Visible = true;
-                lblGoalCostToday.Text = "Goal Cost Today :";
-                lblGoalYear.Text = "Goal Year :";
-                //lblROIFutureInvest.Visible = false;
-                //txtROIFutureInvest.Visible = false;
-                //RequiredFieldValidator6.Visible = false;
-                trROIFutureInvestment.Visible = false;
-                ddlGoalType.Text = goalProfileSetupVo.Goalcode;
-                txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
-                BindPickChildDropDown(CustomerId);
-                ddlPickChild.SelectedValue = goalProfileSetupVo.AssociateId.ToString();
-                ddlPickChild.Enabled = false;
-                txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;
-                txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
-                ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
-                txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
-                txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
-                txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
-                txtComment.Text = goalProfileSetupVo.Comments;
-                if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
-                {
-                    //lblApproveOn.Visible = true;
-                    trlblApproveOn.Visible = true;
-                    lblApproveOn.Text = "Customer Approved On " + goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
-                    chkApprove.Checked = true;
-                    //chkApprove.Visible = false;
-                    trchkApprove.Visible = false;
-
-                }
-                else
-                {
-                    //lblApproveOn.Visible = false;
-                    trlblApproveOn.Visible = false;
-                    //chkApprove.Visible = true;
-                    trchkApprove.Visible = true;
-                    chkApprove.Enabled = false;
-
-                }
-                break;
-            case "RT":
-                //ddlPickChild.Visible = false;
-                //lblPickChild.Visible = false;
-                trPickChild.Visible = false;
-                //txtGoalDescription.Visible = false;
-                //lblGoalDescription.Visible = false;
-                trGoalDesc.Visible = false;
-                //lblROIFutureInvest.Visible = true;
-                //txtROIFutureInvest.Visible = true;
-                //RequiredFieldValidator6.Visible = true;
-                trROIFutureInvestment.Visible = true;
-
-                lblGoalYear.Text = "Goal Year :";
-                lblGoalCostToday.Text = "Requirement Today :";
-                ddlGoalType.Text = goalProfileSetupVo.Goalcode;
-                txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
-                txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
-                ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
-                txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
-                txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
-                txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
-                txtROIFutureInvest.Text = goalProfileSetupVo.RateofInterestOnFture.ToString();
-                txtComment.Text = goalProfileSetupVo.Comments;
-                if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
-                {
-                    //lblApproveOn.Visible = true;
-                    trlblApproveOn.Visible = true;
-                    lblApproveOn.Text = "Customer Approved On " + goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
-                    chkApprove.Checked = true;
-                    //chkApprove.Visible = false;
-                    trchkApprove.Visible = false;
-
-                }
-                else
-                {
-                    //lblApproveOn.Visible = false;
-                    trlblApproveOn.Visible = false;
-                    //chkApprove.Visible = true;
-                    trchkApprove.Visible = true;
-                    chkApprove.Enabled = false;
-
-                }
-                break;
-            default:
-                break;
         }
 
-    }
-        
-    protected void clearAll()
-    {
+        protected void clearAll()
+        {
 
- 
-    }
-    protected void ddlGoalType_SelectedIndexChanged(object sender, EventArgs e)
-     {
-         if (Session["InflationPercent"] == null)
-             InflationPercent = GoalSetupBo.GetInflationPercent();
-         else
-         {
-             InflationPercent = (decimal)Session["InflationPercent"];
-             Session["InflationPercent"] = InflationPercent;
-         }
 
-            txtInflation.Text = InflationPercent.ToString();
-            int ParentCustomerId = int.Parse((string)Session["FP_UserID"]); 
+        }
+        protected void ddlGoalType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ParentCustomerId = int.Parse((string)Session["FP_UserID"]);
             switch (ddlGoalType.SelectedValue.ToString())
             {
                 case "BH":
                     lblGoalCostToday.Text = "Home Cost Today :";
                     lblGoalYear.Text = "Goal Year :";
 
-                    
+
                     trGoalDesc.Visible = false;
 
                     trROIFutureInvestment.Visible = false;
@@ -641,13 +632,13 @@ namespace WealthERP.Advisor
                     lblGoalCostToday.Text = "Education Cost Today :";
                     lblGoalYear.Text = "Goal Year :";
 
-                   
+
                     trPickChild.Visible = true;
 
-                   
+
                     trGoalDesc.Visible = false;
 
-                
+
                     trROIFutureInvestment.Visible = false;
 
                     //default  current investment and Rate of return of above to 0
@@ -662,43 +653,43 @@ namespace WealthERP.Advisor
                     lblGoalCostToday.Text = "Mariage Cost Today:";
                     lblGoalYear.Text = "Goal Year :";
 
-                  
+
                     trPickChild.Visible = true;
 
-                    
+
                     trGoalDesc.Visible = false;
 
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
                     txtAboveRateOfInterst.Text = "0";
 
-                   
+
                     trROIFutureInvestment.Visible = false;
 
                     BindPickChildDropDown(ParentCustomerId);
                     TabContainer1.ActiveTabIndex = 0;
                     break;
                 case "RT":
-                  
+
                     trPickChild.Visible = false;
 
-                 
+
                     trGoalDesc.Visible = false;
 
                     trROIFutureInvestment.Visible = true;
 
                     lblGoalYear.Text = "Goal Year :";
-                    lblGoalCostToday.Text = "Requirement Today :";
+                    lblGoalCostToday.Text = "Annual Requirment Today :";
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
                     txtAboveRateOfInterst.Text = "0";
                     TabContainer1.ActiveTabIndex = 0;
                     break;
                 case "OT":
-                    
+
                     trPickChild.Visible = false;
 
-                   
+
                     trGoalDesc.Visible = true;
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
@@ -718,7 +709,7 @@ namespace WealthERP.Advisor
 
         }
 
-    private void BindGoalObjTypeDropDown()
+        private void BindGoalObjTypeDropDown()
         {
 
             DataSet ds = GoalSetupBo.GetCustomerGoalProfiling();
@@ -731,12 +722,12 @@ namespace WealthERP.Advisor
 
         }
 
-        
-    
 
-       
 
-    private void BindPickChildDropDown(int CustomerId)
+
+
+
+        private void BindPickChildDropDown(int CustomerId)
         {
             DataSet ds = GoalSetupBo.GetCustomerAssociationDetails(CustomerId);
             ddlPickChild.DataSource = ds;
@@ -748,61 +739,61 @@ namespace WealthERP.Advisor
 
         }
 
-    protected void btnSaveAdd_Click(object sender, EventArgs e)
+        protected void btnSaveAdd_Click(object sender, EventArgs e)
         {
-            try 
+            try
             {
-            SessionBo.CheckSession();
-            //Customer id select from AutoComplite TextBox Values
-            rmVo = (RMVo)Session[SessionContents.RmVo];
+                SessionBo.CheckSession();
+                //Customer id select from AutoComplite TextBox Values
+                rmVo = (RMVo)Session[SessionContents.RmVo];
 
-            int ParentCustomerId=int.Parse((string)Session["FP_UserID"]);
-            goalProfileSetupVo.CustomerId = ParentCustomerId;
-            goalProfileSetupVo.Goalcode = ddlGoalType.SelectedValue.ToString();
-            goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
-            goalProfileSetupVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
-            goalProfileSetupVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
-            if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
-            {
-                goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
-            }
-            goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
-            goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
-            goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
-            goalProfileSetupVo.InflationPercent =double.Parse(txtInflation.Text);
-            if (txtComment.Text != "")
-            {
-                goalProfileSetupVo.Comments = txtComment.Text.ToString();
+                int ParentCustomerId = int.Parse((string)Session["FP_UserID"]);
+                goalProfileSetupVo.CustomerId = ParentCustomerId;
+                goalProfileSetupVo.Goalcode = ddlGoalType.SelectedValue.ToString();
+                goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
+                goalProfileSetupVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
+                goalProfileSetupVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
+                if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
+                {
+                    goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
+                }
+                goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
+                goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
+                goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
 
-            }
-            goalProfileSetupVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
-            if (chkApprove.Checked == true)
-                goalProfileSetupVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
-            
-                 
-            
-            if (ddlGoalType.SelectedValue == "RT")
-            {
-                goalProfileSetupVo.RateofInterestOnFture = double.Parse(txtROIFutureInvest.Text);
-                GoalSetupBo.CreateCustomerGoalProfileForRetirement(goalProfileSetupVo, ParentCustomerId,0);
-                
-            }
-            else
-                GoalSetupBo.CreateCustomerGoalProfile(goalProfileSetupVo, ParentCustomerId,0);
-              
-                
+                if (txtComment.Text != "")
+                {
+                    goalProfileSetupVo.Comments = txtComment.Text.ToString();
+
+                }
+                goalProfileSetupVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
+                if (chkApprove.Checked == true)
+                    goalProfileSetupVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
+
+
+
+                if (ddlGoalType.SelectedValue == "RT")
+                {
+                    goalProfileSetupVo.RateofInterestOnFture = double.Parse(txtROIFutureInvest.Text);
+                    GoalSetupBo.CreateCustomerGoalProfileForRetirement(goalProfileSetupVo, ParentCustomerId, 0);
+
+                }
+                else
+                    GoalSetupBo.CreateCustomerGoalProfile(goalProfileSetupVo, ParentCustomerId, 0);
+
+
                 //Tab2ControlVisibility(0);
 
-               //int gvRT=BindRTGoalOutputGridView();
-               //if (gvRT == 1)
-               //{
-               //    gvRetirement.Visible = true;
-               //    lblTotalText.Visible = true;
-               //    lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
-                   
-               //}
+                //int gvRT=BindRTGoalOutputGridView();
+                //if (gvRT == 1)
+                //{
+                //    gvRetirement.Visible = true;
+                //    lblTotalText.Visible = true;
+                //    lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
 
-               // this.BindGoalOutputGridView(1);
+                //}
+
+                // this.BindGoalOutputGridView(1);
 
                 ShowOutPutTab();
                 SetPageLoadState(1);
@@ -826,10 +817,10 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-          
+
 
         }
-    private int BindGoalOutputGridView(int ActiveFlag)
+        private int BindGoalOutputGridView(int ActiveFlag)
         {
 
             try
@@ -854,7 +845,7 @@ namespace WealthERP.Advisor
                     dtGoalProfile.Columns.Add("IsActive");
                     dtGoalProfile.Columns.Add("CustomerApprovedOn");
 
-                    
+
 
                     DataRow drGoalProfile;
 
@@ -884,16 +875,16 @@ namespace WealthERP.Advisor
 
                     Label TotalText = (Label)gvGoalOutPut.FooterRow.FindControl("lblTotalText");
                     TotalText.Visible = false;
-                   
+
                     lblTotalText.Visible = false;
-                   
+
                     Activate.Visible = false;
                     Deactive.Visible = false;
                     Delete.Visible = false;
                     Label lblActiveMsg = (Label)gvGoalOutPut.HeaderRow.FindControl("ActiveMessage");
 
                     lblActiveMsg.Visible = true;
-                    
+
                     return 0;
 
                     //gvGoalOutPut.DataSource = null;
@@ -915,14 +906,14 @@ namespace WealthERP.Advisor
                     dtGoalProfile.Columns.Add("CustomerApprovedOn");
 
                     double SumSave = 0.0;
-                    
-                    double TotalSaveReq=0.0;
-                   
+
+                    double TotalSaveReq = 0.0;
+
                     DataRow drGoalProfile;
 
                     for (int i = 0; i < GoalProfileList.Count; i++)
                     {
-                       
+
                         drGoalProfile = dtGoalProfile.NewRow();
                         goalProfileSetupVo = new GoalProfileSetupVo();
                         goalProfileSetupVo = GoalProfileList[i];
@@ -937,44 +928,44 @@ namespace WealthERP.Advisor
                         if (goalProfileSetupVo.IsActice == 0)
                         {
                             drGoalProfile["IsActive"] = "Inactive";
- 
+
                         }
                         else
                             drGoalProfile["IsActive"] = "Active";
-                        
+
 
                         if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
                             drGoalProfile["CustomerApprovedOn"] = goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
                         else
                             drGoalProfile["CustomerApprovedOn"] = string.Empty;
                         dtGoalProfile.Rows.Add(drGoalProfile);
-                      }
+                    }
 
-                      gvGoalOutPut.DataSource = dtGoalProfile;
-                      gvGoalOutPut.DataBind();
+                    gvGoalOutPut.DataSource = dtGoalProfile;
+                    gvGoalOutPut.DataBind();
 
-                      Label TotalAmount = (Label)gvGoalOutPut.FooterRow.FindControl("lblTotal");
-                      TotalAmount.Text = SumSave.ToString();
-                      if (!String.IsNullOrEmpty(hidRTSaveReq.Value))
-                      {
-                          TotalSaveReq = SumSave + double.Parse(hidRTSaveReq.Value);
-                      }
-                      else
-                      TotalSaveReq = SumSave;
+                    Label TotalAmount = (Label)gvGoalOutPut.FooterRow.FindControl("lblTotal");
+                    TotalAmount.Text = SumSave.ToString();
+                    if (!String.IsNullOrEmpty(hidRTSaveReq.Value))
+                    {
+                        TotalSaveReq = SumSave + double.Parse(hidRTSaveReq.Value);
+                    }
+                    else
+                        TotalSaveReq = SumSave;
 
-                      lblHeaderOutPut.Text = "Customer Goal Profile Details";
-                      lblTotalText.Visible = true;
-                      
-                      Activate.Visible = true;
-                      Deactive.Visible = true;
-                      Delete.Visible = true;
-                      Label lblActiveMsg = (Label)gvGoalOutPut.HeaderRow.FindControl("ActiveMessage");
-                      lblActiveMsg.Visible = false;
-                      lblTotalText.Text ="Total Saving Required Every Month=Rs."+ Math.Round(TotalSaveReq,2).ToString();
-                      lblOtherGoalParagraph.Text = GoalSetupBo.OtherGoalDescriptionText(int.Parse((string)Session["FP_UserID"]));
-                      
-                      
-                      return 1;
+                    lblHeaderOutPut.Text = "Customer Goal Profile Details";
+                    lblTotalText.Visible = true;
+
+                    Activate.Visible = true;
+                    Deactive.Visible = true;
+                    Delete.Visible = true;
+                    Label lblActiveMsg = (Label)gvGoalOutPut.HeaderRow.FindControl("ActiveMessage");
+                    lblActiveMsg.Visible = false;
+                    lblTotalText.Text = "Total Saving Required Every Month=Rs." + Math.Round(TotalSaveReq, 2).ToString();
+                    lblOtherGoalParagraph.Text = GoalSetupBo.OtherGoalDescriptionText(int.Parse((string)Session["FP_UserID"]));
+
+
+                    return 1;
                 }
 
 
@@ -999,11 +990,11 @@ namespace WealthERP.Advisor
 
         }
 
-    private int BindRTGoalOutputGridView()
+        private int BindRTGoalOutputGridView()
         {
-            double hidvalue=0;
+            double hidvalue = 0;
             string GoalDescription = "";
-         //use same session name what ever used in risk profilling..
+            //use same session name what ever used in risk profilling..
             DataSet dsRTGoal = (DataSet)GoalSetupBo.GetCustomerRTDetails(int.Parse((string)Session["FP_UserID"]));
             if (dsRTGoal != null && dsRTGoal.Tables.Count > 0 && dsRTGoal.Tables[0].Rows.Count > 0)
             {
@@ -1012,112 +1003,112 @@ namespace WealthERP.Advisor
                 //RTSaveReq = double.Parse(dsRTGoal.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString());
                 if (dsRTGoal.Tables[0].Rows[0]["CG_MonthlySavingsRequired"] != null)
                     hidvalue = double.Parse(dsRTGoal.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString());
-                    hidRTSaveReq.Value = Math.Round(hidvalue, 2).ToString();                                  
-                    GoalDescription = GoalSetupBo.RTGoalDescriptionText(int.Parse((string)Session["FP_UserID"]));
-                    lblRTParagraph.Text = GoalDescription;
-                    return 1;
+                hidRTSaveReq.Value = Math.Round(hidvalue, 2).ToString();
+                GoalDescription = GoalSetupBo.RTGoalDescriptionText(int.Parse((string)Session["FP_UserID"]));
+                lblRTParagraph.Text = GoalDescription;
+                return 1;
             }
             return 0;
 
         }
 
-    protected void btnCancel_Click(object sender, EventArgs e)
+        protected void btnCancel_Click(object sender, EventArgs e)
         {
             SetPageLoadState(0);
             Tab2ControlVisibility(0);
         }
 
-    public void SetPageLoadState(int Bool)
+        public void SetPageLoadState(int Bool)
         {
-        if(Bool==0)
-           {
-            lblHeader.Text = "Goal Profile";
-            lblGoalbjective.Text = "Pick Goal Objective :";
-            lblPickChild.Text = "Select a child for Goal planning :";
-            lblGoalCostToday.Text = "Goal Cost Today :";
-            ddlGoalType.SelectedIndex = 0;
-           
-            trGoalDesc.Visible = false;
-            txtGoalDate.Text = DateTime.Now.ToShortDateString();
-           
-            trPickChild.Visible = false;
-            txtGoalCostToday.Text = "";
-            ddlGoalYear.SelectedIndex = 0;
-            txtCurrentInvestPurpose.Text = "0";
-            txtAboveRateOfInterst.Text = "0";
-            
-            trROIFutureInvestment.Visible = false;
-            txtComment.Text = "";
-            double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse((string)Session["FP_UserID"]));
-            txtExpRateOfReturn.Text = ExpROI.ToString();
-
-            chkApprove.Checked = false;
-            
-            trlblApproveOn.Visible = false;
-           
-            trchkApprove.Visible = true;
-            lblHeader.Visible = true;
-            lblNote.Visible = true;
-         
-            trRequiedNote.Visible = true;
-           
-            
-
-           }
-        else
-        {
-            ddlGoalType.SelectedIndex = 0;
-           
-            trGoalDesc.Visible = false;
-            txtGoalDate.Text = DateTime.Now.ToShortDateString();
-          
-            trPickChild.Visible = false;
-            txtGoalCostToday.Text = "";
-            lblGoalCostToday.Text = "Goal Cost Today :";
-            ddlGoalYear.SelectedIndex = 0;
-            txtCurrentInvestPurpose.Text = "0";
-            txtAboveRateOfInterst.Text = "0";
-           
-            trROIFutureInvestment.Visible = false;
-
-            txtROIFutureInvest.Text = "";
-           
-            txtComment.Text = "";
-            double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse((string)Session["FP_UserID"]));
-            txtExpRateOfReturn.Text = ExpROI.ToString();
-            if (chkApprove.Checked == true)
+            if (Bool == 0)
             {
+                lblHeader.Text = "Goal Profile";
+                lblGoalbjective.Text = "Pick Goal Objective :";
+                lblPickChild.Text = "Select a child for Goal planning :";
+                lblGoalCostToday.Text = "Goal Cost Today :";
+                ddlGoalType.SelectedIndex = 0;
+
+                trGoalDesc.Visible = false;
+                txtGoalDate.Text = DateTime.Now.ToShortDateString();
+
+                trPickChild.Visible = false;
+                txtGoalCostToday.Text = "";
+                ddlGoalYear.SelectedIndex = 0;
+                txtCurrentInvestPurpose.Text = "0";
+                txtAboveRateOfInterst.Text = "0";
+
+                trROIFutureInvestment.Visible = false;
+                txtComment.Text = "";
+                double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse((string)Session["FP_UserID"]));
+                txtExpRateOfReturn.Text = ExpROI.ToString();
+
                 chkApprove.Checked = false;
- 
+
+                trlblApproveOn.Visible = false;
+
+                trchkApprove.Visible = true;
+                lblHeader.Visible = true;
+                lblNote.Visible = true;
+
+                trRequiedNote.Visible = true;
+
+
+
             }
-            if (chkApprove.Enabled == false)
-                chkApprove.Enabled = true;
+            else
+            {
+                ddlGoalType.SelectedIndex = 0;
 
-            
-            
-        }
-            
- 
+                trGoalDesc.Visible = false;
+                txtGoalDate.Text = DateTime.Now.ToShortDateString();
+
+                trPickChild.Visible = false;
+                txtGoalCostToday.Text = "";
+                lblGoalCostToday.Text = "Goal Cost Today :";
+                ddlGoalYear.SelectedIndex = 0;
+                txtCurrentInvestPurpose.Text = "0";
+                txtAboveRateOfInterst.Text = "0";
+
+                trROIFutureInvestment.Visible = false;
+
+                txtROIFutureInvest.Text = "";
+
+                txtComment.Text = "";
+                double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse((string)Session["FP_UserID"]));
+                txtExpRateOfReturn.Text = ExpROI.ToString();
+                if (chkApprove.Checked == true)
+                {
+                    chkApprove.Checked = false;
+
+                }
+                if (chkApprove.Enabled == false)
+                    chkApprove.Enabled = true;
+
+
+
+            }
+
+
         }
 
-       
-    private string GetSelectedGoalIDString()
+
+        private string GetSelectedGoalIDString()
         {
             string gvGoalIds = "";
-           
+
             //'Navigate through each row in the GridView for checkbox items
             foreach (GridViewRow gvRow in gvGoalOutPut.Rows)
             {
                 CheckBox ChkBxItem = (CheckBox)gvRow.FindControl("chkGoalOutput");
                 if (ChkBxItem.Checked)
                 {
-                   gvGoalIds += Convert.ToString(gvGoalOutPut.DataKeys[gvRow.RowIndex].Value) + "~";
+                    gvGoalIds += Convert.ToString(gvGoalOutPut.DataKeys[gvRow.RowIndex].Value) + "~";
                 }
             }
             return gvGoalIds;
- 
+
         }
-    protected void Activate_Click(object sender, EventArgs e)
+        protected void Activate_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1125,10 +1116,10 @@ namespace WealthERP.Advisor
                 GoalSetupBo.SetCustomerGoalIsActive(GoalIds, int.Parse((string)Session["FP_UserID"]));
                 //this.BindRTGoalOutputGridView();
                 //this.BindGoalOutputGridView(1);
-                ShowOutPutTab();                
+                ShowOutPutTab();
                 ViewState["FilterValue"] = 1;
-               
- 
+
+
             }
 
             catch (BaseApplicationException Ex)
@@ -1149,9 +1140,9 @@ namespace WealthERP.Advisor
             }
         }
 
-    protected void Deactive_Click(object sender, EventArgs e)
+        protected void Deactive_Click(object sender, EventArgs e)
         {
-            
+
             try
             {
                 string GoalIds = GetSelectedGoalIDString();
@@ -1160,8 +1151,8 @@ namespace WealthERP.Advisor
                 //this.BindGoalOutputGridView(1);
                 ShowOutPutTab();
                 ViewState["FilterValue"] = 1;
-                
-                
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1182,450 +1173,446 @@ namespace WealthERP.Advisor
 
         }
 
-    protected void Delete_Click(object sender, EventArgs e)
-    {
-        
-        try
+        protected void Delete_Click(object sender, EventArgs e)
         {
-            string GoalIds = GetSelectedGoalIDString();
-            GoalSetupBo.DeleteCustomerGoal(GoalIds, int.Parse((string)Session["FP_UserID"]));
-            //this.BindRTGoalOutputGridView();
-            //this.BindGoalOutputGridView(1);
-            ShowOutPutTab();
-            ViewState["FilterValue"] = 1;
-            
-        }
-        catch (BaseApplicationException Ex)
-        {
-            throw Ex;
-        }
-        catch (Exception Ex)
-        {
-            BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-            NameValueCollection FunctionInfo = new NameValueCollection();
-            FunctionInfo.Add("Method", "AddCustomerFinancialPlanningGoalSetup.ascx:Delete_Click()");
-            object[] objects = new object[1];
-            objects[0] = Session["FP_UserID"];
-            FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-            exBase.AdditionalInformation = FunctionInfo;
-            ExceptionManager.Publish(exBase);
-            throw exBase;
-        }
 
-
-    }
-
-    
-
-    protected void btnNext_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            SessionBo.CheckSession();
-            //Customer id select from AutoComplite TextBox Values
-            rmVo = (RMVo)Session[SessionContents.RmVo];
-
-            int ParentCustomerId = int.Parse((string)Session["FP_UserID"]);
-            goalProfileSetupVo.CustomerId = ParentCustomerId;
-            goalProfileSetupVo.Goalcode = ddlGoalType.SelectedValue.ToString();
-            goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
-            goalProfileSetupVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
-            goalProfileSetupVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
-            if (ddlGoalType.SelectedValue == "OT")
+            try
             {
-                goalProfileSetupVo.GoalDescription = txtGoalDescription.Text.ToString();
+                string GoalIds = GetSelectedGoalIDString();
+                GoalSetupBo.DeleteCustomerGoal(GoalIds, int.Parse((string)Session["FP_UserID"]));
+                //this.BindRTGoalOutputGridView();
+                //this.BindGoalOutputGridView(1);
+                ShowOutPutTab();
+                ViewState["FilterValue"] = 1;
+
             }
-            if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
+            catch (BaseApplicationException Ex)
             {
-                goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
+                throw Ex;
             }
-            goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
-            goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
-            goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
-            goalProfileSetupVo.InflationPercent = double.Parse(txtInflation.Text);
-            if (txtComment.Text != "")
+            catch (Exception Ex)
             {
-                goalProfileSetupVo.Comments = txtComment.Text.ToString();
-
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddCustomerFinancialPlanningGoalSetup.ascx:Delete_Click()");
+                object[] objects = new object[1];
+                objects[0] = Session["FP_UserID"];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
-            goalProfileSetupVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
-            if (chkApprove.Checked == true)
-                goalProfileSetupVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
 
-
-
-            if (ddlGoalType.SelectedValue == "RT")
-            {
-                goalProfileSetupVo.RateofInterestOnFture = double.Parse(txtROIFutureInvest.Text);
-                GoalSetupBo.CreateCustomerGoalProfileForRetirement(goalProfileSetupVo, ParentCustomerId,0);
-
-            }
-            else
-                GoalSetupBo.CreateCustomerGoalProfile(goalProfileSetupVo, ParentCustomerId,0);
-
-            // SetPageLoadState(1);
-            ////Tab2ControlVisibility(0);
-
-            //int gvRT = BindRTGoalOutputGridView();
-            //if (gvRT == 1)
-            //{
-            //    gvRetirement.Visible = true;
-            //    lblTotalText.Visible = true;
-            //    lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
-
-            //}
-
-            //this.BindGoalOutputGridView(1);
-            //TabContainer1.ActiveTabIndex = 1;
-
-            ShowOutPutTab();
-            SetPageLoadState(1);
-            TabContainer1.ActiveTabIndex = 1;
 
         }
 
-        catch (BaseApplicationException Ex)
+
+
+        protected void btnNext_Click(object sender, EventArgs e)
         {
-            throw Ex;
-        }
-        catch (Exception Ex)
-        {
-            BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-            NameValueCollection FunctionInfo = new NameValueCollection();
-            FunctionInfo.Add("Method", "AddCustomerFinancialPlanningGoalSetup.ascx:btnSaveAdd_Click()");
-            object[] objects = new object[1];
-            objects[0] = Session["FP_UserID"];
-            FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-            exBase.AdditionalInformation = FunctionInfo;
-            ExceptionManager.Publish(exBase);
-            throw exBase;
-        }
-          
-       
-         
-
-    }
-
-
-
-    private void ControlSetVisiblity(int Bool)
-    {
-        if (Bool == 0)
-        {
-            // For View Mode
-            //txtPickCustomer.Enabled = false;
-            ddlGoalType.Enabled = false;
-            txtGoalDate.Enabled = false;
-            ddlPickChild.Enabled = false;
-            txtGoalCostToday.Enabled = false;
-            ddlGoalYear.Enabled = false;
-            txtCurrentInvestPurpose.Enabled = false;
-            txtAboveRateOfInterst.Enabled = false;
-            txtExpRateOfReturn.Enabled = false;
-            txtExpRateOfReturn.Enabled = false;
-            txtROIFutureInvest.Enabled = false;
-            txtInflation.Enabled = false;
-            txtComment.Enabled = false;
-            txtGoalDescription.Enabled = false; 
-
-            SpanPicCustomerReq.Visible = false;
-            SpanGoalDateReq.Visible = false;
-            SpanGoalCostTodayReq.Visible = false;
-            SpanGoalYearReq.Visible = false;
-            SpanCurrInPurReq.Visible = false;
-            SpanAboveROIReq.Visible = false;
-            SpanExpROI.Visible = false;
-            SpanROIFutureInvest.Visible = false;
-            spnInflation.Visible = false;
-            
-           
-            
-
-
-        }
-        else
-            if (Bool == 1)
+            try
             {
-                //for Add Mode
-                txtPickCustomer.Enabled = true;
-                ddlGoalType.Enabled = true;
-                txtGoalDate.Enabled = true;
-                ddlPickChild.Enabled = true;
-                txtGoalCostToday.Enabled = true;
-                txtGoalDescription.Enabled = true;
-                ddlGoalYear.Enabled = true;
-                txtCurrentInvestPurpose.Enabled = true;
-                txtAboveRateOfInterst.Enabled = true;
-                txtExpRateOfReturn.Enabled = true;
-                txtExpRateOfReturn.Enabled = true;
-                txtROIFutureInvest.Enabled = true;
-                txtInflation.Enabled = true;
-                txtComment.Enabled = true;
+                SessionBo.CheckSession();
+                //Customer id select from AutoComplite TextBox Values
+                rmVo = (RMVo)Session[SessionContents.RmVo];
 
-                SpanPicCustomerReq.Visible = true;
-                SpanGoalDateReq.Visible = true;
-                SpanGoalCostTodayReq.Visible = true;
-                SpanGoalYearReq.Visible = true;
-                SpanCurrInPurReq.Visible = true;
-                SpanAboveROIReq.Visible = true;
-                SpanExpROI.Visible = true;
-                SpanROIFutureInvest.Visible = true;
-                spnInflation.Visible = true;
+                int ParentCustomerId = int.Parse((string)Session["FP_UserID"]);
+                goalProfileSetupVo.CustomerId = ParentCustomerId;
+                goalProfileSetupVo.Goalcode = ddlGoalType.SelectedValue.ToString();
+                goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
+                goalProfileSetupVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
+                goalProfileSetupVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
+                if (ddlGoalType.SelectedValue == "OT")
+                {
+                    goalProfileSetupVo.GoalDescription = txtGoalDescription.Text.ToString();
+                }
+                if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
+                {
+                    goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
+                }
+                goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
+                goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
+                goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
 
-                lblHeader.Visible = true;
-                lblNote.Visible = true;
-                //lblReqNote.Visible = true;
-                trRequiedNote.Visible = true;
-                lblHeader.Text = "Goal Profile ";
-                lblPickCustomer.Text = "Pick a Customer :";
-                lblGoalbjective.Text = "Pick Goal Objective :";
-                lblPickChild.Text = "Select a child for Goal planning :";
-                lblGoalCostToday.Text = "Goal Cost Today :";
+                if (txtComment.Text != "")
+                {
+                    goalProfileSetupVo.Comments = txtComment.Text.ToString();
+
+                }
+                goalProfileSetupVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
+                if (chkApprove.Checked == true)
+                    goalProfileSetupVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
+
+
+
+                if (ddlGoalType.SelectedValue == "RT")
+                {
+                    goalProfileSetupVo.RateofInterestOnFture = double.Parse(txtROIFutureInvest.Text);
+                    GoalSetupBo.CreateCustomerGoalProfileForRetirement(goalProfileSetupVo, ParentCustomerId, 0);
+
+                }
+                else
+                    GoalSetupBo.CreateCustomerGoalProfile(goalProfileSetupVo, ParentCustomerId, 0);
+
+                // SetPageLoadState(1);
+                ////Tab2ControlVisibility(0);
+
+                //int gvRT = BindRTGoalOutputGridView();
+                //if (gvRT == 1)
+                //{
+                //    gvRetirement.Visible = true;
+                //    lblTotalText.Visible = true;
+                //    lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
+
+                //}
+
+                //this.BindGoalOutputGridView(1);
+                //TabContainer1.ActiveTabIndex = 1;
+
+                ShowOutPutTab();
+                SetPageLoadState(1);
+                TabContainer1.ActiveTabIndex = 1;
 
             }
-            else
-            {//For Edit mode
- 
-            }
-    }
 
-    private void BtnSetVisiblity(int Bool)
-    {
-        if (Bool == 0)
-        {   //for view selected
-            btnCancel.Visible = false;
-            btnSaveAdd.Visible = false;
-            btnNext.Visible = false;
-            btnBackToAddMode.Visible = true;
-            btnEdit.Visible = true;
-            btnBackToView.Visible = false;
-            btnUpdate.Visible = false;
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddCustomerFinancialPlanningGoalSetup.ascx:btnSaveAdd_Click()");
+                object[] objects = new object[1];
+                objects[0] = Session["FP_UserID"];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
+
+
         }
-        else
-            if (Bool == 1)
-            {  //for Add selected 
-                btnCancel.Visible = true;
-                btnSaveAdd.Visible = true;
-                btnNext.Visible = true;
-                btnBackToAddMode.Visible = false;
-                //lblApproveOn.Visible = false;
-                trlblApproveOn.Visible = false;
-                //chkApprove.Visible = true;
-                trchkApprove.Visible = true;
-                btnBackToAddMode.Visible = false;
-                btnEdit.Visible = false;
-                btnUpdate.Visible = false;
-                btnBackToView.Visible = false;
+
+
+
+        private void ControlSetVisiblity(int Bool)
+        {
+            if (Bool == 0)
+            {
+                // For View Mode
+                //txtPickCustomer.Enabled = false;
+                ddlGoalType.Enabled = false;
+                txtGoalDate.Enabled = false;
+                ddlPickChild.Enabled = false;
+                txtGoalCostToday.Enabled = false;
+                ddlGoalYear.Enabled = false;
+                txtCurrentInvestPurpose.Enabled = false;
+                txtAboveRateOfInterst.Enabled = false;
+                txtExpRateOfReturn.Enabled = false;
+                txtExpRateOfReturn.Enabled = false;
+                txtROIFutureInvest.Enabled = false;
+                txtComment.Enabled = false;
+                txtGoalDescription.Enabled = false;
+
+                //SpanPicCustomerReq.Visible = false;
+                SpanGoalDateReq.Visible = false;
+                SpanGoalCostTodayReq.Visible = false;
+                SpanGoalYearReq.Visible = false;
+                SpanCurrInPurReq.Visible = false;
+                SpanAboveROIReq.Visible = false;
+                SpanExpROI.Visible = false;
+                SpanROIFutureInvest.Visible = false;
+
+
+
+
 
 
             }
             else
-            {//For Edit Selected
-                btnBackToView.Visible = true;
-                btnBackToAddMode.Visible = true;
-                btnUpdate.Visible = true;
+                if (Bool == 1)
+                {
+                    //for Add Mode
+                    //txtPickCustomer.Enabled = true;
+                    ddlGoalType.Enabled = true;
+                    txtGoalDate.Enabled = true;
+                    ddlPickChild.Enabled = true;
+                    txtGoalCostToday.Enabled = true;
+                    txtGoalDescription.Enabled = true;
+                    ddlGoalYear.Enabled = true;
+                    txtCurrentInvestPurpose.Enabled = true;
+                    txtAboveRateOfInterst.Enabled = true;
+                    txtExpRateOfReturn.Enabled = true;
+                    txtExpRateOfReturn.Enabled = true;
+                    txtROIFutureInvest.Enabled = true;
+                    txtComment.Enabled = true;
 
+                    //SpanPicCustomerReq.Visible = true;
+                    SpanGoalDateReq.Visible = true;
+                    SpanGoalCostTodayReq.Visible = true;
+                    SpanGoalYearReq.Visible = true;
+                    SpanCurrInPurReq.Visible = true;
+                    SpanAboveROIReq.Visible = true;
+                    SpanExpROI.Visible = true;
+                    SpanROIFutureInvest.Visible = true;
+
+                    lblHeader.Visible = true;
+                    lblNote.Visible = true;
+                    //lblReqNote.Visible = true;
+                    trRequiedNote.Visible = true;
+                    lblHeader.Text = "Goal Profile ";
+                    //lblPickCustomer.Text = "Pick a Customer :";
+                    lblGoalbjective.Text = "Pick Goal Objective :";
+                    lblPickChild.Text = "Select a child for Goal planning :";
+                    lblGoalCostToday.Text = "Goal Cost Today :";
+
+                }
+                else
+                {//For Edit mode
+
+                }
+        }
+
+        private void BtnSetVisiblity(int Bool)
+        {
+            if (Bool == 0)
+            {   //for view selected
                 btnCancel.Visible = false;
                 btnSaveAdd.Visible = false;
                 btnNext.Visible = false;
-                btnEdit.Visible = false;
+                btnBackToAddMode.Visible = true;
+                btnEdit.Visible = true;
+                btnBackToView.Visible = false;
+                btnUpdate.Visible = false;
             }
+            else
+                if (Bool == 1)
+                {  //for Add selected 
+                    btnCancel.Visible = true;
+                    btnSaveAdd.Visible = true;
+                    btnNext.Visible = true;
+                    btnBackToAddMode.Visible = false;
+                    //lblApproveOn.Visible = false;
+                    trlblApproveOn.Visible = false;
+                    //chkApprove.Visible = true;
+                    trchkApprove.Visible = true;
+                    btnBackToAddMode.Visible = false;
+                    btnEdit.Visible = false;
+                    btnUpdate.Visible = false;
+                    btnBackToView.Visible = false;
 
 
-    }
+                }
+                else
+                {//For Edit Selected
+                    btnBackToView.Visible = true;
+                    btnBackToAddMode.Visible = true;
+                    btnUpdate.Visible = true;
 
-    private void Tab2ControlVisibility(int Bool)
-    {
-        if (Bool == 0)
-        {
-            lblHeaderOutPut.Text = "Please pick a customer for viewing the Goal Output";
-            gvGoalOutPut.Visible = false;
-            gvRetirement.Visible = false;
-           
-            Delete.Visible = false;
-            Activate.Visible = false;
-            Deactive.Visible = false;
-            lblTotalText.Visible = false;
+                    btnCancel.Visible = false;
+                    btnSaveAdd.Visible = false;
+                    btnNext.Visible = false;
+                    btnEdit.Visible = false;
+                }
 
 
         }
-        else
+
+        private void Tab2ControlVisibility(int Bool)
         {
-            lblHeaderOutPut.Text = "Customer Goal Profile Details";
-            gvGoalOutPut.Visible = true;
-            gvRetirement.Visible = true;
-           
-            Delete.Visible = true;
-            Activate.Visible = true;
-            Deactive.Visible = false;
-            lblTotalText.Visible = true;
- 
-        }
-    }
-
-    protected void btnBackToAddMode_Click(object sender, EventArgs e)
-    {
-        //Tab2ControlVisibility(0);
-        BtnSetVisiblity(1);
-        ControlSetVisiblity(1);
-        SetPageLoadState(1);
-       
-        
-    }
-
-    protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        DropDownList ddlFilter=(DropDownList)gvGoalOutPut.HeaderRow.FindControl("ddlActiveFilter");
-        //ddlFilter.SelectedIndex = 2;
-        int ActiveFlag = int.Parse(ddlFilter.SelectedValue);
-        BindGoalOutputGridView(ActiveFlag);
-
-        ViewState.Add("FilterValue", ActiveFlag);
-
-        TabContainer1.ActiveTabIndex = 1;
-        
-        
-
-    }
-
-    protected void SetValue(object sender, EventArgs e)
-    {
-        DropDownList ddl = (DropDownList)sender;
-        if (ViewState["FilterValue"] == null)
-        {
-            ddl.SelectedValue = "1";
-        }
-        else        
-        ddl.SelectedValue =ViewState["FilterValue"].ToString();
-       
-
-    }
-
-    protected void btnEdit_Click(object sender, EventArgs e)
-    {
-        BtnSetVisiblity(2);
-        ControlSetVisiblity(1);
-        ddlGoalType.Enabled = false;
-        //lblApproveOn.Visible = false;
-        trlblApproveOn.Visible = false;
-        //if (chkApprove.Visible == false)
-        //    chkApprove.Visible = true;
-        if (trchkApprove.Visible == false)
-            trchkApprove.Visible = true;
-       
-        if (chkApprove.Enabled == false)
-            chkApprove.Enabled = true;
-
-    }
-
-    protected void btnUpdate_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            //Customer id select from AutoComplite TextBox Values
-            int GoalId = int.Parse(ViewState["ViewEditID"].ToString());
-
-            int ParentCustomerId = int.Parse((string)Session["FP_UserID"]);
-            goalProfileSetupVo.CustomerId = ParentCustomerId;
-            goalProfileSetupVo.Goalcode = ddlGoalType.SelectedValue.ToString();
-            goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
-            goalProfileSetupVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
-            goalProfileSetupVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
-            if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
+            if (Bool == 0)
             {
-                goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
-            }
-            goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
-            goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
-            goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
-            goalProfileSetupVo.InflationPercent = double.Parse(txtInflation.Text);
-            if (txtComment.Text != "")
-            {
-                goalProfileSetupVo.Comments = txtComment.Text.ToString();
+                lblHeaderOutPut.Text = "Please pick a customer for viewing the Goal Output";
+                gvGoalOutPut.Visible = false;
+                gvRetirement.Visible = false;
 
-            }
-            goalProfileSetupVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
-            if (chkApprove.Checked == true)
-                goalProfileSetupVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
+                Delete.Visible = false;
+                Activate.Visible = false;
+                Deactive.Visible = false;
+                lblTotalText.Visible = false;
 
-
-
-            if (ddlGoalType.SelectedValue == "RT")
-            {
-                goalProfileSetupVo.RateofInterestOnFture = double.Parse(txtROIFutureInvest.Text);
-                GoalSetupBo.CreateCustomerGoalProfileForRetirement(goalProfileSetupVo, GoalId,1);
 
             }
             else
-                GoalSetupBo.CreateCustomerGoalProfile(goalProfileSetupVo, GoalId,1);
+            {
+                lblHeaderOutPut.Text = "Customer Goal Profile Details";
+                gvGoalOutPut.Visible = true;
+                gvRetirement.Visible = true;
 
+                Delete.Visible = true;
+                Activate.Visible = true;
+                Deactive.Visible = false;
+                lblTotalText.Visible = true;
 
+            }
+        }
+
+        protected void btnBackToAddMode_Click(object sender, EventArgs e)
+        {
             //Tab2ControlVisibility(0);
-
-            //int gvRT=BindRTGoalOutputGridView();
-            //if (gvRT == 1)
-            //{
-            //    gvRetirement.Visible = true;
-            //    lblTotalText.Visible = true;
-            //    lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
-
-            //}
-
-            // this.BindGoalOutputGridView(1);
-            ViewState["FilterValue"] = 1;
-            ddlGoalType.Enabled = true;
-
-            ShowOutPutTab();
-            SetPageLoadState(1);
             BtnSetVisiblity(1);
+            ControlSetVisiblity(1);
+            SetPageLoadState(1);
+
+
+        }
+
+        protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlFilter = (DropDownList)gvGoalOutPut.HeaderRow.FindControl("ddlActiveFilter");
+            //ddlFilter.SelectedIndex = 2;
+            int ActiveFlag = int.Parse(ddlFilter.SelectedValue);
+            BindGoalOutputGridView(ActiveFlag);
+
+            ViewState.Add("FilterValue", ActiveFlag);
+
             TabContainer1.ActiveTabIndex = 1;
 
 
+
         }
 
-        catch (BaseApplicationException Ex)
+        protected void SetValue(object sender, EventArgs e)
         {
-            throw Ex;
+            DropDownList ddl = (DropDownList)sender;
+            if (ViewState["FilterValue"] == null)
+            {
+                ddl.SelectedValue = "1";
+            }
+            else
+                ddl.SelectedValue = ViewState["FilterValue"].ToString();
+
+
         }
-        catch (Exception Ex)
+
+        protected void btnEdit_Click(object sender, EventArgs e)
         {
-            BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-            NameValueCollection FunctionInfo = new NameValueCollection();
-            FunctionInfo.Add("Method", "AddCustomerFinancialPlanningGoalSetup.ascx:btnUpdate_Click()");
-            object[] objects = new object[2];
-            objects[0] = Session["FP_UserID"];
-            objects[1] = Session["GoalId"];
-            FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-            exBase.AdditionalInformation = FunctionInfo;
-            ExceptionManager.Publish(exBase);
-            throw exBase;
+            BtnSetVisiblity(2);
+            ControlSetVisiblity(1);
+            ddlGoalType.Enabled = false;
+            //lblApproveOn.Visible = false;
+            trlblApproveOn.Visible = false;
+            //if (chkApprove.Visible == false)
+            //    chkApprove.Visible = true;
+            if (trchkApprove.Visible == false)
+                trchkApprove.Visible = true;
+
+            if (chkApprove.Enabled == false)
+                chkApprove.Enabled = true;
+
         }
-          
 
-
-    }
-
-    protected void btnBackToView_Click(object sender, EventArgs e)
-    {
-        if (ViewState["ViewEditID"].ToString() != "")
+        protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            int GoalId = int.Parse(ViewState["ViewEditID"].ToString());
-            ShowGoalDetails(int.Parse((string)Session["FP_UserID"]), GoalId);
-            ControlSetVisiblity(0);
-            lblPickCustomer.Text = "Customer Name";
-            lblGoalbjective.Text = "Goal Objective :";
- 
+            try
+            {
+                //Customer id select from AutoComplite TextBox Values
+                int GoalId = int.Parse(ViewState["ViewEditID"].ToString());
+
+                int ParentCustomerId = int.Parse((string)Session["FP_UserID"]);
+                goalProfileSetupVo.CustomerId = ParentCustomerId;
+                goalProfileSetupVo.Goalcode = ddlGoalType.SelectedValue.ToString();
+                goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
+                goalProfileSetupVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
+                goalProfileSetupVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
+                if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
+                {
+                    goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
+                }
+                goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
+                goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
+                goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
+
+                if (txtComment.Text != "")
+                {
+                    goalProfileSetupVo.Comments = txtComment.Text.ToString();
+
+                }
+                goalProfileSetupVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
+                if (chkApprove.Checked == true)
+                    goalProfileSetupVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
+
+
+
+                if (ddlGoalType.SelectedValue == "RT")
+                {
+                    goalProfileSetupVo.RateofInterestOnFture = double.Parse(txtROIFutureInvest.Text);
+                    GoalSetupBo.CreateCustomerGoalProfileForRetirement(goalProfileSetupVo, GoalId, 1);
+
+                }
+                else
+                    GoalSetupBo.CreateCustomerGoalProfile(goalProfileSetupVo, GoalId, 1);
+
+
+                //Tab2ControlVisibility(0);
+
+                //int gvRT=BindRTGoalOutputGridView();
+                //if (gvRT == 1)
+                //{
+                //    gvRetirement.Visible = true;
+                //    lblTotalText.Visible = true;
+                //    lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
+
+                //}
+
+                // this.BindGoalOutputGridView(1);
+                ViewState["FilterValue"] = 1;
+                ddlGoalType.Enabled = true;
+
+                ShowOutPutTab();
+                SetPageLoadState(1);
+                BtnSetVisiblity(1);
+                TabContainer1.ActiveTabIndex = 1;
+
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddCustomerFinancialPlanningGoalSetup.ascx:btnUpdate_Click()");
+                object[] objects = new object[2];
+                objects[0] = Session["FP_UserID"];
+                objects[1] = Session["GoalId"];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
+
         }
 
-        
-        
-    }
+        protected void btnBackToView_Click(object sender, EventArgs e)
+        {
+            if (ViewState["ViewEditID"].ToString() != "")
+            {
+                int GoalId = int.Parse(ViewState["ViewEditID"].ToString());
+                ShowGoalDetails(int.Parse((string)Session["FP_UserID"]), GoalId);
+                ControlSetVisiblity(0);                
+                lblGoalbjective.Text = "Goal Objective :";
 
-   
-   
-    
+            }
 
-    
-        
+
+
+        }
+
+
+
+
+
+
+
     }
 }
