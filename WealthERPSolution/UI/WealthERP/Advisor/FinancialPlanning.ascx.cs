@@ -120,18 +120,18 @@ namespace WealthERP.Advisor
             {
                 rmvo = (RMVo)Session[SessionContents.RmVo];
                 AdvisorRMId = rmvo.RMId;
-                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetCustomerName";
+                //txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetCustomerName";
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
             {
 
                 AdvisorRMId = advisorVo.advisorId;
-                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                //txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
             }
 
             rmvo = (RMVo)Session["rmVo"];
             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
-            txtParentCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString(); ;
+            //txtParentCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString(); ;
             try
             {
                 dsGetRiskProfileQuestion = riskprofilebo.GetRiskProfileQuestion(advisorVo.advisorId);
