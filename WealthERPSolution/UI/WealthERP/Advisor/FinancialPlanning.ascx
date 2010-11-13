@@ -115,7 +115,7 @@
             <hr />
         </td>
     </tr>
-    <tr>
+   <%-- <tr>
         <td width="150px" align="right">
             <asp:Label ID="lblPickCustomer" runat="server" Text="Pick a customer  : " CssClass="FieldName"></asp:Label>
         </td>
@@ -138,7 +138,7 @@
         <td colspan="3">
             <hr />
         </td>
-    </tr>
+    </tr>--%>
 </table>
 <table width="100%">
     <tr>
@@ -160,7 +160,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <table id="tblRiskScore" runat="server" style="background-color:#D3D3D3; border: thin solid #FF0000"
+                                    <table id="tblRiskScore" runat="server" style="background-color: Gray; border: thin solid #FF0000"
                                         visible="False" width="100%">
                                         <tr id="Tr1" runat="server">
                                             <td id="Td1" runat="server">
@@ -181,7 +181,7 @@
                             </tr>
                             <tr id="trRiskProfilingParagraph" runat="server">
                                
-                                  <td width="100%" colspan="6">                    
+                                  <td width="100%" colspan="2">                    
                                                                 
                                     <asp:Label ID="lblRiskProfilingParagraph" runat="server" CssClass="GridViewCmbField" style="white-space:inherit" Text="">
                                     </asp:Label>
