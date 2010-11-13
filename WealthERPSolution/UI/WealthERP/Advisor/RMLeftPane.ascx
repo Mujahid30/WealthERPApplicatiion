@@ -45,11 +45,8 @@
                         <asp:TreeNode Text="Manage Portfolio" Value="Customer Portfolio">
                             <asp:TreeNode Text="Add" Value="Add Portfolio"></asp:TreeNode>
                         </asp:TreeNode>
-                                              
                         <asp:TreeNode Text="Multi Asset Reports" Value="MultiAssetReports"></asp:TreeNode>
                         <asp:TreeNode Text="Alert Configuration" Value="Customer Alerts"></asp:TreeNode>
-                        <asp:TreeNode Text="Notifications" Value="Notifications"></asp:TreeNode>
-                        
                     </asp:TreeNode>
                     <asp:TreeNode Text="Loan" Value="Loan">
                         <asp:TreeNode Text="Loan Proposal" Value="Loan Proposal"></asp:TreeNode>
@@ -61,13 +58,16 @@
                         <asp:TreeNode Text="View Transactions" Value="MView Transactions"></asp:TreeNode>
                         <asp:TreeNode Text="Add Transactions" Value="MAdd Transactions"></asp:TreeNode>
                         <asp:TreeNode Text="MF Reports" Value="MFReports"></asp:TreeNode>
-                      
                     </asp:TreeNode>
                     <asp:TreeNode Text="Equity" Value="Equity">
                         <asp:TreeNode Text="MIS" Value="EMIS"></asp:TreeNode>
                         <asp:TreeNode Text="View Transactions" Value="EView Transactions"></asp:TreeNode>
                         <asp:TreeNode Text="Add Transactions" Value="EAdd Transactions"></asp:TreeNode>
-                         <%--<asp:TreeNode Text="Equity Reports" Value="EquityReports"  ></asp:TreeNode>--%>
+                    </asp:TreeNode>
+                    <asp:TreeNode Text="FP" Value="FP">
+                        <asp:TreeNode Text="Prospect List" Value="ProspectList"></asp:TreeNode>
+                        <asp:TreeNode Text="Add Prospect" Value="AddProspect"></asp:TreeNode>
+                        <asp:TreeNode Text="Offline Form" Value="DownloadForm"></asp:TreeNode>
                     </asp:TreeNode>
                 </Nodes>
                 <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
