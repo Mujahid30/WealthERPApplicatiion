@@ -937,6 +937,8 @@ namespace DaoAdvisorProfiling
                         if (dr["Parent"].ToString() != "")
                             customerVo.ParentCustomer = dr["Parent"].ToString();
                         customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
+                        customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
                         if (dr["CA_AssociationId"].ToString() != string.Empty)
                             customerVo.AssociationId = int.Parse(dr["CA_AssociationId"].ToString());
                         if (dr["C_Mobile1"].ToString() != "")
@@ -1121,6 +1123,8 @@ namespace DaoAdvisorProfiling
                         customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
                         customerVo.Email = dr["C_Email"].ToString();
                         customerVo.RmId = int.Parse(dr["AR_RMId"].ToString());
+                        customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
                         customerVo.Adr1City = dr["C_Adr1City"].ToString();
                         customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
                         customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
@@ -1341,6 +1345,8 @@ namespace DaoAdvisorProfiling
                         customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
                         customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
                         customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
+                        customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
                         customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
                         customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
                         customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
