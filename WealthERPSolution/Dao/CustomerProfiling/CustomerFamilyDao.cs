@@ -179,8 +179,20 @@ namespace DaoCustomerProfiling
                         customerFamilyVo = new CustomerFamilyVo();
                         customerFamilyVo.AssociationId = Int32.Parse(dr["CA_AssociationId"].ToString());
                         customerFamilyVo.CustomerId = Int32.Parse(dr["C_CustomerId"].ToString());
+                        customerFamilyVo.RelationshipCode = dr["XR_RelationshipCode"].ToString();
                         customerFamilyVo.AssociateCustomerId = Int32.Parse(dr["C_AssociateCustomerId"].ToString());
                         customerFamilyVo.AssociateCustomerName = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                        if (dr["C_DOB"] != null)
+                        {
+                            customerFamilyVo.DOB = DateTime.Parse(dr["C_DOB"].ToString());
+                        }
+                        if (dr["C_Email"] != null)
+                        {
+                            customerFamilyVo.EmailId = dr["C_Email"].ToString();
+                        }
+                        customerFamilyVo.FirstName = dr["C_FirstName"].ToString();
+                        customerFamilyVo.MiddleName = dr["C_MiddleName"].ToString();
+                        customerFamilyVo.LastName = dr["C_LastName"].ToString();
                         customerFamilyVo.Relationship = dr["XR_Relationship"].ToString();
                         familyList.Add(customerFamilyVo);
                     }
