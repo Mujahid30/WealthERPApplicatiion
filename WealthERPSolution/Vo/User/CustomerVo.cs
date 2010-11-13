@@ -8,7 +8,7 @@ namespace VoUser
     /// <summary>
     /// Class Containing Customer Details of particular Customer.
     /// </summary>
-    public class CustomerVo:UserVo
+    public class CustomerVo : UserVo
     {
         #region Fields
 
@@ -18,52 +18,52 @@ namespace VoUser
         private DateTime m_ProfilingDate;
         private string m_ParentCompany;
         private string m_Gender;
-        private DateTime m_Dob;             
-        private string m_Type;        
-        private string m_SubType;        
-        private string m_Salutation;        
-        private string m_PANNum;        
-        private string m_Adr1Line1;        
-        private string m_Adr1Line2;        
-        private string m_Adr1Line3;        
-        private int m_Adr1PinCode;        
-        private string m_Adr1City;        
-        private string m_Adr1State;        
-        private string m_Adr1Country;       
-        private string m_Adr2Line1;        
-        private string m_Adr2Line2;        
-        private string m_Adr2Line3;       
-        private int m_Adr2PinCode;        
-        private string m_Adr2City;        
-        private string m_Adr2State;       
-        private string m_Adr2Country;        
-        private int m_ResISDCode;        
-        private int m_ResSTDCode;       
-        private int m_ResPhoneNum;        
-        private int m_OfcISDCode;        
+        private DateTime m_Dob;
+        private string m_Type;
+        private string m_SubType;
+        private string m_Salutation;
+        private string m_PANNum;
+        private string m_Adr1Line1;
+        private string m_Adr1Line2;
+        private string m_Adr1Line3;
+        private int m_Adr1PinCode;
+        private string m_Adr1City;
+        private string m_Adr1State;
+        private string m_Adr1Country;
+        private string m_Adr2Line1;
+        private string m_Adr2Line2;
+        private string m_Adr2Line3;
+        private int m_Adr2PinCode;
+        private string m_Adr2City;
+        private string m_Adr2State;
+        private string m_Adr2Country;
+        private int m_ResISDCode;
+        private int m_ResSTDCode;
+        private int m_ResPhoneNum;
+        private int m_OfcISDCode;
         private int m_OfcSTDCode;
         private int m_OfcPhoneNum;
-        private long m_Mobile1;        
-        private long m_Mobile2;        
-        private string m_Occupation;        
-        private string m_Qualification;        
-        private string m_MaritalStatus;       
-        private string m_Nationality;        
+        private long m_Mobile1;
+        private long m_Mobile2;
+        private string m_Occupation;
+        private string m_Qualification;
+        private string m_MaritalStatus;
+        private string m_Nationality;
         private string m_RBIRefNum;
-        private DateTime m_RBIApprovalDate;   
-        private string m_CompanyName;        
-        private string m_OfcAdrLine1;        
-        private string m_OfcAdrLine2;        
-        private string m_OfcAdrLine3;        
-        private int m_OfcAdrPinCode;        
-        private string m_OfcAdrCity;       
-        private string m_OfcAdrState;       
+        private DateTime m_RBIApprovalDate;
+        private string m_CompanyName;
+        private string m_OfcAdrLine1;
+        private string m_OfcAdrLine2;
+        private string m_OfcAdrLine3;
+        private int m_OfcAdrPinCode;
+        private string m_OfcAdrCity;
+        private string m_OfcAdrState;
         private string m_OfcAdrCountry;
-        private DateTime m_RegistrationDate;       
-        private DateTime m_CommencementDate;             
-        private string m_RegistrationPlace;      
+        private DateTime m_RegistrationDate;
+        private DateTime m_CommencementDate;
+        private string m_RegistrationPlace;
         private string m_RegistrationNum;
-        private string m_CompanyWebsite;     
+        private string m_CompanyWebsite;
         private string m_AltEmail;
         private int m_ISDFax;
         private int m_STDFax;
@@ -85,8 +85,8 @@ namespace VoUser
         private string m_BranchName;
         private string m_RelationShip;
         private DateTime m_MarriageDate;
-        private int m_IsProspect=0;
-        private int m_IsFPClient=0;
+        private int m_IsProspect = 0;
+        private int m_IsFPClient = 0;
         private string m_RMName;
         private string m_RMEmail;
         private string m_RMOfficePhone;
@@ -163,7 +163,7 @@ namespace VoUser
             set { m_BranchName = value; }
         }
 
-      
+
         #endregion Fields
 
         #region Properties
@@ -178,7 +178,7 @@ namespace VoUser
             set { m_MothersMaidenName = value; }
         }
 
-       
+
 
         public DateTime JobStartDate
         {
@@ -225,7 +225,7 @@ namespace VoUser
         {
             get { return m_ProfilingDate; }
             set { m_ProfilingDate = value; }
-        }  
+        }
         public DateTime RegistrationDate
         {
             get { return m_RegistrationDate; }
@@ -235,13 +235,13 @@ namespace VoUser
         {
             get { return m_CommencementDate; }
             set { m_CommencementDate = value; }
-        }  
+        }
 
         public DateTime Dob
         {
             get { return m_Dob; }
             set { m_Dob = value; }
-        } 
+        }
         public int CustomerId
         {
             get { return m_CustomerId; }
@@ -258,13 +258,13 @@ namespace VoUser
             get { return m_RmId; }
             set { m_RmId = value; }
         }
-       
+
         public string Gender
         {
             get { return m_Gender; }
             set { m_Gender = value; }
         }
-       
+
         public string Type
         {
             get { return m_Type; }
@@ -420,7 +420,7 @@ namespace VoUser
             get { return m_RBIRefNum; }
             set { m_RBIRefNum = value; }
         }
-        
+
         public string CompanyName
         {
             get { return m_CompanyName; }
@@ -461,7 +461,7 @@ namespace VoUser
             get { return m_OfcAdrCountry; }
             set { m_OfcAdrCountry = value; }
         }
-       
+
         public string RegistrationPlace
         {
             get { return m_RegistrationPlace; }
@@ -476,7 +476,7 @@ namespace VoUser
         {
             get { return m_CompanyWebsite; }
             set { m_CompanyWebsite = value; }
-        } 
+        }
         public string AltEmail
         {
             get { return m_AltEmail; }
