@@ -162,7 +162,7 @@ namespace BoCustomerProfiling
             CustomerFamilyDao customerFamilyDao = new CustomerFamilyDao();
             try
             {
-                dt = customerFamilyDao.GetCustomerAssociations(rmId,nameSrchValue);
+                dt = customerFamilyDao.GetCustomerAssociations(rmId, nameSrchValue);
             }
             catch (BaseApplicationException Ex)
             {
@@ -349,12 +349,12 @@ namespace BoCustomerProfiling
         public DataTable GetAllCustomerAssociates(int customerId)
         {
 
-           
+
             CustomerFamilyDao customerFamilyDao = new CustomerFamilyDao();
 
 
             return customerFamilyDao.GetAllCustomerAssociates(customerId);
         }
-        
+
     }
 }
