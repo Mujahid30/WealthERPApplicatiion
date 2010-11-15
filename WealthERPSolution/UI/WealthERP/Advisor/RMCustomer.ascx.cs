@@ -1464,6 +1464,76 @@ namespace WealthERP
 
             return txt;
         }
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                customerId = int.Parse(Session["CustomerIdForDelete"].ToString());
+                hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerId).ToString();
+                string asc = Convert.ToString(hdnassociationcount.Value);
+
+                if (asc == "0")
+
+                    DeleteCustomerProfile();
+
+
+                else
+
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
+            }
+        }
+
+        protected void hiddenassociationfound_Click(object sender, EventArgs e)
+        {
+            string aso = Convert.ToString(hdnassociation.Value);
+            if (aso == "1")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+            }
+
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+            }
+        }
+
+
+
+        private void DeleteCustomerProfile()
+        {
+            try
+            {
+                customerVo = (CustomerVo)Session["CustomerVo"];
+                userVo = (UserVo)Session[SessionContents.UserVo];
+
+
+                if (customerBo.DeleteCustomer(customerVo.CustomerId, "D"))
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewCustomerIndividualProfile.ascx:btnDelete_Click()");
+                object[] objects = new object[3];
+                objects[0] = customerVo;
+                //objects[1] = userVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
 
     }
 }

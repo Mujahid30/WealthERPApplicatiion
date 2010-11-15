@@ -4,6 +4,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
+
 <script language="javascript" type="text/javascript">
     function Print_Click(div, btnID) {
         var ContentToPrint = document.getElementById(div);
@@ -134,7 +135,7 @@
         </tr>
         <tr id="trExportPopup" runat="server">
             <td>
-                <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" style="display:none">
+                <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" Style="display: none">
                     <br />
                     <table width="100%">
                         <tr>
@@ -229,7 +230,7 @@
                                     <asp:ListItem Text="Portfolio" />
                                     <asp:ListItem Text="User Details" />
                                     <asp:ListItem Text="Alerts" />
-<asp:ListItem Text="Delete Profile"/>
+                                    <asp:ListItem Text="Delete Profile" />
                                     <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
                                 </asp:DropDownList>
                             </ItemTemplate>
@@ -292,28 +293,26 @@
                                 <asp:Label ID="lblPincodeHeader" runat="server" Text='<%# Eval("Pincode").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                          <asp:BoundField DataField="IsProspect" HeaderText="Is Prospect" />
+                        <asp:BoundField DataField="IsProspect" HeaderText="Is Prospect" />
                         <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />
                         <%--<asp:BoundField DataField="Pincode" HeaderText="Pincode" />--%>
-                         <asp:TemplateField HeaderText="IsActive">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblIsActive" runat="server" 
-                                            Text='<%#Eval("IsActive") %>'>
-                                        </asp:Label>
-                                    </ItemTemplate>
-                                    <HeaderTemplate>
-                                        <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" 
-                                            CssClass="cmbField"  
-                                            OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
-                                            <asp:ListItem Text="Active" Value="1">
-                                            </asp:ListItem>
-                                            <asp:ListItem Text="InActive" Value="0">
-                                            </asp:ListItem>
-                                            <asp:ListItem Text="All" Value="2">
-                                            </asp:ListItem>
-                                        </asp:DropDownList>
-                                         </HeaderTemplate>
-                                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="IsActive">
+                            <ItemTemplate>
+                                <asp:Label ID="lblIsActive" runat="server" Text='<%#Eval("IsActive") %>'>
+                                </asp:Label>
+                            </ItemTemplate>
+                            <HeaderTemplate>
+                                <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" CssClass="cmbField"
+                                    OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
+                                    <asp:ListItem Text="Active" Value="1">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="InActive" Value="0">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="All" Value="2">
+                                    </asp:ListItem>
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </td>
@@ -331,8 +330,8 @@
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
- <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" 
-                BorderStyle="None" BackColor="Transparent" />
+<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
+    BorderStyle="None" BackColor="Transparent" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
@@ -345,4 +344,4 @@
 <asp:HiddenField ID="hdnactive" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnassociation" runat="server" Visible="true" />
-<asp:HiddenField ID="hdnassociationcount" runat="server" />nat="server" />
+<asp:HiddenField ID="hdnassociationcount" runat="server" />
