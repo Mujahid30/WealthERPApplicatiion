@@ -55,7 +55,7 @@
             <asp:Label ID="lblAssetCategory" runat="server" Text="Asset Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="left" style="width:50%">
-            <asp:DropDownList ID="ddlAssetCategory" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlAssetCategory_SelectedIndexChanged"
+            <asp:DropDownList ID="ddlAssetCategory" runat="server" style="width:18%" CssClass="cmbField" OnSelectedIndexChanged="ddlAssetCategory_SelectedIndexChanged"
                 AutoPostBack="true">
                 <%--<asp:ListItem Text="Select Asset Category" Value="Select Asset Category"></asp:ListItem>--%>
             </asp:DropDownList>
@@ -72,7 +72,7 @@
             <asp:Label ID="lblAssetSubCategory" runat="server" Text="Asset Sub Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="left" style="width:50%">
-            <asp:DropDownList ID="ddlAssetSubCategory" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlAssetSubCategory" style="width:35%" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select Asset Sub-Category" Value="Select Asset Sub-Category"></asp:ListItem>
             </asp:DropDownList>
             <span id="span2" class="spnRequiredField">*</span>
@@ -92,7 +92,7 @@
             <asp:Label ID="lblPolicyNumber" runat="server" Text=" Policy Number:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="left" style="width:50%">
-            <asp:TextBox ID="txtPolicyNumber" runat="server" CssClass="txtField">
+            <asp:TextBox ID="txtPolicyNumber" runat="server" style="width:35%" CssClass="txtField">
             </asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfv_txtPolicyNumber" ControlToValidate="txtPolicyNumber"
