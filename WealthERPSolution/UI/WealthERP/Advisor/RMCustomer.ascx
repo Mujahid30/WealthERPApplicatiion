@@ -229,7 +229,8 @@
                                     <asp:ListItem Text="Portfolio" />
                                     <asp:ListItem Text="User Details" />
                                     <asp:ListItem Text="Alerts" />
-                                    <asp:ListItem Text="Delete Profile"/>
+<asp:ListItem Text="Delete Profile"/>
+                                    <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -291,6 +292,8 @@
                                 <asp:Label ID="lblPincodeHeader" runat="server" Text='<%# Eval("Pincode").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                          <asp:BoundField DataField="IsProspect" HeaderText="Is Prospect" />
+                        <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />
                         <%--<asp:BoundField DataField="Pincode" HeaderText="Pincode" />--%>
                          <asp:TemplateField HeaderText="IsActive">
                                     <ItemTemplate>
@@ -302,15 +305,15 @@
                                         <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" 
                                             CssClass="cmbField"  
                                             OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
-                                            <asp:ListItem Text="All" Value="2">
-                                            </asp:ListItem>
                                             <asp:ListItem Text="Active" Value="1">
                                             </asp:ListItem>
                                             <asp:ListItem Text="InActive" Value="0">
-                                            </asp:ListItem>                                            
+                                            </asp:ListItem>
+                                            <asp:ListItem Text="All" Value="2">
+                                            </asp:ListItem>
                                         </asp:DropDownList>
-                                        </HeaderTemplate>
-                                        </asp:TemplateField>
+                                         </HeaderTemplate>
+                                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </td>
@@ -342,4 +345,4 @@
 <asp:HiddenField ID="hdnactive" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnassociation" runat="server" Visible="true" />
-<asp:HiddenField ID="hdnassociationcount" runat="server" />
+<asp:HiddenField ID="hdnassociationcount" runat="server" />nat="server" />

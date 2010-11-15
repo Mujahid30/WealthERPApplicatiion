@@ -38,7 +38,7 @@ namespace WealthERP
         AdvisorBo advisorBo = new AdvisorBo();
         static string user = "";
         UserVo userVo = new UserVo();
-
+        
 
         private SortDirection GridViewSortDirection
         {
@@ -158,7 +158,7 @@ namespace WealthERP
                 }
                 else
                 {
-                    ErrorMessage.Visible = false;
+                    ErrorMessage.Visible = false;                    
                     tbl.Visible = true;
                     mypager.Visible = true;
                     DataTable dtRMCustomer = new DataTable();
@@ -176,6 +176,8 @@ namespace WealthERP
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("Pincode");
                     dtRMCustomer.Columns.Add("IsActive");
+                    dtRMCustomer.Columns.Add("IsProspect");
+                    dtRMCustomer.Columns.Add("IsFPClient");
 
                     DataRow drRMCustomer;
 
@@ -234,7 +236,22 @@ namespace WealthERP
                             drRMCustomer[12] = "In Active";
 
                         }
-
+                        if (customerVo.IsProspect == 1)
+                        {
+                            drRMCustomer[13] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[13] = "No";
+                        }
+                        if (customerVo.IsFPClient == 1)
+                        {
+                            drRMCustomer[14] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[14] = "No";
+                        }
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
 
@@ -255,12 +272,6 @@ namespace WealthERP
                         if (hdnParentFilter.Value != "")
                         {
                             ddlParent.SelectedValue = hdnParentFilter.Value.ToString();
-                        }
-
-                        DropDownList ddlActiveFilter = GetActiveDDL();
-                        if (hdnactive.Value != "")
-                        {
-                            ddlActiveFilter.SelectedValue = hdnactive.Value.ToString();
                         }
                     }
 
@@ -308,7 +319,6 @@ namespace WealthERP
                         }
                     }
 
-
                     this.GetPageCount();
                 }
             }
@@ -352,7 +362,7 @@ namespace WealthERP
                 ratio = rowCount / 20;
                 mypager.PageCount = rowCount % 20 == 0 ? ratio : ratio + 1;
                 mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 20) + 1).ToString();
+                lowerlimit = (((mypager.CurrentPage - 1) * 20)+1).ToString();
                 upperlimit = (mypager.CurrentPage * 20).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
@@ -395,7 +405,7 @@ namespace WealthERP
                 userVo = (UserVo)Session["userVo"];
                 if (!IsPostBack)
                 {
-                    //  if (Session["Current_Link"].ToString() == "RMLeftPane")
+                  //  if (Session["Current_Link"].ToString() == "RMLeftPane")
                     //{
                     if (Session["Customer"] != null)
                     {
@@ -415,8 +425,8 @@ namespace WealthERP
                         this.BindCustomer(mypager.CurrentPage);
                     }
 
-
-                    // }
+                        
+                   // }
                 }
             }
             catch (BaseApplicationException Ex)
@@ -450,7 +460,7 @@ namespace WealthERP
 
                 if (export == 1)
                 {
-                    ErrorMessage.Visible = true;
+                    ErrorMessage.Visible = true;                    
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
                     gvCustomers.AllowPaging = false;
@@ -474,7 +484,7 @@ namespace WealthERP
                 if (customerList == null)
                 {
                     hdnRecordCount.Value = "0";
-                    ErrorMessage.Visible = true;
+                    ErrorMessage.Visible = true;                    
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
                     tbl.Visible = false;
@@ -482,7 +492,7 @@ namespace WealthERP
                 }
                 else
                 {
-                    ErrorMessage.Visible = false;
+                    ErrorMessage.Visible = false;                    
                     trPager.Visible = true;
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
@@ -503,6 +513,8 @@ namespace WealthERP
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("Pincode");
                     dtRMCustomer.Columns.Add("IsActive");
+                    dtRMCustomer.Columns.Add("IsProspect");
+                    dtRMCustomer.Columns.Add("IsFPClient");
                     DataRow drRMCustomer;
 
                     for (int i = 0; i < customerList.Count; i++)
@@ -560,7 +572,22 @@ namespace WealthERP
                             drRMCustomer[12] = "In Active";
 
                         }
-
+                        if (customerVo.IsProspect == 1)
+                        {
+                            drRMCustomer[13] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[13] = "No";
+                        }
+                        if (customerVo.IsFPClient == 1)
+                        {
+                            drRMCustomer[14] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[14] = "No";
+                        }
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
 
@@ -581,12 +608,6 @@ namespace WealthERP
                         if (hdnParentFilter.Value != "")
                         {
                             ddlParent.SelectedValue = hdnParentFilter.Value.ToString();
-                        }
-
-                        DropDownList ddlActiveFilter = GetActiveDDL();
-                        if (hdnactive.Value != "")
-                        {
-                            ddlActiveFilter.SelectedValue = hdnactive.Value.ToString();
                         }
                     }
 
@@ -663,7 +684,6 @@ namespace WealthERP
             try
             {
                 customerId = int.Parse(gvCustomers.SelectedDataKey.Value.ToString());
-
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
                 if (customerVo.Type == "Individual")
@@ -715,7 +735,7 @@ namespace WealthERP
 
             if (Session[SessionContents.PortfolioId] != null)
             {
-                Session.Remove(SessionContents.PortfolioId);
+                Session.Remove(SessionContents.PortfolioId); 
             }
             try
             {
@@ -724,7 +744,7 @@ namespace WealthERP
                 selectedRow = gvr.RowIndex;
                 customerId = int.Parse(gvCustomers.DataKeys[selectedRow].Values["CustomerId"].ToString());
                 userId = int.Parse(gvCustomers.DataKeys[selectedRow].Values["UserId"].ToString());
-                Session["CustomerIdForDelete"] = customerId;
+
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
 
@@ -732,10 +752,10 @@ namespace WealthERP
                 {
                     Session["IsDashboard"] = "true";
                     isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
-                    if (isGrpHead == true)
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
-                    else
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+                   if(isGrpHead == true)
+                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+                   else
+                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
@@ -744,13 +764,13 @@ namespace WealthERP
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Session["customerPortfolioVo"] = customerPortfolioVo;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
-
+                   
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','list');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
@@ -765,10 +785,27 @@ namespace WealthERP
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
                 }
-                else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
+                else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                    if (customerId != 0)
+                    {
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+                    }
+                    Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
+                    if (customerVo.Type == "IND")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                    }
+                    if (customerVo.Type == "NIND")
+                    {
+                        //I'm not passing login parameter in this function.... that is becuase in JScript.js page the code corresponding to load RMCustomerIndividualLeftPane or RMCustomerNonIndividualLeftPane
+                        //have been written in that way. so Please try to understand before modifying the code
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect');", true);
+                    }
+
+
                 }
+
             }
             catch (Exception Ex)
             {
@@ -794,77 +831,6 @@ namespace WealthERP
 
             }
 
-        }
-
-        protected void hiddenassociation_Click(object sender, EventArgs e)
-        {
-            string val = Convert.ToString(hdnMsgValue.Value);
-            if (val == "1")
-            {
-                customerId = int.Parse(Session["CustomerIdForDelete"].ToString());
-                hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerId).ToString();
-                string asc = Convert.ToString(hdnassociationcount.Value);
-
-                if (asc == "0")
-
-                    DeleteCustomerProfile();
-
-
-                else
-
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
-            }
-        }
-
-        protected void hiddenassociationfound_Click(object sender, EventArgs e)
-        {
-            string aso = Convert.ToString(hdnassociation.Value);
-            if (aso == "1")
-            {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
-            }
-
-            else
-            {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
-            }
-        }
-
-
-
-        private void DeleteCustomerProfile()
-        {
-            try
-            {
-                customerVo = (CustomerVo)Session["CustomerVo"];
-                userVo = (UserVo)Session[SessionContents.UserVo];
-
-
-                if (customerBo.DeleteCustomer(customerVo.CustomerId, "D"))
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
-                }
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewCustomerIndividualProfile.ascx:btnDelete_Click()");
-                object[] objects = new object[3];
-                objects[0] = customerVo;
-                //objects[1] = userVo;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
         }
 
         protected void gvCustomers_Sort(object sender, GridViewSortEventArgs e)
@@ -931,7 +897,7 @@ namespace WealthERP
             gvCustomers.Columns[0].Visible = false;
             gvCustomers.HeaderRow.Visible = true;
 
-            if (hdnDownloadPageType.Value == "single")
+            if(hdnDownloadPageType.Value == "single")
             {
                 GridViewCultureFlag = false;
                 BindGrid(mypager.CurrentPage, 0);
@@ -1292,10 +1258,19 @@ namespace WealthERP
         protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
-
-            hdnactive.Value = ddlFilter.SelectedValue; ;
-
-            this.BindGrid(mypager.CurrentPage, 0);
+            if (int.Parse(ddlFilter.SelectedValue) == 1)
+            {
+                hdnactive.Value = "A";
+            }
+            if (int.Parse(ddlFilter.SelectedValue) == 0)
+            {
+                hdnactive.Value = "I";
+            }
+            if (int.Parse(ddlFilter.SelectedValue) == 2)
+            {
+                hdnactive.Value = "D";
+            }
+            this.BindGrid(mypager.CurrentPage,0);
         }
 
         protected void btnPrintGrid_Click(object sender, EventArgs e)
@@ -1488,22 +1463,6 @@ namespace WealthERP
                 txt = null;
 
             return txt;
-        }
-
-        private DropDownList GetActiveDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if (gvCustomers.HeaderRow != null)
-            {
-                if ((DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter") != null)
-                {
-                    ddl = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
-                }
-            }
-            else
-                ddl = null;
-
-            return ddl;
         }
 
     }
