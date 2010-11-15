@@ -31,7 +31,7 @@ function loadcontrol(controlid, logintrue) {
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
     if (logintrue != "none" && logintrue != "login" && logintrue != "list") {
-        var c_src = "ControlHost.aspx" + logintrue + "&pageid=";
+        var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
         var c_src = "ControlHost.aspx?pageid=";
