@@ -26,7 +26,7 @@ namespace BoFPSuperlite
             {
                 CustomerProspectDao customerprospectdao = new CustomerProspectDao();
 
-                customerprospectdao.AddDetailsForCustomerProspect(customerId, userId, customerprospectvo);
+                    customerprospectdao.AddDetailsForCustomerProspect(customerId, userId, customerprospectvo);
 
             }
             catch (Exception ex)
