@@ -42,6 +42,10 @@ namespace WealthERP.Advisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session[SessionContents.FPS_ProspectList_CustomerId] != null)
+            {
+                Session["FP_UserID"] = Session[SessionContents.FPS_ProspectList_CustomerId];
+            }
             try
             {
 
@@ -608,7 +612,7 @@ namespace WealthERP.Advisor
         }
         protected void ddlGoalType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int ParentCustomerId = int.Parse((string)Session["FP_UserID"]);
+            int ParentCustomerId = int.Parse(Session["FP_UserID"].ToString());
             switch (ddlGoalType.SelectedValue.ToString())
             {
                 case "BH":
@@ -828,7 +832,7 @@ namespace WealthERP.Advisor
                 //use same seeion name what ever used in risk profilling..
 
 
-                GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(int.Parse((string)Session["FP_UserID"]), ActiveFlag);
+                GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(int.Parse(Session["FP_UserID"].ToString()), ActiveFlag);
 
                 // lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
                 if (GoalProfileList == null)
@@ -962,7 +966,7 @@ namespace WealthERP.Advisor
                     Label lblActiveMsg = (Label)gvGoalOutPut.HeaderRow.FindControl("ActiveMessage");
                     lblActiveMsg.Visible = false;
                     lblTotalText.Text = "Total Saving Required Every Month=Rs." + Math.Round(TotalSaveReq, 2).ToString();
-                    lblOtherGoalParagraph.Text = GoalSetupBo.OtherGoalDescriptionText(int.Parse((string)Session["FP_UserID"]));
+                    lblOtherGoalParagraph.Text = GoalSetupBo.OtherGoalDescriptionText(int.Parse(Session["FP_UserID"].ToString()));
 
 
                     return 1;
@@ -995,7 +999,7 @@ namespace WealthERP.Advisor
             double hidvalue = 0;
             string GoalDescription = "";
             //use same session name what ever used in risk profilling..
-            DataSet dsRTGoal = (DataSet)GoalSetupBo.GetCustomerRTDetails(int.Parse((string)Session["FP_UserID"]));
+            DataSet dsRTGoal = (DataSet)GoalSetupBo.GetCustomerRTDetails(int.Parse(Session["FP_UserID"].ToString()));
             if (dsRTGoal != null && dsRTGoal.Tables.Count > 0 && dsRTGoal.Tables[0].Rows.Count > 0)
             {
                 gvRetirement.DataSource = dsRTGoal.Tables[0];
@@ -1216,7 +1220,7 @@ namespace WealthERP.Advisor
                 //Customer id select from AutoComplite TextBox Values
                 rmVo = (RMVo)Session[SessionContents.RmVo];
 
-                int ParentCustomerId = int.Parse((string)Session["FP_UserID"]);
+                int ParentCustomerId = int.Parse(Session["FP_UserID"].ToString());
                 goalProfileSetupVo.CustomerId = ParentCustomerId;
                 goalProfileSetupVo.Goalcode = ddlGoalType.SelectedValue.ToString();
                 goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);

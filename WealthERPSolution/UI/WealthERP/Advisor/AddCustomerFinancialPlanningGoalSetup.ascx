@@ -9,21 +9,10 @@
 
 <script type="text/javascript">
 
-    function validatePickCustomer() {
-        var hidCustomerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
-        //     alert(hidCustomerId)
-        //     alert(document.getElementById('<%=txtPickCustomer.ClientID %>').value)
-        if (hidCustomerId == "" && document.getElementById('<%=txtPickCustomer.ClientID %>').value == "") {
-            alert("Please pick a customer");
-            document.getElementById("<%=txtPickCustomer.ClientID %>").focus();
-            return false;
-        }
-
-    };
+//   
 
 
-    function validate() {
-        var hidCustomerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
+    function validate() {        
         var goalCost = document.getElementById("<%=txtGoalCostToday.ClientID %>").value;
         var RetirementCorps = "-";
         if (document.getElementById("<%=txtROIFutureInvest.ClientID %>") != null)
@@ -61,12 +50,7 @@
 
 
 
-        if (hidCustomerId == "") {
-            document.getElementById("<%=txtPickCustomer.ClientID %>").focus();
-            alert("Please pick a customer");
-            return false;
-        }
-        else if (goalCost == "") {
+        if (goalCost == "") {
             document.getElementById("<%=txtGoalCostToday.ClientID %>").focus();
             alert("Please enter Goal Cost Today");
             return false;
@@ -75,11 +59,7 @@
             return true;
 
     }
-    function GetParentCustomerId(source, eventArgs) {
-
-        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
-        return false;
-    };
+    
     function SetROI() {
         if (document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').value > 0)
             document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value = "8.5";
@@ -367,7 +347,7 @@
                         <asp:Label ID="lblGoalCostToday" runat="server" CssClass="FieldName" Text="Goal Cost Today :"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtGoalCostToday" runat="server" CssClass="txtField" OnBlur="validatePickCustomer();"></asp:TextBox>
+                        <asp:TextBox ID="txtGoalCostToday" runat="server" CssClass="txtField"></asp:TextBox>
                         <span id="SpanGoalCostTodayReq" class="spnRequiredField" runat="server">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtGoalCostToday" ValidationGroup="btnSave" CssClass="rfvPCG" ErrorMessage="Goal cost Today Required"></asp:RequiredFieldValidator>
                              <ajaxToolkit:FilteredTextBoxExtender ID="txtGoalCostToday_E" runat="server" Enabled="True" TargetControlID="txtGoalCostToday"
