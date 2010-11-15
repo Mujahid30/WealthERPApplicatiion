@@ -26,14 +26,7 @@
         var notAnswered = new Array(totalQuestions);
         var notAnsweredDisplay = "";
         
-        //Customer Id validation
-        if(document.getElementById("<%=txtPickCustomer.ClientID %>").value ==  "")
-        {
-          document.getElementById("<%=txtPickCustomer.ClientID %>").focus();
-          alert("Please select customer"); 
-          return false;
-          
-        }
+
 
         var optionsArr = new Array(totalQuestions) //later bring this number from Server side
         for (i = 1; i <= totalQuestions; i++)
@@ -76,10 +69,7 @@
        return  GoalDeactiveConfirm();
 
     }
-    function GetCustomerId(source, eventArgs) {
-        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
-        return false;
-    }
+
     function GoalDeactiveConfirm()
     {
      if(document.getElementById("<%= hidGoalCount.ClientID %>")!=null)

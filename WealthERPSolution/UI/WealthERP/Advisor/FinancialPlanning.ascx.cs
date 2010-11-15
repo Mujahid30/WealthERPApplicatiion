@@ -883,7 +883,7 @@ namespace WealthERP.Advisor
         protected void ShowCurrentAssetAllocationPieChart()
         {
             DataSet DScurrentAsset = new DataSet();
-            DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId);
+            DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId,0);
             DataTable dt = new DataTable();
             DataRow dr;
             dt.Columns.Add("AssetType");
