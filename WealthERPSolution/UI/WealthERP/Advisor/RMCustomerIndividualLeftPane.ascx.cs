@@ -290,22 +290,22 @@ namespace WealthERP.Advisor
                 }
                 if (TreeView1.SelectedNode.Value == "RiskProfileAssetAllocation")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FinancialPlanning','login')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('FinancialPlanning','login')", true);
 
                 }
                 else if (TreeView1.SelectedNode.Value == "GoalProfiling")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageLoadscript", "loadcontrol('AddCustomerFinancialPlanningGoalSetup','login')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddCustomerFinancialPlanningGoalSetup','login')", true);
 
                 }
                 else if (TreeView1.SelectedNode.Value == "Reports")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageLoadscript", "loadcontrol('FinancialPlanningReports','login')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('FinancialPlanningReports','login')", true);
 
                 }
                 else if (TreeView1.SelectedNode.Value == "CustomerProspect")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageLoadscript", "loadcontrol('CustomerProspect','login')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProspect','login')", true);
                 }
 
                 // Code to Expand/Collapse the Tree View Nodes based on selections
