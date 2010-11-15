@@ -60,9 +60,9 @@ function loadcontrol(controlid, logintrue) {
         loadlinks("AdvisorBMLeftpane");
     }
 
-        else if (controlid == "PortfolioDashboard" && logintrue == "list") {
+    else if (controlid == "PortfolioDashboard" && logintrue == "list") {
         loadlinks("RMCustomerIndividualLeftPane");
-       }
+    }
 
     else if (controlid == "AdvisorRMDashBoard") {
         loadlinks("AdvisorRMLeftpane");
@@ -111,6 +111,14 @@ function loadcontrol(controlid, logintrue) {
     else if (controlid == "SessionExpired") {
         loadlinks("LeftPanel_Links");
 
+    }
+    else if (controlid == "CustomerProspect") {
+        if (logintrue != null && logintrue != "") {
+            loadlinks("RMCustomerIndividualLeftPane");
+        }
+        else {
+            loadlinks("RMCustomerNonIndividualLeftPane");
+        }
     }
 
     else if (controlid == "Userlogin") {
