@@ -1025,9 +1025,8 @@
     <value>Advisor//AddCustomerFinancialPlanningGoalSetup.ascx</value>
     <comment>Advisor//AddCustomerFinancialPlanningGoalSetup.ascx</comment>
   </data>
-  <data name="EditCustomerBankAccount" xml:space="preserve">
-    <value>Customer//EditCustomerBankAccount.ascx</value>
-    <comment>Customer//EditCustomerBankAccount.ascx</comment>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
   <data name="EquityReports" xml:space="preserve">
     <value>Reports//EquityReports.ascx</value>
@@ -1065,12 +1064,16 @@
     <value>Advisor//AdvisorRMCustGroupDashboard.ascx</value>
     <comment>Advisor//AdvisorRMCustGroupDashboard.ascx</comment>
   </data>
-  <data name="CustomerAdvisorsNote" xml:space="preserve">
-    <value>Customer//CustomerAdvisorsNote.ascx</value>
-    <comment>Customer//CustomerAdvisorsNote.ascx</comment>
+  <data name="AddProspectList" xml:space="preserve">
+    <value>FP//AddProspectList.ascx</value>
+    <comment>FP//AddProspectList.ascx</comment>
   </data>
-  <data name="CuCustomerAssociationSetup" xml:space="preserve">
-    <value>Advisor//CustomerAssociationSetup.ascx</value>
-    <comment>Advisor//CustomerAssociationSetup.ascx</comment>
+  <data name="CustomerProspect" xml:space="preserve">
+    <value>FP//CustomerProspect.ascx</value>
+    <comment>FP//CustomerProspect.ascx</comment>
+  </data>
+  <data name="ProspectList" xml:space="preserve">
+    <value>FP//ProspectList.ascx</value>
+    <comment>FP//ProspectList.ascx</comment>
   </data>
 </root>
