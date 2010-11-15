@@ -196,7 +196,7 @@ namespace WealthERP.Advisor
                 }
                 else if (TreeView1.SelectedNode.Value == "CustomerProspect")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageLoadscript", "loadcontrol('CustomerProspect')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProspect')", true);
                 }
                 // Code to Expand/Collapse the Tree View Nodes based on selections
                 if (TreeView1.SelectedNode.Parent == null)
