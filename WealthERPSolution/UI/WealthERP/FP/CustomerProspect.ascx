@@ -209,13 +209,13 @@
     </tr>
 </table>
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Outlook"
-    MultiPageID="CustomerProspectMultiPage" SelectedIndex="0">
+    MultiPageID="CustomerProspectMultiPage" SelectedIndex="1" Orientation="HorizontalTop" ReorderTabsOnSelect="false">
     <Tabs>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Summary.gif" Text="Summary"
             Value="Summary">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Investment.gif" Text="Investment"
-            Value="Investment">
+            Value="Investment" Selected="True">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Income.gif" Text="Income"
             Value="Income">
@@ -234,6 +234,7 @@
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
+
 <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Outlook">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true">
         <TargetControls>
@@ -263,7 +264,7 @@
         </TargetControls>
         <Validation IsRequired="True"></Validation>
     </telerik:RegExpTextBoxSetting>
-    <telerik:NumericTextBoxSetting Culture="English (United States)" DecimalDigits="2"
+    <telerik:NumericTextBoxSetting DecimalDigits="2" 
         DecimalSeparator="." ErrorMessage="Please type only numbers" GroupSeparator=","
         GroupSizes="3" NegativePattern="-n" PositivePattern="n" Validation-IsRequired="false"
         AllowRounding="False" MaxValue="70368744177" MinValue="-70368744177">
@@ -333,7 +334,7 @@
             <telerik:TargetInput ControlID="txtOthersGIP" />
         </TargetControls>
     </telerik:NumericTextBoxSetting>
-    <telerik:DateInputSetting Culture="English (India)" DateFormat="dd-MM-yyyy" DisplayDateFormat="dd-MM-yyyy"
+    <telerik:DateInputSetting  DateFormat="dd-MM-yyyy" DisplayDateFormat="dd-MM-yyyy"
         ErrorMessage=" InValid Date Format">
         <TargetControls>
             <%--<telerik:TargetInput ControlID="dpDOB" />--%>
@@ -349,7 +350,7 @@
             <telerik:TargetInput ControlID="dpOthersGIMD" />
         </TargetControls>
     </telerik:DateInputSetting>
-    <telerik:NumericTextBoxSetting Culture="English (India)" DecimalDigits="0" DecimalSeparator="."
+    <telerik:NumericTextBoxSetting  DecimalDigits="0" DecimalSeparator="."
         GroupSeparator="," GroupSizes="3" PositivePattern="n" AllowRounding="false" ErrorMessage="Invalid Entry">
         <TargetControls>
             <telerik:TargetInput ControlID="txtHomeLoanT" />
@@ -362,7 +363,10 @@
 </telerik:RadInputManager>
 <telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Outlook">
 </telerik:RadAjaxLoadingPanel>
-<telerik:RadMultiPage ID="CustomerProspectMultiPage" runat="server" SelectedIndex="0">
+<telerik:RadInputManager ID="RadInputManager2" runat="server">
+</telerik:RadInputManager>
+<telerik:RadMultiPage ID="CustomerProspectMultiPage" runat="server" 
+    SelectedIndex="1">
     <telerik:RadPageView ID="RadPageView1" runat="server">
         <asp:Panel ID="pnlSummary" runat="server">
             <table width="100%">
@@ -397,7 +401,7 @@
                                     <asp:Label ID="lblDateOfBirth" runat="server" CssClass="FieldName" Text="Date of Birth : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpDOB" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpDOB" runat="server" 
                                         ShowAnimation-Type="Fade" Skin="Outlook">
                                         <Calendar Skin="Outlook" UseColumnHeadersAsSelectors="False" UseRowHeadersAsSelectors="False"
                                             ViewSelectorText="x">
@@ -1031,7 +1035,7 @@
                                     <asp:TextBox ID="txtTermP" runat="server" style="direction:rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpTermLIMD" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpTermLIMD" runat="server" 
                                         Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
@@ -1053,7 +1057,7 @@
                                     <asp:TextBox ID="txtEndowmentP" runat="server" style="direction:rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpEndowmentLIMD" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpEndowmentLIMD" runat="server" 
                                         Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
@@ -1075,7 +1079,7 @@
                                     <asp:TextBox ID="txtWholeLifeP" runat="server" style="direction:rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpWholeLifeLIMD" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpWholeLifeLIMD" runat="server" 
                                         Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
@@ -1097,7 +1101,7 @@
                                     <asp:TextBox ID="txtMoneyBackP" runat="server" style="direction:rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpMoneyBackLIMD" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpMoneyBackLIMD" runat="server" 
                                         Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
@@ -1119,7 +1123,7 @@
                                     <asp:TextBox ID="txtULIPP" runat="server" style="direction:rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpULIPSLIMD" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpULIPSLIMD" runat="server" 
                                         Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
@@ -1141,7 +1145,7 @@
                                     <asp:TextBox ID="txtOthersLIP" runat="server" style="direction:rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpOthersLIMD" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpOthersLIMD" runat="server" 
                                         Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
@@ -1201,7 +1205,7 @@
                                     <asp:TextBox ID="txtHealthInsuranceCoverP" runat="server" style="direction:rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpHealthInsuranceCoverGIMD" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpHealthInsuranceCoverGIMD" runat="server" 
                                         Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
@@ -1224,7 +1228,7 @@
                                     <asp:TextBox ID="txtPropertyInsuranceCoverP" runat="server" style="direction:rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpPropertyInsuranceCoverGIMD" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpPropertyInsuranceCoverGIMD" runat="server" 
                                         Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
@@ -1246,7 +1250,7 @@
                                     <asp:TextBox ID="txtPersonalAccidentP" runat="server" style="direction:rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpPersonalAccidentGIMD" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpPersonalAccidentGIMD" runat="server" 
                                         Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
@@ -1268,7 +1272,7 @@
                                     <asp:TextBox ID="txtOthersGIP" runat="server" style="direction:rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpOthersGIMD" runat="server" Culture="English (United States)"
+                                    <telerik:RadDatePicker ID="dpOthersGIMD" runat="server" 
                                         Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
