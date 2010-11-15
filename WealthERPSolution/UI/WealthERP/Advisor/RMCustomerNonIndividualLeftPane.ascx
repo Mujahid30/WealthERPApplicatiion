@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMCustomerNonIndividualLeftPane.ascx.cs"
     Inherits="WealthERP.Advisor.RMCustomerNonIndividualLeftPane" %>
-
 <div>
     <table>
         <tr>
@@ -63,9 +62,16 @@
                 <asp:TreeNode Text="Add Group Member" Value="Add Group Member"></asp:TreeNode>
                 <asp:TreeNode Text="Associate Member" Value="Associate Member"></asp:TreeNode>
             </asp:TreeNode>
-             <asp:TreeNode Text="Portfolio Details" Value="Portfolio Details"></asp:TreeNode>
+            <asp:TreeNode Text="Portfolio Details" Value="Portfolio Details"></asp:TreeNode>
         </asp:TreeNode>
-           
+        <asp:TreeNode Text="Financial Planning" Value="FinancialPlanning">
+            <asp:TreeNode Text="Customer Prospect" Value="CustomerProspect" Selected="true">
+            </asp:TreeNode>
+            <asp:TreeNode Text="RiskProfile & AssetAllocation " Value="RiskProfileAssetAllocation">
+            </asp:TreeNode>
+            <asp:TreeNode Text="Goal Profiling" Value="GoalProfiling"></asp:TreeNode>
+            <asp:TreeNode Text="Reports" Value="Reports"></asp:TreeNode>
+        </asp:TreeNode>
     </Nodes>
     <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
         NodeSpacing="0px" VerticalPadding="0px" />
