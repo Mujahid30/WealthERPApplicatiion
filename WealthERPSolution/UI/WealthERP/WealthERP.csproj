@@ -48,6 +48,7 @@
     <Reference Include="BoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoCustomerReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoFPSuperlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoMarketDataPull, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -150,6 +151,7 @@
     <Reference Include="VoCustomerReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoEmailSMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoFPSuperlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
