@@ -273,14 +273,14 @@
             <asp:Label ID="lblAssetCategory" runat="server" Text="Asset Category:" CssClass="FieldName" ></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtAssetCategory" runat="server" CssClass="txtField" Enabled="false">
+            <asp:TextBox ID="txtAssetCategory" runat="server" Width="176px" CssClass="txtField" Enabled="false">
             </asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblAssetSubCategory" runat="server" Text="Asset Sub Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtAssetSubCategory" runat="server" CssClass="txtField" Enabled="false">
+            <asp:TextBox ID="txtAssetSubCategory" runat="server" Width="176px" CssClass="txtField" Enabled="false">
             </asp:TextBox>
         </td>
     </tr>
@@ -300,14 +300,14 @@
             <asp:Label ID="lblPolicyNumber" runat="server" Text="Policy Number:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style3">
-            <asp:TextBox ID="txtPolicyNumber" runat="server" CssClass="txtField" Enabled="false">
+            <asp:TextBox ID="txtPolicyNumber" Width="176px" runat="server" CssClass="txtField" Enabled="false">
             </asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblPolicyIssuer" runat="server" Text="Policy Issuer:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlPolicyIssuer" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlPolicyIssuer" runat="server" Width="176px" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
             </asp:DropDownList>
             <span id="span1" class="spnRequiredField">*</span>
@@ -321,7 +321,7 @@
             <asp:Label ID="lblPolicyParticular" runat="server" Text="Policy Particular:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style3">
-            <asp:TextBox ID="txtPolicyParticular" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPolicyParticular" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
         </td>
         <td colspan="2">
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -342,7 +342,7 @@
             <asp:Label ID="lblPolicyCommencementDate" runat="server" CssClass="FieldName" Text="Policy Original Start Date:"></asp:Label>
         </td>
         <td class="style3">
-            <asp:TextBox ID="txtPolicyCommencementDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPolicyCommencementDate" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtPolicyCommencementDate_CalendarExtender" runat="server"
                 TargetControlID="txtPolicyCommencementDate" Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -375,7 +375,7 @@
             <asp:Label ID="lblTypeOfPolicy" runat="server" CssClass="FieldName" Text="Type of Policy:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlTypeOfPolicy" runat="server" CssClass="Field" onChange="ChangePolicyType()"
+            <asp:DropDownList ID="ddlTypeOfPolicy" runat="server" Width="176px" CssClass="Field" onChange="ChangePolicyType()"
                 Enabled="false">
                 <%--<asp:ListItem Text="Individual" Value="PTIND"></asp:ListItem>
                 <asp:ListItem Text="Floater" Value="PTFLT"></asp:ListItem>--%>
@@ -423,7 +423,7 @@
             <asp:Label ID="lblSumAssured" runat="server" Text="Sum Assured:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtSumAssured1" runat="server" CssClass="txtField" ReadOnly="false"></asp:TextBox>
+            <asp:TextBox ID="txtSumAssured1" runat="server" Width="176px" CssClass="txtField" ReadOnly="false"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSumAssured1"
                 ErrorMessage="<br />Please enter the Sum Assured" Display="Dynamic" CssClass="rfvPCG"
@@ -447,13 +447,13 @@
             <asp:Label ID="lblTPA" runat="server" CssClass="FieldName" Text="Name of the Third Party Administartor[TPA]:"></asp:Label>
         </td>
         <td class="style3">
-            <asp:TextBox ID="txtTPA" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtTPA" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblTPAContactNumber" runat="server" CssClass="FieldName" Text="Contact No. of TPA:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtTPAContactNumber" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtTPAContactNumber" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="cvPCG" Type="Integer" ControlToValidate="txtTPAContactNumber" Operator="DataTypeCheck"
                 Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
@@ -473,7 +473,7 @@
             <asp:Label ID="lblCheckUpDate" runat="server" CssClass="FieldName" Text="If Yes, Date:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtCheckUpDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
+            <asp:TextBox ID="txtCheckUpDate" runat="server" Width="176px" CssClass="txtField" Enabled="false"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtCheckUpDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -495,13 +495,13 @@
             <asp:Label ID="lblProposalNumber" runat="server" CssClass="FieldName" Text="Proposal Number:"></asp:Label>
         </td>
         <td class="style3">
-            <asp:TextBox ID="txtProposalNumber" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtProposalNumber" Width="176px" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblProposalDate" runat="server" CssClass="FieldName" Text="Proposal Date:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtProposalDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtProposalDate" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtProposalDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -523,7 +523,7 @@
             <asp:Label ID="lblPolicyValidityStartDate" runat="server" CssClass="FieldName" Text="Policy Validity Start Date:"></asp:Label>
         </td>
         <td class="style3">
-            <asp:TextBox ID="txtPolicyValidityStartDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPolicyValidityStartDate" Width="176px" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtPolicyValidityStartDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -543,7 +543,7 @@
             <asp:Label ID="lblPolicyValidityEndDate" runat="server" CssClass="FieldName" Text="Policy Validity End Date:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtPolicyValidityEndDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPolicyValidityEndDate" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="txtPolicyValidityEndDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -577,7 +577,7 @@
             <asp:Label ID="lblPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td class="style3">
-            <asp:DropDownList ID="ddlPremiumCycle" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlPremiumCycle" Width="176px" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="span3" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a Premium Cycle"
@@ -592,7 +592,7 @@
             <asp:Label ID="lblPremiumAmount" runat="server" CssClass="FieldName" Text="Premium Amount:"></asp:Label>
         </td>
         <td class="style3">
-            <asp:TextBox ID="txtPremiumAmount" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPremiumAmount" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <span id="Span4" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPremiumAmount"
                 ErrorMessage="<br />Please enter Premium Amount" Display="Dynamic" CssClass="rfvPCG"
