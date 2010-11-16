@@ -699,6 +699,7 @@ ul.tabbernav li.tabberactive a:hover
     border-width : thin; 
 	border-style : solid;  
 	border-color : Scrollbar; 
+	visibility:hidden;
 }
 
 /*AutoComplete flyout */
