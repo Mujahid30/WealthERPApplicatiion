@@ -492,7 +492,7 @@ namespace DaoCustomerRiskProfiling
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public DataSet GetCustomerAssets(int customerId)
+        public DataSet GetCustomerAssets(int customerId,int isProspect)
         {
             Database db;
             DataSet dsGetCustomerAsset;
@@ -502,6 +502,7 @@ namespace DaoCustomerRiskProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetCustomerAsset = db.GetStoredProcCommand("SP_GetCustomerAssets");
                 db.AddInParameter(dbGetCustomerAsset, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(dbGetCustomerAsset, "@IsProspect", DbType.String, isProspect.ToString());
                 dsGetCustomerAsset = db.ExecuteDataSet(dbGetCustomerAsset);
 
             }
