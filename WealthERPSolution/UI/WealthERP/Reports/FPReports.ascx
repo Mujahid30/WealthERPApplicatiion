@@ -20,10 +20,7 @@
         }, 500);
         return true;
     }
-    function GetCustomerId(source, eventArgs) {
-        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
-        return false;
-    };
+    
    
     
 </script>
@@ -35,16 +32,16 @@
             <hr />
         </td>
     </tr>
-    <tr>
+    <%--<tr>
         <td>
             <asp:Label ID="lblSelectCustomer" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                 Text="Select Customer"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             <table border="0" id="tblIndividual">
-                <tr>
+                <%--<tr>
                     <td>
                         <asp:Label ID="Label1" runat="server" Text="Customer Name :" CssClass="FieldName"></asp:Label>
                     </td>
@@ -68,7 +65,8 @@
                         </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
                             few characters of customer name.</span>
                     </td>
-                </tr>
+                </tr>--%>
+                <%--
                 <tr id="trCustomerDetails1" runat="server" visible="false">
                     <td align="right">
                         <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="PAN NO :"></asp:Label>
@@ -114,12 +112,12 @@
                          
                  </td>
                                         
-                </tr>
+                </tr>--%>
                 <tr>
                 
                     <td colspan="2">
                         <br />
-                        <asp:Button ID="btnView" runat="server" Text="View Report" OnClientClick="return validate('')"
+                        <asp:Button ID="btnView" runat="server" Text="View Report" 
                             PostBackUrl="~/Reports/Display.aspx" CssClass="PCGMediumButton" />
                     </td>
                 </tr>
