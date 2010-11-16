@@ -2530,52 +2530,52 @@ namespace DaoCustomerProfiling
         /// <param name="selectedParentId"></param>
         /// <param name="rmId"></param>
         /// <returns></returns>
-        public DataTable GetMemberCustomerNamesForGrouping(string prefixText, int selectedParentId, int rmId)
-        {
+        //public DataTable GetMemberCustomerNamesForGrouping(string prefixText, int selectedParentId, int rmId)
+        //{
 
-            Database db;
-            DbCommand cmdGetCustomerNames;
-            DataSet dsCustomerNames;
-            DataTable dtCustomerNames;
+        //    Database db;
+        //    DbCommand cmdGetCustomerNames;
+        //    DataSet dsCustomerNames;
+        //    DataTable dtCustomerNames;
 
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                //To retreive data from the table 
-                cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetMemberCustomerNamesForGrouping");
-                db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
-                db.AddInParameter(cmdGetCustomerNames, "@selectedParentId", DbType.Int32, selectedParentId);
-                db.AddInParameter(cmdGetCustomerNames, "@AR_RMId", DbType.Int32, rmId);
-                dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
-                dtCustomerNames = dsCustomerNames.Tables[0];
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        //To retreive data from the table 
+        //        cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetMemberCustomerNamesForGrouping");
+        //        db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
+        //        db.AddInParameter(cmdGetCustomerNames, "@selectedParentId", DbType.Int32, selectedParentId);
+        //        db.AddInParameter(cmdGetCustomerNames, "@AR_RMId", DbType.Int32, rmId);
+        //        dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
+        //        dtCustomerNames = dsCustomerNames.Tables[0];
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "CustomerDao.cs:GetMemberCustomerNamesForGrouping()");
+        //        FunctionInfo.Add("Method", "CustomerDao.cs:GetMemberCustomerNamesForGrouping()");
 
 
-                object[] objects = new object[3];
+        //        object[] objects = new object[3];
 
-                objects[0] = prefixText;
-                objects[1] = rmId;
-                objects[2] = selectedParentId;
+        //        objects[0] = prefixText;
+        //        objects[1] = rmId;
+        //        objects[2] = selectedParentId;
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
 
-            }
-            return dtCustomerNames;
-        }
+        //    }
+        //    return dtCustomerNames;
+        //}
         /// <summary>
         /// No Use
         /// </summary>
