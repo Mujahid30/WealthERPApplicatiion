@@ -16,6 +16,7 @@ using VoUser;
 using BoCustomerGoalProfiling;
 using WealthERP.Base;
 using BoCommon;
+using BoCustomerProfiling;
 
 namespace WealthERP.Advisor
 {
@@ -33,6 +34,9 @@ namespace WealthERP.Advisor
         int GoalCount;
         int AdvisorRMId;
         string riskCode;
+        int isProspect;
+        CustomerVo customerVo;
+        CustomerBo customerBo;
         CustomerGoalSetupBo GoalSetupBo = new CustomerGoalSetupBo();
 
 
@@ -54,10 +58,21 @@ namespace WealthERP.Advisor
             totalquestion = dsGetRiskProfileQuestion.Tables[0].Rows.Count;
             int optioncounttemp = 1;
             hidGoalCount.Value = null;
+            if(!Page.IsPostBack)
+            {
+                if (Session[SessionContents.FPS_ProspectList_CustomerId] != null && Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != "")
+                {
+                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                }
+                customerBo = new CustomerBo();
+                customerVo = customerBo.GetCustomer(customerId);
+                Session[SessionContents.CustomerVo] = customerVo;
+            }
+           
             //PlaceHolder1.Controls.Add(new LiteralControl("<table>"));
             for (int i = 0; i < totalquestion; i++)
             {
-                dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()));
+                dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), advisorVo.advisorId);
 
                 PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
                 PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"6\"><hr /></td></tr>"));
@@ -158,7 +173,7 @@ namespace WealthERP.Advisor
                         //PlaceHolder plholder = (PlaceHolder)tabRiskProfiling.FindControl("PlaceHolder1");
                         Label lblQuestion = (Label)tabRiskProfiling.FindControl(labelQuestion);
                         lblQuestion.Text = dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_Question"].ToString();
-                        dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()));
+                        dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), advisorVo.advisorId);
                         for (int j = 0; j < dsGetRiskProfileQuestionOption.Tables[0].Rows.Count; j++)
                         {
                             RiskOptionVo riskOptionVo = new RiskOptionVo();
@@ -388,7 +403,7 @@ namespace WealthERP.Advisor
 
                 for (int i = 0; i < dsGetRiskProfileQuestion.Tables[0].Rows.Count; i++)
                 {
-                    dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()));
+                    dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), advisorVo.advisorId);
                     for (int j = 0; j < dsGetRiskProfileQuestionOption.Tables[0].Rows.Count; j++)
                     {
                         tempRID = "rbtnQ" + (i + 1) + "A" + (j + 1);
@@ -483,7 +498,7 @@ namespace WealthERP.Advisor
                 //====================================
                 for (int i = 0; i < dsGetRiskProfileQuestion.Tables[0].Rows.Count; i++)
                 {
-                    dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()));
+                    dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), advisorVo.advisorId);
                     for (int j = 0; j < dsGetRiskProfileQuestionOption.Tables[0].Rows.Count; j++)
                     {
 
@@ -678,7 +693,7 @@ namespace WealthERP.Advisor
                         string tempRID = "";
                         for (int i = 1; i <= totalquestion; i++)
                         {
-                            dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i - 1]["QM_QuestionId"].ToString()));
+                            dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i - 1]["QM_QuestionId"].ToString()), advisorVo.advisorId);
                             for (int j = 1; j <= dsGetRiskProfileQuestionOption.Tables[0].Rows.Count; j++)
                             {
                                 tempRID = "rbtnQ" + i + "A" + j;
@@ -843,7 +858,7 @@ namespace WealthERP.Advisor
 
             for (int i = 1; i <= dsGetRiskProfileQuestion.Tables[0].Rows.Count; i++)
             {
-                dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i - 1]["QM_QuestionId"].ToString()));
+                dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i - 1]["QM_QuestionId"].ToString()), advisorVo.advisorId);
                 for (int j = 1; j <= dsGetRiskProfileQuestionOption.Tables[0].Rows.Count; j++)
                 {
                     tempRID = "rbtnQ" + i + "A" + j;
@@ -883,7 +898,10 @@ namespace WealthERP.Advisor
         protected void ShowCurrentAssetAllocationPieChart()
         {
             DataSet DScurrentAsset = new DataSet();
-            DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId,0);
+            if(customerVo.IsProspect==1)
+                 DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId,1);
+            else
+                DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId, 0);
             DataTable dt = new DataTable();
             DataRow dr;
             dt.Columns.Add("AssetType");
