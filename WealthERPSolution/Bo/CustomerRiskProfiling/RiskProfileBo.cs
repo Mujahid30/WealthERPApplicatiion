@@ -17,9 +17,9 @@ namespace BoCustomerRiskProfiling
         {
             return riskprofiledao.GetRiskProfileQuestion(advisorId);
         }
-        public DataSet GetQuestionOption(int questionId)
+        public DataSet GetQuestionOption(int questionId,int advisorId)
         {
-            return riskprofiledao.GetQuestionOption(questionId);
+            return riskprofiledao.GetQuestionOption(questionId, advisorId);
         }
         public DataSet GetRiskProfileRules()
         {
