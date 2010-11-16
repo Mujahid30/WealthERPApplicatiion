@@ -48,6 +48,7 @@ namespace VoReports
     {
         public string CustomerName;
         public string CustomerId;
+        public int isProspect;
     }
 
     public enum ReportType
