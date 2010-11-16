@@ -785,6 +785,10 @@ namespace WealthERP
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
                 }
+                else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                }
                 else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
                 {
                     if (customerId != 0)
