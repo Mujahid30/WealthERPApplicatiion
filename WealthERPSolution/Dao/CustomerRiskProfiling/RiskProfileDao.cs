@@ -45,7 +45,7 @@ namespace DaoCustomerRiskProfiling
 
 
         //Getting Option for Each Question
-        public DataSet GetQuestionOption(int questionId)
+        public DataSet GetQuestionOption(int questionId,int advisorId)
         {
             Database db;
             DataSet dsGetQuestionOption;
@@ -55,6 +55,7 @@ namespace DaoCustomerRiskProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetQuestionOption = db.GetStoredProcCommand("SP_GetQuestionOption");
                 db.AddInParameter(dbGetQuestionOption, "@QuestionId", DbType.Int32, questionId);
+                db.AddInParameter(dbGetQuestionOption, "@advisorId", DbType.Int32, advisorId);
                 dsGetQuestionOption = db.ExecuteDataSet(dbGetQuestionOption);
 
             }
