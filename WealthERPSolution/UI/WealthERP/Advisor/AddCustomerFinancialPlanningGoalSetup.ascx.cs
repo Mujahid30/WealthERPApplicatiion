@@ -1008,7 +1008,7 @@ namespace WealthERP.Advisor
                 if (dsRTGoal.Tables[0].Rows[0]["CG_MonthlySavingsRequired"] != null)
                     hidvalue = double.Parse(dsRTGoal.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString());
                 hidRTSaveReq.Value = Math.Round(hidvalue, 2).ToString();
-                GoalDescription = GoalSetupBo.RTGoalDescriptionText(int.Parse((string)Session["FP_UserID"]));
+                GoalDescription = GoalSetupBo.RTGoalDescriptionText(int.Parse(Session["FP_UserID"].ToString()));
                 lblRTParagraph.Text = GoalDescription;
                 return 1;
             }
