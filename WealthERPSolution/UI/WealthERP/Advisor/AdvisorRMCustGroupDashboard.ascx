@@ -70,10 +70,9 @@
             <div id="div1" style="overflow-y: scroll; height: 350px; overflow-x: scroll; width: 100%">
                 <asp:GridView ID="gvAssetAggrCurrentValue" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                     CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" HorizontalAlign="Center"
-                    Width="100%" DataKeyNames="CustomerId" ShowFooter="true" 
-                    onrowdatabound="gvAssetAggrCurrentValue_RowDataBound">
+                    Width="100%" DataKeyNames="CustomerId" ShowFooter="true" OnRowDataBound="gvAssetAggrCurrentValue_RowDataBound">
                     <RowStyle CssClass="RowStyle" />
-                    <FooterStyle CssClass="FooterStyle" HorizontalAlign="Right"/>
+                    <FooterStyle CssClass="FooterStyle" HorizontalAlign="Right" />
                     <SelectedRowStyle CssClass="SelectedRowStyle" />
                     <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
                     <HeaderStyle CssClass="HeaderStyle" />
@@ -156,8 +155,10 @@
                     <%--<asp:BoundField DataField="CustomerName" HeaderText="Customer Name" />--%>
                     <asp:BoundField DataField="Policy" HeaderText="Policy" />
                     <asp:BoundField DataField="InsuranceType" HeaderText="Type" />
-                    <asp:BoundField DataField="SumAssured" HeaderText="Sum Assured" />
-                    <asp:BoundField DataField="PremiumAmount" HeaderText="Premium Amount" />
+                    <asp:BoundField DataField="SumAssured" HeaderText="Sum Assured" DataFormatString="{0:n2}"
+                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                    <asp:BoundField DataField="PremiumAmount" HeaderText="Premium Amount" DataFormatString="{0:n2}"
+                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
                     <asp:BoundField DataField="PremiumFrequency" HeaderText="Premium Frequency" />
                 </Columns>
             </asp:GridView>
@@ -182,8 +183,10 @@
                     </asp:TemplateField>
                     <asp:BoundField DataField="PolicyIssuer" HeaderText="Policy Issuer" />
                     <asp:BoundField DataField="InsuranceType" HeaderText="Type" />
-                    <asp:BoundField DataField="SumAssured" HeaderText="Sum Assured" />
-                    <asp:BoundField DataField="PremiumAmount" HeaderText="Premium Amount" />
+                    <asp:BoundField DataField="SumAssured" HeaderText="Sum Assured" DataFormatString="{0:n2}"
+                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
+                    <asp:BoundField DataField="PremiumAmount" HeaderText="Premium Amount" DataFormatString="{0:n2}"
+                        HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
                 </Columns>
             </asp:GridView>
         </td>
