@@ -273,6 +273,11 @@ namespace WealthERP
                         {
                             ddlParent.SelectedValue = hdnParentFilter.Value.ToString();
                         }
+                        DropDownList ddlActiveFilter = GetActiveDDL();
+                        if (hdnactive.Value != "")
+                        {
+                            ddlActiveFilter.SelectedValue = hdnactive.Value.ToString();
+                        }
                     }
 
                     if (genDictCity.Count > 0)
@@ -608,6 +613,11 @@ namespace WealthERP
                         if (hdnParentFilter.Value != "")
                         {
                             ddlParent.SelectedValue = hdnParentFilter.Value.ToString();
+                        }
+                        DropDownList ddlActiveFilter = GetActiveDDL();
+                        if (hdnactive.Value != "")
+                        {
+                            ddlActiveFilter.SelectedValue = hdnactive.Value.ToString();
                         }
                     }
 
@@ -1539,5 +1549,19 @@ namespace WealthERP
             }
         }
 
+        private DropDownList GetActiveDDL()
+        {
+            DropDownList ddl = new DropDownList();
+            if (gvCustomers.HeaderRow != null)
+            {
+                if ((DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter") != null)
+                {
+                    ddl = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
+                }
+            }
+            else
+                ddl = null;
+            return ddl;
+        }
     }
 }
