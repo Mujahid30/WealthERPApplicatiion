@@ -72,7 +72,7 @@
         </ClientSettings>
     </telerik:RadGrid>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"
-        SelectCommand="SELECT [C_DOB], [C_Email], [C_FirstName], [C_CustomerId] FROM [Customer] WHERE (([C_IsProspect] = @C_IsProspect) AND ([C_IsFPClient] = @C_IsFPClient))">
+        SelectCommand="SELECT [C_DOB], [C_Email], [C_FirstName], [C_CustomerId] FROM [Customer] WHERE (([C_IsProspect] = @C_IsProspect))">
         <SelectParameters>
             <asp:Parameter DefaultValue="1" Name="C_IsProspect" Type="Int32" />
             <asp:Parameter DefaultValue="1" Name="C_IsFPClient" Type="Int32" />
