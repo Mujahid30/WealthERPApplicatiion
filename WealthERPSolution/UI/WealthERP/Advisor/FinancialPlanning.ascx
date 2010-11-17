@@ -150,7 +150,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <table id="tblRiskScore" runat="server" style="background-color: Gray; border: thin solid #FF0000"
+                                    <table id="tblRiskScore" runat="server" style="background-color:#D3D3D3; border: thin solid #FF0000"
                                         visible="False" width="100%">
                                         <tr id="Tr1" runat="server">
                                             <td id="Td1" runat="server">
@@ -171,7 +171,7 @@
                             </tr>
                             <tr id="trRiskProfilingParagraph" runat="server">
                                
-                                  <td width="100%" colspan="2">                    
+                                  <td width="100%" colspan="6">                    
                                                                 
                                     <asp:Label ID="lblRiskProfilingParagraph" runat="server" CssClass="GridViewCmbField" style="white-space:inherit" Text="">
                                     </asp:Label>

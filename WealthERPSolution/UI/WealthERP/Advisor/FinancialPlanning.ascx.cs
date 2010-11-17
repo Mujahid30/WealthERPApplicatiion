@@ -300,22 +300,27 @@ namespace WealthERP.Advisor
                                 DataRow dr;
                                 dt.Columns.Add("AssetType");
                                 dt.Columns.Add("Value");
-
-                                dr = dt.NewRow();
-                                dr[0] = "Equity";
-                                dr[1] = txtRecommendedEquity.Text;
-                                dt.Rows.Add(dr);
-
+                                if (double.Parse(txtRecommendedEquity.Text) != 0)
+                                {
+                                    dr = dt.NewRow();
+                                    dr[0] = "Equity";
+                                    dr[1] = txtRecommendedEquity.Text;
+                                    dt.Rows.Add(dr);
+                                }
+                                if (double.Parse(txtRecommendedDebt.Text) != 0)
+                                {
                                 dr = dt.NewRow();
                                 dr[0] = "Debt";
                                 dr[1] = txtRecommendedDebt.Text;
                                 dt.Rows.Add(dr);
-
-                                dr = dt.NewRow();
-                                dr[0] = "Cash";
-                                dr[1] = txtRecommendedCash.Text;
-                                dt.Rows.Add(dr);
-
+                                }
+                                if (double.Parse(txtRecommendedCash.Text) != 0)
+                                {
+                                    dr = dt.NewRow();
+                                    dr[0] = "Cash";
+                                    dr[1] = txtRecommendedCash.Text;
+                                    dt.Rows.Add(dr);
+                                }
                                 tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
                                 Series seriesAssets = new Series("sActualAsset");
                                 seriesAssets.ChartType = SeriesChartType.Pie;
@@ -463,20 +468,21 @@ namespace WealthERP.Advisor
                 if (lblRClass.Text == "Aggresive")
                 {
 
-                    lblRClass.BackColor = System.Drawing.Color.Green;
+                    lblRClass.ForeColor = System.Drawing.Color.Green;
                     lblRScore.ForeColor = System.Drawing.Color.Green;
+                    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
                 }
                 else if (lblRClass.Text == "Moderate")
                 {
-
-
-                    lblRClass.BackColor = System.Drawing.Color.Yellow;
+                    lblRClass.ForeColor = System.Drawing.Color.Yellow;
                     lblRScore.ForeColor = System.Drawing.Color.Yellow;
+                    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                 }
                 else if (lblRClass.Text == "Conservative")
                 {
-                    lblRClass.BackColor = System.Drawing.Color.Red;
+                    lblRClass.ForeColor = System.Drawing.Color.Red;
                     lblRScore.ForeColor = System.Drawing.Color.Red;
+                    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
                 }
 
 
@@ -727,8 +733,8 @@ namespace WealthERP.Advisor
                         if (lblRClass.Text == "Aggressive")
                         {
 
-                            lblRClass.BackColor = System.Drawing.Color.Green;
                             lblRScore.ForeColor = System.Drawing.Color.Green;
+                            lblRClass.ForeColor = System.Drawing.Color.Green;
                             lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
                         }
                         else if (lblRClass.Text == "Moderate")
@@ -898,8 +904,8 @@ namespace WealthERP.Advisor
         protected void ShowCurrentAssetAllocationPieChart()
         {
             DataSet DScurrentAsset = new DataSet();
-            if(customerVo.IsProspect==1)
-                 DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId,1);
+            if (customerVo.IsProspect == 1)
+                DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId, 1);
             else
                 DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId, 0);
             DataTable dt = new DataTable();
@@ -908,52 +914,62 @@ namespace WealthERP.Advisor
             dt.Columns.Add("Value");
             if (DScurrentAsset.Tables[0].Rows.Count > 0)
             {
-
-
-                dr = dt.NewRow();
-                dr[0] = "Equity";
                 if (DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString() != "")
                 {
                     txtCurrentEquity.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString();
-                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Equity"];
+
                 }
                 else
                 {
                     txtCurrentEquity.Text = "0";
-                    dr[1] = "0";
-                }
-                dt.Rows.Add(dr);
 
-                dr = dt.NewRow();
-                dr[0] = "Debt";
+                }
+                if (double.Parse(txtCurrentEquity.Text) != 0)
+                {
+                    dr = dt.NewRow();
+                    dr[0] = "Equity";
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Equity"];
+                    dt.Rows.Add(dr);
+                }
+
                 if (DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString() != "")
                 {
                     txtCurrentDebt.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString();
-                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Debt"];
+
                 }
                 else
                 {
                     txtCurrentDebt.Text = "0";
-                    dr[1] = "0";
+
                 }
 
-                dt.Rows.Add(dr);
+                if (double.Parse(txtCurrentDebt.Text) != 0)
+                {
+                    dr = dt.NewRow();
+                    dr[0] = "Debt";
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Debt"];
+                    dt.Rows.Add(dr);
+                }
 
-                dr = dt.NewRow();
-                dr[0] = "Cash";
+
+
                 if (DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString() != "")
                 {
                     txtCurrentCash.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString()), 2).ToString();
-                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Cash"];
+
                 }
                 else
                 {
                     txtCurrentCash.Text = "0";
-                    dr[1] = "0";
+
                 }
-
-                dt.Rows.Add(dr);
-
+                if (double.Parse(txtCurrentCash.Text) != 0)
+                {
+                    dr = dt.NewRow();
+                    dr[0] = "Cash";
+                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Cash"];
+                    dt.Rows.Add(dr);
+                }
             }
             else
             {
@@ -976,7 +992,7 @@ namespace WealthERP.Advisor
                 dt.Rows.Add(dr);
             }
 
-            Series seriesAssets = new Series("sActualAsset");
+            Series seriesAssets = new Series("CurrentAsset");
             seriesAssets.ChartType = SeriesChartType.Pie;
             ChartCurrentAsset.Visible = true;
             ChartCurrentAsset.Series.Clear();
@@ -991,11 +1007,10 @@ namespace WealthERP.Advisor
             ChartCurrentAsset.ChartAreas[0].BackColor = Color.Transparent;
             ChartCurrentAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
             ChartCurrentAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+            //ChartCurrentAsset.Series[0]["PieLabelStyle"] = "Disabled";
+            //ChartCurrentAsset.Series[0]["IsValueShownAsLabel"] = "true";
             ChartCurrentAsset.DataBind();
 
         }
-
-
-
     }
 }
