@@ -74,105 +74,30 @@
         </td>
     </tr>
 </table>
-<table class="TableBackground" width="100%" id="tblGV" runat="server">
+<table id="tblExport" class="TableBackground" width="100%" runat="server" cellpadding="0" cellspacing="0">
     <tr>
-        <td>
-            <asp:ImageButton ID="imgBtnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+        <td width="50%" align="left">
+        <asp:ImageButton ID="imgBtnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
                 OnClientClick="setFormat('excel')" Height="25px" Width="25px" />
-            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
-                TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
-                Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();">
-            </cc1:ModalPopupExtender>
-            <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/App_Themes/Maroon/Images/Export_Word.png"
-                runat="server" AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click"
-                OnClientClick="setFormat('word')" />
-            <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/App_Themes/Maroon/Images/Export_Pdf.png"
-                runat="server" AlternateText="PDF" OnClientClick="setFormat('pdf')" ToolTip="Export To PDF"
-                OnClick="imgBtnPdf_Click" />
-            <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/App_Themes/Maroon/Images/Print.png"
-                runat="server" AlternateText="Print" OnClientClick="setFormat('print')" ToolTip="Print"
-                OnClick="imgBtnPrint_Click" />--%>
-            <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />
         </td>
-    </tr>
-    <tr id="Tr1" runat="server">
-        <td>
-            <%--<asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" Width="150px">
-                <input type="radio" id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" />
-                <label for="rbtnSin" class="cmbField">Current Page</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-                <input type="radio" id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')" />
-                <label for="Radio1" class="cmbField">All Pages</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-                <div align="center">
-                    <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
-                </div>--%>
-            <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" Style="display: none">
-                <br />
-                <table width="100%">
-                    <tr>
-                        <td>
-                            &nbsp;&nbsp;&nbsp;
-                        </td>
-                        <td align="right">
-                            <input id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" type="radio" />
-                        </td>
-                        <td align="left">
-                            <label for="rbtnSin" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
-                                Current Page</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            &nbsp;&nbsp;&nbsp;
-                        </td>
-                        <td align="right">
-                            <input id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')"
-                                type="radio" />
-                        </td>
-                        <td align="left">
-                            <label for="Radio1" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
-                                All Pages</label>
-                        </td>
-                    </tr>
-                </table>
-                <table width="100%">
-                    <tr>
-                        <td align="right">
-                            <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
-                        </td>
-                        <td align="left">
-                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
-                        </td>
-                    </tr>
-                </table>
-            </asp:Panel>
-            <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
-                OnClick="btnExportExcel_Click" Height="31px" Width="35px" />
-        </td>
-    </tr>
-    <tr id="trMessage" runat="server" visible="false">
-        <td>
-            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found..."></asp:Label>
+        <td width="50%" align="left">
+        
+            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+       
         </td>
     </tr>
 </table>
-<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" Height="400px"
-    ScrollBars="Auto">
-    <table>
-        <caption>
-            <img id="AdvisorLogo" runat="server" alt="Advisor Logo" style="display: none" />
-        </caption>
-        </tr>
+<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">      
+        
         <tr>
-            <td class="rightField">
+            <td class="rightField" width="100%">
                 <asp:GridView ID="gvCustomers" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                     CellPadding="4" CssClass="GridViewStyle" DataKeyNames="CustomerId,UserId,RMId"
                     OnSelectedIndexChanged="gvCustomers_SelectedIndexChanged" OnSorting="gvCustomers_Sort"
-                    ShowFooter="true" ShowHeader="true">
+                    ShowFooter="true" ShowHeader="true" width="100%">
                     <FooterStyle CssClass="FooterStyle" />
                     <PagerSettings Visible="False" />
                     <RowStyle CssClass="RowStyle" />
@@ -268,24 +193,21 @@
                         <asp:BoundField DataField="IsProspect" HeaderText="Is Prospect" />
                         <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />
                         <%--<asp:BoundField DataField="Pincode" HeaderText="Pincode" ItemStyle-HorizontalAlign="Right"/>--%>
-                        <%--<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                       <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblAssignedRM" runat="server" Text="Assigned RM"></asp:Label>
                                 <br />
                                 <asp:DropDownList ID="ddlAssignedRM" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
                                     OnSelectedIndexChanged="ddlAssignedRM_SelectedIndexChanged">
                                 </asp:DropDownList>
-                                <br />
-                                <asp:CheckBox ID="chkReassignRM" runat="server" AutoPostBack="true" OnCheckedChanged="chkReassignRM_CheckedChanged"
-                                    Text="Reassign RM" />
+                                
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblAssignedRMHeader" runat="server" Text='<%# Eval("Assigned RM").ToString() %>'></asp:Label>
-                                <asp:DropDownList ID="ddlReassignRM" runat="server" CssClass="GridViewCmbField">
-                                </asp:DropDownList>
+                                
                             </ItemTemplate>
                             <ItemStyle Wrap="False" />
-                        </asp:TemplateField>--%>
+                        </asp:TemplateField>
                         <%--<asp:BoundField DataField="Assigned RM" HeaderText="Assigned RM" HeaderStyle-Wrap="false"
                             ItemStyle-Wrap="false" />--%>
                         <asp:TemplateField HeaderText="IsActive">
@@ -294,6 +216,7 @@
                                 </asp:Label>
                             </ItemTemplate>
                             <HeaderTemplate>
+                                <br />
                                 <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" CssClass="cmbField"
                                     OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
                                     <asp:ListItem Text="All" Value="2">
@@ -308,20 +231,104 @@
                     </Columns>
                 </asp:GridView>
             </td>
-        </tr>
+        </tr>        
     </table>
 </asp:Panel>
-<table width="100%">
+<table id="tblpager" class="TableBackground" width="100%" runat="server">
     <tr id="trPager" runat="server">
-        <td width="20%">
+        <td width="100%" align="center">
             <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
+        </td>        
+     </tr>
+</table>
+
+
+<table class="TableBackground" width="100%" id="tblGV" runat="server" cellspacing="0" cellpadding="0">
+    <tr>
+        <td>
+            
+            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
+                TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
+                Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();">
+            </cc1:ModalPopupExtender>
+            <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/App_Themes/Maroon/Images/Export_Word.png"
+                runat="server" AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click"
+                OnClientClick="setFormat('word')" />
+            <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/App_Themes/Maroon/Images/Export_Pdf.png"
+                runat="server" AlternateText="PDF" OnClientClick="setFormat('pdf')" ToolTip="Export To PDF"
+                OnClick="imgBtnPdf_Click" />
+            <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/App_Themes/Maroon/Images/Print.png"
+                runat="server" AlternateText="Print" OnClientClick="setFormat('print')" ToolTip="Print"
+                OnClick="imgBtnPrint_Click" />--%>
+            <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
+                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />
         </td>
-        <td class="leftField" colspan="2" align="right">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+    </tr>
+    <tr id="Tr1" runat="server">
+        <td>
+            <%--<asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" Width="150px">
+                <input type="radio" id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" />
+                <label for="rbtnSin" class="cmbField">Current Page</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                <input type="radio" id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')" />
+                <label for="Radio1" class="cmbField">All Pages</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                <div align="center">
+                    <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                </div>--%>
+            <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" Style="display: none">
+                <br />
+                <table width="100%">
+                    <tr>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td align="right">
+                            <input id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" type="radio" />
+                        </td>
+                        <td align="left">
+                            <label for="rbtnSin" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
+                                Current Page</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td align="right">
+                            <input id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')"
+                                type="radio" />
+                        </td>
+                        <td align="left">
+                            <label for="Radio1" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
+                                All Pages</label>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td align="right">
+                            <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
+                        </td>
+                        <td align="left">
+                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                        </td>
+                    </tr>
+                </table>
+            </asp:Panel>
+            <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
+                OnClick="btnExportExcel_Click" Height="31px" Width="35px" />
+        </td>
+    </tr>
+    <tr id="trMessage" runat="server" visible="false">
+        <td>
+            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found..."></asp:Label>
         </td>
     </tr>
 </table>
+
+
 <asp:Button ID="btnPANSearch" runat="server" Text="" OnClick="btnPANSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnPincodeSearch" runat="server" Text="" OnClick="btnPincodeSearch_Click"

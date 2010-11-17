@@ -391,22 +391,22 @@ namespace WealthERP.Advisor
                         }
                     }
 
-                    //if (genDictRM.Count > 0)
-                    //{
-                    //    DropDownList ddlRM = GetRMDDL();
-                    //    if (ddlRM != null)
-                    //    {
-                    //        ddlRM.DataSource = genDictRM;
-                    //        ddlRM.DataTextField = "Value";
-                    //        ddlRM.DataValueField = "Key";
-                    //        ddlRM.DataBind();
-                    //        ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-                    //    }
-                    //    if (hdnRMFilter.Value != "")
-                    //    {
-                    //        ddlRM.SelectedValue = hdnRMFilter.Value.ToString();
-                    //    }
-                    //}
+                    if (genDictRM.Count > 0)
+                    {
+                        DropDownList ddlRM = GetRMDDL();
+                        if (ddlRM != null)
+                        {
+                            ddlRM.DataSource = genDictRM;
+                            ddlRM.DataTextField = "Value";
+                            ddlRM.DataValueField = "Key";
+                            ddlRM.DataBind();
+                            ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                        }
+                        if (hdnRMFilter.Value != "")
+                        {
+                            ddlRM.SelectedValue = hdnRMFilter.Value.ToString();
+                        }
+                    }
 
                     TextBox txtName = GetCustNameTextBox();
                     if (txtName != null)
@@ -833,22 +833,22 @@ namespace WealthERP.Advisor
                         }
                     }
 
-                    //if (genDictRM.Count > 0)
-                    //{
-                    //    DropDownList ddlRM = GetRMDDL();
-                    //    if (ddlRM != null)
-                    //    {
-                    //        ddlRM.DataSource = genDictRM;
-                    //        ddlRM.DataTextField = "Value";
-                    //        ddlRM.DataValueField = "Key";
-                    //        ddlRM.DataBind();
-                    //        ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-                    //    }
-                    //    if (hdnRMFilter.Value != "")
-                    //    {
-                    //        ddlRM.SelectedValue = hdnRMFilter.Value.ToString();
-                    //    }
-                    //}
+                    if (genDictRM.Count > 0)
+                    {
+                        DropDownList ddlRM = GetRMDDL();
+                        if (ddlRM != null)
+                        {
+                            ddlRM.DataSource = genDictRM;
+                            ddlRM.DataTextField = "Value";
+                            ddlRM.DataValueField = "Key";
+                            ddlRM.DataBind();
+                            ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                        }
+                        if (hdnRMFilter.Value != "")
+                        {
+                            ddlRM.SelectedValue = hdnRMFilter.Value.ToString();
+                        }
+                    }
 
                     TextBox txtName = GetCustNameTextBox();
                     if (txtName != null)
@@ -1501,7 +1501,7 @@ namespace WealthERP.Advisor
 
             return ddl;
         }
-        /*
+       
         private DropDownList GetRMDDL()
         {
             DropDownList ddl = new DropDownList();
@@ -1517,7 +1517,7 @@ namespace WealthERP.Advisor
 
             return ddl;
         }
-        */
+        
         protected void btnPincodeSearch_Click(object sender, EventArgs e)
         {
             TextBox txtPincode = GetPincodeTextBox();
@@ -1580,7 +1580,7 @@ namespace WealthERP.Advisor
                 this.BindGrid(mypager.CurrentPage, 0);
             }
         }
-        /*
+        
         protected void ddlAssignedRM_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlRM = GetRMDDL();
@@ -1608,7 +1608,7 @@ namespace WealthERP.Advisor
                 }
             }
         }
-        */
+        
         protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
