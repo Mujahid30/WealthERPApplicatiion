@@ -1966,6 +1966,13 @@
     <Compile Include="FP\AddProspectList.ascx.designer.cs">
       <DependentUpon>AddProspectList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="FP\ByPass.aspx.cs">
+      <DependentUpon>ByPass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\ByPass.aspx.designer.cs">
+      <DependentUpon>ByPass.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FP\CustomerProspect.ascx.cs">
       <DependentUpon>CustomerProspect.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2761,7 +2768,9 @@
     <Content Include="Emails\Templates\AdviserRMAccounts.html" />
     <Content Include="favicon.ico" />
     <Content Include="FP\AddProspectList.ascx" />
+    <Content Include="FP\ByPass.aspx" />
     <Content Include="FP\CustomerProspect.ascx" />
+    <Content Include="FP\FinancialPlanning.htm" />
     <Content Include="FP\ProspectList.ascx" />
     <Content Include="General\SetTheme.ascx" />
     <Content Include="General\UserSettings.ascx" />

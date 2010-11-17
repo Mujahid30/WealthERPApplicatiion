@@ -153,7 +153,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoFPSuperlite", "Vo\VoFPSup
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 69
+		SccNumberOfProjects = 70
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -419,6 +419,9 @@ Global
 		SccProjectTopLevelParentUniqueName68 = WealthERPSolution.sln
 		SccProjectName68 = Vo/VoFPSuperlite
 		SccLocalPath68 = Vo\\VoFPSuperlite
+		SccProjectUniqueName69 = NAV\\WERP_NAVAPP\\WERP_NAVAPP.csproj
+		SccProjectName69 = NAV/WERP_NAVAPP
+		SccLocalPath69 = NAV\\WERP_NAVAPP
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
