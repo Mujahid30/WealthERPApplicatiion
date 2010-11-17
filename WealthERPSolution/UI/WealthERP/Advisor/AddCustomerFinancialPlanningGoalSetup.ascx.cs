@@ -336,7 +336,7 @@ namespace WealthERP.Advisor
             TabContainer1.ActiveTabIndex = 0;
             ControlSetVisiblity(0);
             ViewState["ViewEditID"] = GoalId;
-            ShowGoalDetails(int.Parse((string)Session["FP_UserID"]), GoalId);
+            ShowGoalDetails(int.Parse(Session["FP_UserID"].ToString()), GoalId);
             //lblPickCustomer.Text = "Customer Name";
             lblGoalbjective.Text = "Goal Objective :";
             lblPickChild.Text = "Child Name :";
@@ -355,7 +355,7 @@ namespace WealthERP.Advisor
             TabContainer1.ActiveTabIndex = 0;
             ControlSetVisiblity(0);
             ViewState["ViewEditID"] = GoalId;
-            ShowGoalDetails(int.Parse((string)Session["FP_UserID"]), GoalId);
+            ShowGoalDetails(int.Parse(Session["FP_UserID"].ToString()), GoalId);
             //lblPickCustomer.Text = "Customer Name";
             lblGoalbjective.Text = "Goal Objective :";
 
@@ -751,7 +751,7 @@ namespace WealthERP.Advisor
                 //Customer id select from AutoComplite TextBox Values
                 rmVo = (RMVo)Session[SessionContents.RmVo];
 
-                int ParentCustomerId = int.Parse((string)Session["FP_UserID"]);
+                int ParentCustomerId = int.Parse(Session["FP_UserID"].ToString());
                 goalProfileSetupVo.CustomerId = ParentCustomerId;
                 goalProfileSetupVo.Goalcode = ddlGoalType.SelectedValue.ToString();
                 goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
@@ -1043,7 +1043,7 @@ namespace WealthERP.Advisor
 
                 trROIFutureInvestment.Visible = false;
                 txtComment.Text = "";
-                double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse((string)Session["FP_UserID"]));
+                double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
                 txtExpRateOfReturn.Text = ExpROI.ToString();
 
                 chkApprove.Checked = false;
@@ -1078,7 +1078,7 @@ namespace WealthERP.Advisor
                 txtROIFutureInvest.Text = "";
 
                 txtComment.Text = "";
-                double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse((string)Session["FP_UserID"]));
+                double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
                 txtExpRateOfReturn.Text = ExpROI.ToString();
                 if (chkApprove.Checked == true)
                 {
@@ -1117,7 +1117,7 @@ namespace WealthERP.Advisor
             try
             {
                 string GoalIds = GetSelectedGoalIDString();
-                GoalSetupBo.SetCustomerGoalIsActive(GoalIds, int.Parse((string)Session["FP_UserID"]));
+                GoalSetupBo.SetCustomerGoalIsActive(GoalIds, int.Parse(Session["FP_UserID"].ToString()));
                 //this.BindRTGoalOutputGridView();
                 //this.BindGoalOutputGridView(1);
                 ShowOutPutTab();
@@ -1150,7 +1150,7 @@ namespace WealthERP.Advisor
             try
             {
                 string GoalIds = GetSelectedGoalIDString();
-                GoalSetupBo.SetCustomerGoalDeActive(GoalIds, int.Parse((string)Session["FP_UserID"]));
+                GoalSetupBo.SetCustomerGoalDeActive(GoalIds, int.Parse(Session["FP_UserID"].ToString()));
                 //this.BindRTGoalOutputGridView();
                 //this.BindGoalOutputGridView(1);
                 ShowOutPutTab();
@@ -1183,7 +1183,7 @@ namespace WealthERP.Advisor
             try
             {
                 string GoalIds = GetSelectedGoalIDString();
-                GoalSetupBo.DeleteCustomerGoal(GoalIds, int.Parse((string)Session["FP_UserID"]));
+                GoalSetupBo.DeleteCustomerGoal(GoalIds, int.Parse(Session["FP_UserID"].ToString()));
                 //this.BindRTGoalOutputGridView();
                 //this.BindGoalOutputGridView(1);
                 ShowOutPutTab();
@@ -1517,7 +1517,7 @@ namespace WealthERP.Advisor
                 //Customer id select from AutoComplite TextBox Values
                 int GoalId = int.Parse(ViewState["ViewEditID"].ToString());
 
-                int ParentCustomerId = int.Parse((string)Session["FP_UserID"]);
+                int ParentCustomerId = int.Parse(Session["FP_UserID"].ToString());
                 goalProfileSetupVo.CustomerId = ParentCustomerId;
                 goalProfileSetupVo.Goalcode = ddlGoalType.SelectedValue.ToString();
                 goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
@@ -1602,7 +1602,7 @@ namespace WealthERP.Advisor
             if (ViewState["ViewEditID"].ToString() != "")
             {
                 int GoalId = int.Parse(ViewState["ViewEditID"].ToString());
-                ShowGoalDetails(int.Parse((string)Session["FP_UserID"]), GoalId);
+                ShowGoalDetails(int.Parse(Session["FP_UserID"].ToString()), GoalId);
                 ControlSetVisiblity(0);                
                 lblGoalbjective.Text = "Goal Objective :";
 
