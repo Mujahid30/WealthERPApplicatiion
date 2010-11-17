@@ -35,10 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DaoFPSuperlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\UI\WealthERP\bin\DaoFPSuperlite.dll</HintPath>
-    </Reference>
+    <Reference Include="DaoFPSuperlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\UI\WealthERP\bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll</HintPath>
