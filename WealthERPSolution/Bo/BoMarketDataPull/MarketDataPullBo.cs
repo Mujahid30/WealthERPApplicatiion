@@ -805,10 +805,45 @@ namespace BoMarketDataPull
                 try
                 {
                     string fetchData = CEodFetch.GetNseEquities(date);
-                    
+                    //string sPostData = "";
+                    //string sResponse = "";
+                    //HttpWebRequest oRequest = (HttpWebRequest)System.Net.HttpWebRequest.Create(fetchData);
+                    //oRequest.Method = "POST";
+                    //oRequest.ContentType = "application/x-www-form-urlencoded";
+                    //oRequest.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)";
+                    //oRequest.Accept = "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
+                    ////oRequest.ContentLength = sPostData.Length;
+
+                    //UTF8Encoding encoding = new UTF8Encoding();
+                    //byte[] bytes = encoding.GetBytes(sPostData);
+
+                    //Stream oWStream = oRequest.GetRequestStream();
+                    //oWStream.Write(bytes, 0, bytes.Length);
+                    //oWStream.Close();
+
+                    //sResponse = "";
+                    //oRequest.Timeout = Timeout.Infinite;
+                    //WebResponse oResponse = oRequest.GetResponse();
+
+                    //using (StreamReader oSR = new StreamReader(oResponse.GetResponseStream()))
+                    //{
+                    //    sResponse = oSR.ReadToEnd();
+                    //    oSR.Close();
+                    //}
+
                     //Download data from NSE Site
                     WebClient myWebClient = new WebClient();
+                   // myWebClient.Headers.Add("Accept: application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
+                    myWebClient.Headers.Add("Accept: application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
+
+                    myWebClient.Headers.Add("User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/7.0.517.44 Safari/534.7");
+
+
+                    //myWebClient.Headers.Add("Accept","application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
+                    //myWebClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+
                     myWebClient.DownloadFile(fetchData, pathNseZip);
+
                     processLogVo.IsConnectionToSiteEstablished = 1;
                     processLogVo.IsFileDownloaded = 1;
                     result = productPriceDownloadLogBo.UpdateProcessLog(processLogVo);

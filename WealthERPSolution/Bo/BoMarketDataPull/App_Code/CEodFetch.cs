@@ -362,6 +362,7 @@ namespace BoMarketDataPull.App_Code
                 //Create a web request for the URL
                 webRequest = (HttpWebRequest)WebRequest.Create(url);
                 webRequest.Method = "GET";
+                webRequest.Accept = "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
 
                 //Get response from the web request
                 webResponse = (HttpWebResponse)webRequest.GetResponse();
