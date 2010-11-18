@@ -560,13 +560,14 @@ namespace WealthERP.Advisor
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
-                    
+                    Session["IsDashboard"] = "portfolio";
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','list');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
+                    Session["IsDashboard"] = "alerts";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
