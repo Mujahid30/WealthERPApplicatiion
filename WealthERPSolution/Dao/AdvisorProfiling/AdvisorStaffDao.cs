@@ -547,6 +547,10 @@ namespace DaoAdvisorProfiling
                         //if (dr["AR_CTC"].ToString() != string.Empty) 
                         // rmVo.CTC = Double.Parse(dr["AR_CTC"].ToString());
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
+                        if (!string.IsNullOrEmpty(dr["BranchList"].ToString().Trim()))
+                            rmVo.BranchList = dr["BranchList"].ToString();
+                        else
+                            rmVo.BranchList = string.Empty;
                         rmList.Add(rmVo);
                     }
                 }
@@ -679,6 +683,16 @@ namespace DaoAdvisorProfiling
                     else
                         rmVo.RMRole = string.Empty;
 
+                    if (dr["RoleList"] != DBNull.Value)
+                        rmVo.RMRoleList = dr["RoleList"].ToString();
+                    else
+                        rmVo.RMRoleList = string.Empty;
+
+                    if (!string.IsNullOrEmpty(dr["BranchList"].ToString().Trim()))
+                        rmVo.BranchList = dr["BranchList"].ToString();
+                    else
+                        rmVo.BranchList = string.Empty;
+
                     if (dr["AR_IsExternalStaff"] != DBNull.Value && dr["AR_IsExternalStaff"].ToString() != "")
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
                     else
@@ -770,6 +784,11 @@ namespace DaoAdvisorProfiling
                         rmVo.Email = dr["AR_Email"].ToString();
                     if (dr["AR_JobFunction"] != DBNull.Value)
                         rmVo.RMRole = dr["AR_JobFunction"].ToString();
+
+                    if (dr["RoleList"] != DBNull.Value)
+                        rmVo.RMRoleList = dr["RoleList"].ToString();
+                    else
+                        rmVo.RMRoleList = string.Empty;
 
                     if (dr["AR_IsExternalStaff"] != DBNull.Value && dr["AR_IsExternalStaff"].ToString() != "")
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
