@@ -58,7 +58,7 @@
 
     function showassocation() {
 
-        var bool = window.confirm('Customer has associations,cannot be deteted');
+        var bool = window.confirm('Customer has associations, cannot be deleted');
         if (bool) {           
             document.getElementById("ctrl_RMCustomer_hdnassociation").value = 1;
             document.getElementById("ctrl_RMCustomer_hiddenassociationfound").click();
