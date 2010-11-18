@@ -356,7 +356,7 @@ namespace DaoCustomerRiskProfiling
         }
 
 
-        public DataSet GetCustomerRiskProfile(int customerid)
+        public DataSet GetCustomerRiskProfile(int customerid,int advisorId)
         {
             Database db;
             DataSet dsGetCustomerRiskProfile = null;
@@ -366,6 +366,7 @@ namespace DaoCustomerRiskProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetCustomerRiskProfile = db.GetStoredProcCommand("SP_GetCustomerRiskProfile");
                 db.AddInParameter(dbGetCustomerRiskProfile, "@C_CustomerId", DbType.Int32, customerid);
+                db.AddInParameter(dbGetCustomerRiskProfile, "@A_AdvisorId", DbType.Int32, advisorId);
                 dsGetCustomerRiskProfile = db.ExecuteDataSet(dbGetCustomerRiskProfile);
 
             }

@@ -58,9 +58,9 @@ namespace BoCustomerRiskProfiling
         {
             return riskprofiledao.GetRiskClassForRisk(riskclasscode);
         }
-        public DataSet GetCustomerRiskProfile(int customerid)
+        public DataSet GetCustomerRiskProfile(int customerid, int advisorId)
         {
-            return riskprofiledao.GetCustomerRiskProfile(customerid);
+            return riskprofiledao.GetCustomerRiskProfile(customerid,advisorId);
         }
         public DataSet GetAssetAllocationDetails(int riskprofileid)
         {
