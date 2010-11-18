@@ -584,16 +584,17 @@ namespace WealthERP.Advisor
                     {
                         Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
                     }
+                    Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
-                    if (customerVo.Type == "Individual")
+                    if (customerVo.Type == "IND")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProspect','login');", true);
                     }
-                    if (customerVo.Type == "Non Individual")
+                    if (customerVo.Type == "NIND")
                     {
                         //I'm not passing login parameter in this function.... that is becuase in JScript.js page the code corresponding to load RMCustomerIndividualLeftPane or RMCustomerNonIndividualLeftPane
                         //have been written in that way. so Please try to understand before modifying the code
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProspect');", true);
                     }
 
 
