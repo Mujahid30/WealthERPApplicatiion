@@ -112,6 +112,14 @@ namespace WealthERP.Advisor
                         TreeView1.FindNode("Alerts").Selected = true;
                         Session["IsDashboard"] = "false";
                     }
+                    else if (Session[SessionContents.FPS_TreeView_Status] != null)
+                    {
+                        if (Session[SessionContents.FPS_TreeView_Status].ToString() == "FinanceProfile")
+                        {
+                            //TreeNode tn = new TreeNode("Finance Profile", "FinanceProfile");
+                            TreeView1.SelectedNode.Text = "Finance Profile";
+                        }
+                    }
                     else
                     {
                         TreeView1.CollapseAll();
@@ -443,7 +451,7 @@ namespace WealthERP.Advisor
 
                 }
                 else if (TreeView1.SelectedNode.Value == "FinanceProfile")
-                {
+                {                    
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProspect','login')", true);
                 }
 
