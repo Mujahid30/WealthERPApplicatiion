@@ -61,8 +61,9 @@ namespace WealthERP.Advisor
             if(!Page.IsPostBack)
             {
                 if (Session[SessionContents.FPS_ProspectList_CustomerId] != null && Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != "")
-                {
+                {                    
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                    Session["FP_UserID"] = customerId;
                 }
                 customerBo = new CustomerBo();
                 customerVo = customerBo.GetCustomer(customerId);
@@ -192,7 +193,7 @@ namespace WealthERP.Advisor
                     ViewState["ListRiskOption"] = listRiskOptionVo;
                     AssetFormClear();
                     // btnSubmitRisk.Attributes.Add("onClick", "return optionvalidation()");
-                    if ((string)Session["FP_UserID"] != "" && (string)Session["FP_UserName"] != "")
+                    if (Session["FP_UserID"] != null && Session["FP_UserID"].ToString() != "")
                     {
                         //txtPickCustomer.Text = (string)Session["FP_UserName"];
                         //txtCustomerId.Value = (string)Session["FP_UserID"];
@@ -672,6 +673,7 @@ namespace WealthERP.Advisor
             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             DataSet dsGetRiskClassForRisk;
             DataSet dsGetAssetAllocationDetails;
+            advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             try
             {
                 AssetFormClear();
@@ -679,7 +681,7 @@ namespace WealthERP.Advisor
                 {
                     SetCustomerId();
                     //dsGetCustomerIdByName = riskprofilebo.GetCustomerIdByName(txtPickCustomer.Text);                   
-                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId);
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
 
                     if (dsGetCustomerRiskProfile.Tables[0].Rows.Count != 0 && dsGetCustomerRiskProfile != null)
                     {
@@ -904,6 +906,11 @@ namespace WealthERP.Advisor
         protected void ShowCurrentAssetAllocationPieChart()
         {
             DataSet DScurrentAsset = new DataSet();
+            customerVo = new CustomerVo();
+            if (Session[SessionContents.CustomerVo] != null && Session[SessionContents.CustomerVo].ToString()!="")
+            {
+                customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+            }
             if (customerVo.IsProspect == 1)
                 DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId, 1);
             else
