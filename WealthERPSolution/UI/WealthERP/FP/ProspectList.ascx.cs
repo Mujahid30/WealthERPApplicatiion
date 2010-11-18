@@ -56,6 +56,7 @@ namespace WealthERP.FP
                 }
                 if (e.Value == "FinancialPlanning")
                 {
+                    Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
                 }
