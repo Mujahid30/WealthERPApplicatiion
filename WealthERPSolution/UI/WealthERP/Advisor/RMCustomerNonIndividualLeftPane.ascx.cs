@@ -58,6 +58,13 @@ namespace WealthERP.Advisor
                         TreeView1.FindNode("Customer Dashboard").Selected = true;
                         Session["IsDashboard"] = "false";
                     }
+                    else if (Session[SessionContents.FPS_TreeView_Status] != null)
+                    {
+                        if (Session[SessionContents.FPS_TreeView_Status].ToString() == "FinanceProfile")
+                        {
+                            TreeView1.SelectedNode.Text = "Finance Profile";
+                        }
+                    }
                     else
                     {
                         TreeView1.CollapseAll();
