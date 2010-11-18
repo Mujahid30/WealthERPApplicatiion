@@ -148,10 +148,12 @@ namespace WealthERP.FP
                     {
                         // Edit thing have been handled here
                         aplToolBar.Visible = true;
-                        RadToolBarButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
-                        rtb.Visible = false;
+                        aplToolBar.Visible = false;
+                        //RadToolBaaplToolBarrButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
+                        //rtb.Visible = false;
                         btnCustomerProspect.Visible = true;
                         RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
+
                         msgNochildCustomer.Visible = false;
 
                     }
@@ -412,15 +414,15 @@ namespace WealthERP.FP
 
         protected void aplToolBar_ButtonClick(object sender, RadToolBarEventArgs e)
         {
-            if (e.Item.Value == "Back")
-            {
-                if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
-                {
-                    Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
-                }
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
-            }
-            else if (e.Item.Value == "Edit")
+            //if (e.Item.Value == "Back")
+            //{
+            //    if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
+            //    {
+            //        Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
+            //    }
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
+            //}
+            if (e.Item.Value == "Edit")
             {
                 Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
@@ -508,7 +510,6 @@ namespace WealthERP.FP
                 familyBo.CreateCustomerFamily(familyVo, ParentCustomerId, userVo.UserId);
             }
         }
-
         protected void btnCustomerProspect_Click(object sender, EventArgs e)
         {
             int ParentCustomerId = 0;

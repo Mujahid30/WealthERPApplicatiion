@@ -184,14 +184,12 @@
 </telerik:RadScriptManager>
 <telerik:RadFormDecorator ID="RadFormDecorator1" runat="server" DecoratedControls="All"
     Skin="Outlook" />
-<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Customer Prospect"></asp:Label>
+<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Finance Profile"></asp:Label>
 <hr />
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
     Skin="Outlook" EnableShadows="true" EnableRoundedCorners="true" Width="100%"
     Visible="false">
-    <Items>
-        <telerik:RadToolBarButton runat="server" Text="Back" Value="Back" ImageUrl="/Images/Telerik/BackButton.gif"
-            ImagePosition="Left" ToolTip="Back">
+    <Items>        
         </telerik:RadToolBarButton>
         <telerik:RadToolBarButton runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
             ImagePosition="Left" ToolTip="Edit">
