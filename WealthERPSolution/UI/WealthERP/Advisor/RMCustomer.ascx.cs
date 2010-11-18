@@ -807,6 +807,7 @@ namespace WealthERP
                     {
                         Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
                     }
+                    Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
                     if (customerVo.Type == "IND")
                     {
