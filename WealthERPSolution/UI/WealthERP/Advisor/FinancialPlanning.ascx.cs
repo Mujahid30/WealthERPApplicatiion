@@ -382,7 +382,8 @@ namespace WealthERP.Advisor
                 {
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                 }
-                dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId);
+                advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
 
             }
             catch (Exception ex)
