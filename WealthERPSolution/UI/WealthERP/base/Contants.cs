@@ -163,6 +163,7 @@ namespace WealthERP.Base
         //Session Contents for CustomerProspect Screen
         public const string FPS_CustomerPospect_ActionStatus = "customerProspectActionStatus";
         public const string FPS_CustomerProspect_CustomerVo = "customerProspectCustomerVo";
+        public const string FPS_TreeView_Status = "FPS_TreeView_Status";
         //public const string FPS_CustomerProspect_CustomerFamilyDataTable = "customerProspectCustomerFamilyDataTablet";
         //===================================================================================================================================
     }
