@@ -49,6 +49,8 @@ namespace WealthERP.CustomerPortfolio
         private double divIncTotal_Notional = 0;
         private double divPayoutTotal_Realized = 0;
         private double divReinvstdTotal_Realized = 0;
+        private double divReinvestedTotal_All = 0;
+        private double divPayoutTotal_All = 0;
         private double salesProceedsTotal = 0;
         private double costOfSalesTotal = 0;
         private double realized_all = 0;
@@ -688,7 +690,7 @@ namespace WealthERP.CustomerPortfolio
             }
             if (mfPortfolioVo.DividendPayout != 0)
             {
-
+                divPayoutTotal_All = divPayoutTotal_All + mfPortfolioVo.DividendPayout;
                 drMFPortfolio[12] = double.Parse(mfPortfolioVo.DividendPayout.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
             }
             else
@@ -697,7 +699,7 @@ namespace WealthERP.CustomerPortfolio
             }
             if (mfPortfolioVo.DividendReinvested != 0)
             {
-
+                divReinvestedTotal_All = divReinvestedTotal_All + mfPortfolioVo.DividendReinvested;
                 drMFPortfolio[13] = double.Parse(mfPortfolioVo.DividendReinvested.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
             }
             else
@@ -1464,9 +1466,9 @@ namespace WealthERP.CustomerPortfolio
                 e.Row.Cells[12].Attributes.Add("align", "Right");
                 e.Row.Cells[13].Text = double.Parse(salesProceedsTotal.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[13].Attributes.Add("align", "Right");
-                e.Row.Cells[14].Text = double.Parse((divPayoutTotal_Realized + divPayoutTotal_Notional).ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Row.Cells[14].Text = double.Parse((divPayoutTotal_All).ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[14].Attributes.Add("align", "Right");
-                e.Row.Cells[15].Text = double.Parse((divReinvstdTotal_Realized + divReinvstTotal_Notional).ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Row.Cells[15].Text = double.Parse((divReinvestedTotal_All).ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[15].Attributes.Add("align", "Right");
                 e.Row.Cells[16].Text = double.Parse(divIncomeTotal.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[16].Attributes.Add("align", "Right");
