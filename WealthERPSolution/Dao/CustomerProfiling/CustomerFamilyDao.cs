@@ -182,11 +182,11 @@ namespace DaoCustomerProfiling
                         customerFamilyVo.RelationshipCode = dr["XR_RelationshipCode"].ToString();
                         customerFamilyVo.AssociateCustomerId = Int32.Parse(dr["C_AssociateCustomerId"].ToString());
                         customerFamilyVo.AssociateCustomerName = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
-                        if (dr["C_DOB"] != null)
+                        if (!string.IsNullOrEmpty(dr["C_DOB"].ToString()))
                         {
                             customerFamilyVo.DOB = DateTime.Parse(dr["C_DOB"].ToString());
                         }
-                        if (dr["C_Email"] != null)
+                        if (!string.IsNullOrEmpty(dr["C_Email"].ToString()))
                         {
                             customerFamilyVo.EmailId = dr["C_Email"].ToString();
                         }
