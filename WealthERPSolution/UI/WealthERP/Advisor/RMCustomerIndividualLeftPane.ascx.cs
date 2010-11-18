@@ -25,6 +25,8 @@ namespace WealthERP.Advisor
         int count;
         UserBo userBo = new UserBo();
         UserVo userVo;
+        string strNodeValue = null;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -98,15 +100,28 @@ namespace WealthERP.Advisor
                         TreeView1.FindNode("Customer Dashboard").Selected = true;
                         Session["IsDashboard"] = "false";
                     }
+                    else if (IsDashboard == "portfolio")
+                    {
+                        TreeView1.CollapseAll();
+                        TreeView1.FindNode("Portfolio Dashboard").Selected = true;
+                        Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "alerts")
+                    {
+                        TreeView1.CollapseAll();
+                        TreeView1.FindNode("Alerts").Selected = true;
+                        Session["IsDashboard"] = "false";
+                    }
                     else
                     {
                         TreeView1.CollapseAll();
                     //    TreeView1.FindNode("Profile Dashboard").Expand();
-                    //    TreeView1.FindNode("Profile Dashboard").Selected = true;
+                        TreeView1.FindNode("Profile Dashboard").Selected = true;
                     }
-
+                    ExpandCollapseTreeView();
                 }
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('CustomerIndividualLeftPane');", true);
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -142,7 +157,7 @@ namespace WealthERP.Advisor
         }
         public void SetNode()
         {
-            string strNodeValue = null;
+            
             try
             {
 
@@ -433,64 +448,7 @@ namespace WealthERP.Advisor
                 }
 
                 // Code to Expand/Collapse the Tree View Nodes based on selections
-                if (TreeView1.SelectedNode.Parent == null)
-                {
-                    foreach (TreeNode node in TreeView1.Nodes)
-                    {
-                        if (node.Value != TreeView1.SelectedNode.Value)
-                            node.Collapse();
-                        else
-                            node.Expand();
-                    }
-                }
-                else
-                {
-                    if (TreeView1.SelectedNode.Parent.Parent != null)
-                    {
-                        string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
-                        foreach (TreeNode node in TreeView1.Nodes)
-                        {
-                            if (node.Value != parentNode)
-                                node.Collapse();
-                        }
-                    }
-                    else
-                    {
-                        if (TreeView1.SelectedNode.Parent == null)
-                        {
-                            foreach (TreeNode node in TreeView1.Nodes)
-                            {
-                                if (node.Value != TreeView1.SelectedNode.Value)
-                                    node.Collapse();
-                                else
-                                    node.Expand();
-                            }
-                        }
-                        else
-                        {
-                            strNodeValue = TreeView1.SelectedNode.Parent.Value;
-                            string val = TreeView1.SelectedNode.Value;
-                            foreach (TreeNode node in TreeView1.Nodes)
-                            {
-
-                                if (node.Value != strNodeValue)
-                                    node.Collapse();
-                                else
-                                {
-                                    foreach (TreeNode child in node.ChildNodes)
-                                    {
-                                        if (child.Value != val)
-                                            child.Collapse();
-                                        else
-                                            child.Expand();
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-                }
-                
+                ExpandCollapseTreeView();
             }
             catch (BaseApplicationException Ex)
             {
@@ -513,10 +471,66 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-            
 
+        private void ExpandCollapseTreeView()
+        {
+            if (TreeView1.SelectedNode.Parent == null)
+            {
+                foreach (TreeNode node in TreeView1.Nodes)
+                {
+                    if (node.Value != TreeView1.SelectedNode.Value)
+                        node.Collapse();
+                    else
+                        node.Expand();
+                }
+            }
+            else
+            {
+                if (TreeView1.SelectedNode.Parent.Parent != null)
+                {
+                    string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
+                    foreach (TreeNode node in TreeView1.Nodes)
+                    {
+                        if (node.Value != parentNode)
+                            node.Collapse();
+                    }
+                }
+                else
+                {
+                    if (TreeView1.SelectedNode.Parent == null)
+                    {
+                        foreach (TreeNode node in TreeView1.Nodes)
+                        {
+                            if (node.Value != TreeView1.SelectedNode.Value)
+                                node.Collapse();
+                            else
+                                node.Expand();
+                        }
+                    }
+                    else
+                    {
+                        strNodeValue = TreeView1.SelectedNode.Parent.Value;
+                        string val = TreeView1.SelectedNode.Value;
+                        foreach (TreeNode node in TreeView1.Nodes)
+                        {
+
+                            if (node.Value != strNodeValue)
+                                node.Collapse();
+                            else
+                            {
+                                foreach (TreeNode child in node.ChildNodes)
+                                {
+                                    if (child.Value != val)
+                                        child.Collapse();
+                                    else
+                                        child.Expand();
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
         }
     }
 }

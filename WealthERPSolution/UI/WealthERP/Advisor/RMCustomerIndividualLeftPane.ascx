@@ -72,7 +72,7 @@
             <tr>
                 <td>
                     <asp:TreeView ID="TreeView1" runat="server" Font-Size="X-Small" ImageSet="Arrows"
-                        ShowLines="True" OnSelectedNodeChanged="TreeView1_SelectedNodeChanged">
+                        ShowLines="True">
                         <ParentNodeStyle Font-Bold="False" />
                         <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
                         <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px"
