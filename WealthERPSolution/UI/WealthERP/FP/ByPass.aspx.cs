@@ -12,8 +12,8 @@ namespace WealthERP.FP
     {
         protected void Page_Load(object sender, EventArgs e)
         {            
-            //Response.Redirect(Session[SessionContents.LogoPath].ToString());
-            Response.Redirect("\\Images\\logo.jpg");
+            Response.Redirect(Session[SessionContents.LogoPath].ToString());
+            //Response.Redirect("\\Images\\logo.jpg");
         }
     }
 }
