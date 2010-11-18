@@ -86,7 +86,7 @@ namespace WealthERP.FP
                                 dr["FirstName"] = customerFamilyVo.FirstName;
                                 dr["MiddleName"] = customerFamilyVo.MiddleName;
                                 dr["LastName"] = customerFamilyVo.LastName;
-                                dr["DOB"] = customerFamilyVo.DOB;
+                                dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
                                 dr["EmailId"] = customerFamilyVo.EmailId;
                                 dt.Rows.Add(dr);
                             }
@@ -147,7 +147,7 @@ namespace WealthERP.FP
                         btnSubmit.Visible = true;
                         btnSubmitAddDetails.Visible = true;
                         btnSubmit.Text = "Update";
-                        btnSubmitAddDetails.Text = "Edit More";                       
+                        btnSubmitAddDetails.Text = "Edit Finance Detailse";                       
                         RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
                         msgNochildCustomer.Visible = false;
                         headertitle.Text = "Edit Prospect";
@@ -640,10 +640,10 @@ namespace WealthERP.FP
                      }
                  }
                     
-                Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
+                Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
-                msgRecordStatus.Visible = true;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                //msgRecordStatus.Visible = true;
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
             }   
             catch (Exception Ex)
             {

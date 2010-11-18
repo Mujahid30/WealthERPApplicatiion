@@ -189,8 +189,8 @@
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
     Skin="Outlook" EnableShadows="true" EnableRoundedCorners="true" Width="100%"
     Visible="false">
-    <Items>        
-        </telerik:RadToolBarButton>
+    <Items>    
+        
         <telerik:RadToolBarButton runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
             ImagePosition="Left" ToolTip="Edit">
         </telerik:RadToolBarButton>
@@ -703,11 +703,23 @@
                                 <td align="left">
                                     <asp:TextBox ID="txtProperty" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
                                 </td>
-                                 <td align="right">
+                                 <td align="right">                                    
+                                </td>
+                                <td align="left">                                    
+                                    
+                                </td>
+                            </tr>
+                             <tr>
+                                <td align="right">
                                     <asp:Label ID="lblAssetTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtAssetTotal" runat="server" style="direction:rtl" Enabled="false"></asp:TextBox>
+                                </td>
+                                 <td align="right">                                    
+                                </td>
+                                <td align="left">                                    
+                                    
                                 </td>
                             </tr>
                         </table>

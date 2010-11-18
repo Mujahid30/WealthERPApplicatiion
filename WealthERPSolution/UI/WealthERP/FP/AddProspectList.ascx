@@ -175,9 +175,9 @@
                                                 HeaderStyle-HorizontalAlign="Center" />
                                             <telerik:GridDateTimeColumn UniqueName="DOB" PickerType="DatePicker" HeaderText="Date of Birth"
                                                 HeaderStyle-HorizontalAlign="Center" DataField="DOB" FooterText="DateTimeColumn footer"
-                                                DataFormatString="{0:MM/dd/yyyy}" EditDataFormatString="MMMM dd, yyyy">
+                                                DataFormatString="{0:MM/dd/yyyy}" EditDataFormatString="MMMM dd, yyyy" >
                                                 <ItemStyle Width="120px" />
-                                            </telerik:GridDateTimeColumn>
+                                            </telerik:GridDateTimeColumn>                                            
                                             <telerik:GridTemplateColumn HeaderText="Email-Id" SortExpression="Email-Id" UniqueName="EmailId"
                                                 HeaderStyle-HorizontalAlign="Center" EditFormColumnIndex="1">
                                                 <HeaderStyle Width="80px" />
@@ -211,7 +211,7 @@
     <tr>
         <td align="center">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
-            &nbsp;<asp:Button ID="btnSubmitAddDetails" runat="server" Text="Add More" OnClick="btnSubmitAddDetails_Click" />
+            &nbsp;<asp:Button ID="btnSubmitAddDetails" runat="server" Text="Add Finance Details" OnClick="btnSubmitAddDetails_Click" />
         </td>
     </tr>
 </table>

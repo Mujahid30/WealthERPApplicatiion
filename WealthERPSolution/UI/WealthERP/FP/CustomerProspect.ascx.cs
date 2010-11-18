@@ -1612,6 +1612,12 @@ namespace WealthERP.FP
                     txtLiabilities.Text = totalliabilities.ToString();
                     txtLifeInsurance.Text = totalli.ToString();
                     txtGeneralInsurance.Text = totalgi.ToString();
+                    txtAssetTotal.Text = totalasset.ToString();
+                    txtIncomeTotal.Text = totalincome.ToString();
+                    txtExpenseTotal.Text = totalexpense.ToString();
+                    txtTotalLO.Text = totalliabilities.ToString();
+                    txtTotalLISA.Text = totalli.ToString();
+                    txtTotalGISA.Text = totalgi.ToString();
                     
                 }
             }
