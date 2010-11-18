@@ -163,7 +163,7 @@
                                 <asp:TreeNode Text="Add Liability" Value="Add Liability"></asp:TreeNode>
                             </asp:TreeNode>
                               <asp:TreeNode Text="Financial Planning" Value="FinancialPlanning">                                
-                                <asp:TreeNode Text="Customer Prospect" Value="CustomerProspect" Selected="true">
+                                <asp:TreeNode Text="Finance Profile" Value="FinanceProfile" Selected="true">
                                 </asp:TreeNode>
                                 <asp:TreeNode Text="RiskProfile & AssetAllocation " Value="RiskProfileAssetAllocation">
                                 </asp:TreeNode>

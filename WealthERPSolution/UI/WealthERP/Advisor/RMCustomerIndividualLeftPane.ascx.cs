@@ -427,7 +427,7 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('FinancialPlanningReports','login')", true);
 
                 }
-                else if (TreeView1.SelectedNode.Value == "CustomerProspect")
+                else if (TreeView1.SelectedNode.Value == "FinanceProfile")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProspect','login')", true);
                 }
