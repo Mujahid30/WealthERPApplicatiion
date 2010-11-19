@@ -630,7 +630,10 @@ namespace WealthERP.Advisor
                     int userId = advisorStaffBo.GetUserId(int.Parse(ddlRmlist.SelectedItem.Value.ToString()));
                     rmVo = advisorStaffBo.GetAdvisorStaff(userId);
                     Session["newRMVo"] = rmVo;
-                    txtMobileNumber.Text = rmVo.Mobile.ToString();
+                    if (rmVo.Mobile != 0)
+                        txtMobileNumber.Text = rmVo.Mobile.ToString();
+                    else
+                        txtMobileNumber.Text = "";
                     firstName = rmVo.FirstName.ToString();
                     middleName = rmVo.MiddleName.ToString();
                     lastName = rmVo.LastName.ToString();
