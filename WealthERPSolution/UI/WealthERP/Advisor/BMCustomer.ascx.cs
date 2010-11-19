@@ -222,10 +222,10 @@ namespace WealthERP.Advisor
                         if (ddlParent != null)
                         {
                             ddlParent.DataSource = genDictParent;
-                            ddlParent.DataTextField = "Key";
-                            ddlParent.DataValueField = "Value";
+                            ddlParent.DataTextField = "Value";
+                            ddlParent.DataValueField = "Key";
                             ddlParent.DataBind();
-                            ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Parent", "Select Parent"));
+                            ddlParent.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Group", "Select Group"));
                         }
                         if (hdnParentFilter.Value != "")
                         {
@@ -337,7 +337,7 @@ namespace WealthERP.Advisor
                 ratio = rowCount / 15;
                 mypager.PageCount = rowCount % 15 == 0 ? ratio : ratio + 1;
                 mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = ((mypager.CurrentPage - 1) * 15).ToString();
+                lowerlimit = (((mypager.CurrentPage - 1) * 15)+1).ToString();
                 upperlimit = (mypager.CurrentPage * 15).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
@@ -379,10 +379,8 @@ namespace WealthERP.Advisor
             rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
             bmID = rmVo.RMId;
             ErrorMessage.Visible = false;
-
             try
             {
-               
                 if (!IsPostBack)
                 {
                     BindBranchDropDown();
@@ -410,6 +408,7 @@ namespace WealthERP.Advisor
                         }
                     }
                 }
+                this.BindCustomer(mypager.CurrentPage);
             }
             catch (BaseApplicationException Ex)
             {
