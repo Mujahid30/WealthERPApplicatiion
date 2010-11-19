@@ -424,13 +424,13 @@ namespace BoAdvisorProfiling
 
         /* For BM Scheeme wise MIS */
 
-        public DataSet GetMISForBM(int rmid, int branchID, int branchHeadId, int XWise, int all, DateTime valuationDate, int CurrentPage, string AMCSearchVal, out int Count, int AllPageExportCount)
+        public DataSet GetMISForBM(int rmid, int branchID, int branchHeadId, int XWise, int all, DateTime valuationDate, int amcCode, int schemeplanid, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CustomerName, string FolioNum, string CategoryFilterVal, out int Count, int AllPageExportCount)
         {
             DataSet dsBMMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsBMMIS = MISDao.GetMISForBM(rmid, branchID, branchHeadId, XWise, all, valuationDate,CurrentPage, AMCSearchVal, out Count, AllPageExportCount);
+                dsBMMIS = MISDao.GetMISForBM(rmid, branchID, branchHeadId, XWise, all, valuationDate, amcCode, schemeplanid,CurrentPage, AMCSearchVal,SchemeSearchVal,CustomerName, FolioNum,CategoryFilterVal, out Count, AllPageExportCount);
             }
             catch (BaseApplicationException Ex)
             {
@@ -443,16 +443,19 @@ namespace BoAdvisorProfiling
 
                 FunctionInfo.Add("Method", "AdvisorMISBo.cs:GetMISForBM()");
 
-                object[] objects = new object[6];
+                object[] objects = new object[15];
                 objects[0] = rmid;
                 objects[1] = branchID;
                 objects[2] = branchHeadId;
                 objects[3] = XWise;
                 objects[4] = all;
                 objects[5] = valuationDate;
-                objects[6] = CurrentPage;
-                objects[7] = AMCSearchVal;
-
+                objects[6] = amcCode;
+                objects[7] = schemeplanid;
+                objects[8] = CurrentPage;
+                objects[9] = AMCSearchVal;
+                objects[10] = SchemeSearchVal;
+                objects[11] = CategoryFilterVal;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
