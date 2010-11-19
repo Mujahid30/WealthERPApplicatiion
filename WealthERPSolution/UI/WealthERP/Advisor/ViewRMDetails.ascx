@@ -60,6 +60,18 @@
         </td>
     </tr>
     <tr>
+        <td class="leftField" style="width: 50%">
+            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Staff Role:"></asp:Label>
+        </td>
+        <td class="rightField">
+           <asp:CheckBoxList ID="ChklistRMBM" runat="server" CausesValidation="True"
+                RepeatDirection="Horizontal" CssClass="cmbField" RepeatLayout="Flow" Enabled="false">
+                 <asp:ListItem Value="1001">RM</asp:ListItem>
+           <asp:ListItem Value="1002">BM</asp:ListItem>               
+          </asp:CheckBoxList>
+        </td>
+    </tr>
+    <tr>
         <td colspan="2">
             &nbsp;
         </td>

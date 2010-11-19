@@ -303,6 +303,14 @@ namespace WealthERP.Advisor
                     {
                         rmVo = (RMVo)Session["rmVo"];
                     }
+                    string[] RoleListArray = rmVo.RMRoleList.Split(new char[] { ',' });
+                    foreach (string Role in RoleListArray)
+                    {
+                        if (Role == "RM" || Role == "BM")
+                        {
+                            ChklistRMBM.Items.FindByText(Role).Selected = true;
+                        }
+                    }
                     lblMail.Text = rmVo.Email.ToString();
                     lblFax.Text = rmVo.FaxIsd.ToString() + "-" + rmVo.FaxStd.ToString() + "-" + rmVo.Fax.ToString();
                     lblMobile.Text = rmVo.Mobile.ToString();
