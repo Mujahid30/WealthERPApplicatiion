@@ -754,7 +754,7 @@ namespace WealthERP
                 selectedRow = gvr.RowIndex;
                 customerId = int.Parse(gvCustomers.DataKeys[selectedRow].Values["CustomerId"].ToString());
                 userId = int.Parse(gvCustomers.DataKeys[selectedRow].Values["UserId"].ToString());
-
+                Session["CustomerIdForDelete"] = customerId;
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
 
