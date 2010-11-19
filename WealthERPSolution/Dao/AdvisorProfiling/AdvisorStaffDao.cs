@@ -783,12 +783,7 @@ namespace DaoAdvisorProfiling
                     if (dr["AR_Email"] != DBNull.Value)
                         rmVo.Email = dr["AR_Email"].ToString();
                     if (dr["AR_JobFunction"] != DBNull.Value)
-                        rmVo.RMRole = dr["AR_JobFunction"].ToString();
-
-                    if (dr["RoleList"] != DBNull.Value)
-                        rmVo.RMRoleList = dr["RoleList"].ToString();
-                    else
-                        rmVo.RMRoleList = string.Empty;
+                        rmVo.RMRole = dr["AR_JobFunction"].ToString();               
 
                     if (dr["AR_IsExternalStaff"] != DBNull.Value && dr["AR_IsExternalStaff"].ToString() != "")
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
