@@ -27,7 +27,14 @@ namespace WealthERP.Advisor
             {
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
-                advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                if (Session["advisorVo"] != null)
+                {
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
+                }
+                else
+                {
+                    advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                }
                 string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 if (advisorVo.BusinessCode == "" || advisorVo.BusinessCode == null)
                 {
@@ -61,15 +68,29 @@ namespace WealthERP.Advisor
                     else
                         lblwsite.NavigateUrl = advisorVo.Website.ToString();
                 }
-                lblMobile.Text = advisorVo.MobileNumber.ToString();
+                if(advisorVo.MobileNumber!=0)
+                    lblMobile.Text = advisorVo.MobileNumber.ToString();
 
                 lblOrgName.Text = advisorVo.OrganizationName.ToString();
 
                 if (advisorVo.Phone1Isd > 1 && advisorVo.Phone1Std > 1 && advisorVo.Phone1Number > 1)
                     lblPhNumber1.Text = advisorVo.Phone1Isd.ToString() + "-" + advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString();
+                else if (advisorVo.Phone1Isd == 0 && advisorVo.Phone1Std > 1 && advisorVo.Phone1Number > 1)
+                    lblPhNumber1.Text = advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString();
+                else if (advisorVo.Phone1Isd > 1 && advisorVo.Phone1Std == 0 && advisorVo.Phone1Number > 1)
+                    lblPhNumber1.Text = advisorVo.Phone1Isd.ToString() + "-" + advisorVo.Phone1Number.ToString();
+                else if (advisorVo.Phone1Isd == 0 && advisorVo.Phone1Std == 0 && advisorVo.Phone1Number > 1)
+                    lblPhNumber1.Text = advisorVo.Phone1Number.ToString();
+
+
                 if (advisorVo.Phone2Isd > 1 && advisorVo.Phone2Std > 1 && advisorVo.Phone2Number > 1)
                     lblPhNumber2.Text = advisorVo.Phone2Isd.ToString() + "-" + advisorVo.Phone2Std.ToString() + "-" + advisorVo.Phone2Number.ToString();
-
+                else if (advisorVo.Phone2Isd == 0 && advisorVo.Phone2Std > 1 && advisorVo.Phone2Number > 1)
+                    lblPhNumber2.Text = advisorVo.Phone2Std.ToString() + "-" + advisorVo.Phone2Number.ToString();
+                else if (advisorVo.Phone2Isd > 1 && advisorVo.Phone2Std == 0 && advisorVo.Phone2Number > 1)
+                    lblPhNumber2.Text = advisorVo.Phone2Isd.ToString() + "-" + advisorVo.Phone2Number.ToString();
+                else if (advisorVo.Phone2Isd == 0 && advisorVo.Phone2Std == 0 && advisorVo.Phone2Number > 1)
+                    lblPhNumber2.Text = advisorVo.Phone2Number.ToString();
                 if (advisorVo.PinCode > 0)
                     lblPin.Text = advisorVo.PinCode.ToString();
 
