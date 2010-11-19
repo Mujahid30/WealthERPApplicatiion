@@ -289,7 +289,7 @@ function loadlinks(controlid) {
 }
 
 
-function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
+function loadfrommenu(controlid, logintrue, frombm) {//, PageForm, MenuControlName
 
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
@@ -366,7 +366,12 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
                 loadlinksfromDefault("RMLeftPane");
             }
             else if (controlid == "ViewRM" && logintrue == "login") {
-                loadlinksfromDefault("AdvisorLeftPane");
+                if (frombm != null) {
+
+                }
+                else {
+                    loadlinksfromDefault("AdvisorLeftPane");
+                }
             }
             else if (controlid == "RMCustomer" && logintrue == "login") {
                 loadlinksfromDefault("RMLeftPane");
@@ -435,7 +440,12 @@ function loadfrommenu(controlid, logintrue) {//, PageForm, MenuControlName
             loadlinksfromDefault("BMLeftpane");
         }
         else if (controlid == "ViewRM" && logintrue == "login") {
-            loadlinksfromDefault("AdvisorLeftPane");
+            if (frombm != null) {
+
+            }
+            else {
+                loadlinksfromDefault("AdvisorLeftPane");
+            }
         }
         else if (controlid == "RMDashBoard" && logintrue == "login") {
             loadlinksfromDefault("RMLeftPane");
