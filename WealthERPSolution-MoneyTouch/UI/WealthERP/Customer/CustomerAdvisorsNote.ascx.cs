@@ -39,11 +39,11 @@ namespace WealthERP.Customer{
             {
                 if (customerVo.IsActive == 1)
                 {
-                    chkdeactivatecustomer.Checked = true;
+                    chkdeactivatecustomer.Checked = false;
                 }
                 else
                 {
-                    chkdeactivatecustomer.Checked = false;
+                    chkdeactivatecustomer.Checked = true;
                 }
                 if (customerVo.AdviseNote != "")
                 {
