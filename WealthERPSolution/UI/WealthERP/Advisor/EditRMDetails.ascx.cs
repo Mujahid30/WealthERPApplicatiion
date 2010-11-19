@@ -846,13 +846,19 @@ namespace WealthERP.Advisor
                 }
                 userId = int.Parse(Session["userId"].ToString());
 
-                if (int.Parse(hndRmCustomerCount.Value.ToString()) > 0 || int.Parse(hndBMBranchHead.Value.ToString()) > 0)
+                if (!string.IsNullOrEmpty(rmVo.BranchList.ToString()))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Sorry... You need to delete branch associations first');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewRMDetails','none');", true);
+
+                }
+                else if (int.Parse(hndRmCustomerCount.Value.ToString()) > 0 || int.Parse(hndBMBranchHead.Value.ToString()) > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('Sorry... You need to delete your internal associations first');", true);
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewRMDetails','none');", true);
 
                 }
-                else
+                else if(!string.IsNullOrEmpty(rmVo.BranchList.ToString().Trim()))
                 {
                     result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
                 }
