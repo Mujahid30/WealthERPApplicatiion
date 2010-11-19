@@ -552,7 +552,7 @@ namespace DaoAdvisorProfiling
 
         /* For BMMIS for Scheeme wise */
 
-        public DataSet GetMISForBM(int rmid, int branchID, int branchHeadId, int XWise, int all, DateTime valuationDate,int CurrentPage, string AMCSearchVal, out int Count, int AllPageExportCount)
+        public DataSet GetMISForBM(int rmid, int branchID, int branchHeadId, int XWise, int all, DateTime valuationDate, int amcCode, int schemeplanid, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CustomerName, string FolioNum, string CategoryFilterVal, out int Count, int AllPageExportCount)
         {
             Database db;
             DbCommand getLoanMICmd;
@@ -570,12 +570,43 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getLoanMICmd, "@BranchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(getLoanMICmd, "@all", DbType.Int32, all);
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
+
+                if (amcCode != 0)
+                    db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, amcCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, DBNull.Value);
+
+                if(schemeplanid != 0)
+                db.AddInParameter(getLoanMICmd, "@SchemePlanCode", DbType.Int32, schemeplanid);
+                else
+                    db.AddInParameter(getLoanMICmd, "@SchemePlanCode", DbType.Int32, DBNull.Value);
+
                 db.AddInParameter(getLoanMICmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getLoanMICmd, "@XWise", DbType.Int32, XWise);
                 if (AMCSearchVal != "")
                     db.AddInParameter(getLoanMICmd, "@AMCSearchVal", DbType.String, AMCSearchVal);
                 else
                     db.AddInParameter(getLoanMICmd, "@AMCSearchVal", DbType.String, DBNull.Value);
+
+                if (!string.IsNullOrEmpty(SchemeSearchVal.Trim()))
+                    db.AddInParameter(getLoanMICmd, "@SchemeSearchVal", DbType.String, SchemeSearchVal);
+                else
+                    db.AddInParameter(getLoanMICmd, "@SchemeSearchVal", DbType.String, DBNull.Value);
+
+                if(!string.IsNullOrEmpty(CustomerName.Trim()))
+                db.AddInParameter(getLoanMICmd, "@CustomerName", DbType.String, CustomerName);
+                else
+                    db.AddInParameter(getLoanMICmd, "@CustomerName", DbType.String, DBNull.Value);
+
+                if(!string.IsNullOrEmpty(FolioNum.Trim()))
+                db.AddInParameter(getLoanMICmd, "@FolioNum", DbType.String, FolioNum);
+                else
+                    db.AddInParameter(getLoanMICmd, "@FolioNum", DbType.String, DBNull.Value);
+
+                if (!string.IsNullOrEmpty(CategoryFilterVal.Trim()))
+                    db.AddInParameter(getLoanMICmd, "@CategoryFilterVal", DbType.String, CategoryFilterVal);
+                else
+                    db.AddInParameter(getLoanMICmd, "@CategoryFilterVal", DbType.String, DBNull.Value);
 
                 if (AllPageExportCount != 0)
                 {
@@ -602,6 +633,8 @@ namespace DaoAdvisorProfiling
                 objects[3] = all;
                 objects[4] = valuationDate;
                 objects[5] = AMCSearchVal;
+                objects[6] = SchemeSearchVal;
+                objects[7] = CategoryFilterVal;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
