@@ -707,6 +707,13 @@
     <Compile Include="Advisor\AdvisorLeftPane.ascx.designer.cs">
       <DependentUpon>AdvisorLeftPane.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\AdvisorMISCommission.ascx.cs">
+      <DependentUpon>AdvisorMISCommission.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdvisorMISCommission.ascx.designer.cs">
+      <DependentUpon>AdvisorMISCommission.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\AdvisorProfile.ascx.cs">
       <DependentUpon>AdvisorProfile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2574,6 +2581,7 @@
     <Content Include="Advisor\AdviserLoanMIS.ascx" />
     <Content Include="Advisor\AdviserMFMIS.ascx" />
     <Content Include="Advisor\AdviserStaffSMTP.ascx" />
+    <Content Include="Advisor\AdvisorMISCommission.ascx" />
     <Content Include="Advisor\AdvisorRMCustGroupDashboard.ascx" />
     <Content Include="Advisor\AssociateCategory.ascx" />
     <Content Include="Advisor\BMCustomer.ascx" />
