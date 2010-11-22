@@ -103,6 +103,10 @@ namespace WealthERP.Reports
 
         }
 
+
+
+
+
         //protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         //{
         //    CustomerBo customerBo = new CustomerBo();
