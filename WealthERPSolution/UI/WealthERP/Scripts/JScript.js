@@ -596,13 +596,13 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
         if (msie > 0)      // If Internet Explorer
         {
 
-            parent.document.getElementById("lblUserName").innerText = username;
+            parent.document.getElementById("lblUserName").innerText = "Welcome " + username;
             parent.document.getElementById("lblSignOut").innerText = signOutText;
             parent.document.getElementById("LinkButtonSignIn").innerText = signInText;
         }
         else                 // If another browser
         {
-            parent.document.getElementById("lblUserName").textContent = username;
+            parent.document.getElementById("lblUserName").textContent = "Welcome " + username;
             parent.document.getElementById("lblSignOut").textContent = signOutText;
             parent.document.getElementById("LinkButtonSignIn").textContent = signInText;
         }
@@ -619,13 +619,13 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
         }
         if (msie > 0)      // If Internet Explorer
         {
-            document.getElementById("lblUserName").innerText = username;
+            document.getElementById("lblUserName").innerText = "Welcome " + username;
             document.getElementById("lblSignOut").innerText = signOutText;
             document.getElementById("LinkButtonSignIn").innerText = signInText;
         }
         else                // If another browser
         {
-            setTimeout('parent.document.getElementById("lblUserName").textContent ="' + username + '"', 25);
+            setTimeout('parent.document.getElementById("lblUserName").textContent ="' + "Welcome " + username + '"', 25);
             //parent.document.getElementById("lblUserName").textContent = username;
             setTimeout('parent.document.getElementById("lblSignOut").textContent ="' + signOutText + '"', 25);
             // parent.document.getElementById("lblSignOut").textContent = signOutText;
