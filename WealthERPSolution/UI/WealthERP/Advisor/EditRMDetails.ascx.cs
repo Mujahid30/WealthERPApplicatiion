@@ -674,6 +674,7 @@ namespace WealthERP.Advisor
                     List<int> deletedBRList = new List<int>();
                     List<int> addedBRList=new List<int>();
                     dtAssociated=(DataTable)Session["AssociatedBranch"];
+                    Session.Remove("AssociatedBranch");
                     if (dtAssociated != null)
                     {
                         foreach (string str in selectedBranchesList)
