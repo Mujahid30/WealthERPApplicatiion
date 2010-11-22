@@ -121,6 +121,10 @@
                             PostBackUrl="~/Reports/Display.aspx" CssClass="PCGMediumButton" />
                     </td>
                 </tr>
+                <tr>
+                <td>
+                </td>
+                </tr>
             </table>
         </td>
     </tr>
