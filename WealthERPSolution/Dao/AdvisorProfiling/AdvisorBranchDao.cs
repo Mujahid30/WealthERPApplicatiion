@@ -180,7 +180,7 @@ namespace DaoAdvisorProfiling
             return ds;
         }
         
-        public DataSet GetBranchAssociation(int userId, int currentPage, out int Count, string BranchFilter, string RMFilter, string SortExpression, out Dictionary<string, string> genDictBranch, out Dictionary<string, string> genDictRM)
+        public DataSet GetBranchAssociation(int advisorId, int currentPage, out int Count, string BranchFilter, string RMFilter, string SortExpression, out Dictionary<string, string> genDictBranch, out Dictionary<string, string> genDictRM)
         {
             DataSet ds = null;
             Database db;
@@ -194,7 +194,7 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getBranchAssociationCmd = db.GetStoredProcCommand("SP_GetBranchAssociation");
-                db.AddInParameter(getBranchAssociationCmd, "@U_UserId", DbType.Int32, userId);
+                db.AddInParameter(getBranchAssociationCmd, "@AdvisorId", DbType.Int32, advisorId);
                 db.AddInParameter(getBranchAssociationCmd, "@CurrentPage", DbType.Int32, currentPage);
                 db.AddInParameter(getBranchAssociationCmd, "@SortOrder", DbType.String, SortExpression);
 
@@ -217,7 +217,7 @@ namespace DaoAdvisorProfiling
                 {
                     foreach (DataRow dr in ds.Tables[2].Rows)
                     {
-                        genDictBranch.Add(dr["BranchName"].ToString(), dr["BranchName"].ToString());
+                        genDictBranch.Add(dr["branchId"].ToString(), dr["BranchName"].ToString());
                     }
                 }
 
@@ -227,7 +227,7 @@ namespace DaoAdvisorProfiling
                     {
                         if (dr["RMName"].ToString().Trim() != "")
                         {
-                            genDictRM.Add(dr["RMName"].ToString(), dr["RMName"].ToString());
+                            genDictRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
                         }
                     }
                 }
@@ -244,7 +244,7 @@ namespace DaoAdvisorProfiling
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetBranchAssociation()");
                 object[] objects = new object[5];
-                objects[0] = userId;
+                objects[0] = advisorId;
                 objects[1] = currentPage;
                 objects[2] = RMFilter;
                 objects[3] = BranchFilter;
