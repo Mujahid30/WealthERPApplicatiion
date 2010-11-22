@@ -62,7 +62,8 @@
                         </td>
                         <td align="left">
                             <telerik:RadDatePicker ID="dpDOB" runat="server" Culture="English (United States)"
-                                Skin="Outlook" ShowAnimation-Type="Fade">
+                                Skin="Outlook" ShowAnimation-Type="Fade"  
+                                MinDate="1900-01-01">
                                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                     Skin="Outlook">
                                 </Calendar>

@@ -3,17 +3,18 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <script type="text/javascript">
     function Total() {    
-        var assettotal = 0;
-        var incometotal = 0;
-        var expensetotal = 0;
-        var liabilitiestotal = 0;
-        var lifeInsuranceTotal = 0;
-        var generalInsuranceTotal = 0;       
+        var assettotal = 0.0;
+        var incometotal = 0.0;
+        var expensetotal = 0.0;
+        var liabilitiestotal = 0.0;
+        var lifeInsuranceTotal = 0.0;
+        var generalInsuranceTotal = 0.0;       
         //Assets
         if (document.getElementById("<%=txtDirectEquity.ClientID%>").value != "") {
             assettotal += parseFloat(document.getElementById("<%=txtDirectEquity.ClientID%>").value);
         }
         if (document.getElementById("<%=txtGold.ClientID%>").value != "") {
+            alert(document.getElementById("<%=txtGold.ClientID%>").value);
             assettotal += parseFloat(document.getElementById("<%=txtGold.ClientID%>").value);
         }
         if (document.getElementById("<%=txtMFEquity.ClientID%>").value != "") {
@@ -263,9 +264,10 @@
         <Validation IsRequired="True"></Validation>
     </telerik:RegExpTextBoxSetting>
     <telerik:NumericTextBoxSetting DecimalDigits="2" 
-        DecimalSeparator="." ErrorMessage="Please type only numbers" GroupSeparator=","
-        GroupSizes="3" NegativePattern="-n" PositivePattern="n" Validation-IsRequired="false"
-        AllowRounding="False" MaxValue="70368744177" MinValue="-70368744177">
+        DecimalSeparator="." ErrorMessage="Please type only numbers" 
+         NegativePattern="-n" PositivePattern="n" Validation-IsRequired="false"
+        AllowRounding="False" MaxValue="70368744177" MinValue="-70368744177" GroupSizes="3" 
+        Type="Number" Culture="Hindi (India)" GroupSeparator="">
         <TargetControls>
             <telerik:TargetInput ControlID="txtDirectEquity" />
             <telerik:TargetInput ControlID="txtGold" />
