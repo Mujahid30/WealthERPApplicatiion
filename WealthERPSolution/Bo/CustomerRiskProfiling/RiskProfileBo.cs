@@ -78,11 +78,13 @@ namespace BoCustomerRiskProfiling
         public string GetRiskProfileText(string ClassName)
         {
             string RiskTextParagraph = "";
-            if (ClassName == "Aggresive")
+            if (ClassName == "Aggressive")
             {
-                RiskTextParagraph = "Your risk behaviour is Conservative. It shows that by nature you are a moderate " +
-                "risk taker. You don’t want to assume high risks on investments, as you are afraid of booking losses." +
-                " You are happy with the reasonable return that you may get from medium to low risk investments.";
+                RiskTextParagraph = "Your risk behaviour is Aggressive." +
+                    " It shows that by nature you are a risk taker." +
+                    " You want to assume high risks in anticipation of " +
+                    "equally high returns and at the same time you are not " +
+                    "too bothered about the downside of high-risk investments.";
             }
             else if (ClassName == "Moderate")
             {
@@ -94,9 +96,11 @@ namespace BoCustomerRiskProfiling
             }
             else if (ClassName == "Conservative")
             {
-                RiskTextParagraph = "Your risk behaviour is Aggressive. It shows that by nature you are a risk " +
-                "taker. You want to assume high risks in anticipation of equally high returns and at the same " +
-                "time you are not too bothered about the downside of high-risk investments.";
+                RiskTextParagraph = "Your risk behaviour is Conservative." +
+                    " It shows that by nature you are a moderate risk taker." +
+                    " You don’t want to assume high risks on investments, as " +
+                    "you are afraid of booking losses. You are happy with the " +
+                    "reasonable return that you may get from medium to low risk investments.";
 
             }
 
