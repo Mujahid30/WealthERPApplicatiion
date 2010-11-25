@@ -103,8 +103,11 @@ namespace WealthERP.FP
                     txtFirstName.Text = customerVo.FirstName;
                     txtMiddleName.Text = customerVo.MiddleName;
                     txtLastName.Text = customerVo.LastName;
-                    dpDOB.MinDate = DateTime.Parse("01/01/1930 00:00:00");
-                    dpDOB.SelectedDate = customerVo.Dob;
+                    //dpDOB.MinDate = DateTime.Parse("01/01/1930 00:00:00");
+                    if (customerVo.Dob != DateTime.Parse("01/01/0001 00:00:00"))
+                    {
+                        dpDOB.SelectedDate = customerVo.Dob;
+                    }
                     txtEmail.Text = customerVo.Email;
                     for (int i = 0; i < ddlPickBranch.Items.Count; i++)
                     {
