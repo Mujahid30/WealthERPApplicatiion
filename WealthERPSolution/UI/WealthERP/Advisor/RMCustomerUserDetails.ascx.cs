@@ -441,7 +441,7 @@ namespace WealthERP.Advisor
                     email.To.Add(userVo.Email);
                     string name = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
                     email.GetCustomerAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), name);
-                    email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
+                    //email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                     //Assign SMTP Credentials if configured.
                     if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
                     {
@@ -455,7 +455,7 @@ namespace WealthERP.Advisor
 
                         if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
                         {
-                            email.From = new MailAddress(emailer.smtpUserName, "MoneyTouch");
+                            email.From = new MailAddress(emailer.smtpUserName, "WealthERP");
                         }
                     }
                     //Sending mail...
