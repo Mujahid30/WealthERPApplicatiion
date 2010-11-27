@@ -859,7 +859,7 @@ namespace WealthERP.Advisor
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewRMDetails','none');", true);
 
                 }
-                else if(!string.IsNullOrEmpty(rmVo.BranchList.ToString().Trim()))
+                else if(string.IsNullOrEmpty(rmVo.BranchList.ToString().Trim()))
                 {
                     result = advisorStaffBo.DeleteRM(rmVo.RMId, userId);
                 }
