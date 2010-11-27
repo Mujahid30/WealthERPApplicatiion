@@ -108,7 +108,7 @@ namespace WealthERP.Advisor
                     lblLine_2.Text = advisorVo.AddressLine2.ToString();
                 if (advisorVo.AddressLine3 != null)
                     lblLine_3.Text = advisorVo.AddressLine3.ToString();
-                if (advisorVo.FaxIsd != 0 && advisorVo.FaxStd != 0 && advisorVo.Fax != 0)
+                if (!string.IsNullOrEmpty(advisorVo.FaxIsd.ToString()))
                     lblFax.Text = advisorVo.FaxIsd.ToString() + "-" + advisorVo.FaxStd.ToString() + "-" + advisorVo.Fax.ToString();
 
                 if (advisorVo.MultiBranch == 0)
