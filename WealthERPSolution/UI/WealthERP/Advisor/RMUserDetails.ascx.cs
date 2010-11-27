@@ -444,20 +444,28 @@ namespace WealthERP.Advisor
                             if (isMailSent)
                             {
                                 statusMessage = "Credentials have been sent to selected user" ;
+                                tblMessage.Visible = true;
+                                ErrorMessage.Visible = false;
+                                SuccessMsg.InnerText = statusMessage;
+                                SuccessMsg.Visible = true;
                             }
                             else
                             {
                                 statusMessage = "An error occurred while sending mail to selected user";
-
+                                tblMessage.Visible = true;
+                                ErrorMessage.Visible = true;
+                                ErrorMessage.InnerText = statusMessage;
+                                SuccessMsg.Visible = false;
+                               
                             }
                         }
                     }
                     //if (selectedRecords == 0)
                     //statusMessage = "Please select RM to send Password";
-                    tblMessage.Visible = true;
-                    SuccessMsg.Visible = true;
+                   
+                    
                     ErrorMessage.Visible = false;
-                    SuccessMsg.InnerText = statusMessage;
+                   
 
                 }
                 catch (BaseApplicationException Ex)
