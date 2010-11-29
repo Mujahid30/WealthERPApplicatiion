@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerNonIndividualLeftPane.ascx.cs"
     Inherits="WealthERP.Customer.CustomerNonIndividualLeftPane" %>
-
 <%--<link href="../CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />--%>
 <div>
     <table>
@@ -26,6 +25,9 @@
         <asp:TreeNode Text="Bank" Value="Bank">
             <%--<asp:TreeNode NavigateUrl="javascript:loadcontrol('ViewBankDetails','none');" Text="View Bank Details"
                 Value="View Bank Details"></asp:TreeNode>--%>
+        </asp:TreeNode>
+        <asp:TreeNode Text="Financial Planning" Value="FinancialPlanning">
+            <asp:TreeNode Text="Reports" Value="Reports"></asp:TreeNode>
         </asp:TreeNode>
     </Nodes>
     <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
