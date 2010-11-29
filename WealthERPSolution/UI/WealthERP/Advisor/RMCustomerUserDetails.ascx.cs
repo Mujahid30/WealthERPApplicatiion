@@ -88,8 +88,8 @@ namespace WealthERP.Advisor
         protected override void OnInit(EventArgs e)
         {
             try
-            {
-
+            {               
+                
                 ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
                 mypager.EnableViewState = true;
                 base.OnInit(e);
@@ -246,14 +246,24 @@ namespace WealthERP.Advisor
                     }
                     else
                         txtName = null;
+
+                    if (trPagger.Visible == false)
+                        trPagger.Visible = true;
                     
                     this.GetPageCount();
+                  
+
+                    if (btnGenerate.Visible == false)
+                        btnGenerate.Visible = true;
+
+                    if (mypager.Visible == false)
+                        mypager.Visible = true;
                 }
                 else
                 {
                     mypager.Visible = false;
-                    lblCurrentPage.Visible = false;
-                    lblTotalRows.Visible = false;
+                    //lblCurrentPage.Visible = false;
+                    //lblTotalRows.Visible = false;
                     //tblPager.Visible = false;
                    // lblMsg.Visible = true;
                     tblMessage.Visible = true;
@@ -382,9 +392,9 @@ namespace WealthERP.Advisor
                    
                    //*********************** lblStatusMsg.Text = statusMessage;
                     //lblMailSent.Visible = true;
-                    tblMessage.Visible = true;
-                    SuccessMsg.Visible = true;
-                    SuccessMsg.InnerText = statusMessage;
+                    //tblMessage.Visible = true;
+                    //SuccessMsg.Visible = true;
+                    //SuccessMsg.InnerText = statusMessage;
                     if (loginReset==true)
                     {
                         mypager.CurrentPage=int.Parse(hdnCurrentPage.Value.ToString());
@@ -468,9 +478,20 @@ namespace WealthERP.Advisor
                     if (string.IsNullOrEmpty(statusMessage))
                     {
                         statusMessage = "No email Id specified for slected User";
+                        tblMessage.Visible = true;
+                        ErrorMessage.Visible = true;
+                        ErrorMessage.InnerText = statusMessage;
+                        SuccessMsg.Visible = false;
+                       
                     }
                     else
+                    {
                         statusMessage = statusMessage + " and some selected User don't have E-mail id";
+                        tblMessage.Visible = true;
+                        ErrorMessage.Visible = true;
+                        ErrorMessage.InnerText = statusMessage;
+                        SuccessMsg.Visible = false;
+                    }
 
                 }
                     
@@ -479,15 +500,36 @@ namespace WealthERP.Advisor
                     if (string.IsNullOrEmpty(statusMessage))
                     {
                         statusMessage = "Credentials have been sent to selected User";
+                        tblMessage.Visible = true;
+                        ErrorMessage.Visible = false;
+                        SuccessMsg.InnerText = statusMessage;
+                        SuccessMsg.Visible = true;
                     }
                     else if (statusMessage == "No email Id specified for slected User")
+                    {
                         statusMessage = "some selected User don't have E-mail id and Credentials have been sent sucessfully to rest of User";
+                        statusMessage = "Credentials have been sent to selected User";
+                        tblMessage.Visible = true;
+                        ErrorMessage.Visible = false;
+                        SuccessMsg.InnerText = statusMessage;
+                        SuccessMsg.Visible = true;
                     }
-
-                    
+                    else
+                    {
+                        tblMessage.Visible = true;
+                        ErrorMessage.Visible = false;
+                        SuccessMsg.InnerText = statusMessage;
+                        SuccessMsg.Visible = true;
+ 
+                    }
+                }                    
                 else
                 {
                     statusMessage = "An error occurred while sending mail .. " ;
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = statusMessage;
+                    SuccessMsg.Visible = false;
 
                 }
 

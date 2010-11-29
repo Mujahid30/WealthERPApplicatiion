@@ -32,7 +32,7 @@
                 return false;
             }
             else {
-                $(".loadmediv").colorbox({ width: "240px", overlayClose: false, inline: true, open: true, href: "#LoadImage" });
+                $(".loadmediv").colorbox({ width: "260px", overlayClose: false, inline: true, open: true, href: "#LoadImage" });
             }
         });
 
@@ -119,9 +119,13 @@
  </table>
 
 <table style="width: 100%;" class="TableBackground">
+    <tr>
+    <td>
     
+    </td>
+    </tr>
 
-    <tr id="trPagger" runat="server">
+    <tr id="trPagger" runat="server" visible="true">
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
