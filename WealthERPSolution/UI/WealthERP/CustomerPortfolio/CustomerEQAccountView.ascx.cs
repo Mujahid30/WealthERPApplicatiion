@@ -148,11 +148,11 @@ namespace WealthERP.CustomerPortfolio
                 Session["EQAccountVoRow"] = CustomerTransactionBo.GetCustomerEQAccountDetails(EQAccountId, portfolioId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd','?action=Edit');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd','action=Edit');", true);
                 }
                 if (ddlAction.SelectedValue.ToString() == "View")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd','?action=View');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd','action=View');", true);
                 }
             }
             catch (Exception Ex)
