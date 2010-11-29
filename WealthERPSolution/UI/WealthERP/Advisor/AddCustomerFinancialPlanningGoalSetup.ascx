@@ -608,7 +608,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Cost Today(Rs.)">
+                                <asp:TemplateField HeaderText="Cost Today(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCostToday" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CostToday")%>'>
@@ -620,7 +620,7 @@
                                         </asp:Label>
                                     </FooterTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)">
+                                <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
                                         <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("SavingRequired") %>'>
@@ -726,28 +726,28 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Corpus Required(Rs.)">
+                                <asp:TemplateField HeaderText="Corpus Required(Rs.)" ItemStyle-HorizontalAlign="Right" >
                                     <ItemTemplate>
                                         <asp:Label ID="lblCostToday" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CG_FVofCostToday") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Lumpsum Investment Required(Rs.)">
+                                <asp:TemplateField HeaderText="Lumpsum Investment Required(Rs.)" ItemStyle-HorizontalAlign="Right" >
                                     <ItemTemplate>
                                         <asp:Label ID="lblLumpsumInvReq" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CG_LumpsumInvestmentRequired") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Amount To be Saved Per Year(Rs.)">
+                                 <asp:TemplateField HeaderText="Amount To be Saved Per Year(Rs.)" ItemStyle-HorizontalAlign="Right" >
                                     <ItemTemplate>
                                         <asp:Label ID="lblYSavingReq" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CG_YearlySavingsRequired") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)">
+                                <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)" ItemStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
                                         <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CG_MonthlySavingsRequired") %>'>
