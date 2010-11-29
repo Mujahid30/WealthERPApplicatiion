@@ -585,11 +585,11 @@ namespace WealthERP.Advisor
                         advisorVo.State = null;
                     Session["advisorVo"] = (AdvisorVo)advisorVo;
 
-                    userVo.Email = txtEmail.Text.Trim().ToString();
-                    userVo.FirstName = txtFirstName.Text.Trim().ToString();
-                    userVo.LastName = txtLastName.Text.Trim().ToString();
-                    userVo.MiddleName = txtMiddleName.Text.Trim().ToString();
-                    userVo.UserId = advisorVo.UserId;
+                    //userVo.Email = txtEmail.Text.Trim().ToString();
+                    //userVo.FirstName = txtFirstName.Text.Trim().ToString();
+                    //userVo.LastName = txtLastName.Text.Trim().ToString();
+                    //userVo.MiddleName = txtMiddleName.Text.Trim().ToString();
+                    //userVo.UserId = advisorVo.UserId;
 
                     // Updating Adviser , User and RM
                     advisorBo.UpdateAdvisorUser(advisorVo);
