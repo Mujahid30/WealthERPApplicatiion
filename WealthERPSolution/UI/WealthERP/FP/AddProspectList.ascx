@@ -62,15 +62,16 @@
                         </td>
                         <td align="left">
                             <telerik:RadDatePicker ID="dpDOB" runat="server" Culture="English (United States)"
-                                Skin="Outlook" ShowAnimation-Type="Fade"  
+                                Skin="Outlook" ShowAnimation-Type="Fade" 
                                 MinDate="1900-01-01">
                                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                     Skin="Outlook">
                                 </Calendar>
                                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                 </DateInput>
                             </telerik:RadDatePicker>
+                             <span id="Span3" class="spnRequiredField">*</span>
                         </td>
                         <td align="right">
                             <asp:Label ID="lblEmailId" runat="server" Text="Email Id : " CssClass="FieldName"></asp:Label>
@@ -122,23 +123,13 @@
 </telerik:RadInputManager>
 <telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Outlook">
 </telerik:RadAjaxLoadingPanel>
-<table width="100%">
+<table width="100%" runat="server" id="tblChildCustomer">
     <tr>
         <td>
             <div style="float: left; width: 100%;" id="Div2" runat="server">
                <asp:Label ID="Label2" runat="server" CssClass="HeaderText" Text="Family Member Details"></asp:Label>
 <hr />
-                            <table width="100%">
-                                <tr>
-                                    <td align="center">
-                                        <div id="msgNochildCustomer" runat="server" class="failure-msg" align="center" visible="false">
-                                            There is no Child Customers for this Customer
-                                            <br />
-                                            (or)<br />
-                                            This Customer itself might be a child Customer</div>
-                                    </td>
-                                </tr>
-                            </table>
+                          
                             <telerik:RadAjaxPanel ID="ChildCustomerGridPanel" runat="server" Width="100%" HorizontalAlign="Center"
                                 LoadingPanelID="FamilyMemberDetailsLoading" EnablePageHeadUpdate="False" >
                                 <telerik:RadGrid ID="RadGrid1" runat="server" Width="96%" GridLines="None" AutoGenerateColumns="False"
@@ -168,6 +159,7 @@
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
                                                     <asp:TextBox runat="server" ID="txtChildFirstName" Text='<%# Bind("FirstName") %>'></asp:TextBox>
+                                                     
                                                 </EditItemTemplate>
                                             </telerik:GridTemplateColumn>
                                             <telerik:GridBoundColumn UniqueName="MiddleName" HeaderText="Middle Name" DataField="MiddleName"
@@ -175,9 +167,9 @@
                                             <telerik:GridBoundColumn UniqueName="LastName" HeaderText="Last Name" DataField="LastName"
                                                 HeaderStyle-HorizontalAlign="Center" />
                                             <telerik:GridDateTimeColumn UniqueName="DOB" PickerType="DatePicker" HeaderText="Date of Birth"
-                                                HeaderStyle-HorizontalAlign="Center" DataField="DOB" FooterText="DateTimeColumn footer"
-                                                DataFormatString="{0:MM/dd/yyyy}" EditDataFormatString="MMMM dd, yyyy" >
-                                                <ItemStyle Width="120px" />
+                                                HeaderStyle-HorizontalAlign="Center" DataField="DOB" FooterText="DateTimeColumn footer" 
+                                                DataFormatString="{0:dd/MM/yyyy}" EditDataFormatString="dd MMMM, yyyy" MinDate="1900-01-01" >
+                                                <ItemStyle Width="120px" />                                                
                                             </telerik:GridDateTimeColumn>                                            
                                             <telerik:GridTemplateColumn HeaderText="Email-Id" SortExpression="Email-Id" UniqueName="EmailId"
                                                 HeaderStyle-HorizontalAlign="Center" EditFormColumnIndex="1">
@@ -186,7 +178,7 @@
                                                     <asp:Label runat="server" ID="lblGridEmailId" Text='<%# Eval("EmailId")%>'></asp:Label>
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox runat="server" ID="txtGridEmailId" Text='<%# Bind("EmailId") %>'></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="txtGridEmailId" Text='<%# Bind("EmailId") %>'></asp:TextBox>                                                    
                                                 </EditItemTemplate>
                                             </telerik:GridTemplateColumn>
                                             <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"

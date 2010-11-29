@@ -15,6 +15,7 @@ using VoCustomerPortfolio;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using WealthERP.Base;
+using BoAdvisorProfiling;
 
 namespace WealthERP.FP
 {
@@ -65,7 +66,8 @@ namespace WealthERP.FP
                 {
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 }
-                BindBranch();
+                rmVo = (RMVo)Session["rmVo"];
+                BindBranch(advisorVo, rmVo);
                 if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
                 {
                     customerId=int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
@@ -95,12 +97,15 @@ namespace WealthERP.FP
                     }
                     else
                     {
-                        msgNochildCustomer.Visible = true;
+                        tblChildCustomer.Visible = false;
                     }
                     txtFirstName.Text = customerVo.FirstName;
                     txtMiddleName.Text = customerVo.MiddleName;
                     txtLastName.Text = customerVo.LastName;
-                    dpDOB.SelectedDate = customerVo.Dob;
+                    if (customerVo.Dob != DateTime.Parse("01/01/0001 00:00:00") && customerVo.Dob != null)
+                    {
+                        dpDOB.SelectedDate = customerVo.Dob;
+                    }
                     txtEmail.Text = customerVo.Email;
                     for (int i = 0; i < ddlPickBranch.Items.Count; i++)
                     {
@@ -149,7 +154,7 @@ namespace WealthERP.FP
                         btnSubmit.Text = "Update";
                         btnSubmitAddDetails.Text = "Edit Finance Detailse";                       
                         RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
-                        msgNochildCustomer.Visible = false;
+                        tblChildCustomer.Visible = true;
                         headertitle.Text = "Edit Prospect";
                     }
                 }               
@@ -161,6 +166,29 @@ namespace WealthERP.FP
                 
             }
             
+        }
+
+      
+      
+
+        /// <summary>        
+        /// Used to bind branches of the Branch dropdown       
+        /// </summary>
+        /// <param name="advisorVo"></param>
+        /// <param name="rmVo"></param>
+        private void BindBranch(AdvisorVo advisorVo, RMVo rmVo)
+        {
+            AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+            UploadCommonBo uploadsCommonDao = new UploadCommonBo();
+            //DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+            DataSet ds = advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, advisorVo.advisorId, "A");
+            if (ds != null)
+            {
+                ddlPickBranch.DataSource = ds;
+                ddlPickBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
+                ddlPickBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
+                ddlPickBranch.DataBind();
+            }   
         }        
         protected void RadGrid1_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
         {
@@ -300,9 +328,19 @@ namespace WealthERP.FP
                             }
                             if (editor is GridTemplateColumnEditor)
                             {
-                               TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
-                               editorText = txt.Text;
-                               editorValue = txt.Text;
+                                if (i != 3)
+                                {
+                                    TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
+                                    editorText = txt.Text;
+                                    editorValue = txt.Text;
+                                }
+                                else if (i == 3)
+                                {
+                                    TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
+                                    editorText = txt.Text;
+                                    editorValue = txt.Text;
+                                }                            
+                                
                             }
                             try
                             {
@@ -358,7 +396,7 @@ namespace WealthERP.FP
             bool bresult;
             bool status=true;
             try
-            {               
+            {
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
                 {
@@ -366,7 +404,7 @@ namespace WealthERP.FP
                     {
                         status = false;
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
-                    }                    
+                    }
                 }
                 if (status)
                 {
@@ -380,9 +418,12 @@ namespace WealthERP.FP
                         bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
                         msgRecordStatus.Visible = true;
                         btnSubmit.Text = "Update";
-                    }                   
+                    }
                 }
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                }
                 
             }
             catch (Exception Ex)
@@ -403,9 +444,10 @@ namespace WealthERP.FP
         /// <returns></returns>
         protected bool DataPopulation(int ParentCustomerId, int customerId, DataTable dt, UserVo userVo, RMVo rmVo, int createdById)
         {
-            bool bresult = true;
+            bool bresult = true;            
             try
             {
+                
                 //Checking whether the Page is for Update or to Submit.
                 if (btnSubmit.Text != "Update")
                 {
@@ -421,6 +463,14 @@ namespace WealthERP.FP
                 }
                 else
                 {
+                    customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
+                    int temp=0;
+                    foreach (CustomerFamilyVo customerfamilyvo in customerFamilyVoList)
+                    {
+
+                        dt.Rows[temp]["C_CustomerId"] = customerfamilyvo.CustomerId.ToString();
+                        temp++;
+                    }
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                     //Updating Parent Customer
                     UpdateCustomerForAddProspect(customerId);
@@ -474,7 +524,10 @@ namespace WealthERP.FP
             userVo.MiddleName = txtMiddleName.Text.ToString();
             userVo.LastName = txtLastName.Text.ToString();
             customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            customerVo.Dob = dpDOB.SelectedDate.Value;
+            if (dpDOB.SelectedDate != null)
+            {
+                customerVo.Dob = dpDOB.SelectedDate.Value;
+            }
             customerVo.Email = txtEmail.Text;
             Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
             Session["customerVo"] = customerVo;
@@ -506,7 +559,10 @@ namespace WealthERP.FP
             customerVo.MiddleName = drChildCustomer["MiddleName"].ToString();
             customerVo.LastName = drChildCustomer["LastName"].ToString();
             customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
+            if (dpDOB.SelectedDate != null)
+            {
+                customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
+            }
             customerVo.IsProspect = 1;
             customerVo.IsFPClient = 1;
             customerVo.Email = drChildCustomer["EmailId"].ToString();            
@@ -554,7 +610,10 @@ namespace WealthERP.FP
             userVo.MiddleName = txtMiddleName.Text.ToString();
             userVo.LastName = txtLastName.Text.ToString();
             customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            customerVo.Dob = dpDOB.SelectedDate.Value;
+            if (dpDOB.SelectedDate != null)
+            {
+                customerVo.Dob = dpDOB.SelectedDate.Value;
+            }
             customerVo.Email = txtEmail.Text;
             customerVo.IsProspect = 1;
             customerVo.IsFPClient = 1;
@@ -565,9 +624,9 @@ namespace WealthERP.FP
             customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
             customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
             Session["Customer"] = "Customer";
-            //Session[SessionContents.CustomerVo] = customerVo;
-            //Session["customerVo"] = customerVo;
-            //Session["CustomerVo"] = customerVo;
+            Session[SessionContents.CustomerVo] = customerVo;
+            Session["customerVo"] = customerVo;
+            Session["CustomerVo"] = customerVo;
             if (customerIds != null)
             {
                 CustomerFamilyVo familyVo = new CustomerFamilyVo();
@@ -599,7 +658,10 @@ namespace WealthERP.FP
             customerVo.LastName = drChildCustomer["LastName"].ToString();
             userVo.FirstName = drChildCustomer["FirstName"].ToString();           
             customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
+            if (dpDOB.SelectedDate != null)
+            {
+                customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
+            }
             customerVo.Email = drChildCustomer["EmailId"].ToString();
             customerVo.IsProspect = 1;
             customerVo.IsFPClient = 1;
@@ -667,21 +729,7 @@ namespace WealthERP.FP
             
         }
 
-        /// <summary>
-        /// Used to bind branches of the Branch dropdown
-        /// </summary>
-        protected void BindBranch()
-        {
-            UploadCommonBo uploadsCommonDao = new UploadCommonBo();
-            DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");            
-            if (ds != null)
-            {
-                ddlPickBranch.DataSource = ds;
-                ddlPickBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
-                ddlPickBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
-                ddlPickBranch.DataBind();
-            }            
-        }
+       
 
         /// <summary>
         /// Used to Check validation
