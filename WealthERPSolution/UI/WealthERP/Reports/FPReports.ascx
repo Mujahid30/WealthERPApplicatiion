@@ -118,7 +118,7 @@
                     <td colspan="2">
                         <br />
                         <asp:Button ID="btnView" runat="server" Text="View Report" 
-                            PostBackUrl="~/Reports/Display.aspx" CssClass="PCGMediumButton" />
+                            PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" />
                     </td>
                 </tr>
                 <tr>
