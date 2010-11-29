@@ -395,6 +395,7 @@ namespace WealthERP.Advisor
             }
             if (ddlMISType.SelectedItem.Value.ToString() == "AMCSchemeWiseAUM")
             {
+                Session["PassAMCCode"] = null;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCSchemewiseMIS','login');", true);
             }
             else if (ddlMISType.SelectedItem.Value.ToString() == "FolioWiseAUM")
