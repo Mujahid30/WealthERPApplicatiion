@@ -32,7 +32,7 @@ namespace WealthERP.UserManagement
             userVo = (UserVo)Session["userVo"];
             rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
             Session["rmVo"] = rmVo;
-            UserName = userVo.FirstName + userVo.LastName;
+            UserName = userVo.FirstName + " " + userVo.LastName;
             sourcepath = Session[SessionContents.LogoPath].ToString();
             branchLogoSourcePath = Session[SessionContents.BranchLogoPath].ToString();
             if (!IsPostBack)
