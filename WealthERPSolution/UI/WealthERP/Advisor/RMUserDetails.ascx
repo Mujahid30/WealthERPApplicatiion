@@ -26,7 +26,7 @@
                 return false;
             }
             else {
-                $(".loadmediv").colorbox({ width: "240px", overlayClose: false, inline: true, open: true, href: "#LoadImage" });
+                $(".loadmediv").colorbox({ width: "260px", overlayClose: false, inline: true, open: true, href: "#LoadImage" });
             }
         });
 

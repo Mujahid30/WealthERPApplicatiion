@@ -163,11 +163,11 @@ namespace WealthERP.Advisor
                 advrm = adviserstaffbo.GetAdvisorStaff(uservo.UserId);
                 ViewState["rmId"] = advrm.RMId;
 
-                if (hdnCurrentPage.Value.ToString() != "")
-                {
-                    mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-                    hdnCurrentPage.Value = "";
-                }
+                //if (hdnCurrentPage.Value.ToString() != "")
+                //{
+                //    mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
+                //    hdnCurrentPage.Value = "";
+                //}
 
                 int count = 0;
 
@@ -208,13 +208,23 @@ namespace WealthERP.Advisor
                     }
 
                     gvRMUsers.DataSource = dtRMUsers;
+                   
                     gvRMUsers.DataBind();
+
+                    if (trPagger.Visible == false)
+                        trPagger.Visible = true;
+
                     this.GetPageCount();
+
+                    if (btnGenerate.Visible == false)
+                        btnGenerate.Visible = true;
+                    if (mypager.Visible == false)
+                        mypager.Visible = true;
                 }
                 else
                 {
-                    lblCurrentPage.Visible = false;
-                    lblTotalRows.Visible = false;
+                    //lblCurrentPage.Visible = false;
+                    //lblTotalRows.Visible = false;
                     tblPager.Visible = false;
                     //trNoRecords.Visible = true;
                     tblMessage.Visible = true;
@@ -223,6 +233,7 @@ namespace WealthERP.Advisor
                     ErrorMessage.InnerText = "No Records Found...!";
                     trPagger.Visible = false;
                     btnGenerate.Visible = false;
+                    mypager.Visible = false;
                    
                 }
             }
