@@ -54,17 +54,18 @@
                         </telerik:RadComboBox>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
+                <telerik:GridBoundColumn DataField="C_FirstName" HeaderText="Name" SortExpression="C_FirstName"
+                    UniqueName="C_FirstName">
+                </telerik:GridBoundColumn>
                 <telerik:GridDateTimeColumn UniqueName="DOB" PickerType="DatePicker" HeaderText="Date of Birth"
                     HeaderStyle-HorizontalAlign="Center" DataField="C_DOB" FooterText="DateTimeColumn footer"
-                    DataFormatString="{0:MM/dd/yyyy}" EditDataFormatString="MMMM dd, yyyy">
+                    DataFormatString="{0:dd/MM/yyyy}" EditDataFormatString="dd MMMM, yyyy">
                     <ItemStyle Width="120px" />
                 </telerik:GridDateTimeColumn>
                 <telerik:GridBoundColumn DataField="C_Email" HeaderText="Email" SortExpression="C_Email"
                     UniqueName="C_Email">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn DataField="C_FirstName" HeaderText="Name" SortExpression="C_FirstName"
-                    UniqueName="C_FirstName">
-                </telerik:GridBoundColumn>
+                
             </Columns>
         </MasterTableView>
         <ClientSettings>
@@ -72,10 +73,11 @@
         </ClientSettings>
     </telerik:RadGrid>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"
-        SelectCommand="SELECT [C_DOB], [C_Email], [C_FirstName], [C_CustomerId] FROM [Customer] WHERE (([C_IsProspect] = @C_IsProspect))">
+        SelectCommand="SELECT [C_DOB], [C_Email], [C_FirstName], [C_CustomerId] FROM [Customer] WHERE (([C_IsProspect] = @C_IsProspect) AND [AR_RMId]=@AR_RMId)">
         <SelectParameters>
             <asp:Parameter DefaultValue="1" Name="C_IsProspect" Type="Int32" />
-            <asp:Parameter DefaultValue="1" Name="C_IsFPClient" Type="Int32" />
+            <asp:Parameter DefaultValue="1" Name="C_IsFPClient" Type="Int32" />   
+             <asp:Parameter Name="AR_RMId" Type="Int32" />           
         </SelectParameters>
     </asp:SqlDataSource>
     <%--    <asp:SqlDataSource ID="SqlDataSourceCustomerRelation" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"

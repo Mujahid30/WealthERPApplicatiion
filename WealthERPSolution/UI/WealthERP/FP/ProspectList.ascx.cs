@@ -7,15 +7,19 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using WealthERP.Base;
 using BoCustomerProfiling;
+using VoUser;
 
 namespace WealthERP.FP
 {
     public partial class ProspectList : System.Web.UI.UserControl
     {
         CustomerBo customerbo = new CustomerBo();
+       
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            RMVo rmVo = new RMVo();
+            rmVo = (RMVo)Session[SessionContents.RmVo];            
+            SqlDataSource1.SelectParameters["AR_RMId"].DefaultValue = rmVo.RMId.ToString();
         }
         protected void RadGrid1_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
         {
