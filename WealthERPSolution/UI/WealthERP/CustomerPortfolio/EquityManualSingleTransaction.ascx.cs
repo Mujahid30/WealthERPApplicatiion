@@ -417,6 +417,7 @@ namespace WealthERP.CustomerPortfolio
 
                 CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
                 CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
+               
                 customerAccountsVo = customerTransactionBo.GetCustomerEQAccountDetails(int.Parse(ddlTradeAcc.SelectedItem.Value.ToString()), portfolioId);
                 // Stax= Service Tax 
                 if (rbtnDelivery.Checked)
@@ -424,9 +425,11 @@ namespace WealthERP.CustomerPortfolio
                 else
                     brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageSpeculativePercentage / 100);
                 otherCharges = double.Parse(txtRate.Text) * (customerAccountsVo.OtherCharges / 100);
-                txtBrokerage.Text = Math.Round(brokerage, 4).ToString();
+                if(txtBrokerage.Text=="")
+                    txtBrokerage.Text = Math.Round(brokerage, 4).ToString();             
 
-                txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
+                if(txtOtherCharge.Text=="")
+                    txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
 
                 Calculate();
             }
