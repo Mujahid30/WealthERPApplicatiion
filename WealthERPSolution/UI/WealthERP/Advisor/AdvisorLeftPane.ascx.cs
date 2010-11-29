@@ -65,7 +65,7 @@ namespace WealthERP.Advisor
                 count = roleList.Count;
                 if (count == 3)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + userVo.FirstName + userVo.LastName + "','" + logoPath + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + userVo.FirstName + " " + userVo.LastName + "','" + logoPath + "');", true);
                     //ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "pageloadscript", "loginloadcontrol('IFAAdminDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                 }
                 else if (count == 2)
