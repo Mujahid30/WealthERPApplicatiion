@@ -1,20 +1,20 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerProspect.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerProspect.ascx.cs" EnableViewState="true"
     Inherits="WealthERP.FP.CustomerProspect" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+
 <script type="text/javascript">
-    function Total() {    
+    function Total() {
         var assettotal = 0.0;
         var incometotal = 0.0;
         var expensetotal = 0.0;
         var liabilitiestotal = 0.0;
         var lifeInsuranceTotal = 0.0;
-        var generalInsuranceTotal = 0.0;       
+        var generalInsuranceTotal = 0.0;
         //Assets
         if (document.getElementById("<%=txtDirectEquity.ClientID%>").value != "") {
             assettotal += parseFloat(document.getElementById("<%=txtDirectEquity.ClientID%>").value);
         }
         if (document.getElementById("<%=txtGold.ClientID%>").value != "") {
-            alert(document.getElementById("<%=txtGold.ClientID%>").value);
             assettotal += parseFloat(document.getElementById("<%=txtGold.ClientID%>").value);
         }
         if (document.getElementById("<%=txtMFEquity.ClientID%>").value != "") {
@@ -24,7 +24,7 @@
             assettotal += parseFloat(document.getElementById("<%=txtCollectibles.ClientID%>").value);
         }
         if (document.getElementById("<%=txtMFDebt.ClientID%>").value != "") {
-            assettotal +=parseFloat( document.getElementById("<%=txtMFDebt.ClientID%>").value);
+            assettotal += parseFloat(document.getElementById("<%=txtMFDebt.ClientID%>").value);
         }
         if (document.getElementById("<%=txtCashAndSavings.ClientID%>").value != "") {
             assettotal += parseFloat(document.getElementById("<%=txtCashAndSavings.ClientID%>").value);
@@ -160,7 +160,7 @@
         if (document.getElementById("<%=txtOthersGISA.ClientID%>").value != "") {
             generalInsuranceTotal += parseFloat(document.getElementById("<%=txtOthersGISA.ClientID%>").value);
         }
-        
+
         //Sectional Total
         document.getElementById("<%=txtAssetTotal.ClientID%>").value = assettotal.toString();
         document.getElementById("<%=txtIncomeTotal.ClientID%>").value = incometotal.toString();
@@ -174,12 +174,12 @@
         document.getElementById("<%=txtExpense.ClientID%>").value = expensetotal.toString();
         document.getElementById("<%=txtLiabilities.ClientID%>").value = liabilitiestotal.toString();
         document.getElementById("<%=txtLifeInsurance.ClientID%>").value = lifeInsuranceTotal.toString();
-        document.getElementById("<%=txtGeneralInsurance.ClientID%>").value = generalInsuranceTotal.toString();
-        
+        document.getElementById("<%=txtGeneralInsurance.ClientID%>").value = generalInsuranceTotal.toString();    
 
 
     }
 </script>
+
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
@@ -190,8 +190,7 @@
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
     Skin="Outlook" EnableShadows="true" EnableRoundedCorners="true" Width="100%"
     Visible="false">
-    <Items>    
-        
+    <Items>
         <telerik:RadToolBarButton runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
             ImagePosition="Left" ToolTip="Edit">
         </telerik:RadToolBarButton>
@@ -208,7 +207,8 @@
     </tr>
 </table>
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Outlook"
-    MultiPageID="CustomerProspectMultiPage" SelectedIndex="1" Orientation="HorizontalTop" ReorderTabsOnSelect="false">
+    MultiPageID="CustomerProspectMultiPage" SelectedIndex="1" Orientation="HorizontalTop"
+    ReorderTabsOnSelect="false">
     <Tabs>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Summary.gif" Text="Summary"
             Value="Summary">
@@ -233,7 +233,6 @@
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
-
 <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Outlook">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true">
         <TargetControls>
@@ -263,11 +262,10 @@
         </TargetControls>
         <Validation IsRequired="True"></Validation>
     </telerik:RegExpTextBoxSetting>
-    <telerik:NumericTextBoxSetting DecimalDigits="2" 
-        DecimalSeparator="." ErrorMessage="Please type only numbers" 
-         NegativePattern="-n" PositivePattern="n" Validation-IsRequired="false"
-        AllowRounding="False" MaxValue="70368744177" MinValue="-70368744177" GroupSizes="3" 
-        Type="Number" Culture="Hindi (India)" GroupSeparator="">
+    <telerik:NumericTextBoxSetting DecimalDigits="2" DecimalSeparator="." ErrorMessage="Please type only numbers"
+        NegativePattern="-n" PositivePattern="n" Validation-IsRequired="false" AllowRounding="False"
+        MaxValue="70368744177" MinValue="-70368744177" GroupSizes="3" Type="Number" Culture="Hindi (India)"
+        GroupSeparator="">
         <TargetControls>
             <telerik:TargetInput ControlID="txtDirectEquity" />
             <telerik:TargetInput ControlID="txtGold" />
@@ -334,7 +332,7 @@
             <telerik:TargetInput ControlID="txtOthersGIP" />
         </TargetControls>
     </telerik:NumericTextBoxSetting>
-    <telerik:DateInputSetting  DateFormat="dd-MM-yyyy" DisplayDateFormat="dd-MM-yyyy"
+    <telerik:DateInputSetting DateFormat="dd-MM-yyyy" DisplayDateFormat="dd-MM-yyyy"
         ErrorMessage=" InValid Date Format">
         <TargetControls>
             <%--<telerik:TargetInput ControlID="dpDOB" />--%>
@@ -350,8 +348,8 @@
             <telerik:TargetInput ControlID="dpOthersGIMD" />
         </TargetControls>
     </telerik:DateInputSetting>
-    <telerik:NumericTextBoxSetting  DecimalDigits="0" DecimalSeparator="."
-        GroupSeparator="," GroupSizes="3" PositivePattern="n" AllowRounding="false" ErrorMessage="Invalid Entry">
+    <telerik:NumericTextBoxSetting DecimalDigits="0" DecimalSeparator="." GroupSeparator=","
+        GroupSizes="3" PositivePattern="n" AllowRounding="false" ErrorMessage="Invalid Entry">
         <TargetControls>
             <telerik:TargetInput ControlID="txtHomeLoanT" />
             <telerik:TargetInput ControlID="txtAutoLoanT" />
@@ -364,9 +362,46 @@
 <telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Outlook">
 </telerik:RadAjaxLoadingPanel>
 <telerik:RadInputManager ID="RadInputManager2" runat="server">
+    <telerik:NumericTextBoxSetting Culture="Hindi (India)" DecimalDigits="2" 
+        DecimalSeparator="." GroupSeparator="," GroupSizes="3" NegativePattern="-n" 
+        PositivePattern="n">
+        <TargetControls>
+            <telerik:TargetInput ControlID="txtAssets" />
+            <telerik:TargetInput ControlID="txtLifeInsurance" />
+            <telerik:TargetInput ControlID="txtLiabilities" />
+            <telerik:TargetInput ControlID="txtGeneralInsurance" />
+            <telerik:TargetInput ControlID="txtExpense" />
+            <telerik:TargetInput ControlID="txtIncome" />
+        </TargetControls>
+    </telerik:NumericTextBoxSetting>
+    <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true"
+        ErrorMessage="Is Required">
+        <TargetControls>
+            <telerik:TargetInput ControlID="txtFirstName" />
+            <telerik:TargetInput ControlID="txtEmail" />
+            <telerik:TargetInput ControlID="txtChildFirstName" />
+            <telerik:TargetInput ControlID="txtGridEmailId" />
+        </TargetControls>
+        <Validation IsRequired="True"></Validation>
+    </telerik:TextBoxSetting>
+    <telerik:DateInputSetting BehaviorID="DateInputBehavior1" Validation-IsRequired="true"
+        DateFormat="MM/dd/yyyy">
+        <TargetControls>
+            <telerik:TargetInput ControlID="dpDOB" />
+        </TargetControls>
+        <Validation IsRequired="True"></Validation>
+    </telerik:DateInputSetting>
+    <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior1" Validation-IsRequired="true"
+        ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ErrorMessage="Invalid Email">
+        <TargetControls>
+            <telerik:TargetInput ControlID="txtEmail" />
+            <telerik:TargetInput ControlID="txtGridEmailId" />
+        </TargetControls>
+    </telerik:RegExpTextBoxSetting> 
 </telerik:RadInputManager>
-<telerik:RadMultiPage ID="CustomerProspectMultiPage" runat="server" 
-    SelectedIndex="1">
+<telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Outlook">
+</telerik:RadAjaxLoadingPanel>
+<telerik:RadMultiPage ID="CustomerProspectMultiPage" runat="server" SelectedIndex="1">
     <telerik:RadPageView ID="RadPageView1" runat="server">
         <asp:Panel ID="pnlSummary" runat="server">
             <table width="100%">
@@ -380,8 +415,7 @@
                                     <asp:Label ID="lblFirstName" runat="server" CssClass="FieldName" Text="First Name : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtFirstName" runat="server" Text="" />
-                                    <span id="Span1" class="spnRequiredField">*</span>
+                                    <asp:TextBox ID="txtFirstName" runat="server" Text="" />                                    
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblMiddleName" runat="server" CssClass="FieldName" Text="Middle Name : "></asp:Label>
@@ -401,22 +435,21 @@
                                     <asp:Label ID="lblDateOfBirth" runat="server" CssClass="FieldName" Text="Date of Birth : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpDOB" runat="server" 
-                                        ShowAnimation-Type="Fade" Skin="Outlook">
+                                    <telerik:RadDatePicker ID="dpDOB" runat="server" ShowAnimation-Type="Fade" Skin="Outlook" MinDate="1900-01-01">
                                         <Calendar Skin="Outlook" UseColumnHeadersAsSelectors="False" UseRowHeadersAsSelectors="False"
                                             ViewSelectorText="x">
                                         </Calendar>
                                         <DatePopupButton HoverImageUrl="" ImageUrl="" />
-                                        <DateInput DateFormat="M/d/yyyy" DisplayDateFormat="M/d/yyyy">
+                                        <DateInput DateFormat="M/d/yyyy" DisplayDateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
+                                    <span id="Span10" class="spnRequiredField">*</span>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblEmailId" runat="server" CssClass="FieldName" Text="Email Id : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtEmail" runat="server" Text="" />
-                                    <span id="Span2" class="spnRequiredField">*</span>
+                                    <asp:TextBox ID="txtEmail" runat="server" Text="" />                                    
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblPickBranch" runat="server" CssClass="FieldName" Text="Branch Name : "></asp:Label>
@@ -434,22 +467,12 @@
                     </td>
                 </tr>
             </table>
-            <table width="100%">
+            <table width="100%" id="tblChildCustomer" runat="server">
                 <tr>
                     <td>
                         <asp:Label ID="Label2" runat="server" CssClass="HeaderText" Text="Family Member Details"></asp:Label>
                         <hr />
-                        <table width="100%">
-                            <tr>
-                                <td align="center">
-                                    <div id="msgNochildCustomer" runat="server" class="failure-msg" align="center" visible="false">
-                                        There is no Child Customers for this Customer
-                                        <br />
-                                        (or)<br />
-                                        This Customer itself might be a child Customer</div>
-                                </td>
-                            </tr>
-                        </table>
+                       
                         <table width="100%">
                             <tr>
                                 <td>
@@ -481,6 +504,7 @@
                                                         </ItemTemplate>
                                                         <EditItemTemplate>
                                                             <asp:TextBox runat="server" ID="txtChildFirstName" Text='<%# Bind("FirstName") %>'></asp:TextBox>
+                                                            <span id="Span12" class="spnRequiredField">*</span>
                                                         </EditItemTemplate>
                                                     </telerik:GridTemplateColumn>
                                                     <telerik:GridBoundColumn UniqueName="MiddleName" HeaderText="Middle Name" DataField="MiddleName"
@@ -488,8 +512,8 @@
                                                     <telerik:GridBoundColumn UniqueName="LastName" HeaderText="Last Name" DataField="LastName"
                                                         HeaderStyle-HorizontalAlign="Center" />
                                                     <telerik:GridDateTimeColumn UniqueName="DOB" PickerType="DatePicker" HeaderText="Date of Birth"
-                                                        DataField="DOB" FooterText="DateTimeColumn footer" DataFormatString="{0:MM/dd/yyyy}"
-                                                        EditDataFormatString="MMMM dd, yyyy">
+                                                        DataField="DOB" FooterText="DateTimeColumn footer" DataFormatString="{0:dd/MM/yyyy}"
+                                                        EditDataFormatString="dd MMMM, yyyy" MinDate="1900-01-01">
                                                         <ItemStyle Width="120px" />
                                                     </telerik:GridDateTimeColumn>
                                                     <telerik:GridTemplateColumn HeaderText="Email-Id" SortExpression="Email-Id" UniqueName="EmailId"
@@ -500,6 +524,7 @@
                                                         </ItemTemplate>
                                                         <EditItemTemplate>
                                                             <asp:TextBox runat="server" ID="txtGridEmailId" Text='<%# Bind("EmailId") %>'></asp:TextBox>
+                                                            <span id="Span13" class="spnRequiredField">*</span>
                                                         </EditItemTemplate>
                                                     </telerik:GridTemplateColumn>
                                                     <%--<telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
@@ -535,13 +560,13 @@
                                     <asp:Label ID="lblAssets" runat="server" CssClass="FieldName" Text="Assets : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtAssets" runat="server" Text="" Enabled="false" style="direction:rtl" />
+                                    <asp:TextBox ID="txtAssets" runat="server" Text="" Enabled="false" Style="direction: rtl" />
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblLifeInsurance" runat="server" CssClass="FieldName" Text="Life Insurance : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtLifeInsurance" runat="server" Text="" Enabled="false" style="direction:rtl" />
+                                    <asp:TextBox ID="txtLifeInsurance" runat="server" Text="" Enabled="false" Style="direction: rtl" />
                                 </td>
                             </tr>
                             <tr>
@@ -549,13 +574,13 @@
                                     <asp:Label ID="lblLiabilities" runat="server" CssClass="FieldName" Text="Liabilities(Out Standing) : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtLiabilities" runat="server" Text="" Enabled="false" style="direction:rtl" />
+                                    <asp:TextBox ID="txtLiabilities" runat="server" Text="" Enabled="false" Style="direction: rtl" />
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblGeneralInsurance" runat="server" CssClass="FieldName" Text="Genral Insurance : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtGeneralInsurance" runat="server" Text="" Enabled="false" style="direction:rtl" />
+                                    <asp:TextBox ID="txtGeneralInsurance" runat="server" Text="" Enabled="false" Style="direction: rtl" />
                                 </td>
                             </tr>
                             <tr>
@@ -563,13 +588,13 @@
                                     <asp:Label ID="lblExpense" runat="server" CssClass="FieldName" Text="Expense(Per Month) : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtExpense" runat="server" Text="" Enabled="false" style="direction:rtl" />
+                                    <asp:TextBox ID="txtExpense" runat="server" Text="" Enabled="false" Style="direction: rtl" />
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblIncome" runat="server" CssClass="FieldName" Text="Income(Per Month) : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtIncome" runat="server" Text="" Enabled="false" style="direction:rtl" />
+                                    <asp:TextBox ID="txtIncome" runat="server" Text="" Enabled="false" Style="direction: rtl" />
                                 </td>
                             </tr>
                         </table>
@@ -589,13 +614,13 @@
                                     <asp:Label ID="lblDirectEquity" runat="server" Text="Direct Equity : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtDirectEquity" runat="server" style="direction:rtl" onchange="Total()" ></asp:TextBox>
+                                    <asp:TextBox ID="txtDirectEquity" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblGold" runat="server" Text="Gold : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtGold" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtGold" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -603,13 +628,13 @@
                                     <asp:Label ID="lblMFEquity" runat="server" Text="MF-Equity : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtMFEquity" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtMFEquity" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblCollectibles" runat="server" Text="Collectibles : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtCollectibles" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtCollectibles" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -617,13 +642,13 @@
                                     <asp:Label ID="lblMFDebt" runat="server" Text="MF-Debt : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtMFDebt" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtMFDebt" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblCashAndSavings" runat="server" Text="Cash & Savings : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtCashAndSavings" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtCashAndSavings" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -631,14 +656,14 @@
                                     <asp:Label ID="lblMFHybridEquity" runat="server" Text="MF Hybrid - Equity : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtMFHybridEquity" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtMFHybridEquity" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblStructuredProduct" runat="server" Text="Structured Product : "
                                         CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtStructuredProduct" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtStructuredProduct" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -646,13 +671,13 @@
                                     <asp:Label ID="lblMFHybridDebt" runat="server" Text="MF Hybrid - Debt : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtMFHybridDebt" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtMFHybridDebt" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblCommodities" runat="server" Text="Commodities : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtCommodities" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtCommodities" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -660,13 +685,13 @@
                                     <asp:Label ID="lblFixedIncome" runat="server" Text="Fixed Income : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtFixedIncome" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtFixedIncome" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblPrivateEquity" runat="server" Text="Private Equity : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPrivateEquity" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtPrivateEquity" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -674,13 +699,13 @@
                                     <asp:Label ID="lblGovtSavings" runat="server" Text="Govt Savings : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtGovtSavings" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtGovtSavings" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblPMS" runat="server" Text="PMS : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPMS" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtPMS" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -689,13 +714,13 @@
                                         CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPensionGratuities" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtPensionGratuities" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblOthers" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtInvestmentsOthers" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtInvestmentsOthers" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -703,25 +728,24 @@
                                     <asp:Label ID="lblProperty" runat="server" Text="Property : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtProperty" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtProperty" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
-                                 <td align="right">                                    
+                                <td align="right">
                                 </td>
-                                <td align="left">                                    
-                                    
+                                <td align="left">
                                 </td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td align="right">
                                     <asp:Label ID="lblAssetTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtAssetTotal" runat="server" style="direction:rtl" Enabled="false"></asp:TextBox>
+                                    <asp:TextBox ID="txtAssetTotal" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
+                                        ></asp:TextBox>
                                 </td>
-                                 <td align="right">                                    
+                                <td align="right">
                                 </td>
-                                <td align="left">                                    
-                                    
+                                <td align="left">
                                 </td>
                             </tr>
                         </table>
@@ -741,13 +765,13 @@
                                     <asp:Label ID="lblSalary" runat="server" Text="Salary : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtSalary" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtSalary" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblCapitalGains" runat="server" Text="Capital Gains : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtCapitalGains" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtCapitalGains" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -755,14 +779,14 @@
                                     <asp:Label ID="lblRentalProperty" runat="server" CssClass="FieldName" Text="Rental Property : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtRentalProperty" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtRentalProperty" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblAgriculturalIncome" runat="server" Text="Agricultural Income : "
-                                        CssClass="FieldName" ></asp:Label>
+                                        CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtAgriculturalIncome" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtAgriculturalIncome" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -771,28 +795,29 @@
                                         CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtBusinessAndProfession" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtBusinessAndProfession" runat="server" Style="direction: rtl"
+                                        onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblOthersIncome" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOthersIncome" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtOthersIncome" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
-                              <tr>
+                            <tr>
                                 <td align="right">
-                                    <asp:Label ID="lblIncomeTotal" runat="server" Text="Total : "
-                                        CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblIncomeTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtIncomeTotal" runat="server" style="direction:rtl" Enabled="false"></asp:TextBox>
+                                    <asp:TextBox ID="txtIncomeTotal" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
+                                         ></asp:TextBox>
                                 </td>
                                 <td>
                                 </td>
                                 <td>
                                 </td>
-                                </tr>
+                            </tr>
                         </table>
                     </td>
                 </tr>
@@ -810,14 +835,15 @@
                                     <asp:Label ID="lblFood" runat="server" Text="Food : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtFood" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtFood" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblEntertainmentHolidays" runat="server" Text="Entertainment-Holidays : "
                                         CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtEntertainmentHolidays" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtEntertainmentHolidays" runat="server" Style="direction: rtl"
+                                        onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -825,13 +851,13 @@
                                     <asp:Label ID="lblRent" runat="server" Text="Rent : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtRent" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtRent" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblPersonalWear" runat="server" Text="Personal Wear : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPersonalWear" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtPersonalWear" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -839,13 +865,13 @@
                                     <asp:Label ID="lblUtilites" runat="server" Text="Utilities : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtUtilites" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtUtilites" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblInsurance" runat="server" Text="Insurance : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtInsurance" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtInsurance" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -854,13 +880,13 @@
                                         CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtHealthPersonalCare" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtHealthPersonalCare" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblDomesticHelp" runat="server" Text="Domestic Help : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtDomesticHelp" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtDomesticHelp" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -868,27 +894,28 @@
                                     <asp:Label ID="lblConveyance" runat="server" Text="Conveyance : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtConveyance" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtConveyance" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblOthersExpense" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOthersExpense" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtOthersExpense" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
-                              <tr>
+                            <tr>
                                 <td align="right">
                                     <asp:Label ID="lblExpenseTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtExpenseTotal" runat="server" style="direction:rtl" Enabled="false"></asp:TextBox>
+                                    <asp:TextBox ID="txtExpenseTotal" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
+                                         ></asp:TextBox>
                                 </td>
                                 <td>
                                 </td>
                                 <td>
                                 </td>
-                                </tr>
+                            </tr>
                         </table>
                     </td>
                 </tr>
@@ -919,13 +946,13 @@
                                     <asp:Label ID="lblHomeLoan" runat="server" Text="Home Loan : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtHomeLoanLO" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtHomeLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtHomeLoanT" runat="server"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtHomeLoanEMI" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtHomeLoanEMI" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -933,13 +960,13 @@
                                     <asp:Label ID="lblAutoLoan" runat="server" Text="Auto Loan : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtAutoLoanLO" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtAutoLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtAutoLoanT" runat="server"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtAutoLoanEMI" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtAutoLoanEMI" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -947,13 +974,13 @@
                                     <asp:Label ID="lblPersonalLoan" runat="server" Text="Perosnal Loan : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPersonalLoanLO" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtPersonalLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtPersonalLoanT" runat="server"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPersonalLoanEMI" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtPersonalLoanEMI" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -961,13 +988,13 @@
                                     <asp:Label ID="lblEducationLoan" runat="server" Text="Education Loan : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtEducationLoanLO" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtEducationLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtEducationLoanT" runat="server"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtEducationLoanEMI" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtEducationLoanEMI" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -975,13 +1002,13 @@
                                     <asp:Label ID="lblOtherLoan" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOtherLoanLO" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtOtherLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtOtherLoanT" runat="server"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOtherLoanEMI" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtOtherLoanEMI" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -989,7 +1016,8 @@
                                     <asp:Label ID="lblTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtTotalLO" runat="server" style="direction:rtl" Enabled="false"></asp:TextBox>
+                                    <asp:TextBox ID="txtTotalLO" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
+                                         ></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <%--<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>--%>
@@ -1041,19 +1069,18 @@
                                     <asp:Label ID="lblTerm" runat="server" Text="Term : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtTermSA" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtTermSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtTermP" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtTermP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpTermLIMD" runat="server" 
-                                        Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpTermLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                 </td>
@@ -1063,19 +1090,18 @@
                                     <asp:Label ID="lblEndowment" runat="server" Text="Endowment : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtEndowmentSA" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtEndowmentSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtEndowmentP" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtEndowmentP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpEndowmentLIMD" runat="server" 
-                                        Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpEndowmentLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                 </td>
@@ -1085,19 +1111,18 @@
                                     <asp:Label ID="lblWholeLife" runat="server" Text="Whole Life : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtWholeLifeSA" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtWholeLifeSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtWholeLifeP" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtWholeLifeP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpWholeLifeLIMD" runat="server" 
-                                        Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpWholeLifeLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                 </td>
@@ -1107,19 +1132,18 @@
                                     <asp:Label ID="lblMoneyBack" runat="server" Text="Money Back : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtMoneyBackSA" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtMoneyBackSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtMoneyBackP" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtMoneyBackP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpMoneyBackLIMD" runat="server" 
-                                        Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpMoneyBackLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                 </td>
@@ -1129,19 +1153,18 @@
                                     <asp:Label ID="lblULIP" runat="server" Text="ULIP : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtULIPSA" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtULIPSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtULIPP" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtULIPP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpULIPSLIMD" runat="server" 
-                                        Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpULIPSLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                 </td>
@@ -1151,35 +1174,35 @@
                                     <asp:Label ID="lblOthersLI" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOthersLISA" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtOthersLISA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOthersLIP" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtOthersLIP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpOthersLIMD" runat="server" 
-                                        Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpOthersLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                 </td>
                             </tr>
-                          <tr>
-                                            <td align="right">
-                                                <asp:Label ID="lblTotalLI" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
-                                            </td>
-                                            <td align="left">
-                                                <asp:TextBox ID="txtTotalLISA" runat="server" style="direction:rtl" Enabled="false"></asp:TextBox>
-                                            </td>
-                                            <td align="left">
-                                            </td>
-                                            <td align="left">
-                                            </td>
-                                        </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="lblTotalLI" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtTotalLISA" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
+                                         ></asp:TextBox>
+                                </td>
+                                <td align="left">
+                                </td>
+                                <td align="left">
+                                </td>
+                            </tr>
                         </table>
                     </td>
                 </tr>
@@ -1211,19 +1234,20 @@
                                         CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtHealthInsuranceCoverSA" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtHealthInsuranceCoverSA" runat="server" Style="direction: rtl"
+                                        onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtHealthInsuranceCoverP" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtHealthInsuranceCoverP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpHealthInsuranceCoverGIMD" runat="server" 
-                                        Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpHealthInsuranceCoverGIMD" runat="server" Skin="Outlook"
+                                        ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                 </td>
@@ -1234,19 +1258,20 @@
                                         CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPropertyInsuranceCoverSA" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtPropertyInsuranceCoverSA" runat="server" Style="direction: rtl"
+                                        onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPropertyInsuranceCoverP" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtPropertyInsuranceCoverP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpPropertyInsuranceCoverGIMD" runat="server" 
-                                        Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpPropertyInsuranceCoverGIMD" runat="server" Skin="Outlook"
+                                        ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                 </td>
@@ -1256,19 +1281,19 @@
                                     <asp:Label ID="lblPersonalAccident" runat="server" Text="Personal Accident : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPersonalAccidentSA" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtPersonalAccidentSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPersonalAccidentP" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtPersonalAccidentP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpPersonalAccidentGIMD" runat="server" 
-                                        Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpPersonalAccidentGIMD" runat="server" Skin="Outlook"
+                                        ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                 </td>
@@ -1278,35 +1303,35 @@
                                     <asp:Label ID="lblOthersGI" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOthersGISA" runat="server" style="direction:rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtOthersGISA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOthersGIP" runat="server" style="direction:rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtOthersGIP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpOthersGIMD" runat="server" 
-                                        Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpOthersGIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                             Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                                        <DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy">
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
                                 </td>
                             </tr>
-                              <tr>
-                                            <td align="right">
-                                                <asp:Label ID="lblTotalGI" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
-                                            </td>
-                                            <td align="left">
-                                                <asp:TextBox ID="txtTotalGISA" runat="server" style="direction:rtl" Enabled="false"></asp:TextBox>
-                                            </td>
-                                            <td align="left">
-                                            </td>
-                                            <td align="left">
-                                            </td>
-                                        </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="lblTotalGI" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtTotalGISA" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
+                                         ></asp:TextBox>
+                                </td>
+                                <td align="left">
+                                </td>
+                                <td align="left">
+                                </td>
+                            </tr>
                         </table>
                     </td>
                 </tr>
@@ -1316,3 +1341,8 @@
 </telerik:RadMultiPage>
 <asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click"
     Text="Save" Style="height: 26px" />
+<asp:HiddenField ID="totalIncome" runat="server" />
+<asp:HiddenField ID="totalExpense" runat="server" />
+<asp:HiddenField ID="totalLiabilities" runat="server" />
+<asp:HiddenField ID="HiddenField3" runat="server" />
+<asp:HiddenField ID="HiddenField4" runat="server" />

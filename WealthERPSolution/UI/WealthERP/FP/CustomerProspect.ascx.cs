@@ -68,7 +68,7 @@ namespace WealthERP.FP
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 }
                 BindBranch();
-                if (Session[SessionContents.FPS_ProspectList_CustomerId] != null && Session[SessionContents.FPS_ProspectList_CustomerId] != string.Empty)
+                if (Session[SessionContents.FPS_ProspectList_CustomerId] != null && Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != string.Empty)
                 {
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                     customerVo = customerBo.GetCustomer(customerId);
@@ -98,12 +98,13 @@ namespace WealthERP.FP
                     }
                     else
                     {
-                        msgNochildCustomer.Visible = true;
+                        tblChildCustomer.Visible = false;
                     }
                     txtFirstName.Text = customerVo.FirstName;
                     txtMiddleName.Text = customerVo.MiddleName;
                     txtLastName.Text = customerVo.LastName;
                     //dpDOB.MinDate = DateTime.Parse("01/01/1930 00:00:00");
+                    
                     if (customerVo.Dob != DateTime.Parse("01/01/0001 00:00:00"))
                     {
                         dpDOB.SelectedDate = customerVo.Dob;
@@ -157,9 +158,10 @@ namespace WealthERP.FP
                         btnCustomerProspect.Visible = true;
                         RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
 
-                        msgNochildCustomer.Visible = false;
-
+                        tblChildCustomer.Visible = true;
+                        
                     }
+                    //DataRetrival(Databuffer);
 
 
                 }
@@ -332,9 +334,18 @@ namespace WealthERP.FP
                             }
                             if (editor is GridTemplateColumnEditor)
                             {
-                                TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
-                                editorText = txt.Text;
-                                editorValue = txt.Text;
+                                if (i != 3)
+                                {
+                                    TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
+                                    editorText = txt.Text;
+                                    editorValue = txt.Text;
+                                }
+                                else if (i == 3)
+                                {
+                                    TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
+                                    editorText = txt.Text;
+                                    editorValue = txt.Text;
+                                }     
                             }
                             try
                             {
@@ -526,6 +537,7 @@ namespace WealthERP.FP
             double totalLoanOutstanding = 0.0;
             double instrumentTotal = 0.0;
             double subInstrumentTotal = 0.0;
+            
             BoFPSuperlite.CustomerProspectBo customerProspectBo = new CustomerProspectBo();
 
             try
@@ -558,15 +570,17 @@ namespace WealthERP.FP
                         //parent customerid is nothing but customerid
                         bdetails = customerProspectBo.DataManipulationInput(DataCapture(), ParentCustomerId, createdById, out totalincome, out totalExpense, out totalLiabilities, out totalLoanOutstanding, out instrumentTotal, out subInstrumentTotal);
                         if (bresult == true && bdetails == true)
-                        {
+                        {                            
                             msgRecordStatus.Visible = true;
                         }
                         else
                         {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful');", true);
                         }
-                    }
+                    }                    
                 }
+                Dictionary<string, object> Databuffer = customerProspectBo.Databuffer(ParentCustomerId);
+                DataRetrival(Databuffer);
 
             }
             catch (BaseApplicationException Ex)
@@ -1147,7 +1161,14 @@ namespace WealthERP.FP
             bool bresult = true;
             try
             {
+                customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
+                int temp = 0;
+                foreach (CustomerFamilyVo customerfamilyvo in customerFamilyVoList)
+                {
 
+                    dt.Rows[temp]["C_CustomerId"] = customerfamilyvo.CustomerId.ToString();
+                    temp++;
+                }
                 customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                 //Updating Parent Customer
                 UpdateCustomerForAddProspect(customerId);
@@ -1201,7 +1222,10 @@ namespace WealthERP.FP
             userVo.MiddleName = txtMiddleName.Text.ToString();
             userVo.LastName = txtLastName.Text.ToString();
             customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            customerVo.Dob = dpDOB.SelectedDate.Value;
+            if (dpDOB.SelectedDate != null)
+            {
+                customerVo.Dob = dpDOB.SelectedDate.Value;
+            }
             customerVo.Email = txtEmail.Text;
             Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
             userVo.Email = txtEmail.Text.ToString();
@@ -1228,7 +1252,10 @@ namespace WealthERP.FP
             customerVo.MiddleName = drChildCustomer["MiddleName"].ToString();
             customerVo.LastName = drChildCustomer["LastName"].ToString();
             customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
+            if (dpDOB.SelectedDate != null)
+            {
+                customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
+            }
             customerVo.IsProspect = 1;
             customerVo.IsFPClient = 1;
             customerVo.Email = drChildCustomer["EmailId"].ToString();
@@ -1615,6 +1642,7 @@ namespace WealthERP.FP
                     txtLiabilities.Text = totalliabilities.ToString();
                     txtLifeInsurance.Text = totalli.ToString();
                     txtGeneralInsurance.Text = totalgi.ToString();
+
                     txtAssetTotal.Text = totalasset.ToString();
                     txtIncomeTotal.Text = totalincome.ToString();
                     txtExpenseTotal.Text = totalexpense.ToString();
