@@ -576,7 +576,7 @@ function loadlinksfromDefault(controlid) {
 }
 
 function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) {
-
+   
 
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ")
@@ -595,14 +595,21 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
         }
         if (msie > 0)      // If Internet Explorer
         {
-
-            parent.document.getElementById("lblUserName").innerText = "Welcome " + username;
+            if (username != "")
+                parent.document.getElementById("lblUserName").innerText = "Welcome " + username;
+            else
+                parent.document.getElementById("lblUserName").innerText = "";
+                
             parent.document.getElementById("lblSignOut").innerText = signOutText;
             parent.document.getElementById("LinkButtonSignIn").innerText = signInText;
         }
         else                 // If another browser
         {
-            parent.document.getElementById("lblUserName").textContent = "Welcome " + username;
+            if (username != "")
+                parent.document.getElementById("lblUserName").textContent = "Welcome " + username;
+            else
+                parent.document.getElementById("lblUserName").textContent = "";
+                
             parent.document.getElementById("lblSignOut").textContent = signOutText;
             parent.document.getElementById("LinkButtonSignIn").textContent = signInText;
         }
@@ -619,13 +626,18 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
         }
         if (msie > 0)      // If Internet Explorer
         {
-            document.getElementById("lblUserName").innerText = "Welcome " + username;
+            if (username != "")
+                document.getElementById("lblUserName").innerText = "Welcome " + username;
+            else
+                document.getElementById("lblUserName").innerText = "";
+                
             document.getElementById("lblSignOut").innerText = signOutText;
             document.getElementById("LinkButtonSignIn").innerText = signInText;
         }
         else                // If another browser
         {
-            setTimeout('parent.document.getElementById("lblUserName").textContent ="' + "Welcome " + username + '"', 25);
+            if (username != "")
+                setTimeout('parent.document.getElementById("lblUserName").textContent ="' + "Welcome " + username + '"', 25);
             //parent.document.getElementById("lblUserName").textContent = username;
             setTimeout('parent.document.getElementById("lblSignOut").textContent ="' + signOutText + '"', 25);
             // parent.document.getElementById("lblSignOut").textContent = signOutText;
