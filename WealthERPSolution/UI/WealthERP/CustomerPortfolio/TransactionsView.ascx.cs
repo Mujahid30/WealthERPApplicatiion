@@ -224,7 +224,8 @@ namespace WealthERP.CustomerPortfolio
                 hdnFolioFilter.Value = Session["Folio"].ToString();
                 Session.Remove("Folio");
             }
-            else
+            else 
+            if(export==0)
             {
                 hdnFolioFilter.Value = string.Empty;
             }
@@ -720,7 +721,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
-                BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+                BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             }
 
             PrepareGridViewForExport(gvMFTransactions);
@@ -736,6 +737,10 @@ namespace WealthERP.CustomerPortfolio
             else if (rbtnWord.Checked)
             {
                 ExportGridView("Word");
+            }
+            else
+            {
+                ExportGridView("Excel");
             }
             BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             gvMFTransactions.Columns[0].Visible = true;

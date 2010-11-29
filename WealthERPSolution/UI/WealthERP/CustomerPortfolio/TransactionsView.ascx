@@ -185,6 +185,7 @@
                         <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Scheme">
                             <HeaderTemplate>
                                 <asp:Label ID="lblScheme" runat="server" Text="Scheme"></asp:Label>
+                                <br />
                                 <asp:TextBox ID="txtSchemeSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_TransactionsView_btnTranSchemeSearch');" />
                             </HeaderTemplate>
                             <ItemTemplate>
