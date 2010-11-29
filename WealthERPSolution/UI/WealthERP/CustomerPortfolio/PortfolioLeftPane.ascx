@@ -121,6 +121,9 @@
                                 <asp:TreeNode Text="Liabilities Dashboard" Value="Liabilities Dashboard">
                                     <asp:TreeNode Text="Add Liability" Value="Add Liability"></asp:TreeNode>
                                 </asp:TreeNode>
+                                <asp:TreeNode Text="Financial Planning" Value="FinancialPlanning">                                    
+                                    <asp:TreeNode Text="Reports" Value="Reports"></asp:TreeNode>
+                                </asp:TreeNode>
                             </Nodes>
                             <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
                                 NodeSpacing="0px" VerticalPadding="0px" />
