@@ -2193,10 +2193,23 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdCreateLiability, "@CL_EMIDate", DbType.Int16, liabilitiesVo.EMIDate);
                 db.AddInParameter(cmdCreateLiability, "@CL_NoOfInstallments", DbType.Int32, liabilitiesVo.NoOfInstallments);
                 db.AddInParameter(cmdCreateLiability, "@CL_AmountPrepaid", DbType.Double, liabilitiesVo.AmountPrepaid);
-                db.AddInParameter(cmdCreateLiability, "@XRT_RepaymentTypeCode", DbType.String, liabilitiesVo.RepaymentTypeCode);
-                db.AddInParameter(cmdCreateLiability, "@XF_FrequencyCodeEMI", DbType.String, liabilitiesVo.FrequencyCodeEMI);
-                db.AddInParameter(cmdCreateLiability, "@CL_InstallmentStartDate", DbType.DateTime, liabilitiesVo.InstallmentStartDate);
-                db.AddInParameter(cmdCreateLiability, "@CL_InstallmentEndDate", DbType.DateTime, liabilitiesVo.InstallmentEndDate);
+                if(!string.IsNullOrEmpty(liabilitiesVo.RepaymentTypeCode))
+                    db.AddInParameter(cmdCreateLiability, "@XRT_RepaymentTypeCode", DbType.String, liabilitiesVo.RepaymentTypeCode);
+                else
+                    db.AddInParameter(cmdCreateLiability, "@XRT_RepaymentTypeCode", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(liabilitiesVo.FrequencyCodeEMI))
+                    db.AddInParameter(cmdCreateLiability, "@XF_FrequencyCodeEMI", DbType.String, liabilitiesVo.FrequencyCodeEMI);
+                else
+                    db.AddInParameter(cmdCreateLiability, "@XF_FrequencyCodeEMI", DbType.String, DBNull.Value);
+
+                if (liabilitiesVo.InstallmentStartDate != DateTime.MinValue)
+                    db.AddInParameter(cmdCreateLiability, "@CL_InstallmentStartDate", DbType.DateTime, liabilitiesVo.InstallmentStartDate);
+                else
+                    db.AddInParameter(cmdCreateLiability, "@CL_InstallmentStartDate", DbType.DateTime, DBNull.Value);
+                if (liabilitiesVo.InstallmentEndDate!=DateTime.MinValue)
+                    db.AddInParameter(cmdCreateLiability, "@CL_InstallmentEndDate", DbType.DateTime, liabilitiesVo.InstallmentEndDate);
+                else
+                    db.AddInParameter(cmdCreateLiability, "@CL_InstallmentEndDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(cmdCreateLiability, "@CL_IsInProcess", DbType.Int16, liabilitiesVo.IsInProcess);
                 db.AddInParameter(cmdCreateLiability, "@CL_CreatedBy", DbType.Int32, liabilitiesVo.CreatedBy);
                 db.AddInParameter(cmdCreateLiability, "@CL_ModifiedBy", DbType.Int32, liabilitiesVo.ModifiedBy);
@@ -2206,13 +2219,25 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(cmdCreateLiability, "@CL_LoanStartDate", DbType.DateTime, liabilitiesVo.LoanStartDate);
                 else
                     db.AddInParameter(cmdCreateLiability, "@CL_LoanStartDate", DbType.DateTime, DBNull.Value);
-                db.AddInParameter(cmdCreateLiability, "@CL_OtherLenderName", DbType.String, liabilitiesVo.OtherLenderName);
-                db.AddInParameter(cmdCreateLiability, "@CL_CompoundFrequency", DbType.String, liabilitiesVo.CompoundFrequency);
+                if (!string.IsNullOrEmpty(liabilitiesVo.OtherLenderName))
+                    db.AddInParameter(cmdCreateLiability, "@CL_OtherLenderName", DbType.String, liabilitiesVo.OtherLenderName);
+                else
+                    db.AddInParameter(cmdCreateLiability, "@CL_OtherLenderName", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(liabilitiesVo.CompoundFrequency))
+                    db.AddInParameter(cmdCreateLiability, "@CL_CompoundFrequency", DbType.String, liabilitiesVo.CompoundFrequency);
+                else
+                    db.AddInParameter(cmdCreateLiability, "@CL_CompoundFrequency", DbType.String, DBNull.Value);
                 db.AddInParameter(cmdCreateLiability, "@XPO_PaymentOptionCode", DbType.Int16, liabilitiesVo.PaymentOptionCode);
-                db.AddInParameter(cmdCreateLiability, "@XIT_InstallmentTypeCode", DbType.Int16, liabilitiesVo.InstallmentTypeCode);
+                if(liabilitiesVo.InstallmentTypeCode!=0)
+                    db.AddInParameter(cmdCreateLiability, "@XIT_InstallmentTypeCode", DbType.Int16, liabilitiesVo.InstallmentTypeCode);
+                else
+                    db.AddInParameter(cmdCreateLiability, "@XIT_InstallmentTypeCode", DbType.Int16, DBNull.Value);
                 db.AddInParameter(cmdCreateLiability, "@CL_LumpsumRepaymentAmount", DbType.Double, liabilitiesVo.LumpsumRepaymentAmount);
                 db.AddInParameter(cmdCreateLiability, "@CL_OutstandingAmount", DbType.Double, liabilitiesVo.OutstandingAmount);
-                db.AddInParameter(cmdCreateLiability, "@CL_Guarantor", DbType.String, liabilitiesVo.Guarantor);
+                if (!string.IsNullOrEmpty(liabilitiesVo.Guarantor))
+                    db.AddInParameter(cmdCreateLiability, "@CL_Guarantor", DbType.String, liabilitiesVo.Guarantor);
+                else
+                    db.AddInParameter(cmdCreateLiability, "@CL_Guarantor", DbType.String, DBNull.Value);
                 db.AddInParameter(cmdCreateLiability, "@CL_Tenure", DbType.Int32, liabilitiesVo.Tenure);
 
                 db.AddOutParameter(cmdCreateLiability, "@LiabilityId", DbType.Int32, 100);

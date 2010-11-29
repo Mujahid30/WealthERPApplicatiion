@@ -292,7 +292,7 @@ namespace DaoCustomerProfiling
                     customerVo.LastName = dr["C_LastName"].ToString();
                     customerVo.Gender = dr["C_Gender"].ToString();
                     customerVo.BranchName = dr["AB_BranchName"].ToString();
-                    if (dr["C_DOB"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_DOB"].ToString()))
                         customerVo.Dob = Convert.ToDateTime(dr["C_DOB"].ToString());
                     //customerVo.Dob = DateTime.Parse(dr["C_DOB"].ToString());
 
@@ -314,7 +314,7 @@ namespace DaoCustomerProfiling
                     customerVo.Adr2City = dr["C_Adr2City"].ToString();
                     customerVo.Adr2State = dr["C_Adr2State"].ToString();
                     customerVo.Adr2Country = dr["C_Adr2Country"].ToString();
-                    if (dr["C_ResidenceLivingDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_ResidenceLivingDate"].ToString()))
                         customerVo.ResidenceLivingDate = Convert.ToDateTime(dr["C_ResidenceLivingDate"].ToString());
                     customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
                     customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
@@ -335,11 +335,11 @@ namespace DaoCustomerProfiling
                     customerVo.Occupation = dr["XO_OccupationCode"].ToString();
                     customerVo.Qualification = dr["XQ_QualificationCode"].ToString();
                     customerVo.MaritalStatus = dr["XMS_MaritalStatusCode"].ToString();
-                    if (dr["C_MarriageDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_MarriageDate"].ToString()))
                         customerVo.MarriageDate = Convert.ToDateTime(dr["C_MarriageDate"].ToString());
                     customerVo.Nationality = dr["XN_NationalityCode"].ToString();
                     customerVo.RBIRefNum = dr["C_RBIRefNum"].ToString();
-                    if (dr["C_RBIApprovalDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_RBIApprovalDate"].ToString()))
                         customerVo.RBIApprovalDate = Convert.ToDateTime(dr["C_RBIApprovalDate"].ToString());
                     customerVo.CompanyName = dr["C_CompanyName"].ToString();
                     customerVo.OfcAdrLine1 = dr["C_OfcAdrLine1"].ToString();
@@ -349,11 +349,11 @@ namespace DaoCustomerProfiling
                     customerVo.OfcAdrCity = dr["C_OfcAdrCity"].ToString();
                     customerVo.OfcAdrState = dr["C_OfcAdrState"].ToString();
                     customerVo.OfcAdrCountry = dr["C_OfcAdrCountry"].ToString();
-                    if (dr["C_JobStartDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_JobStartDate"].ToString()))
                         customerVo.JobStartDate = Convert.ToDateTime(dr["C_JobStartDate"].ToString());
-                    if (dr["C_RegistrationDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_RegistrationDate"].ToString()))
                         customerVo.RegistrationDate = Convert.ToDateTime(dr["C_RegistrationDate"].ToString());
-                    if (dr["C_CommencementDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_CommencementDate"].ToString()))
                         customerVo.CommencementDate = Convert.ToDateTime(dr["C_CommencementDate"].ToString());
                     customerVo.RegistrationPlace = dr["C_RegistrationPlace"].ToString();
                     customerVo.RegistrationNum = dr["C_RegistrationNum"].ToString();
@@ -580,6 +580,8 @@ namespace DaoCustomerProfiling
                     customerVo.ParentCustomer = dr["ParentCustomer"].ToString();
                     if (dr["AB_BranchName"] != null)
                         customerVo.BranchName = dr["AB_BranchName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["CA_AssociationId"].ToString()))
+                        customerVo.AssociationId = int.Parse(dr["CA_AssociationId"].ToString());
                 }
             }
             catch (BaseApplicationException Ex)
