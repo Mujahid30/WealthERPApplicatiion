@@ -646,6 +646,64 @@ namespace DaoAdvisorProfiling
 
         }
         /* *************** */
+        /// <summary>
+        /// passing the userId and MIS type  to the funtion,getting the Commission MIS structure 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="misType"></param>
+        /// <param name="dtFrom"></param>
+        /// <param name="dtTo"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="sumToatal"></param>
+        /// <returns></returns>
+        public DataSet GetMFMISCommission(int userId, string misType, DateTime dtFrom, DateTime dtTo,int currentPage, out int count,out double sumToatal)
+        {
+            Database db;
+            DbCommand getMISCommissionCmd;
+            DataSet dsGetMISCommission = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMISCommissionCmd = db.GetStoredProcCommand("SP_GetMISCommission");
+                db.AddInParameter(getMISCommissionCmd, "@MISType", DbType.String, misType);
+                db.AddInParameter(getMISCommissionCmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(getMISCommissionCmd, "@FromDate", DbType.Date, dtFrom);
+                db.AddInParameter(getMISCommissionCmd, "@ToDate", DbType.Date,dtTo) ;
+                db.AddInParameter(getMISCommissionCmd, "@currentPage", DbType.Int32, currentPage);
+                db.AddOutParameter(getMISCommissionCmd, "@Count", DbType.Int32, 0);
+                db.AddOutParameter(getMISCommissionCmd, "@SumTotal", DbType.Decimal, 0);
+                dsGetMISCommission = db.ExecuteDataSet(getMISCommissionCmd);
+                count = (int)db.GetParameterValue(getMISCommissionCmd, "@Count");
+                if (!string.IsNullOrEmpty(db.GetParameterValue(getMISCommissionCmd, "@SumTotal").ToString()))
+                    sumToatal = double.Parse(db.GetParameterValue(getMISCommissionCmd, "@SumTotal").ToString());
+                else
+                    sumToatal = 0;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetMFMISCommission()");
+
+                object[] objects = new object[5];
+                objects[0] = userId;
+                objects[1] = misType;         
+                objects[2] = dtFrom;
+                objects[3] = dtTo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMISCommission;
+        }
 
     }
 }
