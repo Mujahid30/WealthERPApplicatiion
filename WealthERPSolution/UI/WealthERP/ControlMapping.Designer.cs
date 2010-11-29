@@ -340,6 +340,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//AdvisorMISCommission.ascx.
+        /// </summary>
+        internal static string AdvisorMISCommission {
+            get {
+                return ResourceManager.GetString("AdvisorMISCommission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//AdvisorProfile.ascx.
         /// </summary>
         internal static string AdvisorProfile {
@@ -547,11 +556,29 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//CustomerAssociationSetup.ascx.
+        /// </summary>
+        internal static string CuCustomerAssociationSetup {
+            get {
+                return ResourceManager.GetString("CuCustomerAssociationSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//CustomerAccountAdd.ascx.
         /// </summary>
         internal static string CustomerAccountAdd {
             get {
                 return ResourceManager.GetString("CustomerAccountAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer//CustomerAdvisorsNote.ascx.
+        /// </summary>
+        internal static string CustomerAdvisorsNote {
+            get {
+                return ResourceManager.GetString("CustomerAdvisorsNote", resourceCulture);
             }
         }
         
@@ -858,6 +885,15 @@ namespace WealthERP {
         internal static string EditBranchDetails {
             get {
                 return ResourceManager.GetString("EditBranchDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer//EditCustomerBankAccount.ascx.
+        /// </summary>
+        internal static string EditCustomerBankAccount {
+            get {
+                return ResourceManager.GetString("EditCustomerBankAccount", resourceCulture);
             }
         }
         
@@ -1839,15 +1875,6 @@ namespace WealthERP {
         internal static string StandardProfileInputRejects {
             get {
                 return ResourceManager.GetString("StandardProfileInputRejects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

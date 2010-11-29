@@ -1077,12 +1077,16 @@
     <value>FP//ProspectList.ascx</value>
     <comment>FP//ProspectList.ascx</comment>
   </data>
-<data name="CustomerAdvisorsNote" xml:space="preserve">
+  <data name="CustomerAdvisorsNote" xml:space="preserve">
     <value>Customer//CustomerAdvisorsNote.ascx</value>
     <comment>Customer//CustomerAdvisorsNote.ascx</comment>
   </data>
   <data name="CuCustomerAssociationSetup" xml:space="preserve">
     <value>Advisor//CustomerAssociationSetup.ascx</value>
     <comment>Advisor//CustomerAssociationSetup.ascx</comment>
+  </data>
+  <data name="AdvisorMISCommission" xml:space="preserve">
+    <value>Advisor//AdvisorMISCommission.ascx</value>
+    <comment>Advisor//AdvisorMISCommission.ascx</comment>
   </data>
 </root>
