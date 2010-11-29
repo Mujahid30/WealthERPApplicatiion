@@ -202,25 +202,26 @@
             <asp:Label ID="lblHeadName0" runat="server" CssClass="FieldName" Text="Branch/Associate Head :"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlRmlist" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlRmlist_SelectedIndexChanged"
-                AutoPostBack="True">
+            <asp:DropDownList ID="ddlRmlist" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
-           <br />
+            <br />
             <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlRmlist" Display="Dynamic"
                 ErrorMessage="Please select a Branch Head" Operator="NotEqual" ValueToCompare="Select Branch head"
                 CssClass="cvPCG" ValidationGroup="btnSubmit">
             </asp:CompareValidator>
         </td>
         <td class="leftField">
-            <asp:Label ID="lblFax0" runat="server" CssClass="FieldName" Text="Mobile Number :"></asp:Label>
+        &nbsp;
+            <%--<asp:Label ID="lblFax0" runat="server" CssClass="FieldName" Text="Mobile Number :"></asp:Label>--%>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtMobileNumber" CssClass="txtField" runat="server" MaxLength="10"></asp:TextBox>
+            <%--<asp:TextBox ID="txtMobileNumber" CssClass="txtField" runat="server" MaxLength="10"></asp:TextBox>
             <br />           
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG"
                 ErrorMessage="Please give only 10 digit Numbers" ValidationGroup="btnSubmit" ValidationExpression="^[0-9]{10}"  ControlToValidate="txtMobileNumber"
-                Display="Dynamic"></asp:RegularExpressionValidator>
+                Display="Dynamic"></asp:RegularExpressionValidator>--%>
+                &nbsp;
         </td>
     </tr>
     <tr id="trNoOfTerminals" runat="server">

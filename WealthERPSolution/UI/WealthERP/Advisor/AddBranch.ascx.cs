@@ -370,14 +370,14 @@ namespace WealthERP.Advisor
                             advisorBranchVo.BranchHeadId = int.Parse(ddlRmlist.SelectedItem.Value.ToString());
                         }
                     }
-                    if (txtMobileNumber.Text == "")
-                    {
-                        advisorBranchVo.MobileNumber = 0;
-                    }
-                    else
-                    {
-                        advisorBranchVo.MobileNumber = long.Parse(txtMobileNumber.Text);
-                    }
+                    //if (txtMobileNumber.Text == "")
+                    //{
+                    //    advisorBranchVo.MobileNumber = 0;
+                    //}
+                    //else
+                    //{
+                    //    advisorBranchVo.MobileNumber = long.Parse(txtMobileNumber.Text);
+                    //}
                     //advisorBranchVo.BranchId = advisorBo.getId().ToString();
                     advisorBranchVo.BranchName = txtBranchName.Text.ToString();
                     advisorBranchVo.City = txtCity.Text.Trim();
@@ -621,52 +621,52 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void ddlRmlist_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (ddlRmlist.SelectedIndex != 0)
-                {
-                    int userId = advisorStaffBo.GetUserId(int.Parse(ddlRmlist.SelectedItem.Value.ToString()));
-                    rmVo = advisorStaffBo.GetAdvisorStaff(userId);
-                    Session["newRMVo"] = rmVo;
-                    if (rmVo.Mobile != 0)
-                        txtMobileNumber.Text = rmVo.Mobile.ToString();
-                    else
-                        txtMobileNumber.Text = "";
-                    firstName = rmVo.FirstName.ToString();
-                    middleName = rmVo.MiddleName.ToString();
-                    lastName = rmVo.LastName.ToString();
-                }
+        //protected void ddlRmlist_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (ddlRmlist.SelectedIndex != 0)
+        //        {
+        //            int userId = advisorStaffBo.GetUserId(int.Parse(ddlRmlist.SelectedItem.Value.ToString()));
+        //            rmVo = advisorStaffBo.GetAdvisorStaff(userId);
+        //            Session["newRMVo"] = rmVo;
+        //            if (rmVo.Mobile != 0)
+        //                txtMobileNumber.Text = rmVo.Mobile.ToString();
+        //            else
+        //                txtMobileNumber.Text = "";
+        //            firstName = rmVo.FirstName.ToString();
+        //            middleName = rmVo.MiddleName.ToString();
+        //            lastName = rmVo.LastName.ToString();
+        //        }
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "AddBranch.ascx:btnSaveChanges_Click()");
-
-
-                object[] objects = new object[4];
-                objects[0] = rmVo;
-                objects[1] = firstName;
-                objects[2] = middleName;
-                objects[3] = lastName;
+        //        FunctionInfo.Add("Method", "AddBranch.ascx:btnSaveChanges_Click()");
 
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+        //        object[] objects = new object[4];
+        //        objects[0] = rmVo;
+        //        objects[1] = firstName;
+        //        objects[2] = middleName;
+        //        objects[3] = lastName;
 
-            }
 
-        }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+
+        //}
 
         protected void btnAddTerminal_Click(object sender, EventArgs e)
         {
