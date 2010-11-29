@@ -289,7 +289,7 @@ namespace WealthERP.Advisor
         //        e.Row.Cells[6].Attributes.Add("align", "Right");
 
 
-        //    }
+        //    amcCode
         //    //if (e.Row.RowType == DataControlRowType.Header)
         //    //{
         //    //    DropDownList ddlStatus = (DropDownList)e.Row.FindControl("ddlCategory");
@@ -521,6 +521,7 @@ namespace WealthERP.Advisor
             }
             if (ddlMISType.SelectedItem.Value.ToString() == "AMCSchemeWiseAUM")
             {
+                //Session["PassAMCCode"] = null;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCSchemewiseMIS','login');", true);
             }
             else if (ddlMISType.SelectedItem.Value.ToString() == "FolioWiseAUM")
@@ -537,6 +538,8 @@ namespace WealthERP.Advisor
         {
             DropDownList ddlCategory = GetCategoryDDL();
             LatestValuationdate = Convert.ToDateTime(ViewState["Valuationdate"].ToString());
+            if (Session["PassAMCCode"] != null)
+                amcCode = int.Parse(Session["PassAMCCode"].ToString());
             if (ddlCategory != null)
             {
                 if (ddlCategory.SelectedIndex != 0)
