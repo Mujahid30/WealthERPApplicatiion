@@ -101,8 +101,7 @@ namespace WealthERP.Advisor
                 lblLine2.Visible = true;
                 lblLineThree.Visible = true;
                 lblLinetwo.Visible = true;
-                lblBranchHeadMobile.Visible = true;
-                lblBranchHeadMobileNumber.Visible = true;
+                
             }
             else
             {
@@ -143,8 +142,7 @@ namespace WealthERP.Advisor
                 lblLine3.Visible = false;
                 lblLineThree.Visible = false;
                 lblLinetwo.Visible = false;
-                lblBranchHeadMobileNumber.Visible = false;
-                lblBranchHeadMobile.Visible = false;
+                
             }
             if (Session["FromAdvisorView"] != null)
             {
@@ -244,7 +242,7 @@ namespace WealthERP.Advisor
                     }
                     else
                         lblState.Text = XMLBo.GetStateName(path, advisorBranchVo.State.ToString());
-                    lblBranchHeadMobile.Text = temp.Mobile.ToString();
+                    
                     if (advisorBranchVo.BranchType != "Associate")
                     {
                         CommSharingStructureHdr.Visible = false;

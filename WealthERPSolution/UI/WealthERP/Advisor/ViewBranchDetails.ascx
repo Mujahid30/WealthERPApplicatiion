@@ -166,15 +166,7 @@
         <td class="rightField">
             <asp:Label ID="lblHead" runat="server" Text="Label" CssClass="Field"></asp:Label>
         </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblBranchHeadMobileNumber" runat="server" CssClass="FieldName" Text="Branch Head Mobile Number: "></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:Label ID="lblBranchHeadMobile" runat="server" Text="Label" CssClass="Field"></asp:Label>
-        </td>
-    </tr>
+    </tr>   
     <tr>
         <td class="leftField">
             <asp:Label ID="lblPhoneNumber" runat="server" CssClass="FieldName" Text="Telephone Number1:"></asp:Label>
