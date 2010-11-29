@@ -360,8 +360,10 @@ namespace WealthERP.Advisor
 
         protected void gvMFMIS_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             int amcCode;
             amcCode = int.Parse(gvMFMIS.SelectedDataKey["AMCCode"].ToString());
+            Session["PassAMCCode"] = amcCode.ToString();
             LatestValuationdate = Convert.ToDateTime(txtDate.Text).Date;
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCSchemewiseMIS','amcCode=" + amcCode + "&latestValuationdate=" + LatestValuationdate.ToShortDateString() + "');", true);
 
@@ -372,6 +374,7 @@ namespace WealthERP.Advisor
             
             if (ddlMISType.SelectedItem.Value.ToString() == "AMCSchemeWiseAUM")
             {
+                Session["PassAMCCode"] = null;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCSchemewiseMIS','login');", true);
             }
             else if (ddlMISType.SelectedItem.Value.ToString() == "FolioWiseAUM")
