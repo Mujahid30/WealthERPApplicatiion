@@ -256,6 +256,10 @@ namespace WealthERP.Advisor
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
             }
+            else if (TreeView1.SelectedNode.Value.ToString() == "CommissionMIS")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorMISCommission','login');", true);
+            }
             else if (TreeView1.SelectedNode.Value.ToString() == "MFMIS")
             {
                 Session["UserType"] = "rm";
