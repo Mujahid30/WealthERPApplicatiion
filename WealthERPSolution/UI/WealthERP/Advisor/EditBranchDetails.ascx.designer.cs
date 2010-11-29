@@ -338,33 +338,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator8;
         
         /// <summary>
-        /// lblFax0 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFax0;
-        
-        /// <summary>
-        /// txtMobileNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMobileNumber;
-        
-        /// <summary>
-        /// CompareValidator7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator7;
-        
-        /// <summary>
         /// lblISD control.
         /// </summary>
         /// <remarks>

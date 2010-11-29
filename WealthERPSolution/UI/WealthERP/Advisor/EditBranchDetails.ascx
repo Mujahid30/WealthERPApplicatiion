@@ -199,18 +199,7 @@
                 ValidationGroup="btnSubmit" CssClass="cvPCG" ControlToValidate="ddlRmlist" Operator="NotEqual"
                 ValueToCompare="Select Branch head" Display="Dynamic"></asp:CompareValidator>
         </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblFax0" runat="server" CssClass="FieldName" Text="Branch Head Mobile Number :"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtMobileNumber" CssClass="txtField" runat="server" MaxLength="10"></asp:TextBox>
-            <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="Enter a numeric value"
-                ValidationGroup="btnSubmit" CssClass="cvPCG" Type="Integer" ControlToValidate="txtMobileNumber"
-                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
-        </td>
-    </tr>
+    </tr>   
     <tr>
         <td>
         </td>

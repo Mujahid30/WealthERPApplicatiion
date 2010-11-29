@@ -252,12 +252,7 @@ namespace WealthERP.Advisor
                 ddlState.SelectedValue = advisorBranchVo.State.ToString().Trim();
                 showRM();
                 ddlRmlist.SelectedValue = advisorBranchVo.BranchHeadId.ToString();
-                txtMobileNumber.Text = advisorBranchVo.MobileNumber.ToString();
-                if (advisorBranchVo.MobileNumber!=0)
-                {
-                    txtMobileNumber.Enabled = false;
- 
-                }
+                
                 txtBranchCode.Enabled = true;
                 txtBranchName.Enabled = true;
                 txtEmail.Enabled = true;
@@ -471,14 +466,7 @@ namespace WealthERP.Advisor
                     newAdvisorBranchVo.Phone2Std = int.Parse(txtStdPhone2.Text.ToString());
                     newAdvisorBranchVo.PinCode = int.Parse(txtPinCode.Text.ToString());
                     newAdvisorBranchVo.BranchHeadId = int.Parse(ddlRmlist.SelectedItem.Value.ToString());
-                    if (txtMobileNumber.Text != "")
-                    {
-                        newAdvisorBranchVo.MobileNumber = long.Parse(txtMobileNumber.Text);
-                    }
-                    else
-                    {
-                        newAdvisorBranchVo.MobileNumber = 0;
-                    }
+                   
                     if (ddlState.SelectedIndex != 0)
                     {
                         newAdvisorBranchVo.State = ddlState.SelectedValue.ToString();
@@ -627,11 +615,7 @@ namespace WealthERP.Advisor
             {
                 int userId = advisorStaffBo.GetUserId(int.Parse(ddlRmlist.SelectedItem.Value.ToString()));
                 rmVo = advisorStaffBo.GetAdvisorStaff(userId);
-                Session["newRMVo"] = rmVo;
-                if (rmVo.Mobile != 0)
-                    txtMobileNumber.Text = rmVo.Mobile.ToString();
-                else
-                    txtMobileNumber.Text = "";
+                Session["newRMVo"] = rmVo;               
 
                 firstName = rmVo.FirstName.ToString();
                 middleName = rmVo.MiddleName.ToString();
