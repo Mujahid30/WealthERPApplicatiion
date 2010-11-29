@@ -44,7 +44,7 @@ namespace DaoAdvisorProfiling
                 //{
                     db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchHeadId", DbType.Int32, advisorBranchVo.BranchHeadId);
                 //}
-                db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchHeadMobile", DbType.Double, advisorBranchVo.MobileNumber);
+                //db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchHeadMobile", DbType.Double, advisorBranchVo.MobileNumber);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchName", DbType.String, advisorBranchVo.BranchName);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_City", DbType.String, advisorBranchVo.City);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_Country", DbType.String, advisorBranchVo.Country);
