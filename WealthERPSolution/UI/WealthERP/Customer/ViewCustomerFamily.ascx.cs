@@ -204,7 +204,7 @@ namespace WealthERP.Customer
             if (e.CommandName == "EditDetails")
             {
                 Session["AssociationId"] = e.CommandArgument.ToString();
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GroupAccountSetup','?action=Edit');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GroupAccountSetup','action=Edit');", true);
 
             }
         }
