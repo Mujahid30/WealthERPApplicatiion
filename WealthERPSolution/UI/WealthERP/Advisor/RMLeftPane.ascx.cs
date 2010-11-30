@@ -38,7 +38,7 @@ namespace WealthERP.Advisor
 
                 if (!IsPostBack)
                 {
-
+                    
                     if (roleList.Count == 1 && roleList.Contains("RM"))
                     {
                         TreeView1.Nodes.RemoveAt(0);
@@ -46,11 +46,11 @@ namespace WealthERP.Advisor
                     TreeView1.CollapseAll();
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMLeftPane');", true);
                 }
-
+                
                 sourcepath = Session[SessionContents.LogoPath].ToString();
                 if (Session[SessionContents.BranchLogoPath] != null)
                     branchLogoSourcePath = Session[SessionContents.BranchLogoPath].ToString();
-
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -73,15 +73,22 @@ namespace WealthERP.Advisor
             }
 
         }
-
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            {
+                SetNode();
+            }
+        }
+        public void SetNode()
         {
             string strNodeValue = null;
             try
             {
                 if (TreeView1.SelectedNode.Value.ToString() == "Switch Roles")
                 {
-
+                    Session.Remove("UserType");
+                    Session[SessionContents.CurrentUserRole] = null;
                     count = roleList.Count;
                     if (count == 3)
                     {
@@ -138,6 +145,11 @@ namespace WealthERP.Advisor
                 else if (TreeView1.SelectedNode.Value.ToString() == "Customer Alerts")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertDashBoard','none');", true);
+                }
+                else if (TreeView1.SelectedNode.Value.ToString() == "Notifications")
+                {
+                    Session["UserType"] = "rm";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomerSMSAlerts','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
                 {
@@ -196,7 +208,7 @@ namespace WealthERP.Advisor
                 else if (TreeView1.SelectedNode.Value.ToString() == "MMIS")
                 {
                     Session["UserType"] = "rm";
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCSchemewiseMIS','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCwiseMIS','login');", true);
                 }
                 else if (TreeView1.SelectedNode.Value.ToString() == "MAdd Transactions")
                 {
@@ -300,6 +312,10 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }

@@ -47,6 +47,7 @@
                         </asp:TreeNode>
                         <asp:TreeNode Text="Multi Asset Reports" Value="MultiAssetReports"></asp:TreeNode>
                         <asp:TreeNode Text="Alert Configuration" Value="Customer Alerts"></asp:TreeNode>
+                        <asp:TreeNode Text="Notifications" Value="Notifications"></asp:TreeNode>
                     </asp:TreeNode>
                     <asp:TreeNode Text="Loan" Value="Loan">
                         <asp:TreeNode Text="Loan Proposal" Value="Loan Proposal"></asp:TreeNode>
@@ -63,6 +64,7 @@
                         <asp:TreeNode Text="MIS" Value="EMIS"></asp:TreeNode>
                         <asp:TreeNode Text="View Transactions" Value="EView Transactions"></asp:TreeNode>
                         <asp:TreeNode Text="Add Transactions" Value="EAdd Transactions"></asp:TreeNode>
+                        <%--<asp:TreeNode Text="Equity Reports" Value="EquityReports"  ></asp:TreeNode>--%>
                     </asp:TreeNode>
                     <asp:TreeNode Text="FP" Value="FP">
                         <asp:TreeNode Text="Prospect List" Value="ProspectList"></asp:TreeNode>
@@ -84,9 +86,9 @@
         <td>
             <div style="display: inline">
                 <asp:TextBox runat="server" ID="txtFindCustomer" Style="width: 110px" onkeypress="JSdoPostback(event,'ctrl_RMLeftPane_btnSearchCustomer')" />
-                <cc1:TextBoxWatermarkExtender ID="txtFindCustomer_TextBoxWatermarkExtender" runat="server"
-                    TargetControlID="txtFindCustomer" WatermarkText="Find Customer">
-                </cc1:TextBoxWatermarkExtender>
+                <cc1:textboxwatermarkextender id="txtFindCustomer_TextBoxWatermarkExtender" runat="server"
+                    targetcontrolid="txtFindCustomer" watermarktext="Find Customer">
+                </cc1:textboxwatermarkextender>
                 <asp:Button ID="btnSearchCustomer" runat="server" CssClass="SearchButton" OnClientClick="javascript:callSearch('Customer');return false;" />
             </div>
         </td>
