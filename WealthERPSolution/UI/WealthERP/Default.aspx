@@ -261,9 +261,9 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRM','login');" Text="RM"
                                                                 Value="RM" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
-                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('FinancialPlanning','login');"
-                                                                Text="Financial Planning" Value="FinancialPlanning"></asp:MenuItem>
+                                                                Value="Price List"></asp:MenuItem>
+                                                           <%-- <asp:MenuItem NavigateUrl="javascript:loadfrommenu('FinancialPlanning','login');"
+                                                                Text="Financial Planning" Value="FinancialPlanning"></asp:MenuItem>--%>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -376,9 +376,9 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRMDetails','login');" Text="My Profile"
                                                                 Value="Profile" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMCustomer','login');" Text="Customers"
-                                                                Value="Clients" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                                <asp:MenuItem NavigateUrl="javascript:loadfrommenu('FinancialPlanning','login');"
-                                                                Text="Financial Planning" Value="FinancialPlanning"></asp:MenuItem>
+                                                                Value="Clients"></asp:MenuItem>
+                                                                <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('FinancialPlanning','login');"
+                                                                Text="Financial Planning" Value="FinancialPlanning"></asp:MenuItem>--%>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMAlertDashBoard','?Clear=true');"
                                                                 Text="Alerts" Value="Alerts"></asp:MenuItem>--%>
                                                         </Items>
