@@ -166,7 +166,7 @@ namespace WealthERP.Customer
                 {
                     Session.Remove("table");
                     Session.Remove("insuranceVo");
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', '?action=IN')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', 'action=IN')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Fixed Income")
                 {
@@ -174,7 +174,7 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Fixed Income")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', '?action=FI')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', 'action=FI')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Govt Savings")
                 {
@@ -182,7 +182,7 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Govt Savings")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', '?action=GS')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', 'action=GS')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Property")
                 {
@@ -190,7 +190,7 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Property")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', '?action=PR')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', 'action=PR')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Pension And Gratuities")
                 {
@@ -198,7 +198,7 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Pension and Gratuities")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', '?action=PG')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', 'action=PG')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Personal Assets")
                 {
@@ -216,7 +216,7 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Gold Assets")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioGoldEntry', '?action=GoldEntry')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioGoldEntry', 'action=GoldEntry')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Collectibles")
                 {
@@ -224,7 +224,7 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Collectibles")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioCollectiblesEntry', '?action=Col')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioCollectiblesEntry', 'action=Col')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Cash And Savings")
                 {
@@ -232,11 +232,11 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Cash and Savings")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', '?action=CS')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('CustomerAccountAdd', 'action=CS')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Register Systematic Schemes")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioSystematicEntry', '?action=entry')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioSystematicEntry', 'action=entry')", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "View Systematic Schemes")
                 {
@@ -349,7 +349,7 @@ namespace WealthERP.Customer
                 {
                     Session.Remove("table");
                     Session.Remove("insuranceVo");
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=IN')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', 'action=IN')", true);
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','none');", true);
                 }
                 else if (TreeView1.SelectedNode.Value == "Reports")
