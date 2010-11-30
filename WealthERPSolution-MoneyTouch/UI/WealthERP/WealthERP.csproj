@@ -48,6 +48,7 @@
     <Reference Include="BoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoCustomerReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="BoFPSuperlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoMarketDataPull, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -76,43 +77,24 @@
     <Reference Include="DaoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoCustomerReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoFPSuperlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoMarketDataPull, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DaoReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoSupportData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoUploads, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DaoWerpAdmin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Financial, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
-      <HintPath>bin\itextsharp.dll</HintPath>
-    </Reference>
+    <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data.SqlCe, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SQLServer.ManagedDTS, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="PCGMailLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -138,6 +120,11 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
+    <Reference Include="Telerik.Web.Design, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Telerik.Web.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Web.UI, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL" />
     <Reference Include="VoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -148,6 +135,7 @@
     <Reference Include="VoCustomerReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoEmailSMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoFPSuperlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -1955,6 +1943,34 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FP\AddProspectList.ascx.cs">
+      <DependentUpon>AddProspectList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\AddProspectList.ascx.designer.cs">
+      <DependentUpon>AddProspectList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\ByPass.aspx.cs">
+      <DependentUpon>ByPass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\ByPass.aspx.designer.cs">
+      <DependentUpon>ByPass.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\CustomerProspect.ascx.cs">
+      <DependentUpon>CustomerProspect.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerProspect.ascx.designer.cs">
+      <DependentUpon>CustomerProspect.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\ProspectList.ascx.cs">
+      <DependentUpon>ProspectList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\ProspectList.ascx.designer.cs">
+      <DependentUpon>ProspectList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="General\AdvisorHeader.ascx.cs">
       <DependentUpon>AdvisorHeader.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2794,6 +2810,11 @@
     <Content Include="Emails\Templates\ResetPassword.htm" />
     <Content Include="Emails\Templates\ResetPassword.html" />
     <Content Include="favicon.ico" />
+    <Content Include="FP\AddProspectList.ascx" />
+    <Content Include="FP\ByPass.aspx" />
+    <Content Include="FP\CustomerProspect.ascx" />
+    <Content Include="FP\FinancialPlanning.htm" />
+    <Content Include="FP\ProspectList.ascx" />
     <Content Include="General\SetTheme.ascx" />
     <Content Include="General\UserSettings.ascx" />
     <Content Include="General\UserSettingsLeftPane.ascx" />
@@ -2824,6 +2845,18 @@
     <Content Include="Images\spacer.png" />
     <Content Include="Images\submit.png" />
     <Content Include="Images\Success_Icon.png" />
+    <Content Include="Images\Telerik\AddButton.gif" />
+    <Content Include="Images\Telerik\BackButton.gif" />
+    <Content Include="Images\Telerik\EditButton.gif" />
+    <Content Include="Images\Telerik\FinancialPlanningIcon.gif" />
+    <Content Include="Images\Telerik\FP\Expense.gif" />
+    <Content Include="Images\Telerik\FP\GeneralInsurance.gif" />
+    <Content Include="Images\Telerik\FP\Income.gif" />
+    <Content Include="Images\Telerik\FP\Investment.gif" />
+    <Content Include="Images\Telerik\FP\Liabilities.gif" />
+    <Content Include="Images\Telerik\FP\LifeInsurance.gif" />
+    <Content Include="Images\Telerik\FP\Summary.gif" />
+    <Content Include="Images\Telerik\View.gif" />
     <Content Include="Images\toggle_block_btm.gif" />
     <Content Include="Images\toggle_block_stretch.gif" />
     <Content Include="Images\Trans.png" />
