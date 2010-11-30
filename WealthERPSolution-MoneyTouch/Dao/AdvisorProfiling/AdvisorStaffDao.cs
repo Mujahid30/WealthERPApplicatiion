@@ -21,7 +21,6 @@ namespace DaoAdvisorProfiling
     {
         public int CreateAdvisorStaff(RMVo rmVo, int advisorId, int userId)
         {
-
             int rmId = 0;
             Database db;
             DbCommand createAdvisorStaffCmd;
@@ -428,7 +427,7 @@ namespace DaoAdvisorProfiling
                         rmVo.FirstName = dr["AR_FirstName"].ToString();
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
                         rmVo.LastName = dr["AR_LastName"].ToString();
-                        if(dr["AR_OfficePhoneDirect"].ToString() !="")
+                        if (dr["AR_OfficePhoneDirect"].ToString() != "")
                             rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                         if (dr["AR_OfficePhoneDirectISD"].ToString() != "")
                             rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
@@ -487,7 +486,7 @@ namespace DaoAdvisorProfiling
             return rmList;
         }
 
-        public List<RMVo> GetRMList(int advisorId, int currentPage, string sortOrder, out int Count,string nameSrch)
+        public List<RMVo> GetRMList(int advisorId, int currentPage, string sortOrder, out int Count, string nameSrch)
         {
             List<RMVo> rmList = new List<RMVo>();
             RMVo rmVo;
@@ -516,7 +515,7 @@ namespace DaoAdvisorProfiling
                         rmVo.FirstName = dr["AR_FirstName"].ToString();
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
                         rmVo.LastName = dr["AR_LastName"].ToString();
-                        if(dr["AR_OfficePhoneDirect"].ToString()!="" && dr["AR_OfficePhoneDirect"]!=null)
+                        if (dr["AR_OfficePhoneDirect"].ToString() != "" && dr["AR_OfficePhoneDirect"] != null)
                             rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                         if (dr["AR_OfficePhoneDirectISD"].ToString() != "" && dr["AR_OfficePhoneDirectISD"] != null)
                             rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
@@ -548,7 +547,10 @@ namespace DaoAdvisorProfiling
                         //if (dr["AR_CTC"].ToString() != string.Empty) 
                         // rmVo.CTC = Double.Parse(dr["AR_CTC"].ToString());
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
-                        rmVo.BranchList = dr["BranchList"].ToString();
+                        if (!string.IsNullOrEmpty(dr["BranchList"].ToString().Trim()))
+                            rmVo.BranchList = dr["BranchList"].ToString();
+                        else
+                            rmVo.BranchList = string.Empty;
                         rmList.Add(rmVo);
                     }
                 }
@@ -686,10 +688,15 @@ namespace DaoAdvisorProfiling
                     else
                         rmVo.RMRoleList = string.Empty;
 
+                    if (!string.IsNullOrEmpty(dr["BranchList"].ToString().Trim()))
+                        rmVo.BranchList = dr["BranchList"].ToString();
+                    else
+                        rmVo.BranchList = string.Empty;
+
                     if (dr["AR_IsExternalStaff"] != DBNull.Value && dr["AR_IsExternalStaff"].ToString() != "")
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
                     else
-                         rmVo.IsExternal = 1;
+                        rmVo.IsExternal = 1;
 
                     if (dr["AR_CTC"].ToString() != "")
                         rmVo.CTC = Double.Parse(dr["AR_CTC"].ToString());
@@ -842,7 +849,6 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_Email", DbType.String, rmVo.Email);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_CTC", DbType.String, rmVo.CTC);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_IsExternalStaff", DbType.String, rmVo.IsExternal);
-                
                 if (db.ExecuteNonQuery(updateAdvisorStaffCmd) != 0)
 
                     bResult = true;
@@ -941,10 +947,13 @@ namespace DaoAdvisorProfiling
                         customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
                         customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
                         customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
+
                         customerVo.Email = dr["C_Email"].ToString();
                         if (dr["Parent"].ToString() != "")
                             customerVo.ParentCustomer = dr["Parent"].ToString();
                         customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
+                        customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
                         if (dr["CA_AssociationId"].ToString() != string.Empty)
                             customerVo.AssociationId = int.Parse(dr["CA_AssociationId"].ToString());
                         if (dr["C_Mobile1"].ToString() != "")
@@ -1068,7 +1077,7 @@ namespace DaoAdvisorProfiling
             return customerList;
         }
 
-        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter,string active, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
+        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string Active, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
             CustomerVo customerVo;
@@ -1101,23 +1110,14 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, areaFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, DBNull.Value);
-                if (pincodeFilter != "")
-                    db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, DBNull.Value);
-                if (parentFilter != "")
-                    db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, DBNull.Value);
-
-                if (cityFilter != "")
-                    db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, DBNull.Value);
-                if (active != "")
-                    db.AddInParameter(getCustomerListCmd, "@active", DbType.String, active);
+                db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
+                db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
+                db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
+                if (Active != "")
+                    db.AddInParameter(getCustomerListCmd, "@active", DbType.String, Active);
                 else
                     db.AddInParameter(getCustomerListCmd, "@active", DbType.String, "2");
+
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
                 {
@@ -1138,11 +1138,15 @@ namespace DaoAdvisorProfiling
                         customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
                         customerVo.Email = dr["C_Email"].ToString();
                         customerVo.RmId = int.Parse(dr["AR_RMId"].ToString());
+                        customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
                         customerVo.Adr1City = dr["C_Adr1City"].ToString();
                         customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
                         customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
                         customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
                         customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
+                        customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
                         if (dr["Parent"].ToString() != "")
                             customerVo.ParentCustomer = dr["Parent"].ToString();
                         customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
@@ -1158,7 +1162,7 @@ namespace DaoAdvisorProfiling
                 {
                     foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
                     {
-                        genDictParent.Add(dr["CustomerId"].ToString(), dr["Parent"].ToString());
+                        genDictParent.Add(dr["Parent"].ToString(), dr["Parent"].ToString());
                     }
                 }
 
@@ -1224,19 +1228,9 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, areaFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, DBNull.Value);
-                if (pincodeFilter != "")
-                    db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, DBNull.Value);
-
-                if (parentFilter != "")
-                    db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, DBNull.Value);
-                if (cityFilter != "")
-                    db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
-                else
-                    db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, DBNull.Value);
+                db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
+                db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
+                db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
                 if (RMFilter != "")
                     db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, RMFilter);
                 else
@@ -1283,7 +1277,7 @@ namespace DaoAdvisorProfiling
                 {
                     foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
                     {
-                        genDictParent.Add(dr["CustomerId"].ToString(), dr["Parent"].ToString());
+                        genDictParent.Add(dr["Parent"].ToString(), dr["Parent"].ToString());
                     }
                 }
 
@@ -1366,7 +1360,11 @@ namespace DaoAdvisorProfiling
                         customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
                         customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
                         customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
+                        customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
                         customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
+                        customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
                         if (dr["Parent"].ToString() != "")
                             customerVo.ParentCustomer = dr["Parent"].ToString();
                         customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
@@ -1860,7 +1858,6 @@ namespace DaoAdvisorProfiling
             return dt;
         }
 
-
         /// <summary>
         /// Checks the RM BM Role Have4 any dependency...
         /// </summary>
@@ -2145,6 +2142,5 @@ namespace DaoAdvisorProfiling
         }
 
         /* ****************** */
-
     }
 }
