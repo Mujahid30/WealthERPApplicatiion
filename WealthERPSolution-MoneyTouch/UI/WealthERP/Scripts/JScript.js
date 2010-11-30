@@ -112,7 +112,14 @@ function loadcontrol(controlid, logintrue) {
         loadlinks("LeftPanel_Links");
 
     }
-
+    else if (controlid == "CustomerProspect") {
+        if (logintrue != null && logintrue != "") {
+            loadlinks("RMCustomerIndividualLeftPane");
+        }
+        else {
+            loadlinks("RMCustomerNonIndividualLeftPane");
+        }
+    }
     else if (controlid == "Userlogin") {
         setHeaderLinksFromControl("", "", "Sign In", "false");
     }
