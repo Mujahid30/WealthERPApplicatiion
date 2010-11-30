@@ -506,7 +506,10 @@ namespace WealthERP.FP
             customerVo.LastName = drChildCustomer["LastName"].ToString();
             userVo.FirstName = drChildCustomer["FirstName"].ToString();
             customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
+            if (dpDOB.SelectedDate != null && drChildCustomer["DOB"].ToString() != null && drChildCustomer["DOB"].ToString() != string.Empty)
+            {
+                customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
+            }
             customerVo.Email = drChildCustomer["EmailId"].ToString();
             customerVo.IsProspect = 1;
             customerVo.IsFPClient = 1;
@@ -1335,7 +1338,7 @@ namespace WealthERP.FP
             customerVo.MiddleName = drChildCustomer["MiddleName"].ToString();
             customerVo.LastName = drChildCustomer["LastName"].ToString();
             customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            if (dpDOB.SelectedDate != null)
+            if (dpDOB.SelectedDate != null && drChildCustomer["DOB"].ToString() != null && drChildCustomer["DOB"].ToString() != string.Empty)
             {
                 customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
             }
