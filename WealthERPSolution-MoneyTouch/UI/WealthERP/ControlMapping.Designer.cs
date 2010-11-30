@@ -106,6 +106,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FP//AddProspectList.ascx.
+        /// </summary>
+        internal static string AddProspectList {
+            get {
+                return ResourceManager.GetString("AddProspectList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//AddRM.ascx.
         /// </summary>
         internal static string AddRM {
@@ -768,6 +777,15 @@ namespace WealthERP {
         internal static string CustomerProofsAdd {
             get {
                 return ResourceManager.GetString("CustomerProofsAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FP//CustomerProspect.ascx.
+        /// </summary>
+        internal static string CustomerProspect {
+            get {
+                return ResourceManager.GetString("CustomerProspect", resourceCulture);
             }
         }
         
@@ -1515,6 +1533,15 @@ namespace WealthERP {
         internal static string PortfolioSystematicView {
             get {
                 return ResourceManager.GetString("PortfolioSystematicView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FP//ProspectList.ascx.
+        /// </summary>
+        internal static string ProspectList {
+            get {
+                return ResourceManager.GetString("ProspectList", resourceCulture);
             }
         }
         
