@@ -15,17 +15,18 @@ namespace DaoCustomerRiskProfiling
 {
     public class RiskProfileDao
     {
-       
+
         //Getting List of Question
-        public DataSet GetRiskProfileQuestion()
+        public DataSet GetRiskProfileQuestion(int advisorId)
         {
             Database db;
-            DbCommand dbGetCustomerList=null;
+            DbCommand dbGetCustomerList = null;
             DataSet dsGetCustomerList = null;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetCustomerList = db.GetStoredProcCommand("SP_GetRiskProfileQuestion");
+                db.AddInParameter(dbGetCustomerList, "@A_AdviserId", DbType.Int32, advisorId);
                 dsGetCustomerList = db.ExecuteDataSet(dbGetCustomerList);
             }
             catch (BaseApplicationException ex)
@@ -34,17 +35,17 @@ namespace DaoCustomerRiskProfiling
             }
             catch (Exception ex)
             {
-                BaseApplicationException baseEx = new BaseApplicationException(ex.Message,ex);
+                BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "RiskProfileDao.cs:GetRiskProfileQuestion()");
                 throw baseEx;
-            }            
+            }
             return dsGetCustomerList;
         }
 
 
         //Getting Option for Each Question
-        public DataSet GetQuestionOption(int questionId)
+        public DataSet GetQuestionOption(int questionId, int advisorId)
         {
             Database db;
             DataSet dsGetQuestionOption;
@@ -54,8 +55,9 @@ namespace DaoCustomerRiskProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetQuestionOption = db.GetStoredProcCommand("SP_GetQuestionOption");
                 db.AddInParameter(dbGetQuestionOption, "@QuestionId", DbType.Int32, questionId);
+                db.AddInParameter(dbGetQuestionOption, "@advisorId", DbType.Int32, advisorId);
                 dsGetQuestionOption = db.ExecuteDataSet(dbGetQuestionOption);
-                
+
             }
             catch (BaseApplicationException ex)
             {
@@ -76,7 +78,7 @@ namespace DaoCustomerRiskProfiling
             return dsGetQuestionOption;
         }
 
-        
+
         //Getting Risk Profile Rules
         public DataSet GetRiskProfileRules()
         {
@@ -96,7 +98,7 @@ namespace DaoCustomerRiskProfiling
             }
             catch (Exception ex)
             {
-                BaseApplicationException baseEx = new BaseApplicationException(ex.Message,ex);
+                BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "RiskProfileDao.cs:GetRiskProfileRules()");
                 throw baseEx;
@@ -140,9 +142,9 @@ namespace DaoCustomerRiskProfiling
 
 
         //Adding  Customer RiskProfile Details
-        public void AddCustomerRiskProfileDetails(int customerId,int crpscore,DateTime riskdate,string riskclasscode,RMVo rmvo)
+        public void AddCustomerRiskProfileDetails(int customerId, int crpscore, DateTime riskdate, string riskclasscode, RMVo rmvo)
         {
-            Database db;           
+            Database db;
             DbCommand dbAddCustomerRiskProfileDetails;
             try
             {
@@ -174,11 +176,11 @@ namespace DaoCustomerRiskProfiling
                 ExceptionManager.Publish(baseEx);
                 throw baseEx;
             }
-            
+
         }
 
         //Adding Roisk Profile Response Question
-        public void AddCustomerResponseToQuestion(int RpId,int questionId, int optionId, RMVo rmvo)
+        public void AddCustomerResponseToQuestion(int RpId, int questionId, int optionId, RMVo rmvo)
         {
             Database db;
             DbCommand dbAddCustomerRiskProfileDetails;
@@ -192,7 +194,7 @@ namespace DaoCustomerRiskProfiling
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRTQ_CreatedBy", DbType.Int32, rmvo.RMId);
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRTQ_ModifiedBy", DbType.String, rmvo.RMId);
                 db.ExecuteNonQuery(dbAddCustomerRiskProfileDetails);
-                
+
 
             }
             catch (BaseApplicationException ex)
@@ -211,7 +213,7 @@ namespace DaoCustomerRiskProfiling
                 ExceptionManager.Publish(baseEx);
                 throw baseEx;
             }
-            
+
         }
 
         //Getting Risk Class 
@@ -284,39 +286,39 @@ namespace DaoCustomerRiskProfiling
 
         public DataSet GetAssetAllocationRules(string riskclasscode)
         {
-                Database db;
-                DataSet dsGetAssetAllocationRules;
-                DbCommand dbGetAssetAllocationRules;
-                try
-                {
-                    db = DatabaseFactory.CreateDatabase("wealtherp");
-                    dbGetAssetAllocationRules = db.GetStoredProcCommand("SP_GetAssetAllocationRules");
-                    db.AddInParameter(dbGetAssetAllocationRules, "@XRC_RiskClassCode", DbType.String, riskclasscode);
-                    dsGetAssetAllocationRules = db.ExecuteDataSet(dbGetAssetAllocationRules);
+            Database db;
+            DataSet dsGetAssetAllocationRules;
+            DbCommand dbGetAssetAllocationRules;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbGetAssetAllocationRules = db.GetStoredProcCommand("SP_GetAssetAllocationRules");
+                db.AddInParameter(dbGetAssetAllocationRules, "@XRC_RiskClassCode", DbType.String, riskclasscode);
+                dsGetAssetAllocationRules = db.ExecuteDataSet(dbGetAssetAllocationRules);
 
-                }
-                catch (BaseApplicationException ex)
-                {
-                    throw ex;
-                }
-                catch (Exception ex)
-                {
-                    BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
-                    NameValueCollection FunctionInfo = new NameValueCollection();
-                    FunctionInfo.Add("Method", "RiskProfileDao.cs:GetQuestionOption()");
-                    object[] objects = new object[1];
-                    objects[0] = riskclasscode;
-                    FunctionInfo = baseEx.AddObject(FunctionInfo, objects);
-                    baseEx.AdditionalInformation = FunctionInfo;
-                    ExceptionManager.Publish(baseEx);
-                    throw baseEx;
-                }
-                return dsGetAssetAllocationRules;
-            
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RiskProfileDao.cs:GetQuestionOption()");
+                object[] objects = new object[1];
+                objects[0] = riskclasscode;
+                FunctionInfo = baseEx.AddObject(FunctionInfo, objects);
+                baseEx.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(baseEx);
+                throw baseEx;
+            }
+            return dsGetAssetAllocationRules;
+
         }
 
         //Adding Asset allocation Details in dbo.CustomerAssetAllocation
-        public void AddAssetAllocationDetails(int riskprofileid, double cashpercentage, double equitypercentage,double debitpercentage,DateTime clientapprovedon, RMVo rmvo)
+        public void AddAssetAllocationDetails(int riskprofileid, double cashpercentage, double equitypercentage, double debitpercentage, DateTime clientapprovedon, RMVo rmvo)
         {
             Database db;
             DbCommand dbAddAssetAllocationDetails;
@@ -354,7 +356,7 @@ namespace DaoCustomerRiskProfiling
         }
 
 
-        public DataSet GetCustomerRiskProfile(int customerid)
+        public DataSet GetCustomerRiskProfile(int customerid, int advisorId)
         {
             Database db;
             DataSet dsGetCustomerRiskProfile = null;
@@ -364,8 +366,9 @@ namespace DaoCustomerRiskProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetCustomerRiskProfile = db.GetStoredProcCommand("SP_GetCustomerRiskProfile");
                 db.AddInParameter(dbGetCustomerRiskProfile, "@C_CustomerId", DbType.Int32, customerid);
+                db.AddInParameter(dbGetCustomerRiskProfile, "@A_AdvisorId", DbType.Int32, advisorId);
                 dsGetCustomerRiskProfile = db.ExecuteDataSet(dbGetCustomerRiskProfile);
-                
+
             }
             catch (BaseApplicationException ex)
             {
@@ -394,10 +397,10 @@ namespace DaoCustomerRiskProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbGetOptionAndRiskClassForRisk = db.GetStoredProcCommand("SP_RiskClassForRisk");                
+                dbGetOptionAndRiskClassForRisk = db.GetStoredProcCommand("SP_RiskClassForRisk");
                 db.AddInParameter(dbGetOptionAndRiskClassForRisk, "@XRC_RiskClassCode", DbType.String, riskclasscode);
                 dsGetOptionAndRiskClassForRisk = db.ExecuteDataSet(dbGetOptionAndRiskClassForRisk);
-                
+
             }
             catch (BaseApplicationException ex)
             {
@@ -408,8 +411,8 @@ namespace DaoCustomerRiskProfiling
                 BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "RiskProfileDao.cs:GetQuestionOption()");
-                object[] objects = new object[2];               
-                objects[1]=riskclasscode;
+                object[] objects = new object[2];
+                objects[1] = riskclasscode;
                 FunctionInfo = baseEx.AddObject(FunctionInfo, objects);
                 baseEx.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(baseEx);
@@ -441,7 +444,7 @@ namespace DaoCustomerRiskProfiling
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "RiskProfileDao.cs:GetQuestionOption()");
                 object[] objects = new object[1];
-                objects[0] = riskprofileid;               
+                objects[0] = riskprofileid;
                 FunctionInfo = baseEx.AddObject(FunctionInfo, objects);
                 baseEx.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(baseEx);
@@ -491,7 +494,7 @@ namespace DaoCustomerRiskProfiling
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public DataSet GetCustomerAssets(int customerId)
+        public DataSet GetCustomerAssets(int customerId, int isProspect)
         {
             Database db;
             DataSet dsGetCustomerAsset;
@@ -501,6 +504,7 @@ namespace DaoCustomerRiskProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetCustomerAsset = db.GetStoredProcCommand("SP_GetCustomerAssets");
                 db.AddInParameter(dbGetCustomerAsset, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(dbGetCustomerAsset, "@IsProspect", DbType.String, isProspect.ToString());
                 dsGetCustomerAsset = db.ExecuteDataSet(dbGetCustomerAsset);
 
             }

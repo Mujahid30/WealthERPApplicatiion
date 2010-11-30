@@ -12,14 +12,14 @@ namespace BoCustomerRiskProfiling
 {
     public class RiskProfileBo
     {
-        RiskProfileDao riskprofiledao = new RiskProfileDao();       
-        public DataSet GetRiskProfileQuestion()
+        RiskProfileDao riskprofiledao = new RiskProfileDao();
+        public DataSet GetRiskProfileQuestion(int advisorId)
         {
-            return riskprofiledao.GetRiskProfileQuestion();
+            return riskprofiledao.GetRiskProfileQuestion(advisorId);
         }
-        public DataSet GetQuestionOption(int questionId)
+        public DataSet GetQuestionOption(int questionId, int advisorId)
         {
-            return riskprofiledao.GetQuestionOption(questionId);
+            return riskprofiledao.GetQuestionOption(questionId, advisorId);
         }
         public DataSet GetRiskProfileRules()
         {
@@ -33,14 +33,14 @@ namespace BoCustomerRiskProfiling
         {
             riskprofiledao.AddCustomerRiskProfileDetails(customerId, crpscore, riskdate, riskclasscode, rmvo);
         }
-        public void AddCustomerResponseToQuestion(int RpId,int questionId, int optionId, RMVo rmvo)
+        public void AddCustomerResponseToQuestion(int RpId, int questionId, int optionId, RMVo rmvo)
         {
-            riskprofiledao.AddCustomerResponseToQuestion(RpId,questionId, optionId, rmvo);
+            riskprofiledao.AddCustomerResponseToQuestion(RpId, questionId, optionId, rmvo);
 
         }
         public DataSet GetRiskClass(string RiskClassCode)
         {
-            return riskprofiledao.GetRiskClass(RiskClassCode);        
+            return riskprofiledao.GetRiskClass(RiskClassCode);
         }
         public DataSet GetRpId(int customerId)
         {
@@ -52,15 +52,15 @@ namespace BoCustomerRiskProfiling
         }
         public void AddAssetAllocationDetails(int riskprofileid, double cashpercentage, double equitypercentage, double debitpercentage, DateTime clientapprovedon, RMVo rmvo)
         {
-           riskprofiledao.AddAssetAllocationDetails(riskprofileid, cashpercentage, equitypercentage, debitpercentage, clientapprovedon, rmvo);
+            riskprofiledao.AddAssetAllocationDetails(riskprofileid, cashpercentage, equitypercentage, debitpercentage, clientapprovedon, rmvo);
         }
         public DataSet GetRiskClassForRisk(string riskclasscode)
         {
             return riskprofiledao.GetRiskClassForRisk(riskclasscode);
         }
-        public DataSet GetCustomerRiskProfile(int customerid)
+        public DataSet GetCustomerRiskProfile(int customerid, int advisorId)
         {
-            return riskprofiledao.GetCustomerRiskProfile(customerid);
+            return riskprofiledao.GetCustomerRiskProfile(customerid, advisorId);
         }
         public DataSet GetAssetAllocationDetails(int riskprofileid)
         {
@@ -77,34 +77,34 @@ namespace BoCustomerRiskProfiling
         /// <returns></returns>
         public string GetRiskProfileText(string ClassName)
         {
-            string RiskTextParagraph="";
-              if(ClassName=="Aggressive")
-              {
-                  RiskTextParagraph = "Your risk behaviour is Aggressive."+
-                      " It shows that by nature you are a risk taker."+
-                      " You want to assume high risks in anticipation of "+
-                      "equally high returns and at the same time you are not "+
-                      "too bothered about the downside of high-risk investments.";
-              }
-              else if (ClassName == "Moderate")
-              {
-                  RiskTextParagraph = "Your risk behaviour is Moderate. It shows that by nature you are a balanced "+
-                  "risk taker. Before investing anywhere you take in to account all the upsides and downsides "+
-                  "associated with it and then take a well-reasoned decision. You are bothered about the downside "+
-                  "of high-risk investments and therefore, want to maintain a balanced portfolio.";
- 
-              }
-              else if (ClassName == "Conservative")
-              {
-                  RiskTextParagraph = "Your risk behaviour is Conservative."+
-                      " It shows that by nature you are a moderate risk taker."+
-                      " You don’t want to assume high risks on investments, as "+
-                      "you are afraid of booking losses. You are happy with the "+
-                      "reasonable return that you may get from medium to low risk investments.";
- 
-              }
+            string RiskTextParagraph = "";
+            if (ClassName == "Aggressive")
+            {
+                RiskTextParagraph = "Your risk behaviour is Aggressive." +
+                    " It shows that by nature you are a risk taker." +
+                    " You want to assume high risks in anticipation of " +
+                    "equally high returns and at the same time you are not " +
+                    "too bothered about the downside of high-risk investments.";
+            }
+            else if (ClassName == "Moderate")
+            {
+                RiskTextParagraph = "Your risk behaviour is Moderate. It shows that by nature you are a balanced " +
+                "risk taker. Before investing anywhere you take in to account all the upsides and downsides " +
+                "associated with it and then take a well-reasoned decision. You are bothered about the downside " +
+                "of high-risk investments and therefore, want to maintain a balanced portfolio.";
 
-              return RiskTextParagraph;
+            }
+            else if (ClassName == "Conservative")
+            {
+                RiskTextParagraph = "Your risk behaviour is Conservative." +
+                    " It shows that by nature you are a moderate risk taker." +
+                    " You don’t want to assume high risks on investments, as " +
+                    "you are afraid of booking losses. You are happy with the " +
+                    "reasonable return that you may get from medium to low risk investments.";
+
+            }
+
+            return RiskTextParagraph;
         }
         /// <summary>
         /// It Will gives Asset allocation description paragraph of a Customer
@@ -115,8 +115,8 @@ namespace BoCustomerRiskProfiling
         {
             string AssetAllocationText = "";
             DataSet DSAssets = new DataSet();
-            string CashLessMore="";
-            DSAssets = riskprofiledao.GetCustomerAssets(CustomerID);
+            string CashLessMore = "";
+            DSAssets = riskprofiledao.GetCustomerAssets(CustomerID, 0);
             try
             {
                 if (DSAssets.Tables[1].Rows.Count > 0)
@@ -139,10 +139,10 @@ namespace BoCustomerRiskProfiling
                         AssetAllocationText = "Based on your current investments we have identified that your asset " +
                         "allocation matches the asset allocation recommeded by us. The asset allocation recommended by " +
                         "us is based on the your risk profile and other data pulled from your profile information." +
-                        "Your current equity allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString()+ " %" +
+                        "Your current equity allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString() + " %" +
                         " and debt allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString() + " %" + " Based on our analysis we recommend an equity allocation of "
                         + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Equity"].ToString()), 2).ToString() + " %" + " and debt allocation of " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Debt"].ToString()), 2) + " %" +
-                        "As per our recommendion you keep" + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Cash"].ToString()), 2).ToString() + "of your investment portfolio " +" %" + 
+                        "As per our recommendion you keep <recommended cash> of your investment portfolio " +
                         "in cash and cash equivalents to take care of liquidity in your portfolio." +
                         "You have an appropriate asset allocation. Please contact your advisor to help you meet you financial goals";
 
@@ -154,13 +154,13 @@ namespace BoCustomerRiskProfiling
                        "by us is based on the your risk profile and other data pulled from your profile information." +
                        "Your current equity allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString() + " %" +
                        " and debt allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString() + " %" + ". But based on " +
-                       " our analysis we recommend an equity allocation of " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Equity"].ToString()), 2).ToString() + " %" +
-                       " and debt allocation of " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Debt"].ToString()), 2).ToString() + " %" + ".Please contact your advisor" +
-                       " to help you shift closer to the recommended asset allocation. This will keep you in sync with your " +
-                       "risk taking capacity and your risk appetite both.Moreover we recommend you keep " +
+                       "our analysis we recommend an equity allocation of Rs" + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Equity"].ToString()), 2).ToString() +
+                       "and debt allocation of " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Debt"].ToString()), 2).ToString() + " %" + ".Please contact your advisor" +
+                       " to help you shift closer to the recommended asst allocation. This will keep you in sync with your " +
+                       "rsik taking capacity and your risk appetite both.Moreover we recommend you keep " +
                        Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Cash"].ToString()), 2).ToString() + " %" + " of your investment portfolio in cash and cash equivalents to " +
-                       "take care of liquidity in your portfolio. Based on your current asset allocation we have identified that " +
-                       "cash allocation is " + CashLessMore + " than recommended.Please contact your advisor to remove the gap.";
+                       "take care of liquidity in your portfolio. Based on your current assset allocation we have identified that " +
+                       "cash allocation is " + CashLessMore + "than recommended.Please contact your advisor to remove the gap.";
 
                 }
                 else
@@ -168,7 +168,7 @@ namespace BoCustomerRiskProfiling
                     AssetAllocationText = "";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -179,12 +179,12 @@ namespace BoCustomerRiskProfiling
         /// </summary>
         /// <param name="CustomerID"></param>
         /// <returns></returns>
-        public DataSet GetCurrentAssetAllocation(int CustomerID)
+        public DataSet GetCurrentAssetAllocation(int CustomerID, int isProspect)
         {
             DataSet DSCurrentAssets = new DataSet();
-            DSCurrentAssets = riskprofiledao.GetCustomerAssets(CustomerID);
+            DSCurrentAssets = riskprofiledao.GetCustomerAssets(CustomerID, isProspect);
             return DSCurrentAssets;
- 
+
         }
 
     }
