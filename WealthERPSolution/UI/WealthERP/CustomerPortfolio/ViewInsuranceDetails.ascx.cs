@@ -438,14 +438,14 @@ namespace WealthERP.CustomerPortfolio
                     Session.Remove("table");
                     Session.Remove("moneyBackEpisodeList");
                     Session.Remove("insuranceULIPList");
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','?action=edit');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=edit');", true);
                 }
                 if (ddlAction.SelectedItem.Value.ToString() == "View")
                 {
                     Session.Remove("table");
                     Session.Remove("moneyBackEpisodeList");
                     Session.Remove("insuranceULIPList");
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','?action=view');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=view');", true);
                 }
             }
             catch (BaseApplicationException Ex)

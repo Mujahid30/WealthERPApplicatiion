@@ -281,11 +281,11 @@ namespace WealthERP.CustomerPortfolio
                 Session["govtSavingsVo"] = govtSavingsBo.GetGovtSavingsDetails(govtSavingsId);
                 if (ddlMenu.SelectedItem.Value.ToString() == "Edit")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGovtSavingsEntry','?action=Edit');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGovtSavingsEntry','action=Edit');", true);
                 }
                 if (ddlMenu.SelectedItem.Value.ToString() == "View")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGovtSavingsEntry','?action=View');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGovtSavingsEntry','action=View');", true);
                 }
             }
             catch (BaseApplicationException Ex)
