@@ -252,11 +252,11 @@ namespace WealthERP.CustomerPortfolio
 
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','?action=edit');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','action=edit');", true);
                 }
                 if (ddlAction.SelectedItem.Value.ToString() == "View")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','?action=view');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','action=view');", true);
                 }
             }
             catch (BaseApplicationException Ex)
