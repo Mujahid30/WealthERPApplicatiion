@@ -20,13 +20,13 @@ namespace BoFPSuperlite
 
         public bool AddDetailsForCustomerProspect(int customerId, int userId, CustomerProspectVo customerprospectvo)
         {
-            
+
             bool bTotalResult = true;
             try
             {
                 CustomerProspectDao customerprospectdao = new CustomerProspectDao();
 
-                    customerprospectdao.AddDetailsForCustomerProspect(customerId, userId, customerprospectvo);
+                customerprospectdao.AddDetailsForCustomerProspect(customerId, userId, customerprospectvo);
 
             }
             catch (Exception ex)
@@ -68,18 +68,18 @@ namespace BoFPSuperlite
         /// <param name="userId"></param>
         /// <param name="customerProspectIncomeDetailsVoList"></param>
         /// <returns></returns>
-        public bool AddCustomerFPIncomeDetails(int customerId, int userId, List<CustomerProspectIncomeDetailsVo> customerProspectIncomeDetailsVoList,out double totalincome)
+        public bool AddCustomerFPIncomeDetails(int customerId, int userId, List<CustomerProspectIncomeDetailsVo> customerProspectIncomeDetailsVoList, out double totalincome)
         {
-            totalincome=0.0;
+            totalincome = 0.0;
             bool bIncomeResult = true;
             try
             {
                 CustomerProspectDao customerprospectdao = new CustomerProspectDao();
-                
+
                 foreach (CustomerProspectIncomeDetailsVo cpid in customerProspectIncomeDetailsVoList)
                 {
                     customerprospectdao.AddCustomerFPIncomeDetails(customerId, userId, cpid);
-                    totalincome+=cpid.IncomeValue;
+                    totalincome += cpid.IncomeValue;
                 }
             }
             catch (Exception ex)
@@ -98,24 +98,24 @@ namespace BoFPSuperlite
         /// <returns></returns>
         public List<CustomerProspectIncomeDetailsVo> GetIncomeDetailsForCustomerProspect(int customerId)
         {
-            
-            DataSet dsCustomerProspectIncomeDetails=null;
+
+            DataSet dsCustomerProspectIncomeDetails = null;
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectIncomeDetailsVo customerprospectincomedetailsvo;
             List<CustomerProspectIncomeDetailsVo> customerprospectincomedetailslist = new List<CustomerProspectIncomeDetailsVo>();
             try
             {
-                dsCustomerProspectIncomeDetails=customerprospectdao.GetIncomeDetailsForCustomerProspect(customerId);
+                dsCustomerProspectIncomeDetails = customerprospectdao.GetIncomeDetailsForCustomerProspect(customerId);
                 for (int i = 0; i < dsCustomerProspectIncomeDetails.Tables[0].Rows.Count; i++)
                 {
                     customerprospectincomedetailsvo = new CustomerProspectIncomeDetailsVo();
                     customerprospectincomedetailsvo.IncomeDetailsId = int.Parse(dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["CFPID_FPIncomeDetailsId"].ToString());
                     customerprospectincomedetailsvo.IncomeCategoryCode = int.Parse(dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["XIC_IncomeCategoryCode"].ToString());
-                    if (dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["CFPID_Value"]!= null && dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["CFPID_Value"].ToString() != "")
+                    if (dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["CFPID_Value"] != null && dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["CFPID_Value"].ToString() != "")
                     {
                         customerprospectincomedetailsvo.IncomeValue = double.Parse(dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["CFPID_Value"].ToString());
                     }
-                    customerprospectincomedetailslist.Add(customerprospectincomedetailsvo);                    
+                    customerprospectincomedetailslist.Add(customerprospectincomedetailsvo);
                 }
             }
             catch (Exception ex)
@@ -135,7 +135,7 @@ namespace BoFPSuperlite
         /// <returns></returns>
         public bool UpdateCustomerIncomeDetailsForCustomerProspect(int userId, int customerId, List<CustomerProspectIncomeDetailsVo> customerProspectIncomeDetailsVoList, out double totalIncome)
         {
-            totalIncome = 0.0;                  
+            totalIncome = 0.0;
             bool bincomeresult = true;
             try
             {
@@ -162,7 +162,7 @@ namespace BoFPSuperlite
         /// <param name="customerProspectExpenseeDetailsVoList"></param>
         /// <param name="totalExpense"></param>
         /// <returns></returns>
-        public bool AddCustomerFPExpenseDetails(int customerId, int userId, List<CustomerProspectExpenseDetailsVo> customerProspectExpenseeDetailsVoList,out double totalExpense)
+        public bool AddCustomerFPExpenseDetails(int customerId, int userId, List<CustomerProspectExpenseDetailsVo> customerProspectExpenseeDetailsVoList, out double totalExpense)
         {
             totalExpense = 0.0;
             bool bExpenseResult = true;
@@ -181,7 +181,7 @@ namespace BoFPSuperlite
             }
             return bExpenseResult;
         }
-       
+
         /// <summary>
         /// Used to Get Expense Details about customers
         /// </summary>
@@ -190,7 +190,7 @@ namespace BoFPSuperlite
         /// <returns></returns>
         public List<CustomerProspectExpenseDetailsVo> GetExpenseDetailsForCustomerProspect(int customerId)
         {
-            
+
             DataSet dsCustomerProspectExpenseDetails = null;
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectExpenseDetailsVo customerprospectexpensedetailsvo;
@@ -207,7 +207,7 @@ namespace BoFPSuperlite
                     {
                         customerprospectexpensedetailsvo.ExpenseValue = double.Parse(dsCustomerProspectExpenseDetails.Tables[0].Rows[i]["CFPED_Value"].ToString());
                     }
-                    customerprospectexpensedetailslist.Add(customerprospectexpensedetailsvo);                    
+                    customerprospectexpensedetailslist.Add(customerprospectexpensedetailsvo);
                 }
             }
             catch (Exception ex)
@@ -255,10 +255,10 @@ namespace BoFPSuperlite
         /// <param name="totalLiabilities"></param>
         /// <param name="totalLoanOutstanding"></param>
         /// <returns></returns>
-        public bool AddLiabilitiesDetailsForCustomerProspect(int customerId, int userId, List<CustomerProspectLiabilitiesDetailsVo> customerProspectLiabilitiesDetailsVoList,out double totalLiabilities,out double totalLoanOutstanding)
+        public bool AddLiabilitiesDetailsForCustomerProspect(int customerId, int userId, List<CustomerProspectLiabilitiesDetailsVo> customerProspectLiabilitiesDetailsVoList, out double totalLiabilities, out double totalLoanOutstanding)
         {
-            totalLiabilities=0.0;
-            totalLoanOutstanding=0.0;
+            totalLiabilities = 0.0;
+            totalLoanOutstanding = 0.0;
             bool bLiabilitiesResult = true;
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             try
@@ -266,7 +266,7 @@ namespace BoFPSuperlite
                 foreach (CustomerProspectLiabilitiesDetailsVo cpld in customerProspectLiabilitiesDetailsVoList)
                 {
                     customerprospectdao.AddLiabilitiesDetailsForCustomerProspect(customerId, userId, cpld);
-                    totalLiabilities+=cpld.LoanOutstanding;
+                    totalLiabilities += cpld.LoanOutstanding;
                 }
             }
             catch (Exception ex)
@@ -285,7 +285,7 @@ namespace BoFPSuperlite
         /// <returns></returns>
         public List<CustomerProspectLiabilitiesDetailsVo> GetLiabilitiesDetailsForCustomerProspect(int customerId)
         {
-           
+
             DataSet dsCustomerLiabilitiesDetails = null;
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectLiabilitiesDetailsVo customerprospectliabilitiesetailsvo;
@@ -358,10 +358,10 @@ namespace BoFPSuperlite
         /// <param name="customerProspectAssetSubDetailsVoList"></param>
         /// <param name="subInstrumentTotal"></param>
         /// <returns></returns>
-        public bool AddCustomerFPAssetSubInstrumentDetails(int customerId, int userId, List<CustomerProspectAssetSubDetailsVo> customerProspectAssetSubDetailsVoList,out double subInstrumentTotal)
+        public bool AddCustomerFPAssetSubInstrumentDetails(int customerId, int userId, List<CustomerProspectAssetSubDetailsVo> customerProspectAssetSubDetailsVoList, out double subInstrumentTotal)
         {
             subInstrumentTotal = 0.0;
-            
+
             bool bSubInstrumentResult = true;
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             try
@@ -387,7 +387,7 @@ namespace BoFPSuperlite
         /// <returns></returns>
         public List<CustomerProspectAssetSubDetailsVo> GetCustomerFPAssetSubInstrumentDetails(int customerId)
         {
-                    
+
             DataSet dsCustomerAssetSubInstrumentDetails = null;
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectAssetSubDetailsVo customerprospectassetsubdetailsvo;
@@ -406,7 +406,7 @@ namespace BoFPSuperlite
                     {
                         customerprospectassetsubdetailsvo.Value = double.Parse(dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_Value"].ToString());
                     }
-                    if (dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_MaturityDate"]!= null && dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_MaturityDate"].ToString() != "")
+                    if (dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_MaturityDate"] != null && dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_MaturityDate"].ToString() != "")
                     {
                         customerprospectassetsubdetailsvo.MaturityDate = DateTime.Parse(dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_MaturityDate"].ToString());
                     }
@@ -414,7 +414,7 @@ namespace BoFPSuperlite
                     {
                         customerprospectassetsubdetailsvo.Premium = double.Parse(dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_Premium"].ToString());
                     }
-                    customerprospectassetsubdetailsvolist.Add(customerprospectassetsubdetailsvo);     
+                    customerprospectassetsubdetailsvolist.Add(customerprospectassetsubdetailsvo);
                 }
             }
             catch (Exception ex)
@@ -491,7 +491,7 @@ namespace BoFPSuperlite
         /// <returns></returns>
         public List<CustomerProspectAssetDetailsVo> GetCustomerFPAssetInstrumentDetails(int customerId)
         {
-            
+
             DataSet dsCustomerAssetInstrumentDetails = null;
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectAssetDetailsVo customerprospectassetdetailsvo;
@@ -517,7 +517,7 @@ namespace BoFPSuperlite
                     {
                         customerprospectassetdetailsvo.Premium = double.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_Premium"].ToString());
                     }
-                    customerprospectassetdetailsvolist.Add(customerprospectassetdetailsvo);                    
+                    customerprospectassetdetailsvolist.Add(customerprospectassetdetailsvo);
                 }
             }
             catch (Exception ex)
@@ -568,17 +568,17 @@ namespace BoFPSuperlite
         /// <param name="instrumentTotal"></param>
         /// <param name="subInstrumentTotal"></param>
         /// <returns></returns>
-        public bool DataManipulationInput(Dictionary<string, object> DataCapture,int customerId,int createdById,out double totalincome,out double totalExpense,out double totalLiabilities,out double totalLoanOutstanding
-            ,out double instrumentTotal,out double subInstrumentTotal)
+        public bool DataManipulationInput(Dictionary<string, object> DataCapture, int customerId, int createdById, out double totalincome, out double totalExpense, out double totalLiabilities, out double totalLoanOutstanding
+            , out double instrumentTotal, out double subInstrumentTotal)
         {
-            bool statusMessage=true;
+            bool statusMessage = true;
             totalincome = 0.0;
             totalExpense = 0.0;
             totalLiabilities = 0.0;
             totalLoanOutstanding = 0.0;
             instrumentTotal = 0.0;
             subInstrumentTotal = 0.0;
-            CustomerProspectVo customerprospectVo=new CustomerProspectVo();
+            CustomerProspectVo customerprospectVo = new CustomerProspectVo();
             try
             {
                 List<CustomerProspectIncomeDetailsVo> incomedetailsvolist = new List<CustomerProspectIncomeDetailsVo>();
@@ -586,13 +586,13 @@ namespace BoFPSuperlite
                 List<CustomerProspectLiabilitiesDetailsVo> liabilitiesdetailsvolist = new List<CustomerProspectLiabilitiesDetailsVo>();
                 List<CustomerProspectAssetDetailsVo> assetdetailsvolist = new List<CustomerProspectAssetDetailsVo>();
                 List<CustomerProspectAssetSubDetailsVo> assetsubdetailsvolist = new List<CustomerProspectAssetSubDetailsVo>();
-                CustomerProspectVo customerprospectvo=new CustomerProspectVo();
+                CustomerProspectVo customerprospectvo = new CustomerProspectVo();
                 incomedetailsvolist = DataCapture["IncomeList"] as List<CustomerProspectIncomeDetailsVo>;
                 expensedetailsvolist = DataCapture["ExpenseList"] as List<CustomerProspectExpenseDetailsVo>;
                 liabilitiesdetailsvolist = DataCapture["Liabilities"] as List<CustomerProspectLiabilitiesDetailsVo>;
                 assetdetailsvolist = DataCapture["AssetDetails"] as List<CustomerProspectAssetDetailsVo>;
                 assetsubdetailsvolist = DataCapture["AssetSubDetails"] as List<CustomerProspectAssetSubDetailsVo>;
-                customerprospectvo=DataCapture["TotalAssetDetails"] as CustomerProspectVo;
+                customerprospectvo = DataCapture["TotalAssetDetails"] as CustomerProspectVo;
                 //Deleting before insertion
                 DeleteDetailsForCustomerProspect(customerId);
                 //Inserting data
@@ -634,8 +634,8 @@ namespace BoFPSuperlite
             List<CustomerProspectAssetSubDetailsVo> CustomerFPAssetSubInstrumentDetailsList;
             List<CustomerProspectAssetDetailsVo> CustomerFPAssetInstrumentDetailsList;
             IncomeDetailsForCustomerProspectList = GetIncomeDetailsForCustomerProspect(customerId);
-            ExpenseDetailsForCustomerProspectList=GetExpenseDetailsForCustomerProspect(customerId);
-            LiabilitiesDetailsForCustomerProspectList=GetLiabilitiesDetailsForCustomerProspect(customerId);
+            ExpenseDetailsForCustomerProspectList = GetExpenseDetailsForCustomerProspect(customerId);
+            LiabilitiesDetailsForCustomerProspectList = GetLiabilitiesDetailsForCustomerProspect(customerId);
             CustomerFPAssetSubInstrumentDetailsList = GetCustomerFPAssetSubInstrumentDetails(customerId);
             CustomerFPAssetInstrumentDetailsList = GetCustomerFPAssetInstrumentDetails(customerId);
             dataCatch.Add("IncomeDetailsList", IncomeDetailsForCustomerProspectList);
@@ -650,7 +650,7 @@ namespace BoFPSuperlite
         {
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             try
-            {                
+            {
                 customerprospectdao.DeleteDetailsForCustomerProspect(customerId);
             }
             catch (Exception ex)
