@@ -125,7 +125,7 @@ namespace WealthERP.Advisor
             DataTable dtMIS;
             userVo=(UserVo)Session["userVo"];
             int count;
-            double sumTotal;
+           double sumTotal;
             if (hdnCurrentPage.Value.ToString() != "")
             {
                 mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());

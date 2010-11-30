@@ -662,6 +662,7 @@ namespace DaoAdvisorProfiling
             Database db;
             DbCommand getMISCommissionCmd;
             DataSet dsGetMISCommission = null;
+            
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -672,13 +673,14 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getMISCommissionCmd, "@ToDate", DbType.Date,dtTo) ;
                 db.AddInParameter(getMISCommissionCmd, "@currentPage", DbType.Int32, currentPage);
                 db.AddOutParameter(getMISCommissionCmd, "@Count", DbType.Int32, 0);
-                db.AddOutParameter(getMISCommissionCmd, "@SumTotal", DbType.Decimal, 0);
+                db.AddOutParameter(getMISCommissionCmd, "@SumTotal", DbType.Double, 0);
                 dsGetMISCommission = db.ExecuteDataSet(getMISCommissionCmd);
                 count = (int)db.GetParameterValue(getMISCommissionCmd, "@Count");
                 if (!string.IsNullOrEmpty(db.GetParameterValue(getMISCommissionCmd, "@SumTotal").ToString()))
                     sumToatal = double.Parse(db.GetParameterValue(getMISCommissionCmd, "@SumTotal").ToString());
                 else
                     sumToatal = 0;
+               
             }
             catch (BaseApplicationException Ex)
             {
