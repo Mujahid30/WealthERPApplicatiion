@@ -415,7 +415,7 @@ namespace WealthERP.CustomerPortfolio
                 Session["systematicSetupVo"] = systematicSetupVo;
                 Session["SourcePage"] = "ReconReport";
                 Session[SessionContents.PortfolioId] = mfSystematicTransactionReportVoList[rowId].PortfolioId;
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','?action=entry');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','action=entry');", true);
 
             }
             else
