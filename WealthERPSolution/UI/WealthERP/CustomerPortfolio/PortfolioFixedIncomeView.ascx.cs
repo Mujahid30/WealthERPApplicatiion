@@ -258,11 +258,11 @@ namespace WealthERP.CustomerPortfolio
 
                 if (ddlAction.SelectedItem.Value.ToString() == "View")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioFixedIncomeEntry','?action=ViewFI');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioFixedIncomeEntry','action=ViewFI');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioFixedIncomeEntry','?action=EditFI');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioFixedIncomeEntry','action=EditFI');", true);
                 }
             }
             catch (Exception Ex)
