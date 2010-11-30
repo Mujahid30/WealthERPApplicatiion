@@ -285,11 +285,11 @@ namespace WealthERP.CustomerPortfolio
                 menu = MyDropDownList.SelectedItem.Value.ToString();
                 if (menu == "Edit")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionAndGratuities','?action=edit');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionAndGratuities','action=edit');", true);
                 }
                 if (menu == "View")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionAndGratuities','?action=view');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionAndGratuities','action=view');", true);
                 }
 
             }
