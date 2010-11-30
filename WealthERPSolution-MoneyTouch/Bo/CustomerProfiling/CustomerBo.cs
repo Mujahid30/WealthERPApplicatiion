@@ -432,14 +432,14 @@ namespace BoCustomerProfiling
         /// <param name="Count"></param>
         /// <returns></returns>
 
-        public DataSet GetCustomerProofs(int customerId,int currentPage,out int  Count)
+        public DataSet GetCustomerProofs(int customerId, int currentPage, out int Count)
         {
             DataSet ds = null;
             CustomerDao customerDao = new CustomerDao();
 
             try
             {
-                ds = customerDao.GetCustomerProofs(customerId,currentPage,out Count);
+                ds = customerDao.GetCustomerProofs(customerId, currentPage, out Count);
 
             }
             catch (BaseApplicationException Ex)
@@ -481,13 +481,13 @@ namespace BoCustomerProfiling
         /// <param name="customerId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public bool DeleteCustomer(int customerId,string Flag)
+        public bool DeleteCustomer(int customerId, string Flag)
         {
             bool bResult = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                bResult = customerDao.DeleteCustomer(customerId,Flag);
+                bResult = customerDao.DeleteCustomer(customerId, Flag);
             }
             catch (BaseApplicationException Ex)
             {
@@ -561,7 +561,7 @@ namespace BoCustomerProfiling
             }
             return customerIds;
         }
-        
+
 
         /// <summary>
         /// Used to Get Customer Proof List
@@ -576,7 +576,7 @@ namespace BoCustomerProfiling
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                dt = customerDao.GetProofList( customerType, proofCategory,customerId);
+                dt = customerDao.GetProofList(customerType, proofCategory, customerId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -710,7 +710,7 @@ namespace BoCustomerProfiling
         /// <param name="customerIncomeVo"></param>
         /// <returns></returns>
 
-        public bool AddCustomerIncomeDetails(int rmUserId,int customerId,CustomerIncomeVo customerIncomeVo)
+        public bool AddCustomerIncomeDetails(int rmUserId, int customerId, CustomerIncomeVo customerIncomeVo)
         {
             bool bResult = false;
             CustomerDao customerDao = new CustomerDao();
@@ -919,13 +919,13 @@ namespace BoCustomerProfiling
         /// <param name="panNumber"></param>
         /// <param name="CustomerId"></param>
         /// <returns></returns>
-        public bool PANNumberDuplicateCheck(int adviserId, string panNumber,int CustomerId)
+        public bool PANNumberDuplicateCheck(int adviserId, string panNumber, int CustomerId)
         {
             bool bResult = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                bResult = customerDao.PANNumberDuplicateCheck(adviserId, panNumber,CustomerId);
+                bResult = customerDao.PANNumberDuplicateCheck(adviserId, panNumber, CustomerId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -987,7 +987,7 @@ namespace BoCustomerProfiling
         /// <param name="prefixText"></param>
         /// <param name="rmId"></param>
         /// <returns></returns>
-        public DataTable GetParentCustomerName(string prefixText,int rmId)
+        public DataTable GetParentCustomerName(string prefixText, int rmId)
         {
             CustomerDao customerDao = new CustomerDao();
 
@@ -1097,53 +1097,13 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
+
         /// <summary>
-        /// Get RM Individual Customer Names for Grouping
+        /// NO Use
         /// </summary>
         /// <param name="prefixText"></param>
         /// <param name="rmId"></param>
         /// <returns></returns>
-        public DataTable GetMemberCustomerNamesForGrouping(string prefixText, int selectedParentId, int rmId)
-        {
-            CustomerDao customerDao = new CustomerDao();
-
-            DataTable dtCustomerNames = new DataTable();
-            try
-            {
-                dtCustomerNames = customerDao.GetMemberCustomerNamesForGrouping(prefixText, selectedParentId, rmId);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "CustomerBo.cs:GetMemberCustomerNamesForGrouping()");
-
-
-                object[] objects = new object[3];
-
-                objects[0] = prefixText;
-                objects[1] = rmId;
-                objects[2] = selectedParentId;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-            return dtCustomerNames;
-        }
-          /// <summary>
-          /// NO Use
-          /// </summary>
-          /// <param name="prefixText"></param>
-          /// <param name="rmId"></param>
-          /// <returns></returns>
 
         public DataTable GetCustomerName(string prefixText, int rmId)
         {
@@ -1375,6 +1335,53 @@ namespace BoCustomerProfiling
             }
             return dtGGetCustomerDetails;
         }
+        /// <summary>
+        /// Get RM Individual Customer Names for Grouping
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
+        public DataTable GetMemberCustomerNamesForGrouping(string prefixText, int selectedParentId, int rmId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetMemberCustomerNamesForGrouping(prefixText, selectedParentId, rmId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetMemberCustomerNamesForGrouping()");
+
+
+                object[] objects = new object[3];
+
+                objects[0] = prefixText;
+                objects[1] = rmId;
+                objects[2] = selectedParentId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
+        /// <summary>
+        /// NO Use
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="rmId"></param>
+        /// <returns></returns>
     }
 
 }
