@@ -307,12 +307,12 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
 
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPersonalEntry','?action=edit');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPersonalEntry','action=edit');", true);
                 }
                 if (ddlAction.SelectedItem.Value.ToString() == "View")
                 {
 
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPersonalEntry','?action=view');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPersonalEntry','action=view');", true);
                 }
             }
             catch (BaseApplicationException Ex)
