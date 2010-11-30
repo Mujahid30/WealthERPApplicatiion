@@ -717,7 +717,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGovtSavingsEntry','?action=Edit');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGovtSavingsEntry','action=Edit');", true);
         }
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)
@@ -757,7 +757,7 @@ namespace WealthERP.CustomerPortfolio
             if(mode==Mode.Edit || mode == Mode.View)
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGovtSavings', 'none')", true);
             else
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=GS')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', 'action=GS')", true);
         }
         #endregion Events
     }
