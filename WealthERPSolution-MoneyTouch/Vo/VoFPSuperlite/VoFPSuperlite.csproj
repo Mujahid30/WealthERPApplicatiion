@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerProspect.cs" />
     <Compile Include="CustomerProspectAssetDetailsVo.cs">
       <SubType>Code</SubType>
     </Compile>
