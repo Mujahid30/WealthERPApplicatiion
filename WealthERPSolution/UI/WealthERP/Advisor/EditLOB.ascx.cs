@@ -2859,7 +2859,7 @@ namespace WealthERP.Advisor
         private void PageRedirect()
         {
             
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','?action=ViewLOB');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','action=ViewLOB');", true);
                 
         }
         
