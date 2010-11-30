@@ -1,5 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerProspect.ascx.cs" EnableViewState="true"
-    Inherits="WealthERP.FP.CustomerProspect" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerProspect.ascx.cs"
+    EnableViewState="true" Inherits="WealthERP.FP.CustomerProspect" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
 <script type="text/javascript">
@@ -174,7 +174,7 @@
         document.getElementById("<%=txtExpense.ClientID%>").value = expensetotal.toString();
         document.getElementById("<%=txtLiabilities.ClientID%>").value = liabilitiestotal.toString();
         document.getElementById("<%=txtLifeInsurance.ClientID%>").value = lifeInsuranceTotal.toString();
-        document.getElementById("<%=txtGeneralInsurance.ClientID%>").value = generalInsuranceTotal.toString();    
+        document.getElementById("<%=txtGeneralInsurance.ClientID%>").value = generalInsuranceTotal.toString();
 
 
     }
@@ -362,9 +362,8 @@
 <telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Outlook">
 </telerik:RadAjaxLoadingPanel>
 <telerik:RadInputManager ID="RadInputManager2" runat="server">
-    <telerik:NumericTextBoxSetting Culture="Hindi (India)" DecimalDigits="2" 
-        DecimalSeparator="." GroupSeparator="," GroupSizes="3" NegativePattern="-n" 
-        PositivePattern="n">
+    <telerik:NumericTextBoxSetting Culture="Hindi (India)" DecimalDigits="2" DecimalSeparator="."
+        GroupSeparator="," GroupSizes="3" NegativePattern="-n" PositivePattern="n">
         <TargetControls>
             <telerik:TargetInput ControlID="txtAssets" />
             <telerik:TargetInput ControlID="txtLifeInsurance" />
@@ -397,7 +396,7 @@
             <telerik:TargetInput ControlID="txtEmail" />
             <telerik:TargetInput ControlID="txtGridEmailId" />
         </TargetControls>
-    </telerik:RegExpTextBoxSetting> 
+    </telerik:RegExpTextBoxSetting>
 </telerik:RadInputManager>
 <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Outlook">
 </telerik:RadAjaxLoadingPanel>
@@ -415,7 +414,7 @@
                                     <asp:Label ID="lblFirstName" runat="server" CssClass="FieldName" Text="First Name : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtFirstName" runat="server" Text="" />                                    
+                                    <asp:TextBox ID="txtFirstName" runat="server" Text="" />
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblMiddleName" runat="server" CssClass="FieldName" Text="Middle Name : "></asp:Label>
@@ -435,7 +434,8 @@
                                     <asp:Label ID="lblDateOfBirth" runat="server" CssClass="FieldName" Text="Date of Birth : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpDOB" runat="server" ShowAnimation-Type="Fade" Skin="Outlook" MinDate="1900-01-01">
+                                    <telerik:RadDatePicker ID="dpDOB" runat="server" ShowAnimation-Type="Fade" Skin="Outlook"
+                                        MinDate="1900-01-01">
                                         <Calendar Skin="Outlook" UseColumnHeadersAsSelectors="False" UseRowHeadersAsSelectors="False"
                                             ViewSelectorText="x">
                                         </Calendar>
@@ -449,7 +449,7 @@
                                     <asp:Label ID="lblEmailId" runat="server" CssClass="FieldName" Text="Email Id : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtEmail" runat="server" Text="" />                                    
+                                    <asp:TextBox ID="txtEmail" runat="server" Text="" />
                                 </td>
                                 <td align="right">
                                     <asp:Label ID="lblPickBranch" runat="server" CssClass="FieldName" Text="Branch Name : "></asp:Label>
@@ -472,7 +472,6 @@
                     <td>
                         <asp:Label ID="Label2" runat="server" CssClass="HeaderText" Text="Family Member Details"></asp:Label>
                         <hr />
-                       
                         <table width="100%">
                             <tr>
                                 <td>
@@ -493,8 +492,9 @@
                                                     </telerik:GridEditCommandColumn>
                                                     <telerik:GridDropDownColumn UniqueName="CustomerRelationship" HeaderText="Relationship"
                                                         DataField="CustomerRelationship" DataSourceID="SqlDataSourceCustomerRelation"
-                                                        ColumnEditorID="GridDropDownColumnEditor1" ListTextField="XR_Relationship" ListValueField="XR_RelationshipCode"
-                                                        DropDownControlType="RadComboBox" ReadOnly="false">
+                                                        HeaderStyle-HorizontalAlign="Center" ColumnEditorID="GridDropDownColumnEditor1"
+                                                        ListTextField="XR_Relationship" ListValueField="XR_RelationshipCode" DropDownControlType="RadComboBox"
+                                                        ReadOnly="false">
                                                     </telerik:GridDropDownColumn>
                                                     <telerik:GridTemplateColumn HeaderText="First Name" SortExpression="FirstName" UniqueName="FirstName"
                                                         EditFormColumnIndex="1" HeaderStyle-HorizontalAlign="Center">
@@ -504,7 +504,6 @@
                                                         </ItemTemplate>
                                                         <EditItemTemplate>
                                                             <asp:TextBox runat="server" ID="txtChildFirstName" Text='<%# Bind("FirstName") %>'></asp:TextBox>
-                                                            <span id="Span12" class="spnRequiredField">*</span>
                                                         </EditItemTemplate>
                                                     </telerik:GridTemplateColumn>
                                                     <telerik:GridBoundColumn UniqueName="MiddleName" HeaderText="Middle Name" DataField="MiddleName"
@@ -512,23 +511,22 @@
                                                     <telerik:GridBoundColumn UniqueName="LastName" HeaderText="Last Name" DataField="LastName"
                                                         HeaderStyle-HorizontalAlign="Center" />
                                                     <telerik:GridDateTimeColumn UniqueName="DOB" PickerType="DatePicker" HeaderText="Date of Birth"
-                                                        DataField="DOB" FooterText="DateTimeColumn footer" DataFormatString="{0:dd/MM/yyyy}"
-                                                        EditDataFormatString="dd MMMM, yyyy" MinDate="1900-01-01">
+                                                        HeaderStyle-HorizontalAlign="Center" DataField="DOB" FooterText="DateTimeColumn footer"
+                                                        DataFormatString="{0:dd/MM/yyyy}" EditDataFormatString="dd MMMM, yyyy" MinDate="1900-01-01">
                                                         <ItemStyle Width="120px" />
                                                     </telerik:GridDateTimeColumn>
                                                     <telerik:GridTemplateColumn HeaderText="Email-Id" SortExpression="Email-Id" UniqueName="EmailId"
-                                                        EditFormColumnIndex="1">
+                                                        HeaderStyle-HorizontalAlign="Center" EditFormColumnIndex="1">
                                                         <HeaderStyle Width="80px" />
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblGridEmailId" Text='<%# Eval("EmailId")%>'></asp:Label>
                                                         </ItemTemplate>
                                                         <EditItemTemplate>
                                                             <asp:TextBox runat="server" ID="txtGridEmailId" Text='<%# Bind("EmailId") %>'></asp:TextBox>
-                                                            <span id="Span13" class="spnRequiredField">*</span>
                                                         </EditItemTemplate>
                                                     </telerik:GridTemplateColumn>
-                                                    <%--<telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
-                                            ButtonType="ImageButton" />--%>
+                                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
+                                                        ButtonType="ImageButton" />
                                                 </Columns>
                                                 <EditFormSettings CaptionFormatString="Edit details for employee with ID {0}" CaptionDataField="FirstName">
                                                     <FormTableItemStyle Width="100%" Height="29px"></FormTableItemStyle>
@@ -740,8 +738,8 @@
                                     <asp:Label ID="lblAssetTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtAssetTotal" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
-                                        ></asp:TextBox>
+                                    <asp:TextBox ID="txtAssetTotal" runat="server" Style="direction: rtl" Enabled="false"
+                                        EnableViewState="true"></asp:TextBox>
                                 </td>
                                 <td align="right">
                                 </td>
@@ -810,8 +808,8 @@
                                     <asp:Label ID="lblIncomeTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtIncomeTotal" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
-                                         ></asp:TextBox>
+                                    <asp:TextBox ID="txtIncomeTotal" runat="server" Style="direction: rtl" Enabled="false"
+                                        EnableViewState="true"></asp:TextBox>
                                 </td>
                                 <td>
                                 </td>
@@ -908,8 +906,8 @@
                                     <asp:Label ID="lblExpenseTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtExpenseTotal" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
-                                         ></asp:TextBox>
+                                    <asp:TextBox ID="txtExpenseTotal" runat="server" Style="direction: rtl" Enabled="false"
+                                        EnableViewState="true"></asp:TextBox>
                                 </td>
                                 <td>
                                 </td>
@@ -1016,8 +1014,8 @@
                                     <asp:Label ID="lblTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtTotalLO" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
-                                         ></asp:TextBox>
+                                    <asp:TextBox ID="txtTotalLO" runat="server" Style="direction: rtl" Enabled="false"
+                                        EnableViewState="true"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <%--<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>--%>
@@ -1195,8 +1193,8 @@
                                     <asp:Label ID="lblTotalLI" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtTotalLISA" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
-                                         ></asp:TextBox>
+                                    <asp:TextBox ID="txtTotalLISA" runat="server" Style="direction: rtl" Enabled="false"
+                                        EnableViewState="true"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                 </td>
@@ -1324,8 +1322,8 @@
                                     <asp:Label ID="lblTotalGI" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtTotalGISA" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"
-                                         ></asp:TextBox>
+                                    <asp:TextBox ID="txtTotalGISA" runat="server" Style="direction: rtl" Enabled="false"
+                                        EnableViewState="true"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                 </td>

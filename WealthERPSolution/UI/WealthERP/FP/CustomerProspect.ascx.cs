@@ -345,7 +345,8 @@ namespace WealthERP.FP
                                     TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
                                     editorText = txt.Text;
                                     editorValue = txt.Text;
-                                }     
+                                }
+
                             }
                             try
                             {
