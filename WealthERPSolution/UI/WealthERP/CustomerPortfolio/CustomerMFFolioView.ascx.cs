@@ -201,11 +201,11 @@ namespace WealthERP.CustomerPortfolio
                 Session["FolioVo"] = CustomerTransactionBo.GetCustomerMFFolioDetails(FolioId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?action=Edit');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','action=Edit');", true);
                 }
                 if (ddlAction.SelectedValue.ToString() == "View")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?action=View');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','action=View');", true);
                 }
             }
             catch (Exception Ex)
