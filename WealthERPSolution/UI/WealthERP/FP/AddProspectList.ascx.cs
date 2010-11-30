@@ -75,25 +75,24 @@ namespace WealthERP.FP
                     customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
                     if (customerFamilyVoList != null)
                     {
-                        if (!IsPostBack)
+
+                        totalRecordsCount = customerFamilyVoList.Count;
+                        dt.Rows.Clear();
+                        foreach (CustomerFamilyVo customerFamilyVo in customerFamilyVoList)
                         {
-                            totalRecordsCount = customerFamilyVoList.Count;
-                            dt.Rows.Clear();
-                            foreach (CustomerFamilyVo customerFamilyVo in customerFamilyVoList)
-                            {
-                                DataRow dr = dt.NewRow();
-                                dr["CA_AssociationId"] = customerFamilyVo.AssociationId;
-                                dr["C_CustomerId"] = customerFamilyVo.AssociateCustomerId;
-                                dr["CustomerRelationship"] = customerFamilyVo.RelationshipCode;
-                                dr["FirstName"] = customerFamilyVo.FirstName;
-                                dr["MiddleName"] = customerFamilyVo.MiddleName;
-                                dr["LastName"] = customerFamilyVo.LastName;
-                                dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
-                                dr["EmailId"] = customerFamilyVo.EmailId;
-                                dt.Rows.Add(dr);
-                            }
-                            Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                            DataRow dr = dt.NewRow();
+                            dr["CA_AssociationId"] = customerFamilyVo.AssociationId;
+                            dr["C_CustomerId"] = customerFamilyVo.AssociateCustomerId;
+                            dr["CustomerRelationship"] = customerFamilyVo.RelationshipCode;
+                            dr["FirstName"] = customerFamilyVo.FirstName;
+                            dr["MiddleName"] = customerFamilyVo.MiddleName;
+                            dr["LastName"] = customerFamilyVo.LastName;
+                            dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
+                            dr["EmailId"] = customerFamilyVo.EmailId;
+                            dt.Rows.Add(dr);
                         }
+                        Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+
                     }
                     else
                     {
@@ -152,7 +151,7 @@ namespace WealthERP.FP
                         btnSubmit.Visible = true;
                         btnSubmitAddDetails.Visible = true;
                         btnSubmit.Text = "Update";
-                        btnSubmitAddDetails.Text = "Edit Finance Detailse";                       
+                        btnSubmitAddDetails.Text = "Edit Finance Details";                       
                         RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
                         tblChildCustomer.Visible = true;
                         headertitle.Text = "Edit Prospect";
@@ -463,32 +462,27 @@ namespace WealthERP.FP
                 }
                 else
                 {
-                    customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
-                    int temp=0;
-                    foreach (CustomerFamilyVo customerfamilyvo in customerFamilyVoList)
+                    if (btnSubmitAddDetails.Text != "Add Finance Details")
                     {
-
-                        dt.Rows[temp]["C_CustomerId"] = customerfamilyvo.CustomerId.ToString();
-                        temp++;
-                    }
-                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
-                    //Updating Parent Customer
-                    UpdateCustomerForAddProspect(customerId);
-                    if (dt != null)
-                    {
-
-                        foreach (DataRow dr in dt.Rows)
+                        customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                        //Updating Parent Customer
+                        UpdateCustomerForAddProspect(customerId);
+                        if (dt != null)
                         {
-                            if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString()!="")
+
+                            foreach (DataRow dr in dt.Rows)
                             {
-                                //Updating child Customers
-                                UpdateCustomerForAddProspect(customerId, dr);
-                            }
-                            else
-                            {
-                                //Sometimes there might be the Situation that person can add new Client Customers  in Add screen on that situation
-                                // this particular function works
-                                CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
+                                if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
+                                {
+                                    //Updating child Customers
+                                    UpdateCustomerForAddProspect(customerId, dr);
+                                }
+                                else
+                                {
+                                    //Sometimes there might be the Situation that person can add new Client Customers  in Add screen on that situation
+                                    // this particular function works
+                                    CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
+                                }
                             }
                         }
                     }
