@@ -356,7 +356,11 @@ namespace WealthERP.Customer
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','none');", true);
                 }
+                else if (TreeView1.SelectedNode.Value == "Reports")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('FinancialPlanningReports','login')", true);
 
+                }
                 // Code to Expand/Collapse the Tree View Nodes based on selections
                 if (TreeView1.SelectedNode.Parent == null)
                 {

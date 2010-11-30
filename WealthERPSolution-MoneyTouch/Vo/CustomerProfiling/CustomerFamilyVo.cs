@@ -14,13 +14,30 @@ namespace VoCustomerProfiling
         private string m_AssociateCustomerName;
         private int m_CustomerId;
         private string m_Relationship;
+        private DateTime m_DOB;
+        private string m_RelationshipCode;
+        private string m_FirstName;
+        private string m_MiddleName;
+        private string m_LastName;
+        private string m_EmailId;
+
+
 
         #endregion Fields
-         
+
 
 
         #region Properties
-
+        public string EmailId
+        {
+            get { return m_EmailId; }
+            set { m_EmailId = value; }
+        }
+        public DateTime DOB
+        {
+            get { return m_DOB; }
+            set { m_DOB = value; }
+        }
         public int AssociationId
         {
             get { return m_AssociationId; }
@@ -46,7 +63,26 @@ namespace VoCustomerProfiling
             get { return m_Relationship; }
             set { m_Relationship = value; }
         }
-
+        public string RelationshipCode
+        {
+            get { return m_RelationshipCode; }
+            set { m_RelationshipCode = value; }
+        }
+        public string FirstName
+        {
+            get { return m_FirstName; }
+            set { m_FirstName = value; }
+        }
+        public string MiddleName
+        {
+            get { return m_MiddleName; }
+            set { m_MiddleName = value; }
+        }
+        public string LastName
+        {
+            get { return m_LastName; }
+            set { m_LastName = value; }
+        }
 
         #endregion Properties
     }

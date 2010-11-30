@@ -255,7 +255,10 @@ namespace WealthERP.Reports
                         
                         crmain.Load(Server.MapPath("FinancialPlanning.rpt"));
                         DataSet DScurrentAsset = new DataSet();
-                        DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(int.Parse(report.CustomerId));
+                        if (report.isProspect == 0)
+                            DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(int.Parse(report.CustomerId), 0);
+                        else
+                            DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(int.Parse(report.CustomerId), 1);
                         DataSet dsEquitySectorwise = financialPlanningReportsBo.GetFinancialPlanningReport(report);
                         DataTable dtEquitySectorwise = dsEquitySectorwise.Tables[0];
                         setLogo();

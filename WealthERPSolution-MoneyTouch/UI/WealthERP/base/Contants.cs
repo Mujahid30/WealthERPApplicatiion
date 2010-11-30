@@ -33,7 +33,7 @@ namespace WealthERP.Base
         public const string UploadExternalTypeKarvy = "KA";
         public const string UploadExternalTypeDeutsche = "DT";
         public const string UploadExternalTypeTemp = "TN";
-  
+
         public const string UploadExternalTypeStandard = "WP";
         public const string UploadExternalTypeOdinNSE = "ODNSE";
         public const string UploadExternalTypeOdinBSE = "ODBSE";
@@ -72,8 +72,8 @@ namespace WealthERP.Base
         public const string DecisionDeclined = "DC";
         public const string DecisionAdditionalInfo = "AIR";
 
-        
-        
+
+
 
         public enum Source
         {
@@ -84,8 +84,8 @@ namespace WealthERP.Base
         public enum Mode
         {
             New = 0,
-            Edit =1,
-            View =2
+            Edit = 1,
+            View = 2
         }
 
         public enum ProductMaster
@@ -105,13 +105,13 @@ namespace WealthERP.Base
             StandardProfile = 7,
             EquityStandardTransaction = 8,
             MFStandardSystematicSetup = 9,
-            OdinNSETransaction = 10, 
-            OdinBSETransaction = 11, 
+            OdinNSETransaction = 10,
+            OdinBSETransaction = 11,
             EquityStandardDematAccount = 12,
             EquityStandardTradeAccount = 13,
             MFstandardFolio = 14,
             TempletonTransaction = 15,
-            TempletonProfile = 16, 
+            TempletonProfile = 16,
             DeutscheTransaction = 17,
             DeutscheProfile = 18
         }
@@ -149,6 +149,23 @@ namespace WealthERP.Base
 
         public const string CurrentUserRole = "S_CurrentUserRole";
 
+
+        //Session contents for FPSuperLite
+        //===================================================================================================================================
+        //Session contents for Add Prospect List
+        public const string FPS_AddProspect_DataTable = "addProspectDataTable";
+
+        public const string FPS_AddProspectListActionStatus = "addProspectListActionStatus";
+
+        //Session contents for Prospect List
+        public const string FPS_ProspectList_CustomerId = "prospectListCustomerId";
+
+        //Session Contents for CustomerProspect Screen
+        public const string FPS_CustomerPospect_ActionStatus = "customerProspectActionStatus";
+        public const string FPS_CustomerProspect_CustomerVo = "customerProspectCustomerVo";
+        public const string FPS_TreeView_Status = "FPS_TreeView_Status";
+        //public const string FPS_CustomerProspect_CustomerFamilyDataTable = "customerProspectCustomerFamilyDataTablet";
+        //===================================================================================================================================
     }
 
     public static class Resources

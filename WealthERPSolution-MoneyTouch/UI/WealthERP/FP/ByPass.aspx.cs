@@ -5,15 +5,20 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WealthERP.Base;
+using VoUser;
 
 namespace WealthERP.FP
 {
     public partial class ByPass : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {            
-            Response.Redirect(Session[SessionContents.LogoPath].ToString());
-            //Response.Redirect("\\Images\\logo.jpg");
+        {
+            AdvisorVo advisorvo = new AdvisorVo();
+            if (advisorvo != null)
+            {
+                advisorvo = (AdvisorVo)Session["advisorVo"];
+                Response.Redirect("\\Images\\" + advisorvo.LogoPath);
+            }
         }
     }
 }

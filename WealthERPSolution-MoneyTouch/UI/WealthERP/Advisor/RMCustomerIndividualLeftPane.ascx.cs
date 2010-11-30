@@ -98,6 +98,14 @@ namespace WealthERP.Advisor
                         TreeView1.FindNode("Customer Dashboard").Selected = true;
                         Session["IsDashboard"] = "false";
                     }
+                    else if (Session[SessionContents.FPS_TreeView_Status] != null)
+                    {
+                        if (Session[SessionContents.FPS_TreeView_Status].ToString() == "FinanceProfile")
+                        {
+                            //TreeNode tn = new TreeNode("Finance Profile", "FinanceProfile");
+                            TreeView1.SelectedNode.Text = "Finance Profile";
+                        }
+                    }
                     else
                     {
                         TreeView1.CollapseAll();
@@ -411,7 +419,25 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','none');", true);
                 }
+                if (TreeView1.SelectedNode.Value == "RiskProfileAssetAllocation")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('FinancialPlanning','login')", true);
 
+                }
+                else if (TreeView1.SelectedNode.Value == "GoalProfiling")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddCustomerFinancialPlanningGoalSetup','login')", true);
+
+                }
+                else if (TreeView1.SelectedNode.Value == "Reports")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('FinancialPlanningReports','login')", true);
+
+                }
+                else if (TreeView1.SelectedNode.Value == "FinanceProfile")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProspect','login')", true);
+                }
                 // Code to Expand/Collapse the Tree View Nodes based on selections
                 if (TreeView1.SelectedNode.Parent == null)
                 {

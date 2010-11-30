@@ -215,6 +215,20 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
                 }
+                else if (TreeView1.SelectedNode.Value.ToString() == "ProspectList")
+                {
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
+                    Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
+                }
+                else if (TreeView1.SelectedNode.Value.ToString() == "AddProspect")
+                {
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
+                }
                 // Code to Expand/Collapse the Tree View Nodes based on selections
                 if (TreeView1.SelectedNode.Parent == null)
                 {
