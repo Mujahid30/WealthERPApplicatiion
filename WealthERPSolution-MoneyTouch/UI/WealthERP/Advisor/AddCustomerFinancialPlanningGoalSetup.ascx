@@ -9,86 +9,57 @@
 
 <script type="text/javascript">
 
- function validatePickCustomer() {
-     var hidCustomerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
-//     alert(hidCustomerId)
-//     alert(document.getElementById('<%=txtPickCustomer.ClientID %>').value)
-     if (hidCustomerId == "" && document.getElementById('<%=txtPickCustomer.ClientID %>').value == "") {
-         alert("Please pick a customer");
-         document.getElementById("<%=txtPickCustomer.ClientID %>").focus();
-         return false;
-     }
-           
-    };
+//   
 
 
-function validate() {
-    var hidCustomerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
-    var goalCost = document.getElementById("<%=txtGoalCostToday.ClientID %>").value;
-    var ddlGoalType = document.getElementById("<%=ddlGoalType.ClientID %>").value
-   
-    var RetirementCorps = "-";
-    if (document.getElementById("<%=txtROIFutureInvest.ClientID %>") != null)
-        RetirementCorps =  document.getElementById("<%=txtROIFutureInvest.ClientID %>").value;
-     
-     var aboveRateOfInterest = document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value;
-     var CurrentInvestPurpose = document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').value;
+    function validate() {        
+        var goalCost = document.getElementById("<%=txtGoalCostToday.ClientID %>").value;
+        var RetirementCorps = "-";
+        if (document.getElementById("<%=txtROIFutureInvest.ClientID %>") != null)
+            RetirementCorps = document.getElementById("<%=txtROIFutureInvest.ClientID %>").value;
 
-     if (parseInt(CurrentInvestPurpose) == 0 && parseInt(aboveRateOfInterest) > 0) {
-         alert("Fill correct investment amount")
-         return false;
-     }
-     
-     
-     if (document.getElementById('<%=txtGoalCostToday.ClientID %>').value == "") {
-         alert("Cost today cannot be empty.")
-         document.getElementById('<%=txtGoalCostToday.ClientID %>').focus();
-         return false;
-     }
-     else if (document.getElementById('<%=txtGoalCostToday.ClientID %>').value == "0") {
-     alert("Cost today cannot be 0.")
-     document.getElementById('<%=txtGoalCostToday.ClientID %>').focus();
-         return false;
-     }
-         if (RetirementCorps == "") 
-          {
+        var aboveRateOfInterest = document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value;
+        var CurrentInvestPurpose = document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').value;
 
-           alert("Return on retirement corpus(%) not to be empty ")
-           return false;
-            }
-               else if( parseInt(RetirementCorps) == 0)
-               {
-                  alert("Return on retirement corpus(%) should be greater than 0 ")
-                   return false;
-               }
+        if (parseInt(CurrentInvestPurpose) == 0 && parseInt(aboveRateOfInterest) > 0) {
+            alert("Fill correct investment amount")
+            return false;
+        }
+
+
+        if (document.getElementById('<%=txtGoalCostToday.ClientID %>').value == "") {
+            alert("Cost today cannot be empty.")
+            document.getElementById('<%=txtGoalCostToday.ClientID %>').focus();
+            return false;
+        }
+        else if (document.getElementById('<%=txtGoalCostToday.ClientID %>').value == "0") {
+            alert("Cost today cannot be 0.")
+            document.getElementById('<%=txtGoalCostToday.ClientID %>').focus();
+            return false;
+        }
+        if (RetirementCorps == "") {
+
+            alert("Return on retirement corpus(%) not to be empty ")
+            return false;
+        }
+        else if (parseInt(RetirementCorps) == 0) {
+            alert("Return on retirement corpus(%) should be greater than 0 ")
+            return false;
+        }
 
 
 
 
-               if (hidCustomerId == "") {
-                   document.getElementById("<%=txtPickCustomer.ClientID %>").focus();
-                   alert("Please pick a customer");
-                   return false;
-               }
-               else if (ddlGoalType == 0) {
-               alert("Please select a GaolType");
-               return false;
-               
-                }
-               else if (goalCost == "") {
-                   document.getElementById("<%=txtGoalCostToday.ClientID %>").focus();
-                   alert("Please enter Goal Cost Today");
-                   return false;
-               }
-               else
-                   return true;
+        if (goalCost == "") {
+            document.getElementById("<%=txtGoalCostToday.ClientID %>").focus();
+            alert("Please enter Goal Cost Today");
+            return false;
+        }
+        else
+            return true;
+
+    }
     
-}
-    function GetParentCustomerId(source, eventArgs) {
-
-        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
-        return false;
-    };
     function SetROI() {
         if (document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').value > 0)
             document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value = "8.5";
@@ -109,7 +80,7 @@ function validate() {
         }
     };
 
-    
+
 
     function onCALShown() {
         var cal = $find("calendar1");
@@ -149,75 +120,69 @@ function validate() {
                       .style.backgroundImage = 'none';
     };
 
-    function DeleteConfirmation()
-    {
+    function DeleteConfirmation() {
         var panel = document.getElementById('<%= tpnlOutput.ClientID %>');
         var chkArray = panel.getElementsByTagName("input");
-        var checked =0;
-        for (var i = 0; i < chkArray.length; i++)
-        {
-            if (chkArray[i].type == "checkbox" && chkArray[i].checked == true)
-               {
-                   checked = 1;
-                   break;
-               }
-        }
-         if (checked == 1)
-             {
-            if (confirm("Are you sure you want to delete selected Goals ?"))
-               return true;
-            else
-               return false;
+        var checked = 0;
+        for (var i = 0; i < chkArray.length; i++) {
+            if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
+                checked = 1;
+                break;
             }
-       else {
+        }
+        if (checked == 1) {
+            if (confirm("Are you sure you want to delete selected Goals ?"))
+                return true;
+            else
+                return false;
+        }
+        else {
             alert('Please select atleast one goal.');
             return false;
-            }
-        };
-        function ActiveConfirmation() {
-            var panel = document.getElementById('<%= tpnlOutput.ClientID %>');
-            var chkArray = panel.getElementsByTagName("input");
-            var checked = 0;
-            for (var i = 0; i < chkArray.length; i++) {
-                if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
-                    checked = 1;
-                    break;
-                }
-            }
-            if (checked == 1) {
-                if (confirm("Are you sure you want to Activete selected Goals ?"))
-                    return true;
-                else
-                    return false;
-            }
-            else {
-                alert('Please select atleast one goal.');
-                return false;
-            }
-        };
-        function DeactiveConfirmation() {
-            var panel = document.getElementById('<%= tpnlOutput.ClientID %>');
-            var chkArray = panel.getElementsByTagName("input");
-            var checked = 0;
-            for (var i = 0; i < chkArray.length; i++) {
-                if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
-                    checked = 1;
-                    break;
-                }
-            }
-            if (checked == 1) {
-                if (confirm("Are you sure you want to Deactivete selected Goals ?"))
-                    return true;
-                else
-                    return false;
-            }
-            else {
-                alert('Please select atleast one goal.');
-                return false;
+        }
+    };
+    function ActiveConfirmation() {
+        var panel = document.getElementById('<%= tpnlOutput.ClientID %>');
+        var chkArray = panel.getElementsByTagName("input");
+        var checked = 0;
+        for (var i = 0; i < chkArray.length; i++) {
+            if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
+                checked = 1;
+                break;
             }
         }
-        //****************************************************
-        
+        if (checked == 1) {
+            if (confirm("Are you sure you want to Activete selected Goals ?"))
+                return true;
+            else
+                return false;
+        }
+        else {
+            alert('Please select atleast one goal.');
+            return false;
+        }
+    };
+    function DeactiveConfirmation() {
+        var panel = document.getElementById('<%= tpnlOutput.ClientID %>');
+        var chkArray = panel.getElementsByTagName("input");
+        var checked = 0;
+        for (var i = 0; i < chkArray.length; i++) {
+            if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
+                checked = 1;
+                break;
+            }
+        }
+        if (checked == 1) {
+            if (confirm("Are you sure you want to Deactivete selected Goals ?"))
+                return true;
+            else
+                return false;
+        }
+        else {
+            alert('Please select atleast one goal.');
+            return false;
+        }
+    }
 </script>
 
 <style type="text/css">
@@ -267,14 +232,14 @@ function validate() {
     </style>
 
 
-<table style="width:100%">
+<%--<table style="width:100%">
     <tr ><td colspan="2"><hr /></td></tr>
-    <tr>
+   <tr>
         <td align="right" width="150px">
             <asp:Label ID="lblPickCustomer" runat="server" CssClass="FieldName" Text="Pick a Customer :"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtPickCustomer" runat="server" AutoPostBack="True" AutoComplete="Off" 
+           <asp:TextBox ID="txtPickCustomer" runat="server" AutoPostBack="True" AutoComplete="Off" 
                 CssClass="txtField"></asp:TextBox>
                 <ajaxToolkit:AutoCompleteExtender
                     ID="txtPickCustomer_autoCompleteExtender"
@@ -294,15 +259,16 @@ function validate() {
                     Enabled="True">
                 </ajaxToolkit:AutoCompleteExtender>
             <span id="SpanPicCustomerReq" class="spnRequiredField" runat="server">*</span>
-            <%--<asp:RequiredFieldValidator ID="RFVPickCustomer" runat="server" ControlToValidate="txtParentCustomerType"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please Pick a Customer"></asp:RequiredFieldValidator>--%>
+            <asp:RequiredFieldValidator ID="RFVPickCustomer" runat="server" ControlToValidate="txtParentCustomerType"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please Pick a Customer"></asp:RequiredFieldValidator>
         </td>
     </tr>
      <tr><td colspan="2"><hr /></td></tr>
 </table>
+--%>
 <asp:HiddenField ID="txtParentCustomerType" runat="server" />
 <asp:HiddenField ID="hidActiveTab" runat="server" />
-<asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
+<%--<asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />--%>
 <asp:HiddenField ID="hidRTSaveReq" runat="server" />
 
 <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0" 
@@ -315,85 +281,63 @@ function validate() {
         <ContentTemplate>
         <table class="TableBackground" width="100%">
          <tr>
-                    <td class="HeaderCell" colspan="3">
+                    <td class="HeaderCell">
                         <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Goal Profile"></asp:Label>
                         
                     </td>
                  </tr>
          <tr>
-                 <td colspan="3">
+                 <td>
                     <hr />
                  </td>
                  </tr>
         </table>
         <table class="TableBackground">
-               <%-- <tr>
-                    <td class="HeaderCell" colspan="3">
-                        <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Goal Profile"></asp:Label>
-                        
-                    </td>
-                 </tr>
-                <tr>
-                 <td colspan="3">
-                    <hr />
-                 </td>
-                 </tr>--%>
                 <tr id="trRequied" align="right" runat="server">
                     
-                    <td colspan="3" class="tdRequiredText">
+                    <td id="Td1" colspan="2" class="tdRequiredText" runat="server">
                        <asp:Label ID="trRequiedNote" CssClass="lblRequiredText" runat="server" Text="Note : Fields marked with ' * ' are compulsory"></asp:Label>
                        
                     </td>
                   
                 </tr>
-                <%--<tr>
-                <td colspan="2">
-                    <br>
-                </br>
-                </td>
-                </tr>--%>
                 <tr>
                     <td class="leftField">
                         <asp:Label ID="lblGoalbjective" runat="server" CssClass="FieldName" Text="Pick Goal Objective :"></asp:Label>
                     </td>
-                    <td colspan="2" class="rightField">
+                    <td class="rightField">
                         <asp:DropDownList ID="ddlGoalType" runat="server" AutoPostBack="True" CssClass="cmbField"
                               OnSelectedIndexChanged="ddlGoalType_SelectedIndexChanged">
                         </asp:DropDownList>
-                         <span id="spanGoalType" class="spnRequiredField" runat="server">*</span>
-                        
                     </td>
                 </tr>
                 <tr>
                     <td class="leftField">
                         <asp:Label ID="lblGoalDate" runat="server" CssClass="FieldName" Text="Goal Entry Date :"></asp:Label>
                     </td>
-                    <td class="rightField" colspan="2">
+                    <td class="rightField">
                         <asp:TextBox ID="txtGoalDate" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
                         <ajaxToolkit:CalendarExtender ID="txtGoalDate_CalendarExtender" runat="server" Format="dd/MM/yyyy"
                             OnClientDateSelectionChanged="checkDate" TargetControlID="txtGoalDate" Enabled="True">
                         </ajaxToolkit:CalendarExtender>
-                        <%--<ajaxToolkit:TextBoxWatermarkExtender ID="txtGoalDateDate_TextBoxWatermarkExtender"
-                            runat="server" TargetControlID="txtGoalDate" WatermarkText="dd/mm/yyyy" Enabled="True">
-                        </ajaxToolkit:TextBoxWatermarkExtender>--%>
                         <span id="SpanGoalDateReq" class="spnRequiredField" runat="server">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtGoalDate"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please select a Date"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr id="trGoalDesc" runat="server">
-                    <td class="leftField">
+                    <td id="Td2" class="leftField" runat="server">
                         <asp:Label ID="lblGoalDescription" runat="server" CssClass="FieldName" Text="Goal Description :"></asp:Label>
                     </td>
-                    <td class="rightField" colspan="2">
+                    <td id="Td3" class="rightField" runat="server">
                         <asp:TextBox ID="txtGoalDescription" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
                 <tr id="trPickChild" runat="server">
-                    <td class="leftField">
+                    <td id="Td4" class="leftField" runat="server">
                         <asp:Label ID="lblPickChild" runat="server" CssClass="FieldName" Text="Select a child for Goal planning :"></asp:Label>
                     </td>
-                    <td class="rightField" colspan="2">
+                    <td id="Td5" class="rightField" runat="server">
                         <asp:DropDownList ID="ddlPickChild" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                     </td>
@@ -402,18 +346,19 @@ function validate() {
                     <td class="leftField">
                         <asp:Label ID="lblGoalCostToday" runat="server" CssClass="FieldName" Text="Goal Cost Today :"></asp:Label>
                     </td>
-                    <td class="rightField" colspan="2">
-                        <asp:TextBox ID="txtGoalCostToday" runat="server" CssClass="txtField" OnBlur="validatePickCustomer();"></asp:TextBox>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtGoalCostToday" runat="server" CssClass="txtField"></asp:TextBox>
                         <span id="SpanGoalCostTodayReq" class="spnRequiredField" runat="server">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtGoalCostToday" ValidationGroup="btnSave" CssClass="rfvPCG" ErrorMessage="Goal cost Today Required">
-                        </asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtGoalCostToday" ValidationGroup="btnSave" CssClass="rfvPCG" ErrorMessage="Goal cost Today Required"></asp:RequiredFieldValidator>
                              <ajaxToolkit:FilteredTextBoxExtender ID="txtGoalCostToday_E" runat="server" Enabled="True" TargetControlID="txtGoalCostToday"
                                             FilterType="Custom, Numbers" ValidChars=".">
                                         </ajaxToolkit:FilteredTextBoxExtender>
                         
                          
-                        <asp:RangeValidator ID="RVtxtGoalCostToday" Display="Dynamic"  SetFocusOnError="true" Type="Double" ErrorMessage="Value  should not be more than 15 digit"
-                             ValidationGroup="btnSave" MinimumValue="0" MaximumValue="999999999999999" ControlToValidate="txtGoalCostToday" runat="server"></asp:RangeValidator>
+                        <asp:RangeValidator ID="RVtxtGoalCostToday" Display="Dynamic"  
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 15 digit"
+                             ValidationGroup="btnSave" MinimumValue="0" MaximumValue="999999999999999" 
+                            ControlToValidate="txtGoalCostToday" runat="server"></asp:RangeValidator>
                          
                     </td>
                 </tr>
@@ -421,7 +366,7 @@ function validate() {
                     <td class="leftField">
                         <asp:Label ID="lblGoalYear" runat="server" CssClass="FieldName" Text="Goal Year :"></asp:Label>
                     </td>
-                    <td class="rightField" colspan="2">
+                    <td class="rightField">
                         <asp:DropDownList ID="ddlGoalYear" runat="server" CssClass="cmbField" CausesValidation="True">
                             
                             <asp:ListItem Selected="True">2011</asp:ListItem>
@@ -499,7 +444,7 @@ function validate() {
                     <td class="leftField">
                         <asp:Label ID="lblCurrentInvestPurpose" runat="server" CssClass="FieldName" Text="Current Investment for the purpose :"></asp:Label>
                     </td>
-                    <td class="rightField" colspan="2">
+                    <td class="rightField">
                         <asp:TextBox ID="txtCurrentInvestPurpose" runat="server" AutoCompleteType="Disabled"
                             CssClass="txtField" MaxLength="15" OnBlur="SetROI();"></asp:TextBox>
                                 <ajaxToolkit:FilteredTextBoxExtender ID="txtCurrentInvestPurpose_E" runat="server" Enabled="True" TargetControlID="txtCurrentInvestPurpose"
@@ -516,14 +461,16 @@ function validate() {
                     <td class="leftField">
                         <asp:Label ID="lblRateOfInterstAbove" runat="server" CssClass="FieldName" Text="Rate of return of above(%) :"></asp:Label>
                     </td>
-                    <td class="rightField" colspan="2">
+                    <td class="rightField">
                         <asp:TextBox ID="txtAboveRateOfInterst" runat="server" AutoCompleteType="Disabled"
                             CssClass="txtField" MaxLength="15"></asp:TextBox>
                               <ajaxToolkit:FilteredTextBoxExtender ID="txtAboveRateOfInterst_E" runat="server" Enabled="True" TargetControlID="txtAboveRateOfInterst"              FilterType="Custom, Numbers" ValidChars=".">
                                         </ajaxToolkit:FilteredTextBoxExtender>
                         <span id="SpanAboveROIReq" class="spnRequiredField" runat="server">*</span>
-                         <asp:RangeValidator ID="RangeValidator1"   Display="Dynamic" SetFocusOnError="true" Type="Double" ErrorMessage="Value  should not be more than 100"
-                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtAboveRateOfInterst" runat="server"></asp:RangeValidator>
+                         <asp:RangeValidator ID="RangeValidator1"   Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 100"
+                            MinimumValue="0" MaximumValue="100" 
+                            ControlToValidate="txtAboveRateOfInterst" runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4"    Display="Dynamic" runat="server" ControlToValidate="txtAboveRateOfInterst"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
@@ -532,24 +479,26 @@ function validate() {
                     <td class="leftField">
                       <nobr>  <asp:Label ID="ExpRateOfReturn" runat="server" CssClass="FieldName" Text="Expected Rate of Return on new investment(%) : "></asp:Label></nobr>
                     </td>
-                    <td class="rightField" colspan="2">
+                    <td class="rightField">
                         <asp:TextBox ID="txtExpRateOfReturn" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
                             MaxLength="15"></asp:TextBox>
                         <span id="SpanExpROI" class="spnRequiredField" runat="server">*</span>
                         <ajaxToolkit:FilteredTextBoxExtender ID="txtExpRateOfReturn_E" runat="server" Enabled="True" TargetControlID="txtExpRateOfReturn"
                                             FilterType="Custom, Numbers" ValidChars=".">
                                         </ajaxToolkit:FilteredTextBoxExtender>
-                         <asp:RangeValidator Display="Dynamic" ID="RangeValidator3" SetFocusOnError="true" Type="Double" ErrorMessage="Value  should not be more than 100"
-                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtExpRateOfReturn" runat="server"></asp:RangeValidator>
+                         <asp:RangeValidator Display="Dynamic" ID="RangeValidator3" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 100"
+                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtExpRateOfReturn" 
+                            runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtExpRateOfReturn"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr id="trROIFutureInvestment" runat="server">
-                    <td class="leftField">
+                    <td id="Td6" class="leftField" runat="server">
                         <asp:Label ID="lblROIFutureInvest" runat="server" CssClass="FieldName" Text="Return on retirement corpus(%) :"></asp:Label>
                     </td>
-                    <td class="rightField" colspan="2">
+                    <td id="Td7" class="rightField" runat="server">
                         <asp:TextBox ID="txtROIFutureInvest" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
                             MaxLength="15"></asp:TextBox>
                             <span id="SpanROIFutureInvest" class="spnRequiredField" runat="server">*</span>
@@ -557,24 +506,11 @@ function validate() {
                             <ajaxToolkit:FilteredTextBoxExtender ID="txtROIFutureInvest_E" runat="server" Enabled="True" TargetControlID="txtROIFutureInvest"
                                             FilterType="Custom, Numbers" ValidChars=".">
                                         </ajaxToolkit:FilteredTextBoxExtender>
-                         <asp:RangeValidator ID="RangeValidator2"  Display="Dynamic" SetFocusOnError="true" Type="Double" ErrorMessage="Value  should not be more than 100"
-                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtROIFutureInvest" runat="server"></asp:RangeValidator>
+                         <asp:RangeValidator ID="RangeValidator2"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 100"
+                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtROIFutureInvest" 
+                            runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtROIFutureInvest"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField">
-                        <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Inflation(%) :"></asp:Label>
-                    </td>
-                    <td class="rightField" colspan="2">
-                        <asp:TextBox ID="txtInflation" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
-                            TextMode="SingleLine" ></asp:TextBox>
-                              <span id="spnInflation" class="spnRequiredField" runat="server">*</span>
-                             <span id="Span1" class="spnRequiredField" runat="server">*</span>
-                            <asp:RangeValidator ID="RangeValidator4"  Display="Dynamic" SetFocusOnError="true" Type="Double" ErrorMessage="Value  should not be more than 100"
-                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtInflation" runat="server"></asp:RangeValidator>
-                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtInflation"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
@@ -582,7 +518,7 @@ function validate() {
                     <td class="leftField">
                         <asp:Label ID="lblComment" runat="server" CssClass="FieldName" Text="Comments :"></asp:Label>
                     </td>
-                    <td class="rightField" colspan="2">
+                    <td class="rightField">
                         <asp:TextBox ID="txtComment" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
                             TextMode="MultiLine" ></asp:TextBox>
                     </td>
@@ -590,14 +526,14 @@ function validate() {
             </table>
         <table class="TableBackground">
                 <tr id="trchkApprove" runat="server">
-                    <td>
+                    <td id="Td8" runat="server">
                         <asp:CheckBox ID="chkApprove" runat="server" CssClass="FieldName" Text=" Approved by Customer" />
                         
                         
                     </td>
                 </tr>
                 <tr id="trlblApproveOn" runat="server">
-                    <td>
+                    <td id="Td9" runat="server">
                        
                         <asp:Label ID="lblApproveOn" runat="server" CssClass="FieldName" Text="Customer Approved On "></asp:Label>
                         
@@ -607,11 +543,11 @@ function validate() {
                 <tr>
                     <td>
                         <asp:Button ID="btnCancel" runat="server" CssClass="PCGButton" Text="Cancel" CausesValidation="False"
-                            OnClick="btnCancel_Click" />
+                            OnClick="btnCancel_Click" OnClientClick="return validate()"/>
                         <asp:Button ID="btnSaveAdd" runat="server" CssClass="PCGMediumButton" OnClick="btnSaveAdd_Click"
-                            Text="Save & Add" ValidationGroup="btnSave" OnClientClick="return validate()" CausesValidation="true" />
+                            Text="Save & Add" ValidationGroup="btnSave" OnClientClick="return validate()" />
                         <asp:Button ID="btnNext" runat="server" CssClass="PCGMediumButton" Text="Save & Next" OnClick="btnNext_Click"
-                            ValidationGroup="btnSave"  OnClientClick="return validate()" CausesValidation="true"/>
+                            ValidationGroup="btnSave"  OnClientClick="return validate()"/>
                         <asp:Button ID="btnBackToAddMode" runat="server" CssClass="PCGButton" Text="AddNew"
                              ValidationGroup="btnSave" OnClick="btnBackToAddMode_Click"  OnClientClick="return validate()"/>
                          <asp:Button ID="btnBackToView" runat="server" CssClass="PCGButton" Text="Back" OnClick="btnBackToView_Click"/>
@@ -672,7 +608,7 @@ function validate() {
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Cost Today(Rs.)">
+                                <asp:TemplateField HeaderText="Cost Today(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCostToday" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CostToday")%>'>
@@ -684,7 +620,7 @@ function validate() {
                                         </asp:Label>
                                     </FooterTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)">
+                                <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
                                         <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("SavingRequired") %>'>
@@ -790,28 +726,28 @@ function validate() {
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Corpus Required(Rs.)">
+                                <asp:TemplateField HeaderText="Corpus Required(Rs.)" ItemStyle-HorizontalAlign="Right" >
                                     <ItemTemplate>
                                         <asp:Label ID="lblCostToday" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CG_FVofCostToday") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Lumpsum Investment Required(Rs.)">
+                                <asp:TemplateField HeaderText="Lumpsum Investment Required(Rs.)" ItemStyle-HorizontalAlign="Right" >
                                     <ItemTemplate>
                                         <asp:Label ID="lblLumpsumInvReq" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CG_LumpsumInvestmentRequired") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Amount To be Saved Per Year(Rs.)">
+                                 <asp:TemplateField HeaderText="Amount To be Saved Per Year(Rs.)" ItemStyle-HorizontalAlign="Right" >
                                     <ItemTemplate>
                                         <asp:Label ID="lblYSavingReq" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CG_YearlySavingsRequired") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)">
+                                <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)" ItemStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
                                         <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("CG_MonthlySavingsRequired") %>'>
