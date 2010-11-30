@@ -343,12 +343,12 @@ namespace WealthERP.CustomerPortfolio
                 Session["CashSavingsPortfolioId"] = gvCustomerCashSavings.DataKeys[index].Value.ToString();
                 if (ddl.SelectedItem.Value.ToString() == "View")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioCashSavingsEntry','?action=ViewCS');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioCashSavingsEntry','action=ViewCS');", true);
 
                 }
                 else if (ddl.SelectedItem.Value.ToString() == "Edit")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioCashSavingsEntry','?action=EditCS');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioCashSavingsEntry','action=EditCS');", true);
                 }
 
             }
