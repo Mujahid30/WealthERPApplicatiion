@@ -192,7 +192,7 @@ namespace DaoCustomerProfiling
         /// <param name="customerId"></param>
         /// <returns></returns>
         public CustomerVo GetCustomer(int customerId)
-       {
+        {
             CustomerVo customerVo = null;
             Database db;
             DbCommand getCustomerCmd;
@@ -225,7 +225,7 @@ namespace DaoCustomerProfiling
                     customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
                     customerVo.FirstName = dr["C_FirstName"].ToString();
                     customerVo.MiddleName = dr["C_MiddleName"].ToString();
-                    if (dr["C_IsDummyPAN"] != null && dr["C_IsDummyPAN"] !="")
+                    if (dr["C_IsDummyPAN"] != null && dr["C_IsDummyPAN"] != "")
                     {
                         customerVo.DummyPAN = int.Parse(dr["C_IsDummyPAN"].ToString());
                     }
@@ -235,31 +235,31 @@ namespace DaoCustomerProfiling
                     }
                     if (dr["C_IsActive"] != null && dr["C_IsActive"] != "")
                     {
-                        
+
                         customerVo.IsActive = int.Parse(dr["C_IsActive"].ToString());
-                        
+
                     }
                     else
                     {
                         customerVo.IsActive = 0;
                     }
-                    if (dr["C_AlertViaSMS"] == null )
+                    if (dr["C_AlertViaSMS"] == null)
                     {
 
                         customerVo.ViaSMS = 0;
-                       
+
                     }
                     else
                     {
                         customerVo.ViaSMS = int.Parse(dr["C_AlertViaSMS"].ToString());
 
-                        
+
                     }
                     if (dr["C_AlertViaEmail"] == null)
                     {
                         customerVo.AlertViaEmail = 0;
-                        
-                        
+
+
                     }
                     else
                     {
@@ -280,9 +280,9 @@ namespace DaoCustomerProfiling
                     customerVo.AdviseNote = dr["C_Comments"].ToString();
                     if (!string.IsNullOrEmpty(dr["ACC_CustomerClassificationId"].ToString()))
                     {
-                        
+
                         customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerClassificationId"].ToString());
-                        
+
                     }
                     else
                     {
@@ -292,7 +292,7 @@ namespace DaoCustomerProfiling
                     customerVo.LastName = dr["C_LastName"].ToString();
                     customerVo.Gender = dr["C_Gender"].ToString();
                     customerVo.BranchName = dr["AB_BranchName"].ToString();
-                    if (dr["C_DOB"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_DOB"].ToString()))
                         customerVo.Dob = Convert.ToDateTime(dr["C_DOB"].ToString());
                     //customerVo.Dob = DateTime.Parse(dr["C_DOB"].ToString());
 
@@ -314,7 +314,7 @@ namespace DaoCustomerProfiling
                     customerVo.Adr2City = dr["C_Adr2City"].ToString();
                     customerVo.Adr2State = dr["C_Adr2State"].ToString();
                     customerVo.Adr2Country = dr["C_Adr2Country"].ToString();
-                    if (dr["C_ResidenceLivingDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_ResidenceLivingDate"].ToString()))
                         customerVo.ResidenceLivingDate = Convert.ToDateTime(dr["C_ResidenceLivingDate"].ToString());
                     customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
                     customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
@@ -335,11 +335,11 @@ namespace DaoCustomerProfiling
                     customerVo.Occupation = dr["XO_OccupationCode"].ToString();
                     customerVo.Qualification = dr["XQ_QualificationCode"].ToString();
                     customerVo.MaritalStatus = dr["XMS_MaritalStatusCode"].ToString();
-                    if(dr["C_MarriageDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_MarriageDate"].ToString()))
                         customerVo.MarriageDate = Convert.ToDateTime(dr["C_MarriageDate"].ToString());
                     customerVo.Nationality = dr["XN_NationalityCode"].ToString();
                     customerVo.RBIRefNum = dr["C_RBIRefNum"].ToString();
-                    if (dr["C_RBIApprovalDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_RBIApprovalDate"].ToString()))
                         customerVo.RBIApprovalDate = Convert.ToDateTime(dr["C_RBIApprovalDate"].ToString());
                     customerVo.CompanyName = dr["C_CompanyName"].ToString();
                     customerVo.OfcAdrLine1 = dr["C_OfcAdrLine1"].ToString();
@@ -349,11 +349,11 @@ namespace DaoCustomerProfiling
                     customerVo.OfcAdrCity = dr["C_OfcAdrCity"].ToString();
                     customerVo.OfcAdrState = dr["C_OfcAdrState"].ToString();
                     customerVo.OfcAdrCountry = dr["C_OfcAdrCountry"].ToString();
-                    if (dr["C_JobStartDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_JobStartDate"].ToString()))
                         customerVo.JobStartDate = Convert.ToDateTime(dr["C_JobStartDate"].ToString());
-                    if (dr["C_RegistrationDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_RegistrationDate"].ToString()))
                         customerVo.RegistrationDate = Convert.ToDateTime(dr["C_RegistrationDate"].ToString());
-                    if (dr["C_CommencementDate"].ToString() != "")
+                    if (!string.IsNullOrEmpty(dr["C_CommencementDate"].ToString()))
                         customerVo.CommencementDate = Convert.ToDateTime(dr["C_CommencementDate"].ToString());
                     customerVo.RegistrationPlace = dr["C_RegistrationPlace"].ToString();
                     customerVo.RegistrationNum = dr["C_RegistrationNum"].ToString();
@@ -578,8 +578,10 @@ namespace DaoCustomerProfiling
                     if (dr["XR_RelationshipCode"].ToString() != string.Empty)
                         customerVo.RelationShip = dr["XR_RelationshipCode"].ToString();
                     customerVo.ParentCustomer = dr["ParentCustomer"].ToString();
-                    if(dr["AB_BranchName"]!=null)
+                    if (dr["AB_BranchName"] != null)
                         customerVo.BranchName = dr["AB_BranchName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["CA_AssociationId"].ToString()))
+                        customerVo.AssociationId = int.Parse(dr["CA_AssociationId"].ToString());
                 }
             }
             catch (BaseApplicationException Ex)
@@ -790,13 +792,13 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(editCustomerCmd, "@XCST_CustomerSubTypeCode", DbType.String, customerVo.SubType);
                 else
                     db.AddInParameter(editCustomerCmd, "@XCST_CustomerSubTypeCode", DbType.String, DBNull.Value);
-              
-               
+
+
                 db.AddInParameter(editCustomerCmd, "@C_DummyPAN", DbType.String, customerVo.DummyPAN);
-                db.AddInParameter(editCustomerCmd, "@C_Prospect", DbType.String, customerVo.IsProspect);
+                db.AddInParameter(editCustomerCmd, "@C_IsProspect", DbType.String, customerVo.IsProspect);
                 db.AddInParameter(editCustomerCmd, "@C_mail", DbType.String, customerVo.AlertViaEmail);
                 db.AddInParameter(editCustomerCmd, "@C_sms", DbType.String, customerVo.ViaSMS);
-               
+
                 db.AddInParameter(editCustomerCmd, "@C_Salutation", DbType.String, customerVo.Salutation);
                 db.AddInParameter(editCustomerCmd, "@C_PANNum", DbType.String, customerVo.PANNum);
                 if (customerVo.ProfilingDate != DateTime.MinValue)
@@ -922,7 +924,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_AdvNote", DbType.String, customerVo.AdviseNote);
                 db.AddInParameter(editCustomerCmd, "@C_IsAct", DbType.Int32, customerVo.IsActive);
                 db.AddInParameter(editCustomerCmd, "@C_ClassCode", DbType.Int32, customerVo.CustomerClassificationID);
-                //db.AddInParameter(editCustomerCmd, "@C_Prospect", DbType.Int16, customerVo.IsProspect);
+
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;
 
@@ -977,7 +979,7 @@ namespace DaoCustomerProfiling
                 if (dsAssetCode.Tables[0].Rows.Count > 0)
                 {
                     filtercategory = dsAssetCode.Tables[0].Rows[0][0].ToString();
-                }            
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1206,7 +1208,7 @@ namespace DaoCustomerProfiling
 
                 getCustomerProofsDs = db.ExecuteDataSet(getCustomerProofsCmd);
                 Count = int.Parse(getCustomerProofsDs.Tables[1].Rows[0][0].ToString());
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1232,7 +1234,7 @@ namespace DaoCustomerProfiling
 
             return getCustomerProofsDs;
         }
-        
+
 
 
         /// <summary>
@@ -1279,35 +1281,35 @@ namespace DaoCustomerProfiling
             }
             return bResult;
         }
-   
+
         public int CustomerAssociation(string Flag, int CustomerId)
         {
-           int associationcount = 0;
-           // bool bResultAssociation = false;
+            int associationcount = 0;
+            // bool bResultAssociation = false;
             Database db;
             DbCommand deleteCustomerBankCmd;
 
-           
+
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deleteCustomerBankCmd = db.GetStoredProcCommand("SP_DeleteCustomer");
                 db.AddInParameter(deleteCustomerBankCmd, "@Flag", DbType.String, Flag);
                 db.AddInParameter(deleteCustomerBankCmd, "@C_CustomerId", DbType.Int32, CustomerId);
                 db.AddOutParameter(deleteCustomerBankCmd, "@CountFlag", DbType.Int32, 0);
-                associationcount= db.ExecuteNonQuery(deleteCustomerBankCmd);
+                associationcount = db.ExecuteNonQuery(deleteCustomerBankCmd);
                 associationcount = (int)db.GetParameterValue(deleteCustomerBankCmd, "@CountFlag");
-                if (associationcount!=0)
+                if (associationcount != 0)
                     return 1;
                 else return 0;
-              
-                    
 
 
-              
+
+
+
             }
 
         }
-    
+
 
 
         /// <summary>
@@ -1418,8 +1420,8 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@XQ_QualificationCode", DbType.String, customerVo.Qualification);
                 db.AddInParameter(createCustomerCmd, "@XMS_MaritalStatusCode", DbType.String, customerVo.MaritalStatus);
                 db.AddInParameter(createCustomerCmd, "@XN_NationalityCode", DbType.String, customerVo.Nationality);
-               // db.AddInParameter(createCustomerCmd, "@C_IsProspect", DbType.Int32, customerVo.IsProspect);
-                db.AddInParameter(createCustomerCmd, "@C_IsFPClient", DbType.Int32, customerVo.IsFPClient);  
+                db.AddInParameter(createCustomerCmd, "@C_IsProspect", DbType.Int32, customerVo.IsProspect);
+                db.AddInParameter(createCustomerCmd, "@C_IsFPClient", DbType.Int32, customerVo.IsFPClient);
                 //Customer Marriage Date
 
                 db.AddInParameter(createCustomerCmd, "@C_MarriageDate", DbType.DateTime, DBNull.Value);
@@ -1497,7 +1499,6 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerCmd, "@C_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerCmd, "@C_DummyPAN", DbType.Int32, customerVo.DummyPAN);
-                db.AddInParameter(createCustomerCmd, "@C_IsProspect", DbType.Int32, customerVo.IsProspect);
 
                 db.AddOutParameter(createCustomerCmd, "@C_CustomerId", DbType.Int32, 10);
                 db.AddOutParameter(createCustomerCmd, "@U_UserId", DbType.Int32, 10);
@@ -1547,7 +1548,7 @@ namespace DaoCustomerProfiling
             return customerIds;
         }
 
-        
+
         /// <summary>
         /// Get ProofList based on CustomerType and also based on Proof Category
         /// </summary>
@@ -2531,7 +2532,7 @@ namespace DaoCustomerProfiling
         /// <param name="selectedParentId"></param>
         /// <param name="rmId"></param>
         /// <returns></returns>
-        public DataTable GetMemberCustomerNamesForGrouping(string prefixText,int selectedParentId, int rmId)
+        public DataTable GetMemberCustomerNamesForGrouping(string prefixText, int selectedParentId, int rmId)
         {
 
             Database db;
@@ -2788,7 +2789,7 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
 
                 //To retreive data from the table 
-                cmdGetCustomerRelation = db.GetStoredProcCommand("SP_GetCustomerRelation");                
+                cmdGetCustomerRelation = db.GetStoredProcCommand("SP_GetCustomerRelation");
                 dsGetCustomerRelation = db.ExecuteDataSet(cmdGetCustomerRelation);
                 dtGetCustomerRelation = dsGetCustomerRelation.Tables[0];
             }
@@ -2816,7 +2817,7 @@ namespace DaoCustomerProfiling
         public DataTable GetCustomerDetailsForProspectList(int rmId)
         {
             Database db;
-            DataTable dtGetCustomerDetails=null;
+            DataTable dtGetCustomerDetails = null;
             DbCommand cmdGetCustomerDetails;
             DataSet dsGetCustomerDetails = null;
             try
@@ -2825,7 +2826,7 @@ namespace DaoCustomerProfiling
 
                 //To retreive data from the table 
                 cmdGetCustomerDetails = db.GetStoredProcCommand("SP_GetCustomerDetailsForProspectList");
-                db.AddInParameter(cmdGetCustomerDetails,"@AR_RMId", DbType.Int32, rmId);
+                db.AddInParameter(cmdGetCustomerDetails, "@AR_RMId", DbType.Int32, rmId);
                 dsGetCustomerDetails = db.ExecuteDataSet(cmdGetCustomerDetails);
                 dtGetCustomerDetails = dsGetCustomerDetails.Tables[0];
             }
