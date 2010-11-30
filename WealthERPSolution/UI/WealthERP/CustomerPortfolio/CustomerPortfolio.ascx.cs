@@ -531,7 +531,7 @@ namespace WealthERP.CustomerPortfolio
             if (e.CommandName == "EditDetails")
             {
                 Session["PortfolioId"] = e.CommandArgument.ToString();
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolioSetup','?action=EditCustomerPortfolio');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolioSetup','action=EditCustomerPortfolio');", true);
             }
         }
 
