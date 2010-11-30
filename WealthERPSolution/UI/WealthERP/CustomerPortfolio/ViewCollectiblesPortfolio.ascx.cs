@@ -276,14 +276,14 @@ namespace WealthERP.CustomerPortfolio
                 Session["collectiblesVo"] = collectiblesBo.GetCollectiblesAsset(collectiblesId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry','?action=EditCol');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry','action=EditCol');", true);
                 }
                 if (ddlAction.SelectedValue.ToString() == "View")
                 {
                     
                     
                     
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry','?action=ViewCol');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry','action=ViewCol');", true);
                 }
             }
             catch (Exception Ex)
