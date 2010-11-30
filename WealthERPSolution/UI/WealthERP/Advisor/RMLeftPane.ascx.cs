@@ -229,11 +229,11 @@ namespace WealthERP.Advisor
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value == "DownloadForm")
-                {
-                    Response.Write("<script type='text/javascript'>window.open('FP/FinancialPlanning.htm','Print Form');</script>");
+                //else if (TreeView1.SelectedNode.Value == "DownloadForm")
+                //{
+                //    Response.Write("<script type='text/javascript'>window.open('FP/FinancialPlanning.htm','Print Form');</script>");
 
-                }
+                //}
                 // Code to Expand/Collapse the Tree View Nodes based on selections
                 if (TreeView1.SelectedNode.Parent == null)
                 {
