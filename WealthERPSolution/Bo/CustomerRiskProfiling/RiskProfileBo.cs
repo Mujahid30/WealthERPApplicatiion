@@ -7,6 +7,7 @@ using VoUser;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using BoCustomerProfiling;
 
 namespace BoCustomerRiskProfiling
 {
@@ -115,8 +116,11 @@ namespace BoCustomerRiskProfiling
         {
             string AssetAllocationText = "";
             DataSet DSAssets = new DataSet();
+            CustomerVo customerVo = new CustomerVo();
+            CustomerBo customerBo=new CustomerBo();           
+           customerVo = customerBo.GetCustomer(CustomerID);
             string CashLessMore = "";
-            DSAssets = riskprofiledao.GetCustomerAssets(CustomerID,0);
+            DSAssets = riskprofiledao.GetCustomerAssets(CustomerID,customerVo.IsProspect);
             try
             {
                 if (DSAssets.Tables[1].Rows.Count > 0)
