@@ -294,7 +294,7 @@ function loadfrommenu(controlid, logintrue, frombm) {//, PageForm, MenuControlNa
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
     if (logintrue != "none" && logintrue != "login") {
-        var c_src = "ControlHost.aspx" + logintrue + "&pageid=";
+        var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
         var c_src = "ControlHost.aspx?pageid=";
@@ -693,14 +693,14 @@ function loadcontrolCustomer(controlid, logintrue) {
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
     if (logintrue != "none" && logintrue != "login") {
-        var c_src = "ControlHost.aspx" + logintrue + "&pageid=";
+        var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
         var c_src = "ControlHost.aspx?pageid=";
     }
     var randomnumbers = RandomGenerator();
     var url = c_src + controlid + "&rnd=" + randomnumbers;
-
+   
 
     setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
     //parent.document.getElementById("mainframe").src = url;
@@ -928,7 +928,7 @@ function loadcontrolonly(controlid, logintrue) {
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
     if (logintrue != "none" && logintrue != "login") {
-        var c_src = "ControlHost.aspx" + logintrue + "&pageid=";
+        var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
         var c_src = "ControlHost.aspx?pageid=";
