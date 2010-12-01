@@ -934,11 +934,12 @@ namespace WealthERP.CustomerPortfolio
                 //txtAmountPrepaid.Enabled = false;
                 txtEMIAmount.Text = liabilityVo.EMIAmount.ToString();
                 txtEMIAmount.Enabled = false;
-
-                txtInstallmentEndDt.Text = liabilityVo.InstallmentEndDate.ToShortDateString();
+                if(liabilityVo.InstallmentEndDate!=DateTime.MinValue)
+                    txtInstallmentEndDt.Text = liabilityVo.InstallmentEndDate.ToShortDateString();
                 txtInstallmentEndDt.Enabled = false;
 
-                txtInstallmentStartDt.Text = liabilityVo.InstallmentStartDate.ToShortDateString();
+                if (liabilityVo.InstallmentStartDate != DateTime.MinValue)
+                    txtInstallmentStartDt.Text = liabilityVo.InstallmentStartDate.ToShortDateString();
                 txtInstallmentStartDt.Enabled = false;
 
                 txtInterestRate.Text = liabilityVo.RateOfInterest.ToString();
@@ -1089,7 +1090,8 @@ namespace WealthERP.CustomerPortfolio
                 ddlEMIFrequency.DataValueField = dtFrequency.Columns["FrequencyCode"].ToString();
                 ddlEMIFrequency.DataBind();
                 ddlEMIFrequency.Items.Insert(0, new ListItem("Select the Frequency", "Select the Frequency"));
-                ddlEMIFrequency.SelectedValue = liabilityVo.FrequencyCodeEMI.ToString();
+                if(liabilityVo.FrequencyCodeEMI!=null)
+                    ddlEMIFrequency.SelectedValue = liabilityVo.FrequencyCodeEMI.ToString();
                 ddlEMIFrequency.Enabled = false;
                 //DataTable dtGuarantor = customerFamilyBo.GetCustomerAssociates(customerVo.CustomerId);
                 //if (dtGuarantor != null)
@@ -1377,11 +1379,12 @@ namespace WealthERP.CustomerPortfolio
             //txtAmountPrepaid.Enabled = true;
             txtEMIAmount.Text = liabilityVo.EMIAmount.ToString();
             txtEMIAmount.Enabled = true;
-
-            txtInstallmentEndDt.Text = liabilityVo.InstallmentEndDate.ToShortDateString();
+            if(liabilityVo.InstallmentEndDate!=DateTime.MinValue)
+                txtInstallmentEndDt.Text = liabilityVo.InstallmentEndDate.ToShortDateString();
             txtInstallmentEndDt.Enabled = true;
 
-            txtInstallmentStartDt.Text = liabilityVo.InstallmentStartDate.ToShortDateString();
+            if (liabilityVo.InstallmentStartDate != DateTime.MinValue)
+                txtInstallmentStartDt.Text = liabilityVo.InstallmentStartDate.ToShortDateString();
             txtInstallmentStartDt.Enabled = true;
 
             txtInterestRate.Text = liabilityVo.RateOfInterest.ToString();
@@ -1456,7 +1459,8 @@ namespace WealthERP.CustomerPortfolio
             ddlRepaymentType.DataValueField = dtRepayment.Columns["XIT_InstallmentTypeCode"].ToString();
             ddlRepaymentType.DataBind();
             ddlRepaymentType.Items.Insert(0, new ListItem("Select the Installment Type", "Select the Installment Type"));
-            ddlRepaymentType.SelectedValue = liabilityVo.InstallmentTypeCode.ToString();
+            if(liabilityVo.InstallmentTypeCode!=0)
+                ddlRepaymentType.SelectedValue = liabilityVo.InstallmentTypeCode.ToString();
             ddlRepaymentType.Enabled = true;
             // BINDING Payment Option
 
@@ -1539,7 +1543,8 @@ namespace WealthERP.CustomerPortfolio
             ddlEMIFrequency.DataValueField = dtFrequency.Columns["FrequencyCode"].ToString();
             ddlEMIFrequency.DataBind();
             ddlEMIFrequency.Items.Insert(0, new ListItem("Select the Frequency", "Select the Frequency"));
-            ddlEMIFrequency.SelectedValue = liabilityVo.FrequencyCodeEMI.ToString();
+            if( liabilityVo.FrequencyCodeEMI!=null)
+                ddlEMIFrequency.SelectedValue = liabilityVo.FrequencyCodeEMI.ToString();
             ddlEMIFrequency.Enabled = true;
         }
 
@@ -1724,16 +1729,21 @@ namespace WealthERP.CustomerPortfolio
 
                 newLiabilitiesVo.EMIAmount = double.Parse(txtEMIAmount.Text);
                 //liabilitiesVo.EMIDate = int.Parse(ddl.SelectedItem.Value.ToString());
-                newLiabilitiesVo.FrequencyCodeEMI = ddlEMIFrequency.SelectedItem.Value.ToString();
+                if(ddlEMIFrequency.SelectedItem.Value.ToString()!="Select the Frequency")
+                    newLiabilitiesVo.FrequencyCodeEMI = ddlEMIFrequency.SelectedItem.Value.ToString();
                 newLiabilitiesVo.CompoundFrequency = ddlCompoundFrequency.SelectedItem.Value.ToString();
                 newLiabilitiesVo.PaymentOptionCode = int.Parse(ddlPaymentOption.SelectedItem.Value.ToString());
                 if (txtLoanOutstandingAmount.Text != "")
                     newLiabilitiesVo.OutstandingAmount = double.Parse(txtLoanOutstandingAmount.Text.ToString());
-                newLiabilitiesVo.LoanStartDate = DateTime.Parse(txtLoanStartDate.Text);
-                newLiabilitiesVo.InstallmentEndDate = DateTime.Parse(txtInstallmentEndDt.Text);
-                newLiabilitiesVo.InstallmentStartDate = DateTime.Parse(txtInstallmentStartDt.Text);
+                if(txtLoanStartDate.Text!="")
+                    newLiabilitiesVo.LoanStartDate = DateTime.Parse(txtLoanStartDate.Text);
+                if(txtInstallmentEndDt.Text!="")
+                    newLiabilitiesVo.InstallmentEndDate = DateTime.Parse(txtInstallmentEndDt.Text);
+                if(txtInstallmentStartDt.Text!="")
+                    newLiabilitiesVo.InstallmentStartDate = DateTime.Parse(txtInstallmentStartDt.Text);
                 newLiabilitiesVo.OtherLenderName = txtOtherLender.Text;
-                newLiabilitiesVo.LumpsumRepaymentAmount = Double.Parse(txtLumpsumRepaymentAmount.Text);
+                if(txtLumpsumRepaymentAmount.Text!="")
+                    newLiabilitiesVo.LumpsumRepaymentAmount = Double.Parse(txtLumpsumRepaymentAmount.Text);
                 newLiabilitiesVo.Guarantor = txtGuarantor.Text.ToString();
                 int noOfYears = 0;
                 int noOfMonths = 0;

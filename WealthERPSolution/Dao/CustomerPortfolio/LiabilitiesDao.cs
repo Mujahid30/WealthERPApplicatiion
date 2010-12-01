@@ -2622,9 +2622,19 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(cmdUpdateLiability, "@CL_NoOfInstallments", DbType.Int32, liabilitiesVo.NoOfInstallments);
                 db.AddInParameter(cmdUpdateLiability, "@CL_AmountPrepaid", DbType.Double, liabilitiesVo.AmountPrepaid);
                 db.AddInParameter(cmdUpdateLiability, "@XRT_RepaymentTypeCode", DbType.String, liabilitiesVo.RepaymentTypeCode);
-                db.AddInParameter(cmdUpdateLiability, "@XF_FrequencyCodeEMI", DbType.String, liabilitiesVo.FrequencyCodeEMI);
-                db.AddInParameter(cmdUpdateLiability, "@CL_InstallmentStartDate", DbType.DateTime, liabilitiesVo.InstallmentStartDate);
-                db.AddInParameter(cmdUpdateLiability, "@CL_InstallmentEndDate", DbType.DateTime, liabilitiesVo.InstallmentEndDate);
+                if(liabilitiesVo.FrequencyCodeEMI!=null)
+                    db.AddInParameter(cmdUpdateLiability, "@XF_FrequencyCodeEMI", DbType.String, liabilitiesVo.FrequencyCodeEMI);
+                else
+                    db.AddInParameter(cmdUpdateLiability, "@XF_FrequencyCodeEMI", DbType.String, DBNull.Value);
+                if(liabilitiesVo.InstallmentStartDate!=DateTime.MinValue)
+                    db.AddInParameter(cmdUpdateLiability, "@CL_InstallmentStartDate", DbType.DateTime, liabilitiesVo.InstallmentStartDate);
+                else
+                    db.AddInParameter(cmdUpdateLiability, "@CL_InstallmentStartDate", DbType.DateTime, DBNull.Value);
+                if (liabilitiesVo.InstallmentEndDate != DateTime.MinValue)
+                    db.AddInParameter(cmdUpdateLiability, "@CL_InstallmentEndDate", DbType.DateTime, liabilitiesVo.InstallmentEndDate);
+                else
+                    db.AddInParameter(cmdUpdateLiability, "@CL_InstallmentEndDate", DbType.DateTime, DBNull.Value);
+
                 db.AddInParameter(cmdUpdateLiability, "@CL_IsInProcess", DbType.Int16, liabilitiesVo.IsInProcess);
                 db.AddInParameter(cmdUpdateLiability, "@CL_CreatedBy", DbType.Int32, liabilitiesVo.CreatedBy);
                 db.AddInParameter(cmdUpdateLiability, "@CL_ModifiedBy", DbType.Int32, liabilitiesVo.ModifiedBy);
