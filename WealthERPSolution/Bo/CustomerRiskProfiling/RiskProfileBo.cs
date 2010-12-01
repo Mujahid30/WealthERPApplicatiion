@@ -116,7 +116,7 @@ namespace BoCustomerRiskProfiling
             string AssetAllocationText = "";
             DataSet DSAssets = new DataSet();
             string CashLessMore = "";
-            DSAssets = riskprofiledao.GetCustomerAssets(CustomerID);
+            DSAssets = riskprofiledao.GetCustomerAssets(CustomerID,0);
             try
             {
                 if (DSAssets.Tables[1].Rows.Count > 0)
