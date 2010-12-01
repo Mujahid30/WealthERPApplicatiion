@@ -626,7 +626,7 @@ namespace DaoAdvisorProfiling
 
                 FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetMISForBM()");
 
-                object[] objects = new object[6];
+                object[] objects = new object[8];
                 objects[0] = rmid;
                 objects[1] = branchID;
                 objects[2] = branchHeadId;
