@@ -1071,11 +1071,11 @@ namespace WealthERP.FP
                     assetdetailsvo = new CustomerProspectAssetDetailsVo();
                     assetdetailsvo.AssetGroupCode = "IN";
                     assetdetailsvo.AssetInstrumentCategoryCode = "INMP";
-                    if (txtMoneyBackSA.Text != string.Empty && txtMoneyBackP.Text != string.Empty)
+                    if (txtMoneyBackSA.Text != string.Empty)
                     {
                         assetdetailsvo.Value = double.Parse(txtMoneyBackSA.Text);
                     }
-                    if (txtMoneyBackSA.Text != string.Empty && txtMoneyBackP.Text != string.Empty)
+                    if (txtMoneyBackP.Text != string.Empty)
                     {
                         assetdetailsvo.Premium = double.Parse(txtMoneyBackP.Text);
                     }
@@ -1127,11 +1127,11 @@ namespace WealthERP.FP
                     assetdetailssubvo.AssetGroupCode = "GI";
                     assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
                     assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHM";
-                    if (txtHealthInsuranceCoverSA.Text != string.Empty && txtHealthInsuranceCoverP.Text != string.Empty)
+                    if (txtHealthInsuranceCoverSA.Text != string.Empty)
                     {
                         assetdetailssubvo.Value = double.Parse(txtHealthInsuranceCoverSA.Text);
                     }
-                    if (txtHealthInsuranceCoverSA.Text != string.Empty && txtHealthInsuranceCoverP.Text != string.Empty)
+                    if (txtHealthInsuranceCoverP.Text != string.Empty)
                     {
                         assetdetailssubvo.Premium = double.Parse(txtHealthInsuranceCoverP.Text);
                     }
