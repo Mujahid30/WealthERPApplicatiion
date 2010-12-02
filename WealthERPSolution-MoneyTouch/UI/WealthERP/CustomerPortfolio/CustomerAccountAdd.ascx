@@ -92,7 +92,7 @@
                     <asp:Label ID="lblAccountNum" runat="server" CssClass="FieldName" Text="Account Number:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="txtLongAddField"></asp:TextBox>
                     <span id="Span3" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtAccountNumber"
                         ErrorMessage="Please enter a Number" Display="Dynamic" runat="server" CssClass="rfvPCG"
