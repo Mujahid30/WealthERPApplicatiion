@@ -37,6 +37,8 @@ namespace VoCustomerPortfolio
         private double m_CostOfSales;
         private double m_NetCost;
         private double m_XIRR;
+        private double m_RealizedXIRR;
+
         private double m_AbsoluteReturn;
         private double m_AnnualReturn;
         private double m_DividendIncome;
@@ -114,8 +116,7 @@ namespace VoCustomerPortfolio
         {
             get { return m_AbsoluteReturn; }
             set { m_AbsoluteReturn = value; }
-        }
-       
+        }   
 
 
         public double XIRR
@@ -123,8 +124,12 @@ namespace VoCustomerPortfolio
             get { return m_XIRR; }
             set { m_XIRR = value; }
         }
-      
 
+        public double RealizedXIRR
+        {
+            get { return m_RealizedXIRR; }
+            set { m_RealizedXIRR = value; }
+        }
 
         public int MfPortfolioId
         {
