@@ -463,6 +463,51 @@ namespace BoAdvisorProfiling
         }
 
         /* End For BM MIS */
+        /// <summary>
+        /// For getting the MIS wise transaction grid with total brokerage amount
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="misType"></param>
+        /// <param name="dtFrom"></param>
+        /// <param name="dtTo"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="sumTotal"></param>
+        /// <returns></returns>
+        public DataSet GetMFMISCommission(int userId, string misType, DateTime dtFrom, DateTime dtTo, int currentPage, out int count, out double sumTotal)
+        {
+
+            DataSet dsGetMISCommission = null;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsGetMISCommission = MISDao.GetMFMISCommission(userId, misType, dtFrom, dtTo, currentPage, out count, out sumTotal);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFBo.cs:GetMFMISCommission()");
+
+                object[] objects = new object[5];
+                objects[0] = userId;
+                objects[1] = misType;
+                objects[2] = dtFrom;
+                objects[3] = dtTo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMISCommission;
+        }
+
         
     }
 }
