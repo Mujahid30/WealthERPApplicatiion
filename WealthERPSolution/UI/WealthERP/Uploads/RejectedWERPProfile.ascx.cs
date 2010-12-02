@@ -601,7 +601,7 @@ namespace WealthERP.Uploads
 
         protected void lnkProfile_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processlogVo.ProcessId + "&filetypeId="+ filetypeId+"');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','processId=" + processlogVo.ProcessId + "&filetypeId="+ filetypeId+"');", true);
         }
 
         protected void LinkInputRejects_Click(object sender, EventArgs e)
@@ -609,15 +609,15 @@ namespace WealthERP.Uploads
             
             
             if(filetypeId == (int)Contants.UploadTypes.CAMSProfile)
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CAMSProfileFolioInputRejects','?processId=" + processlogVo.ProcessId + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CAMSProfileFolioInputRejects','processId=" + processlogVo.ProcessId + "');", true);
             else if (filetypeId == (int)Contants.UploadTypes.KarvyProfile)
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('KarvyProfileFolioInputRejects','?processId=" + processlogVo.ProcessId + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('KarvyProfileFolioInputRejects','processId=" + processlogVo.ProcessId + "');", true);
             else if (filetypeId == (int)Contants.UploadTypes.TempletonProfile)
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TempletonProfileFolioInputRejects','?processId=" + processlogVo.ProcessId + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TempletonProfileFolioInputRejects','processId=" + processlogVo.ProcessId + "');", true);
             else if (filetypeId == (int)Contants.UploadTypes.DeutscheProfile)
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('DeutscheProfileFolioInputRejects','?processId=" + processlogVo.ProcessId + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('DeutscheProfileFolioInputRejects','processId=" + processlogVo.ProcessId + "');", true);
             else if (filetypeId == (int)Contants.UploadTypes.StandardProfile)
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('StandardProfileInputRejects','?processId=" + processlogVo.ProcessId + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('StandardProfileInputRejects','processId=" + processlogVo.ProcessId + "');", true);
            
         }
 
