@@ -7,6 +7,7 @@ using VoUser;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using BoCustomerProfiling;
 
 namespace BoCustomerRiskProfiling
 {
@@ -115,8 +116,11 @@ namespace BoCustomerRiskProfiling
         {
             string AssetAllocationText = "";
             DataSet DSAssets = new DataSet();
+            CustomerVo customerVo = new CustomerVo();
+            CustomerBo customerBo = new CustomerBo();
+            customerVo = customerBo.GetCustomer(CustomerID);
             string CashLessMore = "";
-            DSAssets = riskprofiledao.GetCustomerAssets(CustomerID, 0);
+            DSAssets = riskprofiledao.GetCustomerAssets(CustomerID, customerVo.IsProspect);
             try
             {
                 if (DSAssets.Tables[1].Rows.Count > 0)
@@ -142,7 +146,7 @@ namespace BoCustomerRiskProfiling
                         "Your current equity allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString() + " %" +
                         " and debt allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString() + " %" + " Based on our analysis we recommend an equity allocation of "
                         + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Equity"].ToString()), 2).ToString() + " %" + " and debt allocation of " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Debt"].ToString()), 2) + " %" +
-                        "As per our recommendion you keep <recommended cash> of your investment portfolio " +
+                        "As per our recommendion you keep" + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Cash"].ToString()), 2).ToString() + "of your investment portfolio " + " %" +
                         "in cash and cash equivalents to take care of liquidity in your portfolio." +
                         "You have an appropriate asset allocation. Please contact your advisor to help you meet you financial goals";
 
@@ -154,13 +158,13 @@ namespace BoCustomerRiskProfiling
                        "by us is based on the your risk profile and other data pulled from your profile information." +
                        "Your current equity allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString() + " %" +
                        " and debt allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString() + " %" + ". But based on " +
-                       "our analysis we recommend an equity allocation of Rs" + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Equity"].ToString()), 2).ToString() +
-                       "and debt allocation of " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Debt"].ToString()), 2).ToString() + " %" + ".Please contact your advisor" +
-                       " to help you shift closer to the recommended asst allocation. This will keep you in sync with your " +
-                       "rsik taking capacity and your risk appetite both.Moreover we recommend you keep " +
+                       " our analysis we recommend an equity allocation of " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Equity"].ToString()), 2).ToString() + " %" +
+                       " and debt allocation of " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Debt"].ToString()), 2).ToString() + " %" + ".Please contact your advisor" +
+                       " to help you shift closer to the recommended asset allocation. This will keep you in sync with your " +
+                       "risk taking capacity and your risk appetite both.Moreover we recommend you keep " +
                        Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Cash"].ToString()), 2).ToString() + " %" + " of your investment portfolio in cash and cash equivalents to " +
-                       "take care of liquidity in your portfolio. Based on your current assset allocation we have identified that " +
-                       "cash allocation is " + CashLessMore + "than recommended.Please contact your advisor to remove the gap.";
+                       "take care of liquidity in your portfolio. Based on your current asset allocation we have identified that " +
+                       "cash allocation is " + CashLessMore + " than recommended.Please contact your advisor to remove the gap.";
 
                 }
                 else

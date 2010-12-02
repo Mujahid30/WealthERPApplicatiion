@@ -173,6 +173,7 @@ namespace WealthERP.Advisor
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
+            Session.Remove("FinanceProfile");
             if (!IsPostBack)
             {
                 //trPageChoice.Visible = false;
@@ -255,6 +256,8 @@ namespace WealthERP.Advisor
                     dtRMCustomer.Columns.Add("Pincode");
                     dtRMCustomer.Columns.Add("Assigned RM");
                     dtRMCustomer.Columns.Add("IsActive");
+                    dtRMCustomer.Columns.Add("IsProspect");
+                    dtRMCustomer.Columns.Add("IsFPClient");
                     DataRow drRMCustomer;
 
                     for (int i = 0; i < customerList.Count; i++)
@@ -342,6 +345,22 @@ namespace WealthERP.Advisor
                         {
                             drRMCustomer[14] = "In Active";
 
+                        }
+                        if (customerVo.IsProspect == 1)
+                        {
+                            drRMCustomer[15] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[15] = "No";
+                        }
+                        if (customerVo.IsFPClient == 1)
+                        {
+                            drRMCustomer[16] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[16] = "No";
                         }
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
@@ -558,6 +577,28 @@ namespace WealthERP.Advisor
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId="+userId+"');", true);
 
                 }
+                else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
+                {
+                    if (customerId != 0)
+                    {
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+                    }
+                    Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
+                    if (customerVo.Type == "IND")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProspect','login');", true);
+                    }
+                    if (customerVo.Type == "NIND")
+                    {
+                        //I'm not passing login parameter in this function.... that is becuase in JScript.js page the code corresponding to load RMCustomerIndividualLeftPane or RMCustomerNonIndividualLeftPane
+                        //have been written in that way. so Please try to understand before modifying the code
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerProspect');", true);
+                    }
+
+
+                }
+
 
             }
             catch (Exception Ex)
@@ -669,6 +710,8 @@ namespace WealthERP.Advisor
                     dtRMCustomer.Columns.Add("Pincode");
                     dtRMCustomer.Columns.Add("Assigned RM");
                     dtRMCustomer.Columns.Add("IsActive");
+                    dtRMCustomer.Columns.Add("IsProspect");
+                    dtRMCustomer.Columns.Add("IsFPClient");
                     DataRow drRMCustomer;
 
                     for (int i = 0; i < customerList.Count; i++)
@@ -750,6 +793,22 @@ namespace WealthERP.Advisor
                         {
                             drRMCustomer[14] = "In Active";
 
+                        }
+                        if (customerVo.IsProspect == 1)
+                        {
+                            drRMCustomer[15] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[15] = "No";
+                        }
+                        if (customerVo.IsFPClient == 1)
+                        {
+                            drRMCustomer[16] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[16] = "No";
                         }
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }

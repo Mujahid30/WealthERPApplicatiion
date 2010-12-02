@@ -43,12 +43,16 @@ namespace WealthERP.FP
             int customerId = 0;
             int selectedRow = 0;
             GridDataItem gdi;
+            CustomerVo customervo = new CustomerVo();
+            CustomerBo customerBo = new CustomerBo();
             try
             {
                 RadComboBox rcb = (RadComboBox)sender;
                 gdi = (GridDataItem)rcb.NamingContainer;
                 selectedRow = gdi.ItemIndex;
                 customerId = int.Parse((RadGrid1.MasterTableView.DataKeyValues[selectedRow]["C_CustomerId"].ToString()));
+                customervo = customerBo.GetCustomer(customerId);
+                Session[SessionContents.CustomerVo] = customervo;
                 if (customerId != 0)
                 {
                     Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;

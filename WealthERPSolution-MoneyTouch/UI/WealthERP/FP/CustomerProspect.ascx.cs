@@ -261,9 +261,19 @@ namespace WealthERP.FP
                             }
                             if (editor is GridTemplateColumnEditor)
                             {
-                                TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
-                                editorText = txt.Text;
-                                editorValue = txt.Text;
+                                if (i != 3)
+                                {
+                                    TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
+                                    editorText = txt.Text;
+                                    editorValue = txt.Text;
+                                }
+                                else if (i == 3)
+                                {
+                                    TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
+                                    editorText = txt.Text;
+                                    editorValue = txt.Text;
+                                }
+
                             }
                             try
                             {

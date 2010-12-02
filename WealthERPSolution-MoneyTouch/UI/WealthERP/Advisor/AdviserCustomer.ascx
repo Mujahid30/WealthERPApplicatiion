@@ -195,6 +195,7 @@
                                     <asp:ListItem Text="Portfolio" Value="Portfolio" />
                                     <asp:ListItem Text="User Details" Value="User Details" />
                                     <asp:ListItem Text="Alerts" Value="Alerts" />
+                                    <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
                                 </asp:DropDownList>
                             </ItemTemplate>
                            <%-- <FooterTemplate>
@@ -272,6 +273,8 @@
                             </ItemTemplate>
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>
+                        <asp:BoundField DataField="IsProspect" HeaderText="Is Prospect" />
+                        <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />
                         <%--<asp:BoundField DataField="Pincode" HeaderText="Pincode" ItemStyle-HorizontalAlign="Right"/>--%>
                         <%--<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
                             <HeaderTemplate>

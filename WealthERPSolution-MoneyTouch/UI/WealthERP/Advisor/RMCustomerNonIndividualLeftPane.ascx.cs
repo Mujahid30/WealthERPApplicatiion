@@ -64,7 +64,7 @@ namespace WealthERP.Advisor
                         {
                             TreeView1.CollapseAll();
                             TreeView1.FindNode("Financial Planning").Expand();
-                            TreeView1.FindNode("Financial Planning").Selected = true;
+                            //TreeView1.FindNode("Finance Profile").Selected = true;
                             TreeView1.SelectedNode.Text = "Finance Profile";
                         }
                     }

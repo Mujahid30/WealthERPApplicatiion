@@ -176,7 +176,8 @@ namespace WealthERP
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("Pincode");
                     dtRMCustomer.Columns.Add("IsActive");
-
+                    dtRMCustomer.Columns.Add("IsProspect");
+                    dtRMCustomer.Columns.Add("IsFPClient");
                     DataRow drRMCustomer;
 
                     for (int i = 0; i < customerList.Count; i++)
@@ -234,7 +235,22 @@ namespace WealthERP
                             drRMCustomer[12] = "In Active";
 
                         }
-
+                        if (customerVo.IsProspect == 1)
+                        {
+                            drRMCustomer[13] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[13] = "No";
+                        }
+                        if (customerVo.IsFPClient == 1)
+                        {
+                            drRMCustomer[14] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[14] = "No";
+                        }
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
 
@@ -395,6 +411,7 @@ namespace WealthERP
                 userVo = (UserVo)Session["userVo"];
                 if (!IsPostBack)
                 {
+                    Session.Remove("FinanceProfile");
                   //  if (Session["Current_Link"].ToString() == "RMLeftPane")
                     //{
                     if (Session["Customer"] != null)
@@ -503,6 +520,8 @@ namespace WealthERP
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("Pincode");
                     dtRMCustomer.Columns.Add("IsActive");
+                    dtRMCustomer.Columns.Add("IsProspect");
+                    dtRMCustomer.Columns.Add("IsFPClient");
                     DataRow drRMCustomer;
 
                     for (int i = 0; i < customerList.Count; i++)
@@ -560,7 +579,22 @@ namespace WealthERP
                             drRMCustomer[12] = "In Active";
 
                         }
-
+                        if (customerVo.IsProspect == 1)
+                        {
+                            drRMCustomer[13] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[13] = "No";
+                        }
+                        if (customerVo.IsFPClient == 1)
+                        {
+                            drRMCustomer[14] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[14] = "No";
+                        }
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
 
@@ -768,6 +802,27 @@ namespace WealthERP
                 else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
+                {
+                    if (customerId != 0)
+                    {
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+                    }
+                    Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
+                    if (customerVo.Type == "IND")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                    }
+                    if (customerVo.Type == "NIND")
+                    {
+                        //I'm not passing login parameter in this function.... that is becuase in JScript.js page the code corresponding to load RMCustomerIndividualLeftPane or RMCustomerNonIndividualLeftPane
+                        //have been written in that way. so Please try to understand before modifying the code
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect');", true);
+                    }
+
+
                 }
             }
             catch (Exception Ex)
