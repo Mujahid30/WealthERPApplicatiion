@@ -30,7 +30,9 @@ function loadcontrol(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
-    if (logintrue != "none" && logintrue != "login" && logintrue != "list") {
+    if (logintrue != "none" && logintrue != "login" && logintrue != "list" && logintrue!=null) {
+        if (logintrue.indexOf("?") > -1)
+            logintrue = logintrue.substring(1);
         var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
@@ -113,12 +115,9 @@ function loadcontrol(controlid, logintrue) {
 
     }
     else if (controlid == "CustomerProspect") {
-        if (logintrue != null && logintrue != "") {
+       
             loadlinks("RMCustomerIndividualLeftPane");
-        }
-        else {
-            loadlinks("RMCustomerNonIndividualLeftPane");
-        }
+        
     }
 
     else if (controlid == "Userlogin") {
@@ -293,7 +292,9 @@ function loadfrommenu(controlid, logintrue, frombm) {//, PageForm, MenuControlNa
 
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
-    if (logintrue != "none" && logintrue != "login") {
+    if (logintrue != "none" && logintrue != "login" && logintrue != null) {
+        if (logintrue.indexOf("?") > -1)
+            logintrue = logintrue.substring(1);
         var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
@@ -692,7 +693,9 @@ function loadcontrolCustomer(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
-    if (logintrue != "none" && logintrue != "login") {
+    if (logintrue != "none" && logintrue != "login" && logintrue != null) {
+        if (logintrue.indexOf("?") > -1)
+            logintrue = logintrue.substring(1);
         var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
@@ -927,7 +930,9 @@ function loadcontrolonly(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
-    if (logintrue != "none" && logintrue != "login") {
+    if (logintrue != "none" && logintrue != "login" && logintrue != null) {
+        if (logintrue.indexOf("?") > -1)
+            logintrue = logintrue.substring(1);
         var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
