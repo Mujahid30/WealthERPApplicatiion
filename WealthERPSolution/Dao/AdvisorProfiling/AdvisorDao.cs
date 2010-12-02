@@ -1009,6 +1009,8 @@ namespace DaoAdvisorProfiling
                         customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
                         if (!string.IsNullOrEmpty(dr["C_IsActive"].ToString().Trim()))
                          customerVo.IsActive = int.Parse(dr["C_IsActive"].ToString());
+                        customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        customerVo.IsFPClient = int.Parse(dr["C_IsFPClient"].ToString());
                         customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
                         if (dr["Parent"].ToString() != "")
                             customerVo.ParentCustomer = dr["Parent"].ToString();
