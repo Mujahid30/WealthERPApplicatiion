@@ -95,6 +95,7 @@
                             </asp:TreeNode>
                             <asp:TreeNode Text="MF" Value="MF">
                                 <asp:TreeNode Text="MIS" Value="MMIS"></asp:TreeNode>
+                                <asp:TreeNode Text="Commission MIS" Value="CommissionMIS"></asp:TreeNode>
                                 <asp:TreeNode Text="View Transactions" Value="MView Transactions"></asp:TreeNode>
                                 <asp:TreeNode Text="Add Transactions" Value="MAddTransactions"></asp:TreeNode>
                                 <asp:TreeNode Text="MF Reports" Value="MFReports"></asp:TreeNode>
