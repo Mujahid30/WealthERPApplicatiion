@@ -177,7 +177,7 @@
             <asp:Label ID="lblPolicyNumber" runat="server" CssClass="FieldName" Text="Policy Number:"></asp:Label>
         </td>
         <td colspan="4">
-            <asp:TextBox ID="txtPolicyNumber" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPolicyNumber" runat="server" CssClass="txtLongAddField"></asp:TextBox>
         </td>
     </tr>
     <tr>
