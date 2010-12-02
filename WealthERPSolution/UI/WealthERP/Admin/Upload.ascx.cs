@@ -48,12 +48,12 @@ namespace WealthERP.Admin
         {
 
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('','?type=" + ddl + "');", true);
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdminUploadReject','?processId=" + ddlAssetGroup.SelectedValue + "');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdminUploadReject','processId=" + ddlAssetGroup.SelectedValue + "');", true);
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdminUploadProcessLog','?processId=" + ddlAssetGroup.SelectedValue + "');", true); 
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdminUploadProcessLog','processId=" + ddlAssetGroup.SelectedValue + "');", true); 
         }
 
         protected void Page_Load(object sender, EventArgs e)

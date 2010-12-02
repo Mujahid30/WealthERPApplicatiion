@@ -83,7 +83,7 @@ namespace WealthERP.Admin
                 int selectedRow = gvr.RowIndex;
                 int processId = int.Parse(gvProcessLog.DataKeys[selectedRow].Values["ProcessId"].ToString());
                 string assetType =  gvProcessLog.DataKeys[selectedRow].Values["assetClass"].ToString();
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdminUploadReject','?processId=" + processId + "&assetGroup="+assetType+"');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdminUploadReject','processId=" + processId + "&assetGroup="+assetType+"');", true);
 
             }
             catch (Exception ex)
