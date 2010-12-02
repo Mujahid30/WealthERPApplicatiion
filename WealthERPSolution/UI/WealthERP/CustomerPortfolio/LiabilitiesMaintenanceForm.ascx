@@ -88,7 +88,8 @@
                     <asp:Label ID="lblLoanAmount" runat="server" Text="Loan Amount :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtLoanAmount" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
+                    <asp:TextBox ID="txtLoanAmount" runat="server" CssClass="txtField" 
+                        MaxLength="18" ontextchanged="txtLoanAmount_TextChanged" AutoPostBack="true"></asp:TextBox>
                     <span id="Span4" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtLoanAmount"
                         ErrorMessage="<br />Please enter a loan amount" Display="Dynamic" CssClass="rfvPCG"
@@ -118,7 +119,8 @@
                     <asp:Label ID="lblInterestRate" runat="server" Text="Interest Rate % (p.a):" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtInterestRate" runat="server" CssClass="txtField" MaxLength="6"></asp:TextBox>
+                    <asp:TextBox ID="txtInterestRate" runat="server" CssClass="txtField" 
+                        MaxLength="6" ontextchanged="txtInterestRate_TextChanged" AutoPostBack="true"></asp:TextBox>
                     <span id="Span6" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtInterestRate"
                         ErrorMessage="<br />Please enter the interest rate" Display="Dynamic" CssClass="rfvPCG"
@@ -164,11 +166,13 @@
                         <asp:Label ID="lblTenture" runat="server" Text="Tenure :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td  class="rightField">
-                <asp:TextBox ID="txtTenture" runat="server" Text="0" CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtTenture" runat="server" CssClass="txtField" 
+                        ontextchanged="txtTenture_TextChanged" AutoPostBack="true"></asp:TextBox>
                  <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3"
                         runat="server" TargetControlID="txtTenture" WatermarkText="Years">
                     </cc1:TextBoxWatermarkExtender> 
-                <asp:TextBox ID="txtTenureMonths" runat="server" Text="0" CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtTenureMonths" runat="server" CssClass="txtField" 
+                        ontextchanged="txtTenureMonths_TextChanged" AutoPostBack="true"></asp:TextBox>
                  <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4"
                         runat="server" TargetControlID="txtTenureMonths" WatermarkText="Months">
                     </cc1:TextBoxWatermarkExtender>
@@ -329,7 +333,8 @@
                 <td class="leftField">
                     <asp:Label ID="lblInstallmentStartDt" runat="server" Text="Installment Start Date :"
                         CssClass="FieldName"></asp:Label></td><td class="rightField">
-                    <asp:TextBox ID="txtInstallmentStartDt" runat="server" CssClass="txtField"></asp:TextBox><span id="Span15" class="spnRequiredField">*</span>
+                    <asp:TextBox ID="txtInstallmentStartDt" runat="server" CssClass="txtField" 
+                        ontextchanged="txtInstallmentStartDt_TextChanged" AutoPostBack="true"></asp:TextBox><span id="Span15" class="spnRequiredField">*</span>
                     <cc1:CalendarExtender ID="txtInstallmentStartDt_CalendarExtender" runat="server"
                         TargetControlID="txtInstallmentStartDt" Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
@@ -342,7 +347,8 @@
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblInstallmentEndDt" runat="server" Text="Installment End Date :" CssClass="FieldName"></asp:Label></td><td class="rightField">
-                    <asp:TextBox ID="txtInstallmentEndDt" runat="server" CssClass="txtField"></asp:TextBox><span id="Span16" class="spnRequiredField">*</span>
+                    <asp:TextBox ID="txtInstallmentEndDt" runat="server" CssClass="txtField" 
+                        ontextchanged="txtInstallmentEndDt_TextChanged" AutoPostBack="true"></asp:TextBox><span id="Span16" class="spnRequiredField">*</span>
                     <cc1:CalendarExtender ID="txtInstallmentEndDt_CalendarExtender" runat="server" TargetControlID="txtInstallmentEndDt"
                         Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
