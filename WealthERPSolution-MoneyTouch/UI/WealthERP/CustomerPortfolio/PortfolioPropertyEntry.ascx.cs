@@ -58,6 +58,14 @@ namespace WealthERP.CustomerPortfolio
 
                     if (Request.QueryString["action"] != null)
                         Manage = Request.QueryString["action"].ToString();
+                    if(Manage=="view")
+                    {
+                        mode = Mode.View;
+                    }
+                    else if (Manage == "edit")
+                    {
+                        mode = Mode.Edit;
+                    }
 
                     if (propertyVo != null)
                     {
