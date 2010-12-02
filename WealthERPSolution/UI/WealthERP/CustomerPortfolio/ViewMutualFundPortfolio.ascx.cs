@@ -809,7 +809,7 @@ namespace WealthERP.CustomerPortfolio
                             {
                                 drMFPortfolioRealized[8] = "0.0";
                             }     
-                            drMFPortfolioRealized[9] = String.Format("{0:n2}", double.Parse(mfPortfolioVo.XIRR.ToString("f2")));
+                            drMFPortfolioRealized[9] = String.Format("{0:n2}", double.Parse(mfPortfolioVo.RealizedXIRR.ToString("f2")));
                             if (mfPortfolioVo.DividendPayout != 0)
                             {
 
