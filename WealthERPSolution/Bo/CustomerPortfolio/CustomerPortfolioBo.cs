@@ -1353,6 +1353,8 @@ namespace BoCustomerPortfolio
             List<MFTransactionVo> mfTransactionVoList = new List<MFTransactionVo>();
             List<DateTime> XIRRTransDateList = new List<DateTime>();
             List<double> XIRRTransValueList = new List<double>();
+            List<DateTime> rXIRRTransDateList = new List<DateTime>();
+            List<double> rXIRRTransValueList = new List<double>();
             MFPortfolioVo mfPortfolioVo = new MFPortfolioVo();
             MFTransactionVo mfTransactionVo = new MFTransactionVo();
             MFPortfolioTransactionVo mfPortfolioTransactionVo = new MFPortfolioTransactionVo();
@@ -1383,6 +1385,7 @@ namespace BoCustomerPortfolio
             List<DateTime> acqDateList = new List<DateTime>();
             int portfolioTransactionCount = 0;
             int xirrTransCount = 0;
+            int rxirrTransCount = 0;
             try
             {
 
@@ -1399,6 +1402,8 @@ namespace BoCustomerPortfolio
                         mfPortfolioVoList[i].MFPortfolioTransactionVoList = ProcessMFTransactionsNew(mfTransactionVoList, portfolioId, mfPortfolioVoList[i].MFCode, tradeDate);
                         XIRRTransValueList = new List<double>();
                         XIRRTransDateList = new List<DateTime>();
+                        rXIRRTransValueList = new List<double>();
+                        rXIRRTransDateList = new List<DateTime>();
                         netHoldings = 0;
                         costOfAcquisition = 0;
                         actualProfitLoss = 0;
@@ -1413,6 +1418,7 @@ namespace BoCustomerPortfolio
                         divPayoutTotal = 0;
                         divReinvestTotal = 0;
                         xirrTransCount = 0;
+                        rxirrTransCount = 0;
                         absReturns=0;
                         annualReturns=0;
                         currentValue = 0;
@@ -1425,6 +1431,9 @@ namespace BoCustomerPortfolio
                         portfolioTransactionCount = mfPortfolioVoList[i].MFPortfolioTransactionVoList.Count;
                         double[] dlCurrentValueXIRR;
                         DateTime[] dtTranDateXIRR;
+
+                        double[] dlrCurrentValueXIRR;
+                        DateTime[] dtrTranDateXIRR;
                         int cntCurrentValueBuy = 0;
                         int cntCurrentValueSell = 0;
                         double cntOpenTrade = 0;
@@ -1454,6 +1463,12 @@ namespace BoCustomerPortfolio
                             if (mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].Closed)
                             {
                                 costOfSales = costOfSales + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].CostOfAcquisition;
+                                rXIRRTransValueList.Add(mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].BuyPrice * mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].BuyQuantity);
+                                rXIRRTransDateList.Add(mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].BuyDate);
+                                rxirrTransCount++;
+                                rXIRRTransValueList.Add(-(mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].SellPrice * mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].SellQuantity));
+                                rXIRRTransDateList.Add(mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].SellDate);
+                                rxirrTransCount++;
                             }
                             else
                             {
@@ -1531,6 +1546,8 @@ namespace BoCustomerPortfolio
                             dlCurrentValueXIRR[l] = XIRRTransValueList[l];
                             dtTranDateXIRR[l] = XIRRTransDateList[l];
                         }
+                        
+                        
                         //   
                         cntOpenTrade = (double)(Convert.ToDecimal(cntTotalBuyQuan) - Convert.ToDecimal(cntTotalSellQuan));
                         if (cntCurrentValueSell == 0 && cntCurrentValueBuy >= 1)
@@ -1575,6 +1592,19 @@ namespace BoCustomerPortfolio
                         {
                             mfPortfolioVoList[i].XIRR = 0;
                         }
+                        //Realized XIRR Calculation
+                        dlrCurrentValueXIRR = new double[rxirrTransCount];
+                        dtrTranDateXIRR = new DateTime[rxirrTransCount];
+                        for (int m = 0; m < rxirrTransCount; m++)
+                        {
+                            dlrCurrentValueXIRR[m] = rXIRRTransValueList[m];
+                            dtrTranDateXIRR[m] = rXIRRTransDateList[m];
+                        }
+                        if (rxirrTransCount % 2 == 0)
+                        {
+                            mfPortfolioVoList[i].RealizedXIRR = Math.Round((CalculateXIRR(dlrCurrentValueXIRR, dtrTranDateXIRR) * 100), 5);
+                        }
+
                         if (netHoldings != 0)
                             mfPortfolioVoList[i].AveragePrice = Math.Round(costOfAcquisition / netHoldings,5);
                         else
@@ -1841,6 +1871,7 @@ namespace BoCustomerPortfolio
             double sellReminder = 0;
             double cummBuyQuantity = 0;
             double cummSellQuantity = 0;
+            //Logic Not Used
             currentNAV = GetMFSchemePlanNAV(mfCode, tradeDate);
             isEquityScheme = IsSchemeEquity(mfCode);
             dtCustomerType = GetCustomerType(portfolioId);
@@ -1850,6 +1881,7 @@ namespace BoCustomerPortfolio
                 drMFCapGainRate = dtMFCapGainRate.Rows[0];
             else
                 drMFCapGainRate=null;
+            //Logic Not Used
 
             #region Buy Sell Separation
 
