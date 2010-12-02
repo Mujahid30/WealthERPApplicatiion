@@ -128,8 +128,8 @@
     </td>
     <td>
             <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
-                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
+                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMCustomerAMCSchemewiseMIS_btnGo', 'S');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMCustomerAMCSchemewiseMIS_btnGo', 'S');"
                 OnClick="btnGo_Click" />
      </td>
     <td></td>

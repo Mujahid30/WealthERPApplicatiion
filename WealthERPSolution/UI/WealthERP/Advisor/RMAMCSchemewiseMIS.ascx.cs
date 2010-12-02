@@ -132,7 +132,8 @@ namespace WealthERP.Advisor
                     hdnAll.Value = "2";
                     hdnrmId.Value = "0";
                     hdnXWise.Value = "1";
-                    dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), amcCode, 0, 1, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), string.Empty, string.Empty, hdnCategoryFilter.Value.ToString(), out count, 0);
+                    if(hdnValuationDate.Value.ToString()!="")
+                        dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), amcCode, 0, 1, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), string.Empty, string.Empty, hdnCategoryFilter.Value.ToString(), out count, 0);
                 }
                 if (Request.QueryString["amcCode"] != null)
                 {
