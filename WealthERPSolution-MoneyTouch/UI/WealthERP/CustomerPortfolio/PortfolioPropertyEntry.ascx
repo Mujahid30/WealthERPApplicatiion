@@ -86,7 +86,7 @@
             <asp:Label ID="Label35" runat="server" Text="Asset Identifier:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtAccountNum" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtAccountNum" runat="server" CssClass="txtLongAddField"></asp:TextBox>
         </td>
         <td>
         </td>
