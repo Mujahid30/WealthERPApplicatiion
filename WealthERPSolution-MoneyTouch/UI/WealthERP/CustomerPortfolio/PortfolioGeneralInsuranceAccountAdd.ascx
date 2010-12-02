@@ -92,7 +92,7 @@
             <asp:Label ID="lblPolicyNumber" runat="server" Text=" Policy Number:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="left" style="width:50%">
-            <asp:TextBox ID="txtPolicyNumber" style="width:35%" runat="server" CssClass="txtField">
+            <asp:TextBox ID="txtPolicyNumber" runat="server" CssClass="txtLongAddField">
             </asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfv_txtPolicyNumber" ControlToValidate="txtPolicyNumber"
