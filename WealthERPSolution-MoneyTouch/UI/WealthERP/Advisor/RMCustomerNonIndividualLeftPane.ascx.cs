@@ -62,6 +62,9 @@ namespace WealthERP.Advisor
                     {
                         if (Session[SessionContents.FPS_TreeView_Status].ToString() == "FinanceProfile")
                         {
+                            TreeView1.CollapseAll();
+                            TreeView1.FindNode("Financial Planning").Expand();
+                            TreeView1.FindNode("Financial Planning").Selected = true;
                             TreeView1.SelectedNode.Text = "Finance Profile";
                         }
                     }
