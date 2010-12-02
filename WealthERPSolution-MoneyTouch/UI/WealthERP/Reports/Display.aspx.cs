@@ -995,11 +995,22 @@ namespace WealthERP.Reports
 
 
 
+                if (Session["CusVo"] != null)
+                    customerVo = (CustomerVo)Session["CusVo"];
+                else if (Session["customerVo"] != null)
+                    customerVo = (CustomerVo)Session["customerVo"];
+                if (customerVo.IsProspect == 1)
+                    financialPlanning.isProspect = 1;
+                else
+                    financialPlanning.isProspect = 0;
+                financialPlanning.CustomerId = customerVo.CustomerId.ToString();
+
+                Session["reportParams"] = financialPlanning;
 
 
-                financialPlanning.CustomerId = Request.Form[ctrlPrefix + "txtCustomerId"];
+                //financialPlanning.CustomerId = Request.Form[ctrlPrefix + "txtCustomerId"];
 
-                    Session["reportParams"] = financialPlanning;
+                    //Session["reportParams"] = financialPlanning;
             }
 
         }
