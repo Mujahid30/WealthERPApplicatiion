@@ -69,6 +69,7 @@ div#MainDivLeft
     vertical-align: middle;
     color: #16518A;
     width: 250px;
+    
 }
 .txtSchemeName
 {
@@ -345,6 +346,7 @@ div#MainDivLeft
     color: White;
     font-size: x-small;
     font-family: Verdana,Tahoma;
+    height: 22px;
     width: 165px;
     cursor: pointer;
 }
@@ -866,3 +868,11 @@ p.tip
 }
 
 /* End */
+.txtLongAddField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 250px;
+}
