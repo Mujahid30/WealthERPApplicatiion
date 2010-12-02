@@ -2836,6 +2836,9 @@
     <Content Include="Images\loader.gif" />
     <Content Include="Images\Loading.gif" />
     <Content Include="Images\MenuSeparator.jpg" />
+    <Content Include="Images\Money_Touch_360_logo.png" />
+    <Content Include="Images\Money_Touch_360_logo1.gif" />
+    <Content Include="Images\Money_Touch_360_logo1.png" />
     <Content Include="Images\Portfolios.jpg" />
     <Content Include="Images\Print.gif" />
     <Content Include="Images\QuestionImage\QM1006.jpg" />
