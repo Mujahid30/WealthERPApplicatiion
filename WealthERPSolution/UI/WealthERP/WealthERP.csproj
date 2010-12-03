@@ -140,7 +140,7 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
     <Reference Include="Telerik.Web.Design, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL" />
-    <Reference Include="Telerik.Web.UI, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Web.UI, Version=2010.2.826.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL" />
     <Reference Include="VoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -2153,6 +2153,16 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CapitalGainSummaryDS.Designer.cs" />
+    <Compile Include="Reports\CustomerAssetAllocationDetails.Designer.cs">
+      <DependentUpon>CustomerAssetAllocationDetails.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CustomerInvestmentDetailsDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CustomerInvestmentDetailsDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Display.aspx.cs">
       <DependentUpon>Display.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2195,6 +2205,16 @@
       <DependentUpon>FPReports.ascx</DependentUpon>
     </Compile>
     <Compile Include="Reports\Images.Designer.cs" />
+    <Compile Include="Reports\IndivisualCustomerAssetAllocationDetailsDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndivisualCustomerAssetAllocationDetailsDS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\IndivisualCustomerInvestmentDetailsDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndivisualCustomerInvestmentDetailsDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\MFDividend.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -2499,6 +2519,14 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CapitalGainSummary1.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CustomerAssetAllocationDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CustomerAssetAllocationDetails.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CustomerInvestmentDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CustomerInvestmentDetails.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\EligibleCapitalGainsDetails.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>EligibleCapitalGainsDetails.cs</LastGenOutput>
@@ -2518,6 +2546,14 @@
     <EmbeddedResource Include="Reports\FinancialPlanning.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FinancialPlanning1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\IndivisualCustomerAssetAllocationDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>IndivisualCustomerAssetAllocationDetails.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\IndivisualCustomerInvestmentDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>IndivisualCustomerInvestmentDetails.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFDividend.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2745,6 +2781,7 @@
     <Content Include="App_Themes\Purple\StyleSheet.css" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\AjaxControlToolkit.pdb" />
+    <Content Include="CSS\colorbox.css" />
     <Content Include="CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="CSS\Images\splitter_bar_right_pointer.jpg" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
@@ -2835,6 +2872,7 @@
     <Content Include="Scripts\jquery-ui-1.7.2.custom.min.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jQuery.bubbletip-1.0.6.js" />
+    <Content Include="Scripts\jquery.colorbox-min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="SessionExpired.aspx" />
@@ -3253,6 +3291,28 @@
     <None Include="Reports\CapitalGainSummaryDS.xss">
       <DependentUpon>CapitalGainSummaryDS.xsd</DependentUpon>
     </None>
+    <None Include="Reports\CustomerAssetAllocationDetails.xsc">
+      <DependentUpon>CustomerAssetAllocationDetails.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\CustomerAssetAllocationDetails.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CustomerAssetAllocationDetails.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\CustomerAssetAllocationDetails.xss">
+      <DependentUpon>CustomerAssetAllocationDetails.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\CustomerInvestmentDetailsDS.xsc">
+      <DependentUpon>CustomerInvestmentDetailsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\CustomerInvestmentDetailsDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CustomerInvestmentDetailsDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\CustomerInvestmentDetailsDS.xss">
+      <DependentUpon>CustomerInvestmentDetailsDS.xsd</DependentUpon>
+    </None>
     <None Include="Reports\EligibleCapitalGainsDetailsDS.xsc">
       <DependentUpon>EligibleCapitalGainsDetailsDS.xsd</DependentUpon>
     </None>
@@ -3329,6 +3389,28 @@
     </None>
     <None Include="Reports\Images.xss">
       <DependentUpon>Images.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\IndivisualCustomerAssetAllocationDetailsDS.xsc">
+      <DependentUpon>IndivisualCustomerAssetAllocationDetailsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\IndivisualCustomerAssetAllocationDetailsDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IndivisualCustomerAssetAllocationDetailsDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\IndivisualCustomerAssetAllocationDetailsDS.xss">
+      <DependentUpon>IndivisualCustomerAssetAllocationDetailsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\IndivisualCustomerInvestmentDetailsDS.xsc">
+      <DependentUpon>IndivisualCustomerInvestmentDetailsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\IndivisualCustomerInvestmentDetailsDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IndivisualCustomerInvestmentDetailsDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\IndivisualCustomerInvestmentDetailsDS.xss">
+      <DependentUpon>IndivisualCustomerInvestmentDetailsDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\MFDividendDS.xsc">
       <DependentUpon>MFDividendDS.xsd</DependentUpon>
