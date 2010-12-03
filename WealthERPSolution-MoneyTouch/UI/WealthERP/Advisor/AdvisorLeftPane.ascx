@@ -2,6 +2,8 @@
     Inherits="WealthERP.Advisor.AdvisorLeftPane" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
+<%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
+
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
 <script id="pagescript" type="text/javascript" language="javascript">
@@ -38,88 +40,154 @@
             </tr>
             <tr>
                 <td valign="top" height="400">
-                    <asp:TreeView ID="TreeView1" runat="server" Font-Size="X-Small" ImageSet="Arrows"
-                        ShowLines="True" OnSelectedNodeChanged="TreeView1_SelectedNodeChanged">
-                        <ParentNodeStyle Font-Bold="False" />
-                        <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
-                        <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px"
-                            VerticalPadding="0px" />
-                        <Nodes>
-                            <%--<asp:TreeNode Text="Customers" Value="Customers"></asp:TreeNode>--%>
-                            <%--</asp:TreeNode>--%><asp:TreeNode Text="Switch Roles" Value="Switch Roles"></asp:TreeNode>
-                            <asp:TreeNode Text="Admin Home" Value="Advisor Home"></asp:TreeNode>
-                            <asp:TreeNode Text="Profile" Value="Profile">
-                                <asp:TreeNode Text="Edit Profile" Value="Edit Profile"></asp:TreeNode>
-                                <%--    <asp:TreeNode Text="Edit User Details" Value="Edit User Details"></asp:TreeNode>--%>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="Preferences" Value="Preferences">
-                                <asp:TreeNode Text="Setup Associate Category" Value="SetupAssociateCategory"></asp:TreeNode>
-                                <asp:TreeNode Text=" Setup Advisor Staff SMTP" Value="AdviserStaffSMTP"></asp:TreeNode>
-<%--                                <asp:TreeNode Text="Set Theme" Value="Set Theme" />
---%>                            </asp:TreeNode>
-                            <asp:TreeNode Text="LOB" Value="LOB">
-<%--                                <asp:TreeNode Text="Add LOB" Value="Add LOB"></asp:TreeNode>
---%>                            </asp:TreeNode>
-                            <asp:TreeNode Text="Staff" Value="Staff">
-                                <asp:TreeNode Text="Add Staff" Value="Add Staff"></asp:TreeNode>
-                                <%--<asp:TreeNode Text="Add Branch Association" Value="Add Branch Association"></asp:TreeNode>--%>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="Branch / Association" Value="Branch">
-                                <asp:TreeNode Text="Add Branch" Value="Add Branch"></asp:TreeNode>
-                                <asp:TreeNode Text="View Branch Association" Value="View Branch Association"></asp:TreeNode>
-                                <%--<asp:TreeNode Text="Add Branch Association" Value="Add Branch Association"></asp:TreeNode>--%>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="Uploads" Value="Uploads">
-                                <asp:TreeNode Text="Upload History" Value="Process Log"></asp:TreeNode>
-                                <asp:TreeNode Text="View Trans Rejects" Value="Rejected Records"></asp:TreeNode>
-                                <asp:TreeNode Text="View Rejected Folio" Value="Reject Folios"></asp:TreeNode>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="Customer" Value="Customer">
-                                <asp:TreeNode Text="Customer Accounts" Value="Customer Accounts"></asp:TreeNode>
-                                 <asp:TreeNode Text="Association" Value="Association"></asp:TreeNode>
-                                <%--<asp:TreeNode Text="Add Branch Association" Value="Add Branch Association"></asp:TreeNode>--%>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="User Management" Value="User Management">
-                                <%--<asp:TreeNode Text="Admin User Details" Value="Admin User Details">
-                        </asp:TreeNode>--%>
-                                <asp:TreeNode Text="RM Details" Value="RM Details"></asp:TreeNode>
-                                <asp:TreeNode Text="Customer Details" Value="Customer Details"></asp:TreeNode>
-                            </asp:TreeNode>
-                           
-                            <asp:TreeNode Text="Daily Process" Value="Daily Process">
-                                <asp:TreeNode Text="Valuation" Value="Valuation"></asp:TreeNode>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="SMS" Value="SMS">
-                            <asp:TreeNode Text="Alerts SMS" Value="CustomerSMSAlerts"></asp:TreeNode>
-                            <asp:TreeNode Text="Customized SMS" Value="SendSMS"></asp:TreeNode>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="MF" Value="MF">
-                                <asp:TreeNode Text="MIS" Value="MMIS"></asp:TreeNode>
-                                <asp:TreeNode Text="Commission MIS" Value="CommissionMIS"></asp:TreeNode>
-                                <asp:TreeNode Text="View Transactions" Value="MView Transactions"></asp:TreeNode>
-                                <asp:TreeNode Text="Add Transactions" Value="MAddTransactions"></asp:TreeNode>
-                                <asp:TreeNode Text="MF Reports" Value="MFReports"></asp:TreeNode>
-                                <asp:TreeNode Text="Systematic Recon" Value="CustomerMFSystematicTransactionReport"></asp:TreeNode>
-                                <asp:TreeNode Text="Reversal Trxn Handling" Value="MFReversal"></asp:TreeNode>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="Equity" Value="Equity">
-                                <asp:TreeNode Text="MIS" Value="EMIS"></asp:TreeNode>
-                                <asp:TreeNode Text="View Transactions" Value="EView Transactions"></asp:TreeNode>
-                                <asp:TreeNode Text="Add Transactions" Value="EAdd Transactions"></asp:TreeNode>
-                                <asp:TreeNode Text="Equity Reports" Value="EquityReports"></asp:TreeNode>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="Loan" Value="Loan">
-                                <asp:TreeNode Text="Schemes" Value="Schemes">
-<%--                                    <asp:TreeNode Text="Add Schemes" Value="Add Schemes"></asp:TreeNode>
---%>                                </asp:TreeNode>
-                                <asp:TreeNode Text="Loan Partner Commission" Value="AdviserLoanCommsnStrucWithLoanPartner">
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Loan MIS" Value="LoanMis"></asp:TreeNode>
-                            </asp:TreeNode>
-                        </Nodes>
-                        <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
-                            NodeSpacing="0px" VerticalPadding="0px" />
-                    </asp:TreeView>
+       
+                    <telerik:RadPanelBar ID="RadPanelBar1" Runat="server" ExpandAnimation-Type="InCubic" ExpandMode="SingleExpandedItem" Width="210px" 
+    EnableEmbeddedSkins="false" Skin="Touchbase"
+                        onitemclick="RadPanelBar1_ItemClick">
+                        <Items>
+                            <telerik:RadPanelItem runat="server" Text="Switch Roles" Value="Switch Roles">
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Admin Home" Value="Advisor Home">
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Edit Profile" Value="Edit Profile">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Preferences" Value="Preferences">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Setup Associate Category" 
+                                        Value="Setup Associate Category">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Setup Advisor Staff SMTP" 
+                                        Value="Setup Advisor Staff SMTP">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Set Theme" Value="Set Theme">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="LOB" Value="LOB">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Add LOB" Value="Add LOB">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Branch/Assocation" Value="Branch">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Add Branch" Value="Add Branch">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="View Branch Assocation" 
+                                        Value="View Branch Assocation">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Uploads" Value="Uploads">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Upload History" 
+                                        Value="Upload History">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="View Trans Rejects" 
+                                        Value="View Trans Rejects">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="View Rejected Folio" 
+                                        Value="View Rejected Folio">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Customer Accounts" 
+                                        Value="Customer Accounts">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Association" Value="Association">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="User Management" 
+                                Value="User Management">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="RM Details" Value="RM Details">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Customer Details" 
+                                        Value="Customer Details">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Daily Process" Value="Daily Process">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="SMS" Value="SMS">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Alerts SMS" Value="Alerts SMS">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Customized SMS" 
+                                        Value="Customized SMS">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="MF" Value="MF">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="MIS" Value="MMIS">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Commission MIS" 
+                                        Value="Commission MIS">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="View Transactions" 
+                                        Value="MView Transactions">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" 
+                                        Value="MAdd Transactions">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="MF Reports" Value="MF Reports">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Systematic Recon" 
+                                        Value="Systematic Recon">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Reversal Trxn Handling" 
+                                        Value="Reversal Trxn Handling">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="MIS" Value="EMIS">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="View Transactions" 
+                                        Value="EView Transactions">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" 
+                                        Value="EAdd Transactions">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Equity Reports" 
+                                        Value="Equity Reports">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Loan" Value="Loan">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Schemes" Value="Schemes">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Add Schemes" Value="Add Schemes">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Loan Partner Commission" 
+                                        Value="Loan Partner Commission">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Loan MIS" Value="Loan MIS">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                        </Items>
+                    </telerik:RadPanelBar>
                 </td>
             </tr>
             <tr>
@@ -169,3 +237,6 @@
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
+<p>
+    &nbsp;</p>
+
