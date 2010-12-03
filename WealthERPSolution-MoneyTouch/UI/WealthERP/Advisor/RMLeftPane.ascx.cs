@@ -41,9 +41,14 @@ namespace WealthERP.Advisor
                     
                     if (roleList.Count == 1 && roleList.Contains("RM"))
                     {
-                        TreeView1.Nodes.RemoveAt(0);
+                        //TreeView1.Nodes.RemoveAt(0);
+                        if (RadPanelBar1.Items[0] != null)
+                        {
+                            RadPanelBar1.Items.RemoveAt(0);
+                        }
                     }
-                    TreeView1.CollapseAll();
+                    //TreeView1.CollapseAll();
+                    RadPanelBar1.CollapseAllItems();
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMLeftPane');", true);
                 }
                 
@@ -73,19 +78,257 @@ namespace WealthERP.Advisor
             }
 
         }
-        protected void Page_PreRender(object sender, EventArgs e)
-        {
-            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
-            {
-                SetNode();
-            }
-        }
-        public void SetNode()
+        //protected void Page_PreRender(object sender, EventArgs e)
+        //{
+        //    if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+        //    {
+        //        SetNode();
+        //    }
+        //}
+        //public void SetNode()
+        //{
+        //    string strNodeValue = null;
+        //    try
+        //    {
+        //        if (TreeView1.SelectedNode.Value.ToString() == "Switch Roles")
+        //        {
+        //            Session.Remove("UserType");
+        //            Session[SessionContents.CurrentUserRole] = null;
+        //            count = roleList.Count;
+        //            if (count == 3)
+        //            {
+        //                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
+        //                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('IFAAdminDashboard','login','" + UserName + "','" + sourcePath + "');", true);
+        //            }
+        //            if (count == 2)
+        //            {
+        //                if (roleList.Contains("RM") && roleList.Contains("BM"))
+        //                {
+        //                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
+        //                }
+        //                else if (roleList.Contains("RM") && roleList.Contains("Admin"))
+        //                {
+        //                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcepath + "');", true);
+        //                }
+
+        //            }
+        //            //   Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Dashboard")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Profile")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewRMDetails','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Customers")
+        //        {
+        //            Session["Customer"] = "Customer";
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Add Customer")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerType','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Customer Group Accounts")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCustomerFamily','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Add Group Account")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GroupAccountSetup','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Customer Portfolio")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolio','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Add Portfolio")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolioSetup','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Customer Alerts")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertDashBoard','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Notifications")
+        //        {
+        //            Session["UserType"] = "rm";
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomerSMSAlerts','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
+        //        {
+        //            Session["UserType"] = "rm";
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanMIS','login');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Loan Proposal")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanTrackingGrid','login');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "Add Loan Proposal")
+        //        {
+        //            Session["LoanProcessAction"] = "add";
+        //            Session[SessionContents.LoanProcessTracking] = null;
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanProcessTracking','login');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "MFReports")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFReports','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "EquityReports")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityReports','none');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "MultiAssetReports")
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioReports','none');", true);
+        //        }
+        //        //else if (TreeView1.SelectedNode.Value.ToString() == "MFMIS")
+        //        //{
+        //        //    Session["UserType"] = "rm";
+        //        //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
+        //        //}
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "EView Transactions")
+        //        {
+        //            Session["UserType"] = "rm";
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMEQMultipleTransactionsView','login');", true);
+        //            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "EAdd Transactions")
+        //        {
+        //            Session["UserType"] = "rm";
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
+        //            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "EMIS")
+        //        {
+        //            Session["UserType"] = "rm";
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "MView Transactions")
+        //        {
+
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "MMIS")
+        //        {
+        //            Session["UserType"] = "rm";
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCwiseMIS','login');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "MAdd Transactions")
+        //        {
+        //            Session["UserType"] = "adviser";
+        //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "ProspectList")
+        //        {
+        //            Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+        //            Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
+        //            Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
+        //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
+        //        }
+        //        else if (TreeView1.SelectedNode.Value.ToString() == "AddProspect")
+        //        {
+        //            Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+        //            Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+        //            Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
+        //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
+        //        }
+        //        // Code to Expand/Collapse the Tree View Nodes based on selections
+        //        if (TreeView1.SelectedNode.Parent == null)
+        //        {
+        //            foreach (TreeNode node in TreeView1.Nodes)
+        //            {
+        //                if (node.Value != TreeView1.SelectedNode.Value)
+        //                    node.Collapse();
+        //                else
+        //                    node.Expand();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (TreeView1.SelectedNode.Parent.Parent != null)
+        //            {
+        //                string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
+        //                foreach (TreeNode node in TreeView1.Nodes)
+        //                {
+        //                    if (node.Value != parentNode)
+        //                        node.Collapse();
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (TreeView1.SelectedNode.Parent == null)
+        //                {
+        //                    foreach (TreeNode node in TreeView1.Nodes)
+        //                    {
+        //                        if (node.Value != TreeView1.SelectedNode.Value)
+        //                            node.Collapse();
+        //                        else
+        //                            node.Expand();
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    strNodeValue = TreeView1.SelectedNode.Parent.Value;
+        //                    string val = TreeView1.SelectedNode.Value;
+        //                    foreach (TreeNode node in TreeView1.Nodes)
+        //                    {
+
+        //                        if (node.Value != strNodeValue)
+        //                            node.Collapse();
+        //                        else
+        //                        {
+        //                            foreach (TreeNode child in node.ChildNodes)
+        //                            {
+        //                                if (child.Value != val)
+        //                                    child.Collapse();
+        //                                else
+        //                                    child.Expand();
+        //                            }
+        //                        }
+
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "RMLeftPane.ascx.cs:TreeView1_SelectedNodeChanged()");
+
+        //        object[] objects = new object[1];
+        //        objects[0] = strNodeValue;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
+        //protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
+        //{
+           
+        //}
+
+        //protected void RadPanelBar2_ItemClick(object sender, Telerik.Web.UI.RadPanelBarEventArgs e)
+        //{
+
+        //}
+
+        protected void RadPanelBar1_ItemClick(object sender, Telerik.Web.UI.RadPanelBarEventArgs e)
         {
             string strNodeValue = null;
             try
             {
-                if (TreeView1.SelectedNode.Value.ToString() == "Switch Roles")
+                if (e.Item.Value == "Switch Roles")
                 {
                     Session.Remove("UserType");
                     Session[SessionContents.CurrentUserRole] = null;
@@ -109,72 +352,72 @@ namespace WealthERP.Advisor
                     }
                     //   Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Dashboard")
+                else if (e.Item.Value == "Dashboard")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Profile")
+                else if (e.Item.Value == "Profile")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewRMDetails','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Customers")
+                else if (e.Item.Value == "Customers")
                 {
                     Session["Customer"] = "Customer";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Add Customer")
+                else if (e.Item.Value == "Add Customer")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerType','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Customer Group Accounts")
+                else if (e.Item.Value == "Customer Group Accounts")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCustomerFamily','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Add Group Account")
+                else if (e.Item.Value == "Add Group Account")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GroupAccountSetup','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Customer Portfolio")
+                else if (e.Item.Value == "Customer Portfolio")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolio','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Add Portfolio")
+                else if (e.Item.Value == "Add Portfolio")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolioSetup','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Customer Alerts")
+                else if (e.Item.Value == "Customer Alerts")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertDashBoard','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Notifications")
+                else if (e.Item.Value == "Notifications")
                 {
                     Session["UserType"] = "rm";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomerSMSAlerts','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
+                else if (e.Item.Value == "LoanMIS")
                 {
                     Session["UserType"] = "rm";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanMIS','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Loan Proposal")
+                else if (e.Item.Value == "Loan Proposal")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanTrackingGrid','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "Add Loan Proposal")
+                else if (e.Item.Value == "Add Loan Proposal")
                 {
                     Session["LoanProcessAction"] = "add";
                     Session[SessionContents.LoanProcessTracking] = null;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanProcessTracking','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "MFReports")
+                else if (e.Item.Value == "MFReports")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFReports','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "EquityReports")
+                else if (e.Item.Value == "EquityReports")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityReports','none');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "MultiAssetReports")
+                else if (e.Item.Value == "MultiAssetReports")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioReports','none');", true);
                 }
@@ -183,109 +426,51 @@ namespace WealthERP.Advisor
                 //    Session["UserType"] = "rm";
                 //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
                 //}
-                else if (TreeView1.SelectedNode.Value.ToString() == "EView Transactions")
+                else if (e.Item.Value == "EView Transactions")
                 {
                     Session["UserType"] = "rm";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMEQMultipleTransactionsView','login');", true);
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "EAdd Transactions")
+                else if (e.Item.Value == "EAdd Transactions")
                 {
                     Session["UserType"] = "rm";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "EMIS")
+                else if (e.Item.Value == "EMIS")
                 {
                     Session["UserType"] = "rm";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "MView Transactions")
+                else if (e.Item.Value == "MView Transactions")
                 {
 
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "MMIS")
+                else if (e.Item.Value == "MMIS")
                 {
                     Session["UserType"] = "rm";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCwiseMIS','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "MAdd Transactions")
+                else if (e.Item.Value == "MAdd Transactions")
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "ProspectList")
+                else if (e.Item.Value == "ProspectList")
                 {
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                     Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "AddProspect")
+                else if (e.Item.Value == "AddProspect")
                 {
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
-                }
-                // Code to Expand/Collapse the Tree View Nodes based on selections
-                if (TreeView1.SelectedNode.Parent == null)
-                {
-                    foreach (TreeNode node in TreeView1.Nodes)
-                    {
-                        if (node.Value != TreeView1.SelectedNode.Value)
-                            node.Collapse();
-                        else
-                            node.Expand();
-                    }
-                }
-                else
-                {
-                    if (TreeView1.SelectedNode.Parent.Parent != null)
-                    {
-                        string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
-                        foreach (TreeNode node in TreeView1.Nodes)
-                        {
-                            if (node.Value != parentNode)
-                                node.Collapse();
-                        }
-                    }
-                    else
-                    {
-                        if (TreeView1.SelectedNode.Parent == null)
-                        {
-                            foreach (TreeNode node in TreeView1.Nodes)
-                            {
-                                if (node.Value != TreeView1.SelectedNode.Value)
-                                    node.Collapse();
-                                else
-                                    node.Expand();
-                            }
-                        }
-                        else
-                        {
-                            strNodeValue = TreeView1.SelectedNode.Parent.Value;
-                            string val = TreeView1.SelectedNode.Value;
-                            foreach (TreeNode node in TreeView1.Nodes)
-                            {
-
-                                if (node.Value != strNodeValue)
-                                    node.Collapse();
-                                else
-                                {
-                                    foreach (TreeNode child in node.ChildNodes)
-                                    {
-                                        if (child.Value != val)
-                                            child.Collapse();
-                                        else
-                                            child.Expand();
-                                    }
-                                }
-
-                            }
-                        }
-                    }
                 }
             }
             catch (BaseApplicationException Ex)
@@ -307,10 +492,6 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-        }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-           
         }
     }
 }
