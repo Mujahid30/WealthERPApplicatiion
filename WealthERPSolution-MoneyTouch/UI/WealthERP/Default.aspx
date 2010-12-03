@@ -149,7 +149,7 @@
                                         </div>
                                         <div align="right" style="float: right; position: relative; z-index: 2000px">
                                             <img alt="TouchBase" id="CompanyLogo" runat="server" src="~/Images/Money_Touch_360_logo1.png"
-                                                style="height: 60px" />
+                                                style="height: 60px"  />
                                         </div>
                                     </div>
                                     <div style="clear:both; z-index: 2500; text-align:right;">
