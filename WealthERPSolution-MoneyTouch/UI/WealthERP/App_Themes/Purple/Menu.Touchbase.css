@@ -1,0 +1,443 @@
+/* <RadMenu / Office2007> */
+
+.RadMenu_Touchbase .rmRootGroup,
+.RadMenu_Touchbase a.rmLink,
+.RadMenu_Touchbase .rmText,
+.RadMenu_Touchbase .rmLeftArrow,
+.RadMenu_Touchbase .rmRightArrow,
+.RadMenu_Touchbase .rmTopArrow,
+.RadMenu_Touchbase .rmBottomArrow
+{
+	background-image: url('Menu/rmSprite.png');
+	background-color: transparent;
+}
+
+.RadMenu_Touchbase .rmRootGroup
+{
+	border: 1px solid #978bb0;
+	background-repeat: repeat-x;
+	background-position: 0 -408px;
+	background-color: #e7dbff;
+}
+
+/* <Root items> */
+
+.RadMenu_Touchbase,
+.RadMenu_Touchbase a.rmLink
+{
+	font: normal 12px/23px "Segoe UI", Arial, sans-serif;
+	color: #48356e;
+	text-decoration: none;
+}
+
+.RadMenu_Touchbase a.rmLink,
+.RadMenu_Touchbase .rmText
+{
+	background-position: 0 1050px;
+	background-repeat: no-repeat;
+}
+
+.RadMenu_Touchbase a.rmLink:hover,
+.RadMenu_Touchbase a.rmFocused,
+.RadMenu_Touchbase a.rmSelected
+{
+	color: #000000;
+	background-position: 0 -72px;
+}
+
+.RadMenu_Touchbase a.rmLink:hover .rmText,
+.RadMenu_Touchbase a.rmFocused .rmText,
+.RadMenu_Touchbase a.rmSelected .rmText
+{
+	background-position: 100% -96px;
+}
+
+.RadMenu_Touchbase a.rmExpanded,
+.RadMenu_Touchbase a.rmExpanded:hover
+{
+	color: #000000;
+	background-position: 0 -120px;
+}
+
+.RadMenu_Touchbase a.rmExpanded .rmText,
+.RadMenu_Touchbase a.rmExpanded:hover .rmText
+{
+	background-position: 100% -144px;
+}
+
+.RadMenu_Touchbase a.rmDisabled,
+.RadMenu_Touchbase a.rmDisabled:hover
+{
+	color: #8c8c8c;
+}
+
+.RadMenu_Touchbase a.rmDisabled:hover,
+.RadMenu_Touchbase a.rmDisabled:hover .rmText
+{
+	background: none;
+}
+
+/* </Root items> */
+
+
+/* <Submenu items> */
+
+.RadMenu_Touchbase .rmGroup,
+.RadMenu_Touchbase .rmMultiColumn,
+.RadMenu_Touchbase .rmGroup .rmVertical
+{
+	border: 1px solid #878787;
+	background: #ffffff url('Menu/rmVSprite.png') repeat-y -1px 0;
+}
+
+.RadMenu_Touchbase .rmTopFix,
+.RadMenu_Touchbase .rmBottomFix,
+.RadMenu_Touchbase .rmRoundedCorners .rmGroup .rmItem,
+.RadMenu_Touchbase .rmRoundedCorners li.rmFirstGroupColumn .rmItem,
+.RadMenu_Touchbase .rmRoundedCorners .rmFirstGroupColumn li.rmFirstGroupColumn .rmItem,
+.RadMenu_Touchbase .rmRoundedCorners ul.rmHorizontal .rmFirst,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmGroup .rmItem,
+.RadMenu_Touchbase_Context.rmRoundedCorners ul.rmHorizontal .rmFirst
+{
+	background-image: url('Menu/rmVSprite.png');
+	background-color: #ffffff; 
+	background-repeat: repeat-y;
+	background-position: -4px 0;
+}
+
+* html .rmRoundedCorners_Touchbase .rmGroup .rmItem,
+* html .rmRoundedCorners_Touchbase ul.rmHorizontal .rmFirst
+{
+	background-image: url('Menu/rmVSprite.png');
+	background-color: #ffffff; 
+	background-repeat: repeat-y;
+	background-position: -4px 0;
+}
+
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrapContainer .rmGroup,
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrap .rmItem,
+.RadMenu_Touchbase .rmRoundedCorners .rmGroupColumn .rmItem,
+.RadMenu_Touchbase .rmRoundedCorners .rmGroupColumn .rmGroupColumn .rmItem,
+.RadMenu_Touchbase .rmRoundedCorners .rmHorizontal .rmItem,
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrap .rmVertical
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrapContainer .rmGroup,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrap .rmItem,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmHorizontal .rmItem,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrap .rmVertical
+{
+	background-image: none;
+}
+
+* html .rmRoundedCorners_Touchbase .rmScrollWrapContainer .rmGroup,
+* html .rmRoundedCorners_Touchbase .rmScrollWrap .rmItem,
+* html .rmRoundedCorners_Touchbase .rmHorizontal .rmItem,
+* html .rmRoundedCorners_Touchbase .rmScrollWrap .rmVertical
+{
+	background-image: none;
+}
+
+.RadMenu_Touchbase .rmRoundedCorners .rmGroupColumn
+{
+	background-color: #ffffff;
+}
+
+.RadMenu_Touchbase .rmBottomLeft,
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrapContainer,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrapContainer,
+.RadMenu_Touchbase_Context.rmRoundedCorners ul.rmGroup,
+.RadMenu_Touchbase .rmRoundedCorners ul.rmGroup,
+.RadMenu_Touchbase .rmRoundedCorners .rmMultiColumn
+{
+	background-image:  url('Menu/rmRoundedLeft.png');
+	background-color: transparent; 
+	background-repeat: no-repeat;
+}
+
+* html .rmRoundedCorners_Touchbase .rmScrollWrapContainer,
+* html .rmRoundedCorners_Touchbase .rmGroup ul.rmGroup,
+* html .rmRoundedCorners_Touchbase ul.rmGroup
+{
+	background-image:  url('Menu/rmRoundedLeft.png');
+	background-color: transparent; 
+	background-repeat: no-repeat;
+}
+
+.RadMenu_Touchbase .rmTopRight,
+.RadMenu_Touchbase .rmBottomRight
+{
+	background-image:  url('Menu/rmRoundedRight.png');
+	background-color: transparent; 
+	background-repeat: no-repeat;
+}
+
+.RadMenu_Touchbase .rmTopFix,
+.RadMenu_Touchbase .rmBottomFix,
+.RadMenu_Touchbase .rmRoundedCorners .rmGroup .rmFirst,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmGroup .rmFirst,
+.rmRoundedCorners_Touchbase .rmGroup .rmFirst
+{
+	border-color: #878787;
+}
+
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrapContainer .rmTopFix,
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrapContainer .rmBottomFix,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrapContainer .rmTopFix,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrapContainer .rmBottomFix
+{
+	background: #ffffff;
+}
+
+* html .rmRoundedCorners_Touchbase .rmScrollWrapContainer .rmTopFix,
+* html .rmRoundedCorners_Touchbase .rmScrollWrapContainer .rmBottomFix
+{
+	background: #ffffff;
+}
+
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrapContainer .rmTopArrow,
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrapContainer .rmBottomArrow,
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrapContainer .rmLeftArrow,
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrapContainer .rmRightArrow,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrapContainer .rmTopArrow,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrapContainer .rmBottomArrow,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrapContainer .rmLeftArrow,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrapContainer .rmRightArrow
+{
+	background-color: #ffffff;
+	border: 0;
+}
+
+* html .rmRoundedCorners_Touchbase .rmScrollWrapContainer .rmTopArrow,
+* html .rmRoundedCorners_Touchbase .rmScrollWrapContainer .rmBottomArrow,
+* html .rmRoundedCorners_Touchbase .rmScrollWrapContainer .rmLeftArrow,
+* html .rmRoundedCorners_Touchbase .rmScrollWrapContainer .rmRightArrow
+{
+	background-color: #ffffff;
+	border: 0;
+}
+
+.RadMenu_Touchbase li.rmTopFix,
+.RadMenu_Touchbase li.rmBottomFix
+{
+	background-position: -5px 0;
+}
+
+.RadMenu_Touchbase_rtl .rmBottomLeft,
+.RadMenu_Touchbase_rtl .rmRoundedCorners ul.rmGroup,
+.RadMenu_Touchbase_rtl .rmRoundedCorners .rmMultiColumn,
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrapContainer,
+.RadMenu_Touchbase .rmScrollWrapContainer .rmBottomLeft,
+.rmRoundedCorners.RadMenu_Touchbase_Context_rtl ul.rmGroup,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrapContainer
+{
+	background-image: url('Menu/rmRoundedLeft_rtl.png');
+}
+
+.RadMenu_Touchbase_rtl .rmTopRight,
+.RadMenu_Touchbase_rtl .rmBottomRight
+{
+	background-image: url('Menu/rmRoundedRight_rtl.png');
+}
+
+.RadMenu_Touchbase_rtl li.rmTopFix,
+.RadMenu_Touchbase_rtl li.rmBottomFix,
+.RadMenu_Touchbase_rtl .rmRoundedCorners .rmGroup .rmItem,
+.rmRoundedCorners.RadMenu_Touchbase_Context_rtl .rmGroup .rmItem
+{
+	background-position: 101% 0;
+}
+
+.RadMenu_Touchbase .rmSlide .rmScrollWrap
+{
+	background-image: none;
+}
+
+.RadMenu_Touchbase_rtl .rmGroup,
+.RadMenu_Touchbase_rtl .rmMultiColumn,
+.RadMenu_Touchbase_rtl .rmGroup .rmVertical
+{
+	background-position: 101% 0;
+}
+
+.RadMenu_Touchbase .rmRootGroup .rmHorizontal
+{
+	background-image: none;
+}
+
+.RadMenu_Touchbase .rmScrollWrap .rmVertical
+{
+	border: 0;
+}
+
+.RadMenu_Touchbase .rmGroup .rmFirst,
+.RadMenu_Touchbase .rmGroup .rmLast,
+.RadMenu_Touchbase .rmRoundedCorners .rmScrollWrapContainer li.rmItem,
+.RadMenu_Touchbase_Context.rmRoundedCorners .rmScrollWrapContainer li.rmItem,
+.rmRoundedCorners_Touchbase .rmScrollWrapContainer li.rmItem
+{
+	background: none;
+}
+
+.RadMenu_Touchbase .rmGroup .rmLast
+{
+	padding-bottom: 1px;
+}
+
+.RadMenu_Touchbase .rmGroup a.rmLink:hover,
+.RadMenu_Touchbase .rmGroup a.rmFocused,
+.RadMenu_Touchbase .rmGroup a.rmSelected,
+.RadMenu_Touchbase .rmGroup a.rmExpanded
+{
+	background-position: 0 -168px;
+}
+
+.RadMenu_Touchbase .rmGroup a.rmLink:hover .rmText,
+.RadMenu_Touchbase .rmGroup a.rmFocused .rmText,
+.RadMenu_Touchbase .rmGroup a.rmSelected .rmText,
+.RadMenu_Touchbase .rmGroup a.rmExpanded .rmText
+{
+	background-position: 100% -192px;
+}
+
+/* <expand arrows> */
+
+.RadMenu_Touchbase .rmGroup .rmExpandRight,
+.RadMenu_Touchbase .rmGroup .rmExpandDown
+{
+	background-position: 100% -216px;
+}
+
+.RadMenu_Touchbase .rmGroup a.rmLink:hover .rmExpandRight,
+.RadMenu_Touchbase .rmGroup a.rmFocused .rmExpandRight,
+.RadMenu_Touchbase .rmGroup a.rmSelected .rmExpandRight,
+.RadMenu_Touchbase .rmGroup a.rmExpanded .rmExpandRight,
+.RadMenu_Touchbase .rmGroup a.rmLink:hover .rmExpandDown,
+.RadMenu_Touchbase .rmGroup a.rmFocused .rmExpandDown,
+.RadMenu_Touchbase .rmGroup a.rmSelected .rmExpandDown,
+.RadMenu_Touchbase .rmGroup a.rmExpanded .rmExpandDown
+{
+	background-position: 100% -240px;
+}
+
+.RadMenu_Touchbase .rmGroup a.rmDisabled:hover .rmExpandRight,
+.RadMenu_Touchbase .rmGroup a.rmDisabled:hover .rmExpandDown
+{
+	background-image: url('Menu/rmSprite.png');
+	background-position: 100% -216px;
+}
+
+/* </expand arrows> */
+
+/* <rtl> */
+
+.RadMenu_Touchbase_rtl .rmGroup a.rmLink:hover,
+.RadMenu_Touchbase_rtl .rmGroup a.rmFocused,
+.RadMenu_Touchbase_rtl .rmGroup a.rmSelected,
+.RadMenu_Touchbase_rtl .rmGroup a.rmExpanded
+{
+	background-position: 100% -264px;
+}
+
+.RadMenu_Touchbase_rtl .rmGroup a.rmLink:hover .rmText,
+.RadMenu_Touchbase_rtl .rmGroup a.rmFocused .rmText,
+.RadMenu_Touchbase_rtl .rmGroup a.rmSelected .rmText,
+.RadMenu_Touchbase_rtl .rmGroup a.rmExpanded .rmText
+{
+	background-position: 0 -288px;
+}
+
+.RadMenu_Touchbase_rtl .rmGroup .rmExpandLeft
+{
+	background-position: 0 -312px;
+}
+
+.RadMenu_Touchbase_rtl .rmGroup a.rmLink:hover .rmExpandLeft,
+.RadMenu_Touchbase_rtl .rmGroup a.rmFocused .rmExpandLeft,
+.RadMenu_Touchbase_rtl .rmGroup a.rmSelected .rmExpandLeft,
+.RadMenu_Touchbase_rtl .rmGroup a.rmExpanded .rmExpandLeft
+{
+	background-position: 0 -336px;
+}
+
+/* </rtl> */
+
+/* </Submenu items> */
+
+/* <Submenu offsets (Office2007 - specific, overlapping submenus)> */
+
+.RadMenu_Touchbase .rmSlide
+{
+	margin: -3px 0 0 1px;
+}
+
+.RadMenu_Touchbase .rmVertical .rmSlide,
+.RadMenu_Touchbase .rmSlide .rmSlide,
+.RadMenu_Touchbase_Context .rmGroup .rmSlide
+{
+	margin: 0 0 0 -5px;
+}
+
+.RadMenu_Touchbase_rtl .rmSlide
+{
+	margin: -3px 0 0 -1px;
+}
+
+.RadMenu_Touchbase_rtl .rmVertical .rmSlide,
+.RadMenu_Touchbase_rtl .rmSlide .rmSlide,
+.RadMenu_Touchbase_Context_rtl .rmGroup .rmSlide
+{
+	margin: 0 0 0 5px;
+}
+
+/* </Submenu offsets> */
+
+/* <Scrolling arrows> */
+
+.RadMenu_Touchbase .rmLeftArrow,
+.RadMenu_Touchbase .rmRightArrow
+{
+	background-color: #f0edf5;
+}
+
+/* </Submenu offsets> */
+
+/* <Scrolling arrows> */
+
+.RadMenu_Touchbase .rmLeftArrow,
+.RadMenu_Touchbase .rmRightArrow
+{
+	background-color: #eeebf5;
+}
+
+.RadMenu_Touchbase .rmLeftArrow { background-position: -8px -312px; border-right: 1px solid #c5c2cc; }
+.RadMenu_Touchbase .rmRightArrow { background-position: -482px -216px; border-left: 1px solid #c5c2cc; }
+
+.RadMenu_Touchbase .rmTopArrow,
+.RadMenu_Touchbase .rmBottomArrow,
+.RadMenu_Touchbase .rmGroup .rmLeftArrow,
+.RadMenu_Touchbase .rmGroup .rmRightArrow
+{
+	background-color: #f0f0f0;
+}
+
+.RadMenu_Touchbase .rmTopArrow { background-position: 50% -367px; border-bottom: 1px solid #c5c2cc; }
+.RadMenu_Touchbase .rmBottomArrow { background-position: 50% -391px; border-top: 1px solid #c5c2cc; }
+
+/* </Scrolling arrows> */
+
+/* <Separators> */
+
+.RadMenu_Touchbase .rmVertical .rmSeparator .rmText,
+.RadMenu_Touchbase .rmHorizontal .rmVertical .rmSeparator .rmText
+{
+	background-position: 0 -406px;
+}
+
+.RadMenu_Touchbase .rmHorizontal .rmSeparator .rmText,
+.RadMenu_Touchbase .rmVertical .rmHorizontal .rmSeparator .rmText
+{
+	background-position: 0 -386px;
+}
+
+/* </Separators> */
+
+/* </RadMenu / Office2007> */

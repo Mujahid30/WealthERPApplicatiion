@@ -1,0 +1,197 @@
+/*Telerik RadFilter Office2007 skin*/
+
+/*sprite*/
+
+.RadFilter_Touchbase .rfLeft,
+.RadFilter_Touchbase .rfMid,
+.RadFilter_Touchbase .rfTools,
+.RadFilter_Touchbase .rfRight,
+.RadFilter_Touchbase .rfOper:hover,
+.RadFilter_Touchbase .rfField:hover,
+.RadFilter_Touchbase .rfExp:hover,
+.RadFilter_Touchbase .rfOper:focus,
+.RadFilter_Touchbase .rfField:focus,
+.RadFilter_Touchbase .rfExp:focus,
+.RadFilter_Touchbase .rfOper:active,
+.RadFilter_Touchbase .rfField:active,
+.RadFilter_Touchbase .rfExp:active,
+.RadFilter_Touchbase .rfAddGr,
+.RadFilter_Touchbase .rfAddExp,
+.RadFilter_Touchbase .rfDel,
+.RadFilter_Touchbase .rfApply a,
+.RadFilter_Touchbase .rfApply input
+{
+	background-image:url('Filter/sprite.gif');
+}
+
+/*global*/
+
+.RadFilter_Touchbase,
+.RadFilter_Touchbase .rfText,
+.RadFilter_Touchbase .rfApply input
+{
+	font-size:12px;
+	font-family:"segoe ui",arial,sans-serif;
+}
+
+.RadFilter_Touchbase,
+.RadFilter_Touchbase a,
+.RadFilter_Touchbase .rfText
+{
+	color:#000000;
+}
+
+/*lines*/
+
+.RadFilter_Touchbase .rfLines li li
+{
+	background-image:url('Filter/rfLine.gif');
+}
+
+.RadFilter_Touchbase .rfLines li li .rfDiv
+{
+	background-image:url('Filter/rfMiddle.gif');
+}
+
+.RadFilter_Touchbase .rfLines li li.rfLast .rfDiv
+{
+	background-image:url('Filter/rfLast.gif');
+}
+
+/*item elements*/
+
+.RadFilter_Touchbase .rfLeft
+{
+	background-position:0 0;
+}
+
+.RadFilter_Touchbase .rfRight
+{
+	background-position:100% 0;
+}
+
+.RadFilter_Touchbase .rfMid,
+.RadFilter_Touchbase .rfTools
+{
+	background-position:0 -100px;
+}
+
+.RadFilter_Touchbase .rfField
+{
+	color:#48356e;
+}
+
+.RadFilter_Touchbase .rfOper:hover,
+.RadFilter_Touchbase .rfField:hover,
+.RadFilter_Touchbase .rfExp:hover,
+.RadFilter_Touchbase .rfOper:focus,
+.RadFilter_Touchbase .rfField:focus,
+.RadFilter_Touchbase .rfExp:focus,
+.RadFilter_Touchbase .rfOper:active,
+.RadFilter_Touchbase .rfField:active,
+.RadFilter_Touchbase .rfExp:active
+{
+	background-position:100% -76px;
+	color:#000000;
+}
+
+.RadFilter_Touchbase .rfText
+{
+	border-color:#cec5de;
+	background-color:#ffffff;
+}
+
+.RadFilter_Touchbase .rfAddExp
+{
+	background-position:-300px 0;
+}
+.RadFilter_Touchbase .rfAddExp:hover
+{
+	background-position:-350px 0;
+}
+
+.RadFilter_Touchbase .rfAddGr
+{
+	background-position:-400px 0;
+}
+.RadFilter_Touchbase .rfAddGr:hover
+{
+	background-position:-450px 0;
+}
+
+.RadFilter_Touchbase .rfDel
+{
+	background-position:-150px 0;
+}
+.RadFilter_Touchbase .rfDel:hover
+{
+	background-position:-200px 0;
+}
+
+/*preview*/
+
+.RadFilter_Touchbase .rfPreview strong
+{
+	color:#48356e;
+}
+
+.RadFilter_Touchbase .rfPreview em,
+.RadFilter_Touchbase .rfPreview .rfBr
+{
+	color:#9b72ed;
+}
+
+/*apply*/
+
+.RadFilter_Touchbase .rfApply a
+{
+	background-position:100% -29px;
+}
+.RadFilter_Touchbase .rfApply input
+{
+	background-position:0 -50px;
+}
+.RadFilter_Touchbase .rfApply input
+{
+	color:#48356e;
+}
+
+/*rtl*/
+
+.RadFilterRTL_Touchbase .rfLines li li
+{
+	background-image:url('Filter/rfLine-rtl.gif');
+}
+
+.RadFilterRTL_Touchbase .rfLines li li .rfDiv
+{
+	background-image:url('Filter/rfMiddle-rtl.gif');
+}
+
+.RadFilterRTL_Touchbase .rfLines li li.rfLast .rfDiv
+{
+	background-image:url('Filter/rfLast-rtl.gif');
+}
+
+.RadFilterRTL_Touchbase .rfLeft
+{
+	background-position:100% 0;
+}
+
+.RadFilterRTL_Touchbase .rfRight
+{
+	background-position:0 0;
+}
+
+.RadFilterRTL_Touchbase .rfOper:hover,
+.RadFilterRTL_Touchbase .rfField:hover,
+.RadFilterRTL_Touchbase .rfExp:hover,
+.RadFilterRTL_Touchbase .rfOper:focus,
+.RadFilterRTL_Touchbase .rfField:focus,
+.RadFilterRTL_Touchbase .rfExp:focus,
+.RadFilterRTL_Touchbase .rfOper:active,
+.RadFilterRTL_Touchbase .rfField:active,
+.RadFilterRTL_Touchbase .rfExp:active
+{
+	background-position:-586px -76px;
+}

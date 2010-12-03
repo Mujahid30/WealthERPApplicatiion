@@ -1,0 +1,36 @@
+.RadDock_Touchbase .rdMiddle .rdLeft,
+.RadDock_Touchbase .rdMiddle .rdRight
+{
+	background-image: url('Dock/VerticalSprite.gif');
+}
+
+.RadDock_Touchbase .rdTop .rdLeft,
+.RadDock_Touchbase .rdTop .rdRight,
+.RadDock_Touchbase .rdTop .rdCenter,
+.RadDock_Touchbase .rdBottom .rdLeft,
+.RadDock_Touchbase .rdBottom .rdRight,
+.RadDock_Touchbase .rdBottom .rdCenter
+{
+	background-image: url('Dock/HorizontalSprite.gif');
+}
+
+.RadDock_Touchbase .rdCenter .rdCommands a span
+{
+	background-image: url('Dock/CommandSprite.gif');
+}
+
+.RadDock_Touchbase .rdMiddle .rdCenter,
+.RadDock_Touchbase .rdBottom .rdCenter
+{
+	background-color: #ffffff;
+}
+
+.RadDock_Touchbase .rdContent
+{
+	color: black;
+}
+
+.RadDock_Touchbase .rdTitleBar em
+{
+	color: #48356e;
+}

@@ -1,0 +1,214 @@
+.RadPanelBar_Touchbase
+{
+	background: #ffffff;
+}
+
+.RadPanelBar_Touchbase .rpRootGroup
+{
+	border-color: #978bb0;
+}
+
+.RadPanelBar_Touchbase a.rpLink,
+.RadPanelBar_Touchbase .rpTemplate
+{
+	color: #48356e;
+	font: normal 12px/24px "Segoe UI", Arial, sans-serif;
+}
+
+.RadPanelBar_Touchbase a.rpLink
+{
+	background-color: #dbcef5;
+	background-image: url('PanelBar/RootItemBg.png');
+	border-color: #e4dcf2;
+}
+
+.RadPanelBar_Touchbase .rpOut
+{
+	border-color: #e4dcf2;
+}
+
+.RadPanelBar_Touchbase a.rpLink:hover
+{
+	color: #000000;
+	background-color: #c9adff;
+	border-color: #b996ff;
+}
+
+.RadPanelBar_Touchbase a.rpFocused,
+.RadPanelBar_Touchbase a.rpExpanded,
+.RadPanelBar_Touchbase a.rpSelected,
+.RadPanelBar_Touchbase a.rpSelected:hover
+{
+	background-color: #e4dcf2;
+	border-color: #e4dcf2;
+}
+
+/* <disabled items> */
+.RadPanelBar_Touchbase a.rpDisabled,
+.RadPanelBar_Touchbase a.rpDisabled:hover
+{
+	color: #bababa;
+}
+
+.RadPanelBar_Touchbase a.rpDisabled:hover .rpOut
+{
+	border-color: #f6f2fc;
+}
+/* </disabled items> */
+
+/* <subitems> */
+.RadPanelBar_Touchbase .rpGroup
+{
+	background-color: #ffffff;
+}
+
+.RadPanelBar_Touchbase .rpGroup a.rpLink,
+.RadPanelBar_Touchbase .rpGroup .rpTemplate
+{
+	color: #000000;
+	background-color: transparent;
+	background-image: none;
+}
+
+.RadPanelBar_Touchbase .rpGroup a.rpLink:hover
+{
+	color: #000000;
+}
+
+.RadPanelBar_Touchbase .rpGroup a.rpLink,
+.RadPanelBar_Touchbase .rpGroup .rpOut
+{
+	background-color: transparent;
+	background-image: url('PanelBar/SubItemStates.png');
+	background-repeat: no-repeat;
+}
+
+.RadPanelBar_Touchbase .rpGroup a.rpLink:hover
+{
+    background-color: transparent;
+}
+
+/* <subitems (disabled)> */
+.RadPanelBar_Touchbase .rpGroup a.rpDisabled,
+.RadPanelBar_Touchbase .rpGroup a.rpDisabled:hover,
+.RadPanelBar_Touchbase .rpGroup a.rpDisabled:hover .rpOut
+{
+	background-image: none;
+}
+
+.RadPanelBar_Touchbase .rpGroup a.rpDisabled,
+.RadPanelBar_Touchbase .rpGroup a.rpDisabled:hover
+{
+	color: #bababa;
+	text-decoration: none;
+	background-color: #ffffff;
+}
+/* </subitems (disabled)> */
+
+/* <subitems> */
+
+/* <background positioning> */
+.RadPanelBar_Touchbase a.rpFocused,
+.RadPanelBar_Touchbase a.rpLink:hover,
+.RadPanelBar_Touchbase a.rpExpanded:hover
+{
+	background-position: 0 -200px;
+}
+
+.RadPanelBar_Touchbase a.rpLink,
+.RadPanelBar_Touchbase a.rpExpanded,
+.RadPanelBar_Touchbase .rpItem a.rpLinkExpandHovered
+{
+	background-position: 0 0;
+}
+
+.RadPanelBar_Touchbase a.rpSelected,
+.RadPanelBar_Touchbase a.rpSelected:hover
+{
+	background-position: 0 -400px;
+}
+
+.RadPanelBar_Touchbase .rpFirst a.rpLink,
+.RadPanelBar_Touchbase .rpFirst a.rpExpanded
+{
+	background-position: 0 -1px;
+}
+
+.RadPanelBar_Touchbase .rpFirst a.rpFocused,
+.RadPanelBar_Touchbase .rpFirst a.rpLink:hover
+{
+	background-position: 0 -201px;
+}
+
+.RadPanelBar_Touchbase .rpFirst a.rpSelected,
+.RadPanelBar_Touchbase .rpFirst a.rpSelected:hover
+{
+	background-position: 0 -401px;
+}
+
+/* <root items (disabled)> */
+.RadPanelBar_Touchbase a.rpDisabled:hover
+{
+	cursor: default;
+}
+
+.RadPanelBar_Touchbase a.rpDisabled,
+.RadPanelBar_Touchbase a.rpDisabled:hover,
+.RadPanelBar_Touchbase a.rpDisabled:hover .rpOut
+{
+	background-position: 0 0;
+}
+/* </root items (disabled)> */
+
+/*      <expand arrows> */
+/* <expand arrows> */
+.RadPanelBar_Touchbase a.rpExpandable .rpExpandHandle,
+.RadPanelBar_Touchbase a.rpExpanded .rpExpandHandle
+{
+	background-color: transparent;
+	background-image: url('PanelBar/Expandable.png');
+	background-repeat: no-repeat;
+}
+
+.RadPanelBar_Touchbase_rtl .rpGroup .rpText
+{
+	padding: 0 10px;
+}
+
+.RadPanelBar_Touchbase a.rpExpandable .rpExpandHandle,
+.RadPanelBar_Touchbase a.rpExpandable:hover .rpNavigation .rpExpandHandle { background-position: 0 -5px; }
+.RadPanelBar_Touchbase a.rpExpandable:hover .rpExpandHandle,
+.RadPanelBar_Touchbase a.rpExpandable:hover .rpNavigation .rpExpandHandleHovered { background-position: 100% -5px; }
+.RadPanelBar_Touchbase a.rpExpanded .rpExpandHandle,
+.RadPanelBar_Touchbase a.rpExpanded:hover .rpNavigation .rpExpandHandle { background-position: 0 -181px; }
+.RadPanelBar_Touchbase a.rpExpanded:hover .rpExpandHandle,
+.RadPanelBar_Touchbase a.rpExpanded:hover .rpNavigation .rpExpandHandleHovered { background-position: 100% -181px; }
+
+/*      </expand arrows> */
+
+.RadPanelBar_Touchbase .rpGroup a.rpLink,
+.RadPanelBar_Touchbase .rpGroup a.rpLink .rpOut { background-position: 0 200px; }
+
+.RadPanelBar_Touchbase .rpGroup a.rpLink:hover,
+.RadPanelBar_Touchbase .rpGroup a.rpFocused { background-position: 100% -22px; }
+.RadPanelBar_Touchbase .rpGroup a.rpLink:hover .rpOut,
+.RadPanelBar_Touchbase .rpGroup a.rpFocused .rpOut { background-position: 0 0; }
+
+/*      <subitems (selected)> */
+.RadPanelBar_Touchbase .rpGroup a.rpSelected,
+.RadPanelBar_Touchbase .rpGroup a.rpSelected:hover { background-position: 100% -222px; background-color: transparent; }
+.RadPanelBar_Touchbase .rpGroup a.rpSelected .rpOut,
+.RadPanelBar_Touchbase .rpGroup a.rpSelected:hover .rpOut { background-position: 0 -200px; }
+/*      </subitems (selected)> */
+
+/*      <subitems (expand arrows)> */
+.RadPanelBar_Touchbase .rpGroup a.rpExpandable .rpExpandHandle,
+.RadPanelBar_Touchbase .rpGroup a.rpExpandable:hover .rpNavigation .rpExpandHandle { background-position: 0 -343px; }
+.RadPanelBar_Touchbase .rpGroup a.rpExpandable:hover .rpExpandHandle,
+.RadPanelBar_Touchbase .rpGroup a.rpExpandable:hover .rpNavigation .rpExpandHandleHovered { background-position: 100% -343px; }
+.RadPanelBar_Touchbase .rpGroup a.rpExpanded .rpExpandHandle,
+.RadPanelBar_Touchbase .rpGroup a.rpExpanded:hover .rpNavigation .rpExpandHandle { background-position: 0 -482px; }
+.RadPanelBar_Touchbase .rpGroup a.rpExpanded:hover .rpExpandHandle,
+.RadPanelBar_Touchbase .rpGroup a.rpExpanded:hover .rpNavigation .rpExpandHandleHovered { background-position: 100% -482px; }
+/*      </subitems (expand arrows)> */
+/* </background positioning> */

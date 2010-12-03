@@ -1,0 +1,142 @@
+/*Telerik RadInput Office2007 Skin*/
+
+/*global*/
+
+.RadInput_Touchbase,
+.RadInputMgr_Touchbase
+{
+	font:12px "segoe ui",arial,sans-serif;
+}
+
+/*textbox states*/
+
+html body .RadInput_Touchbase .riTextBox,
+html body .RadInputMgr_Touchbase
+{
+	border-color:#cec5de;
+	background:#ffffff;
+	color:#000000;
+	font:12px "segoe ui",arial,sans-serif;
+}
+
+html body .RadInput_Touchbase .riEmpty,
+html body .RadInput_Empty_Touchbase
+{
+	color:#8c8c8c;
+}
+
+html body .RadInput_Touchbase .riHover,
+html body .RadInput_Hover_Touchbase,
+html body .RadInput_Touchbase .riFocused,
+html body .RadInput_Focused_Touchbase
+{
+	border-color:#6e5e8f;
+}
+
+html body .RadInput_Touchbase .riRead,
+html body .RadInput_Read_Touchbase
+{
+	border-color:#e2dded;
+}
+
+html body .RadInput_Touchbase .riDisabled,
+html body .RadInput_Disabled_Touchbase
+{
+	border-color:#e2dded;
+	color:#8c8c8c;
+	cursor:default;
+}
+
+html body .RadInput_Touchbase .riError,
+html body .RadInput_Error_Touchbase
+{
+	border-color:#846db2 #a78cdb #b194eb;
+	background:#ffffff 100% -298px no-repeat url('Input/sprite.gif');
+	color:#846db2;
+}
+
+.RadForm.rfdTextbox .RadInput_Touchbase .riError[type="text"],
+.RadForm.rfdTextbox .RadInput_Error_Touchbase[type="text"]
+{
+	border-color:#846db2 #a78cdb #b194eb;
+	background:#ffffff 100% -298px no-repeat url('Input/sprite.gif');
+	color:#846db2;
+}
+
+html body .RadInput_Touchbase .riNegative,
+html body .RadInput_Negative_Touchbase
+{
+	color:#575757;
+}
+
+/*buttons*/
+
+.RadInput_Touchbase a
+{
+	background:transparent no-repeat url('Input/sprite.gif');
+}
+
+/*go*/
+
+.RadInput_Touchbase .riBtn a
+{
+	width:20px;
+	height:18px;
+	line-height:18px;
+	background-position:3px 5px;
+}
+
+.RadInput_Touchbase .riBtn a:hover
+{
+	background-position:3px -45px;
+}
+
+/*spin*/
+
+.RadInput_Touchbase .riSpin a
+{
+	width:15px;
+	height:7px;
+	line-height:7px;
+}
+
+.RadInput_Touchbase a.riUp
+{
+	background-position:4px -98px;
+}
+
+.RadInput_Touchbase a.riUp:hover
+{
+	background-position:4px -148px;
+}
+
+.RadInput_Touchbase a.riDown
+{
+	background-position:4px -199px;
+}
+
+.RadInput_Touchbase a.riDown:hover
+{
+	background-position:4px -249px;
+}
+
+/*label*/
+
+.RadInput_Touchbase .riLabel
+{
+	color:#000000;
+}
+
+/*rtl*/
+
+html body .RadInputRTL_Touchbase .riError,
+html body .RadInputRTL_Error_Touchbase
+{
+	background-position:3px -298px;
+}
+
+.RadForm.rfdTextbox .RadInputRTL_Touchbase .riError[type="text"],
+.RadForm.rfdTextbox .RadInputRTL_Error_Touchbase[type="text"]
+{
+	background-position:3px -298px;
+}

@@ -1,0 +1,129 @@
+/* RadSlider for ASP.NET AJAX Office2007 Skin */
+.RadSlider_Touchbase .rslTrack
+{
+	border-color:#beafdb #beafdb #afa1c9 #afa1c9;
+}
+
+.RadSlider_Touchbase .rslHorizontal a.rslHandle
+{
+	background-image:url('Slider/Handles.gif');
+}
+
+.RadSlider_Touchbase .rslHorizontal a.rslDraghandle
+{
+	background-image:url('Slider/DragHandle.gif');
+	width:9px;
+}
+
+.RadSlider_Touchbase .rslBottom a.rslDraghandle
+{
+	background-image:url('Slider/DragHandleUp.gif');
+}
+
+.RadSlider_Touchbase .rslHorizontal .rslTrack
+{
+	background:url('Slider/TrackBgr.gif') repeat-x;
+}
+
+.RadSlider_Touchbase .rslHorizontal .rslSelectedregion
+{
+	background:url('Slider/SelectedRegionHorizontalBgr.gif') right top no-repeat;
+}
+
+/* vertical slider */
+.RadSlider_Touchbase .rslVertical a.rslHandle
+{
+	background-image:url('Slider/HandlesVertical.gif');
+}
+
+.RadSlider_Touchbase .rslVertical .rslTrack
+{
+	background:url('Slider/TrackVerticalBgr.gif') repeat-y;
+}
+
+.RadSlider_Touchbase .rslVertical .rslSelectedregion
+{
+	background:url('Slider/SelectedRegionVerticalBgr.gif') left bottom no-repeat;
+}
+
+.RadSlider_Touchbase .rslVertical a.rslDraghandle
+{
+	background:url('Slider/DragVerticalHandle.gif') no-repeat;
+	height:9px;
+}
+
+.RadSlider_Touchbase .rslLeft a.rslDraghandle
+{
+	background:url('Slider/DragVerticalHandleRight.gif') no-repeat;
+}
+
+.RadSlider_Touchbase .rslItem,
+.RadSlider_Touchbase .rslLargeTick span
+{
+	color:#333333;
+}
+
+.RadSlider_Touchbase .rslItemsWrapper .rslItemSelected
+{
+	color:#000000;
+}
+
+/* horizontal slider items */
+.RadSlider_Touchbase .rslHorizontal .rslItem
+{
+	background-image:url('Slider/ItemHorizontalBgr.gif');
+}
+
+/* vertical slider items */
+.RadSlider_Touchbase .rslVertical .rslItem
+{
+	background-image:url('Slider/ItemVerticalBgr.gif');
+}
+
+/* horizontal slider - TrackPosition=Top/Bottom */
+.RadSlider_Touchbase .rslTop .rslSmallTick,
+.RadSlider_Touchbase .rslBottom .rslSmallTick
+{
+	background-image:url('Slider/SmallChangeHorizontal.gif');
+}
+
+.RadSlider_Touchbase .rslTop .rslLargeTick,
+.RadSlider_Touchbase .rslBottom .rslLargeTick
+{
+	background-image:url('Slider/LargeChangeHorizontal.gif');
+}
+
+/* vertical slider - TrackPosition=Left/Right */
+.RadSlider_Touchbase .rslLeft .rslSmallTick,
+.RadSlider_Touchbase .rslRight .rslSmallTick
+{
+	background-image:url('Slider/SmallChangeVertical.gif');
+}
+
+.RadSlider_Touchbase .rslLeft .rslLargeTick,
+.RadSlider_Touchbase .rslRight .rslLargeTick 
+{
+	background-image:url('Slider/LargelChangeVertical.gif');
+}
+
+/* horizontal slider - TrackPosition=Center */
+.RadSlider_Touchbase .rslMiddle .rslSmallTick
+{
+	background-image:url('Slider/SmallChangeMiddleHorizontal.gif');
+}
+
+.RadSlider_Touchbase .rslMiddle .rslLargeTick
+{
+	background-image:url('Slider/LargeChangeMiddleHorizontal.gif');
+}
+
+/* vertical slider - TrackPosition=Center */
+.RadSlider_Touchbase .rslCenter .rslSmallTick
+{
+	background-image:url('Slider/SmallChangeCenterVertical.gif');
+}
+
+.RadSlider_Touchbase .rslCenter .rslLargeTick
+{
+	background-image:url('Slider/LargelChangeCenterVertical.gif');
+}

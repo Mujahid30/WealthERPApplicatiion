@@ -1,0 +1,660 @@
+/*Telerik RadGrid Office2007 Skin*/
+
+/*global*/
+
+.RadGrid_Touchbase
+{
+    border:1px solid #978bb0;
+    background:#ffffff;
+    color:#333333;
+}
+
+.RadGrid_Touchbase,
+.RadGrid_Touchbase .rgMasterTable,
+.RadGrid_Touchbase .rgDetailTable,
+.RadGrid_Touchbase .rgGroupPanel table,
+.RadGrid_Touchbase .rgCommandRow table,
+.RadGrid_Touchbase .rgEditForm table,
+.RadGrid_Touchbase .rgPager table,
+.GridToolTip_Touchbase
+{
+    font:12px/16px "segoe ui",arial,sans-serif;
+}
+
+.RadGrid_Touchbase .rgHeader:first-child,
+.RadGrid_Touchbase th.rgResizeCol:first-child,
+.RadGrid_Touchbase .rgFilterRow>td:first-child,
+.RadGrid_Touchbase .rgRow>td:first-child,
+.RadGrid_Touchbase .rgAltRow>td:first-child
+{
+	border-left-width:0;
+	padding-left:8px;
+}
+
+.RadGrid_Touchbase .rgAdd,
+.RadGrid_Touchbase .rgRefresh,
+.RadGrid_Touchbase .rgEdit,
+.RadGrid_Touchbase .rgDel,
+.RadGrid_Touchbase .rgFilter,
+.RadGrid_Touchbase .rgPagePrev,
+.RadGrid_Touchbase .rgPageNext,
+.RadGrid_Touchbase .rgPageFirst,
+.RadGrid_Touchbase .rgPageLast,
+.RadGrid_Touchbase .rgExpand,
+.RadGrid_Touchbase .rgCollapse,
+.RadGrid_Touchbase .rgSortAsc,
+.RadGrid_Touchbase .rgSortDesc,
+.RadGrid_Touchbase .rgUpdate,
+.RadGrid_Touchbase .rgCancel,
+.RadGrid_Touchbase .rgUngroup,
+.RadGrid_Touchbase .rgExpXLS,
+.RadGrid_Touchbase .rgExpDOC,
+.RadGrid_Touchbase .rgExpPDF,
+.RadGrid_Touchbase .rgExpCSV
+{
+	background-image:url('Grid/sprite.gif');
+}
+
+/*header*/
+
+.RadGrid_Touchbase .rgHeaderDiv
+{
+	background:#e9e4f2 0 -8050px repeat-x url('Grid/sprite.gif');
+}
+.rgTwoLines .rgHeaderDiv
+{
+	background-position:0 -7550px;
+}
+
+.RadGrid_Touchbase .rgHeader,
+.RadGrid_Touchbase th.rgResizeCol
+{
+	border:solid #a491c9;
+	border-width:0 0 1px 1px;
+	background:0 -2300px repeat-x #e4dcf2 url('Grid/sprite.gif');
+}
+
+.RadGrid_Touchbase th.rgSorted
+{
+	border-bottom-color:#b996ff;
+	background-color:#c9adff;
+	background-position:0 -2600px;
+}
+
+.RadGrid_Touchbase .rgHeader,
+.RadGrid_Touchbase .rgHeader a
+{
+    color:#48356e;
+}
+
+.RadGrid_Touchbase th.rgSorted,
+.RadGrid_Touchbase th.rgSorted a
+{
+    color:#000000;
+}
+
+/*rows*/
+
+.RadGrid_Touchbase .rgRow td,
+.RadGrid_Touchbase .rgAltRow td,
+.RadGrid_Touchbase .rgEditRow td,
+.RadGrid_Touchbase .rgFooter td
+{
+	border-style:solid;
+	border-width:0 0 1px 1px;
+}
+
+.RadGrid_Touchbase .rgRow td,
+.RadGrid_Touchbase .rgAltRow td
+{
+	border-color:#dfdce6;
+}
+
+.RadGrid_Touchbase .rgRow .rgSorted,
+.RadGrid_Touchbase .rgAltRow .rgSorted
+{
+	background-color:#f2f2f2;
+}
+
+.RadGrid_Touchbase .rgSelectedRow .rgSorted,
+.RadGrid_Touchbase .rgActiveRow .rgSorted,
+.RadGrid_Touchbase .rgHoveredRow .rgSorted,
+.RadGrid_Touchbase .rgEditRow .rgSorted
+{
+	background-color:transparent;
+}
+
+.RadGrid_Touchbase .rgRow a,
+.RadGrid_Touchbase .rgAltRow a,
+.RadGrid_Touchbase .rgEditRow a,
+.RadGrid_Touchbase .rgFooter a,
+.RadGrid_Touchbase .rgEditForm a
+{
+	color:#48356e;
+}
+
+.RadGrid_Touchbase .rgSelectedRow
+{
+    background:#c9adff 0 -3900px repeat-x url('Grid/sprite.gif');
+}
+*+html .RadGrid_Touchbase .rgSelectedRow .rgSorted{background-color:#c9adff}
+* html .RadGrid_Touchbase .rgSelectedRow .rgSorted{background-color:#c9adff}
+
+.RadGrid_Touchbase .rgActiveRow,
+.RadGrid_Touchbase .rgHoveredRow
+{
+    background:#faf7ff;
+}
+*+html .RadGrid_Touchbase .rgActiveRow .rgSorted,
+*+html .RadGrid_Touchbase .rgHoveredRow .rgSorted{background-color:#faf7ff}
+* html .RadGrid_Touchbase .rgActiveRow .rgSorted,
+* html .RadGrid_Touchbase .rgHoveredRow .rgSorted{background-color:#faf7ff}
+
+.RadGrid_Touchbase .rgEditRow
+{
+	background:#e4d6ff;
+}
+*+html .RadGrid_Touchbase .rgEditRow .rgSorted{background-color:#e4d6ff}
+* html .RadGrid_Touchbase .rgEditRow .rgSorted{background-color:#e4d6ff}
+
+.RadGrid_Touchbase .rgSelectedRow td,
+.RadGrid_Touchbase .rgActiveRow td,
+.RadGrid_Touchbase .rgHoveredRow td,
+.RadGrid_Touchbase .rgEditRow td
+{
+	border-left:0;
+	padding-left:8px;
+}
+
+.RadGrid_Touchbase .rgSelectedRow td
+{
+	border-bottom-color:#b996ff;
+}
+
+.RadGrid_Touchbase .rgActiveRow td,
+.RadGrid_Touchbase .rgHoveredRow td,
+.RadGrid_Touchbase .rgEditRow td
+{
+	border-bottom-color:#dfdce6;
+}
+
+.RadGrid_Touchbase .rgDrag
+{
+	background-image:url('Grid/rgDrag.gif');
+}
+
+/*footer*/
+
+.RadGrid_Touchbase .rgFooterDiv,
+.RadGrid_Touchbase .rgFooter
+{
+	background:#c5badb 0 -6500px repeat-x url('Grid/sprite.gif');
+}
+
+.RadGrid_Touchbase .rgFooter td
+{
+	border-width:1px 0;
+	border-color:#9182b0 #ffffff #ffffff;
+	padding-left:8px;
+}
+
+/*status*/
+
+.RadGrid_Touchbase .rgPager .rgStatus
+{
+	border:0;
+	border-top:1px solid #a491c9;
+	border-right:1px solid #c5badb;
+	border-color:#a491c9 #c5badb;
+}
+
+.RadGrid_Touchbase .rgStatus div
+{
+	background-image:url('Common/loading_small.gif');
+}
+
+/*pager*/
+
+.RadGrid_Touchbase .rgPager
+{
+	background:#f7f5fc 0 -7000px repeat-x url('Grid/sprite.gif');
+}
+
+.RadGrid_Touchbase td.rgPagerCell
+{
+	border-top:1px solid #a491c9;
+	border-left:1px solid #ffffff;
+}
+
+.RadGrid_Touchbase .rgInfoPart
+{
+	color:#333333;
+}
+
+.RadGrid_Touchbase .rgInfoPart strong
+{
+	color:#000000;
+}
+
+.RadGrid_Touchbase .rgPageFirst
+{
+	margin:0 3px 0 0;
+	background-position:0 -550px;
+}
+.RadGrid_Touchbase .rgPageFirst:hover
+{
+	background-position:0 -600px;
+}
+.RadGrid_Touchbase .rgPagePrev
+{
+	margin:0 3px 0 0;
+	background-position:0 -700px;
+}
+.RadGrid_Touchbase .rgPagePrev:hover
+{
+	background-position:0 -750px;
+}
+.RadGrid_Touchbase .rgPageNext
+{
+	margin:0 0 0 3px;
+	background-position:0 -850px;
+}
+.RadGrid_Touchbase .rgPageNext:hover
+{
+	background-position:0 -900px;
+}
+.RadGrid_Touchbase .rgPageLast
+{
+	margin:0 0 0 3px;
+	background-position:0 -1000px;
+}
+.RadGrid_Touchbase .rgPageLast:hover
+{
+	background-position:0 -1050px;
+}
+
+.RadGrid_Touchbase .rgPager .rgPagerButton
+{
+	border-color:#a499ba;
+	background:#f6f2fc repeat-x 0 -1550px url('Grid/sprite.gif');
+	color:#48356e;
+	font:12px/12px "segoe ui",arial,sans-serif;
+}
+
+.RadGrid_Touchbase .rgNumPart a:hover,
+.RadGrid_Touchbase .rgNumPart a:hover span,
+.RadGrid_Touchbase .rgNumPart a.rgCurrentPage,
+.RadGrid_Touchbase .rgNumPart a.rgCurrentPage span
+{
+	background:no-repeat url('Grid/sprite.gif');
+}
+
+.RadGrid_Touchbase .rgNumPart a
+{
+	color:#48356e;
+}
+
+.RadGrid_Touchbase .rgNumPart a:hover
+{
+	background-position:100% -1250px;
+}
+
+.RadGrid_Touchbase .rgNumPart a:hover span
+{
+	background-position:0 -1150px;
+}
+
+.RadGrid_Touchbase .rgNumPart a.rgCurrentPage,
+.RadGrid_Touchbase .rgNumPart a.rgCurrentPage:hover
+{
+	background-position:100% -1450px;
+}
+
+.RadGrid_Touchbase .rgNumPart a.rgCurrentPage span,
+.RadGrid_Touchbase .rgNumPart a.rgCurrentPage:hover span
+{
+	background-position:0 -1350px;
+}
+
+/*sorting, reordering*/
+
+.RadGrid_Touchbase .rgHeader .rgSortAsc
+{
+	background-position:3px -147px;
+	height:10px;
+}
+
+.RadGrid_Touchbase .rgHeader .rgSortDesc
+{
+	background-position:3px -96px;
+	height:10px;
+}
+
+.GridReorderTop_Touchbase,
+.GridReorderBottom_Touchbase
+{
+	height:12px;
+	background:0 0 no-repeat url('Grid/sprite.gif');
+}
+
+.GridReorderBottom_Touchbase
+{
+	background-position:0 -50px;
+}
+
+/*filtering*/
+
+.RadGrid_Touchbase .rgFilterRow
+{
+	background:#e9e4f2;
+}
+
+.RadGrid_Touchbase .rgFilterRow td
+{
+    border:solid #bfb8cf;
+    border-width:0 0 1px 1px;
+}
+
+.RadGrid_Touchbase .rgFilter
+{
+	background-position:0 -300px;
+}
+
+.RadGrid_Touchbase .rgFilter:hover
+{
+	background-position:0 -350px;
+}
+
+.RadGrid_Touchbase .rgFilterActive,
+.RadGrid_Touchbase .rgFilterActive:hover
+{
+	background-position:0 -400px;
+}
+
+.RadGrid_Touchbase .rgFilterBox
+{
+	border-color:#cec5de;
+	font:12px "segoe ui",arial,sans-serif;
+	color:#000000;
+}
+
+/*filter context menu*/
+
+.RadMenu_Touchbase .rgHCMClear,
+.RadMenu_Touchbase .rgHCMFilter
+{
+	border-color:#cac1db #a79dbd #c6bdd9;
+	background:#f6f2fc center -23px repeat-x url('FormDecorator/ButtonSprites.gif');
+	color:#48356e;
+	font-family:"segoe ui",arial,sans-serif;
+}
+
+.RadMenu_Touchbase .rgHCMClear:hover,
+.RadMenu_Touchbase .rgHCMFilter:hover
+{
+	border-color:#c2b6d9 #a397ba #bab3c7;
+	background-position:center -67px;
+	background-color:#d8c4ff;
+	color:#000000;
+}
+
+/*grouping*/
+
+.RadGrid_Touchbase .rgGroupPanel
+{
+	border:0;
+	border-bottom:1px solid #978bb0;
+	background:#f7f5fc;
+}
+
+.RadGrid_Touchbase .rgGroupPanel td
+{
+	border:0;
+	padding:3px 4px;
+	vertical-align:middle;
+}
+
+.RadGrid_Touchbase .rgGroupPanel td td
+{
+	padding:0;
+}
+
+.RadGrid_Touchbase .rgGroupPanel .rgSortAsc
+{
+	background-position:4px -144px;
+}
+
+.RadGrid_Touchbase .rgGroupPanel .rgSortDesc
+{
+	background-position:4px -94px;
+}
+
+.RadGrid_Touchbase .rgUngroup
+{
+	background-position:0 -7500px;
+}
+
+.RadGrid_Touchbase .rgGroupItem
+{
+	border:1px solid #9e89c9;
+	background:#f0edf5 0 -1900px repeat-x url('Grid/sprite.gif');
+	color:#48356e;
+}
+
+.RadGrid_Touchbase .rgGroupHeader
+{
+    background:#ede9f7;
+    font-size:1.1em;
+    line-height:21px;
+	color:#9182b0;
+}
+
+.RadGrid_Touchbase .rgGroupHeader td
+{
+	border-top:1px solid #fcfcfc;
+	border-bottom:1px solid #9c91b2;
+    padding-left:8px;
+}
+
+.RadGrid_Touchbase td.rgGroupCol,
+.RadGrid_Touchbase td.rgExpandCol
+{
+	background:#ede9f7 none;
+	border-color:#ede9f7;
+}
+
+.RadGrid_Touchbase .rgGroupHeader .rgExpand
+{
+	background-position:5px -495px;
+}
+
+.RadGrid_Touchbase .rgGroupHeader .rgCollapse
+{
+	background-position:3px -93px;
+}
+
+/*editing*/
+
+.RadGrid_Touchbase .rgEditForm
+{
+	border-bottom:1px solid #dfdce6;
+}
+
+.RadGrid_Touchbase .rgUpdate
+{
+	background-position:0 -1800px;
+}
+
+.RadGrid_Touchbase .rgCancel
+{
+	background-position:0 -1850px;
+}
+
+/*hierarchy*/
+
+.RadGrid_Touchbase .rgDetailTable
+{
+	border-color:#978bb0;
+}
+
+.RadGrid_Touchbase .rgExpand
+{
+	background-position:5px -496px;
+}
+
+.RadGrid_Touchbase .rgCollapse
+{
+	background-position:3px -94px;
+}
+
+/*command row*/
+
+.RadGrid_Touchbase .rgCommandRow
+{
+	background:#e4dcf2 0 -2099px repeat-x url('Grid/sprite.gif');
+	color:#333333;
+}
+
+.RadGrid_Touchbase .rgCommandCell
+{
+	border:0;
+	padding:0;
+}
+
+.RadGrid_Touchbase thead .rgCommandCell
+{
+	border-bottom:1px solid #978bb0;
+}
+
+.RadGrid_Touchbase .rgCommandTable td
+{
+	border:0;
+	padding:2px 7px;
+}
+
+.RadGrid_Touchbase .rgCommandTable
+{
+	border:1px solid #bfb8cf;
+}
+
+.RadGrid_Touchbase .rgCommandRow a
+{
+	color:#48356e;
+	text-decoration:none;
+}
+
+.RadGrid_Touchbase .rgAdd
+{
+	margin-right:3px;
+	background-position:0 -1650px;
+}
+
+.RadGrid_Touchbase .rgRefresh
+{
+	margin-right:3px;
+	background-position:0 -1600px;
+}
+
+.RadGrid_Touchbase .rgEdit
+{
+	background-position:0 -1700px;
+}
+
+.RadGrid_Touchbase .rgDel
+{
+	background-position:0 -1750px;
+}
+
+.RadGrid_Touchbase .rgExpXLS,
+.RadGrid_Touchbase .rgExpDOC,
+.RadGrid_Touchbase .rgExpPDF,
+.RadGrid_Touchbase .rgExpCSV
+{
+	background-image:url('Grid/export.gif');
+}
+
+.RadGrid_Touchbase .rgExpXLS
+{
+	background-position:0 0;
+}
+.RadGrid_Touchbase .rgExpDOC
+{
+	background-position:0 -50px;
+}
+.RadGrid_Touchbase .rgExpPDF
+{
+	background-position:0 -100px;
+}
+.RadGrid_Touchbase .rgExpCSV
+{
+	background-position:0 -150px;
+}
+
+/*multirow select*/
+
+.GridRowSelector_Touchbase
+{
+	background:#48356e;
+}
+
+/*row drag n drop*/
+
+.GridItemDropIndicator_Touchbase
+{
+    border-top:1px dashed #48356e;
+}
+
+/*tooltip*/
+
+.GridToolTip_Touchbase
+{
+	border:1px solid #9a8cb8;
+	padding:3px;
+	background:#eae6f2;
+	color:#333333;
+}
+
+/*rtl*/
+
+.RadGridRTL_Touchbase .rgHeader:first-child,
+.RadGridRTL_Touchbase th.rgResizeCol:first-child,
+.RadGridRTL_Touchbase .rgFilterRow>td:first-child,
+.RadGridRTL_Touchbase .rgRow>td:first-child,
+.RadGridRTL_Touchbase .rgAltRow>td:first-child
+{
+	border-left-width:1px;
+	padding-left:7px;
+}
+
+.RadGridRTL_Touchbase .rgPageFirst
+{
+	background-position:0 -1000px;
+}
+.RadGridRTL_Touchbase .rgPageFirst:hover
+{
+	background-position:0 -1050px;
+}
+.RadGridRTL_Touchbase .rgPagePrev
+{
+	background-position:0 -850px;
+}
+.RadGridRTL_Touchbase .rgPagePrev:hover
+{
+	background-position:0 -900px;
+}
+.RadGridRTL_Touchbase .rgPageNext
+{
+	background-position:0 -700px;
+}
+.RadGridRTL_Touchbase .rgPageNext:hover
+{
+	background-position:0 -750px;
+}
+.RadGridRTL_Touchbase .rgPageLast
+{
+	background-position:0 -550px;
+}
+.RadGridRTL_Touchbase .rgPageLast:hover
+{
+	background-position:0 -600px;
+}
