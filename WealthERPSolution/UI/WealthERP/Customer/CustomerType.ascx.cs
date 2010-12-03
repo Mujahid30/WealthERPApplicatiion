@@ -354,7 +354,7 @@ namespace WealthERP.Customer
                         customerVo.Type = "NIND";
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
                         customerVo.FirstName = txtCompanyName.Text.ToString();
-                        userVo.LastName = txtCompanyName.Text.ToString();
+                        userVo.FirstName = txtCompanyName.Text.ToString();
                     }
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
                     if (chkdummypan.Checked)

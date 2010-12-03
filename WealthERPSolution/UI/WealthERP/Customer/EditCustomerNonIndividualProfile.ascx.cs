@@ -75,7 +75,7 @@ namespace WealthERP.Customer
                     }
                     else
                         txtDateofCommencement.Text = customerVo.CommencementDate.ToShortDateString();
-                    txtCompanyName.Text = customerVo.FirstName;
+                    txtCompanyName.Text = customerVo.CompanyName;
                     txtCustomerCode.Text = customerVo.CustCode.ToString();
                     txtPanNumber.Text = customerVo.PANNum.ToString();
                     //txtRmName.Text = customerVo.RmId.ToString();

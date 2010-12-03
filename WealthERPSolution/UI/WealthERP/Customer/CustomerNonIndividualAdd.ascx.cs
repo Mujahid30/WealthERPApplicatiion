@@ -146,6 +146,7 @@ namespace WealthERP.Customer
                         customerVo.ContactMiddleName = txtMiddleName.Text.ToString();
                         customerVo.ContactLastName = txtLastName.Text.ToString();
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
+                        customerVo.FirstName = txtCompanyName.Text.ToString(); 
                         customerVo.CustCode = txtCustomerCode.Text.ToString();
                         //customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
                         if (txtDateofRegistration.Text != "")
@@ -413,6 +414,7 @@ namespace WealthERP.Customer
                     customerVo.MiddleName = txtMiddleName.Text.ToString();
                     customerVo.LastName = txtLastName.Text.ToString();
                     customerVo.CompanyName = txtCompanyName.Text.ToString();
+                    customerVo.FirstName = txtCompanyName.Text.ToString();
                     customerVo.CustCode = txtCustomerCode.Text.ToString();
                     customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
                     if (txtDateofRegistration.Text != string.Empty)
