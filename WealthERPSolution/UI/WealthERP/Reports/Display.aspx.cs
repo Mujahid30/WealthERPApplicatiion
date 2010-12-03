@@ -135,16 +135,22 @@ namespace WealthERP.Reports
                 CurrentReportType = ReportType.FinancialPlanning;
                 ctrlPrefix = "ctrl_FinancialPlanningReports$";
             }
-            
+           
             if (PreviousPage != null)
             {
                 GetReportParameters();
 
             }
             // if (!Page.IsPostBack)
-            DisplayReport();
+            //DisplayReport();
            
 
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {           
+            DisplayReport();
+ 
         }
 
         #region ReporDisplay Methods
@@ -369,9 +375,10 @@ namespace WealthERP.Reports
                             //crmain.SetParameterValue("RMName", "Advisor / Financial Planner :  " + rmVo.FirstName + " " + rmVo.LastName);
                             //crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
                             //crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
-                            crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
-                            crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
-                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                             crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
+                            //crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
+                            //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            //crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             
@@ -382,6 +389,119 @@ namespace WealthERP.Reports
                         }
                         else
                             SetNoRecords();
+                        break;
+
+                    case "ASSET_ALLOCATION_REPORT":
+
+                        DataSet dsAssetAllocation = portfolioReports.GetCustomerAssetAllocationDetails(report, advisorVo.advisorId, report.SubType);
+                        DataTable dtAssetSummary = dsAssetAllocation.Tables[0];
+                        DataTable dtAssetDetails = dsAssetAllocation.Tables[1];
+                        if (!string.IsNullOrEmpty(report.GroupHead))
+                        {
+                            crmain.Load(Server.MapPath("CustomerAssetAllocationDetails.rpt"));
+
+                            if (dtAssetSummary.Rows.Count > 0 && dtAssetDetails.Rows.Count > 0)
+                            {
+                                crmain.Subreports["GroupMemberAssetSummary"].Database.Tables[0].SetDataSource(dtAssetSummary);
+                                crmain.Subreports["CustomerAssetdetails"].Database.Tables[0].SetDataSource(dtAssetDetails);                               
+                                setLogo();                                
+                                crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
+                                AssignReportViewerProperties();
+                                crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                             
+                                crmain.SetParameterValue("ReportHeader", "Group Asset Allocation Report");
+                             
+                                CrystalReportViewer1.ReportSource = crmain;
+                                CrystalReportViewer1.EnableDrillDown = true;
+                                CrystalReportViewer1.HasCrystalLogo = false;
+                                
+                            }
+                            else
+                                SetNoRecords();
+                           
+
+                        }
+                        else {
+                            crmain.Load(Server.MapPath("IndivisualCustomerAssetAllocationDetails.rpt"));
+                            if (dtAssetDetails.Rows.Count > 0)
+                            {
+                                crmain.SetDataSource(dtAssetDetails);
+                                setLogo();
+                                crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
+                                AssignReportViewerProperties();
+                                crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);                                                           
+                                crmain.SetParameterValue("ReportHeader", "Asset Allocation Report");
+
+                                CrystalReportViewer1.ReportSource = crmain;
+                                CrystalReportViewer1.EnableDrillDown = true;
+                                CrystalReportViewer1.HasCrystalLogo = false;
+
+                            }
+                            else
+                                SetNoRecords();
+ 
+                        }
+
+                        break;
+
+                       
+                       
+
+                    case "INVESTMENT_SUMMARY_REPORT":
+
+                        DataSet dsInvestmentDetails = portfolioReports.GetCustomerAssetAllocationDetails(report, advisorVo.advisorId, report.SubType);
+                        DataTable dtInvestmentSummary = dsInvestmentDetails.Tables[0];                                                   
+                        DataTable dtInvestmentDetails = dsInvestmentDetails.Tables[1];
+
+                        if (!string.IsNullOrEmpty(report.GroupHead))
+                        {
+                            crmain.Load(Server.MapPath("CustomerInvestmentDetails.rpt"));
+
+                            if (dtInvestmentSummary.Rows.Count > 0 && dtInvestmentDetails.Rows.Count > 0)
+                            {
+                                crmain.Subreports["CustomerInvestmentSummary"].Database.Tables[0].SetDataSource(dtInvestmentSummary);
+                                crmain.Subreports["CustomerInvestmentDetails"].Database.Tables[0].SetDataSource(dtInvestmentDetails);
+                               
+                                setLogo();
+                               
+                                crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
+                                AssignReportViewerProperties();
+                                crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                                                            
+                                crmain.SetParameterValue("ReportHeader", "Group Investment Summary Report");
+                              
+                                CrystalReportViewer1.ReportSource = crmain;
+                                CrystalReportViewer1.EnableDrillDown = true;
+                                CrystalReportViewer1.HasCrystalLogo = false;
+                                
+                            }
+                            else
+                                SetNoRecords();
+                        }
+                        else 
+                        {
+                            crmain.Load(Server.MapPath("IndivisualCustomerInvestmentDetails.rpt"));
+
+                            if (dtInvestmentDetails.Rows.Count > 0)
+                            {
+                                crmain.SetDataSource(dtInvestmentDetails);
+                                                              
+                                setLogo();
+                                crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
+                                AssignReportViewerProperties();
+                                crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+
+                                crmain.SetParameterValue("ReportHeader", "Investment Summary Report");
+
+                                CrystalReportViewer1.ReportSource = crmain;
+                                CrystalReportViewer1.EnableDrillDown = true;
+                                CrystalReportViewer1.HasCrystalLogo = false;
+
+                            }
+                            else
+                                SetNoRecords();
+                        }
+                        
                         break;
 
                 }
