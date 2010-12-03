@@ -38,25 +38,17 @@ namespace WealthERP.UserManagement
             if (!IsPostBack)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('BMLeftpane');", true);
-                BMLeftTree.CollapseAll();
+                RadPanelBar1.CollapseAllItems();
             }
         }
 
         /* For BM Left Treeview */
 
-        protected void BMLeftTree_SelectedNodeChanged(object sender, EventArgs e)
-        { 
-        }
-        protected void Page_PreRender(object sender, EventArgs e)
+        
+       
+        protected void RadPanelBar1_ItemClick(object sender, Telerik.Web.UI.RadPanelBarEventArgs e)
         {
-            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("BMLeftTree"))
-            {
-                SetNode();
-            }
-        }
-        public void SetNode()
-        {
-            if (BMLeftTree.SelectedNode.Value == "Switch Roles")
+            if (e.Item.Value == "Switch Roles")
             {
                 roleList = userBo.GetUserRoles(userVo.UserId);
                 count = roleList.Count;
@@ -81,7 +73,7 @@ namespace WealthERP.UserManagement
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
                 }
             }
-            else if (BMLeftTree.SelectedNode.Value == "Dashboard")
+            else if (e.Item.Value == "Dashboard")
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcepath + "','" + branchLogoSourcePath + "');", true);
             }
@@ -90,29 +82,25 @@ namespace WealthERP.UserManagement
             //    Session["FromAdvisorView"] = "FromBMView";
             //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBranchDetails','login');", true);
             //}
-            else if (BMLeftTree.SelectedNode.Value == "Staff")
+            else if (e.Item.Value == "Staff")
             {
                 Session[SessionContents.CurrentUserRole] = "BM";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewRM','login');", true);
             }
-            else if (BMLeftTree.SelectedNode.Value == "Customer")
+            else if (e.Item.Value == "Customer")
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('BMCustomer','login');", true);
             }
-            else if (BMLeftTree.SelectedNode.Value == "MFMIS")
+            else if (e.Item.Value == "MFMIS")
             {
                 Session["UserType"] = "bm";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCwiseMIS','login');", true);
             }
-            else if (BMLeftTree.SelectedNode.Value == "EQMIS")
+            else if (e.Item.Value == "EQMIS")
             {
                 Session["UserType"] = "bm";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
             }
-        }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-            
         }
 
         /* End For BM Left Treeview */ 
