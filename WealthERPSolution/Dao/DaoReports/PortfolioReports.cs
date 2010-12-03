@@ -149,5 +149,51 @@ namespace DaoReports
             return dsGetLiabilities;
         }
 
+
+        /// <summary>
+        /// Get the Asset and Liability details for a customer.
+        /// </summary>
+        /// <param name="report"></param>
+        /// <remarks>Porfolio is per Portfolio but Liability is per Customer.</remarks>
+        /// <returns></returns>
+        public DataSet GetCustomerAssetAllocationDetails(PortfolioReportVo report, int adviserId,string reportType)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet dsAssetAllocation = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_RPT_GetCustomerAssetAllocation");
+                db.AddInParameter(cmd, "@PortfolioIds", DbType.String, report.PortfolioIds);
+                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
+                if (!string.IsNullOrEmpty(reportType))
+                    db.AddInParameter(cmd, "@ReportType", DbType.String, reportType);
+
+                cmd.CommandTimeout = 60 * 60;
+                dsAssetAllocation = db.ExecuteDataSet(cmd);                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "Reports.cs:GetCustomerAssetAllocationDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = report;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAssetAllocation;
+        }
+
     }
 }
