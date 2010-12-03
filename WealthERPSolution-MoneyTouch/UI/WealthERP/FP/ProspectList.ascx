@@ -34,7 +34,7 @@
     <telerik:RadGrid ID="RadGrid1" runat="server" Width="100%" GridLines="None" AutoGenerateColumns="False"
         PageSize="13" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
         ShowStatusBar="True" OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
-        Skin="Outlook" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound"
+        EnableEmbeddedSkins="false" Skin="Touchbase" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound"
         AllowFilteringByColumn="True" DataSourceID="SqlDataSource1" AllowAutomaticInserts="false">
         <MasterTableView AllowMultiColumnSorting="True" Width="100%" AutoGenerateColumns="false"
             DataSourceID="SqlDataSource1" DataKeyNames="C_CustomerId">

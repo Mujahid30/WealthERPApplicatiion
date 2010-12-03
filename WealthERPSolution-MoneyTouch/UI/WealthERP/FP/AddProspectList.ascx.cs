@@ -458,6 +458,7 @@ namespace WealthERP.FP
             {
 
                 //Checking whether the Page is for Update or to Submit.
+                
                 if (btnSubmit.Text != "Update")
                 {
                     ParentCustomerId = CreateCustomerForAddProspect(userVo, rmVo, createdById);
@@ -472,9 +473,12 @@ namespace WealthERP.FP
                 }
                 else
                 {
-                    if (btnSubmitAddDetails.Text != "Add Finance Details")
-                    {
-                        customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                   
+                       customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                       if (btnSubmitAddDetails.Text == "Add Finance Details")
+                       {
+                           dt = CustomerIdList(dt, customerId);
+                       }
                         //Updating Parent Customer
                         UpdateCustomerForAddProspect(customerId);
                         if (dt != null)
@@ -495,7 +499,7 @@ namespace WealthERP.FP
                                 }
                             }
                         }
-                    }
+                    
                 }
                 bresult = true;
 
@@ -767,6 +771,17 @@ namespace WealthERP.FP
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
             }
 
+        }
+        protected DataTable CustomerIdList(DataTable dt,int customerId)
+        {
+            int i=0;
+            customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
+            foreach (CustomerFamilyVo customerfamilyvo in customerFamilyVoList)
+            {
+                dt.Rows[i]["C_CustomerId"] = customerfamilyvo.CustomerId;
+                dt.Rows[i]["CA_AssociationId"] = customerfamilyvo.CustomerId;
+            }
+            return dt;
         }
 
     }
