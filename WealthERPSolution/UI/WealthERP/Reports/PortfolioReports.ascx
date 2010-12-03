@@ -136,7 +136,7 @@
     function ChangeDates() {
         var arr = new Array();
         arr["MULTI_ASSET_SUMMARY_REPORT"] = "AS_ON";
-
+        arr["ASSET_ALLOCATION_REPORT"] = "AS_ON";
         var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
         selectedReport = dropdown.options[dropdown.selectedIndex].value
         DisplayDates(arr[selectedReport]);
@@ -371,8 +371,10 @@
                         <asp:Label ID="Label4" runat="server" CssClass="FieldName">Report sub type: </asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">
-                            <asp:ListItem Text="" Value="MULTI_ASSET_SUMMARY_REPORT" Selected="True">Multi asset Summary</asp:ListItem>
+                        <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">                            
+                             <asp:ListItem Text="" Value="ASSET_ALLOCATION_REPORT" Selected="True">Asset Allocation</asp:ListItem>
+                             <asp:ListItem Text="" Value="INVESTMENT_SUMMARY_REPORT">Investment Summary</asp:ListItem>
+                             <asp:ListItem Text="" Value="MULTI_ASSET_SUMMARY_REPORT">Net Worth</asp:ListItem>
                         </asp:DropDownList>
                     </td>
                 </tr>
