@@ -537,5 +537,21 @@ namespace BoReports
             }
             return dtNetWorth;
         }
+
+        public DataSet GetCustomerAssetAllocationDetails(PortfolioReportVo report, int adviserId, string reportType)
+        {
+
+            PortfolioReportsDao portfolioReport = new PortfolioReportsDao();
+            DataSet dsAssetAllocation = null;
+            try
+            {
+                dsAssetAllocation = portfolioReport.GetCustomerAssetAllocationDetails(report, adviserId, reportType);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dsAssetAllocation;
+        }
     }
 }
