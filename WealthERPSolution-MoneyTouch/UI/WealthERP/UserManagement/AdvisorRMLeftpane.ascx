@@ -1,17 +1,25 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdvisorRMLeftpane.ascx.cs"
     Inherits="WealthERP.UserManagement.AdvisorRMLeftpane" %>
-    <html>
-    <head>
-    <meta http-equiv="pragma" content="no-cache" />
-    </head>
-</html>
-<asp:TreeView ID="TreeView1" runat="server" ShowLines="True" OnSelectedNodeChanged="TreeView1_SelectedNodeChanged">
-    <Nodes>
-        <asp:TreeNode Text="Roles" Value="Roles">
-            <asp:TreeNode Text="Admin" Value="Advisor"></asp:TreeNode>
-            <asp:TreeNode Text="RM" Value="RM"></asp:TreeNode>
-        </asp:TreeNode>
-    </Nodes>
-    <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
-        NodeSpacing="0px" VerticalPadding="0px" />
-</asp:TreeView>
+    <%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
+    
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+</telerik:RadScriptManager>
+
+<table width="100%">
+<tr><td>
+<telerik:RadPanelBar ID="RadPanelBar1" Runat="server" 
+    onitemclick="RadPanelBar1_ItemClick" ExpandAnimation-Type="InCubic" ExpandMode="MultipleExpandedItems" Width="130%" EnableEmbeddedSkins="false" Skin="Touchbase" >
+    <Items>
+        <telerik:RadPanelItem runat="server" Text="Switch Role" Value="SwitchRole" Expanded="true" PostBack="false">
+            <Items>
+                <telerik:RadPanelItem runat="server" Text="Advisor" Value="Advisor">
+                </telerik:RadPanelItem>
+                <telerik:RadPanelItem runat="server" Text="RM" Value="RM">
+                </telerik:RadPanelItem>
+            </Items>
+        </telerik:RadPanelItem>
+    </Items>
+</telerik:RadPanelBar>
+</td></tr>
+</table>
+

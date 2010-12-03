@@ -20,33 +20,33 @@ namespace WealthERP.UserManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorRMLeftpane');", true);
             }
         }
-        protected void Page_PreRender(object sender, EventArgs e)
+       
+
+        protected void RadPanelBar1_ItemClick(object sender, Telerik.Web.UI.RadPanelBarEventArgs e)
         {
-            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
+            try
             {
-                SetNode();
-            }
-        }
-        public void SetNode()
-        {
-            if (TreeView1.SelectedNode.Value == "Advisor")
-            {
-                Session[SessionContents.CurrentUserRole] = "Admin";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFAAdminMainDashboard','login');", true);
-            }
-            else if (TreeView1.SelectedNode.Value == "RM")
-            {
-                Session[SessionContents.CurrentUserRole] = "RM";
-                if (Session["CurrentrmVo"] != null)
+                if (e.Item.Value == "Advisor")
                 {
-                    Session.Remove("CurrentrmVo");
+                    Session[SessionContents.CurrentUserRole] = "Admin";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFAAdminMainDashboard','login');", true);
                 }
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
+                else if (e.Item.Value == "RM")
+                {
+                    Session[SessionContents.CurrentUserRole] = "RM";
+                    if (Session["CurrentrmVo"] != null)
+                    {
+                        Session.Remove("CurrentrmVo");
+                    }
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
+                }
+
             }
-        }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-           
+            catch (Exception ex)
+            {
+                bool value = false;
+            }
+
         }
     }
 }
