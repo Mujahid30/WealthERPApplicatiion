@@ -19,20 +19,15 @@ namespace WealthERP.UserManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('BMRMLeftpane');", true);
             }
         }
-        protected void Page_PreRender(object sender, EventArgs e)
+        
+
+        protected void RadPanelBar1_ItemClick(object sender, Telerik.Web.UI.RadPanelBarEventArgs e)
         {
-            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("TreeView1"))
-            {
-                SetNode();
-            }
-        }
-        public void SetNode()
-        {
-            if (TreeView1.SelectedNode.Value == "Branch Manager")
+            if (e.Item.Value == "Branch Manager")
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('BMDashBoard','login');", true);
             }
-            else if (TreeView1.SelectedNode.Value == "RM")
+            else if (e.Item.Value == "RM")
             {
                 if (Session["CurrentrmVo"] != null)
                 {
@@ -41,9 +36,6 @@ namespace WealthERP.UserManagement
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','login');", true);
             }
         }
-        protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        {
-            
-        }
+       
     }
 }
