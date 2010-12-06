@@ -14,6 +14,24 @@ namespace WealthERP.Loans {
     public partial class AdviserLoanSchemeView {
         
         /// <summary>
+        /// EditDisabledMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditDisabledMessage;
+        
+        /// <summary>
+        /// lblEditMessageDisabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEditMessageDisabled;
+        
+        /// <summary>
         /// Label2 control.
         /// </summary>
         /// <remarks>
