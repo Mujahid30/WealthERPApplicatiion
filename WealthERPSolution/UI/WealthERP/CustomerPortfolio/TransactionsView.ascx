@@ -179,9 +179,19 @@
                             <ItemStyle Wrap="False"></ItemStyle>
                         </asp:ButtonField>
                         <asp:BoundField DataField="TransactionId" HeaderText="TransactionId" Visible="false" />
-                        <asp:BoundField DataField="Folio Number" HeaderText="Folio No" ItemStyle-HorizontalAlign="Right">
-                            <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                        </asp:BoundField>
+                        
+                        <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Folio No">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblFolio" runat="server" Text="Folio No"></asp:Label>
+                                <br />
+                                <asp:TextBox ID="txtFolioSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_TransactionsView_btnTranSchemeSearch');" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblFolioNum" runat="server" Text='<%# Eval("Folio Number").ToString() %>'
+                                    ItemStyle-Wrap="false"></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False"></ItemStyle>
+                        </asp:TemplateField>
                         <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Scheme">
                             <HeaderTemplate>
                                 <asp:Label ID="lblScheme" runat="server" Text="Scheme"></asp:Label>

@@ -162,7 +162,7 @@ namespace WealthERP.CustomerPortfolio
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 // Bind Grid
                 BindPortfolioDropDown();
-                hdnFolioFilter.Value = string.Empty;
+                //hdnFolioFilter.Value = string.Empty;
                 if (Session["tranDates"] != null)
                 {
                     ht = (Hashtable)Session["tranDates"];
@@ -224,11 +224,8 @@ namespace WealthERP.CustomerPortfolio
                 hdnFolioFilter.Value = Session["Folio"].ToString();
                 Session.Remove("Folio");
             }
-            else 
-            if(export==0)
-            {
-                hdnFolioFilter.Value = string.Empty;
-            }
+            
+                
             //ddlStatus = (DropDownList)gvMFTransactions.FindControl("ddlStatus");
             DataTable dtMFTransactions = new DataTable();
             try
@@ -365,7 +362,7 @@ namespace WealthERP.CustomerPortfolio
                     }
 
                     TextBox txtScheme = GetSchemeTextBox();
-
+                    TextBox txtFolio = GetFolioTextBox();
                     if (txtScheme != null)
                     {
                         if (hdnSchemeFilter.Value != "")
@@ -373,7 +370,13 @@ namespace WealthERP.CustomerPortfolio
                             txtScheme.Text = hdnSchemeFilter.Value.ToString().Trim();
                         }
                     }
-
+                    if (txtFolio != null)
+                    {
+                        if (hdnFolioFilter.Value != "")
+                        {
+                            txtFolio.Text = hdnFolioFilter.Value.ToString().Trim();
+                        }
+                    }
                     GetPageCount();
                 }
                 else
@@ -424,6 +427,21 @@ namespace WealthERP.CustomerPortfolio
             return txt;
         }
 
+        private TextBox GetFolioTextBox()
+        {
+            TextBox txt = new TextBox();
+            if (gvMFTransactions.HeaderRow != null)
+            {
+                if ((TextBox)gvMFTransactions.HeaderRow.FindControl("txtFolioSearch") != null)
+                {
+                    txt = (TextBox)gvMFTransactions.HeaderRow.FindControl("txtFolioSearch");
+                }
+            }
+            else
+                txt = null;
+
+            return txt;
+        }
         private DropDownList GetTranDateDDL()
         {
             DropDownList ddl = new DropDownList();
@@ -609,10 +627,16 @@ namespace WealthERP.CustomerPortfolio
         protected void btnTranSchemeSearch_Click(object sender, EventArgs e)
         {
             TextBox txtName = GetSchemeTextBox();
-
+            TextBox txtFolio = GetFolioTextBox();
             if (txtName != null)
             {
                 hdnSchemeFilter.Value = txtName.Text.Trim();
+                BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+            }
+
+            if (txtFolio != null)
+            {
+                hdnFolioFilter.Value = txtFolio.Text.Trim();
                 BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             }
         }
