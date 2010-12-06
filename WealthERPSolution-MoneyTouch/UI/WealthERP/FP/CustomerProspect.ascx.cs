@@ -17,6 +17,7 @@ using System.Collections.Specialized;
 using WealthERP.Base;
 using VoFPSuperlite;
 using BoFPSuperlite;
+using System.Configuration;
 namespace WealthERP.FP
 {
     public partial class CustomerProspect : System.Web.UI.UserControl
@@ -45,6 +46,7 @@ namespace WealthERP.FP
         {
             int customerId = 0;
             CustomerProspectBo customerprospectbo = new CustomerProspectBo();
+            SqlDataSourceCustomerRelation.ConnectionString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
             try
             {
                 advisorVo = (AdvisorVo)Session["advisorVo"];
