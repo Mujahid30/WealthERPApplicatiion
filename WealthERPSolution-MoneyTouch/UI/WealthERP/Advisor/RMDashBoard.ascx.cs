@@ -383,7 +383,10 @@ namespace WealthERP.Advisor
             int rowIndex = gvRow.RowIndex;
             DataKey dk = gvrRMClinetList.DataKeys[rowIndex];
             int customerId = Convert.ToInt32(dk.Value);
-
+            if (customerId != 0)
+            {
+                Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+            }
             customerVo = customerBo.GetCustomer(customerId);
             Session["CustomerVo"] = customerVo;
             Session["IsDashboard"] = "CustDashboard";
