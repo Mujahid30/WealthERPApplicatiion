@@ -223,6 +223,11 @@ namespace WealthERP.Advisor
             {
                 if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
                 {
+                    if ((Session["BranchFilterForAMC"] != null) && (Session["PassAMCCode"] != null))
+                        amcCode = int.Parse(Session["PassAMCCode"].ToString());
+                    else
+                        amcCode = 0;
+
                     hdnbranchId.Value = "0";
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnAll.Value = "2";
@@ -234,10 +239,16 @@ namespace WealthERP.Advisor
                 }
                 else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
                 {
+
+                    if ((Session["RMFilterForAMC"] != null) && (Session["PassAMCCode"] != null))
+                        amcCode = int.Parse(Session["PassAMCCode"].ToString());
+                    else
+                        amcCode = 0;
+
                     hdnbranchId.Value = "0";
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnAll.Value = "3";
-                    hdnrmId.Value = ddlRM.SelectedValue;
+                    hdnrmId.Value = Session["RMFilterForAMC"].ToString();
                     hdnXWise.Value = "1";
 
                     dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), amcCode, 0, CurrentPage, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), string.Empty, string.Empty, hdnCategoryFilter.Value.ToString(), out count, 0);
@@ -245,7 +256,12 @@ namespace WealthERP.Advisor
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
                 {
-                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    if ((Session["BranchFilterForAMC"] != null) && (Session["PassAMCCode"] != null))
+                        amcCode = int.Parse(Session["PassAMCCode"].ToString());
+                    else
+                        amcCode = 0;
+
+                    hdnbranchId.Value = Session["BranchFilterForAMC"].ToString();
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnAll.Value = "1";
                     hdnrmId.Value = ddlRM.SelectedValue;
@@ -256,10 +272,22 @@ namespace WealthERP.Advisor
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
                 {
-                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    if ((Session["BranchFilterForAMC"] != null) && (Session["RMFilterForAMC"] != null))
+                    {
+                        if (Session["PassAMCCode"] != null)
+                        {
+                            amcCode = int.Parse(Session["PassAMCCode"].ToString());
+                        }
+                        else
+                        {
+                            amcCode = 0;
+                        }
+                    }
+
+                    hdnbranchId.Value = Session["BranchFilterForAMC"].ToString();
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnAll.Value = "0";
-                    hdnrmId.Value = ddlRM.SelectedValue;
+                    hdnrmId.Value = Session["RMFilterForAMC"].ToString();
                     hdnXWise.Value = "1";
 
                     dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), amcCode, 0, CurrentPage, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), string.Empty, string.Empty, hdnCategoryFilter.Value.ToString(), out count, 0);
@@ -897,11 +925,13 @@ namespace WealthERP.Advisor
             {
                 BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0, 0);
             }
+            Session["BranchFilterForAMC"] = ddlBranch.SelectedValue;
             GenerateMIS();
         }
 
         protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Session["RMFilterForAMC"] = ddlRM.SelectedValue;
             GenerateMIS();
         }
 
