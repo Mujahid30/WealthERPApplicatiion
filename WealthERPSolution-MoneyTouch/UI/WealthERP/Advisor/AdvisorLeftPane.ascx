@@ -55,7 +55,7 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Preferences" Value="Preferences">
+                            <telerik:RadPanelItem runat="server" Text="Preferences" Value="Preferences" PostBack="false">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Setup Associate Category" 
                                         Value="Setup Associate Category">
@@ -63,15 +63,15 @@
                                     <telerik:RadPanelItem runat="server" Text="Setup Advisor Staff SMTP" 
                                         Value="Setup Advisor Staff SMTP">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Set Theme" Value="Set Theme">
-                                    </telerik:RadPanelItem>
+                                    <%--<telerik:RadPanelItem runat="server" Text="Set Theme" Value="Set Theme">
+                                    </telerik:RadPanelItem>--%>
                                 </Items>
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="LOB" Value="LOB">
-                                <Items>
+                                <%--<Items>
                                     <telerik:RadPanelItem runat="server" Text="Add LOB" Value="Add LOB">
                                     </telerik:RadPanelItem>
-                                </Items>
+                                </Items>--%>
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
                                 <Items>
@@ -84,7 +84,7 @@
                                     <telerik:RadPanelItem runat="server" Text="Add Branch" Value="Add Branch">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="View Branch Assocation" 
-                                        Value="View Branch Assocation">
+                                        Value="View Branch Association">
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
@@ -111,7 +111,7 @@
                                 </Items>
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="User Management" 
-                                Value="User Management">
+                                Value="User Management" PostBack="false">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="RM Details" Value="RM Details">
                                     </telerik:RadPanelItem>
@@ -120,13 +120,13 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Daily Process" Value="Daily Process">
+                            <telerik:RadPanelItem runat="server" Text="Daily Process" Value="Daily Process" PostBack="false">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="SMS" Value="SMS">
+                            <telerik:RadPanelItem runat="server" Text="SMS" Value="SMS" PostBack="false">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Alerts SMS" Value="Alerts SMS">
                                     </telerik:RadPanelItem>
@@ -135,7 +135,7 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="MF" Value="MF">
+                            <telerik:RadPanelItem runat="server" Text="MF" Value="MF" PostBack="false">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="MIS" Value="MMIS">
                                     </telerik:RadPanelItem>
@@ -158,7 +158,7 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
+                            <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity" PostBack="false">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="MIS" Value="EMIS">
                                     </telerik:RadPanelItem>
@@ -173,12 +173,12 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Loan" Value="Loan">
+                            <telerik:RadPanelItem runat="server" Text="Loan" Value="Loan" PostBack="false" >
                                 <Items>
-                                    <telerik:RadPanelItem runat="server" Text="Schemes" Value="Schemes">
+                                    <%--<telerik:RadPanelItem runat="server" Text="Schemes" Value="Schemes">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Add Schemes" Value="Add Schemes">
-                                    </telerik:RadPanelItem>
+                                    </telerik:RadPanelItem>--%>
                                     <telerik:RadPanelItem runat="server" Text="Loan Partner Commission" 
                                         Value="Loan Partner Commission">
                                     </telerik:RadPanelItem>
