@@ -18,9 +18,9 @@ namespace BoCustomerPortfolio
     {
         #region robin
 
-        public static DataSet GetLoanSchemes(int advisorId,int page, out int count)
+        public static DataSet GetLoanSchemes(int page, out int count)
         {
-            return LiabilitiesDao.GetLoanSchemes(advisorId,page,out count);
+            return LiabilitiesDao.GetLoanSchemes(page, out count);
         }
         public static SchemeDetailsVo GetSchemeDetails(int schemeId)
         {
@@ -1050,7 +1050,7 @@ namespace BoCustomerPortfolio
             return blResult;
         }
 
-        public bool UpdateCustAdditionalDocs(LoanProposalDocVo loanProposalDocVo,int userId)
+        public bool UpdateCustAdditionalDocs(LoanProposalDocVo loanProposalDocVo, int userId)
         {
             LiabilitiesDao liabilitiesDao = new LiabilitiesDao();
             bool blResult = false;
