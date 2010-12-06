@@ -65,11 +65,10 @@
                 </tr>
                 <tr>
                     <td>
-                       
                         <telerik:RadPanelBar ID="RadPanelBar1" runat="server" ExpandAnimation-Type="InCubic"
-    ExpandMode="SingleExpandedItem" Width="210px" EnableEmbeddedSkins="false" 
-    Skin="Touchbase" onitemclick="RadPanelBar1_ItemClick">
-                            <Items>
+                            ExpandMode="SingleExpandedItem" Width="210px" EnableEmbeddedSkins="false" Skin="Touchbase"
+                            onitemclick="RadPanelBar1_ItemClick">
+                            <items>
                                 <telerik:RadPanelItem Text="Home" Value="Home">
                                 </telerik:RadPanelItem>
                                 <telerik:RadPanelItem Text="Customer Dashboard" Value="Customer Dashboard">
@@ -108,14 +107,14 @@
                                                 </telerik:RadPanelItem>
                                             </Items>
                                         </telerik:RadPanelItem>
-                                    </Items>
-                                </telerik:RadPanelItem>
+                                  
                                 <telerik:RadPanelItem Text="Fixed Income" Value="Fixed Income">
                                     <Items>
                                         <telerik:RadPanelItem Text="Add Fixed Income" Value="Add Fixed Income">
                                         </telerik:RadPanelItem>
                                     </Items>
                                 </telerik:RadPanelItem>
+                                
                                 <telerik:RadPanelItem Text="Govt Savings" Value="Govt Savings">
                                     <Items>
                                         <telerik:RadPanelItem Text="Add Govt Savings" Value="Add Govt Savings">
@@ -129,12 +128,14 @@
                                         </telerik:RadPanelItem>
                                     </Items>
                                 </telerik:RadPanelItem>
+                               
                                 <telerik:RadPanelItem Text="Pension And Gratuities" Value="Pension And Gratuities">
                                     <Items>
                                         <telerik:RadPanelItem Text="Add Pension and Gratuities" Value="Add Pension and Gratuities">
                                         </telerik:RadPanelItem>
                                     </Items>
                                 </telerik:RadPanelItem>
+                                
                                 <telerik:RadPanelItem Text="Personal Assets" Value="Personal Assets">
                                     <Items>
                                         <telerik:RadPanelItem Text="Add Personal Assets" Value="Add Personal Assets">
@@ -153,25 +154,28 @@
                                         </telerik:RadPanelItem>
                                     </Items>
                                 </telerik:RadPanelItem>
+                                
                                 <telerik:RadPanelItem Text="Cash and Savings" Value="Cash And Savings">
                                     <Items>
                                         <telerik:RadPanelItem Text="Add Cash and Savings" Value="Add Cash and Savings">
                                         </telerik:RadPanelItem>
                                     </Items>
-                                </telerik:RadPanelItem>
+                                </telerik:RadPanelItem>     
+                                </Items>                            
+                                 </telerik:RadPanelItem>
                                 <telerik:RadPanelItem Text="Liabilities Dashboard" Value="Liabilities Dashboard">
-                                    <Items>
+                                    <items>
                                         <telerik:RadPanelItem Text="Add Liability" Value="Add Liability">
                                         </telerik:RadPanelItem>
-                                    </Items>
+                                    </items>
                                 </telerik:RadPanelItem>
                                 <telerik:RadPanelItem Text="Financial Planning" Value="FinancialPlanning">
-                                    <Items>
+                                    <items>
                                         <telerik:RadPanelItem Text="Reports" Value="Reports">
                                         </telerik:RadPanelItem>
-                                    </Items>
+                                    </items>
                                 </telerik:RadPanelItem>
-                            </Items>
+                            </items>
                         </telerik:RadPanelBar>
                     </td>
                 </tr>
