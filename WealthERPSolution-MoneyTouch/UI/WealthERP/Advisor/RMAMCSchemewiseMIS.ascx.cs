@@ -296,7 +296,7 @@ namespace WealthERP.Advisor
                         }
                     }
 
-                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnbranchId.Value = Session["BranchFilterForAMC"].ToString();
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnAll.Value = "0";
                     hdnrmId.Value = Session["RMFilterForAMC"].ToString();
