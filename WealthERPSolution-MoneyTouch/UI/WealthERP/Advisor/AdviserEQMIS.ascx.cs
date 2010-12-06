@@ -66,6 +66,7 @@ namespace WealthERP.Advisor
                 bmID = rmVo.RMId;
                 if (userType == "advisor")
                 {
+                    trBranchandRMDps.Visible = false;
                     if (!IsPostBack)
                     {
                         BindBranchDropDown();
@@ -76,8 +77,14 @@ namespace WealthERP.Advisor
                     //dsGetLastTradeDate = customertransactionbo.GetLastTradeDate();
                     //DateTime dtLastTradeDate;
                 }
+                else if (userType == "rm")
+                {
+                    trBranchandRMDps.Visible = false;
+                    trRange.Visible = true;
+                }
                 else if (userType == "bm")
                 {
+                    trBranchandRMDps.Visible = true;
                     if (!IsPostBack)
                     {
                         BindBranchForBMDropDown();

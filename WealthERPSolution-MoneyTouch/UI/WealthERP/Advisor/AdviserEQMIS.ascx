@@ -72,7 +72,7 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
+    <tr runat="server" id="trBranchandRMDps" >
     <td>
     <asp:Label ID="lblChooseBranchBM" runat="server" Font-Bold="true"  CssClass="FieldName"  Text="Branch: "></asp:Label>
     <asp:DropDownList ID="ddlBranchForEQ" style="vertical-align: middle"  CssClass="cmbField" runat="server" 
