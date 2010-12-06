@@ -620,7 +620,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add Fixed Income")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', 'action=FI')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=FI')", true);
                 }
                 else if (e.Item.Value == "Govt Savings")
                 {
@@ -628,7 +628,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add Govt Savings")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', 'action=GS')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=GS')", true);
                 }
                 else if (e.Item.Value == "Property")
                 {
@@ -636,7 +636,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add Property")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', 'action=PR')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=PR')", true);
                 }
                 else if (e.Item.Value == "Pension And Gratuities")
                 {
@@ -644,7 +644,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add Pension and Gratuities")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', 'action=PG')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=PG')", true);
                 }
                 else if (e.Item.Value == "Personal Assets")
                 {
@@ -662,7 +662,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add Gold Assets")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioGoldEntry', 'action=GoldEntry')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioGoldEntry', '?action=GoldEntry')", true);
                 }
                 else if (e.Item.Value == "Collectibles")
                 {
@@ -670,7 +670,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add Collectibles")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry', 'action=Col')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry', '?action=Col')", true);
                 }
                 else if (e.Item.Value == "Cash And Savings")
                 {
@@ -678,7 +678,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add Cash and Savings")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', 'action=CS')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', '?action=CS')", true);
                 }
                 else if (e.Item.Value == "Register Systematic Schemes")
                 {

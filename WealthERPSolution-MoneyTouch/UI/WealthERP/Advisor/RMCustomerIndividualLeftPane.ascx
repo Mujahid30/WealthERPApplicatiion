@@ -82,7 +82,7 @@
                             <telerik:RadPanelItem Text="Customer Dashboard" Value="Customer Dashboard">
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem Text="Portfolio Dashboard" Value="Portfolio Dashboard">
-                            </telerik:RadPanelItem>
+                            <Items>
                             <telerik:RadPanelItem Text="Equity" Value="Equity">
                                 <Items>
                                     <telerik:RadPanelItem Text="View Equity Transaction" Value="View Equity Transaction">
@@ -109,7 +109,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem Text="Register Systematic Schemes" Value="Register Systematic Schemes">
                                     </telerik:RadPanelItem>
-                                </Items>
+                                 </Items>
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem Text="Fixed Income" Value="Fixed Income">
                                 <Items>
@@ -160,7 +160,8 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            
+                            </Items>
+                            </telerik:RadPanelItem>
                             <telerik:RadPanelItem Text="Alerts Dashboard" Value="Alerts">
                                 <Items>
                                     <telerik:RadPanelItem Text="View Notifications" Value="View Notifications">
