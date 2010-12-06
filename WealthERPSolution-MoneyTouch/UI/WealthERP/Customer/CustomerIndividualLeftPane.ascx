@@ -3,18 +3,15 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:ScriptManager ID="smCustomerLeftpanel" runat="server">
 </asp:ScriptManager>
-<asp:UpdatePanel ID="upnlCustomerLeftpanel" runat="server">
-    <ContentTemplate>
-        <div>
-            <table>
+
+            <table width="100%">
                 <tr>
                     <td>
                         <asp:Label ID="lblExpressLinks" CssClass="HeaderTextSmall" Text="Express Links" runat="server"></asp:Label>
                     </td>
                 </tr>
             </table>
-        </div>
-        
+
 <telerik:RadPanelBar ID="RadPanelBar1" runat="server" ExpandAnimation-Type="InCubic"
     ExpandMode="SingleExpandedItem" Width="210px" EnableEmbeddedSkins="false" 
     Skin="Touchbase" onitemclick="RadPanelBar1_ItemClick">
