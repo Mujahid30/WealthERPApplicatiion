@@ -25,44 +25,41 @@ namespace WealthERP.SuperAdmin
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             if (!IsPostBack)
             {
-                SuperAdminTreeView.CollapseAll();
+                RadPanelBar1.CollapseAllItems();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('SuperAdminLeftPane');", true);
             }
         }
-        protected void Page_PreRender(object sender, EventArgs e)
-        {
-            if (Page.Request.Params.Get("__EVENTTARGET") != null && (Page.Request.Params.Get("__EVENTTARGET")).Contains("SuperAdminTreeView"))
-            {
-                SetNode();
-            }
-        }
-        public void SetNode()
+        
+        
+       
+
+        protected void RadPanelBar1_ItemClick(object sender, Telerik.Web.UI.RadPanelBarEventArgs e)
         {
             string strNodeValue = null;
             try
             {
-               
-                if (SuperAdminTreeView.SelectedNode.Value == "IFF")
+
+                if (e.Item.Value == "IFF")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFF','none');", true);
                 }
-                else if (SuperAdminTreeView.SelectedNode.Value == "IFFAdd")
+                else if (e.Item.Value == "IFFAdd")
                 {
                     Session["IFFAdd"] = "Add";
                     Session.Remove("advisorVo");
                     Session.Remove("IDs");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','none');", true);
                 }
-                else if (SuperAdminTreeView.SelectedNode.Value == "MessageBroadcast")
+                else if (e.Item.Value == "MessageBroadcast")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SuperAdminMessageBroadcast','login')", true);
                 }
-               
-                else if (SuperAdminTreeView.SelectedNode.Value == "LoanScheme")
+
+                else if (e.Item.Value == "LoanScheme")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrolCustomer('LoanSchemeView', 'none')", true);
                 }
-                else if (SuperAdminTreeView.SelectedNode.Value == "AddLoanScheme")
+                else if (e.Item.Value == "AddLoanScheme")
                 {
                     Session.Remove("LoanSchemeId");
                     Session.Remove("LoanSchemeViewStatus");
@@ -90,10 +87,6 @@ namespace WealthERP.SuperAdmin
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-        }
-        protected void SuperAdminTreeView_SelectedNodeChanged(object sender, EventArgs e)
-        {
-            
         }        
     }
 }
