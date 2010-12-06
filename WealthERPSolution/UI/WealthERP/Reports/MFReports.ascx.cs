@@ -220,21 +220,21 @@ namespace WealthERP.Reports
                     if (CustomerLogin == false)
                     {
                         //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
-                        if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                        {
-                            txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                        }
-                        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                        {
-                            txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+                        //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                        //{
+                        //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                        //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                        //}
+                        //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                        //{
+                        //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                        //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                        //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                        //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
 
-                        }
+                        //}
                         
                         
                         //ListBox horizontal Scorling enabled false
@@ -277,6 +277,24 @@ namespace WealthERP.Reports
                     //trTranFilter2.Visible = false;
                     tabViewAndEmailReports.ActiveTabIndex = 0;
                     //ShowFolios();
+                }
+                if (CustomerLogin == false)
+                {
+                    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    {
+                        txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    {
+                        txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                        txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                        txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                    }
                 }
 
                 if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_MFReports$hidTabIndex"]))

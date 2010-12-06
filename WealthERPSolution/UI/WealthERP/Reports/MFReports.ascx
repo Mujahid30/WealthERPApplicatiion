@@ -606,7 +606,8 @@
                                                                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                                                                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                                                                 UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
-                                                                Enabled="True" />
+                                                                Enabled="True"  />
+                                                                
                                                             <span id="Span1" class="spnRequiredField">* </span>
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtCustomer"
                                                                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
@@ -614,6 +615,7 @@
                                                                     style='font-size: 9px; font-weight: normal' class='FieldName'><br />
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                     Enter few characters of Individual customer name. </span>
+                                                                    
                                                         </td>
                                                         <td runat="server">
                                                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -1183,18 +1185,18 @@
     }
 
   
-//    //Code to maintain the state of the customer selection textbox on postback
-//    if (document.getElementById("<%= rdoGroup.ClientID %>") != null) {
-//        if (document.getElementById("<%= rdoGroup.ClientID %>").checked) {
-//            document.getElementById('trGroupCustomer').style.display = 'block';
-//            document.getElementById('trIndCustomer').style.display = 'none';
-//        }
-//       
-//        else {
-//            document.getElementById('trIndCustomer').style.display = 'block';
-//            document.getElementById('trGroupCustomer').style.display = 'none';
-//        }
-//    }
+    //Code to maintain the state of the customer selection textbox on postback
+    if (document.getElementById("<%= rdoGroup.ClientID %>") != null) {        
+        if (document.getElementById("<%= rdoGroup.ClientID %>").checked) {
+            document.getElementById("<%= trGroupCustomer.ClientID %>").style.display = 'block';
+            document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'none';
+        }
+
+        else {            
+            document.getElementById("<%= trGroupCustomer.ClientID %>").style.display = 'none';
+            document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'block';
+        }
+    }
     
     ChangeDates();
 </script>
