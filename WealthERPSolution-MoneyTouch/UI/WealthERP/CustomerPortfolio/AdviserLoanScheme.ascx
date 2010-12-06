@@ -29,6 +29,13 @@
         </td>
     </tr>
     <tr>
+        <td align="center">
+            <div class="success-msg" id="UpdationIncomplete" runat="server" visible="false" align="center">
+                Please Check all the grid items have been Updated!
+            </div>
+        </td>
+    </tr>
+    <tr>
         <td>
             <asp:LinkButton ID="lnkViewAll" CssClass="LinkButtons" runat="server" OnClick="lnkViewAll_Click"
                 CausesValidation="False">Back</asp:LinkButton>

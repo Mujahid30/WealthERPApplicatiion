@@ -37,16 +37,16 @@ namespace WealthERP.Loans
             //Response.Write(ddlBorrowerType.SelectedValue + ddlBorrowerType.Text);
             userVo = (UserVo)Session["UserVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
-            if ((Request.QueryString["schemeId"] != null && Request.QueryString["schemeId"] != "") && Request.QueryString["mode"] == "Edit")
+            if (Session["LoanSchemeId"] != null && Session["LoanSchemeViewStatus"].ToString() == "Edit")
             {
-                schemeId = int.Parse(Request.QueryString["schemeId"]);
+                schemeId = int.Parse(Session["LoanSchemeId"].ToString());
                 lblSchemeId.Text = "Scheme ID :";
                 lblSchemeIdVal.Text = schemeId.ToString();
                 mode = Mode.Edit;
             }
-            else if ((Request.QueryString["schemeId"] != null && Request.QueryString["schemeId"] != "") && Request.QueryString["mode"] == "View")
+            else if (Session["LoanSchemeId"] != null && Session["LoanSchemeViewStatus"].ToString() == "View")
             {
-                schemeId = int.Parse(Request.QueryString["schemeId"]);
+                schemeId = int.Parse(Session["LoanSchemeId"].ToString());
                 lblSchemeId.Text = "Scheme ID :";
                 lblSchemeIdVal.Text = schemeId.ToString();
                 mode = Mode.View;
@@ -283,40 +283,40 @@ namespace WealthERP.Loans
             //if (mode == Mode.Edit || mode == Mode.Add || mode == Mode.View)
             //{
 
-                txtSchemeName.Text = schemeDetailsVo.LoanSchemeName;
-                
-                txtMinLoanAmount.Text = schemeDetailsVo.MinimunLoanAmount.ToString("#0.00");
+            txtSchemeName.Text = schemeDetailsVo.LoanSchemeName;
 
-                txtMaxLoanAmount.Text = schemeDetailsVo.MaximumLoanAmount.ToString("#0.00");
-                txtMinLoanPeriod.Text = schemeDetailsVo.MinimumLoanPeriod.ToString();
-                txtMaxLoanPeriod.Text = schemeDetailsVo.MaximumLoanPeriod.ToString();
-                txtPrimeLendingRate.Text = schemeDetailsVo.PLR.ToString("#0.00");
-                txtMargin.Text = schemeDetailsVo.MarginMaintained.ToString("#0.00");
+            txtMinLoanAmount.Text = schemeDetailsVo.MinimunLoanAmount.ToString("#0.00");
 
-                txtMinAge.Text = schemeDetailsVo.MinimumAge.ToString();
-                txtMaxAge.Text = schemeDetailsVo.MaximumAge.ToString();
-                txtMinSalary.Text = schemeDetailsVo.MinimumSalary.ToString("#0.00");
-                txtMinimumProfitAmount.Text = schemeDetailsVo.MinimumProfitAmount.ToString("#0.00");
-                txtMinimumProfitPeriod.Text = schemeDetailsVo.MinimumProfitPeriod.ToString();
-                txtRemarks.Text = schemeDetailsVo.Remark;
+            txtMaxLoanAmount.Text = schemeDetailsVo.MaximumLoanAmount.ToString("#0.00");
+            txtMinLoanPeriod.Text = schemeDetailsVo.MinimumLoanPeriod.ToString();
+            txtMaxLoanPeriod.Text = schemeDetailsVo.MaximumLoanPeriod.ToString();
+            txtPrimeLendingRate.Text = schemeDetailsVo.PLR.ToString("#0.00");
+            txtMargin.Text = schemeDetailsVo.MarginMaintained.ToString("#0.00");
+
+            txtMinAge.Text = schemeDetailsVo.MinimumAge.ToString();
+            txtMaxAge.Text = schemeDetailsVo.MaximumAge.ToString();
+            txtMinSalary.Text = schemeDetailsVo.MinimumSalary.ToString("#0.00");
+            txtMinimumProfitAmount.Text = schemeDetailsVo.MinimumProfitAmount.ToString("#0.00");
+            txtMinimumProfitPeriod.Text = schemeDetailsVo.MinimumProfitPeriod.ToString();
+            txtRemarks.Text = schemeDetailsVo.Remark;
 
 
-                ddlLoanPartner.SelectedValue = schemeDetailsVo.LoanPartner.ToString();
-                ddlLoanType.SelectedValue = schemeDetailsVo.LoanType.ToString();
+            ddlLoanPartner.SelectedValue = schemeDetailsVo.LoanPartner.ToString();
+            ddlLoanType.SelectedValue = schemeDetailsVo.LoanType.ToString();
 
-                BindBorrowerType(int.Parse(ddlLoanType.SelectedValue));
-                ddlBorrowerType.SelectedValue = schemeDetailsVo.CustomerCategory.ToString();
+            BindBorrowerType(int.Parse(ddlLoanType.SelectedValue));
+            ddlBorrowerType.SelectedValue = schemeDetailsVo.CustomerCategory.ToString();
 
-                if (schemeDetailsVo.IsFloatingRateInterest)
-                {
-                    rdoFloatingRate.SelectedValue = "1";
+            if (schemeDetailsVo.IsFloatingRateInterest)
+            {
+                rdoFloatingRate.SelectedValue = "1";
                 gvAdviserInterestRates.HeaderRow.Cells[CONST_INTERESTE_RATE_COLUMN_ID].Text = "Diff. Interest Rate";
             }
-                else
-                {
-                    rdoFloatingRate.SelectedValue = "0";
-                    gvAdviserInterestRates.HeaderRow.Cells[CONST_INTERESTE_RATE_COLUMN_ID].Text = "Interest Rate";
-                }
+            else
+            {
+                rdoFloatingRate.SelectedValue = "0";
+                gvAdviserInterestRates.HeaderRow.Cells[CONST_INTERESTE_RATE_COLUMN_ID].Text = "Interest Rate";
+            }
             //}
             if (mode == Mode.View)
             {
@@ -562,47 +562,70 @@ namespace WealthERP.Loans
         private void SaveInterestRates()
         {
             SchemeInterestRateVo interestRateVo = new SchemeInterestRateVo();
-            for (int i = 0; i < gvAdviserInterestRates.Rows.Count; i++)
+            bool result = false;
+            foreach (GridViewRow gvr in gvAdviserInterestRates.Rows)
             {
-                if (gvAdviserInterestRates.Rows[i].RowType == DataControlRowType.DataRow && gvAdviserInterestRates.DataKeys[i].Value != "-1")
+
+                if (gvr.RowType == DataControlRowType.DataRow)
                 {
-                    GridViewRow row = gvAdviserInterestRates.Rows[i];
-
-                    interestRateVo.InterestCategory = ((Label)row.FindControl("lblCategory")).Text.Trim();
-                    interestRateVo.MinimumFinance = TryParseFloat(((Label)row.FindControl("lblMinFinance")).Text.Trim());
-                    interestRateVo.MaximumFinance = TryParseFloat(((Label)row.FindControl("lblMaxFinance")).Text.Trim());
-                    interestRateVo.MinimumPeriod = TryParseInt(((Label)row.FindControl("lblMinimumPeriod")).Text.Trim());
-                    interestRateVo.MaximumPeriod = TryParseInt(((Label)row.FindControl("lblMaximumPeriod")).Text.Trim());
-
-                    interestRateVo.DifferentialInterestRate = TryParseFloat(((Label)row.FindControl("lblDifferentialInterestRate")).Text.Trim());
-                    interestRateVo.PreClosingCharges = TryParseFloat(((Label)row.FindControl("lblPreClosingCharges")).Text.Trim());
-                    interestRateVo.ProcessingCharges = TryParseFloat(((Label)row.FindControl("lblProcessingCharges")).Text.Trim());
-                    interestRateVo.MaximumFinancePer = TryParseFloat(((Label)row.FindControl("lblMaximumFinancePer")).Text.Trim());
-                    //if(mode == Mode.Add)
-                    //    // bool isUpdated = LiabilitiesBo.UpdateInterestRate(interestRateVo);
-                    //else
-
-                    interestRateVo.LoanSchemeId = schemeId;
-
-                    bool isUpdated = false;
-                    if (gvAdviserInterestRates.DataKeys[i] != null && int.Parse(gvAdviserInterestRates.DataKeys[i].Value.ToString()) < 99999)
+                    DataControlRowState dcrs = gvr.RowState;
+                    if (gvr.RowState == (DataControlRowState.Alternate | DataControlRowState.Edit) || gvr.RowState == DataControlRowState.Edit)
                     {
-                        interestRateVo.CreatedBy = userVo.UserId;
-                        interestRateVo.LoanSchemeInterestRateId = int.Parse(gvAdviserInterestRates.DataKeys[i].Value.ToString());
-                        isUpdated = LiabilitiesBo.UpdateInterestRate(interestRateVo);
-
+                        result = true;
+                        break;
                     }
-                    else
-                    {
-                        interestRateVo.ModifiedBy = userVo.UserId;
-                        isUpdated = LiabilitiesBo.AddInterestRate(interestRateVo);
-                    }
-                    //schemeId = int.Parse(gvAdviserLoanSchemeView.DataKeys[selectedRow].Values["SchemeId"].ToString());
 
-                    //gvAdviserInterestRates.EditIndex = -1;
-
-                    // BindInterestRates();
                 }
+            }
+            if (!result)
+            {
+                UpdationIncomplete.Visible = false;
+                for (int i = 0; i < gvAdviserInterestRates.Rows.Count; i++)
+                {
+                    if (gvAdviserInterestRates.Rows[i].RowType == DataControlRowType.DataRow && gvAdviserInterestRates.DataKeys[i].Value != "-1")
+                    {
+                        GridViewRow row = gvAdviserInterestRates.Rows[i];
+
+                        interestRateVo.InterestCategory = ((Label)row.FindControl("lblCategory")).Text.Trim();
+                        interestRateVo.MinimumFinance = TryParseFloat(((Label)row.FindControl("lblMinFinance")).Text.Trim());
+                        interestRateVo.MaximumFinance = TryParseFloat(((Label)row.FindControl("lblMaxFinance")).Text.Trim());
+                        interestRateVo.MinimumPeriod = TryParseInt(((Label)row.FindControl("lblMinimumPeriod")).Text.Trim());
+                        interestRateVo.MaximumPeriod = TryParseInt(((Label)row.FindControl("lblMaximumPeriod")).Text.Trim());
+
+                        interestRateVo.DifferentialInterestRate = TryParseFloat(((Label)row.FindControl("lblDifferentialInterestRate")).Text.Trim());
+                        interestRateVo.PreClosingCharges = TryParseFloat(((Label)row.FindControl("lblPreClosingCharges")).Text.Trim());
+                        interestRateVo.ProcessingCharges = TryParseFloat(((Label)row.FindControl("lblProcessingCharges")).Text.Trim());
+                        interestRateVo.MaximumFinancePer = TryParseFloat(((Label)row.FindControl("lblMaximumFinancePer")).Text.Trim());
+                        //if(mode == Mode.Add)
+                        //    // bool isUpdated = LiabilitiesBo.UpdateInterestRate(interestRateVo);
+                        //else
+
+                        interestRateVo.LoanSchemeId = schemeId;
+
+                        bool isUpdated = false;
+                        if (gvAdviserInterestRates.DataKeys[i] != null && int.Parse(gvAdviserInterestRates.DataKeys[i].Value.ToString()) < 99999)
+                        {
+                            interestRateVo.CreatedBy = userVo.UserId;
+                            interestRateVo.LoanSchemeInterestRateId = int.Parse(gvAdviserInterestRates.DataKeys[i].Value.ToString());
+                            isUpdated = LiabilitiesBo.UpdateInterestRate(interestRateVo);
+
+                        }
+                        else
+                        {
+                            interestRateVo.ModifiedBy = userVo.UserId;
+                            isUpdated = LiabilitiesBo.AddInterestRate(interestRateVo);
+                        }
+                        //schemeId = int.Parse(gvAdviserLoanSchemeView.DataKeys[selectedRow].Values["SchemeId"].ToString());
+
+                        //gvAdviserInterestRates.EditIndex = -1;
+
+                        // BindInterestRates();
+                    }
+                }
+            }
+            else
+            {
+                UpdationIncomplete.Visible = true;
             }
         }
 
@@ -616,7 +639,7 @@ namespace WealthERP.Loans
             schemeDetailsVo.PLR = TryParseFloat(txtPrimeLendingRate.Text);
             schemeDetailsVo.MarginMaintained = TryParseInt(txtMargin.Text);
 
-            schemeDetailsVo.AdviserId = adviserVo.advisorId;
+            //schemeDetailsVo.AdviserId = adviserVo.advisorId;
             //if (txtMinAge != null && txtMinAge.Text != string.Empty)
             schemeDetailsVo.MinimumAge = TryParseInt(txtMinAge.Text);
             //if (txtMaxAge != null && txtMaxAge.Text != string.Empty)
@@ -652,6 +675,7 @@ namespace WealthERP.Loans
                 bool isProofsUpdated = AddProofs();
             }
             string url = "?mode=view";
+            Session["LoanSchemeViewStatus"] = "View";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanSchemeView','" + url + "');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('LoanSchemeView','');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('SessionExpired','');", true);
@@ -708,6 +732,7 @@ namespace WealthERP.Loans
         protected void lnkViewAll_Click(object sender, EventArgs e)
         {
             string url = "?mode=view";
+            Session["LoanSchemeViewStatus"] = "View";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanSchemeView','" + url + "');", true);
         }
 
@@ -783,10 +808,15 @@ namespace WealthERP.Loans
 
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
-            string url = "?schemeId=" + schemeId + "&mode=Edit";
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','" + url + "');", true);
+            if (Session["LoanSchemeView"].ToString() == "SuperAdmin")
+            {
+                string url = "?schemeId=" + schemeId + "&mode=Edit";
+                Session["LoanSchemeViewStatus"] = "Edit";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','" + url + "');", true);
+            }
         }
 
     }
 
 }
+
