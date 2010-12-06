@@ -43,12 +43,10 @@ namespace WealthERP.UserManagement
         }
 
         /* For BM Left Treeview */
-
-        
        
         protected void RadPanelBar1_ItemClick(object sender, Telerik.Web.UI.RadPanelBarEventArgs e)
         {
-            if (e.Item.Value == "Switch Roles")
+            if (e.Item.Value == "SwitchRole")
             {
                 roleList = userBo.GetUserRoles(userVo.UserId);
                 count = roleList.Count;

@@ -8,9 +8,9 @@
 <tr><td>
 <telerik:RadPanelBar ID="RadPanelBar1" Runat="server" 
     onitemclick="RadPanelBar1_ItemClick" ExpandAnimation-Type="InCubic" ExpandMode="MultipleExpandedItems" Width="130%" EnableEmbeddedSkins="false" Skin="Touchbase" >
-    <Items>
-        <telerik:RadPanelItem runat="server" Text="Switch Role" Value="SwitchRole" Expanded="true" PostBack="false">
             <Items>
+                <telerik:RadPanelItem runat="server" Text="Switch Roles" Value="SwitchRole">
+                </telerik:RadPanelItem>
                 <telerik:RadPanelItem runat="server" Text="Home" Value="Dashboard">
                 </telerik:RadPanelItem>
                 <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
@@ -30,8 +30,6 @@
                 </Items>
                 </telerik:RadPanelItem>
             </Items>
-        </telerik:RadPanelItem>
-    </Items>
 </telerik:RadPanelBar>
 </td></tr>
 </table>
