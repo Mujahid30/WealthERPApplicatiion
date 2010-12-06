@@ -16,6 +16,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using WealthERP.Base;
 using BoAdvisorProfiling;
+using System.Configuration;
 
 namespace WealthERP.FP
 {
@@ -45,6 +46,7 @@ namespace WealthERP.FP
         {
             try
             {
+                
                 int customerId = 0;
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
@@ -66,6 +68,8 @@ namespace WealthERP.FP
                 {
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 }
+
+                //SqlDataSourceCustomerRelation.ConnectionString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
                 rmVo = (RMVo)Session["rmVo"];
                 BindBranch(advisorVo, rmVo);
                 if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)

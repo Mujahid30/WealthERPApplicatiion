@@ -194,8 +194,9 @@
                                     <ClientSettings>
                                     </ClientSettings>
                                 </telerik:RadGrid>
-                                <asp:SqlDataSource ID="SqlDataSourceCustomerRelation" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"
-                                    SelectCommand="SP_GetCustomerRelation" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+                                <asp:SqlDataSource ID="SqlDataSourceCustomerRelation" runat="server" 
+                                    SelectCommand="SP_GetCustomerRelation" SelectCommandType="StoredProcedure" 
+                                    ConnectionString="<%$ ConnectionStrings:wealtherp %>"></asp:SqlDataSource>
                             </telerik:RadAjaxPanel>
                        
             </div>
