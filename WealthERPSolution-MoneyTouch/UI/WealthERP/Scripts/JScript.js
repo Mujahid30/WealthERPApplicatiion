@@ -30,8 +30,10 @@ function loadcontrol(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
-    if (logintrue != "none" && logintrue != "login" && logintrue != "list") {
-        var c_src = "ControlHost.aspx" + logintrue + "&pageid=";
+    if (logintrue != "none" && logintrue != "login" && logintrue != "list" && logintrue != null) {
+        if (logintrue.indexOf("?") > -1)
+            logintrue = logintrue.substring(1);
+        var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
         var c_src = "ControlHost.aspx?pageid=";
@@ -295,8 +297,10 @@ function loadfrommenu(controlid, logintrue, frombm) {
 
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
-    if (logintrue != "none" && logintrue != "login") {
-        var c_src = "ControlHost.aspx" + logintrue + "&pageid=";
+    if (logintrue != "none" && logintrue != "login" && logintrue != "list" && logintrue != null) {
+        if (logintrue.indexOf("?") > -1)
+            logintrue = logintrue.substring(1);
+        var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
         var c_src = "ControlHost.aspx?pageid=";
@@ -683,8 +687,10 @@ function loadcontrolCustomer(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
-    if (logintrue != "none" && logintrue != "login") {
-        var c_src = "ControlHost.aspx" + logintrue + "&pageid=";
+    if (logintrue != "none" && logintrue != "login" && logintrue != "list" && logintrue != null) {
+        if (logintrue.indexOf("?") > -1)
+            logintrue = logintrue.substring(1);
+        var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
         var c_src = "ControlHost.aspx?pageid=";
@@ -918,8 +924,10 @@ function loadcontrolonly(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
-    if (logintrue != "none" && logintrue != "login") {
-        var c_src = "ControlHost.aspx" + logintrue + "&pageid=";
+    if (logintrue != "none" && logintrue != "login" && logintrue != "list" && logintrue != null) {
+        if (logintrue.indexOf("?") > -1)
+            logintrue = logintrue.substring(1);
+        var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
     }
     else {
         var c_src = "ControlHost.aspx?pageid=";
