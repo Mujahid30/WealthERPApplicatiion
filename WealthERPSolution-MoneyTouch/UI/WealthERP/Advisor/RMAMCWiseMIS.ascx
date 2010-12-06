@@ -164,11 +164,13 @@
             </asp:GridView>
         </td>
     </tr>
-    <tr>
-        <td colspan="3">
-            &nbsp;
-        </td>
-    </tr>
+      <tr id="ValuationNotDoneErrorMsg" align="center" style="width: 100%" runat="server">
+                    <td align="center" style="width: 100%">
+                        <div class="failure-msg" style="text-align:center" align="center">
+                            Valuation not done for this adviser....
+                        </div>
+                    </td>
+                </tr>
 </table>
 <asp:Button ID="btnSearch" runat="server" Text="" BorderStyle="None" BackColor="Transparent"
     OnClick="btnSearch_Click" />
