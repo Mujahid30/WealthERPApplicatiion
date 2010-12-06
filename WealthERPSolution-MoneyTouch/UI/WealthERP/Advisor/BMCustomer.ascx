@@ -190,7 +190,7 @@
                     <Columns>
                         <asp:TemplateField ItemStyle-Width="30px">
                             <ItemTemplate>
-                                <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
+                                <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
                                     <asp:ListItem Text="Select" />
                                     <asp:ListItem Text="Dashboard" />
                                     <asp:ListItem Text="Profile" />
@@ -202,23 +202,23 @@
                         </asp:TemplateField>
                         <asp:TemplateField ItemStyle-Wrap="false" ItemStyle-Width="18px">
                             <HeaderTemplate>
-                                <asp:Label ID="lblParent" runat="server" Text="Parent"></asp:Label>
-                                <br />
-                                <asp:DropDownList ID="ddlParent" AutoPostBack="true" runat="server" Font-Size="13px" Width="170px" OnSelectedIndexChanged="ddlParent_SelectedIndexChanged" CssClass="GridViewCmbLongField">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblParentHeader" runat="server" Text='<%# Eval("Parent").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-Width="25px">
-                            <HeaderTemplate>
-                                <asp:Label ID="lblCustName" runat="server" Text="Customer / Company"></asp:Label>
+                                <asp:Label ID="lblCustName" runat="server" Text="Name"></asp:Label>
                                 <br />
                                 <asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_BMCustomer_btnNameSearch');" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblCustNameHeader" runat="server" Text='<%# Eval("Cust_Comp_Name").ToString() %>'></asp:Label>
+                                <asp:Label ID="lblParentHeader" runat="server" Text='<%# Eval("Cust_Comp_Name").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-Width="25px">
+                           <HeaderTemplate>
+                                <asp:Label ID="lblParent" runat="server" Text="Group"></asp:Label>
+                                <br />
+                                <asp:DropDownList ID="ddlParent" AutoPostBack="true" runat="server" Width="170px" OnSelectedIndexChanged="ddlParent_SelectedIndexChanged" CssClass="cmbField">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblCustNameHeader" runat="server" Text='<%# Eval("Parent").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="Phone Number" HeaderText="Phone" ItemStyle-Width="100px" />
@@ -238,7 +238,7 @@
                             <HeaderTemplate>
                                 <asp:Label ID="lblCity" runat="server" Text="City"></asp:Label>
                                 <br />
-                                <asp:DropDownList ID="ddlCity" AutoPostBack="true" Font-Size="13px" Width="100px" runat="server" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlCity" AutoPostBack="true" Width="100px" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </HeaderTemplate>
                             <ItemTemplate>
