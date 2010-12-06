@@ -113,15 +113,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl spanddlBranchList;
         
         /// <summary>
-        /// trSelectAll control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSelectAll;
-        
-        /// <summary>
         /// lblAllpages control.
         /// </summary>
         /// <remarks>
@@ -174,15 +165,6 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::WealthERP.Pager mypager;
-        
-        /// <summary>
-        /// tblReassign control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblReassign;
         
         /// <summary>
         /// trReassignBranch control.

@@ -208,7 +208,7 @@
 </tr>
     
     
-    <tr id="trSelectAll" runat="server">
+    <tr>
     <td colspan="2" style="padding-left:8px">
     
     <input id="chkSelectAllpages"  name="Select All across pages" value="Customer" type="checkbox" onclick="checkAllBoxes('AllPage')" />
@@ -355,7 +355,7 @@
     </tr>
     <tr>
     <td>
-    <table id="tblReassign" runat="server">
+    <table>
     <tr id="trReassignBranch" runat="server">
         <td class="SubmitCell" align="left">
             <asp:Label ID="Label2" Text="Pick Branch: " CssClass="FieldName" runat="server"></asp:Label> 
