@@ -88,16 +88,16 @@
             <tr>
                 <td class="SubmitCell">
                     <asp:Button ID="btnSubmit" runat="server" Text="Apply Alert" CssClass="PCGLongButton"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
+                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAlertDashBoard_btnSubmit', 'L');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAlertDashBoard_btnSubmit', 'L');"
                         OnClick="btnSubmit_Click" />
                     <asp:Button ID="btnEdit" runat="server" Text="Edit Default" CssClass="PCGLongButton"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnEdit', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnEdit', 'S');"
+                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAlertDashBoard_btnEdit', 'L');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAlertDashBoard_btnEdit', 'L');"
                         OnClick="btnEdit_Click" />
                     <asp:Button ID="btnReset" runat="server" Text="Reset Alert" CssClass="PCGLongButton"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnReset', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnReset', 'S');"
+                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAlertDashBoard_btnReset', 'L');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAlertDashBoard_btnReset', 'L');"
                         OnClick="btnReset_Click" />
                 </td>
             </tr>
