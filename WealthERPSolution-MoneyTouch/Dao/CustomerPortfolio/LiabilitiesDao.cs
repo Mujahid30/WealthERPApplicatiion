@@ -1780,7 +1780,7 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateCmd = db.GetStoredProcCommand("SP_LoanSchemeCreateScheme");
-                db.AddInParameter(updateCmd, "@A_AdviserId", DbType.Int32, schemeDetailsVo.AdviserId);
+                
                 db.AddInParameter(updateCmd, "@ALS_CreatedBy", DbType.Int32, schemeDetailsVo.CreatedBy);
                 db.AddInParameter(updateCmd, "@ALS_IsFloatingRateInterest", DbType.Int16, schemeDetailsVo.IsFloatingRateInterest);
                 db.AddInParameter(updateCmd, "@ALS_LoanSchemeName", DbType.String, schemeDetailsVo.LoanSchemeName);
