@@ -30,6 +30,10 @@ namespace WealthERP.CustomerPortfolio
             {
                 SessionBo.CheckSession();
                 customerVo = (CustomerVo)Session["CustomerVo"];
+                if (customerVo != null)
+                {
+                    Session[SessionContents.FPS_ProspectList_CustomerId] = customerVo.CustomerId;
+                }
                 if (!IsPostBack)
                 {
                     //customerVo = (CustomerVo)Session["CustomerVo"];
