@@ -37,7 +37,10 @@ namespace WealthERP.Advisor
             try
             {
                 customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
-
+                if (customerVo != null)
+                {
+                    Session[SessionContents.FPS_ProspectList_CustomerId] = customerVo.CustomerId;
+                }
                 if (!IsPostBack)
                 {
                     First = customerVo.FirstName.ToString();
