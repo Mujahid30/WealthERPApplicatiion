@@ -538,7 +538,10 @@ namespace WealthERP.Advisor
 
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
-
+                if (customerId != 0)
+                {
+                    Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+                }
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
@@ -579,10 +582,7 @@ namespace WealthERP.Advisor
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
                 {
-                    if (customerId != 0)
-                    {
-                        Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
-                    }
+                   
                     Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
                     if (customerVo.Type == "IND")
