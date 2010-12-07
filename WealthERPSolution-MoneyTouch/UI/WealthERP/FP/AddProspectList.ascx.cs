@@ -478,7 +478,7 @@ namespace WealthERP.FP
                 else
                 {
                    
-                       customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                       customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());                       
                        if (btnSubmitAddDetails.Text == "Add Finance Details")
                        {
                            dt = CustomerIdList(dt, customerId);
@@ -779,11 +779,16 @@ namespace WealthERP.FP
         protected DataTable CustomerIdList(DataTable dt,int customerId)
         {
             int i=0;
+            List<CustomerFamilyVo> customerFamilyVoList = new List<CustomerFamilyVo>();
+            CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
             customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
-            foreach (CustomerFamilyVo customerfamilyvo in customerFamilyVoList)
+            if (customerFamilyVoList != null)
             {
-                dt.Rows[i]["C_CustomerId"] = customerfamilyvo.CustomerId;
-                dt.Rows[i]["CA_AssociationId"] = customerfamilyvo.CustomerId;
+                foreach (CustomerFamilyVo customerfamilyvo in customerFamilyVoList)
+                {
+                    dt.Rows[i]["C_CustomerId"] = customerfamilyvo.CustomerId;
+                    dt.Rows[i]["CA_AssociationId"] = customerfamilyvo.CustomerId;
+                }
             }
             return dt;
         }
