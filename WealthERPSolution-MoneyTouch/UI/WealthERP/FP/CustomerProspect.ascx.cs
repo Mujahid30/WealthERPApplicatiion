@@ -91,7 +91,7 @@ namespace WealthERP.FP
                                 dr["FirstName"] = customerFamilyVo.FirstName;
                                 dr["MiddleName"] = customerFamilyVo.MiddleName;
                                 dr["LastName"] = customerFamilyVo.LastName;
-                                dr["DOB"] = customerFamilyVo.DOB;
+                                dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
                                 dr["EmailId"] = customerFamilyVo.EmailId;
                                 dt.Rows.Add(dr);
                             }
