@@ -338,7 +338,7 @@ namespace WealthERP.Advisor
                         BindBMDropDown(bmIdOrHeadID);
                     }
                     rmList = advisorStaffBo.GetBMRMList(branchId, bmIdOrHeadID, all, mypager.CurrentPage, out Count);
-                    if (rmList.Count != 0)
+                    if (rmList!=null && rmList.Count != 0)
                     {
                         lblTotalRows.Text = hdnCount.Value = Count.ToString();
                         DataTable dtAdvisorStaff = new DataTable();
