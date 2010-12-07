@@ -68,6 +68,8 @@ namespace WealthERP.Advisor
                 {
                     if (!IsPostBack)
                     {
+                        trRange.Visible = true;
+                        trBranchAndRmDps.Visible = true;
                         BindBranchDropDown();
                         BindRMDropDown();
                         trRange.Visible = true;
@@ -76,10 +78,17 @@ namespace WealthERP.Advisor
                     //dsGetLastTradeDate = customertransactionbo.GetLastTradeDate();
                     //DateTime dtLastTradeDate;
                 }
+                else if (userType == "rm")
+                {
+                    trRange.Visible = true;
+                    trBranchAndRmDps.Visible = false;
+                }
                 else if (userType == "bm")
                 {
                     if (!IsPostBack)
                     {
+                        trRange.Visible = true;
+                        trBranchAndRmDps.Visible = true;
                         BindBranchForBMDropDown();
                         BindRMforBranchDropdown(0, bmID, 1);
                         trRange.Visible = true;
