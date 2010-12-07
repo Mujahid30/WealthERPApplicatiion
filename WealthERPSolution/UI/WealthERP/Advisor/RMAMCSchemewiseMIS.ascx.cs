@@ -214,8 +214,6 @@ namespace WealthERP.Advisor
                 hdnAll.Value = "2";
                 hdnXWise.Value = "1";
                 hdnrmId.Value = ddlRM.SelectedValue;
-
-                dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), amcCode, 0, CurrentPage, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), string.Empty, string.Empty, hdnCategoryFilter.Value.ToString(), out count, 0);
                 bindgrid(LatestValuationdate, amcCode);
             }
 
@@ -349,6 +347,18 @@ namespace WealthERP.Advisor
             {
                 CurrentPage = int.Parse(hdnCurrentPage.Value);
 
+            }
+
+            if ((Session["BranchFilterForAMC"] != null) || (Session["RMFilterForAMC"] != null))
+            {
+                if (Session["PassAMCCode"] != null)
+                {
+                    amcCode = int.Parse(Session["PassAMCCode"].ToString());
+                }
+                else
+                {
+                    amcCode = 0;
+                }
             }
                         
             if(userType == "rm")
