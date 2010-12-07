@@ -1022,7 +1022,42 @@ namespace WealthERP.FP
                     assetdetailsvolist.Add(assetdetailsvo);
                     totalasset += assetdetailsvo.Value;
                 }
-
+                //Cash and Savings
+                if (txtPMS.Text != string.Empty)
+                {
+                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                    assetdetailsvo.AssetGroupCode = "CS";
+                    assetdetailsvo.Value = double.Parse(txtCashAndSavings.Text);
+                    assetdetailsvolist.Add(assetdetailsvo);
+                    totalasset += assetdetailsvo.Value;
+                }
+                //Structured Product
+                if (txtPMS.Text != string.Empty)
+                {
+                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                    assetdetailsvo.AssetGroupCode = "SP";
+                    assetdetailsvo.Value = double.Parse(txtStructuredProduct.Text);
+                    assetdetailsvolist.Add(assetdetailsvo);
+                    totalasset += assetdetailsvo.Value;
+                }
+                //Commodities
+                if (txtPMS.Text != string.Empty)
+                {
+                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                    assetdetailsvo.AssetGroupCode = "CM";
+                    assetdetailsvo.Value = double.Parse(txtCommodities.Text);
+                    assetdetailsvolist.Add(assetdetailsvo);
+                    totalasset += assetdetailsvo.Value;
+                }
+                //Others
+                if (txtPMS.Text != string.Empty)
+                {
+                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                    assetdetailsvo.AssetGroupCode = "OT";
+                    assetdetailsvo.Value = double.Parse(txtInvestmentsOthers.Text);
+                    assetdetailsvolist.Add(assetdetailsvo);
+                    totalasset += assetdetailsvo.Value;
+                }
                 //==========================================================================================================================
 
                 //Life Insurance
@@ -1608,6 +1643,11 @@ namespace WealthERP.FP
                     if (cpad.AssetGroupCode == "PM")
                     {
                         txtPMS.Text = cpad.Value.ToString();
+                        totalasset += cpad.Value;
+                    }
+                    if (cpad.AssetGroupCode == "OT")
+                    {
+                        txtInvestmentsOthers.Text = cpad.Value.ToString();
                         totalasset += cpad.Value;
                     }
                     //Life Insurance

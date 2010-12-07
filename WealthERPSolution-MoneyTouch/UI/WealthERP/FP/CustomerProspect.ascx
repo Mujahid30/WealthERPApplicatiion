@@ -487,7 +487,7 @@
                                                 <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                                 <Columns>
                                                     <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
-                                                        CancelText="Cancel" ButtonType="ImageButton">
+                                                        CancelText="Cancel" ButtonType="ImageButton" InsertImageUrl="../App_Themes/Purple/Grid/Update.gif" EditImageUrl="../App_Themes/Purple/Grid/Edit.gif" CancelImageUrl="../App_Themes/Purple/Grid/Cancel.gif">
                                                         <HeaderStyle Width="85px"></HeaderStyle>
                                                     </telerik:GridEditCommandColumn>
                                                     <telerik:GridDropDownColumn UniqueName="CustomerRelationship" HeaderText="Relationship"
