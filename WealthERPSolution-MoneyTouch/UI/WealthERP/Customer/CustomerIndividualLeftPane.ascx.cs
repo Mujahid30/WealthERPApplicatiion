@@ -42,6 +42,10 @@ namespace WealthERP.Customer
             //}
             SessionBo.CheckSession();
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+            if (customerVo != null)
+            {
+                Session[SessionContents.FPS_ProspectList_CustomerId] = customerVo.CustomerId;
+            }
             if (!IsPostBack)
             {
                 isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
