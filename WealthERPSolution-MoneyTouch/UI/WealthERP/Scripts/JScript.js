@@ -527,9 +527,10 @@ function loginloadcontrolfromDefault(controlid, logintrue, UserName) {
     var c_src = "ControlHost.aspx?pageid=";
     var randomnumbers = RandomGenerator();
     var url = c_src + controlid + "&rnd=" + randomnumbers;
-
+    if (logintrue != "" && logintrue!=null)
+        url = url + "&UserId=" + logintrue;
     setTimeout('document.getElementById("mainframe").src="' + url + '"', 25);
-    //document.getElementById("mainframe").src = url;
+    
 
     if (controlid == "AdvisorDashBoard") {
         loadlinksfromDefault("AdvisorLeftPane");
