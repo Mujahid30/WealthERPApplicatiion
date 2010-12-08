@@ -239,6 +239,15 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.GridView gvMFMIS;
         
         /// <summary>
+        /// ValuationNotDoneErrorMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow ValuationNotDoneErrorMsg;
+        
+        /// <summary>
         /// btnSearch control.
         /// </summary>
         /// <remarks>
