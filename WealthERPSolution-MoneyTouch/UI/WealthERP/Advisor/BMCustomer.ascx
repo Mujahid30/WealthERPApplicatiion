@@ -207,18 +207,18 @@
                                 <asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_BMCustomer_btnNameSearch');" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblParentHeader" runat="server" Text='<%# Eval("Cust_Comp_Name").ToString() %>'></asp:Label>
+                                <asp:Label ID="lblCustNameHeader" runat="server" Text='<%# Eval("Cust_Comp_Name").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-Width="25px">
-                           <HeaderTemplate>
+                         <asp:TemplateField ItemStyle-Wrap="false" ItemStyle-Width="18px">
+                            <HeaderTemplate>
                                 <asp:Label ID="lblParent" runat="server" Text="Group"></asp:Label>
                                 <br />
-                                <asp:DropDownList ID="ddlParent" AutoPostBack="true" runat="server" Width="170px" OnSelectedIndexChanged="ddlParent_SelectedIndexChanged" CssClass="cmbField">
+                                <asp:DropDownList ID="ddlParent" AutoPostBack="true" CssClass="cmbField" runat="server" Width="170px" OnSelectedIndexChanged="ddlParent_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblCustNameHeader" runat="server" Text='<%# Eval("Parent").ToString() %>'></asp:Label>
+                                <asp:Label ID="lblParentHeader" runat="server" Text='<%# Eval("Parent").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="Phone Number" HeaderText="Phone" ItemStyle-Width="100px" />
