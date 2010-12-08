@@ -2544,6 +2544,26 @@ namespace BoCustomerPortfolio
             schemePlanNAV = customerPortfolioDao.GetMFSchemePlanNAV(schemePlanCode, navDate);
             return schemePlanNAV;
         }
+        /// <summary>
+        /// Added For Getting Equity Price.
+        /// </summary>
+        /// Added by: Vinayak Patil
+        /// <param name="schemePlanCode"></param>
+        /// <param name="navDate"></param>
+        /// <returns></returns>
+
+        public float GetEQScripPrice(int ScripCode, DateTime navDate)
+        {
+            float ScripPrice = 0;
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            ScripPrice = customerPortfolioDao.GetEQScripPrice(ScripCode, navDate);
+            return ScripPrice;
+        }
+        /// <summary>
+        /// ** End **
+        /// </summary>
+        /// <returns></returns>
+      
         public float GetMFSchemePlanSnapShotNAV(int schemePlanCode)
         {
             float schemePlanNAV = 0;
