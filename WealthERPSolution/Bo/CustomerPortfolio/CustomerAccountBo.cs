@@ -409,6 +409,43 @@ namespace BoCustomerPortfolio
 
         }
 
+     
+
+        public bool CheckTradeNoAvailability(int TradeAccNo, string BrokerCode, int PortfolioId)
+        {
+            bool bResult = false;
+            CustomerAccountDao customerAccDao = new CustomerAccountDao();
+            try
+            {
+                bResult = customerAccDao.CheckTradeNoAvailability(TradeAccNo, BrokerCode, PortfolioId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CheckTradeNoAvailability()");
+
+
+                object[] objects = new object[5];
+                objects[0] = TradeAccNo;
+                objects[1] = BrokerCode;
+                objects[2] = PortfolioId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return bResult;
+        }
+
         public int CreateCustomerPropertyAccount(CustomerAccountsVo customerAccountVo, int userId)
         {
             CustomerAccountDao customerAccountDao = new CustomerAccountDao();
