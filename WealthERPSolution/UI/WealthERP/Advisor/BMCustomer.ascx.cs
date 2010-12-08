@@ -705,6 +705,8 @@ namespace WealthERP.Advisor
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
 
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
