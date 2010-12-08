@@ -20,6 +20,8 @@ namespace VoUser
         private string m_UserType;
         private int m_IsTempPassword;
 
+        public string[] RoleList { get; set; } 
+
         public int IsTempPassword
         {
             get { return m_IsTempPassword; }
