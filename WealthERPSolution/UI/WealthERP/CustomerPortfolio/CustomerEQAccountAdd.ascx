@@ -1,8 +1,111 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerEQAccountAdd.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerEQAccountAdd.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.CustomerEQAccountAdd" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+    
+ <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+ 
+ <style>
+        body
+        {
+            background-color: #EBEFF9;
+        }
+        .error
+        {
+            color: Red;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .success
+        {
+            color: Green;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        input
+        {
+            border: 1px solid #ccc;
+            color: #333333;
+            font-size: 12px;
+            margin-top: 2px;
+            padding: 3px;
+            width: 200px;
+        }
+        .left-td
+        {
+            text-align: right;
+            width: 52%;
+            padding-left:100px;
+            color:#16518A;
+            
+        }
+        .rightField
+        {
+           
+            text-align: left;
+        }
+        .spnRequiredField
+        {
+            color: #FF0033;
+            font-size: x-small;
+        }
+    </style>
+    <script type="text/javascript">
+        function checkLoginId() {
+
+            $("#hidValid").val("0");
+            if ($("#<%=txtTradeNum.ClientID %>").val() == "") {
+                $("#spnLoginStatus").html("");
+                return;
+            }
+            $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: "ControlHost.aspx/CheckTradeNoAvailability",
+                data: "{ 'TradeAccNo': '" + $("#<%=txtTradeNum.ClientID %>").val() + "','BrokerCode': '" + $("#<%=ddlBrokerCode.ClientID %>").val() + "','PortfolioId': '" + $("#<%=ddlPortfolio.ClientID %>").val() + "' }",
+                error: function(xhr, status, error) {
+                    alert("Sorry. Something went wrong!");
+                },
+                success: function(msg) {
+
+                    if (msg.d) {
+                        $("#hidValid").val("1");
+                        $("#spnLoginStatus").removeClass();
+                        $("#spnLoginStatus").addClass("success");
+                        $("#spnLoginStatus").html("");
+                    }
+                    else {
+                        $("#hidValid").val("0");
+                        $("#spnLoginStatus").removeClass();
+                        $("#spnLoginStatus").addClass("error");
+                        $("#spnLoginStatus").html("This trade account exists.");
+                    }
+                }
+
+            });
+        }
+        function isValid() {
+           
+            if (document.getElementById('hidValid').value == '1') {
+                Page_ClientValidate();
+                return Page_IsValid;
+            }
+            else {
+                Page_ClientValidate();
+                alert('Your Selected Trade Number is not available. Please choose some other Trade Number');
+                return false;
+            }
+        }
+</script>
+            
+
 <script type="text/javascript">
+
+
     function checkDate(sender, args) {
 
         var selectedDate = new Date();
@@ -19,11 +122,14 @@
     }
     
 </script>
+
+
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+
 <asp:UpdatePanel ID="upnl1" runat="server">
     <ContentTemplate>
     <table width="100%" class="TableBackground">
@@ -77,7 +183,7 @@
                     <asp:Label ID="lblFolioNum0" runat="server" CssClass="FieldName" Text="Broker Code :"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" 
+                    <asp:DropDownList ID="ddlBrokerCode" AutoPostBack="true" runat="server" CssClass="cmbField" 
                         Height="16px" Width="274px">
                     </asp:DropDownList>
                     <span id="Span2" class="spnRequiredField">*</span>
@@ -90,8 +196,9 @@
                     <asp:Label ID="lblFolioNum" runat="server" CssClass="FieldName" Text="Trade Account Number : "></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtTradeNum" runat="server" CssClass="txtField" MaxLength="15"></asp:TextBox>
-                    <span id="Span3" class="spnRequiredField">*</span>
+                    <asp:TextBox ID="txtTradeNum" runat="server" OnTextChanged="txtTradeNum_TextChanged" CssClass="txtField" AutoPostBack="true" MaxLength="15" onchange="checkLoginId()"></asp:TextBox>
+                    <span id="Span3" class="spnRequiredField">*</span><span id="spnLoginStatus"></span>
+                    
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtTradeNum"
                         ErrorMessage="Please enter the trade number" runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
@@ -111,11 +218,8 @@
                     <ajaxToolkit:TextBoxWatermarkExtender ID="txtAccountStartingDate_TextBoxWatermarkExtender" 
                         runat="server" TargetControlID="txtAccountStartingDate" WatermarkText="dd/mm/yyyy">
                     </ajaxToolkit:TextBoxWatermarkExtender>
-                    <span id="Span4" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtAccountStartingDate"
-                        ErrorMessage="Please select a Account Starting Date" runat="server"
-                         CssClass="rfvPCG">
-                    </asp:RequiredFieldValidator>
+                   
+                   
                     
                 </td>
             </tr>
@@ -212,16 +316,18 @@
          <td colspan="2" class="SubmitCell">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
-                Text="Submit" OnClick="btnSubmit_Click" />
+                Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
            <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" onclick="btnUpdate_Click" Visible="False" />
         </td>
+      
     </tr>
             
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
 
-
+<input type="hidden" id="hidValid" />
+<input type="hidden" id="hidStatus" runat="server" />
 <table width="100%" class="TableBackground" border="1">
     
 </table>

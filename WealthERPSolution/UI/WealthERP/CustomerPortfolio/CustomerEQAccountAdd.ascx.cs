@@ -14,6 +14,8 @@ using VoCustomerProfiling;
 using VoUser;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using DaoCustomerPortfolio;
+using System.Web.Services;
 namespace WealthERP.CustomerPortfolio
 {
     public partial class CustomerEQAccountAdd : System.Web.UI.UserControl
@@ -35,9 +37,20 @@ namespace WealthERP.CustomerPortfolio
         int dpAccountId;
         int isDefault = 0;
         string path;
+        string Id;
+        CustomerAccountDao checkAccDao = new CustomerAccountDao();
+       
+        [WebMethod]
+        public static bool CheckTradeNoAvailability(int TradeAccNo, string BrokerCode, int PortfolioId)
+        {
+            CustomerAccountDao checkAccDao = new CustomerAccountDao();
+            return checkAccDao.CheckTradeNoAvailability(TradeAccNo, BrokerCode, PortfolioId);
+        }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //txtTradeNum.Attributes.Add("onchange", "javascript:checkLoginId(value);");
             try
             {
                 SessionBo.CheckSession();
@@ -129,6 +142,8 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+
+            string accountopeningdate = txtAccountStartingDate.Text;
             try
             {
                 btnSubmit.Enabled = false;
@@ -136,7 +151,8 @@ namespace WealthERP.CustomerPortfolio
                 customerAccountsVo.PortfolioId = int.Parse(ddlPortfolio.SelectedValue.ToString());
                 customerAccountsVo.TradeNum = txtTradeNum.Text.ToString();
                 customerAccountsVo.BrokerCode = ddlBrokerCode.SelectedItem.Value.ToString();
-                customerAccountsVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);// ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
+                if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
+                    customerAccountsVo.AccountOpeningDate = DateTime.Parse(accountopeningdate);// ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
                 if (txtBrokeragePerDelivery.Text != "" && txtBrokeragePerSpeculative.Text != "" && txtOtherCharges.Text != "")
                 {
 
@@ -165,25 +181,34 @@ namespace WealthERP.CustomerPortfolio
                 //    }
                 //}
                 //}
-                if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "MultipleEqEntry")
-                {
-                    string queryString = "?prevPage=TradeAccAdd";
-                    // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
+                //DataSet TradeNum;
+                //TradeNum = checkAccBo.CheckTradeNoAvailability(Id);
 
-                }
-                else if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "EquityManualSingleTransaction")
-                {
-                    string queryString = "?prevPage=TradeAccAdd";
-                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
-                }
-                else
-                {
-                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
-                }
+                //if (!CheckEQAccDetails(TradeNum))
+                //{
+                    if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "MultipleEqEntry")
+                    {
+                        string queryString = "?prevPage=TradeAccAdd";
+                        // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
 
+                    }
+                    else if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "EquityManualSingleTransaction")
+                    {
+                        string queryString = "?prevPage=TradeAccAdd";
+                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
+                    }
+                    else
+                    {
+                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                    }
+                //}
+                //else
+                //{
+                //    Sample.Text = "Fail";
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -210,6 +235,18 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+
+        //private bool CheckEQAccDetails(DataSet tradenum)
+        //{
+        //    for (int i = 0; i < tradenum.Tables[0].Rows.Count; i++)
+        //    {
+        //        if (tradenum.Tables[0].Rows[i][0] == txtTradeNum.Text)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
 
         private void ViewEQAccountDetails()
@@ -359,6 +396,11 @@ namespace WealthERP.CustomerPortfolio
         protected void lnkBack_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+
+        }
+
+        protected void txtTradeNum_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
