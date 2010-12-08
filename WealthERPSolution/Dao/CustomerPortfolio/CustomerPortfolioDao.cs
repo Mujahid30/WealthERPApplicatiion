@@ -929,6 +929,67 @@ namespace DaoCustomerPortfolio
             return mfNPId;
         }
 
+        /// <summary>
+        /// Added For Getting Equity Price.
+        /// </summary>
+        /// Added by: Vinayak Patil
+        /// <param name="ScripCode"></param>
+        /// <param name="navDate"></param>
+        /// <returns></returns>
+
+        public float GetEQScripPrice(int ScripCode, DateTime navDate)
+        {
+            float ScripPlanNAV = 0;
+            Database db;
+            DbCommand getEQScripPriceCmd;
+            DataSet dsEQScripPrice;
+            DataTable dtdsEQScripPrice;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getEQScripPriceCmd = db.GetStoredProcCommand("SP_GetEquityScripPrice");
+
+                db.AddInParameter(getEQScripPriceCmd, "@PEP_Date", DbType.DateTime, navDate);
+                db.AddInParameter(getEQScripPriceCmd, "@PEM_ScripCode", DbType.Int32, ScripCode);
+                dsEQScripPrice = db.ExecuteDataSet(getEQScripPriceCmd);
+                if (dsEQScripPrice.Tables[0].Rows.Count > 0)
+                {
+                    dtdsEQScripPrice = dsEQScripPrice.Tables[0];
+                    foreach (DataRow dr in dtdsEQScripPrice.Rows)
+                    {
+                        ScripPlanNAV = float.Parse(dr["PESPH_ClosePrice"].ToString());
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetEQScripPrice(int scripCode, DateTime priceDate)");
+
+
+                object[] objects = new object[2];
+                objects[0] = ScripPlanNAV;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ScripPlanNAV;
+        }
+        /// <summary>
+        /// ** End **
+        /// </summary>
+        /// <returns></returns>
+
         public DataSet PopulateEQTradeYear()
         {
             DataSet ds = null;
