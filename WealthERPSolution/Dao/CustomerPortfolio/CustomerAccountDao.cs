@@ -390,7 +390,14 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_TradeAccountNum", DbType.String, customerAccountVo.TradeNum);
                 db.AddInParameter(createCustomerEQAccountCmd, "@PAG_AssetGroupCode", DbType.String, "DE");
                 db.AddInParameter(createCustomerEQAccountCmd, "@XB_BrokerCode", DbType.String, customerAccountVo.BrokerCode);
-                db.AddInParameter(createCustomerEQAccountCmd, "@CETA_AccountOpeningDate", DbType.DateTime, customerAccountVo.AccountOpeningDate);
+                if (customerAccountVo.AccountOpeningDate != DateTime.MinValue)
+                {
+                    db.AddInParameter(createCustomerEQAccountCmd, "@CETA_AccountOpeningDate", DbType.DateTime, customerAccountVo.AccountOpeningDate);
+                }
+                else
+                {
+                    db.AddInParameter(createCustomerEQAccountCmd, "@CETA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
+                }
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_CreatedBy", DbType.String, userId);
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_ModifiedBy", DbType.String, userId);                
                 db.AddInParameter(createCustomerEQAccountCmd, "@CETA_BrokerDeliveryPercentage", DbType.Double, customerAccountVo.BrokerageDeliveryPercentage);
@@ -516,6 +523,62 @@ namespace DaoCustomerPortfolio
 
             }
             return dsGetCustomerAssetAccounts;
+        }
+      
+
+        public bool CheckTradeNoAvailability(int TradeAccNo, string BrokerCode, int PortfolioId)
+        {
+
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            string query = "";
+            int rowCount;
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkAvailabilityCmd = db.GetStoredProcCommand("SP_CheckTradeAccAvailability");
+
+                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_No", DbType.Int32, TradeAccNo);
+                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_BrokerCode", DbType.String, BrokerCode);
+                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_PortfolioId", DbType.Int32, PortfolioId);
+
+                ds = db.ExecuteDataSet(chkAvailabilityCmd);
+                rowCount = ds.Tables[0].Rows.Count;
+                if (rowCount > 0)
+                {
+                    bResult = false;
+                }
+                else
+                {
+                    bResult = true;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UserDao.cs:ChkAvailability()");
+
+
+                object[] objects = new object[5];
+                objects[0] = TradeAccNo;
+                objects[1] = BrokerCode;
+                objects[2] = PortfolioId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
         }
 
         public DataSet GetCustomerPropertyAccounts(int portfolioId, string assetGroup, string assetCategory, string assetSubCategory)
