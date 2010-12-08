@@ -179,10 +179,10 @@ namespace DaoAdvisorProfiling
             }
             return ds;
         }
-        
-        public DataSet GetBranchAssociation(int userId, int currentPage, out int Count, string BranchFilter, string RMFilter, string SortExpression, out Dictionary<string, string> genDictBranch, out Dictionary<string, string> genDictRM)
+
+        public DataSet GetBranchAssociation(int advisorId, int currentPage, out int Count, string BranchFilter, string RMFilter, string SortExpression, out Dictionary<string, string> genDictBranch, out Dictionary<string, string> genDictRM)
         {
-            DataSet ds = null;
+             DataSet ds = null;
             Database db;
             DbCommand getBranchAssociationCmd;
 
@@ -194,7 +194,7 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getBranchAssociationCmd = db.GetStoredProcCommand("SP_GetBranchAssociation");
-                db.AddInParameter(getBranchAssociationCmd, "@U_UserId", DbType.Int32, userId);
+                db.AddInParameter(getBranchAssociationCmd, "@AdvisorId", DbType.Int32, advisorId);
                 db.AddInParameter(getBranchAssociationCmd, "@CurrentPage", DbType.Int32, currentPage);
                 db.AddInParameter(getBranchAssociationCmd, "@SortOrder", DbType.String, SortExpression);
 
@@ -209,27 +209,25 @@ namespace DaoAdvisorProfiling
 
                 if (db.ExecuteDataSet(getBranchAssociationCmd).Tables[0].Rows.Count > 0)
                     ds = db.ExecuteDataSet(getBranchAssociationCmd);
-                if (ds != null)
+
+                if (ds.Tables[1].Rows.Count > 0)
+                    Count = Int32.Parse(ds.Tables[1].Rows[0]["CNT"].ToString());
+
+                if (ds.Tables[2].Rows.Count > 0)
                 {
-                    if (ds.Tables[1].Rows.Count > 0)
-                        Count = Int32.Parse(ds.Tables[1].Rows[0]["CNT"].ToString());
-
-                    if (ds.Tables[2].Rows.Count > 0)
+                    foreach (DataRow dr in ds.Tables[2].Rows)
                     {
-                        foreach (DataRow dr in ds.Tables[2].Rows)
-                        {
-                            genDictBranch.Add(dr["BranchName"].ToString(), dr["BranchName"].ToString());
-                        }
+                        genDictBranch.Add(dr["branchId"].ToString(), dr["BranchName"].ToString());
                     }
+                }
 
-                    if (ds.Tables[3].Rows.Count > 0)
+                if (ds.Tables[3].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[3].Rows)
                     {
-                        foreach (DataRow dr in ds.Tables[3].Rows)
+                        if (dr["RMName"].ToString().Trim() != "")
                         {
-                            if (dr["RMName"].ToString().Trim() != "")
-                            {
-                                genDictRM.Add(dr["RMName"].ToString(), dr["RMName"].ToString());
-                            }
+                            genDictRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
                         }
                     }
                 }
@@ -246,7 +244,7 @@ namespace DaoAdvisorProfiling
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetBranchAssociation()");
                 object[] objects = new object[5];
-                objects[0] = userId;
+                objects[0] = advisorId;
                 objects[1] = currentPage;
                 objects[2] = RMFilter;
                 objects[3] = BranchFilter;
@@ -258,7 +256,10 @@ namespace DaoAdvisorProfiling
                 throw exBase;
             }
             return ds;
+
+
         }
+            
 
         public bool AddBranchTerminal(int branchId, float terminalId, int userId)
         {
@@ -1782,7 +1783,102 @@ namespace DaoAdvisorProfiling
             }
             return isAssociateCategoryDependent;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchIdFilter"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="custNameFilter"></param>
+        /// <param name="branchNameFilter"></param>
+        /// <param name="rmNameFilter"></param>
+        /// <param name="cityAreaFilter"></param>
+        /// <returns></returns>
+        public DataTable GetAllPagesAdvisorCustomerForAssociation(int branchIdFilter, int adviserId, string custNameFilter, string branchNameFilter, string rmNameFilter, string cityAreaFilter)
+        {
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet getCustomerDs;
+            DataTable dtAllPagesSelectedCustomer;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerListCmd = db.GetStoredProcCommand("SP_GetAllPagesCustmerForAssociation");
 
+                db.AddInParameter(getCustomerListCmd, "@A_AdviserId", DbType.Int32, adviserId);
+
+                if (branchIdFilter != 0)
+                    db.AddInParameter(getCustomerListCmd, "@branchIdFilter", DbType.Int32, branchIdFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@branchIdFilter", DbType.Int32, DBNull.Value);
+
+                if (custNameFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@CustomerNameFilter", DbType.String, custNameFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@CustomerNameFilter", DbType.String, DBNull.Value);                               
+
+                if (branchNameFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@BranchFilter", DbType.String, branchNameFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@BranchFilter", DbType.String, DBNull.Value);
+
+                if (rmNameFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, rmNameFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, DBNull.Value);
+
+                if (cityAreaFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@CityAreaFilter", DbType.String, cityAreaFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@CityAreaFilter", DbType.String, DBNull.Value);
+
+                getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+
+                dtAllPagesSelectedCustomer = getCustomerDs.Tables[0];
+                   
+                }
+            
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetAdviserCustomerListForAssociation()");
+
+                object[] objects = new object[11];
+                objects[0] = adviserId;               
+                objects[2] = custNameFilter;
+                objects[3] = cityAreaFilter;
+                objects[4] = branchNameFilter;
+                objects[5] = rmNameFilter;
+                objects[6] = branchIdFilter;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAllPagesSelectedCustomer;
+ 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchIdFilter"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="sortExpression"></param>
+        /// <param name="custNameFilter"></param>
+        /// <param name="branchNameFilter"></param>
+        /// <param name="rmNameFilter"></param>
+        /// <param name="areaFilter"></param>
+        /// <param name="cityFilter"></param>
+        /// <param name="advisorBranchList"></param>
+        /// <returns></returns>
         public List<CustomerVo> GetAdviserCustomerListForAssociation(int branchIdFilter, int adviserId, int currentPage, out int count, string sortExpression, string custNameFilter, string branchNameFilter, string rmNameFilter, string areaFilter, string cityFilter, out Dictionary<string, string> advisorBranchList)
         {
             List<CustomerVo> customerList = null;
