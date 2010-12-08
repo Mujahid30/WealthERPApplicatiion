@@ -468,6 +468,48 @@ namespace BoAdvisorProfiling
 
         /* End For BM MIS */
 
+
+
+        public DataSet GetAllUsersEQMISForComSec(string userType, DateTime valuationDate, int adviserId, int RMId, int BranchId, int branchHeadId, int all, int EQMIStype, int portfolioType)
+        {
+            DataSet dsEQMIS;
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            try
+            {
+                dsEQMIS = MISDao.GetAllUsersEQMISForComSec(userType, valuationDate, adviserId, RMId, BranchId, branchHeadId, all, EQMIStype, portfolioType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMISBo.cs:GetAllUsersEQMISForComSec()");
+
+                object[] objects = new object[11];
+                objects[0] = userType;
+                objects[1] = valuationDate;
+                objects[2] = EQMIStype;
+                objects[3] = portfolioType;
+                objects[4] = adviserId;
+                objects[5] = RMId;
+                objects[6] = BranchId;
+                objects[7] = branchHeadId;
+                objects[8] = all;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsEQMIS;
+        }
+        
+
    /// <summary>
    /// For getting the MIS wise transaction grid with total brokerage amount
    /// </summary>
