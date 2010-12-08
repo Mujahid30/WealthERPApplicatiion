@@ -616,7 +616,7 @@ namespace BoAdvisorProfiling
         /// <param name="genDictBranch"></param>
         /// <param name="genDictRM"></param>
         /// <returns></returns>
-        public DataSet GetBranchAssociation(int userId, int currentPage, out int Count, string BranchFilter, string RMFilter, string SortExpression, out Dictionary<string, string> genDictBranch, out Dictionary<string, string> genDictRM)
+        public DataSet GetBranchAssociation(int advisorId, int currentPage, out int Count, string BranchFilter, string RMFilter, string SortExpression, out Dictionary<string, string> genDictBranch, out Dictionary<string, string> genDictRM)
         {
             DataSet ds = new DataSet();
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
@@ -627,7 +627,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                ds = advisorBranchDao.GetBranchAssociation(userId, currentPage, out Count, BranchFilter, RMFilter, SortExpression, out genDictBranch, out genDictRM);
+                ds = advisorBranchDao.GetBranchAssociation(advisorId, currentPage, out Count, BranchFilter, RMFilter, SortExpression, out genDictBranch, out genDictRM);
             }
           
             catch (BaseApplicationException Ex)
@@ -640,7 +640,7 @@ namespace BoAdvisorProfiling
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetBranchAssociation()");
                 object[] objects = new object[5];
-                objects[0] = userId;
+                objects[0] = advisorId;
                 objects[1] = currentPage;
                 objects[2] = RMFilter;
                 objects[3] = BranchFilter;
@@ -1235,6 +1235,25 @@ namespace BoAdvisorProfiling
             }
             return isAssociateCategoryDependent;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="branchIdFilter"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="custNameFilter"></param>
+        /// <param name="branchNameFilter"></param>
+        /// <param name="rmNameFilter"></param>
+        /// <param name="cityAreaFilter"></param>
+        /// <returns></returns>
+        public DataTable GetAllpagesAdvisorCustomerForAssociation(int branchIdFilter, int adviserId, string custNameFilter, string branchNameFilter, string rmNameFilter, string cityAreaFilter)
+        {
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            DataTable dtAllPagesSelectedCustomer;
+            dtAllPagesSelectedCustomer = advisorBranchDao.GetAllPagesAdvisorCustomerForAssociation(branchIdFilter, adviserId, custNameFilter, branchNameFilter, rmNameFilter, cityAreaFilter);
+            return dtAllPagesSelectedCustomer;
+        }
+
+
 
         /// <summary>
         /// Get all customer of advisor for bulk assignment
