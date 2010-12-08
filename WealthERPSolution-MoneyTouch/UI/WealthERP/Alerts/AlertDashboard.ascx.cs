@@ -533,6 +533,29 @@ namespace WealthERP.Alerts
                         //ddlRMCustList.Visible = false;
                         //trChooseCustomer.Visible = false;
                     }
+                    if (!IsPostBack)
+                    {
+                        sipReminder = 2;
+                        swpReminder = 2;
+                        dobReminder = 2;
+                        anniversaryReminder = 2;
+                        elssReminder = 2;
+                        fdMaturityReminder = 2;
+                        fdRecurringReminder = 2;
+                        insuranceReminder = 2;
+                        propertyOccurrence = 10;
+                        personalOccurrence = 10;
+                        propertyCondition = ">";
+                        personalCondition = "<";
+                        mfProfitBookingCondition = ">";
+                        mfStopLossCondition = "<";
+                        mfProfitBookingPreset = 10;
+                        mfStopLossPreset = 10;
+                        eqProfitBookingCondition = ">";
+                        eqStopLossCondition = "<";
+                        eqProfitBookingPreset = 10;
+                        eqStopLossPreset = 10;
+                    }
                     BindSystemAlertsGrid();
                     //else
                     //{
