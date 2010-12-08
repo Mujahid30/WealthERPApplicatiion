@@ -110,30 +110,55 @@ namespace WealthERP.Advisor
                 PortfolioBo portfoliobo = new PortfolioBo();
                 string valuedate = Convert.ToString(portfoliobo.GetLatestValuationDate(advisorVo.advisorId, "MF"));
                 hdnValuationDate.Value = valuedate.ToString();
-                if (userType == "rm")
+                if (hdnValuationDate.Value == string.Empty)
                 {
-                    spnBranch.Visible = false;
-                    spnRM.Visible = false;
-                }
-                if (userType == "adviser")
-                {
-                    BindBranchDropDown();
-                    BindRMDropDown();
-                }
-                if (userType == "bm")
-                {
-                    if (!IsPostBack)
+                    ValuationNotDoneErrorMsg.Visible = true;
+                    if (userType == "adviser")
+                    {
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                    }
+                    else if (userType == "rm")
+                    {
+                        spnBranch.Visible = false;
+                        spnRM.Visible = false;
+                    }
+                    else if (userType == "bm")
                     {
                         BindBranchForBMDropDown();
                         BindRMforBranchDropdown(0, bmID, 1);
                     }
-                    hdnbranchId.Value = "0";
-                    hdnbranchHeadId.Value = ddlBranch.SelectedValue;
-                    hdnAll.Value = "2";
-                    hdnrmId.Value = "0";
-                    hdnXWise.Value = "1";
-                    if(hdnValuationDate.Value.ToString()!="")
-                        dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), amcCode, 0, 1, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), string.Empty, string.Empty, hdnCategoryFilter.Value.ToString(), out count, 0);
+                }
+                else
+                {
+                    ValuationNotDoneErrorMsg.Visible = false;
+
+                    if (userType == "rm")
+                    {
+                        spnBranch.Visible = false;
+                        spnRM.Visible = false;
+                    }
+                    if (userType == "adviser")
+                    {
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                    }
+                    if (userType == "bm")
+                    {
+                        if (!IsPostBack)
+                        {
+                            BindBranchForBMDropDown();
+                            BindRMforBranchDropdown(0, bmID, 1);
+                        }
+                        hdnbranchId.Value = "0";
+                        hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                        hdnAll.Value = "2";
+                        hdnrmId.Value = "0";
+                        hdnXWise.Value = "1";
+                        if (hdnValuationDate.Value.ToString() != "")
+                            dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), amcCode, 0, 1, hdnAMCSearchVal.Value.ToString(), hdnSchemeSearchVal.Value.ToString(), string.Empty, string.Empty, hdnCategoryFilter.Value.ToString(), out count, 0);
+                    }
+
                 }
                 if (Request.QueryString["amcCode"] != null)
                 {
@@ -159,11 +184,11 @@ namespace WealthERP.Advisor
                     //txtDate.Text = LatestValuationdate.Date.ToShortDateString();
                     bindgrid(LatestValuationdate,amcCode);
                 }
-                else
-                {
-                    lblMessage.Text = "No valuation done";
-                    trMessage.Visible = true;
-                }
+                //else
+                //{
+                //    lblMessage.Text = "No valuation done";
+                //    trMessage.Visible = true;
+                //}
                 hdnDownloadPageType.Value = "single";
                
             }
