@@ -158,8 +158,7 @@
                 if (ddlBranchRM == 0) {
                     alert("Please select a RM");
                     return false;
-                }
-                alert(type);
+                }                
                 CheckBranchGroupHead();
 
             }
