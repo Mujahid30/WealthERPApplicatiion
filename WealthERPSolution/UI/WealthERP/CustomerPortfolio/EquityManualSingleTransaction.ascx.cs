@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+
+
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
@@ -41,6 +44,7 @@ namespace WealthERP.CustomerPortfolio
         static int scripCode;
         int portfolioId;
         string trade = "";
+        static int schemePlanCode;
         Hashtable ht = new Hashtable();
         PortfolioBo portfolioBo = new PortfolioBo();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
@@ -48,6 +52,8 @@ namespace WealthERP.CustomerPortfolio
         AdvisorVo advisorVo = new AdvisorVo();
         protected void Page_Load(object sender, EventArgs e)
         {
+            tdScripName.Visible = false;
+            tdScripNameValue.Visible = false;
             try
             {
                 SessionBo.CheckSession();
@@ -87,22 +93,22 @@ namespace WealthERP.CustomerPortfolio
                     Session.Remove("Trade");
 
                 }
-                //trTransactionMode.Visible = false;
-                //trScrip.Visible = false;
-                //
-                //LoadExchangeType(path);
-                //SetFields(0);
-                //if (Session["Trade"] != null)
-                //{
-                //    ht = (Hashtable)Session["EqHT"];
-                //    txtScrip.Text = ht["Scrip"].ToString();
-                //    ddlExchange.SelectedValue = ht["Exchange"].ToString();
-                //    LoadExchangeType(path);
-                //    ddlTranType.SelectedValue = ht["TranType"].ToString();
-                //    LoadTransactionType(path);
-                //    txtTicker.Text = ht["Ticker"].ToString();
-                //    SetFields(1);
-                //    Session.Remove("Trade");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -138,7 +144,7 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
             ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlPortfolio.DataBind();
-            //ddlPortfolio.Items.Insert(0, "Select the Portfolio");
+
 
             ddlPortfolio.SelectedValue = portfolioId.ToString();
 
@@ -253,7 +259,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    // btnAddDP.Visible = false;
+
                     DataTable dtCustomerAccounts = dsEqutiyTradeNumbers.Tables[0];
                     ddlTradeAcc.DataSource = dtCustomerAccounts;
                     ddlTradeAcc.DataTextField = "CETA_TradeAccountNum";
@@ -350,7 +356,7 @@ namespace WealthERP.CustomerPortfolio
                 eqTransactionVo.TradeDate = Convert.ToDateTime(txtTradeDate.Text.Trim(), ci);// DateTime.Parse(txtTradeDate.Text);//ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
                 eqTransactionVo.TradeTotal = float.Parse(txtTotal.Text);
                 eqTransactionVo.TradeNum = 0;
-                //long.Parse(ddlTradeAcc.SelectedItem.Text.ToString());
+
                 if (customerTransactionBo.AddEquityTransaction(eqTransactionVo, customerVo.UserId))
                 {
                     customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "EQ", eqTransactionVo.TradeDate);
@@ -417,7 +423,7 @@ namespace WealthERP.CustomerPortfolio
 
                 CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
                 CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
-               
+
                 customerAccountsVo = customerTransactionBo.GetCustomerEQAccountDetails(int.Parse(ddlTradeAcc.SelectedItem.Value.ToString()), portfolioId);
                 // Stax= Service Tax 
                 if (rbtnDelivery.Checked)
@@ -425,30 +431,43 @@ namespace WealthERP.CustomerPortfolio
                 else
                     brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageSpeculativePercentage / 100);
                 otherCharges = double.Parse(txtRate.Text) * (customerAccountsVo.OtherCharges / 100);
-                if(txtBrokerage.Text=="")
-                    txtBrokerage.Text = Math.Round(brokerage, 4).ToString();             
+                txtBrokerage.Text = Math.Round(brokerage, 4).ToString();
 
-                if(txtOtherCharge.Text=="")
-                    txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
+
+                txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
+
 
                 Calculate();
             }
         }
 
-        protected void txtScrip_TextChanged(object sender, EventArgs e)
-        {
-            DataSet ds = productEquityBo.GetScripCode(txtScrip.Text.ToString());
-            lblScripName.Visible = true;
-            // scripCode = productEquityBo.GetScripCode(txtScrip.Text.ToString());
-            lblScripName.Text = txtScrip.Text;
-            txtTicker.Text = ds.Tables[0].Rows[0]["PEM_Ticker"].ToString();
-            scripCode = int.Parse(ds.Tables[0].Rows[0]["PEM_ScripCode"].ToString());
-            trTransactionMode.Visible = true;
-        }
+
+
+
+
+
+
+
+
+
+
 
         protected void ddlTranType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetFields(1);
+            if (ddlTranType.SelectedValue == "HOLD")
+            {
+                trBroker.Visible = false;
+                trBrokerage.Visible = false;
+                trOthers.Visible = false;
+                trRateInc.Visible = false;
+                trServiceTax.Visible = false;
+                trSTT.Visible = false;
+            }
+            else
+            {
+                SetFields(1);
+                trTransactionMode.Visible = true;
+            }
             trTransactionMode.Visible = true;
 
         }
@@ -474,16 +493,16 @@ namespace WealthERP.CustomerPortfolio
                 else
                     otherCharges = 0;
                 Stax = (12.36 / 100) * brokerage;
-                // temp = decimal.Round((decimal)Stax, 2);
-                // Stax = (double)temp;
+
+
                 txtTax.Text = Math.Round(Stax, 4).ToString();
 
 
-                // STT 
+
 
                 STT = (0.125 / 100) * brokerage;
-                //  temp = decimal.Round((decimal)STT, 2);
-                // STT = (double)temp;
+
+
                 txtSTT.Text = Math.Round(STT, 5).ToString();
 
 
@@ -491,13 +510,13 @@ namespace WealthERP.CustomerPortfolio
 
                 if (ddlTranType.SelectedItem.Text.ToString() == "Purchase")
                 {
-                    // rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) + (decimal)STT + (decimal)Stax + (decimal)(double.Parse(txtBrokerage.Text)) + (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
+
                     rateIncBroker = double.Parse(txtRate.Text) + STT + Stax + brokerage + otherCharges;
 
                 }
                 else
                 {
-                    //rateIncBroker = double.Parse(decimal.Round((decimal)(double.Parse(txtRate.Text)) - (decimal)STT - (decimal)Stax - (decimal)(double.Parse(txtBrokerage.Text)) - (decimal)double.Parse(txtOtherCharge.Text), 2).ToString());
+
                     rateIncBroker = double.Parse(txtRate.Text) - STT - Stax - brokerage - brokerage;
                 }
 
@@ -569,5 +588,41 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
+        protected void txtTradeDate_TextChanged(object sender, EventArgs e)
+        {
+            DateTime dt = Convert.ToDateTime(txtTradeDate.Text);
+            txtPrice.Text = customerPortfolioBo.GetEQScripPrice(scripCode, dt).ToString();
+        }
+
+        protected void txtScripCode_ValueChanged(object sender, EventArgs e)
+        {
+            DataSet ds = productEquityBo.GetScripCode(txtScrip.Text.ToString());
+            lblScripName.Visible = true;
+            // scripCode = productEquityBo.GetScripCode(txtScrip.Text.ToString());
+            lblScripName.Text = txtScrip.Text;
+            txtTicker.Text = ds.Tables[0].Rows[0]["PEM_Ticker"].ToString();
+            scripCode = int.Parse(ds.Tables[0].Rows[0]["PEM_ScripCode"].ToString());
+            autoCompleteExtender.ContextKey = schemePlanCode.ToString();
+            trTransactionMode.Visible = true;
+        }
+
+        protected void btnUsePrice_Click(object sender, EventArgs e)
+        {
+            txtRate.Text = txtPrice.Text;
+        }
+
+        protected void txtNumShares_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtRate.Text.Trim()) && (!string.IsNullOrEmpty(txtNumShares.Text.Trim())))
+            {
+                txtTotal.Text = (float.Parse(txtRate.Text) * float.Parse(txtNumShares.Text)).ToString();
+            }
+            else
+            {
+                txtNumShares.Text = string.Empty;
+                txtTotal.Text = string.Empty;
+            }
+        }
     }
 }
+

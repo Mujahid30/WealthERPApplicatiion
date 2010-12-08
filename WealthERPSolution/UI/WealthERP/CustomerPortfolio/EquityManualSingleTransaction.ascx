@@ -20,6 +20,14 @@
             alert("Warning! - Date Cannot be in the future");
         }
     }
+
+    function GetSchemeCode(source, eventArgs) {
+
+        document.getElementById("<%= txtScripCode.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    };
+    
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -60,7 +68,7 @@
         <td class="leftField">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select the Portfolio Name :"></asp:Label>
         </td>
-        <td colspan="2" class="rightField">
+        <td colspan="3" class="rightField">
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
@@ -70,13 +78,12 @@
         <td class="leftField">
             <asp:Label ID="Label2" runat="server" Text="Scrip Particulars :" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtScrip" runat="server" CssClass="txtField" AutoPostBack="true"
-                OnTextChanged="txtScrip_TextChanged" AutoCompleteType="Disabled" 
+        <td class="rightField" colspan="2">
+            <asp:TextBox ID="txtScrip" runat="server" CssClass="txtField" AutoPostBack="true" AutoCompleteType="Disabled" 
                 ondatabinding="txtScrip_DataBinding"></asp:TextBox>
             <ajaxToolkit:AutoCompleteExtender runat="server" ID="autoCompleteExtender" TargetControlID="txtScrip"  
                 ServiceMethod="GetScripList" ServicePath="AutoComplete.asmx" MinimumPrefixLength="1" OnDataBinding="txtScrip_DataBinding"
-                EnableCaching="false" CompletionSetCount="5" CompletionInterval="1000" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                EnableCaching="false" CompletionSetCount="5" CompletionInterval="1000" OnClientItemSelected="GetSchemeCode" CompletionListCssClass="AutoCompleteExtender_CompletionList"
                 CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem" />
             <span id="Span1" class="spnRequiredField">*</span>
             <br />
@@ -88,9 +95,10 @@
     </tr>
     <tr>
       <td >
-            
+            <asp:HiddenField ID="txtScripCode" runat="server" 
+                onvaluechanged="txtScripCode_ValueChanged"/>
         </td>
-        <td align="left">
+        <td align="left" colspan="2">
         <asp:Label ID="lblScripName" runat="server" Text="Scrip Particulars:" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
@@ -98,7 +106,7 @@
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" Text="Transaction Mode :" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" colspan="2">
             <asp:RadioButton ID="rbtnDelivery" runat="server" CssClass="txtField" Text="For Delivery "
                 GroupName="TransactionMode" Checked="true" />
             <asp:RadioButton ID="rbtnSpeculation" runat="server" CssClass="txtField" Text="For Speculation"
@@ -111,7 +119,7 @@
         <td class="leftField">
             <asp:Label ID="lblTranType" runat="server" Text="Transaction type :" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" colspan="2">
+        <td class="rightField" colspan="3">
             <asp:DropDownList ID="ddlTranType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlTranType_SelectedIndexChanged"
                 AutoPostBack="True">
             </asp:DropDownList>
@@ -126,7 +134,7 @@
         <td class="leftField">
             <asp:Label ID="lblExchange" runat="server" Text="Exchange :" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" colspan="2">
+        <td class="rightField" colspan="3">
             <asp:DropDownList ID="ddlExchange" runat="server" CssClass="cmbField">
             </asp:DropDownList>
            <%-- <span id="Span3" class="spnRequiredField">*</span>
@@ -136,11 +144,19 @@
                 ValidationGroup="EQ"></asp:CompareValidator>--%>
         </td>
     </tr>
+    <tr>
+                <td class="leftField" id="tdScripName" runat="server">
+                    <asp:Label ID="lblScripCodeName" runat="server" CssClass="FieldName" Text="Scrip Name :"></asp:Label>
+                </td>
+                <td class="rightField" id="tdScripNameValue" runat="server" colspan="3">
+                    <asp:Label ID="lblScrip" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                </td>
+            </tr>
     <tr valign="center">
         <td align="right">
             <asp:Label ID="lblDPAcc" runat="server" Text="Trade Account Number :" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" >
+        <td class="rightField" colspan="2" >
             <asp:DropDownList ID="ddlTradeAcc" runat="server" CssClass="cmbField" AutoPostBack="True"
                 OnSelectedIndexChanged="ddlTradeAcc_SelectedIndexChanged">
             </asp:DropDownList>
@@ -151,12 +167,16 @@
                 ErrorMessage="Please select your Trade Number" Operator="NotEqual" ValueToCompare="Select the Trade Number"
                 ValidationGroup="EQ" CssClass="cvPCG"></asp:CompareValidator>
                 </div>
-                <asp:Button ID="btnAddDP" runat="server" Text="Add Trade Account" CssClass="PCGLongButton"
-                OnClick="btnAddDP_Click" />
+                
         </td>
         <td class="rightField">
             
         </td>
+        <td>
+        <asp:Button ID="btnAddDP" runat="server" Text="Add Trade Account" CssClass="PCGLongButton"
+                OnClick="btnAddDP_Click" />
+        </td>
+        
     </tr>
     <%--  <tr id="trScrip" runat="server">
         <td class="leftField">
@@ -170,7 +190,7 @@
         <td class="leftField">
             <asp:Label ID="lblTicker" runat="server" Text="Ticker :" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" colspan="2">
+        <td class="rightField" colspan="3">
             <asp:TextBox ID="txtTicker" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
             <%--<span id="Span6" class="spnRequiredField">*</span>--%>
             <br />
@@ -180,18 +200,19 @@
         </td>
     </tr>
     <tr>
-        <td colspan="3">
+        <td colspan="4">
             &nbsp;
         </td>
     </tr>
     <tr>
-        <td colspan="3">
+        <td colspan="4">
             <tr id="trTradeDate" runat="server">
                 <td class="leftField">
                     <asp:Label ID="lblTrade" runat="server" Text="Trade Date :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" colspan="2">
-                    <asp:TextBox ID="txtTradeDate" runat="server" CssClass="txtField"></asp:TextBox>
+                <td class="rightField" style="width: 400px">
+                    <asp:TextBox ID="txtTradeDate" runat="server" CssClass="txtField" 
+                        ontextchanged="txtTradeDate_TextChanged" AutoPostBack="true"></asp:TextBox>
                     <ajaxToolkit:CalendarExtender ID="txtTradeDate_CalendarExtender" runat="server" TargetControlID="txtTradeDate"
                         Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
                     </ajaxToolkit:CalendarExtender>
@@ -204,12 +225,24 @@
                         InitialValue="" ValidationGroup="EQ">
                     </asp:RequiredFieldValidator>
                 </td>
+                
+                <td style="width: 50px">
+                    <asp:Label ID="lblPrice" runat="server" CssClass="FieldName" Text="Price :" ></asp:Label>
+                    </td>
+                    
+                    <td style="width: 170px">
+                    <asp:TextBox ID="txtPrice" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                    <td class="rightField">
+                    <asp:Button ID="btnUsePrice" runat="server" Text="Use the price" 
+                            CssClass="PCGMediumButton" onclick="btnUsePrice_Click" />
+                    </td>
             </tr>
             <tr id="trRate" runat="server">
                 <td class="leftField">
                     <asp:Label ID="lblRate" runat="server" Text="Rate (Rs) :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" colspan="2">
+                <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtRate" runat="server" CssClass="txtField" MaxLength="18" 
                         ontextchanged="txtRate_TextChanged" AutoPostBack="true"></asp:TextBox>
                     <span id="Span8" class="spnRequiredField">*</span>
@@ -226,8 +259,9 @@
                 <td class="leftField">
                     <asp:Label ID="lblNumShares" runat="server" Text="No of Shares :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" colspan="2">
-                    <asp:TextBox ID="txtNumShares" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
+                <td class="rightField" colspan="3">
+                    <asp:TextBox ID="txtNumShares" runat="server" CssClass="txtField" 
+                        MaxLength="18" AutoPostBack="true" ontextchanged="txtNumShares_TextChanged"></asp:TextBox>
                     <span id="Span9" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtNumShares" CssClass="rfvPCG"
                         ErrorMessage="<br />Please enter the number of shares" Display="Dynamic" runat="server"
@@ -242,7 +276,7 @@
                 <td class="leftField">
                     <asp:Label ID="lblBroker" runat="server" Text="Broker:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" colspan="2">
+                <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtBroker" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
                 </td>
             </tr>
@@ -250,7 +284,7 @@
                 <td class="leftField">
                     <asp:Label ID="lblBrokerage" runat="server" Text="Brokerage (Per Unit) :" CssClass="FieldName" MaxLength="18"></asp:Label>
                 </td>
-                <td class="rightField" colspan="2">
+                <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtBrokerage" runat="server" CssClass="txtField"></asp:TextBox>
                     <%--<span id="Span11" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtBrokerage" CssClass="rfvPCG"
@@ -265,7 +299,7 @@
                 <td class="leftField">
                     <asp:Label ID="lblOther" runat="server" Text="Other Charges (Per Unit) :" CssClass="FieldName" MaxLength="18"></asp:Label>
                 </td>
-                <td class="rightField">
+                <td class="rightField" colspan="2">
                     <asp:TextBox ID="txtOtherCharge" runat="server" CssClass="txtField"></asp:TextBox>
                     <div id="divOtherCharge" runat="server" class="dvInLine">
                     <%--<span id="Span12" class="spnRequiredField">*</span>
@@ -288,7 +322,7 @@
                     <asp:Label ID="lblServiceTax" runat="server" Text="Service Tax + Education Cess :"
                         CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" colspan="2">
+                <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtTax" runat="server" CssClass="txtField"></asp:TextBox>
                     <%--<span id="Span13" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtTax" CssClass="rfvPCG"
@@ -304,7 +338,7 @@
                 <td class="leftField">
                     <asp:Label ID="lblSTT" runat="server" Text="STT :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" colspan="2">
+                <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtSTT" runat="server" CssClass="txtField"></asp:TextBox>
                     <%--<span id="Span14" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtSTT" CssClass="rfvPCG"
@@ -321,7 +355,7 @@
                     <asp:Label ID="lblRateIncluBrokerage" runat="server" Text="Rate Inclusive of Brokerage :"
                         CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" colspan="2">
+                <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtRateIncBrokerage" runat="server" CssClass="txtField"></asp:TextBox>
                     <span id="Span15" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtRateIncBrokerage"
@@ -337,7 +371,7 @@
                 <td class="leftField">
                     <asp:Label ID="lblTotal" runat="server" Text="Trade Consideration total :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" colspan="2">
+                <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtTotal" runat="server" CssClass="txtField"></asp:TextBox>
                     <span id="Span16" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtTotal"
@@ -352,7 +386,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="3">
+        <td colspan="4">
             &nbsp;
         </td>
     </tr>
