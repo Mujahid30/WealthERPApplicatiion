@@ -110,6 +110,94 @@ namespace DaoAdvisorProfiling
             return dsGetEQMIS;
         }
 
+        /// <summary>
+        /// Created For Getting Company & Sector wise EQMIS for all 3 users 
+        /// </summary>
+        /// Created by Vinayak Patil
+        /// <param name="userType"></param>
+        /// <param name="valuationDate"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="RMId"></param>
+        /// <param name="BranchId"></param>
+        /// <param name="branchHeadId"></param>
+        /// <param name="all"></param>
+        /// <param name="EQMIStype"></param>
+        /// <param name="portfolioType"></param>
+        /// <returns></returns>
+
+        public DataSet GetAllUsersEQMISForComSec(string userType, DateTime valuationDate, int adviserId, int RMId, int BranchId, int branchHeadId, int all, int EQMIStype, int portfolioType)
+        {
+            Database db;
+            DbCommand getEQMISCmd;
+            DataSet dsGetAllUsersEQMIS = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getEQMISCmd = db.GetStoredProcCommand("SP_AllUserEquityMIS");
+
+                db.AddInParameter(getEQMISCmd, "@userType", DbType.String, userType);
+                db.AddInParameter(getEQMISCmd, "@valuation_Date", DbType.DateTime, valuationDate);
+                db.AddInParameter(getEQMISCmd, "@EQMIStype", DbType.Int16, EQMIStype);
+                db.AddInParameter(getEQMISCmd, "@portfolioType", DbType.Int16, portfolioType);
+                
+                if (adviserId != 0)
+                    db.AddInParameter(getEQMISCmd, "@adviserId", DbType.Int16, adviserId);
+                else
+                    db.AddInParameter(getEQMISCmd, "@adviserId", DbType.Int16, DBNull.Value);
+
+                if (RMId != 0)
+                    db.AddInParameter(getEQMISCmd, "@RMId", DbType.Int16, RMId);
+                else
+                    db.AddInParameter(getEQMISCmd, "@RMId", DbType.Int16, DBNull.Value);
+
+                if (BranchId != 0)
+                    db.AddInParameter(getEQMISCmd, "@BranchId", DbType.Int16, BranchId);
+                else
+                    db.AddInParameter(getEQMISCmd, "@BranchId", DbType.Int16, DBNull.Value);
+
+                if (branchHeadId != 0)
+                    db.AddInParameter(getEQMISCmd, "@branchHeadId", DbType.Int16, branchHeadId);
+                else
+                    db.AddInParameter(getEQMISCmd, "@branchHeadId", DbType.Int16, DBNull.Value);
+
+                if (all != 0)
+                    db.AddInParameter(getEQMISCmd, "@all", DbType.Int16, all);
+                
+
+                dsGetAllUsersEQMIS = db.ExecuteDataSet(getEQMISCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetAllUsersEQMISForComSec()");
+
+                object[] objects = new object[11];
+                objects[0] = userType;
+                objects[1] = valuationDate;
+                objects[2] = EQMIStype;
+                objects[3] = portfolioType;
+                objects[4] = adviserId;
+                objects[5] = RMId;
+                objects[6] = BranchId;
+                objects[7] = branchHeadId;
+                objects[8] = all;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAllUsersEQMIS;
+        }
+        //End
+
+
         public DataSet GetLoanMIS(string userType, int Id)
         {
             Database db;
