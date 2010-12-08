@@ -2017,7 +2017,6 @@ namespace DaoAdvisorProfiling
          /* For Branch Assets */
 
         public DataSet GetBranchAssets(int advisorBranchId, int branchHeadId, int all)
-
         {
             Database db;
             DbCommand getBranchAssetValueCmd;
