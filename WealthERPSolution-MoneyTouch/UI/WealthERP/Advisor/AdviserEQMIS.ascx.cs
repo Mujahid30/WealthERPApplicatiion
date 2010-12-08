@@ -26,6 +26,7 @@ namespace WealthERP.Advisor
         string path;
         string userType;
         int advisorId;
+        string userRole;
 
 
         UserVo userVo = new UserVo();
@@ -56,17 +57,19 @@ namespace WealthERP.Advisor
 
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
                     userType = "advisor";
+                    
                 else
                     userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
-
                 
+               
                 SessionBo.CheckSession();
+                
                 userVo = (UserVo)Session["userVo"];
                 rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                 bmID = rmVo.RMId;
                 if (userType == "advisor")
                 {
-                    trBranchandRMDps.Visible = false;
+                    trBranchandRMDps.Visible = true;
                     if (!IsPostBack)
                     {
                         BindBranchDropDown();
@@ -82,6 +85,7 @@ namespace WealthERP.Advisor
                     trBranchandRMDps.Visible = false;
                     trRange.Visible = true;
                 }
+                    
                 else if (userType == "bm")
                 {
                     trBranchandRMDps.Visible = true;
