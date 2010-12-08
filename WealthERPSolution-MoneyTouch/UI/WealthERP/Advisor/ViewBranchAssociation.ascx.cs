@@ -18,6 +18,7 @@ namespace WealthERP.Advisor
     {
         static Dictionary<string, string> genDictRM;
         static Dictionary<string, string> genDictBranch;
+        AdvisorVo advisorVo;
 
         private SortDirection GridViewSortDirection
         {
@@ -137,6 +138,8 @@ namespace WealthERP.Advisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["advisorVo"] != null)
+                advisorVo = (AdvisorVo)Session["advisorVo"];
             SessionBo.CheckSession();
             if(!IsPostBack)
                 LoadBranchAssociation(mypager.CurrentPage);
@@ -150,9 +153,9 @@ namespace WealthERP.Advisor
             DataSet ds = null;
             try
             {
-                userVo = (UserVo)Session["UserVo"];
+
                 int Count;
-                ds = advisorBranchBo.GetBranchAssociation(userVo.UserId, currentPage, out Count, hdnBranchFilter.Value, hdnRMFilter.Value, hdnSort.Value, out genDictBranch, out genDictRM);
+                ds = advisorBranchBo.GetBranchAssociation(advisorVo.advisorId, currentPage, out Count, hdnBranchFilter.Value, hdnRMFilter.Value, hdnSort.Value, out genDictBranch, out genDictRM);
 
                 if (Count > 0)
                 {
@@ -191,8 +194,8 @@ namespace WealthERP.Advisor
                             if (ddlBranch != null)
                             {
                                 ddlBranch.DataSource = genDictBranch;
-                                ddlBranch.DataTextField = "Key";
-                                ddlBranch.DataValueField = "Value";
+                                ddlBranch.DataTextField = "Value";
+                                ddlBranch.DataValueField = "Key";
                                 ddlBranch.DataBind();
                                 ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                             }
@@ -208,8 +211,8 @@ namespace WealthERP.Advisor
                             if (ddlRM != null)
                             {
                                 ddlRM.DataSource = genDictRM;
-                                ddlRM.DataTextField = "Key";
-                                ddlRM.DataValueField = "Value";
+                                ddlRM.DataTextField = "Value";
+                                ddlRM.DataValueField = "Key";
                                 ddlRM.DataBind();
                                 ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
                             }
