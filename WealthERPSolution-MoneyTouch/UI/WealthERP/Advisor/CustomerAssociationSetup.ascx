@@ -9,6 +9,9 @@
 <link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 
+    //***********************************************************************
+
+
     function checkAllBoxes(type) {
 
         //get total number of rows in the gridview and do whatever
@@ -18,7 +21,7 @@
 
         //this is the checkbox in the item template...this has to be the same name as the ID of it
         var gvChkBoxControl = "chkId";
-               
+
         //this is the checkbox in the header template
         var mainChkBox = document.getElementById("chkBoxAll");
         if (type == "AllPage") {
@@ -36,8 +39,8 @@
             if (allMainChkBox.checked == true) {
                 allMainChkBox.checked = false;
             }
-            
-         
+
+
         }
 
         //get an array of input types in the gridview
@@ -49,7 +52,80 @@
             if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
                 inputTypes[i].checked = mainChkBox.checked;
         }
+
+
+
+        if (type == "AllPage") {
+            document.getElementById("ctrl_CuCustomerAssociationSetup_hndAllPageSelect").value = 1;
+
+        }
+        else {
+            document.getElementById("<%=hndAllPageSelect.ClientID %>").value = 0;
+        }
+        
+        
     } 
+
+
+    //*****************************************************************************
+
+
+
+//    function checkAllBoxes(type) {        
+//        //get total number of rows in the gridview and do whatever
+//        //you want with it..just grabbing it just cause
+//        var totalChkBoxes = parseInt('<%= gvAssociation.Rows.Count %>');
+//        var gvAssociation = document.getElementById('<%= gvAssociation.ClientID %>');
+
+//        //this is the checkbox in the item template...this has to be the same name as the ID of it
+//        var gvChkBoxControl = "chkId";
+//               
+//        //this is the checkbox in the header template
+//        var mainChkBox = document.getElementById("chkBoxAll");
+//       
+//        //***********************************************
+//        if (type == "AllPage") {
+//            if (mainChkBox.checked == false) {
+//                mainChkBox.checked = true;
+
+//            }
+//            else {
+//                mainChkBox.checked = false;
+//            }
+
+//        }
+//        else {            
+//            var allMainChkBox = document.getElementById("chkSelectAllpages");
+//            alert("pra");
+//            if (allMainChkBox.checked == true) {                
+//                allMainChkBox.checked = false;
+//            }            
+//        }
+//        //***********************************************
+//        
+//        
+//        //get an array of input types in the gridview
+//        var inputTypes = gvAssociation.getElementsByTagName("input");
+
+//        for (var i = 0; i < inputTypes.length; i++) {
+//            
+//            //if the input type is a checkbox and the id of it is what we set above
+//            //then check or uncheck according to the main checkbox in the header template            
+//            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+//                inputTypes[i].checked = mainChkBox.checked;
+//        }
+
+
+//        if (type == "AllPage") {            
+//            document.getElementById("ctrl_CuCustomerAssociationSetup_hndAllPageSelect").value = 1;        
+//            
+//        }
+//        else {
+//            document.getElementById("<%=hndAllPageSelect.ClientID %>").value = 0;
+//        }
+//               
+//        
+//    } 
  //********************************************************************************************************
     
         function CheckSelection(type){
@@ -70,7 +146,9 @@
                 alert('Please select atleast one Customer..');
                 return false;
             }
-            if (type == "BranchGroupHead") {
+
+
+            if (type == "BranchGroupHead") {                
                 var ddlBranch = document.getElementById("<%=ddlAdvisorBranchList.ClientID %>").value
                 if (ddlBranch == 0) {
                     alert("Please select a Branch");
@@ -81,6 +159,7 @@
                     alert("Please select a RM");
                     return false;
                 }
+                alert(type);
                 CheckBranchGroupHead();
 
             }
@@ -103,8 +182,9 @@
   //********************************************************************
 
         function CheckBranchGroupHead() {
-           
-            var GroupHeadValue = document.getElementById("ctrl_CuCustomerAssociationSetup_hndIsGroupHead").value;
+            
+            //            var GroupHeadValue = document.getElementById("ctrl_CuCustomerAssociationSetup_hndIsGroupHead").value;
+            var GroupHeadValue = document.getElementById("<%=hndIsGroupHead.ClientID %>").value;           
             if (GroupHeadValue == "true") {
                 if (confirm("Some of the selected customer are GroupHead,Do you want to change Branch for member customers also?"))
                     return true;
@@ -119,7 +199,8 @@
 
         function CheckRMGroupHead() {
 
-            var GroupHeadValue = document.getElementById("ctrl_CuCustomerAssociationSetup_hndIsGroupHead").value;
+            //            var GroupHeadValue = document.getElementById("ctrl_CuCustomerAssociationSetup_hndIsGroupHead").value;
+            var GroupHeadValue = document.getElementById("<%=hndIsGroupHead.ClientID %>").value;
             if (GroupHeadValue == "true") {
                 if (confirm("Some of the selected customer are GroupHead,Do you want to change RM for member customers also?"))
                     return true;
@@ -211,7 +292,7 @@
     <tr>
     <td colspan="2" style="padding-left:8px">
     
-    <input id="chkSelectAllpages"  name="Select All across pages" value="Customer" type="checkbox" onclick="checkAllBoxes('AllPage')" />
+    <input id="chkSelectAllpages" name="Select All across pages" value="Customer" type="checkbox" onclick="checkAllBoxes('AllPage')" />
  <%--   <asp:CheckBox ID="chkSelectAllpages" runat="server" CssClass="FieldName" Text="Select All across pages"/>--%>
    <asp:Label ID="lblAllpages" class="Field" Text="Select all across pages" runat="server"></asp:Label>
     </td>
@@ -430,6 +511,16 @@
 <asp:HiddenField ID="hdnBranchFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnCityFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnRMNameFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="hndIsGroupHead" runat="server" Visible="false" />
+<asp:HiddenField ID="hndIsGroupHead" runat="server" />
 <asp:HiddenField ID="hndBranchIdFilter" Value="0" runat="server" Visible="false" />
+<asp:HiddenField ID="hndAllPageSelect" runat="server"/>
+<script type="text/javascript">
+    if (document.getElementById("<%=hndAllPageSelect.ClientID %>").value == "1") {
+        document.getElementById("chkSelectAllpages").checked = true;
+//        var mainChkBox = document.getElementById("chkBoxAll");
+//        if (mainChkBox.checked==false)
+        //         mainChkBox.checked = true;
 
+        checkAllBoxes('AllPage');
+    }
+</script>

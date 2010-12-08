@@ -44,6 +44,13 @@ namespace WealthERP.Advisor
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
         AdvisorBranchBo advisorBranchBO = new AdvisorBranchBo();
+
+        TextBox txtCustomerNameSearch;
+        TextBox txtBranchSearch;
+        TextBox txtRMNameSearch;        
+        TextBox txtCityAreaSearch;
+
+
         protected override void OnInit(EventArgs e)
         {
             try
@@ -101,6 +108,8 @@ namespace WealthERP.Advisor
         protected void Page_Load(object sender, EventArgs e)
         {
 
+           
+            
             SuccessMsg.Visible = false;
             ErrorMessage.Visible = false;
             adviserVo = (AdvisorVo)Session["advisorVo"];
@@ -252,7 +261,7 @@ namespace WealthERP.Advisor
             return txt;
         }
 
-        private TextBox GetCustCityTextBox()
+        private TextBox GetCityAreaTextBox()
         {
             TextBox txt = new TextBox();
             if (gvAssociation.HeaderRow != null)
@@ -271,64 +280,93 @@ namespace WealthERP.Advisor
 
         protected void btnCustomerSearch_Click(object sender, EventArgs e)
         {
-            TextBox txtName = GetCustNameTextBox();
-
-            if (txtName != null)
-            {
-                hdnNameFilter.Value = txtName.Text.Trim();
-                this.BindCustomer(mypager.CurrentPage);
-            }
-
+            CheckAllSearchString();
+            this.BindCustomer(mypager.CurrentPage);
         }
 
         protected void btnBranchSearch_Click(object sender, EventArgs e)
         {
-            TextBox txtName = GetBranchTextBox();
-
-            if (txtName != null)
-            {
-                hdnBranchFilter.Value = txtName.Text.Trim();
-                //this.showRMUserDetails();
-                this.BindCustomer(mypager.CurrentPage);
-            }
+            CheckAllSearchString();
+            this.BindCustomer(mypager.CurrentPage);
         }
 
         protected void btnRMSearch_Click(object sender, EventArgs e)
         {
-            TextBox txtRMName = GetRMNameTextBox();
+            ////TextBox txtRMName = GetRMNameTextBox();
 
-            if (txtRMName != null)
-            {
-                hdnRMNameFilter.Value = txtRMName.Text.Trim();
-                this.BindCustomer(mypager.CurrentPage);
-            }
-
-
+            //if (txtRMNameSearch != null)
+            //{
+            //    hdnRMNameFilter.Value = txtRMNameSearch.Text.Trim();
+            //    this.BindCustomer(mypager.CurrentPage);
+            //}
+            CheckAllSearchString();
+            this.BindCustomer(mypager.CurrentPage);
 
         }
         
         protected void btnAreaSearch_Click(object sender, EventArgs e)
         {
-            TextBox txtArea = GetAreaTextBox();
+            //TextBox txtArea = GetAreaTextBox();
 
-            if (txtArea != null)
-            {
-                hdnAreaFilter.Value = txtArea.Text.Trim();
+            //if (txtArea != null)
+            //{
+            //    hdnAreaFilter.Value = txtArea.Text.Trim();
 
-                this.BindCustomer(mypager.CurrentPage);
+            //    this.BindCustomer(mypager.CurrentPage);
                 
-            }
+            //}
 
         }
 
         protected void btnCitySearch_Click(object sender, EventArgs e)
         {
-            TextBox txtCity = GetCustCityTextBox();
+            CheckAllSearchString();
+            this.BindCustomer(mypager.CurrentPage);
+        }
 
-            if (txtCity != null)
+        protected void CheckAllSearchString()
+        {
+            txtCustomerNameSearch = GetCustNameTextBox();
+            txtBranchSearch = GetBranchTextBox();
+            txtRMNameSearch = GetRMNameTextBox();
+            txtCityAreaSearch = GetCityAreaTextBox();
+
+            if (string.IsNullOrEmpty(txtCustomerNameSearch.Text.Trim()))
             {
-                hdnCityFilter.Value = txtCity.Text.Trim();
-                this.BindCustomer(mypager.CurrentPage);
+                hdnNameFilter.Value = "";
+            }
+            else
+            {
+                hdnNameFilter.Value = txtCustomerNameSearch.Text.Trim();
+            }
+
+            if (string.IsNullOrEmpty(txtBranchSearch.Text.Trim()))
+            {
+                hdnBranchFilter.Value = "";
+
+            }
+            else
+            {
+                hdnBranchFilter.Value = txtBranchSearch.Text.Trim();
+            }
+
+            if (string.IsNullOrEmpty(txtRMNameSearch.Text.Trim()))
+            {
+                hdnRMFilter.Value = "";
+
+            }
+            else
+            {
+                hdnRMFilter.Value = txtRMNameSearch.Text.Trim();
+            }
+
+            if (string.IsNullOrEmpty(txtCityAreaSearch.Text.Trim()))
+            {
+                hdnCityFilter.Value = "";
+            }
+            else
+            {
+                hdnCityFilter.Value = txtCityAreaSearch.Text.Trim();
             }
 
         }
@@ -342,24 +380,36 @@ namespace WealthERP.Advisor
             string PageRecords = null;
             try
             {
-                if (hdnRecordCount.Value.ToString() != "")
-                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                if (rowCount > 0)
-                {
-                    ratio = rowCount / 20;
-                    mypager.PageCount = rowCount % 20 == 0 ? ratio : ratio + 1;
-                    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    if (((mypager.CurrentPage - 1) * 20) != 0)
-                        lowerlimit = (((mypager.CurrentPage - 1) * 20) + 1).ToString();
-                    else
-                        lowerlimit = "1";
-                    upperlimit = (mypager.CurrentPage * 20).ToString();
-                    if (mypager.CurrentPage == mypager.PageCount)
-                        upperlimit = hdnRecordCount.Value;
-                    PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                    lblCurrentPage.Text = PageRecords;
-                    hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-                }
+                //if (hdnRecordCount.Value.ToString() != "")
+                //    rowCount = Convert.ToInt32(hdnRecordCount.Value);
+                //if (rowCount > 0)
+                //{
+                //    ratio = rowCount / 20;
+                //    mypager.PageCount = rowCount % 20 == 0 ? ratio : ratio + 1;
+                //    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+                //    if (((mypager.CurrentPage - 1) * 20) != 0)
+                //        lowerlimit = (((mypager.CurrentPage - 1) * 20) + 1).ToString();
+                //    else
+                //        lowerlimit = "1";
+                //    upperlimit = (mypager.CurrentPage * 20).ToString();
+                //    if (mypager.CurrentPage == mypager.PageCount)
+                //        upperlimit = hdnRecordCount.Value;
+                //    PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
+                //    lblCurrentPage.Text = PageRecords;
+                //    hdnCurrentPage.Value = mypager.CurrentPage.ToString();
+
+                rowCount = Convert.ToInt32(hdnRecordCount.Value);
+                ratio = rowCount / 20;
+                mypager.PageCount = rowCount % 20 == 0 ? ratio : ratio + 1;
+                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+                lowerlimit = (((mypager.CurrentPage - 1) * 20) + 1).ToString();
+                upperlimit = (mypager.CurrentPage * 20).ToString();
+                if (mypager.CurrentPage == mypager.PageCount)
+                    upperlimit = hdnRecordCount.Value;
+                PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
+                lblCurrentPage.Text = PageRecords;
+                hdnCurrentPage.Value = mypager.CurrentPage.ToString();
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -660,7 +710,7 @@ namespace WealthERP.Advisor
                         }
                     }
                     //City Search
-                    TextBox txtCity = GetCustCityTextBox();
+                    TextBox txtCity = GetCityAreaTextBox();
                     if (txtCity != null)
                     {
                         if (hdnCityFilter.Value != "")
@@ -758,52 +808,27 @@ namespace WealthERP.Advisor
 
         protected void ddlAdvisorBranchList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
             //ddlBranchRMList.Visible = false;
+            DataTable dtAllPagesCustomer;
             bool groupHead = false;
             if (ddlAdvisorBranchList.SelectedIndex != 0)
             {
-               string allCustomersId=Convert.ToString(GetSelectedCustomerIdString());
-                if (string.IsNullOrEmpty(allCustomersId))
-                {
-                    ddlAdvisorBranchList.SelectedIndex = 0;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", "alert('Please select some customer for branch reassign');", true);
-                    return;
-                }
-                groupHead = advisorBranchBO.CheckCustomerGroupHead(allCustomersId);
-                if (groupHead==true)
-                {
-                    hndIsGroupHead.Value="true";
-                }
-                else
-                    hndIsGroupHead.Value = "false";
-                //if (groupHead == true)
-                //{
-                //    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "window.confirm('The search fee will now be deducted for the criteria entered. Do you wish to continue?');", true);
-                //    //AjaxControlToolkit.ConfirmButtonExtender cbExt = new AjaxControlToolkit.ConfirmButtonExtender();
-                //    //cbExt.ConfirmText
-                //    ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "confirm('Unable to locate your search item. Do you want to search the closest match from your item?');", true);
 
-                //}
-                DataTable dtRMList = advisorStaffBo.GetBranchRMList(int.Parse(ddlAdvisorBranchList.SelectedValue.ToString()));
-                ddlBranchRMList.DataSource = dtRMList;
-                ddlBranchRMList.DataTextField = dtRMList.Columns["RMName"].ToString();
-                ddlBranchRMList.DataValueField = dtRMList.Columns["AR_RMId"].ToString();
-                ddlBranchRMList.DataBind();
-                ddlBranchRMList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
-                foreach (GridViewRow dr in gvAssociation.Rows)
+                if (hndAllPageSelect.Value == "1")
                 {
-                    int rowIndex = dr.RowIndex;
-                    DataKey dKey = gvAssociation.DataKeys[rowIndex];
+                    dtAllPagesCustomer=adviserBranchBo.GetAllpagesAdvisorCustomerForAssociation(int.Parse(hndBranchIdFilter.Value.ToString()), adviserVo.advisorId,hdnNameFilter.Value, hdnBranchFilter.Value, hdnRMNameFilter.Value,hdnCityFilter.Value);
 
-                    int customerId = int.Parse(dKey.Values["CustomerId"].ToString());
-                    int userId = int.Parse(dKey.Values["UserId"].ToString());
-                    string rmId = dKey.Values["RMId"].ToString();
-                    int branchId = int.Parse(dKey.Values["BranchId"].ToString());
-
-                    if (((CheckBox)dr.FindControl("chkId")).Checked == true)
+                    DataTable dtRMList = advisorStaffBo.GetBranchRMList(int.Parse(ddlAdvisorBranchList.SelectedValue.ToString()));
+                    ddlBranchRMList.DataSource = dtRMList;
+                    ddlBranchRMList.DataTextField = dtRMList.Columns["RMName"].ToString();
+                    ddlBranchRMList.DataValueField = dtRMList.Columns["AR_RMId"].ToString();
+                    ddlBranchRMList.DataBind();
+                    ddlBranchRMList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+                    foreach (DataRow dr in dtAllPagesCustomer.Rows)
                     {
                         dtRMList.DefaultView.Sort = "AR_RMId";
-                        int i = dtRMList.DefaultView.Find(rmId);
+                        int i = dtRMList.DefaultView.Find(dr["AR_RMId"]);
 
                         if (i == (0 - 1))
                         {
@@ -814,14 +839,75 @@ namespace WealthERP.Advisor
                         else
                         {
                             trReassignRM.Visible = false;
- 
-                        }
 
+                        }
 
                     }
                 }
+                else
+                {
+
+                    string allCustomersId = Convert.ToString(GetSelectedCustomerIdString());
+                    if (string.IsNullOrEmpty(allCustomersId))
+                    {
+                        ddlAdvisorBranchList.SelectedIndex = 0;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", "alert('Please select some customer for branch reassign');", true);
+                        return;
+                    }
+                    groupHead = advisorBranchBO.CheckCustomerGroupHead(allCustomersId);
+                    if (groupHead == true)
+                    {
+                        hndIsGroupHead.Value = "true";
+                    }
+                    else
+                        hndIsGroupHead.Value = "false";
+                    //if (groupHead == true)
+                    //{
+                    //    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "window.confirm('The search fee will now be deducted for the criteria entered. Do you wish to continue?');", true);
+                    //    //AjaxControlToolkit.ConfirmButtonExtender cbExt = new AjaxControlToolkit.ConfirmButtonExtender();
+                    //    //cbExt.ConfirmText
+                    //    ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "confirm('Unable to locate your search item. Do you want to search the closest match from your item?');", true);
+
+                    //}
+                    DataTable dtRMList = advisorStaffBo.GetBranchRMList(int.Parse(ddlAdvisorBranchList.SelectedValue.ToString()));
+                    ddlBranchRMList.DataSource = dtRMList;
+                    ddlBranchRMList.DataTextField = dtRMList.Columns["RMName"].ToString();
+                    ddlBranchRMList.DataValueField = dtRMList.Columns["AR_RMId"].ToString();
+                    ddlBranchRMList.DataBind();
+                    ddlBranchRMList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+                    foreach (GridViewRow dr in gvAssociation.Rows)
+                    {
+                        int rowIndex = dr.RowIndex;
+                        DataKey dKey = gvAssociation.DataKeys[rowIndex];
+
+                        int customerId = int.Parse(dKey.Values["CustomerId"].ToString());
+                        int userId = int.Parse(dKey.Values["UserId"].ToString());
+                        string rmId = dKey.Values["RMId"].ToString();
+                        int branchId = int.Parse(dKey.Values["BranchId"].ToString());
+
+                        if (((CheckBox)dr.FindControl("chkId")).Checked == true)
+                        {
+                            dtRMList.DefaultView.Sort = "AR_RMId";
+                            int i = dtRMList.DefaultView.Find(rmId);
+
+                            if (i == (0 - 1))
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", "alert('Some of the selected customer need to change RM also, please select the RM');", true);
+                                trReassignRM.Visible = true;
+
+                            }
+                            else
+                            {
+                                trReassignRM.Visible = false;
+
+                            }
 
 
+                        }
+                    }
+
+
+                }
             }
         }
 
@@ -908,21 +994,43 @@ namespace WealthERP.Advisor
         {
 
              bool groupHead = false;
+             string allCustomersId = "";
+             StringBuilder allPageCustomerIds=new StringBuilder();
+             AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
+             //ddlBranchRMList.Visible = false;
+             DataTable dtAllPagesCustomer;
              if (ddlAdvisorBranchList.SelectedIndex != 0)
              {
-                 string allCustomersId = Convert.ToString(GetSelectedCustomerIdString());
-                 if (string.IsNullOrEmpty(allCustomersId))
+                 if (hndAllPageSelect.Value == "1")
                  {
-                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", "alert('Please select some customer for RM reassign');", true);
-                     return;
-                 }
-                 groupHead = advisorBranchBO.CheckCustomerGroupHead(allCustomersId);
-                 if (groupHead == true)
-                 {
-                     hndIsGroupHead.Value = "true";
+                     dtAllPagesCustomer = adviserBranchBo.GetAllpagesAdvisorCustomerForAssociation(int.Parse(hndBranchIdFilter.Value.ToString()), adviserVo.advisorId, hdnNameFilter.Value, hdnBranchFilter.Value, hdnRMNameFilter.Value, hdnCityFilter.Value);
+                     foreach (DataRow dr in dtAllPagesCustomer.Rows)
+                     {
+                         allPageCustomerIds.Append(dr["C_CustomerId"].ToString());
+                         allPageCustomerIds.Append("~");
+
+                     }
+                     allCustomersId = allPageCustomerIds.ToString();
                  }
                  else
-                     hndIsGroupHead.Value = "false";
+                 {
+                     allCustomersId = Convert.ToString(GetSelectedCustomerIdString());
+                     if (string.IsNullOrEmpty(allCustomersId))
+                     {
+                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "script", "alert('Please select some customer for RM reassign');", true);
+                         return;
+                     }
+                 }
+
+                    groupHead = advisorBranchBO.CheckCustomerGroupHead(allCustomersId);
+
+                     if (groupHead == true)
+                     {
+                         hndIsGroupHead.Value = "true";
+                     }
+                     else
+                         hndIsGroupHead.Value = "false";
+                 
 
              }
         }
