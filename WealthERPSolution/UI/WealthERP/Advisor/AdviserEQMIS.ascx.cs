@@ -24,9 +24,10 @@ namespace WealthERP.Advisor
         AdvisorVo advisorVo = new AdvisorVo();
         RMVo rmVo = new RMVo();
         string path;
-        string userType;
+        string userType; 
         int advisorId;
-
+        int rmId = 0;
+        DateTime LatestValuationdate = new DateTime();
 
         UserVo userVo = new UserVo();
         int bmID;
@@ -48,86 +49,304 @@ namespace WealthERP.Advisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+                userType = "advisor";
+            else
+                userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+
+            advisorId = advisorVo.advisorId;
+            PortfolioBo portfoliobo = new PortfolioBo();
+            string valuedate = Convert.ToString(portfoliobo.GetLatestValuationDate(advisorId, "EQ"));
+            hdnValuationDate.Value = valuedate.ToString();
+            if (hdnValuationDate.Value == string.Empty)
             {
-                advisorVo = (AdvisorVo)Session["advisorVo"];
-                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-
-
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
-                    userType = "advisor";
-                else
-                    userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
-
-                
-                SessionBo.CheckSession();
-                userVo = (UserVo)Session["userVo"];
-                rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
-                bmID = rmVo.RMId;
+                ValuationNotDoneErrorMsg.Visible = true;
                 if (userType == "advisor")
                 {
-                    if (!IsPostBack)
-                    {
-                        trRange.Visible = true;
-                        trBranchAndRmDps.Visible = true;
-                        BindBranchDropDown();
-                        BindRMDropDown();
-                        trRange.Visible = true;
-                        trPeriod.Visible = false;
-                    }
-                    //dsGetLastTradeDate = customertransactionbo.GetLastTradeDate();
-                    //DateTime dtLastTradeDate;
+                    BindBranchDropDown();
+                    BindRMDropDown();
                 }
                 else if (userType == "rm")
                 {
-                    trRange.Visible = true;
-                    trBranchAndRmDps.Visible = false;
+                    trBranchRmDpRow.Visible = false;
+
                 }
                 else if (userType == "bm")
                 {
+                    BindBranchForBMDropDown();
+                    BindRMforBranchDropdown(0, bmID, 1);
+                    trComSecWiseOptions.Visible = true;
+                }
+            }
+            else
+            {
+                ValuationNotDoneErrorMsg.Visible = false;
+                try
+                {
+                    /* For UserType */
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
+                    path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+
+                    if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+                        userType = "advisor";
+                    else
+                        userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+
+                    SessionBo.CheckSession();
+                    userVo = (UserVo)Session["userVo"];
+                    rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
+                    bmID = rmVo.RMId;
+
                     if (!IsPostBack)
                     {
-                        trRange.Visible = true;
-                        trBranchAndRmDps.Visible = true;
-                        BindBranchForBMDropDown();
-                        BindRMforBranchDropdown(0, bmID, 1);
-                        trRange.Visible = true;
-                        trPeriod.Visible = false;
+                        if (valuedate != "")
+                        {
+                            LatestValuationdate = Convert.ToDateTime(portfoliobo.GetLatestValuationDate(advisorVo.advisorId, "EQ"));
+                            hdnValuationDate.Value = LatestValuationdate.ToString();
+                        }
+                        if (LatestValuationdate != DateTime.MinValue)
+                        {
+                            txtEQDate.Text = LatestValuationdate.Date.ToShortDateString();
+
+                        }
+                        BindMISTypeDropDown();
                     }
-                }
+
                     dsGetLastTradeDate = customertransactionbo.GetLastTradeDate();
                     DateTime dtLastTradeDate;
-                
-                
-                if (dsGetLastTradeDate.Tables[0].Rows.Count != 0)
-                {
-                    dtLastTradeDate=(DateTime)dsGetLastTradeDate.Tables[0].Rows[0]["WTD_Date"];
 
-                    txtFromDate.Text = dtLastTradeDate.ToShortDateString();
-                    txtToDate.Text = dtLastTradeDate.ToShortDateString();
+                    if (valuedate != "")
+                    {
+                        LatestValuationdate = Convert.ToDateTime(portfoliobo.GetLatestValuationDate(advisorVo.advisorId, "EQ"));
+                        hdnValuationDate.Value = LatestValuationdate.ToString();
+                    }
+                    if (LatestValuationdate != DateTime.MinValue)
+                    {
+                        txtEQDate.Text = LatestValuationdate.Date.ToShortDateString();
+                    }
+
+
+                    if (dsGetLastTradeDate.Tables[0].Rows.Count != 0)
+                    {
+                        dtLastTradeDate = (DateTime)dsGetLastTradeDate.Tables[0].Rows[0]["WTD_Date"];
+
+                        txtFromDate.Text = dtLastTradeDate.ToShortDateString();
+                        txtToDate.Text = dtLastTradeDate.ToShortDateString();
+
+                    }
+
+                    //to hide the dropdown selection for mis type for adviser and bm
+                    if (!IsPostBack)
+                    {
+                        rbtnPickDate.Checked = true;
+                        rbtnPickPeriod.Checked = false;
+                        //trRange.Visible = true;
+                        trPeriod.Visible = false;
+                    }
+                    //BindMISTypeDropDown();
+                }
+                catch (BaseApplicationException Ex)
+                {
+                    throw Ex;
+                }
+                catch (Exception Ex)
+                {
+                    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                    NameValueCollection FunctionInfo = new NameValueCollection();
+
+                    FunctionInfo.Add("Method", "AddBranch.ascx:PageLoad()");
+
+                    object[] objects = new object[2];
+                    objects[0] = advisorVo;
+                    objects[1] = path;
+                    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                    exBase.AdditionalInformation = FunctionInfo;
+                    ExceptionManager.Publish(exBase);
+                    throw exBase;
 
                 }
             }
-            catch (BaseApplicationException Ex)
+        }
+
+        private void BindMISTypeDropDown()
+        {
+            if (txtEQDate.Text == string.Empty)
             {
-                throw Ex;
+                if ((userType == "advisor") || (userType == "bm"))
+                {
+                    if (ddlMISType.SelectedValue == "TurnOverSummery")
+                    {
+                        ValuationNotDoneErrorMsg.Visible = true;
+                        rbtnPickDate.Checked = true;
+                        rbtnPickPeriod.Checked = false;
+                        trPeriod.Visible = false;
+                        trRange.Visible = true;
+                        trRbtnPickDate.Visible = true;
+                        tableComSecWiseOptions.Visible = false;
+                        trBranchRmDpRow.Visible = true;
+                    }
+                    else if (ddlMISType.SelectedValue == "CompanyWise")
+                    {
+                        ValuationNotDoneErrorMsg.Visible = true;
+                        trRange.Visible = false;
+                        trRbtnPickDate.Visible = false;
+                        trPeriod.Visible = false;
+                        tableComSecWiseOptions.Visible = true;
+                        trBranchRmDpRow.Visible = true;
+                    }
+                    else if (ddlMISType.SelectedValue == "SectorWise")
+                    {
+                        ValuationNotDoneErrorMsg.Visible = true;
+                        trRange.Visible = false;
+                        trRbtnPickDate.Visible = false;
+                        trPeriod.Visible = false;
+                        tableComSecWiseOptions.Visible = true;
+                        trBranchRmDpRow.Visible = true;
+                    }
+                }
+                else if (userType == "rm")
+                {
+                    if (ddlMISType.SelectedValue == "TurnOverSummery")
+                    {
+                        ValuationNotDoneErrorMsg.Visible = true;
+                        rbtnPickDate.Checked = true;
+                        rbtnPickPeriod.Checked = false;
+                        trPeriod.Visible = false;
+                        trRange.Visible = true;
+                        trRbtnPickDate.Visible = true;
+                        tableComSecWiseOptions.Visible = false;
+                        trBranchRmDpRow.Visible = false;
+                    }
+                    else if (ddlMISType.SelectedValue == "CompanyWise")
+                    {
+                        ValuationNotDoneErrorMsg.Visible = true;
+                        trRange.Visible = false;
+                        trRbtnPickDate.Visible = false;
+                        trPeriod.Visible = false;
+                        tableComSecWiseOptions.Visible = true;
+                        trBranchRmDpRow.Visible = false;
+                    }
+                    else if (ddlMISType.SelectedValue == "SectorWise")
+                    {
+                        ValuationNotDoneErrorMsg.Visible = true;
+                        trRange.Visible = false;
+                        trRbtnPickDate.Visible = false;
+                        trPeriod.Visible = false;
+                        tableComSecWiseOptions.Visible = true;
+                        trBranchRmDpRow.Visible = false;
+                    }
+
+                }
+                    
             }
-            catch (Exception Ex)
+                
+            else
             {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+            LatestValuationdate = Convert.ToDateTime(txtEQDate.Text);
+            hdnValuationDate.Value = LatestValuationdate.ToString();
+            DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
 
-                FunctionInfo.Add("Method", "AddBranch.ascx:PageLoad()");
+                if (ddlMISType.SelectedValue == "TurnOverSummery")
+                {
+                    rbtnPickDate.Checked = true;
+                    rbtnPickPeriod.Checked = false;
+                    trPeriod.Visible = false;
 
-                object[] objects = new object[2];
-                objects[0] = advisorVo;
-                objects[1] = path;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+                    trRange.Visible = true;
+                    trRbtnPickDate.Visible = true;
+                    //trPeriod.Visible = false;
 
+                    tableComSecWiseOptions.Visible = false;
+                    if ((!IsPostBack) && (userType == "advisor"))
+                    {
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                    }
+                    else if ((!IsPostBack) && (userType == "rm"))
+                    {
+                        trBranchRmDpRow.Visible = false;
+
+                    }
+                    else if ((!IsPostBack) && (userType == "bm"))
+                    {
+                        BindBranchForBMDropDown();
+                        BindRMforBranchDropdown(0, bmID, 1);
+                        trComSecWiseOptions.Visible = true;
+                    }
+                }
+
+                else if (ddlMISType.SelectedValue == "CompanyWise")
+                {
+                    //tableTurnOverOptions.Visible = false;
+                    trRange.Visible = false;
+                    trRbtnPickDate.Visible = false;
+                    trPeriod.Visible = false;
+                    tableComSecWiseOptions.Visible = true;
+
+
+                    hdnEQMISType.Value = "0";
+                    //trRbtnPickDate.Visible = false;
+                    //trRange.Visible = false;
+                    //trPeriod.Visible = false;
+                    trBranchRmDpRow.Visible = true;
+
+                    if (userType == "advisor")
+                    {
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                        GenerateEQMIS();
+                    }
+                    else if (userType == "rm")
+                    {
+                        trBranchRmDpRow.Visible = false;
+                        GenerateEQMIS();
+
+                    }
+                    else if (userType == "bm")
+                    {
+                        BindBranchForBMDropDown();
+                        BindRMforBranchDropdown(0, bmID, 1);
+                        GenerateEQMIS();
+                    }
+                }
+                else if (ddlMISType.SelectedValue == "SectorWise")
+                {
+                    //tableTurnOverOptions.Visible = false;
+                    trRange.Visible = false;
+                    trRbtnPickDate.Visible = false;
+                    trPeriod.Visible = false;
+                    tableComSecWiseOptions.Visible = true;
+
+                    hdnEQMISType.Value = "1";
+                    //trRbtnPickDate.Visible = false;
+                    //trRange.Visible = false;
+                    //trPeriod.Visible = false;
+                    trBranchRmDpRow.Visible = true;
+
+                    if (userType == "advisor")
+                    {
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                        GenerateEQMIS();
+                    }
+                    else if (userType == "rm")
+                    {
+                        trBranchRmDpRow.Visible = false;
+                        this.BindEQMISgrid(Valuation_Date);
+                        GenerateEQMIS();
+                    }
+                    else if (userType == "bm")
+                    {
+                        BindBranchForBMDropDown();
+                        BindRMforBranchDropdown(0, bmID, 1);
+                        GenerateEQMIS();
+                    }
+                }
             }
+            
         }
 
         private void BindGrid(DateTime dtFrom, DateTime dtTo)
@@ -139,6 +358,8 @@ namespace WealthERP.Advisor
            
             if (userType == "advisor")
                 ID = advisorVo.advisorId;
+
+
             else if (userType == "rm")
             {
                 rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -178,40 +399,99 @@ namespace WealthERP.Advisor
 
             try
             {
-                dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo,0,0,0,0);
+                if (userType == "advisor")
+                {
+                    if (hdnall.Value == "0")
+                    {
+                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 0);
+                    }
+                    else if (hdnall.Value == "1")
+                    {
+                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
+                    }
+                    else if (hdnall.Value == "2")
+                    {
+                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
+                    }
+                    else if (hdnall.Value == "3")
+                    {
+                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 3);
+                    }
+                }
+                if (userType == "rm")
+                {
+                    dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, 0, 0, 0);
+                }
 
                 if (dsEQMIS.Tables[0].Rows.Count > 0)
                 {
-                    trMessage.Visible = false;
-                    lblMessage.Visible = false;
-
-                    dtAdviserEQMIS.Columns.Add("DeliveryBuy");
-                    dtAdviserEQMIS.Columns.Add("DeliverySell");
-                    dtAdviserEQMIS.Columns.Add("SpeculativeSell");
-                    dtAdviserEQMIS.Columns.Add("SpeculativeBuy");
-
                     DataRow drAdvEQMIS;
+                    drAdvEQMIS = dtAdviserEQMIS.NewRow();
+                    
+
+                    dtAdviserEQMIS.Columns.Add("CName_Industry_Delby");
+                    dtAdviserEQMIS.Columns.Add("Industry_MValue_DelSell");
+                    dtAdviserEQMIS.Columns.Add("MValue_Percentage_SpecSell");
+                    dtAdviserEQMIS.Columns.Add("MValue_Blank_SpecBuy");
+
+                    int flag = 0;
 
                     for (int i = 0; i < dsEQMIS.Tables[0].Rows.Count; i++)
                     {
-                        drAdvEQMIS = dtAdviserEQMIS.NewRow();
+                        NumberFormatInfo nfi0 = new CultureInfo("en-US", false).NumberFormat;
+                        NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
+                        NumberFormatInfo nfi2 = new CultureInfo("en-US", false).NumberFormat;
+                        NumberFormatInfo nfi3 = new CultureInfo("en-US", false).NumberFormat;
 
-                        drAdvEQMIS[0] = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliveryBuy"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                        drAdvEQMIS[1] = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliverySell"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                        drAdvEQMIS[2] = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeSell"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                        drAdvEQMIS[3] = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeBuy"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        nfi0.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliveryBuy"].ToString()).ToString("N", nfi0));
+                        nfi1.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliverySell"].ToString()).ToString("N", nfi1));
+                        nfi2.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeSell"].ToString()).ToString("N", nfi2));
+                        nfi3.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeBuy"].ToString()).ToString("N", nfi3));
+
+                        drAdvEQMIS[0] = nfi0.NumberDecimalSeparator;
+                        drAdvEQMIS[1] = nfi1.NumberDecimalSeparator;
+                        drAdvEQMIS[2] = nfi2.NumberDecimalSeparator;
+                        drAdvEQMIS[3] = nfi3.NumberDecimalSeparator;
 
                         dtAdviserEQMIS.Rows.Add(drAdvEQMIS);
+
+                        
                     }
 
-                    gvEQMIS.DataSource = dtAdviserEQMIS;
-                    gvEQMIS.DataBind();
-                }
-                else
-                {
-                    trMessage.Visible = true;
-                    lblMessage.Visible = true;
-                    gvEQMIS.Visible = false;
+                    if ((decimal.Parse(dsEQMIS.Tables[0].Rows[0]["DeliveryBuy"].ToString()) != 0) || (decimal.Parse(dsEQMIS.Tables[0].Rows[0]["DeliverySell"].ToString()) != 0) ||
+                            (decimal.Parse(dsEQMIS.Tables[0].Rows[0]["SpeculativeSell"].ToString()) != 0) || (decimal.Parse(dsEQMIS.Tables[0].Rows[0]["SpeculativeBuy"].ToString()) != 0))
+                    {
+                        flag = 1;
+                    }
+
+                    if (flag == 0)
+                    {
+                        gvEQMIS.Visible = false;
+                        ErrorMessage.Visible = true;
+                    }
+                    else
+                    {
+                        gvEQMIS.Visible = true;
+                        ErrorMessage.Visible = false;
+                        gvEQMIS.DataSource = dtAdviserEQMIS;
+                        gvEQMIS.DataBind();
+                        gvEQMIS.Columns[0].ItemStyle.HorizontalAlign = HorizontalAlign.Right;
+                        gvEQMIS.Columns[1].ItemStyle.HorizontalAlign = HorizontalAlign.Right;
+
+                        //Assigning Text To Header template
+
+                        Label Hlb1 = (Label)gvEQMIS.HeaderRow.FindControl("lblCustIndDelby");
+                        Hlb1.Text = "Delivery Buy Value";
+
+                        Label Hlb2 = (Label)gvEQMIS.HeaderRow.FindControl("lblIndMValueDelSell");
+                        Hlb2.Text = "Delivery Sell Value";
+
+                        Label Hlb3 = (Label)gvEQMIS.HeaderRow.FindControl("lblMValuePerCSpecSell");
+                        Hlb3.Text = "Speculative Sell Value";
+
+                        Label Hlb4 = (Label)gvEQMIS.HeaderRow.FindControl("lblMvalueBlankSpecbuy");
+                        Hlb4.Text = "Speculative Buy Value";
+                    }
                 }
             }
             catch (BaseApplicationException Ex)
@@ -233,6 +513,170 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+
+        private void BindEQMISgrid(DateTime Valuationdate)
+        {
+            AdvisorMISBo adviserMISBo = new AdvisorMISBo();
+            DataSet dsCompSecEQMIS = new DataSet();
+            DataTable dtCompSecEQMIS = new DataTable();
+            int adviserId = 0;
+            int rmId = 0;
+           
+            adviserId = advisorVo.advisorId;
+
+            rmVo = (RMVo)Session[SessionContents.RmVo];
+            rmId = rmVo.RMId;
+           
+            hdnPortfolioType.Value = ddlPortfolioGroup.SelectedValue;
+            hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
+            hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+            hdnrmId.Value = ddlRMEQ.SelectedValue;
+
+
+            DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
+
+            if (userType == "rm")
+            {
+                dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, rmId, 0, 0, 0, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
+            }
+            if (userType == "advisor")
+            {
+                if (hdnall.Value == "0")
+                {
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 0, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
+                }
+                else if (hdnall.Value == "1")
+                {
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
+                }
+                else if (hdnall.Value == "2")
+                {
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
+                }
+                else if (hdnall.Value == "3")
+                {
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 3, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
+                }
+            }
+            if (userType == "bm")
+            {
+                if (hdnall.Value == "0")
+                {
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 0, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
+                }
+                else if (hdnall.Value == "1")
+                {
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
+                }
+                else if (hdnall.Value == "2")
+                {
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
+                }
+                else if (hdnall.Value == "3")
+                {
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId,int.Parse(hdnrmId.Value.ToString()),int.Parse(hdnbranchId.Value.ToString()), 0, 3, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
+                }
+            }
+
+            if (dsCompSecEQMIS.Tables[0].Rows.Count == 0)
+            {
+                ErrorMessage.Visible = true;
+                gvEQMIS.DataSource = dsCompSecEQMIS;
+                gvEQMIS.DataBind();
+            }
+            else
+            {
+
+                ErrorMessage.Visible = false;
+                                
+                dtCompSecEQMIS.Columns.Add("CName_Industry_Delby");
+                dtCompSecEQMIS.Columns.Add("Industry_MValue_DelSell");
+                dtCompSecEQMIS.Columns.Add("MValue_Percentage_SpecSell");
+                dtCompSecEQMIS.Columns.Add("MValue_Blank_SpecBuy");
+
+                DataRow drAdvEQMIS;
+
+                for (int i = 0; i < dsCompSecEQMIS.Tables[0].Rows.Count; i++)
+                {
+
+                    //NumberFormatInfo nfi0 = new CultureInfo("en-US", false).NumberFormat;
+                    //NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
+                    //NumberFormatInfo nfi2 = new CultureInfo("en-US", false).NumberFormat;
+                    //NumberFormatInfo nfi3 = new CultureInfo("en-US", false).NumberFormat;
+
+                    //nfi0.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliveryBuy"].ToString()).ToString("N", nfi0));
+                    //nfi1.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliverySell"].ToString()).ToString("N", nfi1));
+                    //nfi2.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeSell"].ToString()).ToString("N", nfi2));
+                    //nfi3.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeBuy"].ToString()).ToString("N", nfi3));
+
+                    //drAdvEQMIS[0] = nfi0.NumberDecimalSeparator;
+                    //drAdvEQMIS[1] = nfi1.NumberDecimalSeparator;
+                    //drAdvEQMIS[2] = nfi2.NumberDecimalSeparator;
+                    //drAdvEQMIS[3] = nfi3.NumberDecimalSeparator;
+
+
+                    drAdvEQMIS = dtCompSecEQMIS.NewRow();
+                   
+                    NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
+                    NumberFormatInfo nfi2 = new CultureInfo("en-US", false).NumberFormat;
+
+                    if (hdnEQMISType.Value == "0")
+                    {
+                        drAdvEQMIS[0] = dsCompSecEQMIS.Tables[0].Rows[i]["CompanyName"].ToString();
+                    }
+                    else
+                        drAdvEQMIS[0] = string.Empty;
+
+                    drAdvEQMIS[1] = dsCompSecEQMIS.Tables[0].Rows[i]["Industry"].ToString();
+                    nfi1.NumberDecimalSeparator = String.Format("{0:0,0}", decimal.Parse(dsCompSecEQMIS.Tables[0].Rows[i]["MarketValue"].ToString()).ToString("N", nfi1));
+                    nfi2.NumberDecimalSeparator = String.Format("{0:0,0}", decimal.Parse(dsCompSecEQMIS.Tables[0].Rows[i]["NetAssetsPercentage"].ToString()).ToString("N", nfi2));
+
+                    drAdvEQMIS[2] = nfi1.NumberDecimalSeparator;
+                    drAdvEQMIS[3] = nfi2.NumberDecimalSeparator;
+                    
+                    dtCompSecEQMIS.Rows.Add(drAdvEQMIS);
+                }
+                gvEQMIS.DataSource = dtCompSecEQMIS;
+                gvEQMIS.DataBind();
+
+                //Assigning Text To Header template
+                if (hdnEQMISType.Value == "0")
+                {
+                    Label Hlb1 = (Label)gvEQMIS.HeaderRow.FindControl("lblCustIndDelby");
+                    Hlb1.Text = "Company Name";
+
+                    Label Hlb2 = (Label)gvEQMIS.HeaderRow.FindControl("lblIndMValueDelSell");
+                    Hlb2.Text = "Industry";
+
+                    Label Hlb3 = (Label)gvEQMIS.HeaderRow.FindControl("lblMValuePerCSpecSell");
+                    Hlb3.Text = "Market Value";
+
+                    Label Hlb4 = (Label)gvEQMIS.HeaderRow.FindControl("lblMvalueBlankSpecbuy");
+                    Hlb4.Text = "% to net Assets";
+                }
+                else if (hdnEQMISType.Value == "1")
+                {
+                    Label Hlb2 = (Label)gvEQMIS.HeaderRow.FindControl("lblIndMValueDelSell");
+                    Hlb2.Text = "Industry";
+
+                    Label Hlb3 = (Label)gvEQMIS.HeaderRow.FindControl("lblMValuePerCSpecSell");
+                    Hlb3.Text = "Market Value";
+
+                    Label Hlb4 = (Label)gvEQMIS.HeaderRow.FindControl("lblMvalueBlankSpecbuy");
+                    Hlb4.Text = "% to net Assets";
+
+                    gvEQMIS.Columns[0].Visible = false;
+                    //gvEQMIS.Columns[1].Visible = false;
+                }
+
+               
+
+            }
+
+        }
+
+        /* End */ 
+
 
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
         {
@@ -264,6 +708,11 @@ namespace WealthERP.Advisor
 
         protected void ddlPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
+            GenerateEQMIS();
+        }
+
+        public void GereratePickPeriod()
+        {
             DateTime dtFrom = new DateTime();
             DateTime dtTo = new DateTime();
             DateBo dtBo = new DateBo();
@@ -277,36 +726,93 @@ namespace WealthERP.Advisor
             {
 
             }
+
         }
 
+
         protected void btnGo_Click(object sender, EventArgs e)
+        {
+            GenerateEQMIS();
+        }
+        public void GenerateEQMIS()
         {
             CultureInfo ci = new CultureInfo("en-GB");
 
             DateTime convertedFromDate = new DateTime();
             DateTime convertedToDate = new DateTime();
 
+            LatestValuationdate = Convert.ToDateTime(txtEQDate.Text);
+            hdnValuationDate.Value = LatestValuationdate.ToString();
+            DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
+
             convertedFromDate = Convert.ToDateTime(txtFromDate.Text.Trim(), ci);
             convertedToDate = Convert.ToDateTime(txtToDate.Text.Trim(), ci);
 
-           
-
-            /* For BM MIS */
-            if (userType == "advisor") 
+            /* For Turn Over EQ */
+            if ((userType == "advisor") && (ddlMISType.SelectedValue == "TurnOverSummery"))
             {
                 if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex == 0))
                 {
                     hdnbranchId.Value = "0";
                     hdnbranchHeadId.Value = bmID.ToString();
-                    hdnall.Value = "2";
-                    //hdnXWise.Value = "1";
-                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    hdnall.Value = "0";
+                    hdnrmId.Value = "0";
+                    if (rbtnPickPeriod.Checked == true)
+                        GereratePickPeriod();
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
 
-                    //dsMISReport = adviserMISBo.GetMISForBM(int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnbranchHeadId.Value.ToString()), int.Parse(hdnXWise.Value.ToString()), int.Parse(hdnAll.Value.ToString()), DateTime.Parse(hdnValuationDate.Value.ToString()), hdnAMCSearchVal.Value.ToString(), out count, 0);
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = "0";
+                    hdnall.Value = "1";
+                    hdnrmId.Value = "0";
+                    if (rbtnPickPeriod.Checked == true)
+                        GereratePickPeriod();
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
+
+                }
+
+                else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "2";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    if (rbtnPickPeriod.Checked == true)
+                        GereratePickPeriod();
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
+                }
+
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = "0";
+                    hdnall.Value = "3";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    if (rbtnPickPeriod.Checked == true)
+                        GereratePickPeriod();
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
             }
-            else if (userType == "bm")
+            else if ((userType == "rm") && (ddlMISType.SelectedValue == "TurnOverSummery"))
+            {
+                rmId = rmVo.RMId;
+                hdnbranchId.Value = "0";
+                hdnbranchHeadId.Value = "0";
+                hdnrmId.Value = rmId.ToString();
+                hdnall.Value = "0";
+                if (rbtnPickPeriod.Checked == true)
+                    GereratePickPeriod();
+                else
+                    this.BindGrid(convertedFromDate, convertedToDate);
+            }
+            else if ((userType == "bm") && (ddlMISType.SelectedValue == "TurnOverSummery"))
             {
                 if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex == 0))
                 {
@@ -315,9 +821,10 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "2";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-
-
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked == true)
+                        GereratePickPeriod();
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
 
                 else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
@@ -326,9 +833,10 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "3";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-
-
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked == true)
+                        GereratePickPeriod();
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
 
                 else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
@@ -338,8 +846,10 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "1";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked == true)
+                        GereratePickPeriod();
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
 
                 else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
@@ -348,11 +858,179 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "0";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked == true)
+                        GereratePickPeriod();
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
-                
+
             }
             /* ********** */
+
+            /* For CompanyWise EQ */
+            if ((userType == "advisor") && (ddlMISType.SelectedValue == "CompanyWise"))
+            {
+                if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "0";
+                    hdnrmId.Value = "0";
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = "0";
+                    hdnall.Value = "1";
+                    hdnrmId.Value = "0";
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+                else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "2";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = "0";
+                    hdnall.Value = "3";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+            }
+            else if ((userType == "bm") && (ddlMISType.SelectedValue == "CompanyWise"))
+            {
+                if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "0";
+                    hdnrmId.Value = "0";
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
+
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = "0";
+                    hdnall.Value = "1";
+                    hdnrmId.Value = "0";
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+
+                else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "2";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = "0";
+                    hdnall.Value = "3";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+
+            }
+            else if ((userType == "rm") && (ddlMISType.SelectedValue == "CompanyWise"))
+            {
+                hdnbranchId.Value = "0";
+                rmId = rmVo.RMId;
+                hdnbranchHeadId.Value = "0";
+                this.BindEQMISgrid(Valuation_Date);
+            }
+            /* ************* */
+
+            /* For Sector Wise */
+            if ((userType == "advisor") && (ddlMISType.SelectedValue == "SectorWise"))
+            {
+                if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "0";
+                    hdnrmId.Value = "0";
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = "0";
+                    hdnall.Value = "1";
+                    hdnrmId.Value = "0";
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+                else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "2";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = "0";
+                    hdnall.Value = "3";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+            }
+            else if ((userType == "bm") && (ddlMISType.SelectedValue == "SectorWise"))
+            {
+                if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "0";
+                    hdnrmId.Value = "0";
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
+                {
+
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = "0";
+                    hdnall.Value = "1";
+                    hdnrmId.Value = "0";
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+
+                else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnall.Value = "2";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    this.BindEQMISgrid(Valuation_Date);
+                }
+
+                else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
+                    hdnbranchHeadId.Value = "0";
+                    hdnall.Value = "3";
+                    hdnrmId.Value = ddlRMEQ.SelectedValue;
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
+
+            }
+            else if ((userType == "rm") && (ddlMISType.SelectedValue == "SectorWise"))
+            {
+                hdnbranchId.Value = "0";
+                rmId = rmVo.RMId;
+                hdnbranchHeadId.Value = "0";
+                this.BindEQMISgrid(Valuation_Date);
+            }
         }
 
         protected void ddlBranchForEQ_SelectedIndexChanged(object sender, EventArgs e)
@@ -365,7 +1043,7 @@ namespace WealthERP.Advisor
             {
                 BindRMforBranchDropdown(int.Parse(ddlBranchForEQ.SelectedValue.ToString()), 0, 0);
             }
-            
+            GenerateEQMIS();
         }
 
 
@@ -449,15 +1127,16 @@ namespace WealthERP.Advisor
 
         protected void ddlRMEQ_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            GenerateEQMIS();
         }
 
-        /* End For Binding the RM Dropdowns */
+        /* ********** */
 
         /*for AdviserAssociateCategorySetup drop down */
 
         private void BindBranchDropDown()
         {
+            
             try
             {
                 UploadCommonBo uploadsCommonDao = new UploadCommonBo();
@@ -469,7 +1148,7 @@ namespace WealthERP.Advisor
                     ddlBranchForEQ.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
                     ddlBranchForEQ.DataBind();
                 }
-                ddlBranchForEQ.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+                ddlBranchForEQ.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
             }
             catch (BaseApplicationException Ex)
             {
@@ -524,6 +1203,17 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+
+        protected void ddlMISType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindMISTypeDropDown();
+            
+        }
+
+        protected void ddlPortfolioGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GenerateEQMIS();
         }
 
     }
