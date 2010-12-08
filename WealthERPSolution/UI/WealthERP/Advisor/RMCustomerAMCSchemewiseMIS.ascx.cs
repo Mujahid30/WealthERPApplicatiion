@@ -114,29 +114,52 @@ namespace WealthERP.Advisor
                 PortfolioBo portfoliobo = new PortfolioBo();
                 string valuedate = Convert.ToString(portfoliobo.GetLatestValuationDate(advisorVo.advisorId, "MF"));
                 hdnValuationDate.Value = valuedate.ToString();
-
-                if (userType == "rm")
+                if (hdnValuationDate.Value == string.Empty)
                 {
-                    spnBranch.Visible = false;
-                    spnRM.Visible = false;
-                }
-                if (userType == "adviser")
-                {
-                    BindBranchDropDown();
-                    BindRMDropDown();
-                }
-                if (userType == "bm")
-                {
-                    if (!IsPostBack)
+                    ValuationNotDoneErrorMsg.Visible = true;
+                    if (userType == "adviser")
+                    {
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                    }
+                    else if (userType == "rm")
+                    {
+                        spnBranch.Visible = false;
+                        spnRM.Visible = false;
+                    }
+                    else if (userType == "bm")
                     {
                         BindBranchForBMDropDown();
                         BindRMforBranchDropdown(0, bmID, 1);
                     }
-                    hdnbranchId.Value = "0";
-                    hdnbranchHeadId.Value = ddlBranch.SelectedValue;
-                    hdnAll.Value = "2";
-                    hdnXWise.Value = "2";
-                    hdnrmId.Value = "0";
+                }
+                else
+                {
+                    ValuationNotDoneErrorMsg.Visible = false;
+
+                    if (userType == "rm")
+                    {
+                        spnBranch.Visible = false;
+                        spnRM.Visible = false;
+                    }
+                    if (userType == "adviser")
+                    {
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                    }
+                    if (userType == "bm")
+                    {
+                        if (!IsPostBack)
+                        {
+                            BindBranchForBMDropDown();
+                            BindRMforBranchDropdown(0, bmID, 1);
+                        }
+                        hdnbranchId.Value = "0";
+                        hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                        hdnAll.Value = "2";
+                        hdnXWise.Value = "2";
+                        hdnrmId.Value = "0";
+                    }
                 }
 
                 if (Request.QueryString["schemeplanid"] != null)
@@ -161,12 +184,12 @@ namespace WealthERP.Advisor
                     bindgrid(LatestValuationdate, schemeplanid);
 
                 }
-                else
-                {
-                    trMessage.Visible = true;
-                    lblMessage.Text = "No valuation done";
+                //else
+                //{
+                //    trMessage.Visible = true;
+                //    lblMessage.Text = "No valuation done";
 
-                }
+                //}
             }
         }
 

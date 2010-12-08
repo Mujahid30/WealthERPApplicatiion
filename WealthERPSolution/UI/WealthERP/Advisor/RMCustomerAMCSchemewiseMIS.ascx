@@ -320,6 +320,13 @@
       </asp:UpdatePanel>
         </td>
     </tr>
+     <tr id="ValuationNotDoneErrorMsg" align="center" style="width: 100%" runat="server">
+                    <td align="center" style="width: 100%">
+                        <div class="failure-msg" style="text-align:center" align="center">
+                            Valuation not done for this adviser....
+                        </div>
+                    </td>
+                </tr>
 </table>
 
 <div id="DivPager" runat="server" style="display: none">
