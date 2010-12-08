@@ -1220,18 +1220,33 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
                 db.AddInParameter(getCustomerListCmd, "@CurrentPage", DbType.Int32, currentPage);
                 db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, sortExpression);
-                if (nameFilter != "")
+
+                if (!string.IsNullOrEmpty(nameFilter.Trim()))
                     db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, nameFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, DBNull.Value);
-                if (areaFilter != "")
+
+                if (!string.IsNullOrEmpty(areaFilter.Trim()))
                     db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, areaFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@areaFilter", DbType.String, DBNull.Value);
-                db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
-                db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
-                db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
-                if (RMFilter != "")
+
+                if (!string.IsNullOrEmpty(pincodeFilter.Trim()))
+                    db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, pincodeFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@pincodeFilter", DbType.String, DBNull.Value);
+
+                if (!string.IsNullOrEmpty(parentFilter.Trim()))
+                    db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, parentFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@parentFilter", DbType.String, DBNull.Value);
+
+                if (!string.IsNullOrEmpty(cityFilter.Trim()))
+                    db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, cityFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@cityFilter", DbType.String, DBNull.Value);
+
+                if (!string.IsNullOrEmpty(RMFilter.Trim()))
                     db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, RMFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, DBNull.Value);
