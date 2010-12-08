@@ -8,6 +8,8 @@ using System.Resources;
 using System.Text;
 using BoUser;
 using VoUser;
+using DaoCustomerPortfolio;
+using System.Web.Services;
 
 namespace WealthERP
 {
@@ -78,6 +80,13 @@ namespace WealthERP
             }
 
             loadcontrol();
+        }
+
+        [WebMethod]
+        public static bool CheckTradeNoAvailability(int TradeAccNo, string BrokerCode, int PortfolioId)
+        {
+            CustomerAccountDao checkAccDao = new CustomerAccountDao();
+            return checkAccDao.CheckTradeNoAvailability(TradeAccNo, BrokerCode, PortfolioId);
         }
 
         private void AddSessionTrack()
