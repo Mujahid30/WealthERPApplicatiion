@@ -64,13 +64,13 @@
     }
 </style>
 <style type="text/css">
-    .style6
-    {
-        width: 323px;
-    }
     .style11
     {
         width: 217px;
+    }
+    .style12
+    {
+        height: 28px;
     }
 </style>
 
@@ -82,7 +82,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td class="style12">
             <asp:ImageButton ID="imgBtnExport" ImageUrl="~/Images/Export_Excel.png" runat="server"
                 AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
                 OnClientClick="setFormat('excel')" CausesValidation="false" />
@@ -111,14 +111,14 @@
                 <input id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" type="radio" />
                 <label for="rbtnSin" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
                     font-weight: 500">Current Page</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <br />
                 &nbsp;&nbsp;
                 <input id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')"
                     type="radio" />
                 <label for="Radio1" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
                     font-weight: 500">All Pages</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
                 <br />
                 <div align="center">
                     <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
