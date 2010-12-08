@@ -112,9 +112,25 @@ namespace WealthERP.Advisor
                 PortfolioBo portfoliobo = new PortfolioBo();
                 string valuedate = Convert.ToString(portfoliobo.GetLatestValuationDate(advisorVo.advisorId, "MF"));
                 hdnValuationDate.Value = valuedate.ToString();
+
                 if (hdnValuationDate.Value == string.Empty)
                 {
                     ValuationNotDoneErrorMsg.Visible = true;
+                    if (userType == "adviser")
+                    {
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                    }
+                    else if (userType == "rm")
+                    {
+                        spnBranch.Visible = false;
+                        spnRM.Visible = false;
+                    }
+                    else if (userType == "bm")
+                    {
+                        BindBranchForBMDropDown();
+                        BindRMforBranchDropdown(0, bmID, 1);
+                    }
                 }
                 else
                 {
