@@ -215,6 +215,13 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
                 }
+                else if (TreeView1.SelectedNode.Value.ToString() == "FP")
+                {
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
+                    Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
+                }
                 else if (TreeView1.SelectedNode.Value.ToString() == "ProspectList")
                 {
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
