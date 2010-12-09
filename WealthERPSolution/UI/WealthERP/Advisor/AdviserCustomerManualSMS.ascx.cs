@@ -37,7 +37,7 @@ namespace WealthERP.Advisor
                 if (dsAdviserSubscriptionDetails.Tables[0].Rows.Count > 0)
                 {
                     DataRow drAdviserSubscriptionDetails = dsAdviserSubscriptionDetails.Tables[0].Rows[0];
-                    smsLicense = int.Parse(drAdviserSubscriptionDetails["AS_SMSLicenece"].ToString());
+                    smsLicense = int.Parse(drAdviserSubscriptionDetails["AS_SMSLicences"].ToString());
                 }
             }
             if (smsLicense == 0)
