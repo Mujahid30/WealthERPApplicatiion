@@ -107,8 +107,9 @@ namespace DaoUser
                         userVo.IsTempPassword = int.Parse(dr["U_IsTempPassword"].ToString());
                     if (dr["U_Theme"].ToString() != "")
                         userVo.theme = dr["U_Theme"].ToString();
-
-                    userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
+                    
+                    if(!string.IsNullOrEmpty(dr["RoleList"].ToString()))
+                        userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
                 }
 
             }
