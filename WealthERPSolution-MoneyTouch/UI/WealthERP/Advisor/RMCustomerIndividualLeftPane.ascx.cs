@@ -87,7 +87,7 @@ namespace WealthERP.Advisor
                         if (isGrpHead == true)
                         {
                             //TreeView1.FindNode("Group Dashboard").Selected = true;
-                            RadPanelBar1.FindItemByValue("Group Dashboard").Selected = true;
+                            RadPanelBar1.FindItemByText("Group Dashboard").Selected = true;
                         }
                         else
                         {
