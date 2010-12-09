@@ -915,7 +915,27 @@ namespace WealthERP.Advisor
 
         protected void btnReassignBranch_Click(object sender, EventArgs e)
         {
-            string selectedCusmoerIds = Convert.ToString(GetSelectedCustomerIdString());
+            string selectedCusmoerIds = "";
+            StringBuilder allPageCustomerIds = new StringBuilder();
+            AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();          
+            DataTable dtAllPagesCustomer;
+
+            if (hndAllPageSelect.Value == "1")
+            {
+                dtAllPagesCustomer = adviserBranchBo.GetAllpagesAdvisorCustomerForAssociation(int.Parse(hndBranchIdFilter.Value.ToString()), adviserVo.advisorId, hdnNameFilter.Value, hdnBranchFilter.Value, hdnRMNameFilter.Value, hdnCityFilter.Value);
+                foreach (DataRow dr in dtAllPagesCustomer.Rows)
+                {
+                    allPageCustomerIds.Append(dr["C_CustomerId"].ToString());
+                    allPageCustomerIds.Append("~");
+
+                }
+                selectedCusmoerIds = allPageCustomerIds.ToString();
+            }
+            else
+            {
+
+                selectedCusmoerIds = Convert.ToString(GetSelectedCustomerIdString());
+            }
             if (ddlBranchRMList.Visible == true && ddlBranchRMList.SelectedIndex != 0)
                 advisorBranchBO.ReassignCustomersBranchRM(selectedCusmoerIds, int.Parse(ddlAdvisorBranchList.SelectedValue), int.Parse(ddlBranchRMList.SelectedValue));
             else
@@ -928,7 +948,27 @@ namespace WealthERP.Advisor
 
         protected void btnReassignRM_Click(object sender, EventArgs e)
         {
-            string selectedCusmoerIds = Convert.ToString(GetSelectedCustomerIdString());
+            string selectedCusmoerIds = "";
+            StringBuilder allPageCustomerIds = new StringBuilder();
+            AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
+            DataTable dtAllPagesCustomer;
+
+            if (hndAllPageSelect.Value == "1")
+            {
+                dtAllPagesCustomer = adviserBranchBo.GetAllpagesAdvisorCustomerForAssociation(int.Parse(hndBranchIdFilter.Value.ToString()), adviserVo.advisorId, hdnNameFilter.Value, hdnBranchFilter.Value, hdnRMNameFilter.Value, hdnCityFilter.Value);
+                foreach (DataRow dr in dtAllPagesCustomer.Rows)
+                {
+                    allPageCustomerIds.Append(dr["C_CustomerId"].ToString());
+                    allPageCustomerIds.Append("~");
+
+                }
+                selectedCusmoerIds = allPageCustomerIds.ToString();
+            }
+            else 
+            {
+                selectedCusmoerIds = Convert.ToString(GetSelectedCustomerIdString());
+            }
+           
             if (ddlBranchRMList.Visible == true && ddlBranchRMList.SelectedIndex != 0)
             {
                 advisorBranchBO.ReassignCustomersBranchRM(selectedCusmoerIds, int.Parse(ddlBranchList.SelectedValue), int.Parse(ddlBranchRMList.SelectedValue));
@@ -944,6 +984,8 @@ namespace WealthERP.Advisor
             setShowHideControls(0);
             ddlBranchList.SelectedIndex=0;
             hndBranchIdFilter.Value = "0";
+            mypager.CurrentPage = 1;
+            hdnCurrentPage.Value = mypager.CurrentPage.ToString();
             this.BindCustomer(mypager.CurrentPage);
             ddlBranchList.SelectedIndex = 0;
             trReassignRM.Visible = false;
@@ -972,6 +1014,8 @@ namespace WealthERP.Advisor
         {
             hdnBranchFilter.Value = string.Empty;
             hndBranchIdFilter.Value = "0";
+            mypager.CurrentPage = 1;
+            hdnCurrentPage.Value = mypager.CurrentPage.ToString();
             this.BindCustomer(mypager.CurrentPage);          
             setShowHideControls(1);
           
