@@ -408,7 +408,7 @@ namespace WealthERP.Advisor
                         }
                     }
                 }
-                this.BindCustomer(mypager.CurrentPage);
+                //this.BindCustomer(mypager.CurrentPage);
             }
             catch (BaseApplicationException Ex)
             {
@@ -690,9 +690,12 @@ namespace WealthERP.Advisor
             DropDownList ddlAction = null;
             GridViewRow gvr = null;
             int selectedRow = 0;
+            CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+            PortfolioBo portfolioBo = new PortfolioBo();
             int userId = 0;
             UserVo tempUser = null;
             UserBo userBo = new UserBo();
+            bool isGrpHead = false;
 
             try
             {
@@ -710,44 +713,36 @@ namespace WealthERP.Advisor
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-                    if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == null)
-                    {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
-                    }
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                    if (isGrpHead == true)
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorRMCustGroupDashboard", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
                     else
-                    {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserRMCustNonIndiDashboard','none');", true);
-                    }
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorRMCustIndiDashboard", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
                     Session["IsDashboard"] = "false";
-                    if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == null)
-                    {
-
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
-                    }
-                    else
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerNonIndividualDashboard','none');", true);
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                    Session["customerPortfolioVo"] = customerPortfolioVo;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndividualDashboard", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
-                    CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
-                    PortfolioBo portfolioBo = new PortfolioBo();
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','list');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','list');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertDashBoard','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMAlertDashBoard", "loadcontrol('RMAlertDashBoard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
                 {
                     tempUser = new UserVo();
                     tempUser = userBo.GetUserDetails(userId);
                     Session["CustomerUser"] = tempUser;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "GenerateLoginPassword", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
                 }
 
