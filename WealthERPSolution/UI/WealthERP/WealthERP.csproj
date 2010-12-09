@@ -1777,6 +1777,13 @@
     <Compile Include="Customer\CustomerExpense.ascx.designer.cs">
       <DependentUpon>CustomerExpense.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Customer\CustomerFPDashBoard.ascx.cs">
+      <DependentUpon>CustomerFPDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerFPDashBoard.ascx.designer.cs">
+      <DependentUpon>CustomerFPDashBoard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Customer\CustomerIncome.ascx.cs">
       <DependentUpon>CustomerIncome.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2768,6 +2775,7 @@
     <Content Include="Customer\AddDematAccountDetails.ascx" />
     <Content Include="Customer\CustomerAdvisorsNote.ascx" />
     <Content Include="Customer\CustomerExpense.ascx" />
+    <Content Include="Customer\CustomerFPDashBoard.ascx" />
     <Content Include="Customer\CustomerIncome.ascx" />
     <Content Include="Customer\DematAccountDetails.ascx" />
     <Content Include="Customer\GroupAccountSetup.ascx" />
