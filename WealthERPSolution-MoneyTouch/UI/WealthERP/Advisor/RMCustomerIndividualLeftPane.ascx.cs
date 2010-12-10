@@ -74,6 +74,7 @@ namespace WealthERP.Advisor
                     {
                         //TreeView1.Nodes.AddAt(1, new TreeNode("Group Dashboard"));
                         RadPanelBar1.Items.Insert(1, new Telerik.Web.UI.RadPanelItem("Group Dashboard"));
+                        RadPanelBar1.Items.FindItemByText("Group Dashboard").Value = "Group Dashboard";
                     }
 
                     string IsDashboard = string.Empty;
