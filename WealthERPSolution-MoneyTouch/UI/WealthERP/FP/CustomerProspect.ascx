@@ -487,7 +487,7 @@
                                                 <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                                 <Columns>
                                                     <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
-                                                        CancelText="Cancel" ButtonType="ImageButton" InsertImageUrl="../App_Themes/Purple/Grid/Update.gif" EditImageUrl="../App_Themes/Purple/Grid/Edit.gif" CancelImageUrl="../App_Themes/Purple/Grid/Cancel.gif">
+                                                CancelText="Cancel" ButtonType="ImageButton" InsertImageUrl="../App_Themes/Purple/Grid/Update.gif" EditImageUrl="../App_Themes/Purple/Grid/Edit.gif" CancelImageUrl="../App_Themes/Purple/Grid/Cancel.gif" UpdateImageUrl="../App_Themes/Purple/Grid/Update.gif">
                                                         <HeaderStyle Width="85px"></HeaderStyle>
                                                     </telerik:GridEditCommandColumn>
                                                     <telerik:GridDropDownColumn UniqueName="CustomerRelationship" HeaderText="Relationship"
@@ -525,7 +525,7 @@
                                                             <asp:TextBox runat="server" ID="txtGridEmailId" Text='<%# Bind("EmailId") %>'></asp:TextBox>
                                                         </EditItemTemplate>
                                                     </telerik:GridTemplateColumn>
-                                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
+                                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" ImageUrl="../App_Themes/Purple/Grid/Delete.gif"
                                                         ButtonType="ImageButton" />
                                                 </Columns>
                                                 <EditFormSettings CaptionFormatString="Edit details for employee with ID {0}" CaptionDataField="FirstName">
