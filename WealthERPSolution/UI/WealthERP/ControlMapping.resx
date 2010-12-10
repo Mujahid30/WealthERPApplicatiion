@@ -1090,7 +1090,7 @@
     <comment>Advisor//AdvisorMISCommission.ascx</comment>
   </data>
   <data name="CustomerFPDashBoard" xml:space="preserve">
-    <value>Customer//CustomerFPDashBoard.ascx</value>
-    <comment>Customer//CustomerFPDashBoard.ascx</comment>
+    <value>FP//CustomerFPDashBoard.ascx</value>
+    <comment>FP//CustomerFPDashBoard.ascx</comment>
   </data>
 </root>

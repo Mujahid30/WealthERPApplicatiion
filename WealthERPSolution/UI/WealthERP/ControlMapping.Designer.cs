@@ -655,7 +655,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer//CustomerFPDashBoard.ascx.
+        ///   Looks up a localized string similar to FP//CustomerFPDashBoard.ascx.
         /// </summary>
         internal static string CustomerFPDashBoard {
             get {
