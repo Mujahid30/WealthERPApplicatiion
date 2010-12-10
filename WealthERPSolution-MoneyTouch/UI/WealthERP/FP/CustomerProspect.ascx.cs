@@ -1306,7 +1306,10 @@ namespace WealthERP.FP
                 UpdateCustomerForAddProspect(customerId);
                 if (dt != null)
                 {
-
+                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                   
+                        dt = CustomerIdList(dt, customerId);
+                    
                     foreach (DataRow dr in dt.Rows)
                     {
                         if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
@@ -1334,7 +1337,22 @@ namespace WealthERP.FP
             return bresult;
 
         }
-
+        protected DataTable CustomerIdList(DataTable dt, int customerId)
+        {
+            int i = 0;
+            List<CustomerFamilyVo> customerFamilyVoList = new List<CustomerFamilyVo>();
+            CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
+            customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
+            if (customerFamilyVoList != null)
+            {
+                foreach (CustomerFamilyVo customerfamilyvo in customerFamilyVoList)
+                {
+                    dt.Rows[i]["C_CustomerId"] = customerfamilyvo.CustomerId;
+                    dt.Rows[i]["CA_AssociationId"] = customerfamilyvo.CustomerId;
+                }
+            }
+            return dt;
+        }
         /// <summary>
         /// Used to Update Parent Customers
         /// </summary>
