@@ -16,6 +16,21 @@
             return true;
         }
     }
+
+    function showassocation() {
+
+        var bool = window.confirm('Customer is associated to himself/herself, cannot be dissociated');
+        if (bool) {
+            document.getElementById("ctrl_ViewCustomerFamily_hdnassociation").value = 1;
+            document.getElementById("ctrl_ViewCustomerFamily_hiddenassociationfound").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_ViewCustomerFamily_hdnassociation").value = 0;
+            document.getElementById("ctrl_ViewCustomerFamily_hiddenassociationfound").click();
+            return true;
+        }
+    }
    
 </script>
 
@@ -41,6 +56,17 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
+                  <asp:TemplateField HeaderText="Select">
+                     <HeaderTemplate>
+                            <asp:Label ID="LblSelect" runat="server" Text=""></asp:Label>
+                            <br />
+                            <%--<asp:Button ID="lnkSelectAll" Text="All" runat="server"  OnClientClick="return CheckAll();" />--%>
+                          <%-- <input id="chkBoxAll" class="CheckField" name="CheckAllCustomer" value="Customer" type="checkbox" onclick="checkAllBoxes('CurrentPage')" />--%>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkId" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Parent Customer" ShowHeader="False">
                         <HeaderTemplate>
                             <asp:Label ID="lblCustNameHeader" runat="server" Text="Parent Customer"></asp:Label>
@@ -59,11 +85,22 @@
             </asp:GridView>
         </td>
     </tr>
+        <tr>
+    <td>
+    
+    </td>
+        <td align="left">        
+        <asp:Button ID="btnDissociate" runat="server"  
+                 CssClass="PCGMediumButton" OnClick="Deactive_Click" 
+                Text="Disassociate"  />            
+        </td>
+    </tr>
     <tr>
         <td colspan="3">
             &nbsp;
         </td>
     </tr>
+
     <tr>
         <td>
             &nbsp;

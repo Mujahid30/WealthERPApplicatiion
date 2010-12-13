@@ -26,6 +26,7 @@ namespace WealthERP.Customer
         int customerId;
         int memberCustomerId;
         RMVo rmVo = new RMVo();
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -204,7 +205,7 @@ namespace WealthERP.Customer
             if (e.CommandName == "EditDetails")
             {
                 Session["AssociationId"] = e.CommandArgument.ToString();
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GroupAccountSetup','action=Edit');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GroupAccountSetup','?action=Edit');", true);
 
             }
         }
@@ -257,5 +258,53 @@ namespace WealthERP.Customer
             gvCustomerFamily.PageIndex = e.NewPageIndex;
             BindGrid();
         }
+   
+         protected void Deactive_Click(object sender, EventArgs e)
+        {
+
+           
+                string GoalIds = GetSelectedGoalIDString();
+                int folioDs =  customerFamilyBo.CustomerFamilyDissociation(GoalIds);
+             if (folioDs > 1 )
+             {
+                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true); 
+             }
+             else
+             {
+                 Dissociatecustomer();
+             }
+            
+            }
+         protected void hiddenassociationfound_Click(object sender, EventArgs e)
+         {
+            
+                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCustomerFamily','none');", true);
+             
+         }
+
+         protected void Dissociatecustomer()
+         {
+             string GoalIds = GetSelectedGoalIDString();
+             int folioDs = customerFamilyBo.CustomerDissociate(GoalIds, userVo.UserId);
+             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCustomerFamily','none');", true);
+
+
+         }
+         private string GetSelectedGoalIDString()
+         {
+             string gvGoalIds = "";
+
+             //'Navigate through each row in the GridView for checkbox items
+             foreach (GridViewRow gvRow in gvCustomerFamily.Rows)
+             {
+                 CheckBox ChkBxItem = (CheckBox)gvRow.FindControl("chkId");
+                 if (ChkBxItem.Checked)
+                 {
+                     gvGoalIds += Convert.ToString(gvCustomerFamily.DataKeys[gvRow.RowIndex].Value) + "~";
+                 }
+             }
+             return gvGoalIds;
+
+         }
     }
 }
