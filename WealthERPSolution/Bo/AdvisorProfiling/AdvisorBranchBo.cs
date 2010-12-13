@@ -1436,7 +1436,35 @@ namespace BoAdvisorProfiling
 
         /* End For Branch Dropdowns */
 
+        public DataSet GetAdviserCustomerFolioMerge(int adviserId, int currentPage, string custNameFilter, string flag)
+        {
+           
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
 
+                 return advisorBranchDao.GetAdviserCustomerFolioMerge(adviserId, currentPage, custNameFilter, flag);
+            
+                              
+        }
+
+        public DataSet GetCustomerFolioMergeList(int customerId, int amcCode, string fnumber)
+        {
+
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+
+            return advisorBranchDao.GetCustomerFolioMergeList(customerId, amcCode, fnumber);
+
+
+        }
+
+        public bool CustomerFolioMerged(string ffromfolio, string fnumber ,int customerId)
+        {
+
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+
+            return advisorBranchDao.CustomerFolioMerged(ffromfolio, fnumber,customerId);
+
+
+        }
 
     }
 }
