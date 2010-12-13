@@ -507,5 +507,49 @@ namespace DaoCustomerProfiling
             }
             return bResult;
         }
+
+        public int CustomerFamilyDissociation(string association)
+        {
+
+            Database db;
+            DbCommand getCustomerListCmd;
+            int associationcount = 0;
+            
+           
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_CustomerRelationCount");
+            db.AddInParameter(getCustomerListCmd, "@GaolIds", DbType.String, association);
+            db.AddOutParameter(getCustomerListCmd, "@CountFlag", DbType.Int32, 0);
+            associationcount = db.ExecuteNonQuery(getCustomerListCmd);
+            associationcount = (int)db.GetParameterValue(getCustomerListCmd, "@CountFlag");
+            if (associationcount != 1)
+                return 2;
+            else return 1;
+
+        }
+
+        public int CustomerDissociate(string association,int UserId)
+        {
+
+            Database db;
+            DbCommand getCustomerListCmd;
+            int associationcount = 0;
+
+
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_CustomerDissociate");
+            db.AddInParameter(getCustomerListCmd, "@GaolIds", DbType.String, association);
+            db.AddInParameter(getCustomerListCmd, "@UserID", DbType.Int32, UserId);
+            db.AddOutParameter(getCustomerListCmd, "@CountFlag", DbType.Int32, 0);
+            associationcount = db.ExecuteNonQuery(getCustomerListCmd);
+            associationcount = (int)db.GetParameterValue(getCustomerListCmd, "@CountFlag");
+            if (associationcount != 1)
+                return 2;
+            else return 1;
+
+        }
+    
     }
 }
