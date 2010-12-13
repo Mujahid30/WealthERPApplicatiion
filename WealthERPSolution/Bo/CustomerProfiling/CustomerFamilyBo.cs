@@ -356,5 +356,24 @@ namespace BoCustomerProfiling
             return customerFamilyDao.GetAllCustomerAssociates(customerId);
         }
 
+        public int CustomerFamilyDissociation(string association)
+        {
+
+            CustomerFamilyDao customerFamilyDao = new CustomerFamilyDao();
+
+            return customerFamilyDao.CustomerFamilyDissociation(association);
+
+
+        }
+
+        public int CustomerDissociate(string association,int UserID)
+        {
+
+            CustomerFamilyDao customerFamilyDao = new CustomerFamilyDao();
+
+            return customerFamilyDao.CustomerDissociate(association, UserID);
+
+
+        }
     }
 }
