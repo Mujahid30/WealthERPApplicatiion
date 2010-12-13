@@ -61,6 +61,7 @@ namespace WealthERP.CustomerPortfolio
                 trMessage.Visible = false;
                 trPager.Visible = true;
                 trPage.Visible = true;
+                Label2.Visible = false;
             }
         }
 
@@ -523,6 +524,9 @@ namespace WealthERP.CustomerPortfolio
             {
                 hdnNameFilter.Value = txtName.Text.Trim();
                 this.BindGridView();
+                btnSubmit.Visible = true;
+                btnSubmit1.Visible = false;
+                ddlAdvisorBranchList.Visible = false;
             }
         }
 
@@ -531,9 +535,130 @@ namespace WealthERP.CustomerPortfolio
             if (e.CommandName == "EditDetails")
             {
                 Session["PortfolioId"] = e.CommandArgument.ToString();
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolioSetup','action=EditCustomerPortfolio');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolioSetup','?action=EditCustomerPortfolio');", true);
             }
         }
 
+        protected void Deactive_Click(object sender, EventArgs e)
+        {
+
+
+            string GoalIds = GetSelectedGoalIDString();
+            if (GoalIds == "MultipleSelected")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation2();", true);
+                return;
+ 
+            }
+            if (GoalIds == "")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation3();", true);
+            }
+            else
+            {
+                int folioDefault = portfolioBo.CustomerPortfolioDefault(GoalIds, "F");
+                if (folioDefault == 1)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation4();", true);
+                }
+                else
+                {
+
+                    int folioDs = portfolioBo.CustomerPortfolioCheck(GoalIds, "C");
+                    if (folioDs > 1)
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
+                    }
+                    else
+                    {
+
+                        int countDs = portfolioBo.CustomerPortfolioMultiple(GoalIds, "D");
+                        if (countDs > 1)
+                        {
+                            trReassignPortfloio.Visible = true;
+                            bindFolioDropDown(GoalIds, "E");
+                            btnSubmit.Visible = false;
+                            btnSubmit1.Visible = true;
+
+
+                        }
+                        else
+                        {
+                            Dissociatecustomer1();
+                        }
+
+                    }
+
+                }
+            }
+        }
+        protected void bindFolioDropDown(string GoalIds, string Flag)
+        {
+           
+            DataSet folioDs;
+            folioDs = new DataSet();
+            folioDs = portfolioBo.CustomerPortfolioNumber(GoalIds, Flag);
+            ddlAdvisorBranchList.DataSource = folioDs;
+            ddlAdvisorBranchList.DataValueField = folioDs.Tables[0].Columns["CP_PortfolioName"].ToString();
+            ddlAdvisorBranchList.DataBind();
+
+        }
+        protected void Deactive_Click1(object sender, EventArgs e)
+        {
+            Dissociatecustomer();
+            btnSubmit1.Visible = false;
+        }
+
+        protected void Dissociatecustomer()
+        {
+            string GoalIds = GetSelectedGoalIDString();
+            string toPortfolio = ddlAdvisorBranchList.SelectedValue.ToString();
+            int folioDs = portfolioBo.PortfolioDissociate(GoalIds, toPortfolio,"E");
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolio','none');", true);
+
+
+        }
+
+        protected void Dissociatecustomer1()
+        {
+            string GoalIds = GetSelectedGoalIDString();
+
+            int folioDs = portfolioBo.PortfolioDissociateUnmanaged(GoalIds, "D");
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolio','none');", true);
+
+
+        }
+        protected void hiddenassociationfound_Click(object sender, EventArgs e)
+        {
+            
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerPortfolio','none');", true);
+
+        }
+
+        private string GetSelectedGoalIDString()
+        {
+            string gvGoalIds = "";
+            int count = 0;
+
+            //'Navigate through each row in the GridView for checkbox items
+            foreach (GridViewRow gvRow in gvCustomerPortfolio.Rows)
+            {
+                CheckBox ChkBxItem = (CheckBox)gvRow.FindControl("chkBox");
+                if (ChkBxItem.Checked)
+                {
+                    gvGoalIds += Convert.ToString(gvCustomerPortfolio.DataKeys[gvRow.RowIndex].Value) + "~";
+                    count = count + 1;
+                    if (count > 1)
+                    {                     
+                       
+                        return "MultipleSelected";
+                    }
+
+                }
+            }
+            return gvGoalIds;
+
+        }
     }
 }
