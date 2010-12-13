@@ -706,6 +706,7 @@
     <XMLExternalSourceFileType XESFT_FileTypeId="22" XESFT_AssetGroup="MF" XESFT_FileType="Profile" XESFT_FileExtension="dbf" XES_SourceCode="TN" WUXFT_XMLFileTypeId="16" Deleted="False"/>
     <XMLExternalSourceFileType XESFT_FileTypeId="23" XESFT_AssetGroup="MF" XESFT_FileType="Transaction" XESFT_FileExtension="dbf" XES_SourceCode="DT" WUXFT_XMLFileTypeId="17" Deleted="False"/>
     <XMLExternalSourceFileType XESFT_FileTypeId="24" XESFT_AssetGroup="MF" XESFT_FileType="Profile" XESFT_FileExtension="dbf" XES_SourceCode="DT" WUXFT_XMLFileTypeId="18" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="25" XESFT_AssetGroup="EQ" XESFT_FileType="Transaction" XESFT_FileExtension="xls" XES_SourceCode="IIFL" WUXFT_XMLFileTypeId="19" Deleted="False"/>
   </Upload_Fileype>
 
   <WERPPortfolioTypes>
