@@ -786,8 +786,8 @@ namespace WealthERP.FP
             {
                 foreach (CustomerFamilyVo customerfamilyvo in customerFamilyVoList)
                 {
-                    dt.Rows[i]["C_CustomerId"] = customerfamilyvo.CustomerId;
-                    dt.Rows[i]["CA_AssociationId"] = customerfamilyvo.CustomerId;
+                    dt.Rows[i]["C_CustomerId"] = customerfamilyvo.AssociateCustomerId;
+                    dt.Rows[i]["CA_AssociationId"] = customerfamilyvo.AssociationId;
                 }
             }
             return dt;
