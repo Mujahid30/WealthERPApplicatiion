@@ -279,7 +279,10 @@ namespace WealthERP.Uploads
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
-
+                    else if (filetypeId == (int)Contants.UploadTypes.IIFLTransaction && extracttype == "ET")
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                    }
 
 
                 }
@@ -471,6 +474,27 @@ namespace WealthERP.Uploads
                             {
                                 packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadEQTranStagingToWerp.dtsx");
                                 bool WERPEQTranWerpResult = werpEQUploadsBo.WERPEQInsertTransDetails(processID, packagePath, configPath); // EQ Trans XML File Type Id = 8);
+                                if (WERPEQTranWerpResult)
+                                {
+                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                    processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPEQ");
+                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, "WPEQ");
+                                    processlogVo.EndTime = DateTime.Now;
+                                    blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                }
+                            }
+                        }
+                        else if (filetypeId == (int)Contants.UploadTypes.IIFLTransaction)
+                        {
+                            // WERP Equity Transation Insertion
+                            werpEQUploadsBo = new WerpEQUploadsBo();
+                            packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQTranStaging.dtsx");
+                            WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTrans(processID, packagePath, configPath, adviserVo.advisorId);
+
+                            if (WERPEQSecondStagingCheckResult)
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadEQTranStagingToWerp.dtsx");
+                                bool WERPEQTranWerpResult = werpEQUploadsBo.WERPEQInsertTransDetails(processID, packagePath, configPath); // EQ Trans XML File Type Id = 19);
                                 if (WERPEQTranWerpResult)
                                 {
                                     processlogVo.IsInsertionToWERPComplete = 1;
