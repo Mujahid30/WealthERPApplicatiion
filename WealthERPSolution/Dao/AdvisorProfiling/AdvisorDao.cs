@@ -1355,6 +1355,8 @@ namespace DaoAdvisorProfiling
                     advisorVo.State = dr["A_State"].ToString();
                     if (dr["A_AdviserLogo"] != DBNull.Value)
                         advisorVo.LogoPath = dr["A_AdviserLogo"].ToString();
+                    if (dr["A_Designation"] != DBNull.Value)
+                        advisorVo.Designation = dr["A_Designation"].ToString();
                 }
 
 
@@ -1430,6 +1432,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorUserCmd, "@A_IsAssociateModel", DbType.Int32, advisorVo.Associates);
                 db.AddInParameter(updateAdvisorUserCmd, "@XABT_BusinessTypeCode", DbType.String, advisorVo.BusinessCode);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_AdviserLogo", DbType.String, advisorVo.LogoPath);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_Designation", DbType.String, advisorVo.Designation);
                 if (db.ExecuteNonQuery(updateAdvisorUserCmd) != 0)
                     bResult = true;
             }
