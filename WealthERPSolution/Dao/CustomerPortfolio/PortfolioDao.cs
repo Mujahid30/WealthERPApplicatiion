@@ -363,7 +363,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getCustomerPortfoliosCmd, "@AR_RMId", DbType.Int32, rmId);
                 db.AddInParameter(getCustomerPortfoliosCmd, "@CurrentPage", DbType.Int32, currentPage);
                 db.AddInParameter(getCustomerPortfoliosCmd, "@nameFilter", DbType.String, nameSrchValue);
-
+                getCustomerPortfoliosCmd.CommandTimeout = 60 * 60;
                 dsGetCustomerPortfolios = db.ExecuteDataSet(getCustomerPortfoliosCmd);
                 dtGetCustomerPortfolios = dsGetCustomerPortfolios.Tables[0];
                 count = int.Parse(dsGetCustomerPortfolios.Tables[1].Rows[0][0].ToString());
@@ -438,5 +438,133 @@ namespace DaoCustomerPortfolio
 
         }
 
+        public int CustomerPortfolioCheck(string association, string Flag)
+        {
+
+            Database db;
+            DbCommand getCustomerListCmd;
+            int associationcount = 0;
+
+
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_CustomerPortfolioCheck");
+            db.AddInParameter(getCustomerListCmd, "@GaolIds", DbType.String, association);
+            db.AddInParameter(getCustomerListCmd, "@Flag", DbType.String, Flag);
+            db.AddOutParameter(getCustomerListCmd, "@CountFlag", DbType.Int32, 0);
+            associationcount = db.ExecuteNonQuery(getCustomerListCmd);
+            associationcount = (int)db.GetParameterValue(getCustomerListCmd, "@CountFlag");
+            if (associationcount != 1)
+                return 2;
+            else return 1;
+
+        }
+
+        public int CustomerPortfolioMultiple(string association, string Flag)
+        {
+
+            Database db;
+            DbCommand getCustomerListCmd;
+            int associationcount = 0;
+
+
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_CustomerPortfolioCheck");
+            db.AddInParameter(getCustomerListCmd, "@GaolIds", DbType.String, association);
+            db.AddInParameter(getCustomerListCmd, "@Flag", DbType.String, Flag);
+            db.AddOutParameter(getCustomerListCmd, "@CountFlag", DbType.Int32, 0);
+            associationcount = db.ExecuteNonQuery(getCustomerListCmd);
+            associationcount = (int)db.GetParameterValue(getCustomerListCmd, "@CountFlag");
+            if (associationcount != 1)
+                return 2;
+            else return 1;
+
+        }
+        public DataSet CustomerPortfolioNumber(string association, string Flag)
+        {
+
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet getCustomerDs;
+            
+
+
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_CustomerPortfolioCheck");
+            db.AddInParameter(getCustomerListCmd, "@GaolIds", DbType.String, association);
+            db.AddInParameter(getCustomerListCmd, "@Flag", DbType.String, Flag);
+            getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+            return getCustomerDs;
+            
+
+        }
+
+        public int PortfolioDissociate(string association, string toPortfolio,string Flag)
+        {
+
+            Database db;
+            DbCommand getCustomerListCmd;
+            int associationcount = 0;
+
+
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_CustomerPortfolioDelete");
+            db.AddInParameter(getCustomerListCmd, "@GaolIds", DbType.String, association);
+            db.AddInParameter(getCustomerListCmd, "@Portfolio", DbType.String, toPortfolio);
+            db.AddInParameter(getCustomerListCmd, "@Flag", DbType.String, Flag);
+            db.AddOutParameter(getCustomerListCmd, "@CountFlag", DbType.Int32, 0);
+            associationcount = db.ExecuteNonQuery(getCustomerListCmd);
+            associationcount = (int)db.GetParameterValue(getCustomerListCmd, "@CountFlag");
+            return 1;
+
+        }
+
+
+        public int PortfolioDissociateUnmanaged(string association, string Flag)
+        {
+
+            Database db;
+            DbCommand getCustomerListCmd;
+            int associationcount = 0;
+
+
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_CustomerPortfolioDelete");
+            db.AddInParameter(getCustomerListCmd, "@GaolIds", DbType.String, association);
+            db.AddInParameter(getCustomerListCmd, "@Flag", DbType.String, Flag);
+            db.AddInParameter(getCustomerListCmd, "@Portfolio", DbType.String, " ");
+            db.AddOutParameter(getCustomerListCmd, "@CountFlag", DbType.Int32, 0);
+            associationcount = db.ExecuteNonQuery(getCustomerListCmd);
+            associationcount = (int)db.GetParameterValue(getCustomerListCmd, "@CountFlag");
+            return 1;
+
+        }
+
+
+        public int CustomerPortfolioDefault(string association, string Flag)
+        {
+
+            Database db;
+            DbCommand getCustomerListCmd;
+            int associationcount = 0;
+
+
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_CustomerPortfolioCheck");
+            db.AddInParameter(getCustomerListCmd, "@GaolIds", DbType.String, association);
+            db.AddInParameter(getCustomerListCmd, "@Flag", DbType.String, Flag);
+            db.AddOutParameter(getCustomerListCmd, "@CountFlag", DbType.Int32, 0);
+            associationcount = db.ExecuteNonQuery(getCustomerListCmd);
+            associationcount = (int)db.GetParameterValue(getCustomerListCmd, "@CountFlag");
+            if (associationcount != 1)
+                return 2;
+            else return 1;
+
+        }
     }
 }
