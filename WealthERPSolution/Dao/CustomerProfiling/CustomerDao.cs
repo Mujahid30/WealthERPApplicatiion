@@ -2849,6 +2849,26 @@ namespace DaoCustomerProfiling
             }
             return dtGetCustomerDetails;
         }
+
+        public DataSet GetCustomerPortfolioList(int customerId)
+        {
+
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet getCustomerDs;
+            
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerListCmd = db.GetStoredProcCommand("SP_CustomerPortfolioList");
+            db.AddInParameter(getCustomerListCmd, "@CustomerID", DbType.Int32, customerId);
+            getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+            return getCustomerDs;
+
+
+        }
+    
     }
+
+
+
 }
 
