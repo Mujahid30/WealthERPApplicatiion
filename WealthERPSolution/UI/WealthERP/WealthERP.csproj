@@ -2274,6 +2274,7 @@
       <DependentUpon>MultiiAssetReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\MultiiAssetReportDS.Designer.cs" />
     <Compile Include="Reports\PortfolioReports.ascx.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3499,6 +3500,17 @@
     </None>
     <None Include="Reports\MultiAssetReportDS.xss">
       <DependentUpon>MultiAssetReportDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MultiiAssetReportDS.xsc">
+      <DependentUpon>MultiiAssetReportDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MultiiAssetReportDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MultiiAssetReportDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\MultiiAssetReportDS.xss">
+      <DependentUpon>MultiiAssetReportDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\TempReports\MFReports_634040161522846026.pdf" />
     <None Include="Reports\TempReports\MFReports_634042746966961210.pdf" />
