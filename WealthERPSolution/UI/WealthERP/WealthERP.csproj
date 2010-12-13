@@ -791,6 +791,13 @@
     <Compile Include="Advisor\CustomerAssociationSetup.ascx.designer.cs">
       <DependentUpon>CustomerAssociationSetup.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\CustomerFolioMerge.ascx.cs">
+      <DependentUpon>CustomerFolioMerge.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\CustomerFolioMerge.ascx.designer.cs">
+      <DependentUpon>CustomerFolioMerge.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\CustomerUserDetails.ascx.cs">
       <DependentUpon>CustomerUserDetails.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2632,6 +2639,7 @@
     <Content Include="Advisor\BMCustomer.ascx" />
     <Content Include="Advisor\BMStaffView.ascx" />
     <Content Include="Advisor\CustomerAssociationSetup.ascx" />
+    <Content Include="Advisor\CustomerFolioMerge.ascx" />
     <Content Include="Advisor\EditRMDetails.ascx" />
     <Content Include="Advisor\FinancialPlanning.ascx" />
     <Content Include="Advisor\FinancialPlanningLeftPane.ascx" />
