@@ -201,11 +201,11 @@ namespace WealthERP.CustomerPortfolio
                 Session["FolioVo"] = CustomerTransactionBo.GetCustomerMFFolioDetails(FolioId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','action=Edit');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?action=Edit');", true);
                 }
                 if (ddlAction.SelectedValue.ToString() == "View")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','action=View');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?action=View');", true);
                 }
             }
             catch (Exception Ex)
@@ -243,7 +243,22 @@ namespace WealthERP.CustomerPortfolio
                 txtAddress.Text = dr["C_Adr1Line1"].ToString();
 
                 trCustomerDetails.Visible = true;
+                bindFolioDropDown(int.Parse(txtCustomerId.Value));
+
             }
+
+        }
+
+        protected void bindFolioDropDown(int customerId)
+        {
+            
+            DataSet folioDs;
+            CustomerBo customerBo = new CustomerBo();
+            folioDs = new DataSet();
+            folioDs = customerBo.GetCustomerPortfolioList(customerId);
+            ddlAdvisorBranchList.DataSource = folioDs;
+            ddlAdvisorBranchList.DataValueField = folioDs.Tables[0].Columns["CP_PortfolioName"].ToString();
+            ddlAdvisorBranchList.DataBind();
 
         }
 

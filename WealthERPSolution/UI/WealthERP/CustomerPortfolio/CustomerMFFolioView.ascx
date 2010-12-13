@@ -160,6 +160,23 @@
                 few characters of customer name.</span>
         </td>
     </tr>
+    <tr id="trReassignBranch" runat="server">
+        <td class="SubmitCell" align="left" style="width: 20%">
+      
+            <asp:Label ID="Label3" Text="Transfer To:" CssClass="FieldName" runat="server"></asp:Label> 
+        </td>
+      
+        
+        <td>
+        
+            <asp:DropDownList ID="ddlAdvisorBranchList" Width="17.5%" runat="server" CssClass="cmbField" 
+                 AutoPostBack="true">
+            </asp:DropDownList>
+            <%--<span id="spanAdvisorBranch" class="spnRequiredField" runat="server">*</span>--%>
+            
+        </td>
+        
+    </tr>
     <tr id="trCustomerDetails" runat="server" visible="false">
         <td>
             <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="PAN :"></asp:Label>
