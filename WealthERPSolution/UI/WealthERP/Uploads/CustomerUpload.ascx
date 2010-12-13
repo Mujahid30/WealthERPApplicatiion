@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerUpload.ascx.cs"
     Inherits="WealthERP.Uploads.CustomerUpload" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 <link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
@@ -15,6 +16,23 @@
     function DownloadScript() {
         btn = document.getElementById('<%= btnExportExcel.ClientID %>');
         btn.click();
+        
+    }
+    function checkDate(sender, args) {
+
+        var selectedDate = new Date();
+        selectedDate = sender._selectedDate;
+
+        var todayDate = new Date();
+        var msg = "";
+
+        if (selectedDate > todayDate) {
+            sender._selectedDate = todayDate;
+            sender._textbox.set_Value(sender._selectedDate.format(sender._format));
+            alert("Warning! - Date Cannot be in the future");
+            return false;
+        }
+
     }
 </script>
 
@@ -227,6 +245,27 @@
                 Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="Panel1" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();">
             </cc1:ModalPopupExtender>
         </td>
+    </tr>
+    <tr id="datevisible" runat="server" Visible="false">
+    
+     <td class="leftField">
+            <asp:Label ID="lbldate" runat="server" CssClass="FieldName" Text="Select Date:"></asp:Label>
+        </td>
+         <td class="rightField">
+                    <asp:TextBox ID="txtUploadDate"  runat="server" CssClass="txtField" ></asp:TextBox>
+                     <ajaxToolkit:CalendarExtender ID="txtUploadDate_CalendarExtender" runat="server"
+                        Format="dd/MM/yyyy" TargetControlID="txtUploadDate" OnClientDateSelectionChanged="checkDate">
+                    </ajaxToolkit:CalendarExtender>
+                    <ajaxToolkit:TextBoxWatermarkExtender ID="txtUploadDate_TextBoxWatermarkExtender"
+                        runat="server" TargetControlID="txtUploadDate" WatermarkText="dd/mm/yyyy">
+                    </ajaxToolkit:TextBoxWatermarkExtender>
+                    <span id="Span4" class="spnRequiredField" >*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtUploadDate"
+                        CssClass="rfvPCG" ValidationGroup="btn_Upload" ErrorMessage="<br />Please select a Transaction Date"
+                        Display="Dynamic" runat="server" InitialValue="">
+                    </asp:RequiredFieldValidator>
+                </td>
+    
     </tr>
     <%--<tr id="trFileTypeRow" runat="server">
         <td class="leftField">
