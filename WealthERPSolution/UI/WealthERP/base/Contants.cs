@@ -35,6 +35,7 @@ namespace WealthERP.Base
         public const string UploadExternalTypeTemp = "TN";
 
         public const string UploadExternalTypeStandard = "WP";
+        public const string UploadExternalTypeIIFL = "IIFL";
         public const string UploadExternalTypeOdinNSE = "ODNSE";
         public const string UploadExternalTypeOdinBSE = "ODBSE";
 
@@ -113,7 +114,8 @@ namespace WealthERP.Base
             TempletonTransaction = 15,
             TempletonProfile = 16,
             DeutscheTransaction = 17,
-            DeutscheProfile = 18
+            DeutscheProfile = 18,
+            IIFLTransaction=19
         }
     }
 
