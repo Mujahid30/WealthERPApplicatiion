@@ -1281,13 +1281,9 @@ namespace BoCustomerProfiling
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-
                 FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerRelation()");
-
-
                 object[] objects = new object[0];
                 objects[0] = "BoRelationshipProblem";
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1320,13 +1316,9 @@ namespace BoCustomerProfiling
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-
                 FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerDetailsForProspectList(int rmId)");
-
-
                 object[] objects = new object[0];
                 objects[0] = rmId;
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1335,6 +1327,7 @@ namespace BoCustomerProfiling
             }
             return dtGGetCustomerDetails;
         }
+
         /// <summary>
         /// Get RM Individual Customer Names for Grouping
         /// </summary>
@@ -1358,16 +1351,11 @@ namespace BoCustomerProfiling
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-
                 FunctionInfo.Add("Method", "CustomerBo.cs:GetMemberCustomerNamesForGrouping()");
-
-
                 object[] objects = new object[3];
-
                 objects[0] = prefixText;
                 objects[1] = rmId;
                 objects[2] = selectedParentId;
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1376,12 +1364,19 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
-        /// <summary>
-        /// NO Use
-        /// </summary>
-        /// <param name="prefixText"></param>
-        /// <param name="rmId"></param>
-        /// <returns></returns>
+
+
+        public DataSet GetCustomerPortfolioList(int customerId)
+        {
+
+            CustomerDao customerDao = new CustomerDao();
+
+            return customerDao.GetCustomerPortfolioList(customerId);
+
+
+        }
+
+
     }
 
 }
