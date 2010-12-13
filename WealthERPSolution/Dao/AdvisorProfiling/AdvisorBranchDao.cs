@@ -2103,6 +2103,69 @@ namespace DaoAdvisorProfiling
             return ds;
         }
 
+
+     public DataSet GetAdviserCustomerFolioMerge(int adviserId, int currentPage, string custNameFilter,string flag)
+     {
+         
+         Database db;
+         DbCommand getCustomerListCmd;
+         DataSet getCustomerDs;
+                 
+             db = DatabaseFactory.CreateDatabase("wealtherp");
+             getCustomerListCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerFolioMerge");
+             db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
+             db.AddInParameter(getCustomerListCmd, "@CurrentProductAMCge", DbType.Int32, currentPage);
+             db.AddInParameter(getCustomerListCmd, "@Flag", DbType.String, flag);
+             if (custNameFilter != "")
+                 db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, custNameFilter);
+             else
+                 db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, DBNull.Value);
+
+             getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+             return getCustomerDs;
+
+                  
+     }
+
+
+     public DataSet GetCustomerFolioMergeList(int customerId, int amcCode,string fnumber)
+     {
+
+         Database db;
+         DbCommand getCustomerListCmd;
+         DataSet getCustomerDs;
+
+         db = DatabaseFactory.CreateDatabase("wealtherp");
+         getCustomerListCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerFolioMergeList");
+         db.AddInParameter(getCustomerListCmd, "@CustomerID", DbType.Int32, customerId);
+         db.AddInParameter(getCustomerListCmd, "@AMCCode", DbType.Int32, amcCode);
+         db.AddInParameter(getCustomerListCmd, "@Folio", DbType.String, fnumber);
+         getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+         return getCustomerDs;
+
+
+     }
+
+
+     public bool CustomerFolioMerged(string ffromfolio, string fnumber, int customerId)
+     {
+
+         Database db;
+         DbCommand getCustomerListCmd;
+         DataSet getCustomerDs;
+         bool result = true;
+
+         db = DatabaseFactory.CreateDatabase("wealtherp");
+         getCustomerListCmd = db.GetStoredProcCommand("SP_MergerCustomerFolio");
+         db.AddInParameter(getCustomerListCmd, "@ToFolio", DbType.String, ffromfolio);
+         db.AddInParameter(getCustomerListCmd, "@FromFolio", DbType.String, fnumber);
+         db.AddInParameter(getCustomerListCmd, "@CustomerID", DbType.Int32, customerId);
+         getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+         return result ;
+
+
+     }
+
         /* End For Branch RM dropdowns */
     }
 
