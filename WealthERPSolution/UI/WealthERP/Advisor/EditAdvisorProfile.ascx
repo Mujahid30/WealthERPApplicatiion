@@ -21,6 +21,16 @@
     </tr>
     <tr>
         <td class="leftField" style="width: 30%">
+            <asp:Label ID="lblDesignation" runat="server" Text="Designation :"
+                CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" colspan="3">
+            <asp:TextBox ID="textDesignation" runat="server" CssClass="txtField"></asp:TextBox>
+          
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" style="width: 30%">
             <asp:Label ID="lblOrganizationName" runat="server" Text="Name Of the Organization / Individual :"
                 CssClass="FieldName"></asp:Label>
         </td>

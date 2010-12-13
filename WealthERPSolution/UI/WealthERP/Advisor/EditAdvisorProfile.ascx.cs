@@ -156,6 +156,9 @@ namespace WealthERP.Advisor
                         lnklogoChange.Text = "Click to upload Logo";
  
                     }
+
+                    if (advisorVo.Designation != null)
+                        textDesignation.Text = advisorVo.Designation.ToString();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -422,6 +425,7 @@ namespace WealthERP.Advisor
                     advisorVo.AddressLine1 = txtAddressLine1.Text.Trim().ToString();
                     advisorVo.AddressLine2 = txtAddressLine2.Text.Trim().ToString();
                     advisorVo.AddressLine3 = txtAddressLine3.Text.Trim().ToString();
+                    advisorVo.Designation = textDesignation.Text.Trim().ToString();
                     if (ddlBusinessType.SelectedIndex != 0)
                     {
                         advisorVo.BusinessCode = ddlBusinessType.SelectedItem.Value.ToString();
