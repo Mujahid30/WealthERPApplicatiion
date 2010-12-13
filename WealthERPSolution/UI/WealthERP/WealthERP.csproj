@@ -2195,6 +2195,13 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\FinancialPlanningDS.Designer.cs" />
+    <Compile Include="Reports\FinancialPlanningReport.ascx.cs">
+      <DependentUpon>FinancialPlanningReport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\FinancialPlanningReport.ascx.designer.cs">
+      <DependentUpon>FinancialPlanningReport.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\FPDataSet.Designer.cs" />
     <Compile Include="Reports\FPReports.ascx.cs">
       <DependentUpon>FPReports.ascx</DependentUpon>
@@ -2862,6 +2869,7 @@
     <Content Include="Reports\Display.aspx" />
     <Content Include="Reports\EmailReport.aspx" />
     <Content Include="Reports\EquityReports.ascx" />
+    <Content Include="Reports\FinancialPlanningReport.ascx" />
     <Content Include="Reports\FPReports.ascx" />
     <Content Include="Reports\images\controls.png" />
     <Content Include="Reports\images\loading.gif" />
