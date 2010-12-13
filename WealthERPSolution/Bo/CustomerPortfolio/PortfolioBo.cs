@@ -284,5 +284,62 @@ namespace BoCustomerPortfolio
         {
             return PortfolioDao.TransferFolio(MFAccountId, newPortfolioId);
         }
+
+        public int CustomerPortfolioCheck(string association, string Flag)
+        {
+
+            PortfolioDao portfolioDao = new PortfolioDao();
+
+            return portfolioDao.CustomerPortfolioCheck(association,Flag);
+
+
+        }
+        public int CustomerPortfolioMultiple(string association, string Flag)
+        {
+
+            PortfolioDao portfolioDao = new PortfolioDao();
+
+            return portfolioDao.CustomerPortfolioMultiple(association,Flag);
+
+
+        }
+        public DataSet CustomerPortfolioNumber(string association, string Flag)
+        {
+
+            PortfolioDao portfolioDao = new PortfolioDao();
+
+            return portfolioDao.CustomerPortfolioNumber(association, Flag);
+
+        }
+
+        public int PortfolioDissociate(string association, string toPortfolio, string Flag)
+        {
+
+            PortfolioDao portfolioDao = new PortfolioDao();
+
+            return portfolioDao.PortfolioDissociate(association, toPortfolio, Flag);
+
+
+        }
+
+        public int PortfolioDissociateUnmanaged(string association, string Flag)
+        {
+
+            PortfolioDao portfolioDao = new PortfolioDao();
+
+            return portfolioDao.PortfolioDissociateUnmanaged(association, Flag);
+
+
+        }
+
+        public int CustomerPortfolioDefault(string association, string Flag)
+        {
+
+            PortfolioDao portfolioDao = new PortfolioDao();
+
+            return portfolioDao.CustomerPortfolioDefault(association, Flag);
+
+
+        }
     }
 }
