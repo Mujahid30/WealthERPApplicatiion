@@ -40,6 +40,8 @@ namespace VoUser
         private int m_MultiBranch;
         private string m_LogoPath;
         private int m_Associates;
+        private string m_Designation;
+
 
       
        
@@ -209,6 +211,12 @@ namespace VoUser
         {
             get { return m_LogoPath; }
             set { m_LogoPath = value; }
+        }
+
+        public string Designation
+        {
+            get { return m_Designation; }
+            set { m_Designation = value; }
         }
 
         #endregion Properties
