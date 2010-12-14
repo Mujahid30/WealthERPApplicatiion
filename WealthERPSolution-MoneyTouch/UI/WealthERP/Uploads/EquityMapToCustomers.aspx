@@ -62,8 +62,8 @@
                         <EditRowStyle CssClass="EditRowStyle" />
                         <AlternatingRowStyle CssClass="AltRowStyle " />
                         <Columns>
-                            <asp:BoundField DataField="Name" HeaderText="WERP Name" />
-                            <asp:BoundField DataField="PANNum" HeaderText="WERP Pan No" />
+                            <asp:BoundField DataField="Name" HeaderText="MoneyTouch Name" />
+                            <asp:BoundField DataField="PANNum" HeaderText="MoneyTouch Pan No" />
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="false" CommandName="mapToCusomer"
