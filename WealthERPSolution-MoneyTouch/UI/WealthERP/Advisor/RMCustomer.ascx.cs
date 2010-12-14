@@ -761,6 +761,12 @@ namespace WealthERP
                 Session["CustomerIdForDelete"] = customerId;
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
+                //Checking is grp head or not
+                isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                // getting portfolio id and its details
+                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+
                 if (customerId != 0)
                 {
                     Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
@@ -768,25 +774,19 @@ namespace WealthERP
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-                    isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
-                   if(isGrpHead == true)
-                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
-                   else
-                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+                    if (isGrpHead == true)
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+                    else
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
                     Session["IsDashboard"] = "false";
-                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Session["customerPortfolioVo"] = customerPortfolioVo;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
-                   
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
-                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','list');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
@@ -808,7 +808,6 @@ namespace WealthERP
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
                 {
-                    
                     Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
                     if (customerVo.Type == "IND")
