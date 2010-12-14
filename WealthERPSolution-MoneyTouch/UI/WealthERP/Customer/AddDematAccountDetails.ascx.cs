@@ -343,6 +343,7 @@ namespace WealthERP.Customer
             }            
             //string associationIdJH = null;
             //string associationIdN = null;
+            
             string accountopeningdate = txtAccountOpeningDate.Text;
             //string lstassociatedtradeaccount = null;
             ArrayList associationIdJH = new ArrayList();
@@ -355,8 +356,11 @@ namespace WealthERP.Customer
                 {
                     if (Session["DematDetailsView"].ToString() == "Add")
                     {
-                        if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
-                        demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
+                        if (!string.IsNullOrEmpty(txtAccountOpeningDate.Text.Trim()))
+                            demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
+                        else
+                            demataccountvo.AccountOpeningDate = DateTime.MinValue;
+                       
                         demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
                         demataccountvo.DpclientId = txtDpClientId.Text;
                         demataccountvo.DpId = txtDPId.Text;
@@ -410,7 +414,10 @@ namespace WealthERP.Customer
                     {
                         if (!string.IsNullOrEmpty(accountopeningdate.ToString()))
                         {
-                            demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
+                            if (!string.IsNullOrEmpty(txtAccountOpeningDate.Text.Trim()))
+                                demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
+                            else
+                                demataccountvo.AccountOpeningDate = DateTime.MinValue;
                             
                         }
                         else
