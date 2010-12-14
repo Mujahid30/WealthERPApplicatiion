@@ -1349,6 +1349,7 @@ namespace WealthERP.FP
                 {
                     dt.Rows[i]["C_CustomerId"] = customerfamilyvo.AssociateCustomerId;
                     dt.Rows[i]["CA_AssociationId"] = customerfamilyvo.AssociationId;
+                    i++;
                 }
             }
             return dt;

@@ -161,6 +161,7 @@ namespace WealthERP.FP
                         headertitle.Text = "Edit Prospect";
                     }
                 }
+                RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
 
             }
             catch (Exception ex)
@@ -788,6 +789,7 @@ namespace WealthERP.FP
                 {
                     dt.Rows[i]["C_CustomerId"] = customerfamilyvo.AssociateCustomerId;
                     dt.Rows[i]["CA_AssociationId"] = customerfamilyvo.AssociationId;
+                    i++;
                 }
             }
             return dt;
