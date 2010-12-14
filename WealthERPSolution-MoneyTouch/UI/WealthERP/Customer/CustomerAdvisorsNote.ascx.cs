@@ -85,11 +85,11 @@ namespace WealthERP.Customer{
             {
                 if (chkdeactivatecustomer.Checked)
                 {
-                    customerVo.IsActive = 1;
+                    customerVo.IsActive = 0;
                 }
                 else
                 {
-                    customerVo.IsActive = 0;
+                    customerVo.IsActive = 1;
                 }
                 customerVo.AdviseNote = txtComments.Text.ToString();
                 customerVo.CustomerClassificationID = int.Parse(ddlClassification.SelectedValue.ToString());
