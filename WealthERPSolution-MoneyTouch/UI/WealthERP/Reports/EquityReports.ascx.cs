@@ -28,10 +28,14 @@ namespace WealthERP.Reports
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
         int activeTabIndex = 0;
+        AdvisorVo advisorVo = new AdvisorVo();
         protected void Page_Load(object sender, EventArgs e)
         {
 
             SessionBo.CheckSession();
+
+            if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
+                 advisorVo = (AdvisorVo)Session["advisorVo"];
             if (Request.Form["ctrl_EquityReports$btnView"] != "View Report")
             {
 
@@ -40,9 +44,8 @@ namespace WealthERP.Reports
                 rmVo = (RMVo)Session[SessionContents.RmVo];
 
                 BindPeriodDropDown();
-                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-
+                txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                 if (!IsPostBack)
                 {
                     CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
