@@ -13,7 +13,7 @@ namespace WealthERP.General
         {
             if (Session["Theme"] != "PCG")
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "window.parent.location.href = (window.parent.location.href).substring(0,window.parent.location.href.indexOf('&UserId'));", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "window.parent.location.href = window.parent.location.href;", true);
             }
             Session.Clear();
             Session.Abandon();
