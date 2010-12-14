@@ -534,6 +534,8 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
+                            crmain.SetParameterValue("RMContactDetails", "EqSectorwise");
+                            crmain.SetParameterValue("Organization", "EqSectorwise");
                         }
                         else
                             SetNoRecords();
