@@ -410,9 +410,12 @@ namespace WealthERP.Customer
                     rmId = rmVo.RMId;
 
 
-                    customerVo.FirstName = txtFirstName.Text.ToString();
-                    customerVo.MiddleName = txtMiddleName.Text.ToString();
-                    customerVo.LastName = txtLastName.Text.ToString();
+                    customerVo.FirstName = txtCompanyName.Text.ToString();
+                    //customerVo.MiddleName = txtMiddleName.Text.ToString();
+                    //customerVo.LastName = txtLastName.Text.ToString();
+                    customerVo.ContactFirstName = txtFirstName.Text.ToString();
+                    customerVo.ContactMiddleName = txtMiddleName.Text.ToString();
+                    customerVo.ContactLastName = txtLastName.Text.ToString();
                     customerVo.CompanyName = txtCompanyName.Text.ToString();
                     customerVo.CustCode = txtCustomerCode.Text.ToString();
                     customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
