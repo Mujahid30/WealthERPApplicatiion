@@ -793,6 +793,7 @@ namespace WealthERP.Reports
             else
             {
                 string PortFolioIds = GetAllPortfolioOfCustomer(CustomerId);
+                if (!string.IsNullOrEmpty(PortFolioIds))
                 PortFolioIds = PortFolioIds.Substring(0, PortFolioIds.Length - 1);
                 mfReport.PortfolioIds = PortFolioIds;
             }
@@ -874,7 +875,7 @@ namespace WealthERP.Reports
                     
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
-                        if (custPortfolio.PortfolioName == "MyPortfolio")
+                        if (custPortfolio.IsMainPortfolio == 1)
                         {
                             portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
                             portfolioIDs = portfolioIDs + ",";
