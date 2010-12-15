@@ -38,7 +38,7 @@ namespace WealthERP.Advisor
         CustomerVo customerVo;
         CustomerBo customerBo;
         CustomerGoalSetupBo GoalSetupBo = new CustomerGoalSetupBo();
-
+        int age = 0;
 
         /// <summary>
         /// For Java script coding variables are declared here
@@ -212,7 +212,7 @@ namespace WealthERP.Advisor
 
         public void LoadAssetAllocation(string riskcode)
         {
-            int age = 0;
+            
             try
             {
 
@@ -280,13 +280,15 @@ namespace WealthERP.Advisor
                                 txtRecommendedCash.Text = cashPercentage.ToString();
                                 lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
                             }
-                            else if (lblRClassRs.Text == "Aggresive")
+                            else if (lblRClassRs.Text == "Aggressive")
                             {
                                 equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
                                 txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
                                 txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
                                 txtRecommendedCash.Text = cashPercentage.ToString();
-                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
+                                if (trRiskProfilingParagraph.Visible == false)
+                                    trRiskProfilingParagraph.Visible = true;
+                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
                             }
 
                             //================================
@@ -365,6 +367,8 @@ namespace WealthERP.Advisor
                 # endregion
                 if (customerId != 0 && age != 0)
                 {
+                    if (trCustomerAssetText.Visible == false)
+                        trCustomerAssetText.Visible = true;
                     lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
                 }
 
@@ -529,7 +533,12 @@ namespace WealthERP.Advisor
                 LoadAssetAllocation(riskCode);
                 AddToAssetAllocation();
 
-
+                if (customerId != 0 && age != 0)
+                {
+                    if (trCustomerAssetText.Visible == false)
+                        trCustomerAssetText.Visible = true;
+                    lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
+                }
             }
             catch (Exception ex)
             {
