@@ -386,7 +386,7 @@ namespace WealthERP.CustomerPortfolio
                      ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
 
                  }
-                 else if (e.Item.Value == "Group Dashboard")
+                 else if (e.Item.Text == "Group Dashboard")
                  {
                      Session["IsDashboard"] = "true";
                      ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
