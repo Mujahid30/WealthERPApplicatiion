@@ -18,6 +18,7 @@ using WealthERP.Base;
 using VoFPSuperlite;
 using BoFPSuperlite;
 using System.Configuration;
+using BoAdvisorProfiling;
 namespace WealthERP.FP
 {
     public partial class CustomerProspect : System.Web.UI.UserControl
@@ -46,7 +47,7 @@ namespace WealthERP.FP
         {
             int customerId = 0;
             CustomerProspectBo customerprospectbo = new CustomerProspectBo();
-            SqlDataSourceCustomerRelation.ConnectionString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+            //SqlDataSourceCustomerRelation.ConnectionString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
             try
             {
                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -407,13 +408,17 @@ namespace WealthERP.FP
 
         }
 
-        /// <summary>
-        /// Used to bind branches of the Branch dropdown
+        /// <summary>        
+        /// Used to bind branches of the Branch dropdown       
         /// </summary>
-        protected void BindBranch()
+        /// <param name="advisorVo"></param>
+        /// <param name="rmVo"></param>
+        private void BindBranch(AdvisorVo advisorVo, RMVo rmVo)
         {
+            AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             UploadCommonBo uploadsCommonDao = new UploadCommonBo();
-            DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+            //DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+            DataSet ds = advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, advisorVo.advisorId, "A");
             if (ds != null)
             {
                 ddlPickBranch.DataSource = ds;
