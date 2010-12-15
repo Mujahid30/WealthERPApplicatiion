@@ -632,6 +632,9 @@
                 <td style="border: inherit; height: 60px" class="PCGRedBcknd" colspan="3">
                     <table width="100%">
                         <tr>
+                           <td style="border: inherit; height: 60px" class="PCGRedBcknd" colspan="3">
+                    <table width="100%">
+                        <tr>
                             <td>
                                 <asp:Label ID="lblBestViewed" Text="Best Viewed in Mozilla Firefox Version 3.0 and above"
                                     runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
@@ -641,6 +644,9 @@
 --%>                                <asp:Label ID="PCGLabel" Text="2010 @ Ampsys Consulting Pvt. Ltd." runat="server"
                                     CssClass="PCGWhiteText"></asp:Label>
                             </td>
+                        </tr>
+                    </table>
+                </td>
                         </tr>
                     </table>
                 </td>
