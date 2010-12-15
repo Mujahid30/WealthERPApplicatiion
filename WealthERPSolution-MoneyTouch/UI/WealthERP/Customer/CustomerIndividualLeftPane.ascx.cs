@@ -105,7 +105,7 @@ namespace WealthERP.Customer
             string strNodeValue = null;
             try
             {
-                if (e.Item.Value == "Group Home")
+                if (e.Item.Text == "Group Home")
                 {
                     if (customerVo.RelationShip != "SELF")
                     {
