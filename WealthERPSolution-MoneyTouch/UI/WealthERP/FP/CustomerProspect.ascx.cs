@@ -70,7 +70,8 @@ namespace WealthERP.FP
                 {
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 }
-                BindBranch();
+                rmVo = (RMVo)Session["rmVo"];
+                BindBranch(advisorVo, rmVo);
                 if (Session[SessionContents.FPS_ProspectList_CustomerId] != null && Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != string.Empty)
                 {
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
