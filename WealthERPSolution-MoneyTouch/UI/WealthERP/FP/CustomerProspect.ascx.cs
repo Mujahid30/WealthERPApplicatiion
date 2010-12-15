@@ -1383,7 +1383,7 @@ namespace WealthERP.FP
             userVo.Email = txtEmail.Text.ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolio";
+            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
             customerBo.UpdateCustomer(customerVo);
             Session["Customer"] = "Customer";
 
@@ -1413,7 +1413,7 @@ namespace WealthERP.FP
             customerVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolio";
+            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
             customerBo.UpdateCustomer(customerVo);
             Session["Customer"] = "Customer";
             if (drChildCustomer["C_CustomerId"] != null)
