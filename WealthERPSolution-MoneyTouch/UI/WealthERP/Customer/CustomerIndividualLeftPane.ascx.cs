@@ -69,7 +69,7 @@ namespace WealthERP.Customer
                     if (customerVo.RelationShip == "SELF")
                     {
                         //TreeView1.FindNode("Group Home").Selected = true;
-                        RadPanelBar1.FindItemByValue("Group Home").Selected = true;
+                        RadPanelBar1.FindItemByText("Group Home").Selected = true;
                     }
                     else
                     {
