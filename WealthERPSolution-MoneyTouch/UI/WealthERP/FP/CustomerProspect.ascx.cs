@@ -491,7 +491,7 @@ namespace WealthERP.FP
             userVo.Email = txtEmail.Text.ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolio";
+            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
             customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
             Session["Customer"] = "Customer";
             if (customerIds != null)
@@ -534,7 +534,7 @@ namespace WealthERP.FP
             userVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolio";
+            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
             List<int> customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
             if (customerIds != null)
             {
