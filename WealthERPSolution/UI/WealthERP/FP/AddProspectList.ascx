@@ -7,11 +7,11 @@
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 <telerik:RadFormDecorator ID="RadFormDecorator1" runat="server" DecoratedControls="All"
-    EnableEmbeddedSkins="false" Skin="Touchbase" />
+    Skin="Outlook" />
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Add Prospect"></asp:Label>
 <hr />
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
-    EnableEmbeddedSkins="false" Skin="Touchbase" EnableShadows="true" EnableRoundedCorners="true" Width="100%"
+    Skin="Outlook" EnableShadows="true" EnableRoundedCorners="true" Width="100%"
     Visible="false">
     <Items>
         <telerik:RadToolBarButton runat="server" Text="Back" Value="Back" ImageUrl="/Images/Telerik/BackButton.gif"
@@ -62,10 +62,10 @@
                         </td>
                         <td align="left">
                             <telerik:RadDatePicker ID="dpDOB" runat="server" Culture="English (United States)"
-                                EnableEmbeddedSkins="false" Skin="Touchbase" ShowAnimation-Type="Fade" 
+                                Skin="Outlook" ShowAnimation-Type="Fade" 
                                 MinDate="1900-01-01">
                                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                    EnableEmbeddedSkins="false" Skin="Touchbase">
+                                    Skin="Outlook">
                                 </Calendar>
                                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -85,7 +85,7 @@
                         </td>
                         <td align="left">
                             <telerik:RadComboBox ID="ddlPickBranch" runat="server" ExpandAnimation-Type="Linear"
-                                ShowToggleImage="True" EmptyMessage="Pick a Branch here" EnableEmbeddedSkins="false" Skin="Touchbase">
+                                ShowToggleImage="True" EmptyMessage="Pick a Branch here" Skin="Outlook">
                                 <ExpandAnimation Type="InExpo"></ExpandAnimation>
                             </telerik:RadComboBox>
                             <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator4" ControlToValidate="ddlPickBranch"
@@ -95,7 +95,7 @@
                 </table>
            
 </div>
-<telerik:RadInputManager ID="RadInputManager1" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase">
+<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Outlook">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true"
         ErrorMessage="Is Required">
         <TargetControls>
@@ -121,7 +121,7 @@
         </TargetControls>
     </telerik:RegExpTextBoxSetting> 
 </telerik:RadInputManager>
-<telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase">
+<telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Outlook">
 </telerik:RadAjaxLoadingPanel>
 <table width="100%" runat="server" id="tblChildCustomer">
     <tr>
@@ -135,14 +135,14 @@
                                 <telerik:RadGrid ID="RadGrid1" runat="server" Width="96%" GridLines="None" AutoGenerateColumns="False"
                                     PageSize="13" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
                                     ShowStatusBar="True" OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
-                                    OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound" EnableEmbeddedSkins="false" Skin="Touchbase">
+                                    OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound" Skin="Outlook">
                                     <PagerStyle Mode="NextPrevAndNumeric" Position="Bottom" />
                                     <MasterTableView DataKeyNames="C_CustomerId" AllowMultiColumnSorting="True" Width="100%"
                                         CommandItemDisplay="Top" AutoGenerateColumns="false" EditMode="InPlace">
                                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                         <Columns>
                                             <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
-                                                CancelText="Cancel" ButtonType="ImageButton" InsertImageUrl="../App_Themes/Purple/Grid/Update.gif" EditImageUrl="../App_Themes/Purple/Grid/Edit.gif" CancelImageUrl="../App_Themes/Purple/Grid/Cancel.gif" UpdateImageUrl="../App_Themes/Purple/Grid/Update.gif">
+                                                CancelText="Cancel" ButtonType="ImageButton" >
                                                 <HeaderStyle Width="85px"></HeaderStyle>
                                             </telerik:GridEditCommandColumn>
                                             <telerik:GridDropDownColumn UniqueName="CustomerRelationship" HeaderText="Relationship"
@@ -181,7 +181,7 @@
                                                     <asp:TextBox runat="server" ID="txtGridEmailId" Text='<%# Bind("EmailId") %>'></asp:TextBox>                                                    
                                                 </EditItemTemplate>
                                             </telerik:GridTemplateColumn>
-                                            <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" ImageUrl="../App_Themes/Purple/Grid/Delete.gif"
+                                            <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" 
                                                 ButtonType="ImageButton" />
                                         </Columns>
                                         <EditFormSettings CaptionFormatString="Edit details for employee with ID {0}" CaptionDataField="FirstName">
