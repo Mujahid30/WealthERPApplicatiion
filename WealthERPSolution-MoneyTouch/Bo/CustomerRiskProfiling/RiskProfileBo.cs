@@ -141,21 +141,22 @@ namespace BoCustomerRiskProfiling
                     {
 
                         AssetAllocationText = "Based on your current investments we have identified that your asset " +
-                        "allocation matches the asset allocation recommeded by us. The asset allocation recommended by " +
-                        "us is based on the your risk profile and other data pulled from your profile information." +
+                        "allocation matches the asset allocation recommended by us. The asset allocation recommended by " +
+                        "us is based on your risk profile and other data pulled from your profile information." +
                         "Your current equity allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString() + " %" +
                         " and debt allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString() + " %" + " Based on our analysis we recommend an equity allocation of "
                         + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Equity"].ToString()), 2).ToString() + " %" + " and debt allocation of " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Debt"].ToString()), 2) + " %" +
-                        "As per our recommendion you keep" + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Cash"].ToString()), 2).ToString() + "of your investment portfolio " + " %" +
-                        "in cash and cash equivalents to take care of liquidity in your portfolio." +
-                        "You have an appropriate asset allocation. Please contact your advisor to help you meet you financial goals";
+                        ".As per our recommendation you keep " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Cash"].ToString()), 2).ToString() + " % of your investment portfolio " + " %" +
+                        " in cash and cash equivalents to take care of liquidity in your portfolio." +
+                        "You have an appropriate asset allocation. Please contact your advisor to help you meet your financial goals";
 
 
                     }
                     else
+                    {
                         AssetAllocationText = "Based on your current investments we have identified that your asset " +
-                       "allocation does not match the asset allocation recommeded by us. The asset allocation recommended " +
-                       "by us is based on the your risk profile and other data pulled from your profile information." +
+                       "allocation does not match the asset allocation recommended by us. The asset allocation recommended " +
+                       "by us is based on your risk profile and other data pulled from your profile information." +
                        "Your current equity allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString() + " %" +
                        " and debt allocation is " + Math.Round(double.Parse(DSAssets.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString() + " %" + ". But based on " +
                        " our analysis we recommend an equity allocation of " + Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Equity"].ToString()), 2).ToString() + " %" +
@@ -165,6 +166,7 @@ namespace BoCustomerRiskProfiling
                        Math.Round(double.Parse(DSAssets.Tables[1].Rows[0]["Cash"].ToString()), 2).ToString() + " %" + " of your investment portfolio in cash and cash equivalents to " +
                        "take care of liquidity in your portfolio. Based on your current asset allocation we have identified that " +
                        "cash allocation is " + CashLessMore + " than recommended.Please contact your advisor to remove the gap.";
+                    }
 
                 }
                 else
