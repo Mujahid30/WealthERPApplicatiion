@@ -16,6 +16,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using WealthERP.Base;
 using BoAdvisorProfiling;
+using System.Configuration;
 
 namespace WealthERP.FP
 {
@@ -26,11 +27,11 @@ namespace WealthERP.FP
         CustomerVo customerVo = new CustomerVo();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         CustomerBo customerBo = new CustomerBo();
-        List<CustomerFamilyVo> customerFamilyVoList = new List<CustomerFamilyVo>();        
+        List<CustomerFamilyVo> customerFamilyVoList = new List<CustomerFamilyVo>();
         CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
         UserVo userVo = new UserVo();
         UserVo tempuservo;
-        DataTable dt=new DataTable();
+        DataTable dt = new DataTable();
         AdvisorVo advisorVo = new AdvisorVo();
         RMVo rmVo = new RMVo();
         DataRow dr;
@@ -39,13 +40,14 @@ namespace WealthERP.FP
         int totalRecordsCount;
         protected void Page_Init()
         {
-            
+
         }
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                int customerId=0;
+
+                int customerId = 0;
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
                 if (!IsPostBack)
@@ -66,11 +68,13 @@ namespace WealthERP.FP
                 {
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 }
+
+                //SqlDataSourceCustomerRelation.ConnectionString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
                 rmVo = (RMVo)Session["rmVo"];
                 BindBranch(advisorVo, rmVo);
                 if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
                 {
-                    customerId=int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                     customerVo = customerBo.GetCustomer(customerId);
                     customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
                     if (customerFamilyVoList != null)
@@ -140,35 +144,36 @@ namespace WealthERP.FP
                         ddlPickBranch.Enabled = false;
                         dpDOB.Enabled = false;
                         headertitle.Text = "View Prospect";
-                        
+
                     }
                     else if (Session[SessionContents.FPS_AddProspectListActionStatus].ToString() == "Edit")
                     {
                         // Edit thing have been handled here
                         aplToolBar.Visible = true;
-                        RadToolBarButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");                       
+                        RadToolBarButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
                         rtb.Visible = false;
                         btnSubmit.Visible = true;
                         btnSubmitAddDetails.Visible = true;
                         btnSubmit.Text = "Update";
-                        btnSubmitAddDetails.Text = "Edit Finance Details";                       
+                        btnSubmitAddDetails.Text = "Edit Finance Details";
                         RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
                         tblChildCustomer.Visible = true;
                         headertitle.Text = "Edit Prospect";
                     }
-                }               
+                }
+                RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
 
             }
             catch (Exception ex)
             {
                 throw ex;
-                
+
             }
-            
+
         }
 
-      
-      
+
+
 
         /// <summary>        
         /// Used to bind branches of the Branch dropdown       
@@ -187,14 +192,14 @@ namespace WealthERP.FP
                 ddlPickBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
                 ddlPickBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
                 ddlPickBranch.DataBind();
-            }   
-        }        
+            }
+        }
         protected void RadGrid1_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
         {
             try
             {
                 GridEditableItem editedItem = e.Item as GridEditableItem;
-                GridEditManager editMan = editedItem.EditManager;                
+                GridEditManager editMan = editedItem.EditManager;
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 dr = dt.NewRow();
                 try
@@ -221,7 +226,7 @@ namespace WealthERP.FP
             {
                 GridEditableItem editedItem = e.Item as GridEditableItem;
                 GridEditManager editMan = editedItem.EditManager;
-                int i = 2;                
+                int i = 2;
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 dr = dt.NewRow();
                 foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
@@ -230,79 +235,6 @@ namespace WealthERP.FP
                     if (column is IGridEditableColumn)
                     {
                         IGridEditableColumn editableCol = (column as IGridEditableColumn);
-                        if (editableCol.IsEditable)
-                        {
-                            IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
-                            string editorType = editor.ToString();
-                            string editorText = "unknown";
-                            object editorValue = null;
-
-                            if (editor is GridTextColumnEditor)
-                            {
-                                editorText = (editor as GridTextColumnEditor).Text;
-                                editorValue = (editor as GridTextColumnEditor).Text;
-                            }
-                            if (editor is GridBoolColumnEditor)
-                            {
-                                editorText = (editor as GridBoolColumnEditor).Value.ToString();
-                                editorValue = (editor as GridBoolColumnEditor).Value;
-                            }
-                            if (editor is GridDropDownColumnEditor)
-                            {
-                                editorText = (editor as GridDropDownColumnEditor).SelectedValue;
-                                editorValue = (editor as GridDropDownColumnEditor).SelectedValue;
-                            }
-                            if (editor is GridTemplateColumnEditor)
-                            {
-                                TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
-                                editorText = txt.Text;
-                                editorValue = txt.Text;
-                            }
-                            try
-                            {
-                                DataRow[] changedrows = dt.Select();                                
-                                changedrows[editedItem.ItemIndex][column.UniqueName] = editorValue;
-                                   
-                                
-                            }
-                            catch (Exception ex)
-                            {
-                                RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
-                                e.Canceled = true;
-                                break;
-                            }
-                        }
-                        i++;
-                    }
-                    
-                }
-                Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                Rebind();
-            }
-            catch (Exception ex)
-            {
-                e.Canceled = true;
-                throw ex;
-            }
-        }
-
-        protected void RadGrid1_InsertCommand(object source, GridCommandEventArgs e)
-        {
-            
-
-            try
-            {
-                GridEditableItem editedItem = e.Item as GridEditableItem;
-                GridEditManager editMan = editedItem.EditManager;
-                int i=2;
-                int j = 0;
-                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];                                
-                 dr = dt.NewRow();
-                foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
-                {                   
-                    if (column is IGridEditableColumn)
-                    {
-                        IGridEditableColumn editableCol = (column as IGridEditableColumn); 
                         if (editableCol.IsEditable)
                         {
                             IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
@@ -338,13 +270,15 @@ namespace WealthERP.FP
                                     TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
                                     editorText = txt.Text;
                                     editorValue = txt.Text;
-                                }                            
-                                
+                                }
+
                             }
                             try
                             {
-                                dr[i] = editorText;
-                               
+                                DataRow[] changedrows = dt.Select();
+                                changedrows[editedItem.ItemIndex][column.UniqueName] = editorValue;
+
+
                             }
                             catch (Exception ex)
                             {
@@ -354,7 +288,88 @@ namespace WealthERP.FP
                             }
                         }
                         i++;
-                    }                    
+                    }
+
+                }
+                Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                Rebind();
+            }
+            catch (Exception ex)
+            {
+                e.Canceled = true;
+                throw ex;
+            }
+        }
+
+        protected void RadGrid1_InsertCommand(object source, GridCommandEventArgs e)
+        {
+
+
+            try
+            {
+                GridEditableItem editedItem = e.Item as GridEditableItem;
+                GridEditManager editMan = editedItem.EditManager;
+                int i = 2;
+                int j = 0;
+                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                dr = dt.NewRow();
+                foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
+                {
+                    if (column is IGridEditableColumn)
+                    {
+                        IGridEditableColumn editableCol = (column as IGridEditableColumn);
+                        if (editableCol.IsEditable)
+                        {
+                            IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
+                            string editorType = editor.ToString();
+                            string editorText = "unknown";
+                            object editorValue = null;
+
+                            if (editor is GridTextColumnEditor)
+                            {
+                                editorText = (editor as GridTextColumnEditor).Text;
+                                editorValue = (editor as GridTextColumnEditor).Text;
+                            }
+                            if (editor is GridBoolColumnEditor)
+                            {
+                                editorText = (editor as GridBoolColumnEditor).Value.ToString();
+                                editorValue = (editor as GridBoolColumnEditor).Value;
+                            }
+                            if (editor is GridDropDownColumnEditor)
+                            {
+                                editorText = (editor as GridDropDownColumnEditor).SelectedValue;
+                                editorValue = (editor as GridDropDownColumnEditor).SelectedValue;
+                            }
+                            if (editor is GridTemplateColumnEditor)
+                            {
+                                if (i != 3)
+                                {
+                                    TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
+                                    editorText = txt.Text;
+                                    editorValue = txt.Text;
+                                }
+                                else if (i == 3)
+                                {
+                                    TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
+                                    editorText = txt.Text;
+                                    editorValue = txt.Text;
+                                }
+
+                            }
+                            try
+                            {
+                                dr[i] = editorText;
+
+                            }
+                            catch (Exception ex)
+                            {
+                                RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
+                                e.Canceled = true;
+                                break;
+                            }
+                        }
+                        i++;
+                    }
                 }
                 dt.Rows.Add(dr);
                 Session[SessionContents.FPS_AddProspect_DataTable] = dt;
@@ -368,7 +383,7 @@ namespace WealthERP.FP
         }
         protected void RadGrid1_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            Rebind();           
+            Rebind();
         }
 
         /// <summary>
@@ -376,24 +391,24 @@ namespace WealthERP.FP
         /// </summary>
         protected void Rebind()
         {
-            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];   
+            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
             RadGrid1.DataSource = dt;
         }
         protected void RadGrid1_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-           
+
         }
         protected void BindRelation(DropDownList ddList)
-        {            
-            
+        {
+
         }
-        
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             int ParentCustomerId = 0;
-            int customerId=0;
+            int customerId = 0;
             bool bresult;
-            bool status=true;
+            bool status = true;
             try
             {
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
@@ -423,7 +438,7 @@ namespace WealthERP.FP
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
                 }
-                
+
             }
             catch (Exception Ex)
             {
@@ -443,11 +458,12 @@ namespace WealthERP.FP
         /// <returns></returns>
         protected bool DataPopulation(int ParentCustomerId, int customerId, DataTable dt, UserVo userVo, RMVo rmVo, int createdById)
         {
-            bool bresult = true;            
+            bool bresult = true;
             try
             {
-                
+
                 //Checking whether the Page is for Update or to Submit.
+
                 if (btnSubmit.Text != "Update")
                 {
                     ParentCustomerId = CreateCustomerForAddProspect(userVo, rmVo, createdById);
@@ -462,30 +478,33 @@ namespace WealthERP.FP
                 }
                 else
                 {
-                    if (btnSubmitAddDetails.Text != "Add Finance Details")
-                    {
-                        customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
-                        //Updating Parent Customer
-                        UpdateCustomerForAddProspect(customerId);
-                        if (dt != null)
-                        {
 
-                            foreach (DataRow dr in dt.Rows)
+                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                    if (btnSubmitAddDetails.Text == "Add Finance Details")
+                    {
+                        dt = CustomerIdList(dt, customerId);
+                    }
+                    //Updating Parent Customer
+                    UpdateCustomerForAddProspect(customerId);
+                    if (dt != null)
+                    {
+
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
                             {
-                                if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
-                                {
-                                    //Updating child Customers
-                                    UpdateCustomerForAddProspect(customerId, dr);
-                                }
-                                else
-                                {
-                                    //Sometimes there might be the Situation that person can add new Client Customers  in Add screen on that situation
-                                    // this particular function works
-                                    CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
-                                }
+                                //Updating child Customers
+                                UpdateCustomerForAddProspect(customerId, dr);
+                            }
+                            else
+                            {
+                                //Sometimes there might be the Situation that person can add new Client Customers  in Add screen on that situation
+                                // this particular function works
+                                CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
                             }
                         }
                     }
+
                 }
                 bresult = true;
 
@@ -505,7 +524,7 @@ namespace WealthERP.FP
         /// 
         protected void UpdateCustomerForAddProspect(int customerId)
         {
-            customerVo = new CustomerVo();   
+            customerVo = new CustomerVo();
             customerVo.CustomerId = customerId;
             customerVo.RmId = rmVo.RMId;
             customerVo.Type = "IND";
@@ -535,7 +554,7 @@ namespace WealthERP.FP
             Session[SessionContents.CustomerVo] = customerVo;
             Session["customerVo"] = customerVo;
             Session["CustomerVo"] = customerVo;
-                     
+
         }
 
         /// <summary>
@@ -545,7 +564,7 @@ namespace WealthERP.FP
         /// <param name="drChildCustomer"></param>
         protected void UpdateCustomerForAddProspect(int customerId, DataRow drChildCustomer)
         {
-            customerVo = new CustomerVo();   
+            customerVo = new CustomerVo();
             customerVo.CustomerId = int.Parse(drChildCustomer["C_CustomerId"].ToString());
             customerVo.RmId = rmVo.RMId;
             customerVo.Type = "IND";
@@ -559,11 +578,11 @@ namespace WealthERP.FP
             }
             customerVo.IsProspect = 1;
             customerVo.IsFPClient = 1;
-            customerVo.Email = drChildCustomer["EmailId"].ToString();            
+            customerVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
             customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
-            customerBo.UpdateCustomer(customerVo);       
+            customerBo.UpdateCustomer(customerVo);
             Session["Customer"] = "Customer";
             if (drChildCustomer["C_CustomerId"] != null)
             {
@@ -593,7 +612,7 @@ namespace WealthERP.FP
         /// <returns></returns>
         protected int CreateCustomerForAddProspect(UserVo userVo, RMVo rmVo, int createdById)
         {
-            customerVo = new CustomerVo();          
+            customerVo = new CustomerVo();
             List<int> customerIds = new List<int>();
             customerVo.RmId = rmVo.RMId;
             customerVo.Type = "IND";
@@ -628,10 +647,10 @@ namespace WealthERP.FP
                 familyVo.AssociateCustomerId = customerIds[1];
                 familyVo.CustomerId = customerIds[1];
                 familyVo.Relationship = "SELF";
-                familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);                
+                familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
             }
             return customerIds[1];
-            
+
         }
 
         /// <summary>
@@ -644,13 +663,13 @@ namespace WealthERP.FP
         /// <param name="ParentCustomerId"></param>
         protected void CreateCustomerForAddProspect(UserVo userVo, RMVo rmVo, int createdById, DataRow drChildCustomer, int ParentCustomerId)
         {
-            customerVo = new CustomerVo();   
+            customerVo = new CustomerVo();
             customerVo.RmId = rmVo.RMId;
             customerVo.Type = "IND";
             customerVo.FirstName = drChildCustomer["FirstName"].ToString();
             customerVo.MiddleName = drChildCustomer["MiddleName"].ToString();
             customerVo.LastName = drChildCustomer["LastName"].ToString();
-            userVo.FirstName = drChildCustomer["FirstName"].ToString();           
+            userVo.FirstName = drChildCustomer["FirstName"].ToString();
             customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
             if (dpDOB.SelectedDate != null && drChildCustomer["DOB"].ToString() != null && drChildCustomer["DOB"].ToString() != string.Empty)
             {
@@ -666,15 +685,15 @@ namespace WealthERP.FP
             //Session[SessionContents.CustomerVo] = customerVo;
             //Session["customerVo"] = customerVo;
             //Session["CustomerVo"] = customerVo;
-            List<int> customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);            
+            List<int> customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
             if (customerIds != null)
             {
                 CustomerFamilyVo familyVo = new CustomerFamilyVo();
                 CustomerFamilyBo familyBo = new CustomerFamilyBo();
                 familyVo.AssociateCustomerId = customerIds[1];
-                familyVo.CustomerId = ParentCustomerId; 
+                familyVo.CustomerId = ParentCustomerId;
                 familyVo.Relationship = drChildCustomer["CustomerRelationship"].ToString();
-                familyBo.CreateCustomerFamily(familyVo, ParentCustomerId, userVo.UserId);                
+                familyBo.CreateCustomerFamily(familyVo, ParentCustomerId, userVo.UserId);
             }
         }
 
@@ -687,43 +706,43 @@ namespace WealthERP.FP
             try
             {
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                 foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
                 {
                     if (item.IsInEditMode)
                     {
                         status = false;
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
-                    }                    
+                    }
                 }
-                 if (status)
-                 {
+                if (status)
+                {
 
-                     if (Validation())
-                     {
+                    if (Validation())
+                    {
 
-                         userVo = new UserVo();
-                         rmVo = (RMVo)Session["rmVo"];
-                         tempuservo = (UserVo)Session["uservo"];
-                         int createdById = tempuservo.UserId;
-                         bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
+                        userVo = new UserVo();
+                        rmVo = (RMVo)Session["rmVo"];
+                        tempuservo = (UserVo)Session["uservo"];
+                        int createdById = tempuservo.UserId;
+                        bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
 
-                     }
-                 }
-                 Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
-                 
+                    }
+                }
+                Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+
                 Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
                 //msgRecordStatus.Visible = true;
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
-            }   
+            }
             catch (Exception Ex)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
             }
-            
+
         }
 
-       
+
 
         /// <summary>
         /// Used to Check validation
@@ -756,7 +775,24 @@ namespace WealthERP.FP
                 Session[SessionContents.FPS_AddProspectListActionStatus] = "Edit";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
             }
-            
+
+        }
+        protected DataTable CustomerIdList(DataTable dt, int customerId)
+        {
+            int i = 0;
+            List<CustomerFamilyVo> customerFamilyVoList = new List<CustomerFamilyVo>();
+            CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
+            customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
+            if (customerFamilyVoList != null)
+            {
+                foreach (CustomerFamilyVo customerfamilyvo in customerFamilyVoList)
+                {
+                    dt.Rows[i]["C_CustomerId"] = customerfamilyvo.AssociateCustomerId;
+                    dt.Rows[i]["CA_AssociationId"] = customerfamilyvo.AssociationId;
+                    i++;
+                }
+            }
+            return dt;
         }
 
     }
