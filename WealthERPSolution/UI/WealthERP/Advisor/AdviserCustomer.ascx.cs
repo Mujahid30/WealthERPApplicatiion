@@ -539,10 +539,16 @@ namespace WealthERP.Advisor
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
 
+                //to check whether he is group head or not
+                isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                //to set portfolio Id and its details
+                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                Session["customerPortfolioVo"] = customerPortfolioVo;
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-                    isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                    
                     if (isGrpHead == true)
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
                     else
@@ -551,8 +557,7 @@ namespace WealthERP.Advisor
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
                     Session["IsDashboard"] = "false";
-                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                    
                     Session["customerPortfolioVo"] = customerPortfolioVo;
 
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
@@ -560,14 +565,12 @@ namespace WealthERP.Advisor
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
-                    Session["IsDashboard"] = "portfolio";
-                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                   
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','list');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
-                    Session["IsDashboard"] = "alerts";
+                    
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
