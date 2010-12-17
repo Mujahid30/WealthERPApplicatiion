@@ -17,6 +17,8 @@ using System.Collections.Specialized;
 using WealthERP.Base;
 using VoFPSuperlite;
 using BoFPSuperlite;
+using System.Configuration;
+using BoAdvisorProfiling;
 namespace WealthERP.FP
 {
     public partial class CustomerProspect : System.Web.UI.UserControl
@@ -44,9 +46,10 @@ namespace WealthERP.FP
         protected void Page_Load(object sender, EventArgs e)
         {
             int customerId = 0;
-            CustomerProspectBo customerprospectbo=new CustomerProspectBo();
+            CustomerProspectBo customerprospectbo = new CustomerProspectBo();
+            //SqlDataSourceCustomerRelation.ConnectionString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
             try
-            {                
+            {
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
                 if (!IsPostBack)
@@ -67,7 +70,8 @@ namespace WealthERP.FP
                 {
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 }
-                BindBranch();
+                rmVo = (RMVo)Session["rmVo"];
+                BindBranch(advisorVo, rmVo);
                 if (Session[SessionContents.FPS_ProspectList_CustomerId] != null && Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != string.Empty)
                 {
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
@@ -89,7 +93,7 @@ namespace WealthERP.FP
                                 dr["FirstName"] = customerFamilyVo.FirstName;
                                 dr["MiddleName"] = customerFamilyVo.MiddleName;
                                 dr["LastName"] = customerFamilyVo.LastName;
-                                dr["DOB"] = customerFamilyVo.DOB;
+                                dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
                                 dr["EmailId"] = customerFamilyVo.EmailId;
                                 dt.Rows.Add(dr);
                             }
@@ -104,7 +108,7 @@ namespace WealthERP.FP
                     txtMiddleName.Text = customerVo.MiddleName;
                     txtLastName.Text = customerVo.LastName;
                     //dpDOB.MinDate = DateTime.Parse("01/01/1930 00:00:00");
-                    
+
                     if (customerVo.Dob != DateTime.Parse("01/01/0001 00:00:00"))
                     {
                         dpDOB.SelectedDate = customerVo.Dob;
@@ -159,7 +163,7 @@ namespace WealthERP.FP
                         RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
 
                         tblChildCustomer.Visible = true;
-                        
+
                     }
                     //DataRetrival(Databuffer);
 
@@ -184,7 +188,7 @@ namespace WealthERP.FP
             pnlLifeInsurance.Enabled = false;
             pnlSummary.Enabled = false;
             btnCustomerProspect.Visible = false;
-           
+
         }
         /// <summary>
         /// Actually in this screen there are no Delete Command Button. but i have left here because according to specs team in future there
@@ -261,9 +265,19 @@ namespace WealthERP.FP
                             }
                             if (editor is GridTemplateColumnEditor)
                             {
-                                TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
-                                editorText = txt.Text;
-                                editorValue = txt.Text;
+                                if (i != 3)
+                                {
+                                    TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
+                                    editorText = txt.Text;
+                                    editorValue = txt.Text;
+                                }
+                                else if (i == 3)
+                                {
+                                    TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
+                                    editorText = txt.Text;
+                                    editorValue = txt.Text;
+                                }
+
                             }
                             try
                             {
@@ -394,14 +408,18 @@ namespace WealthERP.FP
         {
 
         }
-        
-        /// <summary>
-        /// Used to bind branches of the Branch dropdown
+
+        /// <summary>        
+        /// Used to bind branches of the Branch dropdown       
         /// </summary>
-        protected void BindBranch()
+        /// <param name="advisorVo"></param>
+        /// <param name="rmVo"></param>
+        private void BindBranch(AdvisorVo advisorVo, RMVo rmVo)
         {
+            AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             UploadCommonBo uploadsCommonDao = new UploadCommonBo();
-            DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+            //DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+            DataSet ds = advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, advisorVo.advisorId, "A");
             if (ds != null)
             {
                 ddlPickBranch.DataSource = ds;
@@ -441,7 +459,7 @@ namespace WealthERP.FP
             {
                 Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
-            }           
+            }
         }
 
 
@@ -473,7 +491,7 @@ namespace WealthERP.FP
             userVo.Email = txtEmail.Text.ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolio";
+            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
             customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
             Session["Customer"] = "Customer";
             if (customerIds != null)
@@ -516,7 +534,7 @@ namespace WealthERP.FP
             userVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolio";
+            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
             List<int> customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
             if (customerIds != null)
             {
@@ -541,7 +559,7 @@ namespace WealthERP.FP
             double totalLoanOutstanding = 0.0;
             double instrumentTotal = 0.0;
             double subInstrumentTotal = 0.0;
-            
+
             BoFPSuperlite.CustomerProspectBo customerProspectBo = new CustomerProspectBo();
 
             try
@@ -574,14 +592,14 @@ namespace WealthERP.FP
                         //parent customerid is nothing but customerid
                         bdetails = customerProspectBo.DataManipulationInput(DataCapture(), ParentCustomerId, createdById, out totalincome, out totalExpense, out totalLiabilities, out totalLoanOutstanding, out instrumentTotal, out subInstrumentTotal);
                         if (bresult == true && bdetails == true)
-                        {                            
+                        {
                             msgRecordStatus.Visible = true;
                         }
                         else
                         {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful');", true);
                         }
-                    }                    
+                    }
                 }
                 Dictionary<string, object> Databuffer = customerProspectBo.Databuffer(ParentCustomerId);
                 DataRetrival(Databuffer);
@@ -786,98 +804,98 @@ namespace WealthERP.FP
                 VoFPSuperlite.CustomerProspectLiabilitiesDetailsVo liabilitiesdetailsvo;
                 List<CustomerProspectLiabilitiesDetailsVo> liabilitiesdetailsvolist = new List<CustomerProspectLiabilitiesDetailsVo>();
                 //Home Loan
-                
-                    liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
-                    liabilitiesdetailsvo.LoanTypeCode = 1;
-                    if (txtHomeLoanLO.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtHomeLoanLO.Text);
-                    }
-                    if (txtHomeLoanT.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.Tenure = int.Parse(txtHomeLoanT.Text);
-                    }
-                    if (txtHomeLoanEMI.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.EMIAmount = double.Parse(txtHomeLoanEMI.Text);
-                    }
-                    liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
-                    totalli += liabilitiesdetailsvo.LoanOutstanding;
-                
+
+                liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
+                liabilitiesdetailsvo.LoanTypeCode = 1;
+                if (txtHomeLoanLO.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtHomeLoanLO.Text);
+                }
+                if (txtHomeLoanT.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.Tenure = int.Parse(txtHomeLoanT.Text);
+                }
+                if (txtHomeLoanEMI.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.EMIAmount = double.Parse(txtHomeLoanEMI.Text);
+                }
+                liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
+                totalli += liabilitiesdetailsvo.LoanOutstanding;
+
                 //Auto Loan
-                
-                    liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
-                    liabilitiesdetailsvo.LoanTypeCode = 2;
-                    if (txtAutoLoanLO.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtAutoLoanLO.Text);
-                    }
-                    if (txtAutoLoanT.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.Tenure = int.Parse(txtAutoLoanT.Text);
-                    }
-                    if (txtAutoLoanEMI.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.EMIAmount = double.Parse(txtAutoLoanEMI.Text);
-                    }
-                    liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
-                    totalli += liabilitiesdetailsvo.LoanOutstanding;
-                
+
+                liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
+                liabilitiesdetailsvo.LoanTypeCode = 2;
+                if (txtAutoLoanLO.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtAutoLoanLO.Text);
+                }
+                if (txtAutoLoanT.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.Tenure = int.Parse(txtAutoLoanT.Text);
+                }
+                if (txtAutoLoanEMI.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.EMIAmount = double.Parse(txtAutoLoanEMI.Text);
+                }
+                liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
+                totalli += liabilitiesdetailsvo.LoanOutstanding;
+
                 //Educational Loan
-                
-                    liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
-                    liabilitiesdetailsvo.LoanTypeCode = 5;
-                    if (txtEducationLoanLO.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtEducationLoanLO.Text);
-                    }
-                    if (txtEducationLoanT.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.Tenure = int.Parse(txtEducationLoanT.Text);
-                    }
-                    if (txtEducationLoanEMI.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.EMIAmount = double.Parse(txtEducationLoanEMI.Text);
-                    }
-                    liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
-                    totalli += liabilitiesdetailsvo.LoanOutstanding;
-                
+
+                liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
+                liabilitiesdetailsvo.LoanTypeCode = 5;
+                if (txtEducationLoanLO.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtEducationLoanLO.Text);
+                }
+                if (txtEducationLoanT.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.Tenure = int.Parse(txtEducationLoanT.Text);
+                }
+                if (txtEducationLoanEMI.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.EMIAmount = double.Parse(txtEducationLoanEMI.Text);
+                }
+                liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
+                totalli += liabilitiesdetailsvo.LoanOutstanding;
+
                 //Personal Loan
-                
-                    liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
-                    liabilitiesdetailsvo.LoanTypeCode = 6;
-                    if (txtPersonalLoanLO.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtPersonalLoanLO.Text);
-                    }
-                    if (txtPersonalLoanT.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.Tenure = int.Parse(txtPersonalLoanT.Text);
-                    }
-                    if (txtPersonalLoanEMI.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.EMIAmount = double.Parse(txtPersonalLoanEMI.Text);
-                    }
-                    liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
-                    totalli += liabilitiesdetailsvo.LoanOutstanding;
-                
+
+                liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
+                liabilitiesdetailsvo.LoanTypeCode = 6;
+                if (txtPersonalLoanLO.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtPersonalLoanLO.Text);
+                }
+                if (txtPersonalLoanT.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.Tenure = int.Parse(txtPersonalLoanT.Text);
+                }
+                if (txtPersonalLoanEMI.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.EMIAmount = double.Parse(txtPersonalLoanEMI.Text);
+                }
+                liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
+                totalli += liabilitiesdetailsvo.LoanOutstanding;
+
                 //Other Loan
-                    liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
-                    liabilitiesdetailsvo.LoanTypeCode = 9;
-                    if (txtOtherLoanLO.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtOtherLoanLO.Text);
-                    }
-                    if (txtOtherLoanT.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.Tenure = int.Parse(txtOtherLoanT.Text);
-                    }
-                    if (txtOtherLoanEMI.Text != string.Empty)
-                    {
-                        liabilitiesdetailsvo.EMIAmount = double.Parse(txtOtherLoanEMI.Text);
-                    }
-                    liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
-                    totalli += liabilitiesdetailsvo.LoanOutstanding;
+                liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
+                liabilitiesdetailsvo.LoanTypeCode = 9;
+                if (txtOtherLoanLO.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtOtherLoanLO.Text);
+                }
+                if (txtOtherLoanT.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.Tenure = int.Parse(txtOtherLoanT.Text);
+                }
+                if (txtOtherLoanEMI.Text != string.Empty)
+                {
+                    liabilitiesdetailsvo.EMIAmount = double.Parse(txtOtherLoanEMI.Text);
+                }
+                liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
+                totalli += liabilitiesdetailsvo.LoanOutstanding;
                 //==========================================================================================================================
 
                 //Investment
@@ -1010,189 +1028,224 @@ namespace WealthERP.FP
                     assetdetailsvolist.Add(assetdetailsvo);
                     totalasset += assetdetailsvo.Value;
                 }
-
+                //Cash and Savings
+                if (txtPMS.Text != string.Empty)
+                {
+                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                    assetdetailsvo.AssetGroupCode = "CS";
+                    assetdetailsvo.Value = double.Parse(txtCashAndSavings.Text);
+                    assetdetailsvolist.Add(assetdetailsvo);
+                    totalasset += assetdetailsvo.Value;
+                }
+                //Structured Product
+                if (txtPMS.Text != string.Empty)
+                {
+                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                    assetdetailsvo.AssetGroupCode = "SP";
+                    assetdetailsvo.Value = double.Parse(txtStructuredProduct.Text);
+                    assetdetailsvolist.Add(assetdetailsvo);
+                    totalasset += assetdetailsvo.Value;
+                }
+                //Commodities
+                if (txtPMS.Text != string.Empty)
+                {
+                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                    assetdetailsvo.AssetGroupCode = "CM";
+                    assetdetailsvo.Value = double.Parse(txtCommodities.Text);
+                    assetdetailsvolist.Add(assetdetailsvo);
+                    totalasset += assetdetailsvo.Value;
+                }
+                //Others
+                if (txtPMS.Text != string.Empty)
+                {
+                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                    assetdetailsvo.AssetGroupCode = "OT";
+                    assetdetailsvo.Value = double.Parse(txtInvestmentsOthers.Text);
+                    assetdetailsvolist.Add(assetdetailsvo);
+                    totalasset += assetdetailsvo.Value;
+                }
                 //==========================================================================================================================
 
                 //Life Insurance
                 //==========================================================================================================================
                 //Term 
-                
-                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
-                    assetdetailsvo.AssetGroupCode = "IN";
-                    assetdetailsvo.AssetInstrumentCategoryCode = "INTP";
-                    if (txtTermSA.Text != string.Empty )
-                    {
-                        assetdetailsvo.Value = double.Parse(txtTermSA.Text);
-                    }
-                    if (txtTermP.Text != string.Empty)
-                    {
-                        assetdetailsvo.Premium = double.Parse(txtTermP.Text);
-                    }
-                    assetdetailsvo.MaturityDate = dpTermLIMD.SelectedDate;
-                    assetdetailsvolist.Add(assetdetailsvo);
-                    totalli += assetdetailsvo.Value;
-                
+
+                assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                assetdetailsvo.AssetGroupCode = "IN";
+                assetdetailsvo.AssetInstrumentCategoryCode = "INTP";
+                if (txtTermSA.Text != string.Empty)
+                {
+                    assetdetailsvo.Value = double.Parse(txtTermSA.Text);
+                }
+                if (txtTermP.Text != string.Empty)
+                {
+                    assetdetailsvo.Premium = double.Parse(txtTermP.Text);
+                }
+                assetdetailsvo.MaturityDate = dpTermLIMD.SelectedDate;
+                assetdetailsvolist.Add(assetdetailsvo);
+                totalli += assetdetailsvo.Value;
+
                 //Endowment
-               
-                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
-                    assetdetailsvo.AssetGroupCode = "IN";
-                    assetdetailsvo.AssetInstrumentCategoryCode = "INEP";
-                    if (txtEndowmentSA.Text != string.Empty )
-                    {
-                        assetdetailsvo.Value = double.Parse(txtEndowmentSA.Text);
-                    }
-                    if (txtEndowmentP.Text != string.Empty)
-                    {
-                        assetdetailsvo.Premium = double.Parse(txtEndowmentP.Text);
-                    }
-                    assetdetailsvo.MaturityDate = dpEndowmentLIMD.SelectedDate;
-                    assetdetailsvolist.Add(assetdetailsvo);
-                    totalli += assetdetailsvo.Value;
-                
+
+                assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                assetdetailsvo.AssetGroupCode = "IN";
+                assetdetailsvo.AssetInstrumentCategoryCode = "INEP";
+                if (txtEndowmentSA.Text != string.Empty)
+                {
+                    assetdetailsvo.Value = double.Parse(txtEndowmentSA.Text);
+                }
+                if (txtEndowmentP.Text != string.Empty)
+                {
+                    assetdetailsvo.Premium = double.Parse(txtEndowmentP.Text);
+                }
+                assetdetailsvo.MaturityDate = dpEndowmentLIMD.SelectedDate;
+                assetdetailsvolist.Add(assetdetailsvo);
+                totalli += assetdetailsvo.Value;
+
                 //Whole Life
-                
-                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
-                    assetdetailsvo.AssetGroupCode = "IN";
-                    assetdetailsvo.AssetInstrumentCategoryCode = "INWP";
-                    if (txtWholeLifeSA.Text != string.Empty )
-                    {
-                        assetdetailsvo.Value = double.Parse(txtWholeLifeSA.Text);
-                    }
-                    if (txtWholeLifeP.Text != string.Empty)
-                    {
-                        assetdetailsvo.Premium = double.Parse(txtWholeLifeP.Text);
-                    }
-                    assetdetailsvo.MaturityDate = dpWholeLifeLIMD.SelectedDate;
-                    assetdetailsvolist.Add(assetdetailsvo);
-                    totalli += assetdetailsvo.Value;
-                
+
+                assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                assetdetailsvo.AssetGroupCode = "IN";
+                assetdetailsvo.AssetInstrumentCategoryCode = "INWP";
+                if (txtWholeLifeSA.Text != string.Empty)
+                {
+                    assetdetailsvo.Value = double.Parse(txtWholeLifeSA.Text);
+                }
+                if (txtWholeLifeP.Text != string.Empty)
+                {
+                    assetdetailsvo.Premium = double.Parse(txtWholeLifeP.Text);
+                }
+                assetdetailsvo.MaturityDate = dpWholeLifeLIMD.SelectedDate;
+                assetdetailsvolist.Add(assetdetailsvo);
+                totalli += assetdetailsvo.Value;
+
                 //Money Back
-               
-                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
-                    assetdetailsvo.AssetGroupCode = "IN";
-                    assetdetailsvo.AssetInstrumentCategoryCode = "INMP";
-                    if (txtMoneyBackSA.Text != string.Empty)
-                    {
-                        assetdetailsvo.Value = double.Parse(txtMoneyBackSA.Text);
-                    }
-                    if (txtMoneyBackP.Text != string.Empty)
-                    {
-                        assetdetailsvo.Premium = double.Parse(txtMoneyBackP.Text);
-                    }
-                    assetdetailsvo.MaturityDate = dpMoneyBackLIMD.SelectedDate;
-                    assetdetailsvolist.Add(assetdetailsvo);
-                    totalli += assetdetailsvo.Value;
-                
+
+                assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                assetdetailsvo.AssetGroupCode = "IN";
+                assetdetailsvo.AssetInstrumentCategoryCode = "INMP";
+                if (txtMoneyBackSA.Text != string.Empty)
+                {
+                    assetdetailsvo.Value = double.Parse(txtMoneyBackSA.Text);
+                }
+                if (txtMoneyBackP.Text != string.Empty)
+                {
+                    assetdetailsvo.Premium = double.Parse(txtMoneyBackP.Text);
+                }
+                assetdetailsvo.MaturityDate = dpMoneyBackLIMD.SelectedDate;
+                assetdetailsvolist.Add(assetdetailsvo);
+                totalli += assetdetailsvo.Value;
+
                 //ULIP
-                
-                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
-                    assetdetailsvo.AssetGroupCode = "IN";
-                    assetdetailsvo.AssetInstrumentCategoryCode = "INUP";
-                    if (txtULIPSA.Text != string.Empty )
-                    {
-                        assetdetailsvo.Value = double.Parse(txtULIPSA.Text);
-                    }
-                    if (txtULIPP.Text != string.Empty)
-                    {
-                        assetdetailsvo.Premium = double.Parse(txtULIPP.Text);
-                    }
-                    assetdetailsvo.MaturityDate = dpULIPSLIMD.SelectedDate;
-                    assetdetailsvolist.Add(assetdetailsvo);
-                    totalli += assetdetailsvo.Value;
-                
+
+                assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                assetdetailsvo.AssetGroupCode = "IN";
+                assetdetailsvo.AssetInstrumentCategoryCode = "INUP";
+                if (txtULIPSA.Text != string.Empty)
+                {
+                    assetdetailsvo.Value = double.Parse(txtULIPSA.Text);
+                }
+                if (txtULIPP.Text != string.Empty)
+                {
+                    assetdetailsvo.Premium = double.Parse(txtULIPP.Text);
+                }
+                assetdetailsvo.MaturityDate = dpULIPSLIMD.SelectedDate;
+                assetdetailsvolist.Add(assetdetailsvo);
+                totalli += assetdetailsvo.Value;
+
                 //Others
-                
-                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
-                    assetdetailsvo.AssetGroupCode = "IN";
-                    assetdetailsvo.AssetInstrumentCategoryCode = "INOT";
-                    if (txtOthersLISA.Text != string.Empty)
-                    {
-                        assetdetailsvo.Value = double.Parse(txtOthersLISA.Text);
-                    }
-                    if (txtOthersLIP.Text != string.Empty)
-                    {
-                        assetdetailsvo.Premium = double.Parse(txtOthersLIP.Text);
-                    }
-                    assetdetailsvo.MaturityDate = dpOthersLIMD.SelectedDate;
-                    assetdetailsvolist.Add(assetdetailsvo);
-                    totalli += assetdetailsvo.Value;
-                
+
+                assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                assetdetailsvo.AssetGroupCode = "IN";
+                assetdetailsvo.AssetInstrumentCategoryCode = "INOT";
+                if (txtOthersLISA.Text != string.Empty)
+                {
+                    assetdetailsvo.Value = double.Parse(txtOthersLISA.Text);
+                }
+                if (txtOthersLIP.Text != string.Empty)
+                {
+                    assetdetailsvo.Premium = double.Parse(txtOthersLIP.Text);
+                }
+                assetdetailsvo.MaturityDate = dpOthersLIMD.SelectedDate;
+                assetdetailsvolist.Add(assetdetailsvo);
+                totalli += assetdetailsvo.Value;
+
                 //==========================================================================================================================
 
                 //General Insurance
                 //==========================================================================================================================
                 //Health Insurance cover  
-                
-                    assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
-                    assetdetailssubvo.AssetGroupCode = "GI";
-                    assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
-                    assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHM";
-                    if (txtHealthInsuranceCoverSA.Text != string.Empty)
-                    {
-                        assetdetailssubvo.Value = double.Parse(txtHealthInsuranceCoverSA.Text);
-                    }
-                    if (txtHealthInsuranceCoverP.Text != string.Empty)
-                    {
-                        assetdetailssubvo.Premium = double.Parse(txtHealthInsuranceCoverP.Text);
-                    }
-                    assetdetailssubvo.MaturityDate = dpHealthInsuranceCoverGIMD.SelectedDate;
-                    assetdetailssubvolist.Add(assetdetailssubvo);
-                    totalgi += assetdetailssubvo.Value;
-                
+
+                assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
+                assetdetailssubvo.AssetGroupCode = "GI";
+                assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
+                assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHM";
+                if (txtHealthInsuranceCoverSA.Text != string.Empty)
+                {
+                    assetdetailssubvo.Value = double.Parse(txtHealthInsuranceCoverSA.Text);
+                }
+                if (txtHealthInsuranceCoverP.Text != string.Empty)
+                {
+                    assetdetailssubvo.Premium = double.Parse(txtHealthInsuranceCoverP.Text);
+                }
+                assetdetailssubvo.MaturityDate = dpHealthInsuranceCoverGIMD.SelectedDate;
+                assetdetailssubvolist.Add(assetdetailssubvo);
+                totalgi += assetdetailssubvo.Value;
+
                 //Property Insurance Cover  
-               
-                    assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
-                    assetdetailssubvo.AssetGroupCode = "GI";
-                    assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
-                    assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHO";
-                    if (txtPropertyInsuranceCoverSA.Text != string.Empty )
-                    {
+
+                assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
+                assetdetailssubvo.AssetGroupCode = "GI";
+                assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
+                assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHO";
+                if (txtPropertyInsuranceCoverSA.Text != string.Empty)
+                {
                     assetdetailssubvo.Value = double.Parse(txtPropertyInsuranceCoverSA.Text);
-                    }
-                    if (txtPropertyInsuranceCoverP.Text != string.Empty)
-                    {
+                }
+                if (txtPropertyInsuranceCoverP.Text != string.Empty)
+                {
                     assetdetailssubvo.Premium = double.Parse(txtPropertyInsuranceCoverP.Text);
-                    }
-                    assetdetailssubvo.MaturityDate = dpPropertyInsuranceCoverGIMD.SelectedDate;
-                    assetdetailssubvolist.Add(assetdetailssubvo);
-                    totalgi += assetdetailssubvo.Value;
-                
+                }
+                assetdetailssubvo.MaturityDate = dpPropertyInsuranceCoverGIMD.SelectedDate;
+                assetdetailssubvolist.Add(assetdetailssubvo);
+                totalgi += assetdetailssubvo.Value;
+
                 //Personal Accident           
-                
-                    assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
-                    assetdetailssubvo.AssetGroupCode = "GI";
-                    assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
-                    assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIPA";
-                    if (txtPersonalAccidentSA.Text != string.Empty)
-                    {
-                        assetdetailssubvo.Value = double.Parse(txtPersonalAccidentSA.Text);
-                    }
-                    if (txtPersonalAccidentP.Text != string.Empty)
-                    {
-                        assetdetailssubvo.Premium = double.Parse(txtPersonalAccidentP.Text);
-                    }
-                    assetdetailssubvo.MaturityDate = dpPersonalAccidentGIMD.SelectedDate;
-                    assetdetailssubvolist.Add(assetdetailssubvo);
-                    totalgi += assetdetailssubvo.Value;
-               
+
+                assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
+                assetdetailssubvo.AssetGroupCode = "GI";
+                assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
+                assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIPA";
+                if (txtPersonalAccidentSA.Text != string.Empty)
+                {
+                    assetdetailssubvo.Value = double.Parse(txtPersonalAccidentSA.Text);
+                }
+                if (txtPersonalAccidentP.Text != string.Empty)
+                {
+                    assetdetailssubvo.Premium = double.Parse(txtPersonalAccidentP.Text);
+                }
+                assetdetailssubvo.MaturityDate = dpPersonalAccidentGIMD.SelectedDate;
+                assetdetailssubvolist.Add(assetdetailssubvo);
+                totalgi += assetdetailssubvo.Value;
+
                 //Others
-                
-                    assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
-                    assetdetailssubvo.AssetGroupCode = "GI";
-                    assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
-                    assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIOT";
-                    if (txtOthersGISA.Text != string.Empty )
-                    {
-                        assetdetailssubvo.Value = double.Parse(txtOthersGISA.Text);
-                    }
-                    if (txtOthersGIP.Text != string.Empty)
-                    {
-                        assetdetailssubvo.Premium = double.Parse(txtOthersGIP.Text);
-                    }
-                    assetdetailssubvo.MaturityDate = dpOthersGIMD.SelectedDate;
-                    assetdetailssubvolist.Add(assetdetailssubvo);
-                    totalgi += assetdetailssubvo.Value;
-                
+
+                assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
+                assetdetailssubvo.AssetGroupCode = "GI";
+                assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
+                assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIOT";
+                if (txtOthersGISA.Text != string.Empty)
+                {
+                    assetdetailssubvo.Value = double.Parse(txtOthersGISA.Text);
+                }
+                if (txtOthersGIP.Text != string.Empty)
+                {
+                    assetdetailssubvo.Premium = double.Parse(txtOthersGIP.Text);
+                }
+                assetdetailssubvo.MaturityDate = dpOthersGIMD.SelectedDate;
+                assetdetailssubvolist.Add(assetdetailssubvo);
+                totalgi += assetdetailssubvo.Value;
+
                 //==========================================================================================================================
                 //Main total Details Summing up
                 //==========================================================================================================================
@@ -1228,7 +1281,7 @@ namespace WealthERP.FP
                 {
                     datacapturelist.Add("TotalAssetDetails", customerprospectvo);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1259,6 +1312,9 @@ namespace WealthERP.FP
                 UpdateCustomerForAddProspect(customerId);
                 if (dt != null)
                 {
+                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+
+                    dt = CustomerIdList(dt, customerId);
 
                     foreach (DataRow dr in dt.Rows)
                     {
@@ -1287,7 +1343,23 @@ namespace WealthERP.FP
             return bresult;
 
         }
-
+        protected DataTable CustomerIdList(DataTable dt, int customerId)
+        {
+            int i = 0;
+            List<CustomerFamilyVo> customerFamilyVoList = new List<CustomerFamilyVo>();
+            CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
+            customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
+            if (customerFamilyVoList != null)
+            {
+                foreach (CustomerFamilyVo customerfamilyvo in customerFamilyVoList)
+                {
+                    dt.Rows[i]["C_CustomerId"] = customerfamilyvo.AssociateCustomerId;
+                    dt.Rows[i]["CA_AssociationId"] = customerfamilyvo.AssociationId;
+                    i++;
+                }
+            }
+            return dt;
+        }
         /// <summary>
         /// Used to Update Parent Customers
         /// </summary>
@@ -1317,7 +1389,7 @@ namespace WealthERP.FP
             userVo.Email = txtEmail.Text.ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolio";
+            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
             customerBo.UpdateCustomer(customerVo);
             Session["Customer"] = "Customer";
 
@@ -1347,7 +1419,7 @@ namespace WealthERP.FP
             customerVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolio";
+            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
             customerBo.UpdateCustomer(customerVo);
             Session["Customer"] = "Customer";
             if (drChildCustomer["C_CustomerId"] != null)
@@ -1375,20 +1447,20 @@ namespace WealthERP.FP
             double totalli = 0.0;
             double totalgi = 0.0;
             CustomerProspectVo customerprospectvo = new CustomerProspectVo();
-            List<CustomerProspectIncomeDetailsVo> IncomeDetailsForCustomerProspect = Databuffer["IncomeDetailsList"] as List<CustomerProspectIncomeDetailsVo> ;
+            List<CustomerProspectIncomeDetailsVo> IncomeDetailsForCustomerProspect = Databuffer["IncomeDetailsList"] as List<CustomerProspectIncomeDetailsVo>;
             List<CustomerProspectExpenseDetailsVo> ExpenseDetailsForCustomerProspect = Databuffer["ExpenseDetailsList"] as List<CustomerProspectExpenseDetailsVo>;
             List<CustomerProspectLiabilitiesDetailsVo> LiabilitiesDetailsForCustomerProspect = Databuffer["LiabilitiesDetailsList"] as List<CustomerProspectLiabilitiesDetailsVo>;
             List<CustomerProspectAssetSubDetailsVo> CustomerFPAssetSubInstrumentDetails = Databuffer["AssetInstrumentSubDetailsList"] as List<CustomerProspectAssetSubDetailsVo>;
             List<CustomerProspectAssetDetailsVo> CustomerFPAssetInstrumentDetails = Databuffer["AssetInstrumentDetailsList"] as List<CustomerProspectAssetDetailsVo>;
-     
+
             # region
-            if (IncomeDetailsForCustomerProspect != null && IncomeDetailsForCustomerProspect.Count>0)
+            if (IncomeDetailsForCustomerProspect != null && IncomeDetailsForCustomerProspect.Count > 0)
             {
                 foreach (CustomerProspectIncomeDetailsVo cpid in IncomeDetailsForCustomerProspect)
                 {
                     if (cpid.IncomeCategoryCode == 1)
                     {
-                        txtSalary.Text=cpid.IncomeValue.ToString();
+                        txtSalary.Text = cpid.IncomeValue.ToString();
                         totalincome += cpid.IncomeValue;
                     }
                     if (cpid.IncomeCategoryCode == 2)
@@ -1416,11 +1488,11 @@ namespace WealthERP.FP
                         txtOthersIncome.Text = cpid.IncomeValue.ToString();
                         totalincome += cpid.IncomeValue;
                     }
-                    
+
                 }
             }
 
-            if (ExpenseDetailsForCustomerProspect != null && ExpenseDetailsForCustomerProspect.Count>0)
+            if (ExpenseDetailsForCustomerProspect != null && ExpenseDetailsForCustomerProspect.Count > 0)
             {
                 foreach (CustomerProspectExpenseDetailsVo cped in ExpenseDetailsForCustomerProspect)
                 {
@@ -1474,12 +1546,12 @@ namespace WealthERP.FP
                         txtOthersExpense.Text = cped.ExpenseValue.ToString();
                         totalexpense += cped.ExpenseValue;
                     }
-                    
+
                 }
             }
 
 
-            if (LiabilitiesDetailsForCustomerProspect != null && LiabilitiesDetailsForCustomerProspect.Count>0)
+            if (LiabilitiesDetailsForCustomerProspect != null && LiabilitiesDetailsForCustomerProspect.Count > 0)
             {
                 foreach (CustomerProspectLiabilitiesDetailsVo cpld in LiabilitiesDetailsForCustomerProspect)
                 {
@@ -1496,8 +1568,8 @@ namespace WealthERP.FP
                         txtAutoLoanT.Text = cpld.Tenure.ToString();
                         txtAutoLoanEMI.Text = cpld.EMIAmount.ToString();
                         totalliabilities += cpld.LoanOutstanding;
-                    }                    
-                    
+                    }
+
                     if (cpld.LoanTypeCode == 5)
                     {
                         txtEducationLoanLO.Text = cpld.LoanOutstanding.ToString();
@@ -1511,7 +1583,7 @@ namespace WealthERP.FP
                         txtPersonalLoanT.Text = cpld.Tenure.ToString();
                         txtPersonalLoanEMI.Text = cpld.EMIAmount.ToString();
                         totalliabilities += cpld.LoanOutstanding;
-                    }                   
+                    }
                     if (cpld.LoanTypeCode == 9)
                     {
                         txtOtherLoanLO.Text = cpld.LoanOutstanding.ToString();
@@ -1519,12 +1591,12 @@ namespace WealthERP.FP
                         txtOtherLoanEMI.Text = cpld.EMIAmount.ToString();
                         totalliabilities += cpld.LoanOutstanding;
                     }
-                    
+
                 }
             }
             # endregion
 
-            if (CustomerFPAssetInstrumentDetails != null && CustomerFPAssetInstrumentDetails.Count>0)
+            if (CustomerFPAssetInstrumentDetails != null && CustomerFPAssetInstrumentDetails.Count > 0)
             {
                 foreach (CustomerProspectAssetDetailsVo cpad in CustomerFPAssetInstrumentDetails)
                 {
@@ -1533,12 +1605,12 @@ namespace WealthERP.FP
                         txtDirectEquity.Text = cpad.Value.ToString();
                         totalasset += cpad.Value;
                     }
-                    if (cpad.AssetGroupCode == "MF" && cpad.AssetInstrumentCategoryCode=="MFEQ")
+                    if (cpad.AssetGroupCode == "MF" && cpad.AssetInstrumentCategoryCode == "MFEQ")
                     {
                         txtMFEquity.Text = cpad.Value.ToString();
                         totalasset += cpad.Value;
                     }
-                    if (cpad.AssetGroupCode == "MF" && cpad.AssetInstrumentCategoryCode=="MFDT")
+                    if (cpad.AssetGroupCode == "MF" && cpad.AssetInstrumentCategoryCode == "MFDT")
                     {
                         txtMFDebt.Text = cpad.Value.ToString();
                         totalasset += cpad.Value;
@@ -1598,8 +1670,13 @@ namespace WealthERP.FP
                         txtPMS.Text = cpad.Value.ToString();
                         totalasset += cpad.Value;
                     }
+                    if (cpad.AssetGroupCode == "OT")
+                    {
+                        txtInvestmentsOthers.Text = cpad.Value.ToString();
+                        totalasset += cpad.Value;
+                    }
                     //Life Insurance
-                    if (cpad.AssetGroupCode == "IN" && cpad.AssetInstrumentCategoryCode=="INTP")
+                    if (cpad.AssetGroupCode == "IN" && cpad.AssetInstrumentCategoryCode == "INTP")
                     {
                         txtTermSA.Text = cpad.Value.ToString();
                         txtTermP.Text = cpad.Premium.ToString();
@@ -1662,7 +1739,7 @@ namespace WealthERP.FP
                 }
             }
 
-            if (CustomerFPAssetSubInstrumentDetails != null && CustomerFPAssetSubInstrumentDetails.Count>0)
+            if (CustomerFPAssetSubInstrumentDetails != null && CustomerFPAssetSubInstrumentDetails.Count > 0)
             {
                 foreach (CustomerProspectAssetSubDetailsVo cpasd in CustomerFPAssetSubInstrumentDetails)
                 {
@@ -1735,13 +1812,13 @@ namespace WealthERP.FP
                     txtTotalLO.Text = totalliabilities.ToString();
                     txtTotalLISA.Text = totalli.ToString();
                     txtTotalGISA.Text = totalgi.ToString();
-                    
+
                 }
             }
 
         }
 
-       
+
 
     }
 }
