@@ -184,11 +184,11 @@
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 <telerik:RadFormDecorator ID="RadFormDecorator1" runat="server" DecoratedControls="All"
-    EnableEmbeddedSkins="false" Skin="Touchbase" />
+    Skin="Outlook" />
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Finance Profile"></asp:Label>
 <hr />
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
-    EnableEmbeddedSkins="false" Skin="Touchbase" EnableShadows="true" EnableRoundedCorners="true" Width="100%"
+    Skin="Outlook" EnableShadows="true" EnableRoundedCorners="true" Width="100%"
     Visible="false">
     <Items>
         <telerik:RadToolBarButton runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
@@ -206,7 +206,7 @@
         </td>
     </tr>
 </table>
-<telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" EnableEmbeddedSkins="false" Skin="Touchbase"
+<telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Outlook"
     MultiPageID="CustomerProspectMultiPage" SelectedIndex="1" Orientation="HorizontalTop"
     ReorderTabsOnSelect="false">
     <Tabs>
@@ -233,7 +233,7 @@
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
-<telerik:RadInputManager ID="RadInputManager1" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase">
+<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Outlook">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true">
         <TargetControls>
             <telerik:TargetInput ControlID="txtFirstName" />
@@ -359,7 +359,7 @@
         </TargetControls>
     </telerik:NumericTextBoxSetting>
 </telerik:RadInputManager>
-<telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase">
+<telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Outlook">
 </telerik:RadAjaxLoadingPanel>
 <telerik:RadInputManager ID="RadInputManager2" runat="server">
     <telerik:NumericTextBoxSetting Culture="Hindi (India)" DecimalDigits="2" DecimalSeparator="."
@@ -398,7 +398,7 @@
         </TargetControls>
     </telerik:RegExpTextBoxSetting>
 </telerik:RadInputManager>
-<telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase">
+<telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Outlook">
 </telerik:RadAjaxLoadingPanel>
 <telerik:RadMultiPage ID="CustomerProspectMultiPage" runat="server" SelectedIndex="1">
     <telerik:RadPageView ID="RadPageView1" runat="server">
@@ -434,9 +434,9 @@
                                     <asp:Label ID="lblDateOfBirth" runat="server" CssClass="FieldName" Text="Date of Birth : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpDOB" runat="server" ShowAnimation-Type="Fade" EnableEmbeddedSkins="false" Skin="Touchbase"
+                                    <telerik:RadDatePicker ID="dpDOB" runat="server" ShowAnimation-Type="Fade" Skin="Outlook"
                                         MinDate="1900-01-01">
-                                        <Calendar EnableEmbeddedSkins="false" Skin="Touchbase" UseColumnHeadersAsSelectors="False" UseRowHeadersAsSelectors="False"
+                                        <Calendar Skin="Outlook" UseColumnHeadersAsSelectors="False" UseRowHeadersAsSelectors="False"
                                             ViewSelectorText="x">
                                         </Calendar>
                                         <DatePopupButton HoverImageUrl="" ImageUrl="" />
@@ -456,7 +456,7 @@
                                 </td>
                                 <td align="left">
                                     <telerik:RadComboBox ID="ddlPickBranch" runat="server" EmptyMessage="Pick a Branch here"
-                                        ExpandAnimation-Type="Linear" ShowToggleImage="True" EnableEmbeddedSkins="false" Skin="Touchbase">
+                                        ExpandAnimation-Type="Linear" ShowToggleImage="True" Skin="Outlook">
                                         <ExpandAnimation Type="InExpo" />
                                     </telerik:RadComboBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="ddlPickBranch"
@@ -480,14 +480,14 @@
                                         <telerik:RadGrid ID="RadGrid1" runat="server" Width="96%" GridLines="None" AutoGenerateColumns="False"
                                             PageSize="13" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
                                             ShowStatusBar="True" OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound">
+                                            Skin="Outlook" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound">
                                             <PagerStyle Mode="NextPrevAndNumeric" Position="Bottom" />
                                             <MasterTableView DataKeyNames="C_CustomerId" AllowMultiColumnSorting="True" Width="100%"
                                                 CommandItemDisplay="Top" AutoGenerateColumns="false" EditMode="InPlace">
                                                 <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                                 <Columns>
                                                     <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
-                                                CancelText="Cancel" ButtonType="ImageButton" InsertImageUrl="../App_Themes/Purple/Grid/Update.gif" EditImageUrl="../App_Themes/Purple/Grid/Edit.gif" CancelImageUrl="../App_Themes/Purple/Grid/Cancel.gif" UpdateImageUrl="../App_Themes/Purple/Grid/Update.gif">
+                                                CancelText="Cancel" ButtonType="ImageButton" >
                                                         <HeaderStyle Width="85px"></HeaderStyle>
                                                     </telerik:GridEditCommandColumn>
                                                     <telerik:GridDropDownColumn UniqueName="CustomerRelationship" HeaderText="Relationship"
@@ -525,7 +525,7 @@
                                                             <asp:TextBox runat="server" ID="txtGridEmailId" Text='<%# Bind("EmailId") %>'></asp:TextBox>
                                                         </EditItemTemplate>
                                                     </telerik:GridTemplateColumn>
-                                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" ImageUrl="../App_Themes/Purple/Grid/Delete.gif"
+                                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" 
                                                         ButtonType="ImageButton" />
                                                 </Columns>
                                                 <EditFormSettings CaptionFormatString="Edit details for employee with ID {0}" CaptionDataField="FirstName">
@@ -1073,9 +1073,9 @@
                                     <asp:TextBox ID="txtTermP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpTermLIMD" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpTermLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase">
+                                            Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1094,9 +1094,9 @@
                                     <asp:TextBox ID="txtEndowmentP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpEndowmentLIMD" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpEndowmentLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase">
+                                            Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1115,9 +1115,9 @@
                                     <asp:TextBox ID="txtWholeLifeP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpWholeLifeLIMD" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpWholeLifeLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase">
+                                            Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1136,9 +1136,9 @@
                                     <asp:TextBox ID="txtMoneyBackP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpMoneyBackLIMD" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpMoneyBackLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase">
+                                            Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1157,9 +1157,9 @@
                                     <asp:TextBox ID="txtULIPP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpULIPSLIMD" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpULIPSLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase">
+                                            Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1178,9 +1178,9 @@
                                     <asp:TextBox ID="txtOthersLIP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpOthersLIMD" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpOthersLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase">
+                                            Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1239,10 +1239,10 @@
                                     <asp:TextBox ID="txtHealthInsuranceCoverP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpHealthInsuranceCoverGIMD" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase"
+                                    <telerik:RadDatePicker ID="dpHealthInsuranceCoverGIMD" runat="server" Skin="Outlook"
                                         ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase">
+                                            Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1263,10 +1263,10 @@
                                     <asp:TextBox ID="txtPropertyInsuranceCoverP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpPropertyInsuranceCoverGIMD" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase"
+                                    <telerik:RadDatePicker ID="dpPropertyInsuranceCoverGIMD" runat="server" Skin="Outlook"
                                         ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase">
+                                            Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1285,10 +1285,10 @@
                                     <asp:TextBox ID="txtPersonalAccidentP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpPersonalAccidentGIMD" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase"
+                                    <telerik:RadDatePicker ID="dpPersonalAccidentGIMD" runat="server" Skin="Outlook"
                                         ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase">
+                                            Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1307,9 +1307,9 @@
                                     <asp:TextBox ID="txtOthersGIP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpOthersGIMD" runat="server" EnableEmbeddedSkins="false" Skin="Touchbase" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpOthersGIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            EnableEmbeddedSkins="false" Skin="Touchbase">
+                                            Skin="Outlook">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
