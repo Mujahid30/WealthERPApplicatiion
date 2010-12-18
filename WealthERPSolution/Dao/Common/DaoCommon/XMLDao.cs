@@ -2948,8 +2948,13 @@ namespace DaoCommon
                     dt = ds.Tables["KarvyValidationColumn"];
                 else if (Uploadtype == "DT" && Extracttype == "MFT")
                     dt = ds.Tables["DeutscheValidationColumn"];
-                else if (Uploadtype == "TN" && Extracttype == "MFT")
-                    dt = ds.Tables["TempletonValidationColumn"];
+                else if (Uploadtype == "IIFL" && Extracttype == "Transaction")
+                    dt = ds.Tables["IIFLValidationColumn"];
+                else if (Uploadtype == "EQT" && Extracttype == "WP")
+                    dt = ds.Tables["StandardValidationColumn"];
+                else if (Uploadtype == "ODIN" && Extracttype == "Transaction")
+                    dt = ds.Tables["ODINNSEValidationColumn"];
+
 
 
             }
