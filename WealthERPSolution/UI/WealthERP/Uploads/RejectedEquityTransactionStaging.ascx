@@ -96,8 +96,8 @@
                             <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
+                    <%-- <asp:TemplateField>
+                       <HeaderTemplate>
                             <asp:Label ID="lblPanNumber" runat="server" Text="PAN Number"></asp:Label>
                             <asp:DropDownList ID="ddlPanNumber" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlPanNumber_SelectedIndexChanged">
                             </asp:DropDownList>
@@ -109,7 +109,7 @@
                         <FooterTemplate>
                             <asp:TextBox ID="txtPanNumberMultiple" CssClass="FieldName" runat="server" />
                         </FooterTemplate>
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:BoundField DataField="TradeAccountNumber" HeaderText="Trade Account Number" />
                     <asp:TemplateField>
                         <HeaderTemplate>
