@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.OleDb;
+using System.IO;
 
 
 namespace BoCommon
@@ -31,6 +32,25 @@ namespace BoCommon
 
                 OleDbDataAdapter myCommand = new OleDbDataAdapter(" SELECT * FROM [" + sheetname + "]", con);
                 myCommand.Fill(ds);
+               
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+
+                    if (dr["Exchange"].ToString().Contains("---") && dr["Exchange Type"].ToString().Contains("---")  )
+                    {
+                        //dr.Table.Rows[0].Delete();
+                        ds.Tables[0].Rows.Remove(dr);
+                        ds.Tables[0].Rows.Remove(dr);
+
+                    }
+                    //if (dr["Exchange"].ToString().Contains("   ") && dr["Exchange Type"].ToString().Contains("   "))
+                    //{
+                    //    //dr.Table.Rows[0].Delete();
+                    //    ds.Tables[0].Rows.Remove(dr);
+
+                    //}
+                    
+                }
                 
             }
             catch (Exception ex)
@@ -43,6 +63,106 @@ namespace BoCommon
             }
             return ds;
         }
+
+        public DataSet ReadTxtFile(string FileName, string filetype)
+        {
+             DataSet domains = new DataSet();
+             DataRow drOdin;
+             string delimeter;
+             if (filetype == "NSE")
+             {
+                  delimeter = ",";
+             }
+             else
+             {
+                  delimeter = "|";
+             }
+             //domains.Tables.Add(tableName);
+          
+        if (File.Exists(FileName))
+        {
+            StreamReader reader = new StreamReader(FileName);
+           
+             
+            //now we need to read the rest of the text file
+            string data = reader.ReadToEnd();
+            //now we will split the file on the carriage return/line feed
+            //and toss it into a string array
+            DataTable dtOdin = new DataTable();
+            dtOdin.Columns.Add("Col1");
+            dtOdin.Columns.Add("Col2");
+            dtOdin.Columns.Add("Col3");
+            dtOdin.Columns.Add("Col4");
+            dtOdin.Columns.Add("Col5");
+            dtOdin.Columns.Add("Col6");
+
+            dtOdin.Columns.Add("Col7");
+            dtOdin.Columns.Add("Col8");
+            dtOdin.Columns.Add("Col9");
+            dtOdin.Columns.Add("Col10");
+            dtOdin.Columns.Add("Col11");
+            dtOdin.Columns.Add("Col12");
+
+            dtOdin.Columns.Add("Col13");
+            dtOdin.Columns.Add("Col14");
+            dtOdin.Columns.Add("Col15");
+            dtOdin.Columns.Add("Col16");
+            dtOdin.Columns.Add("Col17");
+            dtOdin.Columns.Add("Col18");
+
+            dtOdin.Columns.Add("Col19");
+            dtOdin.Columns.Add("Col20");
+            dtOdin.Columns.Add("Col21");
+            dtOdin.Columns.Add("Col22");
+            dtOdin.Columns.Add("Col23");
+            dtOdin.Columns.Add("Col24");
+          
+            string[] rows = data.Split("\r".ToCharArray());
+            //now we will add the rows to our DataTable
+            foreach (string r in rows)
+            {
+                string[] items = r.Split(delimeter.ToCharArray());
+                //split the row at the delimiter
+                //domains.Tables[0].Rows.Add(items);                
+                drOdin = dtOdin.NewRow();
+                
+                for (int i = 0; i < items.Count(); i++)
+                {
+                    if (filetype == "NSE")
+                    {
+                        if (i == 19 || i == 20)
+                        {
+                            drOdin[i] = DateTime.Parse(items[i]);
+
+                        }
+                        else
+                            drOdin[i] = items[i];
+                    }
+                   else if (filetype == "BSE")
+                    {
+                        //if (i == 9)
+                        //{
+                        //    drOdin[i] = DateTime.Parse(items[i]);
+
+                        //}
+                        //else
+                            drOdin[i] = items[i];
+                    }
+
+                   
+                    
+ 
+                }
+                dtOdin.Rows.Add(drOdin);                
+                
+            }
+
+            domains.Tables.Add(dtOdin);
+        }
+      
+    return domains;
+}
+        
 
 
 
