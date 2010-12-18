@@ -36,6 +36,7 @@ namespace WealthERP.Base
 
         public const string UploadExternalTypeStandard = "WP";
         public const string UploadExternalTypeIIFL = "IIFL";
+        public const string UploadExternalTypeODIN = "ODIN";
         public const string UploadExternalTypeOdinNSE = "ODNSE";
         public const string UploadExternalTypeOdinBSE = "ODBSE";
 
@@ -51,6 +52,7 @@ namespace WealthERP.Base
         public const string UploadExtensionTypeXLS = "xls";
         public const string UploadExtensionTypeCSV = "csv";
         public const string UploadExtensionTypeDBF = "dbf";
+        public const string UploadExtensionTypeTXT = "txt";
 
         public const string Reprocess = "Reprocess";
         public const string RollBack = "RollBack";
@@ -115,7 +117,8 @@ namespace WealthERP.Base
             TempletonProfile = 16,
             DeutscheTransaction = 17,
             DeutscheProfile = 18,
-            IIFLTransaction=19
+            IIFLTransaction=19,
+            ODINTransaction=20
         }
     }
 
