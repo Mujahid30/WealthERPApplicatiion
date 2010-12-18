@@ -907,7 +907,58 @@
     <TempletonValidationColumn ColumnName ="STT" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
     <TempletonValidationColumn ColumnName ="TRXN_DATE" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
   </TempletonTransactionInputValidation>
-  
+
+  <IIFLTransactionInputValidation>
+   
+    <IIFLValidationColumn ColumnName ="Buy Value" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <IIFLValidationColumn ColumnName ="Sell Qty" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <IIFLValidationColumn ColumnName ="Buy Qty" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <IIFLValidationColumn ColumnName ="Avg Buy Rate" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+   
+    <IIFLValidationColumn ColumnName ="Sell Value" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <IIFLValidationColumn ColumnName ="Avg Sell Rate" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <IIFLValidationColumn ColumnName ="Net Qty" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <IIFLValidationColumn ColumnName ="Exchange" CheckValue="1"  />
+    
+
+
+  </IIFLTransactionInputValidation>
+
+  <EquityStandardTransactionInputValidation>
+
+    <StandardValidationColumn ColumnName ="CET_Rate" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <StandardValidationColumn ColumnName ="CET_Quantity" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <StandardValidationColumn ColumnName ="CET_Brokerage" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <StandardValidationColumn ColumnName ="CET_ServiceTax" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+
+    <StandardValidationColumn ColumnName ="CET_EducationCess" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <StandardValidationColumn ColumnName ="CET_STT" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <StandardValidationColumn ColumnName ="CET_OtherCharges" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <StandardValidationColumn ColumnName ="CET_RateInclBrokerage" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <StandardValidationColumn ColumnName ="CET_TradeTotal" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <StandardValidationColumn ColumnName ="TRXN_DATE" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
+    <StandardValidationColumn ColumnName ="XE_ExchangeCode" CheckValue="1"  />
+    WETT_TransactionCode
+    <StandardValidationColumn ColumnName ="WETT_TransactionCode" CheckValue="2"  />
+
+
+
+
+  </EquityStandardTransactionInputValidation>
+
+
+  <ODINTransactionInputValidation>
+
+    <ODINNSEValidationColumn ColumnName ="Col13" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <ODINNSEValidationColumn ColumnName ="Col12" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <ODINNSEValidationColumn ColumnName ="Col20" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
+    
+
+
+
+  </ODINTransactionInputValidation>
+
+
 
 </WERPLookUpTables>
 
