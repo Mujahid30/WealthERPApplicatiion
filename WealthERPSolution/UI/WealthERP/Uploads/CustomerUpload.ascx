@@ -267,6 +267,20 @@
                 </td>
     
     </tr>
+     <tr id="upload" runat="server" Visible="false">
+    
+     <td class="leftField">
+            <asp:Label ID="lbluploadtype" runat="server" CssClass="FieldName" Text="Upload Type:"></asp:Label>
+        </td>
+        <td>                          
+                                <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="False" CssClass="cmbField" >
+                                    <asp:ListItem Text="NSE" />
+                                    <asp:ListItem Text="BSE" /> 
+                                </asp:DropDownList>
+                          
+        </td>          
+         
+    </tr>
     <%--<tr id="trFileTypeRow" runat="server">
         <td class="leftField">
             <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="File Extension:"></asp:Label>

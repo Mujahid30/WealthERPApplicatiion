@@ -83,7 +83,7 @@ namespace WealthERP.Uploads
         string reject_reason = "";
         string configPath;
         string xmlPath;
-
+        bool badData;
         bool rejectUpload_Flag = false;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -303,6 +303,7 @@ namespace WealthERP.Uploads
             Dictionary<string, string> genDictEQTranx = new Dictionary<string, string>();
             genDictEQTranx.Add("Standard", "WP");
             genDictEQTranx.Add("India Infoline", "IIFL");
+            genDictEQTranx.Add("ODIN", "ODIN");
             return genDictEQTranx;
         }
 
@@ -1739,7 +1740,7 @@ namespace WealthERP.Uploads
                         #region Standard Equity Transaction Upload
                         //*****************************************************************************************************************************
                         //Standard Equity Transaction Upload
-                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && (ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard || ddlListCompany.SelectedValue == Contants.UploadExternalTypeIIFL))
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && (ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard || ddlListCompany.SelectedValue == Contants.UploadExternalTypeIIFL || ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN))
                         {
                             bool werpEQTranInputResult = false;
                             bool werpEQFirstStagingResult = false;
@@ -1784,6 +1785,10 @@ namespace WealthERP.Uploads
                                                 if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction &&  ddlListCompany.SelectedValue == Contants.UploadExternalTypeIIFL)
                                                 {
                                                     werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 19); // EQ Trans XML File Type Id = 8
+                                                }
+                                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
+                                                {
+                                                    werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 20); // EQ Trans XML File Type Id = 8
                                                 }
                                                 else
                                                     werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 8); // EQ Trans XML File Type Id = 8
@@ -1873,7 +1878,16 @@ namespace WealthERP.Uploads
                         }
                         #endregion Standard Equity Transaction Upload
 
-                      
+                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
+                        {
+                            bool werpEQTranInputResult = false;
+                            bool werpEQFirstStagingResult = false;
+                            bool werpEQFirstStagingCheckResult = false;
+                            bool werpEQSecondStagingResult = false;
+                            bool WERPEQSecondStagingCheckResult = false;
+                            bool WERPEQTranWerpResult = false;
+                        }
+
                         #region Standard Equity Trade Account Upload
 
                         //************************************************************************************************************************************
@@ -2373,6 +2387,9 @@ namespace WealthERP.Uploads
             datevisible.Visible = false;
             txtUploadDate.Visible = false;
             lbldate.Visible = false;
+            upload.Visible = false;
+            lbluploadtype.Visible = false;
+            ddlAction.Visible = false;
             //Span4.visible = false;
             if (ddlListCompany.SelectedIndex != 0)
             {
@@ -2419,7 +2436,12 @@ namespace WealthERP.Uploads
                 txtUploadDate.Visible = true;
                 lbldate.Visible = true;
             }
-            
+            if (ddlUploadType.SelectedValue == "EQT" && ddlListCompany.SelectedValue == "ODIN")
+            {
+                upload.Visible = true;
+                lbluploadtype.Visible = true;
+                ddlAction.Visible = true;
+            }
 
         }
 
@@ -2679,7 +2701,7 @@ namespace WealthERP.Uploads
 
                     else
                     {
-                        //ValidationProgress = "Failure";
+                        ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
                     {
@@ -3189,6 +3211,9 @@ namespace WealthERP.Uploads
 
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+                        if (dsXML.Tables.Count > 0)
+
+                            ValidateInputfile(Contants.ExtractTypeEQTransaction, Contants.UploadExternalTypeStandard, pathxml, skiprowsval);
 
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "EQ", Contants.UploadExternalTypeStandard, Contants.UploadFileTypeTransaction);
@@ -3206,8 +3231,8 @@ namespace WealthERP.Uploads
                 {
                     DataSet dsIIFLTemp = new DataSet();
                     DataSet dsStdColNames = new DataSet();
-                    DataTable dt = new DataTable();
-                    int i=0;
+                    DataTable dtIIFL = new DataTable();
+                    int i = 0;
 
                     if (extension == "xls" || extension == "xlsx")
                     {
@@ -3228,133 +3253,308 @@ namespace WealthERP.Uploads
                         //Get werp Column Names for the selected type of file
                         dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.IIFLTransaction);
 
+                        DataSet ds1 = new DataSet();
                         //Get XML after mapping, checking for columns
                         dsIIFLTemp = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+                        //foreach (DataRow de in dsIIFLTemp.Tables[0].Rows)
+                        //{
 
-                        DataRow dr1;
+                        //    if (de[0].ToString() != "NSE" || de[0].ToString() != "BSE")
+                        //    {
+                        //        de[0] = 1;
+                        //    }
+                        //    ds1.Tables[0].Rows.Add(de[0]);
+                        //}
 
-                        foreach (DataRow dr in dsStdColNames.Tables[0].Rows)
+                        dsXML = dsIIFLTemp;
+
+                        if (dsXML.Tables.Count > 0)
+                        
+                            ValidateInputfile(Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction, pathxml, skiprowsval);
+
+                        if (badData == false)
                         {
-                            dt.Columns.Add(dr["XMLHeaderName"].ToString());
-                        }
+                            DataRow dr1;
 
-                        foreach (DataRow dr in dsIIFLTemp.Tables[0].Rows)
-                        {
-                            dr1 = dt.NewRow();
-                            if (dr.ItemArray[0].ToString() == "NSE" || dr.ItemArray[0].ToString() == "BSE")
+                            foreach (DataRow dr in dsStdColNames.Tables[0].Rows)
                             {
-                                if (dr.ItemArray[0].ToString() == "NSE" && double.Parse(dr.ItemArray[5].ToString()) > 0)
-                                {
-                                    
-                                    dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                    //dt.Rows[i]["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                    dr1["PEM_ScripCode"] = dr["Scrip Name"].ToString();
-                                    dr1["WETT_TransactionCode"] = 1;
-                                    dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
-                                    dr1["CET_Rate"] = float.Parse(dr["Avg Buy Rate"].ToString()).ToString();
-                                    dr1["CET_Quantity"] = dr["Buy Qty"].ToString();
-                                    dr1["CET_BuySell"] = "B";
-                                    dr1["XE_ExchangeCode"] = "NSE";
-                                    dr1["CET_Brokerage"] = 0.00;
-                                    dr1["CET_ServiceTax"] = 0.00;
-                                    dr1["CET_EducationCess"] = 0.00;
-                                    dr1["CET_STT"] = 0.00;
-                                    dr1["CET_OtherCharges"] = 0.00;
-                                    dr1["CET_RateInclBrokerage"] = 0.00;
-                                    dr1["CET_TradeTotal"] = 0.00;
-                                    dr1["CET_TradeNum"] = 0;
-                                    dr1["CET_OrderNum"] = 0;
-                                    dr1["CET_IsSpeculative"] = 0;
-
-                                    i++;
-                                    dt.Rows.Add(dr1);
-                                }
-                                else if (dr.ItemArray[0].ToString() == "NSE" && double.Parse(dr.ItemArray[8].ToString()) > 0)
-                                {
-                                    dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                    dr1["PEM_ScripCode"] = dr["Scrip Name"].ToString();
-                                    dr1["WETT_TransactionCode"] = 2;
-                                    dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
-                                    dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
-                                    dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
-                                    dr1["CET_BuySell"] = "S";
-                                    dr1["XE_ExchangeCode"] = "NSE";
-                                    dr1["CET_Brokerage"] = 0;
-                                    dr1["CET_ServiceTax"] = 0;
-                                    dr1["CET_EducationCess"] = 0;
-                                    dr1["CET_STT"] = 0;
-                                    dr1["CET_OtherCharges"] = 0;
-                                    dr1["CET_RateInclBrokerage"] = 0;
-                                    dr1["CET_TradeTotal"] = 0;
-                                    dr1["CET_TradeNum"] = 0;
-                                    dr1["CET_OrderNum"] = 0;
-                                    dr1["CET_IsSpeculative"] = 0;
-
-                                    i++;
-                                    dt.Rows.Add(dr);
-
-                                }
-                                else if (dr.ItemArray[0].ToString() == "BSE" && double.Parse(dr.ItemArray[5].ToString()) > 0)
-                                {
-                                    dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                    dr1["PEM_ScripCode"] = dr["Scrip Code"].ToString();
-                                    dr1["WETT_TransactionCode"] = 1;
-                                    dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
-                                    dr1["CET_Rate"] = dr["Avg Buy Rate"].ToString();
-                                    dr1["CET_Quantity"] = dr["Buy Qty"].ToString();
-                                    dr1["CET_BuySell"] = "B";
-                                    dr1["XE_ExchangeCode"] = "BSE";
-                                    dr1["CET_Brokerage"] = 0;
-                                    dr1["CET_ServiceTax"] = 0;
-                                    dr1["CET_EducationCess"] = 0;
-                                    dr1["CET_STT"] = 0;
-                                    dr1["CET_OtherCharges"] = 0;
-                                    dr1["CET_RateInclBrokerage"] = 0;
-                                    dr1["CET_TradeTotal"] = 0;
-                                    dr1["CET_TradeNum"] = 0;
-                                    dr1["CET_OrderNum"] = 0;
-                                    dr1["CET_IsSpeculative"] = 0;
-
-                                    i++;
-                                    dt.Rows.Add(dr);
-                                }
-                                else if (dr.ItemArray[0].ToString() == "BSE" && double.Parse(dr.ItemArray[8].ToString()) > 0)
-                                {
-                                    dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                    dr1["PEM_ScripCode"] = dr["Scrip Code"].ToString();
-                                    dr1["WETT_TransactionCode"] = 2;
-                                    dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
-                                    dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
-                                    dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
-                                    dr1["CET_BuySell"] = "S";
-                                    dr1["XE_ExchangeCode"] = "BSE";
-                                    dr1["CET_Brokerage"] = 0;
-                                    dr1["CET_ServiceTax"] = 0;
-                                    dr1["CET_EducationCess"] = 0;
-                                    dr1["CET_STT"] = 0;
-                                    dr1["CET_OtherCharges"] = 0;
-                                    dr1["CET_RateInclBrokerage"] = 0;
-                                    dr1["CET_TradeTotal"] = 0;
-                                    dr1["CET_TradeNum"] = 0;
-                                    dr1["CET_OrderNum"] = 0;
-                                    dr1["CET_IsSpeculative"] = 0;
-
-                                    i++;
-                                    dt.Rows.Add(dr);
-                                }
+                                dtIIFL.Columns.Add(dr["XMLHeaderName"].ToString());
                             }
 
+                            foreach (DataRow dr in dsIIFLTemp.Tables[0].Rows)
+                            {
+
+                                if (dr.ItemArray[0].ToString() == "NSE" || dr.ItemArray[0].ToString() == "BSE")
+                                {
+                                    if (dr.ItemArray[0].ToString() == "NSE")
+                                    {
+                                        if (double.Parse(dr.ItemArray[5].ToString()) > 0)
+                                        {
+                                            dr1 = dtIIFL.NewRow();
+
+                                            dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                            //dt.Rows[i]["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                            dr1["PEM_ScripCode"] = dr["Scrip Name"].ToString();
+                                            dr1["WETT_TransactionCode"] = 1;
+                                            dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
+                                            dr1["CET_Rate"] = float.Parse(dr["Avg Buy Rate"].ToString()).ToString();
+                                            dr1["CET_Quantity"] = dr["Buy Qty"].ToString();
+                                            dr1["CET_BuySell"] = "B";
+                                            dr1["XE_ExchangeCode"] = "NSE";
+                                            dr1["CET_Brokerage"] = 0.00;
+                                            dr1["CET_ServiceTax"] = 0.00;
+                                            dr1["CET_EducationCess"] = 0.00;
+                                            dr1["CET_STT"] = 0.00;
+                                            dr1["CET_OtherCharges"] = 0.00;
+                                            dr1["CET_RateInclBrokerage"] = 0.00;
+                                            dr1["CET_TradeTotal"] = 0.00;
+                                            dr1["CET_TradeNum"] = 0;
+                                            dr1["CET_OrderNum"] = 0;
+                                            dr1["CET_IsSpeculative"] = 0;
+
+                                            i++;
+                                            dtIIFL.Rows.Add(dr1);
+
+                                            if (dr.ItemArray[0].ToString() == "NSE" && double.Parse(dr.ItemArray[8].ToString()) > 0)
+                                            {
+                                                dr1 = dtIIFL.NewRow();
+                                                dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                                dr1["PEM_ScripCode"] = dr["Scrip Name"].ToString();
+                                                dr1["WETT_TransactionCode"] = 2;
+                                                dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
+                                                dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
+                                                dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
+                                                dr1["CET_BuySell"] = "S";
+                                                dr1["XE_ExchangeCode"] = "NSE";
+                                                dr1["CET_Brokerage"] = 0;
+                                                dr1["CET_ServiceTax"] = 0;
+                                                dr1["CET_EducationCess"] = 0;
+                                                dr1["CET_STT"] = 0;
+                                                dr1["CET_OtherCharges"] = 0;
+                                                dr1["CET_RateInclBrokerage"] = 0;
+                                                dr1["CET_TradeTotal"] = 0;
+                                                dr1["CET_TradeNum"] = 0;
+                                                dr1["CET_OrderNum"] = 0;
+                                                dr1["CET_IsSpeculative"] = 0;
+
+                                                i++;
+                                                dtIIFL.Rows.Add(dr1);
+
+                                            }
+                                        }
+                                    }
+                                    else if (dr.ItemArray[0].ToString() == "BSE")
+                                    {
+                                        if (double.Parse(dr.ItemArray[5].ToString()) > 0)
+                                        {
+                                            dr1 = dtIIFL.NewRow();
+                                            dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                            dr1["PEM_ScripCode"] = dr["Scrip Code"].ToString();
+                                            dr1["WETT_TransactionCode"] = 1;
+                                            dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
+                                            dr1["CET_Rate"] = dr["Avg Buy Rate"].ToString();
+                                            dr1["CET_Quantity"] = dr["Buy Qty"].ToString();
+                                            dr1["CET_BuySell"] = "B";
+                                            dr1["XE_ExchangeCode"] = "BSE";
+                                            dr1["CET_Brokerage"] = 0;
+                                            dr1["CET_ServiceTax"] = 0;
+                                            dr1["CET_EducationCess"] = 0;
+                                            dr1["CET_STT"] = 0;
+                                            dr1["CET_OtherCharges"] = 0;
+                                            dr1["CET_RateInclBrokerage"] = 0;
+                                            dr1["CET_TradeTotal"] = 0;
+                                            dr1["CET_TradeNum"] = 0;
+                                            dr1["CET_OrderNum"] = 0;
+                                            dr1["CET_IsSpeculative"] = 0;
+
+                                            i++;
+                                            dtIIFL.Rows.Add(dr1);
+
+                                            if (double.Parse(dr.ItemArray[8].ToString()) > 0)
+                                            {
+                                                dr1 = dtIIFL.NewRow();
+                                                dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                                dr1["PEM_ScripCode"] = dr["Scrip Code"].ToString();
+                                                dr1["WETT_TransactionCode"] = 2;
+                                                dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
+                                                dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
+                                                dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
+                                                dr1["CET_BuySell"] = "S";
+                                                dr1["XE_ExchangeCode"] = "BSE";
+                                                dr1["CET_Brokerage"] = 0;
+                                                dr1["CET_ServiceTax"] = 0;
+                                                dr1["CET_EducationCess"] = 0;
+                                                dr1["CET_STT"] = 0;
+                                                dr1["CET_OtherCharges"] = 0;
+                                                dr1["CET_RateInclBrokerage"] = 0;
+                                                dr1["CET_TradeTotal"] = 0;
+                                                dr1["CET_TradeNum"] = 0;
+                                                dr1["CET_OrderNum"] = 0;
+                                                dr1["CET_IsSpeculative"] = 0;
+
+                                                i++;
+                                                dtIIFL.Rows.Add(dr1);
+                                            }
+                                        }
+
+                                    }
+
+                                }
+                            }
                         }
 
-                        //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "EQ", Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction);
+                            //Get filetypeid from XML
+                            filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "EQ", Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction);
 
-                        dsXML.Tables.Add(dt);
+                            
 
+
+                        
                     }
                 }
 
-                #endregion 
+                #endregion
+
+
+                #region ODIN Equity BSE Transaction
+                else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN && (ddlAction.SelectedValue == "BSE" || ddlAction.SelectedValue == "NSE"))
+                {
+                    if (extension == "txt")
+                    {
+                        string Filepath = Server.MapPath("UploadFiles") + "\\ODINEqTrans.xls";
+                        FileUpload.SaveAs(Filepath);
+                        string filetype = ddlAction.SelectedValue.ToString();
+                        ds = readFile.ReadTxtFile(Filepath, filetype);
+
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+                        }
+
+                        dsXML=ds;
+                        string uploadtype = ddlAction.SelectedValue;
+                         if (dsXML.Tables.Count > 0)
+
+                             ValidateInputfile1(Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction, pathxml, skiprowsval, uploadtype);
+
+                         if (badData == false)
+                         {
+
+                             if (ds.Tables[0].Columns.Count == 24)
+                             {
+                                 DataSet dsStdColNames = new DataSet();
+                                 DataTable dt = new DataTable();
+                                 DataRow dr1;
+                                 int i = 0;
+                                 DataTable dtOdin = new DataTable();
+                                 dtOdin.Columns.Add("Trade_Account_Number");
+                                 dtOdin.Columns.Add("PEM_ScripCode");
+                                 dtOdin.Columns.Add("WETT_TransactionCode");
+                                 dtOdin.Columns.Add("CET_TradeDate");
+                                 dtOdin.Columns.Add("CET_Rate");
+                                 dtOdin.Columns.Add("CET_Quantity");
+                                 dtOdin.Columns.Add("CET_BuySell");
+                                 dtOdin.Columns.Add("XE_ExchangeCode");
+                                 dtOdin.Columns.Add("CET_Brokerage");
+                                 dtOdin.Columns.Add("CET_ServiceTax");
+                                 dtOdin.Columns.Add("CET_EducationCess");
+                                 dtOdin.Columns.Add("CET_STT");
+                                 dtOdin.Columns.Add("CET_OtherCharges");
+                                 dtOdin.Columns.Add("CET_RateInclBrokerage");
+                                 dtOdin.Columns.Add("CET_TradeTotal");
+                                 dtOdin.Columns.Add("CET_TradeNum");
+                                 dtOdin.Columns.Add("CET_OrderNum");
+                                 dtOdin.Columns.Add("CET_IsSpeculative");
+                                 //foreach (DataRow dr in dtOdin.Rows)
+                                 //{
+                                 //    dt.Columns.Add(dr[""].ToString());
+
+                                 //}
+
+                                 foreach (DataRow dr in ds.Tables[0].Rows)
+                                 {
+                                     if (ddlAction.SelectedValue == "NSE")
+                                     {
+                                         dr1 = dtOdin.NewRow();
+                                         dr1["Trade_Account_Number"] = dr["Col15"].ToString();
+                                         dr1["PEM_ScripCode"] = dr["Col3"].ToString();
+                                         if (dr["Col11"].ToString() == "1")
+                                             dr1["WETT_TransactionCode"] = 1;
+                                         else
+                                             dr1["WETT_TransactionCode"] = 2;
+                                         dr1["CET_TradeDate"] = dr["Col20"].ToString();
+                                         dr1["CET_Rate"] = dr["Col13"].ToString();
+                                         dr1["CET_Quantity"] = dr["Col12"].ToString();
+                                         if (dr["Col11"].ToString() == "1")
+                                             dr1["CET_BuySell"] = "B";
+                                         else
+                                             dr1["CET_BuySell"] = "S";
+                                         dr1["XE_ExchangeCode"] = "BSE";
+                                         dr1["CET_Brokerage"] = 0;
+                                         dr1["CET_ServiceTax"] = 0;
+                                         dr1["CET_EducationCess"] = 0;
+                                         dr1["CET_STT"] = 0;
+                                         dr1["CET_OtherCharges"] = 0;
+                                         dr1["CET_RateInclBrokerage"] = 0;
+                                         dr1["CET_TradeTotal"] = 0;
+                                         dr1["CET_TradeNum"] = dr["Col22"].ToString();
+                                         dr1["CET_OrderNum"] = dr["Col1"].ToString();
+                                         dr1["CET_IsSpeculative"] = 0;
+
+                                         i++;
+                                         dtOdin.Rows.Add(dr1);
+                                     }
+                                     else if (ddlAction.SelectedValue == "BSE")
+                                     {
+                                         dr1 = dtOdin.NewRow();
+                                         dr1["Trade_Account_Number"] = dr["Col10"].ToString();
+                                         dr1["PEM_ScripCode"] = dr["Col1"].ToString();
+                                         if (dr["Col11"].ToString() == "B")
+                                             dr1["WETT_TransactionCode"] = 1;
+                                         else
+                                             dr1["WETT_TransactionCode"] = 2;
+                                         dr1["CET_TradeDate"] = dr["Col9"].ToString();
+                                         dr1["CET_Rate"] = dr["Col4"].ToString();
+                                         dr1["CET_Quantity"] = dr["Col5"].ToString();
+                                         if (dr["Col11"].ToString() == "B")
+                                             dr1["CET_BuySell"] = "B";
+                                         else
+                                             dr1["CET_BuySell"] = "S";
+                                         dr1["XE_ExchangeCode"] = "BSE";
+                                         dr1["CET_Brokerage"] = 0;
+                                         dr1["CET_ServiceTax"] = 0;
+                                         dr1["CET_EducationCess"] = 0;
+                                         dr1["CET_STT"] = 0;
+                                         dr1["CET_OtherCharges"] = 0;
+                                         dr1["CET_RateInclBrokerage"] = 0;
+                                         dr1["CET_TradeTotal"] = 0;
+                                         dr1["CET_TradeNum"] = dr["Col3"].ToString();
+                                         dr1["CET_OrderNum"] = dr["Col13"].ToString();
+                                         dr1["CET_IsSpeculative"] = 0;
+
+                                         i++;
+                                         dtOdin.Rows.Add(dr1);
+
+                                     }
+
+
+                                 }
+
+
+                                 
+
+                                 dsXML.Tables.Add(dtOdin);
+
+
+
+
+                             }
+                         }
+                         filetypeid = 20;
+                    }
+
+                }
+                #endregion
 
                 #region Standard Profile
                 //Standard Profile
@@ -3902,10 +4102,39 @@ namespace WealthERP.Uploads
             if (dtInputRejects.Rows.Count != 0)
             {
                 rejectUpload_Flag = true;
-
+                DataTable dtdtinputvalidationerror = new DataTable();
+                dtdtinputvalidationerror = dtInputRejects;
+                
+                gvInputError.DataSource = dtdtinputvalidationerror;
+                gvInputError.DataBind();
+                divInputErrorList.Visible = true;
+                divresult.Visible = false;
+                badData = true;
             }
+            else
+                badData = false;
+
         }
 
+        private void ValidateInputfile1(string Externaltype, string Extracttype, string pathxml, int skiprowsval, string uploadtype)
+        {
+            dtInputRejects = uploadsvalidationBo.InputValidation(dsXML.Tables[0], Externaltype, Extracttype, pathxml, skiprowsval);
+            if (dtInputRejects.Rows.Count != 0)
+            {
+                rejectUpload_Flag = true;
+                DataTable dtdtinputvalidationerror = new DataTable();
+                dtdtinputvalidationerror = dtInputRejects;
+
+                gvInputError.DataSource = dtdtinputvalidationerror;
+                gvInputError.DataBind();
+                divInputErrorList.Visible = true;
+                divresult.Visible = false;
+                badData = true;
+            }
+            else
+                badData = false;
+
+        }
         protected void imgBtnExport_Click(object sender, EventArgs e)
         {
 
