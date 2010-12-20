@@ -93,26 +93,6 @@ namespace WealthERP.CustomerPortfolio
                     Session.Remove("Trade");
 
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
 
             catch (BaseApplicationException Ex)
@@ -170,6 +150,7 @@ namespace WealthERP.CustomerPortfolio
                 trSTT.Visible = false;
                 trTotal.Visible = false;
                 trTradeDate.Visible = false;
+
             }
             else
             {
@@ -441,32 +422,24 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
         protected void ddlTranType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlTranType.SelectedValue == "HOLD")
             {
+                //Session["Holdings"] = ddlTranType.SelectedValue;
                 trBroker.Visible = false;
                 trBrokerage.Visible = false;
                 trOthers.Visible = false;
                 trRateInc.Visible = false;
                 trServiceTax.Visible = false;
                 trSTT.Visible = false;
+                rbtnSpeculation.Visible = false;
             }
             else
             {
                 SetFields(1);
                 trTransactionMode.Visible = true;
+                rbtnSpeculation.Visible = true;
             }
             trTransactionMode.Visible = true;
 
