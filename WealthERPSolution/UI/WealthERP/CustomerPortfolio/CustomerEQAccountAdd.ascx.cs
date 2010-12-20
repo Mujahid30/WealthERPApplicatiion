@@ -255,7 +255,10 @@ namespace WealthERP.CustomerPortfolio
 
             ddlBrokerCode.SelectedValue = customerAccountsVo.BrokerCode;
             txtTradeNum.Text = customerAccountsVo.TradeNum;
-            txtAccountStartingDate.Text = customerAccountsVo.AccountOpeningDate.ToShortDateString();
+            if (customerAccountsVo.AccountOpeningDate != DateTime.MinValue)
+                txtAccountStartingDate.Text = customerAccountsVo.AccountOpeningDate.ToShortDateString();
+            else
+                txtAccountStartingDate.Text = "";
             txtBrokeragePerDelivery.Text = customerAccountsVo.BrokerageDeliveryPercentage.ToString();
             txtBrokeragePerSpeculative.Text = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
             txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
@@ -268,7 +271,10 @@ namespace WealthERP.CustomerPortfolio
 
             ddlBrokerCode.SelectedValue = customerAccountsVo.BrokerCode;
             txtTradeNum.Text = customerAccountsVo.TradeNum;
-            txtAccountStartingDate.Text = customerAccountsVo.AccountOpeningDate.ToShortDateString();
+            if (customerAccountsVo.AccountOpeningDate != DateTime.MinValue)
+                txtAccountStartingDate.Text = customerAccountsVo.AccountOpeningDate.ToShortDateString();
+            else
+                txtAccountStartingDate.Text = "";
             txtBrokeragePerDelivery.Text = customerAccountsVo.BrokerageDeliveryPercentage.ToString();
             txtBrokeragePerSpeculative.Text = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
             txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
