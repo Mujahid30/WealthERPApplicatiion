@@ -457,6 +457,7 @@
 
     <Transaction TransactionCode="PUR" TransactionName="Purchase" Deleted="False"/>
     <Transaction TransactionCode="SELL" TransactionName="Sell" Deleted="False"/>
+    <Transaction TransactionCode="HOLD" TransactionName="Holdings" Deleted="False"/>
   </TransactionType>
 
   <CustomerRelationship>
