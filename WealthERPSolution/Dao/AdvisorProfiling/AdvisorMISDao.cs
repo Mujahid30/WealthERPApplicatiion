@@ -82,8 +82,8 @@ namespace DaoAdvisorProfiling
                       db.AddInParameter(getEQMICmd, "@branchId", DbType.Int16, branchId);
                 if (branchHeadId != 0)
                     db.AddInParameter(getEQMICmd, "@branchHeadId", DbType.Int16, branchHeadId);
-                if (all == 1)
-                    db.AddInParameter(getEQMICmd, "@all", DbType.Int16, all);
+                
+                db.AddInParameter(getEQMICmd, "@all", DbType.Int16, all);
 
 
                 dsGetEQMIS = db.ExecuteDataSet(getEQMICmd);
