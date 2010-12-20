@@ -209,17 +209,6 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                <%--Previous one--%>
-               
-               <%-- <Columns>
-                    <asp:BoundField DataField="DeliveryBuy" HeaderText="Delivery Buy Value" ItemStyle-HorizontalAlign="Right"
-                        HeaderStyle-Wrap="false" />
-                    <asp:BoundField DataField="DeliverySell" HeaderText="Delivery Sell Value" ItemStyle-HorizontalAlign="Right"
-                        HeaderStyle-Wrap="false" />
-                    <asp:BoundField DataField="SpeculativeSell" HeaderText="Speculative Sell Value" ItemStyle-HorizontalAlign="Right"
-                        HeaderStyle-Wrap="false" />
-                    <asp:BoundField DataField="SpeculativeBuy" HeaderText="Speculative Buy Value" ItemStyle-HorizontalAlign="Right"
-                        HeaderStyle-Wrap="false" />
-                </Columns>--%>
                 
                <%-- End--%>
                
@@ -232,6 +221,11 @@
                             <asp:Label ID="lblItemCustIndDelby" runat="server" Text='<%# Eval("CName_Industry_Delby").ToString() %>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
+                        <FooterTemplate>
+                            <asp:Label ID="lblTotalText" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                        </FooterTemplate>
                     </asp:TemplateField>
                     
                     <asp:TemplateField HeaderStyle-Wrap="false">
@@ -242,6 +236,11 @@
                             <asp:Label ID="lblItemIndMValueDelSell" runat="server" Text='<%# Eval("Industry_MValue_DelSell").ToString() %>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
+                        <FooterTemplate>
+                            <asp:Label ID="lblSectorWiseTotalText" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                        </FooterTemplate>
                     </asp:TemplateField>
                     
                     <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-HorizontalAlign="Right">
@@ -251,6 +250,9 @@
                         <ItemTemplate>
                             <asp:Label ID="lblItemMValuePerCSpecSell" style="text-align: right" runat="server" Text='<%# Eval("MValue_Percentage_SpecSell").ToString() %>'></asp:Label>
                         </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:Label ID="lblFooterItemMValue" style="text-align: right" runat="server" Text=""></asp:Label>
+                        </FooterTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                     </asp:TemplateField>
                     
@@ -261,6 +263,9 @@
                         <ItemTemplate>
                             <asp:Label ID="lblItemMvalueBlankSpecbuy" runat="server" style="text-align: right" Text='<%# Eval("MValue_Blank_SpecBuy").ToString() %>'></asp:Label>
                         </ItemTemplate>
+                         <FooterTemplate>
+                            <asp:Label ID="lblFooterItemMValueBlankSpecBuy"  style="text-align: right" runat="server" Text=""></asp:Label>
+                        </FooterTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                     </asp:TemplateField>
                 </Columns>

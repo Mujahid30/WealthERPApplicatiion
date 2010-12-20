@@ -28,7 +28,7 @@ namespace WealthERP.Advisor
         int advisorId;
         int rmId = 0;
         DateTime LatestValuationdate = new DateTime();
-
+        DataRow drAdvEQMIS;
         UserVo userVo = new UserVo();
         int bmID;
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
@@ -491,6 +491,22 @@ namespace WealthERP.Advisor
 
                         Label Hlb4 = (Label)gvEQMIS.HeaderRow.FindControl("lblMvalueBlankSpecbuy");
                         Hlb4.Text = "Speculative Buy Value";
+
+                        Label TotalText = (Label)gvEQMIS.FooterRow.FindControl("lblTotalText");
+
+                        TotalText.Text = string.Empty;
+
+                        Label TotalMText = (Label)gvEQMIS.FooterRow.FindControl("lblSectorWiseTotalText");
+
+                        TotalMText.Text = string.Empty;
+
+                        Label TotalMarketValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValue");
+
+                        TotalMarketValue.Text = string.Empty;
+
+                        Label TotalValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValue");
+
+                        TotalValue.Text = string.Empty;
                     }
                 }
             }
@@ -598,23 +614,6 @@ namespace WealthERP.Advisor
 
                 for (int i = 0; i < dsCompSecEQMIS.Tables[0].Rows.Count; i++)
                 {
-
-                    //NumberFormatInfo nfi0 = new CultureInfo("en-US", false).NumberFormat;
-                    //NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
-                    //NumberFormatInfo nfi2 = new CultureInfo("en-US", false).NumberFormat;
-                    //NumberFormatInfo nfi3 = new CultureInfo("en-US", false).NumberFormat;
-
-                    //nfi0.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliveryBuy"].ToString()).ToString("N", nfi0));
-                    //nfi1.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["DeliverySell"].ToString()).ToString("N", nfi1));
-                    //nfi2.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeSell"].ToString()).ToString("N", nfi2));
-                    //nfi3.NumberDecimalSeparator = String.Format("{0:n2}", decimal.Parse(dsEQMIS.Tables[0].Rows[i]["SpeculativeBuy"].ToString()).ToString("N", nfi3));
-
-                    //drAdvEQMIS[0] = nfi0.NumberDecimalSeparator;
-                    //drAdvEQMIS[1] = nfi1.NumberDecimalSeparator;
-                    //drAdvEQMIS[2] = nfi2.NumberDecimalSeparator;
-                    //drAdvEQMIS[3] = nfi3.NumberDecimalSeparator;
-
-
                     drAdvEQMIS = dtCompSecEQMIS.NewRow();
                    
                     NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
@@ -633,7 +632,9 @@ namespace WealthERP.Advisor
 
                     drAdvEQMIS[2] = nfi1.NumberDecimalSeparator;
                     drAdvEQMIS[3] = nfi2.NumberDecimalSeparator;
+
                     
+
                     dtCompSecEQMIS.Rows.Add(drAdvEQMIS);
                 }
                 gvEQMIS.DataSource = dtCompSecEQMIS;
@@ -653,6 +654,25 @@ namespace WealthERP.Advisor
 
                     Label Hlb4 = (Label)gvEQMIS.HeaderRow.FindControl("lblMvalueBlankSpecbuy");
                     Hlb4.Text = "% to net Assets";
+
+                    Label TotalText = (Label)gvEQMIS.FooterRow.FindControl("lblTotalText");
+
+                    TotalText.Text = "Total";
+
+                    Label TotalMarketValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValue");
+
+                    TotalMarketValue.Text = decimal.Parse((dsCompSecEQMIS.Tables[2].Rows[0]["Total"].ToString()).ToString()).ToString();
+                    TotalMarketValue.Style.Add("float", "right");
+
+                    Label TotalPerValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValueBlankSpecBuy");
+
+                    TotalPerValue.Text = "100%";
+                    TotalPerValue.Style.Add("float", "right");
+
+
+                    
+                    //TotalValue.Text = drAdvEQMIS[dsCompSecEQMIS.Tables[0].Columns.Count - 1].ToString();
+
                 }
                 else if (hdnEQMISType.Value == "1")
                 {
@@ -665,6 +685,20 @@ namespace WealthERP.Advisor
                     Label Hlb4 = (Label)gvEQMIS.HeaderRow.FindControl("lblMvalueBlankSpecbuy");
                     Hlb4.Text = "% to net Assets";
 
+                    Label TotalText = (Label)gvEQMIS.FooterRow.FindControl("lblSectorWiseTotalText");
+
+                    TotalText.Text = "Total";
+
+                    Label TotalValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValue");
+
+                    TotalValue.Text = decimal.Parse((dsCompSecEQMIS.Tables[2].Rows[0]["Total"].ToString()).ToString()).ToString();
+                    TotalValue.Style.Add("float", "right");
+
+                    Label TotalPerValue = (Label)gvEQMIS.FooterRow.FindControl("lblFooterItemMValueBlankSpecBuy");
+
+                    TotalPerValue.Text = "100%";
+                    TotalPerValue.Style.Add("float", "right");
+                    
                     gvEQMIS.Columns[0].Visible = false;
                     //gvEQMIS.Columns[1].Visible = false;
                 }
