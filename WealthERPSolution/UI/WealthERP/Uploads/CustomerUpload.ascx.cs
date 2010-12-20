@@ -3266,6 +3266,7 @@ namespace WealthERP.Uploads
                         //    ds1.Tables[0].Rows.Add(de[0]);
                         //}
 
+                        //DataSet dsXMLtemp = new DataSet();
                         dsXML = dsIIFLTemp;
 
                         if (dsXML.Tables.Count > 0)
@@ -3395,18 +3396,28 @@ namespace WealthERP.Uploads
                                                 i++;
                                                 dtIIFL.Rows.Add(dr1);
                                             }
+                                            
                                         }
-
+                                       
                                     }
-
+                                   
                                 }
+                                
                             }
+                            
+                            //DataSet dsXML = new DataSet();
+                           
+                          
+                           dsXML.Tables.Remove("Table1");
+                           dsXML.Tables.Add(dtIIFL);
+                            
                         }
+
 
                             //Get filetypeid from XML
                             filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "EQ", Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction);
 
-                            
+                            //dsXML.Tables.Add(dtIIFL);
 
 
                         
@@ -3435,12 +3446,12 @@ namespace WealthERP.Uploads
                         string uploadtype = ddlAction.SelectedValue;
                          if (dsXML.Tables.Count > 0)
 
-                             ValidateInputfile1(Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction, pathxml, skiprowsval, uploadtype);
+                             ValidateInputfile1(Contants.UploadExternalTypeODIN, Contants.UploadFileTypeTransaction, pathxml, skiprowsval, uploadtype);
 
                          if (badData == false)
                          {
 
-                             if (ds.Tables[0].Columns.Count == 24)
+                             if (ds.Tables[0].Columns.Count == 25 || ds.Tables[0].Columns.Count == 16)
                              {
                                  DataSet dsStdColNames = new DataSet();
                                  DataTable dt = new DataTable();
@@ -3541,8 +3552,9 @@ namespace WealthERP.Uploads
                                  }
 
 
-                                 
 
+
+                                 dsXML.Tables.Remove("Table1");
                                  dsXML.Tables.Add(dtOdin);
 
 
@@ -4118,7 +4130,7 @@ namespace WealthERP.Uploads
 
         private void ValidateInputfile1(string Externaltype, string Extracttype, string pathxml, int skiprowsval, string uploadtype)
         {
-            dtInputRejects = uploadsvalidationBo.InputValidation(dsXML.Tables[0], Externaltype, Extracttype, pathxml, skiprowsval);
+            dtInputRejects = uploadsvalidationBo.InputValidation1(dsXML.Tables[0], Externaltype, Extracttype, pathxml, skiprowsval, uploadtype);
             if (dtInputRejects.Rows.Count != 0)
             {
                 rejectUpload_Flag = true;
