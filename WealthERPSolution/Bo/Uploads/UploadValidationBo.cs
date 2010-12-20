@@ -177,7 +177,7 @@ namespace BoUploads
                 //dtresult = dtInputfile.Clone();
 
                 //Get the columnnames for which the validations has to be done for the selected Upload type
-                dtValidationColumns = XMLBo.GetUploadInpuValidationColumns(Uploadtype, Extracttype, Path);
+                dtValidationColumns = XMLBo.GetUploadInpuValidationColumns1(Uploadtype, Extracttype, Path,uploadtype);
 
                 //Loop through the rows for which the validations must be done for the selected upload type
                 if (uploadtype == "NSE")
@@ -248,7 +248,7 @@ namespace BoUploads
                                     if (drValidations["CheckValue"].ToString() == "1")
                                     {
 
-                                        if (drInputfile[columnname].ToString() != "NSE" && drInputfile[columnname].ToString() != "BSE" && drInputfile[columnname].ToString() != "B" && drInputfile[columnname].ToString() != "S")
+                                        if (drInputfile[columnname].ToString() != "Margin" )
                                         {
                                             drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
 
@@ -343,7 +343,7 @@ namespace BoUploads
                                     if (drValidations["CheckValue"].ToString() == "1")
                                     {
 
-                                        if (drInputfile[columnname].ToString() != "NSE" && drInputfile[columnname].ToString() != "BSE" && drInputfile[columnname].ToString() != "B" && drInputfile[columnname].ToString() != "S")
+                                        if (drInputfile[columnname].ToString() != "Margin" )
                                         {
                                             drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
 
