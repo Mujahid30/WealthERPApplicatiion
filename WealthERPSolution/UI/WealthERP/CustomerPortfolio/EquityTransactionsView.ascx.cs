@@ -248,16 +248,27 @@ namespace WealthERP.CustomerPortfolio
                         drEquityTransaction[0] = equityTransactionVo.TransactionId.ToString();
                         drEquityTransaction[1] = equityTransactionVo.TradeNum.ToString();
                         drEquityTransaction[2] = equityTransactionVo.ScripName.ToString();
-                        if (equityTransactionVo.BuySell.ToString() == "B")
-                        {
-                            //drEquityTransaction[1] = "BUY";
-                            type = "Buy";
-                        }
-                        else
-                        {
-                            //drEquityTransaction[1] = "SELL";
-                            type = "Sell";
-                        }
+                        //if (equityTransactionVo.BuySell.ToString() == "B")
+                        //{
+                        //    if (Session["Holdings"] != null)
+                        //    {
+                        //        type = "Holdings";
+                        //        Session.Remove("Holdings");
+                        //        if (Session["Holdings"] == null)
+                        //        {
+ 
+                        //        }
+                        //    }
+                        //    else
+                        //    {
+                        //        type = "Buy";
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    //drEquityTransaction[1] = "SELL";
+                        //    type = "Sell";
+                        //}
                         if (equityTransactionVo.TradeType.ToString() == "D")
                         {
                             //drEquityTransaction[2] = "Delivery";
@@ -268,15 +279,15 @@ namespace WealthERP.CustomerPortfolio
                             //drEquityTransaction[2] = "Speculation";
                             mode = "Speculation";
                         }
-                        drEquityTransaction[3] = type + "/" + mode;
+                        drEquityTransaction[3] = equityTransactionVo.TransactionType + "/" + mode;
                         drEquityTransaction[4] = equityTransactionVo.Exchange.ToString();
                         //  dsExange.Tables[0].Rows[i][0] = equityTransactionVo.Exchange;
                         drEquityTransaction[5] = equityTransactionVo.TradeDate.ToShortDateString().ToString();
                         drEquityTransaction[6] =  decimal.Parse(equityTransactionVo.Rate.ToString()).ToString("n2",System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         drEquityTransaction[7] = equityTransactionVo.Quantity.ToString("f0");
-                        drEquityTransaction[8] =  decimal.Parse(equityTransactionVo.Brokerage.ToString()).ToString("n2",System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drEquityTransaction[8] =  (decimal.Parse(equityTransactionVo.Brokerage.ToString()) * decimal.Parse(equityTransactionVo.Quantity.ToString("f0").ToString())).ToString("n2",System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         drEquityTransaction[9] =  decimal.Parse(equityTransactionVo.TradeTotal.ToString()).ToString("n2",System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        drEquityTransaction[10] = decimal.Parse(equityTransactionVo.OtherCharges.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drEquityTransaction[10] = (decimal.Parse(equityTransactionVo.OtherCharges.ToString()) * decimal.Parse(equityTransactionVo.Quantity.ToString("f0").ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                         dtEquityTransactions.Rows.Add(drEquityTransaction);
                     }
