@@ -40,9 +40,14 @@ namespace BoCommon
                     {
                         //dr.Table.Rows[0].Delete();
                         ds.Tables[0].Rows.Remove(dr);
-                        ds.Tables[0].Rows.Remove(dr);
-
+                        if (string.IsNullOrEmpty(ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1][0].ToString().Trim()) && string.IsNullOrEmpty(ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1][1].ToString().Trim()))
+                        {
+                            DataRow dr1 = ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1];
+                            ds.Tables[0].Rows.Remove(dr1);                            
+                        }
+                        break; 
                     }
+                    
                     //if (dr["Exchange"].ToString().Contains("   ") && dr["Exchange Type"].ToString().Contains("   "))
                     //{
                     //    //dr.Table.Rows[0].Delete();
@@ -158,6 +163,32 @@ namespace BoCommon
             }
 
             domains.Tables.Add(dtOdin);
+            int count = domains.Tables[0].Rows.Count;
+            if (string.IsNullOrEmpty(domains.Tables[0].Rows[count - 1][0].ToString().Trim()) && string.IsNullOrEmpty(domains.Tables[0].Rows[count - 1][1].ToString().Trim()))
+            {
+                DataRow dr=domains.Tables[0].Rows[count - 1];
+                domains.Tables[0].Rows.Remove(dr);
+ 
+            }
+
+            //foreach (DataRow dr in domains.Tables[0].Rows)
+            //{
+
+            //    if (dr.IsNull("Col1"))
+            //    {
+            //        //dr.Table.Rows[0].Delete();
+            //        domains.Tables[0].Rows.Remove(dr);
+            //        domains.Tables[0].Rows.Remove(dr);
+
+            //    }
+            //    //if (dr["Exchange"].ToString().Contains("   ") && dr["Exchange Type"].ToString().Contains("   "))
+            //    //{
+            //    //    //dr.Table.Rows[0].Delete();
+            //    //    ds.Tables[0].Rows.Remove(dr);
+
+            //    //}
+
+            //}
         }
       
     return domains;
