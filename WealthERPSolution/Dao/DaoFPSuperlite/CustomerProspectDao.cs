@@ -894,5 +894,95 @@ namespace DaoFPSuperlite
 
         }
 
+
+        /// <summary>
+        /// Used to add CustomerFPAssetGroup Details. First Level of Category
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="userId"></param>
+        /// <param name="customerProspectAssetGroupDetails"></param>
+        /// <returns></returns>
+        public bool AddCustomerFPAssetGroupDetails(int customerId, int userId, CustomerProspectAssetGroupDetails customerProspectAssetGroupDetails)
+        {
+            Database db;
+            DbCommand cmdAddCustomerFPAssetGroupDetails;
+            bool bAssetGroupResult = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdAddCustomerFPAssetGroupDetails = db.GetStoredProcCommand("SP_AddCustomerFPAssetGroupDetails");
+                db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@C_CustomerId", DbType.Int32, customerId);
+                if (customerProspectAssetGroupDetails.AssetGroupCode != null)
+                    db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@PAG_AssetGroupCode", DbType.String, customerProspectAssetGroupDetails.AssetGroupCode);   
+
+                if (customerProspectAssetGroupDetails.Value != 0.0)
+                    db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_Value", DbType.Decimal, customerProspectAssetGroupDetails.Value);
+                else
+                    db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_Value", DbType.Decimal, 0.0);
+
+                db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@U_UserId", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(cmdAddCustomerFPAssetGroupDetails) != 0)
+                    bAssetGroupResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectDao.cs:AddCustomerFPAssetGroupDetails(int customerId, int userId, CustomerProspectAssetGroupDetails customerProspectAssetGroupDetails)");
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bAssetGroupResult;
+        }
+
+        /// <summary>
+        /// Used to Add FP Asset Group details of the Particular Customer. first Level of Category
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public DataSet GetCustomerFPAssetGroupDetails(int customerId)
+        {
+            Database db;
+            DbCommand cmdGetCustomerFPAssetGroupDetails;
+            DataSet dsGetCustomerFPAssetGroupDetails = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCustomerFPAssetGroupDetails = db.GetStoredProcCommand("SP_GetCustomerFPAssetGroupDetails");
+                db.AddInParameter(cmdGetCustomerFPAssetGroupDetails, "@C_CustomerId", DbType.Int32, customerId);
+                dsGetCustomerFPAssetGroupDetails = db.ExecuteDataSet(cmdGetCustomerFPAssetGroupDetails);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerFPAssetGroupDetails(int customerId)");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetCustomerFPAssetGroupDetails;
+
+
+        }
     }
 }

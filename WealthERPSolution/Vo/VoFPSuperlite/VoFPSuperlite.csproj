@@ -52,6 +52,7 @@
     <Compile Include="CustomerProspectAssetDetailsVo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CustomerProspectAssetGroupDetails.cs" />
     <Compile Include="CustomerProspectAssetSubDetailsVo.cs">
       <SubType>Code</SubType>
     </Compile>

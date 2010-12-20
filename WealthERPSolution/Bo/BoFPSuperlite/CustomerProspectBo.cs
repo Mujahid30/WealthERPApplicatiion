@@ -555,6 +555,78 @@ namespace BoFPSuperlite
             }
             return bInstrumentResult;
         }
+
+
+        /// <summary>
+        /// Used to Add Customer FP Asset Group Details. First level of Category
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="userId"></param>
+        /// <param name="customerProspectAssetDetailsVoList"></param>
+        /// <param name="instrumentTotal"></param>
+        /// <returns></returns>
+        public bool AddCustomerFPAssetGroupDetails(int customerId, int userId, List<CustomerProspectAssetGroupDetails> customerProspectGroupDetailsList, out double grouptotal)
+        {
+            grouptotal = 0.0;
+
+            bool bGroupResult = true;
+            CustomerProspectDao customerprospectdao = new CustomerProspectDao();
+            try
+            {
+                foreach (CustomerProspectAssetGroupDetails cpagd in customerProspectGroupDetailsList)
+                {
+                    
+                        customerprospectdao.AddCustomerFPAssetGroupDetails(customerId, userId, cpagd);
+                        if (cpagd.AssetGroupCode != "MF")
+                        {
+                            grouptotal += cpagd.Value;
+                        }
+                }
+            }
+            catch (Exception ex)
+            {
+                bGroupResult = false;
+            }
+            return bGroupResult;
+        }
+
+        /// <summary>
+        /// Used to Get Customer FP Asset Instrument Details
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="totalAssetDetails"></param>
+        /// <returns></returns>
+        public List<CustomerProspectAssetGroupDetails> GetCustomerFPAssetGroupDetails(int customerId)
+        {
+
+            DataSet dsCustomerAssetGroupDetails = null;
+            CustomerProspectDao customerprospectdao = new CustomerProspectDao();
+            CustomerProspectAssetGroupDetails customerprospectassetgroupdetails;
+            List<CustomerProspectAssetGroupDetails> customerprospectassetgroupdetailslist = new List<CustomerProspectAssetGroupDetails>();
+            try
+            {
+                dsCustomerAssetGroupDetails = customerprospectdao.GetCustomerFPAssetGroupDetails(customerId);
+                for (int i = 0; i < dsCustomerAssetGroupDetails.Tables[0].Rows.Count; i++)
+                {
+                    customerprospectassetgroupdetails = new CustomerProspectAssetGroupDetails();
+                    customerprospectassetgroupdetails.AssetGroupId = int.Parse(dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_FPAssetGroupDetailsId"].ToString());
+                    customerprospectassetgroupdetails.AssetGroupCode = dsCustomerAssetGroupDetails.Tables[0].Rows[i]["PAG_AssetGroupCode"].ToString();
+
+                    if (dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_Value"] != null && dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_Value"].ToString() != "")
+                    {
+                        customerprospectassetgroupdetails.Value = double.Parse(dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_Value"].ToString());
+                    }                   
+                    customerprospectassetgroupdetailslist.Add(customerprospectassetgroupdetails);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return customerprospectassetgroupdetailslist;
+        }
+
+
         /// <summary>
         /// It will seperate Code from the Dictionary and send it to the Business object for Insertion
         /// </summary>
@@ -569,7 +641,7 @@ namespace BoFPSuperlite
         /// <param name="subInstrumentTotal"></param>
         /// <returns></returns>
         public bool DataManipulationInput(Dictionary<string, object> DataCapture,int customerId,int createdById,out double totalincome,out double totalExpense,out double totalLiabilities,out double totalLoanOutstanding
-            ,out double instrumentTotal,out double subInstrumentTotal)
+            ,out double instrumentTotal,out double subInstrumentTotal,out double groupTotal)
         {
             bool statusMessage=true;
             totalincome = 0.0;
@@ -578,6 +650,7 @@ namespace BoFPSuperlite
             totalLoanOutstanding = 0.0;
             instrumentTotal = 0.0;
             subInstrumentTotal = 0.0;
+            groupTotal = 0.0;
             CustomerProspectVo customerprospectVo=new CustomerProspectVo();
             try
             {
@@ -586,12 +659,14 @@ namespace BoFPSuperlite
                 List<CustomerProspectLiabilitiesDetailsVo> liabilitiesdetailsvolist = new List<CustomerProspectLiabilitiesDetailsVo>();
                 List<CustomerProspectAssetDetailsVo> assetdetailsvolist = new List<CustomerProspectAssetDetailsVo>();
                 List<CustomerProspectAssetSubDetailsVo> assetsubdetailsvolist = new List<CustomerProspectAssetSubDetailsVo>();
+                List<CustomerProspectAssetGroupDetails> assetgroupdetailslist = new List<CustomerProspectAssetGroupDetails>();
                 CustomerProspectVo customerprospectvo=new CustomerProspectVo();
                 incomedetailsvolist = DataCapture["IncomeList"] as List<CustomerProspectIncomeDetailsVo>;
                 expensedetailsvolist = DataCapture["ExpenseList"] as List<CustomerProspectExpenseDetailsVo>;
                 liabilitiesdetailsvolist = DataCapture["Liabilities"] as List<CustomerProspectLiabilitiesDetailsVo>;
                 assetdetailsvolist = DataCapture["AssetDetails"] as List<CustomerProspectAssetDetailsVo>;
                 assetsubdetailsvolist = DataCapture["AssetSubDetails"] as List<CustomerProspectAssetSubDetailsVo>;
+                assetgroupdetailslist = DataCapture["AssetGroupDetails"] as List<CustomerProspectAssetGroupDetails>;
                 customerprospectvo=DataCapture["TotalAssetDetails"] as CustomerProspectVo;
                 //Deleting before insertion
                 DeleteDetailsForCustomerProspect(customerId);
@@ -601,6 +676,7 @@ namespace BoFPSuperlite
                 bool liabilitiesstatusmessage = AddLiabilitiesDetailsForCustomerProspect(customerId, createdById, liabilitiesdetailsvolist, out totalLiabilities, out totalLoanOutstanding);
                 bool assetstatusmessage = AddCustomerFPAssetInstrumentDetails(customerId, createdById, assetdetailsvolist, out instrumentTotal);
                 bool assetsubstatusmeessage = AddCustomerFPAssetSubInstrumentDetails(customerId, createdById, assetsubdetailsvolist, out subInstrumentTotal);
+                bool assetgroupstatusmeessage = AddCustomerFPAssetGroupDetails(customerId, createdById, assetgroupdetailslist, out groupTotal);
 
 
                 bool detailsstatusmessage = AddDetailsForCustomerProspect(customerId, createdById, customerprospectvo);
@@ -609,7 +685,7 @@ namespace BoFPSuperlite
                 //bool liabilitiesstatusmessage = UpdateCustomerLiabilitiesDetailsForCustomerProspect(customerId, createdById, liabilitiesdetailsvolist, out totalLiabilities, out totalLoanOutstanding);
                 //bool assetstatusmessage = UpdateCustomerFPAssetInstrumentDetails(customerId, createdById, assetdetailsvolist, out instrumentTotal);
                 //bool assetsubstatusmeessage = UpdateCustomerFPAssetSubInstrumentDetails(customerId, createdById, assetsubdetailsvolist, out subInstrumentTotal);
-                if (incomestatusmessage == true && expensestatusmessage == true && liabilitiesstatusmessage == true && assetstatusmessage == true && assetsubstatusmeessage == true)
+                if (incomestatusmessage == true && expensestatusmessage == true && liabilitiesstatusmessage == true && assetstatusmessage == true && assetsubstatusmeessage == true && assetgroupstatusmeessage==true)
                 {
                     statusMessage = true;
                 }
@@ -633,16 +709,19 @@ namespace BoFPSuperlite
             List<CustomerProspectLiabilitiesDetailsVo> LiabilitiesDetailsForCustomerProspectList;
             List<CustomerProspectAssetSubDetailsVo> CustomerFPAssetSubInstrumentDetailsList;
             List<CustomerProspectAssetDetailsVo> CustomerFPAssetInstrumentDetailsList;
+            List<CustomerProspectAssetGroupDetails> CustomerFPAssetGroupDetailsList;
             IncomeDetailsForCustomerProspectList = GetIncomeDetailsForCustomerProspect(customerId);
             ExpenseDetailsForCustomerProspectList=GetExpenseDetailsForCustomerProspect(customerId);
             LiabilitiesDetailsForCustomerProspectList=GetLiabilitiesDetailsForCustomerProspect(customerId);
             CustomerFPAssetSubInstrumentDetailsList = GetCustomerFPAssetSubInstrumentDetails(customerId);
             CustomerFPAssetInstrumentDetailsList = GetCustomerFPAssetInstrumentDetails(customerId);
+            CustomerFPAssetGroupDetailsList = GetCustomerFPAssetGroupDetails(customerId);
             dataCatch.Add("IncomeDetailsList", IncomeDetailsForCustomerProspectList);
             dataCatch.Add("ExpenseDetailsList", ExpenseDetailsForCustomerProspectList);
             dataCatch.Add("LiabilitiesDetailsList", LiabilitiesDetailsForCustomerProspectList);
             dataCatch.Add("AssetInstrumentDetailsList", CustomerFPAssetInstrumentDetailsList);
             dataCatch.Add("AssetInstrumentSubDetailsList", CustomerFPAssetSubInstrumentDetailsList);
+            dataCatch.Add("AssetGroupDetailsList", CustomerFPAssetGroupDetailsList);
             return dataCatch;
         }
 
