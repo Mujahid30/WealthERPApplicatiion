@@ -952,7 +952,13 @@
     <ODINNSEValidationColumn ColumnName ="Col13" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
     <ODINNSEValidationColumn ColumnName ="Col12" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
     <ODINNSEValidationColumn ColumnName ="Col20" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
-    
+    <ODINNSEValidationColumn ColumnName ="Col24" CheckValue="1"  />
+
+
+    <ODINBSEValidationColumn ColumnName ="Col4" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <ODINBSEValidationColumn ColumnName ="Col5" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
+    <ODINBSEValidationColumn ColumnName ="Col9" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
+    <ODINBSEValidationColumn ColumnName ="Col15" CheckValue="1"  />
 
 
 
