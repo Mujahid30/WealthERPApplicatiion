@@ -250,7 +250,8 @@ namespace BoUploads
 
                                         if (drInputfile[columnname].ToString() != "Margin" )
                                         {
-                                            drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
+                                            drInputfile["Error"] = "Wrong file format, does not contain all columns";
+                                            //drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
 
 
                                             continue;
@@ -345,7 +346,8 @@ namespace BoUploads
 
                                         if (drInputfile[columnname].ToString() != "Margin" )
                                         {
-                                            drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
+                                            drInputfile["Error"] = "Wrong file format, does not contain all columns";
+                                            //drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
 
 
                                             continue;
