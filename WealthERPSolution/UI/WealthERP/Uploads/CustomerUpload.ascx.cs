@@ -1786,12 +1786,13 @@ namespace WealthERP.Uploads
                                                 {
                                                     werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 19); // EQ Trans XML File Type Id = 8
                                                 }
+                                                else
+                                                    werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 8); // EQ Trans XML File Type Id = 8
+                                                
                                                 if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
                                                 {
                                                     werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 20); // EQ Trans XML File Type Id = 8
                                                 }
-                                                else
-                                                    werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 8); // EQ Trans XML File Type Id = 8
                                                 
 
                                                 if (werpEQSecondStagingResult)
@@ -3232,7 +3233,7 @@ namespace WealthERP.Uploads
                     DataSet dsIIFLTemp = new DataSet();
                     DataSet dsStdColNames = new DataSet();
                     DataTable dtIIFL = new DataTable();
-                    int i = 0;
+                    int ifl = 0;
 
                     if (extension == "xls" || extension == "xlsx")
                     {
@@ -3313,8 +3314,9 @@ namespace WealthERP.Uploads
                                             dr1["CET_OrderNum"] = 0;
                                             dr1["CET_IsSpeculative"] = 0;
 
-                                            i++;
+                                            ifl++;
                                             dtIIFL.Rows.Add(dr1);
+                                        }
 
                                             if (dr.ItemArray[0].ToString() == "NSE" && double.Parse(dr.ItemArray[8].ToString()) > 0)
                                             {
@@ -3338,12 +3340,12 @@ namespace WealthERP.Uploads
                                                 dr1["CET_OrderNum"] = 0;
                                                 dr1["CET_IsSpeculative"] = 0;
 
-                                                i++;
+                                                ifl++;
                                                 dtIIFL.Rows.Add(dr1);
 
                                             }
                                         }
-                                    }
+                                    
                                     else if (dr.ItemArray[0].ToString() == "BSE")
                                     {
                                         if (double.Parse(dr.ItemArray[5].ToString()) > 0)
@@ -3368,8 +3370,9 @@ namespace WealthERP.Uploads
                                             dr1["CET_OrderNum"] = 0;
                                             dr1["CET_IsSpeculative"] = 0;
 
-                                            i++;
+                                            ifl++;
                                             dtIIFL.Rows.Add(dr1);
+                                        }
 
                                             if (double.Parse(dr.ItemArray[8].ToString()) > 0)
                                             {
@@ -3393,11 +3396,11 @@ namespace WealthERP.Uploads
                                                 dr1["CET_OrderNum"] = 0;
                                                 dr1["CET_IsSpeculative"] = 0;
 
-                                                i++;
+                                                ifl++;
                                                 dtIIFL.Rows.Add(dr1);
                                             }
                                             
-                                        }
+                                        
                                        
                                     }
                                    
