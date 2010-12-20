@@ -281,10 +281,12 @@ namespace DaoCustomerPortfolio
                             mode = "Speculation";
                         else if (dr["CET_IsSpeculative"].ToString() == "0")
                             mode = "Delivery";
-                        if (dr["CET_BuySell"].ToString() == "B")
+                        if (dr["WETT_TransactionCode"].ToString() == "1")
                             type = "Buy";
-                        else if (dr["CET_BuySell"].ToString() == "S")
+                        else if (dr["WETT_TransactionCode"].ToString() == "2")
                             type = "Sell";
+                        else if (dr["WETT_TransactionCode"].ToString() == "13")
+                            type = "Holdings";
                         tranType = type + "/" + mode;
 
                         genDictTranType.Add(tranType, tranType);
