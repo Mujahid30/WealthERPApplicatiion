@@ -7,7 +7,13 @@
 <script type="text/javascript" src="../Scripts/Calender/lang/calendar-en.js"> </script>
 
 <script type="text/javascript" src="../Scripts/Calender/calendar-setup.js"></script>
+<script type="text/javascript">
+    function SetCurrentValue() {
+        if (document.getElementById('<%=txtDepositAmount.ClientID %>').value > 0)
+            document.getElementById('<%=txtCurrentValue.ClientID %>').value = document.getElementById('<%=txtDepositAmount.ClientID %>').value;
 
+    };
+</script>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="up1" runat="server">
@@ -227,7 +233,7 @@
                     <asp:Label ID="lblDepositAmount" runat="server" CssClass="FieldName" Text="Deposit Amount:"></asp:Label>
                 </td>
                 <td class="rightField" colspan="3">
-                    <asp:TextBox ID="txtDepositAmount" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtDepositAmount" runat="server" OnBlur="SetCurrentValue();" CssClass="txtField"></asp:TextBox>
                     <span id="Span5" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvDepositAmount" ControlToValidate="txtDepositAmount"
