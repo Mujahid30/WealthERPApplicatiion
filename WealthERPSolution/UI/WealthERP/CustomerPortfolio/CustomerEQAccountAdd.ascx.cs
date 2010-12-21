@@ -41,7 +41,7 @@ namespace WealthERP.CustomerPortfolio
         CustomerAccountDao checkAccDao = new CustomerAccountDao();
        
         [WebMethod]
-        public static bool CheckTradeNoAvailability(int TradeAccNo, string BrokerCode, int PortfolioId)
+        public static bool CheckTradeNoAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
             CustomerAccountDao checkAccDao = new CustomerAccountDao();
             return checkAccDao.CheckTradeNoAvailability(TradeAccNo, BrokerCode, PortfolioId);
@@ -153,7 +153,13 @@ namespace WealthERP.CustomerPortfolio
                 customerAccountsVo.BrokerCode = ddlBrokerCode.SelectedItem.Value.ToString();
                 if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
                     customerAccountsVo.AccountOpeningDate = DateTime.Parse(accountopeningdate);// ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
-                if (txtBrokeragePerDelivery.Text != "" && txtBrokeragePerSpeculative.Text != "" && txtOtherCharges.Text != "")
+                if (txtBrokeragePerDelivery.Text == "")
+                    txtBrokeragePerDelivery.Text = "0";
+                if (txtBrokeragePerSpeculative.Text == "")
+                    txtBrokeragePerSpeculative.Text = "0";
+                if (txtOtherCharges.Text == "")
+                    txtOtherCharges.Text = "0";
+                if (txtBrokeragePerDelivery.Text != "" || txtBrokeragePerSpeculative.Text != "" || txtOtherCharges.Text != "")
                 {
 
                     customerAccountsVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
