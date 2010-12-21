@@ -111,7 +111,9 @@ namespace BoUploads
             try
             {
                 Package stdProPkg1 = App.LoadPackage(Packagepath, null);
+               // XMLFilepath = XMLFilepath.Replace("2169", "2168");
                 stdProPkg1.Variables["varXmlFilePath"].Value = XMLFilepath;
+
                 stdProPkg1.ImportConfigurationFile(configPath);
                 //stdProPkg1.Configurations[0].ConfigurationString = configPath;
                 DTSExecResult stdProResult1 = stdProPkg1.Execute();
@@ -376,7 +378,9 @@ namespace BoUploads
                         customerVo.MaritalStatus = StandardProfileUploadVo.MaritalStatus;
                     if (StandardProfileUploadVo.Qualification != "")
                         customerVo.Qualification = StandardProfileUploadVo.Qualification;
-                   
+
+
+                    customerVo.IsProspect = StandardProfileUploadVo.IsProspect;
                     customerVo.OfcAdrCity = StandardProfileUploadVo.OfcAdrCity;
                     customerVo.OfcAdrCountry = StandardProfileUploadVo.OfcAdrCountry;
                     customerVo.OfcAdrLine1 = StandardProfileUploadVo.OfcAdrLine1;
