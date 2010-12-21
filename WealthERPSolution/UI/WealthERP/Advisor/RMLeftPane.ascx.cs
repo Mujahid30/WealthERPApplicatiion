@@ -38,7 +38,7 @@ namespace WealthERP.Advisor
 
                 if (!IsPostBack)
                 {
-                    
+
                     if (roleList.Count == 1 && roleList.Contains("RM"))
                     {
                         TreeView1.Nodes.RemoveAt(0);
@@ -46,11 +46,11 @@ namespace WealthERP.Advisor
                     TreeView1.CollapseAll();
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMLeftPane');", true);
                 }
-                
+
                 sourcepath = Session[SessionContents.LogoPath].ToString();
                 if (Session[SessionContents.BranchLogoPath] != null)
                     branchLogoSourcePath = Session[SessionContents.BranchLogoPath].ToString();
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -215,13 +215,6 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
                 }
-                else if (TreeView1.SelectedNode.Value.ToString() == "FP")
-                {
-                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
-                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
-                    Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
-                }
                 else if (TreeView1.SelectedNode.Value.ToString() == "ProspectList")
                 {
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
@@ -322,7 +315,7 @@ namespace WealthERP.Advisor
         }
         protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
         {
-           
+
         }
     }
 }
