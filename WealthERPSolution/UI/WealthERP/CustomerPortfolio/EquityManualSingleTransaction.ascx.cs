@@ -54,69 +54,72 @@ namespace WealthERP.CustomerPortfolio
         {
             tdScripName.Visible = false;
             tdScripNameValue.Visible = false;
-            try
-            {
-                SessionBo.CheckSession();
-                System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
-                customerVo = (CustomerVo)Session["CustomerVo"];
-                userVo = (UserVo)Session["userVo"];
-                advisorVo = (AdvisorVo)Session["advisorVo"];
-                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                if (!IsPostBack)
+            //if (!IsPostBack)
+            //{
+                try
                 {
+                    SessionBo.CheckSession();
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+                    customerVo = (CustomerVo)Session["CustomerVo"];
+                    userVo = (UserVo)Session["userVo"];
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
+                    path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                    if (!IsPostBack)
+                    {
 
-                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
-                    BindPortfolioDropDown();
-                    lblScripName.Visible = false;
+                        portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                        BindPortfolioDropDown();
+                        lblScripName.Visible = false;
+                        LoadTransactionType(path);
+                        LoadExchangeType(path);
+                    }
+                    else
+                    {
 
+                        portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+                        // btnAddDP.Visible = false;
+                    }
+                    LoadEquityTradeNumbers();
+                    
+                    if (Session["Trade"] != null)
+                    {
+                        ht = (Hashtable)Session["EqHT"];
+                        txtScrip.Text = ht["Scrip"].ToString();
+                        LoadExchangeType(path);
+                        ddlExchange.SelectedValue = ht["Exchange"].ToString();
+                        LoadTransactionType(path);
+                        ddlTransactionType.SelectedValue = ht["TranType"].ToString();
+                        txtTicker.Text = ht["Ticker"].ToString();
+                        SetFields(1);
+                        Session.Remove("Trade");
+
+                    }
 
                 }
-                else
-                {
 
-                    portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
-                    // btnAddDP.Visible = false;
-                }
-                LoadExchangeType(path);
-                LoadTransactionType(path);
-                LoadEquityTradeNumbers();
-                if (Session["Trade"] != null)
+                catch (BaseApplicationException Ex)
                 {
-                    ht = (Hashtable)Session["EqHT"];
-                    txtScrip.Text = ht["Scrip"].ToString();
-                    LoadExchangeType(path);
-                    ddlExchange.SelectedValue = ht["Exchange"].ToString();
-                    LoadTransactionType(path);
-                    ddlTranType.SelectedValue = ht["TranType"].ToString();
-                    txtTicker.Text = ht["Ticker"].ToString();
-                    SetFields(1);
-                    Session.Remove("Trade");
+                    throw Ex;
+                }
+
+                catch (Exception Ex)
+                {
+                    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                    NameValueCollection FunctionInfo = new NameValueCollection();
+                    FunctionInfo.Add("Method", "EquityManualSingleTransaction.ascx:Page_Load()");
+                    object[] objects = new object[5];
+                    objects[0] = path;
+                    objects[1] = userVo;
+                    objects[2] = customerVo;
+                    objects[3] = portfolioId;
+                    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                    exBase.AdditionalInformation = FunctionInfo;
+                    ExceptionManager.Publish(exBase);
+                    throw exBase;
 
                 }
             }
-
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "EquityManualSingleTransaction.ascx:Page_Load()");
-                object[] objects = new object[5];
-                objects[0] = path;
-                objects[1] = userVo;
-                objects[2] = customerVo;
-                objects[3] = portfolioId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-        }
+        //}
         private void BindPortfolioDropDown()
         {
             DataSet ds = portfolioBo.GetCustomerPortfolio(customerVo.CustomerId);
@@ -172,11 +175,11 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 DataTable dt = XMLBo.GetTransactionType(path);
-                ddlTranType.DataSource = dt;
-                ddlTranType.DataTextField = "TransactionName";
-                ddlTranType.DataValueField = "TransactionCode";
-                ddlTranType.DataBind();
-                ddlTranType.Items.Insert(0, new ListItem("Select Transaction", "Select Transaction"));
+                ddlTransactionType.DataSource = dt;
+                ddlTransactionType.DataTextField = "TransactionName";
+                ddlTransactionType.DataValueField = "TransactionCode";
+                ddlTransactionType.DataBind();
+                ddlTransactionType.Items.Insert(0, new ListItem("Select Transaction", "Select Transaction"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -283,17 +286,17 @@ namespace WealthERP.CustomerPortfolio
                 if (txtBrokerage.Text != "")
                     eqTransactionVo.Brokerage = float.Parse(txtBrokerage.Text);
                 eqTransactionVo.BrokerCode = dt.Rows[0]["XB_BrokerCode"].ToString();
-                if (ddlTranType.SelectedItem.Text.ToString() == "Purchase")
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Purchase")
                 {
                     eqTransactionVo.BuySell = "B";
                     eqTransactionVo.TransactionCode = 1;
                 }
-                if (ddlTranType.SelectedItem.Text.ToString() == "Sell")
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Sell")
                 {
                     eqTransactionVo.BuySell = "S";
                     eqTransactionVo.TransactionCode = 2;
                 }
-                if (ddlTranType.SelectedItem.Text.ToString() == "Holdings")
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Holdings")
                 {
                     eqTransactionVo.BuySell = "B";
                     eqTransactionVo.TransactionCode = 13;
@@ -373,7 +376,7 @@ namespace WealthERP.CustomerPortfolio
         protected void btnAddDP_Click(object sender, EventArgs e)
         {
             ht.Add("Scrip", txtScrip.Text.ToString());
-            ht.Add("TranType", ddlTranType.SelectedItem.Value.ToString());
+            ht.Add("TranType", ddlTransactionType.SelectedItem.Value.ToString());
             ht.Add("Exchange", ddlExchange.SelectedItem.Value.ToString());
             ht.Add("Ticker", txtTicker.Text.ToString());
             Session["EqHT"] = ht;
@@ -412,21 +415,19 @@ namespace WealthERP.CustomerPortfolio
                 else
                     brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageSpeculativePercentage / 100);
                 otherCharges = double.Parse(txtRate.Text) * (customerAccountsVo.OtherCharges / 100);
-                txtBrokerage.Text = Math.Round(brokerage, 4).ToString();
-
+                if (txtBrokerage.Text == "0")
+                    txtBrokerage.Text = Math.Round(brokerage, 4).ToString();
 
                 txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
-
-
                 Calculate();
             }
         }
 
-        protected void ddlTranType_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlTransactionType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlTranType.SelectedValue == "HOLD")
+            if (ddlTransactionType.SelectedValue == "HOLD")
             {
-                //Session["Holdings"] = ddlTranType.SelectedValue;
+                //Session["Holdings"] = ddlTransactionType.SelectedValue;
                 trBroker.Visible = false;
                 trBrokerage.Visible = false;
                 trOthers.Visible = false;
@@ -442,7 +443,6 @@ namespace WealthERP.CustomerPortfolio
                 rbtnSpeculation.Visible = true;
             }
             trTransactionMode.Visible = true;
-
         }
 
         protected void btnCalculate_Click(object sender, EventArgs e)
@@ -481,7 +481,7 @@ namespace WealthERP.CustomerPortfolio
 
                 // Rate Inclusive Brokerage
 
-                if (ddlTranType.SelectedItem.Text.ToString() == "Purchase")
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Purchase")
                 {
 
                     rateIncBroker = double.Parse(txtRate.Text) + STT + Stax + brokerage + otherCharges;
@@ -563,8 +563,18 @@ namespace WealthERP.CustomerPortfolio
 
         protected void txtTradeDate_TextChanged(object sender, EventArgs e)
         {
-            DateTime dt = Convert.ToDateTime(txtTradeDate.Text);
-            txtPrice.Text = customerPortfolioBo.GetEQScripPrice(scripCode, dt).ToString();
+            if (txtTradeDate.Text != "dd/mm/yyyy")
+            {
+                DateTime dt = Convert.ToDateTime(txtTradeDate.Text);
+                txtPrice.Text = customerPortfolioBo.GetEQScripPrice(scripCode, dt).ToString();
+            }
+            else
+            {
+                txtPrice.Text = string.Empty;
+            }
+
+
+           
         }
 
         protected void txtScripCode_ValueChanged(object sender, EventArgs e)
@@ -596,6 +606,7 @@ namespace WealthERP.CustomerPortfolio
                 txtTotal.Text = string.Empty;
             }
         }
+       
     }
 }
 

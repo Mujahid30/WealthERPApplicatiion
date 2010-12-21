@@ -120,12 +120,12 @@
             <asp:Label ID="lblTranType" runat="server" Text="Transaction type :" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:DropDownList ID="ddlTranType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlTranType_SelectedIndexChanged"
-                AutoPostBack="True">
+            <asp:DropDownList ID="ddlTransactionType" runat="server" CssClass="cmbField" 
+                AutoPostBack="True" EnableViewState="true" onselectedindexchanged="ddlTransactionType_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
-            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlTranType" CssClass="rfvPCG"
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlTransactionType" CssClass="rfvPCG"
                 ErrorMessage="Please select a Transaction Type" Operator="NotEqual" ValueToCompare="Select Transaction"
                 ValidationGroup="EQ"></asp:CompareValidator>
         </td>
