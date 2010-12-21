@@ -411,7 +411,7 @@ namespace BoCustomerPortfolio
 
      
 
-        public bool CheckTradeNoAvailability(int TradeAccNo, string BrokerCode, int PortfolioId)
+        public bool CheckTradeNoAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
             bool bResult = false;
             CustomerAccountDao customerAccDao = new CustomerAccountDao();
