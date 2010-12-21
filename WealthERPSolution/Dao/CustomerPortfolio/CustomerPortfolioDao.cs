@@ -955,10 +955,13 @@ namespace DaoCustomerPortfolio
                 if (dsEQScripPrice.Tables[0].Rows.Count > 0)
                 {
                     dtdsEQScripPrice = dsEQScripPrice.Tables[0];
-                    foreach (DataRow dr in dtdsEQScripPrice.Rows)
-                    {
-                        ScripPlanNAV = float.Parse(dr["PESPH_ClosePrice"].ToString());
-                    }
+                    
+                        foreach (DataRow dr in dtdsEQScripPrice.Rows)
+                        {
+                            if (!string.IsNullOrEmpty(dr["PESPH_ClosePrice"].ToString().Trim()))
+                             ScripPlanNAV = float.Parse(dr["PESPH_ClosePrice"].ToString());
+                        }
+                    
                 }
             }
             catch (BaseApplicationException Ex)
