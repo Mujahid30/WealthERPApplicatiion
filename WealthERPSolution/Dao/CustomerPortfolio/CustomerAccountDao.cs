@@ -526,13 +526,12 @@ namespace DaoCustomerPortfolio
         }
       
 
-        public bool CheckTradeNoAvailability(int TradeAccNo, string BrokerCode, int PortfolioId)
+        public bool CheckTradeNoAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
 
             bool bResult = false;
             Database db;
             DbCommand chkAvailabilityCmd;
-            string query = "";
             int rowCount;
             DataSet ds;
             try
@@ -540,7 +539,7 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 chkAvailabilityCmd = db.GetStoredProcCommand("SP_CheckTradeAccAvailability");
 
-                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_No", DbType.Int32, TradeAccNo);
+                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_No", DbType.String, TradeAccNo);
                 db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_BrokerCode", DbType.String, BrokerCode);
                 db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_PortfolioId", DbType.Int32, PortfolioId);
 
