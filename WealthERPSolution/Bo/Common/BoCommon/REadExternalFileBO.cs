@@ -33,29 +33,29 @@ namespace BoCommon
                 OleDbDataAdapter myCommand = new OleDbDataAdapter(" SELECT * FROM [" + sheetname + "]", con);
                 myCommand.Fill(ds);
                
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
+                //foreach (DataRow dr in ds.Tables[0].Rows)
+                //{
 
-                    if (dr["Exchange"].ToString().Contains("---") && dr["Exchange Type"].ToString().Contains("---")  )
-                    {
-                        //dr.Table.Rows[0].Delete();
-                        ds.Tables[0].Rows.Remove(dr);
-                        if (string.IsNullOrEmpty(ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1][0].ToString().Trim()) && string.IsNullOrEmpty(ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1][1].ToString().Trim()))
-                        {
-                            DataRow dr1 = ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1];
-                            ds.Tables[0].Rows.Remove(dr1);                            
-                        }
-                        break; 
-                    }
+                //    if (dr["Exchange"].ToString().Contains("---") && dr["Exchange Type"].ToString().Contains("---")  )
+                //    {
+                //        //dr.Table.Rows[0].Delete();
+                //        ds.Tables[0].Rows.Remove(dr);
+                //        if (string.IsNullOrEmpty(ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1][0].ToString().Trim()) && string.IsNullOrEmpty(ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1][1].ToString().Trim()))
+                //        {
+                //            DataRow dr1 = ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1];
+                //            ds.Tables[0].Rows.Remove(dr1);                            
+                //        }
+                //        break; 
+                //    }
                     
-                    //if (dr["Exchange"].ToString().Contains("   ") && dr["Exchange Type"].ToString().Contains("   "))
-                    //{
-                    //    //dr.Table.Rows[0].Delete();
-                    //    ds.Tables[0].Rows.Remove(dr);
+                //    //if (dr["Exchange"].ToString().Contains("   ") && dr["Exchange Type"].ToString().Contains("   "))
+                //    //{
+                //    //    //dr.Table.Rows[0].Delete();
+                //    //    ds.Tables[0].Rows.Remove(dr);
 
-                    //}
+                //    //}
                     
-                }
+                //}
                 
             }
             catch (Exception ex)
@@ -193,6 +193,62 @@ namespace BoCommon
       
     return domains;
 }
+
+        public DataSet ReadExcelfile1(string FileName)
+        {
+            DataSet ds = new DataSet();
+            //Provider String Extended properties: 
+            //"Excel 8.0": Use Excel as source
+            //"Header Yes": Header is included in the Excel sheet
+            //"IMEX=1": When reading from the excel sheet ignore datatypes and read all data in the sheet.
+            //Without setting IMEX=0, the excel reader looks for the datatype in the excel sheet.
+            //OleDbConnection con = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + FileName + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=1\"");
+            OleDbConnection con = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileName + ";Extended Properties=\"Excel 12.0 Xml;HDR=YES;IMEX=1\"");
+            con.Open();
+            try
+            {
+                //Create Dataset and fill with imformation from the Excel Spreadsheet for easier reference
+                DataTable dt = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                string sheetname = dt.Rows[0]["TABLE_NAME"].ToString();
+
+                OleDbDataAdapter myCommand = new OleDbDataAdapter(" SELECT * FROM [" + sheetname + "]", con);
+                myCommand.Fill(ds);
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+
+                    if (dr["Exchange"].ToString().Contains("---") && dr["Exchange Type"].ToString().Contains("---"))
+                    {
+                        //dr.Table.Rows[0].Delete();
+                        ds.Tables[0].Rows.Remove(dr);
+                        if (string.IsNullOrEmpty(ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1][0].ToString().Trim()) && string.IsNullOrEmpty(ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1][1].ToString().Trim()))
+                        {
+                            DataRow dr1 = ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1];
+                            ds.Tables[0].Rows.Remove(dr1);
+                        }
+                        break;
+                    }
+
+                    //if (dr["Exchange"].ToString().Contains("   ") && dr["Exchange Type"].ToString().Contains("   "))
+                    //{
+                    //    //dr.Table.Rows[0].Delete();
+                    //    ds.Tables[0].Rows.Remove(dr);
+
+                    //}
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string exce = ex.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return ds;
+        }
         
 
 
@@ -248,3 +304,6 @@ namespace BoCommon
         }
     }
 }
+
+
+        
