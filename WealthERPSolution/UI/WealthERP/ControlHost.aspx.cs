@@ -83,7 +83,7 @@ namespace WealthERP
         }
 
         [WebMethod]
-        public static bool CheckTradeNoAvailability(int TradeAccNo, string BrokerCode, int PortfolioId)
+        public static bool CheckTradeNoAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
             CustomerAccountDao checkAccDao = new CustomerAccountDao();
             return checkAccDao.CheckTradeNoAvailability(TradeAccNo, BrokerCode, PortfolioId);
