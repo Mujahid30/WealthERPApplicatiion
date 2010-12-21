@@ -3239,7 +3239,7 @@ namespace WealthERP.Uploads
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\IIFLEqTrans.xls";
                         FileUpload.SaveAs(Filepath);
-                        ds = readFile.ReadExcelfile(Filepath);
+                        ds = readFile.ReadExcelfile1(Filepath);
 
                         if (rbSkipRowsYes.Checked)
                         {
