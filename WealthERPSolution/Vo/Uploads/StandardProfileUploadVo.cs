@@ -547,5 +547,13 @@ namespace VoUploads
             get { return m_RMId; }
             set { m_RMId = value; }
         }
+        public int IsProspect
+        {
+            get { return C_IsProspect; }
+            set { C_IsProspect = value; }
+        }
+        private int C_IsProspect;
+        
+
     }
 }
