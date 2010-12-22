@@ -61,7 +61,7 @@
 
     function showassocation4() {
 
-        var bool = window.confirm('Customer has only one portfolio, cannot delete.');
+        var bool = window.confirm('Customer has only one portfolio or is main portfolio, cannot delete .');
 
         if (bool) {
             document.getElementById("ctrl_CustomerPortfolio_hdnassociation").value = 1;
