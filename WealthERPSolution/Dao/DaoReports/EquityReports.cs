@@ -21,7 +21,7 @@ namespace DaoReports
         /// </summary>
         /// <param name="reports"></param>
         /// <returns></returns>
-        public DataSet GetEquityScripwiseSummary(EquityReportVo reports,int adviserId)
+        public DataSet GetEquityScripwiseSummary(EquityReportVo reports, int adviserId)
         {
 
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -34,8 +34,8 @@ namespace DaoReports
                 getCustomerNPListCmd = db.GetStoredProcCommand("SP_RPT_GetCustomerSectorwiseEqTransactions");
                 //reports.PortfolioIds = "13708,14675";
                 db.AddInParameter(getCustomerNPListCmd, "@PortfolioIds", DbType.String, reports.PortfolioIds); //35437
-               // reports.FromDate = Convert.ToDateTime("01/01/2008");
-                db.AddInParameter(getCustomerNPListCmd, "@FromDate", DbType.DateTime,DateBo.GetPreviousMonthLastDate(reports.FromDate));
+                // reports.FromDate = Convert.ToDateTime("01/01/2008");
+                db.AddInParameter(getCustomerNPListCmd, "@FromDate", DbType.DateTime, DateBo.GetPreviousMonthLastDate(reports.FromDate));
                 //reports.ToDate = Convert.ToDateTime("01/01/2012");
                 db.AddInParameter(getCustomerNPListCmd, "@Todate", DbType.DateTime, reports.ToDate);
                 db.AddInParameter(getCustomerNPListCmd, "@AdviserId", DbType.Int32, adviserId);
@@ -52,182 +52,138 @@ namespace DaoReports
             {
                 throw (ex);
             }
-           // return null;
-
-            //DataTable dtMFSummary = new DataTable();
-            //dtMFSummary.Columns.Add("CustomerName");
-            //dtMFSummary.Columns.Add("CustomerId");
-            //dtMFSummary.Columns.Add("PortfolioName");
-            //dtMFSummary.Columns.Add("PortfolioId");
-            //dtMFSummary.Columns.Add("Category");
-            //dtMFSummary.Columns.Add("PreviousValue", System.Type.GetType("System.Int32"));
-            //dtMFSummary.Columns.Add("CurrentValue", System.Type.GetType("System.Int32"));
-
-            //DataRow dtRow = dtMFSummary.NewRow();
-
-            //// Mahesh
-
-            //dtRow = dtMFSummary.NewRow();
-            //dtRow["CustomerName"] = "Mahesh";
-            //dtRow["CustomerId"] = "200";
-            //dtRow["PortfolioName"] = "FOLIOMH1";
-            //dtRow["PortfolioId"] = 2;
-
-            //dtRow["Category"] = "Equity";
-            //dtRow["PreviousValue"] = 700.555;
-            //dtRow["CurrentValue"] = 900;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-            //dtRow = dtMFSummary.NewRow();
-
-            //dtRow["CustomerName"] = "Mahesh";
-            //dtRow["CustomerId"] = "200";
-            //dtRow["PortfolioName"] = "FOLIOMH1";
-            //dtRow["PortfolioId"] = 2;
-
-            //dtRow["Category"] = "Hybrid";
-            //dtRow["PreviousValue"] = 200;
-            //dtRow["CurrentValue"] = 200;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-            //dtRow = dtMFSummary.NewRow();
-            //dtRow["CustomerName"] = "Mahesh";
-            //dtRow["CustomerId"] = "200";
-            //dtRow["PortfolioName"] = "FOLIOMH1";
-            //dtRow["PortfolioId"] = 2;
-
-            //dtRow["Category"] = "Debt";
-            //dtRow["PreviousValue"] = 400;
-            //dtRow["CurrentValue"] = 200;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-            //dtRow = dtMFSummary.NewRow();
-
-            //dtRow["CustomerName"] = "Mahesh";
-            //dtRow["CustomerId"] = "200";
-            //dtRow["PortfolioName"] = "FOLIOMH1";
-            //dtRow["PortfolioId"] = 2;
-
-            //dtRow["Category"] = "Others";
-            //dtRow["PreviousValue"] = 600;
-            //dtRow["CurrentValue"] = 700;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-            ////MAHESH 2
-
-
-            //dtRow = dtMFSummary.NewRow();
-            //dtRow["CustomerName"] = "Mahesh";
-            //dtRow["CustomerId"] = "200";
-            //dtRow["PortfolioName"] = "FOLIOMH2";
-            //dtRow["PortfolioId"] = 20;
-
-            //dtRow["Category"] = "Equity";
-            //dtRow["PreviousValue"] = 700;
-            //dtRow["CurrentValue"] = 9;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-            //dtRow = dtMFSummary.NewRow();
-
-            //dtRow["CustomerName"] = "Mahesh";
-            //dtRow["CustomerId"] = "200";
-            //dtRow["PortfolioName"] = "FOLIOMH2";
-            //dtRow["PortfolioId"] = 20;
-
-            //dtRow["Category"] = "Hybrid";
-            //dtRow["PreviousValue"] = 200;
-            //dtRow["CurrentValue"] = 200;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-            //dtRow = dtMFSummary.NewRow();
-            //dtRow["CustomerName"] = "Mahesh";
-            //dtRow["CustomerId"] = "200";
-            //dtRow["PortfolioName"] = "FOLIOMH2";
-            //dtRow["PortfolioId"] = 20;
-
-            //dtRow["Category"] = "Debt";
-            //dtRow["PreviousValue"] = 400;
-            //dtRow["CurrentValue"] = 200;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-            //dtRow = dtMFSummary.NewRow();
-
-            //dtRow["CustomerName"] = "Mahesh";
-            //dtRow["CustomerId"] = "200";
-            //dtRow["PortfolioName"] = "FOLIOMH2";
-            //dtRow["PortfolioId"] = 20;
-
-            //dtRow["Category"] = "Others";
-            //dtRow["PreviousValue"] = 600;
-            //dtRow["CurrentValue"] = 700;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-
-
-            ////Robin
-            //dtRow = dtMFSummary.NewRow();
-            //dtRow["CustomerName"] = "Robin";
-            //dtRow["CustomerId"] = "100";
-            //dtRow["PortfolioName"] = "FOLIORT";
-            //dtRow["PortfolioId"] = 20;
-
-            //dtRow["Category"] = "Equity";
-            //dtRow["PreviousValue"] = 700;
-            //dtRow["CurrentValue"] = 900;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-            //dtRow = dtMFSummary.NewRow();
-
-            //dtRow["CustomerName"] = "Robin";
-            //dtRow["CustomerId"] = "100";
-            //dtRow["PortfolioName"] = "FOLIORT";
-            //dtRow["PortfolioId"] = 20;
-
-            //dtRow["Category"] = "Hybrid";
-            //dtRow["PreviousValue"] = 200;
-            //dtRow["CurrentValue"] = 200;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-            //dtRow = dtMFSummary.NewRow();
-            //dtRow["CustomerName"] = "Robin";
-            //dtRow["CustomerId"] = "100";
-            //dtRow["PortfolioName"] = "FOLIORT";
-            //dtRow["PortfolioId"] = 20;
-
-            //dtRow["Category"] = "Debt";
-            //dtRow["PreviousValue"] = 400;
-            //dtRow["CurrentValue"] = 200;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-            //dtRow = dtMFSummary.NewRow();
-
-            //dtRow["CustomerName"] = "Robin";
-            //dtRow["CustomerId"] = "100";
-            //dtRow["PortfolioName"] = "FOLIORT";
-            //dtRow["PortfolioId"] = 20;
-
-            //dtRow["Category"] = "Others";
-            //dtRow["PreviousValue"] = 600;
-            //dtRow["CurrentValue"] = 700;
-            //dtMFSummary.Rows.Add(dtRow);
-
-
-
-
-
-           // return dtMFSummary;
         }
+          public DataSet GetEquityTransaction(EquityReportVo reports,int adviserId)
+            {
+
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand getCustomerNPListCmd;
+            DataSet dsEquityTransactionwise;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerNPListCmd = db.GetStoredProcCommand("SP_RPT_GetCustomerEquityTransactions");
+                //reports.PortfolioIds = "13708,14675";
+                db.AddInParameter(getCustomerNPListCmd, "@PortfolioIds", DbType.String, reports.PortfolioIds); //35437
+               // reports.FromDate = Convert.ToDateTime("01/01/2008");
+                db.AddInParameter(getCustomerNPListCmd, "@FromDate", DbType.DateTime,DateBo.GetPreviousMonthLastDate(reports.FromDate));
+                //reports.ToDate = Convert.ToDateTime("01/01/2012");
+                db.AddInParameter(getCustomerNPListCmd, "@Todate", DbType.DateTime, reports.ToDate);
+
+                getCustomerNPListCmd.CommandTimeout = 60 * 60;
+                dsEquityTransactionwise = db.ExecuteDataSet(getCustomerNPListCmd);
+
+
+                return dsEquityTransactionwise;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+         
+        }
+       public DataSet GetEquityHolding(EquityReportVo reports, int adviserId)
+         {
+
+              //DataTable dtEquityHolding = new DataTable();
+              //DataRow drEquityholding;
+              //DataColumn dcEquityHolding;
+
+              //dcEquityHolding = new DataColumn();
+              //dcEquityHolding.DataType = Type.GetType("System.String");
+              //dcEquityHolding.ColumnName = "CompanyName";
+              //dtEquityHolding.Columns.Add(dcEquityHolding);
+
+              //dcEquityHolding = new DataColumn();
+              //dcEquityHolding.DataType = Type.GetType("System.Double");
+              //dcEquityHolding.ColumnName = "NetHoldings";
+              //dtEquityHolding.Columns.Add(dcEquityHolding);
+
+              //dcEquityHolding = new DataColumn();
+              //dcEquityHolding.DataType = Type.GetType("System.Double");
+              //dcEquityHolding.ColumnName = "AveragePrice";
+              //dtEquityHolding.Columns.Add(dcEquityHolding);
+
+              //dcEquityHolding = new DataColumn();
+              //dcEquityHolding.DataType = Type.GetType("System.Double");
+              //dcEquityHolding.ColumnName = "NetCost";
+              //dtEquityHolding.Columns.Add(dcEquityHolding);
+
+              //dcEquityHolding = new DataColumn();
+              //dcEquityHolding.DataType = Type.GetType("System.Double");
+              //dcEquityHolding.ColumnName = "MarketPrice";
+              //dtEquityHolding.Columns.Add(dcEquityHolding);
+
+              //dcEquityHolding = new DataColumn();
+              //dcEquityHolding.DataType = Type.GetType("System.Double");
+              //dcEquityHolding.ColumnName = "CurrentValue";
+              //dtEquityHolding.Columns.Add(dcEquityHolding);
+
+              //dcEquityHolding = new DataColumn();
+              //dcEquityHolding.DataType = Type.GetType("System.Double");
+              //dcEquityHolding.ColumnName = "UnrealizedPL";
+              //dtEquityHolding.Columns.Add(dcEquityHolding);
+
+              //dcEquityHolding = new DataColumn();
+              //dcEquityHolding.DataType = Type.GetType("System.Double");
+              //dcEquityHolding.ColumnName = "RealizedPL";
+              //dtEquityHolding.Columns.Add(dcEquityHolding);
+
+
+              //dcEquityHolding = new DataColumn();
+              //dcEquityHolding.DataType = Type.GetType("System.Double");
+              //dcEquityHolding.ColumnName = "TotalPL";
+              //dtEquityHolding.Columns.Add(dcEquityHolding);
+
+              //dcEquityHolding = new DataColumn();
+              //dcEquityHolding.DataType = Type.GetType("System.Double");
+              //dcEquityHolding.ColumnName = "XIRR";
+              //dtEquityHolding.Columns.Add(dcEquityHolding);
+
+              Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+              DbCommand getCustomerNPListCmd;
+              DataSet dsEquityHoldingwise;
+
+              try
+              {
+                  db = DatabaseFactory.CreateDatabase("wealtherp");
+                  getCustomerNPListCmd = db.GetStoredProcCommand("SP_RPT_GetCustomerEquityHoldings");
+                  db.AddInParameter(getCustomerNPListCmd, "@PortfolioIds", DbType.String, reports.PortfolioIds);
+                  db.AddInParameter(getCustomerNPListCmd, "@AsOnDate", DbType.DateTime, reports.ToDate);
+                  db.AddInParameter(getCustomerNPListCmd, "@AdviserId", DbType.Int32, adviserId);
+
+                  getCustomerNPListCmd.CommandTimeout = 60 * 60;
+                  dsEquityHoldingwise = db.ExecuteDataSet(getCustomerNPListCmd);
+
+                  //foreach (DataRow dr in dsEquityHoldingwise.Tables[0].Rows)
+                  //{
+                  //     drEquityholding =dtEquityHolding.NewRow();
+                  //     drEquityholding[0] = dr[0];
+                  //     drEquityholding[1] = dr[1];
+                  //     drEquityholding[2] = dr[2];
+                  //     drEquityholding[3] = dr[3];
+                  //     drEquityholding[4] = dr[4];
+                  //     drEquityholding[5] = dr[5];
+                  //     drEquityholding[6] = dr[6];
+                  //     drEquityholding[7] = dr[7];
+                  //     drEquityholding[8] = dr[8];
+                  //     drEquityholding[9] = dr[9];
+                  //     dtEquityHolding.Rows.Add(drEquityholding); 
+                  //}
+                  //dsEquityHoldingwise.Tables.Add(dtEquityHolding);
+                  return dsEquityHoldingwise;
+
+
+              }
+              catch (Exception ex)
+              {
+                  throw (ex);
+              }
+
+         }
 
 
         public DataTable GetEquityTransactionAll(EquityReportVo reports)
