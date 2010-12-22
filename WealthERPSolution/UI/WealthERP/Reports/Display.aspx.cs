@@ -522,16 +522,19 @@ namespace WealthERP.Reports
            
             try
             {
+
                 EquityReportsBo equityReports = new EquityReportsBo();
                 report = (EquityReportVo)Session["reportParams"];
-              
+
+                if (Session["CusVo"] != null)
+                    customerVo = (CustomerVo)Session["CusVo"];
+                else if (Session["customerVo"] != null)
+                    customerVo = (CustomerVo)Session["customerVo"];
                 
                 switch (report.SubType)
                 {
 
-
-                    case "EQUITY_SECTOR_WISE":
-                         
+                    case "EQUITY_SECTOR_WISE":                         
                          
                         crmain.Load(Server.MapPath("EqSectorwise.rpt"));
                         DataTable dtEquitySectorwise = equityReports.GetEquityScripwiseSummary(report, advisorVo.advisorId);
@@ -542,6 +545,41 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
+                        }
+                        else
+                            SetNoRecords();
+                        break;
+
+                    case "EQUITY_TRANSACTION_WISE":
+                        crmain.Load(Server.MapPath("EquityTransactionWise.rpt"));
+                        DataTable dtEquitytransactionwise = equityReports.GetEquityTransaction(report, advisorVo.advisorId);
+                        if (dtEquitytransactionwise.Rows.Count > 0)
+                        {
+                            crmain.SetDataSource(dtEquitytransactionwise);
+                            setLogo();                            
+                            AssignReportViewerProperties();
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
+
+                        }
+                        else
+                            SetNoRecords();
+                        break;
+                       
+                    case "EQUITY_HOLDING_WISE":
+                        crmain.Load(Server.MapPath("EquityHoldingWise.rpt"));
+                        DataSet dsEquityholdingwise = equityReports.GetEquityHolding(report, advisorVo.advisorId);
+
+                        if (dsEquityholdingwise.Tables[0].Rows.Count > 0)
+                        {
+                            //dsEquityholdingwise.Tables[0].TableName = "EquityHolding";
+                            crmain.SetDataSource(dsEquityholdingwise.Tables[0]);
+                            
+                            setLogo();
+                            AssignReportViewerProperties();
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
+
                         }
                         else
                             SetNoRecords();
@@ -976,8 +1014,7 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("OrgDetails", "Email :  " + customerRMVo.Email);
                 else
                     crmain.SetParameterValue("OrgDetails", "Email :--");
-                if (CurrentReportType != ReportType.EquityReports)
-                {
+               
                     if (customerRMVo.Mobile != 0)
                     {
                         crmain.SetParameterValue("OrgTelephone", "Mobile :  " + "+91-" + customerRMVo.Mobile);
@@ -994,8 +1031,7 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + advisorVo.City);
                     crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
                     crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
-                }
-
+               
 
 
 
@@ -1010,6 +1046,7 @@ namespace WealthERP.Reports
             {
                 CrystalReportViewer1.Attributes.Add("ToolbarStyle-Width", "900px");
             }
+            
             CrystalReportViewer1.EnableDrillDown = true;
             CrystalReportViewer1.HasCrystalLogo = false;
         }
@@ -1211,13 +1248,13 @@ namespace WealthERP.Reports
         /// </summary>
         private void CalculateDateRange(out DateTime fromDate, out DateTime toDate)
         {
-            if (Request.Form["ctrl_MFReports$hidDateType"] == "DATE_RANGE")
+            if (Request.Form["ctrl_MFReports$hidDateType"] == "DATE_RANGE" || Request.Form["ctrl_EquityReports$hidDateType"] == "DATE_RANGE")
             {
 
                 fromDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtFromDate"]);
                 toDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtToDate"]);
             }
-            else if (Request.Form["ctrl_MFReports$hidDateType"] == "PERIOD")
+            else if (Request.Form["ctrl_MFReports$hidDateType"] == "PERIOD" || Request.Form["ctrl_EquityReports$hidDateType"] == "PERIOD")
             {
 
                 dtBo.CalculateFromToDatesUsingPeriod(Request.Form[ctrlPrefix + "ddlPeriod"], out dtFrom, out dtTo);
