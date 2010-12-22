@@ -182,7 +182,7 @@
                 <asp:ListItem Value="EQTA">Equity Trade Account Only</asp:ListItem>
                 <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>
                 <asp:ListItem Value="EQT">Equity Transaction</asp:ListItem>
-                <asp:ListItem Value="MFSS">Systematic Setup</asp:ListItem>
+               
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">
