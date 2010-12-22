@@ -1031,7 +1031,7 @@ namespace WealthERP.FP
                     totalasset += assetgroupdetails.Value;
                 }
                 //Cash and Savings
-                if (txtPMS.Text != string.Empty)
+                if (txtCashAndSavings.Text != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "CS";
@@ -1040,7 +1040,7 @@ namespace WealthERP.FP
                     totalasset += assetgroupdetails.Value;
                 }
                 //Structured Product
-                if (txtPMS.Text != string.Empty)
+                if (txtStructuredProduct.Text != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "SP";
@@ -1049,7 +1049,7 @@ namespace WealthERP.FP
                     totalasset += assetgroupdetails.Value;
                 }
                 //Commodities
-                if (txtPMS.Text != string.Empty)
+                if (txtCommodities.Text != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "CM";
@@ -1058,7 +1058,7 @@ namespace WealthERP.FP
                     totalasset += assetgroupdetails.Value;
                 }
                 //Others
-                if (txtPMS.Text != string.Empty)
+                if (txtInvestmentsOthers.Text != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "OT";
@@ -1067,13 +1067,44 @@ namespace WealthERP.FP
                     totalasset += assetgroupdetails.Value;
                 }
                 //MF Consolidated value
-                if (txtPMS.Text != string.Empty)
-                {
+               
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "MF";
-                    assetgroupdetails.Value = double.Parse(txtMFEquity.Text) + double.Parse(txtMFDebt.Text) + double.Parse(txtMFHybridEquity.Text) + double.Parse(txtMFHybridDebt.Text);
+                    assetgroupdetails.Value = 0.0;
+                    if (txtMFEquity.Text != string.Empty)
+                    {
+                        assetgroupdetails.Value += double.Parse(txtMFEquity.Text) ;
+                    }
+                    else
+                    {
+                        assetgroupdetails.Value += 0.0;
+                    }
+                    if (txtMFDebt.Text != string.Empty)
+                    {
+                        assetgroupdetails.Value +=  double.Parse(txtMFDebt.Text);
+                    }
+                    else
+                    {
+                        assetgroupdetails.Value += 0.0;
+                    }
+                    if (txtMFHybridEquity.Text != string.Empty)
+                    {
+                        assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text);
+                    }
+                    else
+                    {
+                        assetgroupdetails.Value += 0.0;
+                    }
+                    if (txtMFHybridDebt.Text != string.Empty)
+                    {
+                        assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text);
+                    }
+                    else
+                    {
+                        assetgroupdetails.Value += 0.0;
+                    }
                     assetgroupdetailslist.Add(assetgroupdetails);                    
-                }
+                
                 //==========================================================================================================================
 
                 //Life Insurance
