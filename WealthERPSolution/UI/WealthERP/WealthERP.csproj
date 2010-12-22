@@ -2119,13 +2119,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CapitalGainSummaryDS.Designer.cs" />
-    <Compile Include="Reports\CustomerAssetAllocationDetails.cs">
-      <DependentUpon>CustomerAssetAllocationDetails.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\CustomerAssetAllocationDetails.Designer.cs">
-      <DependentUpon>CustomerAssetAllocationDetails.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reports\CustomerInvestmentDetails.cs">
       <SubType>Component</SubType>
     </Compile>
