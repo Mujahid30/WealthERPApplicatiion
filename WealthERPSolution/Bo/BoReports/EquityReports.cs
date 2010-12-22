@@ -24,7 +24,7 @@ namespace BoReports
             //return eqReports.GetEquityScripwiseSummary(reports, adviserId);
 
 
-           EquityReportsDao eqReports = new EquityReportsDao();
+            EquityReportsDao equityReportsDao = new EquityReportsDao();
 
             DataSet dsPortfolio = new DataSet();
             DataTable dtCurrent = new DataTable();
@@ -41,7 +41,7 @@ namespace BoReports
 
 
 
-            DataSet dsPortfolioSummary = eqReports.GetEquityScripwiseSummary(report, adviserId);
+            DataSet dsPortfolioSummary = equityReportsDao.GetEquityScripwiseSummary(report, adviserId);
 
             dtCurrent = dsPortfolioSummary.Tables[0];
             dtPrevious = dsPortfolioSummary.Tables[1];
@@ -84,34 +84,68 @@ namespace BoReports
 
             return dtMFSummary;
 
-
-
-
         }
+
+       public DataTable GetEquityTransaction(EquityReportVo report, int adviserId)
+       {
+           EquityReportsDao equityReportsDao = new EquityReportsDao();
+           DataTable dtCurrent = new DataTable();           
+          
+           try
+           {
+               DataSet dsPortfolioSummary = equityReportsDao.GetEquityTransaction(report, adviserId);
+               dtCurrent = dsPortfolioSummary.Tables[0];
+           }
+           catch (Exception ex)
+           {
+               throw ex;
+           }
+
+           return dtCurrent;
+
+       }
+
+       public DataSet GetEquityHolding(EquityReportVo report, int adviserId)
+       {
+           EquityReportsDao equityReportsDao = new EquityReportsDao();    
+            DataSet dsPortfolioSummary=new DataSet();
+
+           try
+           {
+               dsPortfolioSummary = equityReportsDao.GetEquityHolding(report, adviserId);
+           }
+           catch (Exception ex)
+           {
+               throw ex;
+           }
+
+           return dsPortfolioSummary;
+       }
+
 
 
         public DataTable GetEquityTransactionAll(EquityReportVo reports)
         {
-            EquityReportsDao eqReports = new EquityReportsDao();
-            return eqReports.GetEquityTransactionAll(reports);
+            EquityReportsDao equityReportsDao = new EquityReportsDao();
+            return equityReportsDao.GetEquityTransactionAll(reports);
         }
 
         public DataTable GetEquityTransactionDerivate(EquityReportVo reports)
         {
-            EquityReportsDao eqReports = new EquityReportsDao();
-            return eqReports.GetEquityTransactionDerivate(reports);
+            EquityReportsDao equityReportsDao = new EquityReportsDao();
+            return equityReportsDao.GetEquityTransactionDerivate(reports);
         }
 
         public DataTable GetEquityTransactionSpeculative(EquityReportVo reports)
         {
-            EquityReportsDao eqReports = new EquityReportsDao();
-            return eqReports.GetEquityTransactionSpeculative(reports);
+            EquityReportsDao equityReportsDao = new EquityReportsDao();
+            return equityReportsDao.GetEquityTransactionSpeculative(reports);
         }
 
         public DataTable GetCustomerPortfolioEquityTransactions(EquityReportVo reports, int adviserId)
         {
-            EquityReportsDao eqReports = new EquityReportsDao();
-            return eqReports.GetCustomerPortfolioEquityTransactions(reports,adviserId);
+            EquityReportsDao equityReportsDao = new EquityReportsDao();
+            return equityReportsDao.GetCustomerPortfolioEquityTransactions(reports, adviserId);
         }
     }
 }
