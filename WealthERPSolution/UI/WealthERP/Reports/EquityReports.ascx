@@ -139,7 +139,8 @@
         arr["EQUITY_SECTOR_WISE"] = "AS_ON";
         arr["EQ_TRANSACTION_REPORT_DELIVERY"] = "DATE_RANGE";
         arr["EQ_TRANSACTION_REPORT_SPECULATIVE"] = "DATE_RANGE";
-        arr["EQ_TRANSACTION_REPORT"] = "DATE_RANGE";
+        arr["EQUITY_TRANSACTION_WISE"] = "DATE_RANGE";
+        arr["EQUITY_HOLDING_WISE"] = "AS_ON";
         arr["EQ_PORTFOLIO_RETURNS_REPORT"] = "AS_ON";
 
         var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
@@ -147,10 +148,16 @@
 
         if (selectedReport == 'EQ_TRANSACTION_REPORT' || selectedReport == 'EQ_PORTFOLIO_RETURNS_REPORT') {
             document.getElementById("spnFilter").style.display = 'block';
+            DisplayDates(arr[selectedReport]);
         }
-        else
-            document.getElementById("spnFilter").style.display = 'none';
+        else if (selectedReport == 'EQUITY_TRANSACTION_REPORT') {
+        alert("equity");
+        document.getElementById("spnFilter").style.display = 'none';
         DisplayDates(arr[selectedReport]);
+        } else {
+            document.getElementById("spnFilter").style.display = 'none';
+            DisplayDates(arr[selectedReport]);
+        }
 
     }
     function OnChanged(sender, args) {
@@ -375,6 +382,8 @@
                     <td align="left">
                         <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="cmbField" onChange="ChangeDates()">
                             <asp:ListItem Text="" Value="EQUITY_SECTOR_WISE" Selected="True">Sectorwise Equity Reports</asp:ListItem>
+                             <asp:ListItem Text="" Value="EQUITY_TRANSACTION_WISE">Transaction Equity Reports</asp:ListItem>
+                             <asp:ListItem Text="" Value="EQUITY_HOLDING_WISE" >Holding Equity Reports</asp:ListItem>
                             <%--<asp:ListItem Text="" Value="EQ_TRANSACTION_REPORT">Transaction Report</asp:ListItem>
                             <asp:ListItem Text="" Value="EQ_PORTFOLIO_RETURNS_REPORT">Portfolio Returns Report</asp:ListItem>--%>
                         </asp:DropDownList>
@@ -415,9 +424,10 @@
                         <table id="tblPickDate" width="100%" border="0">
                             <tr>
                                 <td>
-                                    <asp:RadioButton ID="rbtnPickDate" Checked="true" runat="server" GroupName="Date"
+                                     <asp:Label ID="lblPickDate" runat="server" Text="Pick a date range" CssClass="Field"></asp:Label>
+                                     <asp:RadioButton ID="rbtnPickDate" Checked="true" runat="server" GroupName="Date"
                                         onclick="DisplayDates('DATE_RANGE')" Text="" />
-                                    <asp:Label ID="lblPickDate" runat="server" Text="Pick a date range" CssClass="Field"></asp:Label>
+                                       
                                 </td>
                                 <td>
                                     <asp:RadioButton ID="rbtnPickPeriod" runat="server" GroupName="Date" onclick="DisplayDates('PERIOD')" />

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="EquityTransactionWiseDS" targetNamespace="http://tempuri.org/EquityTransactionWiseDS.xsd" xmlns:mstns="http://tempuri.org/EquityTransactionWiseDS.xsd" xmlns="http://tempuri.org/EquityTransactionWiseDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="EquityTransactionWiseDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="EquityTransactionWiseDS" msprop:Generator_DataSetName="EquityTransactionWiseDS" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="EquityTransactionWise" msprop:Generator_UserTableName="EquityTransactionWise" msprop:Generator_RowDeletedName="EquityTransactionWiseRowDeleted" msprop:Generator_RowChangedName="EquityTransactionWiseRowChanged" msprop:Generator_RowClassName="EquityTransactionWiseRow" msprop:Generator_RowChangingName="EquityTransactionWiseRowChanging" msprop:Generator_RowEvArgName="EquityTransactionWiseRowChangeEvent" msprop:Generator_RowEvHandlerName="EquityTransactionWiseRowChangeEventHandler" msprop:Generator_TableClassName="EquityTransactionWiseDataTable" msprop:Generator_TableVarName="tableEquityTransactionWise" msprop:Generator_RowDeletingName="EquityTransactionWiseRowDeleting" msprop:Generator_TablePropName="EquityTransactionWise">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ScripName" msprop:Generator_UserColumnName="ScripName" msprop:Generator_ColumnPropNameInRow="ScripName" msprop:Generator_ColumnVarNameInTable="columnScripName" msprop:Generator_ColumnPropNameInTable="ScripNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="IsSpeculative" msprop:Generator_UserColumnName="IsSpeculative" msprop:Generator_ColumnPropNameInRow="IsSpeculative" msprop:Generator_ColumnVarNameInTable="columnIsSpeculative" msprop:Generator_ColumnPropNameInTable="IsSpeculativeColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Exchange" msprop:Generator_UserColumnName="Exchange" msprop:Generator_ColumnPropNameInRow="Exchange" msprop:Generator_ColumnVarNameInTable="columnExchange" msprop:Generator_ColumnPropNameInTable="ExchangeColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="TradeDate" msprop:Generator_UserColumnName="TradeDate" msprop:Generator_ColumnPropNameInRow="TradeDate" msprop:Generator_ColumnVarNameInTable="columnTradeDate" msprop:Generator_ColumnPropNameInTable="TradeDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Rate" msprop:Generator_UserColumnName="Rate" msprop:Generator_ColumnPropNameInRow="Rate" msprop:Generator_ColumnVarNameInTable="columnRate" msprop:Generator_ColumnPropNameInTable="RateColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="TotalShares" msprop:Generator_UserColumnName="TotalShares" msprop:Generator_ColumnPropNameInRow="TotalShares" msprop:Generator_ColumnVarNameInTable="columnTotalShares" msprop:Generator_ColumnPropNameInTable="TotalSharesColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="Amount" msprop:Generator_UserColumnName="Amount" msprop:Generator_ColumnPropNameInRow="Amount" msprop:Generator_ColumnVarNameInTable="columnAmount" msprop:Generator_ColumnPropNameInTable="AmountColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="TransType" msprop:Generator_UserColumnName="TransType" msprop:Generator_ColumnPropNameInRow="TransType" msprop:Generator_ColumnVarNameInTable="columnTransType" msprop:Generator_ColumnPropNameInTable="TransTypeColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

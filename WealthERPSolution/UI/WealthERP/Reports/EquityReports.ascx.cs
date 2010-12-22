@@ -27,7 +27,9 @@ namespace WealthERP.Reports
         DateBo dtBo = new DateBo();
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
-        int activeTabIndex = 0;
+        int activeTabIndex = 0;        
+        CustomerVo customerVo = new CustomerVo();
+        AdvisorVo advisorVo;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -40,8 +42,11 @@ namespace WealthERP.Reports
                 rmVo = (RMVo)Session[SessionContents.RmVo];
 
                 BindPeriodDropDown();
-                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+
+                if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
+                    advisorVo = (AdvisorVo)Session["advisorVo"]; 
 
                 if (!IsPostBack)
                 {
@@ -49,6 +54,23 @@ namespace WealthERP.Reports
                     DataSet ds = customerTransactionBo.GetLastTradeDate();
                     if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                         txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+
+                    //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
+                    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    {
+                        txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    {
+                        txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                        txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                        txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                    }
                 }
 
                 if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_EquityReports$hidTabIndex"]))
@@ -83,14 +105,13 @@ namespace WealthERP.Reports
         }
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
-            CustomerBo customerBo = new CustomerBo();
-            CustomerVo customerVo = new CustomerVo();
+           
             if (txtCustomerId.Value != string.Empty)
             {
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                 DataRow dr = dt.Rows[0];
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
-                Session["CusVo"] = customerVo;
+                Session["customerVo"] = customerVo;
                 txtPanParent.Text = dr["C_PANNum"].ToString();
                 trCustomerDetails.Visible = true;
                 trPortfolioDetails.Visible = true;
@@ -103,6 +124,8 @@ namespace WealthERP.Reports
         protected void txtParentCustomerId_ValueChanged(object sender, EventArgs e)
         {
 
+            customerVo = customerBo.GetCustomer(int.Parse(txtParentCustomerId.Value));
+            Session["customerVo"] = customerVo;
             ShowGroupCustomers();
 
         }
@@ -282,6 +305,8 @@ namespace WealthERP.Reports
         {
 
         }
+
+
 
     }
 }
