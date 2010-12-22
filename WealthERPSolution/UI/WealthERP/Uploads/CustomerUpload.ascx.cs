@@ -388,7 +388,7 @@ namespace WealthERP.Uploads
                             if (stdProInputResult)
                             {
                                 processlogVo.IsInsertionToInputComplete = 1;
-                                processlogVo.IsInsertionToXtrnlComplete = 2;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
                                 processlogVo.EndTime = DateTime.Now;
                                 processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
                                 bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
@@ -1909,7 +1909,7 @@ namespace WealthERP.Uploads
                             if (werpEQTradeInputResult)
                             {
                                 processlogVo.IsInsertionToInputComplete = 1;
-                                processlogVo.IsInsertionToXtrnlComplete = 2;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
                                 processlogVo.EndTime = DateTime.Now;
                                 processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
                                 bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
