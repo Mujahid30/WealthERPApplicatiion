@@ -64,7 +64,7 @@
                         <asp:TreeNode Text="MIS" Value="EMIS"></asp:TreeNode>
                         <asp:TreeNode Text="View Transactions" Value="EView Transactions"></asp:TreeNode>
                         <asp:TreeNode Text="Add Transactions" Value="EAdd Transactions"></asp:TreeNode>
-                        <%--<asp:TreeNode Text="Equity Reports" Value="EquityReports"  ></asp:TreeNode>--%>
+                        <asp:TreeNode Text="Equity Reports" Value="EquityReports"  ></asp:TreeNode>
                     </asp:TreeNode>
                     <asp:TreeNode Text="FP" Value="FP">
                         <asp:TreeNode Text="Prospect List" Value="ProspectList"></asp:TreeNode>
