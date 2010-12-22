@@ -471,7 +471,7 @@ namespace WealthERP.Uploads
                             else
                             {
                                 InputInsertionProgress = "Failure";
-                                XtrnlInsertionProgress = "NA";
+                                XtrnlInsertionProgress = "1";
                             }
 
                             if (stdProFirstStagingResult)
@@ -497,6 +497,10 @@ namespace WealthERP.Uploads
                             txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
                             processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
                             Session[SessionContents.ProcessLogVo] = processlogVo;
+                            if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
+                            {
+                                msgUploadComplete.Visible = true;
+                            }
                         }
                         #endregion Standard Profile Upload
 
@@ -1858,7 +1862,7 @@ namespace WealthERP.Uploads
                             else
                                 WERPInsertionProgress = "Failure";
 
-                            XtrnlInsertionProgress = "N/A";
+                            XtrnlInsertionProgress = "1";
 
                             // Update Process Summary Text Boxes
                             txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -1876,6 +1880,10 @@ namespace WealthERP.Uploads
                             txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
 
                             Session[SessionContents.ProcessLogVo] = processlogVo;
+                            if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
+                            {
+                                msgUploadComplete.Visible = true;
+                            }
                         }
                         #endregion Standard Equity Transaction Upload
 
@@ -2000,7 +2008,7 @@ namespace WealthERP.Uploads
                             else
                                 WERPInsertionProgress = "Failure";
 
-                            XtrnlInsertionProgress = "N/A";
+                            XtrnlInsertionProgress = "1";
 
                             // Update Process Summary Text Boxes
                             txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
@@ -2010,6 +2018,11 @@ namespace WealthERP.Uploads
                             txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
 
                             Session[SessionContents.ProcessLogVo] = processlogVo;
+                            if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
+                            {
+                                msgUploadComplete.Visible = true;
+                            }
+
                         }
                         #endregion Standard Equity Trade Account Upload
 
