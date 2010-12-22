@@ -34,29 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="AjaxControlToolkit, Version=3.0.20820.16598, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="BoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoCustomerAnalytics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoCustomerGoalProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoCustomerPortfolio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoCustomerReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoFPSuperlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoMarketDataPull, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoSupportData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoUploads, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoWerpAdmin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -67,54 +49,20 @@
       <HintPath>bin\CrystalDecisions.Web.dll</HintPath>
     </Reference>
     <Reference Include="DanLudwig.Controls.AspAjax.ListBox, Version=0.3.3856.27484, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoCustomerAnalytics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoCustomerGoalProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoCustomerPortfolio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoCustomerReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoMarketDataPull, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoSupportData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoUploads, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoWerpAdmin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Financial, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
-      <HintPath>bin\itextsharp.dll</HintPath>
-    </Reference>
+    <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data.SqlCe, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SQLServer.ManagedDTS, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="office, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\office.dll</HintPath>
+    </Reference>
     <Reference Include="PCGMailLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -129,6 +77,8 @@
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Forms.DataVisualization.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -2169,7 +2119,16 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CapitalGainSummaryDS.Designer.cs" />
-    <Compile Include="Reports\CustomerAssetAllocationDetails.Designer.cs" />
+    <Compile Include="Reports\CustomerAssetAllocationDetails.cs">
+      <DependentUpon>CustomerAssetAllocationDetails.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CustomerAssetAllocationDetails.Designer.cs">
+      <DependentUpon>CustomerAssetAllocationDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CustomerInvestmentDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\CustomerInvestmentDetailsDS.Designer.cs" />
     <Compile Include="Reports\Display.aspx.cs">
       <DependentUpon>Display.aspx</DependentUpon>
@@ -2193,12 +2152,22 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\EqTransactionAllDS1.Designer.cs" />
+    <Compile Include="Reports\EquityHoldingsDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EquityHoldingsDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\EquityReports.ascx.cs">
       <DependentUpon>EquityReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Reports\EquityReports.ascx.designer.cs">
       <DependentUpon>EquityReports.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\EquityTransactionWiseDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EquityTransactionWiseDS.xsd</DependentUpon>
     </Compile>
     <Compile Include="Reports\FinancialPlanning.cs">
       <SubType>Component</SubType>
@@ -2561,17 +2530,17 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>EqTransactionAll.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\EquityHoldingWise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EquityHoldingWise.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\EquityTransactionWise.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EquityTransactionWise.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\FinancialPlanning.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FinancialPlanning1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\IndivisualCustomerAssetAllocationDetails.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>IndivisualCustomerAssetAllocationDetails.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\IndivisualCustomerInvestmentDetails.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>IndivisualCustomerInvestmentDetails.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFDividend.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2615,9 +2584,237 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Bo\AdvisorProfiling\BoAdvisorProfiling.csproj">
+      <Project>{57F14CB4-03CF-4E2D-B015-CBF45984F8A6}</Project>
+      <Name>BoAdvisorProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\Alerts\BoAlerts\BoAlerts.csproj">
+      <Project>{75B0917B-4900-4CE1-B99D-110DBA9961AC}</Project>
+      <Name>BoAlerts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoFPSuperlite\BoFPSuperlite.csproj">
+      <Project>{92650A8F-D5DF-486E-9181-A00799F2C50C}</Project>
+      <Name>BoFPSuperlite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoMarketDataPull\BoMarketDataPull.csproj">
+      <Project>{11F67200-9287-465A-9A0C-2B7DE855D61D}</Project>
+      <Name>BoMarketDataPull</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoReports\BoReports.csproj">
+      <Project>{3F53C1DE-8C38-409F-8BB3-82D8FA9E63EF}</Project>
+      <Name>BoReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoWerpAdmin\BoWerpAdmin.csproj">
+      <Project>{185F42DE-55D9-42DA-994E-F8E4DF385D0D}</Project>
+      <Name>BoWerpAdmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\Calculator\BoCalculator.csproj">
+      <Project>{2D02B850-6EB4-439D-9754-61E2AE98BB4B}</Project>
+      <Name>BoCalculator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\Common\BoCommon\BoCommon.csproj">
+      <Project>{F034F6F7-2938-4126-921E-9847633F0624}</Project>
+      <Name>BoCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\CustomerAnalytics\BoCustomerAnalytics.csproj">
+      <Project>{AD82D4B2-FE57-43EA-9852-FD51402D87B9}</Project>
+      <Name>BoCustomerAnalytics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\CustomerGoalProfiling\BoCustomerGoalProfiling.csproj">
+      <Project>{B7C70608-46CA-4F40-8166-F15ED8D5C8E2}</Project>
+      <Name>BoCustomerGoalProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\CustomerPortfolio\BoCustomerPortfolio.csproj">
+      <Project>{F166259A-BF9E-457B-97E4-7B0157427D86}</Project>
+      <Name>BoCustomerPortfolio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\CustomerProfiling\BoCustomerProfiling.csproj">
+      <Project>{F15A983D-A783-4935-AABE-59173BCF134B}</Project>
+      <Name>BoCustomerProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\CustomerReports\BoCustomerReports.csproj">
+      <Project>{6D697603-F637-41AA-A858-D8EA7A28DF0D}</Project>
+      <Name>BoCustomerReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\CustomerRiskProfiling\BoCustomerRiskProfiling.csproj">
+      <Project>{91A1DC4B-5F18-467D-A8EB-17FECF9FCE81}</Project>
+      <Name>BoCustomerRiskProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\MarketFeeds\BoMarketFeeds.csproj">
+      <Project>{A985DB74-ED6C-400F-BC9A-63F9097F11D0}</Project>
+      <Name>BoMarketFeeds</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\ProductMaster\BoProductMaster.csproj">
+      <Project>{5CF5199A-6940-4A10-B203-1C2BAAA21719}</Project>
+      <Name>BoProductMaster</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\SupportData\BoSupportData.csproj">
+      <Project>{8B45A3CF-FC46-4C8E-998E-6E752C3E2412}</Project>
+      <Name>BoSupportData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\Uploads\BoUploads.csproj">
+      <Project>{7FB3964A-1B3C-45BF-88CB-2693C2C3CF67}</Project>
+      <Name>BoUploads</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\User\BoUser.csproj">
+      <Project>{D34F58BD-27F2-4C13-82E0-1A694CEAA430}</Project>
+      <Name>BoUser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\AdvisorProfiling\DaoAdvisorProfiling.csproj">
+      <Project>{B3A976E6-D981-4E80-8E59-92197CFB43B8}</Project>
+      <Name>DaoAdvisorProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\Alerts\DaoAlerts.csproj">
+      <Project>{9610BF68-ED9D-4C55-B130-7E21F9ABBDE8}</Project>
+      <Name>DaoAlerts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\Calculator\DaoCalculator.csproj">
+      <Project>{422A6051-72C2-42C1-BE26-C178B619C4F8}</Project>
+      <Name>DaoCalculator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\Common\DaoCommon\DaoCommon.csproj">
+      <Project>{5707F305-5EEF-4E89-BC28-5F771F3ABA33}</Project>
+      <Name>DaoCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\CustomerAnalytics\DaoCustomerAnalytics.csproj">
+      <Project>{48C6D1D8-F089-430E-A555-4F384199E912}</Project>
+      <Name>DaoCustomerAnalytics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\CustomerGoalProfiling\DaoCustomerGoalProfiling.csproj">
+      <Project>{3C69D200-2BB8-4A9F-9F4D-AD4C7332CD50}</Project>
+      <Name>DaoCustomerGoalProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\CustomerPortfolio\DaoCustomerPortfolio.csproj">
+      <Project>{5E81A7D9-9476-428B-97EC-7F7224FEE1A0}</Project>
+      <Name>DaoCustomerPortfolio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\CustomerProfiling\DaoCustomerProfiling.csproj">
+      <Project>{25A93A43-71AB-4A87-B5EB-9104C6E476DA}</Project>
+      <Name>DaoCustomerProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\CustomerReports\DaoCustomerReports.csproj">
+      <Project>{A9DE6EA6-8842-4742-A40C-EB9754F9EC19}</Project>
+      <Name>DaoCustomerReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\CustomerRiskProfiling\DaoCustomerRiskProfiling.csproj">
+      <Project>{38E6C00C-F53F-4329-8638-BF1F50DE9508}</Project>
+      <Name>DaoCustomerRiskProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\DaoCaching\DaoCaching.csproj">
+      <Project>{EB49C276-7400-485C-987A-8610D69E9E25}</Project>
+      <Name>DaoCaching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\DaoFPSuperlite\DaoFPSuperlite.csproj">
+      <Project>{A12294FA-59FB-40FC-858B-58AB8F9F6FFB}</Project>
+      <Name>DaoFPSuperlite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\DaoMarketDataPull\DaoMarketDataPull.csproj">
+      <Project>{46D98F10-031C-4B6C-90C6-3248F5ECCD20}</Project>
+      <Name>DaoMarketDataPull</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\DaoReports\DaoReports.csproj">
+      <Project>{4C297977-2FAD-4445-9B81-8EF884AFFB4E}</Project>
+      <Name>DaoReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\DaoWerpAdmin\DaoWerpAdmin.csproj">
+      <Project>{1D5C78A2-C1EA-477B-BAA2-7264A3BAB647}</Project>
+      <Name>DaoWerpAdmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\MarketFeeds\DaoMarketFeeds.csproj">
+      <Project>{FD657D47-7130-4809-BB8B-9A37CA5B24E9}</Project>
+      <Name>DaoMarketFeeds</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\ProductMaster\DaoProductMaster.csproj">
+      <Project>{D4B64A12-187A-44B2-84A1-5E9EC1EB9D15}</Project>
+      <Name>DaoProductMaster</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\SupportData\DaoSupportData.csproj">
+      <Project>{ADA9268C-8F81-44FB-8063-66F3AFDBF6ED}</Project>
+      <Name>DaoSupportData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\Uploads\DaoUploads.csproj">
+      <Project>{134DAB18-43B9-42C3-9907-376EB30BC2AC}</Project>
+      <Name>DaoUploads</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\User\DaoUser.csproj">
+      <Project>{79B272B3-D311-430C-8559-7EC324E0C9E7}</Project>
+      <Name>DaoUser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
       <Project>{CA477068-2337-4E11-B066-AC5B1ED36CCF}</Project>
       <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\AdvisorProfiling\VoAdvisorProfiling.csproj">
+      <Project>{E48FFEBF-AC77-4063-A48C-C9381B5D4C6F}</Project>
+      <Name>VoAdvisorProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\Alerts\VoAlerts.csproj">
+      <Project>{EE9E19A4-F2F8-4851-A80B-3BACD1F11A2B}</Project>
+      <Name>VoAlerts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\Calculator\VoCalculator.csproj">
+      <Project>{7CD1CDC8-862B-44F9-BFC0-730BAC9F9E9B}</Project>
+      <Name>VoCalculator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerAnalytics\VoCustomerAnalytics.csproj">
+      <Project>{59BB3DA5-AB54-4FDA-863B-E16016155CC1}</Project>
+      <Name>VoCustomerAnalytics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerGoalProfiling\VoCustomerGoalProfiling.csproj">
+      <Project>{A248D29B-9104-4CA1-A51F-684B4D7A7F7B}</Project>
+      <Name>VoCustomerGoalProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerPortfolio\VoCustomerPortfolio.csproj">
+      <Project>{8250E435-88E6-4C95-824E-1BF111361708}</Project>
+      <Name>VoCustomerPortfolio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerProfiling\VoCustomerProfiling.csproj">
+      <Project>{9ADEC963-65FF-407E-A710-E8DFAAE884C9}</Project>
+      <Name>VoCustomerProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerReports\VoCustomerReports.csproj">
+      <Project>{43999BEC-540E-49F5-864A-B36D367B1DEE}</Project>
+      <Name>VoCustomerReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerRiskProfiling\VoCustomerRiskProfiling.csproj">
+      <Project>{F83A4EB9-B067-454D-BF80-9F9D816975E6}</Project>
+      <Name>VoCustomerRiskProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\MarketFeeds\VoMarketFeeds.csproj">
+      <Project>{C2700E78-D70F-4A47-879C-BB42F1F588DE}</Project>
+      <Name>VoMarketFeeds</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\ProductMaster\VoProductMaster.csproj">
+      <Project>{53888536-DA1C-4E64-8CD2-C4092D44C14E}</Project>
+      <Name>VoProductMaster</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\SupportData\VoSupportData.csproj">
+      <Project>{2636AA25-8CE1-418E-9380-F00EDD3D0AD2}</Project>
+      <Name>VoSupportData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\Uploads\VoUploads.csproj">
+      <Project>{A6B91CA0-3E43-469C-A808-7DFA8D2891AA}</Project>
+      <Name>VoUploads</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\User\VoUser.csproj">
+      <Project>{5A775261-8919-4080-81AA-545763D709DB}</Project>
+      <Name>VoUser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\VoEmailSMS\VoEmailSMS.csproj">
+      <Project>{63F55269-2303-4902-9AEE-DD71DB00675D}</Project>
+      <Name>VoEmailSMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\VoFPSuperlite\VoFPSuperlite.csproj">
+      <Project>{1AEA591A-AD55-45F2-8C6C-C40FDA3D8B2F}</Project>
+      <Name>VoFPSuperlite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\VoReports\VoReports.csproj">
+      <Project>{07805AD5-0780-4FFF-9157-7714A5928E32}</Project>
+      <Name>VoReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\VoWerpAdmin\VoWerpAdmin.csproj">
+      <Project>{E391CECB-4D6C-4FC4-8C88-1BF3C6367BE9}</Project>
+      <Name>VoWerpAdmin</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -2800,6 +2997,8 @@
     <Content Include="App_Themes\Purple\StyleSheet.css" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\AjaxControlToolkit.pdb" />
+    <Content Include="bin\DaoCaching.dll" />
+    <Content Include="bin\DaoCaching.pdb" />
     <Content Include="CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="CSS\Images\splitter_bar_right_pointer.jpg" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
@@ -3376,6 +3575,28 @@
     <None Include="Reports\EqTransactionAllDS.xss">
       <DependentUpon>EqTransactionAllDS.xsd</DependentUpon>
     </None>
+    <None Include="Reports\EquityHoldingsDS.xsc">
+      <DependentUpon>EquityHoldingsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EquityHoldingsDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EquityHoldingsDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\EquityHoldingsDS.xss">
+      <DependentUpon>EquityHoldingsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EquityTransactionWiseDS.xsc">
+      <DependentUpon>EquityTransactionWiseDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\EquityTransactionWiseDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EquityTransactionWiseDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\EquityTransactionWiseDS.xss">
+      <DependentUpon>EquityTransactionWiseDS.xsd</DependentUpon>
+    </None>
     <None Include="Reports\FinancialPlanningDS.xsc">
       <DependentUpon>FinancialPlanningDS.xsd</DependentUpon>
     </None>
@@ -3731,6 +3952,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="MarketDataDownloadFiles\" />
+    <Folder Include="Reports\App_LocalResources\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
