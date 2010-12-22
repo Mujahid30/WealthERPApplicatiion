@@ -169,7 +169,7 @@
                                             <telerik:GridDateTimeColumn UniqueName="DOB" PickerType="DatePicker" HeaderText="Date of Birth"
                                                 HeaderStyle-HorizontalAlign="Center" DataField="DOB" FooterText="DateTimeColumn footer" 
                                                 DataFormatString="{0:dd/MM/yyyy}" EditDataFormatString="dd MMMM, yyyy" MinDate="1900-01-01" >
-                                                <ItemStyle Width="120px"  DefaultInsertValue="" />                                                
+                                                <ItemStyle Width="120px"   />                                                
                                             </telerik:GridDateTimeColumn>                                            
                                             <telerik:GridTemplateColumn HeaderText="Email-Id" SortExpression="Email-Id" UniqueName="EmailId"
                                                 HeaderStyle-HorizontalAlign="Center" EditFormColumnIndex="1">
