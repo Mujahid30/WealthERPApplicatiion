@@ -268,10 +268,12 @@ namespace DaoCustomerPortfolio
 
             try
             {
+               
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerPortfolioCmd = db.GetStoredProcCommand("SP_GetCustomerDefaultPortfolio");
                 db.AddInParameter(getCustomerPortfolioCmd, "C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(getCustomerPortfolioCmd, "@portfolioFlag", DbType.String,"D");
+                db.AddInParameter(getCustomerPortfolioCmd, "@portfolio", DbType.String, "AB");
 
                 dsGetCustomerPortfolio = db.ExecuteDataSet(getCustomerPortfolioCmd);
 
