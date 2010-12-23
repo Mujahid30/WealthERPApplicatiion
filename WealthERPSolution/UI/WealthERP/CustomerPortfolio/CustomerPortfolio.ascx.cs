@@ -578,7 +578,7 @@ namespace WealthERP.CustomerPortfolio
                             trReassignPortfloio.Visible = true;
                             bindFolioDropDown(GoalIds, "E");
                             btnSubmit.Visible = false;
-                            btnSubmit1.Visible = true;
+                            Dissociatecustomer();
 
 
                         }
