@@ -271,7 +271,8 @@ namespace WealthERP.CustomerPortfolio
             CustomerPortfolioVo portfolioVo = new CustomerPortfolioVo();
             if (txtCustomerId.Value != string.Empty)
             {
-                portfolioVo = portfolioBo.GetCustomerDefaultPortfolio(Convert.ToInt32(txtCustomerId.Value));
+                string portfolio = ddlAdvisorBranchList.SelectedValue;
+                portfolioVo = portfolioBo.GetCustomerDefaultPortfolio1((Convert.ToInt32(txtCustomerId.Value)), portfolio);
                 if (portfolioVo.PortfolioId < 1)
                 {
                     lblMessage.Text = "No default Portfolio found for the selected customer.";
