@@ -271,6 +271,64 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerPortfolioCmd = db.GetStoredProcCommand("SP_GetCustomerDefaultPortfolio");
                 db.AddInParameter(getCustomerPortfolioCmd, "C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getCustomerPortfolioCmd, "@portfolioFlag", DbType.String,"D");
+
+                dsGetCustomerPortfolio = db.ExecuteDataSet(getCustomerPortfolioCmd);
+
+                if (dsGetCustomerPortfolio.Tables[0] != null && dsGetCustomerPortfolio.Tables[0].Rows.Count > 0)
+                {
+                    customerPortfolioVo = new CustomerPortfolioVo();
+                    dr = dsGetCustomerPortfolio.Tables[0].Rows[0];
+
+                    customerPortfolioVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
+                    customerPortfolioVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                    customerPortfolioVo.IsMainPortfolio = int.Parse(dr["CP_IsMainPortfolio"].ToString());
+                    customerPortfolioVo.PortfolioTypeCode = dr["XPT_PortfolioTypeCode"].ToString();
+                    customerPortfolioVo.PMSIdentifier = dr["CP_PMSIdentifier"].ToString();
+                }
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "PortfolioDao.cs:GetCustomerDefaultPortfolio()");
+
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return customerPortfolioVo;
+
+        }
+
+        public CustomerPortfolioVo GetCustomerDefaultPortfolio1(int customerId, String portfolio)
+        {
+            CustomerPortfolioVo customerPortfolioVo = null;
+            Database db;
+            DbCommand getCustomerPortfolioCmd;
+            DataSet dsGetCustomerPortfolio;
+            DataRow dr;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerPortfolioCmd = db.GetStoredProcCommand("SP_GetCustomerDefaultPortfolio");
+                db.AddInParameter(getCustomerPortfolioCmd, "C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getCustomerPortfolioCmd, "@portfolio", DbType.String, portfolio);
+                db.AddInParameter(getCustomerPortfolioCmd, "@portfolioFlag", DbType.String, "M");
 
                 dsGetCustomerPortfolio = db.ExecuteDataSet(getCustomerPortfolioCmd);
 
