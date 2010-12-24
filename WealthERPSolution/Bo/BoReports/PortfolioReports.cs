@@ -68,19 +68,21 @@ namespace BoReports
                     }
 
                 }
+                dsPortfolio.Tables.Add(dtAssets);
+                dsPortfolioSummary.Tables[2].TableName = "dtLiabilities";
+                dsPortfolio.Tables.Add(dsPortfolioSummary.Tables[2].Copy());
+
+                DataTable dtNetWorth = CalculateCustomersNetWorth(dsPortfolio);
+                //DataTable dtNetWorth =  CalculateNetWorth(dsPortfolio);
+                dsPortfolio.Tables.Add(dtNetWorth);
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-            dsPortfolio.Tables.Add(dtAssets);
-            dsPortfolioSummary.Tables[2].TableName = "dtLiabilities";
-            dsPortfolio.Tables.Add(dsPortfolioSummary.Tables[2].Copy());
-
-            DataTable dtNetWorth = CalculateCustomersNetWorth(dsPortfolio);
-            //DataTable dtNetWorth =  CalculateNetWorth(dsPortfolio);
-            dsPortfolio.Tables.Add(dtNetWorth);
+            
 
 
             return dsPortfolio;
@@ -122,7 +124,12 @@ namespace BoReports
                 double CustomerId = 0;
                 Double PreviousValues = 0;
                 Double PresentValues = 0;
-                Double TempCustomerID = Double.Parse(dtPortfolioSummary.Rows[0]["CustomerId"].ToString());
+                
+                Double TempCustomerID =0;
+                if (dtPortfolioSummary.Rows.Count>0)
+                    TempCustomerID = Double.Parse(dtPortfolioSummary.Rows[0]["CustomerId"].ToString());
+                else
+                    TempCustomerID = 0;
                 string CustomerName = "";
                 double LoanAmount = 0;
                 foreach (DataRow drAssets in dtPortfolioSummary.Rows)
