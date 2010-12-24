@@ -645,6 +645,7 @@ namespace WealthERP.Advisor
                 {
                     Label Hlb1 = (Label)gvEQMIS.HeaderRow.FindControl("lblCustIndDelby");
                     Hlb1.Text = "Company Name";
+                    
 
                     Label Hlb2 = (Label)gvEQMIS.HeaderRow.FindControl("lblIndMValueDelSell");
                     Hlb2.Text = "Industry";

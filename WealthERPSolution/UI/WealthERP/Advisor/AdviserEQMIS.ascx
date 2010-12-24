@@ -220,12 +220,12 @@
                <%-- End--%>
                
                  <Columns>
-                    <asp:TemplateField HeaderStyle-Wrap="false">
+                    <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-HorizontalAlign="Left">
                         <HeaderTemplate>
                             <asp:Label ID="lblCustIndDelby" runat="server" Text=""></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblItemCustIndDelby" CssClass="GridViewCmbFieldforBM"  runat="server" Text='<%# Eval("CName_Industry_Delby").ToString() %>'></asp:Label>
+                            <asp:Label ID="lblItemCustIndDelby" runat="server" Text='<%# Eval("CName_Industry_Delby").ToString() %>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <FooterTemplate>
@@ -235,12 +235,12 @@
                         </FooterTemplate>
                     </asp:TemplateField>
                     
-                    <asp:TemplateField HeaderStyle-Wrap="false">
+                    <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-HorizontalAlign="Left">
                         <HeaderTemplate>
                             <asp:Label ID="lblIndMValueDelSell" runat="server" Text=""></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblItemIndMValueDelSell" CssClass="GridViewCmbFieldforBM"  runat="server" Text='<%# Eval("Industry_MValue_DelSell").ToString() %>'></asp:Label>
+                            <asp:Label ID="lblItemIndMValueDelSell" runat="server" Text='<%# Eval("Industry_MValue_DelSell").ToString() %>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <FooterTemplate>
