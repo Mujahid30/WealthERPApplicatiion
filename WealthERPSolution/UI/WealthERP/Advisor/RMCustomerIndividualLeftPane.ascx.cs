@@ -35,9 +35,11 @@ namespace WealthERP.Advisor
             string Last = null;
             userVo = (UserVo)Session["userVo"];
             bool isGrpHead = false;
+            int CustomerId = 0;
 
             try
             {
+                
                 customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
                 if (customerVo != null)
                 {
@@ -438,6 +440,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','none');", true);
                 }
+                //else if (TreeView1.SelectedNode.Value == "FinancialPlanning")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerFPDashBoard','none');", true);
+                //}
                 if (TreeView1.SelectedNode.Value == "RiskProfileAssetAllocation")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('FinancialPlanning','login')", true);
