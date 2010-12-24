@@ -154,7 +154,7 @@ namespace WealthERP.Advisor
         private void BindCustomer(int CurrentPage)
         {
 
-
+            int count;
             DataSet dsCustomerFolio;           
             AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
             DataTable dtCustomerFolio = new DataTable();
@@ -165,13 +165,11 @@ namespace WealthERP.Advisor
                 {
                     mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
                     hdnCurrentPage.Value = "";
-                }
-
-                int Count = 0;
+                }              
 
 
-                dsCustomerFolio = adviserBranchBo.GetAdviserCustomerFolioMerge(adviserVo.advisorId, mypager.CurrentPage, hdnNameFilter.Value.ToString(),"D");
-                lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
+                dsCustomerFolio = adviserBranchBo.GetAdviserCustomerFolioMerge(adviserVo.advisorId, mypager.CurrentPage, hdnNameFilter.Value.ToString(),out count);
+                lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
 
                 dtCustomerFolio.Columns.Add("CustomerId");
                 dtCustomerFolio.Columns.Add("CustomerName");
@@ -180,10 +178,6 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("Count");
                 dtCustomerFolio.Columns.Add("portfilionumber");
                 dtCustomerFolio.Columns.Add("mergerstatus");
-
-
-
-
 
                 if (dsCustomerFolio.Tables[0].Rows.Count==0)
                 {                    
@@ -222,10 +216,6 @@ namespace WealthERP.Advisor
 
                     gvCustomerFolioMerge.DataSource = dtCustomerFolio;
                     gvCustomerFolioMerge.DataBind();
-                                
-
-                   
-               
 
                     //Customer search
                     //TextBox txtBranch = GetBranchTextBox();
@@ -235,13 +225,9 @@ namespace WealthERP.Advisor
                     //    {
                     //        txtBranch.Text = hdnBranchFilter.Value.ToString();
                     //    }
-                    //}              
-                    
-                   
-                   
+                    //}    
 
-
-                    //this.GetPageCount();
+                    this.GetPageCount();
                 }
             }
             catch (BaseApplicationException Ex)

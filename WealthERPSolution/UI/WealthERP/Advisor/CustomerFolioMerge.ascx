@@ -229,7 +229,7 @@
 </p>
      
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
-<asp:Button ID="btnCustomerSearch" runat="server" Text="" onclick="btnCustomerSearch_Click" BorderStyle="None" BackColor="Transparent" visible="false"/> 
+<asp:Button ID="btnCustomerSearch" runat="server" Text="" onclick="btnCustomerSearch_Click" BorderStyle="None" BackColor="Transparent"/> 
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnBranchFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />
