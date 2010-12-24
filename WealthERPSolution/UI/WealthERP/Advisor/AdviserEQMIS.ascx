@@ -53,7 +53,7 @@
         </td>
 </tr>
 </table>
-<table style="width: 100%;">
+<table>
 <tr id="trEQMISTypeSelection" runat="server">
     <td>
     <asp:Label ID="lblMISType" runat="server" CssClass="FieldName">MIS Type:</asp:Label>
@@ -82,10 +82,13 @@
             &nbsp;
         </td>
     </tr>
-
+</table>
+<table runat="server" id="tblfromTo">
     <tr id="trRange" visible="false" runat="server">
-        <td valign="top" align="left" class="style4" style="height: 49px; width: 500px;">
+        <td align="left" valign="top" style="width>
             <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
+            </td>
+            <td valign="top">
             <asp:TextBox ID="txtFromDate" runat="server" style="vertical-align: middle" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
                 Format="dd/MM/yyyy">
@@ -101,6 +104,8 @@
         </td>
         <td valign="top" align="left">
             <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
+            </td>
+            <td valign="top">
             <asp:TextBox ID="txtToDate" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtToDate_CalendarExtender" runat="server" TargetControlID="txtToDate"
                 Format="dd/MM/yyyy">
@@ -129,9 +134,9 @@
     </tr>
   
     </table>
-    <table style="width: 100%;" runat="server" id="tableComSecWiseOptions">
+    <table runat="server" id="tableComSecWiseOptions">
     <tr runat="server" id="trComSecWiseOptions">
-        <td style="width: 465px">
+        <td valign="top">
             <asp:Label ID="lblEQDate" runat="server" CssClass="FieldName">As on Date:</asp:Label>
             <asp:TextBox ID="txtEQDate" runat="server" style="vertical-align:middle" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="EQcalEX" runat="server" TargetControlID="txtEQDate"
@@ -159,17 +164,19 @@
         
     </tr>
     </table>
-    <table style="width: 100%;" >
+    <table>
     
     <tr runat="server" id="trBranchRmDpRow">
-    <td align="left" style="width:500px" >
+    <td align="left">
     <asp:Label ID="lblChooseBranchBM" runat="server" Font-Bold="true"  CssClass="FieldName"  Text="Branch: "></asp:Label>
     <asp:DropDownList ID="ddlBranchForEQ" style="vertical-align: middle"  CssClass="cmbField" runat="server" 
             AutoPostBack="true" 
             onselectedindexchanged="ddlBranchForEQ_SelectedIndexChanged">
     </asp:DropDownList>
     </td>
+    
     <td>
+    <asp:Image Visible="false" runat="server" Width="10px" />
     <asp:Label ID="lblChooseRM" runat="server" Font-Bold="true"  CssClass="FieldName"  Text="RM: "></asp:Label>
     <asp:DropDownList ID="ddlRMEQ" style="vertical-align: middle"  CssClass="cmbField" runat="server" 
             AutoPostBack="true" 
@@ -218,7 +225,7 @@
                             <asp:Label ID="lblCustIndDelby" runat="server" Text=""></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblItemCustIndDelby" runat="server" Text='<%# Eval("CName_Industry_Delby").ToString() %>'></asp:Label>
+                            <asp:Label ID="lblItemCustIndDelby" CssClass="GridViewCmbFieldforBM"  runat="server" Text='<%# Eval("CName_Industry_Delby").ToString() %>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <FooterTemplate>
@@ -233,7 +240,7 @@
                             <asp:Label ID="lblIndMValueDelSell" runat="server" Text=""></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblItemIndMValueDelSell" runat="server" Text='<%# Eval("Industry_MValue_DelSell").ToString() %>'></asp:Label>
+                            <asp:Label ID="lblItemIndMValueDelSell" CssClass="GridViewCmbFieldforBM"  runat="server" Text='<%# Eval("Industry_MValue_DelSell").ToString() %>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <FooterTemplate>
@@ -248,7 +255,7 @@
                             <asp:Label ID="lblMValuePerCSpecSell" runat="server" Text=""></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblItemMValuePerCSpecSell" style="text-align: right" runat="server" Text='<%# Eval("MValue_Percentage_SpecSell").ToString() %>'></asp:Label>
+                            <asp:Label ID="lblItemMValuePerCSpecSell" CssClass="GridViewCmbFieldforBM"  style="text-align: right" runat="server" Text='<%# Eval("MValue_Percentage_SpecSell").ToString() %>'></asp:Label>
                         </ItemTemplate>
                         <FooterTemplate>
                             <asp:Label ID="lblFooterItemMValue" style="text-align: right" runat="server" Text=""></asp:Label>
@@ -261,7 +268,7 @@
                             <asp:Label ID="lblMvalueBlankSpecbuy" runat="server" Text=""></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblItemMvalueBlankSpecbuy" runat="server" style="text-align: right" Text='<%# Eval("MValue_Blank_SpecBuy").ToString() %>'></asp:Label>
+                            <asp:Label ID="lblItemMvalueBlankSpecbuy" CssClass="GridViewCmbFieldforBM"  runat="server" style="text-align: right" Text='<%# Eval("MValue_Blank_SpecBuy").ToString() %>'></asp:Label>
                         </ItemTemplate>
                          <FooterTemplate>
                             <asp:Label ID="lblFooterItemMValueBlankSpecBuy"  style="text-align: right" runat="server" Text=""></asp:Label>
