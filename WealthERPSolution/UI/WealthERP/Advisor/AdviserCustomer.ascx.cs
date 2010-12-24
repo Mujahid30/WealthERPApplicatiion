@@ -548,16 +548,17 @@ namespace WealthERP.Advisor
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-                    
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
                     if (isGrpHead == true)
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
-                    else
+                    else 
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
                     Session["IsDashboard"] = "false";
-                    
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Session["customerPortfolioVo"] = customerPortfolioVo;
 
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
@@ -565,12 +566,15 @@ namespace WealthERP.Advisor
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
-                   
+                    Session["IsDashboard"] = "portfolio";
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','list');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
-                    
+
+                    Session["IsDashboard"] = "alerts";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
@@ -578,7 +582,7 @@ namespace WealthERP.Advisor
                     //tempUser = new UserVo();
                     //tempUser = userBo.GetUserDetails(userId);
                     //Session["CustomerUser"] = tempUser;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId="+userId+"');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
