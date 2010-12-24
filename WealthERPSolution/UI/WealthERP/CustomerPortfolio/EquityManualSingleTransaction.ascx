@@ -107,10 +107,14 @@
             <asp:Label ID="Label3" runat="server" Text="Transaction Mode :" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" colspan="2">
-            <asp:RadioButton ID="rbtnDelivery" runat="server" CssClass="txtField" Text="For Delivery "
-                GroupName="TransactionMode" Checked="true" />
-            <asp:RadioButton ID="rbtnSpeculation" runat="server" CssClass="txtField" Text="For Speculation"
-                GroupName="TransactionMode" />
+            <asp:RadioButton ID="rbtnDelivery" AutoPostBack="true" runat="server" 
+                CssClass="txtField" Text="For Delivery "
+                GroupName="TransactionMode" Checked="true" 
+                oncheckedchanged="rbtnDelivery_CheckedChanged" />
+            <asp:RadioButton ID="rbtnSpeculation" runat="server" AutoPostBack="true" 
+                CssClass="txtField" Text="For Speculation"
+                GroupName="TransactionMode" 
+                oncheckedchanged="rbtnSpeculation_CheckedChanged" />
         </td>
         <td>
         </td>

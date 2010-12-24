@@ -72,6 +72,7 @@ namespace WealthERP.CustomerPortfolio
                         lblScripName.Visible = false;
                         LoadTransactionType(path);
                         LoadExchangeType(path);
+                        LoadEquityTradeNumbers();
                     }
                     else
                     {
@@ -79,7 +80,7 @@ namespace WealthERP.CustomerPortfolio
                         portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
                         // btnAddDP.Visible = false;
                     }
-                    LoadEquityTradeNumbers();
+                    
                     
                     if (Session["Trade"] != null)
                     {
@@ -345,8 +346,23 @@ namespace WealthERP.CustomerPortfolio
                 {
                     customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "EQ", eqTransactionVo.TradeDate);
                 }
-                btnSubmit.Enabled = false;
 
+                //List<EQPortfolioVo> eqPortfolioVoList = new List<EQPortfolioVo>();
+                //Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
+                //DateTime tradeDate = new DateTime();
+                //if (Session["ValuationDate"] != null)
+                //{
+                //    genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
+                //    tradeDate = DateTime.Parse(genDict["EQDate"].ToString());
+                //}
+                //eqPortfolioVoList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId, portfolioId, tradeDate, txtScrip.Text, ddlTradeAcc.SelectedItem.Value.ToString());
+                //if (eqPortfolioVoList != null && eqPortfolioVoList.Count > 0)
+                //{
+                //    customerPortfolioBo.DeleteEquityNetPosition(eqPortfolioVoList[0].EQCode, eqPortfolioVoList[0].AccountId, tradeDate);
+                //    customerPortfolioBo.AddEquityNetPosition(eqPortfolioVoList[0], userVo.UserId);
+                //}
+
+                btnSubmit.Enabled = false;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityTransactionsView','none');", true);
             }
 
@@ -399,6 +415,7 @@ namespace WealthERP.CustomerPortfolio
         {
             SetBrokerage();
         }
+
         public void SetBrokerage()
         {
             if (txtRate.Text != "" && txtBroker.Text != "")
@@ -410,15 +427,32 @@ namespace WealthERP.CustomerPortfolio
 
                 customerAccountsVo = customerTransactionBo.GetCustomerEQAccountDetails(int.Parse(ddlTradeAcc.SelectedItem.Value.ToString()), portfolioId);
                 // Stax= Service Tax 
+                //if (txtBrokerage.Text == "")
+                //{
                 if (rbtnDelivery.Checked)
+                {
                     brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageDeliveryPercentage / 100);
-                else
-                    brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageSpeculativePercentage / 100);
-                otherCharges = double.Parse(txtRate.Text) * (customerAccountsVo.OtherCharges / 100);
-                if (txtBrokerage.Text == "0")
                     txtBrokerage.Text = Math.Round(brokerage, 4).ToString();
+                }
+                else
+                {
+                    brokerage = double.Parse(txtRate.Text) * (customerAccountsVo.BrokerageSpeculativePercentage / 100);
+                    txtBrokerage.Text = Math.Round(brokerage, 4).ToString();
+                    
+                }
+                //}
 
-                txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
+                //if (txtOtherCharge.Text == "")
+                //{
+                    otherCharges = double.Parse(txtRate.Text) * (customerAccountsVo.OtherCharges / 100);
+                    if (txtOtherCharge.Text == "")
+                        txtOtherCharge.Text = "0";
+                    if (otherCharges != 0)
+                        txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
+                    else
+                        txtOtherCharge.Text = (double.Parse(txtRate.Text) * double.Parse(txtOtherCharge.Text) / 100).ToString();
+                //}
+
                 Calculate();
             }
         }
@@ -456,8 +490,8 @@ namespace WealthERP.CustomerPortfolio
 
             if (txtRate.Text != "" && txtBroker.Text != "")
             {
-
                 if (txtBrokerage.Text != "")
+
                     brokerage = double.Parse(txtBrokerage.Text);
                 else
                     brokerage = 0;
@@ -469,8 +503,6 @@ namespace WealthERP.CustomerPortfolio
 
 
                 txtTax.Text = Math.Round(Stax, 4).ToString();
-
-
 
 
                 STT = (0.125 / 100) * brokerage;
@@ -605,7 +637,19 @@ namespace WealthERP.CustomerPortfolio
                 txtNumShares.Text = string.Empty;
                 txtTotal.Text = string.Empty;
             }
+            SetBrokerage();
         }
+
+        protected void rbtnDelivery_CheckedChanged(object sender, EventArgs e)
+        {
+            SetBrokerage();
+        }
+
+        protected void rbtnSpeculation_CheckedChanged(object sender, EventArgs e)
+        {
+            SetBrokerage();
+        }
+
        
     }
 }
