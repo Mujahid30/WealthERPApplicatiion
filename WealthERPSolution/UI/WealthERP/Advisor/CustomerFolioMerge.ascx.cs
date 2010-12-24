@@ -346,6 +346,9 @@ namespace WealthERP.Advisor
         {
             CheckBox rdbGVRow = new CheckBox();
             rdbGVRow = GetGvRadioButton();
+            ddlAdvisorBranchList.Items.Clear();
+            
+            
             foreach (GridViewRow dr in gvCustomerFolioMerge.Rows)
             {
                 int rowIndex = dr.RowIndex;
@@ -360,6 +363,8 @@ namespace WealthERP.Advisor
                     bindFolioDropDown(customerId, amcCode, fnumber);
                     
                 }
+                
+
                
             }
 
@@ -403,6 +408,9 @@ namespace WealthERP.Advisor
             Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
             AdvisorVo advisorVo = new AdvisorVo();
             int adviserId = 0;
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            adviserId = advisorVo.advisorId;
+            
             try
             {
                 portfolioBo = new PortfolioBo();
