@@ -376,8 +376,8 @@ namespace WealthERP.Reports
                             //crmain.SetParameterValue("RMContactDetails", "Email :  " + rmVo.Email);
                             //crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
                              crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
-                            //crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
-                            //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                             crmain.SetParameterValue("PreviousDate", DateBo.GetPreviousMonthLastDate(report.ToDate));
+                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             //crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
