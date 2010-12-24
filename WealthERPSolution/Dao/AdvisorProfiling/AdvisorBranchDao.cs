@@ -2104,7 +2104,7 @@ namespace DaoAdvisorProfiling
         }
 
 
-     public DataSet GetAdviserCustomerFolioMerge(int adviserId, int currentPage, string custNameFilter,string flag)
+     public DataSet GetAdviserCustomerFolioMerge(int adviserId, int currentPage, string custNameFilter,out int count)
      {
          
          Database db;
@@ -2114,14 +2114,16 @@ namespace DaoAdvisorProfiling
              db = DatabaseFactory.CreateDatabase("wealtherp");
              getCustomerListCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerFolioMerge");
              db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
-             db.AddInParameter(getCustomerListCmd, "@CurrentProductAMCge", DbType.Int32, currentPage);
-             db.AddInParameter(getCustomerListCmd, "@Flag", DbType.String, flag);
+             db.AddInParameter(getCustomerListCmd, "@currentPage", DbType.Int32, currentPage);
+             
              if (custNameFilter != "")
                  db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, custNameFilter);
              else
                  db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, DBNull.Value);
 
+             db.AddOutParameter(getCustomerListCmd, "@count", DbType.Int64, 1);
              getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+             count =int.Parse(db.GetParameterValue(getCustomerListCmd, "@count").ToString());            
              return getCustomerDs;
 
                   
