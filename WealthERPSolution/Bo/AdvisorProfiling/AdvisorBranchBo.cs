@@ -1436,12 +1436,12 @@ namespace BoAdvisorProfiling
 
         /* End For Branch Dropdowns */
 
-        public DataSet GetAdviserCustomerFolioMerge(int adviserId, int currentPage, string custNameFilter, string flag)
+        public DataSet GetAdviserCustomerFolioMerge(int adviserId, int currentPage, string custNameFilter, out int count)
         {
            
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
 
-                 return advisorBranchDao.GetAdviserCustomerFolioMerge(adviserId, currentPage, custNameFilter, flag);
+            return advisorBranchDao.GetAdviserCustomerFolioMerge(adviserId, currentPage, custNameFilter, out count);
             
                               
         }
