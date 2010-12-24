@@ -446,7 +446,7 @@ namespace WealthERP.Advisor
                                                         {
                                                             for (int k = 0; k < customerPortfolioList.Count; k++)
                                                             {
-                                                                eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, dt, "");
+                                                                eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, dt, string.Empty, string.Empty);
                                                                 if (eqPortfolioList != null)
                                                                 {
 
