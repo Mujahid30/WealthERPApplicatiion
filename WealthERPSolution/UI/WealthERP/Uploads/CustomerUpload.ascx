@@ -338,6 +338,13 @@
        <td colspan="3">
             <%--<asp:label ID="FileType_lbl" runat="server" Font-Bold="false" CssClass="MsgInfo" text="Label"></asp:label>--%>
             <asp:Label ID="lblFileType" runat="server" Font-Bold="false" CssClass="MsgInfo" Text="Label"></asp:Label>
+             
+            
+       
+            <%--<asp:label ID="FileType_lbl" runat="server" Font-Bold="false" CssClass="MsgInfo" text="Label"></asp:label>--%>
+            
+            <%-- <asp:Label ID="lblErrorFileType" runat="server"  CssClass="rfvPCG" Text="Please Upload Correct Format of file.."></asp:Label>
+            --%>
         </td>
     </tr>
     <tr>
