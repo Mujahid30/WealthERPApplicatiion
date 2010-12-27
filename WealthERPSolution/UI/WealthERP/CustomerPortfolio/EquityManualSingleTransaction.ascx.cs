@@ -241,6 +241,7 @@ namespace WealthERP.CustomerPortfolio
                 if (dsEqutiyTradeNumbers.Tables[0].Rows.Count == 0)
                 {
                     btnAddDP.Visible = true;
+                    ddlTradeAcc.Items.Insert(0, new ListItem("Select the Trade Number", "Select the Trade Number"));
                 }
                 else
                 {
