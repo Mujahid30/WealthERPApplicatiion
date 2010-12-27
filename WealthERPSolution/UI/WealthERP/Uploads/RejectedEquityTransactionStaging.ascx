@@ -82,14 +82,14 @@
                             
                         </ItemTemplate>
                         <FooterTemplate>
-                            <asp:Button ID="btnEditSelectedWPTrans" CssClass="FieldName" OnClick="btnEditSelectedWPTrans_Click"
-                                runat="server" Text="Save" />
+                            <%--<asp:Button ID="btnEditSelectedWPTrans" CssClass="FieldName" OnClick="btnEditSelectedWPTrans_Click"
+                                runat="server" Text="Save" />--%>
                         </FooterTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -117,11 +117,11 @@
                             <%--<asp:TextBox ID="txtScripCodeSearch" Text='<%# hdnScripFilter.Value %>' runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedEquityTransactionStaging_btnGridSearch');" />--%>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:TextBox ID="txtScripCode" runat="server" Text='<%# Bind("ScripCode") %>' EnableViewState="true"></asp:TextBox>
+                            <asp:Label ID="txtScripCode" runat="server" Text='<%# Bind("ScripCode") %>' EnableViewState="true"></asp:Label>
                         </ItemTemplate>
-                        <FooterTemplate>
+                      <%--  <FooterTemplate>
                             <asp:TextBox ID="txtScripCodeMultiple" CssClass="FieldName" runat="server" />
-                        </FooterTemplate>
+                        </FooterTemplate>--%>
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <HeaderTemplate>
@@ -130,11 +130,11 @@
                                 CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedEquityTransactionStaging_btnGridSearch');" />
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:TextBox ID="txtExchange" runat="server" Text='<%# Bind("Exchange") %>'></asp:TextBox>
+                            <asp:Label ID="txtExchange" runat="server" Text='<%# Bind("Exchange") %>'></asp:Label>
                         </ItemTemplate>
-                        <FooterTemplate>
+                       <%-- <FooterTemplate>
                             <asp:TextBox ID="txtExchangeMultiple" CssClass="FieldName" runat="server" />
-                        </FooterTemplate>
+                        </FooterTemplate>--%>
                     </asp:TemplateField>
                     <asp:BoundField DataField="Share" HeaderText="Share" DataFormatString="{0:f4}" />
                     <%--<asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:f4}"/>--%>
@@ -143,11 +143,11 @@
                             <asp:Label ID="lblPrice" runat="server" Text="Price"></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:TextBox ID="txtPrice" runat="server" Text='<%# Eval("Price","{0:f4}")  %>' Style="text-align: right"></asp:TextBox>
+                            <asp:Label ID="txtPrice" runat="server" Text='<%# Eval("Price","{0:f4}")  %>' Style="text-align: right"></asp:Label>
                         </ItemTemplate>
-                        <FooterTemplate>
+                      <%--  <FooterTemplate>
                             <asp:TextBox ID="txtPriceMultiple" CssClass="FieldName" runat="server" />
-                        </FooterTemplate>
+                        </FooterTemplate>--%>
                     </asp:TemplateField>
                     <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:f4}"
                         ItemStyle-HorizontalAlign="Right" />
@@ -155,20 +155,20 @@
                         <HeaderTemplate>
                             <asp:Label ID="lblTransactionType" runat="server" Text="Transaction Type"></asp:Label>
                             <%--<asp:TextBox ID="txtTransactionTypeSearch"   Text='<%# hdnTransactionTypeFilter.Value %>'   runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedEquityTransactionStaging_btnGridSearch');" />--%>
-                            <asp:DropDownList ID="ddlTransactionType" runat="server" AutoPostBack="true" runat="server"
+                            <asp:DropDownList ID="ddlTransactionType" runat="server" AutoPostBack="true" runat="server" CssClass="cmbLongField"
                                 OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <%-- <asp:TextBox ID="txtTransactionType" runat="server" Text='<%# Bind("TransactionType") %>'></asp:TextBox>--%>
-                            <asp:HiddenField ID="hdnTransactionType" runat="server" Value='<%# Bind("TransactionTypeCode") %>' />
-                            <asp:DropDownList ID="ddlTransactionType" runat="server">
+                            <asp:Label ID="txtTransactionType" runat="server" Text='<%# Bind("TransactionType") %>'></asp:Label>
+                            <%--<asp:HiddenField ID="hdnTransactionType" runat="server" Value='<%# Bind("TransactionTypeCode") %>' />
+                            <asp:DropDownList ID="ddlTransactionType" runat="server">--%>
                             </asp:DropDownList>
                         </ItemTemplate>
-                        <FooterTemplate>
+                      <%--  <FooterTemplate>
                             <asp:DropDownList ID="ddlTransactionType" runat="server">
                             </asp:DropDownList>
-                        </FooterTemplate>
+                        </FooterTemplate>--%>
                     </asp:TemplateField>
                     <asp:BoundField DataField="CustomerName" HeaderText="Customer Name" />
                     <asp:BoundField DataField="BrokerCode" HeaderText="Broker Code" />

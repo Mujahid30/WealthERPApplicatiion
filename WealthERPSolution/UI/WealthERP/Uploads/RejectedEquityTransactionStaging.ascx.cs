@@ -625,27 +625,32 @@ namespace WealthERP.Uploads
 
                 if (e.Row.Cells[CONST_TRANSACTION_TYPE_COLUMN].FindControl("hdnTransactionType") != null)
                     hdnTransactionType = (HiddenField)e.Row.Cells[CONST_TRANSACTION_TYPE_COLUMN].FindControl("hdnTransactionType");
+                if (ddlTransactionType != null)
+                {
+                    ddlTransactionType.Items.Add(new ListItem("Select Transaction Type", ""));
 
-                ddlTransactionType.Items.Add(new ListItem("Select Transaction Type", ""));
-                ddlTransactionType.SelectedValue = "";
-                ///Add all the Transaction types.
-                if (e.Row.RowType == DataControlRowType.DataRow || e.Row.RowType == DataControlRowType.Footer)
-                {
-                    foreach (DataRow dr in dtTransactionTypes.Rows)
+                    ddlTransactionType.SelectedValue = "";
+
+
+                    ///Add all the Transaction types.
+                    if (e.Row.RowType == DataControlRowType.DataRow || e.Row.RowType == DataControlRowType.Footer)
                     {
-                        ddlTransactionType.Items.Add(new ListItem(dr["WETT_TransactionTYpeName"].ToString(), dr["WETT_TransactionCode"].ToString()));
+                        foreach (DataRow dr in dtTransactionTypes.Rows)
+                        {
+                            ddlTransactionType.Items.Add(new ListItem(dr["WETT_TransactionTYpeName"].ToString(), dr["WETT_TransactionCode"].ToString()));
+                        }
+                        if (!String.IsNullOrEmpty(hdnTransactionType.Value) && Convert.ToInt32(hdnTransactionType.Value) > 0)
+                            ddlTransactionType.SelectedValue = hdnTransactionType.Value;
                     }
-                    if (!String.IsNullOrEmpty(hdnTransactionType.Value) && Convert.ToInt32(hdnTransactionType.Value) > 0)
-                        ddlTransactionType.SelectedValue = hdnTransactionType.Value;
-                }
-                else if (e.Row.RowType == DataControlRowType.Header)  //Add transaction types for filtering.
-                {
-                    foreach (DataRow dr in dtFilterTransactionTypes.Rows)
+                    else if (e.Row.RowType == DataControlRowType.Header)  //Add transaction types for filtering.
                     {
-                        ddlTransactionType.Items.Add(new ListItem(dr["WETT_TransactionTYpeName"].ToString(), dr["WETT_TransactionCode"].ToString()));
+                        foreach (DataRow dr in dtFilterTransactionTypes.Rows)
+                        {
+                            ddlTransactionType.Items.Add(new ListItem(dr["WETT_TransactionTYpeName"].ToString(), dr["WETT_TransactionCode"].ToString()));
+                        }
+                        if (!String.IsNullOrEmpty(hdnTransactionTypeFilter.Value) && Convert.ToInt32(hdnTransactionTypeFilter.Value) > 0)
+                            ddlTransactionType.SelectedValue = hdnTransactionTypeFilter.Value;
                     }
-                    if (!String.IsNullOrEmpty(hdnTransactionTypeFilter.Value) && Convert.ToInt32(hdnTransactionTypeFilter.Value) > 0)
-                        ddlTransactionType.SelectedValue = hdnTransactionTypeFilter.Value;
                 }
             }
 
