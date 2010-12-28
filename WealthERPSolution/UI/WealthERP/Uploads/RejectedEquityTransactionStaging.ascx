@@ -123,14 +123,14 @@
                             <asp:TextBox ID="txtScripCodeMultiple" CssClass="FieldName" runat="server" />
                         </FooterTemplate>--%>
                     </asp:TemplateField>
-                    <asp:TemplateField>
+                    <asp:TemplateField HeaderStyle-Width = "20" >
                         <HeaderTemplate>
                             <asp:Label ID="lblExchange" runat="server" Text="Exchange"></asp:Label>
-                            <asp:TextBox ID="txtExchangeSearch" runat="server" Text='<%# hdnExchangeFilter.Value %>'
+                            <asp:TextBox ID="txtExchangeSearch" Width = "40" runat="server" Text='<%# hdnExchangeFilter.Value %>'
                                 CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedEquityTransactionStaging_btnGridSearch');" />
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="txtExchange" runat="server" Text='<%# Bind("Exchange") %>'></asp:Label>
+                            <asp:Label ID="txtExchange" Width = "20" runat="server" Text='<%# Bind("Exchange") %>'></asp:Label>
                         </ItemTemplate>
                        <%-- <FooterTemplate>
                             <asp:TextBox ID="txtExchangeMultiple" CssClass="FieldName" runat="server" />
@@ -151,16 +151,16 @@
                     </asp:TemplateField>
                     <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:f4}"
                         ItemStyle-HorizontalAlign="Right" />
-                    <asp:TemplateField>
-                        <HeaderTemplate>
+                    <asp:TemplateField  HeaderStyle-Width = "40">
+                        <HeaderTemplate >
                             <asp:Label ID="lblTransactionType" runat="server" Text="Transaction Type"></asp:Label>
                             <%--<asp:TextBox ID="txtTransactionTypeSearch"   Text='<%# hdnTransactionTypeFilter.Value %>'   runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedEquityTransactionStaging_btnGridSearch');" />--%>
-                            <asp:DropDownList ID="ddlTransactionType" runat="server" AutoPostBack="true" runat="server" CssClass="cmbLongField"
+                            <asp:DropDownList ID="ddlTransactionType" Width = "60" runat="server" AutoPostBack="true" runat="server" CssClass="cmbLongField"
                                 OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="txtTransactionType" runat="server" Text='<%# Bind("TransactionType") %>'></asp:Label>
+                            <asp:Label ID="txtTransactionType" Width= "40"  runat="server" Text='<%# Bind("TransactionType") %>'></asp:Label>
                             <%--<asp:HiddenField ID="hdnTransactionType" runat="server" Value='<%# Bind("TransactionTypeCode") %>' />
                             <asp:DropDownList ID="ddlTransactionType" runat="server">--%>
                             </asp:DropDownList>
