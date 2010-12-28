@@ -2191,7 +2191,13 @@ namespace WealthERP.Uploads
         }
 
         protected void ddlUploadType_SelectedIndexChanged(object sender, EventArgs e)
+
         {
+            //Label6.Visible = true;
+            //rbSkipRowsYes.Visible = true;
+            SkiprowsVisible.Visible = true;
+            upload.Visible = false;
+            datevisible.Visible = false;
             if (ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF")
             {
                 trListBranch.Visible = true;
@@ -2272,6 +2278,9 @@ namespace WealthERP.Uploads
 
                 //fill External Type dropdownbox
                 ddlListCompany.DataSource = GetEQTradeAccGenericDictionary();
+                //Label6.Visible = false;
+                //rbSkipRowsYes.Visible = false;
+                SkiprowsVisible.Visible = false;
                 ddlListCompany.DataTextField = "Key";
                 ddlListCompany.DataValueField = "Value";
                 ddlListCompany.DataBind();
@@ -2288,6 +2297,9 @@ namespace WealthERP.Uploads
             {   // EQ Demat Account Only
 
                 //fill External Type dropdownbox
+                Label6.Visible = false;
+                rbSkipRowsYes.Visible = false;
+                rbSkipRowsNo.Visible = false;
                 ddlListCompany.DataSource = GetEQDematAccGenericDictionary();
                 ddlListCompany.DataTextField = "Key";
                 ddlListCompany.DataValueField = "Value";
@@ -2310,6 +2322,9 @@ namespace WealthERP.Uploads
                 ddlListCompany.DataValueField = "Value";
                 ddlListCompany.DataBind();
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+                //Label6.Visible = false;
+                //rbSkipRowsYes.Visible = false;
+                SkiprowsVisible.Visible = false;
 
                 //Fill Extension types for Selected Asset
                 //ddlListExtensionType.DataSource = GetEQTranxExtensions();
@@ -3460,7 +3475,9 @@ namespace WealthERP.Uploads
                 {
                     if (extension == "txt")
                     {
-                        string Filepath = Server.MapPath("UploadFiles") + "\\ODINEqTrans.xls";
+                        string odinFileName = (System.Guid.NewGuid()).ToString();
+
+                        string Filepath = Server.MapPath("UploadFiles") + "\\"+odinFileName+".xls";
                         FileUpload.SaveAs(Filepath);
                         string filetype = ddlAction.SelectedValue.ToString();
                         ds = readFile.ReadTxtFile(Filepath, filetype);
@@ -3632,7 +3649,8 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        //ValidationProgress = "Failure";
+                        XmlCreated = false;
+                        ValidationProgress = "Failure";
                     }
 
                 }

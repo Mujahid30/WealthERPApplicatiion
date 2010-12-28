@@ -290,7 +290,7 @@
             </asp:DropDownList>
         </td>
     </tr>--%>
-    <tr>
+    <tr id="SkiprowsVisible" runat="server" Visible="False" >
         <td class="leftField">
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Do you wish to skip rows?:"></asp:Label>
         </td>
