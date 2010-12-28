@@ -727,6 +727,27 @@ namespace WealthERP.Uploads
                                     }
                                 }
                             }
+                            else if (filetypeId == (int)Contants.UploadTypes.ODINTransaction)
+                            {
+                                // WERP Equity Transation Insertion
+                                werpEQUploadsBo = new WerpEQUploadsBo();
+                                packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQTranStaging.dtsx");
+                                WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTrans(processID, packagePath, configPath, adviserVo.advisorId);
+
+                                if (WERPEQSecondStagingCheckResult)
+                                {
+                                    packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadEQTranStagingToWerp.dtsx");
+                                    bool WERPEQTranWerpResult = werpEQUploadsBo.WERPEQInsertTransDetails(processID, packagePath, configPath); // EQ Trans XML File Type Id = 19);
+                                    if (WERPEQTranWerpResult)
+                                    {
+                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                        processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPEQ");
+                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, "WPEQ");
+                                        processlogVo.EndTime = DateTime.Now;
+                                        blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                    }
+                                }
+                            }
                         }
 
                         #endregion
