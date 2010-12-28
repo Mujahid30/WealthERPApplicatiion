@@ -865,9 +865,18 @@ namespace DaoCustomerPortfolio
                         AccountVo.AccountOpeningDate = DateTime.Parse(dr["CETA_AccountOpeningDate"].ToString());
                     else
                         AccountVo.AccountOpeningDate = DateTime.MinValue;
-                    AccountVo.BrokerageDeliveryPercentage = double.Parse(dr["CETA_BrokerDeliveryPercentage"].ToString());
-                    AccountVo.BrokerageSpeculativePercentage = double.Parse(dr["CETA_BrokerSpeculativePercentage"].ToString());
-                    AccountVo.OtherCharges = double.Parse(dr["CETA_OtherCharges"].ToString());
+                    if (dr["CETA_BrokerDeliveryPercentage"].ToString() != "")
+                        AccountVo.BrokerageDeliveryPercentage = double.Parse(dr["CETA_BrokerDeliveryPercentage"].ToString());
+                    else
+                        AccountVo.BrokerageDeliveryPercentage = '0';
+                    if (dr["CETA_BrokerSpeculativePercentage"].ToString() != "")
+                        AccountVo.BrokerageSpeculativePercentage = double.Parse(dr["CETA_BrokerSpeculativePercentage"].ToString());
+                    else
+                        AccountVo.BrokerageSpeculativePercentage = '0';
+                    if (dr["CETA_OtherCharges"].ToString() != "")
+                        AccountVo.OtherCharges = double.Parse(dr["CETA_OtherCharges"].ToString());
+                    else
+                        AccountVo.OtherCharges = '0';
                 }
             }
             catch (BaseApplicationException Ex)
@@ -909,7 +918,8 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateMFFolioDetailsCmd, "@CETA_BrokerDeliveryPercentage", DbType.Double, AccountVo.BrokerageDeliveryPercentage);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@CETA_BrokerSpeculativePercentage", DbType.Double, AccountVo.BrokerageSpeculativePercentage);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@CETA_OtherCharges", DbType.Double, AccountVo.OtherCharges);
-                db.AddInParameter(updateMFFolioDetailsCmd, "@CETA_AccountOpeningDate", DbType.DateTime, AccountVo.AccountOpeningDate);
+                if (AccountVo.AccountOpeningDate != DateTime.MinValue)
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CETA_AccountOpeningDate", DbType.DateTime, AccountVo.AccountOpeningDate); 
                 db.AddInParameter(updateMFFolioDetailsCmd, "@ModifiedBy", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(updateMFFolioDetailsCmd) != 0)
                     blResult = true;
