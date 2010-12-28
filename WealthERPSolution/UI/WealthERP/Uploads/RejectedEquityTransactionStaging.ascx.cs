@@ -63,7 +63,7 @@ namespace WealthERP.Uploads
                 int ratio = rowCount / 10;
                 mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
                 mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = ((mypager.CurrentPage - 1) * 10).ToString();
+                lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
                 upperlimit = (mypager.CurrentPage * 10).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
