@@ -1,5 +1,4 @@
-﻿
-body
+﻿body
 {
     font-family: Verdana,Tahoma; /*background-color: rgb(226,226,226);*/ /*color: rgb(0,0,0);*/
     text-align: left; /* for IE */
@@ -45,6 +44,12 @@ div#MainDivLeft
     vertical-align: middle;
     color: #16518A;
 }
+.lblChooseBranch
+{
+    float: left;
+    color: #1E103F;
+}
+
 .txtField
 {
     font-family: Verdana,Tahoma;
@@ -139,12 +144,6 @@ div#MainDivLeft
     color: #16518A;
 }
 
-.lblChooseBranch
-{
-    float: left;
-    color: #1E103F;
-}
-
 .Message
 {
     background-color: White;
@@ -194,11 +193,12 @@ div#MainDivLeft
 }
 .TableBackground
 {
-    background-color: #F1F9FC;
+    /* background-color: #F1F9FC; */
+    background-color: #EBEFF9; 
 }
 .TDBackground
 {
-    background-color: #F2FAFD;
+    /* background-color: #F2FAFD; */
 }
 .DivScroll
 {
@@ -208,11 +208,12 @@ div#MainDivLeft
 }
 .PCGRedBcknd
 {
-    background-color: #523C7D;
+     /* background-color: #523C7D; */
+     background: url(Images/testSCBbackground.gif) repeat-x;
 }
 .PCGRedText
 {
-    background-color: #523C7D;
+    /*  background-color: #523C7D; */
 }
 .PCGWhiteText
 {
@@ -228,16 +229,15 @@ div#MainDivLeft
 .level1
 {
     color: White;
-    background-color: #523C7D;
+   /* background-color: #523C7D; */
     font-variant: small-caps;
     font-size: small;
     font-family: Verdana,Tahoma;
-    border-color: #523C7D;
     border-width: 6px;
-    border-bottom: solid 4px #523C7D;
-    border-top: solid 4px #523C7D;
-    border-left: solid 4px #523C7D;
-    border-right: solid 4px #523C7D;
+    border-bottom: solid 4px Transparent;
+    border-top: solid 4px Transparent;
+    border-left: solid 3px Transparent;
+    border-right: solid 4px Transparent; 
 }
 .level2
 {
@@ -246,12 +246,11 @@ div#MainDivLeft
     font-variant: small-caps;
     font-size: small;
     font-family: Verdana,Tahoma;
-    border-color: #523C7D;
     border-width: 6px;
-    border-bottom: solid 4px #523C7D;
-    border-top: solid 4px #523C7D;
-    border-left: solid 4px #523C7D;
-    border-right: solid 4px #523C7D;
+    border-bottom: solid 4px Transparent;
+    border-top: solid 4px Transparent;
+    border-left: solid 3px Transparent;
+    border-right: solid 4px Transparent; 
 }
 
 .level3
@@ -261,12 +260,13 @@ div#MainDivLeft
     font-variant: small-caps;
     font-size: small;
     font-family: Verdana,Tahoma;
-    border-color: #523C7D;
-    border-bottom: solid 4px #523C7D;
-    border-top: solid 4px #523C7D;
-    border-left: solid 3px #523C7D;
-    border-right: solid 4px #523C7D;
+    border-width: 6px;
+    border-bottom: solid 4px Transparent;
+    border-top: solid 4px Transparent;
+    border-left: solid 3px Transparent;
+    border-right: solid 4px Transparent; 
 }
+
 .hoverstyle
 {
     color: #523C7D;
@@ -277,12 +277,12 @@ div#MainDivLeft
 {
     color: White !important;
     font-variant: small-caps;
-    border-color: #523C7D;
-    border-bottom: solid 6px #523C7D;
-    border-top: solid 6px #523C7D;
-    border-left: solid 6px #523C7D;
-    border-right: solid 6px #523C7D;
+    border-bottom: solid 6px Transparent;
+    border-top: solid 6px Transparent;
+    border-left: solid 6px Transparent;
+    border-right: solid 6px Transparent;
 }
+
 .CompanyNameHeader
 {
     font-family: Century;
@@ -407,7 +407,6 @@ a.aBreadCrumb:hover
     text-decoration: underline;
     font-size: small;
 }
-
 a.aBreadCrumbCurrent
 {
     color: #993333;
@@ -533,6 +532,7 @@ a.aBreadCrumbCurrent
 	font-size:x-small;
 	color:#16518A;
 	width:100px;
+	background-color: rgb(228, 219, 252);
 }
 
 .GridViewCmbFieldforBM

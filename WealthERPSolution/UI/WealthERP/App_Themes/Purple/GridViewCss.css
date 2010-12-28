@@ -9,16 +9,17 @@
     /*width: 602px;
     height: 64px;*/
     width:100%;
-    background-image: url(Images/TBGridViewHeaderGlass2.jpg); /*margin-left: 0px;*/
+    background-image: url(Images/rgCommandRow.gif);  
+    
 }
 /*Header and Pager styles*/
 .HeaderStyle, .PagerStyle /*Common Styles*/
 {
-    background-image: url(Images/TBGridViewHeaderGlass2.jpg);
+    /* border: Inset 2px black; */
+     background-image: url(Images/testSCBbackground.gif) repeat-x;
     background-position: center;
     background-repeat: repeat-x;
     vertical-align:top;
-    /*background-color: #1d1d1d;*/
 }
 .HeaderStyle th
 {
@@ -37,8 +38,8 @@
 {
     text-align: center;
     margin: auto;
-    
 }
+
 .PagerStyle table td
 {
     border: 0px;
@@ -77,12 +78,12 @@
 {
     font-family: Verdana,tahoma;
     font-size: 11px;
-    background-color: #DCF7FE;
+    background-color: #F1EDFF;
    
 }
 .AltRowStyle td
 {
-    background-color: #EFE5F0;
+    background-color: #CEBEFB;
 }
 .SelectedRowStyle td
 {
@@ -92,7 +93,7 @@
 
 .FooterStyle td
 {
-    background-color: #523C7D;
+     background-image: url(Images/rgCommandRow.gif);
     color: White;
     font-family: Verdana,tahoma;
     font-weight: bold;

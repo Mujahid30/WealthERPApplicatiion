@@ -26,6 +26,7 @@ div#MainDivLeft
     background-image: url(Images/Header2.jpg);
     background-repeat: repeat;
     height: 70px;
+    /* height: 90px; */
 }
 
 .FieldName
@@ -87,6 +88,7 @@ div#MainDivLeft
     font-size: x-small;
     color: #16518A;
     width: 150px; /*margin-left: 0px;*/
+    background-color: #F9CFCF;
 }
 
 .cmbLongField
@@ -196,7 +198,7 @@ div#MainDivLeft
 
 .TDBackground
 {
-    background-color: #EBEFF9;
+   /* background-color: #EBEFF9; */
 }
 
 .DivScroll
@@ -207,12 +209,12 @@ div#MainDivLeft
 }
 .PCGRedBcknd
 {
-    background-color: #942627;
+    background: url(Images/testSCBbackground.gif) repeat-x;
 }
 
 .PCGRedText
 {
-    background-color: #942627;
+    /* background-color: #942627; */
 }
 .PCGWhiteText
 {
@@ -230,47 +232,44 @@ div#MainDivLeft
 .level1
 {
     color: White;
-    background-color: #942627;
+    /* background-color: #942627; */
     font-variant: small-caps;
     font-size: small;
     font-family: Verdana,Tahoma;
-    border-color: #942627;
     border-width: 6px;
-    border-bottom: solid 4px #942627;
-    border-top: solid 4px #942627;
-    border-left: solid 4px #942627;
-    border-right: solid 4px #942627;
+    border-bottom: solid 4px Transparent;
+    border-top: solid 4px Transparent;
+    border-left: solid 3px Transparent;
+    border-right: solid 4px Transparent; 
 }
 
 .level2
 {
     color: White;
-    background-color: #942627;
+  background-color: #942627; 
     font-variant: small-caps;
     font-size: small;
     font-family: Verdana,Tahoma;
-    border-color: #942627;
-    border-width: 6px;
-    border-bottom: solid 4px #942627;
-    border-top: solid 4px #942627;
-    border-left: solid 4px #942627;
-    border-right: solid 4px #942627;
+   border-width: 6px;
+    border-bottom: solid 4px Transparent;
+    border-top: solid 4px Transparent;
+    border-left: solid 3px Transparent;
+    border-right: solid 4px Transparent; 
 }
 
 .level3
 {
     color: White;
-    background-color: #942627;
+    background-color: #942627; 
     font-variant: small-caps;
     font-size: small;
     font-family: Verdana,Tahoma;
-    border-color: #942627;
-    border-bottom: solid 4px #942627;
-    border-top: solid 4px #942627;
-    border-left: solid 3px #942627;
-    border-right: solid 4px #942627;
+    border-width: 6px;
+    border-bottom: solid 4px Transparent;
+    border-top: solid 4px Transparent;
+    border-left: solid 3px Transparent;
+    border-right: solid 4px Transparent; 
 }
-
 .hoverstyle
 {
     color: #942627;
@@ -283,11 +282,10 @@ div#MainDivLeft
     /*background-color: #EBEFF9 !important;*/
     color: White !important;
     font-variant: small-caps;
-    border-color: #942627;
-    border-bottom: solid 6px #942627;
-    border-top: solid 6px #942627;
-    border-left: solid 6px #942627;
-    border-right: solid 6px #942627;
+    border-bottom: solid 6px Transparent;
+    border-top: solid 6px Transparent;
+    border-left: solid 6px Transparent;
+    border-right: solid 6px Transparent;
 }
 
 .CompanyNameHeader
@@ -549,6 +547,7 @@ a.aBreadCrumbCurrent
 	font-size:x-small;
 	color:#16518A;
 	width:100px;
+	background-color: #F9CFCF;
 }
 
 .GridViewCmbFieldforBM
@@ -896,3 +895,10 @@ p.tip
     
 }
 /* End */
+
+.PieChartCSS
+{
+    width: 500px;
+    height: 250px;
+    
+}
