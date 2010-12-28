@@ -361,7 +361,10 @@ namespace WealthERP.CustomerPortfolio
                 newAccountVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
                 newAccountVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
                 newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
-                newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
+                if(txtAccountStartingDate.Text != "")
+                    newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
+                
+                    
 
                 if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
