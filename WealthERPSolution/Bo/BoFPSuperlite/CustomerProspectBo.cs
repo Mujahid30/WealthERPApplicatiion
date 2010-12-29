@@ -661,25 +661,73 @@ namespace BoFPSuperlite
                 List<CustomerProspectAssetSubDetailsVo> assetsubdetailsvolist = new List<CustomerProspectAssetSubDetailsVo>();
                 List<CustomerProspectAssetGroupDetails> assetgroupdetailslist = new List<CustomerProspectAssetGroupDetails>();
                 CustomerProspectVo customerprospectvo=new CustomerProspectVo();
-                incomedetailsvolist = DataCapture["IncomeList"] as List<CustomerProspectIncomeDetailsVo>;
-                expensedetailsvolist = DataCapture["ExpenseList"] as List<CustomerProspectExpenseDetailsVo>;
-                liabilitiesdetailsvolist = DataCapture["Liabilities"] as List<CustomerProspectLiabilitiesDetailsVo>;
-                assetdetailsvolist = DataCapture["AssetDetails"] as List<CustomerProspectAssetDetailsVo>;
-                assetsubdetailsvolist = DataCapture["AssetSubDetails"] as List<CustomerProspectAssetSubDetailsVo>;
-                assetgroupdetailslist = DataCapture["AssetGroupDetails"] as List<CustomerProspectAssetGroupDetails>;
-                customerprospectvo=DataCapture["TotalAssetDetails"] as CustomerProspectVo;
+                if (((List<CustomerProspectIncomeDetailsVo>)DataCapture["IncomeList"]).Count != 0)
+                {
+                    incomedetailsvolist = DataCapture["IncomeList"] as List<CustomerProspectIncomeDetailsVo>;
+                }
+                if (((List<CustomerProspectExpenseDetailsVo>)DataCapture["ExpenseList"]).Count != 0)
+                {
+                    expensedetailsvolist = DataCapture["ExpenseList"] as List<CustomerProspectExpenseDetailsVo>;
+                }
+                if (((List<CustomerProspectLiabilitiesDetailsVo>)DataCapture["Liabilities"]).Count != 0)
+                {
+                    liabilitiesdetailsvolist = DataCapture["Liabilities"] as List<CustomerProspectLiabilitiesDetailsVo>;
+                }
+                if (((List<CustomerProspectAssetDetailsVo>)DataCapture["AssetDetails"]).Count != 0)
+                {
+                    assetdetailsvolist = DataCapture["AssetDetails"] as List<CustomerProspectAssetDetailsVo>;
+                }
+                if (((List<CustomerProspectAssetSubDetailsVo>)DataCapture["AssetSubDetails"]).Count != 0)
+                {
+                    assetsubdetailsvolist = DataCapture["AssetSubDetails"] as List<CustomerProspectAssetSubDetailsVo>;
+                }
+                if (((List<CustomerProspectAssetGroupDetails>)DataCapture["AssetGroupDetails"]).Count != 0)
+                {
+                    assetgroupdetailslist = DataCapture["AssetGroupDetails"] as List<CustomerProspectAssetGroupDetails>;
+                }
+                if (((CustomerProspectVo)DataCapture["TotalAssetDetails"]) != null)
+                {
+                    customerprospectvo = DataCapture["TotalAssetDetails"] as CustomerProspectVo;
+                }
                 //Deleting before insertion
                 DeleteDetailsForCustomerProspect(customerId);
                 //Inserting data
-                bool incomestatusmessage = AddCustomerFPIncomeDetails(customerId, createdById, incomedetailsvolist, out totalincome);
-                bool expensestatusmessage = AddCustomerFPExpenseDetails(customerId, createdById, expensedetailsvolist, out totalExpense);
-                bool liabilitiesstatusmessage = AddLiabilitiesDetailsForCustomerProspect(customerId, createdById, liabilitiesdetailsvolist, out totalLiabilities, out totalLoanOutstanding);
-                bool assetstatusmessage = AddCustomerFPAssetInstrumentDetails(customerId, createdById, assetdetailsvolist, out instrumentTotal);
-                bool assetsubstatusmeessage = AddCustomerFPAssetSubInstrumentDetails(customerId, createdById, assetsubdetailsvolist, out subInstrumentTotal);
-                bool assetgroupstatusmeessage = AddCustomerFPAssetGroupDetails(customerId, createdById, assetgroupdetailslist, out groupTotal);
+                bool incomestatusmessage = true;
+                bool expensestatusmessage = true;
+                bool liabilitiesstatusmessage = true;
+                bool assetstatusmessage = true;
+                bool assetsubstatusmeessage = true;
+                bool assetgroupstatusmeessage = true;
+                bool detailsstatusmessage  = true;
 
-
-                bool detailsstatusmessage = AddDetailsForCustomerProspect(customerId, createdById, customerprospectvo);
+                if (incomedetailsvolist.Count != 0)
+                {
+                    incomestatusmessage = AddCustomerFPIncomeDetails(customerId, createdById, incomedetailsvolist, out totalincome);
+                }
+                if (expensedetailsvolist.Count != 0)
+                {
+                    expensestatusmessage = AddCustomerFPExpenseDetails(customerId, createdById, expensedetailsvolist, out totalExpense);
+                }
+                if (liabilitiesdetailsvolist.Count != 0)
+                {
+                   liabilitiesstatusmessage = AddLiabilitiesDetailsForCustomerProspect(customerId, createdById, liabilitiesdetailsvolist, out totalLiabilities, out totalLoanOutstanding);
+                }
+                if (assetdetailsvolist.Count != 0)
+                {
+                    assetstatusmessage = AddCustomerFPAssetInstrumentDetails(customerId, createdById, assetdetailsvolist, out instrumentTotal);
+                }
+                if (assetsubdetailsvolist.Count != 0)
+                {
+                    assetsubstatusmeessage = AddCustomerFPAssetSubInstrumentDetails(customerId, createdById, assetsubdetailsvolist, out subInstrumentTotal);
+                }
+                if (assetgroupdetailslist.Count != 0)
+                {
+                    assetgroupstatusmeessage = AddCustomerFPAssetGroupDetails(customerId, createdById, assetgroupdetailslist, out groupTotal);
+                }
+                if (customerprospectvo != null)
+                {
+                    detailsstatusmessage = AddDetailsForCustomerProspect(customerId, createdById, customerprospectvo);
+                }
                 //bool incomestatusmessage = UpdateCustomerIncomeDetailsForCustomerProspect(customerId, createdById, incomedetailsvolist, out totalincome);
                 //bool expensestatusmessage = UpdateCustomerExpenseDetailsForCustomerProspect(customerId, createdById, expensedetailsvolist, out totalExpense);
                 //bool liabilitiesstatusmessage = UpdateCustomerLiabilitiesDetailsForCustomerProspect(customerId, createdById, liabilitiesdetailsvolist, out totalLiabilities, out totalLoanOutstanding);
