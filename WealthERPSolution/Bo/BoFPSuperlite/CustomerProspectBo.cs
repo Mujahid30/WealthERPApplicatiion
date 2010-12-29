@@ -733,7 +733,7 @@ namespace BoFPSuperlite
                 //bool liabilitiesstatusmessage = UpdateCustomerLiabilitiesDetailsForCustomerProspect(customerId, createdById, liabilitiesdetailsvolist, out totalLiabilities, out totalLoanOutstanding);
                 //bool assetstatusmessage = UpdateCustomerFPAssetInstrumentDetails(customerId, createdById, assetdetailsvolist, out instrumentTotal);
                 //bool assetsubstatusmeessage = UpdateCustomerFPAssetSubInstrumentDetails(customerId, createdById, assetsubdetailsvolist, out subInstrumentTotal);
-                if (incomestatusmessage == true && expensestatusmessage == true && liabilitiesstatusmessage == true && assetstatusmessage == true && assetsubstatusmeessage == true && assetgroupstatusmeessage==true)
+                if (incomestatusmessage == true && expensestatusmessage == true && liabilitiesstatusmessage == true && assetstatusmessage == true && assetsubstatusmeessage == true && assetgroupstatusmeessage == true && detailsstatusmessage==true)
                 {
                     statusMessage = true;
                 }
