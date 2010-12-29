@@ -25,7 +25,7 @@ namespace DaoFPSuperlite
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //Adding Data to the table 
-                cmdAddDetailsForCustomerProspect = db.GetStoredProcCommand("SP_AddCustomerFPIncomeDetails");
+                cmdAddDetailsForCustomerProspect = db.GetStoredProcCommand("SP_AddDetailsForCustomerProspect");
                 db.AddInParameter(cmdAddDetailsForCustomerProspect, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(cmdAddDetailsForCustomerProspect, "@CFPS_Income", DbType.Decimal, customerprospectvo.TotalIncome);
                 db.AddInParameter(cmdAddDetailsForCustomerProspect, "@CFPS_Expense", DbType.Decimal, customerprospectvo.TotalExpense);
