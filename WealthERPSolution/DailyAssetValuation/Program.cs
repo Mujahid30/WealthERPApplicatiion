@@ -34,6 +34,7 @@ namespace DailyAssetValuation
             int LogId = 0;
             int year = int.Parse(ConfigurationSettings.AppSettings["YEAR"].ToString());
             int month = int.Parse(ConfigurationSettings.AppSettings["MONTH"].ToString());
+            int day=int.Parse(ConfigurationSettings.AppSettings["FROMDAY"].ToString());
             tradeDate = new DateTime(year, month, 01);
             while (tradeDate.Year == year && tradeDate.Month == month)
             {
@@ -58,7 +59,7 @@ namespace DailyAssetValuation
 
                         foreach (DataRow drMF in dsMFValuationDate.Tables[0].Rows)
                         {
-                            if (DateTime.Parse(drMF["WTD_Date"].ToString()).Day !=DateTime.Now.Day && DateTime.Parse(drMF["WTD_Date"].ToString()).Day > 16)
+                            if (DateTime.Parse(drMF["WTD_Date"].ToString()).Day !=DateTime.Now.Day && DateTime.Parse(drMF["WTD_Date"].ToString()).Day > day)
                             {
                                 MFValuationDate = DateTime.Parse(drMF["WTD_Date"].ToString());
                                 if (drMF["STAT"].ToString() == "Pending. Changes Found")
@@ -110,60 +111,60 @@ namespace DailyAssetValuation
                                 }
                             }
                         }
-                        //#region Equity Valuation
-                        //Console.WriteLine("Starting EQ Valuation Process for Adviser " + i.ToString());
+                        #region Equity Valuation
+                        Console.WriteLine("Starting EQ Valuation Process for Adviser " + i.ToString());
 
-                        //foreach (DataRow drEQ in dsEQValuationDate.Tables[0].Rows)
-                        //{
-                        //    EQValuationDate = DateTime.Parse(drEQ["WTD_Date"].ToString());
-                        //    if (drEQ["STAT"].ToString() == "Pending. Changes Found")
-                        //    {
-                        //        customerPortfolioBo.DeleteAdviserEODLog(adviserVoList[i].advisorId, "EQ", EQValuationDate, 0);
-                        //    }
-                        //    if (drEQ["STAT"].ToString() != "Completed")
-                        //    {
-                        //        if (DateTime.Compare(EQValuationDate, DateTime.Today) <= 0)
-                        //        {
-                        //            if (customerList_EQ != null && customerList_EQ.Count != 0)
-                        //            {
-                        //                LogId = CreateAdviserEODLog("EQ", EQValuationDate, adviserVoList[i].advisorId);
-                        //                for (int j = 0; j < customerList_EQ.Count; j++)
-                        //                {
-                        //                    customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList_EQ[j]);
-                        //                    customerPortfolioBo.DeleteEquityNetPosition(customerList_EQ[j], EQValuationDate);
-                        //                    if (customerPortfolioList != null && customerPortfolioList.Count != 0)
-                        //                    {
-                        //                        for (int k = 0; k < customerPortfolioList.Count; k++)
-                        //                        {
-                        //                            Console.WriteLine("Starting EQ Valuation Process for Customer:" + j.ToString() + " Portfolio:" + k.ToString() + " Date:" + EQValuationDate.ToShortDateString());
-                        //                            try
-                        //                            {
-                        //                                eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList_EQ[j], customerPortfolioList[k].PortfolioId, EQValuationDate, "");
-                        //                            }
-                        //                            catch (Exception Ex)
-                        //                            {
-                        //                                Console.WriteLine("Exception: " + Ex.ToString());
-                        //                            }
-                        //                            if (eqPortfolioList != null && eqPortfolioList.Count != 0)
-                        //                            {
-                        //                                try
-                        //                                {
-                        //                                    customerPortfolioBo.AddEquityNetPosition(eqPortfolioList, adviserVoList[i].UserId);
-                        //                                }
-                        //                                catch (Exception Ex)
-                        //                                {
-                        //                                    Console.WriteLine("Exception: " + Ex.ToString());
-                        //                                }
-                        //                            }
-                        //                        }
-                        //                    }
-                        //                }
-                        //                UpdateAdviserEODLog("EQ", 1, LogId);
-                        //            }
-                        //        }
-                        //    }
-                        //}
-                        //#endregion Equity Valuation
+                        foreach (DataRow drEQ in dsEQValuationDate.Tables[0].Rows)
+                        {
+                            EQValuationDate = DateTime.Parse(drEQ["WTD_Date"].ToString());
+                            if (drEQ["STAT"].ToString() == "Pending. Changes Found")
+                            {
+                                customerPortfolioBo.DeleteAdviserEODLog(adviserVoList[i].advisorId, "EQ", EQValuationDate, 0);
+                            }
+                            if (drEQ["STAT"].ToString() != "Completed")
+                            {
+                                if (DateTime.Compare(EQValuationDate, DateTime.Today) <= 0)
+                                {
+                                    if (customerList_EQ != null && customerList_EQ.Count != 0)
+                                    {
+                                        LogId = CreateAdviserEODLog("EQ", EQValuationDate, adviserVoList[i].advisorId);
+                                        for (int j = 0; j < customerList_EQ.Count; j++)
+                                        {
+                                            customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList_EQ[j]);
+                                            customerPortfolioBo.DeleteEquityNetPosition(customerList_EQ[j], EQValuationDate);
+                                            if (customerPortfolioList != null && customerPortfolioList.Count != 0)
+                                            {
+                                                for (int k = 0; k < customerPortfolioList.Count; k++)
+                                                {
+                                                    Console.WriteLine("Starting EQ Valuation Process for Customer:" + j.ToString() + " Portfolio:" + k.ToString() + " Date:" + EQValuationDate.ToShortDateString());
+                                                    try
+                                                    {
+                                                        eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList_EQ[j], customerPortfolioList[k].PortfolioId, EQValuationDate, "");
+                                                    }
+                                                    catch (Exception Ex)
+                                                    {
+                                                        Console.WriteLine("Exception: " + Ex.ToString());
+                                                    }
+                                                    if (eqPortfolioList != null && eqPortfolioList.Count != 0)
+                                                    {
+                                                        try
+                                                        {
+                                                            customerPortfolioBo.AddEquityNetPosition(eqPortfolioList, adviserVoList[i].UserId);
+                                                        }
+                                                        catch (Exception Ex)
+                                                        {
+                                                            Console.WriteLine("Exception: " + Ex.ToString());
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        UpdateAdviserEODLog("EQ", 1, LogId);
+                                    }
+                                }
+                            }
+                        }
+                        #endregion Equity Valuation
                     }
                 }
                 catch (BaseApplicationException Ex)

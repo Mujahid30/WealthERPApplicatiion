@@ -1304,7 +1304,7 @@ namespace WealthERP.CustomerPortfolio
             double loanAmount = 0;
             double interestRate = 0;
             int numberOfInstallments = 0;
-            DateTime startDate = new DateTime();
+            DateTime startDate = new DateTime();    
             DateTime endDate = new DateTime();
             bool sdResult = DateTime.TryParse(txtInstallmentStartDt.Text, out startDate);
             bool edResult = DateTime.TryParse(txtInstallmentEndDt.Text, out endDate);

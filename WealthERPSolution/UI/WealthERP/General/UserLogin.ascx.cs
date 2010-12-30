@@ -26,7 +26,15 @@ namespace WealthERP.General
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            int userId = 0;
+            if (!IsPostBack)
+            {
+                if (Request.QueryString["UserId"] != null)
+                {
+                    userId = int.Parse(Encryption.Decrypt(Request.QueryString["UserId"].ToString()));
+                    SetUser(userId);
+                }
+            }
         }
 
         protected void btnSignIn_Click(object sender, EventArgs e)
@@ -284,6 +292,187 @@ namespace WealthERP.General
 
             }
 
+        }
+        public void SetUser(int userId)
+        {
+            UserVo userVo = new UserVo();
+            UserBo userBo = new UserBo();
+            AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+            AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+            AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
+            RMVo rmVo = new RMVo();
+            AdvisorBo advisorBo = new AdvisorBo();
+            AdvisorVo advisorVo = new AdvisorVo();
+            CustomerBo customerBo = new CustomerBo();
+            CustomerVo customerVo = new CustomerVo();
+            List<string> roleList = new List<string>();
+            string sourcePath = "";
+            string branchLogoSourcePath = "";
+            int count;
+            bool isGrpHead = false;
+            userVo = userBo.GetUserDetails(userId);
+            Session["UserVo"] = userVo;
+            AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
+
+            if (userVo.theme != null)
+            {
+                Session["Theme"] = userVo.theme.ToString();
+                Session["refreshTheme"] = true;
+            }
+            else
+            {
+                Session["Theme"] = "Purple";
+                Session["refreshTheme"] = true;
+            }
+
+            if (userVo.IsTempPassword == 0)
+            {
+                string UserName = userVo.FirstName + " " + userVo.LastName;
+
+
+                if (userVo.UserType == "Advisor")
+                {
+                    Session[SessionContents.CurrentUserRole] = "Admin";
+                    Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
+                    Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
+                    rmVo = (RMVo)Session["rmVo"];
+                    Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
+                    if (advisorVo.LogoPath == null || advisorVo.LogoPath == "")
+                    {
+                        advisorVo.LogoPath = "spacer.png";
+                    }
+                    else
+                    {
+                        sourcePath = "Images/" + advisorVo.LogoPath.ToString();
+                        if (!System.IO.File.Exists(Server.MapPath(sourcePath)))
+                            sourcePath = "";
+                    }
+
+                    Session[SessionContents.LogoPath] = sourcePath;
+
+                    roleList = userBo.GetUserRoles(userVo.UserId);
+                    count = roleList.Count;
+
+                    if (count == 3)
+                    {
+                        advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
+                        Session["advisorBranchVo"] = advisorBranchVo;
+                        branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                        Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
+                        //login user role Type
+                        Session["S_CurrentUserRole"] = "Admin";
+                    }
+                    if (count == 2)
+                    {
+                        if (roleList.Contains("RM") && roleList.Contains("BM"))
+                        {
+                            advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
+                            Session["advisorBranchVo"] = advisorBranchVo;
+                            //login user role Type
+                            Session["S_CurrentUserRole"] = "RM";
+                            branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                            Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
+                        }
+                        else if (roleList.Contains("RM") && roleList.Contains("Admin"))
+                        {
+                            advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
+                            Session["advisorBranchVo"] = advisorBranchVo;
+                            //login user role Type
+                            Session["S_CurrentUserRole"] = "Admin";
+                            branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                            Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
+                        }
+                        else if (roleList.Contains("BM") && roleList.Contains("Admin"))
+                        {
+                            advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
+                            Session["advisorBranchVo"] = advisorBranchVo;
+                            branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                            Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                            //login user role Type
+                            Session["S_CurrentUserRole"] = "Admin";
+                        }
+                    }
+
+
+                    if (count == 1)
+                    {
+                        if (roleList.Contains("RM"))
+                        {
+                            Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
+                            //Session["advisorVo"]=advisorBo.GetAdvisor(
+                            branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                            sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
+                            Session[SessionContents.LogoPath] = sourcePath;
+                            Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                            //login user role Type Issue Reported by Ajay on July 1 2010
+                            Session["S_CurrentUserRole"] = "RM";
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
+
+                        }
+                        else if (roleList.Contains("BM"))
+                        {
+                            advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
+                            Session["advisorBranchVo"] = advisorBranchVo;
+                            branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                            Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                            //login user role Type Issue Reported by Ajay on July 1 2010
+                            Session["S_CurrentUserRole"] = "BM";
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
+
+                        }
+                        else
+                        {
+
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
+                        }
+                    }
+                    GetLatestValuationDate();
+                }
+
+                else if (userVo.UserType == "Customer")
+                {
+                    customerVo = customerBo.GetCustomerInfo(userVo.UserId);
+                    //Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
+                    Session["CustomerVo"] = customerVo;
+                    customerVo = (CustomerVo)Session["CustomerVo"];
+
+                    advisorVo = advisorBo.GetAdvisor(advisorBranchBo.GetBranch(customerVo.BranchId).AdviserId);
+                    rmVo = advisorStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                    Session["rmVo"] = rmVo;
+                    Session["advisorVo"] = advisorVo;
+
+                    //if(customerVo!=null){
+
+                    sourcePath = "Images/" + userBo.GetCustomerLogo(customerVo.CustomerId);
+                    Session[SessionContents.LogoPath] = sourcePath;
+                    Session["S_CurrentUserRole"] = "Customer";
+                    GetLatestValuationDate();
+
+                    Session["IsDashboard"] = "true";
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                    if (isGrpHead == true)
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustGroupDashboard','login','" + UserName + "','" + sourcePath + "');", true);
+                    else
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
+
+                }
+
+                else if (userVo.UserType == "Admin")
+                {
+                    Session["refreshTheme"] = false;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdminUpload','login','" + UserName + "','');", true);
+
+
+                }
+            }
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ChangeTempPassword','none');", true);
+            }
         }
         private void GetLatestValuationDate()
         {

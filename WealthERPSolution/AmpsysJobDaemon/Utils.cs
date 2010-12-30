@@ -72,6 +72,7 @@ namespace AmpsysJobDaemon
 
             foreach (SqlParameter Param in Params)
             {
+                DC.CommandTimeout = 30 * 60 * 1000;
                 D.AddInParameter(DC, Param.ParameterName, Param.DbType, Param.Value);
             }
             D.ExecuteNonQuery(DC);

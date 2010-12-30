@@ -59,6 +59,8 @@
     <Compile Include="CustomerAccountsVo.cs" />
     <Compile Include="CustomerPortfolioVo.cs" />
     <Compile Include="DematAccountVo.cs" />
+    <Compile Include="DividendTaggingPortfolioVo.cs" />
+    <Compile Include="DividendTaggingTransactionVo.cs" />
     <Compile Include="EditLogVo.cs" />
     <Compile Include="EQPortfolioTransactionVo.cs" />
     <Compile Include="EQPortfolioVo.cs" />

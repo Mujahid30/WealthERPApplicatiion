@@ -608,11 +608,11 @@ namespace WealthERP.CustomerPortfolio
             if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[4].Text = "Total ";
-                e.Row.Cells[9].Text = decimal.Parse(totalAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Row.Cells[9].Text = double.Parse(totalAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[9].Attributes.Add("align", "Right");
-                e.Row.Cells[8].Text = decimal.Parse(totalUnits.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Row.Cells[8].Text = double.Parse(totalUnits.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[8].Attributes.Add("align", "Right");
-                e.Row.Cells[10].Text = decimal.Parse(totalsst.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Row.Cells[10].Text = double.Parse(totalsst.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[10].Attributes.Add("align", "Right");
 
 

@@ -185,12 +185,15 @@ namespace AmpsysJobDaemon
 
         public void ImportAccordFile(XmlNode XN, string Path, DateTime ImportDate)
         {
-            try
-            {
-                int Added = 0;
-                int Deleted = 0;
-                int Updated = 0;
+            string ErrorMsg = "";
+            string TableName = "";
+            string FileName = "";
+            int Added = 0;
+            int Deleted = 0;
+            int Updated = 0;
 
+            try
+            {            
                 StreamReader SR = new StreamReader(Path);
                 DataTable DT = new DataTable();
 
@@ -248,8 +251,8 @@ namespace AmpsysJobDaemon
 
                 SR.Close();
 
-                string TableName = XN.Attributes["table"].Value;
-                string FileName = XN.Attributes["name"].Value;
+                TableName = XN.Attributes["table"].Value;
+                FileName = XN.Attributes["name"].Value;
 
                 SqlBulkCopy SBC = new SqlBulkCopy(Utils.GetAccordConnectionString());
                 SBC.DestinationTableName = TableName;
@@ -257,21 +260,22 @@ namespace AmpsysJobDaemon
                 SBC.BulkCopyTimeout = 30 * 60;
                 SBC.WriteToServer(DT);
 
-                SBC.Close();
-
-                SqlParameter[] Params = new SqlParameter[5];
-                Params[0] = new SqlParameter("@TableName", TableName);
-                Params[1] = new SqlParameter("@Date", ImportDate);
-                Params[2] = new SqlParameter("@Added", Added);
-                Params[3] = new SqlParameter("@Deleted", Deleted);
-                Params[4] = new SqlParameter("@Updated", Updated);
-
-                Utils.ExecuteNonQueryAccord("sproc_AddImportLog", Params);
+                SBC.Close();               
             }
             catch (Exception Ex)
             {
                 throw new Exception("Failed to import to database " + XN.Attributes["name"].Value, Ex);
             }
+
+            SqlParameter[] Params = new SqlParameter[6];
+            Params[0] = new SqlParameter("@TableName", TableName);
+            Params[1] = new SqlParameter("@Date", ImportDate);
+            Params[2] = new SqlParameter("@Added", Added);
+            Params[3] = new SqlParameter("@Deleted", Deleted);
+            Params[4] = new SqlParameter("@Updated", Updated);
+            Params[5] = new SqlParameter("@ErrorMsg", ErrorMsg);
+
+            Utils.ExecuteNonQueryAccord("sproc_AddImportLog", Params);
         }
 
         public void ProcessData(DateTime ImportDate)
