@@ -696,7 +696,7 @@ namespace BoCustomerPortfolio
 
 
                             }
-                            
+
                             else if (cntCurrentValueBuy >= 1 && dlCurrentValueXIRR[0] >= 0 && cntCurrentValueSell >= 1)
                             {
                                 if (cntOpenTrade > 0)
@@ -889,7 +889,7 @@ namespace BoCustomerPortfolio
                         {
                             if (j != 0)
                             {
-                                eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j - 1].NetCost - (eqPortfolioTransactionVoList[j].SellQuantity * eqPortfolioTransactionVoList[j-1].AveragePrice);
+                                eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j - 1].NetCost - (eqPortfolioTransactionVoList[j].SellQuantity * eqPortfolioTransactionVoList[j - 1].AveragePrice);
                             }
                             else
                             {
@@ -1351,6 +1351,7 @@ namespace BoCustomerPortfolio
         {
             List<MFPortfolioVo> mfPortfolioVoList = new List<MFPortfolioVo>();
             List<MFTransactionVo> mfTransactionVoList = new List<MFTransactionVo>();
+            List<DividendTaggingTransactionVo> dividendTaggingTransactionVoList = new List<DividendTaggingTransactionVo>();
             List<DateTime> XIRRTransDateList = new List<DateTime>();
             List<double> XIRRTransValueList = new List<double>();
             List<DateTime> rXIRRTransDateList = new List<DateTime>();
@@ -1374,8 +1375,8 @@ namespace BoCustomerPortfolio
             double netHoldings = 0;
             double costOfAcquisition = 0;
             double acqCostExclDivReinvst = 0;
-            double absReturns=0;
-            double annualReturns=0;
+            double absReturns = 0;
+            double annualReturns = 0;
             double currentValue = 0;
             double stcg = 0;
             double ltcg = 0;
@@ -1389,16 +1390,16 @@ namespace BoCustomerPortfolio
             try
             {
 
-                mfPortfolioVoList = customerPortfolioDao.GetCustomerMFPortfolio(customerId, portfolioId, tradeDate, SchemeNameFilter, FolioFilter,categoryFilter);
+                mfPortfolioVoList = customerPortfolioDao.GetCustomerMFPortfolio(customerId, portfolioId, tradeDate, SchemeNameFilter, FolioFilter, categoryFilter);
                 if (mfPortfolioVoList != null)
                 {
                     for (int i = 0; i < mfPortfolioVoList.Count; i++)
                     {
-                        
+
                         mfTransactionVoList = new List<MFTransactionVo>();
                         mfPortfolioVoList[i].MfPortfolioId = (i + 1);
                         mfTransactionVoList = customerTransactionBo.GetMFTransactions(customerId, portfolioId, mfPortfolioVoList[i].AccountId, mfPortfolioVoList[i].MFCode, tradeDate);
-
+                       // dividendTaggingTransactionVoList = ProcessMFTransactionsForDivTagging(mfTransactionVoList, portfolioId);
                         mfPortfolioVoList[i].MFPortfolioTransactionVoList = ProcessMFTransactionsNew(mfTransactionVoList, portfolioId, mfPortfolioVoList[i].MFCode, tradeDate);
                         XIRRTransValueList = new List<double>();
                         XIRRTransDateList = new List<DateTime>();
@@ -1419,8 +1420,8 @@ namespace BoCustomerPortfolio
                         divReinvestTotal = 0;
                         xirrTransCount = 0;
                         rxirrTransCount = 0;
-                        absReturns=0;
-                        annualReturns=0;
+                        absReturns = 0;
+                        annualReturns = 0;
                         currentValue = 0;
                         stcg = 0;
                         ltcg = 0;
@@ -1455,8 +1456,8 @@ namespace BoCustomerPortfolio
                                 realizedSalesProceed = realizedSalesProceed + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].RealizedSalesValue;
                             }
                             salesQuantity = salesQuantity + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].SellQuantity;
-                            absReturns=absReturns+ mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].AbsoluteReturns;
-                            annualReturns=annualReturns+mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].AnnualReturns;
+                            absReturns = absReturns + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].AbsoluteReturns;
+                            annualReturns = annualReturns + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].AnnualReturns;
                             currentValue = currentValue + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].CurrentValue;
                             stcg = stcg + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].STCGTax;
                             ltcg = ltcg + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].LTCGTax;
@@ -1481,7 +1482,7 @@ namespace BoCustomerPortfolio
                                 {
                                     acqCostExclDivReinvst = acqCostExclDivReinvst + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].CostOfAcquisition;
                                 }
-                                if (mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].BuyQuantity !=0)
+                                if (mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].BuyQuantity != 0)
                                 {
                                     acqDateList.Add(mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].BuyDate);
                                 }
@@ -1489,14 +1490,14 @@ namespace BoCustomerPortfolio
                             if (mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].TransactionClassificationCode == "DVP" || mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].TransactionClassificationCode == "DRJ")
                             {
                                 dividendPayout = dividendPayout + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].RealizedSalesValue;
-                               
+
                             }
                             if (mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].TransactionClassificationCode == "DVR" || mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].TransactionClassificationCode == "RRJ")
                             {
                                 dividendreinvested = dividendreinvested + mfPortfolioVoList[i].MFPortfolioTransactionVoList[j].CostOfAcquisition;
                             }
-                            
-                            
+
+
                         }
                         dividendIncome = dividendPayout + dividendreinvested;
                         for (int k = 0; k < mfTransactionVoList.Count; k++)
@@ -1508,7 +1509,7 @@ namespace BoCustomerPortfolio
                             if ((mfTransactionVoList[k].BuySell.ToString()) == "B" && mfTransactionVoList[k].TransactionClassificationCode != "DVR" && mfTransactionVoList[k].TransactionClassificationCode != "BNS" && mfTransactionVoList[k].TransactionClassificationCode != "BNR" && mfTransactionVoList[k].TransactionClassificationCode != "RRJ")
                             {
                                 cntCurrentValueBuy = cntCurrentValueBuy + 1;
-                                XIRRTransValueList.Add((mfTransactionVoList[k].Price* mfTransactionVoList[k].Units));
+                                XIRRTransValueList.Add((mfTransactionVoList[k].Price * mfTransactionVoList[k].Units));
                                 XIRRTransDateList.Add(mfTransactionVoList[k].TransactionDate);
                                 cntTotalBuyQuan = (((double)cntTotalBuyQuan + mfTransactionVoList[k].Units));
                                 resultDateCompare = DateTime.Compare(tempBuy, mfTransactionVoList[k].TransactionDate);
@@ -1534,9 +1535,9 @@ namespace BoCustomerPortfolio
                             else if (mfTransactionVoList[k].TransactionClassificationCode == "DVP" || mfTransactionVoList[k].TransactionClassificationCode == "DRJ")
                             {
                                 cntCurrentValueSell = cntCurrentValueSell + 1;
-                                 XIRRTransValueList.Add(-(mfTransactionVoList[k].Amount));
-                                 XIRRTransDateList.Add(mfTransactionVoList[k].TransactionDate);
-                                 xirrTransCount++;
+                                XIRRTransValueList.Add(-(mfTransactionVoList[k].Amount));
+                                XIRRTransDateList.Add(mfTransactionVoList[k].TransactionDate);
+                                xirrTransCount++;
                             }
                         }
                         dlCurrentValueXIRR = new double[xirrTransCount];
@@ -1546,8 +1547,8 @@ namespace BoCustomerPortfolio
                             dlCurrentValueXIRR[l] = XIRRTransValueList[l];
                             dtTranDateXIRR[l] = XIRRTransDateList[l];
                         }
-                        
-                        
+
+
                         //   
                         cntOpenTrade = (double)(Convert.ToDecimal(cntTotalBuyQuan) - Convert.ToDecimal(cntTotalSellQuan));
                         if (cntCurrentValueSell == 0 && cntCurrentValueBuy >= 1)
@@ -1566,7 +1567,7 @@ namespace BoCustomerPortfolio
                             else
                             {
                                 dlCurrentValueXIR[xirrTransCount] = -(currentNAv * netHoldings);
-                                mfPortfolioVoList[i].XIRR = Math.Round((CalculateXIRR(dlCurrentValueXIR, dtTranDateXIR) * 100),5);
+                                mfPortfolioVoList[i].XIRR = Math.Round((CalculateXIRR(dlCurrentValueXIR, dtTranDateXIR) * 100), 5);
                             }
                         }
                         else if (cntCurrentValueBuy >= 1 && cntCurrentValueSell >= 1 && dlCurrentValueXIRR[0] >= 0)
@@ -1580,12 +1581,12 @@ namespace BoCustomerPortfolio
                                 Array.Copy(dtTranDateXIRR, dtTranDateXIR, xirrTransCount);
                                 currentNAv = GetMFSchemePlanNAV(mfPortfolioVoList[i].MFCode, tradeDate);
                                 dtTranDateXIR[xirrTransCount] = DateTime.Today;
-                                dlCurrentValueXIR[xirrTransCount] = -Math.Round((currentNAv * netHoldings),5);
-                                mfPortfolioVoList[i].XIRR = Math.Round((CalculateXIRR(dlCurrentValueXIR, dtTranDateXIR) * 100),5);
+                                dlCurrentValueXIR[xirrTransCount] = -Math.Round((currentNAv * netHoldings), 5);
+                                mfPortfolioVoList[i].XIRR = Math.Round((CalculateXIRR(dlCurrentValueXIR, dtTranDateXIR) * 100), 5);
                             }
                             else
                             {
-                                mfPortfolioVoList[i].XIRR = Math.Round((CalculateXIRR(dlCurrentValueXIRR, dtTranDateXIRR) * 100),5);
+                                mfPortfolioVoList[i].XIRR = Math.Round((CalculateXIRR(dlCurrentValueXIRR, dtTranDateXIRR) * 100), 5);
                             }
                         }
                         else
@@ -1606,31 +1607,31 @@ namespace BoCustomerPortfolio
                         }
 
                         if (netHoldings != 0)
-                            mfPortfolioVoList[i].AveragePrice = Math.Round(costOfAcquisition / netHoldings,5);
+                            mfPortfolioVoList[i].AveragePrice = Math.Round(costOfAcquisition / netHoldings, 5);
                         else
                             mfPortfolioVoList[i].AveragePrice = 0;
-                        mfPortfolioVoList[i].Quantity = Math.Round(netHoldings,5);
-                        mfPortfolioVoList[i].CostOfPurchase = Math.Round(costOfAcquisition,5);
+                        mfPortfolioVoList[i].Quantity = Math.Round(netHoldings, 5);
+                        mfPortfolioVoList[i].CostOfPurchase = Math.Round(costOfAcquisition, 5);
                         mfPortfolioVoList[i].AcqCostExclDivReinvst = Math.Round(acqCostExclDivReinvst, 5);
                         mfPortfolioVoList[i].CurrentNAV = GetMFSchemePlanNAV(mfPortfolioVoList[i].MFCode, tradeDate);
-                        mfPortfolioVoList[i].RealizedPNL = Math.Round(actualProfitLoss,5);
+                        mfPortfolioVoList[i].RealizedPNL = Math.Round(actualProfitLoss, 5);
 
-                        mfPortfolioVoList[i].CurrentValue = Math.Round(currentValue,5);
-                        if (notionalProfitLoss!= 0)
-                            mfPortfolioVoList[i].UnRealizedPNL = Math.Round(notionalProfitLoss,5);
+                        mfPortfolioVoList[i].CurrentValue = Math.Round(currentValue, 5);
+                        if (notionalProfitLoss != 0)
+                            mfPortfolioVoList[i].UnRealizedPNL = Math.Round(notionalProfitLoss, 5);
                         else
                             mfPortfolioVoList[i].UnRealizedPNL = 0;
-                        mfPortfolioVoList[i].TotalPNL = Math.Round(totalProfitLoss,5);
-                        mfPortfolioVoList[i].RealizedSalesProceed = Math.Round(realizedSalesProceed,5);
+                        mfPortfolioVoList[i].TotalPNL = Math.Round(totalProfitLoss, 5);
+                        mfPortfolioVoList[i].RealizedSalesProceed = Math.Round(realizedSalesProceed, 5);
                         mfPortfolioVoList[i].SalesQuantity = Math.Round(salesQuantity, 5);
-                        mfPortfolioVoList[i].CostOfSales = Math.Round(costOfSales,5);
-                        mfPortfolioVoList[i].DividendIncome = Math.Round(dividendIncome,5);
+                        mfPortfolioVoList[i].CostOfSales = Math.Round(costOfSales, 5);
+                        mfPortfolioVoList[i].DividendIncome = Math.Round(dividendIncome, 5);
                         mfPortfolioVoList[i].ValuationDate = tradeDate;
-                        if(mfPortfolioVoList[i].CostOfPurchase!=0)
-                            mfPortfolioVoList[i].AbsoluteReturn = Math.Round((mfPortfolioVoList[i].TotalPNL * 100) / mfPortfolioVoList[i].CostOfPurchase,5);
-                        mfPortfolioVoList[i].AnnualReturn = Math.Round(annualReturns,5);
-                        mfPortfolioVoList[i].DividendPayout = Math.Round(dividendPayout,5);
-                        mfPortfolioVoList[i].DividendReinvested = Math.Round(dividendreinvested,5);
+                        if (mfPortfolioVoList[i].CostOfPurchase != 0)
+                            mfPortfolioVoList[i].AbsoluteReturn = Math.Round((mfPortfolioVoList[i].TotalPNL * 100) / mfPortfolioVoList[i].CostOfPurchase, 5);
+                        mfPortfolioVoList[i].AnnualReturn = Math.Round(annualReturns, 5);
+                        mfPortfolioVoList[i].DividendPayout = Math.Round(dividendPayout, 5);
+                        mfPortfolioVoList[i].DividendReinvested = Math.Round(dividendreinvested, 5);
                         mfPortfolioVoList[i].STCG = stcg;
                         mfPortfolioVoList[i].LTCG = ltcg;
                         mfPortfolioVoList[i].STCGEligible = stcgEligible;
@@ -1670,6 +1671,62 @@ namespace BoCustomerPortfolio
             }
 
             return mfPortfolioVoList;
+        }
+        public List<DividendTaggingPortfolioVo> GetCustomerMFPortfolioDivTagging(int customerId, int portfolioId, DateTime tradeDate, string SchemeNameFilter, string FolioFilter, string categoryFilter)
+        {
+           
+            List<MFTransactionVo> mfTransactionVoList = new List<MFTransactionVo>();
+            List<DividendTaggingTransactionVo> dividendTaggingTransactionVoList = new List<DividendTaggingTransactionVo>();
+            List<DividendTaggingPortfolioVo> mfDivTaggingPortfolioVoList = new List<DividendTaggingPortfolioVo>();
+            MFTransactionVo mfTransactionVo = new MFTransactionVo();
+           
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+            
+            try
+            {
+
+                mfDivTaggingPortfolioVoList = customerPortfolioDao.GetCustomerMFPortfolioDivTagging(customerId, portfolioId, tradeDate, SchemeNameFilter, FolioFilter, categoryFilter);
+                if (mfDivTaggingPortfolioVoList != null)
+                {
+                    for (int i = 0; i < mfDivTaggingPortfolioVoList.Count; i++)
+                    {
+
+                        mfTransactionVoList = new List<MFTransactionVo>();
+                        mfDivTaggingPortfolioVoList[i].MfPortfolioId = (i + 1);
+                        mfTransactionVoList = customerTransactionBo.GetMFTransactions(customerId, portfolioId, mfDivTaggingPortfolioVoList[i].AccountId, mfDivTaggingPortfolioVoList[i].MFCode, tradeDate);
+                        mfDivTaggingPortfolioVoList[i] = ProcessMFTransactionsForDivTagging(mfTransactionVoList, mfDivTaggingPortfolioVoList[i], portfolioId,tradeDate);
+                        
+                    }
+
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioBo.cs:GetCustomerMFPortfolio(int customerId, int portfolioId, DateTime tradeDate, string SchemeNameFilter, string FolioFilter)");
+
+                object[] objects = new object[5];
+                objects[0] = customerId;
+                objects[1] = portfolioId;
+                objects[2] = tradeDate;
+                objects[3] = SchemeNameFilter;
+                objects[4] = FolioFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return mfDivTaggingPortfolioVoList;
         }
         public double CalculateXIRR(System.Collections.Generic.IEnumerable<double> values, System.Collections.Generic.IEnumerable<DateTime> date)
         {
@@ -1848,7 +1905,7 @@ namespace BoCustomerPortfolio
 
             return mfPortfolioTransactionVoList;
         }
-        public List<MFPortfolioTransactionVo> ProcessMFTransactionsNew(List<MFTransactionVo> mfTransactionVoList, int portfolioId,int mfCode, DateTime tradeDate)
+        public List<MFPortfolioTransactionVo> ProcessMFTransactionsNew(List<MFTransactionVo> mfTransactionVoList, int portfolioId, int mfCode, DateTime tradeDate)
         {
             List<MFPortfolioTransactionVo> mfPortfolioTransactionVoList = new List<MFPortfolioTransactionVo>();
             List<MFPortfolioBuyTransactionVo> mfPortfolioBuyTransactionVoList = new List<MFPortfolioBuyTransactionVo>();
@@ -1863,7 +1920,7 @@ namespace BoCustomerPortfolio
             int sellCount = 0;
             int j = 0;
             int k = 0;
-            int isEquityScheme=0;
+            int isEquityScheme = 0;
             DataTable dtCustomerType;
             DataTable dtMFCapGainRate;
             DataRow drMFCapGainRate;
@@ -1875,12 +1932,12 @@ namespace BoCustomerPortfolio
             currentNAV = GetMFSchemePlanNAV(mfCode, tradeDate);
             isEquityScheme = IsSchemeEquity(mfCode);
             dtCustomerType = GetCustomerType(portfolioId);
-            DataRow drCustomerType=dtCustomerType.Rows[0];
+            DataRow drCustomerType = dtCustomerType.Rows[0];
             dtMFCapGainRate = GetMFCapGainRate(drCustomerType["XCST_CustomerSubTypeCode"].ToString(), isEquityScheme, tradeDate);
-            if (dtMFCapGainRate != null && dtMFCapGainRate.Rows.Count!=0)
+            if (dtMFCapGainRate != null && dtMFCapGainRate.Rows.Count != 0)
                 drMFCapGainRate = dtMFCapGainRate.Rows[0];
             else
-                drMFCapGainRate=null;
+                drMFCapGainRate = null;
             //Logic Not Used
 
             #region Buy Sell Separation
@@ -1889,9 +1946,9 @@ namespace BoCustomerPortfolio
             {
                 if (mfTransactionVoList[i].BuySell == "B")
                 {
-                    mfPortfolioBuyTransactionVo= new MFPortfolioBuyTransactionVo();
+                    mfPortfolioBuyTransactionVo = new MFPortfolioBuyTransactionVo();
                     mfPortfolioBuyTransactionVo.PurchaseDate = mfTransactionVoList[i].TransactionDate;
-                    mfPortfolioBuyTransactionVo.PurchasePrice= mfTransactionVoList[i].Price;
+                    mfPortfolioBuyTransactionVo.PurchasePrice = mfTransactionVoList[i].Price;
                     mfPortfolioBuyTransactionVo.TransactionClassificationCode = mfTransactionVoList[i].TransactionClassificationCode;
                     mfPortfolioBuyTransactionVo.TranscationType = mfTransactionVoList[i].TransactionType;
                     mfPortfolioBuyTransactionVo.Units = mfTransactionVoList[i].Units;
@@ -1904,7 +1961,7 @@ namespace BoCustomerPortfolio
                 else if (mfTransactionVoList[i].BuySell == "S" && mfTransactionVoList[i].TransactionClassificationCode != "DVP")
                 {
                     mfPortfolioSellTransactionVo = new MFPortfolioSellTransactionVo();
-                    mfPortfolioSellTransactionVo.SellDate= mfTransactionVoList[i].TransactionDate;
+                    mfPortfolioSellTransactionVo.SellDate = mfTransactionVoList[i].TransactionDate;
                     mfPortfolioSellTransactionVo.SellPrice = mfTransactionVoList[i].Price;
                     mfPortfolioSellTransactionVo.TransactionClassificationCode = mfTransactionVoList[i].TransactionClassificationCode;
                     mfPortfolioSellTransactionVo.TranscationType = mfTransactionVoList[i].TransactionType;
@@ -1991,7 +2048,7 @@ namespace BoCustomerPortfolio
                                 mfPortfolioTransactionVoList.Add(mfPortfoloTransactionVo);
 
                                 j++;
-                               
+
                             }
                         }
                         else if (buyReminder != 0)
@@ -2054,7 +2111,7 @@ namespace BoCustomerPortfolio
                                 mfPortfolioTransactionVoList.Add(mfPortfoloTransactionVo);
                                 buyReminder = 0;
                                 j++;
-                                
+
                             }
                         }
                         else if (sellReminder != 0)
@@ -2117,12 +2174,12 @@ namespace BoCustomerPortfolio
                                 mfPortfolioTransactionVoList.Add(mfPortfoloTransactionVo);
 
                                 j++;
-                                
+
                             }
                         }
                     }
 
-                    if (j == buyCount && k<sellCount)
+                    if (j == buyCount && k < sellCount)
                     {
                         if (sellReminder != 0)
                         {
@@ -2137,8 +2194,8 @@ namespace BoCustomerPortfolio
                             mfPortfolioTransactionVoList.Add(mfPortfoloTransactionVo);
                             sellReminder = 0;
                             k++;
-                            if(k >= sellCount)
-                                    break;
+                            if (k >= sellCount)
+                                break;
                         }
                         else
                         {
@@ -2355,7 +2412,7 @@ namespace BoCustomerPortfolio
                         }
                     }
 
-                    if (k == sellCount && j<buyCount)
+                    if (k == sellCount && j < buyCount)
                     {
                         if (buyReminder != 0)
                         {
@@ -2390,15 +2447,15 @@ namespace BoCustomerPortfolio
 
             #region DivPayout Addition
             for (int i = 0; i < mfPortfolioDivPayoutTransactionVoList.Count; i++)
-                {
-                    mfPortfoloTransactionVo = new MFPortfolioTransactionVo();
-                    mfPortfoloTransactionVo.TransactionType = "Dividend Payout";
-                    mfPortfoloTransactionVo.TransactionClassificationCode = "DVP";
-                    mfPortfoloTransactionVo.BuyDate = mfPortfolioDivPayoutTransactionVoList[i].TradeDate;
-                    mfPortfoloTransactionVo.RealizedSalesValue = mfPortfolioDivPayoutTransactionVoList[i].Amount;
-                    mfPortfoloTransactionVo.Closed = false;
-                    mfPortfolioTransactionVoList.Add(mfPortfoloTransactionVo);
-                }
+            {
+                mfPortfoloTransactionVo = new MFPortfolioTransactionVo();
+                mfPortfoloTransactionVo.TransactionType = "Dividend Payout";
+                mfPortfoloTransactionVo.TransactionClassificationCode = "DVP";
+                mfPortfoloTransactionVo.BuyDate = mfPortfolioDivPayoutTransactionVoList[i].TradeDate;
+                mfPortfoloTransactionVo.RealizedSalesValue = mfPortfolioDivPayoutTransactionVoList[i].Amount;
+                mfPortfoloTransactionVo.Closed = false;
+                mfPortfolioTransactionVoList.Add(mfPortfoloTransactionVo);
+            }
             #endregion DivPayout Addition
 
             #region Transaction Level Valuation Logic
@@ -2445,24 +2502,24 @@ namespace BoCustomerPortfolio
 
                         }
                     }
-                    
+
                 }
                 else
                 {
-                    if( mfPortfolioTransactionVoList[i].BuyQuantity!=0)
+                    if (mfPortfolioTransactionVoList[i].BuyQuantity != 0)
                     {
                         mfPortfolioTransactionVoList[i].CostOfAcquisition = mfPortfolioTransactionVoList[i].BuyPrice * mfPortfolioTransactionVoList[i].BuyQuantity;
                         mfPortfolioTransactionVoList[i].AgeOfInvestment = ((TimeSpan)DateTime.Now.Subtract(mfPortfolioTransactionVoList[i].BuyDate)).Days;
-                        mfPortfolioTransactionVoList[i].CurrentNAV=currentNAV;
-                        mfPortfolioTransactionVoList[i].CurrentValue=mfPortfolioTransactionVoList[i].BuyQuantity*currentNAV;
+                        mfPortfolioTransactionVoList[i].CurrentNAV = currentNAV;
+                        mfPortfolioTransactionVoList[i].CurrentValue = mfPortfolioTransactionVoList[i].BuyQuantity * currentNAV;
                         if (mfPortfolioTransactionVoList[i].TransactionClassificationCode == "DVR")
                         {
                             mfPortfolioTransactionVoList[i].RealizedProfitLoss = mfPortfolioTransactionVoList[i].RealizedProfitLoss + mfPortfolioTransactionVoList[i].CostOfAcquisition;
                         }
                         else
                             mfPortfolioTransactionVoList[i].RealizedProfitLoss = 0;
-                        if(mfPortfolioTransactionVoList[i].CurrentValue!=0)
-                            mfPortfolioTransactionVoList[i].NotionalProfitLoss = mfPortfolioTransactionVoList[i].CurrentValue-mfPortfolioTransactionVoList[i].CostOfAcquisition;
+                        if (mfPortfolioTransactionVoList[i].CurrentValue != 0)
+                            mfPortfolioTransactionVoList[i].NotionalProfitLoss = mfPortfolioTransactionVoList[i].CurrentValue - mfPortfolioTransactionVoList[i].CostOfAcquisition;
                         if (mfPortfolioTransactionVoList[i].AgeOfInvestment < 365)
                         {
                             if (mfPortfolioTransactionVoList[i].NotionalProfitLoss != 0)
@@ -2493,7 +2550,7 @@ namespace BoCustomerPortfolio
                     }
                 }
 
-                mfPortfolioTransactionVoList[i].TotalProfitLoss = mfPortfolioTransactionVoList[i].RealizedProfitLoss+mfPortfolioTransactionVoList[i].NotionalProfitLoss;
+                mfPortfolioTransactionVoList[i].TotalProfitLoss = mfPortfolioTransactionVoList[i].RealizedProfitLoss + mfPortfolioTransactionVoList[i].NotionalProfitLoss;
                 if (mfPortfolioTransactionVoList[i].CostOfAcquisition != 0)
                     mfPortfolioTransactionVoList[i].AbsoluteReturns = (mfPortfolioTransactionVoList[i].TotalProfitLoss * 100) / mfPortfolioTransactionVoList[i].CostOfAcquisition;
                 else
@@ -2501,19 +2558,330 @@ namespace BoCustomerPortfolio
                 if (mfPortfolioTransactionVoList[i].AgeOfInvestment < 365)
                 {
                     mfPortfolioTransactionVoList[i].AnnualReturns = mfPortfolioTransactionVoList[i].AbsoluteReturns;
-                   
+
                 }
                 else
                 {
                     mfPortfolioTransactionVoList[i].AnnualReturns = (mfPortfolioTransactionVoList[i].AbsoluteReturns * 365) / mfPortfolioTransactionVoList[i].AgeOfInvestment;
-                   
+
                 }
             }
             #endregion Transaction Level Valuation Logic
 
-           
-            
+
+
             return mfPortfolioTransactionVoList;
+        }
+        public DividendTaggingPortfolioVo ProcessMFTransactionsForDivTagging(List<MFTransactionVo> mfTransactionVoList, DividendTaggingPortfolioVo dividendTaggingPortfolioVo, int portfolioId, DateTime tradeDate)
+        {
+            List<DividendTaggingTransactionVo> mfDivTaggingTransactionVoList = new List<DividendTaggingTransactionVo>();
+            DividendTaggingTransactionVo dividendTaggingTransactionVo = new DividendTaggingTransactionVo();
+            int customerId = mfTransactionVoList[0].CustomerId;
+            int mfCode = mfTransactionVoList[0].MFCode;
+            List<double> divUnits = new List<double>();
+            List<double> divRatio = new List<double>();
+            List<double> buyUnits = new List<double>();
+            List<double> buyPrice = new List<double>();
+            List<double> amountListXIRR = new List<double>();
+            List<DateTime> dateListXIRR = new List<DateTime>();
+            double[] dlrCurrentValueXIRR;
+            DateTime[] dtrTranDateXIRR;
+            int rxirrTransCount = 0;
+            double originalUnitsSold = 0;
+            double reinvestedUnitsSold = 0;
+            double costOfSales = 0;
+            double saleProceeds = 0;
+            double realizedDivPayout=0;
+            double realizedPL = 0;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("AccountId");
+            dt.Columns.Add("FolioNum");
+            dt.Columns.Add("PortfolioId");
+            dt.Columns.Add("SchemePlanCode");
+            dt.Columns.Add("Scheme");
+            dt.Columns.Add("TransactionClassificationCode");
+            dt.Columns.Add("BuySell");
+            dt.Columns.Add("TransactionType");
+            dt.Columns.Add("TransactionDate");
+            dt.Columns.Add("TransactionAmount");
+            dt.Columns.Add("TotalValue");
+            dt.Columns.Add("CostOfHolding");
+            dt.Columns.Add("CostOfSale");
+            dt.Columns.Add("Price");
+            dt.Columns.Add("Units");
+            dt.Columns.Add("OriginalUnits");
+            dt.Columns.Add("DivUnits");
+            dt.Columns.Add("TotalOriginalUnits");
+            dt.Columns.Add("TotalDivUnits");
+            dt.Columns.Add("BalanceUnits");
+            dt.Columns.Add("AveragePrice");
+            dt.Columns.Add("DivRatio");
+            dt.Columns.Add("UnitCostOfInvestment");
+            dt.Columns.Add("RealizedPL");
+            for (int i = 0; i < mfTransactionVoList.Count; i++)
+            {
+                dividendTaggingTransactionVo = new DividendTaggingTransactionVo();
+                dividendTaggingTransactionVo.TransactionDate = mfTransactionVoList[i].TransactionDate;
+                dividendTaggingTransactionVo.AccountId = mfTransactionVoList[i].AccountId;
+                dividendTaggingTransactionVo.BuySell = mfTransactionVoList[i].BuySell;
+                dividendTaggingTransactionVo.FolioNum = mfTransactionVoList[i].Folio;
+                dividendTaggingTransactionVo.PortfolioId = mfTransactionVoList[i].PortfolioId;
+                dividendTaggingTransactionVo.Price = mfTransactionVoList[i].Price;
+                dividendTaggingTransactionVo.Scheme = mfTransactionVoList[i].SchemePlan;
+                dividendTaggingTransactionVo.SchemePlanCode = mfTransactionVoList[i].MFCode;
+                dividendTaggingTransactionVo.TransactionType = mfTransactionVoList[i].TransactionType;
+                dividendTaggingTransactionVo.TransactionClassificationCode = mfTransactionVoList[i].TransactionClassificationCode;
+                if (mfTransactionVoList[i].BuySell == "B")
+                {
+                    
+                    dividendTaggingTransactionVo.Units = mfTransactionVoList[i].Units;
+                    if (mfTransactionVoList[i].TransactionClassificationCode != "DVR")
+                    {
+                        dividendTaggingTransactionVo.TransactionAmount = mfTransactionVoList[i].Amount;
+                        dividendTaggingTransactionVo.OriginalUnits = mfTransactionVoList[i].Units;
+                        amountListXIRR.Add(dividendTaggingTransactionVo.TransactionAmount);
+                        dateListXIRR.Add(mfTransactionVoList[i].TransactionDate);
+                        rxirrTransCount++;
+                        buyPrice.Add(mfTransactionVoList[i].Price);
+                        buyUnits.Add(mfTransactionVoList[i].Units);
+                    }
+                    else
+                        dividendTaggingTransactionVo.DivUnits = mfTransactionVoList[i].Units;
+
+                }
+                else
+                {
+                    dividendTaggingTransactionVo.TransactionAmount = -(mfTransactionVoList[i].Amount);
+                    
+                    amountListXIRR.Add(dividendTaggingTransactionVo.TransactionAmount);
+                    dateListXIRR.Add(mfTransactionVoList[i].TransactionDate);
+                    rxirrTransCount++;
+                    if (mfTransactionVoList[i].TransactionClassificationCode != "DVP")
+                    {
+                        dividendTaggingTransactionVo.Units = -(mfTransactionVoList[i].Units);
+                        
+                    }
+                    else
+                        realizedDivPayout = realizedDivPayout + dividendTaggingTransactionVo.TransactionAmount;
+
+                }
+
+                mfDivTaggingTransactionVoList.Add(dividendTaggingTransactionVo);
+
+            }
+
+            for (int j = 0; j < mfDivTaggingTransactionVoList.Count; j++)
+            {
+
+
+                if (j == 0)
+                {
+                    if (mfDivTaggingTransactionVoList[j].BuySell == "B")
+                    {
+                        
+                        mfDivTaggingTransactionVoList[j].TotalValue = mfDivTaggingTransactionVoList[j].TransactionAmount;
+                        mfDivTaggingTransactionVoList[j].CostOfHolding = mfDivTaggingTransactionVoList[j].TotalValue;
+                        mfDivTaggingTransactionVoList[j].BalanceUnits = mfDivTaggingTransactionVoList[j].Units;
+                        mfDivTaggingTransactionVoList[j].TotalDivUnits = mfDivTaggingTransactionVoList[j].DivUnits;
+                        if (mfDivTaggingTransactionVoList[j].TransactionClassificationCode != "DVR")
+                        {
+                            mfDivTaggingTransactionVoList[j].TotalOriginalUnits = mfDivTaggingTransactionVoList[j].OriginalUnits;
+                            mfDivTaggingTransactionVoList[j].AveragePrice = mfDivTaggingTransactionVoList[j].CostOfHolding / mfDivTaggingTransactionVoList[j].TotalOriginalUnits;
+
+                        }
+                        else
+                        {
+                            mfDivTaggingTransactionVoList[j].AveragePrice = 0;
+                            mfDivTaggingTransactionVoList[j].OriginalUnits = mfDivTaggingTransactionVoList[j].Units;
+                            mfDivTaggingTransactionVoList[j].TotalOriginalUnits = mfDivTaggingTransactionVoList[j].OriginalUnits;
+                            mfDivTaggingTransactionVoList[j].DivRatio = mfDivTaggingTransactionVoList[j].DivUnits / mfDivTaggingTransactionVoList[j].TotalOriginalUnits;
+                            divUnits.Add(mfDivTaggingTransactionVoList[j].DivUnits);
+                            divRatio.Add(mfDivTaggingTransactionVoList[j].DivRatio);
+                            
+                        }
+
+                    }
+                    else
+                    {
+                        mfDivTaggingTransactionVoList[j].CostOfHolding = mfDivTaggingTransactionVoList[j].TotalValue;
+                        mfDivTaggingTransactionVoList[j].TotalValue = mfDivTaggingTransactionVoList[j].TransactionAmount;
+                        mfDivTaggingTransactionVoList[j].BalanceUnits = mfDivTaggingTransactionVoList[j].Units;
+                        mfDivTaggingTransactionVoList[j].TotalDivUnits = mfDivTaggingTransactionVoList[j].DivUnits;
+                        mfDivTaggingTransactionVoList[j].TotalOriginalUnits = mfDivTaggingTransactionVoList[j].OriginalUnits;
+                        mfDivTaggingTransactionVoList[j].OriginalUnits = mfDivTaggingTransactionVoList[j].Units;
+                        originalUnitsSold = originalUnitsSold + mfDivTaggingTransactionVoList[j].OriginalUnits;
+                        reinvestedUnitsSold = reinvestedUnitsSold + mfDivTaggingTransactionVoList[j].DivUnits;
+                        costOfSales = costOfSales + mfDivTaggingTransactionVoList[j].CostOfSale;
+                        saleProceeds = saleProceeds + mfDivTaggingTransactionVoList[j].TransactionAmount;
+                        realizedPL = realizedPL + (mfDivTaggingTransactionVoList[j].Units * (mfDivTaggingTransactionVoList[j].Price - mfDivTaggingTransactionVoList[j].AveragePrice));
+                    }
+
+
+                }
+                else
+                {
+                    if (mfDivTaggingTransactionVoList[j].BuySell == "B")
+                    {
+                        mfDivTaggingTransactionVoList[j].TotalValue = mfDivTaggingTransactionVoList[j - 1].TotalValue + (mfDivTaggingTransactionVoList[j].TransactionAmount);
+                        mfDivTaggingTransactionVoList[j].CostOfHolding = mfDivTaggingTransactionVoList[j - 1].CostOfHolding + mfDivTaggingTransactionVoList[j].TransactionAmount;
+                        mfDivTaggingTransactionVoList[j].TotalOriginalUnits = mfDivTaggingTransactionVoList[j - 1].TotalOriginalUnits + mfDivTaggingTransactionVoList[j].OriginalUnits;
+                       
+                        mfDivTaggingTransactionVoList[j].TotalDivUnits = mfDivTaggingTransactionVoList[j - 1].TotalDivUnits + mfDivTaggingTransactionVoList[j].DivUnits;
+                        mfDivTaggingTransactionVoList[j].BalanceUnits = mfDivTaggingTransactionVoList[j - 1].BalanceUnits + mfDivTaggingTransactionVoList[j].Units;
+                        if (mfDivTaggingTransactionVoList[j].TransactionClassificationCode != "DVR")
+                        {
+                            mfDivTaggingTransactionVoList[j].AveragePrice = mfDivTaggingTransactionVoList[j].CostOfHolding / mfDivTaggingTransactionVoList[j].TotalOriginalUnits;
+                            mfDivTaggingTransactionVoList[j].DivRatio = mfDivTaggingTransactionVoList[j - 1].DivRatio;
+                        }
+                        else
+                        {
+                            mfDivTaggingTransactionVoList[j].AveragePrice = mfDivTaggingTransactionVoList[j - 1].AveragePrice;
+                            mfDivTaggingTransactionVoList[j].DivRatio = mfDivTaggingTransactionVoList[j].DivUnits / mfDivTaggingTransactionVoList[j].TotalOriginalUnits;
+                            divUnits.Add(mfDivTaggingTransactionVoList[j].DivUnits);
+                            divRatio.Add(mfDivTaggingTransactionVoList[j].DivRatio);
+                        }
+
+                    }
+                    else
+                    {
+                        mfDivTaggingTransactionVoList[j].DivRatio = mfDivTaggingTransactionVoList[j - 1].DivRatio;
+                        mfDivTaggingTransactionVoList[j].AveragePrice = mfDivTaggingTransactionVoList[j - 1].AveragePrice;
+                        if (divRatio.Count != 0 && divUnits.Count != 0)
+                        {
+                            for (int k = 0; k < divUnits.Count; k++)
+                            {
+                                if (divUnits[k] > 0)
+                                {
+                                    mfDivTaggingTransactionVoList[j].DivUnits = -(Math.Abs(mfDivTaggingTransactionVoList[j].Units) * divRatio[k]);
+                                    divUnits[k] = divUnits[k] - Math.Abs(mfDivTaggingTransactionVoList[j].DivUnits);
+                                    break;
+                                }
+                            }
+                        }
+                        mfDivTaggingTransactionVoList[j].OriginalUnits = -(Math.Abs(mfDivTaggingTransactionVoList[j].Units) - Math.Abs(mfDivTaggingTransactionVoList[j].DivUnits));
+                        if (buyUnits.Count != 0 && buyPrice.Count != 0)
+                        {
+                            for (int m = 0; m < buyUnits.Count; m++)
+                            {
+                                if (buyUnits[m] > 0)
+                                {
+                                    mfDivTaggingTransactionVoList[j].CostOfSale = mfDivTaggingTransactionVoList[j].Units * buyPrice[m];
+                                    buyUnits[m] = buyUnits[m] - Math.Abs(mfDivTaggingTransactionVoList[j].OriginalUnits);
+                                    mfDivTaggingTransactionVoList[j].UnitCostOfInvestment = buyPrice[m];
+                                    break;
+                                }
+                            }
+                        }
+                        mfDivTaggingTransactionVoList[j].TotalOriginalUnits = mfDivTaggingTransactionVoList[j - 1].TotalOriginalUnits + mfDivTaggingTransactionVoList[j].OriginalUnits;
+                        mfDivTaggingTransactionVoList[j].TotalValue = mfDivTaggingTransactionVoList[j - 1].TotalValue + (mfDivTaggingTransactionVoList[j].TransactionAmount);
+                        mfDivTaggingTransactionVoList[j].TotalDivUnits = mfDivTaggingTransactionVoList[j - 1].TotalDivUnits + mfDivTaggingTransactionVoList[j].DivUnits;
+                        mfDivTaggingTransactionVoList[j].BalanceUnits = mfDivTaggingTransactionVoList[j - 1].BalanceUnits + mfDivTaggingTransactionVoList[j].Units;
+                        mfDivTaggingTransactionVoList[j].RealizedPL = (Math.Abs(mfDivTaggingTransactionVoList[j].Units) * (mfDivTaggingTransactionVoList[j].Price - mfDivTaggingTransactionVoList[j].UnitCostOfInvestment));
+                        mfDivTaggingTransactionVoList[j].CostOfHolding = mfDivTaggingTransactionVoList[j - 1].CostOfHolding - Math.Abs(mfDivTaggingTransactionVoList[j].CostOfSale);
+                        originalUnitsSold = originalUnitsSold + mfDivTaggingTransactionVoList[j].OriginalUnits;
+                        reinvestedUnitsSold = reinvestedUnitsSold + mfDivTaggingTransactionVoList[j].DivUnits;
+                        costOfSales = costOfSales + mfDivTaggingTransactionVoList[j].CostOfSale;
+                        saleProceeds = saleProceeds + mfDivTaggingTransactionVoList[j].TransactionAmount;
+                        realizedPL = realizedPL + mfDivTaggingTransactionVoList[j].RealizedPL;
+                    }
+
+                }
+
+
+
+            }
+            for (int l = 0; l < mfDivTaggingTransactionVoList.Count; l++)
+            {
+                DataRow dr = dt.NewRow();
+               dr["AccountId"]= mfDivTaggingTransactionVoList[l].AccountId;
+               dr["FolioNum"]=mfDivTaggingTransactionVoList[l].FolioNum;
+               dr["PortfolioId"]=mfDivTaggingTransactionVoList[l].PortfolioId;
+               dr["SchemePlanCode"]=mfDivTaggingTransactionVoList[l].SchemePlanCode;
+               dr["Scheme"]=mfDivTaggingTransactionVoList[l].Scheme;
+               dr["TransactionClassificationCode"]=mfDivTaggingTransactionVoList[l].TransactionClassificationCode;
+               dr["BuySell"]=mfDivTaggingTransactionVoList[l].BuySell;
+               dr["TransactionType"]=mfDivTaggingTransactionVoList[l].TransactionType;
+               dr["TransactionDate"]=mfDivTaggingTransactionVoList[l].TransactionDate;
+               dr["TransactionAmount"]=mfDivTaggingTransactionVoList[l].TransactionAmount;
+               dr["TotalValue"]=mfDivTaggingTransactionVoList[l].TotalValue;
+               dr["CostOfHolding"]=mfDivTaggingTransactionVoList[l].CostOfHolding;
+               dr["CostOfSale"]=mfDivTaggingTransactionVoList[l].CostOfSale;
+               dr["Price"]=mfDivTaggingTransactionVoList[l].Price;
+               dr["Units"]=mfDivTaggingTransactionVoList[l].Units;
+               dr["OriginalUnits"]=mfDivTaggingTransactionVoList[l].OriginalUnits;
+               dr["DivUnits"]=mfDivTaggingTransactionVoList[l].DivUnits;
+               dr["TotalOriginalUnits"]=mfDivTaggingTransactionVoList[l].TotalOriginalUnits;
+               dr["TotalDivUnits"]=mfDivTaggingTransactionVoList[l].TotalDivUnits;
+               dr["BalanceUnits"]=mfDivTaggingTransactionVoList[l].BalanceUnits;
+               dr["AveragePrice"]=mfDivTaggingTransactionVoList[l].AveragePrice;
+               dr["DivRatio"]=mfDivTaggingTransactionVoList[l].DivRatio;
+               dr["UnitCostOfInvestment"]=mfDivTaggingTransactionVoList[l].UnitCostOfInvestment;
+               dr["RealizedPL"] = mfDivTaggingTransactionVoList[l].RealizedPL;
+               dt.Rows.Add(dr);
+            }
+            int count=mfDivTaggingTransactionVoList.Count;
+            dividendTaggingPortfolioVo.DividendTaggingTransactionVoList = mfDivTaggingTransactionVoList;
+            //RealizedSection
+            dividendTaggingPortfolioVo.OriginalUnitsSold = Math.Abs(originalUnitsSold);
+            dividendTaggingPortfolioVo.ReinvestedUnitsSold = Math.Abs(reinvestedUnitsSold);
+            dividendTaggingPortfolioVo.TotalUnitsSold = Math.Abs(originalUnitsSold) + Math.Abs(reinvestedUnitsSold);
+            dividendTaggingPortfolioVo.CostOfSales = Math.Abs(costOfSales);
+            dividendTaggingPortfolioVo.SaleProceeds = Math.Abs(saleProceeds);
+            dividendTaggingPortfolioVo.RealizedDividendPayout = realizedDivPayout;
+            dividendTaggingPortfolioVo.RealizedDividendReinvested = dividendTaggingPortfolioVo.ReinvestedUnitsSold * mfDivTaggingTransactionVoList[count - 1].AveragePrice;
+            dividendTaggingPortfolioVo.RealizedDividendTotal = dividendTaggingPortfolioVo.RealizedDividendPayout + dividendTaggingPortfolioVo.RealizedDividendReinvested;
+            dividendTaggingPortfolioVo.RealizedPL = realizedPL;
+            dividendTaggingPortfolioVo.TotalRealizedPL = dividendTaggingPortfolioVo.RealizedPL + dividendTaggingPortfolioVo.RealizedDividendTotal;
+            dividendTaggingPortfolioVo.RealizedAbsReturn = (dividendTaggingPortfolioVo.TotalRealizedPL / dividendTaggingPortfolioVo.CostOfSales)*100;
+
+            //Holdings Section
+            dividendTaggingPortfolioVo.OutstandingUnits = mfDivTaggingTransactionVoList[count - 1].BalanceUnits;
+            dividendTaggingPortfolioVo.OutstandingOriginalUnits = mfDivTaggingTransactionVoList[count - 1].TotalOriginalUnits;
+            dividendTaggingPortfolioVo.OutstandingDividendUnits = mfDivTaggingTransactionVoList[count - 1].TotalDivUnits;
+            dividendTaggingPortfolioVo.AvgCostPerUnit = mfDivTaggingTransactionVoList[count - 1].AveragePrice;
+            dividendTaggingPortfolioVo.AcqCost = mfDivTaggingTransactionVoList[count - 1].CostOfHolding;
+            dividendTaggingPortfolioVo.OutStandingDividendPayout = realizedDivPayout;
+            dividendTaggingPortfolioVo.OutStandingDividendReinvested = dividendTaggingPortfolioVo.OutstandingDividendUnits * dividendTaggingPortfolioVo.AvgCostPerUnit;
+            dividendTaggingPortfolioVo.NetAcqCost = dividendTaggingPortfolioVo.AcqCost + dividendTaggingPortfolioVo.OutStandingDividendReinvested;
+            dividendTaggingPortfolioVo.CurrentNAV = GetMFSchemePlanNAV(dividendTaggingPortfolioVo.MFCode, tradeDate);
+            dividendTaggingPortfolioVo.CurrentValue = dividendTaggingPortfolioVo.OutstandingUnits * dividendTaggingPortfolioVo.CurrentNAV;
+            dividendTaggingPortfolioVo.OutStandingDividendTotal = dividendTaggingPortfolioVo.OutStandingDividendPayout + dividendTaggingPortfolioVo.OutStandingDividendReinvested;
+            dividendTaggingPortfolioVo.UnRealizedPL = dividendTaggingPortfolioVo.OutstandingUnits * (dividendTaggingPortfolioVo.CurrentNAV - dividendTaggingPortfolioVo.AvgCostPerUnit);
+            dividendTaggingPortfolioVo.OutStandingTotalPL = dividendTaggingPortfolioVo.UnRealizedPL + dividendTaggingPortfolioVo.OutStandingDividendTotal;
+            dividendTaggingPortfolioVo.OutStandingAbsReturn = (dividendTaggingPortfolioVo.OutStandingTotalPL / dividendTaggingPortfolioVo.AcqCost)*100;
+            //XIRR Calculation
+            if (dividendTaggingPortfolioVo.CurrentValue > 0)
+            {
+                amountListXIRR.Add(-dividendTaggingPortfolioVo.CurrentValue);
+                dateListXIRR.Add(DateTime.Today);
+                rxirrTransCount++;
+            }
+            else if (dividendTaggingPortfolioVo.CurrentValue < 0)
+            {
+                amountListXIRR.Add(dividendTaggingPortfolioVo.CurrentValue);
+                dateListXIRR.Add(DateTime.Today);
+                rxirrTransCount++;
+            }
+
+            dlrCurrentValueXIRR = new double[rxirrTransCount];
+            dtrTranDateXIRR = new DateTime[rxirrTransCount];
+            for (int m = 0; m < rxirrTransCount; m++)
+            {
+                dlrCurrentValueXIRR[m] = amountListXIRR[m];
+                dtrTranDateXIRR[m] = dateListXIRR[m];
+            }
+            dividendTaggingPortfolioVo.OutStandingXIRR = Math.Round(CalculateXIRR(dlrCurrentValueXIRR, dtrTranDateXIRR),5)*100;
+            
+            //All Section
+            dividendTaggingPortfolioVo.AllDividendPayout = realizedDivPayout;
+            dividendTaggingPortfolioVo.AllDividendReinvested = dividendTaggingPortfolioVo.OutStandingDividendReinvested + dividendTaggingPortfolioVo.RealizedDividendReinvested;
+            dividendTaggingPortfolioVo.AllDividendTotal = dividendTaggingPortfolioVo.AllDividendPayout + dividendTaggingPortfolioVo.AllDividendReinvested;
+            dividendTaggingPortfolioVo.AllUnRealizedPL = dividendTaggingPortfolioVo.TotalUnitsSold * dividendTaggingPortfolioVo.AvgCostPerUnit;
+            dividendTaggingPortfolioVo.AllTotalPL = dividendTaggingPortfolioVo.AllUnRealizedPL + dividendTaggingPortfolioVo.AllDividendTotal;
+            dividendTaggingPortfolioVo.AllAbsReturn = (dividendTaggingPortfolioVo.AllTotalPL / dividendTaggingPortfolioVo.AcqCost)*100;
+            dividendTaggingPortfolioVo.AllXIRR = Math.Round(CalculateXIRR(dlrCurrentValueXIRR, dtrTranDateXIRR), 5) * 100;
+
+            return dividendTaggingPortfolioVo;
         }
         #endregion Portfolio Specific
         public int IsSchemeEquity(int mfCode)
@@ -2526,8 +2894,8 @@ namespace BoCustomerPortfolio
         public DataTable GetCustomerType(int portfolioId)
         {
             DataTable dtCustomerType;
-             CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
-             dtCustomerType = customerPortfolioDao.GetCustomerType(portfolioId);
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            dtCustomerType = customerPortfolioDao.GetCustomerType(portfolioId);
             return dtCustomerType;
         }
         public DataTable GetMFCapGainRate(string customerType, int IsSchemeEquity, DateTime tradeDate)
@@ -2677,6 +3045,6 @@ namespace BoCustomerPortfolio
             CustomerPortfolioDao customerportfoliodao = new CustomerPortfolioDao();
             return customerportfoliodao.GetProductAssetInstrumentCategory();
         }
-       
+
     }
 }
