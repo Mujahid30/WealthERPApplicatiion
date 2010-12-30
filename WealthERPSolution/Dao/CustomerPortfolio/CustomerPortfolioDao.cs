@@ -591,6 +591,83 @@ namespace DaoCustomerPortfolio
             }
             return mfPortfolioVoList;
         }
+        public List<DividendTaggingPortfolioVo> GetCustomerMFPortfolioDivTagging(int customerId, int portfolioId, DateTime tradeDate, string SchemeNameFilter, string FolioFilter, string categoryFilter)
+        {
+            List<DividendTaggingPortfolioVo> mfDivTaggingPortfolioVoList = null;
+            DividendTaggingPortfolioVo dividendTaggingPortfolioVo = new DividendTaggingPortfolioVo();
+            Database db;
+            DbCommand getMFPortfolioCmd;
+            DataSet dsGetMFPortfolio;
+            DataTable dtGetMFPortfolio;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFPortfolioCmd = db.GetStoredProcCommand("SP_GetCustomerPortfolioMutualFundTransactionSchemePlans");
+                db.AddInParameter(getMFPortfolioCmd, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getMFPortfolioCmd, "@CP_PortfolioId", DbType.Int32, portfolioId);
+                db.AddInParameter(getMFPortfolioCmd, "@CMFT_TransactionDate", DbType.DateTime, tradeDate.ToString());
+
+                if (SchemeNameFilter != "")
+                    db.AddInParameter(getMFPortfolioCmd, "@nameSearch", DbType.String, SchemeNameFilter);
+                else
+                    db.AddInParameter(getMFPortfolioCmd, "@nameSearch", DbType.String, DBNull.Value);
+                if (FolioFilter != "")
+                    db.AddInParameter(getMFPortfolioCmd, "@folioSearch", DbType.String, FolioFilter);
+                else
+                    db.AddInParameter(getMFPortfolioCmd, "@folioSearch", DbType.String, DBNull.Value);
+                if (categoryFilter != "")
+                    db.AddInParameter(getMFPortfolioCmd, "@categorySearch", DbType.String, categoryFilter);
+                else
+                    db.AddInParameter(getMFPortfolioCmd, "@categorySearch", DbType.String, DBNull.Value);
+                dsGetMFPortfolio = db.ExecuteDataSet(getMFPortfolioCmd);
+
+                if (dsGetMFPortfolio.Tables[0].Rows.Count > 0)
+                {
+                    dtGetMFPortfolio = dsGetMFPortfolio.Tables[0];
+                    mfDivTaggingPortfolioVoList = new List<DividendTaggingPortfolioVo>();
+                    foreach (DataRow dr in dtGetMFPortfolio.Rows)
+                    {
+                        dividendTaggingPortfolioVo = new DividendTaggingPortfolioVo();
+                        dividendTaggingPortfolioVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        dividendTaggingPortfolioVo.MFCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                        dividendTaggingPortfolioVo.SchemePlan = dr["PASP_SchemePlanName"].ToString();
+                        dividendTaggingPortfolioVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
+                        dividendTaggingPortfolioVo.Folio = dr["CMFA_FolioNum"].ToString();
+                        dividendTaggingPortfolioVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        dividendTaggingPortfolioVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfDivTaggingPortfolioVoList.Add(dividendTaggingPortfolioVo);
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetCustomerMFPortfolioDivTagging()");
+
+
+                object[] objects = new object[5];
+                objects[0] = customerId;
+                objects[1] = portfolioId;
+                objects[2] = tradeDate;
+                objects[3] = SchemeNameFilter;
+                objects[4] = FolioFilter;
+
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return mfDivTaggingPortfolioVoList;
+        }
         public DataSet GetProductAssetInstrumentCategory()
         {
             DataSet dsGetProductAssetInstrumentCategory;
@@ -1515,7 +1592,7 @@ namespace DaoCustomerPortfolio
 
                 db.AddInParameter(deleteMFNetPositionCmd, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(deleteMFNetPositionCmd, "@CMFNP_ValuationDate", DbType.DateTime, valuationDate);
-
+                deleteMFNetPositionCmd.CommandTimeout = 60 * 60;
                 if (db.ExecuteNonQuery(deleteMFNetPositionCmd) != 0)
 
                     bResult = true;
