@@ -15,9 +15,12 @@ namespace WealthERP_Login_Widget
 {
     public partial class _Default : System.Web.UI.Page
     {
-        int adviserId = 0;
-        bool isMainDomain = false;
+        static int adviserId;
+        static bool isMainDomain = false;
         string adviserDomain = "";
+        string host = "";
+        
+        Uri alias;
         UserVo userVo = new UserVo();
         string refLink = ConfigurationManager.AppSettings["RefLink"].ToString();
         string appName = ConfigurationManager.AppSettings["AppName"].ToString();
@@ -33,59 +36,60 @@ namespace WealthERP_Login_Widget
         protected void Page_Load(object sender, EventArgs e)
         {
             string url="";
-            AdvisorBo adviserBo=new AdvisorBo();
-            string host = "";
-            string hostName = Request.Url.Host;
-            Uri alias;
+            AdvisorBo adviserBo=new AdvisorBo();           
            
-            //if (imageURL != "")
-            //{
-                
-            //    imgLogo.Src = Server.MapPath(imageURL);
-            //    imgLogo.Visible = true;
-                
-            //}
-            //else
-            //{
-            //    imgLogo.Visible = false;
-            //}
-            if (Request.UrlReferrer != null)
+            if (!IsPostBack)
             {
-                alias = Request.UrlReferrer;
-                host=alias.Host.ToString();
-            }
-
-            if (Request.QueryString["AdviserId"] != null)
-            {
-                
-                url = Request.QueryString["AdviserId"].ToString();
-                adviserId = int.Parse(Encryption.Decrypt(url).ToString());
-            }
-            if (adviserId != 0)
-            {
-                if (host.Contains(MainDomain.ToString()))
-                    isMainDomain = true;
-                else
-                    isMainDomain = false;
-                if (!isMainDomain)
+                if (Request.UrlReferrer != null)
                 {
-                    adviserDomain = adviserBo.GetAdviserDomainName(adviserId);
+                    alias = Request.UrlReferrer;
+                    host = alias.Host.ToString();
                 }
-                if (isMainDomain || host.Contains(adviserDomain))
+
+                if (Request.QueryString["AdviserId"] != null)
                 {
-                    if (Session["CurrentUserVo"] == null)
+
+                    url = Request.QueryString["AdviserId"].ToString();
+                    adviserId = int.Parse(Encryption.Decrypt(url).ToString());
+                }
+                if (adviserId != 0)
+                {
+                    if (host.Contains(MainDomain.ToString()))
+                        isMainDomain = true;
+                    else
+                        isMainDomain = false;
+                    if (!isMainDomain)
                     {
-                        lblLoginMessage.Visible = false;
-                        tblLoginBlock.Visible = true;
-                        lnklogout.Visible = false;
+                        adviserDomain = adviserBo.GetAdviserDomainName(adviserId);
+                        tblLogoBlock.Visible = false;
+                    }
+                    else
+                        tblLogoBlock.Visible = true;
+                    if (isMainDomain || host.Contains(adviserDomain))
+                    {
+                        if (Session["CurrentUserVo"] == null)
+                        {
+                            lblLoginMessage.Visible = false;                           
+                            tblLoginBlock.Visible = true;
+                            lnklogout.Visible = false;
+                        }
+                        else
+                        {
+                            lblLoginMessage.Visible = true;
+                            userVo = (UserVo)Session["CurrentUserVo"];
+                            lblLoginMessage.Text = "Logged In to " + appName.ToString() + " as " + userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
+                            lblLoginMessage.CssClass = "FieldName";
+                            tblLoginBlock.Visible = false;
+                            lnklogout.Visible = true;
+                        }
                     }
                     else
                     {
-                        lblLoginMessage.Visible = true;
-                        userVo = (UserVo)Session["CurrentUserVo"];
-                        lblLoginMessage.Text = "Logged In to " + appName.ToString() + " as " + userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
                         tblLoginBlock.Visible = false;
-                        lnklogout.Visible = true;
+                        lnklogout.Visible = false;
+                        lblLoginMessage.Visible = true;
+                        lblLoginMessage.Text = "Your Domain is not regsitered At " + appName.ToString() + ". Please contact " + appName.ToString() + " Admin";
+                        lblLoginMessage.CssClass = "FieldError";
                     }
                 }
                 else
@@ -94,14 +98,9 @@ namespace WealthERP_Login_Widget
                     lnklogout.Visible = false;
                     lblLoginMessage.Visible = true;
                     lblLoginMessage.Text = "Your Domain is not regsitered At " + appName.ToString() + ". Please contact " + appName.ToString() + " Admin";
+                    lblLoginMessage.CssClass = "FieldError";
+                    
                 }
-            }
-            else
-            {
-                tblLoginBlock.Visible = false;
-                lnklogout.Visible = false;
-                lblLoginMessage.Visible = true;
-                lblLoginMessage.Text = "Your Domain is not regsitered At " + appName.ToString() + ". Please contact " + appName.ToString() + " Admin";
             }
         }
 
@@ -113,7 +112,8 @@ namespace WealthERP_Login_Widget
             RMVo rmVo = new RMVo();
             CustomerVo customerVo = new CustomerVo();
             CustomerBo customerBo=new CustomerBo();
-            
+           
+           
             if(userBo.ValidateUser(txtUserName.Text.ToString(),txtPassword.Text.ToString()))
             {
                 
@@ -125,7 +125,9 @@ namespace WealthERP_Login_Widget
                     {
                         lblLoginMessage.Visible = true;
                         lblLoginMessage.Text = "Logged In to "+appName.ToString()+" as " + userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
+                        lblLoginMessage.CssClass = "FieldName";
                         tblLoginBlock.Visible = false;
+
                         Session["CurrentUserVo"] = userVo;
                         lnklogout.Visible = true;
                         Response.Write("<script>window.open('"+refLink+"?UserId="+Encryption.Encrypt(userVo.UserId.ToString())+"','_blank');</script>");
@@ -135,6 +137,7 @@ namespace WealthERP_Login_Widget
                         lblLoginMessage.Visible = true;
                         tblLoginBlock.Visible = true;
                         lblLoginMessage.Text = "Authentication Failed";
+                        lblLoginMessage.CssClass = "FieldError";
                     }
                 }
                 else if (userVo.UserType == "Customer")
@@ -145,6 +148,7 @@ namespace WealthERP_Login_Widget
                     {
                         lblLoginMessage.Visible = true;
                         lblLoginMessage.Text = "Logged In to " + appName.ToString() + " as " + userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
+                        lblLoginMessage.CssClass = "FieldName";
                         Session["CurrentUserVo"] = userVo;
                         tblLoginBlock.Visible = false;
                         lnklogout.Visible = true;
@@ -155,6 +159,7 @@ namespace WealthERP_Login_Widget
                         lblLoginMessage.Visible = true;
                         tblLoginBlock.Visible = false;
                         lblLoginMessage.Text = "Authentication Failed";
+                        lblLoginMessage.CssClass = "FieldError";
                     }
                 }
             }
@@ -162,6 +167,7 @@ namespace WealthERP_Login_Widget
             {
                 lblLoginMessage.Text = "Invalid LoginId or Password";
                 lblLoginMessage.Visible = true;
+                lblLoginMessage.CssClass = "FieldError";
             }
         }
 

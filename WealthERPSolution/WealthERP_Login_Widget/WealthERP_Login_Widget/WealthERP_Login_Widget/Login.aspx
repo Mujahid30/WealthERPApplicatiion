@@ -20,6 +20,15 @@
     vertical-align: middle;
     text-align: right;
 }
+.FieldError
+{
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size: x-small;
+    color:Red;
+    vertical-align: middle;
+    text-align:left;
+}
 .Field
 {
     font-family: Verdana,Tahoma;
@@ -63,11 +72,15 @@
     font-size: medium; /*color: #993434;*/
     color: #523C7D;
 }
+        .style1
+        {
+            width: 194px;
+        }
     </style>
 </head>
 <body style="width:100px;height:auto;">
     <form id="form1" runat="server">
-   <table><tr align="center"><td colspan="2"><img alt="Advisor Logo" id="imgLogo" runat="server" src="~/Images/Money_Touch_360_logo1.png" width="200" />
+   <table id="tblLogoBlock" runat="server"><tr align="center"><td colspan="2"><img alt="Advisor Logo" id="imgLogo" runat="server" src="~/Images/Money_Touch_360_logo1.png" width="200" />
     </td></tr></table>
     <table width="200px" style="border-style:solid" runat="server" id="tblLoginBlock">
     
@@ -85,7 +98,7 @@
             runat="server" onclick="btnLogin_Click" CssClass="PCGButton"></asp:Button></td> </tr>
             
     </table>
-    <table><tr align="center"><td colspan="2"><asp:Label ID="lblLoginMessage" Text="" Visible="false" runat="server"  CssClass="FieldName"></asp:Label></td></tr>
+    <table style="width: 195px"><tr align="center"><td colspan="2"><asp:Label ID="lblLoginMessage" Text="Invalid LoginId or Password" Visible="false" runat="server"  CssClass="FieldName"></asp:Label></td></tr>
     <tr align="center"><td><asp:LinkButton ID="lnklogout" 
             Text="Login as Different User" runat="server" onclick="lnklogout_Click" CssClass="HeaderText"></asp:LinkButton></td></tr>
     </table>
