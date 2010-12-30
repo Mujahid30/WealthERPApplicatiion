@@ -1678,6 +1678,13 @@
     <Compile Include="CustomerPortfolio\ViewInsuranceDetails.ascx.designer.cs">
       <DependentUpon>ViewInsuranceDetails.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CustomerPortfolio\ViewMFPortfolioValuation.ascx.cs">
+      <DependentUpon>ViewMFPortfolioValuation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\ViewMFPortfolioValuation.ascx.designer.cs">
+      <DependentUpon>ViewMFPortfolioValuation.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CustomerPortfolio\ViewMFTransaction.ascx.cs">
       <DependentUpon>ViewMFTransaction.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1930,33 +1937,12 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="FP\AddProspectList.ascx.cs">
-      <DependentUpon>AddProspectList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FP\AddProspectList.ascx.designer.cs">
-      <DependentUpon>AddProspectList.ascx</DependentUpon>
-    </Compile>
     <Compile Include="FP\ByPass.aspx.cs">
       <DependentUpon>ByPass.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FP\ByPass.aspx.designer.cs">
       <DependentUpon>ByPass.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="FP\CustomerProspect.ascx.cs">
-      <DependentUpon>CustomerProspect.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FP\CustomerProspect.ascx.designer.cs">
-      <DependentUpon>CustomerProspect.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="FP\ProspectList.ascx.cs">
-      <DependentUpon>ProspectList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FP\ProspectList.ascx.designer.cs">
-      <DependentUpon>ProspectList.ascx</DependentUpon>
     </Compile>
     <Compile Include="General\AdvisorHeader.ascx.cs">
       <DependentUpon>AdvisorHeader.ascx</DependentUpon>
@@ -1971,6 +1957,13 @@
     </Compile>
     <Compile Include="General\BreadCrumbs.ascx.designer.cs">
       <DependentUpon>BreadCrumbs.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\Calculators.ascx.cs">
+      <DependentUpon>Calculators.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\Calculators.ascx.designer.cs">
+      <DependentUpon>Calculators.ascx</DependentUpon>
     </Compile>
     <Compile Include="General\ChangeTempPassword.ascx.cs">
       <DependentUpon>ChangeTempPassword.ascx</DependentUpon>
@@ -2988,6 +2981,7 @@
     <Content Include="App_Themes\Purple\StyleSheet.css" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\AjaxControlToolkit.pdb" />
+    <Content Include="bin\Telerik.Web.UI.dll" />
     <Content Include="bin\DaoCaching.dll" />
     <Content Include="bin\DaoCaching.pdb" />
     <Content Include="CSS\Images\splitter_bar_left_pointer.jpg" />
@@ -3010,6 +3004,7 @@
     <Content Include="CustomerPortfolio\RMMultipleEqTransactionsView.ascx" />
     <Content Include="CustomerPortfolio\RMMultipleTransactionView.ascx" />
     <Content Include="CustomerPortfolio\ViewGeneralInsuranceDetails.ascx" />
+    <Content Include="CustomerPortfolio\ViewMFPortfolioValuation.ascx" />
     <Content Include="Customer\AddDematAccountDetails.ascx" />
     <Content Include="Customer\CustomerAdvisorsNote.ascx" />
     <Content Include="Customer\CustomerExpense.ascx" />
@@ -3021,11 +3016,9 @@
     <Content Include="Emails\Templates\AdviserRegistrationNotification.html" />
     <Content Include="Emails\Templates\AdviserRMAccounts.html" />
     <Content Include="favicon.ico" />
-    <Content Include="FP\AddProspectList.ascx" />
     <Content Include="FP\ByPass.aspx" />
-    <Content Include="FP\CustomerProspect.ascx" />
     <Content Include="FP\FinancialPlanning.htm" />
-    <Content Include="FP\ProspectList.ascx" />
+    <Content Include="General\Calculators.ascx" />
     <Content Include="General\SetTheme.ascx" />
     <Content Include="General\UserSettings.ascx" />
     <Content Include="General\UserSettingsLeftPane.ascx" />
