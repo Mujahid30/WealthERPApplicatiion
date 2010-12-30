@@ -261,9 +261,12 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRM','login');" Text="RM"
                                                                 Value="RM" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
-                                                                Value="Price List"></asp:MenuItem>
-                                                           <%-- <asp:MenuItem NavigateUrl="javascript:loadfrommenu('FinancialPlanning','login');"
-                                                                Text="Financial Planning" Value="FinancialPlanning"></asp:MenuItem>--%>
+                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                          
+                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
+                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                                Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -304,7 +307,12 @@
                                                                 Text="Alerts" Value="Alerts" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports"></asp:MenuItem>
+                                                                Text="Reports" Value="Reports" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                          
+                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
+                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                                Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -345,7 +353,12 @@
                                                                 Text="Alerts" Value="Alerts" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports"></asp:MenuItem>
+                                                                Text="Reports" Value="Reports" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                          
+                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
+                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                                Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -376,7 +389,12 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRMDetails','login');" Text="My Profile"
                                                                 Value="Profile" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMCustomer','login');" Text="Customers"
-                                                                Value="Clients"></asp:MenuItem>
+                                                                Value="Clients" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                          
+                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
+                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                                Value="Interest Calculator"></asp:MenuItem>
                                                                 <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('FinancialPlanning','login');"
                                                                 Text="Financial Planning" Value="FinancialPlanning"></asp:MenuItem>--%>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMAlertDashBoard','?Clear=true');"
@@ -430,7 +448,12 @@
                                                                 Text="Research/Analytics" Value="ResearchAnalytics" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports"></asp:MenuItem>
+                                                                Text="Reports" Value="Reports" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                          
+                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
+                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                                Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -480,7 +503,12 @@
                                                                 Text="Research/Analytics" Value="ResearchAnalytics" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports"></asp:MenuItem>
+                                                                Text="Reports" Value="Reports" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                          
+                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
+                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                                Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -515,6 +543,11 @@
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRM','login','2');" Text="Staffs"
                                                                 Value="View RMs" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                          
+                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
+                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                                Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
