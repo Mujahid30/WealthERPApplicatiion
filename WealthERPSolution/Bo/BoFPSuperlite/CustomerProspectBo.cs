@@ -785,5 +785,45 @@ namespace BoFPSuperlite
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Used to Show FP Dashboard and Show Current and Recomonded Asset allocation.
+        /// </summary>
+        /// Added by: Vinayak Patil.
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
+
+        public DataSet GetFPDashBoardAsstesBreakUp(int CustomerId)
+        {
+
+
+            CustomerProspectDao customerprospectdao = new CustomerProspectDao();
+            DataSet dsFPDashBoard = new DataSet();
+            try
+            {
+                dsFPDashBoard = customerprospectdao.GetFPDashBoardAsstesBreakUp(CustomerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectBo.cs:GetFPDashBoardAsstesBreakUp()");
+                object[] objects = new object[3];
+                objects[0] = CustomerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsFPDashBoard;
+
+        }
+
+        /* End For FPDashBoard Asset BreakUp */
     }
 }
