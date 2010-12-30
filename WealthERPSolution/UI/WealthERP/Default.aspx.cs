@@ -208,7 +208,18 @@ namespace WealthERP
                     AdvisorLogo.Style.Add("display", "none");
                     BranchLogo.Style.Add("display", "none");
 
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loginloadcontrolfromDefault('Userlogin','','');", true);
+                    if (!IsPostBack)
+                    {
+                        if (Request.QueryString["UserId"] != null)
+                        {
+                            string userId = Request.QueryString["UserId"].ToString();
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loginloadcontrolfromDefault('Userlogin','" + userId + "','');", true);
+                        }
+                        else
+                        {
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loginloadcontrolfromDefault('Userlogin','','');", true);
+                        }
+                    }
                 }
 
                 if (AdvisorLogo.Src == "")
