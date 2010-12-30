@@ -153,8 +153,9 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_MothersMaidenName", DbType.String, customerVo.MothersMaidenName);
                 db.AddInParameter(createCustomerCmd, "@C_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerCmd, "@C_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(createCustomerCmd, "@C_ProspectAddDate", DbType.DateTime, customerVo.ProspectAddDate);
                 db.AddOutParameter(createCustomerCmd, "@CustomerId", DbType.Int32, 5000);
-
+                
                 if (db.ExecuteNonQuery(createCustomerCmd) != 0)
 
                     customerId = int.Parse(db.GetParameterValue(createCustomerCmd, "CustomerId").ToString());
@@ -266,6 +267,7 @@ namespace DaoCustomerProfiling
                         customerVo.AlertViaEmail = int.Parse(dr["C_AlertViaEmail"].ToString());
 
                     }
+
                     if (dr["C_IsProspect"] == null)
                     {
                         customerVo.IsProspect = 0;
@@ -277,6 +279,9 @@ namespace DaoCustomerProfiling
                         customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
 
                     }
+                    if (!string.IsNullOrEmpty(dr["C_ProspectAddDate"].ToString()))
+                        customerVo.ProspectAddDate = Convert.ToDateTime(dr["C_ProspectAddDate"].ToString());
+                    
                     customerVo.AdviseNote = dr["C_Comments"].ToString();
                     if (!string.IsNullOrEmpty(dr["ACC_CustomerClassificationId"].ToString()))
                     {
@@ -1499,7 +1504,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerCmd, "@C_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerCmd, "@C_DummyPAN", DbType.Int32, customerVo.DummyPAN);
-
+                db.AddInParameter(createCustomerCmd, "@C_ProspectAddDate", DbType.DateTime, customerVo.ProspectAddDate);
                 db.AddOutParameter(createCustomerCmd, "@C_CustomerId", DbType.Int32, 10);
                 db.AddOutParameter(createCustomerCmd, "@U_UserId", DbType.Int32, 10);
                 db.AddOutParameter(createCustomerCmd, "@CP_PortfolioId", DbType.Int32, 10);
