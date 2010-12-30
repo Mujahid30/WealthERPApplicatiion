@@ -110,6 +110,13 @@ namespace WealthERP.FP
                         dpDOB.SelectedDate = customerVo.Dob;
                     }
                     txtEmail.Text = customerVo.Email;
+                    txtPanNumber.Text = customerVo.PANNum;
+                    txtAddress1.Text = customerVo.Adr1Line1;
+                    txtAddress2.Text = customerVo.Adr1Line2;
+                    if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
+                    {
+                        dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
+                    }
                     for (int i = 0; i < ddlPickBranch.Items.Count; i++)
                     {
                         if (ddlPickBranch.Items[i].Value == customerVo.BranchId.ToString())
@@ -143,6 +150,10 @@ namespace WealthERP.FP
                         txtMiddleName.Enabled = false;
                         ddlPickBranch.Enabled = false;
                         dpDOB.Enabled = false;
+                        txtPanNumber.Enabled = false;
+                        txtAddress1.Enabled = false;
+                        txtAddress2.Enabled = false;
+                        dpProspectAddDate.Enabled = false;
                         headertitle.Text = "View Prospect";
 
                     }
@@ -542,6 +553,13 @@ namespace WealthERP.FP
                 customerVo.Dob = dpDOB.SelectedDate.Value;
             }
             customerVo.Email = txtEmail.Text;
+            customerVo.PANNum = txtPanNumber.Text;
+            customerVo.Adr1Line1 = txtAddress1.Text;
+            customerVo.Adr1Line2 = txtAddress2.Text;
+            if (dpProspectAddDate.SelectedDate != null)
+            {
+                customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
+            }
             Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
             Session["customerVo"] = customerVo;
             Session["CustomerVo"] = customerVo;
@@ -630,6 +648,13 @@ namespace WealthERP.FP
             customerVo.Email = txtEmail.Text;
             customerVo.IsProspect = 1;
             customerVo.IsFPClient = 1;
+            customerVo.PANNum = txtPanNumber.Text;
+            customerVo.Adr1Line1 = txtAddress1.Text;
+            customerVo.Adr1Line2 = txtAddress2.Text;
+            if (dpProspectAddDate.SelectedDate != null)
+            {
+                customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
+            }
             Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
             userVo.Email = txtEmail.Text.ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
