@@ -57,6 +57,11 @@ namespace WealthERP.FP
                 {
                     Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
                 }
+                //if (e.Value == "FPDashBoard")
+                //{
+                //    Session[SessionContents.FPS_AddProspectListActionStatus] = "FPDashBoard";
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
+                //}
                 if (e.Value == "ViewProfile")
                 {
                     Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
@@ -66,7 +71,7 @@ namespace WealthERP.FP
                 {
                     Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
                 }
             }
             catch (Exception ex)
