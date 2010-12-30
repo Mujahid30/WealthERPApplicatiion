@@ -984,5 +984,50 @@ namespace DaoFPSuperlite
 
 
         }
+
+        
+        /// <summary>
+        /// Used to Show FP Dashboard and Show Current and Recomonded Asset allocation.
+        /// </summary>
+        /// Added by: Vinayak Patil.
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
+        /// 
+        public DataSet GetFPDashBoardAsstesBreakUp(int CustomerId)
+        {
+            Database db;
+            DbCommand getFPDashBoardAsstesBreakUpCmd;
+            DataSet dsFPDashBoard = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getFPDashBoardAsstesBreakUpCmd = db.GetStoredProcCommand("SP_FPDashboard");
+                if (CustomerId != 0)
+                    db.AddInParameter(getFPDashBoardAsstesBreakUpCmd, "@CustomerID", DbType.Int32, CustomerId);
+
+                dsFPDashBoard = db.ExecuteDataSet(getFPDashBoardAsstesBreakUpCmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectDao.cs:GetFPDashBoardAsstesBreakUp()");
+                object[] objects = new object[3];
+                objects[0] = CustomerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsFPDashBoard;
+        }
     }
 }
