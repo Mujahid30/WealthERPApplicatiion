@@ -511,6 +511,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General//Calculators.ascx.
+        /// </summary>
+        internal static string Calculators {
+            get {
+                return ResourceManager.GetString("Calculators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//CAMSProfileFolioInputRejects.ascx.
         /// </summary>
         internal static string CAMSProfileFolioInputRejects {
@@ -2181,6 +2190,15 @@ namespace WealthERP {
         internal static string ViewLOBDetails {
             get {
                 return ResourceManager.GetString("ViewLOBDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CustomerPortfolio//ViewMFPortfolioValuation.ascx.
+        /// </summary>
+        internal static string ViewMFPortfolioValuation {
+            get {
+                return ResourceManager.GetString("ViewMFPortfolioValuation", resourceCulture);
             }
         }
         
