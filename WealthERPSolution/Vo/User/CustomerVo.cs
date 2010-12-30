@@ -97,7 +97,9 @@ namespace VoUser
         private int m_isact;
         private int m_sms;
         private int m_mail;
+        private DateTime? m_ProspectAddDate;
 
+      
 
         public long RMMobile
         {
@@ -162,7 +164,11 @@ namespace VoUser
             get { return m_BranchName; }
             set { m_BranchName = value; }
         }
-
+        public DateTime? ProspectAddDate
+        {
+            get { return m_ProspectAddDate; }
+            set { m_ProspectAddDate = value; }
+        }
 
         #endregion Fields
 
