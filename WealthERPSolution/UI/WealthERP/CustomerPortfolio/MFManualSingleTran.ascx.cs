@@ -492,7 +492,21 @@ namespace WealthERP.CustomerPortfolio
                         {
                             customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
                         }
-
+                        
+                    }
+                    List<MFPortfolioVo> mfPortfolioVoList = new List<MFPortfolioVo>();
+                    Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
+                    DateTime tradeDate = new DateTime();
+                    if (Session["ValuationDate"] != null)
+                    {
+                        genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
+                        tradeDate = DateTime.Parse(genDict["MFDate"].ToString());
+                    }
+                    mfPortfolioVoList = customerPortfolioBo.GetCustomerMFPortfolio(customerVo.CustomerId, portfolioId, tradeDate, lblScheme.Text, ddlFolioNum.SelectedItem.Text, "");
+                    if (mfPortfolioVoList != null && mfPortfolioVoList.Count > 0)
+                    {
+                        customerPortfolioBo.DeleteMutualFundNetPosition(mfPortfolioVoList[0].MFCode, mfPortfolioVoList[0].AccountId, tradeDate);
+                        customerPortfolioBo.AddMutualFundNetPosition(mfPortfolioVoList[0], userVo.UserId);
                     }
 
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
