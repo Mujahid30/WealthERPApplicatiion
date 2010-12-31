@@ -139,7 +139,7 @@ namespace DailyAssetValuation
                                                     Console.WriteLine("Starting EQ Valuation Process for Customer:" + j.ToString() + " Portfolio:" + k.ToString() + " Date:" + EQValuationDate.ToShortDateString());
                                                     try
                                                     {
-                                                        eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList_EQ[j], customerPortfolioList[k].PortfolioId, EQValuationDate, "");
+                                                        eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList_EQ[j], customerPortfolioList[k].PortfolioId, EQValuationDate, string.Empty, string.Empty);
                                                     }
                                                     catch (Exception Ex)
                                                     {
