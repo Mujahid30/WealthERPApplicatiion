@@ -252,12 +252,14 @@ namespace WealthERP.Advisor
                     dtAdvisorStaff.Columns.Add("UserId");
                     dtAdvisorStaff.Columns.Add("WealthERP Id");
                     dtAdvisorStaff.Columns.Add("RMName");
+                    dtAdvisorStaff.Columns.Add("StaffCode");
                     //dtAdvisorStaff.Columns.Add("RM Main Branch");
                     dtAdvisorStaff.Columns.Add("StaffType");
                     dtAdvisorStaff.Columns.Add("StaffRole");
                     dtAdvisorStaff.Columns.Add("Email");
                     dtAdvisorStaff.Columns.Add("Mobile Number");
                     dtAdvisorStaff.Columns.Add("BranchList");
+                    
                     //dtAdvisorStaff.Columns.Add("Branch Name");
                     DataRow dr;
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -345,6 +347,7 @@ namespace WealthERP.Advisor
                         dtAdvisorStaff.Columns.Add("UserId");
                         dtAdvisorStaff.Columns.Add("WealthERP Id");
                         dtAdvisorStaff.Columns.Add("RMName");
+                        dtAdvisorStaff.Columns.Add("StaffCode");
                         dtAdvisorStaff.Columns.Add("StaffType");
                         dtAdvisorStaff.Columns.Add("StaffRole");
                         dtAdvisorStaff.Columns.Add("Email");
@@ -403,6 +406,7 @@ namespace WealthERP.Advisor
                         dtAdvisorStaff.Columns.Add("UserId");
                         dtAdvisorStaff.Columns.Add("WealthERP Id");
                         dtAdvisorStaff.Columns.Add("RMName");
+                        dtAdvisorStaff.Columns.Add("StaffCode");
                         dtAdvisorStaff.Columns.Add("StaffType");
                         dtAdvisorStaff.Columns.Add("StaffRole");
                         dtAdvisorStaff.Columns.Add("Email");
@@ -419,14 +423,18 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[1] = rmVo.RMId.ToString();
                             drAdvisorStaff[2] = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
                             //drAdvisorStaff[3] = rmVo.MainBranch.ToString();
-                            if (rmVo.IsExternal == 1)
-                                drAdvisorStaff[3] = "External";
+                            if (!string.IsNullOrEmpty(rmVo.StaffCode))
+                                drAdvisorStaff[3] = rmVo.StaffCode;
                             else
-                                drAdvisorStaff[3] = "Internal";
-                            drAdvisorStaff[4] = rmVo.RMRole.ToString();
-                            drAdvisorStaff[5] = rmVo.Email.ToString();
-                            drAdvisorStaff[6] = rmVo.Mobile.ToString();
-                            drAdvisorStaff[7] = rmVo.BranchList.ToString();
+                                drAdvisorStaff[3] = "";
+                            if (rmVo.IsExternal == 1)
+                                drAdvisorStaff[4] = "External";
+                            else
+                                drAdvisorStaff[4] = "Internal";
+                            drAdvisorStaff[5] = rmVo.RMRole.ToString();
+                            drAdvisorStaff[6] = rmVo.Email.ToString();
+                            drAdvisorStaff[7] = rmVo.Mobile.ToString();
+                            drAdvisorStaff[8] = rmVo.BranchList.ToString();
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
 
@@ -677,6 +685,11 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+
+        protected void gvRMList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
         /* End For Binding the Branch Dropdowns */
     }
