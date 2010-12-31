@@ -129,7 +129,7 @@ namespace AmpsysJobDaemon
                                                 {
                                                     try
                                                     {
-                                                        eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList_EQ[j], customerPortfolioList[k].PortfolioId, EQValuationDate, "");
+                                                        eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList_EQ[j], customerPortfolioList[k].PortfolioId, EQValuationDate, string.Empty, string.Empty);
                                                     }
                                                     catch (Exception Ex)
                                                     {
