@@ -1097,12 +1097,24 @@
     <value>Advisor//CustomerFolioMerge.ascx</value>
     <comment>Advisor//CustomerFolioMerge.ascx</comment>
   </data>
-<data name="ViewMFPortfolioValuation" xml:space="preserve">
+  <data name="ViewMFPortfolioValuation" xml:space="preserve">
     <value>CustomerPortfolio//ViewMFPortfolioValuation.ascx</value>
     <comment>CustomerPortfolio//ViewMFPortfolioValuation.ascx</comment>
   </data>
   <data name="Calculators" xml:space="preserve">
     <value>General//Calculators.ascx</value>
     <comment>General//Calculators.ascx</comment>
+  </data>
+  <data name="AddAdviserSubscription" xml:space="preserve">
+    <value>SuperAdmin//AddAdviserSubscription.ascx</value>
+    <comment>SuperAdmin//AddAdviserSubscription.ascx</comment>
+  </data>
+  <data name="SuperAdminLeftPane" xml:space="preserve">
+    <value>SuperAdmin//SuperAdminLeftPane.ascx</value>
+    <comment>SuperAdmin//SuperAdminLeftPane.ascx</comment>
+  </data>
+  <data name="FPSectional" xml:space="preserve">
+    <value>Reports/FPSectional.ascx</value>
+    <comment>Reports/FPSectional.ascx</comment>
   </data>
 </root>

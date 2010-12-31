@@ -11,50 +11,51 @@
     <title>Wealth ERP</title>
     <%-- <link href="CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="CSS/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
-<link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+
     <script language="javascript" type="text/javascript" src="Scripts/JScript.js"></script>
 
-<script language="javascript" type="text/javascript">
-    var timerEvent = null;
-    
-    function calcHeight(ifrm_id) {
-        try {
-            setTimeout("calc('" + ifrm_id + "')", 200);
+    <script language="javascript" type="text/javascript">
+        var timerEvent = null;
+
+        function calcHeight(ifrm_id) {
+            try {
+                setTimeout("calc('" + ifrm_id + "')", 500);
+            }
+            catch (e) { }
         }
-        catch (e) { }
-    }
-    function calc(iframe_id) {
-        try {
-            var leftframe_height = document.getElementById('leftframe').contentWindow.document.body.scrollHeight;
-            var mainframe_height = document.getElementById('mainframe').contentWindow.document.body.scrollHeight;
-            var the_height = (leftframe_height > mainframe_height) ? leftframe_height : mainframe_height;
-            if (the_height > 600) {
-                var newHeight = the_height + 70;
-                if (document.getElementById('leftframe').height != newHeight)
-                    document.getElementById('leftframe').height = newHeight;
-                if (document.getElementById('mainframe').height != newHeight)
-                    document.getElementById('mainframe').height = newHeight;
-                if (iframe_id == 'mainframe') {
-                    if (document.getElementById('splitter_bar_left').style.height != newHeight)
-                        document.getElementById('splitter_bar_left').style.height = newHeight + 'px';
+        function calc(iframe_id) {
+            try {
+                var leftframe_height = document.getElementById('leftframe').contentWindow.document.body.scrollHeight;
+                var mainframe_height = document.getElementById('mainframe').contentWindow.document.body.scrollHeight;
+                var the_height = (leftframe_height > mainframe_height) ? leftframe_height : mainframe_height;
+                if (the_height > 600) {
+                    var newHeight = the_height + 70;
+                    if (document.getElementById('leftframe').height != newHeight)
+                        document.getElementById('leftframe').height = newHeight;
+                    if (document.getElementById('mainframe').height != newHeight)
+                        document.getElementById('mainframe').height = newHeight;
+                    if (iframe_id == 'mainframe') {
+                        if (document.getElementById('splitter_bar_left').style.height != newHeight)
+                            document.getElementById('splitter_bar_left').style.height = newHeight + 'px';
+                    }
+
+                }
+                else {
+                    if (document.getElementById(iframe_id).height != 600)
+                        document.getElementById(iframe_id).height = 600;
+                    if (iframe_id == 'mainframe') {
+                        if (document.getElementById('splitter_bar_left').style.height != 600)
+                            document.getElementById('splitter_bar_left').style.height = 600 + 'px';
+                    }
                 }
 
+                if (timerEvent != null) window.clearInterval(timerEvent);
+                timerEvent = window.setTimeout("calc('" + iframe_id + "')", 1000);
             }
-            else {
-                if (document.getElementById(iframe_id).height != 600)
-                    document.getElementById(iframe_id).height = 600;
-                if (iframe_id == 'mainframe') {
-                    if (document.getElementById('splitter_bar_left').style.height != 600)
-                        document.getElementById('splitter_bar_left').style.height = 600 + 'px';
-                }
-            }
-
-            if (timerEvent != null) window.clearInterval(timerEvent);
-            timerEvent = window.setTimeout("calc('" + iframe_id + "')", 1000);
+            catch (e) { }
         }
-        catch (e) { }
-    }
-</script>
+    </script>
 
     <script type="text/javascript" language="javascript">
         function hb1(clicked) //Show or hide the left_menu
@@ -70,7 +71,7 @@
                     document.getElementById('splitter_bar_left').style.styleFloat = 'left';
                     document.getElementById('content').style.cssFloat = 'left';
                     document.getElementById('content').style.styleFloat = 'left';
-                    document.getElementById('content').style.width = "76.50%";
+                    document.getElementById('content').style.width = "81%";
                     document.getElementById('content').style.position = 'relative';
                 }
                 else if (document.getElementById('left_menu').style.display == 'block') {
@@ -82,9 +83,9 @@
                     document.getElementById('splitter_bar_left').style.styleFloat = 'left';
                     document.getElementById('content').style.cssFloat = 'left';
                     document.getElementById('content').style.styleFloat = 'left';
-                    document.getElementById('content').style.width = "98.75%";
+                    document.getElementById('content').style.width = "99%";
                     document.getElementById('content').style.position = 'relative';
-                    
+
                 }
             }
         }
@@ -110,19 +111,18 @@
             float: left;
             width: 80.50%;
         }
-        #UpdateProgress1 
+        #UpdateProgress1
         {
-                background-color:#CF4342;
-                color:White;
-                top: 0px;
-                right: 0px;
-                position:fixed;
+            background-color: #CF4342;
+            color: White;
+            top: 0px;
+            right: 0px;
+            position: fixed;
         }
- 
-        #UpdateProgress1 img 
+        #UpdateProgress1 img
         {
-               vertical-align:middle;
-                 margin:2px;
+            vertical-align: middle;
+            margin: 2px;
         }
     </style>
 </head>
@@ -132,23 +132,24 @@
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
         <table class="TDBackground" width="100%" style="height: auto; margin: 0px; padding: 0px;">
             <tr>
-                <td colspan="3" style="border: inherit; height: 50px" align="left" valign="top">
+                <td colspan="3" style="border: inherit; height: 50px; padding: 0px;" align="left"
+                    valign="top">
                     <div id="GeneralHeader" style="height: auto" visible="true" runat="server">
                         <table width="100%">
                             <tr class='header'>
                                 <%-- style="background-image: url(Images/Header2.jpg); background-repeat: repeat;
                                 height: 90px;" --%>
                                 <%--background-color: #D1E1F7"--%>
-                                <td colspan="3" valign="top">
+                                <td colspan="3" valign="top" class="TDBackground" style="padding: 0px;">
                                     <div style="width: 100%; height: 50px;">
-                                        <div style="float:left; z-index: 2000;">
+                                        <div style="float: left; z-index: 2000;">
                                             <img alt="Advisor Logo" id="AdvisorLogo" runat="server" height="50" />
                                         </div>
-                                        <div style="float:right; z-index: 2000;">
-                                            <img id="BranchLogo" runat="server"/>
+                                        <div style="float: right; z-index: 2000;">
+                                            <img id="BranchLogo" runat="server" />
                                         </div>
                                     </div>
-                                    <div style="clear:both; z-index: 2500; text-align:right;">
+                                    <div style="clear: both; z-index: 2500; text-align: right;">
                                         &nbsp; <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
                                             class="LinkButtons" href="#">Settings</a>&nbsp;
                                         <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign In" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
@@ -183,11 +184,11 @@
                                 </td>
                             </tr>--%>
                             <tr style="height: 35px; border: border 2 #0000FF">
-                                <td class="PCGRedBcknd" style="width: 17.25%;">
+                                <td class="PCGRedBcknd" style="width: 18%;">
                                     <asp:Label ID="lblUserName" runat="server" CssClass="HeaderDateText"></asp:Label>
                                 </td>
                                 <td colspan="2" class="PCGRedBcknd" valign="middle">
-                                   <%-- <div id="GeneralMenu" style="height: auto; width: 78%; float: left;" runat="server">
+                                    <%-- <div id="GeneralMenu" style="height: auto; width: 78%; float: left;" runat="server">
                                         <table width="100%">
                                             <tr>
                                                 <td>
@@ -635,8 +636,8 @@
                     &nbsp;
                     <%--<img alt="collapse" id="imgCollapseLeft" src="Images/splitter_bar_left_pointer.jpg" style="vertical-align:middle;" /> --%>
                 </td>
-                <td id="content" style="display: block" valign="top">
-                    <iframe name="mainframe" id="mainframe" onload="javascript:calcHeight('mainframe');"
+                <td id="content" style="display: block; padding: 0px;" valign="top">
+                    <iframe name="mainframe" class="MainFrame" id="mainframe" onload="javascript:calcHeight('mainframe');"
                         src="ControlHost.aspx"></iframe>
                 </td>
                 <%--<td id="splitter_bar_right" style="display: block" onclick="javascript:hb1('right');">
@@ -668,8 +669,9 @@
                                     runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
                             </td>
                             <td align="right">
-<%--                            <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OWPyWbNsq7qPWzrss8sCH3weSSj3SjP21EhheOl4L7s2vBTlMzf"></script><br/><a style="font-family: arial; font-size: 9px" href="https://www.godaddy.com" target="_blank">Best Web Hosting</a></span>
---%>                                <asp:Label ID="PCGLabel" Text="2010 @ Ampsys Consulting Pvt. Ltd." runat="server"
+                                <%--                            <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OWPyWbNsq7qPWzrss8sCH3weSSj3SjP21EhheOl4L7s2vBTlMzf"></script><br/><a style="font-family: arial; font-size: 9px" href="https://www.godaddy.com" target="_blank">Best Web Hosting</a></span>
+--%>
+                                <asp:Label ID="PCGLabel" Text="2010 @ Ampsys Consulting Pvt. Ltd." runat="server"
                                     CssClass="PCGWhiteText"></asp:Label>
                             </td>
                         </tr>
@@ -678,12 +680,11 @@
             </tr>
         </table>
         <asp:UpdateProgress ID="UpdateProgress1" runat="server" DynamicLayout="false">
-        <ProgressTemplate>
-        <img src="Images/ajax-loader.gif" />loading.....
-        </ProgressTemplate>
+            <ProgressTemplate>
+                <img src="Images/ajax-loader.gif" />loading.....
+            </ProgressTemplate>
         </asp:UpdateProgress>
     </div>
     </form>
 </body>
 </html>
-
