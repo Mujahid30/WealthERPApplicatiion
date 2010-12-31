@@ -130,7 +130,6 @@ namespace BoAdvisorProfiling
             return advisorId;
 
         }
-
         /// <summary>
         /// Returns list of Adviser's Customers based on the Adviser Id with Paging
         /// </summary>
@@ -656,7 +655,6 @@ namespace BoAdvisorProfiling
 
 
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -698,7 +696,6 @@ namespace BoAdvisorProfiling
 
             return userVo;
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -790,7 +787,6 @@ namespace BoAdvisorProfiling
 
             return advisorVo;
         }
-
         //public string GetBusinessCode(string businessType,string path)
         //{
         //    string bCode = " ";
@@ -905,6 +901,79 @@ namespace BoAdvisorProfiling
                 throw exBase;
             }
             return dsAdviserClassification;
+
+        }
+
+        /// <summary>
+        /// Function to retrieve the tree nodes based on the user role
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetTreeNodesBasedOnUserRoles(string userRole,string treeType)
+        {
+            AdvisorDao advisorDao = new AdvisorDao();
+            DataSet dsAdviserTreeNodes;
+
+            try
+            {
+                dsAdviserTreeNodes = advisorDao.GetTreeNodesBasedOnUserRoles(userRole,treeType);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetTreeNodesBasedOnUserRoles(string userRole)");
+                object[] objects = new object[1];
+                objects[0] = userRole;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTreeNodes;
+
+        }
+
+        /// <summary>
+        /// Function to retrieve the tree nodes based on the plans subscribed
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetTreeNodesBasedOnPlans(int adviserId,string userRole,string treeType)
+        {
+            AdvisorDao advisorDao = new AdvisorDao();
+            DataSet dsAdviserTreeNodes;
+
+            try
+            {
+                dsAdviserTreeNodes = advisorDao.GetTreeNodesBasedOnPlans(adviserId, userRole,treeType);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetTreeNodesBasedOnPlans()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = userRole;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTreeNodes;
 
         }
     }
