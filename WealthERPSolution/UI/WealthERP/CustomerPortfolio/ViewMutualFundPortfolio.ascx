@@ -468,8 +468,7 @@
                         <tr id="trChart" runat="server">
                             <td>
                                 <div id="Div2" runat="server">
-                                    <asp:Chart ID="chrtMFClassification" runat="server" Palette="Pastel" Height="328px"
-                                        Width="362px">
+                                    <asp:Chart ID="chrtMFClassification" runat="server" BackColor="Transparent" Palette="Pastel" Width="500px" Height="250px">
                                         <Series>
                                             <asp:Series Name="seriesMFC">
                                             </asp:Series>
