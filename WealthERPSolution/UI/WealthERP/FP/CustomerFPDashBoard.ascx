@@ -24,23 +24,23 @@
     </tr>
          <tr>
         <td align="left">
-           <asp:Label ID="lblBranchAUM" runat="server" CssClass="HeaderTextSmall" Text="Customer Dashboard"></asp:Label>
+           <asp:Label ID="lblBranchAUM" runat="server" CssClass="HeaderTextSmall" Text="Customer FP Dashboard"></asp:Label>
            <hr id="hrBranchAum" runat="server" />
         </td>
         <td>
-        <asp:Label ID="lblChartBranchAUM" runat="server" CssClass="HeaderTextSmall" Text="Customer Dashboard"></asp:Label>
+        <asp:Label ID="lblChartBranchAUM" runat="server" CssClass="HeaderTextSmall" Text="Customer FP Dashboard"></asp:Label>
         <hr runat="server" id="hrCustAsset" />
                 </td>
         </tr>
         <tr>
             <td style="vertical-align: top">
-                <telerik:RadGrid ID="gvFPDashBoard" Width="550px" AllowFilteringByColumn="false"
-                    BorderColor="Black" Skin="Telerik" EnableEmbeddedSkins="false" PagerStyle-EnableSEOPaging="true" runat="server">
+                <telerik:RadGrid ID="gvFPDashBoard" Width="450px" AllowFilteringByColumn="false"
+                   Skin="Telerik" EnableEmbeddedSkins="false" PagerStyle-EnableSEOPaging="true" runat="server">
                  <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
                     <Columns>
                     <telerik:GridBoundColumn DataField="Asset" HeaderText="Asset">
                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn DataField="CurrentValue" HeaderText="Current Value (Rs.)">
+                     <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" DataField="CurrentValue" HeaderText="Current Value (Rs.)">
                     </telerik:GridBoundColumn>
                     </Columns>
                  </MasterTableView>
@@ -51,7 +51,7 @@
                 <br />
                </td>
                <td >
-                <asp:Chart ID="ChartBranchAssets" runat="server" BackColor="#EBEFF9"
+                <asp:Chart ID="ChartBranchAssets" runat="server" BackColor="Transparent"
                      Width="550px" Height="300px"  >
                     <Series>
                         <asp:Series Name="seriesBranchAssets" LabelBackColor="Red" ChartType="Pie" 
@@ -88,7 +88,7 @@
                                         Visible="False"></asp:Label>
                                         <br />
             
-            <asp:Chart ID="ChartCurrentAsset" runat="server" BackColor="#EBEFF9"
+            <asp:Chart ID="ChartCurrentAsset" runat="server" BackColor="Transparent"
                      Width="550px" Height="300px"  >
                     <Series>
                         <asp:Series Name="sActualAsset" ChartArea="caActualAsset" LabelBackColor="Red" ChartType="Pie" 
@@ -110,7 +110,7 @@
                                         Visible="False"></asp:Label>
                                         <br />
             
-             <asp:Chart ID="ChartRecomonedAsset" runat="server" BackColor="#EBEFF9"
+             <asp:Chart ID="ChartRecomonedAsset" runat="server" BackColor="Transparent"
                      Width="550px" Height="300px"  >
                     <Series>
                         <asp:Series Name="sActualAsset" ChartArea="caActualAsset" LabelBackColor="Red" ChartType="Pie" 

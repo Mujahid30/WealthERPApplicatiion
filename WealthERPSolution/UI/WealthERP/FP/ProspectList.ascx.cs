@@ -52,7 +52,10 @@ namespace WealthERP.FP
                 selectedRow = gdi.ItemIndex;
                 customerId = int.Parse((RadGrid1.MasterTableView.DataKeyValues[selectedRow]["C_CustomerId"].ToString()));
                 customervo = customerBo.GetCustomer(customerId);
+                
                 Session[SessionContents.CustomerVo] = customervo;
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndividualLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                
                 if (customerId != 0)
                 {
                     Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;

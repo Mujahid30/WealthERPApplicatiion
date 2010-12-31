@@ -50,7 +50,7 @@
                                 <telerik:RadComboBoxItem Text="-Select-" Value="-Select-" />
                                 <%--<telerik:RadComboBoxItem ImageUrl="../Images/Telerik/FP/DashBoard.png" Text="FPDashboard"
                                     Value="FPDashBoard" />--%>
-                                <telerik:RadComboBoxItem ImageUrl="../Images/Telerik/FP/DashBoard.png" Text="Financial Profile"
+                                <telerik:RadComboBoxItem ImageUrl="/Images/Telerik/FP/DashBoard.png" Text="Financial Profile"
                                     Value="FinancialPlanning" />
                                 <telerik:RadComboBoxItem ImageUrl="/Images/Telerik/View.gif" Text="View Profile"
                                     Value="ViewProfile" />
