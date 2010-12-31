@@ -466,6 +466,7 @@ namespace WealthERP.CustomerPortfolio
             // Total Assets Chart
             Series seriesAssets = new Series("Assets");
             Legend legend = new Legend("AssetsLegend");
+            ChartArea chartArea1 = chrtTotalAssets.ChartAreas[0];
             legend.Enabled = true;
             string[] XValues = new string[dsAssetChart.Tables[0].Rows.Count];
             double[] YValues = new double[dsAssetChart.Tables[0].Rows.Count];
@@ -496,9 +497,12 @@ namespace WealthERP.CustomerPortfolio
 
             chrtTotalAssets.ChartAreas[0].Area3DStyle.Enable3D = true;
             chrtTotalAssets.ChartAreas[0].Area3DStyle.Perspective = 50;
+            chrtTotalAssets.Legends["AssetsLegend"].BackColor = Color.Transparent;
             //chrtTotalAssets.ChartAreas[0].InnerPlotPosition.Width = 100;
             chrtTotalAssets.Width = 500;
             chrtTotalAssets.BackColor = Color.Transparent;
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.BackSecondaryColor = System.Drawing.Color.Transparent;
             chrtTotalAssets.ChartAreas[0].BackColor = Color.Transparent;
             chrtTotalAssets.Series["Assets"].ToolTip = "#VALX: #PERCENT";
 
