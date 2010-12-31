@@ -25,7 +25,7 @@
                 loadsearchcontrol('AdviserCustomer', 'Customer', searchstring);
             }
             else if (userRole == "BM") {
-            loadsearchcontrol('BMCustomer', 'Customer', searchstring);
+                loadsearchcontrol('BMCustomer', 'Customer', searchstring);
             }
         }
     }
@@ -71,109 +71,180 @@
             </tr>
             <tr>
                 <td>
-                    <asp:TreeView ID="TreeView1" runat="server" Font-Size="X-Small" ImageSet="Arrows"
-                        ShowLines="True">
-                        <ParentNodeStyle Font-Bold="False" />
-                        <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
-                        <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px"
-                            VerticalPadding="0px" />
-                        <Nodes>
-                            <asp:TreeNode Text="Home" Value="RM Home"></asp:TreeNode>
-                            <asp:TreeNode Text="Customer Dashboard" Value="Customer Dashboard"></asp:TreeNode>
-                            <asp:TreeNode Text="Portfolio Dashboard" Value="Portfolio Dashboard">
-                                <asp:TreeNode Text="Equity" Value="Equity">
-                                    <asp:TreeNode Text="View Equity Transaction" Value="View Equity Transaction"></asp:TreeNode>
-                                    <asp:TreeNode Text="Add Equity Transaction" Value="Add Equity Transaction"></asp:TreeNode>
-                                    <asp:TreeNode Text="Add Equity Account" Value="Add Equity Account"></asp:TreeNode>
-                                    <asp:TreeNode Text="View Equity Account" Value="View Equity Account"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="MF" Value="MF">
-                                    <asp:TreeNode Text="View MF Transaction" Value="View MF Transaction"></asp:TreeNode>
-                                    <asp:TreeNode Text="Add MF Transaction" Value="Add MF Transaction"></asp:TreeNode>
-                                    <asp:TreeNode Text="View MF Folio" Value="View MF Folio"></asp:TreeNode>
-                                    <asp:TreeNode Text="Add MF Folio" Value="Add MF Folio"></asp:TreeNode>
-                                    <asp:TreeNode Text="View Systematic Schemes" Value="View Systematic Schemes"></asp:TreeNode>
-                                    <asp:TreeNode Text="Register Systematic Schemes" Value="Register Systematic Schemes">
-                                    </asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Fixed Income" Value="Fixed Income">
-                                    <asp:TreeNode Text="Add Fixed Income" Value="Add Fixed Income"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Govt Savings" Value="Govt Savings">
-                                    <asp:TreeNode Text="Add Govt Savings" Value="Add Govt Savings"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Property" Value="Property">
-                                    <%--NavigateUrl="javascript:OnTreeClick(this);"--%>
-                                    <asp:TreeNode Text="Add Property" Value="Add Property"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Pension And Gratuities" Value="Pension And Gratuities">
-                                    <asp:TreeNode Text="Add Pension and Gratuities" Value="Add Pension and Gratuities">
-                                    </asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Personal Assets" Value="Personal Assets">
-                                    <asp:TreeNode Text="Add Personal Assets" Value="Add Personal Assets"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Gold Assets" Value="Gold Assets">
-                                    <asp:TreeNode Text="Add Gold Assets" Value="Add Gold Assets"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Collectibles" Value="Collectibles">
-                                    <asp:TreeNode Text="Add Collectibles" Value="Add Collectibles"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Cash and Savings" Value="Cash And Savings">
-                                    <asp:TreeNode Text="Add Cash and Savings" Value="Add Cash and Savings"></asp:TreeNode>
-                                </asp:TreeNode>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="Alerts Dashboard" Value="Alerts">
-                                <asp:TreeNode Text="View Notifications" Value="View Notifications"></asp:TreeNode>
-                                <asp:TreeNode Text="MF Alerts" Value="MF Alerts"></asp:TreeNode>
-                                <asp:TreeNode Text="FI Alerts" Value="FI Alerts"></asp:TreeNode>
-                                <asp:TreeNode Text="Insurance Alerts" Value="Insurance Alerts"></asp:TreeNode>
-                                <asp:TreeNode Text="Equity Alerts" Value="Equity Alerts"></asp:TreeNode>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="Profile Dashboard" Value="Profile Dashboard">
-                                <asp:TreeNode Text="View Profile" Value="View Profile"></asp:TreeNode>
-                                <asp:TreeNode Text="Edit Profile" Value="Edit Profile"></asp:TreeNode>
-                                <asp:TreeNode Text="Bank Details" Value="Bank Details">
-                                    <asp:TreeNode Text="Add Bank Details" Value="Add Bank Details"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Demat Account Details" Value="Demat Account Details">
-                                    <asp:TreeNode Text="Add Demat Account" Value="Add Demat Account"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <%--<asp:TreeNode Text="Group Accounts" Value="Group Accounts">
-                <asp:TreeNode Text="Add New Customer" Value="Add Group Member"></asp:TreeNode>
-                <asp:TreeNode Text="Associate Existing Customer" Value="Associate Member"></asp:TreeNode>
-            </asp:TreeNode>--%>
-                                <asp:TreeNode Text="Proof" Value="Proof">
-                                    <asp:TreeNode Text="Add Proof" Value="Add Proof"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <%--<asp:TreeNode Text="Portfolio Details" Value="Portfolio Details"></asp:TreeNode>--%>
-                                <asp:TreeNode Text="Income Details" Value="Income Details"></asp:TreeNode>
-                                <asp:TreeNode Text="Expense Details" Value="Expense Details"></asp:TreeNode>
-                                <asp:TreeNode Text="Advisor Notes" Value="Advisor Notes"></asp:TreeNode>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="Insurance" Value="Insurance">
-                                <asp:TreeNode Text="Life Insurance" Value="Life Insurance">
-                                    <asp:TreeNode Text="Add Life Insurance" Value="Add Life Insurance"></asp:TreeNode>
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="General Insurance" Value="General Insurance">
-                                    <asp:TreeNode Text="Add General Insurance" Value="Add General Insurance"></asp:TreeNode>
-                                </asp:TreeNode>
-                            </asp:TreeNode>
-                            <asp:TreeNode Text="Liabilities Dashboard" Value="Liabilities Dashboard">
-                                <asp:TreeNode Text="Add Liability" Value="Add Liability"></asp:TreeNode>
-                            </asp:TreeNode>
-                              <asp:TreeNode Text="Financial Planning" Value="FinancialPlanning">                                
-                                <asp:TreeNode Text="Finance Profile" Value="FinanceProfile" Selected="true">
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="RiskProfile & AssetAllocation " Value="RiskProfileAssetAllocation">
-                                </asp:TreeNode>
-                                <asp:TreeNode Text="Goal Profiling" Value="GoalProfiling"></asp:TreeNode>
-                                <asp:TreeNode Text="Reports" Value="Reports"></asp:TreeNode>
-                            </asp:TreeNode>
-                        </Nodes>
-                        <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
-                            NodeSpacing="0px" VerticalPadding="0px" />
-                    </asp:TreeView>
+                    <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
+                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="240px"
+                        OnItemClick="RadPanelBar1_ItemClick">
+                        <Items>
+                            <telerik:RadPanelItem runat="server" Text="Home" Value="Home">
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Value="Group Dashboard" Text="Group Dashboard" Visible="false">
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Customer Dashboard" Value="Customer Dashboard">
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Value="Profile Dashboard" Text="Profile Dashboard">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="View Profile" Value="View Profile">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Value="Edit Profile" Text="Edit Profile">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Bank Details" Value="Bank Details">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Bank Details" Value="Add Bank Details">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Demat Account Details" Value="Demat Account Details">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Demat Account" Value="Add Demat Account">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Proof" Value="Proof">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Proof" Value="Add Proof">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial Planning">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Finance Profile" Value="Finance Profile">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Advisor Notes" Value="Advisor Notes">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Risk profile and asset allocation" Value="Risk profile and asset allocation">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Goal Profiling" Value="Goal Profiling">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Portfolio Dashboard" Value="Portfolio Dashboard">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="View Equity Transaction" Value="View Equity Transactions">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Add Equity Transaction" Value="Add Equity Transactions">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Add Equity Account" Value="Add Equity Account">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Equity Account" Value="View Equity Account">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="MF" Value="MF">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="View MF Transaction" Value="View MF Transactions">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Add MF Transaction" Value="Add MF Transactions">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Add MF Folio" Value="Add MF Folio">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View MF Folio" Value="View MF Folio">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Systematic Schemes" Value="View Systematic Schemes">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Register Systematic Schemes" Value="Register Systematic Schemes">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Fixed Income" Value="Fixed Income">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Fixed Income" Value="Add Fixed Income">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Govt. Savings" Value="Govt Savings">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Govt. Savings" Value="Add Govt Savings">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Property" Value="Property">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Property" Value="Add Property">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Pension and Gratuities" Value="Pension and Gratuities">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Pension and Gratuities" Value="Add Pension and Gratuities">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Personal Assets" Value="Personal Assets">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Personal Assets" Value="Add Personal Assets">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Gold Assets" Value="Gold Assets">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Gold Assets" Value="Add Gold Assets">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Collectibles" Value="Collectibles">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Collectibles" Value="Add Collectibles">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Cash and Savings" Value="Cash and Savings">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Cash and Savings" Value="Add Cash and Savings">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Insurance" Value="Insurance">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Life Insurance" Value="Life Insurance">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Life Insurance" Value="Add Life Insurance">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="General Insurance" Value="General Insurance">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add General Insurance" Value="Add General Insurance">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Liabilities Dashboard" Value="Liabilities">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Add Liability" Value="Add Liability">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Report" Value="Report">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="MF Report" Value="MF Report">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="FP Report" Value="FP Report">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Alerts" Value="Alert">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="View Notifications" Value="View Notifications">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="MF Alerts" Value="MF Alerts">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="FI Alerts" Value="FI Alerts">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Insurance Alerts" Value="Insurance Alerts">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Equity Alerts" Value="Equity Alerts">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                        </Items>
+                    </telerik:RadPanelBar>
                 </td>
             </tr>
             <tr>
