@@ -579,7 +579,7 @@ namespace BoCustomerPortfolio
         }
         #endregion All Portfolios
         #region Portfolio Specific
-        public List<EQPortfolioVo> GetCustomerEquityPortfolio(int customerId, int portfolioId, DateTime tradeDate, string ScripNameFilter)
+        public List<EQPortfolioVo> GetCustomerEquityPortfolio(int customerId, int portfolioId, DateTime tradeDate, string ScripNameFilter, string tradeAccountFilter)
         {
             List<EQPortfolioVo> eqPortfolioVoList = new List<EQPortfolioVo>();
             List<EQTransactionVo> eqTransactionVoList = null;
@@ -606,7 +606,7 @@ namespace BoCustomerPortfolio
                 float dRealizedSalesProceeds = 0;
                 int portfolioTransactionCount = 0;
 
-                eqPortfolioVoList = customerPortfolioDao.GetCustomerEquityPortfolio(customerId, portfolioId, tradeDate, ScripNameFilter);
+                eqPortfolioVoList = customerPortfolioDao.GetCustomerEquityPortfolio(customerId, portfolioId, tradeDate, ScripNameFilter, tradeAccountFilter);
                 if (eqPortfolioVoList != null)
                 {
                     for (int i = 0; i < eqPortfolioVoList.Count; i++)
@@ -3039,6 +3039,40 @@ namespace BoCustomerPortfolio
             return bResult;
 
         }
+        public bool DeleteMutualFundNetPosition(int schemePlanCode,int accountId,DateTime valuationDate)
+        {
+            bool bResult = false;
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+                bResult = customerPortfolioDao.DeleteMutualFundNetPosition(schemePlanCode,accountId,valuationDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioBo.cs:DeleteMutualFundNetPosition()");
+
+
+                object[] objects = new object[3];
+                objects[0] = schemePlanCode;
+                objects[1] = accountId;
+                objects[2] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+
+        }
         #endregion MF Portfolio Valuation
         public DataSet GetProductAssetInstrumentCategory()
         {
@@ -3046,5 +3080,45 @@ namespace BoCustomerPortfolio
             return customerportfoliodao.GetProductAssetInstrumentCategory();
         }
 
+
+        /* Delete Eq NetPosition transaction entries for Latest val date */
+
+        public bool DeleteEquityNetPosition(int scripCode, int TradeAccId, DateTime valuationDate)
+        {
+            bool bResult = false;
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+
+                customerPortfolioDao.DeleteEquityNetPosition(scripCode, TradeAccId, valuationDate);
+                bResult = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:DeleteMutualFundNetPosition()");
+
+
+                object[] objects = new object[3];
+                objects[0] = scripCode;
+                objects[1] = TradeAccId;
+                objects[2] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+       
     }
 }
