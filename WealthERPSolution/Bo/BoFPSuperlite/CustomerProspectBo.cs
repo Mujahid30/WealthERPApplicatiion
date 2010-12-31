@@ -297,7 +297,7 @@ namespace BoFPSuperlite
                 {
                     customerprospectliabilitiesetailsvo = new CustomerProspectLiabilitiesDetailsVo();
                     customerprospectliabilitiesetailsvo.LiabilitiesDetailsId = int.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_FPLiabilitiesDetailsId"].ToString());
-                    customerprospectliabilitiesetailsvo.LoanOutstanding = double.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_LoanOutstanding"].ToString());
+                    customerprospectliabilitiesetailsvo.LoanOutstanding = double.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_TotalLoanOutstanding"].ToString());
                     if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["XLT_LoanTypeCode"].ToString() != null)
                     {
                         customerprospectliabilitiesetailsvo.LoanTypeCode = int.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["XLT_LoanTypeCode"].ToString());
@@ -402,9 +402,9 @@ namespace BoFPSuperlite
                     customerprospectassetsubdetailsvo.AssetGroupCode = dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["PAG_AssetGroupCode"].ToString();
                     customerprospectassetsubdetailsvo.AssetInstrumentCategoryCode = dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["PAIC_AssetInstrumentCategoryCode"].ToString();
                     customerprospectassetsubdetailsvo.AssetInstrumentSubCategoryCode = dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                    if (dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_Value"] != null && dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_Value"].ToString() != "")
+                    if (dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_TotalValue"] != null && dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_TotalValue"].ToString() != "")
                     {
-                        customerprospectassetsubdetailsvo.Value = double.Parse(dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_Value"].ToString());
+                        customerprospectassetsubdetailsvo.Value = double.Parse(dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_TotalValue"].ToString());
                     }
                     if (dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_MaturityDate"]!= null && dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_MaturityDate"].ToString() != "")
                     {
@@ -505,9 +505,9 @@ namespace BoFPSuperlite
                     customerprospectassetdetailsvo.InstrumentDetailsId = int.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_FPInstrumentDetailsId"].ToString());
                     customerprospectassetdetailsvo.AssetGroupCode = dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["PAG_AssetGroupCode"].ToString();
                     customerprospectassetdetailsvo.AssetInstrumentCategoryCode = dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["PAIC_AssetInstrumentCategoryCode"].ToString();
-                    if (dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_Value"] != null && dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_Value"].ToString() != "")
+                    if (dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_TotalValue"] != null && dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_TotalValue"].ToString() != "")
                     {
-                        customerprospectassetdetailsvo.Value = double.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_Value"].ToString());
+                        customerprospectassetdetailsvo.Value = double.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_TotalValue"].ToString());
                     }
                     if (dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_MaturityDate"] != null && dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_MaturityDate"].ToString() != "")
                     {
@@ -612,9 +612,9 @@ namespace BoFPSuperlite
                     customerprospectassetgroupdetails.AssetGroupId = int.Parse(dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_FPAssetGroupDetailsId"].ToString());
                     customerprospectassetgroupdetails.AssetGroupCode = dsCustomerAssetGroupDetails.Tables[0].Rows[i]["PAG_AssetGroupCode"].ToString();
 
-                    if (dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_Value"] != null && dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_Value"].ToString() != "")
+                    if (dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_TotalValue"] != null && dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_TotalValue"].ToString() != "")
                     {
-                        customerprospectassetgroupdetails.Value = double.Parse(dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_Value"].ToString());
+                        customerprospectassetgroupdetails.Value = double.Parse(dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_TotalValue"].ToString());
                     }                   
                     customerprospectassetgroupdetailslist.Add(customerprospectassetgroupdetails);
                 }
