@@ -69,7 +69,7 @@
                     <asp:TreeNode Text="FP" Value="FP">
                         <asp:TreeNode Text="Prospect List" Value="ProspectList"></asp:TreeNode>
                         <asp:TreeNode Text="Add Prospect" Value="AddProspect"></asp:TreeNode>
-                        <asp:TreeNode Text="Offline Form" Value="DownloadForm" NavigateUrl="~/FP/FinancialPlanning.htm" Target="_blank" ></asp:TreeNode>
+                        <asp:TreeNode Text="Offline Form" Value="DownloadForm" NavigateUrl="~/FP/OfflineForm.aspx" Target="_blank" ></asp:TreeNode>
                     </asp:TreeNode>
                 </Nodes>
                 <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
