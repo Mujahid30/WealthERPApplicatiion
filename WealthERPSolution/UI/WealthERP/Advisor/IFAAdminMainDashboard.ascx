@@ -95,21 +95,22 @@
     </tr>
     <tr>
         <td align="left">
-            <asp:Chart ID="ChartRMPerformance" runat="server" BackColor="LightSteelBlue" 
-                Width="400px" Height="325px">
+            <asp:Chart ID="ChartRMPerformance" runat="server" BackColor="Transparent" 
+                Width="500px" Height="250px">
                 <Series>
                     <asp:Series Name="Series1">
                     </asp:Series>
                 </Series>
                 <ChartAreas>
-                    <asp:ChartArea Name="ChartArea1">
+                    <asp:ChartArea BackColor="#EBEFF9" Name="ChartArea1">
+                    
                     </asp:ChartArea>
                 </ChartAreas>
             </asp:Chart>
         </td>
         <td>
-            <asp:Chart ID="ChartBranchPerformance" runat="server" BackColor="LightSteelBlue"
-                Height="325px" Width="400px">
+            <asp:Chart ID="ChartBranchPerformance" runat="server" BackColor="Transparent"
+                Height="300px" Width="520px">
                 <Series>
                     <asp:Series Name="Series1" XValueMember="Branch Code" YValueMembers="Aggr">
                     </asp:Series>

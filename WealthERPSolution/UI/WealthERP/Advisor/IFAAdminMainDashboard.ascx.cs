@@ -327,6 +327,7 @@ namespace WealthERP.Advisor
                         ChartBranchPerformance.ChartAreas[0].AxisY.Title = "Aggregate Value";
                         //ChartBranchPerformance.ChartAreas[0].AxisX.TextOrientation = TextOrientation.Rotated90;
                         ChartBranchPerformance.ChartAreas[0].Area3DStyle.Enable3D = true;
+                        seriesAssets.Palette = ChartColorPalette.Chocolate;
                         ChartBranchPerformance.DataBind();
                     }
                     else
@@ -428,14 +429,19 @@ namespace WealthERP.Advisor
                         ChartRMPerformance.Legends["RMPerformanceLegend"].Title = "RM Performance";
                         ChartRMPerformance.Legends["RMPerformanceLegend"].TitleAlignment = StringAlignment.Center;
                         ChartRMPerformance.Legends["RMPerformanceLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+                        ChartRMPerformance.Legends["RMPerformanceLegend"].BackColor = Color.Transparent;
                         ChartRMPerformance.Legends["RMPerformanceLegend"].TitleSeparatorColor = Color.Black;
 
 
+                        ChartArea chartArea1 = ChartRMPerformance.ChartAreas[0];
                         LegendCellColumn colorColumn = new LegendCellColumn();
                         colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
                         colorColumn.HeaderText = "Color";
                         colorColumn.HeaderBackColor = Color.WhiteSmoke;
                         ChartRMPerformance.Legends["RMPerformanceLegend"].CellColumns.Add(colorColumn);
+                        chartArea1.BackColor = System.Drawing.Color.Transparent;
+                        chartArea1.BackSecondaryColor = System.Drawing.Color.Transparent;
+                        //ChartRMPerformance.BackSecondaryColor = System.Drawing.Color.Transparent;
 
                         //LegendCellColumn RMNameColumn = new LegendCellColumn();
                         //RMNameColumn.ColumnType = LegendCellColumnType.Text;
