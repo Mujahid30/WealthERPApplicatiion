@@ -64,7 +64,7 @@ namespace WealthERP.Advisor
                 ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
                 mypager.EnableViewState = true;
                 base.OnInit(e);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -135,7 +135,7 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
-        
+
         public void HandlePagerEvent(object sender, ItemClickEventArgs e)
         {
             try
@@ -193,7 +193,7 @@ namespace WealthERP.Advisor
 
         protected void BindGrid(int CurrentPage, int export)
         {
-            
+
             Dictionary<string, string> genDictParent = new Dictionary<string, string>();
             genDictReassignRM = new Dictionary<string, string>();
             genDictRM = new Dictionary<string, string>();
@@ -257,7 +257,7 @@ namespace WealthERP.Advisor
                     dtRMCustomer.Columns.Add("IsActive");
                     dtRMCustomer.Columns.Add("IsProspect");
                     dtRMCustomer.Columns.Add("IsFPClient");
-                   
+
                     DataRow drRMCustomer;
 
                     for (int i = 0; i < customerList.Count; i++)
@@ -333,10 +333,10 @@ namespace WealthERP.Advisor
                         //customerRMVo = advisorStaffBo.GetAdvisorStaff(advisorStaffBo.GetUserId(customerVo.RmId));
                         //drRMCustomer[13] = customerVo.AssignedRM.ToString();
                         //customerRMVo.FirstName.ToString() + " " + customerRMVo.MiddleName.ToString() + " " + customerRMVo.LastName.ToString();
-                        if(customerVo.AssignedRM!=null)
+                        if (customerVo.AssignedRM != null)
                             drRMCustomer[13] = customerVo.AssignedRM.ToString();
                         else
-                            drRMCustomer[13]="-";
+                            drRMCustomer[13] = "-";
                         if (customerVo.IsActive == 1)
                         {
                             drRMCustomer[14] = "Active";
@@ -539,6 +539,8 @@ namespace WealthERP.Advisor
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
 
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+
                 //to check whether he is group head or not
                 isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
                 //to set portfolio Id and its details
@@ -550,9 +552,9 @@ namespace WealthERP.Advisor
                     Session["IsDashboard"] = "true";
                     isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
                     if (isGrpHead == true)
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorRMCustGroupDashboard", "loadcontrol('AdvisorRMCustGroupDashboard','login');", true);
                     else
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorRMCustIndiDashboard", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorRMCustIndiDashboard", "loadcontrol('AdvisorRMCustIndiDashboard','login');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
@@ -560,33 +562,32 @@ namespace WealthERP.Advisor
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                     Session["customerPortfolioVo"] = customerPortfolioVo;
-
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndividualDashboard", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
-
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMCustomerIndividualDashboard", "loadcontrol('RMCustomerIndividualDashboard','login');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
                     Session["IsDashboard"] = "portfolio";
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                     Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','list');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','login');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
 
                     Session["IsDashboard"] = "alerts";
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMAlertNotifications", "loadcontrol('RMAlertNotifications','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMAlertNotifications", "loadcontrol('RMAlertNotifications','login');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
                 {
                     //tempUser = new UserVo();
                     //tempUser = userBo.GetUserDetails(userId);
                     //Session["CustomerUser"] = tempUser;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GenerateLoginPassword", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
                 {
+                    Session["IsDashboard"] = "FP";
                     if (customerId != 0)
                     {
                         Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
@@ -605,8 +606,9 @@ namespace WealthERP.Advisor
                     }
 
 
+                    Session[SessionContents.FPS_AddProspectListActionStatus] = "FPDashBoard";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
                 }
-
             }
             catch (Exception Ex)
             {
@@ -682,7 +684,7 @@ namespace WealthERP.Advisor
                 // Search Term is input into this hidden field
                 hdnNameFilter.Value = customer;
 
-                customerList = adviserBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value,hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value,hdnactive.Value, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, hdnactive.Value, out genDictParent, out genDictRM, out genDictReassignRM);
 
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
@@ -918,59 +920,59 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
-/*
-        private void ReAssignRMControl(Dictionary<string, string> genDictReassignRM)
-        {
-            // genDictRM = new Dictionary<string, string>();
-            if (gvCustomers.HeaderRow != null)
-            {
-                if (hdnReassignRM.Value != "")
+        /*
+                private void ReAssignRMControl(Dictionary<string, string> genDictReassignRM)
                 {
-                    ((CheckBox)gvCustomers.HeaderRow.FindControl("chkReassignRM")).Checked = true;
-                }
-                else
-                {
-                    ((CheckBox)gvCustomers.HeaderRow.FindControl("chkReassignRM")).Checked = false;
-                }
-                if (((CheckBox)gvCustomers.HeaderRow.FindControl("chkReassignRM")).Checked)
-                {
-                    DropDownList ddl1 = new DropDownList();
-                    Label lbl1 = new Label();
-                    foreach (GridViewRow gvr in gvCustomers.Rows)
+                    // genDictRM = new Dictionary<string, string>();
+                    if (gvCustomers.HeaderRow != null)
                     {
-                        if ((DropDownList)gvr.FindControl("ddlReassignRM") != null)
+                        if (hdnReassignRM.Value != "")
                         {
-                            ddl1 = (DropDownList)gvr.FindControl("ddlReassignRM");
-                            ddl1.Visible = true;
-                            ddl1.DataSource = genDictReassignRM;
-                            ddl1.DataTextField = "Value";
-                            ddl1.DataValueField = "Key";
-                            ddl1.DataBind();
-                            lbl1 = (Label)(gvr.FindControl("lblAssignedRMHeader"));
-                            lbl1.Visible = false;
-                            ddl1.SelectedValue = gvCustomers.DataKeys[gvr.RowIndex].Values["RMId"].ToString();
+                            ((CheckBox)gvCustomers.HeaderRow.FindControl("chkReassignRM")).Checked = true;
                         }
-                    }
-                }
-                else
-                {
-                    DropDownList ddl1 = new DropDownList();
-                    Label lbl1 = new Label();
-                    foreach (GridViewRow gvr in gvCustomers.Rows)
-                    {
-                        if ((DropDownList)gvr.FindControl("ddlReassignRM") != null)
+                        else
                         {
-                            ddl1 = (DropDownList)gvr.FindControl("ddlReassignRM");
-                            ddl1.Visible = false;
-                            lbl1 = (Label)(gvr.FindControl("lblAssignedRMHeader"));
-                            lbl1.Visible = true;
+                            ((CheckBox)gvCustomers.HeaderRow.FindControl("chkReassignRM")).Checked = false;
                         }
-                    }
-                }
+                        if (((CheckBox)gvCustomers.HeaderRow.FindControl("chkReassignRM")).Checked)
+                        {
+                            DropDownList ddl1 = new DropDownList();
+                            Label lbl1 = new Label();
+                            foreach (GridViewRow gvr in gvCustomers.Rows)
+                            {
+                                if ((DropDownList)gvr.FindControl("ddlReassignRM") != null)
+                                {
+                                    ddl1 = (DropDownList)gvr.FindControl("ddlReassignRM");
+                                    ddl1.Visible = true;
+                                    ddl1.DataSource = genDictReassignRM;
+                                    ddl1.DataTextField = "Value";
+                                    ddl1.DataValueField = "Key";
+                                    ddl1.DataBind();
+                                    lbl1 = (Label)(gvr.FindControl("lblAssignedRMHeader"));
+                                    lbl1.Visible = false;
+                                    ddl1.SelectedValue = gvCustomers.DataKeys[gvr.RowIndex].Values["RMId"].ToString();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            DropDownList ddl1 = new DropDownList();
+                            Label lbl1 = new Label();
+                            foreach (GridViewRow gvr in gvCustomers.Rows)
+                            {
+                                if ((DropDownList)gvr.FindControl("ddlReassignRM") != null)
+                                {
+                                    ddl1 = (DropDownList)gvr.FindControl("ddlReassignRM");
+                                    ddl1.Visible = false;
+                                    lbl1 = (Label)(gvr.FindControl("lblAssignedRMHeader"));
+                                    lbl1.Visible = true;
+                                }
+                            }
+                        }
 
-            }
-        }
-        */
+                    }
+                }
+                */
         protected void gvCustomers_Sort(object sender, GridViewSortEventArgs e)
         {
             string sortExpression = null;
@@ -1478,7 +1480,7 @@ namespace WealthERP.Advisor
             return txt;
         }
 
-        
+
 
         private DropDownList GetParentDDL()
         {
@@ -1510,7 +1512,7 @@ namespace WealthERP.Advisor
 
             return ddl;
         }
-       
+
         private DropDownList GetRMDDL()
         {
             DropDownList ddl = new DropDownList();
@@ -1526,7 +1528,7 @@ namespace WealthERP.Advisor
 
             return ddl;
         }
-        
+
         protected void btnPincodeSearch_Click(object sender, EventArgs e)
         {
             TextBox txtPincode = GetPincodeTextBox();
@@ -1589,7 +1591,7 @@ namespace WealthERP.Advisor
                 this.BindGrid(mypager.CurrentPage, 0);
             }
         }
-        
+
         protected void ddlAssignedRM_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlRM = GetRMDDL();
@@ -1617,13 +1619,13 @@ namespace WealthERP.Advisor
                 }
             }
         }
-        
+
         protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
 
             hdnactive.Value = ddlFilter.SelectedValue;
-            
+
             //if (int.Parse(ddlFilter.SelectedValue) == 0)
             //{
             //    hdnactive.Value = "I";

@@ -385,8 +385,8 @@ namespace WealthERP.Advisor
                 {
                     BindBranchDropDown();
                     string session = Session["Current_Link"].ToString();
-                    if (Session["Current_Link"].ToString() == "BMLeftpane")
-                    {
+                    //if (Session["Current_Link"].ToString() == "BMLeftpane")
+                    //{
                         hndAll.Value = "1";
                         hndBranchID.Value = "0";
                         hndBranchHeadId.Value = ddlBMBranchList.SelectedValue.ToString();
@@ -406,7 +406,7 @@ namespace WealthERP.Advisor
                         {
                             this.BindCustomer(mypager.CurrentPage);
                         }
-                    }
+                    //}
                 }
                 //this.BindCustomer(mypager.CurrentPage);
             }
@@ -685,7 +685,7 @@ namespace WealthERP.Advisor
             gvCustomers.DataBind();
         }
 
-        protected void ddlAction_OnSelectedIndexChange(object sender, EventArgs e)
+        protected void  ddlAction_OnSelectedIndexChange(object sender, EventArgs e)
         {
             DropDownList ddlAction = null;
             GridViewRow gvr = null;
