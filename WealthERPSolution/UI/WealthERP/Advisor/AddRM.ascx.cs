@@ -574,6 +574,7 @@ namespace WealthERP.Advisor
                 //rmUserVo.LoginId = txtEmail.Text.ToString();
                 rmUserVo.LastName = txtLastName.Text.ToString();
                 rmUserVo.FirstName = txtFirstName.Text.ToString();
+               
                 rmUserVo.Email = txtEmail.Text.ToString();
 
                 rmVo.Email = txtEmail.Text.ToString();
@@ -605,6 +606,7 @@ namespace WealthERP.Advisor
                 rmVo.FirstName = txtFirstName.Text.ToString();
                 rmVo.LastName = txtLastName.Text.ToString();
                 rmVo.MiddleName = txtMiddleName.Text.ToString();
+                rmVo.StaffCode = txtStaffCode.Text.ToString();
                 if(txtMobileNumber.Text.ToString()!="")
                     rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
                 if (!string.IsNullOrEmpty(txtPhDirectISD.Text.ToString()))

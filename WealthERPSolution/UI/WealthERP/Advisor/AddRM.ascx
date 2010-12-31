@@ -132,6 +132,18 @@
         </td>
     </tr>
     <tr>
+    <td class="leftField">
+    <asp:Label ID="lblStaffCode" runat="server" CssClass="FieldName" Text="Staff Code:"></asp:Label>
+    </td>
+    <td class="rightField">
+     <asp:TextBox ID="txtStaffCode" runat="server" CssClass="txtField"></asp:TextBox>
+     <%--<span id="Span5" class="spnRequiredField">*</span>--%>
+       <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtStaffCode" ErrorMessage="<br />Please Enter the Staff Code"
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
+       </asp:RequiredFieldValidator>--%>
+    </td>
+    </tr>
+    <tr>
         <td class="leftField">
             <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="Staff Role:"></asp:Label>
         </td>
