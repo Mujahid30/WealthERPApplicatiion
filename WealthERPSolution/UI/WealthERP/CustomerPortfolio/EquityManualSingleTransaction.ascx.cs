@@ -348,20 +348,20 @@ namespace WealthERP.CustomerPortfolio
                     customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "EQ", eqTransactionVo.TradeDate);
                 }
 
-                //List<EQPortfolioVo> eqPortfolioVoList = new List<EQPortfolioVo>();
-                //Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
-                //DateTime tradeDate = new DateTime();
-                //if (Session["ValuationDate"] != null)
-                //{
-                //    genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
-                //    tradeDate = DateTime.Parse(genDict["EQDate"].ToString());
-                //}
-                //eqPortfolioVoList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId, portfolioId, tradeDate, txtScrip.Text, ddlTradeAcc.SelectedItem.Value.ToString());
-                //if (eqPortfolioVoList != null && eqPortfolioVoList.Count > 0)
-                //{
-                //    customerPortfolioBo.DeleteEquityNetPosition(eqPortfolioVoList[0].EQCode, eqPortfolioVoList[0].AccountId, tradeDate);
-                //    customerPortfolioBo.AddEquityNetPosition(eqPortfolioVoList[0], userVo.UserId);
-                //}
+                List<EQPortfolioVo> eqPortfolioVoList = new List<EQPortfolioVo>();
+                Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
+                DateTime tradeDate = new DateTime();
+                if (Session["ValuationDate"] != null)
+                {
+                    genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
+                    tradeDate = DateTime.Parse(genDict["EQDate"].ToString());
+                }
+                eqPortfolioVoList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId, portfolioId, tradeDate, txtScrip.Text, ddlTradeAcc.SelectedItem.Value.ToString());
+                if (eqPortfolioVoList != null && eqPortfolioVoList.Count > 0)
+                {
+                    customerPortfolioBo.DeleteEquityNetPosition(eqPortfolioVoList[0].EQCode, eqPortfolioVoList[0].AccountId, tradeDate);
+                    customerPortfolioBo.AddEquityNetPosition(eqPortfolioVoList[0], userVo.UserId);
+                }
 
                 btnSubmit.Enabled = false;
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityTransactionsView','none');", true);
