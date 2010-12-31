@@ -292,6 +292,7 @@ namespace WealthERP.Advisor
                     i++;
 
                 }
+                ChartArea chartArea1 = Chart1.ChartAreas[0];
                 seriesAssets.Points.DataBindXY(XValues, YValues);
                 //Chart1.DataSource = dsAssetAggrCurrentValues.Tables[0].DefaultView;
                 Chart1.Series.Clear();
@@ -306,7 +307,8 @@ namespace WealthERP.Advisor
                 Chart1.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
                 Chart1.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
                 Chart1.Legends["AssetsLegend"].TitleSeparatorColor = Color.Black;
-                //Chart1.Legends["AssetsLegend"].BackColor = Color.Transparent;
+                Chart1.Legends["AssetsLegend"].ForeColor = Color.Black;
+                Chart1.Legends["AssetsLegend"].BackColor = Color.Transparent;
                 Chart1.Series[0].IsValueShownAsLabel = false;
                 Chart1.Series[0]["PieLabelStyle"] = "Disabled";
                 Chart1.ChartAreas[0].Area3DStyle.Enable3D = true;
@@ -330,6 +332,9 @@ namespace WealthERP.Advisor
                 asset.Text = "#VALX";
                 asset.HeaderBackColor = Color.WhiteSmoke;
                 Chart1.Legends["AssetsLegend"].CellColumns.Add(asset);
+
+                chartArea1.BackColor = System.Drawing.Color.Transparent;
+                chartArea1.BackSecondaryColor = System.Drawing.Color.Transparent;
 
 
                 LegendCellColumn assetPercent = new LegendCellColumn();
