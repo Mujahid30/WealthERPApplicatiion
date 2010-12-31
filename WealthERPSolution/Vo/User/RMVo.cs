@@ -14,7 +14,7 @@ namespace VoUser
 
         private int m_RMId;
         private int m_AdviserId;
-
+        private string m_StaffCode;
         private int m_OfficePhoneExtIsd;
         private int m_OfficePhoneExtStd;
         private int m_OfficePhoneExtNumber;
@@ -32,6 +32,7 @@ namespace VoUser
         private string m_RoleList;
         private string m_MainBranch;
         private string m_BranchList;
+      
         
         #endregion Fields
 
@@ -40,6 +41,11 @@ namespace VoUser
         {
             get { return m_BranchList; }
             set { m_BranchList = value; }
+        }
+        public String StaffCode
+        {
+            get { return m_StaffCode; }
+            set { m_StaffCode = value; }
         }
         public string MainBranch
         {
