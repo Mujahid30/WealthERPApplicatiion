@@ -762,32 +762,36 @@ namespace WealthERP
                 // getting portfolio id and its details
                 customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                 Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
                     
                    if(isGrpHead == true)
-                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+                       ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMCustGroupDashboard','login');", true);
                    else
-                       Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+                       ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMCustIndiDashboard','login');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
                     Session["IsDashboard"] = "false";                    
                     Session["customerPortfolioVo"] = customerPortfolioVo;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
-                   
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "aaaadddddddffffffgggggg", "loadcontrol('RMCustomerIndividualDashboard','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomerIndividualDashboard','login');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
                     Session["IsDashboard"] = "portfolio";
-                    
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','list');", true);
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioDashboard','login');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
                     Session["IsDashboard"] = "alerts";
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertNotifications','login');", true);
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
                 {
@@ -795,7 +799,7 @@ namespace WealthERP
                     //tempUser = userBo.GetUserDetails(userId);
                     //Session["CustomerUser"] = tempUser;
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','none');", true);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol(''GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
@@ -810,18 +814,10 @@ namespace WealthERP
                     }
                     Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
-                    if (customerVo.Type == "IND")
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
-                    }
-                    if (customerVo.Type == "NIND")
-                    {
-                        //I'm not passing login parameter in this function.... that is becuase in JScript.js page the code corresponding to load RMCustomerIndividualLeftPane or RMCustomerNonIndividualLeftPane
-                        //have been written in that way. so Please try to understand before modifying the code
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect');", true);
-                    }
 
 
+                    Session[SessionContents.FPS_AddProspectListActionStatus] = "FPDashBoard";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
                 }
 
             }

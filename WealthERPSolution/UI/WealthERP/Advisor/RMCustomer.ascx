@@ -1,5 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMCustomer.ascx.cs"
-    Inherits="WealthERP.RMCustomer" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMCustomer.ascx.cs" Inherits="WealthERP.RMCustomer" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scptMgr" runat="server">
