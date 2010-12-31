@@ -21,6 +21,7 @@ namespace DaoAdvisorProfiling
         /// <param name="advisorVo"></param>
         /// <param name="rmVo"></param>
         /// <returns></returns>
+        /// 
         public List<int> RegisterAdviser(UserVo userVo, AdvisorVo advisorVo, RMVo rmVo)
         {
             Database db;
@@ -245,6 +246,7 @@ namespace DaoAdvisorProfiling
             }
             return Ids;
         }
+
         public List<CustomerVo> GetAdviserCustomersForSMS(int adviserId, string namefilter)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
@@ -303,6 +305,7 @@ namespace DaoAdvisorProfiling
 
             return customerList;
         }
+
         public int CreateAdvisor(AdvisorVo advisorVo)
         {
             int advisorId = 0;
@@ -1333,9 +1336,10 @@ namespace DaoAdvisorProfiling
                         advisorVo.FaxStd = int.Parse(dr["A_FaxSTD"].ToString());
                     if (dr["A_ContactPersonMobile"] != DBNull.Value)
                         advisorVo.MobileNumber = Convert.ToInt64(dr["A_ContactPersonMobile"].ToString());
-
-                    advisorVo.MultiBranch = int.Parse(dr["A_IsMultiBranch"].ToString());
-                    advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
+                    if (dr["A_IsMultiBranch"] != DBNull.Value)
+                        advisorVo.MultiBranch = int.Parse(dr["A_IsMultiBranch"].ToString());
+                    if (dr["A_IsAssociateModel"] != DBNull.Value)
+                        advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
 
                     if (dr["A_Phone1STD"] != DBNull.Value && dr["A_Phone1STD"].ToString() != string.Empty)
                         advisorVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
@@ -1460,6 +1464,7 @@ namespace DaoAdvisorProfiling
 
             return bResult;
         }
+
         /// <summary>
         /// Get all Classification List of the advisor
         /// </summary>
@@ -1502,6 +1507,88 @@ namespace DaoAdvisorProfiling
 
         }
 
+        /// <summary>
+        /// Function to retrieve the tree nodes based on the user role
+        /// </summary>
+        /// <param name="userRole"></param>
+        /// <returns></returns>
+        public DataSet GetTreeNodesBasedOnUserRoles(string userRole,string treeType)
+        {
+            Database db;
+            DbCommand GetAdviserTreeNodes;
+            DataSet dsAdviserTreeNodes;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserTreeNodes = db.GetStoredProcCommand("SP_GetTreeNodesBasedOnUserRoles");
+                db.AddInParameter(GetAdviserTreeNodes, "@userrole", DbType.String, userRole);
+                db.AddInParameter(GetAdviserTreeNodes, "@treetype", DbType.String, treeType);
+
+                dsAdviserTreeNodes = db.ExecuteDataSet(GetAdviserTreeNodes);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetTreeNodesBasedOnUserRoles(string userRole)");
+                object[] objects = new object[1];
+                objects[0] = userRole;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTreeNodes;
+        }
+
+        /// <summary>
+        /// Function to retrieve the tree nodes based on the plans subscribed
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetTreeNodesBasedOnPlans(int adviserId,string userRole,string treeType)
+        {
+            Database db;
+            DbCommand GetAdviserTreeNodes;
+            DataSet dsAdviserTreeNodes;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserTreeNodes = db.GetStoredProcCommand("SP_GetTreeNodesForAdvisersBasedOnPlan");
+                db.AddInParameter(GetAdviserTreeNodes, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(GetAdviserTreeNodes, "@userrole", DbType.String, userRole);
+                db.AddInParameter(GetAdviserTreeNodes, "@treetype", DbType.String, treeType);
+
+                dsAdviserTreeNodes = db.ExecuteDataSet(GetAdviserTreeNodes);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetTreeNodesBasedOnPlans()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = userRole;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTreeNodes;
+        }
+        
     }
 }
 
