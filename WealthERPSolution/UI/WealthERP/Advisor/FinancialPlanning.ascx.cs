@@ -29,6 +29,8 @@ namespace WealthERP.Advisor
         DataSet dsGetRiskProfileQuestionOption;
         DataSet dsGetCustomerDOBById;
         DataSet dsGetCustomerRiskProfile;
+        DataTable dtRecommendedAllocation;
+        DataTable dtCurrentAssetAllocation;
         AdvisorVo advisorVo = new AdvisorVo();
         int customerId;
         int GoalCount;
@@ -58,10 +60,10 @@ namespace WealthERP.Advisor
             totalquestion = dsGetRiskProfileQuestion.Tables[0].Rows.Count;
             int optioncounttemp = 1;
             hidGoalCount.Value = null;
-            if(!Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
                 if (Session[SessionContents.FPS_ProspectList_CustomerId] != null && Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != "")
-                {                    
+                {
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                     Session["FP_UserID"] = customerId;
                 }
@@ -69,7 +71,7 @@ namespace WealthERP.Advisor
                 customerVo = customerBo.GetCustomer(customerId);
                 Session[SessionContents.CustomerVo] = customerVo;
             }
-           
+
             //PlaceHolder1.Controls.Add(new LiteralControl("<table>"));
             for (int i = 0; i < totalquestion; i++)
             {
@@ -240,109 +242,113 @@ namespace WealthERP.Advisor
                             age = 0;
                             lblAgeResult.Text = "No Age Set";
                         }
-                        if (age != 0)
-                        {
-                            lblAgeResult.Text = age.ToString();
+                        lblAgeResult.Text = age.ToString();
 
-                            lblChartErrorDisplay.Visible = false;
-                            if (lblRClass.Text != "" || lblRClass.Text != null)
+                        lblChartErrorDisplay.Visible = false;
+                        if (lblRClass.Text != "" || lblRClass.Text != null)
+                        {
+                            lblRiskClass.Visible = true;
+                            lblRiskScore.Visible = true;
+                            lblRClassRs.Text = lblRClass.Text;
+                            lblRscoreAA.Text = lblRScore.Text;
+
+                        }
+                        else
+                        {
+                            lblRClassRs.Text = "Fill Risk Profile to know Risk class and Risk Score";
+                        }
+                        DataSet dsGetAssetAllocationRules = riskprofilebo.GetAssetAllocationRules(riskcode, advisorVo.advisorId);
+                        DataTable dtAsset = new DataTable();
+                        
+                        dtAsset.Columns.Add("AssetType");
+                        dtAsset.Columns.Add("Percentage");
+                        dtAsset.Columns.Add("AssetTypeCode");
+                        DataRow drAsset;
+                        double equityAdjustment = 0;
+                        double equitycalc = 0.0;
+                        double equityPercentage = 0;
+                        double debtpercentage = 0;
+                        if (age != 0 && dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() == advisorVo.advisorId.ToString())
+                        {
+                            if (dsGetAssetAllocationRules != null && dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() != advisorVo.advisorId.ToString())
                             {
-                                lblRiskClass.Visible = true;
-                                lblRiskScore.Visible = true;
-                                lblRClassRs.Text = lblRClass.Text;
-                                lblRscoreAA.Text = lblRScore.Text;
+
+                                foreach (DataRow dr in dsGetAssetAllocationRules.Tables[0].Rows)
+                                {
+                                    if (dr["WAC_AssetClassification"].ToString() == "Cash")
+                                    {
+                                        cashPercentage = double.Parse(dr["WAAR_AssetAllocationPercenatge"].ToString());
+                                    }
+                                    else if (dr["WAC_AssetClassification"].ToString() == "Equity")
+                                    {
+                                        equityAdjustment = double.Parse(dr["WAAR_Adjustment"].ToString());
+                                    }
+                                }
+                                equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
+                                equityPercentage = (((100 - cashPercentage) * equitycalc + (equityAdjustment)));
+                                debtpercentage = (100 - equityPercentage - cashPercentage);
+                                drAsset = dtAsset.NewRow();
+                                drAsset[0] = "Equity";
+                                drAsset[1] = equityPercentage.ToString();
+                                drAsset[2] = 1;
+                                dtAsset.Rows.Add(drAsset);
+                                drAsset = dtAsset.NewRow();
+                                drAsset[0] = "Debt";
+                                drAsset[1] = debtpercentage.ToString();
+                                drAsset[2] = 2;
+                                dtAsset.Rows.Add(drAsset);
+                                drAsset = dtAsset.NewRow();
+                                drAsset[0] = "Cash";
+                                drAsset[1] = cashPercentage.ToString();
+                                drAsset[2] = 3;
+                                dtAsset.Rows.Add(drAsset);
+
+
 
                             }
                             else
                             {
-                                lblRClassRs.Text = "Fill Risk Profile to know Risk class and Risk Score";
+                                foreach (DataRow dr in dsGetAssetAllocationRules.Tables[0].Rows)
+                                {
+                                    drAsset = dtAsset.NewRow();
+                                    
+                                    drAsset[0] = dr["WAC_AssetClassification"].ToString();
+                                    if (dr["WAAR_AssetAllocationPercenatge"] != null)
+                                        drAsset[1] = dr["WAAR_AssetAllocationPercenatge"].ToString();
+                                    else
+                                        drAsset[1] = 0;
+                                    drAsset[2] = dr["WAC_AssetClassificationCode"].ToString();
+                                    dtAsset.Rows.Add(drAsset);
+                                }
                             }
-                            DataSet dsGetAssetAllocationRules = riskprofilebo.GetAssetAllocationRules(riskcode);
-                            cashPercentage = double.Parse(dsGetAssetAllocationRules.Tables[0].Rows[0]["WAAR_CashPer"].ToString());
-                            double equityAdjustment = double.Parse(dsGetAssetAllocationRules.Tables[0].Rows[0]["WAAR_EquityAdjustmentPer"].ToString());
-                            double equitycalc = 0.0;
-                            if (lblRClassRs.Text == "Conservative")
-                            {
-                                //Equity %= (100-Cash)*((100-age)/100)+<equity adjustment from rules table)
-                                //Debt %=100-Equity-Cash
-                                equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
-                                txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
-                                txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
-                                txtRecommendedCash.Text = cashPercentage.ToString();
-                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
-
-                            }
-                            else if (lblRClassRs.Text == "Moderate")
-                            {
-                                equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
-                                txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
-                                txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
-                                txtRecommendedCash.Text = cashPercentage.ToString();
-                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
-                            }
-                            else if (lblRClassRs.Text == "Aggressive")
-                            {
-                                equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
-                                txtRecommendedEquity.Text = (double.Parse(((100 - cashPercentage) * equitycalc + (equityAdjustment)).ToString())).ToString();
-                                txtRecommendedDebt.Text = (100 - double.Parse(txtRecommendedEquity.Text) - cashPercentage).ToString();
-                                txtRecommendedCash.Text = cashPercentage.ToString();
-                                if (trRiskProfilingParagraph.Visible == false)
-                                    trRiskProfilingParagraph.Visible = true;
-                                lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
-                            }
-
+                            dtRecommendedAllocation = dtAsset;
+                            gvRecommendedAssetAllocation.DataSource = dtAsset;
+                            gvRecommendedAssetAllocation.DataBind();
                             //================================
                             //
                             //Chart Control Part is show below
                             //
-                            //================================
+                            //================================                          
 
-                            if (txtRecommendedCash.Text != "" && txtRecommendedDebt.Text != "" && txtRecommendedEquity.Text != "")
-                            {
-                                DataTable dt = new DataTable();
-                                DataRow dr;
-                                dt.Columns.Add("AssetType");
-                                dt.Columns.Add("Value");
-                                if (double.Parse(txtRecommendedEquity.Text) != 0)
-                                {
-                                    dr = dt.NewRow();
-                                    dr[0] = "Equity";
-                                    dr[1] = txtRecommendedEquity.Text;
-                                    dt.Rows.Add(dr);
-                                }
-                                if (double.Parse(txtRecommendedDebt.Text) != 0)
-                                {
-                                dr = dt.NewRow();
-                                dr[0] = "Debt";
-                                dr[1] = txtRecommendedDebt.Text;
-                                dt.Rows.Add(dr);
-                                }
-                                if (double.Parse(txtRecommendedCash.Text) != 0)
-                                {
-                                    dr = dt.NewRow();
-                                    dr[0] = "Cash";
-                                    dr[1] = txtRecommendedCash.Text;
-                                    dt.Rows.Add(dr);
-                                }
-                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
-                                Series seriesAssets = new Series("sActualAsset");
-                                seriesAssets.ChartType = SeriesChartType.Pie;
-                                cActualAsset.Visible = true;
-                                cActualAsset.Series.Clear();
-                                cActualAsset.Series.Add(seriesAssets);
-                                cActualAsset.DataSource = dt;
-                                cActualAsset.Series[0].XValueMember = "AssetType";
-                                cActualAsset.Series[0].YValueMembers = "Value";
+                            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                            Series seriesAssets = new Series("sActualAsset");
+                            seriesAssets.ChartType = SeriesChartType.Pie;
+                            cActualAsset.Visible = true;
+                            cActualAsset.Series.Clear();
+                            cActualAsset.Series.Add(seriesAssets);
+                            cActualAsset.DataSource = dtAsset;
+                            cActualAsset.Series[0].XValueMember = "AssetType";
+                            cActualAsset.Series[0].YValueMembers = "Percentage";
 
-                                // Enable X axis margin
-                                cActualAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
-                                cActualAsset.BackColor = Color.Transparent;
-                                cActualAsset.ChartAreas[0].BackColor = Color.Transparent;
-                                cActualAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
-                                cActualAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
-                                cActualAsset.DataBind();
+                            // Enable X axis margin
+                            cActualAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
+                            cActualAsset.BackColor = Color.Transparent;
+                            cActualAsset.ChartAreas[0].BackColor = Color.Transparent;
+                            cActualAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
+                            cActualAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+                            cActualAsset.DataBind();
 
-                            }
+
                         }
                         else
                         {
@@ -433,7 +439,7 @@ namespace WealthERP.Advisor
 
                     }
                 }
-                dsGetRiskProfileRules = riskprofilebo.GetRiskProfileRules();
+                dsGetRiskProfileRules = riskprofilebo.GetRiskProfileRules(advisorVo.advisorId);
                 tblRiskScore.Visible = true;
                 lblRScore.Visible = true;
                 lblRClass.Visible = true;
@@ -446,50 +452,38 @@ namespace WealthERP.Advisor
                     {
                         maxLimit = int.Parse(dsGetRiskProfileRules.Tables[0].Rows[i]["WRPR_RiskScoreUpperLimit"].ToString());
                     }
-                    else
-                    {
-                        maxLimit = 35000;
-                    }
-                    if (rScore >= 14)
-                    {
-                        if (rScore >= minLimit && rScore <= maxLimit)
-                        {
-                            riskCode = dsGetRiskProfileRules.Tables[0].Rows[i]["XRC_RiskClassCode"].ToString();
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        rScore = 14;
-                        if (rScore >= minLimit && rScore <= maxLimit)
-                        {
-                            riskCode = dsGetRiskProfileRules.Tables[0].Rows[i]["XRC_RiskClassCode"].ToString();
-                            break;
-                        }
-                    }
-                }
-                DataSet dsRiskClass = riskprofilebo.GetRiskClass(riskCode);
-                lblRClass.Text = dsRiskClass.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
 
-                if (lblRClass.Text == "Aggresive")
-                {
+                    if (rScore >= minLimit && (rScore <= maxLimit || maxLimit == 0))
+                    {
+                        riskCode = dsGetRiskProfileRules.Tables[0].Rows[i]["XRC_RiskClassCode"].ToString();
+                        lblRClass.Text = dsGetRiskProfileRules.Tables[0].Rows[i]["XRC_RiskClass"].ToString();
+                        lblRiskProfilingParagraph.Text = dsGetRiskProfileRules.Tables[0].Rows[i]["ARC_RiskText"].ToString();
+                        break;
+                    }
 
-                    lblRClass.ForeColor = System.Drawing.Color.Green;
-                    lblRScore.ForeColor = System.Drawing.Color.Green;
-                    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
                 }
-                else if (lblRClass.Text == "Moderate")
-                {
-                    lblRClass.ForeColor = System.Drawing.Color.Yellow;
-                    lblRScore.ForeColor = System.Drawing.Color.Yellow;
-                    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
-                }
-                else if (lblRClass.Text == "Conservative")
-                {
-                    lblRClass.ForeColor = System.Drawing.Color.Red;
-                    lblRScore.ForeColor = System.Drawing.Color.Red;
-                    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
-                }
+                //DataSet dsRiskClass = riskprofilebo.GetRiskClass(riskCode);
+
+
+                //if (lblRClass.Text == "Aggresive")
+                //{
+
+                //    lblRClass.ForeColor = System.Drawing.Color.Green;
+                //    lblRScore.ForeColor = System.Drawing.Color.Green;
+                //    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
+                //}
+                //else if (lblRClass.Text == "Moderate")
+                //{
+                //    lblRClass.ForeColor = System.Drawing.Color.Yellow;
+                //    lblRScore.ForeColor = System.Drawing.Color.Yellow;
+                //    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
+                //}
+                //else if (lblRClass.Text == "Conservative")
+                //{
+                //    lblRClass.ForeColor = System.Drawing.Color.Red;
+                //    lblRScore.ForeColor = System.Drawing.Color.Red;
+                //    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
+                //}
 
 
 
@@ -741,28 +735,28 @@ namespace WealthERP.Advisor
                         }
 
                         trRiskProfilingParagraph.Visible = true;
+                        lblRiskProfilingParagraph.Text = dsGetCustomerRiskProfile.Tables[0].Rows[0]["ARC_RiskText"].ToString();
+                        //if (lblRClass.Text == "Aggressive")
+                        //{
 
-                        if (lblRClass.Text == "Aggressive")
-                        {
-
-                            lblRScore.ForeColor = System.Drawing.Color.Green;
-                            lblRClass.ForeColor = System.Drawing.Color.Green;
-                            lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
-                        }
-                        else if (lblRClass.Text == "Moderate")
-                        {
+                        //    lblRScore.ForeColor = System.Drawing.Color.Green;
+                        //    lblRClass.ForeColor = System.Drawing.Color.Green;
+                        //    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
+                        //}
+                        //else if (lblRClass.Text == "Moderate")
+                        //{
 
 
-                            lblRClass.BackColor = System.Drawing.Color.Yellow;
-                            lblRScore.ForeColor = System.Drawing.Color.Yellow;
-                            lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
-                        }
-                        else if (lblRClass.Text == "Conservative")
-                        {
-                            lblRClass.BackColor = System.Drawing.Color.Red;
-                            lblRScore.ForeColor = System.Drawing.Color.Red;
-                            lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
-                        }
+                        //    lblRClass.BackColor = System.Drawing.Color.Yellow;
+                        //    lblRScore.ForeColor = System.Drawing.Color.Yellow;
+                        //    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
+                        //}
+                        //else if (lblRClass.Text == "Conservative")
+                        //{
+                        //    lblRClass.BackColor = System.Drawing.Color.Red;
+                        //    lblRScore.ForeColor = System.Drawing.Color.Red;
+                        //    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
+                        //}
 
 
                         //SetAdjustment();
@@ -812,14 +806,14 @@ namespace WealthERP.Advisor
                 }
                 SetCustomerId();
 
-                if (txtRecommendedCash.Text != "" && txtRecommendedEquity.Text != "" && txtRecommendedDebt.Text != "")
+                if (dtRecommendedAllocation!=null && dtRecommendedAllocation.Rows.Count>0)
                 {
-                    riskprofilebo.AddAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), double.Parse(txtRecommendedCash.Text), double.Parse(txtRecommendedEquity.Text), double.Parse(txtRecommendedDebt.Text), now, rmvo);
+                    foreach (DataRow dr in dtRecommendedAllocation.Rows)
+                    {
+                        riskprofilebo.AddAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), int.Parse(dr["AssetTypeCode"].ToString()), double.Parse(dr["Percentage"].ToString()), 0,now, rmvo);
+                    }
                 }
-                else
-                {
-                    riskprofilebo.AddAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), 0.0, 0.0, 0.0, now, rmvo);
-                }
+                      
 
                 riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
@@ -846,14 +840,20 @@ namespace WealthERP.Advisor
                 }
                 SetCustomerId();
                 //dsGetCustomerIdByName = riskprofilebo.GetCustomerIdByName(txtPickCustomer.Text);
-                if (txtRecommendedCash.Text != "" && txtRecommendedCash.Text != "" && txtRecommendedDebt.Text != "")
+                if (gvRecommendedAssetAllocation.Rows.Count>0)
                 {
-                    riskprofilebo.UpdateAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), double.Parse(txtRecommendedCash.Text), double.Parse(txtRecommendedEquity.Text), double.Parse(txtRecommendedDebt.Text), now, rmvo);
+                    for (int i=0;i<gvRecommendedAssetAllocation.Rows.Count;i++)
+                    {
+                        if(gvRecommendedAssetAllocation.Rows[i].RowType==DataControlRowType.DataRow)
+                        {
+                             GridViewRow grv=gvRecommendedAssetAllocation.Rows[i];
+                            int assetClassificationCode=int.Parse(gvRecommendedAssetAllocation.DataKeys[i][0].ToString());
+                            double recommendedPercentage=double.Parse(grv.Cells[1].Text.ToString());
+                            riskprofilebo.UpdateAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), assetClassificationCode, recommendedPercentage, 0, now, rmvo);
+                        }
+                    }
                 }
-                else
-                {
-                    riskprofilebo.UpdateAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), 0.0, 0.0, 0.0, now, rmvo);
-                }
+                
                 riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
                 LoadAssetAllocation(riskCode);
 
@@ -917,7 +917,7 @@ namespace WealthERP.Advisor
         {
             DataSet DScurrentAsset = new DataSet();
             customerVo = new CustomerVo();
-            if (Session[SessionContents.CustomerVo] != null && Session[SessionContents.CustomerVo].ToString()!="")
+            if (Session[SessionContents.CustomerVo] != null && Session[SessionContents.CustomerVo].ToString() != "")
             {
                 customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             }
@@ -926,88 +926,22 @@ namespace WealthERP.Advisor
             else
                 DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId, 0);
             DataTable dt = new DataTable();
-            DataRow dr;
+            DataRow drAsset;
             dt.Columns.Add("AssetType");
             dt.Columns.Add("Value");
-            if (DScurrentAsset.Tables[0].Rows.Count > 0)
+            if (DScurrentAsset != null && DScurrentAsset.Tables.Count > 0)
             {
-                if (DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString() != "")
+                foreach (DataRow dr in DScurrentAsset.Tables[0].Rows)
                 {
-                    txtCurrentEquity.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Equity"].ToString()), 2).ToString();
-
-                }
-                else
-                {
-                    txtCurrentEquity.Text = "0";
-
-                }
-                if (double.Parse(txtCurrentEquity.Text) != 0)
-                {
-                    dr = dt.NewRow();
-                    dr[0] = "Equity";
-                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Equity"];
-                    dt.Rows.Add(dr);
-                }
-
-                if (DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString() != "")
-                {
-                    txtCurrentDebt.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Debt"].ToString()), 2).ToString();
-
-                }
-                else
-                {
-                    txtCurrentDebt.Text = "0";
-
-                }
-
-                if (double.Parse(txtCurrentDebt.Text) != 0)
-                {
-                    dr = dt.NewRow();
-                    dr[0] = "Debt";
-                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Debt"];
-                    dt.Rows.Add(dr);
-                }
-
-
-
-                if (DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString() != "")
-                {
-                    txtCurrentCash.Text = Math.Round(double.Parse(DScurrentAsset.Tables[0].Rows[0]["Cash"].ToString()), 2).ToString();
-
-                }
-                else
-                {
-                    txtCurrentCash.Text = "0";
-
-                }
-                if (double.Parse(txtCurrentCash.Text) != 0)
-                {
-                    dr = dt.NewRow();
-                    dr[0] = "Cash";
-                    dr[1] = DScurrentAsset.Tables[0].Rows[0]["Cash"];
-                    dt.Rows.Add(dr);
+                    drAsset = dt.NewRow();
+                    drAsset[0] = dr["AssetType"];
+                    drAsset[1] = dr["Percentage"];
+                    dt.Rows.Add(drAsset);
                 }
             }
-            else
-            {
-                dr = dt.NewRow();
-                dr[0] = "Equity";
-                txtCurrentEquity.Text = "0";
-                dr[1] = "0";
-                dt.Rows.Add(dr);
-
-                dr = dt.NewRow();
-                dr[0] = "Debt";
-                txtCurrentDebt.Text = "0";
-                dr[1] = "0";
-                dt.Rows.Add(dr);
-
-                dr = dt.NewRow();
-                dr[0] = "Cash";
-                txtCurrentCash.Text = "0";
-                dr[1] = "0";
-                dt.Rows.Add(dr);
-            }
+            dtCurrentAssetAllocation = dt;
+            gvCurrentAssetAllocation.DataSource = dt;
+            gvCurrentAssetAllocation.DataBind();
 
             Series seriesAssets = new Series("CurrentAsset");
             seriesAssets.ChartType = SeriesChartType.Pie;

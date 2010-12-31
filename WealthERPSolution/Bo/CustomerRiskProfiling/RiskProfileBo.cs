@@ -22,9 +22,9 @@ namespace BoCustomerRiskProfiling
         {
             return riskprofiledao.GetQuestionOption(questionId, advisorId);
         }
-        public DataSet GetRiskProfileRules()
+        public DataSet GetRiskProfileRules(int adviserId)
         {
-            return riskprofiledao.GetRiskProfileRules();
+            return riskprofiledao.GetRiskProfileRules(adviserId);
         }
         public DataSet GetCustomerDOBById(int customerId)
         {
@@ -47,13 +47,13 @@ namespace BoCustomerRiskProfiling
         {
             return riskprofiledao.GetRpId(customerId);
         }
-        public DataSet GetAssetAllocationRules(string riskclasscode)
+        public DataSet GetAssetAllocationRules(string riskclasscode,int adviserId)
         {
-            return riskprofiledao.GetAssetAllocationRules(riskclasscode);
+            return riskprofiledao.GetAssetAllocationRules(riskclasscode,adviserId);
         }
-        public void AddAssetAllocationDetails(int riskprofileid, double cashpercentage, double equitypercentage, double debitpercentage, DateTime clientapprovedon, RMVo rmvo)
+        public void AddAssetAllocationDetails(int riskprofileid, int assetClassificationCode, double recommendedPercentage, double currentPercentage, DateTime clientapprovedon, RMVo rmvo)
         {
-            riskprofiledao.AddAssetAllocationDetails(riskprofileid, cashpercentage, equitypercentage, debitpercentage, clientapprovedon, rmvo);
+            riskprofiledao.AddAssetAllocationDetails(riskprofileid, assetClassificationCode, recommendedPercentage, currentPercentage, clientapprovedon, rmvo);
         }
         public DataSet GetRiskClassForRisk(string riskclasscode)
         {
@@ -67,9 +67,9 @@ namespace BoCustomerRiskProfiling
         {
             return riskprofiledao.GetAssetAllocationDetails(riskprofileid);
         }
-        public void UpdateAssetAllocationDetails(int riskprofileid, double cashpercentage, double equitypercentage, double debitpercentage, DateTime clientapprovedon, RMVo rmvo)
+        public void UpdateAssetAllocationDetails(int riskprofileid, int assetClassificationCode, double recommendedPercentage, double currentPercentage, DateTime clientapprovedon, RMVo rmvo)
         {
-            riskprofiledao.UpdateAssetAllocationDetails(riskprofileid, cashpercentage, equitypercentage, debitpercentage, clientapprovedon, rmvo);
+            riskprofiledao.UpdateAssetAllocationDetails(riskprofileid,assetClassificationCode,recommendedPercentage,currentPercentage,clientapprovedon,rmvo);
         }
         /// <summary>
         /// It returns RiskProfile Description Paragraph

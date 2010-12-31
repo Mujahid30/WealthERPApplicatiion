@@ -277,11 +277,28 @@
                                 </td>
                                 <td colspan="2">
                                     <table id="tblRecommended" runat="server">
+                                    
                                         <tr id="Tr2" runat="server">
                                             <td id="Td4" runat="server" align="center" colspan="2">
                                                 <asp:Label ID="lblRecommended" runat="server" CssClass="HeaderTextSmaller" Text="Recommended Asset Allocation"></asp:Label>
                                             </td>
                                         </tr>
+                                        <tr><td colspan="2">
+                                        <asp:GridView ID="gvRecommendedAssetAllocation" runat="server" CellPadding="4" CssClass="GridViewStyle"
+                Width="100%" AutoGenerateColumns="False" DataKeyNames="AssetTypeCode" Style="margin-bottom: 0px">
+                <RowStyle CssClass="RowStyle" />
+                <FooterStyle CssClass="FooterStyle" />
+                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <EditRowStyle CssClass="EditRowStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+                <Columns>                   
+                   <asp:BoundField DataField="AssetType" HeaderText="Asset" />
+                    <asp:BoundField DataField="Percentage" HeaderText="Percentage" />
+                </Columns>
+            </asp:GridView>
+                                        </td></tr>
                                         <tr id="Tr3" runat="server">
                                             <td id="Td5" runat="server" align="right">
                                                 <asp:Label ID="lblRecommendedEquity" runat="server" CssClass="FieldName" Text="Equity:"></asp:Label>
@@ -342,6 +359,20 @@
                                                 <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmaller" Text="Current Asset Allocation"></asp:Label>
                                             </td>
                                         </tr>
+                                        <tr><td colspan="2"><asp:GridView ID="gvCurrentAssetAllocation" runat="server" CellPadding="4" CssClass="GridViewStyle"
+                Width="100%" AutoGenerateColumns="False" Style="margin-bottom: 0px">
+                <RowStyle CssClass="RowStyle" />
+                <FooterStyle CssClass="FooterStyle" />
+                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <EditRowStyle CssClass="EditRowStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+                <Columns>                   
+                   <asp:BoundField DataField="AssetType" HeaderText="Asset" />
+                    <asp:BoundField DataField="Percentage" HeaderText="Percentage" />
+                </Columns>
+            </asp:GridView></td></tr>
                                         <tr id="Tr7" runat="server">
                                             <td id="Td12" runat="server" align="right">
                                                 <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Equity:"></asp:Label>

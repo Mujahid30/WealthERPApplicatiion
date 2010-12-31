@@ -80,7 +80,7 @@ namespace DaoCustomerRiskProfiling
 
 
         //Getting Risk Profile Rules
-        public DataSet GetRiskProfileRules()
+        public DataSet GetRiskProfileRules(int adviserId)
         {
             Database db;
             DataSet dsGetRiskProfileRules;
@@ -89,6 +89,7 @@ namespace DaoCustomerRiskProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetRiskProfileRules = db.GetStoredProcCommand("SP_GetRiskProfileRules");
+                db.AddInParameter(dbGetRiskProfileRules, "@AdviserId", DbType.Int32, adviserId);
                 dsGetRiskProfileRules = db.ExecuteDataSet(dbGetRiskProfileRules);
 
             }
@@ -284,7 +285,7 @@ namespace DaoCustomerRiskProfiling
 
         //Getting Asset allocation Rules
 
-        public DataSet GetAssetAllocationRules(string riskclasscode)
+        public DataSet GetAssetAllocationRules(string riskclasscode, int adviserId)
         {
             Database db;
             DataSet dsGetAssetAllocationRules;
@@ -294,6 +295,7 @@ namespace DaoCustomerRiskProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetAssetAllocationRules = db.GetStoredProcCommand("SP_GetAssetAllocationRules");
                 db.AddInParameter(dbGetAssetAllocationRules, "@XRC_RiskClassCode", DbType.String, riskclasscode);
+                db.AddInParameter(dbGetAssetAllocationRules, "@AdviserId", DbType.Int32, adviserId);
                 dsGetAssetAllocationRules = db.ExecuteDataSet(dbGetAssetAllocationRules);
 
             }
@@ -318,7 +320,7 @@ namespace DaoCustomerRiskProfiling
         }
 
         //Adding Asset allocation Details in dbo.CustomerAssetAllocation
-        public void AddAssetAllocationDetails(int riskprofileid, double cashpercentage, double equitypercentage, double debitpercentage, DateTime clientapprovedon, RMVo rmvo)
+        public void AddAssetAllocationDetails(int riskprofileid, int assetClassificationCode, double recommendedPercentage, double currentPercentage, DateTime clientapprovedon, RMVo rmvo)
         {
             Database db;
             DbCommand dbAddAssetAllocationDetails;
@@ -327,12 +329,12 @@ namespace DaoCustomerRiskProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbAddAssetAllocationDetails = db.GetStoredProcCommand("SP_AddAssetAllocationDetails");
                 db.AddInParameter(dbAddAssetAllocationDetails, "@CRP_RiskProfileId", DbType.Int32, riskprofileid);
-                db.AddInParameter(dbAddAssetAllocationDetails, "@CAA_CashPer", DbType.Int32, cashpercentage);
-                db.AddInParameter(dbAddAssetAllocationDetails, "@CAA_EquityPer", DbType.Double, equitypercentage);
-                db.AddInParameter(dbAddAssetAllocationDetails, "@CAA_DebtPer", DbType.Double, debitpercentage);
+                db.AddInParameter(dbAddAssetAllocationDetails, "@WAC_AssetClassificationCode", DbType.Int32, assetClassificationCode);
+                db.AddInParameter(dbAddAssetAllocationDetails, "@CAA_RecommendedPercentage", DbType.Double, recommendedPercentage);
+                db.AddInParameter(dbAddAssetAllocationDetails, "@CAA_CurrentPercentage", DbType.Double, currentPercentage);
                 db.AddInParameter(dbAddAssetAllocationDetails, "@CAA_ClientApprovedOn", DbType.DateTime, clientapprovedon);
-                db.AddInParameter(dbAddAssetAllocationDetails, "@CAA_CreatedBy", DbType.Int32, rmvo.RMId);
-                db.AddInParameter(dbAddAssetAllocationDetails, "@CAA_ModifiedBy", DbType.Int32, rmvo.RMId);
+                db.AddInParameter(dbAddAssetAllocationDetails, "@CAA_CreatedBy", DbType.Int32, rmvo.UserId);
+                db.AddInParameter(dbAddAssetAllocationDetails, "@CAA_ModifiedBy", DbType.Int32, rmvo.UserId);
                 db.ExecuteNonQuery(dbAddAssetAllocationDetails);
 
             }
@@ -453,21 +455,21 @@ namespace DaoCustomerRiskProfiling
             return dsGetAssetAllocationDetails;
         }
 
-        public void UpdateAssetAllocationDetails(int riskprofileid, double cashpercentage, double equitypercentage, double debitpercentage, DateTime clientapprovedon, RMVo rmvo)
+        public void UpdateAssetAllocationDetails(int riskprofileid, int assetClassificationCode, double recommendedPercentage, double currentPercentage, DateTime clientapprovedon, RMVo rmvo)
         {
             Database db;
             DbCommand dbUpdateAssetAllocationDetails;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbUpdateAssetAllocationDetails = db.GetStoredProcCommand("SP_UpdateAssetAllocationDetails");
+                dbUpdateAssetAllocationDetails = db.GetStoredProcCommand("SP_UpdateAssetAllocationDetails");              
+
                 db.AddInParameter(dbUpdateAssetAllocationDetails, "@CRP_RiskProfileId", DbType.Int32, riskprofileid);
-                db.AddInParameter(dbUpdateAssetAllocationDetails, "@CAA_CashPer", DbType.Int32, cashpercentage);
-                db.AddInParameter(dbUpdateAssetAllocationDetails, "@CAA_EquityPer", DbType.Double, equitypercentage);
-                db.AddInParameter(dbUpdateAssetAllocationDetails, "@CAA_DebtPer", DbType.Double, debitpercentage);
-                db.AddInParameter(dbUpdateAssetAllocationDetails, "@CAA_ClientApprovedOn", DbType.DateTime, clientapprovedon);
-                db.AddInParameter(dbUpdateAssetAllocationDetails, "@CAA_CreatedBy", DbType.Int32, rmvo.RMId);
-                db.AddInParameter(dbUpdateAssetAllocationDetails, "@CAA_ModifiedBy", DbType.Int32, rmvo.RMId);
+                db.AddInParameter(dbUpdateAssetAllocationDetails, "@WAC_AssetClassificationCode", DbType.Int32, assetClassificationCode);
+                db.AddInParameter(dbUpdateAssetAllocationDetails, "@CAA_RecommendedPercentage", DbType.Double, recommendedPercentage);
+                db.AddInParameter(dbUpdateAssetAllocationDetails, "@CAA_CurrentPercentage", DbType.Double, currentPercentage);
+                db.AddInParameter(dbUpdateAssetAllocationDetails, "@CAA_ClientApprovedOn", DbType.DateTime, clientapprovedon);              
+                db.AddInParameter(dbUpdateAssetAllocationDetails, "@CAA_ModifiedBy", DbType.Int32, rmvo.UserId);
                 db.ExecuteNonQuery(dbUpdateAssetAllocationDetails);
 
             }
