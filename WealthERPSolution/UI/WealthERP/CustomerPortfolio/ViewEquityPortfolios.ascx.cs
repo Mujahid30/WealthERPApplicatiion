@@ -157,7 +157,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId, portfolioId, tradeDate, hdnScipNameFilter.Value.Trim());
+                    eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId, portfolioId, tradeDate, hdnScipNameFilter.Value.Trim(),string.Empty);
                     if (eqPortfolioList != null)
                     {
                         count = eqPortfolioList.Count;
