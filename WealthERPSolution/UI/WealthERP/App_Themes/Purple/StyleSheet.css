@@ -32,7 +32,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: bold;
     font-size: x-small;
-    color: #16518A;
+    color: #301775;
     vertical-align: middle;
     text-align: right;
 }
@@ -65,6 +65,7 @@ div#MainDivLeft
     font-size: x-small;
     color: #16518A;
     width: 250px;
+    
 }
 .AddLongField
 {
@@ -194,11 +195,11 @@ div#MainDivLeft
 .TableBackground
 {
     /* background-color: #F1F9FC; */
-    background-color: #EBEFF9; 
+    background-color: #E7DFFF !important; 
 }
 .TDBackground
 {
-    /* background-color: #F2FAFD; */
+    background-color: #E7DFFF !important; 
 }
 .DivScroll
 {
@@ -522,7 +523,8 @@ a.aBreadCrumbCurrent
 	font-weight:normal;
 	font-size:x-small;
 	color:#16518A;
-	width:100px
+	width:100px;
+	background-color: rgb(228, 219, 252);
 }
 
 .GridViewCmbField
@@ -735,26 +737,26 @@ ul.tabbernav li.tabberactive a:hover
     .success-msg
     {
         border: solid #22AA22 1px;
-        color: #2A6780;
-        background: #EEFFEE url('images/success.png') no-repeat;
+        color: Black;
+        background: #9A81CF url('images/success.png') no-repeat;
     }
     .failure-msg
     {
         border: solid #C49292 1px;
-        color: #733030;
-        background: #DEB7B7 url('images/warning.png') no-repeat;
+        color: Black;
+        background: #9A81CF url('images/warning.png') no-repeat;
     }
     .warning-msg
     {
         border: solid #E6D976 1px;
-        color: #987025;
-        background: #F9F2C3 url('images/alert.png') no-repeat;
+        color: Black;
+        background: #9A81CF url('images/alert.png') no-repeat;
     }
     .information-msg
     {
         border: solid #3460EC 1px;
-        color: #2F58E8;
-        background: #D1DFFB url('images/information.png') no-repeat;
+        color: Black;
+        background: #9A81CF url('images/information.png') no-repeat;
     }
     .ExortPanelpopup
     {

@@ -194,11 +194,11 @@ div#MainDivLeft
 .TableBackground
 {
     /* background-color: #F1F9FC; */
-    background-color: #EBEFF9; 
+    background-color: #F2FAFD; 
 }
 .TDBackground
 {
-    /* background-color: #F2FAFD; */
+    background-color: #F2FAFD; 
 }
 .DivScroll
 {
@@ -317,7 +317,7 @@ div#MainDivLeft
 
 .PCGButton
 {
-    background: url(Images/PCG_gradient_button1.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    background: url(Images/PCG_gradient_button1.jpeg) no-repeat left top; /*background-repeat: no-repeat;*/
     font-weight: bolder;
     color: White;
     font-size: x-small;
@@ -518,11 +518,12 @@ a.aBreadCrumbCurrent
 
 .GridViewTxtField
 {
+    background-color: #AFD4ED;
     font-family: Verdana,Tahoma;
 	font-weight:normal;
 	font-size:x-small;
 	color:#16518A;
-	width:100px
+	width:100px;
 }
 
 .GridViewCmbField
@@ -735,26 +736,26 @@ ul.tabbernav li.tabberactive a:hover
     .success-msg
     {
         border: solid #22AA22 1px;
-        color: #2A6780;
-        background: #EEFFEE url('images/success.png') no-repeat;
+        color: Black;
+        background: #6B9FBF url('images/success.png') no-repeat;
     }
     .failure-msg
     {
         border: solid #C49292 1px;
-        color: #733030;
-        background: #DEB7B7 url('images/warning.png') no-repeat;
+        color: Black;
+        background: #6B9FBF url('images/warning.png') no-repeat;
     }
     .warning-msg
     {
         border: solid #E6D976 1px;
-        color: #987025;
-        background: #F9F2C3 url('images/alert.png') no-repeat;
+        color: Black;
+        background: #6B9FBF url('images/alert.png') no-repeat;
     }
     .information-msg
     {
         border: solid #3460EC 1px;
-        color: #2F58E8;
-        background: #D1DFFB url('images/information.png') no-repeat;
+        color: Black;
+        background: #6B9FBF  url('images/information.png') no-repeat;
     }
     .ExortPanelpopup
     {
