@@ -191,6 +191,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createRMCmd, "@AR_FirstName", DbType.String, rmVo.FirstName);
                 db.AddInParameter(createRMCmd, "@AR_MiddleName", DbType.String, rmVo.MiddleName);
                 db.AddInParameter(createRMCmd, "@AR_LastName", DbType.String, rmVo.LastName);
+                db.AddInParameter(createRMCmd, "@AR_StaffCode", DbType.String, rmVo.StaffCode);
                 db.AddInParameter(createRMCmd, "@AR_OfficePhoneDirectISD", DbType.Int32, rmVo.OfficePhoneDirectIsd);
                 db.AddInParameter(createRMCmd, "@AR_OfficePhoneDirectSTD", DbType.Int32, rmVo.OfficePhoneDirectStd);
                 db.AddInParameter(createRMCmd, "@AR_OfficePhoneDirect", DbType.Int32, rmVo.OfficePhoneDirectNumber);
@@ -427,6 +428,7 @@ namespace DaoAdvisorProfiling
                         rmVo.FirstName = dr["AR_FirstName"].ToString();
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
                         rmVo.LastName = dr["AR_LastName"].ToString();
+                        rmVo.StaffCode = dr["AR_StaffCode"].ToString();
                         if (dr["AR_OfficePhoneDirect"].ToString() != "")
                             rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                         if (dr["AR_OfficePhoneDirectISD"].ToString() != "")
@@ -515,6 +517,8 @@ namespace DaoAdvisorProfiling
                         rmVo.FirstName = dr["AR_FirstName"].ToString();
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
                         rmVo.LastName = dr["AR_LastName"].ToString();
+                        if (!string.IsNullOrEmpty(dr["AR_StaffCode"].ToString()))
+                          rmVo.StaffCode = dr["AR_StaffCode"].ToString();
                         if (dr["AR_OfficePhoneDirect"].ToString() != "" && dr["AR_OfficePhoneDirect"] != null)
                             rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                         if (dr["AR_OfficePhoneDirectISD"].ToString() != "" && dr["AR_OfficePhoneDirectISD"] != null)
@@ -647,7 +651,8 @@ namespace DaoAdvisorProfiling
                     if (dr["AR_LastName"] != DBNull.Value)
                         rmVo.LastName = dr["AR_LastName"].ToString();
                     else
-                        rmVo.LastName = string.Empty;
+                        rmVo.LastName = string.Empty;                    
+                   
                     if (dr["AR_OfficePhoneDirect"] != DBNull.Value)
                         rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                     if (dr["AR_OfficePhoneDirectISD"] != DBNull.Value)
