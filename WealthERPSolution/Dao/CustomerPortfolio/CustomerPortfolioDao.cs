@@ -76,7 +76,7 @@ namespace DaoCustomerPortfolio
             }
             return eqPortfolioVoList;
         }
-        public List<EQPortfolioVo> GetCustomerEquityPortfolio(int customerId, int portfolioId, DateTime tradeDate, string ScripNameFilter)
+        public List<EQPortfolioVo> GetCustomerEquityPortfolio(int customerId, int portfolioId, DateTime tradeDate, string ScripNameFilter, string tradeAccountFilter)
         {
             List<EQPortfolioVo> eqPortfolioVoList = null;
             EQPortfolioVo eqPortfolioVo = new EQPortfolioVo();
@@ -95,7 +95,11 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getEquityPortfolioCmd, "@scripNameFilter", DbType.String, ScripNameFilter);
                 else
                     db.AddInParameter(getEquityPortfolioCmd, "@scripNameFilter", DbType.String, DBNull.Value);
-
+                if (tradeAccountFilter != "")
+                    db.AddInParameter(getEquityPortfolioCmd, "@TradeAccountNumber", DbType.String, tradeAccountFilter);
+                else
+                    db.AddInParameter(getEquityPortfolioCmd, "@TradeAccountNumber", DbType.String, DBNull.Value);
+                
                 dsGetEquityPortfolio = db.ExecuteDataSet(getEquityPortfolioCmd);
                 if (dsGetEquityPortfolio.Tables[0].Rows.Count > 0)
                 {
@@ -1622,6 +1626,97 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
+        public bool DeleteMutualFundNetPosition(int schemePlanCode, int accountId, DateTime valuationDate)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteMFNetPositionCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteMFNetPositionCmd = db.GetStoredProcCommand("SP_DeleteMutualFundNPSchemeSpecific");
+
+                db.AddInParameter(deleteMFNetPositionCmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(deleteMFNetPositionCmd, "@AccountId", DbType.Int32, accountId);
+                db.AddInParameter(deleteMFNetPositionCmd, "@CMFNP_ValuationDate", DbType.DateTime, valuationDate);
+
+                if (db.ExecuteNonQuery(deleteMFNetPositionCmd) != 0)
+
+                    bResult = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:DeleteMutualFundNetPosition()");
+
+
+                object[] objects = new object[3];
+                objects[0] = schemePlanCode;
+                objects[1] = accountId;
+                objects[2] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+        public bool DeleteEquityNetPosition(int scripCode, int TradeAccId, DateTime valuationDate)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteEquityNetPositionCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteEquityNetPositionCmd = db.GetStoredProcCommand("SP_DeleteEquityNPForLatestValDate");
+
+                db.AddInParameter(deleteEquityNetPositionCmd, "@scripCode", DbType.Int32, scripCode);
+                db.AddInParameter(deleteEquityNetPositionCmd, "@TradeAccId", DbType.Int32, TradeAccId);
+                db.AddInParameter(deleteEquityNetPositionCmd, "@CENP_ValuationDate", DbType.DateTime, valuationDate);
+
+                if (db.ExecuteNonQuery(deleteEquityNetPositionCmd) != 0)
+
+                    bResult = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:DeleteMutualFundNetPosition()");
+
+
+                object[] objects = new object[3];
+                objects[0] = scripCode;
+                objects[1] = TradeAccId;
+                objects[2] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+
         #endregion
 
        
