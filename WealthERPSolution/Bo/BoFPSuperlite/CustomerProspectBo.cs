@@ -825,5 +825,37 @@ namespace BoFPSuperlite
         }
 
         /* End For FPDashBoard Asset BreakUp */
+
+
+        public DataSet GetFPCurrentAndRecomondedAssets(int CustomerId)
+        {
+
+
+            CustomerProspectDao customerprospectdao = new CustomerProspectDao();
+            DataSet dsFPCurrentAndRecomondedAssets = new DataSet();
+            try
+            {
+                dsFPCurrentAndRecomondedAssets = customerprospectdao.GetFPCurrentAndRecomondedAssets(CustomerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectBo.cs:GetFPCurrentAndRecomondedAssets()");
+                object[] objects = new object[3];
+                objects[0] = CustomerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsFPCurrentAndRecomondedAssets;
+
+        }
     }
 }
