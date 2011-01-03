@@ -54,7 +54,7 @@ namespace WealthERP.FP
                 customervo = customerBo.GetCustomer(customerId);
                 
                 Session[SessionContents.CustomerVo] = customervo;
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndividualLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
                 
                 if (customerId != 0)
                 {
