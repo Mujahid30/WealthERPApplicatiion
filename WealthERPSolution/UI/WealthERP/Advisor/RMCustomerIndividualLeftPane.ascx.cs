@@ -115,13 +115,13 @@ namespace WealthERP.Advisor
                         RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
                         //Session["IsDashboard"] = "false";
                     }
-                    else if (IsDashboard == "alerts")
+                    else if (IsDashboard == "FP")
                     {
                         RadPanelBar1.FindItemByValue("Financial Planning").Selected = true;
                         RadPanelBar1.FindItemByValue("Financial Planning").Expanded = true;
                         //Session["IsDashboard"] = "false";
                     }
-                    else if (IsDashboard == "FP")
+                    else if (IsDashboard == "alerts")
                     {
                         RadPanelBar1.FindItemByValue("Alerts").Selected = true;
                         RadPanelBar1.FindItemByValue("Alerts").Expanded = true;
