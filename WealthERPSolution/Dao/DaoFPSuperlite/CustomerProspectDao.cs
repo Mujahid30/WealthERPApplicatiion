@@ -1002,7 +1002,7 @@ namespace DaoFPSuperlite
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getFPDashBoardAsstesBreakUpCmd = db.GetStoredProcCommand("SP_FPDashboard");
+                getFPDashBoardAsstesBreakUpCmd = db.GetStoredProcCommand("SP_FPAssetsAndLiabilitieDetails");
                 if (CustomerId != 0)
                     db.AddInParameter(getFPDashBoardAsstesBreakUpCmd, "@CustomerID", DbType.Int32, CustomerId);
 
@@ -1028,6 +1028,44 @@ namespace DaoFPSuperlite
                 throw exBase;
             }
             return dsFPDashBoard;
+        }
+
+
+        public DataSet GetFPCurrentAndRecomondedAssets(int CustomerId)
+        {
+            Database db;
+            DbCommand getFPCurrentAndRecomondedAssetsCmd;
+            DataSet dsFPCurrentAndRecomondedAssets = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getFPCurrentAndRecomondedAssetsCmd = db.GetStoredProcCommand("SP_GetCustomerAssets");
+                if (CustomerId != 0)
+                    db.AddInParameter(getFPCurrentAndRecomondedAssetsCmd, "@CustomerID", DbType.Int32, CustomerId);
+
+                dsFPCurrentAndRecomondedAssets = db.ExecuteDataSet(getFPCurrentAndRecomondedAssetsCmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectDao.cs:GetFPCurrentAndRecomondedAssets()");
+                object[] objects = new object[3];
+                objects[0] = CustomerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsFPCurrentAndRecomondedAssets;
         }
     }
 }
