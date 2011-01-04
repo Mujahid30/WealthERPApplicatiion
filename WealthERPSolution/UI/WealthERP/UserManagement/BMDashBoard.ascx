@@ -107,8 +107,7 @@
                 <br />
                </td>
                <td >
-        <asp:Chart ID="ChartBranchAssets" runat="server" BackColor="#EBEFF9"
-                Width="550px" Height="300px"  >
+        <asp:Chart ID="ChartBranchAssets" runat="server" Width="500px" Height="250px" BackColor="Transparent">
             <Series>
             <asp:Series Name="seriesBranchAssets" LabelBackColor="Red" ChartType="Pie" 
                    LegendText="#VALX" YValueType="Double">  
@@ -175,8 +174,8 @@
         <br />
         </td>
         <td>
-        <asp:Chart ID="CharttopfiveRMCustNetworth" runat="server" BackColor="#EBEFF9"
-                Height="380px" Width="600px">
+        <asp:Chart ID="CharttopfiveRMCustNetworth" runat="server" BackColor="#F1EDED"
+                Height="350px" Width="520px">
                 <Series>
                     <asp:Series Name="RMCustNet" XValueMember="Customers" YValueMembers="NetWorth" 
                         Font="Microsoft Sans Serif, 10pt, style=Bold">
@@ -240,8 +239,8 @@
         </td>
         <td>
         
-        <asp:Chart ID="ChartCustomerNetworth" runat="server" BackColor="#EBEFF9"
-                Height="380px" Width="600px">
+        <asp:Chart ID="ChartCustomerNetworth" runat="server" BackColor="#F1EDED"
+                Height="350px" Width="520px">
                 <Series>
                     <asp:Series Name="CustNetworth" Font="Microsoft Sans Serif, 10pt, style=Bold" XValueMember="Customers" YValueMembers="NetWorth">
                     </asp:Series>

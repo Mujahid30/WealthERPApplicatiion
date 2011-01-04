@@ -140,7 +140,7 @@ namespace WealthERP.UserManagement
                     colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
                     colorColumn.HeaderBackColor = Color.WhiteSmoke;
                     ChartBranchAssets.Legends["BranchAssetsLegends"].CellColumns.Add(colorColumn);
-                    ChartBranchAssets.Legends["BranchAssetsLegends"].BackColor = Color.FromName("#F1F9FC");
+                    ChartBranchAssets.Legends["BranchAssetsLegends"].BackColor = Color.FloralWhite;
                     LegendCellColumn totalColumn = new LegendCellColumn();
                     totalColumn.Alignment = ContentAlignment.MiddleLeft;
                     
