@@ -763,8 +763,8 @@ namespace DaoAdvisorProfiling
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
                     if (dr["AR_LastName"] != DBNull.Value)
                         rmVo.LastName = dr["AR_LastName"].ToString();
-                    if (dr["AR_StaffCode"] != DBNull.Value)
-                        rmVo.StaffCode = dr["AR_StaffCode"].ToString();
+                    //if (dr["AR_StaffCode"] != DBNull.Value)
+                    //    rmVo.StaffCode = dr["AR_StaffCode"].ToString();
                     if (dr["AR_OfficePhoneDirect"] != DBNull.Value)
                         rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                     if (dr["AR_OfficePhoneDirectISD"] != DBNull.Value)
