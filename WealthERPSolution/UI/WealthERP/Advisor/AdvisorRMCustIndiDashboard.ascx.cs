@@ -308,7 +308,7 @@ namespace WealthERP.Advisor
                 Chart1.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
                 Chart1.Legends["AssetsLegend"].TitleSeparatorColor = Color.Black;
                 Chart1.Legends["AssetsLegend"].ForeColor = Color.Black;
-                Chart1.Legends["AssetsLegend"].BackColor = Color.Transparent;
+                Chart1.Legends["AssetsLegend"].BackColor = Color.FloralWhite;
                 Chart1.Series[0].IsValueShownAsLabel = false;
                 Chart1.Series[0]["PieLabelStyle"] = "Disabled";
                 Chart1.ChartAreas[0].Area3DStyle.Enable3D = true;
