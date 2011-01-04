@@ -132,7 +132,7 @@ namespace WealthERP.General
 
                             roleList = userBo.GetUserRoles(userVo.UserId);
 
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+                            
 
                             count = roleList.Count;
 
@@ -236,6 +236,7 @@ namespace WealthERP.General
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                                 }
                             }
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
                             GetLatestValuationDate();
                         }
                         //else if (userVo.UserType == "RM")
