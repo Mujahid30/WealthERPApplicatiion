@@ -110,8 +110,15 @@
         </SelectParameters>
     </asp:SqlDataSource>--%>
       <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"
-        SelectCommand="SELECT A.C_CustomerId, A.C_FirstName+''+A.C_MiddleName+''+A.C_LastName AS Name,A.C_Mobile1,A.C_Email,ISNULL(B.CFPS_Asset,0) AS Asset,ISNULL(B.CFPS_Liabilities,0) AS Liabilities, ISNULL(B.CFPS_Asset,0)-ISNULL(B.CFPS_Liabilities,0) AS Networth FROM dbo.Customer A
-         LEFT JOIN dbo.CustomerFPSummary B
+        SelectCommand="SELECT A.C_CustomerId, A.C_FirstName+''+A.C_MiddleName+''+A.C_LastName AS Name
+,A.C_Email
+,A.C_Mobile1
+,A.C_Adr1Line1+','+A.C_Adr1Line2+','+A.C_Adr1Line3+','+A.C_Adr1City+','+A.C_Adr1State+','+A.C_Adr1Country+','+ CONVERT(varchar(10),A.C_Adr1PinCode) AS Address
+,ISNULL(B.CFPS_Asset,0) AS Asset
+,ISNULL(B.CFPS_Liabilities,0) AS Liabilities
+, ISNULL(B.CFPS_Asset,0)-ISNULL(B.CFPS_Liabilities,0) AS Networth 
+FROM dbo.Customer A
+        INNER JOIN dbo.CustomerFPSummary B
          ON A.C_CustomerId=B.C_CustomerId WHERE ([C_IsProspect] = @C_IsProspect AND [AR_RMId]=@AR_RMId)">
         <SelectParameters>
             <asp:Parameter DefaultValue="1" Name="C_IsProspect" Type="Int32" />
