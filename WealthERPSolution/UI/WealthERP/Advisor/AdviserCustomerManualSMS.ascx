@@ -33,8 +33,8 @@
                        Width="100%" ScrollBars="Vertical" Visible="false" HorizontalAlign="Left">
 <asp:Label ID="lblNoRecords" Text="No Alert Exists" runat="server" Visible="false" CssClass="FieldName"></asp:Label>
 <asp:GridView ID="gvCustomerSMSAlerts" DataKeyNames="CustomerId" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                        ForeColor="#333333" Width="624px" Height="78px" 
-                        Font-Size="Small" BackImageUrl="~/CSS/Images/HeaderGlassBlack.jpg" CssClass="GridViewStyle" 
+                        Width="624px" Height="78px" 
+                        Font-Size="Small" CssClass="GridViewStyle" 
                         ShowFooter="true" OnRowDataBound="gvCustomerSMSAlerts_RowDataBound" EnableViewState="true">
                         <SelectedRowStyle Font-Bold="True" CssClass="SelectedRowStyle" />
                         <HeaderStyle Font-Bold="True" Font-Size="Small" ForeColor="White" CssClass="HeaderStyle" />
