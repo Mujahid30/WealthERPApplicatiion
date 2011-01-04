@@ -57,7 +57,8 @@ namespace VoReports
         MFReports = 1,
         EquityReports = 2,
         PortfolioReports = 3,
-        FinancialPlanning = 4
+        FinancialPlanning = 4,
+        FinancialPlanningSectional=5
     }
 
 
