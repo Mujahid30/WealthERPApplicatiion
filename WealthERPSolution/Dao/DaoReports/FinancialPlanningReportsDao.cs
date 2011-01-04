@@ -228,6 +228,68 @@ namespace DaoReports
             return ds;
         }
 
+        /// <summary>
+        /// Get the Asset and Liability details for a customer.
+        /// </summary>
+        /// <param name="report"></param>
+        /// <remarks>Get All the details of Financial Planning of customers</remarks>
+        /// <returns></returns>
+        public DataSet GetCustomerFPDetails(FinancialPlanningVo report,out double asset,out double liabilities,out double netWorth,out string riskClass,out double sumAssuredLI)
+        {
+            Database db;
+            DbCommand cmdCustomerFPReportDetails;
+            DataSet dsCustomerFPReportDetails = null;
+            DataTable dtAsset = new DataTable();
+            DataTable dtLiabilities = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCustomerFPReportDetails = db.GetStoredProcCommand("SP_RPT_GetFPReportDetails");
+                //db.AddInParameter(cmdCustomerFPReportDetails, "@AdvisorId", DbType.Int64,DBNull);
+                db.AddInParameter(cmdCustomerFPReportDetails, "@CustomerId", DbType.Int32, report.CustomerId);
+                db.AddOutParameter(cmdCustomerFPReportDetails,"@RiskClass", DbType.String,20);
+                db.AddOutParameter(cmdCustomerFPReportDetails, "@InsuranceSUMAssured", DbType.Decimal, 20);
+                dsCustomerFPReportDetails = db.ExecuteDataSet(cmdCustomerFPReportDetails);
+
+                 Object riskClassObj = db.GetParameterValue(cmdCustomerFPReportDetails, "@RiskClass");
+                 if (riskClassObj != DBNull.Value)
+                     riskClass = db.GetParameterValue(cmdCustomerFPReportDetails, "@RiskClass").ToString();
+                 else
+                     riskClass = string.Empty;
+
+                 Object objSumAssuredLI = db.GetParameterValue(cmdCustomerFPReportDetails, "@InsuranceSUMAssured");
+                 if (objSumAssuredLI != DBNull.Value)
+                     sumAssuredLI = double.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@InsuranceSUMAssured").ToString());
+                 else
+                     sumAssuredLI = 0;
+
+                dtAsset = dsCustomerFPReportDetails.Tables[2];
+                dtLiabilities = dsCustomerFPReportDetails.Tables[3];
+                asset = double.Parse(dtAsset.Rows[0][3].ToString());
+                liabilities = double.Parse(dtLiabilities.Rows[0][0].ToString());
+                netWorth = asset - liabilities;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "Reports.cs:GetCustomerAssetAllocationDetails()");
+
+                object[] objects = new object[2];
+                objects[0] = report.CustomerId;
+                objects[0] = report.CustomerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCustomerFPReportDetails;
+        }
      
 
     }
