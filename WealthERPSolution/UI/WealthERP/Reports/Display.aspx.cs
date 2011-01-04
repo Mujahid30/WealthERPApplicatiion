@@ -51,7 +51,7 @@ namespace WealthERP.Reports
         string PDFViewPath = "";
 
         RiskProfileBo riskprofilebo = new RiskProfileBo();
-
+        RMVo customerRMVo = new RMVo();
         MFReportVo mfReport = new MFReportVo();
         EquityReportVo equityReport = new EquityReportVo();
         PortfolioReportVo portfolioReport = new PortfolioReportVo();
@@ -61,6 +61,15 @@ namespace WealthERP.Reports
         CustomerBo customerBo = new CustomerBo();
         RMVo rmVo = null;
         WERPReports CommonReport = new WERPReports();
+        Dictionary<string, string> chkBoxsList = new Dictionary<string, string>();
+        DataTable dtFPReportText;
+        DataTable dtMonthlyGoalAmount;
+        DataTable dtRTGoalDetails;
+        DataTable dtCashFlows;
+        DataTable dtAssetAllocation;
+        DataTable dtHLVAnalysis;
+        string riskClass = string.Empty;
+        double recEquity, recDebt, recCash, currEquity, currDebt, currCash = 0;   
         private ReportType CurrentReportType
         {
             get
@@ -82,6 +91,10 @@ namespace WealthERP.Reports
                     else if (Request.Form["ctrl_FinancialPlanningReports$btnView"] != null)
                     {
                         return ReportType.FinancialPlanning;
+                    }
+                    else if (Request.Form["ctrl_FPSectional$btnViewReport"] != null)
+                    {
+                        return ReportType.FinancialPlanningSectional;
                     }
                     else
                         return ReportType.Invalid;
@@ -135,6 +148,11 @@ namespace WealthERP.Reports
                 CurrentReportType = ReportType.FinancialPlanning;
                 ctrlPrefix = "ctrl_FinancialPlanningReports$";
             }
+            if (Request.Form["ctrl_FPSectional$btnViewReport"] != null)
+            {
+                CurrentReportType = ReportType.FinancialPlanningSectional;
+                ctrlPrefix = "ctrl_FPSectional$";
+            }
            
             if (PreviousPage != null)
             {
@@ -148,8 +166,95 @@ namespace WealthERP.Reports
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {           
-            DisplayReport();
+        {
+            if (!Page.IsPostBack)
+            {
+                if (Request.Form[ctrlPrefix + "chkCover_page"] == "on")                
+                    chkBoxsList.Add("chkCover_page", "Y");                
+                else
+                    chkBoxsList.Add("chkCover_page", "N");
+
+                if(Request.Form[ctrlPrefix + "chkRM_Messgae"] == "on")
+                    chkBoxsList.Add("chkRM_Messgae", "Y"); 
+                else
+                    chkBoxsList.Add("chkRM_Messgae", "N");
+
+                if (Request.Form[ctrlPrefix + "chkImage"] == "on")
+                    chkBoxsList.Add("Image", "Y"); 
+                else
+                    chkBoxsList.Add("Image", "N");
+
+                if (Request.Form[ctrlPrefix + "chkFPIntroduction"] == "on")
+                    chkBoxsList.Add("FPIntroduction", "Y"); 
+                else
+                    chkBoxsList.Add("FPIntroduction", "N");
+
+                if (Request.Form[ctrlPrefix + "chkProfileSummary"] == "on")
+                    chkBoxsList.Add("ProfileSummary", "Y");
+                else
+                    chkBoxsList.Add("ProfileSummary", "N");
+
+                if (Request.Form[ctrlPrefix + "chkFinancialHealth"] == "on")
+                    chkBoxsList.Add("FinancialHealth", "Y");
+                else
+                    chkBoxsList.Add("FinancialHealth", "N");
+
+                //if (Request.Form[ctrlPrefix + "chkKeyAssumptions"] == "on")
+                //    chkBoxsList.Add("KeyAssumptions", "Y");
+                //else
+                //    chkBoxsList.Add("KeyAssumptions", "N");
+
+                chkBoxsList.Add("KeyAssumptions", "N");
+
+                if (Request.Form[ctrlPrefix + "chkGoalProfile"] == "on")
+                    chkBoxsList.Add("GoalProfile", "Y");
+                else
+                    chkBoxsList.Add("GoalProfile", "N");
+
+                if (Request.Form[ctrlPrefix + "chkIncome_Expense"] == "on")
+                    chkBoxsList.Add("IncomeExpense", "Y");
+                else
+                    chkBoxsList.Add("IncomeExpense", "N");
+
+                if (Request.Form[ctrlPrefix + "chkCash_Flows"] == "on")
+                    chkBoxsList.Add("CashFlows", "Y");
+                else
+                    chkBoxsList.Add("CashFlows", "N");
+
+                if (Request.Form[ctrlPrefix + "chkNetWorthSummary"] == "on")
+                    chkBoxsList.Add("NetWorthSummary", "Y");
+                else
+                    chkBoxsList.Add("NetWorthSummary", "N");
+
+                if (Request.Form[ctrlPrefix + "chkRiskProfile"] == "on")
+                    chkBoxsList.Add("RiskProfile", "Y");
+                else
+                    chkBoxsList.Add("RiskProfile", "N");
+
+                if (Request.Form[ctrlPrefix + "chkInsurance"] == "on")
+                    chkBoxsList.Add("Insurance", "Y");
+                else
+                    chkBoxsList.Add("Insurance", "N");
+
+                if (Request.Form[ctrlPrefix + "chkCurrentObservation"] == "on")
+                    chkBoxsList.Add("CurrentObservation", "Y");
+                else
+                    chkBoxsList.Add("CurrentObservation", "N");
+
+                if (Request.Form[ctrlPrefix + "chkDisclaimer"] == "on")
+                    chkBoxsList.Add("Disclaimer", "Y");
+                else
+                    chkBoxsList.Add("Disclaimer", "N");
+
+                if (Request.Form[ctrlPrefix + "chkNotes"] == "on")
+                    chkBoxsList.Add("Notes", "Y");
+                else
+                    chkBoxsList.Add("Notes", "N");
+
+                ViewState["FPSelectedSectionList"] = chkBoxsList;
+            }
+
+            DisplayReport();           
  
         }
 
@@ -181,6 +286,10 @@ namespace WealthERP.Reports
             else if (CurrentReportType == ReportType.FinancialPlanning)
             {
                 DisplayReport(financialPlanning);
+            }
+            else if (CurrentReportType == ReportType.FinancialPlanningSectional)
+            {
+                DisplayReport(financialPlanning, 1); 
             }
             else
             {
@@ -256,7 +365,7 @@ namespace WealthERP.Reports
                 CustomerGoalSetupBo customerGoalsBo = new CustomerGoalSetupBo();
                 //customerVo = customerBo.GetCustomer(int.Parse(Request.Form["ctrl_MFReports$hdnCustomerId1"]));
                 //Session["customerVo"] = customerVo;
-                report = (FinancialPlanningVo)Session["reportParams"];
+                       report = (FinancialPlanningVo)Session["reportParams"];
 
                         
                         crmain.Load(Server.MapPath("FinancialPlanning.rpt"));
@@ -287,7 +396,8 @@ namespace WealthERP.Reports
                                 //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                                 AssignReportViewerProperties();
                                 //crmain.SetParameterValue("CustomerName",);
-                                crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
+                                //crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
+                                crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.GetHTMLString(1));
                                 //AssignReportViewerProperties();
                                 crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
                                 crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
@@ -311,7 +421,9 @@ namespace WealthERP.Reports
                                 //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                                 AssignReportViewerProperties();
                                 //crmain.SetParameterValue("CustomerName",);
-                                crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
+                                //crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
+
+                                crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.GetHTMLString(1));
                                 //AssignReportViewerProperties();
                                 crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
                                 crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
@@ -331,7 +443,749 @@ namespace WealthERP.Reports
                 throw (ex);
             }
         }
-       
+
+        private void DisplayReport(FinancialPlanningVo fpSectional,int test)
+        {
+            double asset = 0;
+            double liabilities = 0;
+            double networth = 0;            
+
+            string fpImage = "SCBFPImage.jpg";
+            string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage);
+            
+            FinancialPlanningReportsBo financialPlanningReportsBo = new FinancialPlanningReportsBo();
+            DataSet dsCustomerFPReportDetails = new DataSet();
+            dsCustomerFPReportDetails = financialPlanningReportsBo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass);
+            dtFPReportText = dsCustomerFPReportDetails.Tables[0];
+            dtMonthlyGoalAmount = dsCustomerFPReportDetails.Tables[6];
+            dtRTGoalDetails = dsCustomerFPReportDetails.Tables[7];
+            dtCashFlows = dsCustomerFPReportDetails.Tables[10];
+            dtAssetAllocation = dsCustomerFPReportDetails.Tables[13];
+            dtHLVAnalysis = dsCustomerFPReportDetails.Tables[16];
+            fpSectional = (FinancialPlanningVo)Session["reportParams"];
+           
+            crmain.Load(Server.MapPath("FPSectionalReport.rpt"));
+            crmain.Subreports["ProfileSummary"].Database.Tables["CustomerFamilyDetails"].SetDataSource(dsCustomerFPReportDetails.Tables[1]);
+            crmain.Subreports["KeyAssumptions"].Database.Tables["WerpAssumptions"].SetDataSource(dsCustomerFPReportDetails.Tables[4]);
+            crmain.Subreports["GoalProfile"].Database.Tables["OtherGoal"].SetDataSource(dsCustomerFPReportDetails.Tables[5]);
+            crmain.Subreports["GoalProfile"].Database.Tables["RTGoal"].SetDataSource(dsCustomerFPReportDetails.Tables[7]);
+            crmain.Subreports["Income"].Database.Tables["Income"].SetDataSource(dsCustomerFPReportDetails.Tables[8]);
+            crmain.Subreports["Expense"].Database.Tables["Expense"].SetDataSource(dsCustomerFPReportDetails.Tables[9]);
+            crmain.Subreports["CashFlows"].Database.Tables["CashFlows"].SetDataSource(dtCashFlows);
+            crmain.Subreports["NetWorthSummary"].Database.Tables["NetWorth"].SetDataSource(dsCustomerFPReportDetails.Tables[11]);
+            crmain.Subreports["LiabilitiesDetails"].Database.Tables["Liabilities"].SetDataSource(dsCustomerFPReportDetails.Tables[12]);
+            crmain.Subreports["RiskProfile_PortfolioAllocation"].Database.Tables["AssetAllocation"].SetDataSource(dtAssetAllocation);
+            crmain.Subreports["Insurance"].Database.Tables["Insurance"].SetDataSource(dsCustomerFPReportDetails.Tables[14]);
+            crmain.Subreports["GeneralInsurance"].Database.Tables["GEInsurance"].SetDataSource(dsCustomerFPReportDetails.Tables[15]);
+            crmain.Subreports["HLVAnalysis"].Database.Tables["HLVAnalysis"].SetDataSource(dsCustomerFPReportDetails.Tables[16]);
+            crmain.Subreports["HLVBasedIncome"].Database.Tables["HLVBasedIncome"].SetDataSource(dsCustomerFPReportDetails.Tables[17]);
+            crmain.Subreports["CurrentObservation"].Database.Tables["Observation"].SetDataSource(dsCustomerFPReportDetails.Tables[18]);
+            crmain.Subreports["FinancialHealth"].Database.Tables["FinancialHealth"].SetDataSource(dsCustomerFPReportDetails.Tables[19]);
+            setLogo();
+            if (!File.Exists(logoPath))
+                fpImage = "spacer.png";
+            crmain.Subreports["Image"].Database.Tables["ImageSection"].SetDataSource(ImageSectionTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage)));
+            AssignReportViewerProperties();
+            crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
+            crmain.SetParameterValue("Asset", Math.Round(double.Parse(asset.ToString()),2).ToString());
+            crmain.SetParameterValue("Liabilities", Math.Round(double.Parse(liabilities.ToString()), 2).ToString());
+            crmain.SetParameterValue("Networth", Math.Round(double.Parse(networth.ToString()), 2).ToString());
+            crmain.SetParameterValue("CustomerRiskClass", riskClass); 
+            //crmain.Database.Tables["ImageSection"].SetDataSource(ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage)));
+            
+            
+            if (ViewState["FPSelectedSectionList"] != null)
+            {
+                chkBoxsList = (Dictionary<string, string>)ViewState["FPSelectedSectionList"];
+            }
+            
+            foreach (var pair in chkBoxsList)
+            {
+                switch(pair.Key)
+                {
+                    case "chkCover_page":
+                        {
+                            if(pair.Value=="Y")
+                                crmain.SetParameterValue("CoverSection1", "1");
+                            else
+                                crmain.SetParameterValue("CoverSection1", "0");
+                            break;
+                        }
+                    case "chkRM_Messgae":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("RMMessage", "1");
+                            else
+                                crmain.SetParameterValue("RMMessage", "0");
+                            break;
+                        }
+                    case "Image":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("ImageSection", "1");
+                            else
+                                crmain.SetParameterValue("ImageSection", "0");
+                            break;
+ 
+                        }
+                    case "FPIntroduction":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("FPIntroduction", "1");
+                            else
+                                crmain.SetParameterValue("FPIntroduction", "0");
+                            break;
+ 
+                        }
+                    case "ProfileSummary":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("ProfileSummary", "1");
+                            else
+                                crmain.SetParameterValue("ProfileSummary", "0");
+                            break;
+
+                        }
+                    case "FinancialHealth":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("FinancialHealth", "1");
+                            else
+                                crmain.SetParameterValue("FinancialHealth", "0");
+                            break;
+
+                        }
+                    case "KeyAssumptions":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("KeyAssumptions", "1");
+                            else
+                                crmain.SetParameterValue("KeyAssumptions", "0");
+                            break;
+
+                        }
+                    case "GoalProfile":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("GaolProfile", "1");
+                            else
+                                crmain.SetParameterValue("GaolProfile", "0");
+                            break;
+
+                        }
+                    case "IncomeExpense":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("IncomeExpense", "1");
+                            else
+                                crmain.SetParameterValue("IncomeExpense", "0");
+                            break;
+
+                        }
+                    case "CashFlows":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("CashFlows", "1");
+                            else
+                                crmain.SetParameterValue("CashFlows", "0");
+                            break;
+
+                        }
+                    case "NetWorthSummary":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("NetWorthSummary", "1");
+                            else
+                                crmain.SetParameterValue("NetWorthSummary", "0");
+                            break;
+
+                        }
+                    case "RiskProfile":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("RiskProfile", "1");
+                            else
+                                crmain.SetParameterValue("RiskProfile", "0");
+                            break;
+
+                        }
+                    case "Insurance":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("Insurance", "1");
+                            else
+                                crmain.SetParameterValue("Insurance", "0");
+                            break;
+
+                        }
+                    case "CurrentObservation":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("CurrentObservation", "1");
+                            else
+                                crmain.SetParameterValue("CurrentObservation", "0");
+                            break;
+
+                        }
+                    case "Disclaimer":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("Disclaimer", "1");
+                            else
+                                crmain.SetParameterValue("Disclaimer", "0");
+                            break;
+
+                        }
+                    case "Notes":
+                        {
+                            if (pair.Value == "Y")
+                                crmain.SetParameterValue("Notes", "1");
+                            else
+                                crmain.SetParameterValue("Notes", "0");
+                            break;
+
+                        } 
+                        
+                    default:
+                        break;
+                }
+
+            }
+
+            AssignFPReportTextParameter();               
+            
+        }
+        public static DataTable ImageSectionTable(string ImageFile)
+        {
+            DataTable data = new DataTable();
+            DataRow row;
+            data.TableName = "ImageSection";
+            data.Columns.Add("SectionImage", System.Type.GetType("System.Byte[]"));
+            row = data.NewRow();
+            if (ImageFile != string.Empty)
+            {
+                FileStream fs = new FileStream(ImageFile, FileMode.Open);
+                BinaryReader br = new BinaryReader(fs);
+
+                row[0] = br.ReadBytes((int)br.BaseStream.Length);
+                data.Rows.Add(row);
+                br = null;
+                fs.Close();
+                fs = null;
+            }
+            else
+            {
+                row[0] = new byte[] { 0 };
+                data.Rows.Add(row);
+            }
+
+
+            return data;
+        }
+        public void AssignFPReportTextParameter()
+        {          
+
+            RMVo rmVo = (RMVo)Session["rmVo"];
+            
+            AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
+            string state = "";
+            if (Session["CusVo"] != null)
+                customerVo = (CustomerVo)Session["CusVo"];
+            else if (Session["customerVo"] != null)
+                customerVo = (CustomerVo)Session["customerVo"];
+            string strSection = string.Empty;
+            string strRMMessage = string.Empty;
+            string[] strRMmsgLine;
+
+            string strFPIntroFinancialPlanning = string.Empty;
+            string strFPIntroFinancialPlanner = string.Empty;
+
+            string strImageOpeningLine = string.Empty;
+
+            string strProfileSummaryText = string.Empty;
+            string strFinancialhealthText = string.Empty;
+            string strKeyAssumtionText = string.Empty;
+            string strGoalOpeningLine = string.Empty;
+            string strOtherGoalText = string.Empty;
+            string[] strOtherGoalTextLines;
+            string[] strRTGoalTextLines;
+            string strRTOpeningLine = string.Empty;
+            string strCashFlowsText = string.Empty;
+            string strNetWorthOpeningLine = string.Empty;
+            string strNetWorthSummary = string.Empty;
+            string strRiskClassDescription = string.Empty;
+            string strRiskProfileText = string.Empty;
+            string[] strRiskClassLines;
+            string strRiskProfileAssetAllocationText = string.Empty;
+            string strInsuranceText = string.Empty;
+            Dictionary<string, string> dicRMMessageFieldCodes = new Dictionary<string, string>();
+            Dictionary<string, string> dicOtherGoalCodes = new Dictionary<string, string>();
+            Dictionary<string, string> dicRiskProfileCodes = new Dictionary<string, string>();
+            StringBuilder strOtherGoalFinalText = new StringBuilder();            
+            string strRTGoalText = string.Empty;
+            string strDisclaimer = string.Empty;
+
+            foreach (DataRow dr in dtFPReportText.Rows)
+            {
+
+
+                switch (dr["SectionName"].ToString())
+                {
+                    case "RM_Messgae":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "RM_Message")
+                            {
+                                if (string.IsNullOrEmpty(strRMMessage.Trim()))
+                                    strRMMessage = dr["TextParaGraph"].ToString();
+                            }
+                            if (dr["HasFieldCode"].ToString().Trim() == "Y")
+                            {
+                                dicRMMessageFieldCodes.Add(dr["FieldCode"].ToString(), dr["TextPropuse"].ToString());
+
+                            }
+                            break;
+                        }
+                    case "Image":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "Opening_Line" && int.Parse(dr["TextId"].ToString())==2)
+                            {
+                                if (string.IsNullOrEmpty(strImageOpeningLine.Trim()))
+                                    strImageOpeningLine = dr["TextParaGraph"].ToString();
+                            }
+
+                            break;
+                        }
+                    case "FP_Introduction":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "Financial_Planning" && int.Parse(dr["TextId"].ToString()) == 3)
+                            {
+                                if (string.IsNullOrEmpty(strFPIntroFinancialPlanning.Trim()))
+                                    strFPIntroFinancialPlanning = dr["TextParaGraph"].ToString();
+                            }
+
+                            break;
+                        }
+                    case "Profile_Summary":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "Profile_Summary_Text" && int.Parse(dr["TextId"].ToString()) == 5)
+                            {
+                                if (string.IsNullOrEmpty(strProfileSummaryText.Trim()))
+                                    strProfileSummaryText = dr["TextParaGraph"].ToString();
+                            }
+
+                            break;
+                        }
+                    case "Financial_Health":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "Financial_Health_Text" && int.Parse(dr["TextId"].ToString()) == 6)
+                            {
+                                if (string.IsNullOrEmpty(strFinancialhealthText.Trim()))
+                                    strFinancialhealthText = dr["TextParaGraph"].ToString();
+                            }
+
+                            break;
+                        }
+                    case "Key_Assumptions":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "Key_Assumption_Text" && int.Parse(dr["TextId"].ToString()) == 7)
+                            {
+                                if (string.IsNullOrEmpty(strKeyAssumtionText.Trim()))
+                                    strKeyAssumtionText = dr["TextParaGraph"].ToString();
+                            }
+
+                            break;
+                        }
+                    case "Goal_Profiling":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "Goal _Opening_Line" && int.Parse(dr["TextId"].ToString()) == 8)
+                            {
+                                if (string.IsNullOrEmpty(strGoalOpeningLine.Trim()))
+                                    strGoalOpeningLine = dr["TextParaGraph"].ToString();
+                            }
+                            if (dr["TextPropuse"].ToString().Trim() == "Customer_Other_Goal_Text" && int.Parse(dr["TextId"].ToString()) == 9)
+                            {
+                                if (string.IsNullOrEmpty(strOtherGoalText.Trim()))
+                                    strOtherGoalText = dr["TextParaGraph"].ToString();
+                            }                            
+                            if (dr["TextPropuse"].ToString().Trim() == "Retirement_Opening_Line" && int.Parse(dr["TextId"].ToString()) == 10)
+                            {
+                                if (string.IsNullOrEmpty(strRTOpeningLine.Trim()))
+                                    strRTOpeningLine = dr["TextParaGraph"].ToString();
+                            }
+                            if (dr["TextPropuse"].ToString().Trim() == "Customer_RT_Gaol_Text" && int.Parse(dr["TextId"].ToString()) == 11)
+                            {
+                                if (string.IsNullOrEmpty(strRTGoalText.Trim()))
+                                    strRTGoalText = dr["TextParaGraph"].ToString();
+                            }
+                            if (dr["HasFieldCode"].ToString().Trim() == "Y")
+                            {
+                                dicOtherGoalCodes.Add(dr["FieldCode"].ToString(), dr["TextPropuse"].ToString());
+
+                            }
+
+                            break;
+                        }
+                    case "Cash_Flows":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "CashFlow_Summary" && int.Parse(dr["TextId"].ToString()) == 13)
+                            {
+                                if (string.IsNullOrEmpty(strCashFlowsText.Trim()))
+                                    strCashFlowsText = dr["TextParaGraph"].ToString();
+                            }
+
+                            break;
+                        }
+                    case "Net_Worth":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "Networth_Openning_Line" && int.Parse(dr["TextId"].ToString()) == 14)
+                            {
+                                if (string.IsNullOrEmpty(strNetWorthOpeningLine.Trim()))
+                                    strNetWorthOpeningLine = dr["TextParaGraph"].ToString();
+                            }
+                            if (dr["TextPropuse"].ToString().Trim() == "NetWorth_Summary" && int.Parse(dr["TextId"].ToString()) == 21)
+                            {
+                                if (string.IsNullOrEmpty(strNetWorthSummary.Trim()))
+                                    strNetWorthSummary = dr["TextParaGraph"].ToString();
+                            }
+
+                            break;
+                        }
+                    case "RiskProfile_ Portfolio_Allocation":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "Risk_Classes_Descprition" && int.Parse(dr["TextId"].ToString()) == 15)
+                            {
+                                if (string.IsNullOrEmpty(strRiskClassDescription.Trim()))
+                                    strRiskClassDescription = dr["TextParaGraph"].ToString();
+                            }
+
+                            if (dr["TextPropuse"].ToString().Trim() == "Customer_Risk_Profile_Text" && int.Parse(dr["TextId"].ToString()) == 17)
+                            {
+                                if (string.IsNullOrEmpty(strRiskProfileText.Trim()))
+                                    strRiskProfileText = dr["TextParaGraph"].ToString();
+                            }
+                            if (dr["TextPropuse"].ToString().Trim() == "Customer_Portoflio_Allocation_Text" && int.Parse(dr["TextId"].ToString()) == 18)
+                            {
+                                if (string.IsNullOrEmpty(strRiskProfileAssetAllocationText.Trim()))
+                                    strRiskProfileAssetAllocationText = dr["TextParaGraph"].ToString();
+                            }
+
+                            if (dr["TextPropuse"].ToString().Trim() == "Customer_Portoflio_Allocation_Text" &&  dr["HasFieldCode"].ToString().Trim() == "Y")
+                            {
+                                dicRiskProfileCodes.Add(dr["FieldCode"].ToString(), dr["TextPropuse"].ToString());
+
+                            }
+                            
+
+                            break;
+                        }
+                    case "Insurance_Details":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "Insurance_Text" && int.Parse(dr["TextId"].ToString()) == 19)
+                            {
+                                if (string.IsNullOrEmpty(strInsuranceText.Trim()))
+                                    strInsuranceText = dr["TextParaGraph"].ToString();
+                            }                           
+
+                            break;
+                        }
+                    case "Disclaimer":
+                        {
+                            if (dr["TextPropuse"].ToString().Trim() == "Disclaimer_Text" && int.Parse(dr["TextId"].ToString()) == 20)
+                            {
+                                if (string.IsNullOrEmpty(strDisclaimer.Trim()))
+                                    strDisclaimer = dr["TextParaGraph"].ToString();
+                            }
+
+                            break;
+                        }
+                    default:
+                        break;
+
+                }                
+                
+            }
+           
+            if (dicRMMessageFieldCodes.Count > 0)
+            {
+                foreach (var pair in dicRMMessageFieldCodes)
+                {
+                    if (pair.Key.Trim() == "#CustName#")
+                        strRMMessage = strRMMessage.Replace(pair.Key, customerVo.FirstName);
+                    else if(pair.Key.Trim() == "#RMName#")
+                        strRMMessage = strRMMessage.Replace(pair.Key,(customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).Trim());
+                    else if (pair.Key.Trim() == "#RMMobile#")
+                    {
+                        if (customerRMVo.Mobile!=0)
+                        strRMMessage = strRMMessage.Replace(pair.Key, "+91-" + customerRMVo.Mobile);
+                    }
+                }
+            }
+            strRMmsgLine = strRMMessage.Split('~');
+            strRMMessage = string.Empty;
+            foreach (string str in strRMmsgLine)
+            {
+                if (!str.Contains("#RMMobile#"))
+                {
+                    strRMMessage += str;
+                }
+            }
+            foreach (DataRow dr in dtMonthlyGoalAmount.Rows)
+            {
+             switch(dr[0].ToString())
+                {
+                 case "BH":
+                     {
+                         if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
+                         {
+                             strOtherGoalText=strOtherGoalText.Replace("#BuyHomeGoalTotal#", dr["MonthyTotal"].ToString());
+                         }
+                      break;
+
+                     }
+                 case "ED":
+                     {
+                         if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
+                         {
+                            strOtherGoalText= strOtherGoalText.Replace("#ChildEducationGoalTotal#", dr["MonthyTotal"].ToString());
+                         }
+                         break;
+
+                     }
+                 case "MR":
+                     {
+                         if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
+                         {
+                             strOtherGoalText=strOtherGoalText.Replace("#ChildMarriageGoalTotal#", dr["MonthyTotal"].ToString());
+                         }
+                         break;
+
+                     }
+                 case "OT":
+                     {
+                         if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
+                         {
+                             strOtherGoalText=strOtherGoalText.Replace("#OtherGoalTotal#", dr["MonthyTotal"].ToString());
+                         }
+                         break;
+
+                     }
+                 
+                 default:
+                     break;
+
+                }
+            }
+
+            if (dtRTGoalDetails.Rows.Count > 0)
+            {
+                        double retCorps=0;                       
+                        double currentInvestment = 0;
+                        double roiEarned = 0;
+                        double fvOnCurrentInvest=0;
+                        double rtGapValues = 0;
+                        double monthlySavingsRequired = 0;
+                        int goalyear = 0;
+                        int.TryParse(dtRTGoalDetails.Rows[0]["FVofCostToday"].ToString(),out goalyear);
+                        double.TryParse(dtRTGoalDetails.Rows[0]["FVofCostToday"].ToString(), out retCorps);
+                        //double.TryParse(dtRTGoalDetails.Rows[0]["FVofCostToday"].ToString(), out fvCostOfToday);
+                        double.TryParse(dtRTGoalDetails.Rows[0]["CurrentInvestment"].ToString(), out currentInvestment);
+                        double.TryParse(dtRTGoalDetails.Rows[0]["ROIEarnedOnCurrInvest"].ToString(), out roiEarned);
+                        double.TryParse(dtRTGoalDetails.Rows[0]["FutureValueOnCurrentInvest"].ToString(), out fvOnCurrentInvest);
+                        double.TryParse(dtRTGoalDetails.Rows[0]["GapValues"].ToString(), out rtGapValues);
+                        double.TryParse(dtRTGoalDetails.Rows[0]["MonthlySavingsRequired"].ToString(), out monthlySavingsRequired);
+                       
+                foreach (var pair in dicOtherGoalCodes)
+                {
+                    if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RetirementCorpus#")
+                    {
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, retCorps.ToString());
+                    }
+                    else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTGoalYear#")
+                    {
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, goalyear.ToString());
+                    }
+                    else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTCurrentInvestment#" && currentInvestment != 0)
+                    {
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, currentInvestment.ToString());
+                    }
+                    else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTEarnedPercentage#" && currentInvestment != 0)
+                    {
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, roiEarned.ToString());
+                    }
+                    else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTFVOnCurrentInvestment#" && currentInvestment != 0)
+                    {
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, fvOnCurrentInvest.ToString());
+                    }
+                    else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RetirementCorpus# ")
+                    {
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, rtGapValues.ToString());
+                    }
+                    else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RetirementGoalMonthlySavings#")
+                    {
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, monthlySavingsRequired.ToString());
+                    }
+                    else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTGapValues#")
+                    {
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, rtGapValues.ToString());
+                    }
+
+                }
+            }
+            
+            strOtherGoalTextLines = strOtherGoalText.Split('~');
+            foreach (string str in strOtherGoalTextLines)
+            {
+                if(str.Contains("#ChildEducationGoalTotal#") || str.Contains("#ChildMarriageGoalTotal#") || str.Contains("#BuyHomeGoalTotal#") || str.Contains("#OtherGoalTotal#"))
+                {
+
+                }
+                else
+                {
+                    strOtherGoalFinalText.Append(str);
+                }
+                
+              
+            }
+
+            strRTGoalTextLines = strRTGoalText.Split('~');
+            strRTGoalText = string.Empty;
+            foreach (string str in strRTGoalTextLines)
+            {
+                if (str.Contains("#RTCurrentInvestment#") || str.Contains("#RTEarnedPercentage#"))
+                {
+
+                }
+                else
+                {
+                    if (str.Contains("no investments"))
+                    {
+                        if (!strRTGoalText.Contains("already invested"))
+                        {
+                            strRTGoalText += str;
+                        }
+
+                    }
+                    else
+                    {
+                        strRTGoalText += str;
+ 
+                    }
+                   
+ 
+                }
+            }
+
+            foreach(DataRow dr in dtCashFlows.Rows)
+            {
+                if (dr["CashCategory"].ToString() == "Annual Surplus")
+                {
+                    strCashFlowsText = strCashFlowsText.Replace("#AnnualSurplus#", dr["Amount"].ToString());
+                }
+ 
+            }
+            strRiskClassLines = strRiskProfileText.Split('~');
+            strRiskProfileText = string.Empty;
+            foreach (string str in strRiskClassLines)
+            {
+                if (str.Contains(riskClass) || str.Contains("html"))
+                {
+                    strRiskProfileText += str;
+                }
+            }
+
+
+            foreach(DataRow dr in dtAssetAllocation.Rows)
+            {
+                if (dr["Class"].ToString() == "Equity")
+                {
+                    recEquity = double.Parse(dr["RecommendedPercentage"].ToString());
+                    currEquity=double.Parse(dr["CurrentPercentage"].ToString());                  
+                   
+                }
+                else if (dr["Class"].ToString() == "Debt")
+                {
+                    recDebt = double.Parse(dr["RecommendedPercentage"].ToString());
+                    currDebt = double.Parse(dr["CurrentPercentage"].ToString());        
+                }
+                else if (dr["Class"].ToString() == "Cash")
+                {
+                    recCash = double.Parse(dr["RecommendedPercentage"].ToString());
+                    currCash = double.Parse(dr["CurrentPercentage"].ToString());
+                }              
+                
+            }
+
+
+            if (dicRiskProfileCodes.Count > 0)
+            {
+                foreach (var pair in dicRiskProfileCodes)
+                {
+                    if (pair.Key.Trim() == "#CurrEquity#")
+                    {
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currEquity.ToString());
+                    }
+                    else if (pair.Key.Trim() == "#CurrDebt#")
+                    {
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currDebt.ToString());
+                    }
+                    else if (pair.Key.Trim() == "#RecEquity#")
+                    {
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recEquity.ToString());
+ 
+                    }
+                    else if (pair.Key.Trim() == "#RecDebt#")
+                    {
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recDebt.ToString());
+
+                    }
+                    else if (pair.Key.Trim() == "#RecCash#")
+                    {
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recCash.ToString());
+
+                    }
+                    else if (pair.Key.Trim() == "#RecCashLessMore#")
+                    {
+                        if (currCash > recCash)
+                        {
+                            strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, "more");
+                        }
+                        else
+                        {
+                            strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, "less");
+                        }
+                        
+
+                    }
+                }
+            }
+
+            strOtherGoalText = strOtherGoalFinalText.ToString();
+            crmain.SetParameterValue("CustomerDOB", customerVo.Dob.Day + " " + customerVo.Dob.ToString("MMMM") + " " + customerVo.Dob.Year.ToString());
+            crmain.SetParameterValue("CustomerEmail",customerVo.Email.Trim());
+            crmain.SetParameterValue("RMMessageParagraph", strRMMessage);
+            crmain.SetParameterValue("ImageOpeningLine", strImageOpeningLine);
+            crmain.SetParameterValue("FPIntroductionFplanning", strFPIntroFinancialPlanning);
+            crmain.SetParameterValue("FPIntroductionFplanner", strFPIntroFinancialPlanner);
+            crmain.SetParameterValue("ProfileSummaryText", strProfileSummaryText);
+            crmain.SetParameterValue("FinancialHealthText", strFinancialhealthText);
+            crmain.SetParameterValue("KeyAssumptionsText", strKeyAssumtionText);
+            crmain.SetParameterValue("GoalProfileOpeningLine", strGoalOpeningLine);
+            crmain.SetParameterValue("OtherGoalsText", strOtherGoalText);
+            crmain.SetParameterValue("RTOpeningLine", strRTOpeningLine);
+            crmain.SetParameterValue("RTGoalText", strRTGoalText);
+            crmain.SetParameterValue("CashFlowsText", strCashFlowsText);
+            crmain.SetParameterValue("NetWorthopenningLine", strNetWorthOpeningLine);
+            crmain.SetParameterValue("NetWorthSummaryText", strNetWorthSummary);
+            crmain.SetParameterValue("RiskClassInformation", strRiskClassDescription);
+            crmain.SetParameterValue("CustomerRiskClassDescription", strRiskProfileText);
+            crmain.SetParameterValue("CustomerAssetAllocationText", strRiskProfileAssetAllocationText);
+            crmain.SetParameterValue("InsuranceText", strInsuranceText);
+            crmain.SetParameterValue("DisclaimerText", strDisclaimer);
+            
+            
+
+        }
+
         /// <summary>
         /// If there is no records to display in report , then hide the controls on page.
         /// </summary>
@@ -354,7 +1208,6 @@ namespace WealthERP.Reports
                 RMVo rmVo = (RMVo)Session["rmvo"];
                 switch (report.SubType)
                 {
-
 
                     case "MULTI_ASSET_SUMMARY_REPORT":
                         
@@ -994,8 +1847,7 @@ namespace WealthERP.Reports
         /// </summary>
         private void AssignReportViewerProperties()
         {
-            RMVo rmVo = (RMVo)Session["rmVo"];
-            RMVo customerRMVo = new RMVo();
+            RMVo rmVo = (RMVo)Session["rmVo"];            
             AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
             string state = "";
             if (Session["CusVo"] != null)
@@ -1023,12 +1875,17 @@ namespace WealthERP.Reports
                     {
                         crmain.SetParameterValue("OrgTelephone", "Mobile :--");
                     }
-                    crmain.SetParameterValue("OrgAddress", advisorVo.City + ", " + state);
+                    crmain.SetParameterValue("OrgAddress", advisorVo.City.Trim() + ", " + state.Trim());
                     //crmain.SetParameterValue("OrgDetails", "E-mail: " + advisorVo.Email);
                     //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                     crmain.SetParameterValue("RMContactDetails", "E-mail: " + advisorVo.Email);
                     crmain.SetParameterValue("MobileNo", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
-                    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1 + " " + advisorVo.City);
+                    if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && !string.IsNullOrEmpty(advisorVo.City.Trim()))
+                    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim() + " " + advisorVo.City.Trim());
+                    else if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && string.IsNullOrEmpty(advisorVo.City.Trim()))
+                        crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim());
+                    else if (!string.IsNullOrEmpty(advisorVo.City.Trim()) && string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
+                        crmain.SetParameterValue("CustomerAddress", advisorVo.City.Trim());
                     crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
                     crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
                
@@ -1139,7 +1996,7 @@ namespace WealthERP.Reports
 
                 Session["reportParams"] = portfolioReport;
             }
-            else if (CurrentReportType == ReportType.FinancialPlanning)
+            else if (CurrentReportType == ReportType.FinancialPlanning || CurrentReportType==ReportType.FinancialPlanningSectional)
             {
                 //portfolioReport.SubType = Request.Form[ctrlPrefix + "ddlReportSubType"];
                 //portfolioReport.PortfolioIds = GetPortfolios();
@@ -1323,7 +2180,7 @@ namespace WealthERP.Reports
                     else
                         cust = customerBo.GetCustomer(Convert.ToInt32(portfolioReport.CustomerIds));
                 }
-                else if (CurrentReportType == ReportType.FinancialPlanning)
+                else if (CurrentReportType == ReportType.FinancialPlanning || CurrentReportType == ReportType.FinancialPlanningSectional)
                 {
                     subType = string.Empty;
                     fromDate =DateTime.Today;
@@ -1668,10 +2525,10 @@ namespace WealthERP.Reports
             DisplayReport();
         }
 
-        #region Logo Related Methods
+        #region Logo Related Methods         
+
         private void setLogo()
-        {
-            
+        {            
             
             string advisorLogo = "spacer.png";
             if (advisorVo.LogoPath != null && advisorVo.LogoPath != string.Empty)
@@ -1687,6 +2544,7 @@ namespace WealthERP.Reports
 
         }
 
+        
         public static DataTable ImageTable(string ImageFile)
         {
             DataTable data = new DataTable();
