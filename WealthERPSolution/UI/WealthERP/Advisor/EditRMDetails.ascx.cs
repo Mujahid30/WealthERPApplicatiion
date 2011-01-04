@@ -73,6 +73,7 @@ namespace WealthERP.Advisor
             lblFirst.CssClass = "FieldName";
             lblMiddle.CssClass = "FieldName";
             lblLast.CssClass = "FieldName";
+            lblStaffCode.CssClass = "FieldName";
             lblPhoneDirectNumber.CssClass = "FieldName";
             lblPhoneNumber.CssClass = "FieldName";
             lblSTD.CssClass = "FieldName";
@@ -432,6 +433,10 @@ namespace WealthERP.Advisor
             txtFirstName.Text = rmVo.FirstName.ToString();
             txtLastName.Text = rmVo.LastName.ToString();
             txtMiddleName.Text = rmVo.MiddleName.ToString();
+            if (!string.IsNullOrEmpty(rmVo.StaffCode))
+                txtStaffCode.Text = rmVo.StaffCode.ToString();
+            else
+                txtStaffCode.Text = string.Empty;
             txtEmail.Text = rmVo.Email.ToString();
             txtExtSTD.Text = rmVo.OfficePhoneExtStd.ToString();
             txtFaxISD.Text = rmVo.FaxIsd.ToString();
@@ -513,6 +518,11 @@ namespace WealthERP.Advisor
                     rmVo.FirstName = txtFirstName.Text.ToString();
                     rmVo.LastName = txtLastName.Text.ToString();
                     rmVo.MiddleName = txtMiddleName.Text.ToString();
+                    if (!string.IsNullOrEmpty(rmVo.StaffCode))
+                        rmVo.StaffCode = txtStaffCode.Text.ToString();
+                    else
+                        rmVo.StaffCode = string.Empty;
+
                     if (txtMobileNumber.Text == string.Empty || txtMobileNumber.Text == "")
                         rmVo.Mobile = 0;
                     else

@@ -161,6 +161,14 @@
             <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
+        <tr>
+          <td class="leftField">
+            <asp:Label ID="lblStaffCode" runat="server" CssClass="FieldName" Text="StaffCode :"></asp:Label>
+          </td>
+          <td class="rightField" colspan="3">
+            <asp:TextBox ID="txtStaffCode" runat="server" CssClass="txtField"></asp:TextBox>
+          </td>
+       </tr>
     <tr>
         <td class="leftField">
             <asp:Label ID="lblCTC" runat="server" CssClass="FieldName" Text="CTC :"></asp:Label>
