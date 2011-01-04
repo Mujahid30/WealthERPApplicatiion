@@ -397,7 +397,7 @@ namespace WealthERP.Reports
                                 AssignReportViewerProperties();
                                 //crmain.SetParameterValue("CustomerName",);
                                 //crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
-                                crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.GetHTMLString(1));
+                                //crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.GetHTMLString(1));
                                 //AssignReportViewerProperties();
                                 crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
                                 crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
@@ -423,7 +423,7 @@ namespace WealthERP.Reports
                                 //crmain.SetParameterValue("CustomerName",);
                                 //crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.RTGoalDescriptionText(int.Parse(report.CustomerId)));
 
-                                crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.GetHTMLString(1));
+                                //crmain.SetParameterValue("RTGoalDescription", customerGoalsBo.GetHTMLString(1));
                                 //AssignReportViewerProperties();
                                 crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
                                 crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
@@ -452,7 +452,8 @@ namespace WealthERP.Reports
 
             string fpImage = "SCBFPImage.jpg";
             string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage);
-            
+            //fpSectional = (MFReportVo)Session["reportParams"];
+            fpSectional = (FinancialPlanningVo)Session["reportParams"];
             FinancialPlanningReportsBo financialPlanningReportsBo = new FinancialPlanningReportsBo();
             DataSet dsCustomerFPReportDetails = new DataSet();
             dsCustomerFPReportDetails = financialPlanningReportsBo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass);
@@ -462,7 +463,7 @@ namespace WealthERP.Reports
             dtCashFlows = dsCustomerFPReportDetails.Tables[10];
             dtAssetAllocation = dsCustomerFPReportDetails.Tables[13];
             dtHLVAnalysis = dsCustomerFPReportDetails.Tables[16];
-            fpSectional = (FinancialPlanningVo)Session["reportParams"];
+            
            
             crmain.Load(Server.MapPath("FPSectionalReport.rpt"));
             crmain.Subreports["ProfileSummary"].Database.Tables["CustomerFamilyDetails"].SetDataSource(dsCustomerFPReportDetails.Tables[1]);
