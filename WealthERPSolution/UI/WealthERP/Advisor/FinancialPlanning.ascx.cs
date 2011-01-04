@@ -928,7 +928,7 @@ namespace WealthERP.Advisor
             DataTable dt = new DataTable();
             DataRow drAsset;
             dt.Columns.Add("AssetType");
-            dt.Columns.Add("Value");
+            dt.Columns.Add("Percentage");
             if (DScurrentAsset != null && DScurrentAsset.Tables.Count > 0)
             {
                 foreach (DataRow dr in DScurrentAsset.Tables[0].Rows)
@@ -950,7 +950,7 @@ namespace WealthERP.Advisor
             ChartCurrentAsset.Series.Add(seriesAssets);
             ChartCurrentAsset.DataSource = dt;
             ChartCurrentAsset.Series[0].XValueMember = "AssetType";
-            ChartCurrentAsset.Series[0].YValueMembers = "Value";
+            ChartCurrentAsset.Series[0].YValueMembers = "Percentage";
 
             // Enable X axis margin
             ChartCurrentAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
