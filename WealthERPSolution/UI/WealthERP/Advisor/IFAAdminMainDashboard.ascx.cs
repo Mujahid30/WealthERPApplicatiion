@@ -429,7 +429,7 @@ namespace WealthERP.Advisor
                         ChartRMPerformance.Legends["RMPerformanceLegend"].Title = "RM Performance";
                         ChartRMPerformance.Legends["RMPerformanceLegend"].TitleAlignment = StringAlignment.Center;
                         ChartRMPerformance.Legends["RMPerformanceLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
-                        ChartRMPerformance.Legends["RMPerformanceLegend"].BackColor = Color.Transparent;
+                        ChartRMPerformance.Legends["RMPerformanceLegend"].BackColor = Color.FloralWhite;
                         ChartRMPerformance.Legends["RMPerformanceLegend"].TitleSeparatorColor = Color.Black;
 
 
