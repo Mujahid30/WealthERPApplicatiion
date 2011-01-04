@@ -497,7 +497,7 @@ namespace WealthERP.CustomerPortfolio
 
             chrtTotalAssets.ChartAreas[0].Area3DStyle.Enable3D = true;
             chrtTotalAssets.ChartAreas[0].Area3DStyle.Perspective = 50;
-            chrtTotalAssets.Legends["AssetsLegend"].BackColor = Color.Transparent;
+            chrtTotalAssets.Legends["AssetsLegend"].BackColor = Color.FloralWhite;
             //chrtTotalAssets.ChartAreas[0].InnerPlotPosition.Width = 100;
             chrtTotalAssets.Width = 500;
             chrtTotalAssets.BackColor = Color.Transparent;

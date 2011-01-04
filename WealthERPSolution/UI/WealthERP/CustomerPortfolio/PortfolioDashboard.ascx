@@ -186,7 +186,7 @@
             </asp:Panel>
         </td>
         <td style="width: 30%;" valign="top">
-            <asp:Chart ID="chrtMFInv" BackColor="Transparent" runat="server">
+            <asp:Chart ID="chrtMFInv" BackColor="#FFEFEF" runat="server">
                 <Series>
                     <asp:Series Name="Series1">
                     </asp:Series>
