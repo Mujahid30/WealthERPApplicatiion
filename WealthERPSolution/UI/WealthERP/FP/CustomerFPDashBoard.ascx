@@ -44,11 +44,38 @@
                     </telerik:GridBoundColumn>
                     </Columns>
                  </MasterTableView>
+                
                  <ClientSettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                 </ClientSettings>
                 </telerik:RadGrid>
                 <br />
+                <table runat="server" id="AssteLiaNetworthTable">
+                <tr>
+                <td>
+                <asp:Label ID="TotalAssets" runat="server" CssClass="HeaderTextSmall" Text="Total Assets : "></asp:Label>
+                </td>
+                <td>
+                <asp:Label ID="TotalValue" runat="server" CssClass="HeaderTextSmall" Text=""></asp:Label>
+                </td>
+                 </tr>
+                 <tr>
+                 <td>
+                <asp:Label ID="TotalLiabilities" runat="server" CssClass="HeaderTextSmall" Text="Liabilities : "></asp:Label>
+                </td>
+                <td>
+                <asp:Label ID="TotalLiabilitiesValue" runat="server" CssClass="HeaderTextSmall" Text=""></asp:Label>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <asp:Label ID="TotalNetworth" runat="server" CssClass="HeaderTextSmall" Text="Networth : "></asp:Label>
+                </td>
+                <td>
+                <asp:Label ID="NetworthValue" runat="server" CssClass="HeaderTextSmall" Text=""></asp:Label>
+                </td>
+                </tr>
+                </table>
                </td>
                <td >
                 <asp:Chart ID="ChartBranchAssets" runat="server" BackColor="Transparent"

@@ -18,7 +18,8 @@ namespace WealthERP.Customer
     public partial class CustomerFPDashBoard : System.Web.UI.UserControl
     {
         RiskProfileBo riskprofilebo = new RiskProfileBo();
-        DataSet branchDetailsDS = new DataSet();
+        DataSet dsFPAssetsAndLiabilitesDetails = new DataSet();
+        DataSet dsFPCurrentAndRecomondedAssets = new DataSet();
         DataTable branchAumDT = new DataTable();
         bool GridViewCultureFlag = true;
         int CustomerId = 0;
@@ -52,17 +53,17 @@ namespace WealthERP.Customer
         {
             DataRow drAssets;
             DataRow drValues;
-            branchDetailsDS = customerprospectbo.GetFPDashBoardAsstesBreakUp(CustomerId);
+            dsFPAssetsAndLiabilitesDetails = customerprospectbo.GetFPDashBoardAsstesBreakUp(CustomerId);
 
-            if ((branchDetailsDS.Tables[0].Rows.Count > 0) && (!string.IsNullOrEmpty(branchDetailsDS.ToString())))
+            if ((dsFPAssetsAndLiabilitesDetails.Tables[0].Rows.Count > 0) && (!string.IsNullOrEmpty(dsFPAssetsAndLiabilitesDetails.ToString())))
             {
                 hrBranchAum.Visible = true;
                 ErrorMessage.Visible = false;
                 lblBranchAUM.Visible = true;
                 branchAumDT.Columns.Add("Asset");
                 branchAumDT.Columns.Add("CurrentValue");
-                DataTable dtBranchDetails = branchDetailsDS.Tables[0];
-                drValues = branchDetailsDS.Tables[0].Rows[0];
+                DataTable dtBranchDetails = dsFPAssetsAndLiabilitesDetails.Tables[0];
+                drValues = dsFPAssetsAndLiabilitesDetails.Tables[0].Rows[0];
 
                 for (int i = 0; i < dtBranchDetails.Rows.Count; i++)
                 {
@@ -91,15 +92,37 @@ namespace WealthERP.Customer
                 gvFPDashBoard.DataSource = branchAumDT;
 
                 gvFPDashBoard.DataBind();
+                AssteLiaNetworthTable.Visible = true;
+                TotalAssets.Visible = true;
+                TotalLiabilities.Visible = true;
+                TotalNetworth.Visible = true;
+
+                if(dsFPAssetsAndLiabilitesDetails.Tables[2].Rows[0]["TotalSUM"].ToString() != "")
+                    TotalValue.Text = dsFPAssetsAndLiabilitesDetails.Tables[2].Rows[0]["TotalSUM"].ToString();
+                else
+                    TotalValue.Text = "0.0";
+
+                if (dsFPAssetsAndLiabilitesDetails.Tables[1].Rows[0]["Liabilities"].ToString() != "")
+                    TotalLiabilitiesValue.Text = dsFPAssetsAndLiabilitesDetails.Tables[1].Rows[0]["Liabilities"].ToString();
+                else
+                    TotalLiabilitiesValue.Text = "0.0";
+
+                NetworthValue.Text = (decimal.Parse(TotalValue.Text) - decimal.Parse(TotalLiabilitiesValue.Text)).ToString();
+
+
                 if (GridViewCultureFlag == true)
                 {
                     double tempTotalValue = 0;
-                    double.TryParse(drValues[branchDetailsDS.Tables[0].Columns.Count - 1].ToString(), out tempTotalValue);
+                    double.TryParse(drValues[dsFPAssetsAndLiabilitesDetails.Tables[0].Columns.Count - 1].ToString(), out tempTotalValue);
                     tempTotalValue = Math.Round(tempTotalValue, 2);
                 }
             }
             else
             {
+                AssteLiaNetworthTable.Visible = false;
+                TotalAssets.Visible = false;
+                TotalLiabilities.Visible = false;
+                TotalNetworth.Visible = false;
                 hrBranchAum.Visible = false;
                 ErrorMessage.Visible = true;
                 gvFPDashBoard.DataSource = null;
@@ -124,7 +147,7 @@ namespace WealthERP.Customer
             double DAssetvalue = 0;
             int j = 0;
 
-            if (branchDetailsDS.Tables[0].Rows.Count > 0)
+            if (dsFPAssetsAndLiabilitesDetails.Tables[0].Rows.Count > 0)
             {
                 lblChartBranchAUM.Visible = true;
                 ErrorMessage.Visible = false;
@@ -180,7 +203,7 @@ namespace WealthERP.Customer
                     colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
                     colorColumn.HeaderBackColor = Color.WhiteSmoke;
                     ChartBranchAssets.Legends["BranchAssetsLegends"].CellColumns.Add(colorColumn);
-                    ChartBranchAssets.Legends["BranchAssetsLegends"].BackColor = Color.FromName("#F1F9FC");
+                    ChartBranchAssets.Legends["BranchAssetsLegends"].BackColor = Color.FloralWhite;
                     LegendCellColumn totalColumn = new LegendCellColumn();
                     totalColumn.Alignment = ContentAlignment.MiddleLeft;
 
@@ -218,61 +241,65 @@ namespace WealthERP.Customer
             string CurrEquity = "0";
             string CurrDebt = "0";
             string CurrCash = "0";
+            string CurrAlternates = "0";
             if (Session[SessionContents.CustomerVo] != null && Session[SessionContents.CustomerVo].ToString() != "")
             {
                 customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             }
-            if (branchDetailsDS.Tables[2].Rows.Count > 0)
+
+            dsFPCurrentAndRecomondedAssets = customerprospectbo.GetFPCurrentAndRecomondedAssets(CustomerId);
+            if (dsFPCurrentAndRecomondedAssets.Tables[0].Rows.Count > 0)
             {
                 DataTable dtCurrAssetAllocation = new DataTable();
-                dtCurrAssetAllocation = branchDetailsDS.Tables[2];
+                dtCurrAssetAllocation = dsFPCurrentAndRecomondedAssets.Tables[0];
                 dtChartCurrAsset.Columns.Add("AssetClass");
                 dtChartCurrAsset.Columns.Add("CurrentAssetPercentage");
                 
                 foreach (DataRow dr in dtCurrAssetAllocation.Rows)
                 {
                     drChartCurrAsset = dtChartCurrAsset.NewRow();
-                    if (dr["Class"].ToString() == "Equity")
+                    if (dr["AssetType"].ToString() == "Equity")
                     {
-                        if (double.Parse(dr["CurrentPercentage"].ToString()) > 0)
+                        if (double.Parse(dr["Percentage"].ToString()) > 0)
                         {
-                            drChartCurrAsset["AssetClass"] = dr["Class"].ToString();
-                            drChartCurrAsset["CurrentAssetPercentage"] = dr["CurrentPercentage"].ToString();
+                            drChartCurrAsset["AssetClass"] = dr["AssetType"].ToString();
+                            drChartCurrAsset["CurrentAssetPercentage"] = dr["Percentage"].ToString();
                             CurrEquity = drChartCurrAsset["CurrentAssetPercentage"].ToString();
                             dtChartCurrAsset.Rows.Add(drChartCurrAsset);
                         }
                     }
-                    if (dr["Class"].ToString() == "Debt")
+                    if (dr["AssetType"].ToString() == "Debt")
                     {
-                        if (double.Parse(dr["CurrentPercentage"].ToString()) > 0)
+                        if (double.Parse(dr["Percentage"].ToString()) > 0)
                         {
-                            drChartCurrAsset["AssetClass"] = dr["Class"].ToString();
-                            drChartCurrAsset["CurrentAssetPercentage"] = dr["CurrentPercentage"].ToString();
+                            drChartCurrAsset["AssetClass"] = dr["AssetType"].ToString();
+                            drChartCurrAsset["CurrentAssetPercentage"] = dr["Percentage"].ToString();
                             CurrDebt = drChartCurrAsset["CurrentAssetPercentage"].ToString();
                             dtChartCurrAsset.Rows.Add(drChartCurrAsset);
                         }
                     }
-                    if (dr["Class"].ToString() == "Cash")
+                    if (dr["AssetType"].ToString() == "Cash")
                     {
-                        if (double.Parse(dr["CurrentPercentage"].ToString()) > 0)
+                        if (double.Parse(dr["Percentage"].ToString()) > 0)
                         {
-                            drChartCurrAsset["AssetClass"] = dr["Class"].ToString();
-                            drChartCurrAsset["CurrentAssetPercentage"] = dr["CurrentPercentage"].ToString();
+                            drChartCurrAsset["AssetClass"] = dr["AssetType"].ToString();
+                            drChartCurrAsset["CurrentAssetPercentage"] = dr["Percentage"].ToString();
                             CurrCash = drChartCurrAsset["CurrentAssetPercentage"].ToString();
                             dtChartCurrAsset.Rows.Add(drChartCurrAsset);
                         }
                     }
-                    if (dr["Class"].ToString() == "Alternate")
+                    if (dr["AssetType"].ToString() == "Alternates")
                     {
-                        if (double.Parse(dr["CurrentPercentage"].ToString()) > 0)
+                        if (double.Parse(dr["Percentage"].ToString()) > 0)
                         {
-                            drChartCurrAsset["AssetClass"] = dr["Class"].ToString();
-                            drChartCurrAsset["CurrentAssetPercentage"] = dr["CurrentPercentage"].ToString();
+                            drChartCurrAsset["AssetClass"] = dr["AssetType"].ToString();
+                            drChartCurrAsset["CurrentAssetPercentage"] = dr["Percentage"].ToString();
+                            CurrAlternates = drChartCurrAsset["CurrentAssetPercentage"].ToString();
                             dtChartCurrAsset.Rows.Add(drChartCurrAsset);
                         }
                     }
                 }
-                if ((CurrEquity != "0") || (CurrDebt != "0") || (CurrCash != "0"))
+                if ((CurrEquity != "0") || (CurrDebt != "0") || (CurrCash != "0") || (CurrAlternates != "0"))
                 {
                     /****** For Chart binding *********/
                     Legend ShowCurrentAssetAlllegend = null;
@@ -302,7 +329,7 @@ namespace WealthERP.Customer
                     colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
                     colorColumn.HeaderBackColor = Color.WhiteSmoke;
                     ChartCurrentAsset.Legends["ShowCurrentAssetAlllegendLegends"].CellColumns.Add(colorColumn);
-                    ChartCurrentAsset.Legends["ShowCurrentAssetAlllegendLegends"].BackColor = Color.FromName("#F1F9FC");
+                    ChartCurrentAsset.Legends["ShowCurrentAssetAlllegendLegends"].BackColor = Color.FloralWhite;
                     LegendCellColumn totalColumn = new LegendCellColumn();
                     totalColumn.Alignment = ContentAlignment.MiddleLeft;
 
@@ -345,60 +372,62 @@ namespace WealthERP.Customer
             string RecommendedEquity = "0";
             string RecommendedDebt = "0";
             string RecommendedCash = "0";
+            string RecommendedAlternates = "0";
             if (Session[SessionContents.CustomerVo] != null && Session[SessionContents.CustomerVo].ToString() != "")
             {
                 customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             }
-            if (branchDetailsDS.Tables[2].Rows.Count > 0)
+            if (dsFPCurrentAndRecomondedAssets.Tables[1].Rows.Count > 0)
             {
                 DataTable dtRecommendedAssetAllocation = new DataTable();
-                dtRecommendedAssetAllocation = branchDetailsDS.Tables[2];
+                dtRecommendedAssetAllocation = dsFPCurrentAndRecomondedAssets.Tables[1];
                 dtChartRecommendedAsset.Columns.Add("AssetClass");
                 dtChartRecommendedAsset.Columns.Add("RecommendedPercentage");
                 foreach (DataRow dr in dtRecommendedAssetAllocation.Rows)
                 {
                     drChartRecommendedAsset = dtChartRecommendedAsset.NewRow();
-                    if (dr["Class"].ToString() == "Equity")
+                    if (dr["AssetType"].ToString() == "Equity")
                     {
-                        if (double.Parse(dr["RecommendedPercentage"].ToString()) > 0)
+                        if (double.Parse(dr["Percentage"].ToString()) > 0)
                         {
-                            drChartRecommendedAsset["AssetClass"] = dr["Class"].ToString();
-                            drChartRecommendedAsset["RecommendedPercentage"] = dr["RecommendedPercentage"].ToString();
+                            drChartRecommendedAsset["AssetClass"] = dr["AssetType"].ToString();
+                            drChartRecommendedAsset["RecommendedPercentage"] = dr["Percentage"].ToString();
                             RecommendedEquity = drChartRecommendedAsset["RecommendedPercentage"].ToString();
                             dtChartRecommendedAsset.Rows.Add(drChartRecommendedAsset);
                         }
                     }
-                    if (dr["Class"].ToString() == "Debt")
+                    if (dr["AssetType"].ToString() == "Debt")
                     {
-                        if (double.Parse(dr["RecommendedPercentage"].ToString()) > 0)
+                        if (double.Parse(dr["Percentage"].ToString()) > 0)
                         {
-                            drChartRecommendedAsset["AssetClass"] = dr["Class"].ToString();
-                            drChartRecommendedAsset["RecommendedPercentage"] = dr["RecommendedPercentage"].ToString();
+                            drChartRecommendedAsset["AssetClass"] = dr["AssetType"].ToString();
+                            drChartRecommendedAsset["RecommendedPercentage"] = dr["Percentage"].ToString();
                             RecommendedDebt = drChartRecommendedAsset["RecommendedPercentage"].ToString();
                             dtChartRecommendedAsset.Rows.Add(drChartRecommendedAsset);
                         }
                     }
-                    if (dr["Class"].ToString() == "Cash")
+                    if (dr["AssetType"].ToString() == "Cash")
                     {
-                        if (double.Parse(dr["RecommendedPercentage"].ToString()) > 0)
+                        if (double.Parse(dr["Percentage"].ToString()) > 0)
                         {
-                            drChartRecommendedAsset["AssetClass"] = dr["Class"].ToString();
-                            drChartRecommendedAsset["RecommendedPercentage"] = dr["RecommendedPercentage"].ToString();
+                            drChartRecommendedAsset["AssetClass"] = dr["AssetType"].ToString();
+                            drChartRecommendedAsset["RecommendedPercentage"] = dr["Percentage"].ToString();
                             RecommendedCash = drChartRecommendedAsset["RecommendedPercentage"].ToString();
                             dtChartRecommendedAsset.Rows.Add(drChartRecommendedAsset);
                         }
                     }
-                    if (dr["Class"].ToString() == "Alternate")
+                    if (dr["AssetType"].ToString() == "Alternates")
                     {
-                        if (double.Parse(dr["RecommendedPercentage"].ToString()) > 0)
+                        if (double.Parse(dr["Percentage"].ToString()) > 0)
                         {
-                            drChartRecommendedAsset["AssetClass"] = dr["Class"].ToString();
-                            drChartRecommendedAsset["RecommendedPercentage"] = dr["RecommendedPercentage"].ToString();
+                            drChartRecommendedAsset["AssetClass"] = dr["AssetType"].ToString();
+                            drChartRecommendedAsset["RecommendedPercentage"] = dr["Percentage"].ToString();
+                            RecommendedAlternates = drChartRecommendedAsset["RecommendedPercentage"].ToString();
                             dtChartRecommendedAsset.Rows.Add(drChartRecommendedAsset);
                         }
                     }
                 }
-                if ((RecommendedEquity != "0") || (RecommendedDebt != "0") || (RecommendedCash != "0"))
+                if ((RecommendedEquity != "0") || (RecommendedDebt != "0") || (RecommendedCash != "0") || (RecommendedAlternates != "0"))
                 {
                     lblCurrChartErrorDisplay.Visible = false;
                     /* For Chart binding */
@@ -428,7 +457,7 @@ namespace WealthERP.Customer
                     colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
                     colorColumn.HeaderBackColor = Color.WhiteSmoke;
                     ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(colorColumn);
-                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].BackColor = Color.FromName("#F1F9FC");
+                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].BackColor = Color.FloralWhite;
                     LegendCellColumn totalColumn = new LegendCellColumn();
                     totalColumn.Alignment = ContentAlignment.MiddleLeft;
 

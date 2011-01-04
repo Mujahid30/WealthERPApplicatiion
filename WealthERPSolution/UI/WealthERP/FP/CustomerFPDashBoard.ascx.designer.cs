@@ -86,6 +86,69 @@ namespace WealthERP.Customer {
         protected global::Telerik.Web.UI.RadGrid gvFPDashBoard;
         
         /// <summary>
+        /// AssteLiaNetworthTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable AssteLiaNetworthTable;
+        
+        /// <summary>
+        /// TotalAssets control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TotalAssets;
+        
+        /// <summary>
+        /// TotalValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TotalValue;
+        
+        /// <summary>
+        /// TotalLiabilities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TotalLiabilities;
+        
+        /// <summary>
+        /// TotalLiabilitiesValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TotalLiabilitiesValue;
+        
+        /// <summary>
+        /// TotalNetworth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TotalNetworth;
+        
+        /// <summary>
+        /// NetworthValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label NetworthValue;
+        
+        /// <summary>
         /// ChartBranchAssets control.
         /// </summary>
         /// <remarks>
