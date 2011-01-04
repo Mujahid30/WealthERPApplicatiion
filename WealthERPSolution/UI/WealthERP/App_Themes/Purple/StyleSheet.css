@@ -619,6 +619,7 @@ ul.tabbernav li a
 ul.tabbernav li a:link
 {
     color: #448;
+    background-color: #C7B5FA;
 }
 ul.tabbernav li a:visited
 {
@@ -627,7 +628,7 @@ ul.tabbernav li a:visited
 ul.tabbernav li a:hover
 {
     color: #000;
- background: #3F82CD;
+ background-color: #9577EF;
  border-color: #227;
 
 }
@@ -864,5 +865,6 @@ p.tip
     position: absolute; z-index: 100001; left: 280px; top: 35px !important; 
     
 }
+
 
 /* End */
