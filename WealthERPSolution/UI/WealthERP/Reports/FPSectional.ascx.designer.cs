@@ -32,13 +32,22 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.Label lblHeader;
         
         /// <summary>
-        /// CheckBox1 control.
+        /// lblCheckAll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox1;
+        protected global::System.Web.UI.WebControls.Label lblCheckAll;
+        
+        /// <summary>
+        /// lblUncheckAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUncheckAll;
         
         /// <summary>
         /// chkCover_page control.
