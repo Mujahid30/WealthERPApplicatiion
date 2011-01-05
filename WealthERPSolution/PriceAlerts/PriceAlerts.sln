@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceAlerts", "PriceAlerts\PriceAlerts.csproj", "{4F523773-84D4-4F81-8D20-EAE48F202FFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoPriceAlerts", "PriceAlerts\BoPriceAlerts\BoPriceAlerts.csproj", "{FADFAE1E-A06E-485F-A0AE-98CC057385C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoPriceAlerts", "PriceAlerts\DaoPriceAlerts\DaoPriceAlerts.csproj", "{C2867582-E000-41AE-8A92-9CE7ABF080C4}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = PriceAlerts\\BoPriceAlerts\\BoPriceAlerts.csproj
+		SccProjectName1 = PriceAlerts/BoPriceAlerts
+		SccLocalPath1 = PriceAlerts\\BoPriceAlerts
+		SccProjectUniqueName2 = PriceAlerts\\DaoPriceAlerts\\DaoPriceAlerts.csproj
+		SccProjectName2 = PriceAlerts/DaoPriceAlerts
+		SccLocalPath2 = PriceAlerts\\DaoPriceAlerts
+		SccProjectUniqueName3 = PriceAlerts\\PriceAlerts.csproj
+		SccProjectName3 = PriceAlerts
+		SccLocalPath3 = PriceAlerts
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F523773-84D4-4F81-8D20-EAE48F202FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F523773-84D4-4F81-8D20-EAE48F202FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F523773-84D4-4F81-8D20-EAE48F202FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F523773-84D4-4F81-8D20-EAE48F202FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FADFAE1E-A06E-485F-A0AE-98CC057385C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FADFAE1E-A06E-485F-A0AE-98CC057385C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FADFAE1E-A06E-485F-A0AE-98CC057385C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FADFAE1E-A06E-485F-A0AE-98CC057385C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2867582-E000-41AE-8A92-9CE7ABF080C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2867582-E000-41AE-8A92-9CE7ABF080C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2867582-E000-41AE-8A92-9CE7ABF080C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2867582-E000-41AE-8A92-9CE7ABF080C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
