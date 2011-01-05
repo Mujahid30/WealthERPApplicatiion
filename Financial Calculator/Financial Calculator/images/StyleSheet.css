@@ -1,0 +1,178 @@
+﻿BODY {
+	FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 12px
+}
+TD {
+	FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 12px
+}
+TH {
+	FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 12px
+}
+IMG {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+BODY {
+	TEXT-TRANSFORM: none; BACKGROUND-COLOR: #ffffff; MARGIN: 0px
+}
+A {
+	FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #3193ba; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #3193ba; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+A:active {
+	COLOR: #3193ba; TEXT-DECORATION: none
+}
+.topactive {
+	COLOR: #999999; TEXT-DECORATION: underline
+}
+.genfont {
+	FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 12px
+}
+.menu {
+	TEXT-TRANSFORM: uppercase; FONT-VARIANT: small-caps; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #3193ba; FONT-SIZE: 12px; FONT-WEIGHT: bold
+}
+.footer {
+	FONT-VARIANT: small-caps; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #ffffff; FONT-SIZE: 11px
+}
+.footer2 {
+	FONT-VARIANT: small-caps; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #ffffff; FONT-SIZE: 11px
+}
+.captions {
+	TEXT-TRANSFORM: uppercase; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #000000; FONT-SIZE: 16px; FONT-WEIGHT: bold
+}
+.highlights {
+	TEXT-TRANSFORM: none; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #000000; FONT-SIZE: 12px; FONT-WEIGHT: bold
+}
+#menu1 {
+	MARGIN: 0px auto
+}
+#menu1 {
+	TEXT-ALIGN: center
+}
+#menu1 A {
+	FONT-VARIANT: small-caps; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #ffffff; FONT-SIZE: 13px; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+#menu1 A:hover {
+	FONT-VARIANT: small-caps; COLOR: #3193ba; TEXT-DECORATION: none
+}
+.actives {
+	COLOR: #ffffff; TEXT-DECORATION: underline
+}
+#footer1 {
+	TEXT-ALIGN: center; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px
+}
+#footer1 A {
+	COLOR: #ffffff
+}
+#footer1 A:hover {
+	COLOR: #3193ba
+}
+.style1 {
+	FONT-WEIGHT: bold
+}
+.mainTable
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border:solid 1px grey;
+	height: 550px;
+}
+.subTable
+{
+	margin-top: 2px;
+	margin-bottom: 2px;
+	padding-left:10px;
+	border:solid 1px grey;
+	height: 80px;
+	border-color: #dfdfdf;
+	background-color: #f5f5f5;
+}
+.subTable1
+{
+	margin-top: 2px;
+	margin-bottom: 2px;
+	padding-left:10px;
+	border:solid 1px grey;
+	height: 100px;
+	border-color: #dfdfdf;
+	background-color: #f5f5f5;
+	
+}
+.resultTable1
+{
+	font-family:Arial;
+	font-size:medium;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	padding-left:10px;
+	border:solid 1px grey;
+	height: 50px;
+	border-color: #dfdfdf;
+	background-color: #f5f5f5;
+	
+}
+.BlueActionBar
+{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #0046cf;
+	border-collapse: separate;
+	background-color: #CBDBF8;
+	color: #0046cf;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 12px;
+	height: 15px;
+	text-indent: 5px;
+	text-align:left;
+	vertical-align:middle;
+}
+.mandatory
+{
+	color: red;
+}
+#datePicker
+{
+	display:none;
+	position:absolute;
+	border:solid 2px black;
+	background-color:white;
+}
+.errorLabel
+{
+	overflow:auto;
+	/*border: 1px solid #FFCC00;*/
+	height: 30px;
+	/*background-color: #FFFFCC;
+	color: #D20000;*/
+	color:Red;
+	font-family: Arial;
+	font-size: 12px;
+	text-indent: 5px;
+	text-align:left;
+	height:15px;
+	padding-left:5px;
+}
+.labelText
+{
+	text-align:Left;
+}
+.dropdownList
+{
+	float:left;
+	padding-left:50px;
+}
+.dropdownlist
+{
+	color: #000000;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	height: 20px;
+	text-align: left;
+	margin-left: 0px;
+	margin-top: 0px;
+}

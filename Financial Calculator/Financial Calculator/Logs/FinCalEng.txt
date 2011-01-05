@@ -1,0 +1,121 @@
+
+General Information
+
+Additonal Info:
+Method: CalculatorDao.cs:GetInstrumentType()
+ExceptionManager.MachineName: SUJITH-LAPTOP
+ExceptionManager.TimeStamp: 09/12/2010 13:49:00
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: 9f0cdec0-1-129363563108974893
+ExceptionManager.ThreadIdentity: AMP\ssujith
+ExceptionManager.WindowsIdentity: AMP\ssujith
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Login failed for user 'platinum'. ---> System.Data.SqlClient.SqlException: Login failed for user 'platinum'.
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, Int64 timerExpire, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(String host, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, Int64 timerStart)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.GetNewOpenConnection()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.GetOpenConnection(Boolean disposeInnerConnection)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.GetOpenConnection()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   at DaoCalculator.CalculatorDao.GetInstrumentType() in D:\Projects\Wealth-ERP\Dao\CalculatorDao.cs:line 26
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: CalculatorBo.cs:GetInstrumentType()
+ExceptionManager.MachineName: SUJITH-LAPTOP
+ExceptionManager.TimeStamp: 09/12/2010 13:49:00
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: 9f0cdec0-1-129363563108974893
+ExceptionManager.ThreadIdentity: AMP\ssujith
+ExceptionManager.WindowsIdentity: AMP\ssujith
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed. ---> System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at System.Resources.ResourceManager.GetString(String name)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.PublishInternalException(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(BaseApplicationException exception)
+   at DaoCalculator.CalculatorDao.GetInstrumentType() in D:\Projects\Wealth-ERP\Dao\CalculatorDao.cs:line 39
+   at BoCalculator.CalculatorBo.GetInstrumentType() in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 45
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator.cs:LoadInstrumentType()
+ExceptionManager.MachineName: SUJITH-LAPTOP
+ExceptionManager.TimeStamp: 09/12/2010 13:49:00
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: 9f0cdec0-1-129363563108974893
+ExceptionManager.ThreadIdentity: AMP\ssujith
+ExceptionManager.WindowsIdentity: AMP\ssujith
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: The type initializer for 'BoCalculator.CalculatorBo' threw an exception. ---> System.TypeInitializationException: The type initializer for 'BoCalculator.CalculatorBo' threw an exception. ---> System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at System.Resources.ResourceManager.GetString(String name)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.PublishInternalException(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(BaseApplicationException exception)
+   at BoCalculator.CalculatorBo.GetInstrumentType() in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 60
+   at BoCalculator.CalculatorBo..cctor() in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 29
+   --- End of inner exception stack trace ---
+   at UserControl_FinanceCalculator.LoadInstrumentType() in d:\WEFin_Calulator\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 43
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator.cs:LoadInstrumentType()
+ExceptionManager.MachineName: SUJITH-LAPTOP
+ExceptionManager.TimeStamp: 09/12/2010 13:53:04
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: 9f0cdec0-1-129363563108974893
+ExceptionManager.ThreadIdentity: AMP\ssujith
+ExceptionManager.WindowsIdentity: AMP\ssujith
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: The type initializer for 'BoCalculator.CalculatorBo' threw an exception. ---> System.TypeInitializationException: The type initializer for 'BoCalculator.CalculatorBo' threw an exception. ---> System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at System.Resources.ResourceManager.GetString(String name)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.PublishInternalException(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(BaseApplicationException exception)
+   at BoCalculator.CalculatorBo.GetInstrumentType() in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 60
+   at BoCalculator.CalculatorBo..cctor() in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 29
+   --- End of inner exception stack trace ---
+   at UserControl_FinanceCalculator.LoadInstrumentType() in d:\WEFin_Calulator\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 43
+   --- End of inner exception stack trace ---
+
