@@ -34,7 +34,7 @@ namespace WealthERP.Advisor
         double RTSaveReq = 0.0;
         string ActiveFilter = "";
         int activeTabIndex = 0;
-
+        decimal InflationPercent;
         RMVo rmVo = new RMVo();
         //int ParentcustomerID = 0;
         AdvisorVo advisorVo = new AdvisorVo();
@@ -59,7 +59,8 @@ namespace WealthERP.Advisor
 
                 if (!IsPostBack)
                 {
-
+                    InflationPercent = GoalSetupBo.GetInflationPercent();
+                    ViewState["InflationPer"] = InflationPercent;
                     //Session["FP_UserID"] = "";
                     //Session["FP_UserName"] = "";
                     //Session[SessionContents.CurrentUserRole] = "RM";
@@ -321,7 +322,7 @@ namespace WealthERP.Advisor
             //RangeValidator2.Visible = false;
             //RequiredFieldValidator6.Visible = false;
             trROIFutureInvestment.Visible = false;
-
+            txtInflation.Text = ViewState["InflationPer"].ToString();
             btnEdit.Visible = false;
             btnUpdate.Visible = false;
             btnBackToView.Visible = false;
@@ -399,6 +400,7 @@ namespace WealthERP.Advisor
                     txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
                     txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
+                    txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
                     txtComment.Text = goalProfileSetupVo.Comments;
                     if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
                     {
@@ -764,7 +766,10 @@ namespace WealthERP.Advisor
                 goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
                 goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
                 goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
-
+                if (!string.IsNullOrEmpty(txtInflation.Text))
+                {
+                    goalProfileSetupVo.InflationPercent = double.Parse(txtInflation.Text);
+                }
                 if (txtComment.Text != "")
                 {
                     goalProfileSetupVo.Comments = txtComment.Text.ToString();
@@ -1040,7 +1045,7 @@ namespace WealthERP.Advisor
                 ddlGoalYear.SelectedIndex = 0;
                 txtCurrentInvestPurpose.Text = "0";
                 txtAboveRateOfInterst.Text = "0";
-
+                txtInflation.Text = ViewState["InflationPer"].ToString();
                 trROIFutureInvestment.Visible = false;
                 txtComment.Text = "";
                 double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
@@ -1072,7 +1077,7 @@ namespace WealthERP.Advisor
                 ddlGoalYear.SelectedIndex = 0;
                 txtCurrentInvestPurpose.Text = "0";
                 txtAboveRateOfInterst.Text = "0";
-
+                txtInflation.Text = ViewState["InflationPer"].ToString();
                 trROIFutureInvestment.Visible = false;
 
                 txtROIFutureInvest.Text = "";
@@ -1237,7 +1242,10 @@ namespace WealthERP.Advisor
                 goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
                 goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
                 goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
-
+                if (!string.IsNullOrEmpty(txtInflation.Text))
+                {
+                    goalProfileSetupVo.InflationPercent = double.Parse(txtInflation.Text);
+                }
                 if (txtComment.Text != "")
                 {
                     goalProfileSetupVo.Comments = txtComment.Text.ToString();
@@ -1319,6 +1327,7 @@ namespace WealthERP.Advisor
                 txtExpRateOfReturn.Enabled = false;
                 txtExpRateOfReturn.Enabled = false;
                 txtROIFutureInvest.Enabled = false;
+                txtInflation.Enabled = false;
                 txtComment.Enabled = false;
                 txtGoalDescription.Enabled = false;
 
@@ -1330,6 +1339,8 @@ namespace WealthERP.Advisor
                 SpanAboveROIReq.Visible = false;
                 SpanExpROI.Visible = false;
                 SpanROIFutureInvest.Visible = false;
+                spanGoalType.Visible = false;
+                spnInflation.Visible = false;
 
 
 
@@ -1353,6 +1364,7 @@ namespace WealthERP.Advisor
                     txtExpRateOfReturn.Enabled = true;
                     txtExpRateOfReturn.Enabled = true;
                     txtROIFutureInvest.Enabled = true;
+                    txtInflation.Enabled = true;
                     txtComment.Enabled = true;
 
                     //SpanPicCustomerReq.Visible = true;
@@ -1363,6 +1375,8 @@ namespace WealthERP.Advisor
                     SpanAboveROIReq.Visible = true;
                     SpanExpROI.Visible = true;
                     SpanROIFutureInvest.Visible = true;
+                    spanGoalType.Visible = true;
+                    spnInflation.Visible = true;
 
                     lblHeader.Visible = true;
                     lblNote.Visible = true;
@@ -1530,7 +1544,10 @@ namespace WealthERP.Advisor
                 goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
                 goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
                 goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
-
+                if (!string.IsNullOrEmpty(txtInflation.Text))
+                {
+                    goalProfileSetupVo.InflationPercent = double.Parse(txtInflation.Text);
+                }
                 if (txtComment.Text != "")
                 {
                     goalProfileSetupVo.Comments = txtComment.Text.ToString();

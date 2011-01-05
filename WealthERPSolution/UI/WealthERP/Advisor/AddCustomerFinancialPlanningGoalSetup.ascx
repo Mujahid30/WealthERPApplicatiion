@@ -309,6 +309,7 @@
                         <asp:DropDownList ID="ddlGoalType" runat="server" AutoPostBack="True" CssClass="cmbField"
                               OnSelectedIndexChanged="ddlGoalType_SelectedIndexChanged">
                         </asp:DropDownList>
+                        <span id="spanGoalType" class="spnRequiredField" runat="server">*</span>
                     </td>
                 </tr>
                 <tr>
@@ -511,6 +512,20 @@
                             MinimumValue="0" MaximumValue="100" ControlToValidate="txtROIFutureInvest" 
                             runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtROIFutureInvest"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Inflation(%) :"></asp:Label>
+                    </td>
+                    <td class="rightField" colspan="2">
+                        <asp:TextBox ID="txtInflation" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
+                            TextMode="SingleLine" ></asp:TextBox>
+                              <span id="spnInflation" class="spnRequiredField" runat="server">*</span>                           
+                            <asp:RangeValidator ID="RangeValidator4"  Display="Dynamic" SetFocusOnError="true" Type="Double" ErrorMessage="Value  should not be more than 100"
+                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtInflation" runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtInflation"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
