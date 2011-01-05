@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="WebParts">
+</Property><Property Name="Solution File" Value="D:\WealthERP.com\Source Code\POC\WebParts\WebParts.sln">
+</Property><Property Name="User Options File" Value="D:\WealthERP.com\Source Code\POC\WebParts\WebParts.suo">
+</Property><Property Name="Date" Value="Wednesday, March 10, 2010">
+</Property><Property Name="Time" Value="16:41 PM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="WebParts.sln" Description="File successfully backed up as D:\WealthERP.com\Source Code\POC\WebParts\Backup\WebParts.sln">
+</Event><Event ErrorLevel="0" Project="" Source="WebParts.suo" Description="File successfully backed up as D:\WealthERP.com\Source Code\POC\WebParts\Backup\WebParts.suo">
+</Event><Event ErrorLevel="0" Project="" Source="WebParts.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="WebParts.sln" Description="Converted">
+</Event></UpgradeLog>
