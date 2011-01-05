@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquityPriceDownloadUpload", "EquityPriceDownloadUpload\EquityPriceDownloadUpload.csproj", "{DDC3F08D-8CA6-4203-82CB-1C1E652FBD38}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = EquityPriceDownloadUpload\\EquityPriceDownloadUpload.csproj
+		SccProjectName1 = EquityPriceDownloadUpload
+		SccLocalPath1 = EquityPriceDownloadUpload
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDC3F08D-8CA6-4203-82CB-1C1E652FBD38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC3F08D-8CA6-4203-82CB-1C1E652FBD38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC3F08D-8CA6-4203-82CB-1C1E652FBD38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC3F08D-8CA6-4203-82CB-1C1E652FBD38}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
