@@ -203,6 +203,13 @@ namespace WealthERP.Advisor
                         LoadAssetAllocation(riskCode);
                     }
                     Trigger();
+                    Tr3.Visible = false;
+                    Tr4.Visible = false;
+                    Tr5.Visible = false;
+
+                    Tr7.Visible = false;
+                    Tr8.Visible = false;
+                    Tr9.Visible = false;
                 }
 
             }
@@ -210,6 +217,7 @@ namespace WealthERP.Advisor
             {
                 throw ex;
             }
+
         }
 
         public void LoadAssetAllocation(string riskcode)
@@ -268,7 +276,7 @@ namespace WealthERP.Advisor
                         double equitycalc = 0.0;
                         double equityPercentage = 0;
                         double debtpercentage = 0;
-                        if (age != 0 && dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() == advisorVo.advisorId.ToString())
+                        if (age != 0 && (dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() == advisorVo.advisorId.ToString()||dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() == "1000"))
                         {
                             if (dsGetAssetAllocationRules != null && dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() != advisorVo.advisorId.ToString())
                             {
