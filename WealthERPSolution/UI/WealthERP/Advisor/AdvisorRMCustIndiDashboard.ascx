@@ -53,7 +53,7 @@
                     <%--<asp:BoundField DataField="Asset Class" HeaderText="Asset Class" SortExpression="Asset Class" />--%>
                     <asp:TemplateField HeaderText="Asset Class">
                             <ItemTemplate>
-                                <asp:LinkButton ID="lnkAssetClass" runat="server" CssClass="GridViewCmbField" OnClick="lnkAssetClassAssetsGrid_Click"
+                                <asp:LinkButton ID="lnkAssetClass" runat="server" CssClass="CmbField" OnClick="lnkAssetClassAssetsGrid_Click"
                                     Text='<%# Eval("Asset Class") %>'>
                                 </asp:LinkButton>
                             </ItemTemplate>
