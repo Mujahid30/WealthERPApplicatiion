@@ -178,18 +178,41 @@
 
 
     }
+    function SubTotal(columnstoadd1, columnstoadd2, columnstoadd3, columnstoadd4) {
+        var tmp = 'ctrl_CustomerProspect_';
+
+        var subtotalvalue = 0.0;
+        var tmp1 = tmp + columnstoadd1;
+        var tmp2 = tmp + columnstoadd2;
+        var tmp3 = tmp + columnstoadd3;
+        var tmp4 = tmp + columnstoadd4;
+        if (document.getElementById(tmp1).value != "") {
+            subtotalvalue += parseFloat(document.getElementById(tmp1).value);
+        }
+        if (document.getElementById(tmp2).value != "") {
+            subtotalvalue += parseFloat(document.getElementById(tmp2).value);
+        }
+        if (document.getElementById(tmp3).value != "") {
+            subtotalvalue += parseFloat(document.getElementById(tmp3).value);
+        }
+
+        document.getElementById(tmp4).value = subtotalvalue.toString();
+        Total();
+    }
+   
+    
 </script>
 
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 <telerik:RadFormDecorator ID="RadFormDecorator1" runat="server" DecoratedControls="All"
-    Skin="Outlook" />
+    Skin="Telerik" EnableEmbeddedSkins="false" />
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Finance Profile"></asp:Label>
 <hr />
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
-    Skin="Outlook" EnableShadows="true" EnableRoundedCorners="true" Width="100%"
-    Visible="false">
+    Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
+    Width="100%" Visible="false">
     <Items>
         <telerik:RadToolBarButton runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
             ImagePosition="Left" ToolTip="Edit">
@@ -206,9 +229,9 @@
         </td>
     </tr>
 </table>
-<telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Outlook"
-    MultiPageID="CustomerProspectMultiPage" SelectedIndex="1" Orientation="HorizontalTop"
-    ReorderTabsOnSelect="false">
+<telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
+    EnableEmbeddedSkins="false" MultiPageID="CustomerProspectMultiPage" SelectedIndex="1"
+    Orientation="HorizontalTop" ReorderTabsOnSelect="false">
     <Tabs>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Summary.gif" Text="Summary"
             Value="Summary">
@@ -233,7 +256,7 @@
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
-<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Outlook">
+<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="false">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true">
         <TargetControls>
             <telerik:TargetInput ControlID="txtFirstName" />
@@ -359,7 +382,8 @@
         </TargetControls>
     </telerik:NumericTextBoxSetting>
 </telerik:RadInputManager>
-<telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Outlook">
+<telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Telerik"
+    EnableEmbeddedSkins="false">
 </telerik:RadAjaxLoadingPanel>
 <telerik:RadInputManager ID="RadInputManager2" runat="server">
     <telerik:NumericTextBoxSetting Culture="Hindi (India)" DecimalDigits="2" DecimalSeparator="."
@@ -398,7 +422,8 @@
         </TargetControls>
     </telerik:RegExpTextBoxSetting>
 </telerik:RadInputManager>
-<telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Outlook">
+<telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Telerik"
+    EnableEmbeddedSkins="false">
 </telerik:RadAjaxLoadingPanel>
 <telerik:RadMultiPage ID="CustomerProspectMultiPage" runat="server" SelectedIndex="1">
     <telerik:RadPageView ID="RadPageView1" runat="server">
@@ -434,10 +459,10 @@
                                     <asp:Label ID="lblDateOfBirth" runat="server" CssClass="FieldName" Text="Date of Birth : "></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpDOB" runat="server" ShowAnimation-Type="Fade" Skin="Outlook"
-                                        MinDate="1900-01-01">
-                                        <Calendar Skin="Outlook" UseColumnHeadersAsSelectors="False" UseRowHeadersAsSelectors="False"
-                                            ViewSelectorText="x">
+                                    <telerik:RadDatePicker ID="dpDOB" runat="server" ShowAnimation-Type="Fade" Skin="Telerik"
+                                        EnableEmbeddedSkins="false" MinDate="1900-01-01">
+                                        <Calendar Skin="Telerik" EnableEmbeddedSkins="false" UseColumnHeadersAsSelectors="False"
+                                            UseRowHeadersAsSelectors="False" ViewSelectorText="x">
                                         </Calendar>
                                         <DatePopupButton HoverImageUrl="" ImageUrl="" />
                                         <DateInput DateFormat="M/d/yyyy" DisplayDateFormat="d/M/yyyy">
@@ -456,11 +481,56 @@
                                 </td>
                                 <td align="left">
                                     <telerik:RadComboBox ID="ddlPickBranch" runat="server" EmptyMessage="Pick a Branch here"
-                                        ExpandAnimation-Type="Linear" ShowToggleImage="True" Skin="Outlook">
+                                        ExpandAnimation-Type="Linear" ShowToggleImage="True" Skin="Telerik" EnableEmbeddedSkins="false">
                                         <ExpandAnimation Type="InExpo" />
                                     </telerik:RadComboBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="ddlPickBranch"
                                         CssClass="validator" ErrorMessage="Please pick a branch" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="lblPanNumber" runat="server" Text="PAN Number : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtPanNumber" runat="server" Text="" />
+                                    <span id="Span6" class="spnRequiredField">*</span>
+                                </td>
+                                <td align="right">
+                                    <asp:Label ID="lblAddress1" runat="server" Text="Address 1 : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtAddress1" runat="server" Text="" />
+                                </td>
+                                <td align="right">
+                                    <asp:Label ID="lblAddress2" runat="server" Text="Address 2 : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtAddress2" runat="server" Text="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="lblProspectAddDate" runat="server" Text="Prospect Add Date : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <telerik:RadDatePicker ID="dpProspectAddDate" runat="server" Culture="English (United States)"
+                                        Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                        <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
+                                        </Calendar>
+                                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                        </DateInput>
+                                    </telerik:RadDatePicker>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
                                 </td>
                             </tr>
                         </table>
@@ -480,14 +550,15 @@
                                         <telerik:RadGrid ID="RadGrid1" runat="server" Width="96%" GridLines="None" AutoGenerateColumns="False"
                                             PageSize="13" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
                                             ShowStatusBar="True" OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
-                                            Skin="Outlook" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound">
+                                            Skin="Telerik" EnableEmbeddedSkins="false" OnUpdateCommand="RadGrid1_UpdateCommand"
+                                            OnItemDataBound="RadGrid1_ItemDataBound">
                                             <PagerStyle Mode="NextPrevAndNumeric" Position="Bottom" />
                                             <MasterTableView DataKeyNames="C_CustomerId" AllowMultiColumnSorting="True" Width="100%"
                                                 CommandItemDisplay="Top" AutoGenerateColumns="false" EditMode="InPlace">
                                                 <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                                 <Columns>
                                                     <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
-                                                CancelText="Cancel" ButtonType="ImageButton" >
+                                                        CancelText="Cancel" ButtonType="ImageButton">
                                                         <HeaderStyle Width="85px"></HeaderStyle>
                                                     </telerik:GridEditCommandColumn>
                                                     <telerik:GridDropDownColumn UniqueName="CustomerRelationship" HeaderText="Relationship"
@@ -512,7 +583,8 @@
                                                         HeaderStyle-HorizontalAlign="Center" />
                                                     <telerik:GridDateTimeColumn UniqueName="DOB" PickerType="DatePicker" HeaderText="Date of Birth"
                                                         HeaderStyle-HorizontalAlign="Center" DataField="DOB" FooterText="DateTimeColumn footer"
-                                                        DataFormatString="{0:dd/MM/yyyy}" EditDataFormatString="dd MMMM, yyyy" MinDate="1900-01-01" DefaultInsertValue="">
+                                                        DataFormatString="{0:dd/MM/yyyy}" EditDataFormatString="dd MMMM, yyyy" MinDate="1900-01-01"
+                                                        DefaultInsertValue="">
                                                         <ItemStyle Width="120px" />
                                                     </telerik:GridDateTimeColumn>
                                                     <telerik:GridTemplateColumn HeaderText="Email-Id" SortExpression="Email-Id" UniqueName="EmailId"
@@ -525,7 +597,7 @@
                                                             <asp:TextBox runat="server" ID="txtGridEmailId" Text='<%# Bind("EmailId") %>'></asp:TextBox>
                                                         </EditItemTemplate>
                                                     </telerik:GridTemplateColumn>
-                                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" 
+                                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
                                                         ButtonType="ImageButton" />
                                                 </Columns>
                                                 <EditFormSettings CaptionFormatString="Edit details for employee with ID {0}" CaptionDataField="FirstName">
@@ -606,147 +678,407 @@
             <table width="100%">
                 <tr>
                     <td>
-                        <table width="60%">
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblDirectEquity" runat="server" Text="Direct Equity : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtDirectEquity" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                    <asp:Label ID="lblGold" runat="server" Text="Gold : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtGold" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblMFEquity" runat="server" Text="MF-Equity : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtMFEquity" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                    <asp:Label ID="lblCollectibles" runat="server" Text="Collectibles : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtCollectibles" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblMFDebt" runat="server" Text="MF-Debt : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtMFDebt" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                    <asp:Label ID="lblCashAndSavings" runat="server" Text="Cash & Savings : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtCashAndSavings" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblMFHybridEquity" runat="server" Text="MF Hybrid - Equity : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtMFHybridEquity" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                    <asp:Label ID="lblStructuredProduct" runat="server" Text="Structured Product : "
-                                        CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtStructuredProduct" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblMFHybridDebt" runat="server" Text="MF Hybrid - Debt : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtMFHybridDebt" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                    <asp:Label ID="lblCommodities" runat="server" Text="Commodities : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtCommodities" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblFixedIncome" runat="server" Text="Fixed Income : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtFixedIncome" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                    <asp:Label ID="lblPrivateEquity" runat="server" Text="Private Equity : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtPrivateEquity" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblGovtSavings" runat="server" Text="Govt Savings : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtGovtSavings" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                    <asp:Label ID="lblPMS" runat="server" Text="PMS : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtPMS" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblPensionGratuities" runat="server" Text="Pension & Gratuities : "
-                                        CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtPensionGratuities" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                    <asp:Label ID="lblOthers" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtInvestmentsOthers" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblProperty" runat="server" Text="Property : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtProperty" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                </td>
-                                <td align="left">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblAssetTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtAssetTotal" runat="server" Style="direction: rtl" Enabled="false"
-                                        EnableViewState="true"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                </td>
-                                <td align="left">
-                                </td>
-                            </tr>
-                        </table>
+                        <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="100%" LoadingPanelID="RadAjaxLoadingPanel1"
+                            HorizontalAlign="NotSet">
+                            <table width="60%">
+                                <tr>
+                                    <td>
+                                        <asp:Button ID="btnSynchronize" runat="server" OnClick="btnSynchronize_Click" Text="Synchronize"
+                                            Style="height: 26px" />
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblDirectEquity" runat="server" Text="Direct Equity : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPDirectEquityM" runat="server" Style="direction: rtl" Width="75px"
+                                            Enabled="false"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPDirectEquityUM" runat="server" Style="direction: rtl" Width="75px"
+                                            Enabled="false"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtDirectEquityA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPDirectEquityM','txtWERPDirectEquityUM','txtDirectEquityA','txtDirectEquity')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtDirectEquity" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="lblGold" runat="server" Text="Gold : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPGoldM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPGoldUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtGoldA" runat="server" Style="direction: rtl" Width="75px" onChange="SubTotal('txtWERPGoldM','txtWERPGoldUM','txtGoldA','txtGold')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtGold" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblMFEquity" runat="server" Text="MF-Equity : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPMFEquityM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPMFEquityUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtMFEquityA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPMFEquityM','txtWERPMFEquityUM','txtMFEquityA','txtMFEquity')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtMFEquity" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="lblCollectibles" runat="server" Text="Collectibles : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPCollectiblesM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPCollectiblesUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtCollectiblesA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPCollectiblesM','txtWERPCollectiblesUM','txtCollectiblesA','txtCollectibles')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtCollectibles" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblMFDebt" runat="server" Text="MF-Debt : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPMFDebtM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPMFDebtUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtMFDebtA" runat="server" Style="direction: rtl" Width="75px" onChange="SubTotal('txtWERPMFDebtM','txtWERPMFDebtUM','txtMFDebtA','txtMFDebt')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtMFDebt" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="lblCashAndSavings" runat="server" Text="Cash & Savings : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPCashAndSavingsM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPCashAndSavingsUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtCashAndSavingsA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPCashAndSavingsM','txtWERPCashAndSavingsUM','txtCashAndSavingsA','txtCashAndSavings')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtCashAndSavings" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblMFHybridEquity" runat="server" Text="MF Hybrid - Equity : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPMFHybridEquityM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPMFHybridEquityUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtMFHybridEquityA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPMFHybridEquityM','txtWERPMFHybridEquityUM','txtMFHybridEquityA','txtMFHybridEquity')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtMFHybridEquity" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="lblStructuredProduct" runat="server" Text="Structured Product : "
+                                            CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPStructuredProductM" runat="server" Style="direction: rtl"
+                                            Enabled="false" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPStructuredProductUM" runat="server" Style="direction: rtl"
+                                            Enabled="false" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtStructuredProductA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPStructuredProductM','txtWERPStructuredProductUM','txtStructuredProductA','txtStructuredProduct')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtStructuredProduct" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblMFHybridDebt" runat="server" Text="MF Hybrid - Debt : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPMFHybridDebtM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPMFHybridDebtUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtMFHybridDebtA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPMFHybridDebtM','txtWERPMFHybridDebtUM','txtMFHybridDebtA','txtMFHybridDebt')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtMFHybridDebt" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="lblCommodities" runat="server" Text="Commodities : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPCommoditiesM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPCommoditiesUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtCommoditiesA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPCommoditiesM','txtWERPCommoditiesUM','txtCommoditiesA','txtCommodities')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtCommodities" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblFixedIncome" runat="server" Text="Fixed Income : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPFixedIncomeM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPFixedIncomeUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtFixedIncomeA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPFixedIncomeM','txtWERPFixedIncomeUM','txtFixedIncomeA','txtFixedIncome')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtFixedIncome" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="lblPrivateEquity" runat="server" Text="Private Equity : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPPrivateEquityM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPPrivateEquityUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtPrivateEquityA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPPrivateEquityM','txtWERPPrivateEquityUM','txtPrivateEquityA','txtPrivateEquity')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtPrivateEquity" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblGovtSavings" runat="server" Text="Govt Savings : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPGovtSavingsM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPGovtSavingsUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtGovtSavingsA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPGovtSavingsM','txtWERPGovtSavingsUM','txtGovtSavingsA','txtGovtSavings')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtGovtSavings" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="lblPMS" runat="server" Text="PMS : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPPMSM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPPMSUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtPMSA" runat="server" Style="direction: rtl" Width="75px" onChange="SubTotal('txtWERPPMSM','txtWERPPMSUM','txtPMSA','txtPMS')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtPMS" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblPensionGratuities" runat="server" Text="Pension & Gratuities : "
+                                            CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPPensionGratuitiesM" runat="server" Style="direction: rtl"
+                                            Enabled="false" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPPensionGratuitiesUM" runat="server" Style="direction: rtl"
+                                            Enabled="false" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtPensionGratuitiesA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPPensionGratuitiesM','txtWERPPensionGratuitiesUM','txtPensionGratuitiesA','txtPensionGratuities')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtPensionGratuities" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="right">
+                                        <asp:Label ID="lblOthers" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPInvestmentsOthersM" runat="server" Style="direction: rtl"
+                                            Enabled="false" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPInvestmentsOthersUM" runat="server" Style="direction: rtl"
+                                            Enabled="false" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtInvestmentsOthersA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPInvestmentsOthersM','txtWERPInvestmentsOthersUM','txtInvestmentsOthersA','txtInvestmentsOthers')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtInvestmentsOthers" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblProperty" runat="server" Text="Property : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPPropertyM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtWERPPropertyUM" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtPropertyA" runat="server" Style="direction: rtl" Width="75px"
+                                            onChange="SubTotal('txtWERPPropertyM','txtWERPPropertyUM','txtPropertyA','txtProperty')"></asp:TextBox>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtProperty" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                    </td>
+                                    <td align="right">
+                                    </td>
+                                    <td align="left">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Label ID="lblAssetTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtAssetTotal" runat="server" Style="direction: rtl" Enabled="false"
+                                            Width="75px" EnableViewState="true"></asp:TextBox>
+                                    </td>
+                                    <td align="right">
+                                    </td>
+                                    <td align="left">
+                                    </td>
+                                </tr>
+                            </table>
+                        </telerik:RadAjaxPanel>
                     </td>
                 </tr>
             </table>
@@ -1073,9 +1405,10 @@
                                     <asp:TextBox ID="txtTermP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpTermLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpTermLIMD" runat="server" Skin="Telerik" EnableEmbeddedSkins="false"
+                                        ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            Skin="Outlook">
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1094,9 +1427,10 @@
                                     <asp:TextBox ID="txtEndowmentP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpEndowmentLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpEndowmentLIMD" runat="server" Skin="Telerik" EnableEmbeddedSkins="false"
+                                        ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            Skin="Outlook">
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1115,9 +1449,10 @@
                                     <asp:TextBox ID="txtWholeLifeP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpWholeLifeLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpWholeLifeLIMD" runat="server" Skin="Telerik" EnableEmbeddedSkins="false"
+                                        ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            Skin="Outlook">
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1136,9 +1471,10 @@
                                     <asp:TextBox ID="txtMoneyBackP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpMoneyBackLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpMoneyBackLIMD" runat="server" Skin="Telerik" EnableEmbeddedSkins="false"
+                                        ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            Skin="Outlook">
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1157,9 +1493,10 @@
                                     <asp:TextBox ID="txtULIPP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpULIPSLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpULIPSLIMD" runat="server" Skin="Telerik" EnableEmbeddedSkins="false"
+                                        ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            Skin="Outlook">
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1178,9 +1515,10 @@
                                     <asp:TextBox ID="txtOthersLIP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpOthersLIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpOthersLIMD" runat="server" Skin="Telerik" EnableEmbeddedSkins="false"
+                                        ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            Skin="Outlook">
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1239,10 +1577,10 @@
                                     <asp:TextBox ID="txtHealthInsuranceCoverP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpHealthInsuranceCoverGIMD" runat="server" Skin="Outlook"
-                                        ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpHealthInsuranceCoverGIMD" runat="server" Skin="Telerik"
+                                        EnableEmbeddedSkins="false" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            Skin="Outlook">
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1263,10 +1601,10 @@
                                     <asp:TextBox ID="txtPropertyInsuranceCoverP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpPropertyInsuranceCoverGIMD" runat="server" Skin="Outlook"
-                                        ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpPropertyInsuranceCoverGIMD" runat="server" Skin="Telerik"
+                                        EnableEmbeddedSkins="false" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            Skin="Outlook">
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1285,10 +1623,10 @@
                                     <asp:TextBox ID="txtPersonalAccidentP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpPersonalAccidentGIMD" runat="server" Skin="Outlook"
-                                        ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpPersonalAccidentGIMD" runat="server" Skin="Telerik"
+                                        EnableEmbeddedSkins="false" ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            Skin="Outlook">
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -1307,9 +1645,10 @@
                                     <asp:TextBox ID="txtOthersGIP" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <telerik:RadDatePicker ID="dpOthersGIMD" runat="server" Skin="Outlook" ShowAnimation-Type="Fade">
+                                    <telerik:RadDatePicker ID="dpOthersGIMD" runat="server" Skin="Telerik" EnableEmbeddedSkins="false"
+                                        ShowAnimation-Type="Fade">
                                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                            Skin="Outlook">
+                                            Skin="Telerik" EnableEmbeddedSkins="false">
                                         </Calendar>
                                         <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">

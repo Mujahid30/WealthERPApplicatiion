@@ -266,6 +266,78 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
+        /// lblPanNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPanNumber;
+        
+        /// <summary>
+        /// txtPanNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPanNumber;
+        
+        /// <summary>
+        /// lblAddress1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAddress1;
+        
+        /// <summary>
+        /// txtAddress1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAddress1;
+        
+        /// <summary>
+        /// lblAddress2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAddress2;
+        
+        /// <summary>
+        /// txtAddress2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAddress2;
+        
+        /// <summary>
+        /// lblProspectAddDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProspectAddDate;
+        
+        /// <summary>
+        /// dpProspectAddDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDatePicker dpProspectAddDate;
+        
+        /// <summary>
         /// tblChildCustomer control.
         /// </summary>
         /// <remarks>
@@ -446,6 +518,24 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Panel pnlInvestment;
         
         /// <summary>
+        /// RadAjaxPanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel1;
+        
+        /// <summary>
+        /// btnSynchronize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSynchronize;
+        
+        /// <summary>
         /// lblDirectEquity control.
         /// </summary>
         /// <remarks>
@@ -453,6 +543,33 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDirectEquity;
+        
+        /// <summary>
+        /// txtWERPDirectEquityM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPDirectEquityM;
+        
+        /// <summary>
+        /// txtWERPDirectEquityUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPDirectEquityUM;
+        
+        /// <summary>
+        /// txtDirectEquityA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDirectEquityA;
         
         /// <summary>
         /// txtDirectEquity control.
@@ -473,6 +590,33 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblGold;
         
         /// <summary>
+        /// txtWERPGoldM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPGoldM;
+        
+        /// <summary>
+        /// txtWERPGoldUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPGoldUM;
+        
+        /// <summary>
+        /// txtGoldA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGoldA;
+        
+        /// <summary>
         /// txtGold control.
         /// </summary>
         /// <remarks>
@@ -489,6 +633,33 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMFEquity;
+        
+        /// <summary>
+        /// txtWERPMFEquityM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPMFEquityM;
+        
+        /// <summary>
+        /// txtWERPMFEquityUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPMFEquityUM;
+        
+        /// <summary>
+        /// txtMFEquityA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMFEquityA;
         
         /// <summary>
         /// txtMFEquity control.
@@ -509,6 +680,33 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblCollectibles;
         
         /// <summary>
+        /// txtWERPCollectiblesM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPCollectiblesM;
+        
+        /// <summary>
+        /// txtWERPCollectiblesUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPCollectiblesUM;
+        
+        /// <summary>
+        /// txtCollectiblesA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCollectiblesA;
+        
+        /// <summary>
         /// txtCollectibles control.
         /// </summary>
         /// <remarks>
@@ -525,6 +723,33 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMFDebt;
+        
+        /// <summary>
+        /// txtWERPMFDebtM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPMFDebtM;
+        
+        /// <summary>
+        /// txtWERPMFDebtUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPMFDebtUM;
+        
+        /// <summary>
+        /// txtMFDebtA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMFDebtA;
         
         /// <summary>
         /// txtMFDebt control.
@@ -545,6 +770,33 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblCashAndSavings;
         
         /// <summary>
+        /// txtWERPCashAndSavingsM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPCashAndSavingsM;
+        
+        /// <summary>
+        /// txtWERPCashAndSavingsUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPCashAndSavingsUM;
+        
+        /// <summary>
+        /// txtCashAndSavingsA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCashAndSavingsA;
+        
+        /// <summary>
         /// txtCashAndSavings control.
         /// </summary>
         /// <remarks>
@@ -561,6 +813,33 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMFHybridEquity;
+        
+        /// <summary>
+        /// txtWERPMFHybridEquityM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPMFHybridEquityM;
+        
+        /// <summary>
+        /// txtWERPMFHybridEquityUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPMFHybridEquityUM;
+        
+        /// <summary>
+        /// txtMFHybridEquityA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMFHybridEquityA;
         
         /// <summary>
         /// txtMFHybridEquity control.
@@ -581,6 +860,33 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblStructuredProduct;
         
         /// <summary>
+        /// txtWERPStructuredProductM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPStructuredProductM;
+        
+        /// <summary>
+        /// txtWERPStructuredProductUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPStructuredProductUM;
+        
+        /// <summary>
+        /// txtStructuredProductA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtStructuredProductA;
+        
+        /// <summary>
         /// txtStructuredProduct control.
         /// </summary>
         /// <remarks>
@@ -597,6 +903,33 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMFHybridDebt;
+        
+        /// <summary>
+        /// txtWERPMFHybridDebtM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPMFHybridDebtM;
+        
+        /// <summary>
+        /// txtWERPMFHybridDebtUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPMFHybridDebtUM;
+        
+        /// <summary>
+        /// txtMFHybridDebtA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMFHybridDebtA;
         
         /// <summary>
         /// txtMFHybridDebt control.
@@ -617,6 +950,33 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblCommodities;
         
         /// <summary>
+        /// txtWERPCommoditiesM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPCommoditiesM;
+        
+        /// <summary>
+        /// txtWERPCommoditiesUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPCommoditiesUM;
+        
+        /// <summary>
+        /// txtCommoditiesA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCommoditiesA;
+        
+        /// <summary>
         /// txtCommodities control.
         /// </summary>
         /// <remarks>
@@ -633,6 +993,33 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFixedIncome;
+        
+        /// <summary>
+        /// txtWERPFixedIncomeM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPFixedIncomeM;
+        
+        /// <summary>
+        /// txtWERPFixedIncomeUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPFixedIncomeUM;
+        
+        /// <summary>
+        /// txtFixedIncomeA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFixedIncomeA;
         
         /// <summary>
         /// txtFixedIncome control.
@@ -653,6 +1040,33 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblPrivateEquity;
         
         /// <summary>
+        /// txtWERPPrivateEquityM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPPrivateEquityM;
+        
+        /// <summary>
+        /// txtWERPPrivateEquityUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPPrivateEquityUM;
+        
+        /// <summary>
+        /// txtPrivateEquityA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrivateEquityA;
+        
+        /// <summary>
         /// txtPrivateEquity control.
         /// </summary>
         /// <remarks>
@@ -669,6 +1083,33 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGovtSavings;
+        
+        /// <summary>
+        /// txtWERPGovtSavingsM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPGovtSavingsM;
+        
+        /// <summary>
+        /// txtWERPGovtSavingsUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPGovtSavingsUM;
+        
+        /// <summary>
+        /// txtGovtSavingsA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGovtSavingsA;
         
         /// <summary>
         /// txtGovtSavings control.
@@ -689,6 +1130,33 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblPMS;
         
         /// <summary>
+        /// txtWERPPMSM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPPMSM;
+        
+        /// <summary>
+        /// txtWERPPMSUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPPMSUM;
+        
+        /// <summary>
+        /// txtPMSA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPMSA;
+        
+        /// <summary>
         /// txtPMS control.
         /// </summary>
         /// <remarks>
@@ -705,6 +1173,33 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPensionGratuities;
+        
+        /// <summary>
+        /// txtWERPPensionGratuitiesM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPPensionGratuitiesM;
+        
+        /// <summary>
+        /// txtWERPPensionGratuitiesUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPPensionGratuitiesUM;
+        
+        /// <summary>
+        /// txtPensionGratuitiesA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPensionGratuitiesA;
         
         /// <summary>
         /// txtPensionGratuities control.
@@ -725,6 +1220,33 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblOthers;
         
         /// <summary>
+        /// txtWERPInvestmentsOthersM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPInvestmentsOthersM;
+        
+        /// <summary>
+        /// txtWERPInvestmentsOthersUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPInvestmentsOthersUM;
+        
+        /// <summary>
+        /// txtInvestmentsOthersA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtInvestmentsOthersA;
+        
+        /// <summary>
         /// txtInvestmentsOthers control.
         /// </summary>
         /// <remarks>
@@ -741,6 +1263,33 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblProperty;
+        
+        /// <summary>
+        /// txtWERPPropertyM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPPropertyM;
+        
+        /// <summary>
+        /// txtWERPPropertyUM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWERPPropertyUM;
+        
+        /// <summary>
+        /// txtPropertyA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPropertyA;
         
         /// <summary>
         /// txtProperty control.
