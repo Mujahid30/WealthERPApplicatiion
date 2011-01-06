@@ -110,15 +110,15 @@
         </SelectParameters>
     </asp:SqlDataSource>--%>
       <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"
-        SelectCommand="SELECT A.C_CustomerId, A.C_FirstName+''+A.C_MiddleName+''+A.C_LastName AS Name
+        SelectCommand="SELECT A.C_CustomerId, A.C_FirstName+' '+A.C_MiddleName+' '+A.C_LastName AS Name
 ,A.C_Email
 ,A.C_Mobile1
-,A.C_Adr1Line1+','+A.C_Adr1Line2+','+A.C_Adr1Line3+','+A.C_Adr1City+','+A.C_Adr1State+','+A.C_Adr1Country+','+ CONVERT(varchar(10),A.C_Adr1PinCode) AS Address
+,ISNULL(A.C_Adr1Line1,'')+','+ISNULL(A.C_Adr1Line2,'')+','+ISNULL(A.C_Adr1Line3,'')+','+ISNULL(A.C_Adr1City,'')+','+ISNULL(A.C_Adr1State,'')+','+ISNULL(A.C_Adr1Country,'')+','+ (CASE WHEN A.C_Adr1PinCode = 0 then '' else CONVERT(varchar(10),A.C_Adr1PinCode) end) AS Address
 ,ISNULL(B.CFPS_Asset,0) AS Asset
 ,ISNULL(B.CFPS_Liabilities,0) AS Liabilities
 , ISNULL(B.CFPS_Asset,0)-ISNULL(B.CFPS_Liabilities,0) AS Networth 
 FROM dbo.Customer A
-        INNER JOIN dbo.CustomerFPSummary B
+        LEFT OUTER JOIN dbo.CustomerFPSummary B
          ON A.C_CustomerId=B.C_CustomerId WHERE ([C_IsProspect] = @C_IsProspect AND [AR_RMId]=@AR_RMId)">
         <SelectParameters>
             <asp:Parameter DefaultValue="1" Name="C_IsProspect" Type="Int32" />
