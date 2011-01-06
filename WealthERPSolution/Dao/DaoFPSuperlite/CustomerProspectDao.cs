@@ -30,7 +30,7 @@ namespace DaoFPSuperlite
                 db.AddInParameter(cmdAddDetailsForCustomerProspect, "@CFPS_Income", DbType.Decimal, customerprospectvo.TotalIncome);
                 db.AddInParameter(cmdAddDetailsForCustomerProspect, "@CFPS_Expense", DbType.Decimal, customerprospectvo.TotalExpense);
                 db.AddInParameter(cmdAddDetailsForCustomerProspect, "@CFPS_Liabilities", DbType.Decimal, customerprospectvo.TotalLiabilities);
-                db.AddInParameter(cmdAddDetailsForCustomerProspect, "@CFPS_Assets", DbType.Decimal,customerprospectvo.TotalAssets);
+                db.AddInParameter(cmdAddDetailsForCustomerProspect, "@CFPS_Assets", DbType.Decimal, customerprospectvo.TotalAssets);
                 db.AddInParameter(cmdAddDetailsForCustomerProspect, "@CFPS_LifeInsurance", DbType.Decimal, customerprospectvo.TotalLifeInsurance);
                 db.AddInParameter(cmdAddDetailsForCustomerProspect, "@CFPS_GeneralInsurance", DbType.Decimal, customerprospectvo.TotalGeneralInsurance);
                 db.AddInParameter(cmdAddDetailsForCustomerProspect, "@U_UserId", DbType.Int32, userId);
@@ -104,7 +104,7 @@ namespace DaoFPSuperlite
         /// <param name="userId"></param>
         /// <param name="customerProspectIncomeDetailsVo"></param>
         /// <returns></returns>
-        public bool AddCustomerFPIncomeDetails(int customerId,int userId,CustomerProspectIncomeDetailsVo customerProspectIncomeDetailsVo)
+        public bool AddCustomerFPIncomeDetails(int customerId, int userId, CustomerProspectIncomeDetailsVo customerProspectIncomeDetailsVo)
         {
             Database db;
             DbCommand cmdAddCustomerFPIncomeDetails;
@@ -163,7 +163,7 @@ namespace DaoFPSuperlite
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetIncomeDetailsForCustomerProspect = db.GetStoredProcCommand("SP_GetIncomeDetailsForCustomerProspect");
-                db.AddInParameter(cmdGetIncomeDetailsForCustomerProspect, "@C_CustomerId", DbType.Int32, customerId); 
+                db.AddInParameter(cmdGetIncomeDetailsForCustomerProspect, "@C_CustomerId", DbType.Int32, customerId);
                 dsGetIncomeDetailsForCustomerProspect = db.ExecuteDataSet(cmdGetIncomeDetailsForCustomerProspect);
 
             }
@@ -557,20 +557,22 @@ namespace DaoFPSuperlite
                 //Adding Data to the table 
                 cmdAddCustomerFPAssetSubInstrumentDetails = db.GetStoredProcCommand("SP_AddCustomerFPAssetSubInstrumentDetails");
                 db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@C_CustomerId", DbType.Int32, customerId);
-                
-                    db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@PAG_AssetGroupCode", DbType.String, customerProspectAssetSubDetailsVo.AssetGroupCode);
-               
-                
-                    db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerProspectAssetSubDetailsVo.AssetInstrumentCategoryCode);
-               
-                
-                    db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, customerProspectAssetSubDetailsVo.AssetInstrumentSubCategoryCode);
-                
-                
-                    db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_Value", DbType.Decimal, customerProspectAssetSubDetailsVo.Value);
 
-                    db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_MaturityDate", DbType.DateTime, customerProspectAssetSubDetailsVo.MaturityDate);
-                    db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_Premium", DbType.Decimal, customerProspectAssetSubDetailsVo.Premium);
+                db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@PAG_AssetGroupCode", DbType.String, customerProspectAssetSubDetailsVo.AssetGroupCode);
+
+
+                db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerProspectAssetSubDetailsVo.AssetInstrumentCategoryCode);
+
+
+                db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, customerProspectAssetSubDetailsVo.AssetInstrumentSubCategoryCode);
+
+                db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_AdjustedValue", DbType.Decimal, customerProspectAssetSubDetailsVo.AdjustedValue);
+
+
+                db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_Value", DbType.Decimal, customerProspectAssetSubDetailsVo.Value);
+
+                db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_MaturityDate", DbType.DateTime, customerProspectAssetSubDetailsVo.MaturityDate);
+                db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_Premium", DbType.Decimal, customerProspectAssetSubDetailsVo.Premium);
 
                 db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@U_UserId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(cmdAddCustomerFPAssetSubInstrumentDetails) != 0)
@@ -595,8 +597,9 @@ namespace DaoFPSuperlite
 
             }
             return bAssetSubResult;
+
         }
-        
+
         /// <summary>
         /// Used to Get Customer FP Asset Sub Instrument Details
         /// </summary>
@@ -716,23 +719,26 @@ namespace DaoFPSuperlite
                 if (customerProspectAssetDetailsVo.AssetGroupCode != null)
                     db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@PAG_AssetGroupCode", DbType.String, customerProspectAssetDetailsVo.AssetGroupCode);
 
-                
-                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerProspectAssetDetailsVo.AssetInstrumentCategoryCode);
-                
 
-               
-               
+                db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerProspectAssetDetailsVo.AssetInstrumentCategoryCode);
+
+
+                if (customerProspectAssetDetailsVo.Value != 0.0)
+                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_AdjustedValue", DbType.Decimal, customerProspectAssetDetailsVo.AdjustedValue);
+                else
+                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_AdjustedValue", DbType.Decimal, 0.0);
+
                 if (customerProspectAssetDetailsVo.Value != 0.0)
                     db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_Value", DbType.Decimal, customerProspectAssetDetailsVo.Value);
                 else
                     db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_Value", DbType.Decimal, 0.0);
 
-                
-                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_MaturityDate", DbType.DateTime, customerProspectAssetDetailsVo.MaturityDate);               
 
-                
-                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_Premium", DbType.Decimal, customerProspectAssetDetailsVo.Premium);
-               
+                db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_MaturityDate", DbType.DateTime, customerProspectAssetDetailsVo.MaturityDate);
+
+
+                db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_Premium", DbType.Decimal, customerProspectAssetDetailsVo.Premium);
+
 
                 db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@U_UserId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(cmdAddCustomerFPAssetInstrumentDetails) != 0)
@@ -861,38 +867,38 @@ namespace DaoFPSuperlite
             }
             return bAssetResult;
         }
-        public void DeleteDetailsForCustomerProspect(int customerId)
-        {
-            Database db;
-            DbCommand cmdDeleteDetailsForCustomerProspect;
-            
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdDeleteDetailsForCustomerProspect = db.GetStoredProcCommand("SP_DeleteDetailsForCustomerProspect");
-                db.AddInParameter(cmdDeleteDetailsForCustomerProspect, "@C_CustomerId", DbType.Int32, customerId);
-                db.ExecuteNonQuery(cmdDeleteDetailsForCustomerProspect);
+        //public void DeleteDetailsForCustomerProspect(int customerId)
+        //{
+        //    Database db;
+        //    DbCommand cmdDeleteDetailsForCustomerProspect;
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerFPAssetInstrumentDetails(int customerId)");
-                object[] objects = new object[1];
-                objects[0] = customerId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }           
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        cmdDeleteDetailsForCustomerProspect = db.GetStoredProcCommand("SP_DeleteDetailsForCustomerProspect");
+        //        db.AddInParameter(cmdDeleteDetailsForCustomerProspect, "@C_CustomerId", DbType.Int32, customerId);
+        //        db.ExecuteNonQuery(cmdDeleteDetailsForCustomerProspect);
+
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerFPAssetInstrumentDetails(int customerId)");
+        //        object[] objects = new object[1];
+        //        objects[0] = customerId;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
 
-        }
+        //}
 
 
         /// <summary>
@@ -914,7 +920,11 @@ namespace DaoFPSuperlite
                 cmdAddCustomerFPAssetGroupDetails = db.GetStoredProcCommand("SP_AddCustomerFPAssetGroupDetails");
                 db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@C_CustomerId", DbType.Int32, customerId);
                 if (customerProspectAssetGroupDetails.AssetGroupCode != null)
-                    db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@PAG_AssetGroupCode", DbType.String, customerProspectAssetGroupDetails.AssetGroupCode);   
+                    db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@PAG_AssetGroupCode", DbType.String, customerProspectAssetGroupDetails.AssetGroupCode);
+                if (customerProspectAssetGroupDetails.Value != 0.0)
+                    db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_AdjustedValue", DbType.Decimal, customerProspectAssetGroupDetails.AdjustedValue);
+                else
+                    db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_AdjustedValue", DbType.Decimal, 0.0);
 
                 if (customerProspectAssetGroupDetails.Value != 0.0)
                     db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_Value", DbType.Decimal, customerProspectAssetGroupDetails.Value);
@@ -985,9 +995,9 @@ namespace DaoFPSuperlite
 
         }
 
-        
+
         /// <summary>
-        /// Used to Show FP Dashboard and Show Current and Recomonded Asset allocation.
+        /// Used to Show FP Assets and liabilitis.
         /// </summary>
         /// Added by: Vinayak Patil.
         /// <param name="CustomerId"></param>
@@ -1031,6 +1041,11 @@ namespace DaoFPSuperlite
         }
 
 
+        /// <summary>
+        /// Used to Show Current and Recomonded Asset allocation.
+        /// </summary>
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
         public DataSet GetFPCurrentAndRecomondedAssets(int CustomerId)
         {
             Database db;
@@ -1066,6 +1081,53 @@ namespace DaoFPSuperlite
                 throw exBase;
             }
             return dsFPCurrentAndRecomondedAssets;
+        }
+
+
+        /// <summary>
+        /// Used to get unmanaged and Managed Details for FP Propect screen
+        /// </summary>
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
+        public DataSet GetUnmanagedManagedDetailsForFP(int CustomerId,int AdvisorId,int Switch)
+        {
+            Database db;
+            DbCommand getUnmanagedManagedDetailsForFPCmd;
+            DataSet dsgetUnmanagedManagedDetailsForFP = null;
+            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getUnmanagedManagedDetailsForFPCmd = db.GetStoredProcCommand("SP_GetManagedUnmanagedDetailsForFP");
+                if (CustomerId != 0)
+                    db.AddInParameter(getUnmanagedManagedDetailsForFPCmd, "@CustomerID", DbType.Int32, CustomerId);
+                if (AdvisorId != 0)
+                    db.AddInParameter(getUnmanagedManagedDetailsForFPCmd, "@AdvisorId", DbType.Int32, AdvisorId);
+
+                db.AddInParameter(getUnmanagedManagedDetailsForFPCmd, "@Switch", DbType.Int32, Switch);
+
+                dsgetUnmanagedManagedDetailsForFP = db.ExecuteDataSet(getUnmanagedManagedDetailsForFPCmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectDao.cs:GetUnmanagedManagedDetailsForFP(int CustomerId)");
+                object[] objects = new object[1];
+                objects[0] = CustomerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsgetUnmanagedManagedDetailsForFP;
         }
     }
 }
