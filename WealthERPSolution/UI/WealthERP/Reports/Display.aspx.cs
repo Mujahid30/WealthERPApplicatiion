@@ -493,8 +493,21 @@ namespace WealthERP.Reports
             crmain.SetParameterValue("Networth", Math.Round(double.Parse(networth.ToString()), 2).ToString());
             crmain.SetParameterValue("CustomerRiskClass", riskClass); 
             //crmain.Database.Tables["ImageSection"].SetDataSource(ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage)));
-            
-            
+
+            if (dsCustomerFPReportDetails.Tables[5].Rows.Count > 0)
+            {
+                crmain.SetParameterValue("OtherGoalSurpress", "1");
+            }
+            else
+                crmain.SetParameterValue("OtherGoalSurpress", "0");
+
+            if (dsCustomerFPReportDetails.Tables[7].Rows.Count > 0)
+            {
+                crmain.SetParameterValue("RTGoalSurpress", "1");
+            }
+            else
+                crmain.SetParameterValue("RTGoalSurpress", "0");
+
             if (ViewState["FPSelectedSectionList"] != null)
             {
                 chkBoxsList = (Dictionary<string, string>)ViewState["FPSelectedSectionList"];
