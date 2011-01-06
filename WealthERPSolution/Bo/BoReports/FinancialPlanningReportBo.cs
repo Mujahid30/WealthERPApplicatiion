@@ -264,13 +264,13 @@ namespace BoReports
             }
             drHealthAnalysis = dtHealthAnalysis.NewRow();
             drHealthAnalysis["Ratio"] = "Financial Asset allocation -equity";
-            drHealthAnalysis["value"] = Math.Round(currEquity, 2).ToString();
+            drHealthAnalysis["value"] = Math.Round(currEquity, 3).ToString();
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
 
             drHealthAnalysis = dtHealthAnalysis.NewRow();
             drHealthAnalysis["Ratio"] = "Savings/Income";
             if (asset != 0)
-                drHealthAnalysis["value"] = Math.Round((liabilities / asset), 2).ToString();
+                drHealthAnalysis["value"] = Math.Round((liabilities / asset), 3).ToString();
             else
                 drHealthAnalysis["value"] = 0;
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
@@ -283,7 +283,7 @@ namespace BoReports
             drHealthAnalysis = dtHealthAnalysis.NewRow();
             drHealthAnalysis["Ratio"] = "Loan/Financial Assets";
             if (totalIncome != 0)
-                drHealthAnalysis["value"] = Math.Round((toatlGoalAmount / totalIncome), 2).ToString();
+                drHealthAnalysis["value"] = Math.Round((toatlGoalAmount / totalIncome), 3).ToString();
             else
                 drHealthAnalysis["value"] = 0;
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
