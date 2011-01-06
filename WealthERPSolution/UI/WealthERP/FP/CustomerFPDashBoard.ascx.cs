@@ -34,7 +34,7 @@ namespace WealthERP.Customer
         protected void Page_Load(object sender, EventArgs e)
         {
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
-            CustomerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+            CustomerId = customerVo.CustomerId;
             //dsGetRiskProfileRules = riskprofilebo.GetRiskProfileRules();
             //GetRiskCode();
             if (!IsPostBack)
@@ -149,9 +149,8 @@ namespace WealthERP.Customer
 
             if (dsFPAssetsAndLiabilitesDetails.Tables[0].Rows.Count > 0)
             {
-                lblChartBranchAUM.Visible = true;
+                
                 ErrorMessage.Visible = false;
-                hrCustAsset.Visible = true;
                 drChvalues = branchAumDT.Rows[0];
                 for (int i = 0; i < branchAumDT.Columns.Count - 1; i++)
                 {
@@ -221,11 +220,10 @@ namespace WealthERP.Customer
             }
             else
             {
-                lblChartBranchAUM.Visible = false;
+                
                 ErrorMessage.Visible = true;
                 ChartBranchAssets.DataSource = null;
                 ChartBranchAssets.Visible = false;
-                hrCustAsset.Visible = false;
             }
         }
 

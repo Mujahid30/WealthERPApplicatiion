@@ -24,11 +24,11 @@
     </tr>
          <tr>
         <td align="left">
-           <asp:Label ID="lblBranchAUM" runat="server" CssClass="HeaderTextSmall" Text="Customer FP Dashboard"></asp:Label>
+           <asp:Label ID="lblBranchAUM" runat="server" CssClass="HeaderTextSmall" Text="Product Assets"></asp:Label>
            <hr id="hrBranchAum" runat="server" />
         </td>
         <td>
-        <asp:Label ID="lblChartBranchAUM" runat="server" CssClass="HeaderTextSmall" Text="Customer FP Dashboard"></asp:Label>
+        <asp:Label ID="lblChartBranchAUM" runat="server" CssClass="HeaderTextSmall" Text="Product Asset Pie chart"></asp:Label>
         <hr runat="server" id="hrCustAsset" />
                 </td>
         </tr>
@@ -79,7 +79,7 @@
                </td>
                <td >
                 <asp:Chart ID="ChartBranchAssets" runat="server" BackColor="Transparent"
-                     Width="550px" Height="300px"  >
+                     Width="400px" Height="200px"  >
                     <Series>
                         <asp:Series Name="seriesBranchAssets" LabelBackColor="Red" ChartType="Pie" 
                             LegendText="#VALX" YValueType="Double">  
@@ -116,7 +116,7 @@
                                         <br />
             
             <asp:Chart ID="ChartCurrentAsset" runat="server" BackColor="Transparent"
-                     Width="550px" Height="300px"  >
+                    Width="400px" Height="200px"  >
                     <Series>
                         <asp:Series Name="sActualAsset" ChartArea="caActualAsset" LabelBackColor="Red" ChartType="Pie" 
                              LegendText="#VALX" YValueType="Double">  
@@ -138,7 +138,7 @@
                                         <br />
             
              <asp:Chart ID="ChartRecomonedAsset" runat="server" BackColor="Transparent"
-                     Width="550px" Height="300px"  >
+                     Width="400px" Height="200px"  >
                     <Series>
                         <asp:Series Name="sActualAsset" ChartArea="caActualAsset" LabelBackColor="Red" ChartType="Pie" 
                             LegendText="#VALX" YValueType="Double">  
