@@ -121,9 +121,9 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Upload" Value="Upload">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="View Transaction Exceptions" Value="View Transaction Exceptions">
+                                                <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
+                                                    <telerik:RadPanelItem runat="server" Text="View Transaction Exceptions" Value="View Transaction Exceptions">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View MF Folio Exceptions" Value="View MF Folio Exceptions">
                                                     </telerik:RadPanelItem>
@@ -249,7 +249,7 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="SMS" Value="SMS">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Alert SMS" Value="Alert SMS">
+                                                    <telerik:RadPanelItem runat="server" Text="Alert SMS" Value="Alert SMS" Visible="false">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
                                                     </telerik:RadPanelItem>
