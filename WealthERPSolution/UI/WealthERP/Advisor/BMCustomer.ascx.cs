@@ -737,6 +737,12 @@ namespace WealthERP.Advisor
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMAlertDashBoard", "loadcontrol('RMAlertDashBoard','none');", true);
                 }
+                else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
+                {
+                    Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFPDashBoard", "loadcontrol('CustomerFPDashBoard','login');", true);
+                }
                 else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
                 {
                     tempUser = new UserVo();
