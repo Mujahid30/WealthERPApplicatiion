@@ -2,6 +2,40 @@
     Debug="false" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
+
+<table class="TableBackground" width="100%">
+    <tr id="trMessage" runat="server" visible="false">
+        <td>
+            <asp:Label ID="lblMessage" runat="server" Text="No Records Found..." CssClass="Error"></asp:Label>
+        </td>
+    </tr>
+    <%--<tr>
+        <td class="HeaderCell">
+            <asp:Label ID="Label1" runat="server" Text="RM List" CssClass="HeaderTextBig"></asp:Label>
+        </td>
+    </tr>--%>
+    <tr align="center">
+        <td colspan="2" class="leftField">
+            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+        </td>
+    </tr>
+   <tr id="trBMBranchs" runat="server">
+         <td colspan="2" style="float: left">
+            <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
+            &nbsp;&nbsp;
+            <asp:DropDownList ID="ddlBMStaffList" runat="server" AutoPostBack="true" CssClass="cmbField"
+                onselectedindexchanged="ddlBMStaffList_SelectedIndexChanged">            
+            </asp:DropDownList>
+        </td>
+        </tr>
+    <tr width="100%">
+        <td>
+            <div id="print" runat="server" width="100%">
+            </div>
+        </td>
+    </tr>
+</table>
 <table width="100%" class="TableBackground">
 <tr>
         <td class="HeaderCell">
@@ -42,45 +76,13 @@
                         
                     </Columns>
                 </asp:GridView>
-            <hr />
+           
         </td>
     </tr>
 </table>
 
 
-<table class="TableBackground" width="100%">
-    <tr id="trMessage" runat="server" visible="false">
-        <td>
-            <asp:Label ID="lblMessage" runat="server" Text="No Records Found..." CssClass="Error"></asp:Label>
-        </td>
-    </tr>
-    <%--<tr>
-        <td class="HeaderCell">
-            <asp:Label ID="Label1" runat="server" Text="RM List" CssClass="HeaderTextBig"></asp:Label>
-        </td>
-    </tr>--%>
-    <tr align="center">
-        <td colspan="2" class="leftField">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-        </td>
-    </tr>
-   <tr id="trBMBranchs" runat="server">
-         <td colspan="2" class="leftField" style="float: left">
-            <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
-            &nbsp;&nbsp;
-            <asp:DropDownList ID="ddlBMStaffList" runat="server" AutoPostBack="true" CssClass="cmbField"
-                onselectedindexchanged="ddlBMStaffList_SelectedIndexChanged">            
-            </asp:DropDownList>
-        </td>
-        </tr>
-    <tr width="100%">
-        <td>
-            <div id="print" runat="server" width="100%">
-            </div>
-        </td>
-    </tr>
-</table>
+
 <div id="DivPager" runat="server">
     <table style="width: 100%">
         <tr id="trPager" runat="server">
