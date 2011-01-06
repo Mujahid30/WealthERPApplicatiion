@@ -147,10 +147,11 @@
             <telerik:TargetInput ControlID="txtChildFirstName" />
             <telerik:TargetInput ControlID="txtGridEmailId" />
              <telerik:TargetInput ControlID="txtPanNumber" />
+             <telerik:TargetInput ControlID="dpDOB" />
         </TargetControls>
         <Validation IsRequired="True"></Validation>
     </telerik:TextBoxSetting>
-    <telerik:DateInputSetting BehaviorID="DateInputBehavior1" Validation-IsRequired="true"
+    <telerik:DateInputSetting BehaviorID="DateInputBehavior1" Validation-IsRequired="true" 
         DateFormat="MM/dd/yyyy">
         <TargetControls>
             <telerik:TargetInput ControlID="dpDOB" />
