@@ -130,8 +130,8 @@
 <asp:Panel ID="pnlSystematicTransactions" runat="server" Height="500px" 
                        Width="100%" ScrollBars="Vertical" Visible="false" HorizontalAlign="Left">
 <asp:GridView ID="gvSystematicTransactions" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                        DataKeyNames="RowId" ForeColor="#333333" Width="624px" Height="78px" 
-                        Font-Size="Small" BackImageUrl="~/CSS/Images/HeaderGlassBlack.jpg" CssClass="GridViewStyle" 
+                        DataKeyNames="RowId" Width="624px" Height="78px" 
+                        Font-Size="Small" CssClass="GridViewStyle" 
                         OnRowDataBound="gvSystematicTransactions_RowDataBound" ShowFooter="true">
                         <SelectedRowStyle Font-Bold="True" CssClass="SelectedRowStyle" />
                         <HeaderStyle Font-Bold="True" Font-Size="Small" ForeColor="White" CssClass="HeaderStyle" />
