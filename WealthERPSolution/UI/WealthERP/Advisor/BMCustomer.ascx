@@ -193,7 +193,7 @@
                     <Columns>
                         <asp:TemplateField ItemStyle-Width="25px">
                             <ItemTemplate>
-                                <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" Width="80px" CssClass="cmbField" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
+                                <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" Width="80px" CssClass="GridViewCmbField" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
                                     <asp:ListItem Text="Select" />
                                     <asp:ListItem Text="Dashboard" />
                                     <asp:ListItem Text="Profile" />
@@ -207,7 +207,7 @@
                             <HeaderTemplate>
                                 <asp:Label ID="lblCustName" runat="server" Text="Name"></asp:Label>
                                 <br />
-                                <asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_BMCustomer_btnNameSearch');" />
+                                <asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_BMCustomer_btnNameSearch');" />
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblCustNameHeader" runat="server" Text='<%# Eval("Cust_Comp_Name").ToString() %>'></asp:Label>
@@ -217,7 +217,7 @@
                             <HeaderTemplate>
                                 <asp:Label ID="lblParent" runat="server" Text="Group"></asp:Label>
                                 <br />
-                                <asp:DropDownList ID="ddlParent" AutoPostBack="true" CssClass="cmbField" runat="server" Width="170px" OnSelectedIndexChanged="ddlParent_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlParent" AutoPostBack="true" CssClass="GridViewCmbField" runat="server" Width="170px" OnSelectedIndexChanged="ddlParent_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </HeaderTemplate>
                             <ItemTemplate>
@@ -232,7 +232,7 @@
                             <HeaderTemplate>
                                 <asp:Label ID="lblArea" runat="server" Text="Area"></asp:Label>
                                 <br />
-                                <asp:TextBox ID="txtAreaSearch" runat="server" Width="120px" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_BMCustomer_btnAreaSearch');" />
+                                <asp:TextBox ID="txtAreaSearch" runat="server" Width="120px" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_BMCustomer_btnAreaSearch');" />
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblAreaHeader" runat="server" Text='<%# Eval("Area").ToString() %>'></asp:Label>
@@ -242,7 +242,7 @@
                             <HeaderTemplate>
                                 <asp:Label ID="lblCity" runat="server" Text="City"></asp:Label>
                                 <br />
-                                <asp:DropDownList ID="ddlCity" AutoPostBack="true" CssClass="cmbField"  Width="100px" runat="server" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlCity" AutoPostBack="true" CssClass="GridViewCmbField"  Width="100px" runat="server" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </HeaderTemplate>
                             <ItemTemplate>
