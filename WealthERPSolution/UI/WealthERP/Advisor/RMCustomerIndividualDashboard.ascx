@@ -128,7 +128,7 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Member Name">
                         <ItemTemplate>
-                            <asp:LinkButton ID="lnkCustomerName" runat="server" CssClass="GridViewCmbField" OnClick="lnkCustomerNameFamilyGrid_Click"
+                            <asp:LinkButton ID="lnkCustomerName" runat="server" CssClass="CmbField" OnClick="lnkCustomerNameFamilyGrid_Click"
                                 Text='<%# Eval("Name") %>'>
                             </asp:LinkButton>
                         </ItemTemplate>
