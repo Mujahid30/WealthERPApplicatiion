@@ -10,7 +10,8 @@ namespace VoFPSuperlite
         private int FP_SubInstrumentDetailsId;        
         private string FP_AssetGroupCode;       
         private string FP_AssetInstrumentCategoryCode;       
-        private string FP_AssetInstrumentSubCategoryCode;        
+        private string FP_AssetInstrumentSubCategoryCode;
+        private double FP_AdjustedValue;
         private double FP_Value;
         private double? FP_Premium;
         private DateTime? FP_MaturityDate;
@@ -49,6 +50,11 @@ namespace VoFPSuperlite
         {
             get { return FP_Premium; }
             set { FP_Premium = value; }
+        }
+        public double AdjustedValue
+        {
+            get { return FP_AdjustedValue; }
+            set { FP_AdjustedValue = value; }
         }
     }
 }
