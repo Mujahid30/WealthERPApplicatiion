@@ -315,7 +315,11 @@ namespace WealthERP.Advisor
                     lblFax.Text = rmVo.FaxIsd.ToString() + "-" + rmVo.FaxStd.ToString() + "-" + rmVo.Fax.ToString();
                     lblMobile.Text = rmVo.Mobile.ToString();
                     lblRMName.Text = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
-                    lblStaffCodeValue.Text = rmVo.StaffCode.ToString();
+                    if (!string.IsNullOrEmpty(rmVo.StaffCode))
+                        lblStaffCodeValue.Text = rmVo.StaffCode.ToString();
+                    else
+                        lblStaffCodeValue.Text = string.Empty;
+                    //lblStaffCodeValue.Text = rmVo.StaffCode.ToString();
                     lblPhDirect.Text = rmVo.OfficePhoneDirectIsd.ToString() + "-" + rmVo.OfficePhoneDirectStd.ToString() + "-" + rmVo.OfficePhoneDirectNumber.ToString();
                     lblPhExt.Text = rmVo.OfficePhoneExtIsd.ToString() + "-" + rmVo.OfficePhoneExtStd.ToString() + "-" + rmVo.OfficePhoneExtNumber.ToString();
                     lblPhResi.Text = rmVo.ResPhoneIsd.ToString() + "-" + rmVo.ResPhoneStd.ToString() + "-" + rmVo.ResPhoneNumber.ToString();
