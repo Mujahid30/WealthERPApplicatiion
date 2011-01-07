@@ -568,7 +568,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "View Transaction Exceptions")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedTransactions','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFTransactionStaging','login');", true);
                 }
                 else if (e.Item.Value == "View MF Folio Exceptions")
                 {
