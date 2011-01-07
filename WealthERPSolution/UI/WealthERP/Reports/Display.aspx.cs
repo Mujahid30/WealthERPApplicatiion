@@ -508,10 +508,38 @@ namespace WealthERP.Reports
             else
                 crmain.SetParameterValue("RTGoalSurpress", "0");
 
+            if (dsCustomerFPReportDetails.Tables[12].Rows.Count > 0)
+            {
+                crmain.SetParameterValue("SurpressLiabilities", "1");
+            }
+            else
+                crmain.SetParameterValue("SurpressLiabilities", "0");
+
+            if (dsCustomerFPReportDetails.Tables[8].Rows.Count > 0)
+            {
+                crmain.SetParameterValue("SurpressIncome", "1");
+            }
+            else
+                crmain.SetParameterValue("SurpressIncome", "0");
+
+            if (dsCustomerFPReportDetails.Tables[9].Rows.Count > 0)
+            {
+                crmain.SetParameterValue("SurpressExpense", "1");
+            }
+            else
+                crmain.SetParameterValue("SurpressExpense", "0");
+
+            if (dsCustomerFPReportDetails.Tables[11].Rows.Count > 0)
+            {
+                crmain.SetParameterValue("SurpressNetworthSummary", "1");
+            }
+            else
+                crmain.SetParameterValue("SurpressNetworthSummary", "0");
+            
             if (ViewState["FPSelectedSectionList"] != null)
             {
                 chkBoxsList = (Dictionary<string, string>)ViewState["FPSelectedSectionList"];
-            }
+            }           
             
             foreach (var pair in chkBoxsList)
             {
