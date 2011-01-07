@@ -518,7 +518,7 @@ namespace WealthERP.Advisor
                     rmVo.FirstName = txtFirstName.Text.ToString();
                     rmVo.LastName = txtLastName.Text.ToString();
                     rmVo.MiddleName = txtMiddleName.Text.ToString();
-                    if (!string.IsNullOrEmpty(rmVo.StaffCode))
+                    if (!string.IsNullOrEmpty(txtStaffCode.Text))
                         rmVo.StaffCode = txtStaffCode.Text.ToString();
                     else
                         rmVo.StaffCode = string.Empty;
