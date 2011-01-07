@@ -1093,10 +1093,6 @@
     <value>FP//CustomerFPDashBoard.ascx</value>
     <comment>FP//CustomerFPDashBoard.ascx</comment>
   </data>
-  <data name="CustomerFolioMerge" xml:space="preserve">
-    <value>Advisor//CustomerFolioMerge.ascx</value>
-    <comment>Advisor//CustomerFolioMerge.ascx</comment>
-  </data>
   <data name="ViewMFPortfolioValuation" xml:space="preserve">
     <value>CustomerPortfolio//ViewMFPortfolioValuation.ascx</value>
     <comment>CustomerPortfolio//ViewMFPortfolioValuation.ascx</comment>

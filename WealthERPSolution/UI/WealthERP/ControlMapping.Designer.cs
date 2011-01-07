@@ -673,15 +673,6 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Advisor//CustomerFolioMerge.ascx.
-        /// </summary>
-        internal static string CustomerFolioMerge {
-            get {
-                return ResourceManager.GetString("CustomerFolioMerge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to FP//CustomerFPDashBoard.ascx.
         /// </summary>
         internal static string CustomerFPDashBoard {
