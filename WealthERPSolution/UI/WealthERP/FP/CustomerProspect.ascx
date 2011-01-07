@@ -737,6 +737,38 @@
                                     <td>
                                     </td>
                                 </tr>
+                                 <tr>
+                                    <td align="right">
+                                        
+                                    </td>
+                                    <td align="center">
+                                         <asp:Label ID="Label6" runat="server" Text="WERP (Managed)" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="center">
+                                         <asp:Label ID="Label7" runat="server" Text="WERP (UnManaged) : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="center">
+                                         <asp:Label ID="Label8" runat="server" Text="Adjustment : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="center">
+                                         <asp:Label ID="Label9" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="right">
+                                        
+                                    </td>
+                                    <td align="center">
+                                         <asp:Label ID="Label5" runat="server" Text="WERP (Managed)" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="center">
+                                         <asp:Label ID="Label10" runat="server" Text="WERP (UnManaged)" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="center">
+                                         <asp:Label ID="Label11" runat="server" Text="Adjustment" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td align="center">
+                                         <asp:Label ID="Label12" runat="server" Text="Total" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td align="right">
                                         <asp:Label ID="lblDirectEquity" runat="server" Text="Direct Equity : " CssClass="FieldName"></asp:Label>
@@ -1098,10 +1130,10 @@
                                 </tr>
                                 <tr>
                                     <td align="right">
-                                        <asp:Label ID="lblAssetTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
+                                        <asp:Label ID="lblAssetTotal" runat="server" Text="Grand Total : " CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td align="left">
-                                        <asp:TextBox ID="txtAssetTotal" runat="server" Style="direction: rtl" Enabled="false"
+                                        <asp:TextBox ID="txtAssetTotal" runat="server" Style="direction: rtl" ReadOnly="true"
                                             Width="75px" EnableViewState="true"></asp:TextBox>
                                     </td>
                                     <td align="right">
