@@ -39,7 +39,7 @@ namespace DaoCustomerGoalProfiling
                 db.AddInParameter(createCustomerGoalProfileCmd, "@CostToday", DbType.Double, GoalProfileVo.CostOfGoalToday);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@GoalYear", DbType.Int32, GoalProfileVo.GoalYear);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@GoalProfileDate", DbType.DateTime, GoalProfileVo.GoalDate);
-                db.AddInParameter(createCustomerGoalProfileCmd, "@CorpusRequired", DbType.Double, GoalProfileVo.RetirementCorpus);
+                db.AddInParameter(createCustomerGoalProfileCmd, "@FutureValueOfCostToday", DbType.Double, GoalProfileVo.FutureValueOfCostToday);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@MonthlySavingsRequired", DbType.Double,GoalProfileVo.MonthlySavingsReq);
                 if (GoalProfileVo.AssociateId != 0)
                 {
@@ -104,6 +104,7 @@ namespace DaoCustomerGoalProfiling
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@CustomerId", DbType.Int32, GoalProfileVo.CustomerId);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@GoalCode", DbType.String, GoalProfileVo.Goalcode);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@CostToday", DbType.Double, GoalProfileVo.CostOfGoalToday);
+                db.AddInParameter(updateCustomerGoalProfileCmd, "@FutureValueOfCostToday", DbType.Double, GoalProfileVo.FutureValueOfCostToday);                
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@GoalYear", DbType.Int32, GoalProfileVo.GoalYear);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@GoalProfileDate", DbType.DateTime, GoalProfileVo.GoalDate);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@MonthlySavingsRequired", DbType.Double, GoalProfileVo.MonthlySavingsReq);
