@@ -234,8 +234,8 @@
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
-                CssClass="PCGButton" OnClientClick="Loading(true);" />
-            <asp:Button ID="btnMapFolios" runat="server" CssClass="PCGButton" Text="Map Folios"
+                CssClass="PCGLongButton" OnClientClick="Loading(true);" />
+            <asp:Button ID="btnMapFolios" runat="server" CssClass="PCGLongButton" Text="Map Folios"
                 OnClick="btnMapFolios_Click" />
         </td>
     </tr>
