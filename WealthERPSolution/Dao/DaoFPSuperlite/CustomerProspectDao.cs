@@ -723,7 +723,7 @@ namespace DaoFPSuperlite
                 db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerProspectAssetDetailsVo.AssetInstrumentCategoryCode);
 
 
-                if (customerProspectAssetDetailsVo.Value != 0.0)
+                if (customerProspectAssetDetailsVo.AdjustedValue != 0.0)
                     db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_AdjustedValue", DbType.Decimal, customerProspectAssetDetailsVo.AdjustedValue);
                 else
                     db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_AdjustedValue", DbType.Decimal, 0.0);
@@ -921,7 +921,7 @@ namespace DaoFPSuperlite
                 db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@C_CustomerId", DbType.Int32, customerId);
                 if (customerProspectAssetGroupDetails.AssetGroupCode != null)
                     db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@PAG_AssetGroupCode", DbType.String, customerProspectAssetGroupDetails.AssetGroupCode);
-                if (customerProspectAssetGroupDetails.Value != 0.0)
+                if (customerProspectAssetGroupDetails.AdjustedValue != 0.0)
                     db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_AdjustedValue", DbType.Decimal, customerProspectAssetGroupDetails.AdjustedValue);
                 else
                     db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_AdjustedValue", DbType.Decimal, 0.0);
