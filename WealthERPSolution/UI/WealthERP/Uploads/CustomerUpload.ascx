@@ -397,7 +397,7 @@
         <tr>
             <td>
                 <asp:GridView ID="gvInputError" runat="server" CssClass="GridViewStyle" ShowFooter="true"
-                    AllowPaging="true" OnPageIndexChanging="gvInputError_PageIndexChanging">
+                    AllowPaging="false" >
                     <FooterStyle CssClass="FieldName" />
                     <RowStyle CssClass="RowStyle" />
                     <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
