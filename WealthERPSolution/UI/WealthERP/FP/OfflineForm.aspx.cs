@@ -47,7 +47,24 @@ namespace WealthERP.FP
         protected void Page_Init(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+            rmvo = (RMVo)Session["rmVo"];
+            lblRMName.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
+            lblRMNameFamily.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
+            lblRmNameExpanse.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
+            lblRMRisk.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
+            lblRMRiskPro.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
             //Img1.ImageUrl = advisorVo.LogoPath;
+            lblOrgName.Text = advisorVo.OrganizationName;
+            lblOrgnameGoal.Text = advisorVo.OrganizationName;
+            lblOrgname1.Text = advisorVo.OrganizationName;
+            lblOrgRisk.Text = advisorVo.OrganizationName;
+            lblOrgQues.Text = advisorVo.OrganizationName;
+            DateTime dtToday=DateTime.Now;
+            lblDate1.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
+            lblDate2.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
+            lblDate3.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
+            lblDate4.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
+            lblDate5.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
             dsGetRiskProfileQuestion = riskprofilebo.GetRiskProfileQuestion(advisorVo.advisorId);
             totalquestion = dsGetRiskProfileQuestion.Tables[0].Rows.Count;
             int optioncounttemp = 1;

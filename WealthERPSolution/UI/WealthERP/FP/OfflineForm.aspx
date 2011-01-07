@@ -132,121 +132,80 @@
             </td>
         </tr>
         <tr>
-            <td>
-            <img alt="AdvisorLogo" src="ByPass.aspx" /> 
-             <%--<img alt="Advisor Logo"  src="../Images/werplogo.jpg" height="50" />--%>
-             <%--<asp:Image ID="Img1" runat="server" AlternateText="Advisor Logo" Height="50" />--%>
+            <td width="20%" style="font-family:Arial;font-size:14px;font-weight:bold;">
+                <asp:Label ID="lblOrgName" runat="server" Text=""></asp:Label> 
             </td>
-           
-            <td colspan="2">
-                <strong><u>Financial Planning Form </u></strong>
+            <td colspan="3" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
+                <strong><u>Investor's Need Analysis </u></strong>
             </td>
-        </tr>
-        <tr>
-          <td colspan="5"></td>  
-        </tr>
-        <tr><td colspan="5"><p>Dear Customer,</p></td></tr>
-        <tr>
-        <td colspan="5" align="justify">
-        <p>Thank you for agreeing to taking some time off and completing your Wealth Financial Plan Questionnaire which will help you obtain a 360-degree view of your investments. It is our endeavor to assist you in making the right investment choices and guiding you to a secure and promising financial future.</p>
-        <p>Financial planning is a critical exercise in ensuring long-term financial security. A financial plan is a road map to help you achieve your life’s financial goals.During the financial planning process you analyze what your financial needs and goals are. Your response will help us prepare a Financial Plan which will help you achieve all your financial and life event goals. Answering the questionnaire will not take more than 10 minutes of your time. Please try to provide an accurate estimate of your current assets and investments. Information provided by you will be kept strictly confidential. Thank you for sitting aside ten minutes for answering the questionnaire. We can assure you it will be time well spent and will enable you acheive life long financial freedom. We look forward to a long association with you.</p>
-        </td>
-        </tr>
-    <%--    <tr>
-        <td colspan="5" align="justify">
-        <p>Financial planning is a critical exercise in ensuring long-term financial security. A financial plan is a road map to help you achieve your life’s financial goals.During the financial planning process you analyze what your financial needs and goals are. Your response will help us prepare a Financial Plan which will help you achieve all your financial and life event goals. Answering the questionnaire will not take more than 10 minutes of your time. Please try to provide an accurate estimate of your current assets and investments. Information provided by you will be kept strictly confidential. Thank you for sitting aside ten minutes for answering the questionnaire. We can assure you it will be time well spent and will enable you acheive life long financial freedom. We look forward to a long association with you.</p>
-        </td>
-        </tr>--%>
-        <%--<tr><td colspan="5"><p>Thanking you,</p></td></tr>--%>
-        <tr>
-            <td colspan="5" align="left" class="header" style="border-bottom: 1px Important; background-color:#7DA5E0; ">
-                Self 
-                
+             <td width="20%">
+             <img alt="AdvisorLogo" src="ByPass.aspx" /> 
             </td>
-        </tr>
-        <tr>
-            <td colspan="5">
-            </td>
-        </tr>
-        <tr>
-            <td align="left" class="FieldName">
-                First Name:
-            </td>
-            <td>
-                <input id="txtFirstName" type="text" name="firstname" class="txtField" style="border-bottom: solid 1px; border-top: solid 1px; border-left:solid 1px; border-right: solid 1px;" />
-            </td>
-            <td align="left" class="FieldName">
-                DOB:
-            </td>
-            <td>
-                <input id="Text1" type="text" name="firstname" class="txtField" style="border-bottom: solid 1px; border-top: solid 1px; border-left:solid 1px; border-right: solid 1px;" />
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td class="FieldName" align="left">
-                Middle Name:
-            </td>
-            <td>
-                <input id="Text2" type="text" name="firstname" class="txtField" style="border-bottom: solid 1px; border-top: solid 1px; border-left:solid 1px; border-right: solid 1px;"/>
-            </td>
-            <td class="FieldName" align="left">
-                Email Id:
-            </td>
-            <td>
-                <input id="Text4" type="text" class="txtField" style="border-bottom: solid 1px; border-top: solid 1px; border-left:solid 1px; border-right: solid 1px;" />
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td class="FieldName" align="left">
-                Last Name:
-            </td>
-            <td>
-                <input id="Text3" type="text" class="txtField" style="border-bottom: solid 1px; border-top: solid 1px; border-left:solid 1px; border-right: solid 1px;" />
-            </td>
-                        <td class="FieldName" align="left">
-                Gender:
-            </td>
-            <td>
-                <input id="Text5" type="text" class="txtField" style="border-bottom: solid 1px; border-top: solid 1px; border-left:solid 1px; border-right: solid 1px;"/>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td class="FieldName" align="left">
-                Address1:
-            </td>
-            <td>
-                <input id="Text6" type="text" class="txtField" style="border-bottom: solid 1px; border-top: solid 1px; border-left:solid 1px; border-right: solid 1px;"/>
-            </td>
-                        <td class="FieldName" align="left">
-                Address2:
-            </td>
-            <td>
-                <input id="Text7" type="text" class="txtField" style="border-bottom: solid 1px; border-top: solid 1px; border-left:solid 1px; border-right: solid 1px;"/>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td class="FieldName" align="left">
-                Address3:
-            </td>
-            <td>
-                <input id="Text8" type="text" class="txtField" style="border-bottom: solid 1px; border-top: solid 1px; border-left:solid 1px; border-right: solid 1px;"/>
-            </td>
-            <td colspan="3">
-            </td>
-        </tr>
+         </tr>   
+        
           <tr>
-            <td colspan="5">
-            </td>
+          <td><br /><br /></td>
+          </tr>
+            <tr>
+          <td colspan="5"></td>  
+           </tr> 
+         <tr>
+        <td class="FieldName" align="left" >Date :</td>
+        <td>
+        <table cellspacing="0" border="1">
+        <tr>
+        <td style="color:#99F7FF;">&nbsp;d&nbsp;</td><td style="color:#99F7FF;">&nbsp;d&nbsp;</td><td style="color:#99F7FF;">&nbsp;m&nbsp;</td><td style="color:#99F7FF;">&nbsp;m&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td>
         </tr>
-        <!--********** Family *************-->
+        </table>
+        </td>
+        <td colspan="3"></td>
+        </tr>
+         <tr>
+         <td colspan="5"></td>
+         </tr>
+         <tr>
+         <td class="FieldName" align="left">Name:</td>
+         <td colspan="4" class="FieldName">
+                <input type="checkbox" id="Checkbox3" />Mr. &nbsp;<input type="checkbox" id="Checkbox4" />Mrs.
+                &nbsp;<input type="checkbox" id="Checkbox5" />Ms. &nbsp;<input type="checkbox" id="Checkbox6" />Dr.
+            </td>
+          </tr>
+         <tr>
+          <td></td>  
+        <td colspan="4">
+        <table width="100%" cellspacing="0" border="1">
+        <tr>
+        <td style="color:#99F7FF;">&nbsp;f</td><td style="color:#99F7FF;">&nbsp;i</td><td style="color:#99F7FF;">&nbsp;r</td><td style="color:#99F7FF;">&nbsp;s</td><td style="color:#99F7FF;">&nbsp;t;</td><td style="color:#99F7FF;">&nbsp;n</td>
+        <td style="color:#99F7FF;">&nbsp;a</td><td style="color:#99F7FF;">m</td><td style="color:#99F7FF;">&nbsp;e</td><td>&nbsp;&nbsp;&nbsp;</td><td style="color:#99F7FF;">m</td><td style="color:#99F7FF;">&nbsp;i</td>
+        <td style="color:#99F7FF;">&nbsp;d</td><td style="color:#99F7FF;">&nbsp;d</td><td style="color:#99F7FF;">&nbsp;l</td><td style="color:#99F7FF;">&nbsp;e</td><td style="color:#99F7FF;">&nbsp;n</td><td style="color:#99F7FF;">&nbsp;a</td>
+        <td style="color:#99F7FF;">m</td><td style="color:#99F7FF;">&nbsp;e</td><td>&nbsp;&nbsp;&nbsp;</td><td style="color:#99F7FF;">&nbsp;l</td><td style="color:#99F7FF;">&nbsp;a</td><td style="color:#99F7FF;">&nbsp;s</td>
+        <td style="color:#99F7FF;">&nbsp;t</td><td style="color:#99F7FF;">&nbsp;n</td><td style="color:#99F7FF;">&nbsp;a</td><td style="color:#99F7FF;">m</td><td style="color:#99F7FF;">&nbsp;e</td><td>&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        </tr> 
+        <tr>
+        <td colspan="5"></td>
+        </tr>
+         <tr>
+         <td colspan="5" align="justify" style="font-size:medium;font-family:@Arial Unicode MS;">
+         <p>The purpose of this investment profile form is for us to better understand your financial means, investment experience and financial goals.</p>
+         <p>Your input will help us identify your investment profile, assist you in making right investment choices and guiding you to a secure and promising financial future.</p>
+         <p>Please try to provide an accurate information as it will impact the results. We assure you it will be time well spent which will enable you achieve long financial freedom.</p>
+         </td>
+         </tr>
+         <tr><td colspan="5"></td></tr>
+         
+        <tr>
+            <td colspan="5">
+                        
+            <table width="100%"  cellspacing="0">
+            <tr>
+            <td colspan="5" align="center"><img alt="Personal Details" src="../Images/PersonalDetails.png"/></td>
+            </tr>
+            </table>
+             </td>
+        </tr>
         <tr>
             <td colspan="5">
             </td>
@@ -256,9 +215,151 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" align="left" class="header" style="border-bottom: 1px Important; background-color:#7DA5E0; ">
-                Family Members Details
+        <td class="FieldName" align="left">Address1:</td>
+        <td colspan="4">
+        <table width="100%" cellspacing="0" border="1">
+        <tr>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        </tr>
+        <tr>
+        <td class="FieldName" align="left">Address2:</td>
+        <td colspan="4">
+        <table width="100%" cellspacing="0" border="1">
+        <tr>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        </tr>
+        <tr>
+        <td class="FieldName" align="left">Address3:</td>
+        <td colspan="4">
+        <table width="100%" cellspacing="0" border="1">
+        <tr>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        </tr>
+        <tr>
+        <td class="FieldName" align="left">City:</td>
+        <td>
+        <table width="100%" cellspacing="0" border="1">
+        <tr>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        <td colspan="3"><span>&nbsp;</span></td>
+        </tr>
+        <tr>
+        <td class="FieldName" align="left">PinCode :</td>
+        <td><table cellspacing="0" border="1">
+        <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        <td colspan="3"><span>&nbsp;</span></td>
+        </tr>
+        <tr>
+        <td class="FieldName" align="left">State :</td>
+        <td>
+        <table width="100%" cellspacing="0" border="1">
+        <tr>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        <td colspan="3"><span>&nbsp;</span></td>
+        </tr>
+        <tr>
+        <td class="FieldName" align="left">Country:</td>
+        <td>
+        <table width="100%" cellspacing="0" border="1">
+        <tr>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        <td colspan="3"><span>&nbsp;</span></td>
+        </tr>
+        <tr>
+        <td class="FieldName" align="left">Mobile No. :</td>
+         <td><table cellspacing="0" border="1">
+        <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        <td colspan="3"><span>&nbsp;</span></td>
+        </tr>
+        <tr>
+        <td class="FieldName" align="left">Email ID:</td>
+        <td colspan="4">
+        <table width="100%" cellspacing="0" border="1">
+        <tr>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        </tr>
+        <tr>
+        <td class="FieldName" align="left">Date Of Birth:</td>
+        <td>
+        <table cellspacing="0" border="1">
+        <tr>
+        <td style="color:#99F7FF;">&nbsp;d&nbsp;</td><td style="color:#99F7FF;">&nbsp;d&nbsp;</td><td style="color:#99F7FF;">&nbsp;m&nbsp;</td><td style="color:#99F7FF;">&nbsp;m&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td>
+        </tr>
+        </table>
+        </td>
+        <td colspan="3"></td>
+        </tr>
+        
+        
+        <!--********** Family *************-->
+        <tr>
+            <td colspan="5">
             </td>
+        </tr>
+        
+        <tr>
+            <td colspan="5">
+                        
+            <table width="100%" border="1" cellspacing="0">
+            <tr>
+            <td colspan="5" align="Left" class="header" style="font-size:small; border-bottom: 1px Important; background-color:#7DA5E0; "> Family Details</td>
+            </tr>
+            </table>
+             </td>
         </tr>
         <tr>
             <td colspan="5">
@@ -266,515 +367,190 @@
         </tr>
         <tr>
             <td colspan="5" align="left" style="width: 100%;">
-                <table border="1" width="100%">
+                <table border="1" width="100%" cellspacing="0">
                     <tr>
                         <td class="FieldName" align="center">
+                        Sr no.
                         </td>
                         <td class="FieldName" align="center">
-                            Member1
+                            Name
                         </td>
                         <td class="FieldName" align="center">
-                            Member2
-                        </td>
-                        <td class="FieldName" align="center">
-                            Member3
-                        </td>
-                        <td class="FieldName" align="center">
-                            Member4
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="FieldName" align="left" style="width: 12%;">
-                            FirstName
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="FieldName" align="left" style="width: 12%;">
-                            MiddleName
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="FieldName" align="left" style="width: 12%;">
-                            LastName
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="FieldName" align="left" style="width: 12%;">
                             Relationship
                         </td>
-                        <td style="width: 22%;">
+                        <td class="FieldName" align="center">
+                            DOB
+                        </td>
+                        <td class="FieldName" align="center">
+                           Email
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="FieldName" align="left" style="width: 20%;">
+                           
+                        </td>
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
                     </tr>
                     <tr>
-                        <td class="FieldName" align="left" style="width: 12%;">
-                            Date Of Birth
+                        <td class="FieldName" align="left" style="width: 20%;">
+                            
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="FieldName" align="left" style="width: 12%;">
-                            Email Id
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
-                            &nbsp;
-                        </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
                     </tr>
                     <tr>
-                        <td class="FieldName" align="left" style="width: 12%;">
-                            Children Education cost
+                        <td class="FieldName" align="left" style="width: 20%;">
+                           
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
                     </tr>
                     <tr>
-                        <td class="FieldName" align="left" style="width: 12%;">
-                            Children Marriage cost
+                        <td class="FieldName" align="left" style="width: 20%;">
+                            
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
-                        <td style="width: 22%;">
+                        <td style="width: 20%;">
                             &nbsp;
                         </td>
                     </tr>
-                </table>
+                    <tr>
+                        <td class="FieldName" align="left" style="width:20%;">
+                            
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                   </table>
             </td>
+        </tr>
+        
+        <!--*************************Goal*************************-->
+        
+        <tr>
+        <td colspan="5"></td>
+        </tr>
+        <tr>
+        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
+        <asp:Label ID="lblRMNameFamily" runat="server" Text=""></asp:Label>
+        </td>
+        <td colspan="2" align="right" style="font-family:Arial;font-size:14px;font-weight:bold; "><asp:Label ID="lblDate1" runat="server" Text=""></asp:Label></td>
         </tr>
        <tr>
-            <td colspan="5">
-                &nbsp;
+       <td>     
+      <br />
+       <br />
+       <br />
+       <br />
+      
+       <br /></td>
+    </tr>
+    <tr>
+    
+            <td width="20%" style="font-family:Arial;font-size:14px;font-weight:bold;">
+                <asp:Label ID="lblOrgnameGoal" runat="server" Text=""></asp:Label> 
             </td>
+            <td colspan="3" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
+                <strong><u>Investor's Need Analysis </u></strong>
+            </td>
+             <td width="20%">
+             <img alt="AdvisorLogo" src="ByPass.aspx" /> 
+            </td>
+         </tr> 
+      <tr><td><br /><br /><br /><br /></td></tr>   
+         <tr>
+        <td colspan="5"></td>
+        </tr>
+         <tr>
+        <td colspan="5"></td>
         </tr>
         <tr>
             <td colspan="5">
-                &nbsp;
-            </td>
-        </tr>
-          <tr>
-            <td colspan="5">
-                &nbsp;
-            </td>
-        </tr>
+                        
+            <table width="100%" border="0" cellspacing="0">
             <tr>
-            <td colspan="5">
-                &nbsp;
-            </td>
+            <td colspan="5" align="center"><img alt="Goals" src="../Images/Goal.png" /></td>
+            </tr>
+            </table>
+             </td>
         </tr>
-            <tr>
-            <td colspan="5">
-                &nbsp;
-            </td>
-        </tr>
-        <!--**************** Investment***********-->
-        <tr>
+         <tr>
             <td colspan="5">
             </td>
         </tr>
-        <tr>
-            <td colspan="5" align="left" class="header" style="border-bottom: 1px Important; background-color:#7DA5E0; ">
-                Investment Details
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5">
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 100%;" colspan="5">
-                <table border="none" width="100%">
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Direct Equity:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Gold:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            MF Equity:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Collectibles:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            MF Debt:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Cash & Savings:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            MF Hybrid -Equity:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Structured Product:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            MF Hybrid -Debt:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Commodities:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Fixed Income:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Private Equity:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Govt Savings:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            PMS:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Pension & Gratuities:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Others:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Property:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td colspan="3">
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <!--*************Expense Details*********-->
-        <tr>
-            <td colspan="5">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5" align="left" class="header" style="border-bottom: 1px Important; background-color:#7DA5E0; ">
-                Expense Details
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5">
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 100%;" colspan="5">
-                <table border="none" width="100%">
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Food:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Entertainment-Holidays:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Rent:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Personal wear:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Utilities:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Insurance:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Health-Personal care:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Domestic Help:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Conveyance:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Other:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-
-        <!--*************Income Details*********-->
-        <tr>
-            <td colspan="5">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5" align="left" class="header" style="border-bottom: 1px Important; background-color:#7DA5E0; ">
-                Income Details
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5">
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 100%;" colspan="5">
-                <table border="none" width="100%">
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Salary:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Capital Gains:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Rental Property
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Agricultural income:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Business & Profession:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                        <td align="left" class="FieldName" style="width: 25%;">
-                            Other Sources:
-                        </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <!--**************Liabilities Details**************-->
-        <tr>
-            <td colspan="5">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5" align="left" class="header" style="border-bottom: 1px Important; background-color:#7DA5E0; ">
-                Liabilities Details
-            </td>
-        </tr>
-        <tr>
+         <tr>
             <td colspan="5">
             </td>
         </tr>
         <tr>
             <td colspan="5" align="left" style="width: 100%;">
-                <table border="1" width="100%">
+                <table border="1" width="80%" cellspacing="0">
                     <tr>
                         <td align="center" class="FieldName">
+                        Description
                         </td>
                         <td align="center" class="FieldName">
-                            Loan Outstanding
+                            Cost today
                         </td>
                         <td align="center" class="FieldName">
-                            Tenure(in months)
+                            Goal Year
                         </td>
                         <td align="center" class="FieldName">
-                            EMI
+                            Priority
                         </td>
                     </tr>
                     <tr>
                         <td class="FieldName" align="left" style="width: 25%;">
-                            Home Loan
+                            Buy home
                         </td>
                         <td style="width: 25%;">
                             &nbsp
@@ -788,7 +564,7 @@
                     </tr>
                     <tr>
                         <td class="FieldName" align="left" style="width: 25%;">
-                            Auto Loan
+                            First child education
                         </td>
                         <td style="width: 25%;">
                             &nbsp;
@@ -802,7 +578,7 @@
                     </tr>
                     <tr>
                         <td class="FieldName" align="left" style="width: 25%;">
-                            Personal Loan
+                            Second child education
                         </td>
                         <td style="width: 25%;">
                             &nbsp;
@@ -816,7 +592,7 @@
                     </tr>
                     <tr>
                         <td class="FieldName" align="left" style="width: 25%;">
-                            Education Loan
+                            First child marriage
                         </td>
                         <td style="width: 25%;">
                             &nbsp;
@@ -830,7 +606,35 @@
                     </tr>
                     <tr>
                         <td class="FieldName" align="left" style="width: 25%;">
-                            Other Loan
+                            Second child marriage
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="FieldName" align="left" style="width: 25%;">
+                            Retirement
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="FieldName" align="left" style="width: 25%;">
+                            Other
                         </td>
                         <td style="width: 25%;">
                             &nbsp;
@@ -846,13 +650,580 @@
             </td>
         </tr>
         <tr>
+        <td colspan="5"></td>
+        </tr>
+        <!--**************** Investment***********-->
+        <tr>
+            <td colspan="5" align="left" style="font-size:medium;font-family:@Arial Unicode MS;">
+            <p>Note: Priority 1 being the highest.</p>
+            </td>
+        </tr>
+         <tr>
+         <td colspan="5"></td>
+         </tr>      
+        
+        <tr>
+            <td colspan="5">
+                        
+            <table width="100%" border="0" cellspacing="0">
+            <tr>
+            <td colspan="5" align="center"><img alt="Investment Details" src="../Images/Investment.png" /></td>
+            </tr>
+            </table>
+             </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+         <tr>
             <td colspan="5">
             </td>
         </tr>
         <tr>
-            <td colspan="5" align="left" class="header" style="border-bottom: 1px Important; background-color:#7DA5E0; ">
-                Life Insurance Details
+            <td style="width: 100%;" colspan="5">
+                <table border="none" width="100%" style="border-bottom:none;border-left:none;border-right:none;border-top:none;">
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Direct Equity
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Gold
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%; border:none;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            MF Equity
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Collectibles
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%; border:none;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            MF Debt
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Cash & Savings
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%; border:none; ">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            MF Hybrid -Equity
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Structured Product
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%; border:none; ">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            MF Hybrid -Debt
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Commodities
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Fixed Income
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Private Equity
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Govt Savings
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            PMS
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Pension & Gratuities
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20;">
+                            Others
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Property
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td colspan="3" style="border:none;">
+                        </td>
+                    </tr>
+                </table>
             </td>
+        </tr>
+        <!--*************Expense Details*********-->
+        <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+         <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+        <tr>
+        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
+        <asp:Label ID="lblRmNameExpanse" runat="server" Text=""></asp:Label>
+        </td>
+        <td colspan="2" align="right" style="font-family:Arial;font-size:14px;font-weight:bold; "><asp:Label ID="lblDate2" runat="server" Text=""></asp:Label></td>
+        </tr>
+        <tr><td><br /><br /><br /><br /></td></tr>
+        <tr>
+            <td width="20%" style="font-family:Arial;font-size:14px;font-weight:bold;">
+                <asp:Label ID="lblOrgname1" runat="server" Text=""></asp:Label> 
+            </td>
+            <td colspan="3" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
+                <strong><u>Investor's Need Analysis </u></strong>
+            </td>
+             <td width="20%">
+             <img alt="AdvisorLogo" src="ByPass.aspx" /> 
+            </td>
+         </tr>
+         <tr><td><br /><br /></td></tr>
+        <tr>
+            <td colspan="5">
+                        
+            <table width="100%" border="0" cellspacing="0">
+            <tr>
+            <td colspan="5" align="center"> <img alt="Expense Details" src="../Images/Expense.png"/></td>
+            </tr>
+            </table>
+             </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+         <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100%;" colspan="5">
+                <table border="1" width="100%" style="border-bottom:none;border-left:none;border-right:none;border-top:none;" >
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Food
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Entertainment-Holidays
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Rent
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Personal wear
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Utilities
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Insurance
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Health-Personal care
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Domestic Help
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Conveyance
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Other
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" align="left" style="font-size:medium;font-family:@Arial Unicode MS;" >
+            <p>Note: Please enter monthly.</p>
+            </td>
+        </tr>
+
+
+        <!--*************Income Details*********-->
+        <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="5">
+                        
+            <table width="100%" border="0" cellspacing="0">
+            <tr>
+            <td colspan="5" align="center"><img alt="Income Details" src="../Images/income.png" /></td>
+            </tr>
+            </table>
+             </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+         <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100%;" colspan="5">
+                <table border="none" width="100%" style="border-bottom:none;border-left:none;border-right:none;border-top:none;">
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Salary
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Capital Gains
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Rental Property
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Agricultural income
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Business & Profession
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td align="left" class="FieldName" style="width: 20%;">
+                            Other Sources
+                        </td>
+                        <td style="width: 20%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 20%;border:none; ">
+                            
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!--**************Liabilities Details**************-->
+        <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" align="left" style="font-size:medium;font-family:@Arial Unicode MS;" >
+            <p>Note: Please enter monthly.</p>
+            </td>
+        </tr>
+        <tr>
+        <td colspan="5"></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                        
+            <table width="100%" border="0" cellspacing="0">
+            <tr>
+            <td colspan="5" align="center"><img  alt="Liabilities Details" src="../Images/liabilities.png" /></td>
+            </tr>
+            </table>
+             </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+         <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" align="left" style="width: 100%;">
+                <table border="1" width="60%" cellspacing="0">
+                    <tr>
+                        <td align="center" class="FieldName">
+                        </td>
+                        <td align="center" class="FieldName">
+                            Loan Outstanding
+                        </td>
+                        <td align="center" class="FieldName">
+                            EMI(Annual)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="FieldName" align="left" style="width: 25%;">
+                            Home Loan
+                        </td>
+                        
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="FieldName" align="left" style="width: 25%;">
+                            Auto Loan
+                        </td>
+                       
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="FieldName" align="left" style="width: 25%;">
+                            Personal Loan
+                        </td>
+                       
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="FieldName" align="left" style="width: 25%;">
+                            Education Loan
+                        </td>
+                       
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="FieldName" align="left" style="width: 25%;">
+                            Other Loan
+                        </td>
+                        
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+        <tr><td><br /></td></tr>
+        <tr>
+        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
+        <asp:Label ID="lblRMRisk" runat="server" Text=""></asp:Label>
+        </td>
+        <td colspan="2" align="right" style="font-family:Arial;font-size:14px;font-weight:bold; "><asp:Label ID="lblDate3" runat="server" Text=""></asp:Label></td>
+        </tr>
+        <tr><td><br /><br /><br /><br /><br /><br /><br /><br /></td></tr>
+       <tr>
+            <td width="20%" style="font-family:Arial;font-size:14px;font-weight:bold;">
+                <asp:Label ID="lblOrgRisk" runat="server" Text=""></asp:Label> 
+            </td>
+            <td colspan="3" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
+                <strong><u>Investor's Need Analysis </u></strong>
+            </td>
+             <td width="20%">
+             <img alt="AdvisorLogo" src="ByPass.aspx" /> 
+            </td>
+         </tr>
+         <tr><td><br /><br /></td></tr>
+        <tr>
+            <td colspan="5">
+                        
+            <table width="100%" border="0" cellspacing="0">
+            <tr>
+            <td colspan="5" align="center" ><img alt="Risk Protection" src="../Images/RiskProtection.png" /></td>
+            </tr>
+            </table>
+             </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+         <tr>
+            <td colspan="5">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                        
+            <table width="100%" border="1" cellspacing="0">
+            <tr>
+            <td colspan="5" align="Left" class="header" style=" font-size:small; border-bottom: 1px Important; background-color:#7DA5E0; "> Life Insurance Details</td>
+            </tr>
+            </table>
+             </td>
         </tr>
         <tr>
             <td colspan="5">
@@ -860,7 +1231,7 @@
         </tr>
         <tr>
             <td colspan="5" align="left" style="width: 100%;">
-                <table border="1" width="100%">
+                <table border="1" width="80%" cellspacing="0">
                     <tr>
                         <td align="center" class="FieldName">
                         </td>
@@ -868,10 +1239,10 @@
                             Sum Assured
                         </td>
                         <td align="center" class="FieldName">
-                            Premium
+                            Premium(Annual)
                         </td>
                         <td align="center" class="FieldName">
-                            Maturity Date
+                            Surrender/Market Value
                         </td>
                     </tr>
                     <tr>
@@ -963,22 +1334,22 @@
         </tr>
         <tr>
             <td colspan="5">
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5">
-                &nbsp;
             </td>
         </tr>
         <tr>
             <td colspan="5">
             </td>
         </tr>
+        
         <tr>
-            <td colspan="5" align="left" class="header" style="border-bottom: 1px Important; background-color:#7DA5E0; ">
-                General Insurance Details
-            </td>
+            <td colspan="5">
+                        
+            <table width="100%" border="1" cellspacing="0">
+            <tr>
+            <td colspan="5" align="Left" class="header" style=" font-size:small; border-bottom: 1px Important; background-color:#7DA5E0; "> General Insurance Details</td>
+            </tr>
+            </table>
+             </td>
         </tr>
         <tr>
             <td colspan="5">
@@ -986,7 +1357,7 @@
         </tr>
         <tr>
             <td colspan="5" align="left" style="width: 100%;">
-                <table border="1" width="100%">
+                <table border="1" width="60%" cellspacing="0">
                     <tr>
                         <td align="center" class="FieldName">
                         </td>
@@ -994,14 +1365,12 @@
                             Sum Assured
                         </td>
                         <td align="center" class="FieldName">
-                            Premium
+                            Premium(Annual)
                         </td>
-                        <td align="center" class="FieldName">
-                            Maturity Date
-                        </td>
+                        
                     </tr>
                     <tr>
-                        <td class="FieldName" align="left" style="width: 25%;" style="border-bottom: 1px Important; ">
+                        <td class="FieldName" align="left" style="width: 25%;">
                             Health Insurance Cover
                         </td>
                         <td style="width: 25%;">
@@ -1010,12 +1379,10 @@
                         <td style="width: 25%;">
                             &nbsp;
                         </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
+                        
                     </tr>
                     <tr>
-                        <td class="FieldName" align="left" style="width: 25%;" style="border-bottom: 1px Important; ">
+                        <td class="FieldName" align="left" style="width: 25%;">
                             Property inusrance cover
                         </td>
                         <td style="width: 25%;">
@@ -1024,12 +1391,10 @@
                         <td style="width: 25%;">
                             &nbsp;
                         </td>
-                        <td style="width: 25%;">
-                            &nbsp;
-                        </td>
+                        
                     </tr>
                     <tr>
-                        <td class="FieldName" align="left" style="width: 25%;border-bottom: 1px Important;">
+                        <td class="FieldName" align="left" style="width: 25%;">
                             Personal accident
                         </td>
                         <td style="width: 25%;">
@@ -1038,9 +1403,19 @@
                         <td style="width: 25%;">
                             &nbsp;
                         </td>
+                       
+                    </tr>
+                    <tr>
+                        <td class="FieldName" align="left" style="width: 25%;">
+                            Others
+                        </td>
                         <td style="width: 25%;">
                             &nbsp;
                         </td>
+                        <td style="width: 25%;">
+                            &nbsp;
+                        </td>
+                       
                     </tr>
                 </table>
             </td>
@@ -1049,29 +1424,12 @@
             <td colspan="6">
             </td>
         </tr>
+        <tr><td><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></td></tr>
         <tr>
-            <td align="left" class="FieldName">
-                Risk Class:
-            </td>
-            <td colspan="4" class="FieldName">
-                <input type="checkbox" id="chk1" />Conservative &nbsp;<input type="checkbox" id="Checkbox1" />Moderate
-                &nbsp;<input type="checkbox" id="Checkbox2" />Aggressive
-            </td>
-        </tr>
-          <tr>
-            <td colspan="5" align="left" class="header" style="border-bottom: 1px Important; background-color:#7DA5E0; ">
-                Goal
-            </td>
-               <tr>
-            <td class="FieldName" align="left">
-                Buying house (year):
-            </td>
-            <td>
-                <input id="Text9" type="text" class="txtField" style="border-bottom: solid 1px; border-top: solid 1px; border-left:solid 1px; border-right: solid 1px;"/>
-            </td>
-            <td colspan="3">
-            </td>
-        </tr>
+        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
+        <asp:Label ID="lblRMRiskPro" runat="server" Text=""></asp:Label>
+        </td>
+        <td colspan="2" align="right" style="font-family:Arial;font-size:14px;font-weight:bold; "><asp:Label ID="lblDate4" runat="server" Text=""></asp:Label></td>
         </tr>
     </table>
     <br />
@@ -1083,39 +1441,39 @@
     <br />
     <br />
     <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br /><br /><br /><br />
-    <br /><br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br /><br /><br /><br />
-    <br /><br />
-    <br />
-    <br />
-    <br />
+     <br /><br /><br /><br /><br /> 
     <table width="100%">
         <tr>
-             <td>
+            <td width="20%" style="font-family:Arial;font-size:14px;font-weight:bold;"><asp:Label ID="lblOrgQues" runat="server" Text=""></asp:Label></td>
+            <td width="60%" align="center" colspan="2">
+            <img alt="Financial Plan Questionnaire" src="../Images/Questionnaire.png" />
+            </td>
+             <td width="20%">
             <img alt="AdvisorLogo" src="ByPass.aspx" /> 
             </td>
-            <td colspan="5" align="Left" font-family="verdana" font-size="18px">
-                <strong><u>Financial Plan Questionnaire </u></strong>
-            </td>
         </tr>
+        <tr><td><br /><br /></td></tr>
     <tr>
     <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
     </tr>
     </table>
+    
+    <table width="100%">
+    <tr><td><br /><br /><br /><br /></td></tr>
+    <tr>
+  
+        <td width="50%" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
+        <asp:Label ID="lblRMName" runat="server" Text=""></asp:Label>
+        </td>
+     
+        <td width="50%" align="right" style="font-family:Arial;font-size:14px;font-weight:bold; "><asp:Label ID="lblDate5" runat="server" Text=""></asp:Label></td>
+  
+    </tr>
+    </table>
+     
+    </form>
 </body>
-</form>  
+  
 </html>
 
 
