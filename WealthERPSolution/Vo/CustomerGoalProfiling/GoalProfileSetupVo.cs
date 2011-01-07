@@ -30,7 +30,7 @@ namespace VoCustomerGoalProfiling
         private int G_CreatedBy;
         private double G_lumpsumInvestRequired;
         private double G_FutureValueOnCurrentInvest;
-
+        private double G_FutureValueOfCostToday;
 
 
         private int CA_AssociationId;
@@ -196,6 +196,12 @@ namespace VoCustomerGoalProfiling
         {
             get { return G_FutureValueOnCurrentInvest; }
             set { G_FutureValueOnCurrentInvest = value; }
+        }
+
+        public double FutureValueOfCostToday
+        {
+            get { return G_FutureValueOfCostToday; }
+            set { G_FutureValueOfCostToday = value; }
         }
         
        
