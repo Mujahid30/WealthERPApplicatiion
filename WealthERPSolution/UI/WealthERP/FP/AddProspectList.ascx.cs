@@ -113,6 +113,11 @@ namespace WealthERP.FP
                     txtPanNumber.Text = customerVo.PANNum;
                     txtAddress1.Text = customerVo.Adr1Line1;
                     txtAddress2.Text = customerVo.Adr1Line2;
+                    txtMobileNo.Text = customerVo.Mobile1.ToString();
+                    txtPinCode.Text = customerVo.Adr1PinCode.ToString();
+                    txtCity.Text = customerVo.Adr1City;
+                    txtState.Text = customerVo.Adr1State;
+                    txtCountry.Text = customerVo.Adr1Country;    
                     if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
                     {
                         dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
@@ -153,6 +158,11 @@ namespace WealthERP.FP
                         txtPanNumber.Enabled = false;
                         txtAddress1.Enabled = false;
                         txtAddress2.Enabled = false;
+                        txtMobileNo.Enabled = false;
+                        txtPinCode.Enabled = false;
+                        txtCity.Enabled = false;
+                        txtState.Enabled = false;
+                        txtCountry.Enabled = false;                        
                         dpProspectAddDate.Enabled = false;
                         headertitle.Text = "View Prospect";
 
@@ -536,42 +546,61 @@ namespace WealthERP.FP
         protected void UpdateCustomerForAddProspect(int customerId)
         {
             customerVo = new CustomerVo();
-            customerVo.CustomerId = customerId;
-            customerVo.RmId = rmVo.RMId;
-            customerVo.Type = "IND";
-            customerVo.FirstName = txtFirstName.Text.ToString();
-            customerVo.MiddleName = txtMiddleName.Text.ToString();
-            customerVo.LastName = txtLastName.Text.ToString();
-            customerVo.IsProspect = 1;
-            customerVo.IsFPClient = 1;
-            userVo.FirstName = txtFirstName.Text.ToString();
-            userVo.MiddleName = txtMiddleName.Text.ToString();
-            userVo.LastName = txtLastName.Text.ToString();
-            customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            if (dpDOB.SelectedDate != null)
+            
+            try
             {
-                customerVo.Dob = dpDOB.SelectedDate.Value;
+                customerVo.CustomerId = customerId;
+                customerVo.RmId = rmVo.RMId;
+                customerVo.Type = "IND";
+                customerVo.FirstName = txtFirstName.Text.ToString();
+                customerVo.MiddleName = txtMiddleName.Text.ToString();
+                customerVo.LastName = txtLastName.Text.ToString();
+                customerVo.IsProspect = 1;
+                customerVo.IsFPClient = 1;
+                userVo.FirstName = txtFirstName.Text.ToString();
+                userVo.MiddleName = txtMiddleName.Text.ToString();
+                userVo.LastName = txtLastName.Text.ToString();
+                customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+                if (dpDOB.SelectedDate != null)
+                {
+                    customerVo.Dob = dpDOB.SelectedDate.Value;
+                }
+                customerVo.Email = txtEmail.Text;
+                customerVo.PANNum = txtPanNumber.Text;
+                customerVo.Adr1Line1 = txtAddress1.Text;
+                customerVo.Adr1Line2 = txtAddress2.Text;
+                customerVo.Adr1City = txtCity.Text;
+                customerVo.Adr1State = txtState.Text;
+                customerVo.Adr1Country = txtState.Text;
+                if (!string.IsNullOrEmpty(txtPinCode.Text))
+                {
+                    customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
+                }
+                if (!string.IsNullOrEmpty(txtMobileNo.Text))
+                {
+                    customerVo.Mobile1 = int.Parse(txtMobileNo.Text);
+                }
+                if (dpProspectAddDate.SelectedDate != null)
+                {
+                    customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
+                }
+                Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
+                Session["customerVo"] = customerVo;
+                Session["CustomerVo"] = customerVo;
+                userVo.Email = txtEmail.Text.ToString();
+                customerPortfolioVo.IsMainPortfolio = 1;
+                customerPortfolioVo.PortfolioTypeCode = "RGL";
+                customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
+                customerBo.UpdateCustomer(customerVo);
+                Session["Customer"] = "Customer";
+                Session[SessionContents.CustomerVo] = customerVo;
+                Session["customerVo"] = customerVo;
+                Session["CustomerVo"] = customerVo;
             }
-            customerVo.Email = txtEmail.Text;
-            customerVo.PANNum = txtPanNumber.Text;
-            customerVo.Adr1Line1 = txtAddress1.Text;
-            customerVo.Adr1Line2 = txtAddress2.Text;
-            if (dpProspectAddDate.SelectedDate != null)
+            catch (Exception ex)
             {
-                customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
+
             }
-            Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
-            Session["customerVo"] = customerVo;
-            Session["CustomerVo"] = customerVo;
-            userVo.Email = txtEmail.Text.ToString();
-            customerPortfolioVo.IsMainPortfolio = 1;
-            customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
-            customerBo.UpdateCustomer(customerVo);
-            Session["Customer"] = "Customer";
-            Session[SessionContents.CustomerVo] = customerVo;
-            Session["customerVo"] = customerVo;
-            Session["CustomerVo"] = customerVo;
 
         }
 
@@ -630,50 +659,71 @@ namespace WealthERP.FP
         /// <returns></returns>
         protected int CreateCustomerForAddProspect(UserVo userVo, RMVo rmVo, int createdById)
         {
-            customerVo = new CustomerVo();
-            List<int> customerIds = new List<int>();
-            customerVo.RmId = rmVo.RMId;
-            customerVo.Type = "IND";
-            customerVo.FirstName = txtFirstName.Text.ToString();
-            customerVo.MiddleName = txtMiddleName.Text.ToString();
-            customerVo.LastName = txtLastName.Text.ToString();
-            userVo.FirstName = txtFirstName.Text.ToString();
-            userVo.MiddleName = txtMiddleName.Text.ToString();
-            userVo.LastName = txtLastName.Text.ToString();
-            customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            if (dpDOB.SelectedDate != null)
-            {
-                customerVo.Dob = dpDOB.SelectedDate.Value;
-            }
-            customerVo.Email = txtEmail.Text;
-            customerVo.IsProspect = 1;
-            customerVo.IsFPClient = 1;
-            customerVo.PANNum = txtPanNumber.Text;
-            customerVo.Adr1Line1 = txtAddress1.Text;
-            customerVo.Adr1Line2 = txtAddress2.Text;
-            if (dpProspectAddDate.SelectedDate != null)
-            {
-                customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
-            }
-            Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
-            userVo.Email = txtEmail.Text.ToString();
-            customerPortfolioVo.IsMainPortfolio = 1;
-            customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
-            customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
-            Session["Customer"] = "Customer";
-            Session[SessionContents.CustomerVo] = customerVo;
-            Session["customerVo"] = customerVo;
-            Session["CustomerVo"] = customerVo;
-            if (customerIds != null)
-            {
-                CustomerFamilyVo familyVo = new CustomerFamilyVo();
-                CustomerFamilyBo familyBo = new CustomerFamilyBo();
-                familyVo.AssociateCustomerId = customerIds[1];
-                familyVo.CustomerId = customerIds[1];
-                familyVo.Relationship = "SELF";
-                familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
-            }
+            
+                customerVo = new CustomerVo();
+                List<int> customerIds = new List<int>();
+                try
+                {
+                    customerVo.RmId = rmVo.RMId;
+                    customerVo.Type = "IND";
+                    customerVo.FirstName = txtFirstName.Text.ToString();
+                    customerVo.MiddleName = txtMiddleName.Text.ToString();
+                    customerVo.LastName = txtLastName.Text.ToString();
+                    userVo.FirstName = txtFirstName.Text.ToString();
+                    userVo.MiddleName = txtMiddleName.Text.ToString();
+                    userVo.LastName = txtLastName.Text.ToString();
+                    customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+                    if (dpDOB.SelectedDate != null)
+                    {
+                        customerVo.Dob = dpDOB.SelectedDate.Value;
+                    }
+                    customerVo.Email = txtEmail.Text;
+                    customerVo.IsProspect = 1;
+                    customerVo.IsFPClient = 1;
+                    customerVo.PANNum = txtPanNumber.Text;
+                    customerVo.Adr1Line1 = txtAddress1.Text;
+                    customerVo.Adr1Line2 = txtAddress2.Text;
+                    customerVo.Adr1City = txtCity.Text;
+                    customerVo.Adr1State = txtState.Text;
+                    customerVo.Adr1Country = txtState.Text;
+                    if (!string.IsNullOrEmpty(txtPinCode.Text))
+                    {
+                        customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
+                    }
+                    if (!string.IsNullOrEmpty(txtMobileNo.Text))
+                    {
+                        customerVo.Mobile1 = Int64.Parse(txtMobileNo.Text);
+                    }
+                    if (dpProspectAddDate.SelectedDate != null)
+                    {
+                        customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
+                    }
+                    
+                    Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
+                    userVo.Email = txtEmail.Text.ToString();
+                    customerPortfolioVo.IsMainPortfolio = 1;
+                    customerPortfolioVo.PortfolioTypeCode = "RGL";
+                    customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
+                    customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
+                    Session["Customer"] = "Customer";
+                    Session[SessionContents.CustomerVo] = customerVo;
+                    Session["customerVo"] = customerVo;
+                    Session["CustomerVo"] = customerVo;
+                    if (customerIds != null)
+                    {
+                        CustomerFamilyVo familyVo = new CustomerFamilyVo();
+                        CustomerFamilyBo familyBo = new CustomerFamilyBo();
+                        familyVo.AssociateCustomerId = customerIds[1];
+                        familyVo.CustomerId = customerIds[1];
+                        familyVo.Relationship = "SELF";
+                        familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            
             return customerIds[1];
 
         }

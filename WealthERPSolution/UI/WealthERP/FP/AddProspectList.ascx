@@ -3,6 +3,15 @@
 <%@ Register TagPrefix="qsf" Namespace="Telerik" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
+
+<script type="text/javascript">
+    function DateCheck() {
+        if (document.getElementById("<%=dpDOB.ClientID%>").value == "") {
+            alert('Please Fill Date of Birth');
+        }
+    }
+</script>
+
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
@@ -11,8 +20,8 @@
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Add Prospect"></asp:Label>
 <hr />
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
-    Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true" Width="100%"
-    Visible="false">
+    Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
+    Width="100%" Visible="false">
     <Items>
         <telerik:RadToolBarButton runat="server" Text="Back" Value="Back" ImageUrl="/Images/Telerik/BackButton.gif"
             ImagePosition="Left" ToolTip="Back">
@@ -96,23 +105,55 @@
                 <asp:Label ID="lblPanNumber" runat="server" Text="PAN Number : " CssClass="FieldName"></asp:Label>
             </td>
             <td align="left">
-                <asp:TextBox ID="txtPanNumber" runat="server" Text="" />
+                <asp:TextBox ID="txtPanNumber" runat="server" Text="" MaxLength="10" />
                 <span id="Span6" class="spnRequiredField">*</span>
             </td>
             <td align="right">
                 <asp:Label ID="lblAddress1" runat="server" Text="Address 1 : " CssClass="FieldName"></asp:Label>
             </td>
             <td align="left">
-                <asp:TextBox ID="txtAddress1" runat="server" Text="" />                
+                <asp:TextBox ID="txtAddress1" runat="server" Text="" />
             </td>
             <td align="right">
                 <asp:Label ID="lblAddress2" runat="server" Text="Address 2 : " CssClass="FieldName"></asp:Label>
             </td>
             <td align="left">
-                <asp:TextBox ID="txtAddress2" runat="server" Text="" />                
+                <asp:TextBox ID="txtAddress2" runat="server" Text="" />
             </td>
         </tr>
         <tr>
+            <td align="right">
+                <asp:Label ID="lblCity" runat="server" Text="City : " CssClass="FieldName"></asp:Label>
+            </td>
+            <td align="left">
+                <asp:TextBox ID="txtCity" runat="server" Text="" />
+            </td>
+            <td align="right">
+                <asp:Label ID="lblState" runat="server" Text="State : " CssClass="FieldName"></asp:Label>
+            </td>
+            <td align="left">
+                <asp:TextBox ID="txtState" runat="server" Text="" />
+            </td>
+            <td align="right">
+                <asp:Label ID="lblCountry" runat="server" Text="Country : " CssClass="FieldName"></asp:Label>
+            </td>
+            <td align="left">
+                <asp:TextBox ID="txtCountry" runat="server" Text="" />
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <asp:Label ID="lblPinCode" runat="server" Text="PinCode : " CssClass="FieldName"></asp:Label>
+            </td>
+            <td align="left">
+                <asp:TextBox ID="txtPinCode" runat="server" Text="" MaxLength="6" />
+            </td>
+            <td align="right">
+                <asp:Label ID="lblMobileNo" runat="server" Text="MobileNo : " CssClass="FieldName"></asp:Label>
+            </td>
+            <td align="left">
+                <asp:TextBox ID="txtMobileNo" runat="server" Text="" MaxLength="10" />
+            </td>
             <td align="right">
                 <asp:Label ID="lblProspectAddDate" runat="server" Text="Prospect Add Date : " CssClass="FieldName"></asp:Label>
             </td>
@@ -125,17 +166,13 @@
                     <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                     <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                     </DateInput>
-                </telerik:RadDatePicker>                
+                </telerik:RadDatePicker>
             </td>
             <td>
             </td>
             <td>
             </td>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>        
+        </tr>
     </table>
 </div>
 <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="false">
@@ -146,12 +183,12 @@
             <telerik:TargetInput ControlID="txtEmail" />
             <telerik:TargetInput ControlID="txtChildFirstName" />
             <telerik:TargetInput ControlID="txtGridEmailId" />
-             <telerik:TargetInput ControlID="txtPanNumber" />
-             <telerik:TargetInput ControlID="dpDOB" />
+            <telerik:TargetInput ControlID="txtPanNumber" />
+            <telerik:TargetInput ControlID="dpDOB" />
         </TargetControls>
         <Validation IsRequired="True"></Validation>
     </telerik:TextBoxSetting>
-    <telerik:DateInputSetting BehaviorID="DateInputBehavior1" Validation-IsRequired="true" 
+    <telerik:DateInputSetting BehaviorID="DateInputBehavior1" Validation-IsRequired="true"
         DateFormat="MM/dd/yyyy">
         <TargetControls>
             <telerik:TargetInput ControlID="dpDOB" />
@@ -164,11 +201,11 @@
             <telerik:TargetInput ControlID="txtEmail" />
             <telerik:TargetInput ControlID="txtGridEmailId" />
         </TargetControls>
-
-<Validation IsRequired="True"></Validation>
+        <Validation IsRequired="True"></Validation>
     </telerik:RegExpTextBoxSetting>
 </telerik:RadInputManager>
-<telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Telerik" EnableEmbeddedSkins="false">
+<telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Telerik"
+    EnableEmbeddedSkins="false">
 </telerik:RadAjaxLoadingPanel>
 <table width="100%" runat="server" id="tblChildCustomer">
     <tr>
@@ -249,9 +286,10 @@
     </tr>
     <tr>
         <td align="center">
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
+                OnClientClick="DateCheck()" />
             &nbsp;<asp:Button ID="btnSubmitAddDetails" runat="server" Text="Add Finance Details"
-                OnClick="btnSubmitAddDetails_Click" />
+                OnClick="btnSubmitAddDetails_Click" OnClientClick="DateCheck()" />
         </td>
     </tr>
 </table>
