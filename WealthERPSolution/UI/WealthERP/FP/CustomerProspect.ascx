@@ -199,7 +199,11 @@
         document.getElementById(tmp4).value = subtotalvalue.toString();
         Total();
     }
-   
+    function DateCheck() {
+        if (document.getElementById("<%=dpDOB.ClientID%>").value == "") {
+            alert('Please Fill Date of Birth');
+        }
+    }
     
 </script>
 
@@ -511,6 +515,38 @@
                             </tr>
                             <tr>
                                 <td align="right">
+                                    <asp:Label ID="lblCity" runat="server" Text="City : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtCity" runat="server" Text="" />
+                                </td>
+                                <td align="right">
+                                    <asp:Label ID="lblState" runat="server" Text="State : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtState" runat="server" Text="" />
+                                </td>
+                                <td align="right">
+                                    <asp:Label ID="lblCountry" runat="server" Text="Country : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtCountry" runat="server" Text="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="lblPinCode" runat="server" Text="PinCode : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtPinCode" runat="server" Text="" MaxLength="6" />
+                                </td>
+                                <td align="right">
+                                    <asp:Label ID="lblMobileNo" runat="server" Text="MobileNo : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtMobileNo" runat="server" Text="" MaxLength="10" />
+                                </td>
+                                <td align="right">
                                     <asp:Label ID="lblProspectAddDate" runat="server" Text="Prospect Add Date : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
@@ -523,10 +559,6 @@
                                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
                                 </td>
                                 <td>
                                 </td>
@@ -1677,7 +1709,7 @@
     </telerik:RadPageView>
 </telerik:RadMultiPage>
 <asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click"
-    Text="Save" Style="height: 26px" />
+    OnClientClick="DateCheck()" Text="Save" Style="height: 26px" />
 <asp:HiddenField ID="totalIncome" runat="server" />
 <asp:HiddenField ID="totalExpense" runat="server" />
 <asp:HiddenField ID="totalLiabilities" runat="server" />

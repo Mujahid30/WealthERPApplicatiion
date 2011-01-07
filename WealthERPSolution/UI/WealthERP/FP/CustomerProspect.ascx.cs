@@ -115,6 +115,18 @@ namespace WealthERP.FP
                         dpDOB.SelectedDate = customerVo.Dob;
                     }
                     txtEmail.Text = customerVo.Email;
+                    txtPanNumber.Text = customerVo.PANNum;
+                    txtAddress1.Text = customerVo.Adr1Line1;
+                    txtAddress2.Text = customerVo.Adr1Line2;
+                    txtMobileNo.Text = customerVo.Mobile1.ToString();
+                    txtPinCode.Text = customerVo.Adr1PinCode.ToString();
+                    txtCity.Text = customerVo.Adr1City;
+                    txtState.Text = customerVo.Adr1State;
+                    txtCountry.Text = customerVo.Adr1Country;
+                    if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
+                    {
+                        dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
+                    }
                     for (int i = 0; i < ddlPickBranch.Items.Count; i++)
                     {
                         if (ddlPickBranch.Items[i].Value == customerVo.BranchId.ToString())
@@ -511,6 +523,25 @@ namespace WealthERP.FP
             customerVo.Email = txtEmail.Text;
             customerVo.IsProspect = 1;
             customerVo.IsFPClient = 1;
+            customerVo.PANNum = txtPanNumber.Text;
+            customerVo.Adr1Line1 = txtAddress1.Text;
+            customerVo.Adr1Line2 = txtAddress2.Text;
+            customerVo.Adr1City = txtCity.Text;
+            customerVo.Adr1State = txtState.Text;
+            customerVo.Adr1Country = txtState.Text;
+            if (!string.IsNullOrEmpty(txtPinCode.Text))
+            {
+                customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
+            }
+            if (!string.IsNullOrEmpty(txtMobileNo.Text))
+            {
+                customerVo.Mobile1 = Int64.Parse(txtMobileNo.Text);
+            }
+            if (dpProspectAddDate.SelectedDate != null)
+            {
+                customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
+            }
+                    
             Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
             userVo.Email = txtEmail.Text.ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
@@ -1112,40 +1143,45 @@ namespace WealthERP.FP
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "MF";
                     assetgroupdetails.Value = 0.0;
-                    if (txtMFEquity.Text != string.Empty)
+                    if (txtMFEquityA.Text != string.Empty)
                     {
-                        assetgroupdetails.Value += double.Parse(txtMFEquity.Text) ;
+                        assetgroupdetails.AdjustedValue += double.Parse(txtMFEquityA.Text);
+                        //assetgroupdetails.Value += double.Parse(txtMFEquity.Text) ;
                     }
-                    else
+
+                    if (txtMFDebtA.Text != string.Empty)
                     {
-                        assetgroupdetails.Value += 0.0;
+                        assetgroupdetails.AdjustedValue += double.Parse(txtMFDebtA.Text);
+                        //assetgroupdetails.Value +=  double.Parse(txtMFDebt.Text);
                     }
-                    if (txtMFDebt.Text != string.Empty)
+
+                    if (txtMFHybridEquityA.Text != string.Empty)
                     {
-                        assetgroupdetails.Value +=  double.Parse(txtMFDebt.Text);
+                        assetgroupdetails.AdjustedValue += double.Parse(txtMFHybridEquityA.Text);
+                        //assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text);
                     }
-                    else
+
+                    if (txtMFHybridDebtA.Text != string.Empty)
                     {
-                        assetgroupdetails.Value += 0.0;
+                        assetgroupdetails.AdjustedValue += double.Parse(txtMFHybridDebtA.Text);
+                        //assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text);
                     }
-                    if (txtMFHybridEquity.Text != string.Empty)
-                    {
-                        assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text);
-                    }
-                    else
-                    {
-                        assetgroupdetails.Value += 0.0;
-                    }
-                    if (txtMFHybridDebt.Text != string.Empty)
-                    {
-                        assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text);
-                    }
-                    else
-                    {
-                        assetgroupdetails.Value += 0.0;
-                    }
+                    
                     assetgroupdetailslist.Add(assetgroupdetails);                    
-                
+                //MF Hybrd Consolidation
+                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                    assetdetailsvo.AssetGroupCode = "MF";
+                    assetdetailsvo.AssetInstrumentCategoryCode = "MFHY";
+                    if (txtMFHybridEquityA.Text != string.Empty)
+                    {
+                        assetdetailsvo.AdjustedValue += double.Parse(txtMFHybridEquityA.Text);                        
+                    }
+
+                    if (txtMFHybridDebtA.Text != string.Empty)
+                    {
+                        assetdetailsvo.AdjustedValue += double.Parse(txtMFHybridDebtA.Text);                        
+                    }
+                    assetdetailsvolist.Add(assetdetailsvo);
                 //==========================================================================================================================
 
                 //Life Insurance
@@ -1252,6 +1288,35 @@ namespace WealthERP.FP
                 assetdetailsvolist.Add(assetdetailsvo);
                 totalli += assetdetailsvo.Value;
 
+                // Insurance Consolidation
+                assetgroupdetails = new CustomerProspectAssetGroupDetails();
+                assetgroupdetails.AssetGroupCode = "IN";
+                assetgroupdetails.Value = 0.0;
+                if (txtTermSA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtTermSA.Text);
+                }
+                if (txtEndowmentSA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtEndowmentSA.Text);
+                }
+                if (txtWholeLifeSA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtWholeLifeSA.Text);
+                }
+                if (txtMoneyBackSA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtMoneyBackSA.Text);
+                }
+                if (txtULIPSA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtULIPSA.Text);
+                }
+                if (txtOthersLISA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtOthersLISA.Text);
+                }
+                assetgroupdetailslist.Add(assetgroupdetails);       
                 //==========================================================================================================================
 
                 //General Insurance
@@ -1264,7 +1329,7 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHM";
                 if (txtHealthInsuranceCoverSA.Text != string.Empty)
                 {
-                    assetdetailssubvo.Value = double.Parse(txtHealthInsuranceCoverSA.Text);
+                    assetdetailssubvo.AdjustedValue = double.Parse(txtHealthInsuranceCoverSA.Text);
                 }
                 if (txtHealthInsuranceCoverP.Text != string.Empty)
                 {
@@ -1282,7 +1347,7 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHO";
                 if (txtPropertyInsuranceCoverSA.Text != string.Empty)
                 {
-                    assetdetailssubvo.Value = double.Parse(txtPropertyInsuranceCoverSA.Text);
+                    assetdetailssubvo.AdjustedValue = double.Parse(txtPropertyInsuranceCoverSA.Text);
                 }
                 if (txtPropertyInsuranceCoverP.Text != string.Empty)
                 {
@@ -1300,7 +1365,7 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIPA";
                 if (txtPersonalAccidentSA.Text != string.Empty)
                 {
-                    assetdetailssubvo.Value = double.Parse(txtPersonalAccidentSA.Text);
+                    assetdetailssubvo.AdjustedValue = double.Parse(txtPersonalAccidentSA.Text);
                 }
                 if (txtPersonalAccidentP.Text != string.Empty)
                 {
@@ -1318,7 +1383,7 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIOT";
                 if (txtOthersGISA.Text != string.Empty)
                 {
-                    assetdetailssubvo.Value = double.Parse(txtOthersGISA.Text);
+                    assetdetailssubvo.AdjustedValue = double.Parse(txtOthersGISA.Text);
                 }
                 if (txtOthersGIP.Text != string.Empty)
                 {
@@ -1327,7 +1392,34 @@ namespace WealthERP.FP
                 assetdetailssubvo.MaturityDate = dpOthersGIMD.SelectedDate;
                 assetdetailssubvolist.Add(assetdetailssubvo);
                 totalgi += assetdetailssubvo.Value;
-
+                
+                //General Insurance Consolidation
+                assetgroupdetails = new CustomerProspectAssetGroupDetails();
+                assetgroupdetails.AssetGroupCode = "GI";
+                assetgroupdetails.Value = 0.0;
+                if (txtHealthInsuranceCoverSA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtHealthInsuranceCoverSA.Text);
+                }
+                if (txtPropertyInsuranceCoverSA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtPropertyInsuranceCoverSA.Text);
+                }
+                if (txtPersonalAccidentSA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtPersonalAccidentSA.Text);
+                }
+                if (txtOthersGISA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtOthersGISA.Text);
+                }
+                assetgroupdetailslist.Add(assetgroupdetails);
+                // General Insurance second Level
+                assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                assetdetailsvo.AssetGroupCode = "GI";
+                assetdetailsvo.AssetInstrumentCategoryCode = "GIRI";
+                assetdetailsvo.AdjustedValue = assetgroupdetails.AdjustedValue;
+                assetdetailsvolist.Add(assetdetailsvo);
                 //==========================================================================================================================
                 //Main total Details Summing up
                 //==========================================================================================================================
@@ -1471,6 +1563,24 @@ namespace WealthERP.FP
                 customerVo.Dob = dpDOB.SelectedDate.Value;
             }
             customerVo.Email = txtEmail.Text;
+            customerVo.PANNum = txtPanNumber.Text;
+            customerVo.Adr1Line1 = txtAddress1.Text;
+            customerVo.Adr1Line2 = txtAddress2.Text;
+            customerVo.Adr1City = txtCity.Text;
+            customerVo.Adr1State = txtState.Text;
+            customerVo.Adr1Country = txtState.Text;
+            if (!string.IsNullOrEmpty(txtPinCode.Text))
+            {
+                customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
+            }
+            if (!string.IsNullOrEmpty(txtMobileNo.Text))
+            {
+                customerVo.Mobile1 = int.Parse(txtMobileNo.Text);
+            }
+            if (dpProspectAddDate.SelectedDate != null)
+            {
+                customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
+            }
             Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
             userVo.Email = txtEmail.Text.ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
