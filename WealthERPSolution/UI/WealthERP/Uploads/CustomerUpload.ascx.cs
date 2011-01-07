@@ -3217,7 +3217,8 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        //ValidationProgress = "Failure";
+                        XmlCreated = false;
+                        ValidationProgress = "Failure";
                     }
                 }
                 #endregion
@@ -3255,7 +3256,8 @@ namespace WealthERP.Uploads
                     }
                     else
                     {
-                        //ValidationProgress = "Failure";
+                        XmlCreated = false;
+                        ValidationProgress = "Failure";
                     }
                 }
                 #endregion
