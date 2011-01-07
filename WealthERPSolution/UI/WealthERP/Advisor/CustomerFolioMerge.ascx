@@ -11,37 +11,29 @@
 
 
 
-    function CheckOtherIsCheckedByGVID(spanChk)
+    function CheckOtherIsCheckedByGVID(spanChk) {
 
-         
-        
+        var IsChecked = spanChk.checked;
+        var CurrentRdbID = spanChk.id;
+        var Chk = spanChk;
+        //var n = document.getElementById("gvCustomerFolioMerge").rows.length;
+        Parent = document.getElementById("<%=gvCustomerFolioMerge.ClientID %>");
+        var items = Parent.getElementsByTagName('input');
+        for (i = 0; i < items.length; i++) {
 
-           {
-               
-                var IsChecked = spanChk.checked;         
-                var CurrentRdbID = spanChk.id;          
-                var Chk = spanChk;
-                //var n = document.getElementById("gvCustomerFolioMerge").rows.length;
-                Parent = document.getElementById("<%=gvCustomerFolioMerge.ClientID %>");
-                var items = Parent.getElementsByTagName('input');  
-                for(i=0;i<items.length;i++)
-              {
-                  
-                  if(items[i].id != CurrentRdbID && items[i].type=="checkbox")
-                  {       
+            if (items[i].id != CurrentRdbID && items[i].type == "checkbox") {
 
-                      if(items[i].checked)
-                      {  
-                         items[i].checked = false;
-                         alert("Please select one customer at a time.");
-                      }
-                      
-                  }
+                if (items[i].checked) {
+                    items[i].checked = false;
+                    alert("Please select one customer at a time.");
+                }
 
-              }
+            }
+
+        }
 
 
-       } 
+    } 
 
               
 
@@ -118,7 +110,7 @@
                         <HeaderTemplate>
                             <asp:Label ID="lblCustomerName" runat="server" Text="Name"></asp:Label>
                             <br />
-                            <asp:TextBox ID="txtCustNameSearch" Width="50%" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_CustomerFolioMerge_btnCustomerSearch');" />
+                            <asp:TextBox ID="txtCustNameSearch" Width="50%" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_AdvisorCustomerAccounts_btnCustomerSearch');" />
                         </HeaderTemplate>
                         <ItemTemplate>
                            <asp:HyperLink ID="hypCustomerName"  runat="server" OnClick="lnkCustomerName_Click" Text='<%# Eval("CustomerName").ToString() %>'>HyperLink</asp:HyperLink>                         
