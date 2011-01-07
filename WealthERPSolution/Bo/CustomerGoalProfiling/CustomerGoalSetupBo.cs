@@ -155,6 +155,7 @@ namespace BoCustomerGoalProfiling
                 requiredSavings = Math.Abs(PMT((rateOfReturn / 12), (requiredAfter * 12), 0, (futureCost - futureInvValue), 0));
                 GoalProfileVo.MonthlySavingsReq = requiredSavings;
                 GoalProfileVo.InflationPercent = (Double)InflationPercent;
+                GoalProfileVo.FutureValueOfCostToday = (Double)futureCost;
 
                 return GoalProfileVo;
             }
@@ -226,7 +227,7 @@ namespace BoCustomerGoalProfiling
                 
                 lumpsumInvestRequired = Math.Abs(PV(newRate, yearsLeft, 0, -(retirementCorpus - futureValue), 0));
                 GoalProfileVo.FutureValueOnCurrentInvest = futureValue;
-                GoalProfileVo.RetirementCorpus = retirementCorpus;
+                GoalProfileVo.FutureValueOfCostToday = retirementCorpus;
                 GoalProfileVo.MonthlySavingsReq = monthlySavings;
                 GoalProfileVo.InflationPercent = InflationPercent;
                 GoalProfileVo.LumpsumInvestRequired = lumpsumInvestRequired;
