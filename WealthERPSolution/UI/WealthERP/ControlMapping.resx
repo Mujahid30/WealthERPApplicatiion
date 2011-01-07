@@ -754,8 +754,8 @@
     <comment>CustomerPortfolio//PortfolioSystematicView.ascx</comment>
   </data>
   <data name="AdvisorCustomerAccounts" xml:space="preserve">
-    <value>Advisor//AdvisorCustomerAccounts.ascx</value>
-    <comment>Advisor//AdvisorCustomerAccounts.ascx</comment>
+    <value>Advisor//CustomerFolioMerge.ascx</value>
+    <comment>Advisor//CustomerFolioMerge.ascx</comment>
   </data>
   <data name="ChangeTempPassword" xml:space="preserve">
     <value>General//ChangeTempPassword.ascx</value>
