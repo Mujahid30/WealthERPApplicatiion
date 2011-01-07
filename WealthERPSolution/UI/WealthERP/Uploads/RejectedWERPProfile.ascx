@@ -199,7 +199,7 @@
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
-                CssClass="PCGButton" OnClientClick="Loading(true);"     />
+                CssClass="PCGLongButton" OnClientClick="Loading(true);"     />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">
