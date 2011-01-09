@@ -41,15 +41,6 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.Label lblCheckAll;
         
         /// <summary>
-        /// lblUncheckAll control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUncheckAll;
-        
-        /// <summary>
         /// chkCover_page control.
         /// </summary>
         /// <remarks>
@@ -201,5 +192,14 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnViewReport;
+        
+        /// <summary>
+        /// btnViewInPDF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewInPDF;
     }
 }

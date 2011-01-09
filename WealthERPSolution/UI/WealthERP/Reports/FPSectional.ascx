@@ -5,35 +5,64 @@
 </asp:ScriptManager>
 <script language="javascript" type="text/javascript">
 
-    function CheckBoxListSelect(state) {
+    function CheckBoxListSelect() {
     var checkAll = document.getElementById("chkCheckAll");
-    var unCheckAll = document.getElementById("chkUncheckAll");   
-    if (unCheckAll.checked == true) {
-        checkAll.checked = false;
-        unCheckAll.checked = false;
-        unCheckAll.disabled = true;
-        checkAll.disabled = false;
+//    var unCheckAll = document.getElementById("chkUncheckAll");   
+//    if (unCheckAll.checked == true) {
+//        checkAll.checked = false;
+//        unCheckAll.checked = false;
+//        unCheckAll.disabled = true;
+//        checkAll.disabled = false;
 
-    } else if (checkAll.checked == true ) {
-        unCheckAll.checked = false;
-        checkAll.checked = false;
-        checkAll.disabled = true;       
-        unCheckAll.disabled = false;
-        
-    }  
-       
+//    } else if (checkAll.checked == true ) {
+//        unCheckAll.checked = false;
+//        checkAll.checked = false;
+//        checkAll.disabled = true;       
+//        unCheckAll.disabled = false;
+//        
+//    }  
+//       
     var chkBoxList = document.getElementById("tblFPsectinal");
     var chkBoxCount = chkBoxList.getElementsByTagName("input");       
     for (var i = 0; i < chkBoxCount.length; i++) {
-        if (state == "false") {            
-            chkBoxCount[i].checked = false;           
+//        if (state == "false") {            
+//            chkBoxCount[i].checked = false;           
+//        }
+//        else
+        //            chkBoxCount[i].checked = true;
+
+        if (checkAll.checked == true) {
+            if (chkBoxCount[i].checked == false) {
+                chkBoxCount[i].checked = true;
+            }
         }
-        else
-            chkBoxCount[i].checked = true;
+        else if (checkAll.checked == false) {
+        if (chkBoxCount[i].checked == true) {
+            chkBoxCount[i].checked = false;
+        }
+        
+        }
     } 
         
-        return false; 
-}
+        return false;
+    }
+
+    function CustomerValidate(type) {
+        if (type == 'pdf') {
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
+        } else {
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=3";
+        }
+
+        setTimeout(function() {
+            window.document.forms[0].target = '';
+            window.document.forms[0].action = "ControlHost.aspx?pageid=FPSectional";
+        }, 500);
+        return true;
+
+    }
  
 </script>
 
@@ -50,10 +79,8 @@
       <td style="width:3%">
       </td> 
       <td >
-      <input id="chkCheckAll"  name="Select All" value="Customer" type="checkbox" onclick="CheckBoxListSelect('true')" />
-       <asp:Label ID="lblCheckAll" class="Field" Text="Check All" runat="server"></asp:Label>
-       &nbsp;&nbsp;<input id="chkUncheckAll"  name="Select All" value="Customer" type="checkbox" onclick="CheckBoxListSelect('false')" />
-       <asp:Label ID="lblUncheckAll" class="Field" Text="Uncheck All" runat="server"></asp:Label>        
+      <input id="chkCheckAll"  name="Select All" value="Customer" type="checkbox" onclick="CheckBoxListSelect()" />
+       <asp:Label ID="lblCheckAll" class="Field" Text="Check All" runat="server"></asp:Label>           
       </td>
       
       <td >
@@ -181,10 +208,12 @@
     </td> 
     <td style="width:50%">
     <asp:Button ID="btnViewReport" runat="server" Text="View Report" 
-     PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" />
+     PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" />&nbsp;&nbsp;
+     <asp:Button ID="btnViewInPDF" runat="server" Text="Export To PDF" OnClientClick="return CustomerValidate('pdf')"
+     PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />
     </td>
     <td style="width:50%">
-    
+     
     </td>
     </tr>
  </table>

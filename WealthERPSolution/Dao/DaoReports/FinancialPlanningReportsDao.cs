@@ -245,7 +245,7 @@ namespace DaoReports
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdCustomerFPReportDetails = db.GetStoredProcCommand("SP_RPT_GetFPReportDetails");
-                //db.AddInParameter(cmdCustomerFPReportDetails, "@AdvisorId", DbType.Int64,DBNull);
+                db.AddInParameter(cmdCustomerFPReportDetails, "@AdvisorId", DbType.Int32,report.advisorId);
                 db.AddInParameter(cmdCustomerFPReportDetails, "@CustomerId", DbType.Int32, report.CustomerId);
                 db.AddOutParameter(cmdCustomerFPReportDetails,"@RiskClass", DbType.String,20);
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@InsuranceSUMAssured", DbType.Decimal, 20);

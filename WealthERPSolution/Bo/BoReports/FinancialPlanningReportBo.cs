@@ -158,15 +158,15 @@ namespace BoReports
 
             if (totalEquity > 0)
             {
-                strInvestment = "Your current investments are Rs" + totalEquity.ToString() + " in equity ,";
+                strInvestment = "Your current investments are Rs " + totalEquity.ToString() + " in equity ,";
             }
             if (totalMF > 0)
             {
-                strInvestment += "Rs" + totalMF.ToString() + " in Mutual Fund, ";
+                strInvestment += "Rs " + totalMF.ToString() + " in Mutual Fund, ";
             }
             if (totalFixedIncome > 0)
             {
-                strInvestment += "Rs" + totalFixedIncome.ToString() + " in FixedIncome";
+                strInvestment += "Rs " + totalFixedIncome.ToString() + " in FixedIncome";
 
             }
             if (totalOther > 0)
@@ -213,14 +213,14 @@ namespace BoReports
             {
                 drCurrentObservation = dtCurrentObservation.NewRow();
                 drCurrentObservation["ObjType"] = "Cash flow";
-                drCurrentObservation["ObjSummary"] = "Your current surplus is Rs" + surplus.ToString() + "per year";
+                drCurrentObservation["ObjSummary"] = "Your current surplus is Rs " + surplus.ToString() + "per year";
                 dtCurrentObservation.Rows.Add(drCurrentObservation);
             }
             if (Math.Abs(lifeProtectionTotal) > 0)
             {
                 drCurrentObservation = dtCurrentObservation.NewRow();
                 drCurrentObservation["ObjType"] = "Protection";
-                drCurrentObservation["ObjSummary"] = "You have Life insurance protection of Rs" + lifeProtectionTotal.ToString();
+                drCurrentObservation["ObjSummary"] = "You have Life insurance protection of Rs " + lifeProtectionTotal.ToString();
                 dtCurrentObservation.Rows.Add(drCurrentObservation);
             }
             if (Math.Abs(totalMF) > 0 || Math.Abs(totalEquity) > 0 || Math.Abs(totalFixedIncome) > 0 || Math.Abs(totalOther) > 0)

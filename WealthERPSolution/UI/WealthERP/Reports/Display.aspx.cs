@@ -68,8 +68,9 @@ namespace WealthERP.Reports
         DataTable dtCashFlows;
         DataTable dtAssetAllocation;
         DataTable dtHLVAnalysis;
+        DataTable dtAdvisorRiskClass;
         string riskClass = string.Empty;
-        double recEquity, recDebt, recCash, currEquity, currDebt, currCash = 0;   
+        double recEquity, recDebt, recCash,recAlternate, currEquity, currDebt, currCash,currAlternate = 0;   
         private ReportType CurrentReportType
         {
             get
@@ -92,7 +93,7 @@ namespace WealthERP.Reports
                     {
                         return ReportType.FinancialPlanning;
                     }
-                    else if (Request.Form["ctrl_FPSectional$btnViewReport"] != null)
+                    else if (Request.Form["ctrl_FPSectional$btnViewReport"] != null || Request.Form["ctrl_FPSectional$btnViewInPDF"] != null)
                     {
                         return ReportType.FinancialPlanningSectional;
                     }
@@ -144,12 +145,14 @@ namespace WealthERP.Reports
                 ctrlPrefix = "ctrl_PortfolioReports$";
             }
             if (Request.Form["ctrl_FinancialPlanningReports$btnView"] != null)
-            {
+            { 
+                
                 CurrentReportType = ReportType.FinancialPlanning;
                 ctrlPrefix = "ctrl_FinancialPlanningReports$";
             }
-            if (Request.Form["ctrl_FPSectional$btnViewReport"] != null)
+            if (Request.Form["ctrl_FPSectional$btnViewReport"] != null || Request.Form["ctrl_FPSectional$btnViewInPDF"] != null)
             {
+                btnSendMail.Visible = false;
                 CurrentReportType = ReportType.FinancialPlanningSectional;
                 ctrlPrefix = "ctrl_FPSectional$";
             }
@@ -167,91 +170,9 @@ namespace WealthERP.Reports
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if (!Page.IsPostBack && CurrentReportType == ReportType.FinancialPlanningSectional)
             {
-                if (Request.Form[ctrlPrefix + "chkCover_page"] == "on")                
-                    chkBoxsList.Add("chkCover_page", "Y");                
-                else
-                    chkBoxsList.Add("chkCover_page", "N");
-
-                if(Request.Form[ctrlPrefix + "chkRM_Messgae"] == "on")
-                    chkBoxsList.Add("chkRM_Messgae", "Y"); 
-                else
-                    chkBoxsList.Add("chkRM_Messgae", "N");
-
-                if (Request.Form[ctrlPrefix + "chkImage"] == "on")
-                    chkBoxsList.Add("Image", "Y"); 
-                else
-                    chkBoxsList.Add("Image", "N");
-
-                if (Request.Form[ctrlPrefix + "chkFPIntroduction"] == "on")
-                    chkBoxsList.Add("FPIntroduction", "Y"); 
-                else
-                    chkBoxsList.Add("FPIntroduction", "N");
-
-                if (Request.Form[ctrlPrefix + "chkProfileSummary"] == "on")
-                    chkBoxsList.Add("ProfileSummary", "Y");
-                else
-                    chkBoxsList.Add("ProfileSummary", "N");
-
-                if (Request.Form[ctrlPrefix + "chkFinancialHealth"] == "on")
-                    chkBoxsList.Add("FinancialHealth", "Y");
-                else
-                    chkBoxsList.Add("FinancialHealth", "N");
-
-                //if (Request.Form[ctrlPrefix + "chkKeyAssumptions"] == "on")
-                //    chkBoxsList.Add("KeyAssumptions", "Y");
-                //else
-                //    chkBoxsList.Add("KeyAssumptions", "N");
-
-                chkBoxsList.Add("KeyAssumptions", "N");
-
-                if (Request.Form[ctrlPrefix + "chkGoalProfile"] == "on")
-                    chkBoxsList.Add("GoalProfile", "Y");
-                else
-                    chkBoxsList.Add("GoalProfile", "N");
-
-                if (Request.Form[ctrlPrefix + "chkIncome_Expense"] == "on")
-                    chkBoxsList.Add("IncomeExpense", "Y");
-                else
-                    chkBoxsList.Add("IncomeExpense", "N");
-
-                if (Request.Form[ctrlPrefix + "chkCash_Flows"] == "on")
-                    chkBoxsList.Add("CashFlows", "Y");
-                else
-                    chkBoxsList.Add("CashFlows", "N");
-
-                if (Request.Form[ctrlPrefix + "chkNetWorthSummary"] == "on")
-                    chkBoxsList.Add("NetWorthSummary", "Y");
-                else
-                    chkBoxsList.Add("NetWorthSummary", "N");
-
-                if (Request.Form[ctrlPrefix + "chkRiskProfile"] == "on")
-                    chkBoxsList.Add("RiskProfile", "Y");
-                else
-                    chkBoxsList.Add("RiskProfile", "N");
-
-                if (Request.Form[ctrlPrefix + "chkInsurance"] == "on")
-                    chkBoxsList.Add("Insurance", "Y");
-                else
-                    chkBoxsList.Add("Insurance", "N");
-
-                if (Request.Form[ctrlPrefix + "chkCurrentObservation"] == "on")
-                    chkBoxsList.Add("CurrentObservation", "Y");
-                else
-                    chkBoxsList.Add("CurrentObservation", "N");
-
-                if (Request.Form[ctrlPrefix + "chkDisclaimer"] == "on")
-                    chkBoxsList.Add("Disclaimer", "Y");
-                else
-                    chkBoxsList.Add("Disclaimer", "N");
-
-                if (Request.Form[ctrlPrefix + "chkNotes"] == "on")
-                    chkBoxsList.Add("Notes", "Y");
-                else
-                    chkBoxsList.Add("Notes", "N");
-
-                ViewState["FPSelectedSectionList"] = chkBoxsList;
+                HideShowFPSection();
             }
 
             DisplayReport();           
@@ -259,6 +180,96 @@ namespace WealthERP.Reports
         }
 
         #region ReporDisplay Methods
+
+
+        private void HideShowFPSection()
+        {
+            //if (Request.Form[ctrlPrefix + "chkCover_page"] == "on")                
+            //    chkBoxsList.Add("chkCover_page", "Y");                
+            //else
+            //    chkBoxsList.Add("chkCover_page", "N");
+            chkBoxsList.Add("chkCover_page", "Y");
+
+            if (Request.Form[ctrlPrefix + "chkRM_Messgae"] == "on")
+                chkBoxsList.Add("chkRM_Messgae", "Y");
+            else
+                chkBoxsList.Add("chkRM_Messgae", "N");
+
+            if (Request.Form[ctrlPrefix + "chkImage"] == "on")
+                chkBoxsList.Add("Image", "Y");
+            else
+                chkBoxsList.Add("Image", "N");
+
+            if (Request.Form[ctrlPrefix + "chkFPIntroduction"] == "on")
+                chkBoxsList.Add("FPIntroduction", "Y");
+            else
+                chkBoxsList.Add("FPIntroduction", "N");
+
+            if (Request.Form[ctrlPrefix + "chkProfileSummary"] == "on")
+                chkBoxsList.Add("ProfileSummary", "Y");
+            else
+                chkBoxsList.Add("ProfileSummary", "N");
+
+            if (Request.Form[ctrlPrefix + "chkFinancialHealth"] == "on")
+                chkBoxsList.Add("FinancialHealth", "Y");
+            else
+                chkBoxsList.Add("FinancialHealth", "N");
+
+            //if (Request.Form[ctrlPrefix + "chkKeyAssumptions"] == "on")
+            //    chkBoxsList.Add("KeyAssumptions", "Y");
+            //else
+            //    chkBoxsList.Add("KeyAssumptions", "N");
+
+            chkBoxsList.Add("KeyAssumptions", "N");
+
+            if (Request.Form[ctrlPrefix + "chkGoalProfile"] == "on")
+                chkBoxsList.Add("GoalProfile", "Y");
+            else
+                chkBoxsList.Add("GoalProfile", "N");
+
+            if (Request.Form[ctrlPrefix + "chkIncome_Expense"] == "on")
+                chkBoxsList.Add("IncomeExpense", "Y");
+            else
+                chkBoxsList.Add("IncomeExpense", "N");
+
+            if (Request.Form[ctrlPrefix + "chkCash_Flows"] == "on")
+                chkBoxsList.Add("CashFlows", "Y");
+            else
+                chkBoxsList.Add("CashFlows", "N");
+
+            if (Request.Form[ctrlPrefix + "chkNetWorthSummary"] == "on")
+                chkBoxsList.Add("NetWorthSummary", "Y");
+            else
+                chkBoxsList.Add("NetWorthSummary", "N");
+
+            if (Request.Form[ctrlPrefix + "chkRiskProfile"] == "on")
+                chkBoxsList.Add("RiskProfile", "Y");
+            else
+                chkBoxsList.Add("RiskProfile", "N");
+
+            if (Request.Form[ctrlPrefix + "chkInsurance"] == "on")
+                chkBoxsList.Add("Insurance", "Y");
+            else
+                chkBoxsList.Add("Insurance", "N");
+
+            if (Request.Form[ctrlPrefix + "chkCurrentObservation"] == "on")
+                chkBoxsList.Add("CurrentObservation", "Y");
+            else
+                chkBoxsList.Add("CurrentObservation", "N");
+
+            if (Request.Form[ctrlPrefix + "chkDisclaimer"] == "on")
+                chkBoxsList.Add("Disclaimer", "Y");
+            else
+                chkBoxsList.Add("Disclaimer", "N");
+
+            if (Request.Form[ctrlPrefix + "chkNotes"] == "on")
+                chkBoxsList.Add("Notes", "Y");
+            else
+                chkBoxsList.Add("Notes", "N");
+
+            ViewState["FPSelectedSectionList"] = chkBoxsList;
+        }
+
 
         /// <summary>
         /// Call the overloaded DisplayReport() method based on ReportType.
@@ -451,6 +462,8 @@ namespace WealthERP.Reports
             double networth = 0;            
 
             string fpImage = "SCBFPImage.jpg";
+            string fpCoverHeaderImage = "FPReportHeader.jpg";
+            string fpCoverFooterImage = "FPReportFooter.jpg";
             string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage);
             //fpSectional = (MFReportVo)Session["reportParams"];
             fpSectional = (FinancialPlanningVo)Session["reportParams"];
@@ -462,8 +475,8 @@ namespace WealthERP.Reports
             dtRTGoalDetails = dsCustomerFPReportDetails.Tables[7];
             dtCashFlows = dsCustomerFPReportDetails.Tables[10];
             dtAssetAllocation = dsCustomerFPReportDetails.Tables[13];
-            dtHLVAnalysis = dsCustomerFPReportDetails.Tables[16];
-            
+            dtHLVAnalysis = dsCustomerFPReportDetails.Tables[17];
+            dtAdvisorRiskClass = dsCustomerFPReportDetails.Tables[16];
            
             crmain.Load(Server.MapPath("FPSectionalReport.rpt"));
             crmain.Subreports["ProfileSummary"].Database.Tables["CustomerFamilyDetails"].SetDataSource(dsCustomerFPReportDetails.Tables[1]);
@@ -478,14 +491,17 @@ namespace WealthERP.Reports
             crmain.Subreports["RiskProfile_PortfolioAllocation"].Database.Tables["AssetAllocation"].SetDataSource(dtAssetAllocation);
             crmain.Subreports["Insurance"].Database.Tables["Insurance"].SetDataSource(dsCustomerFPReportDetails.Tables[14]);
             crmain.Subreports["GeneralInsurance"].Database.Tables["GEInsurance"].SetDataSource(dsCustomerFPReportDetails.Tables[15]);
-            crmain.Subreports["HLVAnalysis"].Database.Tables["HLVAnalysis"].SetDataSource(dsCustomerFPReportDetails.Tables[16]);
-            crmain.Subreports["HLVBasedIncome"].Database.Tables["HLVBasedIncome"].SetDataSource(dsCustomerFPReportDetails.Tables[17]);
-            crmain.Subreports["CurrentObservation"].Database.Tables["Observation"].SetDataSource(dsCustomerFPReportDetails.Tables[18]);
-            crmain.Subreports["FinancialHealth"].Database.Tables["FinancialHealth"].SetDataSource(dsCustomerFPReportDetails.Tables[19]);
+            crmain.Subreports["HLVAnalysis"].Database.Tables["HLVAnalysis"].SetDataSource(dsCustomerFPReportDetails.Tables[17]);
+            crmain.Subreports["HLVBasedIncome"].Database.Tables["HLVBasedIncome"].SetDataSource(dsCustomerFPReportDetails.Tables[18]);
+            crmain.Subreports["CurrentObservation"].Database.Tables["Observation"].SetDataSource(dsCustomerFPReportDetails.Tables[19]);
+            crmain.Subreports["FinancialHealth"].Database.Tables["FinancialHealth"].SetDataSource(dsCustomerFPReportDetails.Tables[20]);
             setLogo();
             if (!File.Exists(logoPath))
                 fpImage = "spacer.png";
             crmain.Subreports["Image"].Database.Tables["ImageSection"].SetDataSource(ImageSectionTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage)));
+
+            crmain.Subreports["CoverPage"].Database.Tables["CoverPage"].SetDataSource(CreateCoverPageImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpCoverHeaderImage), System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpCoverFooterImage)));
+                        
             AssignReportViewerProperties();
             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
             crmain.SetParameterValue("Asset", Math.Round(double.Parse(asset.ToString()),2).ToString());
@@ -536,6 +552,27 @@ namespace WealthERP.Reports
             else
                 crmain.SetParameterValue("SurpressNetworthSummary", "0");
             
+            if (dsCustomerFPReportDetails.Tables[1].Rows.Count > 0)
+            {
+                crmain.SetParameterValue("SurpressFamilyDetails", "1");
+            }
+            else
+                 crmain.SetParameterValue("SurpressFamilyDetails", "0");
+
+            if (dsCustomerFPReportDetails.Tables[14].Rows.Count > 0)
+            {
+                crmain.SetParameterValue("SurpressInsurance", "1");
+            }
+            else
+                crmain.SetParameterValue("SurpressInsurance", "0");
+
+            if (dsCustomerFPReportDetails.Tables[15].Rows.Count > 0)
+            {
+                crmain.SetParameterValue("SurpressGEInsurance", "1");
+            }
+            else
+                crmain.SetParameterValue("SurpressGEInsurance", "0");
+
             if (ViewState["FPSelectedSectionList"] != null)
             {
                 chkBoxsList = (Dictionary<string, string>)ViewState["FPSelectedSectionList"];
@@ -694,8 +731,13 @@ namespace WealthERP.Reports
 
             }
 
-            AssignFPReportTextParameter();               
-            
+            AssignFPReportTextParameter();
+
+            if (Request.QueryString["mail"] == "2")
+            {
+                ExportInPDF();
+
+            }
         }
         public static DataTable ImageSectionTable(string ImageFile)
         {
@@ -720,6 +762,42 @@ namespace WealthERP.Reports
                 row[0] = new byte[] { 0 };
                 data.Rows.Add(row);
             }
+
+
+            return data;
+        }
+
+        public static DataTable CreateCoverPageImageTable(string headerImage,string footerImage)
+        {
+            DataTable data = new DataTable();
+            DataRow row;
+            data.TableName = "CoverPage";
+            data.Columns.Add("HeaderImage", System.Type.GetType("System.Byte[]"));
+            data.Columns.Add("FooterImage", System.Type.GetType("System.Byte[]"));
+            row = data.NewRow();
+            if (headerImage != string.Empty)
+            {
+                FileStream fs = new FileStream(headerImage, FileMode.Open);
+                BinaryReader br = new BinaryReader(fs);
+                row[0] = br.ReadBytes((int)br.BaseStream.Length);
+
+                FileStream fs1 = new FileStream(footerImage, FileMode.Open);
+                BinaryReader br1= new BinaryReader(fs1);
+                row[1] = br1.ReadBytes((int)br1.BaseStream.Length);
+
+                data.Rows.Add(row);
+                br = null;
+                br1 = null;
+                fs.Close();
+                fs = null;
+                br1 = null;
+                fs1.Close();
+            }
+            else
+            {
+                row[0] = new byte[] { 0 };
+                data.Rows.Add(row);
+            }           
 
 
             return data;
@@ -756,6 +834,7 @@ namespace WealthERP.Reports
             string strNetWorthOpeningLine = string.Empty;
             string strNetWorthSummary = string.Empty;
             string strRiskClassDescription = string.Empty;
+            string[] strRiskClassInfoLines; 
             string strRiskProfileText = string.Empty;
             string[] strRiskClassLines;
             string strRiskProfileAssetAllocationText = string.Empty;
@@ -979,7 +1058,7 @@ namespace WealthERP.Reports
                      {
                          if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
                          {
-                             strOtherGoalText=strOtherGoalText.Replace("#BuyHomeGoalTotal#", dr["MonthyTotal"].ToString());
+                             strOtherGoalText = strOtherGoalText.Replace("#BuyHomeGoalTotal#", convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString())).ToString());
                          }
                       break;
 
@@ -988,7 +1067,7 @@ namespace WealthERP.Reports
                      {
                          if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
                          {
-                            strOtherGoalText= strOtherGoalText.Replace("#ChildEducationGoalTotal#", dr["MonthyTotal"].ToString());
+                            strOtherGoalText= strOtherGoalText.Replace("#ChildEducationGoalTotal#",convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString())).ToString());
                          }
                          break;
 
@@ -997,7 +1076,7 @@ namespace WealthERP.Reports
                      {
                          if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
                          {
-                             strOtherGoalText=strOtherGoalText.Replace("#ChildMarriageGoalTotal#", dr["MonthyTotal"].ToString());
+                             strOtherGoalText=strOtherGoalText.Replace("#ChildMarriageGoalTotal#",convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString())).ToString());
                          }
                          break;
 
@@ -1006,7 +1085,7 @@ namespace WealthERP.Reports
                      {
                          if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
                          {
-                             strOtherGoalText=strOtherGoalText.Replace("#OtherGoalTotal#", dr["MonthyTotal"].ToString());
+                             strOtherGoalText = strOtherGoalText.Replace("#OtherGoalTotal#", convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString())).ToString());
                          }
                          break;
 
@@ -1027,7 +1106,7 @@ namespace WealthERP.Reports
                         double rtGapValues = 0;
                         double monthlySavingsRequired = 0;
                         int goalyear = 0;
-                        int.TryParse(dtRTGoalDetails.Rows[0]["FVofCostToday"].ToString(),out goalyear);
+                        int.TryParse(dtRTGoalDetails.Rows[0]["GoalYear"].ToString(), out goalyear);
                         double.TryParse(dtRTGoalDetails.Rows[0]["FVofCostToday"].ToString(), out retCorps);
                         //double.TryParse(dtRTGoalDetails.Rows[0]["FVofCostToday"].ToString(), out fvCostOfToday);
                         double.TryParse(dtRTGoalDetails.Rows[0]["CurrentInvestment"].ToString(), out currentInvestment);
@@ -1040,7 +1119,7 @@ namespace WealthERP.Reports
                 {
                     if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RetirementCorpus#")
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, retCorps.ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(retCorps).ToString());
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTGoalYear#")
                     {
@@ -1048,7 +1127,7 @@ namespace WealthERP.Reports
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTCurrentInvestment#" && currentInvestment != 0)
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, currentInvestment.ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(currentInvestment).ToString());
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTEarnedPercentage#" && currentInvestment != 0)
                     {
@@ -1056,19 +1135,19 @@ namespace WealthERP.Reports
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTFVOnCurrentInvestment#" && currentInvestment != 0)
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, fvOnCurrentInvest.ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(fvOnCurrentInvest).ToString());
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RetirementCorpus# ")
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, rtGapValues.ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(rtGapValues).ToString());
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RetirementGoalMonthlySavings#")
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, monthlySavingsRequired.ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(monthlySavingsRequired).ToString());
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTGapValues#")
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, rtGapValues.ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(rtGapValues).ToString());
                     }
 
                 }
@@ -1121,7 +1200,7 @@ namespace WealthERP.Reports
             {
                 if (dr["CashCategory"].ToString() == "Annual Surplus")
                 {
-                    strCashFlowsText = strCashFlowsText.Replace("#AnnualSurplus#", dr["Amount"].ToString());
+                    strCashFlowsText = strCashFlowsText.Replace("#AnnualSurplus#", convertTo2Decimal(double.Parse(dr["Amount"].ToString())).ToString());
                 }
  
             }
@@ -1153,7 +1232,12 @@ namespace WealthERP.Reports
                 {
                     recCash = double.Parse(dr["RecommendedPercentage"].ToString());
                     currCash = double.Parse(dr["CurrentPercentage"].ToString());
-                }              
+                }
+                else if (dr["Class"].ToString() == "Alternate")
+                {
+                    recAlternate = double.Parse(dr["RecommendedPercentage"].ToString());
+                    currAlternate = double.Parse(dr["CurrentPercentage"].ToString());
+                } 
                 
             }
 
@@ -1185,6 +1269,16 @@ namespace WealthERP.Reports
                         strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recCash.ToString());
 
                     }
+                    else if (pair.Key.Trim() == "#CurrAlternate#")
+                    {
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recAlternate.ToString());
+
+                    }
+                    else if (pair.Key.Trim() == "#RecAlternate#")
+                    {
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currAlternate.ToString());
+
+                    }
                     else if (pair.Key.Trim() == "#RecCashLessMore#")
                     {
                         if (currCash > recCash)
@@ -1198,6 +1292,90 @@ namespace WealthERP.Reports
                         
 
                     }
+                }
+            }
+            strRiskClassInfoLines = strRiskClassDescription.Split('~');
+            strRiskClassDescription = string.Empty;
+            DataRow drRiskClass = dtAdvisorRiskClass.NewRow();
+            foreach (string str in strRiskClassInfoLines)
+            {
+                if (str.Contains("html"))
+                {
+                    strRiskClassDescription = strRiskClassDescription + str;
+                }
+                else
+                {
+                    foreach (DataRow dr in dtAdvisorRiskClass.Rows)
+                    {                        
+                        
+                        switch (dr["RiskCode"].ToString().Trim())
+                        {
+                            case "AG":
+                                {
+                                    if (str.Contains("Aggressive"))
+                                    {
+                                        strRiskClassDescription = strRiskClassDescription + str;
+                                        drRiskClass = dr;
+                                    }
+                                    break;
+
+                                }
+                            case "CN":
+                                {
+                                    if (str.Contains("Conservative"))
+                                    {
+                                        strRiskClassDescription = strRiskClassDescription + str;
+                                        drRiskClass = dr;
+                                    }
+                                    break;
+
+                                }
+                            case "MA":
+                                {
+                                    if (str.Contains("Moderately Aggressive"))
+                                    {
+                                        strRiskClassDescription = strRiskClassDescription + str;
+                                        drRiskClass = dr;
+                                    }
+                                    break;
+
+                                }
+                            case "MD":
+                                {
+                                    if (str.Contains("Moderate"))
+                                    {
+                                        strRiskClassDescription = strRiskClassDescription + str;
+                                        drRiskClass = dr;
+                                    }
+                                    break;
+
+                                }
+                            case "RA":
+                                {
+                                    if (str.Contains("Averse"))
+                                    {
+                                        strRiskClassDescription = strRiskClassDescription + str;
+                                        drRiskClass = dr;
+                                    }
+                                    break;
+
+                                }
+                            case "VA":
+                                {
+                                    if (str.Contains("Very Aggressive"))
+                                    {
+                                        strRiskClassDescription = strRiskClassDescription + str;
+                                        drRiskClass = dr;
+                                    }
+                                    break;
+
+                                }
+                            default:
+                                break;
+                        }
+                    }
+                    if (drRiskClass.Table.Rows.Count!=0)
+                    dtAdvisorRiskClass.Rows.Remove(drRiskClass);
                 }
             }
 
@@ -1227,7 +1405,11 @@ namespace WealthERP.Reports
             
 
         }
-
+        private double convertTo2Decimal(double value)
+        {
+            value = Math.Round(value, 2);
+            return value;
+        }
         /// <summary>
         /// If there is no records to display in report , then hide the controls on page.
         /// </summary>
@@ -1922,12 +2104,16 @@ namespace WealthERP.Reports
                     //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                     crmain.SetParameterValue("RMContactDetails", "E-mail: " + advisorVo.Email);
                     crmain.SetParameterValue("MobileNo", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
-                    if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && !string.IsNullOrEmpty(advisorVo.City.Trim()))
-                    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim() + " " + advisorVo.City.Trim());
-                    else if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && string.IsNullOrEmpty(advisorVo.City.Trim()))
+
+                    if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && !string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
+                        crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim() + " " + customerVo.Adr1City.Trim());
+                    else if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
                         crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim());
-                    else if (!string.IsNullOrEmpty(advisorVo.City.Trim()) && string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
-                        crmain.SetParameterValue("CustomerAddress", advisorVo.City.Trim());
+                    else if (!string.IsNullOrEmpty(customerVo.Adr1City.Trim()) && string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
+                        crmain.SetParameterValue("CustomerAddress", customerVo.Adr1City.Trim());
+                    else
+                        crmain.SetParameterValue("CustomerAddress", "");
+
                     crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
                     crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
                
@@ -2058,6 +2244,7 @@ namespace WealthERP.Reports
                 else
                     financialPlanning.isProspect = 0;
                 financialPlanning.CustomerId = customerVo.CustomerId.ToString();
+                financialPlanning.advisorId = advisorVo.advisorId;
 
                     Session["reportParams"] = financialPlanning;
             }
