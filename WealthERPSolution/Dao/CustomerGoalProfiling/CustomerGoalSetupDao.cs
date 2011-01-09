@@ -362,6 +362,8 @@ namespace DaoCustomerGoalProfiling
                         GoalProfileVo.ChildName = dr["ChildName"].ToString();
                         GoalProfileVo.CostOfGoalToday = double.Parse(dr["CG_CostToday"].ToString());
                         GoalProfileVo.MonthlySavingsReq = double.Parse(dr["CG_MonthlySavingsRequired"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CG_FVofCostToday"].ToString()))
+                        GoalProfileVo.FutureValueOfCostToday = double.Parse(dr["CG_FVofCostToday"].ToString());                        
                         GoalProfileVo.GoalProfileDate = DateTime.Parse(dr["CG_GoalProfileDate"].ToString());
                         GoalProfileVo.GoalYear = int.Parse(dr["CG_GoalYear"].ToString());
                         GoalProfileVo.IsActice = int.Parse(dr["CG_IsActive"].ToString());

@@ -18,13 +18,12 @@
         if (document.getElementById("<%=txtROIFutureInvest.ClientID %>") != null)
             RetirementCorps = document.getElementById("<%=txtROIFutureInvest.ClientID %>").value;
 
-        var aboveRateOfInterest = document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value;
-        var CurrentInvestPurpose = document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').value;
 
-        if (parseInt(CurrentInvestPurpose) == 0 && parseInt(aboveRateOfInterest) > 0) {
-            alert("Fill correct investment amount")
-            return false;
-        }
+
+//        if (parseInt(CurrentInvestPurpose) == 0 && parseInt(aboveRateOfInterest) > 0) {
+//            alert("Fill correct investment amount")
+//            return false;
+//        }
 
 
         if (document.getElementById('<%=txtGoalCostToday.ClientID %>').value == "") {
@@ -59,12 +58,7 @@
             return true;
 
     }
-    
-    function SetROI() {
-        if (document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').value > 0)
-            document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value = "8.5";
-
-    };
+ 
     function checkDate(sender, args) {
 
         var selectedDate = new Date();
@@ -101,8 +95,6 @@
         var Stringvalue = document.getElementById("<%= txtGoalCostToday.ClientID %>").value;
         if (!/\D/.test(Stringvalue)) return true; //IF NUMBER
         else if (/^\d+\.\d+$/.test(Stringvalue)) return true; //IF A DECIMAL NUMBER HAVING AN INTEGER ON EITHER SIDE OF THE DOT(.)
-        else
-            document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value = "";
         alert("Warning! - Must be a Number or Numeric value");
     };
     function ShowImage() {
@@ -441,7 +433,7 @@
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please Select Goal Year"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
-                <tr>
+                <%--<tr>
                     <td class="leftField">
                         <asp:Label ID="lblCurrentInvestPurpose" runat="server" CssClass="FieldName" Text="Current Investment for the purpose :"></asp:Label>
                     </td>
@@ -475,7 +467,7 @@
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4"    Display="Dynamic" runat="server" ControlToValidate="txtAboveRateOfInterst"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
-                </tr>
+                </tr>--%>
                 <tr>
                     <td class="leftField">
                       <nobr>  <asp:Label ID="ExpRateOfReturn" runat="server" CssClass="FieldName" Text="Expected Rate of Return on new investment(%) : "></asp:Label></nobr>
@@ -646,6 +638,13 @@
                                             ForeColor="White" Text="">
                                         </asp:Label>
                                     </FooterTemplate>
+                                </asp:TemplateField>
+                                  <asp:TemplateField HeaderText="Gaol Amount(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblGaolAmount" runat="server" CssClass="GridViewCmbField" 
+                                            Text='<%#Eval("GoalAmount")%>'>
+                                        </asp:Label>
+                                    </ItemTemplate>                                   
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Calculated On">
                                     <ItemTemplate>
