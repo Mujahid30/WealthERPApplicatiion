@@ -340,7 +340,7 @@
                                             <tr>
                                                 <td>
                                                     <asp:Menu ID="RMMenu" runat="server" Orientation="Horizontal" BorderStyle="Solid"
-                                                        BorderWidth="2px" CssClass="MenuEX" OnMenuItemClick="RMMenu_MenuItemClick">
+                                                        BorderWidth="2px" CssClass="MenuEX">
                                                         <%--OnMenuItemClick="RMMenu_MenuItemClick"--%>
                                                         <LevelMenuItemStyles>
                                                             <asp:MenuItemStyle CssClass="level1" />
@@ -445,7 +445,7 @@
                                             <tr>
                                                 <td>
                                                     <asp:Menu ID="BMMenu" runat="server" Orientation="Horizontal" BorderStyle="Solid"
-                                                        BorderWidth="2px" CssClass="MenuEX" OnMenuItemClick="BMMenu_MenuItemClick">
+                                                        BorderWidth="2px" CssClass="MenuEX">
                                                         <%--OnMenuItemClick="RMCLientMenu_MenuItemClick"--%>
                                                         <LevelMenuItemStyles>
                                                             <asp:MenuItemStyle CssClass="level1" />

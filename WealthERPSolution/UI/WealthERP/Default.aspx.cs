@@ -20,6 +20,7 @@ namespace WealthERP
     {
         string logoPath = "";
         string branchLogoPath = "";
+        UserVo userVo = new UserVo();
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -33,7 +34,6 @@ namespace WealthERP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            UserVo userVo = new UserVo();
             RMVo rmVo = new RMVo();
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             try
@@ -258,24 +258,25 @@ namespace WealthERP
         {
             if (e.Item.Value == "Home")
             {
-                e.Item.NavigateUrl = "javascript:loadfrommenu('IFAAdminMainDashboard','login')";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
-            }
-        }
-        protected void RMMenu_MenuItemClick(object sender, MenuEventArgs e)
-        {
-            if (e.Item.Value == "Home")
-            {
-                e.Item.NavigateUrl = "javascript:loadfrommenu('RMDashBoard','login')";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
-            }
-        }
-        protected void BMMenu_MenuItemClick(object sender, MenuEventArgs e)
-        {
-            if (e.Item.Value == "Home")
-            {
-                e.Item.NavigateUrl = "javascript:loadfrommenu('BMDashBoard','login')";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+                if (userVo.RoleList.Contains("Admin"))
+                {
+                    e.Item.NavigateUrl = "javascript:loadfrommenu('IFAAdminMainDashboard','login')";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+                }
+                else if (userVo.RoleList.Contains("BM"))
+                {
+                    e.Item.NavigateUrl = "javascript:loadfrommenu('BMDashBoard','login')";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+                }
+                else if (userVo.RoleList.Contains("RM"))
+                {
+                    e.Item.NavigateUrl = "javascript:loadfrommenu('RMDashBoard','login')";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+                }
+                else
+                {
+                    e.Item.NavigateUrl = "javascript:loadfrommenu('AdvisorRMCustIndiDashboard','login')";
+                }
             }
         }
         
