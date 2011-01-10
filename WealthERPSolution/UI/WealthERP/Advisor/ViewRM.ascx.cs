@@ -491,9 +491,10 @@ namespace WealthERP.Advisor
                 int selectedRow = gvr.RowIndex;
                 userId = int.Parse(gvRMList.DataKeys[selectedRow].Value.ToString());
                 Session["userId"] = userId;
-                rmVo = advisorStaffBo.GetAdvisorStaff(userId);
-                Session["rmVo"] = rmVo;
+                //rmVo = advisorStaffBo.GetAdvisorStaff(userId);
+                //Session["rmVo"] = rmVo;
                 menu = MyDropDownList.SelectedItem.Value.ToString();
+                Session["S_CurrentUserRole"] = "RM";
                 if (menu == "Edit Profile")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','none');", true);

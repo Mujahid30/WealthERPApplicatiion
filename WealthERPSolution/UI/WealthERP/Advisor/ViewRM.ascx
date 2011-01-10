@@ -60,7 +60,7 @@
                                    <%-- <asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>--%>
                                     <asp:ListItem Text="View profile" Value="View profile">View profile</asp:ListItem>
                                      <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
-                                    <asp:ListItem Text="RM Dashboard" Value="RM Dashboard">RM Dashboard</asp:ListItem>
+                                    <%--<asp:ListItem Text="RM Dashboard" Value="RM Dashboard">RM Dashboard</asp:ListItem>--%>
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>
