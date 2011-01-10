@@ -682,7 +682,7 @@ ul.tabbernav li.tabberactive a:hover
 }
  .ajax__tab_body
   {
-      background-color:#F1F9FC !important;
+      background-color: #E7DFFF !important;
   }
   
   /* AutoComplete item */
@@ -865,6 +865,7 @@ p.tip
     position: absolute; z-index: 100001; left: 280px; top: 35px !important; 
     
 }
+
 
 
 /* End */

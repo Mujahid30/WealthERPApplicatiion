@@ -681,7 +681,7 @@ ul.tabbernav li.tabberactive a:hover
 }
  .ajax__tab_body
   {
-      background-color:#F1F9FC !important;
+      background-color: #F2FAFD !important;
   }
   
   /* AutoComplete item */
