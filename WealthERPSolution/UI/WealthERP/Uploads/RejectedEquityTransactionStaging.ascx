@@ -55,7 +55,9 @@
             &nbsp;
         </td>
     </tr>
-    <table width="100%">
+    <tr style="width: 100%">
+    <td>
+     <table width="100%">
     <tr>
         <td align="center">
             <div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
@@ -65,7 +67,12 @@
         </td>
     </tr>
 </table>
-<table width="100%">
+    </td>
+    </tr>
+    
+    <tr style="width: 100%">
+    <td>
+    <table width="100%">
     <tr>
         <td align="center">
             <div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
@@ -74,9 +81,13 @@
             </div>
         </td>
     </tr>
-</table>
+  </table>
+    </td>
+    </tr>
+   
+
     <tr>
-        <td class="leftField">
+        <td align="right">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
@@ -172,7 +183,7 @@
                     <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:f4}"
                         ItemStyle-HorizontalAlign="Right" />
                     <asp:TemplateField  HeaderStyle-Width = "40">
-                        <HeaderTemplate >
+                        <HeaderTemplate>
                             <asp:Label ID="lblTransactionType" runat="server" Text="Transaction Type"></asp:Label>
                             <%--<asp:TextBox ID="txtTransactionTypeSearch"   Text='<%# hdnTransactionTypeFilter.Value %>'   runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedEquityTransactionStaging_btnGridSearch');" />--%>
                             <asp:DropDownList ID="ddlTransactionType" Width = "60" runat="server" AutoPostBack="true" runat="server" CssClass="cmbLongField"
