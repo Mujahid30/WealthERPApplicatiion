@@ -130,11 +130,11 @@
         </td>
     </tr>--%>
 </table>
-<table width="100%">
+<table width="100%"  >
     <tr>
         <td>
             <ajaxtoolkit:tabcontainer id="tabRiskProfilingAndAssetAllocation" runat="server"
-                activetabindex="1" width="100%" style="visibility: visible">
+                activetabindex="1" width="100%" style="visibility: visible;">
                 <ajaxToolkit:TabPanel ID="tabRiskProfiling" runat="server" HeaderText="Risk Profiling"
                     Visible="true">
                     <HeaderTemplate>
@@ -171,10 +171,10 @@
                             </tr>
                             <tr id="trRiskProfilingParagraph" runat="server">
                                
-                                  <td width="100%" colspan="6">                    
+                                  <td width="100%" colspan="6" runat="server">                    
                                                                 
-                                    <asp:Label ID="lblRiskProfilingParagraph" runat="server" CssClass="GridViewCmbField" style="white-space:inherit" Text="">
-                                    </asp:Label>
+                                    <asp:Label ID="lblRiskProfilingParagraph" runat="server" 
+                                          CssClass="GridViewCmbField" style="white-space:inherit"></asp:Label>
                                                
                                 <br />
                                </td> 
@@ -210,227 +210,120 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <table width="100%">
-                            
-                            <tr>
-                                <td>
-                                    <asp:Label ID="lblAge" runat="server" CssClass="FieldName" Text="Based on Customer profile Age is "></asp:Label>
-                                    <asp:Label ID="lblAgeResult" runat="server" CssClass="FieldName"></asp:Label>
-                                </td>                           
-                                <td align="right" colspan="2">
-                                    <asp:Label ID="lblApprovedByCustomerOn" runat="server" Text="Approved By Customer On : "
-                                        CssClass="FieldName"></asp:Label>                                
-                                </td>
-                                <td>
-                                    <asp:TextBox ID="txtApprovedByCustomerOn" runat="server" CssClass="Field"></asp:TextBox>
-                                    <ajaxToolkit:CalendarExtender ID="calApprovedByCustomerOn" runat="server" Enabled="True"
-                                        Format="dd/MM/yyyy" TargetControlID="txtApprovedByCustomerOn">
-                                    </ajaxToolkit:CalendarExtender>
-                                    <ajaxToolkit:TextBoxWatermarkExtender ID="txtApprovedByCustomerOn_WaterMarkText"
-                                        runat="server" Enabled="True" TargetControlID="txtApprovedByCustomerOn" WatermarkText="dd/mm/yyyy">
-                                    </ajaxToolkit:TextBoxWatermarkExtender>
-                                </td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <asp:Label ID="lblRiskClass" runat="server" CssClass="FieldName" Text="Based on  Risk Assessment Customer Risk class is "></asp:Label>                                
-                                    <asp:Label ID="lblRClassRs" runat="server" CssClass="FieldName"></asp:Label><asp:Label
-                                        ID="lblRiskScore" runat="server" Text="  &  Risk Score is  " CssClass="FieldName"></asp:Label>
-                                    <asp:Label ID="lblRscoreAA" runat="server" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <asp:Label ID="lblChartErrorDisplay" runat="server" Text="No Age to display chart. Fill Date of Birth!"
-                                        Visible="False"></asp:Label>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                                <tr>
-                                <td>
-                                    <asp:Chart ID="cActualAsset" runat="server" Height="165px" Width="214px">
-                                        <Series>
-                                            <asp:Series ChartArea="caActualAsset" Name="sActualAsset">
-                                            </asp:Series>
-                                        </Series>
-                                        <ChartAreas>
-                                            <asp:ChartArea Name="caActualAsset">
-                                            </asp:ChartArea>
-                                        </ChartAreas>
-                                    </asp:Chart>
-                                </td>
-                                <td colspan="2">
-                                    <table id="tblRecommended" runat="server">
-                                    
-                                        <tr id="Tr2" runat="server">
-                                            <td id="Td4" runat="server" align="center" colspan="2">
-                                                <asp:Label ID="lblRecommended" runat="server" CssClass="HeaderTextSmaller" Text="Recommended Asset Allocation"></asp:Label>
-                                            </td>
-                                        </tr>
-                                        <tr><td colspan="2">
-                                        <asp:GridView ID="gvRecommendedAssetAllocation" runat="server" CellPadding="4" CssClass="GridViewStyle"
-                Width="100%" AutoGenerateColumns="False" DataKeyNames="AssetTypeCode" Style="margin-bottom: 0px">
-                <RowStyle CssClass="RowStyle" />
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>                   
-                   <asp:BoundField DataField="AssetType" HeaderText="Asset" />
-                    <asp:BoundField DataField="Percentage" HeaderText="Percentage" />
-                </Columns>
-            </asp:GridView>
-                                        </td></tr>
-                                        <tr id="Tr3" runat="server">
-                                            <td id="Td5" runat="server" align="right">
-                                                <asp:Label ID="lblRecommendedEquity" runat="server" CssClass="FieldName" Text="Equity:"></asp:Label>
-                                            </td>
-                                            <td id="Td6" runat="server">
-                                                <asp:TextBox ID="txtRecommendedEquity" runat="server" CssClass="Field" 
-                                                    ReadOnly="True"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr id="Tr4" runat="server">
-                                            <td id="Td7" runat="server" align="right">
-                                                <asp:Label ID="lblRecommendedDebt" runat="server" CssClass="FieldName" Text="Debt:"></asp:Label>
-                                            </td>
-                                            <td id="Td8" runat="server">
-                                                <asp:TextBox ID="txtRecommendedDebt" runat="server" CssClass="Field" 
-                                                    ReadOnly="True"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr id="Tr5" runat="server">
-                                            <td id="Td9" runat="server" align="right">
-                                                <asp:Label ID="lblRecommendedCash" runat="server" CssClass="FieldName" Text="Cash:"></asp:Label>
-                                            </td>
-                                            <td id="Td10" runat="server">
-                                                <asp:TextBox ID="txtRecommendedCash" runat="server" CssClass="Field" 
-                                                    ReadOnly="True"></asp:TextBox>
-                                                
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            
-                                <tr id="trCurrentAssetAllocation" runat="server">
-                                <td>
-                                    <asp:Chart ID="ChartCurrentAsset" runat="server" Height="165px" Width="214px">
-                                        <Series>
-                                            <asp:Series ChartArea="caActualAsset" Name="sActualAsset">
-                                            </asp:Series>
-                                        </Series>
-                                        <ChartAreas>
-                                            <asp:ChartArea Name="caActualAsset">
-                                            </asp:ChartArea>
-                                        </ChartAreas>
-                                    </asp:Chart>
-                                </td>
-                                <td colspan="2">
-                                    <table id="tblCurrent" runat="server">
-                                        <tr id="Tr6" runat="server">
-                                            <td id="Td11" runat="server" align="center" colspan="2">
-                                                <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmaller" Text="Current Asset Allocation"></asp:Label>
-                                            </td>
-                                        </tr>
-                                        <tr><td colspan="2"><asp:GridView ID="gvCurrentAssetAllocation" runat="server" CellPadding="4" CssClass="GridViewStyle"
-                Width="100%" AutoGenerateColumns="False" Style="margin-bottom: 0px">
-                <RowStyle CssClass="RowStyle" />
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>                   
-                   <asp:BoundField DataField="AssetType" HeaderText="Asset" />
-                    <asp:BoundField DataField="Percentage" HeaderText="Percentage" />
-                </Columns>
-            </asp:GridView></td></tr>
-                                        <tr id="Tr7" runat="server">
-                                            <td id="Td12" runat="server" align="right">
-                                                <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Equity:"></asp:Label>
-                                            </td>
-                                            <td id="Td13" runat="server">
-                                                <asp:TextBox ID="txtCurrentEquity" runat="server" CssClass="Field" 
-                                                    ReadOnly="True"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr id="Tr8" runat="server">
-                                            <td id="Td14" runat="server" align="right">
-                                                <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Debt:"></asp:Label>
-                                            </td>
-                                            <td id="Td15" runat="server">
-                                                <asp:TextBox ID="txtCurrentDebt" runat="server" CssClass="Field" 
-                                                    ReadOnly="True"></asp:TextBox>
-                                            </td>
-                                        </tr>
-                                        <tr id="Tr9" runat="server">
-                                            <td id="Td16" runat="server" align="right">
-                                                <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Cash:"></asp:Label>
-                                            </td>
-                                            <td id="Td17" runat="server">
-                                                <asp:TextBox ID="txtCurrentCash" runat="server" CssClass="Field" 
-                                                    ReadOnly="True"></asp:TextBox>
-                                                
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            
-                            <tr id="trCustomerAssetText" runat="server">
-                            <td colspan="6" width="100%">
-                                                            
-                             <asp:Label ID="lblCustomerParagraph" runat="server" BackColor="Transparent" CssClass="Field"></asp:Label>
+                        <tr style="float: left">
+                        <td>
+                            <asp:Label ID="lblApprovedByCustomerOn" runat="server" Text="Approved By Customer On : "
+                            CssClass="FieldName"></asp:Label>                                
+                        </td>
+                        <td align="left">
+                            <asp:TextBox ID="txtApprovedByCustomerOn" runat="server" CssClass="Field"></asp:TextBox>
+                            <ajaxToolkit:CalendarExtender ID="calApprovedByCustomerOn" runat="server" Enabled="True"
+                            Format="dd/MM/yyyy" TargetControlID="txtApprovedByCustomerOn">
+                            </ajaxToolkit:CalendarExtender>
+                            <ajaxToolkit:TextBoxWatermarkExtender ID="txtApprovedByCustomerOn_WaterMarkText"
+                            runat="server" Enabled="True" TargetControlID="txtApprovedByCustomerOn" WatermarkText="dd/mm/yyyy">
+                            </ajaxToolkit:TextBoxWatermarkExtender>
+                         </td>
+                        </tr>
+                        </table>
+                        <table width="100%">
+                        <tr>
+                            <td>
+                            <br />
+                            <br />
+                            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" 
+                                        Text="Recomonded Asset Allocation Chart"></asp:Label>
                             </td>
-                            </tr>
-                            
-                            
-                            
-                            
+                            <td>
+                            <br />
+                            <br />
+                            <asp:Label ID="Label5" runat="server" 
+                                        CssClass="HeaderTextSmall" Text="Current Asset Allocation Chart"></asp:Label>
+                            </td>
+                        </tr>
                             <tr>
                                 <td>
-                                    <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" CssClass="PCGButton"
-                                        Width="62px" OnClientClick="return optionvalidation()" />
+                                    <asp:Chart ID="cActualAsset" runat="server" Height="200px" Width="400px">
+                                        <Series>
+                                            <asp:Series ChartArea="caActualAsset" Name="sActualAsset">
+                                            </asp:Series>
+                                        </Series>
+                                        <ChartAreas>
+                                            <asp:ChartArea Name="caActualAsset">
+                                            </asp:ChartArea>
+                                        </ChartAreas>
+                                    </asp:Chart>
                                 </td>
+                                
+                                <td ID="trCurrentAssetAllocation" runat="server" 
+                                    style="padding: 0px; float: left">
+                                   
+                                    <asp:Chart ID="ChartCurrentAsset" runat="server" Height="200px" Width="400px">
+                                        <Series>
+                                            <asp:Series ChartArea="caActualAsset" Name="sActualAsset">
+                                            </asp:Series>
+                                        </Series>
+                                        <ChartAreas>
+                                            <asp:ChartArea Name="caActualAsset">
+                                            </asp:ChartArea>
+                                        </ChartAreas>
+                                    </asp:Chart>
+                                </td>
+                            </tr>
+                                <tr ID="trCustomerAssetText" runat="server">
+                                <td runat="server" colspan="5" width="100%">
+                                <asp:Label ID="lblCustomerParagraph" runat="server" CssClass="Field" 
+                                        BackColor="Transparent"></asp:Label>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                            <td>
+                                                            
+                                <asp:Button ID="btnSave" runat="server" CssClass="PCGButton" 
+                                    OnClick="btnSave_Click" OnClientClick="return optionvalidation()" Text="Save" 
+                                    Width="62px" />
+                            </td>
                                 <td class="style1">
                                 </td>
                                 <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="lblAge" runat="server" CssClass="FieldName" 
+                                        Text="Based on Customer profile Age is "></asp:Label>
+                                    <asp:Label ID="lblAgeResult" runat="server" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td colspan="2">
+                                    <asp:Label ID="lblRiskClass" runat="server" CssClass="FieldName" 
+                                        Text="Based on  Risk Assessment Customer Risk class is "></asp:Label>
+                                    <asp:Label ID="lblRClassRs" runat="server" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblRiskScore" runat="server" CssClass="FieldName" 
+                                        Text="  &amp;  Risk Score is  "></asp:Label>
+                                    <asp:Label ID="lblRscoreAA" runat="server" CssClass="FieldName"></asp:Label>
+                                </td>                           
+                               
+                                <td></td>
+                                 <td>
+                                 </td>
+                                 <td>
+                                 </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <asp:Label ID="lblChartErrorDisplay" runat="server" 
+                                        Text="No Age to display chart. Fill Date of Birth!" Visible="False"></asp:Label>                                
                                 </td>
                                 <td>
                                 </td>
