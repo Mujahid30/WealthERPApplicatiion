@@ -32,6 +32,8 @@ namespace BoReports
             DataTable dtHLVAnalysis;
             DataTable dtCurrentObservation;
             DataTable dtHealthAnalysis;
+            DataTable dtAssetClass;
+            DataTable dtPortfolioAllocation;            
             double HLVbasedIncome = 0;
             double inflationPer = 0;
             double yearsLeftEOL = 0;
@@ -54,7 +56,15 @@ namespace BoReports
             FinancialPlanningReportsDao financialPlanningReports = new FinancialPlanningReportsDao();
             dsCustomerFPReportDetails = financialPlanningReports.GetCustomerFPDetails(report, out asset, out liabilities, out netWorth, out riskClass, out sumAssuredLI);
             dtHLVAnalysis = dsCustomerFPReportDetails.Tables[16];
+            dtAssetClass = dsCustomerFPReportDetails.Tables[17];
+            dtPortfolioAllocation = dsCustomerFPReportDetails.Tables[18];
             dsCustomerFPReportDetails.Tables.RemoveAt(16);
+            dsCustomerFPReportDetails.AcceptChanges();
+            //dsCustomerFPReportDetails.Tables.RemoveAt(16);
+            //dsCustomerFPReportDetails.AcceptChanges();
+            //dsCustomerFPReportDetails.Tables.RemoveAt(16);
+            //dsCustomerFPReportDetails.AcceptChanges();
+            
             foreach (DataRow dr in dtHLVAnalysis.Rows)
             {
                 if (dr["HLV_Type"].ToString().Trim() == "Inflation Rate")
@@ -82,8 +92,8 @@ namespace BoReports
             DataRow drHLVbasedAnalysis;
             drHLVbasedAnalysis = dtHLVAnalysis.NewRow();
             drHLVbasedAnalysis["HLV_Type"] = "HLV based on income";
-            drHLVbasedAnalysis["HLV_Values"] = HLVbasedIncome.ToString();
-            dtHLVAnalysis.Rows.Add(drHLVbasedAnalysis);
+            drHLVbasedAnalysis["HLV_Values"] = Math.Round(double.Parse(HLVbasedIncome.ToString()),2).ToString();
+            dtHLVAnalysis.Rows.Add(drHLVbasedAnalysis);            
             dsCustomerFPReportDetails.Tables.Add(dtHLVAnalysis);
 
 
@@ -98,7 +108,7 @@ namespace BoReports
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Insurance Cover Recommended";
-            drHLVBasedIncome["HLVIncomeValue"] = (HLVbasedIncome - netWorth).ToString();
+            drHLVBasedIncome["HLVIncomeValue"] = Math.Round(double.Parse((HLVbasedIncome - netWorth).ToString()), 2).ToString(); 
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
@@ -108,7 +118,7 @@ namespace BoReports
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Insurance Cover Required";
-            drHLVBasedIncome["HLVIncomeValue"] = ((HLVbasedIncome - netWorth) - sumAssuredLI).ToString();
+            drHLVBasedIncome["HLVIncomeValue"] = Math.Round(double.Parse(((HLVbasedIncome - netWorth) - sumAssuredLI).ToString()), 2).ToString();
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             dsCustomerFPReportDetails.Tables.Add(dtHLVBasedIncome);
@@ -158,20 +168,20 @@ namespace BoReports
 
             if (totalEquity > 0)
             {
-                strInvestment = "Your current investments are Rs " + totalEquity.ToString() + " in equity ,";
+                strInvestment = "Your current investments are Rs " + totalEquity.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")) + " in equity";
             }
             if (totalMF > 0)
             {
-                strInvestment += "Rs " + totalMF.ToString() + " in Mutual Fund, ";
+                strInvestment += "Rs " + totalMF.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")) + " in Mutual Fund, ";
             }
             if (totalFixedIncome > 0)
             {
-                strInvestment += "Rs " + totalFixedIncome.ToString() + " in FixedIncome";
+                strInvestment += "Rs " + totalFixedIncome.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")) + " in FixedIncome ";
 
             }
             if (totalOther > 0)
             {
-                strInvestment += "and Rs " + totalOther.ToString() + " in others";
+                strInvestment += "and Rs " + totalOther.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")) + " in others";
 
             }
 
@@ -213,7 +223,7 @@ namespace BoReports
             {
                 drCurrentObservation = dtCurrentObservation.NewRow();
                 drCurrentObservation["ObjType"] = "Cash flow";
-                drCurrentObservation["ObjSummary"] = "Your current surplus is Rs " + surplus.ToString() + "per year";
+                drCurrentObservation["ObjSummary"] = "Your current surplus is Rs " + surplus.ToString() + " per year";
                 dtCurrentObservation.Rows.Add(drCurrentObservation);
             }
             if (Math.Abs(lifeProtectionTotal) > 0)
@@ -263,14 +273,15 @@ namespace BoReports
 
             }
             drHealthAnalysis = dtHealthAnalysis.NewRow();
-            drHealthAnalysis["Ratio"] = "Financial Asset allocation -equity";
+            drHealthAnalysis["Ratio"] = "Financial Asset allocation -equity(%)";
             drHealthAnalysis["value"] = Math.Round(currEquity, 3).ToString();
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
 
             drHealthAnalysis = dtHealthAnalysis.NewRow();
-            drHealthAnalysis["Ratio"] = "Savings/Income";
-            if (asset != 0)
-                drHealthAnalysis["value"] = Math.Round((liabilities / asset), 3).ToString();
+            drHealthAnalysis["Ratio"] = "Savings/Income Ratio";
+            if (totalIncome != 0)
+                drHealthAnalysis["value"] =Math.Round((toatlGoalAmount / totalIncome), 3).ToString();
+                    
             else
                 drHealthAnalysis["value"] = 0;
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
@@ -281,14 +292,18 @@ namespace BoReports
                     toatlGoalAmount = double.Parse(dr["MonthyTotal"].ToString());
             }
             drHealthAnalysis = dtHealthAnalysis.NewRow();
-            drHealthAnalysis["Ratio"] = "Loan/Financial Assets";
-            if (totalIncome != 0)
-                drHealthAnalysis["value"] = Math.Round((toatlGoalAmount / totalIncome), 3).ToString();
+            drHealthAnalysis["Ratio"] = "Loan/Financial Assets Ratio";
+            if (asset != 0)
+                drHealthAnalysis["value"] = Math.Round((liabilities / asset), 3).ToString();
             else
                 drHealthAnalysis["value"] = 0;
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
 
             dsCustomerFPReportDetails.Tables.Add(dtHealthAnalysis);
+
+            //dsCustomerFPReportDetails.Tables.Add("AssetClass",dtAssetClass);
+
+            //dsCustomerFPReportDetails.Tables.Add(dtPortfolioAllocation);
 
 
             return dsCustomerFPReportDetails;

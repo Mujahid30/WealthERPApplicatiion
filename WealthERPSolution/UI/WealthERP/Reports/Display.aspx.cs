@@ -69,6 +69,7 @@ namespace WealthERP.Reports
         DataTable dtAssetAllocation;
         DataTable dtHLVAnalysis;
         DataTable dtAdvisorRiskClass;
+        DataTable dtPortfolioAllocation;
         string riskClass = string.Empty;
         double recEquity, recDebt, recCash,recAlternate, currEquity, currDebt, currCash,currAlternate = 0;   
         private ReportType CurrentReportType
@@ -475,9 +476,10 @@ namespace WealthERP.Reports
             dtRTGoalDetails = dsCustomerFPReportDetails.Tables[7];
             dtCashFlows = dsCustomerFPReportDetails.Tables[10];
             dtAssetAllocation = dsCustomerFPReportDetails.Tables[13];
-            dtHLVAnalysis = dsCustomerFPReportDetails.Tables[17];
+            dtHLVAnalysis = dsCustomerFPReportDetails.Tables[18];
             dtAdvisorRiskClass = dsCustomerFPReportDetails.Tables[16];
-           
+            dtPortfolioAllocation = dsCustomerFPReportDetails.Tables[17];
+
             crmain.Load(Server.MapPath("FPSectionalReport.rpt"));
             crmain.Subreports["ProfileSummary"].Database.Tables["CustomerFamilyDetails"].SetDataSource(dsCustomerFPReportDetails.Tables[1]);
             crmain.Subreports["KeyAssumptions"].Database.Tables["WerpAssumptions"].SetDataSource(dsCustomerFPReportDetails.Tables[4]);
@@ -491,22 +493,25 @@ namespace WealthERP.Reports
             crmain.Subreports["RiskProfile_PortfolioAllocation"].Database.Tables["AssetAllocation"].SetDataSource(dtAssetAllocation);
             crmain.Subreports["Insurance"].Database.Tables["Insurance"].SetDataSource(dsCustomerFPReportDetails.Tables[14]);
             crmain.Subreports["GeneralInsurance"].Database.Tables["GEInsurance"].SetDataSource(dsCustomerFPReportDetails.Tables[15]);
-            crmain.Subreports["HLVAnalysis"].Database.Tables["HLVAnalysis"].SetDataSource(dsCustomerFPReportDetails.Tables[17]);
-            crmain.Subreports["HLVBasedIncome"].Database.Tables["HLVBasedIncome"].SetDataSource(dsCustomerFPReportDetails.Tables[18]);
-            crmain.Subreports["CurrentObservation"].Database.Tables["Observation"].SetDataSource(dsCustomerFPReportDetails.Tables[19]);
-            crmain.Subreports["FinancialHealth"].Database.Tables["FinancialHealth"].SetDataSource(dsCustomerFPReportDetails.Tables[20]);
+            crmain.Subreports["HLVAnalysis"].Database.Tables["HLVAnalysis"].SetDataSource(dtHLVAnalysis);
+            crmain.Subreports["RiskProfile_PortfolioAllocation"].Database.Tables["PortfolioAllocation"].SetDataSource(dtPortfolioAllocation);
+            crmain.Subreports["HLVBasedIncome"].Database.Tables["HLVBasedIncome"].SetDataSource(dsCustomerFPReportDetails.Tables[19]);
+            crmain.Subreports["CurrentObservation"].Database.Tables["Observation"].SetDataSource(dsCustomerFPReportDetails.Tables[20]);
+            crmain.Subreports["FinancialHealth"].Database.Tables["FinancialHealth"].SetDataSource(dsCustomerFPReportDetails.Tables[21]);
             setLogo();
             if (!File.Exists(logoPath))
                 fpImage = "spacer.png";
             crmain.Subreports["Image"].Database.Tables["ImageSection"].SetDataSource(ImageSectionTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage)));
 
             crmain.Subreports["CoverPage"].Database.Tables["CoverPage"].SetDataSource(CreateCoverPageImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpCoverHeaderImage), System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpCoverFooterImage)));
-                        
+
+           
+
             AssignReportViewerProperties();
             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
-            crmain.SetParameterValue("Asset", Math.Round(double.Parse(asset.ToString()),2).ToString());
-            crmain.SetParameterValue("Liabilities", Math.Round(double.Parse(liabilities.ToString()), 2).ToString());
-            crmain.SetParameterValue("Networth", Math.Round(double.Parse(networth.ToString()), 2).ToString());
+            crmain.SetParameterValue("Asset", convertUSCurrencyFormat(Math.Round(double.Parse(asset.ToString()), 2)));
+            crmain.SetParameterValue("Liabilities", convertUSCurrencyFormat(Math.Round(double.Parse(liabilities.ToString()), 2)));
+            crmain.SetParameterValue("Networth", convertUSCurrencyFormat(Math.Round(double.Parse(networth.ToString()), 2)));
             crmain.SetParameterValue("CustomerRiskClass", riskClass); 
             //crmain.Database.Tables["ImageSection"].SetDataSource(ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage)));
 
@@ -572,6 +577,15 @@ namespace WealthERP.Reports
             }
             else
                 crmain.SetParameterValue("SurpressGEInsurance", "0");
+
+            if (dtCashFlows.Rows.Count > 0)
+            {
+                crmain.SetParameterValue("SurpressCashFlow", "1");
+            }
+            else
+                crmain.SetParameterValue("SurpressCashFlow", "0");
+           
+            
 
             if (ViewState["FPSelectedSectionList"] != null)
             {
@@ -738,6 +752,33 @@ namespace WealthERP.Reports
                 ExportInPDF();
 
             }
+        }
+
+        private DataTable CreatePortfolioAllocationTable(DataTable dtPortfolioAllocation)
+        {
+            DataTable dtPortfolioAllocatonTable = new DataTable();
+            dtPortfolioAllocatonTable.Columns.Add("Conservative");
+            dtPortfolioAllocatonTable.Columns.Add("ModeratelyConservative");
+            dtPortfolioAllocatonTable.Columns.Add("Moderate");
+            dtPortfolioAllocatonTable.Columns.Add("ModeratelyAggressive");
+            dtPortfolioAllocatonTable.Columns.Add("Aggressive");
+            dtPortfolioAllocatonTable.Columns.Add("VeryAggressive");
+            DataRow drPortfolioAllocation;
+            string riskClass=string.Empty;
+            string tempRiskClass=string.Empty;
+           
+            foreach (DataRow dr in dtPortfolioAllocation.Rows)
+            {
+                riskClass=dr["XRC_RiskClass"].ToString();
+                if (tempRiskClass == riskClass)
+                {
+
+                    tempRiskClass = dr["XRC_RiskClass"].ToString(); 
+                }
+            }
+
+            return dtPortfolioAllocatonTable;
+ 
         }
         public static DataTable ImageSectionTable(string ImageFile)
         {
@@ -1058,7 +1099,7 @@ namespace WealthERP.Reports
                      {
                          if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
                          {
-                             strOtherGoalText = strOtherGoalText.Replace("#BuyHomeGoalTotal#", convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString())).ToString());
+                             strOtherGoalText = strOtherGoalText.Replace("#BuyHomeGoalTotal#", convertUSCurrencyFormat(convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString()))));
                          }
                       break;
 
@@ -1067,7 +1108,7 @@ namespace WealthERP.Reports
                      {
                          if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
                          {
-                            strOtherGoalText= strOtherGoalText.Replace("#ChildEducationGoalTotal#",convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString())).ToString());
+                             strOtherGoalText = strOtherGoalText.Replace("#ChildEducationGoalTotal#", convertUSCurrencyFormat(convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString()))));
                          }
                          break;
 
@@ -1076,7 +1117,7 @@ namespace WealthERP.Reports
                      {
                          if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
                          {
-                             strOtherGoalText=strOtherGoalText.Replace("#ChildMarriageGoalTotal#",convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString())).ToString());
+                             strOtherGoalText = strOtherGoalText.Replace("#ChildMarriageGoalTotal#", convertUSCurrencyFormat(convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString()))));
                          }
                          break;
 
@@ -1085,7 +1126,7 @@ namespace WealthERP.Reports
                      {
                          if (double.Parse(dr["MonthyTotal"].ToString()) != 0)
                          {
-                             strOtherGoalText = strOtherGoalText.Replace("#OtherGoalTotal#", convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString())).ToString());
+                             strOtherGoalText = strOtherGoalText.Replace("#OtherGoalTotal#", convertUSCurrencyFormat(convertTo2Decimal(double.Parse(dr["MonthyTotal"].ToString()))));
                          }
                          break;
 
@@ -1119,7 +1160,7 @@ namespace WealthERP.Reports
                 {
                     if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RetirementCorpus#")
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(retCorps).ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertUSCurrencyFormat(convertTo2Decimal(retCorps)));
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTGoalYear#")
                     {
@@ -1127,7 +1168,7 @@ namespace WealthERP.Reports
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTCurrentInvestment#" && currentInvestment != 0)
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(currentInvestment).ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertUSCurrencyFormat(convertTo2Decimal(currentInvestment)));
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTEarnedPercentage#" && currentInvestment != 0)
                     {
@@ -1135,19 +1176,19 @@ namespace WealthERP.Reports
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTFVOnCurrentInvestment#" && currentInvestment != 0)
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(fvOnCurrentInvest).ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertUSCurrencyFormat(convertTo2Decimal(fvOnCurrentInvest)));
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RetirementCorpus# ")
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(rtGapValues).ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertUSCurrencyFormat(convertTo2Decimal(rtGapValues)));
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RetirementGoalMonthlySavings#")
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(monthlySavingsRequired).ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertUSCurrencyFormat((convertTo2Decimal(monthlySavingsRequired))));
                     }
                     else if (pair.Value == "Customer_RT_Gaol_Text" && pair.Key == "#RTGapValues#")
                     {
-                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertTo2Decimal(rtGapValues).ToString());
+                        strRTGoalText = strRTGoalText.Replace(pair.Key, convertUSCurrencyFormat(convertTo2Decimal(rtGapValues)));
                     }
 
                 }
@@ -1200,7 +1241,10 @@ namespace WealthERP.Reports
             {
                 if (dr["CashCategory"].ToString() == "Annual Surplus")
                 {
-                    strCashFlowsText = strCashFlowsText.Replace("#AnnualSurplus#", convertTo2Decimal(double.Parse(dr["Amount"].ToString())).ToString());
+                    if (!string.IsNullOrEmpty(dr["Amount"].ToString()))
+                        strCashFlowsText = strCashFlowsText.Replace("#AnnualSurplus#", convertUSCurrencyFormat(convertTo2Decimal(double.Parse(dr["Amount"].ToString()))));
+                    else
+                        strCashFlowsText = strCashFlowsText.Replace("#AnnualSurplus#", "0");
                 }
  
             }
@@ -1248,35 +1292,40 @@ namespace WealthERP.Reports
                 {
                     if (pair.Key.Trim() == "#CurrEquity#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currEquity.ToString());
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currEquity.ToString()+"%");
                     }
                     else if (pair.Key.Trim() == "#CurrDebt#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currDebt.ToString());
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currDebt.ToString()+"%");
                     }
                     else if (pair.Key.Trim() == "#RecEquity#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recEquity.ToString());
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recEquity.ToString()+"%");
  
                     }
                     else if (pair.Key.Trim() == "#RecDebt#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recDebt.ToString());
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recDebt.ToString()+"%");
 
                     }
                     else if (pair.Key.Trim() == "#RecCash#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recCash.ToString());
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recCash.ToString()+"%");
+
+                    }
+                    else if (pair.Key.Trim() == "#CurrCash#")
+                    {
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currCash.ToString()+"%");
 
                     }
                     else if (pair.Key.Trim() == "#CurrAlternate#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recAlternate.ToString());
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recAlternate.ToString()+"%");
 
                     }
                     else if (pair.Key.Trim() == "#RecAlternate#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currAlternate.ToString());
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currAlternate.ToString()+"%");
 
                     }
                     else if (pair.Key.Trim() == "#RecCashLessMore#")
@@ -1312,10 +1361,17 @@ namespace WealthERP.Reports
                         {
                             case "AG":
                                 {
-                                    if (str.Contains("Aggressive"))
+                                    if (str.Contains("Aggressive_"))
                                     {
-                                        strRiskClassDescription = strRiskClassDescription + str;
+
+                                        strRiskClassDescription = strRiskClassDescription + str.Replace('_', ' ');
                                         drRiskClass = dr;
+                                    }
+                                    else
+                                    {
+                                        DataRow drTest = dtAdvisorRiskClass.NewRow();
+                                        drTest["RiskCode"] = "WW";
+                                        drRiskClass = drTest;
                                     }
                                     break;
 
@@ -1327,6 +1383,12 @@ namespace WealthERP.Reports
                                         strRiskClassDescription = strRiskClassDescription + str;
                                         drRiskClass = dr;
                                     }
+                                    else
+                                    {
+                                        DataRow drTest = dtAdvisorRiskClass.NewRow();
+                                        drTest["RiskCode"] = "WW";
+                                        drRiskClass = drTest;
+                                    }
                                     break;
 
                                 }
@@ -1336,6 +1398,12 @@ namespace WealthERP.Reports
                                     {
                                         strRiskClassDescription = strRiskClassDescription + str;
                                         drRiskClass = dr;
+                                    }
+                                    else
+                                    {
+                                        DataRow drTest = dtAdvisorRiskClass.NewRow();
+                                        drTest["RiskCode"] = "WW";
+                                        drRiskClass = drTest;
                                     }
                                     break;
 
@@ -1347,15 +1415,27 @@ namespace WealthERP.Reports
                                         strRiskClassDescription = strRiskClassDescription + str;
                                         drRiskClass = dr;
                                     }
+                                    else
+                                    {
+                                        DataRow drTest = dtAdvisorRiskClass.NewRow();
+                                        drTest["RiskCode"] = "WW";
+                                        drRiskClass = drTest;
+                                    }
                                     break;
 
                                 }
                             case "RA":
                                 {
-                                    if (str.Contains("Averse"))
+                                    if (str.Contains("Risk Averse"))
                                     {
                                         strRiskClassDescription = strRiskClassDescription + str;
                                         drRiskClass = dr;
+                                    }
+                                    else
+                                    {
+                                        DataRow drTest = dtAdvisorRiskClass.NewRow();
+                                        drTest["RiskCode"] = "WW";
+                                        drRiskClass = drTest;
                                     }
                                     break;
 
@@ -1367,14 +1447,25 @@ namespace WealthERP.Reports
                                         strRiskClassDescription = strRiskClassDescription + str;
                                         drRiskClass = dr;
                                     }
+                                    else
+                                    {
+                                        DataRow drTest = dtAdvisorRiskClass.NewRow();
+                                        drTest["RiskCode"] = "WW";
+                                        drRiskClass = drTest;
+                                    }
                                     break;
 
                                 }
                             default:
-                                break;
+                                {
+                                    DataRow drTest = dtAdvisorRiskClass.NewRow();
+                                    drTest["RiskCode"] = "WW";
+                                    drRiskClass = drTest; 
+                                    break;
+                                }
                         }
                     }
-                    if (drRiskClass.Table.Rows.Count!=0)
+                    if (drRiskClass.Table.Rows.Count != 0 && drRiskClass[0].ToString() != "WW")
                     dtAdvisorRiskClass.Rows.Remove(drRiskClass);
                 }
             }
@@ -1405,6 +1496,13 @@ namespace WealthERP.Reports
             
 
         }
+        private string convertUSCurrencyFormat(double value)
+        {
+           string strValues=string.Empty; 
+           strValues=value.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+           return strValues;
+        }
+
         private double convertTo2Decimal(double value)
         {
             value = Math.Round(value, 2);
