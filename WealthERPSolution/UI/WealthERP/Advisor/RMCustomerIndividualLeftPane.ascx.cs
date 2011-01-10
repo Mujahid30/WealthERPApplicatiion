@@ -24,6 +24,7 @@ namespace WealthERP.Advisor
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
         AdvisorVo advisorVo = new AdvisorVo();
+        
 
         List<string> roleList = new List<string>();
         int count;
@@ -59,19 +60,40 @@ namespace WealthERP.Advisor
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                     {
                         hdnUserRole.Value = "RM";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                     {
                         hdnUserRole.Value = "BM";
+                        
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Adviser")
                     {
                         hdnUserRole.Value = "Adviser";
+                        
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
                     {
                         RadPanelBar1.FindItemByValue("Home").Visible = false;
+                        
                     }
+                    if (userVo.RoleList.Contains("Admin"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
+                    }
+                    else if (userVo.RoleList.Contains("BM"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
+                    }
+                    else if (userVo.RoleList.Contains("RM"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
+                    }
+
                     if (Middle != "")
                     {
                         lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
@@ -164,7 +186,7 @@ namespace WealthERP.Advisor
 
 
                 }
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('RMCustomerIndividualLeftPane');", true);
+                
 
             }
             catch (BaseApplicationException Ex)
