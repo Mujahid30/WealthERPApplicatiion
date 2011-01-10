@@ -187,7 +187,7 @@
             <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="RM Name:"></asp:Label>
         </td>
         <td class="rightField" colspan="2">
-            <asp:TextBox ID="txtRmName" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtRmName" ReadOnly="true" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
 </table>

@@ -134,7 +134,7 @@ namespace WealthERP.Customer
                 if (Validation())
                 {
                     rmId = rmVo.RMId;
-                    if (Session["Current_Link"].ToString() == "RMLeftPane")
+                    if (Session["Current_Link"].ToString() == "AdvisorLeftPane")
                     {
 
                         userVo = (UserVo)Session["UserVo"];
