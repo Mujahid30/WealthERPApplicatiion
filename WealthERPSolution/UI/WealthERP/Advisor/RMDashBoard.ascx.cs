@@ -387,6 +387,7 @@ namespace WealthERP.Advisor
             Session["IsDashboard"] = "CustDashboard";
             
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndividualLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
 
         /// <summary>
