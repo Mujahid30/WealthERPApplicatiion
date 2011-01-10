@@ -403,6 +403,13 @@ namespace DaoFPSuperlite
                     db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@XLT_LoanTypeCode", DbType.Int32, customerProspectLiabilitiesDetailsVo.LoanTypeCode);
                 else
                     db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@XLT_LoanTypeCode", DbType.Int32, 0);
+                if (customerProspectLiabilitiesDetailsVo.AdjustedLoan != 0.0)
+                {
+                    db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@CFPLD_AdjustedLoanOutstanding", DbType.Decimal, customerProspectLiabilitiesDetailsVo.AdjustedLoan);
+                }
+                else
+                    db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@CFPLD_AdjustedLoanOutstanding", DbType.Decimal, 0.0);
+
                 if (customerProspectLiabilitiesDetailsVo.LoanOutstanding != 0.0)
                     db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@CFPLD_LoanOutstanding", DbType.Decimal, customerProspectLiabilitiesDetailsVo.LoanOutstanding);
                 else
@@ -732,6 +739,11 @@ namespace DaoFPSuperlite
                     db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_Value", DbType.Decimal, customerProspectAssetDetailsVo.Value);
                 else
                     db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_Value", DbType.Decimal, 0.0);
+
+                if (customerProspectAssetDetailsVo.SurrMktVal != 0.0)
+                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_SurrenderMarketValue", DbType.Decimal, customerProspectAssetDetailsVo.SurrMktVal);
+                else
+                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_SurrenderMarketValue", DbType.Decimal, 0.0);
 
 
                 db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_MaturityDate", DbType.DateTime, customerProspectAssetDetailsVo.MaturityDate);

@@ -297,12 +297,19 @@ namespace BoFPSuperlite
                 {
                     customerprospectliabilitiesetailsvo = new CustomerProspectLiabilitiesDetailsVo();
                     customerprospectliabilitiesetailsvo.LiabilitiesDetailsId = int.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_FPLiabilitiesDetailsId"].ToString());
-                    if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_TotalLoanOutstanding"].ToString() != string.Empty && dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_TotalLoanOutstanding"] != null)
-                    {
-                        customerprospectliabilitiesetailsvo.LoanOutstanding = double.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_TotalLoanOutstanding"].ToString());
-                    }
+                    
                     if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["XLT_LoanTypeCode"].ToString() != null)
                     {
+                        //Total Value
+                        if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_TotalLoanOutstanding"].ToString() != string.Empty && dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_TotalLoanOutstanding"] != null)
+                        {
+                            customerprospectliabilitiesetailsvo.LoanOutstanding = double.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_TotalLoanOutstanding"].ToString());
+                        }
+                        //Adjusted Value
+                        if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_AdjustedLoanOutstanding"].ToString() != string.Empty && dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_AdjustedLoanOutstanding"] != null)
+                        {
+                            customerprospectliabilitiesetailsvo.AdjustedLoan = double.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_AdjustedLoanOutstanding"].ToString());
+                        }
                         customerprospectliabilitiesetailsvo.LoanTypeCode = int.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["XLT_LoanTypeCode"].ToString());
                         if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_Tenure"] != null && dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_Tenure"].ToString() != "")
                         {
@@ -527,6 +534,10 @@ namespace BoFPSuperlite
                     if (dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_Premium"] != null && dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_Premium"].ToString() != "")
                     {
                         customerprospectassetdetailsvo.Premium = double.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_Premium"].ToString());
+                    }
+                    if (dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_SurrenderMarketValue"] != null && dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_SurrenderMarketValue"].ToString() != "")
+                    {
+                        customerprospectassetdetailsvo.SurrMktVal = double.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_SurrenderMarketValue"].ToString());
                     }
                     customerprospectassetdetailsvolist.Add(customerprospectassetdetailsvo);
                 }

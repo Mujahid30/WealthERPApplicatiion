@@ -12,6 +12,7 @@ namespace VoFPSuperlite
         private string FP_AssetInstrumentCategoryCode;
         private double FP_AdjustedValue;       
         private double FP_Value;
+        private double FP_SurrMktVal;
         private double? FP_Premium;
         private DateTime? FP_MaturityDate;
 
@@ -51,6 +52,12 @@ namespace VoFPSuperlite
         {
             get { return FP_AdjustedValue; }
             set { FP_AdjustedValue = value; }
+        }
+
+        public double SurrMktVal
+        {
+            get { return FP_SurrMktVal; }
+            set { FP_SurrMktVal = value; }
         }
     }
 }
