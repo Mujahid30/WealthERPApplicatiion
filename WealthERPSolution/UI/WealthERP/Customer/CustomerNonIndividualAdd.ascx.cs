@@ -39,7 +39,7 @@ namespace WealthERP.Customer
                 rmVo = (RMVo)Session["rmVo"];
 
                 txtDateofProfiling.Text = DateTime.Today.ToShortDateString();
-                if (Session["Current_Link"].ToString() == "RMLeftPane")
+                if (Session["Current_Link"].ToString() == "AdvisorLeftPane")
                 {
                     customerVo = (CustomerVo)Session["CustomerVo"];
                     txtRmName.Text = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
