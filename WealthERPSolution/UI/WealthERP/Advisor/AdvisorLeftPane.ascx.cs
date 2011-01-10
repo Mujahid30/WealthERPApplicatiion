@@ -94,18 +94,22 @@ namespace WealthERP.Advisor
                 {
                     RadPanelBar1.FindItemByValue("Admin").Expanded = true;
                     RadPanelBar1.FindItemByValue("Admin Home").Selected = true;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                 {
                     RadPanelBar3.FindItemByValue("BM").Expanded = true;
                     RadPanelBar3.FindItemByValue("BM Home").Selected = true;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                 {
                     RadPanelBar2.FindItemByValue("RM").Expanded = true;
                     RadPanelBar2.FindItemByValue("RM Home").Selected = true;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+                
+                
             }
 
         }
