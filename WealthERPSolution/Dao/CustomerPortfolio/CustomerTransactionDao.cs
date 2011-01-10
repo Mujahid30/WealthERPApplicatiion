@@ -868,15 +868,15 @@ namespace DaoCustomerPortfolio
                     if (dr["CETA_BrokerDeliveryPercentage"].ToString() != "")
                         AccountVo.BrokerageDeliveryPercentage = double.Parse(dr["CETA_BrokerDeliveryPercentage"].ToString());
                     else
-                        AccountVo.BrokerageDeliveryPercentage = '0';
+                        AccountVo.BrokerageDeliveryPercentage = 0;
                     if (dr["CETA_BrokerSpeculativePercentage"].ToString() != "")
                         AccountVo.BrokerageSpeculativePercentage = double.Parse(dr["CETA_BrokerSpeculativePercentage"].ToString());
                     else
-                        AccountVo.BrokerageSpeculativePercentage = '0';
+                        AccountVo.BrokerageSpeculativePercentage = 0;
                     if (dr["CETA_OtherCharges"].ToString() != "")
                         AccountVo.OtherCharges = double.Parse(dr["CETA_OtherCharges"].ToString());
                     else
-                        AccountVo.OtherCharges = '0';
+                        AccountVo.OtherCharges = 0;
                 }
             }
             catch (BaseApplicationException Ex)
