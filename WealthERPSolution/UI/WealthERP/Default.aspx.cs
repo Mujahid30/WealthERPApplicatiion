@@ -254,6 +254,31 @@ namespace WealthERP
             }
         }
 
+        protected void AdvisorMenu_MenuItemClick(object sender, MenuEventArgs e)
+        {
+            if (e.Item.Value == "Home")
+            {
+                e.Item.NavigateUrl = "javascript:loadfrommenu('IFAAdminMainDashboard','login')";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+            }
+        }
+        protected void RMMenu_MenuItemClick(object sender, MenuEventArgs e)
+        {
+            if (e.Item.Value == "Home")
+            {
+                e.Item.NavigateUrl = "javascript:loadfrommenu('RMDashBoard','login')";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+            }
+        }
+        protected void BMMenu_MenuItemClick(object sender, MenuEventArgs e)
+        {
+            if (e.Item.Value == "Home")
+            {
+                e.Item.NavigateUrl = "javascript:loadfrommenu('BMDashBoard','login')";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+            }
+        }
+        
         [System.Web.Services.WebMethod(EnableSession = true)]
         public static void AjaxSetSession(string key, string value)
         {

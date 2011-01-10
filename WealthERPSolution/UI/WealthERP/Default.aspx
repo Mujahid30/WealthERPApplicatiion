@@ -239,7 +239,7 @@
                                             <tr>
                                                 <td>
                                                     <asp:Menu ID="AdvisorMenu" runat="server" Orientation="Horizontal" BorderStyle="Solid"
-                                                        BorderWidth="2px" CssClass="MenuEX">
+                                                        BorderWidth="2px" CssClass="MenuEX" OnMenuItemClick="AdvisorMenu_MenuItemClick">
                                                         <%-- OnMenuItemClick="AdvisorMenu_MenuItemClick"--%>
                                                         <LevelMenuItemStyles>
                                                             <asp:MenuItemStyle CssClass="level1" />
@@ -251,21 +251,12 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('IFAAdminMainDashboard','login');"
-                                                                Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdvisorProfile','login');" Text="Profile"
-                                                                Value="Profile" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewLOB','login');" Text="LOB"
-                                                                Value="LOB" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewBranches','login');" Text="Branch"
-                                                                Value="Branch" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRM','login');" Text="RM"
-                                                                Value="RM" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
+                                                            </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                          
-                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
-                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                                Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
@@ -296,22 +287,10 @@
                                                         <Items>
                                                             <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('AdvisorRMCustIndiDashboard','login');"
                                                                 Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('ViewCustomerIndividualProfile','login');"
-                                                                Text="Profile" Value="Profile" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('PortfolioDashboard','login');"
-                                                                Text="Portfolio" Value="Portfolio" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('UnderConstruction','none');"
-                                                                Text="Tools" Value="Tools" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('RMAlertNotifications','none');"
-                                                                Text="Alerts" Value="Alerts" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                          
-                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
-                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
+                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                                Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
@@ -342,22 +321,10 @@
                                                         <Items>
                                                             <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('AdvisorRMCustIndiDashboard','login');"
                                                                 Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewNonIndividualProfile','login');"
-                                                                Text="Profile" Value="Profile" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('PortfolioDashboard','login');"
-                                                                Text="Portfolio" Value="Portfolio" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Tools" Value="Tools" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Alerts" Value="Alerts" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                          
-                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
-                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
+                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                                Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
@@ -373,7 +340,7 @@
                                             <tr>
                                                 <td>
                                                     <asp:Menu ID="RMMenu" runat="server" Orientation="Horizontal" BorderStyle="Solid"
-                                                        BorderWidth="2px" CssClass="MenuEX">
+                                                        BorderWidth="2px" CssClass="MenuEX" OnMenuItemClick="RMMenu_MenuItemClick">
                                                         <%--OnMenuItemClick="RMMenu_MenuItemClick"--%>
                                                         <LevelMenuItemStyles>
                                                             <asp:MenuItemStyle CssClass="level1" />
@@ -385,18 +352,15 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMDashBoard','login');" Text="Home"
-                                                                Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRMDetails','login');" Text="My Profile"
-                                                                Value="Profile" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMCustomer','login');" Text="Customers"
-                                                                Value="Clients" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                          
-                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
-                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
+                                                            </asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
+                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                                Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>
-                                                                <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('FinancialPlanning','login');"
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('FinancialPlanning','login');"
                                                                 Text="Financial Planning" Value="FinancialPlanning"></asp:MenuItem>--%>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMAlertDashBoard','?Clear=true');"
                                                                 Text="Alerts" Value="Alerts"></asp:MenuItem>--%>
@@ -428,31 +392,10 @@
                                                         <Items>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMDashBoard','login');" Text="Home"
                                                                 Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdvisorRMCustIndiDashboard','login');"
-                                                                Text="Customer Dashboard" Value="CustomerDashboard" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMCustomerIndividualDashboard','login');"
-                                                                Text="Profile" Value="Profile" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('PortfolioDashboard','login');"
-                                                                Text="Portfolio" Value="Portfolio" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Planning" Value="Planning" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Tools" Value="Tools" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMAlertDashBoard','login');"
-                                                                Text="Alerts" Value="Alerts" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Research/Analytics" Value="ResearchAnalytics" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                          
-                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
-                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
+                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                                Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
@@ -483,31 +426,10 @@
                                                         <Items>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMDashBoard','login');" Text="Home"
                                                                 Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMCustomerNonIndividualDashboard','login');"
-                                                                Text="Customer Dashboard" Value="CustomerDashboard" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewNonIndividualProfile','login');"
-                                                                Text="Profile" Value="Profile" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('PortfolioDashboard','login');"
-                                                                Text="Portfolio" Value="Portfolio" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Planning" Value="Planning" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Tools" Value="Tools" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Alerts" Value="Alerts" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Research/Analytics" Value="ResearchAnalytics" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('UnderConstruction','none');"
-                                                                Text="Reports" Value="Reports" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                          
-                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
-                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
+                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                                Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
@@ -523,7 +445,7 @@
                                             <tr>
                                                 <td>
                                                     <asp:Menu ID="BMMenu" runat="server" Orientation="Horizontal" BorderStyle="Solid"
-                                                        BorderWidth="2px" CssClass="MenuEX">
+                                                        BorderWidth="2px" CssClass="MenuEX" OnMenuItemClick="BMMenu_MenuItemClick">
                                                         <%--OnMenuItemClick="RMCLientMenu_MenuItemClick"--%>
                                                         <LevelMenuItemStyles>
                                                             <asp:MenuItemStyle CssClass="level1" />
@@ -535,18 +457,12 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('BMDashBoard','login');" Text="Home"
-                                                                Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewBMProfile','login');" Text="Profile"
-                                                                Value="Profile" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewBranchDetails','login');"
-                                                                Text="Branch Details" Value="Branch Details" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
+                                                            <asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRM','login','2');" Text="Staffs"
-                                                                Value="View RMs" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                          
-                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');"
-                                                                Text="Calculators" Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
+                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                                Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="http://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator"></asp:MenuItem>
                                                         </Items>
