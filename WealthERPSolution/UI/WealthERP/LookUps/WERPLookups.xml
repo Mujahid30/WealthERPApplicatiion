@@ -111,8 +111,9 @@
     <Currency CurrencyCode ="3" CurrencyName="USD" CurrencySymbol="USD" Deleted="False" />
     <Currency CurrencyCode ="4" CurrencyName="EUR" CurrencySymbol="EUR" Deleted="False" />
   </Currencies>
-
+ 
   <BrokerC>
+    <Broker BrokerCode="NULL" Broker="" Deleted="False" />
     <Broker BrokerCode="AAAEL" Broker="A B N Amro Asia Equities (India) Ltd." Deleted="False" />
     <Broker BrokerCode="AASPL" Broker="A B N Amro Securities (India) Pvt. Ltd." Deleted="False" />
     <Broker BrokerCode="ACML" Broker="Arihant Capital Markets Ltd. " Deleted="False" />
