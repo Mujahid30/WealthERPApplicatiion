@@ -55,6 +55,26 @@
             &nbsp;
         </td>
     </tr>
+    <table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
+                visible="false">
+                Reprocess successfully Completed
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
+                visible="false">
+                Reprocess Failed!
+            </div>
+        </td>
+    </tr>
+</table>
     <tr>
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
@@ -195,12 +215,12 @@
                 There are no records to be displayed!</label>
         </td>
     </tr>
-    <tr id="trErrorMessage" runat="server" visible="false">
+  <%--  <tr id="trErrorMessage" runat="server" visible="false">
         <td class="Message">
             <asp:Label ID="lblError" CssClass="Message" runat="server">
             </asp:Label>
         </td>
-    </tr>
+    </tr>--%>
 </table>
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">

@@ -122,9 +122,9 @@ namespace WealthERP.Uploads
             rejectedRecordsBo = new RejectedRecordsBo();
 
             dsRejectedRecords = rejectedRecordsBo.GetRejectedEquityTransactionsStaging(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnRejectReasonFilter.Value, hdnPanNumberFilter.Value, hdnScripFilter.Value, hdnExchangeFilter.Value, hdnTransactionTypeFilter.Value);
-            
-
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
+
+            //lblTotalRows.Text = (Count.ToString());
             if (Count > 0)
                 DivPager.Style.Add("display", "visible");
 
@@ -430,14 +430,14 @@ namespace WealthERP.Uploads
             if (blResult)
             {
                 // Success Message
-                trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Done Successfully!";
+                msgReprocessComplete.Visible = true;
+                //lblError.Text = "Reprocess Done Successfully!";
             }
             else
             {
                 // Failure Message
-                trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Failure!";
+                msgReprocessincomplete.Visible = true;
+                //lblError.Text = "Reprocess Failure!";
             }
 
             BindEquityTransactionGrid(ProcessId);
