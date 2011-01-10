@@ -814,8 +814,7 @@ namespace WealthERP
                     }
                     Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
-
-
+                    Session["IsDashboard"] = "FP";
                     Session[SessionContents.FPS_AddProspectListActionStatus] = "FPDashBoard";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
                 }
