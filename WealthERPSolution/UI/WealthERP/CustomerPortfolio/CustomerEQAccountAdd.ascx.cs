@@ -274,8 +274,10 @@ namespace WealthERP.CustomerPortfolio
         private void EditEQAccountDetails()
         {
             customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
-
-            ddlBrokerCode.SelectedValue = customerAccountsVo.BrokerCode;
+            if (customerAccountsVo.BrokerCode != "")
+                ddlBrokerCode.SelectedValue = customerAccountsVo.BrokerCode;
+            else
+                ddlBrokerCode.SelectedValue = "NULL";
             txtTradeNum.Text = customerAccountsVo.TradeNum;
             if (customerAccountsVo.AccountOpeningDate != DateTime.MinValue)
                 txtAccountStartingDate.Text = customerAccountsVo.AccountOpeningDate.ToShortDateString();
