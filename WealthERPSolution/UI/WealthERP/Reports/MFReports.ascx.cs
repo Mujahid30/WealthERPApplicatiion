@@ -41,6 +41,7 @@ namespace WealthERP.Reports
         CustomerVo customerVo = new CustomerVo();
         bool isGrpHead = false;
         bool CustomerLogin = false;
+        bool strFromCustomerDashBoard = false;
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -146,7 +147,13 @@ namespace WealthERP.Reports
                 if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
                     rmVo = (RMVo)Session[SessionContents.RmVo];
 
-                if (userVo.UserType == "Customer")
+                if (Session["UserType"] != null)
+                {
+                    if (Session["UserType"].ToString() == "Customer")
+                      strFromCustomerDashBoard = true;
+                }
+
+                if (userVo.UserType == "Customer" || strFromCustomerDashBoard==true)
                 {
                     if (!string.IsNullOrEmpty(Session["CustomerVo"].ToString()))
                         customerVo = (CustomerVo)Session["CustomerVo"];
