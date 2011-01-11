@@ -38,7 +38,7 @@ namespace WealthERP.Uploads {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessComplete;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow msgReprocessComplete;
         
         /// <summary>
         /// msgReprocessincomplete control.
@@ -47,7 +47,7 @@ namespace WealthERP.Uploads {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgReprocessincomplete;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow msgReprocessincomplete;
         
         /// <summary>
         /// lblCurrentPage control.

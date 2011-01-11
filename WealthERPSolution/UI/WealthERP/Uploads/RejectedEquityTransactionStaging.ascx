@@ -2,8 +2,8 @@
     Inherits="WealthERP.Uploads.RejectedEquityTransactionStaging" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
-
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
+
 <script>
     function ShowPopup() {
         var form = document.forms[0];
@@ -18,11 +18,11 @@
                     var splittedValues = hiddenFieldValues.split("-");
                     transactionId = splittedValues[0];
                     rejectReasonCode = splittedValues[1];
-//                    if (rejectReasonCode != 22) {
-//                        alert("Select transaction with reject reason 'WERP Account id not found for Folio'")
-//                        return false;
-//                    }
-                    
+                    //                    if (rejectReasonCode != 22) {
+                    //                        alert("Select transaction with reject reason 'WERP Account id not found for Folio'")
+                    //                        return false;
+                    //                    }
+
                 }
             }
         }
@@ -38,6 +38,7 @@
         return false;
     }
 </script>
+
 <table style="width: 100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
@@ -50,42 +51,30 @@
                 OnClick="lnkBtnBack_Click"></asp:LinkButton>
         </td>
     </tr>
+    </table>
+    <table style="width: 100%">
+    
     <tr>
         <td>
             &nbsp;
         </td>
     </tr>
-    <tr style="width: 100%">
-    <td>
-     <table width="100%">
-    <tr>
+    <tr id="msgReprocessComplete" runat="server" visible="false">
         <td align="center">
-            <div id="msgReprocessComplete" runat="server" class="success-msg" align="center"
-                visible="false">
+            <div class="success-msg" align="center" runat="server">
                 Reprocess successfully Completed
             </div>
         </td>
     </tr>
-</table>
-    </td>
-    </tr>
-    
-    <tr style="width: 100%">
-    <td>
-    <table width="100%">
-    <tr>
-        <td align="center">
-            <div id="msgReprocessincomplete" runat="server" class="failure-msg" align="center"
-                visible="false">
+    <tr id="msgReprocessincomplete"  runat="server" visible="false">
+        <td align="center"> 
+            <div  runat="server" class="failure-msg" align="center">
                 Reprocess Failed!
             </div>
         </td>
     </tr>
-  </table>
-    </td>
-    </tr>
-   
-
+     </table>
+     <table style="width: 100%" class="TableBackground">
     <tr>
         <td align="right">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
@@ -110,7 +99,6 @@
                         <ItemTemplate>
                             <asp:CheckBox ID="chkBxWPTrans" runat="server" />
                             <asp:HiddenField ID="hdnBxWPTrans" runat="server" Value='<%# Eval("WERPTransactionId").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
-                            
                         </ItemTemplate>
                         <FooterTemplate>
                             <%--<asp:Button ID="btnEditSelectedWPTrans" CssClass="FieldName" OnClick="btnEditSelectedWPTrans_Click"
@@ -120,7 +108,8 @@
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" CssClass="cmbLongField" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" CssClass="cmbLongField"
+                                runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -150,20 +139,20 @@
                         <ItemTemplate>
                             <asp:Label ID="txtScripCode" runat="server" Text='<%# Bind("ScripCode") %>' EnableViewState="true"></asp:Label>
                         </ItemTemplate>
-                      <%--  <FooterTemplate>
+                        <%--  <FooterTemplate>
                             <asp:TextBox ID="txtScripCodeMultiple" CssClass="FieldName" runat="server" />
                         </FooterTemplate>--%>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderStyle-Width = "20" >
+                    <asp:TemplateField HeaderStyle-Width="20">
                         <HeaderTemplate>
                             <asp:Label ID="lblExchange" runat="server" Text="Exchange"></asp:Label>
-                            <asp:TextBox ID="txtExchangeSearch" Width = "40" runat="server" Text='<%# hdnExchangeFilter.Value %>'
+                            <asp:TextBox ID="txtExchangeSearch" Width="40" runat="server" Text='<%# hdnExchangeFilter.Value %>'
                                 CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedEquityTransactionStaging_btnGridSearch');" />
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="txtExchange" Width = "20" runat="server" Text='<%# Bind("Exchange") %>'></asp:Label>
+                            <asp:Label ID="txtExchange" Width="20" runat="server" Text='<%# Bind("Exchange") %>'></asp:Label>
                         </ItemTemplate>
-                       <%-- <FooterTemplate>
+                        <%-- <FooterTemplate>
                             <asp:TextBox ID="txtExchangeMultiple" CssClass="FieldName" runat="server" />
                         </FooterTemplate>--%>
                     </asp:TemplateField>
@@ -176,27 +165,27 @@
                         <ItemTemplate>
                             <asp:Label ID="txtPrice" runat="server" Text='<%# Eval("Price","{0:f4}")  %>' Style="text-align: right"></asp:Label>
                         </ItemTemplate>
-                      <%--  <FooterTemplate>
+                        <%--  <FooterTemplate>
                             <asp:TextBox ID="txtPriceMultiple" CssClass="FieldName" runat="server" />
                         </FooterTemplate>--%>
                     </asp:TemplateField>
                     <asp:BoundField DataField="Amount" HeaderText="Amount" DataFormatString="{0:f4}"
                         ItemStyle-HorizontalAlign="Right" />
-                    <asp:TemplateField  HeaderStyle-Width = "40">
+                    <asp:TemplateField HeaderStyle-Width="40">
                         <HeaderTemplate>
                             <asp:Label ID="lblTransactionType" runat="server" Text="Transaction Type"></asp:Label>
                             <%--<asp:TextBox ID="txtTransactionTypeSearch"   Text='<%# hdnTransactionTypeFilter.Value %>'   runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedEquityTransactionStaging_btnGridSearch');" />--%>
-                            <asp:DropDownList ID="ddlTransactionType" Width = "60" runat="server" AutoPostBack="true" runat="server" CssClass="cmbLongField"
-                                OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlTransactionType" Width="60" runat="server" AutoPostBack="true"
+                                runat="server" CssClass="cmbLongField" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
                             </asp:DropDownList>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="txtTransactionType" Width= "40"  runat="server" Text='<%# Bind("TransactionType") %>'></asp:Label>
+                            <asp:Label ID="txtTransactionType" Width="40" runat="server" Text='<%# Bind("TransactionType") %>'></asp:Label>
                             <%--<asp:HiddenField ID="hdnTransactionType" runat="server" Value='<%# Bind("TransactionTypeCode") %>' />
                             <asp:DropDownList ID="ddlTransactionType" runat="server">--%>
                             </asp:DropDownList>
                         </ItemTemplate>
-                      <%--  <FooterTemplate>
+                        <%--  <FooterTemplate>
                             <asp:DropDownList ID="ddlTransactionType" runat="server">
                             </asp:DropDownList>
                         </FooterTemplate>--%>
@@ -209,15 +198,12 @@
         </td>
     </tr>
     <tr id="trReprocess" runat="server">
-        <td class="SubmitCell" >
-            <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server"  Text="Reprocess"
+        <td class="SubmitCell">
+            <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
                 CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedWERPTransaction_btnReprocess','S');"
-                
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedWERPTransaction_btnReprocess','S');" 
-                 />
-                
-                <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" 
-                Text="Map to WERP Customer" OnClientClick="return ShowPopup()" />                
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedWERPTransaction_btnReprocess','S');" />
+            <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to WERP Customer"
+                OnClientClick="return ShowPopup()" />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">
@@ -226,7 +212,7 @@
                 There are no records to be displayed!</label>
         </td>
     </tr>
-  <%--  <tr id="trErrorMessage" runat="server" visible="false">
+    <%--  <tr id="trErrorMessage" runat="server" visible="false">
         <td class="Message">
             <asp:Label ID="lblError" CssClass="Message" runat="server">
             </asp:Label>

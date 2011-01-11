@@ -430,12 +430,14 @@ namespace WealthERP.Uploads
             if (blResult)
             {
                 // Success Message
+                //reprocessSucess.Style.Add("visible", "true");
                 msgReprocessComplete.Visible = true;
                 //lblError.Text = "Reprocess Done Successfully!";
             }
             else
             {
                 // Failure Message
+                //reprocessSucess.Visible = false;
                 msgReprocessincomplete.Visible = true;
                 //lblError.Text = "Reprocess Failure!";
             }
