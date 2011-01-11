@@ -272,7 +272,8 @@
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
-<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="false">
+<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" 
+    EnableEmbeddedSkins="False">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true">
         <TargetControls>
             <telerik:TargetInput ControlID="txtFirstName" />
@@ -301,34 +302,37 @@
         </TargetControls>
         <Validation IsRequired="True"></Validation>
     </telerik:RegExpTextBoxSetting>
-    <telerik:NumericTextBoxSetting DecimalDigits="2" DecimalSeparator="." ErrorMessage="Please type only numbers"
+    <telerik:NumericTextBoxSetting DecimalDigits="2" DecimalSeparator="." ErrorMessage="Numbers"
         NegativePattern="-n" PositivePattern="n" Validation-IsRequired="false" AllowRounding="False"
-        MaxValue="70368744177" MinValue="-70368744177" GroupSizes="3" Type="Number" Culture="Hindi (India)"
+        MaxValue="70368744177" MinValue="-70368744177" GroupSizes="3" 
+        Type="Number" Culture="Hindi (India)"
         GroupSeparator="">
         <TargetControls>
-            <telerik:TargetInput ControlID="txtDirectEquity" />
-            <telerik:TargetInput ControlID="txtGold" />
-            <telerik:TargetInput ControlID="txtMFEquity" />
-            <telerik:TargetInput ControlID="txtCollectibles" />
-            <telerik:TargetInput ControlID="txtMFDebt" />
-            <telerik:TargetInput ControlID="txtCashAndSavings" />
-            <telerik:TargetInput ControlID="txtMFHybridEquity" />
-            <telerik:TargetInput ControlID="txtStructuredProduct" />
-            <telerik:TargetInput ControlID="txtMFHybridDebt" />
-            <telerik:TargetInput ControlID="txtCommodities" />
-            <telerik:TargetInput ControlID="txtFixedIncome" />
-            <telerik:TargetInput ControlID="txtPrivateEquity" />
-            <telerik:TargetInput ControlID="txtGovtSavings" />
-            <telerik:TargetInput ControlID="txtPMS" />
-            <telerik:TargetInput ControlID="txtPensionGratuities" />
-            <telerik:TargetInput ControlID="txtInvestmentsOthers" />
-            <telerik:TargetInput ControlID="txtProperty" />
-            <telerik:TargetInput ControlID="txtSalary" />
-            <telerik:TargetInput ControlID="txtCapitalGains" />
-            <telerik:TargetInput ControlID="txtRentalProperty" />
-            <telerik:TargetInput ControlID="txtAgriculturalIncome" />
-            <telerik:TargetInput ControlID="txtBusinessAndProfession" />
+           
+            <telerik:TargetInput ControlID="txtDirectEquityA" />
+            <telerik:TargetInput ControlID="txtGoldA" />
+            <telerik:TargetInput ControlID="txtMFEquityA" />
+            <telerik:TargetInput ControlID="txtCollectiblesA" />
+            <telerik:TargetInput ControlID="txtMFDebtA" />
+            <telerik:TargetInput ControlID="txtCashAndSavingsA" />
+            <telerik:TargetInput ControlID="txtMFHybridEquityA" />
+            <telerik:TargetInput ControlID="txtStructuredProductA" />
+            <telerik:TargetInput ControlID="txtMFHybridDebtA" />
+            <telerik:TargetInput ControlID="txtCommoditiesA" />
+            <telerik:TargetInput ControlID="txtFixedIncomeA" />
+            <telerik:TargetInput ControlID="txtPrivateEquityA" />
+            <telerik:TargetInput ControlID="txtGovtSavingsA" />
+            <telerik:TargetInput ControlID="txtPensionGratuitiesA" />
+            <telerik:TargetInput ControlID="txtPMSA" />
+            <telerik:TargetInput ControlID="txtInvestmentsOthersA" />
+            <telerik:TargetInput ControlID="txtPropertyA" />
+            <telerik:TargetInput ControlID="txtIncomeTotal" />
             <telerik:TargetInput ControlID="txtOthersIncome" />
+            <telerik:TargetInput ControlID="txtBusinessAndProfession" />
+            <telerik:TargetInput ControlID="txtAgriculturalIncome" />
+            <telerik:TargetInput ControlID="txtRentalProperty" />
+            <telerik:TargetInput ControlID="txtCapitalGains" />
+            <telerik:TargetInput ControlID="txtSalary" />
             <telerik:TargetInput ControlID="txtFood" />
             <telerik:TargetInput ControlID="txtEntertainmentHolidays" />
             <telerik:TargetInput ControlID="txtRent" />
@@ -339,36 +343,44 @@
             <telerik:TargetInput ControlID="txtDomesticHelp" />
             <telerik:TargetInput ControlID="txtConveyance" />
             <telerik:TargetInput ControlID="txtOthersExpense" />
-            <telerik:TargetInput ControlID="txtHomeLoanLO" />
+            <telerik:TargetInput ControlID="txtExpenseTotal" />
+            <telerik:TargetInput ControlID="txtHomeLoanA" />
             <telerik:TargetInput ControlID="txtHomeLoanEMI" />
-            <telerik:TargetInput ControlID="txtAutoLoanLO" />
+            <telerik:TargetInput ControlID="txtAutoLoanA" />
             <telerik:TargetInput ControlID="txtAutoLoanEMI" />
+            <telerik:TargetInput ControlID="txtPersonalLoanA" />
             <telerik:TargetInput ControlID="txtPersonalLoanEMI" />
-            <telerik:TargetInput ControlID="txtPersonalLoanLO" />
-            <telerik:TargetInput ControlID="txtEducationLoanLO" />
+            <telerik:TargetInput ControlID="txtEducationLoanA" />
             <telerik:TargetInput ControlID="txtEducationLoanEMI" />
-            <telerik:TargetInput ControlID="txtOtherLoanLO" />
+            <telerik:TargetInput ControlID="txtOtherLoanA" />
             <telerik:TargetInput ControlID="txtOtherLoanEMI" />
+            <telerik:TargetInput ControlID="txtAdjustedTermSA" />
             <telerik:TargetInput ControlID="txtTermP" />
-            <telerik:TargetInput ControlID="txtTermSA" />
-            <telerik:TargetInput ControlID="txtEndowmentSA" />
+            <telerik:TargetInput ControlID="txtAdjustedEndowmentSA" />
             <telerik:TargetInput ControlID="txtEndowmentP" />
-            <telerik:TargetInput ControlID="txtWholeLifeSA" />
+            <telerik:TargetInput ControlID="txtAdjustedWholeLifeSA" />
             <telerik:TargetInput ControlID="txtWholeLifeP" />
-            <telerik:TargetInput ControlID="txtMoneyBackSA" />
+            <telerik:TargetInput ControlID="txtAdjustedMoneyBackSA" />
             <telerik:TargetInput ControlID="txtMoneyBackP" />
+            <telerik:TargetInput ControlID="txtAdjustedULIPSA" />
             <telerik:TargetInput ControlID="txtULIPP" />
-            <telerik:TargetInput ControlID="txtULIPSA" />
-            <telerik:TargetInput ControlID="txtOthersLISA" />
+            <telerik:TargetInput ControlID="txtULIPSurrMktVal" />
+            <telerik:TargetInput ControlID="txtMoneyBackSurrMktVal" />
+            <telerik:TargetInput ControlID="txtWholeLifeSurrMktVal" />
+            <telerik:TargetInput ControlID="txtEndowmentSurrMktVal" />
+            <telerik:TargetInput ControlID="txtTermSurrMktVal" />
+            <telerik:TargetInput ControlID="txtOtherSurrMktVal" />
+            <telerik:TargetInput ControlID="txtAdjustedOthersLISA" />
             <telerik:TargetInput ControlID="txtOthersLIP" />
-            <telerik:TargetInput ControlID="txtHealthInsuranceCoverSA" />
+            <telerik:TargetInput ControlID="txtHealthInsuranceCoverA" />
             <telerik:TargetInput ControlID="txtHealthInsuranceCoverP" />
-            <telerik:TargetInput ControlID="txtPropertyInsuranceCoverSA" />
+            <telerik:TargetInput ControlID="txtPropertyInsuranceCoverA" />
             <telerik:TargetInput ControlID="txtPropertyInsuranceCoverP" />
-            <telerik:TargetInput ControlID="txtPersonalAccidentSA" />
+            <telerik:TargetInput ControlID="txtPersonalAccidentA" />
             <telerik:TargetInput ControlID="txtPersonalAccidentP" />
-            <telerik:TargetInput ControlID="txtOthersGISA" />
+            <telerik:TargetInput ControlID="txtOthersGIA" />
             <telerik:TargetInput ControlID="txtOthersGIP" />
+           
         </TargetControls>
     </telerik:NumericTextBoxSetting>
     <telerik:DateInputSetting DateFormat="dd-MM-yyyy" DisplayDateFormat="dd-MM-yyyy"
