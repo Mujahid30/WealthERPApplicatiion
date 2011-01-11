@@ -12,6 +12,7 @@ using System.Data;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
+using WealthERP.Base;
 
 namespace WealthERP.Advisor
 {
@@ -41,9 +42,9 @@ namespace WealthERP.Advisor
                     ViewRMDetail();
                     BindBranchAssociation();
 
-                    if (Session["FromAdvisorView"] != null)
+                    if (!string.IsNullOrEmpty(Session[SessionContents.CurrentUserRole].ToString()))
                     {
-                        if (Session["FromAdvisorView"].ToString() == "FromAdvView")
+                        if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                         {
                             //.ToString() == "FromAdvView")
                             advisorVo = (AdvisorVo)Session["advisorVo"];
