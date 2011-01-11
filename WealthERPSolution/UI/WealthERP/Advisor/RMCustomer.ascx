@@ -121,91 +121,26 @@
         </td>
     </tr>
 </table>--%>
-<div id="tbl" runat="server">
-    <table>
-        <tr id="trModalPopup" runat="server">
-            <td>
-                <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
-                    TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
-                    Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
-                    PopupDragHandleControlID="Panel1" X="280" Y="35">
-                </cc1:ModalPopupExtender>
-            </td>
-        </tr>
-        <tr id="trExportPopup" runat="server">
-            <td>
-                <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" Style="display: none">
-                    <br />
-                    <table width="100%">
-                        <tr>
-                            <td>
-                                &nbsp;&nbsp;&nbsp;
-                            </td>
-                            <td align="right">
-                                <input id="rbCurrent" runat="server" name="Radio" onclick="setPageType('single')"
-                                    type="radio" />
-                            </td>
-                            <td align="left">
-                                <label for="rbCurrent" style="color: Black; font-family: Verdana; font-size: 8pt;
-                                    text-decoration: none">
-                                    Current Page</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                &nbsp;&nbsp;&nbsp;
-                            </td>
-                            <td align="right">
-                                <input id="rbAll" runat="server" name="Radio" onclick="setPageType('multiple')" type="radio" />
-                            </td>
-                            <td align="left">
-                                <label for="rbAll" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
-                                    All Pages</label>
-                            </td>
-                        </tr>
-                    </table>
-                    <table width="100%">
-                        <tr>
-                            <td align="right">
-                                <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
-                            </td>
-                            <td align="left">
-                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
-                            </td>
-                        </tr>
-                    </table>
-                </asp:Panel>
-                <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
-                    OnClick="btnExportExcel_Click" Height="31px" Width="30px" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
-                    cellspacing="0">
-                    <tr>
-                        <td>
-                            <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td class="leftField" align="right">
-                            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-                            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
+
+<table id="tblExport" class="TableBackground" width="100%" runat="server" cellpadding="0" cellspacing="0">
+    <tr>
+        <td width="50%" align="left">
+        <asp:ImageButton ID="imgBtnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" />
+        </td>
+        <td width="50%" align="left">
+        
+            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+       
+        </td>
+    </tr>
+</table>
+
+<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+ <table width="100%" cellspacing="0" cellpadding="0">
+ <tr>
             <td class="rightField" colspan="2">
                 <asp:GridView ID="gvCustomers" runat="server" AutoGenerateColumns="False" CellPadding="4"
                     ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="CustomerId,UserId" OnSelectedIndexChanged="gvCustomers_SelectedIndexChanged"
@@ -316,13 +251,121 @@
                 </asp:GridView>
             </td>
         </tr>
-        <tr id="trPager" runat="server">
+ </table>
+</asp:Panel>
+
+
+<table id="tblpager" class="TableBackground" width="100%" runat="server">
+ <tr id="trPager" runat="server">
+        <td width="100%" align="center">
+            <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
+        </td>        
+     </tr>
+</table>
+
+
+<%--<div id="tbl" runat="server">
+    <table>
+       
+        
+    <%--    <tr>
+            <td colspan="3">
+                <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+                    cellspacing="0">
+                    <tr>
+                        <td>
+                            <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td class="leftField" align="right">
+                            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+                            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        
+        
+       <%-- <tr id="trPager" runat="server">
             <td align="center" colspan="6">
                 <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
             </td>
         </tr>
     </table>
-</div>
+</div>--%>
+
+<table class="TableBackground" width="100%" id="tblGV" runat="server" cellspacing="0" cellpadding="0">
+
+        <tr id="trModalPopup" runat="server">
+            <td>
+                <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
+                    TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
+                    Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
+                    PopupDragHandleControlID="Panel1" X="280" Y="35">
+                </cc1:ModalPopupExtender>
+            </td>
+        </tr>
+        
+        <tr id="trExportPopup" runat="server">
+            <td>
+                <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" Style="display: none">
+                    <br />
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td align="right">
+                                <input id="rbCurrent" runat="server" name="Radio" onclick="setPageType('single')"
+                                    type="radio" />
+                            </td>
+                            <td align="left">
+                                <label for="rbCurrent" style="color: Black; font-family: Verdana; font-size: 8pt;
+                                    text-decoration: none">
+                                    Current Page</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td align="right">
+                                <input id="rbAll" runat="server" name="Radio" onclick="setPageType('multiple')" type="radio" />
+                            </td>
+                            <td align="left">
+                                <label for="rbAll" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
+                                    All Pages</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%">
+                        <tr>
+                            <td align="right">
+                                <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
+                            </td>
+                            <td align="left">
+                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                            </td>
+                        </tr>
+                    </table>
+                </asp:Panel>
+                <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
+                    OnClick="btnExportExcel_Click" Height="31px" Width="30px" />
+            </td>
+        </tr>
+</table>
+
 <asp:Button ID="btnPincodeSearch" runat="server" Text="" OnClick="btnPincodeSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnAreaSearch" runat="server" Text="" OnClick="btnAreaSearch_Click"
