@@ -56,7 +56,7 @@
 <table>
 <tr id="trEQMISTypeSelection" runat="server">
     <td>
-    <asp:Label ID="lblMISType" runat="server" CssClass="FieldName">MIS Type:</asp:Label>
+    <asp:Label ID="lblMISType" runat="server" Width="90" CssClass="FieldName">MIS Type:</asp:Label>
     <asp:DropDownList ID="ddlMISType" style="vertical-align:middle" runat="server" 
             CssClass="cmbField" AutoPostBack="true" 
             onselectedindexchanged="ddlMISType_SelectedIndexChanged">
@@ -85,11 +85,11 @@
 </table>
 <table runat="server" id="tblfromTo">
     <tr id="trRange" visible="false" runat="server">
-        <td align="left" valign="top" style="width>
-            <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
+        <td align="left" valign="top"  >
+            <asp:Label ID="lblFromDate" runat="server" Width="90" CssClass="FieldName">From:</asp:Label>
             </td>
             <td valign="top">
-            <asp:TextBox ID="txtFromDate" runat="server" style="vertical-align: middle" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtFromDate" Width="180" runat="server" style="vertical-align: middle" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -103,10 +103,10 @@
             </asp:RequiredFieldValidator>
         </td>
         <td valign="top" align="left">
-            <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
+            <asp:Label ID="lblToDate" runat="server" Width="60" CssClass="FieldName">To:</asp:Label>
             </td>
             <td valign="top">
-            <asp:TextBox ID="txtToDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtToDate" runat="server" Width="180" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtToDate_CalendarExtender" runat="server" TargetControlID="txtToDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -126,8 +126,8 @@
     </tr>
      <tr id="trPeriod" visible="false" runat="server">
         <td colspan="2">
-            <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName">Period:</asp:Label>
-            <asp:DropDownList ID="ddlPeriod" runat="server" AutoPostBack="true" CssClass="cmbField"
+            <asp:Label ID="lblPeriod" runat="server" Width="90" CssClass="FieldName">Period:</asp:Label>
+            <asp:DropDownList ID="ddlPeriod" runat="server" Width="180" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlPeriod_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
@@ -137,8 +137,8 @@
     <table runat="server" id="tableComSecWiseOptions">
     <tr runat="server" id="trComSecWiseOptions">
         <td valign="top">
-            <asp:Label ID="lblEQDate" runat="server" CssClass="FieldName">As on Date:</asp:Label>
-            <asp:TextBox ID="txtEQDate" runat="server" style="vertical-align:middle" CssClass="txtField"></asp:TextBox>
+            <asp:Label ID="lblEQDate" runat="server" Width="90" CssClass="FieldName">As on Date:</asp:Label>
+            <asp:TextBox ID="txtEQDate" runat="server" Width="180" style="vertical-align:middle" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="EQcalEX" runat="server" TargetControlID="txtEQDate"
                 OnClientDateSelectionChanged="checkdate" Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -153,9 +153,9 @@
         </td>
         
         <td >
-             <asp:Label ID="lblEQPortfolio" runat="server" Text="Portfolio :" CssClass="FieldName"></asp:Label>
+             <asp:Label ID="lblEQPortfolio" runat="server" Text="Portfolio :"  CssClass="FieldName"></asp:Label>
                   <asp:DropDownList ID="ddlPortfolioGroup" runat="server" 
-                 CssClass="cmbField" AutoPostBack="true"
+                 CssClass="cmbField" Width="180" AutoPostBack="true"
                  onselectedindexchanged="ddlPortfolioGroup_SelectedIndexChanged">
                         <asp:ListItem Text="Managed" Value="1">Managed</asp:ListItem>
                         <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
@@ -168,8 +168,8 @@
     
     <tr runat="server" id="trBranchRmDpRow">
     <td align="left">
-    <asp:Label ID="lblChooseBranchBM" runat="server" Font-Bold="true"  CssClass="FieldName"  Text="Branch: "></asp:Label>
-    <asp:DropDownList ID="ddlBranchForEQ" style="vertical-align: middle"  CssClass="cmbField" runat="server" 
+    <asp:Label ID="lblChooseBranchBM" runat="server" Font-Bold="true" Width="89" CssClass="FieldName" align="left"  Text="Branch:     "></asp:Label>
+    <asp:DropDownList ID="ddlBranchForEQ" style="vertical-align: middle" Width="185" CssClass="cmbField" runat="server" 
             AutoPostBack="true" 
             onselectedindexchanged="ddlBranchForEQ_SelectedIndexChanged">
     </asp:DropDownList>
@@ -177,8 +177,8 @@
     
     <td>
     <asp:Image Visible="false" runat="server" Width="10px" />
-    <asp:Label ID="lblChooseRM" runat="server" Font-Bold="true"  CssClass="FieldName"  Text="RM: "></asp:Label>
-    <asp:DropDownList ID="ddlRMEQ" style="vertical-align: middle"  CssClass="cmbField" runat="server" 
+    <asp:Label ID="lblChooseRM" runat="server" Font-Bold="true" Width="60" CssClass="FieldName"  Text="RM: "></asp:Label>
+    <asp:DropDownList ID="ddlRMEQ" style="vertical-align: middle" Width="180"  CssClass="cmbField" runat="server" 
             AutoPostBack="true" 
             onselectedindexchanged="ddlRMEQ_SelectedIndexChanged">
     </asp:DropDownList>
