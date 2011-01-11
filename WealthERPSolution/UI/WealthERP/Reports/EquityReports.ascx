@@ -439,7 +439,7 @@
                             <tr>
                                 <td>
                                     <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;
                                     <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField"></asp:TextBox>
                                     <ajaxToolkit:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
                                         Format="dd/MM/yyyy">
@@ -453,7 +453,7 @@
                                 </td>
                                 <td>
                                     <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;
                                     <asp:TextBox ID="txtToDate" runat="server" CssClass="txtField"></asp:TextBox>
                                     <ajaxToolkit:CalendarExtender ID="txtToDate_CalendarExtender" runat="server" TargetControlID="txtToDate"
                                         Format="dd/MM/yyyy">
