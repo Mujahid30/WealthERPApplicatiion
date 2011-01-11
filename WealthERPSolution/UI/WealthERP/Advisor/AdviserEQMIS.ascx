@@ -60,7 +60,7 @@
     <asp:DropDownList ID="ddlMISType" style="vertical-align:middle" runat="server" 
             CssClass="cmbField" AutoPostBack="true" 
             onselectedindexchanged="ddlMISType_SelectedIndexChanged">
-    <asp:ListItem Value="TurnOverSummery" Text="Turn Over Summery"></asp:ListItem>
+    <asp:ListItem Value="TurnOverSummery" Text="Turn Over Summary"></asp:ListItem>
     <asp:ListItem Value="CompanyWise" Text="Company Wise"></asp:ListItem>
     <asp:ListItem Value="SectorWise" Text="Sector Wise"></asp:ListItem>
     </asp:DropDownList>
