@@ -609,6 +609,7 @@ namespace WealthERP.Advisor
             {
                 if (e.Item.Value == "Home")
                 {
+                    Session["UserType"] = null;
                     if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BMDashBoard", "loadcontrol('BMDashBoard','none');", true);
