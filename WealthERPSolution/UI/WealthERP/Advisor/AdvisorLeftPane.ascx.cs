@@ -660,6 +660,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Profile")
                 {
+                    Session["CurrentrmVo"] = null;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRMDetails','login');", true);
                 }
                 else if (e.Item.Value == "Customer")
