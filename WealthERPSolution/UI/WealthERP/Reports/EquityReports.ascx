@@ -90,7 +90,7 @@
         return true;
     }
     function GetCustomerId(source, eventArgs) {
-        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();       
         return false;
     };
 
@@ -295,7 +295,7 @@
                                     <asp:Label ID="Label1" runat="server" Text="Customer Name :" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
+                                    <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" Visible="true" />
                                     <asp:TextBox ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
                                         AutoPostBack="true"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtCustomer_TextBoxWatermarkExtender"
                                             runat="server" TargetControlID="txtCustomer" WatermarkText="Type the Customer Name">
