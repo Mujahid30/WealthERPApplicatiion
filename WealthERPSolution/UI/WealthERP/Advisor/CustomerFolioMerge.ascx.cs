@@ -504,7 +504,7 @@ namespace WealthERP.Advisor
                     AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
                     string ffromfolio = ddlAdvisorBranchList.SelectedValue.ToString();
                     bool folioDs = adviserBranchBo.CustomerFolioMerged(ffromfolio, fnumber, customerId);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('CustomerFolioMerge','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','none');", true);
                 }
 
             }
