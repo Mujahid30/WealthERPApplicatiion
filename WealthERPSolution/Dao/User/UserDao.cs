@@ -925,5 +925,50 @@ namespace DaoUser
             return bResult;
 
         }
+
+        /// <summary>
+        /// Get RM,BM and Customer Theme Based On Role Type And Id.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public void GetUserTheme(int userTypeId, string userType,out string theme)
+        {            
+            Database db;
+            DbCommand getUserThemeCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getUserThemeCmd = db.GetStoredProcCommand("SP_GetUserTheme");
+                db.AddInParameter(getUserThemeCmd, "@UserTypeId", DbType.Int32, userTypeId);
+                db.AddInParameter(getUserThemeCmd, "@UserType", DbType.String, userType);
+                db.AddOutParameter(getUserThemeCmd, "@ThemeName", DbType.String, 20);
+                db.ExecuteNonQuery(getUserThemeCmd);
+                Object objThemeName = db.GetParameterValue(getUserThemeCmd, "@ThemeName");
+                if (objThemeName != DBNull.Value)
+                    theme = db.GetParameterValue(getUserThemeCmd, "@ThemeName").ToString().Trim();
+                else
+                    theme = string.Empty;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserDao.cs:GetUserTheme()");
+                object[] objects = new object[2];
+                objects[0] = userTypeId;
+                objects[1] = userType;               
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+          
+
+        }
     }
 }

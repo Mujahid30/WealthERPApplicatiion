@@ -24,6 +24,7 @@ namespace WealthERP.General
     public partial class UserLogin : System.Web.UI.UserControl
     {
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
+        string strUserTheme;
         protected void Page_Load(object sender, EventArgs e)
         {
             int userId = 0;
@@ -158,6 +159,12 @@ namespace WealthERP.General
                                     Session["S_CurrentUserRole"] = "BM";
                                     branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                     Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+
+                                    //RM Theme Will be same as Advisor Theme
+                                    userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
+                                    Session["Theme"] = strUserTheme;
+                                    Session["refreshTheme"] = true;
+
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('BMDashBoard','login');", true);
                                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
                                 }
@@ -214,6 +221,12 @@ namespace WealthERP.General
                                     Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                     //login user role Type Issue Reported by Ajay on July 1 2010
                                     Session["S_CurrentUserRole"] = "RM";
+
+                                    //RM Theme Will be same as Advisor Theme
+                                    userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
+                                    Session["Theme"] = strUserTheme;
+                                    Session["refreshTheme"] = true;
+
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('RMDashBoard','login');", true);
                                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
 
@@ -226,6 +239,12 @@ namespace WealthERP.General
                                     Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                     //login user role Type Issue Reported by Ajay on July 1 2010
                                     Session["S_CurrentUserRole"] = "BM";
+
+                                    //RM Theme Will be same as Advisor Theme
+                                    userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
+                                    Session["Theme"] = strUserTheme;
+                                    Session["refreshTheme"] = true;
+
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('BMDashBoard','login');", true);
                                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
 
@@ -269,6 +288,12 @@ namespace WealthERP.General
                             sourcePath = "Images/" + userBo.GetCustomerLogo(customerVo.CustomerId);
                             Session[SessionContents.LogoPath] = sourcePath;
                             Session["S_CurrentUserRole"] = "Customer";
+
+                            //RM Theme Will be same as Advisor Theme
+                            userBo.GetUserTheme(customerVo.CustomerId, "CUSTOMER", out strUserTheme);
+                            Session["Theme"] = strUserTheme;
+                            Session["refreshTheme"] = true;
+
                             GetLatestValuationDate();
 
                             Session["IsDashboard"] = "true";

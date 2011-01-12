@@ -567,6 +567,41 @@ namespace BoUser
 
             return bResult;
         }
+        /// <summary>
+        /// Get RM,BM and Customer Theme Based On Role Type And Id.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public void GetUserTheme(int userTypeId, string userType, out string theme)
+        {
+            UserDao userDao = new UserDao();
+            
+            try
+            {
+                userDao.GetUserTheme(userTypeId, userType, out theme);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserBo.cs:GetUserTheme()");
+                object[] objects = new object[2];
+                objects[0] = userTypeId;
+                objects[1] = userType;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
+        }
 
 
     }
