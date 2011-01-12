@@ -234,7 +234,7 @@ namespace DaoReports
         /// <param name="report"></param>
         /// <remarks>Get All the details of Financial Planning of customers</remarks>
         /// <returns></returns>
-        public DataSet GetCustomerFPDetails(FinancialPlanningVo report,out double asset,out double liabilities,out double netWorth,out string riskClass,out double sumAssuredLI)
+        public DataSet GetCustomerFPDetails(FinancialPlanningVo report,out double assetTotal,out double liabilitiesTotal,out double netWorthTotal,out string riskClass,out double sumAssuredLI)
         {
             Database db;
             DbCommand cmdCustomerFPReportDetails;
@@ -249,6 +249,7 @@ namespace DaoReports
                 db.AddInParameter(cmdCustomerFPReportDetails, "@CustomerId", DbType.Int32, report.CustomerId);
                 db.AddOutParameter(cmdCustomerFPReportDetails,"@RiskClass", DbType.String,20);
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@InsuranceSUMAssured", DbType.Decimal, 20);
+                db.AddOutParameter(cmdCustomerFPReportDetails, "@AssetTotal", DbType.Decimal, 20);
                 dsCustomerFPReportDetails = db.ExecuteDataSet(cmdCustomerFPReportDetails);
 
                  Object riskClassObj = db.GetParameterValue(cmdCustomerFPReportDetails, "@RiskClass");
@@ -263,11 +264,16 @@ namespace DaoReports
                  else
                      sumAssuredLI = 0;
 
+                 Object objAssetTotal = db.GetParameterValue(cmdCustomerFPReportDetails, "@AssetTotal");
+                 if (objAssetTotal != DBNull.Value)
+                     assetTotal = double.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@AssetTotal").ToString());
+                 else
+                     assetTotal = 0;
+
                 dtAsset = dsCustomerFPReportDetails.Tables[2];
-                dtLiabilities = dsCustomerFPReportDetails.Tables[3];
-                asset = double.Parse(dtAsset.Rows[0][3].ToString());
-                liabilities = double.Parse(dtLiabilities.Rows[0][0].ToString());
-                netWorth = asset - liabilities;
+                dtLiabilities = dsCustomerFPReportDetails.Tables[3];               
+                liabilitiesTotal = double.Parse(dtLiabilities.Rows[0][0].ToString());
+                netWorthTotal = assetTotal - liabilitiesTotal;
             }
             catch (BaseApplicationException Ex)
             {

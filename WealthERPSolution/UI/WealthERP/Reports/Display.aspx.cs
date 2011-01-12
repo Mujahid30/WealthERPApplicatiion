@@ -480,6 +480,8 @@ namespace WealthERP.Reports
             dtAdvisorRiskClass = dsCustomerFPReportDetails.Tables[16];
             dtPortfolioAllocation = dsCustomerFPReportDetails.Tables[17];
 
+            dtPortfolioAllocation = CreatePortfolioAllocationTable(dtPortfolioAllocation);
+
             crmain.Load(Server.MapPath("FPSectionalReport.rpt"));
             crmain.Subreports["ProfileSummary"].Database.Tables["CustomerFamilyDetails"].SetDataSource(dsCustomerFPReportDetails.Tables[1]);
             crmain.Subreports["KeyAssumptions"].Database.Tables["WerpAssumptions"].SetDataSource(dsCustomerFPReportDetails.Tables[4]);
@@ -494,7 +496,7 @@ namespace WealthERP.Reports
             crmain.Subreports["Insurance"].Database.Tables["Insurance"].SetDataSource(dsCustomerFPReportDetails.Tables[14]);
             crmain.Subreports["GeneralInsurance"].Database.Tables["GEInsurance"].SetDataSource(dsCustomerFPReportDetails.Tables[15]);
             crmain.Subreports["HLVAnalysis"].Database.Tables["HLVAnalysis"].SetDataSource(dtHLVAnalysis);
-            crmain.Subreports["RiskProfile_PortfolioAllocation"].Database.Tables["PortfolioAllocation"].SetDataSource(dtPortfolioAllocation);
+            crmain.Subreports["RiskProfile_PortfolioAllocationPartOne"].Database.Tables["PortfolioAllocation"].SetDataSource(dtPortfolioAllocation);
             crmain.Subreports["HLVBasedIncome"].Database.Tables["HLVBasedIncome"].SetDataSource(dsCustomerFPReportDetails.Tables[19]);
             crmain.Subreports["CurrentObservation"].Database.Tables["Observation"].SetDataSource(dsCustomerFPReportDetails.Tables[20]);
             crmain.Subreports["FinancialHealth"].Database.Tables["FinancialHealth"].SetDataSource(dsCustomerFPReportDetails.Tables[21]);
@@ -757,23 +759,112 @@ namespace WealthERP.Reports
         private DataTable CreatePortfolioAllocationTable(DataTable dtPortfolioAllocation)
         {
             DataTable dtPortfolioAllocatonTable = new DataTable();
+
+            dtPortfolioAllocatonTable.Columns.Add("AssetType");
             dtPortfolioAllocatonTable.Columns.Add("Conservative");
             dtPortfolioAllocatonTable.Columns.Add("ModeratelyConservative");
-            dtPortfolioAllocatonTable.Columns.Add("Moderate");
-            dtPortfolioAllocatonTable.Columns.Add("ModeratelyAggressive");
+            dtPortfolioAllocatonTable.Columns.Add("Moderate");      
             dtPortfolioAllocatonTable.Columns.Add("Aggressive");
             dtPortfolioAllocatonTable.Columns.Add("VeryAggressive");
-            DataRow drPortfolioAllocation;
-            string riskClass=string.Empty;
-            string tempRiskClass=string.Empty;
-           
+            dtPortfolioAllocatonTable.Columns.Add("RiskAverse");
+            
+            DataRow[] drPortfolioAllocation;
+            DataRow drPAllocation;
+            string tempRiskClass = string.Empty;
+            string tempRiskClass1 = string.Empty;
+            
             foreach (DataRow dr in dtPortfolioAllocation.Rows)
             {
-                riskClass=dr["XRC_RiskClass"].ToString();
-                if (tempRiskClass == riskClass)
+                if (tempRiskClass1 != dr["WAC_AssetClassification"].ToString().Trim())
                 {
+                    if (dr["WAC_AssetClassification"].ToString() == "Alternates")
+                    {
+                        tempRiskClass1 = dr["WAC_AssetClassification"].ToString().Trim();
+                        tempRiskClass = "Total Alternates";
+                        drPortfolioAllocation = dtPortfolioAllocation.Select("WAC_AssetClassification='Alternates'");
 
-                    tempRiskClass = dr["XRC_RiskClass"].ToString(); 
+                    }
+                    else if (dr["WAC_AssetClassification"].ToString() == "Cash")
+                    {
+                        tempRiskClass = "Total Cash";
+                        drPortfolioAllocation = dtPortfolioAllocation.Select("WAC_AssetClassification='Cash'");
+
+                    }
+                    else if (dr["WAC_AssetClassification"].ToString() == "Debt")
+                    {
+                        tempRiskClass = "Total Debt";
+                        drPortfolioAllocation = dtPortfolioAllocation.Select("WAC_AssetClassification='Debt'");
+
+                    }
+                    else if (dr["WAC_AssetClassification"].ToString() == "Equity")
+                    {
+                        tempRiskClass = "Total Equity";
+                        drPortfolioAllocation = dtPortfolioAllocation.Select("WAC_AssetClassification='Equity'");
+
+                    }
+                    else
+                    {
+                        drPortfolioAllocation = dtPortfolioAllocation.Select("WAC_AssetClassification=='Alternates'");
+                    }
+
+                    drPAllocation = dtPortfolioAllocatonTable.NewRow();
+                    drPAllocation["AssetType"] = tempRiskClass;
+                    foreach (DataRow row in drPortfolioAllocation)
+                    {
+                        switch (row["XRC_RiskClass"].ToString())
+                        {
+
+                            case "Aggressive":
+                                {
+                                    drPAllocation["Aggressive"] =Math.Round(double.Parse(row["WAAR_AssetAllocationPercenatge"].ToString()),0).ToString();
+                                    break;
+
+                                }
+
+                            case "Conservative":
+                                {
+                                    drPAllocation["Conservative"] = row["WAAR_AssetAllocationPercenatge"];
+                                    break;
+
+                                }
+                            case "Moderately Aggressive":
+                                {
+                                    drPAllocation["ModeratelyConservative"] = row["WAAR_AssetAllocationPercenatge"];
+                                    break;
+
+                                }
+                            case "Moderate":
+                                {
+                                    drPAllocation["Moderate"] = row["WAAR_AssetAllocationPercenatge"];
+                                    break;
+
+                                }
+                            case "Very Aggressive":
+                                {
+                                    drPAllocation["VeryAggressive"] = row["WAAR_AssetAllocationPercenatge"];
+                                    break;
+
+                                }
+                            case "Risk Averse":
+                                {
+                                    drPAllocation["RiskAverse"] = row["WAAR_AssetAllocationPercenatge"];
+                                    break;
+
+                                }
+                            default:
+                                {
+                                    break;
+                                }
+
+                        }
+                    }
+
+                    dtPortfolioAllocatonTable.Rows.Add(drPAllocation);
+
+                }
+                else
+                {
+                    break;
                 }
             }
 
