@@ -199,7 +199,7 @@
                 <tr id="ErrorMessage" align="center" style="width: 100%" runat="server">
                     <td align="center" style="width: 100%">
                         <div class="failure-msg" style="text-align:center" align="center">
-                            No Equity Records found...
+                            No Equity Records found, please do valuation...
                         </div>
                     </td>
                 </tr>
