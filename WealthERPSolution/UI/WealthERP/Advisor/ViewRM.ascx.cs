@@ -494,7 +494,7 @@ namespace WealthERP.Advisor
                 rmVo = advisorStaffBo.GetAdvisorStaff(userId);
                 Session["CurrentrmVo"] = rmVo;
                 menu = MyDropDownList.SelectedItem.Value.ToString();
-                Session["S_CurrentUserRole"] = "RM";
+                //Session["S_CurrentUserRole"] = "RM";
                 if (menu == "Edit Profile")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','none');", true);
