@@ -103,7 +103,7 @@ namespace BoReports
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Financial Net Worth";
-            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(netWorth);
+            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(netWorth,2));
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
@@ -324,7 +324,10 @@ namespace BoReports
         private string convertUSCurrencyFormat(double value)
         {
             string strValues = string.Empty;
-            strValues = value.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+            if (value > 0)
+                strValues = value.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+            else
+                strValues = value.ToString();
             return strValues;
         }
 

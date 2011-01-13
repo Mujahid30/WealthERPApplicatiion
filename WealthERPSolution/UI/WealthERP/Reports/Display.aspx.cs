@@ -460,7 +460,9 @@ namespace WealthERP.Reports
         {
             double asset = 0;
             double liabilities = 0;
-            double networth = 0;            
+            double networth = 0;
+            double currentAssetPer = 0;
+            double recAssetPer = 0;
 
             string fpImage = "SCBFPImage.jpg";
             string fpCoverHeaderImage = "FPReportHeader.jpg";
@@ -517,7 +519,11 @@ namespace WealthERP.Reports
             crmain.SetParameterValue("Asset", convertUSCurrencyFormat(Math.Round(double.Parse(asset.ToString()), 2)));
             crmain.SetParameterValue("Liabilities", convertUSCurrencyFormat(Math.Round(double.Parse(liabilities.ToString()), 2)));
             crmain.SetParameterValue("Networth", convertUSCurrencyFormat(Math.Round(double.Parse(networth.ToString()), 2)));
-            crmain.SetParameterValue("CustomerRiskClass", riskClass); 
+            if (!string.IsNullOrEmpty(riskClass.Trim()))
+                crmain.SetParameterValue("CustomerRiskClass", riskClass); 
+            else
+                crmain.SetParameterValue("CustomerRiskClass", "  - -  "); 
+
             //crmain.Database.Tables["ImageSection"].SetDataSource(ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage)));
 
             if (dsCustomerFPReportDetails.Tables[5].Rows.Count > 0)
@@ -589,9 +595,36 @@ namespace WealthERP.Reports
             }
             else
                 crmain.SetParameterValue("SurpressCashFlow", "0");
-           
+
+            if (dsCustomerFPReportDetails.Tables[20].Rows.Count > 0)
+            {
+                crmain.SetParameterValue("SurpressCurrentObservation", "1");
+            }
+            else
+                crmain.SetParameterValue("SurpressCurrentObservation", "0");
+
+
             
 
+            foreach (DataRow dr in dtAssetAllocation.Rows)
+            {
+                if (!string.IsNullOrEmpty(dr[1].ToString()))
+                {
+                    currentAssetPer += double.Parse(dr[1].ToString());
+                }
+                if (!string.IsNullOrEmpty(dr[2].ToString()))
+                {
+                    recAssetPer += double.Parse(dr[2].ToString());
+                }
+            }
+
+            if (currentAssetPer > 0 || recAssetPer>0)
+            {
+                crmain.SetParameterValue("SurpressRiskProfile", "1");
+            }
+            else
+                 crmain.SetParameterValue("SurpressRiskProfile", "0");
+              
             if (ViewState["FPSelectedSectionList"] != null)
             {
                 chkBoxsList = (Dictionary<string, string>)ViewState["FPSelectedSectionList"];
@@ -870,6 +903,16 @@ namespace WealthERP.Reports
                     break;
                 }
             }
+
+            drPAllocation = dtPortfolioAllocatonTable.NewRow();
+            drPAllocation["AssetType"] = "Total";
+            drPAllocation["Aggressive"] = "100";
+            drPAllocation["Conservative"] = "100";
+            drPAllocation["ModeratelyConservative"] = "100";
+            drPAllocation["Moderate"] = "100";
+            drPAllocation["VeryAggressive"] = "100";
+            drPAllocation["RiskAverse"] = "100";
+            dtPortfolioAllocatonTable.Rows.Add(drPAllocation);
 
             return dtPortfolioAllocatonTable;
  
@@ -1592,8 +1635,11 @@ namespace WealthERP.Reports
         }
         private string convertUSCurrencyFormat(double value)
         {
-           string strValues=string.Empty; 
-           strValues=value.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+           string strValues=string.Empty;
+           if (value > 0)
+               strValues = value.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+           else
+               strValues = value.ToString();
            return strValues;
         }
 

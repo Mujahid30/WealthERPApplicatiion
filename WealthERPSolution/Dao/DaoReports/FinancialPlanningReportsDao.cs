@@ -271,8 +271,11 @@ namespace DaoReports
                      assetTotal = 0;
 
                 dtAsset = dsCustomerFPReportDetails.Tables[2];
-                dtLiabilities = dsCustomerFPReportDetails.Tables[3];               
-                liabilitiesTotal = double.Parse(dtLiabilities.Rows[0][0].ToString());
+                dtLiabilities = dsCustomerFPReportDetails.Tables[3];
+                if (dtLiabilities.Rows.Count > 0)
+                    liabilitiesTotal = double.Parse(dtLiabilities.Rows[0][0].ToString());
+                else
+                    liabilitiesTotal = 0;
                 netWorthTotal = assetTotal - liabilitiesTotal;
             }
             catch (BaseApplicationException Ex)
