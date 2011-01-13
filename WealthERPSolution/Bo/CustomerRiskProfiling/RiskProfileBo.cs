@@ -8,6 +8,8 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using BoCustomerProfiling;
+using System.Collections.Specialized;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
 
 namespace BoCustomerRiskProfiling
 {
@@ -193,5 +195,41 @@ namespace BoCustomerRiskProfiling
 
         }
 
+        /// <summary>
+        /// To Get Adviser Risk classes
+        /// </summary>
+        /// Dev By: Vinayak Patil.
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetAdviserRiskClasses(int adviserId)
+        {
+
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = riskprofiledao.GetAdviserRiskClasses(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectBo.cs:GetAdviserRiskClasses()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+         public void AddCustomerRiskProfileDetailsDirectlyBYDP(int customerId, DateTime riskdate, string riskclasscode, RMVo rmvo)
+         {
+            riskprofiledao.AddCustomerRiskProfileDetailsDirectlyBYDP(customerId, riskdate, riskclasscode, rmvo);
+         }
     }
 }
