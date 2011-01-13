@@ -108,17 +108,17 @@ namespace BoReports
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Insurance Cover Recommended";
-            drHLVBasedIncome["HLVIncomeValue"] = Math.Round(double.Parse((HLVbasedIncome - netWorth).ToString()), 2).ToString(); 
+            drHLVBasedIncome["HLVIncomeValue"] =convertUSCurrencyFormat(Math.Round(double.Parse((HLVbasedIncome - netWorth).ToString()), 2)); 
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Current Insurance Cover";
-            drHLVBasedIncome["HLVIncomeValue"] = sumAssuredLI.ToString();
+            drHLVBasedIncome["HLVIncomeValue"] =convertUSCurrencyFormat(Math.Round(sumAssuredLI));
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Insurance Cover Required";
-            drHLVBasedIncome["HLVIncomeValue"] = Math.Round(double.Parse(((HLVbasedIncome - netWorth) - sumAssuredLI).ToString()), 2).ToString();
+            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(double.Parse(((HLVbasedIncome - netWorth) - sumAssuredLI).ToString()), 2));
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             dsCustomerFPReportDetails.Tables.Add(dtHLVBasedIncome);

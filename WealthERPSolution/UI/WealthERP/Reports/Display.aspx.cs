@@ -480,7 +480,10 @@ namespace WealthERP.Reports
             dtAdvisorRiskClass = dsCustomerFPReportDetails.Tables[16];
             dtPortfolioAllocation = dsCustomerFPReportDetails.Tables[17];
 
+            if (dtPortfolioAllocation.Rows.Count>0)
+            {
             dtPortfolioAllocation = CreatePortfolioAllocationTable(dtPortfolioAllocation);
+            }
 
             crmain.Load(Server.MapPath("FPSectionalReport.rpt"));
             crmain.Subreports["ProfileSummary"].Database.Tables["CustomerFamilyDetails"].SetDataSource(dsCustomerFPReportDetails.Tables[1]);

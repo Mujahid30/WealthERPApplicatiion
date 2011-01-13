@@ -113,7 +113,7 @@
             <td style="width:3%">
             </td> 
             <td style="width:44%;white-space:nowrap">
-             <asp:CheckBox ID="chkRM_Messgae" runat="server" CssClass="cmbField" Text="RM Messgae" />
+             <asp:CheckBox ID="chkRM_Messgae" runat="server" CssClass="cmbField" Text="RM Message" />
             </td>
             <td style="width:50%;white-space:nowrap">
              <asp:CheckBox ID="chkCash_Flows" runat="server" CssClass="cmbField" Text="Cash Flows" />
