@@ -134,16 +134,51 @@
     <tr>
         <td>
             <ajaxtoolkit:tabcontainer id="tabRiskProfilingAndAssetAllocation" runat="server"
-                activetabindex="1" width="100%" style="visibility: visible;">
+                activetabindex="0" width="100%" style="visibility: visible;">
                 <ajaxToolkit:TabPanel ID="tabRiskProfiling" runat="server" HeaderText="Risk Profiling"
                     Visible="true">
                     <HeaderTemplate>
                         Risk Profiling
                     </HeaderTemplate>
                     <ContentTemplate>
+                    <table runat="server" id="tblPickOptions" style="text-align: left;" width="100%">
+                        <tr align="left" runat="server">
+                            <td runat="server" style="float: left">
+                            <br />
+                                <asp:Label ID="lblPickWhat" runat="server" CssClass="HeaderTextSmall" style="float: right" Text="Do you wish to: "></asp:Label>
+                            </td>
+                            <td style="float: left; vertical-align: middle" runat="server">
+                            <br />
+                            <asp:RadioButton ID="rbtnPickRiskclass"  AutoPostBack="True" runat="server" 
+                                    CssClass="txtField" GroupName="RiskProfile" Text="Pick Risk Class"
+                                    oncheckedchanged="rbtnPickRiskclass_CheckedChanged" />
+                            <asp:RadioButton ID="rbtnAnsQuestions" GroupName="RiskProfile" AutoPostBack="True" runat="server" 
+                                    CssClass="txtField" Text="Answers the Questions" 
+                                    oncheckedchanged="rbtnAnsQuestions_CheckedChanged" />
+                                    <br />
+                             </td>
+                        </tr>
+                        
+                    </table>
+                    <table runat="server" id="tblPickRiskClass">
+                        <tr runat="server">
+                            <td runat="server">
+                            <br />
+                                <asp:Label ID="lblPickRiskPlass" runat="server" Text="Pick Risk Class" CssClass="HeaderTextSmall"></asp:Label>
+                        
+                            </td>
+                            <td runat="server">
+                            <br />
+                                <asp:DropDownList ID="ddlPickRiskClass" runat="server" CssClass="cmbField" 
+                                    style="vertical-align: middle">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                    </table>
                         <table width="100%">
-                            <tr>
-                                <td>
+                            <tr runat="server" id="trRiskProfiler">
+                                <td runat="server">
+                                <br />
                                     <asp:Label ID="lblRiskProfiler" Text="Risk Profiler Questionnaire" runat="server"
                                         CssClass="HeaderTextSmall"></asp:Label>
                                 </td>
@@ -185,12 +220,22 @@
                                 <td>
                                     <table width="100%">
                                         <tr>
+                                        <td>
+                                        <div runat="server" id="divQuestionAnswers">
                                             <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+                                            </div>
+                                        </td>
                                         </tr>
                                         <tr>
                                             <td align="left">
                                                 <asp:Button ID="btnSubmitRisk" runat="server" CssClass="PCGButton" OnClick="btnSubmitRisk_Click"
                                                     Text="Submit" OnClientClick="return optionvalidation()" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left">
+                                                <asp:Button ID="btnSubmitForPickRiskclass" runat="server" CssClass="PCGButton"
+                                                    Text="Submit" onclick="btnSubmitForPickRiskclass_Click"/>
                                             </td>
                                         </tr>
                                         <tr>

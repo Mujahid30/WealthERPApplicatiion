@@ -41,6 +41,78 @@ namespace WealthERP.Advisor {
         protected global::AjaxControlToolkit.TabPanel tabRiskProfiling;
         
         /// <summary>
+        /// tblPickOptions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblPickOptions;
+        
+        /// <summary>
+        /// lblPickWhat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPickWhat;
+        
+        /// <summary>
+        /// rbtnPickRiskclass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbtnPickRiskclass;
+        
+        /// <summary>
+        /// rbtnAnsQuestions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbtnAnsQuestions;
+        
+        /// <summary>
+        /// tblPickRiskClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblPickRiskClass;
+        
+        /// <summary>
+        /// lblPickRiskPlass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPickRiskPlass;
+        
+        /// <summary>
+        /// ddlPickRiskClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPickRiskClass;
+        
+        /// <summary>
+        /// trRiskProfiler control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRiskProfiler;
+        
+        /// <summary>
         /// lblRiskProfiler control.
         /// </summary>
         /// <remarks>
@@ -140,6 +212,15 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label lblRiskProfilingParagraph;
         
         /// <summary>
+        /// divQuestionAnswers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divQuestionAnswers;
+        
+        /// <summary>
         /// PlaceHolder1 control.
         /// </summary>
         /// <remarks>
@@ -156,6 +237,15 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmitRisk;
+        
+        /// <summary>
+        /// btnSubmitForPickRiskclass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitForPickRiskclass;
         
         /// <summary>
         /// tabAssetAllocation control.
