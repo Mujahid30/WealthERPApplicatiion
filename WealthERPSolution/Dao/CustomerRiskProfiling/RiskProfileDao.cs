@@ -528,5 +528,94 @@ namespace DaoCustomerRiskProfiling
             }
             return dsGetCustomerAsset;
         }
+
+        /// <summary>
+        /// To Get all The Riskclasses for Advisers..
+        /// </summary>
+        /// Created by Vinayak Patil.
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetAdviserRiskClasses(int adviserId)
+        {
+            Database db;
+            DbCommand getAdviserRiskClassesCmd;
+            DataSet dsAdviserRiskClasses = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAdviserRiskClassesCmd = db.GetStoredProcCommand("SP_GetAdviserRiskClasses");
+                db.AddInParameter(getAdviserRiskClassesCmd, "@adviserId", DbType.Int16, adviserId);
+                dsAdviserRiskClasses = db.ExecuteDataSet(getAdviserRiskClassesCmd);
+                if ((dsAdviserRiskClasses != null) && (dsAdviserRiskClasses.Tables[0].Rows.Count < 0))
+                {
+                    getAdviserRiskClassesCmd = db.GetStoredProcCommand("SP_GetAdviserRiskClasses");
+                    db.AddInParameter(getAdviserRiskClassesCmd, "@adviserId", DbType.Int16, 1000);
+                    dsAdviserRiskClasses = db.ExecuteDataSet(getAdviserRiskClassesCmd);
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RiskProfileDao.cs:GetAdviserRiskClasses()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserRiskClasses;
+        }
+
+
+        /// <summary>
+        /// Adding Customer Risk profile directly by DP
+        /// </summary>
+        /// Dev by: VInayak Patil.
+        /// <param name="customerId"></param>
+        /// <param name="riskdate"></param>
+        /// <param name="riskclasscode"></param>
+        /// <param name="rmvo"></param>
+        public void AddCustomerRiskProfileDetailsDirectlyBYDP(int customerId, DateTime riskdate, string riskclasscode, RMVo rmvo)
+        {
+            Database db;
+            DbCommand dbAddCustomerRiskProfileDetailsDirectlyBYDP;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbAddCustomerRiskProfileDetailsDirectlyBYDP = db.GetStoredProcCommand("SP_AddCustomerRiskProfileDirectlyByDP");
+                db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@CRP_Date", DbType.DateTime, riskdate);
+                db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@XRC_RiskClassCode", DbType.String, riskclasscode);
+                db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@CRP_CreatedBy", DbType.Int32, rmvo.RMId);
+                db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@CRP_ModifiedBy", DbType.Int32, rmvo.RMId);
+                db.AddOutParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@RPId", DbType.Int32, 1000);
+                db.ExecuteNonQuery(dbAddCustomerRiskProfileDetailsDirectlyBYDP);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RiskProfileDao.cs:GetQuestionOption()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = baseEx.AddObject(FunctionInfo, objects);
+                baseEx.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(baseEx);
+                throw baseEx;
+            }
+
+        }
     }
 }
