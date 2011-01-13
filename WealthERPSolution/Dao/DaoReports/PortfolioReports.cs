@@ -167,6 +167,7 @@ namespace DaoReports
                 cmd = db.GetStoredProcCommand("SP_RPT_GetCustomerAssetAllocation");
                 db.AddInParameter(cmd, "@PortfolioIds", DbType.String, report.PortfolioIds);
                 db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmd, "@Valuation", DbType.DateTime, report.ToDate);
                 if (!string.IsNullOrEmpty(reportType))
                     db.AddInParameter(cmd, "@ReportType", DbType.String, reportType);
 
