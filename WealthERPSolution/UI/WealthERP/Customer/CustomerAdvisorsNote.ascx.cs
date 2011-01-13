@@ -97,14 +97,14 @@ namespace WealthERP.Customer{
                 {
                     customerVo = customerBo.GetCustomer(customerVo.CustomerId);
                     Session["CustomerVo"] = customerVo;
-                    if (customerVo.Type.ToUpper().ToString() == "IND")
-                    {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
-                    }
-                    else
-                    {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewNonIndividualProfile','none');", true);
-                    }
+                    //if (customerVo.Type.ToUpper().ToString() == "IND")
+                    //{
+                    //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                    //}
+                    //else
+                    //{
+                    //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewNonIndividualProfile','none');", true);
+                    //}
                 }
             }
 
