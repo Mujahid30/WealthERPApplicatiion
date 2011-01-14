@@ -7,7 +7,8 @@
 <script type="text/javascript">
     function DateCheck() {
         if (document.getElementById("<%=dpDOB.ClientID%>").value == "") {
-            alert('Please Fill Date of Birth');
+            alert("Please fill values");
+            return false;
         }
     }
 </script>
@@ -44,6 +45,11 @@
     <asp:Label ID="Label1" runat="server" CssClass="HeaderText" Text="Self"></asp:Label>
     <hr />
     <table width="100%">
+        <%--<tr>
+            <td colspan="6">
+            <asp:ValidationSummary runat="server" ID="vsErrorSummary" EnableClientScript="true" Tooltip="Error Summary" ShowSummary="true" />
+            </td>
+        </tr>--%>
         <tr>
             <td align="right">
                 <asp:Label ID="lblFirstName" runat="server" CssClass="FieldName" Text="First Name : "></asp:Label>
@@ -97,7 +103,7 @@
                     <ExpandAnimation Type="InExpo"></ExpandAnimation>
                 </telerik:RadComboBox>
                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator4" ControlToValidate="ddlPickBranch"
-                    ErrorMessage="Please pick a branch" CssClass="validator" />
+                    ErrorMessage="Please pick a branch" CssClass="validator" Style="display: none" />
             </td>
         </tr>
         <tr>
@@ -184,12 +190,11 @@
             <telerik:TargetInput ControlID="txtChildFirstName" />
             <telerik:TargetInput ControlID="txtGridEmailId" />
             <telerik:TargetInput ControlID="txtPanNumber" />
-            <telerik:TargetInput ControlID="dpDOB" />
         </TargetControls>
         <Validation IsRequired="True"></Validation>
     </telerik:TextBoxSetting>
     <telerik:DateInputSetting BehaviorID="DateInputBehavior1" Validation-IsRequired="true"
-        DateFormat="MM/dd/yyyy">
+        DateFormat="MM/dd/yyyy" ErrorMessage="Is Required">
         <TargetControls>
             <telerik:TargetInput ControlID="dpDOB" />
         </TargetControls>
@@ -218,7 +223,7 @@
                     <telerik:RadGrid ID="RadGrid1" runat="server" Width="96%" GridLines="None" AutoGenerateColumns="False"
                         PageSize="13" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
                         ShowStatusBar="True" OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
-                        OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound" 
+                        OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound"
                         Skin="Telerik" EnableEmbeddedSkins="false">
                         <PagerStyle Mode="NextPrevAndNumeric" Position="Bottom" />
                         <MasterTableView DataKeyNames="C_CustomerId" AllowMultiColumnSorting="True" Width="100%"
@@ -226,7 +231,9 @@
                             <CommandItemSettings ExportToPdfText="Export to Pdf" />
                             <Columns>
                                 <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
-                                    CancelText="Cancel" ButtonType="ImageButton">
+                                    CancelText="Cancel" ButtonType="ImageButton" CancelImageUrl="../Images/Telerik/Cancel.gif"
+                                    InsertImageUrl="../Images/Telerik/Update.gif" UpdateImageUrl="../Images/Telerik/Update.gif"
+                                    EditImageUrl="../Images/Telerik/Edit.gif">
                                     <HeaderStyle Width="85px"></HeaderStyle>
                                 </telerik:GridEditCommandColumn>
                                 <telerik:GridDropDownColumn UniqueName="CustomerRelationship" HeaderText="Relationship"
@@ -253,7 +260,8 @@
                                     HeaderStyle-HorizontalAlign="Center" DataField="DOB" FooterText="DateTimeColumn footer"
                                     DataFormatString="{0:dd/MM/yyyy}" EditDataFormatString="dd MMMM, yyyy" MinDate="1900-01-01">
                                     <ItemStyle Width="120px" />
-                                </telerik:GridDateTimeColumn>
+                                    
+                                </telerik:GridDateTimeColumn>                               
                                 <telerik:GridTemplateColumn HeaderText="Email-Id" SortExpression="Email-Id" UniqueName="EmailId"
                                     HeaderStyle-HorizontalAlign="Center" EditFormColumnIndex="1">
                                     <HeaderStyle Width="80px" />
@@ -265,7 +273,7 @@
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
-                                    ButtonType="ImageButton" />
+                                    ImageUrl="../Images/Telerik/Delete.gif" ButtonType="ImageButton" />
                             </Columns>
                             <EditFormSettings CaptionFormatString="Edit details for employee with ID {0}" CaptionDataField="FirstName">
                                 <FormTableItemStyle Width="100%" Height="29px"></FormTableItemStyle>
@@ -287,9 +295,9 @@
     <tr>
         <td align="center">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                OnClientClick="DateCheck()" />
+                OnClientClick="return DateCheck()" />
             &nbsp;<asp:Button ID="btnSubmitAddDetails" runat="server" Text="Add Finance Details"
-                OnClick="btnSubmitAddDetails_Click" OnClientClick="DateCheck()" />
+                OnClick="btnSubmitAddDetails_Click" OnClientClick="return DateCheck()" />
         </td>
     </tr>
 </table>
