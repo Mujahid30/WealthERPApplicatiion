@@ -598,26 +598,26 @@
                             <Columns>
                                 <asp:TemplateField HeaderText="Select">
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chkGoalOutput" runat="server" CssClass="GridViewCmbField" />
+                                        <asp:CheckBox ID="chkGoalOutput" runat="server" CssClass="cmbField" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Goal Type">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lnkGoalType" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:LinkButton ID="lnkGoalType" runat="server" CssClass="cmbField" 
                                             OnClick="lnkGoalType_Click" Text='<%# Eval("GoalName") %>'>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Name of Associate Customer">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblAssociateName" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblAssociateName" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("ChildName") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Cost Today(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblCostToday" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblCostToday" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("CostToday")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
@@ -629,7 +629,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("SavingRequired") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
@@ -641,28 +641,28 @@
                                 </asp:TemplateField>
                                   <asp:TemplateField HeaderText="Goal Amount(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblGaolAmount" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblGaolAmount" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("GoalAmount")%>'>
                                         </asp:Label>
                                     </ItemTemplate>                                   
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Calculated On">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblGoalDate" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblGoalDate" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("GoalPrifileDate", "{0:M-dd-yyyy}")  %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Required In Year">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblGoalYear" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblGoalYear" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("GoalYear") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="IsActive">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblIsActive" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblIsActive" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("IsActive") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
@@ -685,7 +685,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Approved by customer On">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblAporoveOn" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblAporoveOn" runat="server" CssClass="cmbField" 
                                             Text='<%# Eval("CustomerApprovedOn", "{0:M-dd-yyyy}")  %>'>
                                         </asp:Label>
                                     </ItemTemplate>
@@ -722,55 +722,55 @@
                             <Columns>
                                 <%--   <asp:TemplateField HeaderText="Select">
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chkGoalOutput" runat="server" CssClass="GridViewCmbField" />
+                                        <asp:CheckBox ID="chkGoalOutput" runat="server" CssClass="cmbField" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 --%>
                                 <asp:TemplateField HeaderText="Goal Type">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lnkRTGoalType" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:LinkButton ID="lnkRTGoalType" runat="server" CssClass="cmbField" 
                                             OnClick="lnkRTGoalType_Click" Text='<%# Eval("XG_GoalName") %>'>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Retirement Year">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblGoalYear" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblGoalYear" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("CG_GoalYear") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Corpus Required(Rs.)" ItemStyle-HorizontalAlign="Right" >
                                     <ItemTemplate>
-                                        <asp:Label ID="lblCostToday" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblCostToday" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("CG_FVofCostToday") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Lumpsum Investment Required(Rs.)" ItemStyle-HorizontalAlign="Right" >
                                     <ItemTemplate>
-                                        <asp:Label ID="lblLumpsumInvReq" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblLumpsumInvReq" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("CG_LumpsumInvestmentRequired") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                  <asp:TemplateField HeaderText="Amount To be Saved Per Year(Rs.)" ItemStyle-HorizontalAlign="Right" >
                                     <ItemTemplate>
-                                        <asp:Label ID="lblYSavingReq" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblYSavingReq" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("CG_YearlySavingsRequired") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)" ItemStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblSavingReq" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("CG_MonthlySavingsRequired") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Calculated On">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblGoalDate" runat="server" CssClass="GridViewCmbField" 
+                                        <asp:Label ID="lblGoalDate" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("CG_GoalProfileDate", "{0:M-dd-yyyy}") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
