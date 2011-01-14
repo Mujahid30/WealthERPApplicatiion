@@ -60,8 +60,8 @@
     $(document).ready(function() {
         $('.ScreenTip1').bubbletip($('#div1'), { deltaDirection: 'right' });
         $('.ScreenTip2').bubbletip($('#div2'), { deltaDirection: 'right' });
-        $('.ScreenTip3').bubbletip($('#div3'), { deltaDirection: 'right' });
         $(".flip").click(function() { $(".panel").slideToggle(); });
+        $('.ScreenTip3').bubbletip($('#div3'), { deltaDirection: 'right' });
     });
 </script>
 
