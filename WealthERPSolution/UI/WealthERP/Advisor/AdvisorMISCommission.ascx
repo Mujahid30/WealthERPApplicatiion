@@ -214,7 +214,7 @@
                                             ForeColor="White" Text=""> </asp:Label>
                                 </HeaderTemplate>
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMISCom" runat="server" CssClass="GridViewCmbField"  Text='<%#Eval("MISType") %>'>
+                                        <asp:Label ID="lblMISCom" runat="server" CssClass="CmbField"  Text='<%#Eval("MISType") %>'>
                                         </asp:Label>
                                     </ItemTemplate> 
                                      <FooterTemplate>
@@ -226,7 +226,7 @@
                                 
                                 <asp:TemplateField HeaderText="Brokerage Amount" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblBrokAmt" runat="server" CssClass="GridViewCmbField" Text='<%#Eval("BrokerageAmt") %>'>
+                                        <asp:Label ID="lblBrokAmt" runat="server" CssClass="CmbField" Text='<%#Eval("BrokerageAmt") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                      <FooterTemplate>
