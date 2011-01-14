@@ -463,6 +463,7 @@ namespace WealthERP.Reports
             double networth = 0;
             double currentAssetPer = 0;
             double recAssetPer = 0;
+            double financialHealthTotal = 0;
 
             string fpImage = "SCBFPImage.jpg";
             string fpCoverHeaderImage = "FPReportHeader.jpg";
@@ -584,6 +585,14 @@ namespace WealthERP.Reports
 
             if (dsCustomerFPReportDetails.Tables[15].Rows.Count > 0)
             {
+                crmain.SetParameterValue("SurpressGeneralInsurance", "1");
+            }
+            else
+                crmain.SetParameterValue("SurpressGeneralInsurance", "0");
+
+
+            if (dsCustomerFPReportDetails.Tables[15].Rows.Count > 0)
+            {
                 crmain.SetParameterValue("SurpressGEInsurance", "1");
             }
             else
@@ -603,8 +612,22 @@ namespace WealthERP.Reports
             else
                 crmain.SetParameterValue("SurpressCurrentObservation", "0");
 
+            foreach (DataRow dr in dsCustomerFPReportDetails.Tables[21].Rows)
+            {
+                if (!string.IsNullOrEmpty(dr[1].ToString()))
+                {
+                    financialHealthTotal += double.Parse(dr[1].ToString());
+                }
+                
+            }
 
-            
+            if (financialHealthTotal > 0)
+            {
+                crmain.SetParameterValue("SurpressFinancialHealth", "1");
+            }
+            else
+                crmain.SetParameterValue("SurpressFinancialHealth", "0");
+
 
             foreach (DataRow dr in dtAssetAllocation.Rows)
             {
@@ -859,31 +882,31 @@ namespace WealthERP.Reports
 
                             case "Conservative":
                                 {
-                                    drPAllocation["Conservative"] = row["WAAR_AssetAllocationPercenatge"];
+                                    drPAllocation["Conservative"]  =Math.Round(double.Parse(row["WAAR_AssetAllocationPercenatge"].ToString()),0).ToString();
                                     break;
 
                                 }
                             case "Moderately Aggressive":
                                 {
-                                    drPAllocation["ModeratelyConservative"] = row["WAAR_AssetAllocationPercenatge"];
+                                    drPAllocation["ModeratelyConservative"]  =Math.Round(double.Parse(row["WAAR_AssetAllocationPercenatge"].ToString()),0).ToString();
                                     break;
 
                                 }
                             case "Moderate":
                                 {
-                                    drPAllocation["Moderate"] = row["WAAR_AssetAllocationPercenatge"];
+                                    drPAllocation["Moderate"] = Math.Round(double.Parse(row["WAAR_AssetAllocationPercenatge"].ToString()), 0).ToString();
                                     break;
 
                                 }
                             case "Very Aggressive":
                                 {
-                                    drPAllocation["VeryAggressive"] = row["WAAR_AssetAllocationPercenatge"];
+                                    drPAllocation["VeryAggressive"] = Math.Round(double.Parse(row["WAAR_AssetAllocationPercenatge"].ToString()), 0).ToString();
                                     break;
 
                                 }
                             case "Risk Averse":
                                 {
-                                    drPAllocation["RiskAverse"] = row["WAAR_AssetAllocationPercenatge"];
+                                    drPAllocation["RiskAverse"] = Math.Round(double.Parse(row["WAAR_AssetAllocationPercenatge"].ToString()), 0).ToString();
                                     break;
 
                                 }

@@ -143,22 +143,22 @@ namespace BoReports
 
             foreach (DataRow dr in dsCustomerFPReportDetails.Tables[11].Rows)
             {
-                if (dr["AssetGroupName"].ToString() == "MF")
+                if (dr["AssetGroupCode"].ToString() == "MF")
                 {
                     if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
                         totalMF = double.Parse(dr["AssetValues"].ToString());
                 }
-                else if (dr["AssetGroupName"].ToString() == "DE")
+                else if (dr["AssetGroupCode"].ToString() == "DE")
                 {
                     if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
                         totalEquity = double.Parse(dr["AssetValues"].ToString());
                 }
-                else if (dr["AssetGroupName"].ToString() == "FI")
+                else if (dr["AssetGroupCode"].ToString() == "FI")
                 {
                     if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
                         totalFixedIncome = double.Parse(dr["AssetValues"].ToString());
                 }
-                else if (dr["AssetGroupName"].ToString() == "OT")
+                else if (dr["AssetGroupCode"].ToString() == "OT")
                 {
                     if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
                         totalOther = double.Parse(dr["AssetValues"].ToString());
@@ -176,14 +176,27 @@ namespace BoReports
             if (totalMF > 0)
             {
                 if (!string.IsNullOrEmpty(strInvestment))
-                    strInvestment +=", "+"Rs " +  convertUSCurrencyFormat(totalMF) + " in Mutual Fund, ";
+                {
+                   if (totalFixedIncome>0 || totalFixedIncome>0)
+                     strInvestment += ", " + "Rs " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
+                    else if (totalFixedIncome == 0 && totalOther == 0)
+                    {
+                        strInvestment += " and " + "Rs " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
+                    }
+
+                }
                 else
                     strInvestment = "Your current investments are Rs " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
             }
             if (totalFixedIncome > 0)
             {
                 if (!string.IsNullOrEmpty(strInvestment))
-                    strInvestment +=", " + "Rs " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
+                {
+                    if (totalOther>0)
+                        strInvestment += ", " + "Rs " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
+                    else
+                        strInvestment += " and " + "Rs " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
+                }
                 else
                     strInvestment = "Your current investments are Rs " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
 
