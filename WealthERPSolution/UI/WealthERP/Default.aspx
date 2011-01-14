@@ -251,8 +251,8 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
+                                                            <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
+                                                            </asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
@@ -285,8 +285,8 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('AdvisorRMCustIndiDashboard','login');"
-                                                                Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('AdvisorRMCustIndiDashboard','login');"
+                                                                Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
@@ -319,8 +319,8 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('AdvisorRMCustIndiDashboard','login');"
-                                                                Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadcontrolCustomer('AdvisorRMCustIndiDashboard','login');"
+                                                                Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
@@ -352,8 +352,8 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
+                                                            <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
+                                                            </asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
@@ -390,8 +390,8 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMDashBoard','login');" Text="Home"
-                                                                Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMDashBoard','login');" Text="Home"
+                                                                Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
@@ -424,8 +424,8 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMDashBoard','login');" Text="Home"
-                                                                Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('RMDashBoard','login');" Text="Home"
+                                                                Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
@@ -457,8 +457,8 @@
                                                             <asp:SubMenuStyle CssClass="sublevel1" />
                                                         </LevelSubMenuStyles>
                                                         <Items>
-                                                            <asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
+                                                            <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
+                                                            </asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('AdminPriceList','login');" Text="Price List"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
