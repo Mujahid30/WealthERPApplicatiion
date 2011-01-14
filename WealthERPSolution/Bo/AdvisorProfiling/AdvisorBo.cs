@@ -976,5 +976,42 @@ namespace BoAdvisorProfiling
             return dsAdviserTreeNodes;
 
         }
+
+        /// <summary>
+        /// Function to retrieve the potential home page fot a user
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetUserPotentialHomepages(int adviserId, string userRole)
+        {
+            AdvisorDao advisorDao = new AdvisorDao();
+            DataSet dsUserPotentialHomepage;
+
+            try
+            {
+                dsUserPotentialHomepage = advisorDao.GetUserPotentialHomepages(adviserId, userRole);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetUserPotentialHomepages()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = userRole;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsUserPotentialHomepage;
+
+        }
     }
 }
