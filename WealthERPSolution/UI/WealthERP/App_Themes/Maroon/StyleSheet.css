@@ -823,14 +823,14 @@ div.panel, div.flip
 {
     margin: 0px;
     padding: 5px;
-    background-color: #EBEFF9;
+    background-color: #FFEFEF;
     border-bottom: solid 1.5px Black;
     font-size: x-small;
 }
 div.panel
 {
     border: solid 1px Maroon;
-    background-color: #EBEFF9;
+    background-color: #FFEFEF;
     font-family: Verdana,Tahoma;
     font-size: small;
     font-weight: bold;

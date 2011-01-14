@@ -799,14 +799,14 @@ div.panel,div.flip
 {
 margin:0px;
 padding:5px;
-background-color: #EBEFF9;
+background-color: #E7DFFF;
 border-bottom: solid 1.5px Black;
 font-size: x-small;
 }
 div.panel
 {
     border: solid 1px #523C7D;
-    background-color: #F1F9FC;
+    background-color: #E7DFFF;
     font-family: Verdana,Tahoma;
     font-size: small;
     font-weight: bold;
