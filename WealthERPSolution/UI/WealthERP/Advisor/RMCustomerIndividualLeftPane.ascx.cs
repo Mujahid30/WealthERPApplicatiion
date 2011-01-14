@@ -843,7 +843,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioGeneralInsuranceAccountAdd", "loadcontrol('PortfolioGeneralInsuranceAccountAdd','none');", true);
                 }
-                else if (e.Item.Value == "Liabilities Dashboard")
+                else if (e.Item.Value == "Liabilities")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpLiabilityViewane", "loadcontrol('LiabilityView','none');", true);
                 }
