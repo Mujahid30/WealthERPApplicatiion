@@ -639,7 +639,7 @@
                                         </asp:Label>
                                     </FooterTemplate>
                                 </asp:TemplateField>
-                                  <asp:TemplateField HeaderText="Gaol Amount(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                  <asp:TemplateField HeaderText="Goal Amount(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
                                         <asp:Label ID="lblGaolAmount" runat="server" CssClass="GridViewCmbField" 
                                             Text='<%#Eval("GoalAmount")%>'>
