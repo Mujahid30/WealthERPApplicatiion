@@ -85,6 +85,8 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Association" Value="Customer Association">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF" Value="MF">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="MF Folios" Value="MF Folios">
@@ -121,7 +123,7 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Upload" Value="Upload">
                                                 <Items>
-                                                <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
+                                                    <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Transaction Exceptions" Value="View Transaction Exceptions">
                                                     </telerik:RadPanelItem>
@@ -227,11 +229,12 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Loan Proposal" Value="Loan Proposal">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Loan Proposal" Value="Add Loan Proposal">
+                                                    <telerik:RadPanelItem runat="server" Text="Add Loan Proposal" Value="Add Loan proposal">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form" NavigateUrl="~/FP/OfflineForm.aspx" Target="_blank">
+                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form"
+                                                NavigateUrl="~/FP/OfflineForm.aspx" Target="_blank">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

@@ -56,7 +56,7 @@ namespace WealthERP.Advisor
                 //Code to unhide the tree nodes based on User Roles
                 if (userVo.RoleList.Contains("Admin"))
                 {
-                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("Admin","Admin");
+                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("Admin", "Admin");
                     SetAdminTreeNodesForRoles(dsTreeNodes, "Admin");
                 }
                 if (userVo.RoleList.Contains("RM"))
@@ -71,7 +71,7 @@ namespace WealthERP.Advisor
                 }
 
                 //Code to unhide the tree nodes based on Plans
-                dsTreeNodes = GetTreeNodesBasedOnPlans(advisorVo.advisorId,"Admin","Admin");
+                dsTreeNodes = GetTreeNodesBasedOnPlans(advisorVo.advisorId, "Admin", "Admin");
                 SetAdminTreeNodesForPlans(dsTreeNodes);
 
                 if (advisorVo.MultiBranch != 1)
@@ -108,8 +108,8 @@ namespace WealthERP.Advisor
                     RadPanelBar2.FindItemByValue("RM Home").Selected = true;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
-                
-                
+
+
             }
 
         }
@@ -521,6 +521,10 @@ namespace WealthERP.Advisor
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                 }
+                else if (e.Item.Value == "Customer Association")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CuCustomerAssociationSetup','login');", true);
+                }
                 else if (e.Item.Value == "MF Folios")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','login');", true);
@@ -719,15 +723,25 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
                 }
-                else if (e.Item.Value == "View Equity Transactions")
+                else if (e.Item.Value == "View EQ Transactions")
                 {
                     Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMEQMultipleTransactionsView','login');", true);
                 }
-                else if (e.Item.Value == "Add Equity Transactions")
+                else if (e.Item.Value == "Add EQ Transactions")
                 {
                     Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
+                }
+                else if (e.Item.Value == "Loan Proposal")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanTrackingGrid','login');", true);
+                }
+                else if (e.Item.Value == "Add Loan proposal")
+                {
+                    Session["LoanProcessAction"] = "add";
+                    Session[SessionContents.LoanProcessTracking] = null;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanProcessTracking','login');", true);
                 }
                 else if (e.Item.Value == "MF MIS")
                 {
@@ -833,19 +847,19 @@ namespace WealthERP.Advisor
             }
         }
 
-        private DataSet GetTreeNodesBasedOnUserRoles(string userRole,string treeType)
+        private DataSet GetTreeNodesBasedOnUserRoles(string userRole, string treeType)
         {
             AdvisorBo advisorBo = new AdvisorBo();
             DataSet dsTreeNodes;
-            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole,treeType);
+            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType);
             return dsTreeNodes;
         }
 
-        private DataSet GetTreeNodesBasedOnPlans(int adviserId,string userRole,string treeType)
+        private DataSet GetTreeNodesBasedOnPlans(int adviserId, string userRole, string treeType)
         {
             AdvisorBo advisorBo = new AdvisorBo();
             DataSet dsTreeNodes;
-            dsTreeNodes = advisorBo.GetTreeNodesBasedOnPlans(adviserId, userRole,treeType);
+            dsTreeNodes = advisorBo.GetTreeNodesBasedOnPlans(adviserId, userRole, treeType);
             return dsTreeNodes;
         }
 
@@ -886,20 +900,20 @@ namespace WealthERP.Advisor
                 dsAdminTreeNodes.Tables[1].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[1].Columns["WTSN_TreeSubNode"] };
                 foreach (RadPanelItem Item in RadPanelBar1.GetAllItems())
                 {
-                  
-                        if (Item.Level != 0 && Item.Level != 1 && Item.Level != 3)
+
+                    if (Item.Level != 0 && Item.Level != 1 && Item.Level != 3)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
                         {
-                            flag = tempView.Find(Item.Value);
-                            if (flag == -1)
-                            {
-                                Item.Visible = false;
-                            }
-                            else
-                            {
-                                dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
-                                Item.Text = dr[2].ToString();
-                            }
+                            Item.Visible = false;
                         }
+                        else
+                        {
+                            dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
+                            Item.Text = dr[2].ToString();
+                        }
+                    }
                 }
 
                 //foreach (DataRow dr in dsAdminTreeNodes.Tables[2].Rows)
@@ -1122,7 +1136,7 @@ namespace WealthERP.Advisor
                         }
                     }
                 }
-               
+
             }
             if (userVo.RoleList.Contains("RM"))
             {
