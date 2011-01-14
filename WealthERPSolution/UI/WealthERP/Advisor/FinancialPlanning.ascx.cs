@@ -215,7 +215,7 @@ namespace WealthERP.Advisor
                 AdvisorRMId = advisorVo.advisorId;
             }
             rmvo = (RMVo)Session["rmVo"];
-            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+            //tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             AssetFormClear();
             try
             {
@@ -257,6 +257,7 @@ namespace WealthERP.Advisor
                     //btnSubmitRisk.Visible = false;
                     //btnSubmitForPickRiskclass.Visible = false;
                     PickQuestions();
+                    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
                 }
             }
             catch (Exception ex)
@@ -493,7 +494,8 @@ namespace WealthERP.Advisor
                         {
                             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
                             AssetFormClear();
-                            trCurrentAssetAllocation.Visible = false;
+                            ShowCurrentAssetAllocationPieChart();
+                            //trCurrentAssetAllocation.Visible = false;
                         }
                     }
                 }
@@ -626,6 +628,7 @@ namespace WealthERP.Advisor
 
                 LoadAssetAllocation(riskCode);
                 AddToAssetAllocation();
+                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
                 if (customerId != 0 && age != 0)
                 {
                     if (trCustomerAssetText.Visible == false)
@@ -1159,10 +1162,12 @@ namespace WealthERP.Advisor
             lblRiskProfilingParagraph.Visible = false;
 
             dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+            riskCode = Session["riskCode"].ToString();
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
                 AddToAssetAllocation();
+                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
             }
         }
 
@@ -1180,10 +1185,12 @@ namespace WealthERP.Advisor
             if (lblRScore.Text == "")
                 lblRScore.Text = "0";
             dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+            riskCode = Session["riskCode"].ToString();
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
                 AddToAssetAllocation();
+                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
             }
         }
 
@@ -1233,6 +1240,7 @@ namespace WealthERP.Advisor
                 
             dsGlobal = riskprofilebo.GetAdviserRiskClasses(advisorVo.advisorId);
             riskCode = ddlPickRiskClass.SelectedValue;
+            Session["riskCode"] = riskCode;
             lblRiskProfilingParagraph.Visible = false;
             Session["btnSubmitForPickRiskclass"] = null;
 
@@ -1242,7 +1250,7 @@ namespace WealthERP.Advisor
 
             LoadAssetAllocation(riskCode);
             AddToAssetAllocation();
-            
+            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
         }
     }
 }
