@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProspectList.ascx.cs"
-    Inherits="WealthERP.FP.ProspectList" %>
+    Inherits="WealthERP.FP.ProspectList"  %>
 <%@ Register TagPrefix="qsf" Namespace="Telerik" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
@@ -32,7 +32,7 @@
 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="80%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
 <telerik:RadGrid ID="RadGrid1" runat="server" Width="100%" GridLines="None" AutoGenerateColumns="False"
-        PageSize="13" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
+        PageSize="15" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
         ShowStatusBar="True" OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
         Skin="Telerik" EnableEmbeddedSkins="false" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound"
         AllowFilteringByColumn="True" DataSourceID="SqlDataSource1" 
@@ -79,7 +79,7 @@
                 </telerik:GridBoundColumn>
                                 
                  <telerik:GridBoundColumn DataField="Address" HeaderText="Address" SortExpression="Address"
-                    UniqueName="Address">
+                    UniqueName="Address"  >
                     <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                  <telerik:GridBoundColumn DataField="Asset" HeaderText="Asset" SortExpression="Asset"
