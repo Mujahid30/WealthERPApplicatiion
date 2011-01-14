@@ -191,12 +191,21 @@
         if (document.getElementById(tmp1).value != "") {
             subtotalvalue += parseFloat(document.getElementById(tmp1).value);
         }
+        else {
+            document.getElementById(tmp1).value = "0";
+        }
         if (document.getElementById(tmp2).value != "") {
             subtotalvalue += parseFloat(document.getElementById(tmp2).value);
+        }
+        else {
+            document.getElementById(tmp2).value = "0";
         }
         if (columnstoadd3 != "NULL") {
             if (document.getElementById(tmp3).value != "") {
                 subtotalvalue += parseFloat(document.getElementById(tmp3).value);
+            }
+            else {
+                document.getElementById(tmp3).value = "0";
             }
         }
 
@@ -223,8 +232,11 @@
     Width="100%" Visible="false">
     <Items>
         <telerik:RadToolBarButton runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
-            ImagePosition="Left" ToolTip="Edit">
+            ImagePosition="Left" ToolTip="Edit">            
         </telerik:RadToolBarButton>
+        <telerik:RadToolBarButton runat="server" Text="Synchronize" Value="Synchronize" ImageUrl="~/Images/Telerik/Synchronize.png"
+            ImagePosition="Left" ToolTip="Synchronize">
+            </telerik:RadToolBarButton>
     </Items>
 </telerik:RadToolBar>
 <hr />
@@ -236,14 +248,6 @@
             </div>
         </td>
     </tr>
-</table>
-<table width="100%">
-<tr>
-<td>
- <asp:Button ID="btnSynchronize" runat="server" OnClick="btnSynchronize_Click" Text="Synchronize"
-                                            Style="height: 26px" />
-</td>
-</tr>
 </table>
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="false" MultiPageID="CustomerProspectMultiPage" SelectedIndex="1"
@@ -306,9 +310,8 @@
         NegativePattern="-n" PositivePattern="n" Validation-IsRequired="false" AllowRounding="False"
         MaxValue="70368744177" MinValue="-70368744177" GroupSizes="3" 
         Type="Number" Culture="Hindi (India)"
-        GroupSeparator="">
+        GroupSeparator="" >
         <TargetControls>
-           
             <telerik:TargetInput ControlID="txtDirectEquityA" />
             <telerik:TargetInput ControlID="txtGoldA" />
             <telerik:TargetInput ControlID="txtMFEquityA" />
@@ -521,7 +524,7 @@
                                     <asp:Label ID="lblPanNumber" runat="server" Text="PAN Number : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPanNumber" runat="server" Text="" />
+                                    <asp:TextBox ID="txtPanNumber" runat="server" Text="" MaxLength="10" />
                                     <span id="Span6" class="spnRequiredField">*</span>
                                 </td>
                                 <td align="right">
@@ -613,7 +616,8 @@
                                                 CommandItemDisplay="Top" AutoGenerateColumns="false" EditMode="InPlace">
                                                 <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                                 <Columns>
-                                                    <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
+                                                    <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn" CancelImageUrl="../Images/Telerik/Cancel.gif" 
+                                                    InsertImageUrl="../Images/Telerik/Update.gif" UpdateImageUrl="../Images/Telerik/Update.gif" EditImageUrl="../Images/Telerik/Edit.gif"
                                                         CancelText="Cancel" ButtonType="ImageButton">
                                                         <HeaderStyle Width="85px"></HeaderStyle>
                                                     </telerik:GridEditCommandColumn>
@@ -653,7 +657,7 @@
                                                             <asp:TextBox runat="server" ID="txtGridEmailId" Text='<%# Bind("EmailId") %>'></asp:TextBox>
                                                         </EditItemTemplate>
                                                     </telerik:GridTemplateColumn>
-                                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
+                                                    <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete" ImageUrl="../Images/Telerik/Delete.gif"
                                                         ButtonType="ImageButton" />
                                                 </Columns>
                                                 <EditFormSettings CaptionFormatString="Edit details for employee with ID {0}" CaptionDataField="FirstName">
@@ -786,7 +790,7 @@
                                             onChange="SubTotal('txtWERPDirectEquityM','txtWERPDirectEquityUM','txtDirectEquityA','txtDirectEquity')"></asp:TextBox>
                                     </td>
                                     <td align="left">
-                                        <asp:TextBox ID="txtDirectEquity" runat="server" Style="direction: rtl" Width="75px"></asp:TextBox>
+                                        <asp:TextBox ID="txtDirectEquity" runat="server" Style="direction: rtl" Width="75px" ></asp:TextBox>
                                     </td>
                                     <td align="right">
                                         <asp:Label ID="lblGold" runat="server" Text="Gold : " CssClass="FieldName"></asp:Label>
@@ -1768,5 +1772,5 @@
 <asp:HiddenField ID="totalIncome" runat="server" />
 <asp:HiddenField ID="totalExpense" runat="server" />
 <asp:HiddenField ID="totalLiabilities" runat="server" />
-<asp:HiddenField ID="HiddenField3" runat="server" />
-<asp:HiddenField ID="HiddenField4" runat="server" />
+<asp:HiddenField ID="hdnIsActive" runat="server" />
+<asp:HiddenField ID="hdnIsProspect" runat="server" />

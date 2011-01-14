@@ -68,15 +68,6 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
         
         /// <summary>
-        /// btnSynchronize control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSynchronize;
-        
-        /// <summary>
         /// RadTabStrip1 control.
         /// </summary>
         /// <remarks>
@@ -2831,21 +2822,21 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.HiddenField totalLiabilities;
         
         /// <summary>
-        /// HiddenField3 control.
+        /// hdnIsActive control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenField3;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsActive;
         
         /// <summary>
-        /// HiddenField4 control.
+        /// hdnIsProspect control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenField4;
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsProspect;
     }
 }

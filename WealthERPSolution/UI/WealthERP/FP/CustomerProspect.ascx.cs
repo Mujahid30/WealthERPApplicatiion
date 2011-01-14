@@ -77,6 +77,8 @@ namespace WealthERP.FP
                 {
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                     customerVo = customerBo.GetCustomer(customerId);
+                    hdnIsActive.Value = customerVo.IsActive.ToString();
+                    hdnIsProspect.Value = customerVo.IsProspect.ToString();
                     Session[SessionContents.CustomerVo] = customerVo;
                     customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
                     if (customerFamilyVoList != null)
@@ -94,7 +96,10 @@ namespace WealthERP.FP
                                 dr["FirstName"] = customerFamilyVo.FirstName;
                                 dr["MiddleName"] = customerFamilyVo.MiddleName;
                                 dr["LastName"] = customerFamilyVo.LastName;
-                                dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
+                                if (customerFamilyVo.DOB != DateTime.Parse("01/01/0001 00:00:00"))
+                                {
+                                    dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
+                                }
                                 dr["EmailId"] = customerFamilyVo.EmailId;
                                 dt.Rows.Add(dr);
                             }
@@ -151,6 +156,7 @@ namespace WealthERP.FP
                     {
                         // View things have been handled here
                         aplToolBar.Visible = true;
+                        aplToolBar.Controls[1].Visible = false;
                         //Disabling all Fields
                         if (customerFamilyVoList != null)
                         {
@@ -174,7 +180,8 @@ namespace WealthERP.FP
                     {
                         // Edit thing have been handled here
                         aplToolBar.Visible = true;
-                        aplToolBar.Visible = false;
+                        aplToolBar.Controls[0].Visible = false;
+                        //aplToolBar.Visible = false;
                         //RadToolBaaplToolBarrButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
                         //rtb.Visible = false;
                         btnCustomerProspect.Visible = true;
@@ -187,37 +194,36 @@ namespace WealthERP.FP
 
 
                 }
-                txtDirectEquity.Attributes["onclick"] = "this.blur();";
-                txtMFEquity.Attributes["onclick"] = "this.blur();";
-                txtMFDebt.Attributes["onclick"] = "this.blur();";
-                txtMFHybridDebt.Attributes["onclick"] = "this.blur();";
-                txtMFHybridEquity.Attributes["onclick"] = "this.blur();";
-                txtFixedIncome.Attributes["onclick"] = "this.blur();";
-                txtGovtSavings.Attributes["onclick"] = "this.blur();";
-                txtPensionGratuities.Attributes["onclick"] = "this.blur();";
-                txtProperty.Attributes["onclick"] = "this.blur();";
-                txtGold.Attributes["onclick"] = "this.blur();";
-                txtCollectibles.Attributes["onclick"] = "this.blur();";
-                txtCashAndSavings.Attributes["onclick"] = "this.blur();";
-                txtStructuredProduct.Attributes["onclick"] = "this.blur();";
-                txtCommodities.Attributes["onclick"] = "this.blur();";
-                txtPrivateEquity.Attributes["onclick"] = "this.blur();";
-                txtPMS.Attributes["onclick"] = "this.blur();";
-                txtInvestmentsOthers.Attributes["onclick"] = "this.blur();";
-                txtTotalTermSA.Attributes["onclick"] = "this.blur();";
-                txtTotalWholeLifeSA.Attributes["onclick"] = "this.blur();";
-                txtTotalMoneyBackSA.Attributes["onclick"] = "this.blur();";
-                txtTotalULIPSA.Attributes["onclick"] = "this.blur();";
-                txtTotalOthersLISA.Attributes["onclick"] = "this.blur();";
-                txtHealthInsuranceCoverSA.Attributes["onclick"] = "this.blur();";
-                txtPropertyInsuranceCoverSA.Attributes["onclick"] = "this.blur();";
-                txtPersonalAccidentSA.Attributes["onclick"] = "this.blur();";
-                txtTotalOthersLISA.Attributes["onclick"] = "this.blur();";                
-                txtHomeLoanLO.Attributes["onclick"] = "this.blur();";
-                txtAutoLoanLO.Attributes["onclick"] = "this.blur();";
-                txtPersonalLoanLO.Attributes["onclick"] = "this.blur();";
-                txtEducationLoanLO.Attributes["onclick"] = "this.blur();";
-                txtOthersGISA.Attributes["onclick"] = "this.blur();";
+                txtDirectEquity.Attributes.Add("readonly", "readonly");
+                txtMFEquity.Attributes.Add("readonly", "readonly");
+                txtMFDebt.Attributes.Add("readonly", "readonly");
+                txtMFHybridDebt.Attributes.Add("readonly", "readonly");
+                txtMFHybridEquity.Attributes.Add("readonly", "readonly");
+                txtFixedIncome.Attributes.Add("readonly", "readonly");
+                txtGovtSavings.Attributes.Add("readonly", "readonly");
+                txtPensionGratuities.Attributes.Add("readonly", "readonly");
+                txtProperty.Attributes.Add("readonly", "readonly");
+                txtGold.Attributes.Add("readonly", "readonly");
+                txtCollectibles.Attributes.Add("readonly", "readonly");
+                txtStructuredProduct.Attributes.Add("readonly", "readonly");
+                txtCommodities.Attributes.Add("readonly", "readonly");
+                txtCashAndSavings.Attributes.Add("readonly", "readonly");
+                txtPrivateEquity.Attributes.Add("readonly", "readonly");
+                txtPMS.Attributes.Add("readonly", "readonly");
+                txtInvestmentsOthers.Attributes.Add("readonly", "readonly");
+                txtTotalTermSA.Attributes.Add("readonly", "readonly");
+                txtTotalWholeLifeSA.Attributes.Add("readonly", "readonly");
+                txtTotalMoneyBackSA.Attributes.Add("readonly", "readonly");
+                txtTotalULIPSA.Attributes.Add("readonly", "readonly");
+                txtTotalOthersLISA.Attributes.Add("readonly", "readonly");
+                txtHealthInsuranceCoverSA.Attributes.Add("readonly", "readonly");
+                txtPropertyInsuranceCoverSA.Attributes.Add("readonly", "readonly");
+                txtTotalOthersLISA.Attributes.Add("readonly", "readonly");
+                txtHomeLoanLO.Attributes.Add("readonly", "readonly");
+                txtAutoLoanLO.Attributes.Add("readonly", "readonly");
+                txtPersonalLoanLO.Attributes.Add("readonly", "readonly");
+                txtEducationLoanLO.Attributes.Add("readonly", "readonly");
+                txtOthersGISA.Attributes.Add("readonly", "readonly");
 
             }
             catch (Exception ex)
@@ -509,6 +515,15 @@ namespace WealthERP.FP
                 Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
             }
+            if (e.Item.Value == "Synchronize")
+            {
+                int customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                AdvisorVo advisorvo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                if (advisorvo != null)
+                {
+                    ManagedUnmanagedDetails(customerId, advisorvo.advisorId, 1);
+                }
+            }
         }
 
 
@@ -534,7 +549,22 @@ namespace WealthERP.FP
             customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
             customerVo.Dob = dpDOB.SelectedDate.Value;
             customerVo.Email = txtEmail.Text;
-            customerVo.IsProspect = 1;
+            if (hdnIsActive.Value == "1")
+            {
+                customerVo.IsActive = 1;
+            }
+            else
+            {
+                customerVo.IsActive = 0;
+            }
+            if (hdnIsProspect.Value == "1")
+            {
+                customerVo.IsProspect = 1;
+            }
+            else
+            {
+                customerVo.IsProspect = 0;
+            }
             customerVo.IsFPClient = 1;
             customerVo.PANNum = txtPanNumber.Text;
             customerVo.Adr1Line1 = txtAddress1.Text;
@@ -597,8 +627,23 @@ namespace WealthERP.FP
                 customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
             }
             customerVo.Email = drChildCustomer["EmailId"].ToString();
-            customerVo.IsProspect = 1;
             customerVo.IsFPClient = 1;
+            if (hdnIsActive.Value == "1")
+            {
+                customerVo.IsActive = 1;
+            }
+            else
+            {
+                customerVo.IsActive = 0;
+            }
+            if (hdnIsProspect.Value == "1")
+            {
+                customerVo.IsProspect = 1;
+            }
+            else
+            {
+                customerVo.IsProspect = 0;
+            }
             userVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
@@ -1716,9 +1761,7 @@ namespace WealthERP.FP
             customerVo.Type = "IND";
             customerVo.FirstName = txtFirstName.Text.ToString();
             customerVo.MiddleName = txtMiddleName.Text.ToString();
-            customerVo.LastName = txtLastName.Text.ToString();
-            customerVo.IsProspect = 1;
-            customerVo.IsFPClient = 1;
+            customerVo.LastName = txtLastName.Text.ToString();            
             userVo.FirstName = txtFirstName.Text.ToString();
             userVo.MiddleName = txtMiddleName.Text.ToString();
             userVo.LastName = txtLastName.Text.ToString();
@@ -1734,13 +1777,30 @@ namespace WealthERP.FP
             customerVo.Adr1City = txtCity.Text;
             customerVo.Adr1State = txtState.Text;
             customerVo.Adr1Country = txtState.Text;
+            if (hdnIsActive.Value == "1")
+            {
+                customerVo.IsActive = 1;
+            }
+            else
+            {
+                customerVo.IsActive = 0;
+            }
+            if (hdnIsProspect.Value == "1")
+            {
+                customerVo.IsProspect = 1;
+            }
+            else
+            {
+                customerVo.IsProspect = 0;
+            }
+            customerVo.IsFPClient = 1;
             if (!string.IsNullOrEmpty(txtPinCode.Text))
             {
                 customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
             }
             if (!string.IsNullOrEmpty(txtMobileNo.Text))
             {
-                customerVo.Mobile1 = int.Parse(txtMobileNo.Text);
+                customerVo.Mobile1 = Int64.Parse(txtMobileNo.Text);
             }
             if (dpProspectAddDate.SelectedDate != null)
             {
@@ -1775,7 +1835,22 @@ namespace WealthERP.FP
             {
                 customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
             }
-            customerVo.IsProspect = 1;
+            if (hdnIsActive.Value == "1")
+            {
+                customerVo.IsActive = 1;
+            }
+            else
+            {
+                customerVo.IsActive = 0;
+            }
+            if (hdnIsProspect.Value == "1")
+            {
+                customerVo.IsProspect = 1;
+            }
+            else
+            {
+                customerVo.IsProspect = 0;
+            }
             customerVo.IsFPClient = 1;
             customerVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
@@ -2186,16 +2261,7 @@ namespace WealthERP.FP
 
         }
 
-        protected void btnSynchronize_Click(object sender, EventArgs e)
-        {
-            int customerId=int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());            
-            AdvisorVo advisorvo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-            if (advisorvo != null)
-            {
-                ManagedUnmanagedDetails(customerId, advisorvo.advisorId, 1);
-            }
-            
-        }
+       
         protected void ManagedUnmanagedDetails(int customerId, int Advisorid, int Switch)
         {
             CustomerProspectBo customerprospectbo = new CustomerProspectBo();
@@ -2418,6 +2484,7 @@ namespace WealthERP.FP
 
                 }
             }
-        }
+        }        
+      
     }
 }
