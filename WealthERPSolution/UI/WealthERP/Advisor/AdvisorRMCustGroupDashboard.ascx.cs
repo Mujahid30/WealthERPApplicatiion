@@ -833,6 +833,8 @@ namespace WealthERP.Advisor
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustIndiDashboard','none');", true);
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
 
         /// <summary>
@@ -854,6 +856,8 @@ namespace WealthERP.Advisor
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustIndiDashboard','none');", true);
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
 
         /// <summary>
@@ -868,6 +872,9 @@ namespace WealthERP.Advisor
             DataKey dk = gvAssetAggrCurrentValue.DataKeys[rowIndex];
             int customerId = Convert.ToInt32(dk.Value);
 
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+
             customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
             Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
 
@@ -875,6 +882,8 @@ namespace WealthERP.Advisor
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioDashboard','none');", true);
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioDashboard','none');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
 
         /// <summary>
@@ -896,6 +905,8 @@ namespace WealthERP.Advisor
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('RMAlertNotifications','none');", true);
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMAlertNotifications','none');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
 
         /// <summary>
@@ -917,6 +928,8 @@ namespace WealthERP.Advisor
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewInsuranceDetails','none');", true);
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','none');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
 
         /// <summary>
@@ -938,6 +951,8 @@ namespace WealthERP.Advisor
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewGeneralInsuranceDetails','none');", true);
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','none');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
 
         protected void gvAssetAggrCurrentValue_RowDataBound(object sender, GridViewRowEventArgs e)
