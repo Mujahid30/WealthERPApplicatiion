@@ -746,10 +746,10 @@
                                         
                                     </td>
                                     <td align="center">
-                                         <asp:Label ID="Label6" runat="server" Text="WERP (Managed)" CssClass="FieldName"></asp:Label>
+                                         <asp:Label ID="Label6" runat="server" Text="Portfolio (Managed)" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td align="center">
-                                         <asp:Label ID="Label7" runat="server" Text="WERP (UnManaged)" CssClass="FieldName"></asp:Label>
+                                         <asp:Label ID="Label7" runat="server" Text="Portfolio (UnManaged)" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td align="center">
                                          <asp:Label ID="Label8" runat="server" Text="Adjustment" CssClass="FieldName"></asp:Label>
@@ -761,10 +761,10 @@
                                         
                                     </td>
                                     <td align="center">
-                                         <asp:Label ID="Label5" runat="server" Text="WERP (Managed)" CssClass="FieldName"></asp:Label>
+                                         <asp:Label ID="Label5" runat="server" Text="Portfolio (Managed)" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td align="center">
-                                         <asp:Label ID="Label10" runat="server" Text="WERP (UnManaged)" CssClass="FieldName"></asp:Label>
+                                         <asp:Label ID="Label10" runat="server" Text="Portfolio (UnManaged)" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td align="center">
                                          <asp:Label ID="Label11" runat="server" Text="Adjustment" CssClass="FieldName"></asp:Label>
@@ -1330,7 +1330,7 @@
                                 <td>
                                 </td>
                                 <td align="center">
-                                    <asp:Label ID="lblWERPLiabilities" runat="server" Text="WERP Loan Outstanding" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblWERPLiabilities" runat="server" Text="System Loan Outstanding" CssClass="FieldName"></asp:Label>
                                 </td>                                
                                 <td align="center">
                                     <asp:Label ID="lblLoanOutstandingAdjustment" runat="server" Text="Adjustment" CssClass="FieldName"></asp:Label>
@@ -1477,7 +1477,7 @@
                                 <td align="right">
                                 </td>
                                 <td align="center">
-                                    <asp:Label ID="lblWERPSumAssuredLI" runat="server" Text=" WERP Sum Assured" CssClass="FieldName" Enabled="false"></asp:Label>
+                                    <asp:Label ID="lblWERPSumAssuredLI" runat="server" Text="System Sum Assured" CssClass="FieldName" Enabled="false"></asp:Label>
                                 </td>
                                 <td align="center">
                                     <asp:Label ID="lblSumAssuredLI" runat="server" Text=" Adjusted Sum Assured" CssClass="FieldName"></asp:Label>
@@ -1650,7 +1650,7 @@
                                 <td align="right">
                                 </td>
                                  <td align="center">
-                                    <asp:Label ID="lblWERPSumAssuredGI" runat="server" Text="WERP Sum Assured" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblWERPSumAssuredGI" runat="server" Text="System Sum Assured" CssClass="FieldName"></asp:Label>
                                 </td>
                                   <td align="center">
                                     <asp:Label ID="lblAdjustedSumAssuredGI" runat="server" Text="Adjusted Sum Assured" CssClass="FieldName"></asp:Label>
