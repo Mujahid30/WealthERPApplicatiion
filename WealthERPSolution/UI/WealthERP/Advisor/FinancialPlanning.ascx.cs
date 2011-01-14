@@ -1099,6 +1099,7 @@ namespace WealthERP.Advisor
                     ChartCurrentAsset.DataSource = dtChartCurrAsset;
                     ChartCurrentAsset.Series[0].XValueMember = "AssetType";
                     ChartCurrentAsset.Series[0].YValueMembers = "Percentage";
+                    ChartCurrentAsset.Series[0].ToolTip = "#VALX: #PERCENT";
                     ChartCurrentAsset.Series[0]["PieLabelStyle"] = "Disabled";
 
                     ChartCurrentAsset.Legends.Add(ShowCurrentAssetAlllegend);
