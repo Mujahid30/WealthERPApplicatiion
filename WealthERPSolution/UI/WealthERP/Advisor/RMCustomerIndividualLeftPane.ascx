@@ -229,7 +229,7 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Alerts" Value="Alert">
+                            <telerik:RadPanelItem runat="server" Text="Alerts" Value="Alerts">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="View Notifications" Value="View Notifications">
                                     </telerik:RadPanelItem>
