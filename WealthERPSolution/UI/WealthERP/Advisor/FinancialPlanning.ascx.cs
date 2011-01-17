@@ -1163,7 +1163,8 @@ namespace WealthERP.Advisor
             lblRiskProfilingParagraph.Visible = false;
 
             dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
-            riskCode = Session["riskCode"].ToString();
+            if(Session["riskCode"] != null)
+                riskCode = Session["riskCode"].ToString();
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
@@ -1186,7 +1187,8 @@ namespace WealthERP.Advisor
             if (lblRScore.Text == "")
                 lblRScore.Text = "0";
             dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
-            riskCode = Session["riskCode"].ToString();
+            if (Session["riskCode"] != null)
+                riskCode = Session["riskCode"].ToString();
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
