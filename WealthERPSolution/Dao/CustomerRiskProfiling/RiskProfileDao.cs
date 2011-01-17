@@ -547,12 +547,12 @@ namespace DaoCustomerRiskProfiling
                 getAdviserRiskClassesCmd = db.GetStoredProcCommand("SP_GetAdviserRiskClasses");
                 db.AddInParameter(getAdviserRiskClassesCmd, "@adviserId", DbType.Int16, adviserId);
                 dsAdviserRiskClasses = db.ExecuteDataSet(getAdviserRiskClassesCmd);
-                if (dsAdviserRiskClasses.Tables[0].Rows.Count == 0)
-                {
-                    getAdviserRiskClassesCmd = db.GetStoredProcCommand("SP_GetAdviserRiskClasses");
-                    db.AddInParameter(getAdviserRiskClassesCmd, "@adviserId", DbType.Int16, 1000);
-                    dsAdviserRiskClasses = db.ExecuteDataSet(getAdviserRiskClassesCmd);
-                }
+                //if (dsAdviserRiskClasses.Tables[0].Rows.Count == 0)
+                //{
+                //    getAdviserRiskClassesCmd = db.GetStoredProcCommand("SP_GetAdviserRiskClasses");
+                //    db.AddInParameter(getAdviserRiskClassesCmd, "@adviserId", DbType.Int16, 1000);
+                //    dsAdviserRiskClasses = db.ExecuteDataSet(getAdviserRiskClassesCmd);
+                //}
             }
             catch (BaseApplicationException Ex)
             {
