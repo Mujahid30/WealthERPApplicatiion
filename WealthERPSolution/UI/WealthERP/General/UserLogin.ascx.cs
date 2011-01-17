@@ -26,11 +26,31 @@ namespace WealthERP.General
     {
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
         string strUserTheme;
+        string currentPageUrl;
         protected void Page_Load(object sender, EventArgs e)
         {
             int userId = 0;
             if (!IsPostBack)
             {
+                if (Request.ServerVariables["HTTPS"].ToString() == "")
+                {
+                    currentPageUrl = Request.ServerVariables["SERVER_PROTOCOL"].ToString().ToLower().Substring(0, 4).ToString() + "://" + Request.ServerVariables["SERVER_NAME"].ToString() + ":" + Request.ServerVariables["SERVER_PORT"].ToString() + Request.ServerVariables["SCRIPT_NAME"].ToString();
+                }
+                else
+                {
+                    currentPageUrl = Request.ServerVariables["SERVER_PROTOCOL"].ToString().ToLower().Substring(0, 5).ToString() + "://" + Request.ServerVariables["SERVER_NAME"].ToString() + ":" + Request.ServerVariables["SERVER_PORT"].ToString() + Request.ServerVariables["SCRIPT_NAME"].ToString();
+                }
+                if (currentPageUrl.Contains("scb"))
+                {
+                    trWealthERP.Visible = false;
+                    trAdvisorLogo.Visible = true;
+                }
+                else
+                {
+                    trWealthERP.Visible = true;
+                    trAdvisorLogo.Visible = false;
+                }
+
                 if (Request.QueryString["UserId"] != null)
                 {
                     userId = int.Parse(Encryption.Decrypt(Request.QueryString["UserId"].ToString()));

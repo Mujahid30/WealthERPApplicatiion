@@ -4,9 +4,14 @@
 <meta http-equiv="expires" content="0"/>
 <meta http-equiv="pragma" content="no-cache"/>
 <table width="100%" style="height: 347px" class="TableBackground">
-    <tr>
+    <tr id="trWealthERP" runat="server">
         <td align="center">
             <asp:Label ID="lblCompanyName" runat="server" Text="WealthERP Login" ForeColor="#5D7B9D"></asp:Label>
+        </td>
+    </tr>
+    <tr id="trAdvisorLogo" runat="server">
+        <td align="center">
+            <asp:Image ID="imgAdvisorLogo" runat="server"  height="70" alt="Advisor Logo" ImageUrl="../Images/Standard%20Chartered%20Bank_800px-Standard_Chartered_Bank_logo.jpg" />            
         </td>
     </tr>
     <tr>
