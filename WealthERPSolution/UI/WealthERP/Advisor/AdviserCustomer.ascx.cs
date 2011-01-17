@@ -176,7 +176,7 @@ namespace WealthERP.Advisor
             if (!IsPostBack)
             {
                 //trPageChoice.Visible = false;
-                if (Session["Current_Link"].ToString() == "AdvisorLeftPane" || Session["Current_Link"].ToString() == "RMCustomerIndividualLeftPane")
+                if (Session["Current_Link"].ToString() == "AdvisorLeftPane" || Session["Current_Link"].ToString() == "RMCustomerIndividualLeftPane" || Session["Current_Link"].ToString() == "LeftPanel_Links")
                 {
                     if (Session["Customer"].ToString() == "Customer")
                     {
