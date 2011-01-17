@@ -539,7 +539,7 @@ namespace WealthERP.Advisor
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
 
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
 
                 //to check whether he is group head or not
                 isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
