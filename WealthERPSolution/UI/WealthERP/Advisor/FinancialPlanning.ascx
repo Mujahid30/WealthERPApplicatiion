@@ -105,7 +105,7 @@
             <hr />
         </td>
     </tr>
-   <%-- <tr>
+    <%-- <tr>
         <td width="150px" align="right">
             <asp:Label ID="lblPickCustomer" runat="server" Text="Pick a customer  : " CssClass="FieldName"></asp:Label>
         </td>
@@ -130,62 +130,63 @@
         </td>
     </tr>--%>
 </table>
-<table width="100%"  >
+<table width="100%">
     <tr>
         <td>
-            <ajaxtoolkit:tabcontainer id="tabRiskProfilingAndAssetAllocation" runat="server"
-                activetabindex="0" width="100%" style="visibility: visible;">
+            <ajaxToolkit:TabContainer ID="tabRiskProfilingAndAssetAllocation" runat="server"
+                ActiveTabIndex="0" Width="100%" Style="visibility: visible;">
                 <ajaxToolkit:TabPanel ID="tabRiskProfiling" runat="server" HeaderText="Risk Profiling"
                     Visible="true">
                     <HeaderTemplate>
                         Risk Profile
                     </HeaderTemplate>
                     <ContentTemplate>
-                    <table runat="server" id="tblPickOptions" style="text-align: left;" width="100%">
-                        <tr align="left" runat="server">
-                            <td runat="server" style="float: left">
-                            <br />
-                                <asp:Label ID="lblPickWhat" runat="server" CssClass="HeaderTextSmall" style="float: right" Text="Do you wish to: "></asp:Label>
-                            </td>
-                            <td style="float: left; vertical-align: middle" runat="server">
-                            <br />
-                            <asp:RadioButton ID="rbtnPickRiskclass"  AutoPostBack="True" runat="server" 
-                                    CssClass="txtField" GroupName="RiskProfile" Text="Pick Risk Class"
-                                    oncheckedchanged="rbtnPickRiskclass_CheckedChanged" />
-                            <asp:RadioButton ID="rbtnAnsQuestions" GroupName="RiskProfile" AutoPostBack="True" runat="server" 
-                                    CssClass="txtField" Text="Answers the Questions" 
-                                    oncheckedchanged="rbtnAnsQuestions_CheckedChanged" />
+                        <table runat="server" id="tblPickOptions" style="text-align: left;" width="100%">
+                            <tr align="left" runat="server">
+                                <td runat="server" style="float: left">
                                     <br />
-                             </td>
-                        </tr>
-                        
-                    </table>
-                    <table runat="server" id="tblPickRiskClass">
-                        <tr runat="server">
-                            <td runat="server">
-                            <br />
-                                <asp:Label ID="lblPickRiskPlass" runat="server" Text="Pick Risk Class" CssClass="HeaderTextSmall"></asp:Label>
-                        
-                            </td>
-                            <td runat="server">
-                            <br />
-                                <asp:DropDownList ID="ddlPickRiskClass" runat="server" CssClass="cmbField" 
-                                    style="vertical-align: middle">
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                    </table>
+                                    <asp:Label ID="lblPickWhat" runat="server" CssClass="HeaderTextSmall" Style="float: right"
+                                        Text="Do you wish to: "></asp:Label>
+                                </td>
+                                <td style="float: left; vertical-align: middle" runat="server">
+                                    <br />
+                                    <asp:RadioButton ID="rbtnPickRiskclass" AutoPostBack="True" runat="server" CssClass="txtField"
+                                        GroupName="RiskProfile" Text="Pick Risk Class" OnCheckedChanged="rbtnPickRiskclass_CheckedChanged" />
+                                    <asp:RadioButton ID="rbtnAnsQuestions" GroupName="RiskProfile" AutoPostBack="True"
+                                        runat="server" CssClass="txtField" Text="Answers the Questions" OnCheckedChanged="rbtnAnsQuestions_CheckedChanged" />
+                                    <br />
+                                </td>
+                            </tr>
+                        </table>
+                        <table runat="server" id="tblPickRiskClass">
+                            <tr runat="server">
+                                <td runat="server">
+                                    <br />
+                                    <asp:Label ID="lblPickRiskPlass" runat="server" Text="Pick Risk Class" CssClass="HeaderTextSmall"></asp:Label>
+                                </td>
+                                <td runat="server">
+                                    <br />
+                                    <asp:DropDownList ID="ddlPickRiskClass" runat="server" CssClass="cmbField" Style="vertical-align: middle">
+                                    </asp:DropDownList>
+                                    <span id="Span12" class="spnRequiredField">*</span>
+                                    <asp:CompareValidator ID="ddlPickRiskClass_CompareValidator" runat="server" ControlToValidate="ddlPickRiskClass"
+                                        ErrorMessage="Please select a Risk Class" Operator="NotEqual" ValueToCompare="Select Risk Class"
+                                        Display="Dynamic" CssClass="cvPCG">
+                                    </asp:CompareValidator>
+                                </td>
+                            </tr>
+                        </table>
                         <table width="100%">
                             <tr runat="server" id="trRiskProfiler">
                                 <td runat="server">
-                                <br />
+                                    <br />
                                     <asp:Label ID="lblRiskProfiler" Text="Risk Profiler Questionnaire" runat="server"
                                         CssClass="HeaderTextSmall"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <table id="tblRiskScore" runat="server" style="background-color:#D3D3D3; border: thin solid #FF0000"
+                                    <table id="tblRiskScore" runat="server" style="background-color: #D3D3D3; border: thin solid #FF0000"
                                         visible="False" width="100%">
                                         <tr id="Tr1" runat="server">
                                             <td id="Td1" runat="server">
@@ -205,26 +206,21 @@
                                 </td>
                             </tr>
                             <tr id="trRiskProfilingParagraph" runat="server">
-                               
-                                  <td width="100%" colspan="6" runat="server">                    
-                                                                
-                                    <asp:Label ID="lblRiskProfilingParagraph" runat="server" 
-                                          CssClass="GridViewCmbField" style="white-space:inherit"></asp:Label>
-                                               
-                                <br />
-                               </td> 
-                                
+                                <td width="100%" colspan="6" runat="server">
+                                    <asp:Label ID="lblRiskProfilingParagraph" runat="server" CssClass="GridViewCmbField"
+                                        Style="white-space: inherit"></asp:Label>
+                                    <br />
+                                </td>
                             </tr>
-                            
                             <tr>
                                 <td>
                                     <table width="100%">
                                         <tr>
-                                        <td>
-                                        <div runat="server" id="divQuestionAnswers">
-                                            <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
-                                            </div>
-                                        </td>
+                                            <td>
+                                                <div runat="server" id="divQuestionAnswers">
+                                                    <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td align="left">
@@ -234,8 +230,8 @@
                                         </tr>
                                         <tr>
                                             <td align="left">
-                                                <asp:Button ID="btnSubmitForPickRiskclass" runat="server" CssClass="PCGButton"
-                                                    Text="Submit" onclick="btnSubmitForPickRiskclass_Click"/>
+                                                <asp:Button ID="btnSubmitForPickRiskclass" runat="server" CssClass="PCGButton" Text="Submit"
+                                                    OnClick="btnSubmitForPickRiskclass_Click" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -255,37 +251,35 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <table width="100%">
-                        <tr style="float: left">
-                        <td>
-                            <asp:Label ID="lblApprovedByCustomerOn" runat="server" Text="Approved By Customer On : "
-                            CssClass="FieldName"></asp:Label>                                
-                        </td>
-                        <td align="left">
-                            <asp:TextBox ID="txtApprovedByCustomerOn" runat="server" CssClass="Field"></asp:TextBox>
-                            <ajaxToolkit:CalendarExtender ID="calApprovedByCustomerOn" runat="server" Enabled="True"
-                            Format="dd/MM/yyyy" TargetControlID="txtApprovedByCustomerOn">
-                            </ajaxToolkit:CalendarExtender>
-                            <ajaxToolkit:TextBoxWatermarkExtender ID="txtApprovedByCustomerOn_WaterMarkText"
-                            runat="server" Enabled="True" TargetControlID="txtApprovedByCustomerOn" WatermarkText="dd/mm/yyyy">
-                            </ajaxToolkit:TextBoxWatermarkExtender>
-                         </td>
-                        </tr>
+                            <tr style="float: left">
+                                <td>
+                                    <asp:Label ID="lblApprovedByCustomerOn" runat="server" Text="Approved By Customer On : "
+                                        CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtApprovedByCustomerOn" runat="server" CssClass="Field"></asp:TextBox>
+                                    <ajaxToolkit:CalendarExtender ID="calApprovedByCustomerOn" runat="server" Enabled="True"
+                                        Format="dd/MM/yyyy" TargetControlID="txtApprovedByCustomerOn">
+                                    </ajaxToolkit:CalendarExtender>
+                                    <ajaxToolkit:TextBoxWatermarkExtender ID="txtApprovedByCustomerOn_WaterMarkText"
+                                        runat="server" Enabled="True" TargetControlID="txtApprovedByCustomerOn" WatermarkText="dd/mm/yyyy">
+                                    </ajaxToolkit:TextBoxWatermarkExtender>
+                                </td>
+                            </tr>
                         </table>
                         <table width="100%">
-                        <tr>
-                            <td>
-                            <br />
-                            <br />
-                            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" 
-                                        Text="Recommended Asset Allocation Chart"></asp:Label>
-                            </td>
-                            <td>
-                            <br />
-                            <br />
-                            <asp:Label ID="Label5" runat="server" 
-                                        CssClass="HeaderTextSmall" Text="Current Asset Allocation Chart"></asp:Label>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <br />
+                                    <br />
+                                    <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Recommended Asset Allocation Chart"></asp:Label>
+                                </td>
+                                <td>
+                                    <br />
+                                    <br />
+                                    <asp:Label ID="Label5" runat="server" CssClass="HeaderTextSmall" Text="Current Asset Allocation Chart"></asp:Label>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <asp:Chart ID="cActualAsset" runat="server" Height="200px" Width="400px">
@@ -299,10 +293,7 @@
                                         </ChartAreas>
                                     </asp:Chart>
                                 </td>
-                                
-                                <td ID="trCurrentAssetAllocation" runat="server" 
-                                    style="padding: 0px; float: left">
-                                   
+                                <td id="trCurrentAssetAllocation" runat="server" style="padding: 0px; float: left">
                                     <asp:Chart ID="ChartCurrentAsset" runat="server" Height="200px" Width="400px">
                                         <Series>
                                             <asp:Series ChartArea="caActualAsset" Name="sActualAsset">
@@ -315,20 +306,16 @@
                                     </asp:Chart>
                                 </td>
                             </tr>
-                                <tr ID="trCustomerAssetText" runat="server">
+                            <tr id="trCustomerAssetText" runat="server">
                                 <td runat="server" colspan="5" width="100%">
-                                <asp:Label ID="lblCustomerParagraph" runat="server" CssClass="Field" 
-                                        BackColor="Transparent"></asp:Label>
+                                    <asp:Label ID="lblCustomerParagraph" runat="server" CssClass="Field" BackColor="Transparent"></asp:Label>
                                 </td>
                             </tr>
-                            
                             <tr>
-                            <td>
-                                                            
-                                <asp:Button ID="btnSave" runat="server" CssClass="PCGButton" 
-                                    OnClick="btnSave_Click" OnClientClick="return optionvalidation()" Text="Save" 
-                                    Width="62px" />
-                            </td>
+                                <td>
+                                    <asp:Button ID="btnSave" runat="server" CssClass="PCGButton" OnClick="btnSave_Click"
+                                        OnClientClick="return optionvalidation()" Text="Save" Width="62px" />
+                                </td>
                                 <td class="style1">
                                 </td>
                                 <td>
@@ -340,8 +327,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <asp:Label ID="lblAge" runat="server" CssClass="FieldName" 
-                                        Text="Based on Customer profile Age is "></asp:Label>
+                                    <asp:Label ID="lblAge" runat="server" CssClass="FieldName" Text="Based on Customer profile Age is "></asp:Label>
                                     <asp:Label ID="lblAgeResult" runat="server" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
@@ -349,26 +335,24 @@
                                 <td>
                                 </td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td colspan="2">
-                                    <asp:Label ID="lblRiskClass" runat="server" CssClass="FieldName" 
-                                        Text="Based on  Risk Assessment Customer Risk class is "></asp:Label>
+                                    <asp:Label ID="lblRiskClass" runat="server" CssClass="FieldName" Text="Based on  Risk Assessment Customer Risk class is "></asp:Label>
                                     <asp:Label ID="lblRClassRs" runat="server" CssClass="FieldName"></asp:Label>
-                                    <asp:Label ID="lblRiskScore" runat="server" CssClass="FieldName" 
-                                        Text="  &amp;  Risk Score is  "></asp:Label>
+                                    <asp:Label ID="lblRiskScore" runat="server" CssClass="FieldName" Text="  &amp;  Risk Score is  "></asp:Label>
                                     <asp:Label ID="lblRscoreAA" runat="server" CssClass="FieldName"></asp:Label>
-                                </td>                           
-                               
-                                <td></td>
-                                 <td>
-                                 </td>
-                                 <td>
-                                 </td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <asp:Label ID="lblChartErrorDisplay" runat="server" 
-                                        Text="No Age to display chart. Fill Date of Birth!" Visible="False"></asp:Label>                                
+                                    <asp:Label ID="lblChartErrorDisplay" runat="server" Text="No Age to display chart. Fill Date of Birth!"
+                                        Visible="False"></asp:Label>
                                 </td>
                                 <td>
                                 </td>
@@ -380,7 +364,7 @@
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
-            </ajaxtoolkit:tabcontainer>
+            </ajaxToolkit:TabContainer>
         </td>
     </tr>
     <tr>

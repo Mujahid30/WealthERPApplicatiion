@@ -233,7 +233,8 @@ namespace WealthERP.Advisor
                 if (!IsPostBack)
                 {
                     dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
-                    riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+                    if(dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
+                        riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
                     dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
@@ -1164,18 +1165,19 @@ namespace WealthERP.Advisor
             divQuestionAnswers.Visible = false;
             lblRScore.Visible = false;
             tblRiskScore.Visible = true;
-            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             lblRiskProfilingParagraph.Visible = false;
             dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
-            riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+            if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
+                riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
             dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
                 AddToAssetAllocation();
-                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                //tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             }
+            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
         }
 
         protected void rbtnAnsQuestions_CheckedChanged(object sender, EventArgs e)
@@ -1186,20 +1188,22 @@ namespace WealthERP.Advisor
             trRiskProfiler.Visible = true;
             tblPickRiskClass.Visible = false;
             divQuestionAnswers.Visible = true;
-            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             lblRiskProfilingParagraph.Visible = true;
             lblRScore.Visible = true;
             if (lblRScore.Text == "")
                 lblRScore.Text = "0";
             dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
-            riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+            if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
+                riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+
             dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
                 AddToAssetAllocation();
-                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                //tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
             }
+            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
         }
 
         /// <summary>
