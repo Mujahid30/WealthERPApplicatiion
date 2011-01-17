@@ -138,7 +138,7 @@
                 <ajaxToolkit:TabPanel ID="tabRiskProfiling" runat="server" HeaderText="Risk Profiling"
                     Visible="true">
                     <HeaderTemplate>
-                        Risk Profiling
+                        Risk Profile
                     </HeaderTemplate>
                     <ContentTemplate>
                     <table runat="server" id="tblPickOptions" style="text-align: left;" width="100%">
@@ -277,7 +277,7 @@
                             <br />
                             <br />
                             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" 
-                                        Text="Recomonded Asset Allocation Chart"></asp:Label>
+                                        Text="Recommended Asset Allocation Chart"></asp:Label>
                             </td>
                             <td>
                             <br />

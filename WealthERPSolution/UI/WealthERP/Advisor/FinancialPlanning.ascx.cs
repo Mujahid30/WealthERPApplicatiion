@@ -227,8 +227,14 @@ namespace WealthERP.Advisor
                 customerBo = new CustomerBo();
                 customerVo = customerBo.GetCustomer(customerId);
                 Session[SessionContents.CustomerVo] = customerVo;
+
+                
+                
                 if (!IsPostBack)
                 {
+                    dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+                    riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+
                     dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
                     {
@@ -249,7 +255,6 @@ namespace WealthERP.Advisor
                         btnSubmitRisk.Visible = false;
                         btnSubmitForPickRiskclass.Visible = true;
                     }
-                    
                     tblPickOptions.Visible = true;
                     ddlPickRiskClass.Visible = false;
                     trRiskProfiler.Visible = false;
@@ -1161,10 +1166,10 @@ namespace WealthERP.Advisor
             tblRiskScore.Visible = true;
             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             lblRiskProfilingParagraph.Visible = false;
+            dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+            riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
             dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
-            if(Session["riskCode"] != null)
-                riskCode = Session["riskCode"].ToString();
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
@@ -1186,9 +1191,9 @@ namespace WealthERP.Advisor
             lblRScore.Visible = true;
             if (lblRScore.Text == "")
                 lblRScore.Text = "0";
+            dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
+            riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
             dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
-            if (Session["riskCode"] != null)
-                riskCode = Session["riskCode"].ToString();
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
@@ -1243,7 +1248,7 @@ namespace WealthERP.Advisor
                 
             dsGlobal = riskprofilebo.GetAdviserRiskClasses(advisorVo.advisorId);
             riskCode = ddlPickRiskClass.SelectedValue;
-            Session["riskCode"] = riskCode;
+            //Session["riskCode"] = riskCode;
             lblRiskProfilingParagraph.Visible = false;
             Session["btnSubmitForPickRiskclass"] = null;
 
