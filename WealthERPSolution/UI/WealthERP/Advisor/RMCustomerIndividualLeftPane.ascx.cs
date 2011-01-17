@@ -77,19 +77,26 @@ namespace WealthERP.Advisor
                         RadPanelBar1.FindItemByValue("Home").Visible = false;
                         
                     }
-                    if (userVo.RoleList.Contains("Admin"))
+                    if (userVo.RoleList != null)
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
+                        if (userVo.RoleList.Contains("Admin"))
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
+                        }
+                        else if (userVo.RoleList.Contains("BM"))
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
+                        }
+                        else if (userVo.RoleList.Contains("RM"))
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
+                        }
                     }
-                    else if (userVo.RoleList.Contains("BM"))
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
-                    }
-                    else if (userVo.RoleList.Contains("RM"))
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
-                    }
-                    else
+                    if (Session["S_CurrentUserRole"].ToString() == "Customer")
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
                     }
