@@ -76,6 +76,8 @@ namespace WealthERP.FP
                 {
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                     customerVo = customerBo.GetCustomer(customerId);
+                    hdnIsActive.Value = customerVo.IsActive.ToString();
+                    hdnIsProspect.Value = customerVo.IsProspect.ToString();
                     customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
                     if (customerFamilyVoList != null)
                     {
@@ -587,6 +589,22 @@ namespace WealthERP.FP
                 {
                     customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
                 }
+                if (hdnIsActive.Value == "1")
+                {
+                    customerVo.IsActive = 1;
+                }
+                else
+                {
+                    customerVo.IsActive = 0;
+                }
+                if (hdnIsProspect.Value == "1")
+                {
+                    customerVo.IsProspect = 1;
+                }
+                else
+                {
+                    customerVo.IsProspect = 0;
+                }
                 Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
                 Session["customerVo"] = customerVo;
                 Session["CustomerVo"] = customerVo;
@@ -626,8 +644,22 @@ namespace WealthERP.FP
             {
                 customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
             }
-            customerVo.IsProspect = 1;
-            customerVo.IsFPClient = 1;
+            if (hdnIsActive.Value == "1")
+            {
+                customerVo.IsActive = 1;
+            }
+            else
+            {
+                customerVo.IsActive = 0;
+            }
+            if (hdnIsProspect.Value == "1")
+            {
+                customerVo.IsProspect = 1;
+            }
+            else
+            {
+                customerVo.IsProspect = 0;
+            }
             customerVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
@@ -683,6 +715,9 @@ namespace WealthERP.FP
                     customerVo.Email = txtEmail.Text;
                     customerVo.IsProspect = 1;
                     customerVo.IsFPClient = 1;
+                    customerVo.IsActive = 1;
+                    hdnIsProspect.Value = "1";
+                    hdnIsActive.Value = "1";
                     customerVo.PANNum = txtPanNumber.Text;
                     customerVo.Adr1Line1 = txtAddress1.Text;
                     customerVo.Adr1Line2 = txtAddress2.Text;
@@ -754,8 +789,22 @@ namespace WealthERP.FP
                 customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
             }
             customerVo.Email = drChildCustomer["EmailId"].ToString();
-            customerVo.IsProspect = 1;
-            customerVo.IsFPClient = 1;
+            if (hdnIsActive.Value == "1")
+            {
+                customerVo.IsActive = 1;
+            }
+            else
+            {
+                customerVo.IsActive = 0;
+            }
+            if (hdnIsProspect.Value == "1")
+            {
+                customerVo.IsProspect = 1;
+            }
+            else
+            {
+                customerVo.IsProspect = 0;
+            }
             userVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";

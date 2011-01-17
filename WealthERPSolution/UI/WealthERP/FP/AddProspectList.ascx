@@ -301,3 +301,5 @@
         </td>
     </tr>
 </table>
+<asp:HiddenField ID="hdnIsActive" runat="server" />
+<asp:HiddenField ID="hdnIsProspect" runat="server" />
