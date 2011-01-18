@@ -122,7 +122,11 @@ namespace WealthERP.FP
                     txtPinCode.Text = customerVo.Adr1PinCode.ToString();
                     txtCity.Text = customerVo.Adr1City;
                     txtState.Text = customerVo.Adr1State;
-                    txtCountry.Text = customerVo.Adr1Country;    
+                    txtCountry.Text = customerVo.Adr1Country;
+                    if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
+                    {
+                        dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
+                    }
                     if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
                     {
                         dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
@@ -576,14 +580,14 @@ namespace WealthERP.FP
                 customerVo.Adr1Line2 = txtAddress2.Text;
                 customerVo.Adr1City = txtCity.Text;
                 customerVo.Adr1State = txtState.Text;
-                customerVo.Adr1Country = txtState.Text;
+                customerVo.Adr1Country = txtCountry.Text;
                 if (!string.IsNullOrEmpty(txtPinCode.Text))
                 {
                     customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
                 }
                 if (!string.IsNullOrEmpty(txtMobileNo.Text))
                 {
-                    customerVo.Mobile1 = int.Parse(txtMobileNo.Text);
+                    customerVo.Mobile1 = Int64.Parse(txtMobileNo.Text);
                 }
                 if (dpProspectAddDate.SelectedDate != null)
                 {
@@ -604,6 +608,10 @@ namespace WealthERP.FP
                 else
                 {
                     customerVo.IsProspect = 0;
+                }
+                if (dpProspectAddDate.SelectedDate != null)
+                {
+                    customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
                 }
                 Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
                 Session["customerVo"] = customerVo;
@@ -723,7 +731,7 @@ namespace WealthERP.FP
                     customerVo.Adr1Line2 = txtAddress2.Text;
                     customerVo.Adr1City = txtCity.Text;
                     customerVo.Adr1State = txtState.Text;
-                    customerVo.Adr1Country = txtState.Text;
+                    customerVo.Adr1Country = txtCountry.Text;
                     if (!string.IsNullOrEmpty(txtPinCode.Text))
                     {
                         customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
@@ -805,6 +813,8 @@ namespace WealthERP.FP
             {
                 customerVo.IsProspect = 0;
             }
+
+
             userVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
@@ -858,7 +868,9 @@ namespace WealthERP.FP
                 Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
 
                 Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
+                
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
                 //msgRecordStatus.Visible = true;
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
             }
