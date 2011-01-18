@@ -24,6 +24,7 @@ namespace WealthERP.Advisor
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
         AdvisorVo advisorVo = new AdvisorVo();
+        AdvisorBo advisorBo = new AdvisorBo();
         
 
         List<string> roleList = new List<string>();
@@ -611,6 +612,8 @@ namespace WealthERP.Advisor
         protected void RadPanelBar1_ItemClick(object sender, RadPanelBarEventArgs e)
         {
             RadPanelItem ItemClicked = e.Item;
+            DataSet dspotentialHomePage;
+            string potentialHomePage = "";
 
             try
             {
@@ -619,15 +622,38 @@ namespace WealthERP.Advisor
                     Session["UserType"] = null;
                     if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BMDashBoard", "loadcontrol('BMDashBoard','none');", true);
+                        dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "BM");
+                        if (dspotentialHomePage.Tables[0].Rows.Count > 0)
+                            potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
+                        if (potentialHomePage == "BM Home")
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BMMdadasdsdard", "loadcontrol('BMDashBoard','login');", true);
+                        else
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BManDasdadsard", "loadcontrol('BMCustomer','login');", true);
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMDashBoard", "loadcontrol('RMDashBoard','none');", true);
+                        dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "RM");
+                        if (dspotentialHomePage.Tables[0].Rows.Count > 0)
+                            potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
+                        if (potentialHomePage == "RM Home")
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMAAdminMasdadasdsdard", "loadcontrol('RMDashBoard','login');", true);
+                        else
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMAAdminMainDasdadsard", "loadcontrol('RMCustomer','login');", true);
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMainDashboard", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                        dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "Admin");
+                        if (dspotentialHomePage.Tables[0].Rows.Count > 0)
+                            potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
+                        if (potentialHomePage == "Admin Home")
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMasdadasdsdard", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                        else if (potentialHomePage == "Admin Small IFA Home")
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMainDasdadsard", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                        else
+                        {
+                            Session["Customer"] = "Customer";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMboardasdasdsd", "loadcontrol('AdviserCustomer','login');", true);
+                        }
                     }
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','none');", true);
                 }
