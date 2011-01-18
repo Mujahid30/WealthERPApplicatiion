@@ -91,7 +91,7 @@ namespace BoReports
 
             DataRow drHLVbasedAnalysis;
             drHLVbasedAnalysis = dtHLVAnalysis.NewRow();
-            drHLVbasedAnalysis["HLV_Type"] = "HLV based on income";
+            drHLVbasedAnalysis["HLV_Type"] = "Life Insurance Gap analysis";
             drHLVbasedAnalysis["HLV_Values"] = convertUSCurrencyFormat(Math.Round(double.Parse(HLVbasedIncome.ToString()), 2));
             dtHLVAnalysis.Rows.Add(drHLVbasedAnalysis);            
             dsCustomerFPReportDetails.Tables.Add(dtHLVAnalysis);
@@ -302,6 +302,12 @@ namespace BoReports
             drHealthAnalysis["value"] = convertUSCurrencyFormat(Math.Round(currEquity, 3)).ToString();
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
 
+            foreach (DataRow dr in dsCustomerFPReportDetails.Tables[6].Rows)
+            {
+                if (!string.IsNullOrEmpty(dr["MonthyTotal"].ToString()))
+                    toatlGoalAmount = double.Parse(dr["MonthyTotal"].ToString());
+            }
+
             drHealthAnalysis = dtHealthAnalysis.NewRow();
             drHealthAnalysis["Ratio"] = "Savings/Income Ratio";
             if (totalIncome != 0)
@@ -311,11 +317,7 @@ namespace BoReports
                 drHealthAnalysis["value"] = 0;
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
 
-            foreach (DataRow dr in dsCustomerFPReportDetails.Tables[6].Rows)
-            {
-                if (!string.IsNullOrEmpty(dr["MonthyTotal"].ToString()))
-                    toatlGoalAmount = double.Parse(dr["MonthyTotal"].ToString());
-            }
+           
             drHealthAnalysis = dtHealthAnalysis.NewRow();
             drHealthAnalysis["Ratio"] = "Loan/Financial Assets Ratio";
             if (asset != 0)
@@ -337,7 +339,7 @@ namespace BoReports
         private string convertUSCurrencyFormat(double value)
         {
             string strValues = string.Empty;
-            if (value > 0)
+            if (value > 999)
                 strValues = value.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
             else
                 strValues = value.ToString();

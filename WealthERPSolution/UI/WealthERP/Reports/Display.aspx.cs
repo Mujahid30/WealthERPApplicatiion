@@ -1437,7 +1437,7 @@ namespace WealthERP.Reports
                     recCash = double.Parse(dr["RecommendedPercentage"].ToString());
                     currCash = double.Parse(dr["CurrentPercentage"].ToString());
                 }
-                else if (dr["Class"].ToString() == "Alternate")
+                else if (dr["Class"].ToString() == "Alternates")
                 {
                     recAlternate = double.Parse(dr["RecommendedPercentage"].ToString());
                     currAlternate = double.Parse(dr["CurrentPercentage"].ToString());
