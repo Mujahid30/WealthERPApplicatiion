@@ -32,9 +32,9 @@ namespace BoCustomerRiskProfiling
         {
             return riskprofiledao.GetCustomerDOBById(customerId);
         }
-        public void AddCustomerRiskProfileDetails(int customerId, int crpscore, DateTime riskdate, string riskclasscode, RMVo rmvo)
+        public void AddCustomerRiskProfileDetails(int customerId, int crpscore, DateTime riskdate, string riskclasscode, RMVo rmvo, int IsDirectRiskClass)
         {
-            riskprofiledao.AddCustomerRiskProfileDetails(customerId, crpscore, riskdate, riskclasscode, rmvo);
+            riskprofiledao.AddCustomerRiskProfileDetails(customerId, crpscore, riskdate, riskclasscode, rmvo, IsDirectRiskClass);
         }
         public void AddCustomerResponseToQuestion(int RpId, int questionId, int optionId, RMVo rmvo)
         {
@@ -227,9 +227,9 @@ namespace BoCustomerRiskProfiling
             }
             return ds;
         }
-         public void AddCustomerRiskProfileDetailsDirectlyBYDP(int customerId, DateTime riskdate, string riskclasscode, RMVo rmvo)
-         {
-            riskprofiledao.AddCustomerRiskProfileDetailsDirectlyBYDP(customerId, riskdate, riskclasscode, rmvo);
-         }
+         //public void AddCustomerRiskProfileDetailsDirectlyBYDP(int customerId, DateTime riskdate, string riskclasscode, RMVo rmvo)
+         //{
+         //   riskprofiledao.AddCustomerRiskProfileDetailsDirectlyBYDP(customerId, riskdate, riskclasscode, rmvo);
+         //}
     }
 }
