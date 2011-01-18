@@ -168,7 +168,7 @@
                                     <br />
                                     <asp:DropDownList ID="ddlPickRiskClass" runat="server" CssClass="cmbField" Style="vertical-align: middle">
                                     </asp:DropDownList>
-                                    <span id="Span12" class="spnRequiredField">*</span>
+                                    <span id="Span12" runat="server" class="spnRequiredField">*</span>
                                     <asp:CompareValidator ID="ddlPickRiskClass_CompareValidator" runat="server" ControlToValidate="ddlPickRiskClass"
                                         ErrorMessage="Please select a Risk Class" Operator="NotEqual" ValueToCompare="Select Risk Class"
                                         Display="Dynamic" CssClass="cvPCG">
@@ -272,12 +272,12 @@
                                 <td>
                                     <br />
                                     <br />
-                                    <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Recommended Asset Allocation Chart"></asp:Label>
+                                    <asp:Label ID="lblRecommondedChart" runat="server" CssClass="HeaderTextSmall" Text="Recommended Asset Allocation Chart"></asp:Label>
                                 </td>
                                 <td>
                                     <br />
                                     <br />
-                                    <asp:Label ID="Label5" runat="server" CssClass="HeaderTextSmall" Text="Current Asset Allocation Chart"></asp:Label>
+                                    <asp:Label ID="lblCurrentChart" runat="server" CssClass="HeaderTextSmall" Text="Current Asset Allocation Chart"></asp:Label>
                                 </td>
                             </tr>
                             <tr>

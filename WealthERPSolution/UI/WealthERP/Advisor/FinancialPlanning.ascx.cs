@@ -57,6 +57,7 @@ namespace WealthERP.Advisor
         double cashPercentage;
         DataSet dsGetRiskProfileId;
         RMVo rmvo = new RMVo();
+        DataSet DScurrentAsset = new DataSet();
         protected void Page_Init(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
@@ -232,6 +233,7 @@ namespace WealthERP.Advisor
                 
                 if (!IsPostBack)
                 {
+                    Span12.Visible = false;
                     dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
                     if(dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
                         riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
@@ -239,31 +241,65 @@ namespace WealthERP.Advisor
                     dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
                     {
-                        divQuestionAnswers.Visible = true;
-                        tblRiskScore.Visible = true;
-                        lblRScore.Visible = true;
-                        rbtnAnsQuestions.Checked = true;
-                        btnSubmitRisk.Visible = true;
-                        btnSubmitForPickRiskclass.Visible = false;
+                        if (dsGetCustomerRiskProfile.Tables[1].Rows.Count > 0)
+                        {
+                            divQuestionAnswers.Visible = true;
+                            tblRiskScore.Visible = true;
+                            rbtnAnsQuestions.Checked = true;
+                            lblRScore.Visible = true;
+                            btnSubmitRisk.Visible = true;
+                            trRiskProfiler.Visible = true;
 
+                            tblPickRiskClass.Visible = false;
+                            ddlPickRiskClass.Visible = false;
+                            lblPickRiskPlass.Visible = false;
+                            rbtnPickRiskclass.Checked = false;
+                            Td1.Visible = true;
+                            btnSubmitForPickRiskclass.Visible = false;
+                            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+                        }
+                        else
+                        {
+                            tblPickRiskClass.Visible = true;
+                            ddlPickRiskClass.Visible = true;
+                            lblPickRiskPlass.Visible = true;
+                            rbtnPickRiskclass.Checked = true;
+                            btnSubmitForPickRiskclass.Visible = true;
+                            
+
+                            BindRiskClasses();
+                            if (dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString() != "")
+                                ddlPickRiskClass.SelectedValue = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+
+                            divQuestionAnswers.Visible = false;
+                            tblRiskScore.Visible = false;
+                            rbtnAnsQuestions.Checked = false;
+                            trRiskProfiler.Visible = false;
+                            lblRScore.Visible = false;
+                            Td1.Visible = false;
+                            btnSubmitRisk.Visible = false;
+                           
+                            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+                        }
+                        
                     }
                     else
                     {
                         divQuestionAnswers.Visible = false;
-                        tblRiskScore.Visible = false;
-                        rbtnAnsQuestions.Checked = false;
-                        lblRScore.Visible = false;
+                        tblPickRiskClass.Visible = false;
                         btnSubmitRisk.Visible = false;
-                        btnSubmitForPickRiskclass.Visible = true;
+                        trRiskProfiler.Visible = false;
+                        btnSubmitForPickRiskclass.Visible = false;
+
                     }
                     tblPickOptions.Visible = true;
-                    ddlPickRiskClass.Visible = false;
-                    trRiskProfiler.Visible = false;
-                    lblPickRiskPlass.Visible = false;
+                    //ddlPickRiskClass.Visible = false;
+                    //trRiskProfiler.Visible = false;
+                    //lblPickRiskPlass.Visible = false;
                     //btnSubmitRisk.Visible = false;
                     //btnSubmitForPickRiskclass.Visible = false;
                     PickQuestions();
-                    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                    
                 }
             }
             catch (Exception ex)
@@ -439,6 +475,7 @@ namespace WealthERP.Advisor
 
                             if ((dtAsset.Rows.Count > 0) && (dtAsset.ToString() != null))
                             {
+
                                 tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
                                 Legend ShowRecomondedAssetAlllegend = null;
                                 ShowRecomondedAssetAlllegend = new Legend("ShowRecomondedAssetAlllegendLegends");
@@ -447,6 +484,7 @@ namespace WealthERP.Advisor
                                 Series seriesAssets = new Series("sActualAsset");
                                 seriesAssets.ChartType = SeriesChartType.Pie;
                                 cActualAsset.Visible = true;
+                                lblRecommondedChart.Visible = true;
                                 cActualAsset.Series.Clear();
                                 cActualAsset.Series.Add(seriesAssets);
                                 cActualAsset.DataSource = dtAsset;
@@ -485,10 +523,11 @@ namespace WealthERP.Advisor
                                 cActualAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
                                 cActualAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
                                 cActualAsset.DataBind();
+                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
                             }
                             else
                             {
-                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
                                 lblChartErrorDisplay.Visible = true;
                                 AssetFormClear();
                                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No age set for this customer');", true);
@@ -498,9 +537,13 @@ namespace WealthERP.Advisor
                         }
                         else
                         {
-                            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+                            
                             AssetFormClear();
                             ShowCurrentAssetAllocationPieChart();
+                            if (DScurrentAsset.Tables[0].Rows.Count > 0)
+                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                            else
+                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
                             //trCurrentAssetAllocation.Visible = false;
                         }
                     }
@@ -602,7 +645,7 @@ namespace WealthERP.Advisor
 
                 }
 
-                riskprofilebo.AddCustomerRiskProfileDetails(customerId, rScore, DateTime.Now, riskCode, rmvo);
+                riskprofilebo.AddCustomerRiskProfileDetails(customerId, rScore, DateTime.Now, riskCode, rmvo,0);
                 dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
 
                 //====================================
@@ -824,7 +867,7 @@ namespace WealthERP.Advisor
                                 {
                                     rbtnQAns.Checked = false;
                                 }
-                                if (dsGetCustomerRiskProfile.Tables[1].Rows.Count < 0)
+                                if (dsGetCustomerRiskProfile.Tables[1].Rows.Count > 0)
                                 {
                                     string questionoption = dsGetCustomerRiskProfile.Tables[1].Rows[i - 1]["QOM_Option"].ToString();
 
@@ -850,32 +893,7 @@ namespace WealthERP.Advisor
 
                         trRiskProfilingParagraph.Visible = true;
                         lblRiskProfilingParagraph.Text = dsGetCustomerRiskProfile.Tables[0].Rows[0]["ARC_RiskText"].ToString();
-                        //if (lblRClass.Text == "Aggressive")
-                        //{
-
-                        //    lblRScore.ForeColor = System.Drawing.Color.Green;
-                        //    lblRClass.ForeColor = System.Drawing.Color.Green;
-                        //    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Aggressive");
-                        //}
-                        //else if (lblRClass.Text == "Moderate")
-                        //{
-
-
-                        //    lblRClass.BackColor = System.Drawing.Color.Yellow;
-                        //    lblRScore.ForeColor = System.Drawing.Color.Yellow;
-                        //    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Moderate");
-                        //}
-                        //else if (lblRClass.Text == "Conservative")
-                        //{
-                        //    lblRClass.BackColor = System.Drawing.Color.Red;
-                        //    lblRScore.ForeColor = System.Drawing.Color.Red;
-                        //    lblRiskProfilingParagraph.Text = riskprofilebo.GetRiskProfileText("Conservative");
-                        //}
-
-
-                        //SetAdjustment();
-
-                        //Session["FP_UserName"] = txtPickCustomer.Text;
+                        
                         Session["FP_UserID"] = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                         GoalCount = GoalSetupBo.CheckGoalProfile(customerId);
                         hidGoalCount.Value = GoalCount.ToString();
@@ -886,12 +904,17 @@ namespace WealthERP.Advisor
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Risk profile for this customer');", true);
                         trRiskProfilingParagraph.Visible = false;
                         trCustomerAssetText.Visible = false;
-                        //Session["FP_UserName"] = txtPickCustomer.Text;
                         Session["FP_UserID"] = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                         GoalCount = GoalSetupBo.CheckGoalProfile(customerId);
                         hidGoalCount.Value = GoalCount.ToString();
                         RiskFormClear();
                         AssetFormClear();
+                        ShowCurrentAssetAllocationPieChart();
+                        if (DScurrentAsset.Tables[0].Rows.Count > 0)
+                            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                        else
+                            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+                        
 
                     }
                 }
@@ -905,9 +928,6 @@ namespace WealthERP.Advisor
         {
             string approvedon = txtApprovedByCustomerOn.Text;
             DateTime now;
-            //dsGetCustomerRiskProfile;
-            //dsGetCustomerIdByName = riskprofilebo.GetCustomerIdByName(txtPickCustomer.Text);            
-            //dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(int.Parse(dsGetCustomerIdByName.Tables[0].Rows[0]["C_CustomerId"].ToString()));
             try
             {
                 if (txtApprovedByCustomerOn.Text == "")
@@ -1015,6 +1035,8 @@ namespace WealthERP.Advisor
             txtApprovedByCustomerOn.Text = "";
             cActualAsset.Visible = false;
             ChartCurrentAsset.Visible = false;
+            lblRecommondedChart.Visible = false;
+            lblCurrentChart.Visible = false;
             
         }
 
@@ -1026,7 +1048,7 @@ namespace WealthERP.Advisor
             string CurrAlternates = "0";
             DataRow drChartCurrAsset;
             DataTable dtChartCurrAsset = new DataTable();
-            DataSet DScurrentAsset = new DataSet();
+            
             customerVo = new CustomerVo();
             if (Session[SessionContents.CustomerVo] != null && Session[SessionContents.CustomerVo].ToString() != "")
             {
@@ -1040,6 +1062,7 @@ namespace WealthERP.Advisor
             if (DScurrentAsset != null && DScurrentAsset.Tables[0].Rows.Count > 0)
             {
                 ChartCurrentAsset.Visible = true;
+                lblCurrentChart.Visible = true;
                 DataTable dtCurrentAssetAllocation = new DataTable();
                 dtCurrentAssetAllocation = DScurrentAsset.Tables[0];
                 dtChartCurrAsset.Columns.Add("AssetType");
@@ -1092,7 +1115,7 @@ namespace WealthERP.Advisor
                 {
                     //gvCurrentAssetAllocation.DataSource = dtChartCurrAsset;
                     //gvCurrentAssetAllocation.DataBind();
-
+                    lblCurrentChart.Visible = true;
                     Legend ShowCurrentAssetAlllegend = null;
                     ShowCurrentAssetAlllegend = new Legend("ShowCurrentAssetAlllegendLegends");
                     ShowCurrentAssetAlllegend.Enabled = true;
@@ -1144,10 +1167,12 @@ namespace WealthERP.Advisor
                 else
                 {
                     ChartCurrentAsset.Visible = false;
+                    lblCurrentChart.Visible = false;
                 }
             }
             else
             {
+                lblCurrentChart.Visible = false;
                 ChartCurrentAsset.Visible = false;
             }
         }
@@ -1163,7 +1188,8 @@ namespace WealthERP.Advisor
             rbtnPickRiskclass.Checked = true;
             tblPickRiskClass.Visible = true;
             divQuestionAnswers.Visible = false;
-            lblRScore.Visible = false;
+            Span12.Visible = true;
+            Td1.Visible = false;
             tblRiskScore.Visible = true;
             lblRiskProfilingParagraph.Visible = false;
             dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(customerId, advisorVo.advisorId);
@@ -1175,7 +1201,12 @@ namespace WealthERP.Advisor
             {
                 LoadAssetAllocation(riskCode);
                 AddToAssetAllocation();
+                tblRiskScore.Visible = true;
                 //tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+            }
+            else
+            {
+                tblRiskScore.Visible = false;
             }
             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
         }
@@ -1189,6 +1220,7 @@ namespace WealthERP.Advisor
             tblPickRiskClass.Visible = false;
             divQuestionAnswers.Visible = true;
             lblRiskProfilingParagraph.Visible = true;
+            Td1.Visible = true;
             lblRScore.Visible = true;
             if (lblRScore.Text == "")
                 lblRScore.Text = "0";
@@ -1201,7 +1233,12 @@ namespace WealthERP.Advisor
             {
                 LoadAssetAllocation(riskCode);
                 AddToAssetAllocation();
+                tblRiskScore.Visible = true;
                 //tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+            }
+            else
+            {
+                tblRiskScore.Visible = false;
             }
             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
         }
@@ -1256,7 +1293,7 @@ namespace WealthERP.Advisor
             lblRiskProfilingParagraph.Visible = false;
             Session["btnSubmitForPickRiskclass"] = null;
 
-            riskprofilebo.AddCustomerRiskProfileDetailsDirectlyBYDP(customerId, DateTime.Now, riskCode, rmvo);
+            riskprofilebo.AddCustomerRiskProfileDetails(customerId,0, DateTime.Now, riskCode, rmvo, 1);
             lblRClass.Text = ddlPickRiskClass.SelectedItem.ToString();
             lblRScore.Visible = false;
 
