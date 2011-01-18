@@ -571,7 +571,7 @@ namespace WealthERP.FP
             customerVo.Adr1Line2 = txtAddress2.Text;
             customerVo.Adr1City = txtCity.Text;
             customerVo.Adr1State = txtState.Text;
-            customerVo.Adr1Country = txtState.Text;
+            customerVo.Adr1Country = txtCountry.Text;
             if (!string.IsNullOrEmpty(txtPinCode.Text))
             {
                 customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
@@ -1776,7 +1776,7 @@ namespace WealthERP.FP
             customerVo.Adr1Line2 = txtAddress2.Text;
             customerVo.Adr1City = txtCity.Text;
             customerVo.Adr1State = txtState.Text;
-            customerVo.Adr1Country = txtState.Text;
+            customerVo.Adr1Country = txtCountry.Text;
             if (hdnIsActive.Value == "1")
             {
                 customerVo.IsActive = 1;
