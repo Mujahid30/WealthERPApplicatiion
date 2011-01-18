@@ -302,6 +302,10 @@
                               OnSelectedIndexChanged="ddlGoalType_SelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="spanGoalType" class="spnRequiredField" runat="server">*</span>
+                        <asp:CompareValidator ID="ddlPickRiskClass_CompareValidator" runat="server" ControlToValidate="ddlGoalType"
+                                        ErrorMessage="Please select a Goal" Operator="NotEqual" ValueToCompare="Select"
+                                        Display="Dynamic" CssClass="cvPCG">
+                        </asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
