@@ -1158,6 +1158,11 @@
                 <tr>
                     <td>
                         <table width="60%">
+                        <tr>
+                        <td colspan="4">
+                        <asp:Label ID="lblincomenote" runat="server" Text="Note: All Income Details should be entered for monthly" CssClass="Error"></asp:Label>
+                        </td>
+                        </tr>
                             <tr>
                                 <td align="right">
                                     <asp:Label ID="lblSalary" runat="server" Text="Salary : " CssClass="FieldName"></asp:Label>
@@ -1228,6 +1233,10 @@
                 <tr>
                     <td>
                         <table width="60%">
+                         <tr>
+                        <td colspan="4">
+                        <asp:Label ID="lblexpensenote" runat="server" Text="Note: All Expense Details should be entered for monthly" CssClass="Error"></asp:Label>
+                        </td>
                             <tr>
                                 <td align="right">
                                     <asp:Label ID="lblFood" runat="server" Text="Food : " CssClass="FieldName"></asp:Label>

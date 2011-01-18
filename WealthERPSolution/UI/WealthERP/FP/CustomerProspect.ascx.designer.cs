@@ -1490,6 +1490,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Panel pnlIncome;
         
         /// <summary>
+        /// lblincomenote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblincomenote;
+        
+        /// <summary>
         /// lblSalary control.
         /// </summary>
         /// <remarks>
@@ -1632,6 +1641,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlExpense;
+        
+        /// <summary>
+        /// lblexpensenote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblexpensenote;
         
         /// <summary>
         /// lblFood control.
