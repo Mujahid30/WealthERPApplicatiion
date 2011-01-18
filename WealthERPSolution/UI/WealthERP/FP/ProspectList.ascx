@@ -119,7 +119,7 @@
 , ISNULL(B.CFPS_Asset,0)-ISNULL(B.CFPS_Liabilities,0) AS Networth 
 FROM dbo.Customer A
         LEFT OUTER JOIN dbo.CustomerFPSummary B
-         ON A.C_CustomerId=B.C_CustomerId WHERE ([C_IsProspect] = @C_IsProspect AND [AR_RMId]=@AR_RMId)">
+         ON A.C_CustomerId=B.C_CustomerId LEFT OUTER JOIN CustomerAssociates AS ca ON A.C_CustomerId = ca.C_CustomerId WHERE ([C_IsProspect] = @C_IsProspect AND [AR_RMId]=@AR_RMId AND ca.XR_RelationshipCode='SELF')">
         <SelectParameters>
             <asp:Parameter DefaultValue="1" Name="C_IsProspect" Type="Int32" />
             <asp:Parameter DefaultValue="1" Name="C_IsFPClient" Type="Int32" />   
