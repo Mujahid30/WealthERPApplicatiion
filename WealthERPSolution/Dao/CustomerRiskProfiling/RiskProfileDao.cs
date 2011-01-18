@@ -143,7 +143,7 @@ namespace DaoCustomerRiskProfiling
 
 
         //Adding  Customer RiskProfile Details
-        public void AddCustomerRiskProfileDetails(int customerId, int crpscore, DateTime riskdate, string riskclasscode, RMVo rmvo)
+        public void AddCustomerRiskProfileDetails(int customerId, int crpscore, DateTime riskdate, string riskclasscode, RMVo rmvo, int IsDirectRiskClass)
         {
             Database db;
             DbCommand dbAddCustomerRiskProfileDetails;
@@ -152,12 +152,14 @@ namespace DaoCustomerRiskProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbAddCustomerRiskProfileDetails = db.GetStoredProcCommand("SP_AddCustomerRiskProfileDetails");
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@C_CustomerId", DbType.Int32, customerId);
-                db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_Score", DbType.Int32, crpscore);
+                if (IsDirectRiskClass==0)
+                    db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_Score", DbType.Int32, crpscore);
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_Date", DbType.DateTime, riskdate);
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@XRC_RiskClassCode", DbType.String, riskclasscode);
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_CreatedBy", DbType.Int32, rmvo.RMId);
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_ModifiedBy", DbType.Int32, rmvo.RMId);
                 db.AddOutParameter(dbAddCustomerRiskProfileDetails, "@RPId", DbType.Int32, 1000);
+                db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_IsDirectRiskClass", DbType.Int32, IsDirectRiskClass);
                 db.ExecuteNonQuery(dbAddCustomerRiskProfileDetails);
 
             }
@@ -574,48 +576,49 @@ namespace DaoCustomerRiskProfiling
         }
 
 
-        /// <summary>
-        /// Adding Customer Risk profile directly by DP
-        /// </summary>
-        /// Dev by: VInayak Patil.
-        /// <param name="customerId"></param>
-        /// <param name="riskdate"></param>
-        /// <param name="riskclasscode"></param>
-        /// <param name="rmvo"></param>
-        public void AddCustomerRiskProfileDetailsDirectlyBYDP(int customerId, DateTime riskdate, string riskclasscode, RMVo rmvo)
-        {
-            Database db;
-            DbCommand dbAddCustomerRiskProfileDetailsDirectlyBYDP;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbAddCustomerRiskProfileDetailsDirectlyBYDP = db.GetStoredProcCommand("SP_AddCustomerRiskProfileDirectlyByDP");
-                db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@C_CustomerId", DbType.Int32, customerId);
-                db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@CRP_Date", DbType.DateTime, riskdate);
-                db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@XRC_RiskClassCode", DbType.String, riskclasscode);
-                db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@CRP_CreatedBy", DbType.Int32, rmvo.RMId);
-                db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@CRP_ModifiedBy", DbType.Int32, rmvo.RMId);
-                db.AddOutParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@RPId", DbType.Int32, 1000);
-                db.ExecuteNonQuery(dbAddCustomerRiskProfileDetailsDirectlyBYDP);
+        ///// <summary>
+        ///// Adding Customer Risk profile directly by DP
+        ///// </summary>
+        ///// Dev by: VInayak Patil.
+        ///// <param name="customerId"></param>
+        ///// <param name="riskdate"></param>
+        ///// <param name="riskclasscode"></param>
+        ///// <param name="rmvo"></param>
+        //public void AddCustomerRiskProfileDetailsDirectlyBYDP(int customerId, DateTime riskdate, string riskclasscode, RMVo rmvo, int IsDirectRiskClass)
+        //{
+        //    Database db;
+        //    DbCommand dbAddCustomerRiskProfileDetailsDirectlyBYDP;
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        dbAddCustomerRiskProfileDetailsDirectlyBYDP = db.GetStoredProcCommand("SP_AddCustomerRiskProfileDetails");
+        //        db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@C_CustomerId", DbType.Int32, customerId);
+        //        db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@CRP_Date", DbType.DateTime, riskdate);
+        //        db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@XRC_RiskClassCode", DbType.String, riskclasscode);
+        //        db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@CRP_CreatedBy", DbType.Int32, rmvo.RMId);
+        //        db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@CRP_ModifiedBy", DbType.Int32, rmvo.RMId);
+        //        db.AddOutParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@RPId", DbType.Int32, 1000);
+        //        db.AddInParameter(dbAddCustomerRiskProfileDetailsDirectlyBYDP, "@CRP_IsDirectRiskClass", DbType.Int32, 1);
+        //        db.ExecuteNonQuery(dbAddCustomerRiskProfileDetailsDirectlyBYDP);
 
-            }
-            catch (BaseApplicationException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "RiskProfileDao.cs:GetQuestionOption()");
-                object[] objects = new object[1];
-                objects[0] = customerId;
-                FunctionInfo = baseEx.AddObject(FunctionInfo, objects);
-                baseEx.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(baseEx);
-                throw baseEx;
-            }
+        //    }
+        //    catch (BaseApplicationException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "RiskProfileDao.cs:GetQuestionOption()");
+        //        object[] objects = new object[1];
+        //        objects[0] = customerId;
+        //        FunctionInfo = baseEx.AddObject(FunctionInfo, objects);
+        //        baseEx.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(baseEx);
+        //        throw baseEx;
+        //    }
 
-        }
+        //}
     }
 }
