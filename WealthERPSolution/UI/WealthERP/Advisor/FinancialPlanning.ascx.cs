@@ -910,10 +910,10 @@ namespace WealthERP.Advisor
                         RiskFormClear();
                         AssetFormClear();
                         ShowCurrentAssetAllocationPieChart();
-                        if (DScurrentAsset.Tables[0].Rows.Count > 0)
-                            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
-                        else
-                            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+                        //if (DScurrentAsset.Tables[0].Rows.Count > 0)
+                        //    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                        //else
+                        //    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
                         
 
                     }
@@ -1207,6 +1207,11 @@ namespace WealthERP.Advisor
             else
             {
                 tblRiskScore.Visible = false;
+                ShowCurrentAssetAllocationPieChart();
+                //if (DScurrentAsset.Tables[0].Rows.Count > 0)
+                //    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                //else
+                //    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             }
             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
         }
@@ -1239,6 +1244,11 @@ namespace WealthERP.Advisor
             else
             {
                 tblRiskScore.Visible = false;
+                ShowCurrentAssetAllocationPieChart();
+                //if (DScurrentAsset.Tables[0].Rows.Count > 0)
+                //    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                //else
+                //    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             }
             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
         }
