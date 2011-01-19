@@ -33,7 +33,8 @@ namespace BoReports
             DataTable dtCurrentObservation;
             DataTable dtHealthAnalysis;
             DataTable dtAssetClass;
-            DataTable dtPortfolioAllocation;            
+            DataTable dtPortfolioAllocation;
+            DataTable dtAllGoalChart;
             double HLVbasedIncome = 0;
             double inflationPer = 0;
             double yearsLeftEOL = 0;
@@ -333,6 +334,33 @@ namespace BoReports
             //dsCustomerFPReportDetails.Tables.Add(dtPortfolioAllocation);
 
 
+            //dtAllGoalChart = new DataTable();
+            //dtAllGoalChart.Columns.Add("GoalYear");
+            //dtAllGoalChart.Columns.Add("GoalAmount");
+            //DataRow drAllGoalChart;
+            //if (dsCustomerFPReportDetails.Tables[5].Rows.Count > 0)
+            //{
+            //    foreach (DataRow drOtherGoal in dsCustomerFPReportDetails.Tables[5].Rows)
+            //    {
+            //        drAllGoalChart = dtAllGoalChart.NewRow();
+            //        drAllGoalChart["GoalYear"] = drOtherGoal["GoalYear"];
+            //        drAllGoalChart["GoalAmount"] = drOtherGoal["GoalAmount"];
+            //        dtAllGoalChart.Rows.Add(drAllGoalChart);
+            //    }
+            //}
+
+            //if (dsCustomerFPReportDetails.Tables[7].Rows.Count > 0)
+            //{
+            //    foreach (DataRow drOtherGoal in dsCustomerFPReportDetails.Tables[7].Rows)
+            //    {
+            //        drAllGoalChart = dtAllGoalChart.NewRow();
+            //        drAllGoalChart["GoalYear"] = drOtherGoal["GoalYear"];
+            //        drAllGoalChart["GoalAmount"] = drOtherGoal["FVofCostToday"];
+            //        dtAllGoalChart.Rows.Add(drAllGoalChart);
+            //    }
+            //}
+            //dsCustomerFPReportDetails.Tables.Add(dtAllGoalChart);
+                       
             return dsCustomerFPReportDetails;
         }
 
