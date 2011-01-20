@@ -1428,7 +1428,8 @@ namespace WealthERP.Reports
             {
                 if (str.Contains(riskClass) || str.Contains("html"))
                 {
-                    strRiskProfileText += str;
+                    if (!strRiskProfileText.Contains(riskClass))
+                       strRiskProfileText += str;
                 }
             }
 
