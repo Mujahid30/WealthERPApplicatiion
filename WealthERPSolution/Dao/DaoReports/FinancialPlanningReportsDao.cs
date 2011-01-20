@@ -234,7 +234,7 @@ namespace DaoReports
         /// <param name="report"></param>
         /// <remarks>Get All the details of Financial Planning of customers</remarks>
         /// <returns></returns>
-        public DataSet GetCustomerFPDetails(FinancialPlanningVo report,out double assetTotal,out double liabilitiesTotal,out double netWorthTotal,out string riskClass,out double sumAssuredLI)
+        public DataSet GetCustomerFPDetails(FinancialPlanningVo report,out double assetTotal,out double liabilitiesTotal,out double netWorthTotal,out string riskClass,out double sumAssuredLI,out int dynamicAdvisorRiskClass)
         {
             Database db;
             DbCommand cmdCustomerFPReportDetails;
@@ -250,6 +250,8 @@ namespace DaoReports
                 db.AddOutParameter(cmdCustomerFPReportDetails,"@RiskClass", DbType.String,30);
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@InsuranceSUMAssured", DbType.Decimal, 20);
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@AssetTotal", DbType.Decimal, 20);
+                db.AddOutParameter(cmdCustomerFPReportDetails, "@DynamicRiskClsaaAdvisor", DbType.Int16, 2);
+                
                 dsCustomerFPReportDetails = db.ExecuteDataSet(cmdCustomerFPReportDetails);
 
                  Object riskClassObj = db.GetParameterValue(cmdCustomerFPReportDetails, "@RiskClass");
@@ -269,6 +271,12 @@ namespace DaoReports
                      assetTotal = double.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@AssetTotal").ToString());
                  else
                      assetTotal = 0;
+
+                 Object objDynamicRiskClass = db.GetParameterValue(cmdCustomerFPReportDetails, "@DynamicRiskClsaaAdvisor");
+                 if (objAssetTotal != DBNull.Value)
+                     dynamicAdvisorRiskClass = int.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@DynamicRiskClsaaAdvisor").ToString());
+                 else
+                     dynamicAdvisorRiskClass = 0;
 
                 dtAsset = dsCustomerFPReportDetails.Tables[2];
                 dtLiabilities = dsCustomerFPReportDetails.Tables[3];

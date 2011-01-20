@@ -26,7 +26,7 @@ namespace BoReports
             return financialPlanningReports.GetFinancialPlanningReport(report);
         }
 
-        public DataSet GetCustomerFPDetails(FinancialPlanningVo report, out double asset, out double liabilities, out double netWorth, out string riskClass)
+        public DataSet GetCustomerFPDetails(FinancialPlanningVo report, out double asset, out double liabilities, out double netWorth, out string riskClass, out int dynamicRiskClass)
         {
             DataSet dsCustomerFPReportDetails;
             DataTable dtHLVAnalysis;
@@ -51,11 +51,12 @@ namespace BoReports
             double autoLoan = 0;
             double currEquity = 0;
             double toatlGoalAmount = 0;
+            
             string strInvestment = string.Empty;
             string strHomeLoan = string.Empty;
             string strAutoLoan = string.Empty;
             FinancialPlanningReportsDao financialPlanningReports = new FinancialPlanningReportsDao();
-            dsCustomerFPReportDetails = financialPlanningReports.GetCustomerFPDetails(report, out asset, out liabilities, out netWorth, out riskClass, out sumAssuredLI);
+            dsCustomerFPReportDetails = financialPlanningReports.GetCustomerFPDetails(report, out asset, out liabilities, out netWorth, out riskClass, out sumAssuredLI, out dynamicRiskClass);
             dtHLVAnalysis = dsCustomerFPReportDetails.Tables[16];
             dtAssetClass = dsCustomerFPReportDetails.Tables[17];
             dtPortfolioAllocation = dsCustomerFPReportDetails.Tables[18];
