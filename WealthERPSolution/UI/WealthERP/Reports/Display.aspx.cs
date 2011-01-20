@@ -483,7 +483,7 @@ namespace WealthERP.Reports
             dtAdvisorRiskClass = dsCustomerFPReportDetails.Tables[16];
             dtPortfolioAllocation = dsCustomerFPReportDetails.Tables[17];
            
-            dtPortfolioAllocation = CreatePortfolioAllocationTable(dtPortfolioAllocation);
+            dtPortfolioAllocation = CreatePortfolioAllocationTable(dtPortfolioAllocation,dynamicRiskClass);
            
 
             crmain.Load(Server.MapPath("FPSectionalReport.rpt"));
@@ -814,7 +814,7 @@ namespace WealthERP.Reports
             }
         }
 
-        private DataTable CreatePortfolioAllocationTable(DataTable dtPortfolioAllocation)
+        private DataTable CreatePortfolioAllocationTable(DataTable dtPortfolioAllocation,int dynamicRiskClass)
         {
             DataTable dtPortfolioAllocatonTable = new DataTable();
 
@@ -830,7 +830,7 @@ namespace WealthERP.Reports
             DataRow drPAllocation;
             string tempRiskClass = string.Empty;
             string tempRiskClass1 = string.Empty;
-            if (dtPortfolioAllocation.Rows.Count > 0)
+            if (dtPortfolioAllocation.Rows.Count > 0 && dynamicRiskClass==1)
             {
                 foreach (DataRow dr in dtPortfolioAllocation.Rows)
                 {

@@ -93,7 +93,7 @@ namespace BoReports
 
             DataRow drHLVbasedAnalysis;
             drHLVbasedAnalysis = dtHLVAnalysis.NewRow();
-            drHLVbasedAnalysis["HLV_Type"] = "Life Insurance Gap analysis";
+            drHLVbasedAnalysis["HLV_Type"] = "HLV based on income";
             drHLVbasedAnalysis["HLV_Values"] = convertUSCurrencyFormat(Math.Round(double.Parse(HLVbasedIncome.ToString()), 2));
             dtHLVAnalysis.Rows.Add(drHLVbasedAnalysis);            
             dsCustomerFPReportDetails.Tables.Add(dtHLVAnalysis);
