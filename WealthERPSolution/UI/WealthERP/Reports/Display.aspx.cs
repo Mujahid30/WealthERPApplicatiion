@@ -1494,12 +1494,12 @@ namespace WealthERP.Reports
                     }
                     else if (pair.Key.Trim() == "#CurrAlternate#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recAlternate.ToString()+"%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currAlternate.ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#RecAlternate#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currAlternate.ToString()+"%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recAlternate.ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#RecCashLessMore#")
