@@ -14,11 +14,11 @@
 <%--<link href="../App_Themes/Maroon/GridViewCss.css" rel="stylesheet" type="text/css" />
 --%>
 
-<link href="<%=StyleSheet%>" type=text/css rel=stylesheet>
+<%--<link href="<%=StyleSheet%>" type=text/css rel=stylesheet>--%>
 
-<head>
+<head runat="server" />
     <title>WealthERP Reports</title>
-    <style>
+    <%--<style>
         body
         {
             width: 90%;
@@ -54,9 +54,9 @@
             background-color:#EBEFF9; 
         }
         
-    </style>
+    </style>--%>
 
-    <script>
+   <script type="text/javascript" >
         function ShowProcesssing(btn) {
             document.getElementById('btnSend').value = "Sending Email.Please wait..";
             document.getElementById('btnSend').disabled = true;

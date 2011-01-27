@@ -66,18 +66,17 @@ namespace WealthERP.Reports
         string capitalGainSummary = string.Empty;
         string mailSendStatus = "";
         public string StyleSheet;
-       
+
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (Session["Theme"] != null)
+            {
+                Page.Theme = Session["Theme"].ToString();                
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                if (Session["Theme"] != null)
-                {
-                    string theme = "";
-                    theme = Session["Theme"].ToString();
-                    StyleSheet = "../App_Themes/" + theme + "/GridViewCss.css";
-                }
-            }
+        
         }
         /// <summary>
         /// Page Load Functionality called from Source code 
@@ -792,6 +791,7 @@ namespace WealthERP.Reports
             else
             {
                 string PortFolioIds = GetAllPortfolioOfCustomer(CustomerId);
+                if (!string.IsNullOrEmpty(PortFolioIds))
                 PortFolioIds = PortFolioIds.Substring(0, PortFolioIds.Length - 1);
                 mfReport.PortfolioIds = PortFolioIds;
             }
