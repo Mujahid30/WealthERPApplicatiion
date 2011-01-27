@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerProspect.ascx.cs"
-    EnableViewState="true" Inherits="WealthERP.FP.CustomerProspect" %>
+    EnableViewState="false" Inherits="WealthERP.FP.CustomerProspect"  %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
 <script type="text/javascript">
@@ -223,8 +223,7 @@
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
-<telerik:RadFormDecorator ID="RadFormDecorator1" runat="server" DecoratedControls="All"
-    Skin="Telerik" EnableEmbeddedSkins="false" />
+
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Finance Profile"></asp:Label>
 <hr />
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
