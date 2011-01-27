@@ -132,19 +132,23 @@
             </td>
         </tr>
         <tr>
-            <td width="20%" style="font-family:Arial;font-size:14px;font-weight:bold;">
+            <td colspan="3" width="50%" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
                 <asp:Label ID="lblOrgName" runat="server" Text=""></asp:Label> 
             </td>
-            <td colspan="3" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
-                <strong><u>Investor's Need Analysis </u></strong>
-            </td>
-             <td width="20%">
+            
+             <td colspan="2" width="50%" align="right">
              <img alt="AdvisorLogo" src="ByPass.aspx" /> 
             </td>
-         </tr>   
-        
+         </tr>
+         <tr><td colspan="5"></td></tr>   
+        <tr>
+        <td colspan="5" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:100%;">
+                <strong><u>Investor's Need Analysis </u></strong>
+            </td>
+          </tr>
+          
           <tr>
-          <td><br /><br /></td>
+          <td><br /></td>
           </tr>
             <tr>
           <td colspan="5"></td>  
@@ -154,7 +158,7 @@
         <td>
         <table cellspacing="0" border="1">
         <tr>
-        <td style="color:#99F7FF;">&nbsp;d&nbsp;</td><td style="color:#99F7FF;">&nbsp;d&nbsp;</td><td style="color:#99F7FF;">&nbsp;m&nbsp;</td><td style="color:#99F7FF;">&nbsp;m&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td>
+        <td style="color:#E8FFFF;">&nbsp;d&nbsp;</td><td style="color:#E8FFFF;">&nbsp;d&nbsp;</td><td style="color:#E8FFFF;">&nbsp;m&nbsp;</td><td style="color:#E8FFFF;">&nbsp;m&nbsp;</td><td style="color:#E8FFFF;">&nbsp;y&nbsp;</td><td style="color:#E8FFFF;">&nbsp;y&nbsp;</td><td style="color:#E8FFFF;">&nbsp;y&nbsp;</td><td style="color:#E8FFFF;">&nbsp;y&nbsp;</td>
         </tr>
         </table>
         </td>
@@ -175,11 +179,11 @@
         <td colspan="4">
         <table width="100%" cellspacing="0" border="1">
         <tr>
-        <td style="color:#99F7FF;">&nbsp;f</td><td style="color:#99F7FF;">&nbsp;i</td><td style="color:#99F7FF;">&nbsp;r</td><td style="color:#99F7FF;">&nbsp;s</td><td style="color:#99F7FF;">&nbsp;t</td><td style="color:#99F7FF;">&nbsp;n</td>
-        <td style="color:#99F7FF;">&nbsp;a</td><td style="color:#99F7FF;">m</td><td style="color:#99F7FF;">&nbsp;e</td><td>&nbsp;&nbsp;&nbsp;</td><td style="color:#99F7FF;">m</td><td style="color:#99F7FF;">&nbsp;i</td>
-        <td style="color:#99F7FF;">&nbsp;d</td><td style="color:#99F7FF;">&nbsp;d</td><td style="color:#99F7FF;">&nbsp;l</td><td style="color:#99F7FF;">&nbsp;e</td><td style="color:#99F7FF;">&nbsp;n</td><td style="color:#99F7FF;">&nbsp;a</td>
-        <td style="color:#99F7FF;">m</td><td style="color:#99F7FF;">&nbsp;e</td><td>&nbsp;&nbsp;&nbsp;</td><td style="color:#99F7FF;">&nbsp;l</td><td style="color:#99F7FF;">&nbsp;a</td><td style="color:#99F7FF;">&nbsp;s</td>
-        <td style="color:#99F7FF;">&nbsp;t</td><td style="color:#99F7FF;">&nbsp;n</td><td style="color:#99F7FF;">&nbsp;a</td><td style="color:#99F7FF;">m</td><td style="color:#99F7FF;">&nbsp;e</td><td>&nbsp;&nbsp;</td>
+        <td style="color:#E8FFFF;">&nbsp;f</td><td style="color:#E8FFFF;">&nbsp;i</td><td style="color:#E8FFFF;">&nbsp;r</td><td style="color:#E8FFFF;">&nbsp;s</td><td style="color:#E8FFFF;">&nbsp;t</td><td style="color:#E8FFFF;">&nbsp;n</td>
+        <td style="color:#E8FFFF;">&nbsp;a</td><td style="color:#E8FFFF;">m</td><td style="color:#E8FFFF;">&nbsp;e</td><td>&nbsp;&nbsp;&nbsp;</td><td style="color:#E8FFFF;">m</td><td style="color:#E8FFFF;">&nbsp;i</td>
+        <td style="color:#E8FFFF;">&nbsp;d</td><td style="color:#E8FFFF;">&nbsp;d</td><td style="color:#E8FFFF;">&nbsp;l</td><td style="color:#E8FFFF;">&nbsp;e</td><td style="color:#E8FFFF;">&nbsp;n</td><td style="color:#E8FFFF;">&nbsp;a</td>
+        <td style="color:#E8FFFF;">m</td><td style="color:#E8FFFF;">&nbsp;e</td><td>&nbsp;&nbsp;&nbsp;</td><td style="color:#E8FFFF;">&nbsp;l</td><td style="color:#E8FFFF;">&nbsp;a</td><td style="color:#E8FFFF;">&nbsp;s</td>
+        <td style="color:#E8FFFF;">&nbsp;t</td><td style="color:#E8FFFF;">&nbsp;n</td><td style="color:#E8FFFF;">&nbsp;a</td><td style="color:#E8FFFF;">m</td><td style="color:#E8FFFF;">&nbsp;e</td><td>&nbsp;&nbsp;</td>
         </tr>
         </table>
         </td>
@@ -188,7 +192,7 @@
         <td colspan="5"></td>
         </tr>
          <tr>
-         <td colspan="5" align="justify" style="font-size:medium;font-family:@Arial Unicode MS;">
+         <td colspan="5" align="justify" style="font-size:medium;font-family:Verdana,Tahoma;">
          <p>The purpose of this investment profile form is for us to better understand your financial means, investment experience and financial goals.</p>
          <p>Your input will help us identify your investment profile, assist you in making right investment choices and guiding you to a secure and promising financial future.</p>
          <p>Please try to provide an accurate information as it will impact the results. We assure you it will be time well spent which will enable you achieve long financial freedom.</p>
@@ -258,7 +262,7 @@
         </tr>
         <tr>
         <td class="FieldName" align="left">City:</td>
-        <td>
+        <td colspan="3">
         <table width="100%" cellspacing="0" border="1">
         <tr>
         <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
@@ -282,7 +286,7 @@
         </tr>
         <tr>
         <td class="FieldName" align="left">State :</td>
-        <td>
+        <td colspan="3">
         <table width="100%" cellspacing="0" border="1">
         <tr>
         <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
@@ -296,7 +300,7 @@
         </tr>
         <tr>
         <td class="FieldName" align="left">Country:</td>
-        <td>
+        <td colspan="3">
         <table width="100%" cellspacing="0" border="1">
         <tr>
         <td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td>
@@ -312,7 +316,7 @@
         <td class="FieldName" align="left">Mobile No. :</td>
          <td><table cellspacing="0" border="1">
         <tr>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
         </tr>
         </table>
         </td>
@@ -337,7 +341,7 @@
         <td>
         <table cellspacing="0" border="1">
         <tr>
-        <td style="color:#99F7FF;">&nbsp;d&nbsp;</td><td style="color:#99F7FF;">&nbsp;d&nbsp;</td><td style="color:#99F7FF;">&nbsp;m&nbsp;</td><td style="color:#99F7FF;">&nbsp;m&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td><td style="color:#99F7FF;">&nbsp;y&nbsp;</td>
+        <td style="color:#E8FFFF;">&nbsp;d&nbsp;</td><td style="color:#E8FFFF;">&nbsp;d&nbsp;</td><td style="color:#E8FFFF;">&nbsp;m&nbsp;</td><td style="color:#E8FFFF;">&nbsp;m&nbsp;</td><td style="color:#E8FFFF;">&nbsp;y&nbsp;</td><td style="color:#E8FFFF;">&nbsp;y&nbsp;</td><td style="color:#E8FFFF;">&nbsp;y&nbsp;</td><td style="color:#E8FFFF;">&nbsp;y&nbsp;</td>
         </tr>
         </table>
         </td>
@@ -480,10 +484,10 @@
         <td colspan="5"></td>
         </tr>
         <tr>
-        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
+        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;">
         <asp:Label ID="lblRMNameFamily" runat="server" Text=""></asp:Label>
         </td>
-        <td colspan="2" align="right" style="font-family:Arial;font-size:14px;font-weight:bold; "><asp:Label ID="lblDate1" runat="server" Text=""></asp:Label></td>
+        <td colspan="2" align="right" style="font-family:Arial;font-size:14px; "><asp:Label ID="lblDate1" runat="server" Text=""></asp:Label></td>
         </tr>
        <tr>
        <td>     
@@ -496,17 +500,21 @@
     </tr>
     <tr>
     
-            <td width="20%" style="font-family:Arial;font-size:14px;font-weight:bold;">
+            <td colspan="3" width="50%" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
                 <asp:Label ID="lblOrgnameGoal" runat="server" Text=""></asp:Label> 
             </td>
-            <td colspan="3" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
-                <strong><u>Investor's Need Analysis </u></strong>
-            </td>
-             <td width="20%">
+           
+             <td colspan="2" align="right" width="50%">
              <img alt="AdvisorLogo" src="ByPass.aspx" /> 
             </td>
+         </tr>
+         <tr><td colspan="5"></td></tr>
+         <tr>
+          <td colspan="5" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
+                <strong><u>Investor's Need Analysis </u></strong>
+            </td>
          </tr> 
-      <tr><td><br /><br /><br /><br /></td></tr>   
+      <tr><td><br /></td></tr>   
          <tr>
         <td colspan="5"></td>
         </tr>
@@ -654,13 +662,14 @@
         </tr>
         <!--**************** Investment***********-->
         <tr>
-            <td colspan="5" align="left" style="font-size:medium;font-family:@Arial Unicode MS;">
+            <td colspan="5" align="left" style="font-size:medium;font-family:Verdana,Tahoma;">
             <p>Note: Priority 1 being the highest.</p>
             </td>
         </tr>
          <tr>
          <td colspan="5"></td>
-         </tr>      
+         </tr> 
+         <tr><td><br /><br /><br /><br /></td></tr>     
         
         <tr>
             <td colspan="5">
@@ -842,21 +851,25 @@
             </td>
         </tr>
         <tr>
-        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
+        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;">
         <asp:Label ID="lblRmNameExpanse" runat="server" Text=""></asp:Label>
         </td>
-        <td colspan="2" align="right" style="font-family:Arial;font-size:14px;font-weight:bold; "><asp:Label ID="lblDate2" runat="server" Text=""></asp:Label></td>
+        <td colspan="2" align="right" style="font-family:Arial;font-size:14px; "><asp:Label ID="lblDate2" runat="server" Text=""></asp:Label></td>
         </tr>
-        <tr><td><br /><br /><br /><br /></td></tr>
+        <tr><td><br /><br /><br /><br /><br /><br /></td></tr>
         <tr>
-            <td width="20%" style="font-family:Arial;font-size:14px;font-weight:bold;">
+            <td colspan="3" align="left" width="50%" style="font-family:Arial;font-size:14px;font-weight:bold;">
                 <asp:Label ID="lblOrgname1" runat="server" Text=""></asp:Label> 
             </td>
-            <td colspan="3" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
-                <strong><u>Investor's Need Analysis </u></strong>
-            </td>
-             <td width="20%">
+           
+             <td width="50%" colspan="2" align="right">
              <img alt="AdvisorLogo" src="ByPass.aspx" /> 
+            </td>
+         </tr>
+         <tr><td colspan="5"></td></tr>
+         <tr>
+          <td colspan="5" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
+                <strong><u>Investor's Need Analysis </u></strong>
             </td>
          </tr>
          <tr><td><br /><br /></td></tr>
@@ -975,7 +988,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" align="left" style="font-size:medium;font-family:@Arial Unicode MS;" >
+            <td colspan="5" align="left" style="font-size:medium;font-family:Verdana,Tahoma;" >
             <p>Note: Please enter monthly.</p>
             </td>
         </tr>
@@ -1179,21 +1192,25 @@
         </tr>
         <tr><td><br /></td></tr>
         <tr>
-        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
+        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;">
         <asp:Label ID="lblRMRisk" runat="server" Text=""></asp:Label>
         </td>
-        <td colspan="2" align="right" style="font-family:Arial;font-size:14px;font-weight:bold; "><asp:Label ID="lblDate3" runat="server" Text=""></asp:Label></td>
+        <td colspan="2" align="right" style="font-family:Arial;font-size:14px;"><asp:Label ID="lblDate3" runat="server" Text=""></asp:Label></td>
         </tr>
-        <tr><td><br /><br /><br /><br /><br /><br /><br /><br /></td></tr>
+        <tr><td><br /><br /><br /><br /></td></tr>
        <tr>
-            <td width="20%" style="font-family:Arial;font-size:14px;font-weight:bold;">
+            <td colspan="3" align="left" width="50%" style="font-family:Arial;font-size:14px;font-weight:bold;">
                 <asp:Label ID="lblOrgRisk" runat="server" Text=""></asp:Label> 
             </td>
-            <td colspan="3" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
-                <strong><u>Investor's Need Analysis </u></strong>
-            </td>
-             <td width="20%">
+            
+             <td colspan="2" align="right" width="50%">
              <img alt="AdvisorLogo" src="ByPass.aspx" /> 
+            </td>
+         </tr>
+         <tr><td colspan="5"></td></tr>
+         <tr>
+         <td colspan="5" align="center" style=" font-family: Verdana,Tahoma;font-weight: bold;font-size: 16px;color: black; width:60%;">
+                <strong><u>Investor's Need Analysis </u></strong>
             </td>
          </tr>
          <tr><td><br /><br /></td></tr>
@@ -1426,30 +1443,30 @@
         </tr>
         <tr><td><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></td></tr>
         <tr>
-        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
+        <td colspan="3" align="left" style="font-family:Arial;font-size:14px;">
         <asp:Label ID="lblRMRiskPro" runat="server" Text=""></asp:Label>
         </td>
-        <td colspan="2" align="right" style="font-family:Arial;font-size:14px;font-weight:bold; "><asp:Label ID="lblDate4" runat="server" Text=""></asp:Label></td>
+        <td colspan="2" align="right" style="font-family:Arial;font-size:14px; "><asp:Label ID="lblDate4" runat="server" Text=""></asp:Label></td>
         </tr>
     </table>
     <br />
     <br />
     <br />
     <br />
-    <br /><br /><br /><br />
     <br /><br />
-    <br />
-    <br />
-    <br />
-     <br /><br /><br /><br /><br /> 
+     
     <table width="100%">
         <tr>
-            <td width="20%" style="font-family:Arial;font-size:14px;font-weight:bold;"><asp:Label ID="lblOrgQues" runat="server" Text=""></asp:Label></td>
-            <td width="60%" align="center" colspan="2">
-            <img alt="Financial Plan Questionnaire" src="../Images/Questionnaire.png" />
-            </td>
-             <td width="20%">
+            <td colspan="3" align="left"width="50%" style="font-family:Arial;font-size:14px;font-weight:bold;"><asp:Label ID="lblOrgQues" runat="server" Text=""></asp:Label></td>
+            
+             <td colspan="2" align="right" width="50%">
             <img alt="AdvisorLogo" src="ByPass.aspx" /> 
+            </td>
+        </tr>
+        <tr><td colspan="5"></td></tr>
+        <tr>
+        <td width="100%" align="center" colspan="5">
+            <img alt="Financial Plan Questionnaire" src="../Images/Questionnaire.png" />
             </td>
         </tr>
         <tr><td><br /><br /></td></tr>
@@ -1462,11 +1479,11 @@
     <tr><td><br /><br /><br /><br /></td></tr>
     <tr>
   
-        <td width="50%" align="left" style="font-family:Arial;font-size:14px;font-weight:bold;">
+        <td width="50%" align="left" style="font-family:Arial;font-size:14px;">
         <asp:Label ID="lblRMName" runat="server" Text=""></asp:Label>
         </td>
      
-        <td width="50%" align="right" style="font-family:Arial;font-size:14px;font-weight:bold; "><asp:Label ID="lblDate5" runat="server" Text=""></asp:Label></td>
+        <td width="50%" align="right" style="font-family:Arial;font-size:14px; "><asp:Label ID="lblDate5" runat="server" Text=""></asp:Label></td>
   
     </tr>
     </table>

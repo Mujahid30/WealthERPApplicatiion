@@ -119,7 +119,9 @@ namespace WealthERP.FP
                     rbtn.Text = dsGetRiskProfileQuestionOption.Tables[0].Rows[j]["QOM_Option"].ToString();  
                     rbtn.CssClass = "txtField";                    
                     PlaceHolder1.Controls.Add(rbtn);
+                    PlaceHolder1.Controls.Add(new LiteralControl("<br/>"));
                     PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
+                    
                     optioncounttemp++;
                 }
                 if (optioncount <= optioncounttemp)
