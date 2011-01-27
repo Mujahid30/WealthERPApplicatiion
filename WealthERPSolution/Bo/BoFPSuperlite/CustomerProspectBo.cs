@@ -38,21 +38,23 @@ namespace BoFPSuperlite
         }
 
 
-        public CustomerProspectVo GetDetailsForCustomerProspect(int customerId)
+        public CustomerProspectVo GetDetailsForCustomerProspect(DataTable dtGetDetailsForCustomerProspect)
         {
-            DataSet dsGetDetailsForCustomerProspect = null;
+            
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectVo customerprospectvo = new CustomerProspectVo();
 
             try
             {
-                dsGetDetailsForCustomerProspect = customerprospectdao.GetDetailsForCustomerProspect(customerId);
-                customerprospectvo.TotalIncome = double.Parse(dsGetDetailsForCustomerProspect.Tables[0].Rows[0]["CFPS_Income"].ToString());
-                customerprospectvo.TotalExpense = double.Parse(dsGetDetailsForCustomerProspect.Tables[0].Rows[0]["CFPS_Expense"].ToString());
-                customerprospectvo.TotalLiabilities = double.Parse(dsGetDetailsForCustomerProspect.Tables[0].Rows[0]["CFPS_Liabilities"].ToString());
-                customerprospectvo.TotalAssets = double.Parse(dsGetDetailsForCustomerProspect.Tables[0].Rows[0]["CFPS_Asset"].ToString());
-                customerprospectvo.TotalGeneralInsurance = double.Parse(dsGetDetailsForCustomerProspect.Tables[0].Rows[0]["CFPS_GeneralInsurance"].ToString());
-                customerprospectvo.TotalLifeInsurance = double.Parse(dsGetDetailsForCustomerProspect.Tables[0].Rows[0]["CFPS_LifeInsurance"].ToString());
+                if (dtGetDetailsForCustomerProspect != null && dtGetDetailsForCustomerProspect.Rows.Count > 0)
+                {
+                    customerprospectvo.TotalIncome = double.Parse(dtGetDetailsForCustomerProspect.Rows[0]["CFPS_Income"].ToString());
+                    customerprospectvo.TotalExpense = double.Parse(dtGetDetailsForCustomerProspect.Rows[0]["CFPS_Expense"].ToString());
+                    customerprospectvo.TotalLiabilities = double.Parse(dtGetDetailsForCustomerProspect.Rows[0]["CFPS_Liabilities"].ToString());
+                    customerprospectvo.TotalAssets = double.Parse(dtGetDetailsForCustomerProspect.Rows[0]["CFPS_Asset"].ToString());
+                    customerprospectvo.TotalGeneralInsurance = double.Parse(dtGetDetailsForCustomerProspect.Rows[0]["CFPS_GeneralInsurance"].ToString());
+                    customerprospectvo.TotalLifeInsurance = double.Parse(dtGetDetailsForCustomerProspect.Rows[0]["CFPS_LifeInsurance"].ToString());
+                }
             }
             catch (Exception ex)
             {
@@ -96,26 +98,26 @@ namespace BoFPSuperlite
         /// <param name="customerId"></param>
         /// <param name="totalIncome"></param>
         /// <returns></returns>
-        public List<CustomerProspectIncomeDetailsVo> GetIncomeDetailsForCustomerProspect(int customerId)
-        {
-
-            DataSet dsCustomerProspectIncomeDetails = null;
+        public List<CustomerProspectIncomeDetailsVo> GetIncomeDetailsForCustomerProspect(DataTable dtCustomerProspectIncomeDetails)
+        {           
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectIncomeDetailsVo customerprospectincomedetailsvo;
             List<CustomerProspectIncomeDetailsVo> customerprospectincomedetailslist = new List<CustomerProspectIncomeDetailsVo>();
             try
             {
-                dsCustomerProspectIncomeDetails = customerprospectdao.GetIncomeDetailsForCustomerProspect(customerId);
-                for (int i = 0; i < dsCustomerProspectIncomeDetails.Tables[0].Rows.Count; i++)
+                if (dtCustomerProspectIncomeDetails != null && dtCustomerProspectIncomeDetails.Rows.Count > 0)
                 {
-                    customerprospectincomedetailsvo = new CustomerProspectIncomeDetailsVo();
-                    customerprospectincomedetailsvo.IncomeDetailsId = int.Parse(dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["CFPID_FPIncomeDetailsId"].ToString());
-                    customerprospectincomedetailsvo.IncomeCategoryCode = int.Parse(dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["XIC_IncomeCategoryCode"].ToString());
-                    if (dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["CFPID_Value"] != null && dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["CFPID_Value"].ToString() != "")
+                    for (int i = 0; i < dtCustomerProspectIncomeDetails.Rows.Count; i++)
                     {
-                        customerprospectincomedetailsvo.IncomeValue = double.Parse(dsCustomerProspectIncomeDetails.Tables[0].Rows[i]["CFPID_Value"].ToString());
+                        customerprospectincomedetailsvo = new CustomerProspectIncomeDetailsVo();
+                        customerprospectincomedetailsvo.IncomeDetailsId = int.Parse(dtCustomerProspectIncomeDetails.Rows[i]["CFPID_FPIncomeDetailsId"].ToString());
+                        customerprospectincomedetailsvo.IncomeCategoryCode = int.Parse(dtCustomerProspectIncomeDetails.Rows[i]["XIC_IncomeCategoryCode"].ToString());
+                        if (dtCustomerProspectIncomeDetails.Rows[i]["CFPID_Value"] != null && dtCustomerProspectIncomeDetails.Rows[i]["CFPID_Value"].ToString() != "")
+                        {
+                            customerprospectincomedetailsvo.IncomeValue = double.Parse(dtCustomerProspectIncomeDetails.Rows[i]["CFPID_Value"].ToString());
+                        }
+                        customerprospectincomedetailslist.Add(customerprospectincomedetailsvo);
                     }
-                    customerprospectincomedetailslist.Add(customerprospectincomedetailsvo);
                 }
             }
             catch (Exception ex)
@@ -188,26 +190,28 @@ namespace BoFPSuperlite
         /// <param name="customerId"></param>
         /// <param name="totalExpense"></param>
         /// <returns></returns>
-        public List<CustomerProspectExpenseDetailsVo> GetExpenseDetailsForCustomerProspect(int customerId)
+        public List<CustomerProspectExpenseDetailsVo> GetExpenseDetailsForCustomerProspect(DataTable dtCustomerProspectExpenseDetails)
         {
 
-            DataSet dsCustomerProspectExpenseDetails = null;
+            
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectExpenseDetailsVo customerprospectexpensedetailsvo;
             List<CustomerProspectExpenseDetailsVo> customerprospectexpensedetailslist = new List<CustomerProspectExpenseDetailsVo>();
             try
             {
-                dsCustomerProspectExpenseDetails = customerprospectdao.GetExpenseDetailsForCustomerProspect(customerId);
-                for (int i = 0; i < dsCustomerProspectExpenseDetails.Tables[0].Rows.Count; i++)
+                if (dtCustomerProspectExpenseDetails != null && dtCustomerProspectExpenseDetails.Rows.Count > 0)
                 {
-                    customerprospectexpensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    customerprospectexpensedetailsvo.ExpenseDetailsId = int.Parse(dsCustomerProspectExpenseDetails.Tables[0].Rows[i]["CFPED_FPExpenseDetailsId"].ToString());
-                    customerprospectexpensedetailsvo.ExpenseCategoryCode = int.Parse(dsCustomerProspectExpenseDetails.Tables[0].Rows[i]["XEC_ExpenseCategoryCode"].ToString());
-                    if (dsCustomerProspectExpenseDetails.Tables[0].Rows[i]["CFPED_Value"] != null && dsCustomerProspectExpenseDetails.Tables[0].Rows[i]["CFPED_Value"].ToString() != "")
+                    for (int i = 0; i < dtCustomerProspectExpenseDetails.Rows.Count; i++)
                     {
-                        customerprospectexpensedetailsvo.ExpenseValue = double.Parse(dsCustomerProspectExpenseDetails.Tables[0].Rows[i]["CFPED_Value"].ToString());
+                        customerprospectexpensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                        customerprospectexpensedetailsvo.ExpenseDetailsId = int.Parse(dtCustomerProspectExpenseDetails.Rows[i]["CFPED_FPExpenseDetailsId"].ToString());
+                        customerprospectexpensedetailsvo.ExpenseCategoryCode = int.Parse(dtCustomerProspectExpenseDetails.Rows[i]["XEC_ExpenseCategoryCode"].ToString());
+                        if (dtCustomerProspectExpenseDetails.Rows[i]["CFPED_Value"] != null && dtCustomerProspectExpenseDetails.Rows[i]["CFPED_Value"].ToString() != "")
+                        {
+                            customerprospectexpensedetailsvo.ExpenseValue = double.Parse(dtCustomerProspectExpenseDetails.Rows[i]["CFPED_Value"].ToString());
+                        }
+                        customerprospectexpensedetailslist.Add(customerprospectexpensedetailsvo);
                     }
-                    customerprospectexpensedetailslist.Add(customerprospectexpensedetailsvo);
                 }
             }
             catch (Exception ex)
@@ -283,43 +287,43 @@ namespace BoFPSuperlite
         /// <param name="totalLoanOutstanding"></param>
         /// <param name="totalLiabilities"></param>
         /// <returns></returns>
-        public List<CustomerProspectLiabilitiesDetailsVo> GetLiabilitiesDetailsForCustomerProspect(int customerId)
-        {
-
-            DataSet dsCustomerLiabilitiesDetails = null;
+        public List<CustomerProspectLiabilitiesDetailsVo> GetLiabilitiesDetailsForCustomerProspect(DataTable dtCustomerLiabilitiesDetails)
+        {           
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectLiabilitiesDetailsVo customerprospectliabilitiesetailsvo;
             List<CustomerProspectLiabilitiesDetailsVo> customerprospectliabilitiesdetailslist = new List<CustomerProspectLiabilitiesDetailsVo>();
             try
             {
-                dsCustomerLiabilitiesDetails = customerprospectdao.GetLiabilitiesDetailsForCustomerProspect(customerId);
-                for (int i = 0; i < dsCustomerLiabilitiesDetails.Tables[0].Rows.Count; i++)
+                if (dtCustomerLiabilitiesDetails != null && dtCustomerLiabilitiesDetails.Rows.Count > 0)
                 {
-                    customerprospectliabilitiesetailsvo = new CustomerProspectLiabilitiesDetailsVo();
-                    customerprospectliabilitiesetailsvo.LiabilitiesDetailsId = int.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_FPLiabilitiesDetailsId"].ToString());
-                    
-                    if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["XLT_LoanTypeCode"].ToString() != null)
+                    for (int i = 0; i < dtCustomerLiabilitiesDetails.Rows.Count; i++)
                     {
-                        //Total Value
-                        if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_TotalLoanOutstanding"].ToString() != string.Empty && dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_TotalLoanOutstanding"] != null)
+                        customerprospectliabilitiesetailsvo = new CustomerProspectLiabilitiesDetailsVo();
+                        customerprospectliabilitiesetailsvo.LiabilitiesDetailsId = int.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_FPLiabilitiesDetailsId"].ToString());
+
+                        if (dtCustomerLiabilitiesDetails.Rows[i]["XLT_LoanTypeCode"].ToString() != null)
                         {
-                            customerprospectliabilitiesetailsvo.LoanOutstanding = double.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_TotalLoanOutstanding"].ToString());
+                            //Total Value
+                            if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_TotalLoanOutstanding"].ToString() != string.Empty && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_TotalLoanOutstanding"] != null)
+                            {
+                                customerprospectliabilitiesetailsvo.LoanOutstanding = double.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_TotalLoanOutstanding"].ToString());
+                            }
+                            //Adjusted Value
+                            if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedLoanOutstanding"].ToString() != string.Empty && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedLoanOutstanding"] != null)
+                            {
+                                customerprospectliabilitiesetailsvo.AdjustedLoan = double.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedLoanOutstanding"].ToString());
+                            }
+                            customerprospectliabilitiesetailsvo.LoanTypeCode = int.Parse(dtCustomerLiabilitiesDetails.Rows[i]["XLT_LoanTypeCode"].ToString());
+                            if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_Tenure"] != null && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_Tenure"].ToString() != "")
+                            {
+                                customerprospectliabilitiesetailsvo.Tenure = int.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_Tenure"].ToString());
+                            }
+                            if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_EMIAmount"] != null && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_EMIAmount"].ToString() != "")
+                            {
+                                customerprospectliabilitiesetailsvo.EMIAmount = double.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_EMIAmount"].ToString());
+                            }
+                            customerprospectliabilitiesdetailslist.Add(customerprospectliabilitiesetailsvo);
                         }
-                        //Adjusted Value
-                        if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_AdjustedLoanOutstanding"].ToString() != string.Empty && dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_AdjustedLoanOutstanding"] != null)
-                        {
-                            customerprospectliabilitiesetailsvo.AdjustedLoan = double.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_AdjustedLoanOutstanding"].ToString());
-                        }
-                        customerprospectliabilitiesetailsvo.LoanTypeCode = int.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["XLT_LoanTypeCode"].ToString());
-                        if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_Tenure"] != null && dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_Tenure"].ToString() != "")
-                        {
-                            customerprospectliabilitiesetailsvo.Tenure = int.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_Tenure"].ToString());
-                        }
-                        if (dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_EMIAmount"] != null && dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_EMIAmount"].ToString() != "")
-                        {
-                            customerprospectliabilitiesetailsvo.EMIAmount = double.Parse(dsCustomerLiabilitiesDetails.Tables[0].Rows[i]["CFPLD_EMIAmount"].ToString());
-                        }
-                        customerprospectliabilitiesdetailslist.Add(customerprospectliabilitiesetailsvo);
                     }
                 }
             }
@@ -395,40 +399,41 @@ namespace BoFPSuperlite
         /// <param name="customerId"></param>
         /// <param name="totalAssetSubDetails"></param>
         /// <returns></returns>
-        public List<CustomerProspectAssetSubDetailsVo> GetCustomerFPAssetSubInstrumentDetails(int customerId)
+        public List<CustomerProspectAssetSubDetailsVo> GetCustomerFPAssetSubInstrumentDetails(DataTable dtCustomerAssetSubInstrumentDetails)
         {
-
-            DataSet dsCustomerAssetSubInstrumentDetails = null;
+            
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectAssetSubDetailsVo customerprospectassetsubdetailsvo;
             List<CustomerProspectAssetSubDetailsVo> customerprospectassetsubdetailsvolist = new List<CustomerProspectAssetSubDetailsVo>();
             try
             {
-                dsCustomerAssetSubInstrumentDetails = customerprospectdao.GetCustomerFPAssetSubInstrumentDetails(customerId);
-                for (int i = 0; i < dsCustomerAssetSubInstrumentDetails.Tables[0].Rows.Count; i++)
+                if (dtCustomerAssetSubInstrumentDetails != null && dtCustomerAssetSubInstrumentDetails.Rows.Count > 0)
                 {
-                    customerprospectassetsubdetailsvo = new CustomerProspectAssetSubDetailsVo();
-                    customerprospectassetsubdetailsvo.SubInstrumentDetailsId = int.Parse(dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_FPSubInstrumentDetailsId"].ToString());
-                    customerprospectassetsubdetailsvo.AssetGroupCode = dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["PAG_AssetGroupCode"].ToString();
-                    customerprospectassetsubdetailsvo.AssetInstrumentCategoryCode = dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["PAIC_AssetInstrumentCategoryCode"].ToString();
-                    customerprospectassetsubdetailsvo.AssetInstrumentSubCategoryCode = dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                    if (dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_AdjustedValue"] != null && dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_AdjustedValue"].ToString() != "")
+                    for (int i = 0; i < dtCustomerAssetSubInstrumentDetails.Rows.Count; i++)
                     {
-                        customerprospectassetsubdetailsvo.AdjustedValue = double.Parse(dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_AdjustedValue"].ToString());
+                        customerprospectassetsubdetailsvo = new CustomerProspectAssetSubDetailsVo();
+                        customerprospectassetsubdetailsvo.SubInstrumentDetailsId = int.Parse(dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_FPSubInstrumentDetailsId"].ToString());
+                        customerprospectassetsubdetailsvo.AssetGroupCode = dtCustomerAssetSubInstrumentDetails.Rows[i]["PAG_AssetGroupCode"].ToString();
+                        customerprospectassetsubdetailsvo.AssetInstrumentCategoryCode = dtCustomerAssetSubInstrumentDetails.Rows[i]["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        customerprospectassetsubdetailsvo.AssetInstrumentSubCategoryCode = dtCustomerAssetSubInstrumentDetails.Rows[i]["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                        if (dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_AdjustedValue"] != null && dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_AdjustedValue"].ToString() != "")
+                        {
+                            customerprospectassetsubdetailsvo.AdjustedValue = double.Parse(dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_AdjustedValue"].ToString());
+                        }
+                        if (dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_TotalValue"] != null && dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_TotalValue"].ToString() != "")
+                        {
+                            customerprospectassetsubdetailsvo.Value = double.Parse(dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_TotalValue"].ToString());
+                        }
+                        if (dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_MaturityDate"] != null && dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_MaturityDate"].ToString() != "")
+                        {
+                            customerprospectassetsubdetailsvo.MaturityDate = DateTime.Parse(dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_MaturityDate"].ToString());
+                        }
+                        if (dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_Premium"] != null && dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_Premium"].ToString() != "")
+                        {
+                            customerprospectassetsubdetailsvo.Premium = double.Parse(dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_Premium"].ToString());
+                        }
+                        customerprospectassetsubdetailsvolist.Add(customerprospectassetsubdetailsvo);
                     }
-                    if (dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_TotalValue"] != null && dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_TotalValue"].ToString() != "")
-                    {
-                        customerprospectassetsubdetailsvo.Value = double.Parse(dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_TotalValue"].ToString());
-                    }
-                    if (dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_MaturityDate"] != null && dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_MaturityDate"].ToString() != "")
-                    {
-                        customerprospectassetsubdetailsvo.MaturityDate = DateTime.Parse(dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_MaturityDate"].ToString());
-                    }
-                    if (dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_Premium"] != null && dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_Premium"].ToString() != "")
-                    {
-                        customerprospectassetsubdetailsvo.Premium = double.Parse(dsCustomerAssetSubInstrumentDetails.Tables[0].Rows[i]["CFPASID_Premium"].ToString());
-                    }
-                    customerprospectassetsubdetailsvolist.Add(customerprospectassetsubdetailsvo);
                 }
             }
             catch (Exception ex)
@@ -503,41 +508,38 @@ namespace BoFPSuperlite
         /// <param name="customerId"></param>
         /// <param name="totalAssetDetails"></param>
         /// <returns></returns>
-        public List<CustomerProspectAssetDetailsVo> GetCustomerFPAssetInstrumentDetails(int customerId)
-        {
-
-            DataSet dsCustomerAssetInstrumentDetails = null;
+        public List<CustomerProspectAssetDetailsVo> GetCustomerFPAssetInstrumentDetails(DataTable dtCustomerAssetInstrumentDetails)
+        {            
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectAssetDetailsVo customerprospectassetdetailsvo;
             List<CustomerProspectAssetDetailsVo> customerprospectassetdetailsvolist = new List<CustomerProspectAssetDetailsVo>();
             try
             {
-                dsCustomerAssetInstrumentDetails = customerprospectdao.GetCustomerFPAssetInstrumentDetails(customerId);
-                for (int i = 0; i < dsCustomerAssetInstrumentDetails.Tables[0].Rows.Count; i++)
+                for (int i = 0; i < dtCustomerAssetInstrumentDetails.Rows.Count; i++)
                 {
                     customerprospectassetdetailsvo = new CustomerProspectAssetDetailsVo();
-                    customerprospectassetdetailsvo.InstrumentDetailsId = int.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_FPInstrumentDetailsId"].ToString());
-                    customerprospectassetdetailsvo.AssetGroupCode = dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["PAG_AssetGroupCode"].ToString();
-                    customerprospectassetdetailsvo.AssetInstrumentCategoryCode = dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["PAIC_AssetInstrumentCategoryCode"].ToString();
-                    if (dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_AdjustedValue"] != null && dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_AdjustedValue"].ToString() != "")
+                    customerprospectassetdetailsvo.InstrumentDetailsId = int.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_FPInstrumentDetailsId"].ToString());
+                    customerprospectassetdetailsvo.AssetGroupCode = dtCustomerAssetInstrumentDetails.Rows[i]["PAG_AssetGroupCode"].ToString();
+                    customerprospectassetdetailsvo.AssetInstrumentCategoryCode = dtCustomerAssetInstrumentDetails.Rows[i]["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    if (dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_AdjustedValue"] != null && dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_AdjustedValue"].ToString() != "")
                     {
-                        customerprospectassetdetailsvo.AdjustedValue = double.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_AdjustedValue"].ToString());
+                        customerprospectassetdetailsvo.AdjustedValue = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_AdjustedValue"].ToString());
                     }
-                    if (dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_TotalValue"] != null && dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_TotalValue"].ToString() != "")
+                    if (dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_TotalValue"] != null && dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_TotalValue"].ToString() != "")
                     {
-                        customerprospectassetdetailsvo.Value = double.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_TotalValue"].ToString());
+                        customerprospectassetdetailsvo.Value = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_TotalValue"].ToString());
                     }
-                    if (dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_MaturityDate"] != null && dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_MaturityDate"].ToString() != "")
+                    if (dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_MaturityDate"] != null && dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_MaturityDate"].ToString() != "")
                     {
-                        customerprospectassetdetailsvo.MaturityDate = DateTime.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_MaturityDate"].ToString());
+                        customerprospectassetdetailsvo.MaturityDate = DateTime.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_MaturityDate"].ToString());
                     }
-                    if (dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_Premium"] != null && dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_Premium"].ToString() != "")
+                    if (dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_Premium"] != null && dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_Premium"].ToString() != "")
                     {
-                        customerprospectassetdetailsvo.Premium = double.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_Premium"].ToString());
+                        customerprospectassetdetailsvo.Premium = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_Premium"].ToString());
                     }
-                    if (dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_SurrenderMarketValue"] != null && dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_SurrenderMarketValue"].ToString() != "")
+                    if (dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_SurrenderMarketValue"] != null && dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_SurrenderMarketValue"].ToString() != "")
                     {
-                        customerprospectassetdetailsvo.SurrMktVal = double.Parse(dsCustomerAssetInstrumentDetails.Tables[0].Rows[i]["CFPAID_SurrenderMarketValue"].ToString());
+                        customerprospectassetdetailsvo.SurrMktVal = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_SurrenderMarketValue"].ToString());
                     }
                     customerprospectassetdetailsvolist.Add(customerprospectassetdetailsvo);
                 }
@@ -618,30 +620,32 @@ namespace BoFPSuperlite
         /// <param name="customerId"></param>
         /// <param name="totalAssetDetails"></param>
         /// <returns></returns>
-        public List<CustomerProspectAssetGroupDetails> GetCustomerFPAssetGroupDetails(int customerId)
+        public List<CustomerProspectAssetGroupDetails> GetCustomerFPAssetGroupDetails(DataTable dtCustomerAssetGroupDetails)
         {
 
-            DataSet dsCustomerAssetGroupDetails = null;
+            
             CustomerProspectDao customerprospectdao = new CustomerProspectDao();
             CustomerProspectAssetGroupDetails customerprospectassetgroupdetails;
             List<CustomerProspectAssetGroupDetails> customerprospectassetgroupdetailslist = new List<CustomerProspectAssetGroupDetails>();
             try
             {
-                dsCustomerAssetGroupDetails = customerprospectdao.GetCustomerFPAssetGroupDetails(customerId);
-                for (int i = 0; i < dsCustomerAssetGroupDetails.Tables[0].Rows.Count; i++)
+                if (dtCustomerAssetGroupDetails != null && dtCustomerAssetGroupDetails.Rows.Count > 0)
                 {
-                    customerprospectassetgroupdetails = new CustomerProspectAssetGroupDetails();
-                    customerprospectassetgroupdetails.AssetGroupId = int.Parse(dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_FPAssetGroupDetailsId"].ToString());
-                    customerprospectassetgroupdetails.AssetGroupCode = dsCustomerAssetGroupDetails.Tables[0].Rows[i]["PAG_AssetGroupCode"].ToString();
-                    if (dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_AdjustedValue"] != null && dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_AdjustedValue"].ToString() != "")
+                    for (int i = 0; i < dtCustomerAssetGroupDetails.Rows.Count; i++)
                     {
-                        customerprospectassetgroupdetails.AdjustedValue = double.Parse(dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_AdjustedValue"].ToString());
+                        customerprospectassetgroupdetails = new CustomerProspectAssetGroupDetails();
+                        customerprospectassetgroupdetails.AssetGroupId = int.Parse(dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_FPAssetGroupDetailsId"].ToString());
+                        customerprospectassetgroupdetails.AssetGroupCode = dtCustomerAssetGroupDetails.Rows[i]["PAG_AssetGroupCode"].ToString();
+                        if (dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_AdjustedValue"] != null && dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_AdjustedValue"].ToString() != "")
+                        {
+                            customerprospectassetgroupdetails.AdjustedValue = double.Parse(dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_AdjustedValue"].ToString());
+                        }
+                        if (dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_TotalValue"] != null && dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_TotalValue"].ToString() != "")
+                        {
+                            customerprospectassetgroupdetails.Value = double.Parse(dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_TotalValue"].ToString());
+                        }
+                        customerprospectassetgroupdetailslist.Add(customerprospectassetgroupdetails);
                     }
-                    if (dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_TotalValue"] != null && dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_TotalValue"].ToString() != "")
-                    {
-                        customerprospectassetgroupdetails.Value = double.Parse(dsCustomerAssetGroupDetails.Tables[0].Rows[i]["CFPAGD_TotalValue"].ToString());
-                    }
-                    customerprospectassetgroupdetailslist.Add(customerprospectassetgroupdetails);
                 }
             }
             catch (Exception ex)
@@ -651,6 +655,24 @@ namespace BoFPSuperlite
             return customerprospectassetgroupdetailslist;
         }
 
+        public void GetAllDetailsForCustomerProspect(int CustomerId,
+            out List<CustomerProspectIncomeDetailsVo> IncomeDetailsForCustomerProspectList,
+            out List<CustomerProspectExpenseDetailsVo> ExpenseDetailsForCustomerProspectList,
+           out List<CustomerProspectLiabilitiesDetailsVo> LiabilitiesDetailsForCustomerProspectList,
+            out List<CustomerProspectAssetGroupDetails> CustomerFPAssetGroupDetailsList,
+            out List<CustomerProspectAssetDetailsVo> CustomerFPAssetInstrumentDetailsList,
+            out List<CustomerProspectAssetSubDetailsVo> CustomerFPAssetSubInstrumentDetailsList)
+        {
+            CustomerProspectDao customerprospectdao = new CustomerProspectDao();
+            DataSet dsGetAllDetailsForCustomerProspect = customerprospectdao.GetAllDetailsForCustomerProspect(CustomerId);
+            IncomeDetailsForCustomerProspectList = GetIncomeDetailsForCustomerProspect(dsGetAllDetailsForCustomerProspect.Tables[0]);
+            ExpenseDetailsForCustomerProspectList = GetExpenseDetailsForCustomerProspect(dsGetAllDetailsForCustomerProspect.Tables[1]);
+            LiabilitiesDetailsForCustomerProspectList = GetLiabilitiesDetailsForCustomerProspect(dsGetAllDetailsForCustomerProspect.Tables[2]);
+            CustomerFPAssetGroupDetailsList = GetCustomerFPAssetGroupDetails(dsGetAllDetailsForCustomerProspect.Tables[3]);
+            CustomerFPAssetInstrumentDetailsList = GetCustomerFPAssetInstrumentDetails(dsGetAllDetailsForCustomerProspect.Tables[4]);
+            CustomerFPAssetSubInstrumentDetailsList = GetCustomerFPAssetSubInstrumentDetails(dsGetAllDetailsForCustomerProspect.Tables[5]);
+            GetDetailsForCustomerProspect(dsGetAllDetailsForCustomerProspect.Tables[6]);
+        }
 
         /// <summary>
         /// It will seperate Code from the Dictionary and send it to the Business object for Insertion
@@ -783,12 +805,13 @@ namespace BoFPSuperlite
             List<CustomerProspectAssetSubDetailsVo> CustomerFPAssetSubInstrumentDetailsList;
             List<CustomerProspectAssetDetailsVo> CustomerFPAssetInstrumentDetailsList;
             List<CustomerProspectAssetGroupDetails> CustomerFPAssetGroupDetailsList;
-            IncomeDetailsForCustomerProspectList = GetIncomeDetailsForCustomerProspect(customerId);
-            ExpenseDetailsForCustomerProspectList = GetExpenseDetailsForCustomerProspect(customerId);
-            LiabilitiesDetailsForCustomerProspectList = GetLiabilitiesDetailsForCustomerProspect(customerId);
-            CustomerFPAssetSubInstrumentDetailsList = GetCustomerFPAssetSubInstrumentDetails(customerId);
-            CustomerFPAssetInstrumentDetailsList = GetCustomerFPAssetInstrumentDetails(customerId);
-            CustomerFPAssetGroupDetailsList = GetCustomerFPAssetGroupDetails(customerId);
+            GetAllDetailsForCustomerProspect(customerId,
+            out IncomeDetailsForCustomerProspectList,
+            out ExpenseDetailsForCustomerProspectList,
+           out LiabilitiesDetailsForCustomerProspectList,
+            out CustomerFPAssetGroupDetailsList,
+            out CustomerFPAssetInstrumentDetailsList,
+            out CustomerFPAssetSubInstrumentDetailsList);
             dataCatch.Add("IncomeDetailsList", IncomeDetailsForCustomerProspectList);
             dataCatch.Add("ExpenseDetailsList", ExpenseDetailsForCustomerProspectList);
             dataCatch.Add("LiabilitiesDetailsList", LiabilitiesDetailsForCustomerProspectList);
@@ -798,18 +821,7 @@ namespace BoFPSuperlite
             return dataCatch;
         }
 
-        //public void DeleteDetailsForCustomerProspect(int customerId)
-        //{
-        //    CustomerProspectDao customerprospectdao = new CustomerProspectDao();
-        //    try
-        //    {                
-        //        customerprospectdao.DeleteDetailsForCustomerProspect(customerId);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+       
 
         /// <summary>
         /// Used to Show FP Dashboard and Show Current and Recomonded Asset allocation.
