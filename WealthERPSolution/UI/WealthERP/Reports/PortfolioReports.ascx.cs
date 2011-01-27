@@ -30,20 +30,38 @@ namespace WealthERP.Reports
         DateTime dtFrom = new DateTime();
         int activeTabIndex = 0;
         CustomerVo customerVo = new CustomerVo();
+        AdvisorVo advisorVo = null;
         protected void Page_Load(object sender, EventArgs e)
         {
 
             SessionBo.CheckSession();
-            if (Request.Form["ctrl_PortfolioReports$btnView"] != "View Report")
-            {
-
-                
-                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+            if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
+                advisorVo = (AdvisorVo)Session["advisorVo"];
+            if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
                 rmVo = (RMVo)Session[SessionContents.RmVo];
+            if (Request.Form["ctrl_PortfolioReports$btnView"] != "View Report")
+            {                
+                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());             
 
                 BindPeriodDropDown();
-                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+
+                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                {
+                    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                {
+                    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                }
 
                 if (!IsPostBack)
                 {
