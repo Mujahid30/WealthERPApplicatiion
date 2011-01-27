@@ -25,6 +25,7 @@ using DanLudwig;
 using BoCustomerPortfolio;
 using VoCustomerPortfolio;
 using WealthERP.Base;
+using System.Web.UI.HtmlControls;
 
 
 namespace WealthERP.Reports
@@ -64,18 +65,19 @@ namespace WealthERP.Reports
         string capitalGainDetails = string.Empty;
         string capitalGainSummary = string.Empty;
         string mailSendStatus = "";
-        //protected void Page_PreInit(object sender, EventArgs e)
-        //{
-        //    if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
-        //    {
-        //        Session["Theme"] = "Maroon";
-        //    }
-
-        //    Page.Theme = Session["Theme"].ToString();
-        //}
+        public string StyleSheet;
+       
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (!IsPostBack)
+            {
+                if (Session["Theme"] != null)
+                {
+                    string theme = "";
+                    theme = Session["Theme"].ToString();
+                    StyleSheet = "../App_Themes/" + theme + "/GridViewCss.css";
+                }
+            }
         }
         /// <summary>
         /// Page Load Functionality called from Source code 

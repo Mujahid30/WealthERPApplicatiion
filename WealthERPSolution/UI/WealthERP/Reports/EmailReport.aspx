@@ -11,10 +11,12 @@
     }
 </script>--%>
 
-<link href="../App_Themes/Maroon/GridViewCss.css" rel="stylesheet" type="text/css" />
+<%--<link href="../App_Themes/Maroon/GridViewCss.css" rel="stylesheet" type="text/css" />
+--%>
 
+<link href="<%=StyleSheet%>" type=text/css rel=stylesheet>
 
-<head id="Head1" runat="server">
+<head>
     <title>WealthERP Reports</title>
     <style>
         body
@@ -264,7 +266,7 @@
                         <td align="center" style="width:100%" >
                         <asp:Panel ID="panelReportStatus" runat="server" Width="90%" Height="80%" ScrollBars="Both">
                          <asp:GridView ID="gvEmailCustomerList" runat="server" AllowSorting="True" 
-                            AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" 
+                            AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle"
                             ItemStyle-HorizontalAlign="Left" HorizontalAlign="Left" ShowFooter="True" EnableViewState="true" Width="100%">
                              <FooterStyle CssClass="FooterStyle" />
                              <Columns>
