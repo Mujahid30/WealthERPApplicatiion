@@ -1141,5 +1141,47 @@ namespace DaoFPSuperlite
             }
             return dsgetUnmanagedManagedDetailsForFP;
         }
+
+        /// <summary>
+        /// Used to Show Current and Recomonded Asset allocation.
+        /// </summary>
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
+        public DataSet GetAllDetailsForCustomerProspect(int CustomerId)
+        {
+            Database db;
+            DbCommand getAllDetailsForCustomerProspectCmd;
+            DataSet dsGetAllDetailsForCustomerProspect = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAllDetailsForCustomerProspectCmd = db.GetStoredProcCommand("SP_GetAllDetailsForCustomerProspect");
+                if (CustomerId != 0)
+                    db.AddInParameter(getAllDetailsForCustomerProspectCmd, "@C_CustomerId", DbType.Int32, CustomerId);
+
+                dsGetAllDetailsForCustomerProspect = db.ExecuteDataSet(getAllDetailsForCustomerProspectCmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectDao.cs:GetAllDetailsForCustomerProspect(int CustomerId)GetAllDetailsForCustomerProspect(int CustomerId)");
+                object[] objects = new object[3];
+                objects[0] = CustomerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAllDetailsForCustomerProspect;
+        }
     }
 }
