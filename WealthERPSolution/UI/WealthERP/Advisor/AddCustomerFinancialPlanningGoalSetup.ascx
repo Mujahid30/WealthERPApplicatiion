@@ -364,10 +364,8 @@
                         <asp:Label ID="lblGoalYear" runat="server" CssClass="FieldName" Text="Goal Year :"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlGoalYear" runat="server" CssClass="cmbField" CausesValidation="True">
-                            
-                            <asp:ListItem Selected="True">2011</asp:ListItem>
-                            <asp:ListItem>2012</asp:ListItem>
+                        <asp:DropDownList ID="ddlGoalYear" runat="server" CssClass="cmbField" CausesValidation="True">                                                       
+                            <asp:ListItem Selected="True">2012</asp:ListItem>
                             <asp:ListItem>2013</asp:ListItem>
                             <asp:ListItem>2014</asp:ListItem>
                             <asp:ListItem>2015</asp:ListItem>
