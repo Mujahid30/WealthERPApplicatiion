@@ -619,7 +619,10 @@ namespace WealthERP.Advisor
             {
                 if (e.Item.Value == "Home")
                 {
-                    Session["UserType"] = null;
+                    if(Session["FPDataSet"] != null)
+                     Session["FPDataSet"] = null;
+                    if(Session["UserType"] != null)
+                     Session["UserType"] = null;
                     if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                     {
                         dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "BM");

@@ -455,7 +455,7 @@ namespace WealthERP.Reports
                 throw (ex);
             }
         }
-
+        //public virtual void OnNavigate(object source, CrystalDecisions.Web.NavigateEventArgs e);
         private void DisplayReport(FinancialPlanningVo fpSectional,int test)
         {
             double asset = 0;
@@ -473,7 +473,16 @@ namespace WealthERP.Reports
             fpSectional = (FinancialPlanningVo)Session["reportParams"];
             FinancialPlanningReportsBo financialPlanningReportsBo = new FinancialPlanningReportsBo();
             DataSet dsCustomerFPReportDetails = new DataSet();
-            dsCustomerFPReportDetails = financialPlanningReportsBo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass,out dynamicRiskClass);
+            if (Session["FPDataSet"] != null)
+            {
+                dsCustomerFPReportDetails = (DataSet)Session["FPDataSet"];
+            }
+            else 
+            {
+                dsCustomerFPReportDetails = financialPlanningReportsBo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass, out dynamicRiskClass);
+                Session["FPDataSet"] = dsCustomerFPReportDetails;
+            }
+                        
             dtFPReportText = dsCustomerFPReportDetails.Tables[0];
             dtMonthlyGoalAmount = dsCustomerFPReportDetails.Tables[6];
             dtRTGoalDetails = dsCustomerFPReportDetails.Tables[7];
@@ -487,6 +496,10 @@ namespace WealthERP.Reports
            
 
             crmain.Load(Server.MapPath("FPSectionalReport.rpt"));
+
+            this.CrystalReportViewer1.Navigate += new CrystalDecisions.Web.NavigateEventHandler(CrystalReportViewer1.OnNavigate);
+
+
             crmain.Subreports["ProfileSummary"].Database.Tables["CustomerFamilyDetails"].SetDataSource(dsCustomerFPReportDetails.Tables[1]);
             crmain.Subreports["KeyAssumptions"].Database.Tables["WerpAssumptions"].SetDataSource(dsCustomerFPReportDetails.Tables[4]);
             crmain.Subreports["GoalProfile"].Database.Tables["OtherGoal"].SetDataSource(dsCustomerFPReportDetails.Tables[5]);
@@ -1646,7 +1659,7 @@ namespace WealthERP.Reports
             }
 
             strOtherGoalText = strOtherGoalFinalText.ToString();
-            crmain.SetParameterValue("CustomerDOB", customerVo.Dob.Day + " " + customerVo.Dob.ToString("MMMM") + " " + customerVo.Dob.Year.ToString());
+            crmain.SetParameterValue("CustomerDOB", customerVo.Dob.Day + "-" + customerVo.Dob.ToString("MM") + "-" + customerVo.Dob.Year.ToString());
             crmain.SetParameterValue("CustomerEmail",customerVo.Email.Trim());
             crmain.SetParameterValue("RMMessageParagraph", strRMMessage);
             crmain.SetParameterValue("ImageOpeningLine", strImageOpeningLine);

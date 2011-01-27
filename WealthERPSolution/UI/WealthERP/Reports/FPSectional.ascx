@@ -33,15 +33,17 @@
 
         if (checkAll.checked == true) {
             if (chkBoxCount[i].checked == false) {
-                chkBoxCount[i].checked = true;
+                if (chkBoxCount[i].id != "ctrl_FPSectional_chkCover_page" || chkBoxCount[i].id != "ctrl_FPSectional_chkTableContent")          
+                chkBoxCount[i].checked = true;             
             }
         }
         else if (checkAll.checked == false) {
         if (chkBoxCount[i].checked == true) {
+            if (chkBoxCount[i].id != "ctrl_FPSectional_chkCover_page" || chkBoxCount[i].id != "ctrl_FPSectional_chkTableContent")
             chkBoxCount[i].checked = false;
+            
         }
-        
-        }
+      }
     } 
         
         return false;
@@ -101,7 +103,7 @@
             </td> 
             <td style="width:44%;white-space:nowrap">
             <%-- <input type="checkbox" name="FPSectonal" value="1">Cover page<br>--%>
-             <asp:CheckBox ID="chkCover_page" runat="server" CssClass="cmbField" Text="Cover page" />
+             <asp:CheckBox ID="chkCover_page" runat="server" CssClass="cmbField" Text="Cover page" Checked="true" Enabled="false" />
             </td>
             <td style="width:50%;white-space:nowrap">
              <asp:CheckBox ID="chkIncome_Expense" runat="server" CssClass="cmbField" Text="Income and Expense Summary" />
@@ -140,7 +142,7 @@
      <asp:CheckBox ID="chkTableContent" runat="server" CssClass="cmbField" Text="Table of Content" Enabled="false" /> 
     </td>
     <td style="width:50%;white-space:nowrap">
-    <asp:CheckBox ID="chkRiskProfile" runat="server" CssClass="cmbField" Text=" Risk profile & Portfolio allocation" />
+    <asp:CheckBox ID="chkRiskProfile" runat="server" CssClass="cmbField" Text="Risk profile & Portfolio allocation" />
     </td>
     </tr>
     

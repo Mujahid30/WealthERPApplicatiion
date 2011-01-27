@@ -170,7 +170,7 @@ namespace BoReports
 
             if (totalEquity > 0)
             {
-                strInvestment = "Your current investments are Rs " + convertUSCurrencyFormat(totalEquity) + " in equity";
+                strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalEquity) + " in equity";
             }
             else
                 strInvestment = string.Empty;
@@ -180,35 +180,35 @@ namespace BoReports
                 if (!string.IsNullOrEmpty(strInvestment))
                 {
                    if (totalFixedIncome>0 || totalFixedIncome>0)
-                     strInvestment += ", " + "Rs " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
+                     strInvestment += ", " + "Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
                     else if (totalFixedIncome == 0 && totalOther == 0)
                     {
-                        strInvestment += " and " + "Rs " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
+                        strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
                     }
 
                 }
                 else
-                    strInvestment = "Your current investments are Rs " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
+                    strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
             }
             if (totalFixedIncome > 0)
             {
                 if (!string.IsNullOrEmpty(strInvestment))
                 {
                     if (totalOther>0)
-                        strInvestment += ", " + "Rs " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
+                        strInvestment += ", " + "Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
                     else
-                        strInvestment += " and " + "Rs " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
+                        strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
                 }
                 else
-                    strInvestment = "Your current investments are Rs " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
+                    strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
 
             }
             if (totalOther > 0)
             {
                 if (!string.IsNullOrEmpty(strInvestment))
-                    strInvestment +="and " + "Rs " + convertUSCurrencyFormat(totalOther) + " in others";
+                    strInvestment +="and " + "Rs. " + convertUSCurrencyFormat(totalOther) + " in others";
                 else
-                    strInvestment = "Your current investments is Rs " + convertUSCurrencyFormat(totalOther) + " in others";
+                    strInvestment = "Your current investments is Rs. " + convertUSCurrencyFormat(totalOther) + " in others";
 
             }
 
@@ -218,7 +218,7 @@ namespace BoReports
                 {
                     if (dr["LoanValues"] != null)
                     {
-                        strHomeLoan = "Principal Outstanding is Rs " + convertUSCurrencyFormat(double.Parse(dr["LoanValues"].ToString()));
+                        strHomeLoan = "Principal Outstanding is Rs. " + convertUSCurrencyFormat(double.Parse(dr["LoanValues"].ToString()));
                     }
 
                 }
@@ -226,7 +226,7 @@ namespace BoReports
                 {
                     if (dr["LoanValues"] != null)
                     {
-                        strAutoLoan = "Principal Outstanding is Rs " + convertUSCurrencyFormat(double.Parse(dr["LoanValues"].ToString()));
+                        strAutoLoan = "Principal Outstanding is Rs. " + convertUSCurrencyFormat(double.Parse(dr["LoanValues"].ToString()));
                     }
 
 
@@ -242,7 +242,7 @@ namespace BoReports
             {
                 drCurrentObservation = dtCurrentObservation.NewRow();
                 drCurrentObservation["ObjType"] = "Net Worth";
-                drCurrentObservation["ObjSummary"] = "Your current Net Worth is Rs " + convertUSCurrencyFormat(netWorth).ToString();
+                drCurrentObservation["ObjSummary"] = "Your current Net Worth is Rs. " + convertUSCurrencyFormat(netWorth).ToString();
                 dtCurrentObservation.Rows.Add(drCurrentObservation);
 
             }
@@ -250,14 +250,14 @@ namespace BoReports
             {
                 drCurrentObservation = dtCurrentObservation.NewRow();
                 drCurrentObservation["ObjType"] = "Cash flow";
-                drCurrentObservation["ObjSummary"] = "Your current surplus is Rs " + convertUSCurrencyFormat(surplus).ToString() + " per year";
+                drCurrentObservation["ObjSummary"] = "Your current surplus is Rs. " + convertUSCurrencyFormat(surplus).ToString() + " per year";
                 dtCurrentObservation.Rows.Add(drCurrentObservation);
             }
             if (Math.Abs(lifeProtectionTotal) > 0)
             {
                 drCurrentObservation = dtCurrentObservation.NewRow();
                 drCurrentObservation["ObjType"] = "Protection";
-                drCurrentObservation["ObjSummary"] = "You have Life insurance protection of Rs " + convertUSCurrencyFormat(lifeProtectionTotal).ToString();
+                drCurrentObservation["ObjSummary"] = "You have Life insurance protection of Rs. " + convertUSCurrencyFormat(lifeProtectionTotal).ToString();
                 dtCurrentObservation.Rows.Add(drCurrentObservation);
             }
             if (Math.Abs(totalMF) > 0 || Math.Abs(totalEquity) > 0 || Math.Abs(totalFixedIncome) > 0 || Math.Abs(totalOther) > 0)
