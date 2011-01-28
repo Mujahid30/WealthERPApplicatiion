@@ -1113,4 +1113,16 @@
     <value>Reports/FPSectional.ascx</value>
     <comment>Reports/FPSectional.ascx</comment>
   </data>
+  <data name="IFF" xml:space="preserve">
+    <value>SuperAdmin//IFF.ascx</value>
+    <comment>SuperAdmin//IFF.ascx</comment>
+  </data>
+  <data name="IFFAdd" xml:space="preserve">
+    <value>SuperAdmin//IFFAdd.ascx</value>
+    <comment>SuperAdmin//IFFAdd.ascx</comment>
+  </data>
+  <data name="SuperAdminMessageBroadcast" xml:space="preserve">
+    <value>SuperAdmin//SuperAdminMessageBroadcast.ascx</value>
+    <comment>SuperAdmin//SuperAdminMessageBroadcast.ascx</comment>
+  </data>
 </root>

@@ -1186,6 +1186,24 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//IFF.ascx.
+        /// </summary>
+        internal static string IFF {
+            get {
+                return ResourceManager.GetString("IFF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//IFFAdd.ascx.
+        /// </summary>
+        internal static string IFFAdd {
+            get {
+                return ResourceManager.GetString("IFFAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//KarvyProfileFolioInputRejects.ascx.
         /// </summary>
         internal static string KarvyProfileFolioInputRejects {
@@ -1920,6 +1938,15 @@ namespace WealthERP {
         internal static string SuperAdminLeftPane {
             get {
                 return ResourceManager.GetString("SuperAdminLeftPane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//SuperAdminMessageBroadcast.ascx.
+        /// </summary>
+        internal static string SuperAdminMessageBroadcast {
+            get {
+                return ResourceManager.GetString("SuperAdminMessageBroadcast", resourceCulture);
             }
         }
         
