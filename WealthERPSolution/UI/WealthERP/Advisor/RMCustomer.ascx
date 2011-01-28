@@ -162,7 +162,7 @@
                                     <asp:ListItem Text="Dashboard" />
                                     <asp:ListItem Text="Profile" />
                                     <asp:ListItem Text="Portfolio" />
-                                    <asp:ListItem Text="User Details" />
+                                    <%--<asp:ListItem Text="User Details" />--%>
                                     <asp:ListItem Text="Alerts" />
                                     <asp:ListItem Text="Delete Profile" />
                                     <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
@@ -227,7 +227,7 @@
                                 <asp:Label ID="lblPincodeHeader" runat="server" Text='<%# Eval("Pincode").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="IsProspect" HeaderText="Is Prospect" />
+                        <%--<asp:BoundField DataField="IsProspect" HeaderText="Is Prospect" />--%>
                         <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />
                         <%--<asp:BoundField DataField="Pincode" HeaderText="Pincode" />--%>
                         <asp:TemplateField HeaderText="IsActive">

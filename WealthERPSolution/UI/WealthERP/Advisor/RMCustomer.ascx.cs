@@ -793,15 +793,15 @@ namespace WealthERP
                     Session["IsDashboard"] = "alerts";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertNotifications','login');", true);
                 }
-                else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
-                {
-                    //tempUser = new UserVo();
-                    //tempUser = userBo.GetUserDetails(userId);
-                    //Session["CustomerUser"] = tempUser;
-                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','none');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol(''GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+                //else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
+                //{
+                //    //tempUser = new UserVo();
+                //    //tempUser = userBo.GetUserDetails(userId);
+                //    //Session["CustomerUser"] = tempUser;
+                //    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','none');", true);
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol(''GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
-                }
+                //}
                 else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
