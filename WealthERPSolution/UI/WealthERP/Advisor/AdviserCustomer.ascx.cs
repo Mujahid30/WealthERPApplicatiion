@@ -577,14 +577,14 @@ namespace WealthERP.Advisor
                     Session["IsDashboard"] = "alerts";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMAlertNotifications", "loadcontrol('RMAlertNotifications','login');", true);
                 }
-                else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
-                {
-                    //tempUser = new UserVo();
-                    //tempUser = userBo.GetUserDetails(userId);
-                    //Session["CustomerUser"] = tempUser;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GenerateLoginPassword", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+                //else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
+                //{
+                //    //tempUser = new UserVo();
+                //    //tempUser = userBo.GetUserDetails(userId);
+                //    //Session["CustomerUser"] = tempUser;
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GenerateLoginPassword", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
-                }
+                //}
                 else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
                 {
                     Session["IsDashboard"] = "FP";
