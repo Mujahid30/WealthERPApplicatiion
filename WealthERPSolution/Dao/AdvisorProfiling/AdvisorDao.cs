@@ -1027,6 +1027,8 @@ namespace DaoAdvisorProfiling
                             customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
                         if (dr["RMName"].ToString() != "")
                             customerVo.AssignedRM = dr["RMName"].ToString();
+                        if (dr["C_IsProspect"].ToString() != "")
+                            customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
                         customerList.Add(customerVo);
                     }
                 }
