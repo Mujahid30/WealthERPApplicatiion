@@ -37,7 +37,9 @@
             <tr>
                 <td valign="top">
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
-                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="240px" OnItemClick="RadPanelBar1_ItemClick">
+                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="240px" 
+                        OnItemClick="RadPanelBar1_ItemClick" AllowCollapseAllItems="True" 
+                        ExpandMode="SingleExpandedItem">
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Admin" Value="Admin">
                                 <Items>
@@ -172,10 +174,11 @@
                                 </Items>
                             </telerik:RadPanelItem>
                         </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                     <telerik:RadPanelBar ID="RadPanelBar2" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" OnItemClick="RadPanelBar2_ItemClick"
-                        Width="240px">
+                        Width="240px" AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="RM" Value="RM">
                                 <Items>
@@ -273,10 +276,11 @@
                                 </Items>
                             </telerik:RadPanelItem>
                         </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                     <telerik:RadPanelBar ID="RadPanelBar3" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" OnItemClick="RadPanelBar3_ItemClick"
-                        Width="240px">
+                        Width="240px" AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="BM" Value="BM">
                                 <Items>
@@ -297,6 +301,7 @@
                                 </Items>
                             </telerik:RadPanelItem>
                         </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                 </td>
             </tr>
