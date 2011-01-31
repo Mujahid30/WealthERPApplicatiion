@@ -41,6 +41,15 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
+        /// gvCustomers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvCustomers;
+        
+        /// <summary>
         /// ErrorMessage control.
         /// </summary>
         /// <remarks>
@@ -102,15 +111,6 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel tbl;
-        
-        /// <summary>
-        /// gvCustomers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCustomers;
         
         /// <summary>
         /// tblpager control.
@@ -399,5 +399,14 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnactive;
+        
+        /// <summary>
+        /// hdnIsProspect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsProspect;
     }
 }

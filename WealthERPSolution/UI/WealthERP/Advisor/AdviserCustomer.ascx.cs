@@ -227,7 +227,7 @@ namespace WealthERP.Advisor
 
                     int Count;
 
-                    customerList = advisorBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, hdnactive.Value, out genDictParent, out genDictRM, out genDictReassignRM);
+                    customerList = advisorBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, hdnactive.Value, hdnIsProspect.Value, out genDictParent, out genDictRM, out genDictReassignRM);
                     lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 }
 
@@ -683,7 +683,7 @@ namespace WealthERP.Advisor
                 // Search Term is input into this hidden field
                 hdnNameFilter.Value = customer;
 
-                customerList = adviserBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, hdnactive.Value, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetAdviserCustomerList(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, hdnactive.Value, hdnIsProspect.Value, out genDictParent, out genDictRM, out genDictReassignRM);
 
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
@@ -1635,6 +1635,16 @@ namespace WealthERP.Advisor
             //}
             this.BindGrid(mypager.CurrentPage, 0);
         }
+
+        protected void ddlIsProspect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlIsIsProspectFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlIsProspect");
+
+            hdnIsProspect.Value = ddlIsIsProspectFilter.SelectedValue;
+
+            this.BindGrid(mypager.CurrentPage, 0);
+        }
+
         protected void ddlParent_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlParent = GetParentDDL();

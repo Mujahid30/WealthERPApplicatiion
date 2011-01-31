@@ -60,6 +60,177 @@
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer List"></asp:Label>
+                <asp:GridView ID="gvCustomers" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                    CellPadding="4" CssClass="GridViewStyle" DataKeyNames="CustomerId,UserId,RMId"
+                    OnSelectedIndexChanged="gvCustomers_SelectedIndexChanged" OnSorting="gvCustomers_Sort"
+                    ShowFooter="true" ShowHeader="true" width="100%">
+                    <FooterStyle CssClass="FooterStyle" />
+                    <PagerSettings Visible="False" />
+                    <RowStyle CssClass="RowStyle" />
+                    <EditRowStyle CssClass="EditRowStyle" HorizontalAlign="Left" 
+                        VerticalAlign="Top" />
+                    <SelectedRowStyle CssClass="SelectedRowStyle" />
+                    <%--<PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />--%>
+                    <HeaderStyle CssClass="HeaderStyle" />
+                    <AlternatingRowStyle CssClass="AltRowStyle" />
+                    <Columns>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                    OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
+                                    <asp:ListItem Text="Select" Value="Select" />
+                                    <asp:ListItem Text="Dashboard" Value="Dashboard" />
+                                    <asp:ListItem Text="Profile" Value="Profile" />
+                                    <asp:ListItem Text="Portfolio" Value="Portfolio" />
+                                   <%-- <asp:ListItem Text="User Details" Value="User Details" />--%>
+                                    <asp:ListItem Text="Alerts" Value="Alerts" />
+                                    <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
+                                </asp:DropDownList>
+                            </ItemTemplate>
+                            <%-- <FooterTemplate>
+                                <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" />
+                            </FooterTemplate>--%>
+                        </asp:TemplateField>
+                        <%--<asp:BoundField DataField="Parent" HeaderText="Parent" SortExpression="Parent" ItemStyle-Wrap="false" />--%>
+                        <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblCustName" runat="server" Text="Name"></asp:Label>
+                                <br />
+                                <asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="GridViewTxtField" 
+                                    
+                                    onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnNameSearch');" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblCustNameHeader" runat="server" 
+                                    Text='<%# Eval("Cust_Comp_Name").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
+                        <asp:TemplateField ItemStyle-Wrap="true">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblParent" runat="server" Text="Group"></asp:Label>
+                                <br />
+                                <asp:DropDownList ID="ddlParent" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                    OnSelectedIndexChanged="ddlParent_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblParenteHeader" runat="server" 
+                                    Text='<%# Eval("Parent").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
+                        <%-- <asp:BoundField DataField="PAN" HeaderStyle-Wrap="false" HeaderText="PAN Number" />--%>
+                        <asp:TemplateField ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblPAN" runat="server" Text="PAN"></asp:Label>
+                                <br />
+                                <asp:TextBox ID="txtPAN" runat="server" CssClass="GridViewTxtField" 
+                                    
+                                    onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnPANSearch');" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblPANHeader" runat="server" 
+                                    Text='<%# Eval("PAN Number").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="Mobile Number" HeaderText="Mobile Number" />
+                        <asp:BoundField DataField="Phone Number" HeaderText="Phone Number" />
+                        <asp:BoundField DataField="Email" HeaderText="Email" />
+                        <asp:BoundField DataField="Address" HeaderText="Address" 
+                            ItemStyle-Wrap="false" />
+                        <asp:TemplateField ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblArea" runat="server" Text="Area"></asp:Label>
+                                <br />
+                                <asp:TextBox ID="txtAreaSearch" runat="server" CssClass="GridViewTxtField" 
+                                    
+                                    onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnAreaSearch');" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblAreaHeader" runat="server" 
+                                    Text='<%# Eval("Area").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
+                        <%--<asp:BoundField DataField="Area" HeaderText="Area" />--%>
+                        <asp:BoundField DataField="City" HeaderText="City" />
+                        <asp:TemplateField ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblPincode" runat="server" Text="Pincode"></asp:Label>
+                                <br />
+                                <asp:TextBox ID="txtPincodeSearch" runat="server" CssClass="GridViewTxtField" 
+                                    
+                                    onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnPincodeSearch');" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblPincodeHeader" runat="server" 
+                                    Text='<%# Eval("Pincode").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
+                       <%-- <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />--%>
+                        <asp:TemplateField HeaderStyle-Wrap="false" HeaderText="Is Prospect" 
+                            ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                             <asp:Label ID="lblHeaderIsProspect" runat="server" Text="Is Prospect"></asp:Label>
+                             <br />
+                             <asp:DropDownList ID="ddlIsProspect" runat="server" OnSelectedIndexChanged="ddlIsProspect_SelectedIndexChanged" AutoPostBack="true" CssClass="GridViewCmbField">
+                                    <asp:ListItem Text="All" Value="2">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="1">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="No" Value="0">
+                                    </asp:ListItem>
+                             </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblIsFpClient" runat="server" Text='<%# Eval("IsProspect").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                       
+                           
+                       
+                       <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblAssignedRM" runat="server" Text="Assigned RM"></asp:Label>
+                                <br />
+                                <asp:DropDownList ID="ddlAssignedRM" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                    OnSelectedIndexChanged="ddlAssignedRM_SelectedIndexChanged">
+                                </asp:DropDownList>
+                                
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblAssignedRMHeader" runat="server" 
+                                    Text='<%# Eval("Assigned RM").ToString() %>'></asp:Label>
+                                
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
+                        <%--<asp:BoundField DataField="Assigned RM" HeaderText="Assigned RM" HeaderStyle-Wrap="false"
+                            ItemStyle-Wrap="false" />--%>
+                        <asp:TemplateField HeaderText="IsActive">
+                            <ItemTemplate>
+                                <asp:Label ID="lblIsActive" runat="server" Text='<%#Eval("IsActive") %>'>
+                                </asp:Label>
+                            </ItemTemplate>
+                            <HeaderTemplate>
+                                <br />
+                                <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                    OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
+                                    <asp:ListItem Text="All" Value="2">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Active" Value="1">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="InActive" Value="0">
+                                    </asp:ListItem>
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
             <hr />
         </td>
     </tr>
@@ -94,143 +265,7 @@
         
         <tr>
             <td class="rightField" width="100%">
-                <asp:GridView ID="gvCustomers" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                    CellPadding="4" CssClass="GridViewStyle" DataKeyNames="CustomerId,UserId,RMId"
-                    OnSelectedIndexChanged="gvCustomers_SelectedIndexChanged" OnSorting="gvCustomers_Sort"
-                    ShowFooter="true" ShowHeader="true" width="100%">
-                    <FooterStyle CssClass="FooterStyle" />
-                    <PagerSettings Visible="False" />
-                    <RowStyle CssClass="RowStyle" />
-                    <EditRowStyle CssClass="EditRowStyle" HorizontalAlign="Left" VerticalAlign="Top" />
-                    <SelectedRowStyle CssClass="SelectedRowStyle" />
-                    <%--<PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />--%>
-                    <HeaderStyle CssClass="HeaderStyle" />
-                    <AlternatingRowStyle CssClass="AltRowStyle" />
-                    <Columns>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
-                                    OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
-                                    <asp:ListItem Text="Select" Value="Select" />
-                                    <asp:ListItem Text="Dashboard" Value="Dashboard" />
-                                    <asp:ListItem Text="Profile" Value="Profile" />
-                                    <asp:ListItem Text="Portfolio" Value="Portfolio" />
-                                   <%-- <asp:ListItem Text="User Details" Value="User Details" />--%>
-                                    <asp:ListItem Text="Alerts" Value="Alerts" />
-                                    <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
-                                </asp:DropDownList>
-                            </ItemTemplate>
-                            <%-- <FooterTemplate>
-                                <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Save" />
-                            </FooterTemplate>--%>
-                        </asp:TemplateField>
-                        <%--<asp:BoundField DataField="Parent" HeaderText="Parent" SortExpression="Parent" ItemStyle-Wrap="false" />--%>
-                        <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
-                            <HeaderTemplate>
-                                <asp:Label ID="lblCustName" runat="server" Text="Name"></asp:Label>
-                                <br />
-                                <asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnNameSearch');" />
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblCustNameHeader" runat="server" Text='<%# Eval("Cust_Comp_Name").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                            <HeaderStyle Wrap="False" />
-                            <ItemStyle Wrap="False" />
-                        </asp:TemplateField>
-                        <asp:TemplateField ItemStyle-Wrap="true">
-                            <HeaderTemplate>
-                                <asp:Label ID="lblParent" runat="server" Text="Group"></asp:Label>
-                                <br />
-                                <asp:DropDownList ID="ddlParent" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
-                                    OnSelectedIndexChanged="ddlParent_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblParenteHeader" runat="server" Text='<%# Eval("Parent").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                            <ItemStyle Wrap="False" />
-                        </asp:TemplateField>
-                        <%-- <asp:BoundField DataField="PAN" HeaderStyle-Wrap="false" HeaderText="PAN Number" />--%>
-                        <asp:TemplateField ItemStyle-Wrap="false">
-                            <HeaderTemplate>
-                                <asp:Label ID="lblPAN" runat="server" Text="PAN"></asp:Label>
-                                <br />
-                                <asp:TextBox ID="txtPAN" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnPANSearch');" />
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblPANHeader" runat="server" Text='<%# Eval("PAN Number").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                            <ItemStyle Wrap="False" />
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Mobile Number" HeaderText="Mobile Number" />
-                        <asp:BoundField DataField="Phone Number" HeaderText="Phone Number" />
-                        <asp:BoundField DataField="Email" HeaderText="Email" />
-                        <asp:BoundField DataField="Address" HeaderText="Address" ItemStyle-Wrap="false" />
-                        <asp:TemplateField ItemStyle-Wrap="false">
-                            <HeaderTemplate>
-                                <asp:Label ID="lblArea" runat="server" Text="Area"></asp:Label>
-                                <br />
-                                <asp:TextBox ID="txtAreaSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnAreaSearch');" />
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblAreaHeader" runat="server" Text='<%# Eval("Area").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                            <ItemStyle Wrap="False" />
-                        </asp:TemplateField>
-                        <%--<asp:BoundField DataField="Area" HeaderText="Area" />--%>
-                        <asp:BoundField DataField="City" HeaderText="City" />
-                        <asp:TemplateField ItemStyle-Wrap="false">
-                            <HeaderTemplate>
-                                <asp:Label ID="lblPincode" runat="server" Text="Pincode"></asp:Label>
-                                <br />
-                                <asp:TextBox ID="txtPincodeSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomer_btnPincodeSearch');" />
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblPincodeHeader" runat="server" Text='<%# Eval("Pincode").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                            <ItemStyle Wrap="False" />
-                        </asp:TemplateField>
-                        <%--<asp:BoundField DataField="IsProspect" HeaderText="Is Prospect" />--%>
-                        <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />
-                        <%--<asp:BoundField DataField="Pincode" HeaderText="Pincode" ItemStyle-HorizontalAlign="Right"/>--%>
-                       <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
-                            <HeaderTemplate>
-                                <asp:Label ID="lblAssignedRM" runat="server" Text="Assigned RM"></asp:Label>
-                                <br />
-                                <asp:DropDownList ID="ddlAssignedRM" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
-                                    OnSelectedIndexChanged="ddlAssignedRM_SelectedIndexChanged">
-                                </asp:DropDownList>
-                                
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblAssignedRMHeader" runat="server" Text='<%# Eval("Assigned RM").ToString() %>'></asp:Label>
-                                
-                            </ItemTemplate>
-                            <ItemStyle Wrap="False" />
-                        </asp:TemplateField>
-                        <%--<asp:BoundField DataField="Assigned RM" HeaderText="Assigned RM" HeaderStyle-Wrap="false"
-                            ItemStyle-Wrap="false" />--%>
-                        <asp:TemplateField HeaderText="IsActive">
-                            <ItemTemplate>
-                                <asp:Label ID="lblIsActive" runat="server" Text='<%#Eval("IsActive") %>'>
-                                </asp:Label>
-                            </ItemTemplate>
-                            <HeaderTemplate>
-                                <br />
-                                <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
-                                    OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
-                                    <asp:ListItem Text="All" Value="2">
-                                    </asp:ListItem>
-                                    <asp:ListItem Text="Active" Value="1">
-                                    </asp:ListItem>
-                                    <asp:ListItem Text="InActive" Value="0">
-                                    </asp:ListItem>
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
-            </td>
+                &nbsp;</td>
         </tr>        
     </table>
 </asp:Panel>
@@ -350,3 +385,4 @@
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnactive" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnIsProspect" runat="server" Visible="false" />
