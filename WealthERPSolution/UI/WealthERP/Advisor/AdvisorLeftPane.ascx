@@ -20,11 +20,11 @@
         }
         else if (searchtype == "AdviserCustomer") {
             var searchstring = document.getElementById('ctrl_AdvisorLeftPane_txtFindAdviserCustomer').value;
-            loadsearchcontrol('AdviserCustomer', 'Customer', searchstring);
+            loadsearchcontrol('AdviserCustomer', 'AdviserCustomer', searchstring);
         }
-        else if (searchtype == "Customer") {
-            var searchstring = document.getElementById('ctrl_AdvisorLeftPane_txtFindCustomer').value;
-            loadsearchcontrol('RMCustomer', 'Customer', searchstring);
+        else if (searchtype == "RMCustomer") {
+            var searchstring = document.getElementById('ctrl_AdvisorLeftPane_txtFindRMCustomer').value;
+            loadsearchcontrol('RMCustomer', 'RMCustomer', searchstring);
         }
     }
 </script>
@@ -360,7 +360,18 @@
                         <cc1:TextBoxWatermarkExtender ID="txtFindAdviserCustomer_TextBoxWatermarkExtender"
                             runat="server" TargetControlID="txtFindAdviserCustomer" WatermarkText="Find Customer">
                         </cc1:TextBoxWatermarkExtender>
-                        <asp:Button ID="btnSearchCustomer" runat="server" CssClass="SearchButton" OnClientClick="javascript:callSearchControl('AdviserCustomer');return false;" />
+                        <asp:Button ID="btnSearchAdviserCustomer" runat="server" CssClass="SearchButton" OnClientClick="javascript:callSearchControl('AdviserCustomer');return false;" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="display: inline">
+                        <asp:TextBox runat="server" ID="txtFindRMCustomer" Style="width: 110px" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchRMCustomer');" />
+                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1"
+                            runat="server" TargetControlID="txtFindRMCustomer" WatermarkText="Find Customer">
+                        </cc1:TextBoxWatermarkExtender>
+                        <asp:Button ID="btnSearchRMCustomer" runat="server" CssClass="SearchButton" OnClientClick="javascript:callSearchControl('RMCustomer');return false;" />
                     </div>
                 </td>
             </tr>

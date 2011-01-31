@@ -45,6 +45,33 @@ namespace WealthERP.Advisor
             dsSubscriptionDetails = adviserSubscriptionBo.GetAdviserSubscriptionPlanDetails(advisorVo.advisorId);
             if (!IsPostBack)
             {
+                //Code to display and hide the searches based on the roles
+                if (userVo.RoleList.Contains("Admin"))
+                {
+                    txtFindRMCustomer.Visible = false;
+                    btnSearchRMCustomer.Visible = false;
+                }
+                else if (userVo.RoleList.Contains("RM"))
+                {
+                    txtFindRM.Visible = false;
+                    btnSearchRM.Visible = false;
+                    txtFindBranch.Visible = false;
+                    btnSearchBranch.Visible = false;
+                    txtFindAdviserCustomer.Visible = false;
+                    btnSearchAdviserCustomer.Visible = false;
+                }
+                else if (!userVo.RoleList.Contains("BM"))
+                {
+                    txtFindRM.Visible = false;
+                    btnSearchRM.Visible = false;
+                    txtFindBranch.Visible = false;
+                    btnSearchBranch.Visible = false;
+                    txtFindAdviserCustomer.Visible = false;
+                    btnSearchAdviserCustomer.Visible = false;
+                    txtFindRMCustomer.Visible = false;
+                    btnSearchRMCustomer.Visible = false;
+                }
+
                 //Code to display the left tree based on the Roles
                 if (!userVo.RoleList.Contains("Admin"))
                     RadPanelBar1.Visible = false;
