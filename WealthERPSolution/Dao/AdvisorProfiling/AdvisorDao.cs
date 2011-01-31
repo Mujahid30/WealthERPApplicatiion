@@ -929,7 +929,7 @@ namespace DaoAdvisorProfiling
 
         //public List<CustomerVo> GetAdviserCustomerList(int adviserId, int CurrentPage, out int Count, string SortExpression, string NameFilter, string AreaFilter, string PincodeFilter, string ParentFilter, string RMFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
 
-        public List<CustomerVo> GetAdviserCustomerList(int adviserId, int CurrentPage, out int Count, string SortExpression, string panFilter, string NameFilter, string AreaFilter, string PincodeFilter, string ParentFilter, string RMFilter, string Active, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        public List<CustomerVo> GetAdviserCustomerList(int adviserId, int CurrentPage, out int Count, string SortExpression, string panFilter, string NameFilter, string AreaFilter, string PincodeFilter, string ParentFilter, string RMFilter, string Active, string isProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> customerList = null;
             CustomerVo customerVo;
@@ -978,6 +978,11 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@active", DbType.String, Active);
                 else
                     db.AddInParameter(getCustomerListCmd, "@active", DbType.String, "D");
+
+                if (isProspect != "")
+                    db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, isProspect);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, "2");
 
                 if (panFilter != "")
                     db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, panFilter);
