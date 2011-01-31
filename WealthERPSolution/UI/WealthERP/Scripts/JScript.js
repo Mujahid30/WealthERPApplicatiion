@@ -146,7 +146,7 @@ function loadsearchcontrol(controlid, searchtype, searchstring) {
     else if (searchtype == "AdviserCustomer" && searchstring != "") {
         var c_src = "ControlHost.aspx?Customer=" + searchstring + "&pageid=";
     }
-    else if (searchtype == "Customer" && searchstring != "") {
+    else if (searchtype == "RMCustomer" && searchstring != "") {
 
         var c_src = "ControlHost.aspx?Customer=" + searchstring + "&pageid=";
     }
