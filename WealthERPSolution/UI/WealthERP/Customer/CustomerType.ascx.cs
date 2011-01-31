@@ -365,14 +365,14 @@ namespace WealthERP.Customer
                     {
                         customerVo.DummyPAN = 0;
                     }
-                    if (chkprospect.Checked)
-                    {
-                        customerVo.IsProspect = 1;
-                    }
-                    else
-                    {
+                    //if (chkprospect.Checked)
+                    //{
+                    //    customerVo.IsProspect = 1;
+                    //}
+                    //else
+                    //{
                         customerVo.IsProspect = 0;
-                    }
+                    //}
 
                     customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
                     customerVo.Email = txtEmail.Text.ToString();

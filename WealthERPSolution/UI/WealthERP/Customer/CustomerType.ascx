@@ -50,10 +50,10 @@
     <tr>
     <td>
     </td>
-    <td>
+    <%--<td>
     <asp:Checkbox ID="chkprospect" runat="server" CssClass="txtField"  Text="Prospect" 
                 AutoPostBack="false"  /></asp:Label>
-                </td>
+                </td>--%>
     </tr>
     <tr>
         <td class="leftField" style="width: 20%">
