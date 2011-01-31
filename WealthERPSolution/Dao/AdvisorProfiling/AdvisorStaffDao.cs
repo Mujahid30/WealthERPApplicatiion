@@ -1089,7 +1089,7 @@ namespace DaoAdvisorProfiling
             return customerList;
         }
 
-        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string Active, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
+        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string Active, string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
             CustomerVo customerVo;
@@ -1130,6 +1130,12 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(getCustomerListCmd, "@active", DbType.String, "2");
 
+                if (IsProspect != "")
+                    db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, IsProspect);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, "2");
+
+
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
                 {
@@ -1164,6 +1170,9 @@ namespace DaoAdvisorProfiling
                         customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
                         if (dr["C_Mobile1"].ToString() != "")
                             customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
+
+                        if (dr["C_IsProspect"].ToString() != "")
+                            customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
                         customerList.Add(customerVo);
                     }
                 }
@@ -1212,7 +1221,7 @@ namespace DaoAdvisorProfiling
             return customerList;
         }
 
-        public List<CustomerVo> GetBMCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
+        public List<CustomerVo> GetBMCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, string isProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
             CustomerVo customerVo;
@@ -1248,6 +1257,11 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, DBNull.Value);
 
+                if (isProspect != "")
+                    db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, isProspect);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, "2");
+
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
                 {
@@ -1279,6 +1293,8 @@ namespace DaoAdvisorProfiling
                             customerVo.PANNum = dr["C_PANNum"].ToString();
                         if (dr["C_Mobile1"].ToString() != "")
                             customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
+                        if (dr["C_IsProspect"].ToString() != "")
+                            customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
                         customerList.Add(customerVo);
                     }
                 }
@@ -1972,7 +1988,7 @@ namespace DaoAdvisorProfiling
 
         /* BM Customer List */
 
-        public List<CustomerVo> GetAllBMCustomerList(int branchId, int branchHeadId, int all, int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
+        public List<CustomerVo> GetAllBMCustomerList(int branchId, int branchHeadId, int all, int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
             CustomerVo customerVo;
@@ -2021,6 +2037,11 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(getCustomerListCmd, "@rmFilter", DbType.String, DBNull.Value);
 
+                if (IsProspect != "")
+                    db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, IsProspect);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, "2");
+
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
                 {
@@ -2052,6 +2073,9 @@ namespace DaoAdvisorProfiling
                             customerVo.PANNum = dr["C_PANNum"].ToString();
                         if (dr["C_Mobile1"].ToString() != "")
                             customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
+
+                        if (dr["C_IsProspect"].ToString() != "")
+                            customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
                         customerList.Add(customerVo);
                     }
                 }
