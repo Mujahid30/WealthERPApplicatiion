@@ -230,7 +230,7 @@ namespace BoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>List of CustomerVo</returns>
-        public List<CustomerVo> GetAdviserCustomerList(int adviserId, int CurrentPage, out int Count, string SortExpression, string panFilter, string NameFilter, string AreaFilter, string PincodeFilter, string ParentFilter, string RMFilter, string Active, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        public List<CustomerVo> GetAdviserCustomerList(int adviserId, int CurrentPage, out int Count, string SortExpression, string panFilter, string NameFilter, string AreaFilter, string PincodeFilter, string ParentFilter, string RMFilter, string Active, string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> customerList = null;
             AdvisorDao advisorDao = new AdvisorDao();
@@ -242,7 +242,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                customerList = advisorDao.GetAdviserCustomerList(adviserId, CurrentPage, out Count, SortExpression,panFilter,  NameFilter, AreaFilter, PincodeFilter, ParentFilter, RMFilter, Active, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = advisorDao.GetAdviserCustomerList(adviserId, CurrentPage, out Count, SortExpression, panFilter, NameFilter, AreaFilter, PincodeFilter, ParentFilter, RMFilter, Active, IsProspect, out genDictParent, out genDictRM, out genDictReassignRM);
             }
             catch (BaseApplicationException Ex)
             {
