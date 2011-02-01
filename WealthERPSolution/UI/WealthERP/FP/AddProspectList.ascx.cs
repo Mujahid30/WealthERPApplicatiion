@@ -901,13 +901,25 @@ namespace WealthERP.FP
 
         protected void aplToolBar_ButtonClick(object sender, RadToolBarEventArgs e)
         {
+            string bmRole;
+            if(Session["BMCustomer"]!=null)
+                bmRole=Session["BMCustomer"].ToString();
+            else bmRole=string.Empty;
+
             if (e.Item.Value == "Back")
             {
                 if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
                 {
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                 }
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+
+                if (bmRole == "BM")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BMCustomer','login');", true);                    
+                }
+                else
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+                    
             }
             else if (e.Item.Value == "Edit")
             {
