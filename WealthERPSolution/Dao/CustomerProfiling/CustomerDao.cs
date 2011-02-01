@@ -2775,6 +2775,23 @@ namespace DaoCustomerProfiling
             }
             return result;
         }
+        public int GetCustomerGroupHead(int customerId)
+        {
+            int result ;          
+            Database db;
+            DbCommand checkCustomerGrpHeadCmd;
+
+           
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                checkCustomerGrpHeadCmd = db.GetStoredProcCommand("SP_GetCustomerGrpHead");
+                db.AddInParameter(checkCustomerGrpHeadCmd, "@CustomerId", DbType.Int32, customerId);
+
+                result = int.Parse(db.ExecuteScalar(checkCustomerGrpHeadCmd).ToString());
+                
+            }
+            return result;
+        }
 
         //FP SuperLite Related Functions
         //===================================================================================================================================
