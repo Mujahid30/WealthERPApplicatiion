@@ -250,6 +250,25 @@
                                 <asp:Label ID="lblCityHeader" runat="server" Text='<%# Eval("City").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        
+                        <asp:TemplateField HeaderStyle-Wrap="false" HeaderText="Is Prospect" 
+                            ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                             <asp:Label ID="lblHeaderddlIsProspect" runat="server" Text="Is Prospect"></asp:Label>
+                             <br />
+                             <asp:DropDownList ID="ddlIsProspect" runat="server" OnPreRender="SetValue" OnSelectedIndexChanged="ddlIsProspect_SelectedIndexChanged" AutoPostBack="true" CssClass="GridViewCmbField">
+                                    <asp:ListItem Text="All" Value="2">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="1">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="No" Value="0">
+                                    </asp:ListItem>
+                             </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblddlIsProspect" runat="server" Text='<%# Eval("IsProspect").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                       
                     </Columns>
                 </asp:GridView>
@@ -286,3 +305,4 @@
 <%-- End For BM--%>
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
+<asp:HiddenField ID="hdnIsProspect" runat="server" Visible="false" />

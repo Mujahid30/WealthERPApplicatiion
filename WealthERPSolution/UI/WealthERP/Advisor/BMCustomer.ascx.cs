@@ -138,7 +138,7 @@ namespace WealthERP.Advisor
 
                 hdnNameFilter.Value = customer;
 
-                customerList = advisorStaffBo.GetAllBMCustomerList(int.Parse(hndBranchID.Value.ToString()), int.Parse(hndBranchHeadId.Value.ToString()), int.Parse(hndAll.Value.ToString()), rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictCity, out genDictRM);
+                customerList = advisorStaffBo.GetAllBMCustomerList(int.Parse(hndBranchID.Value.ToString()), int.Parse(hndBranchHeadId.Value.ToString()), int.Parse(hndAll.Value.ToString()), rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value,hdnIsProspect.Value, out genDictParent, out genDictCity, out genDictRM);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerList == null)
@@ -165,6 +165,8 @@ namespace WealthERP.Advisor
                     dtRMCustomer.Columns.Add("Area");
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("RMAssigned");
+                    dtRMCustomer.Columns.Add("IsProspect");
+
 
                     DataRow drRMCustomer;
 
@@ -209,6 +211,15 @@ namespace WealthERP.Advisor
                         drRMCustomer[7] = customerVo.Adr1Line3.ToString();
                         drRMCustomer[8] = customerVo.Adr1City.ToString();
                         drRMCustomer[9] = customerVo.AssignedRM.ToString();
+
+                        if (customerVo.IsProspect == 1)
+                        {
+                            drRMCustomer[10] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[10] = "No";
+                        }
 
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
@@ -458,7 +469,7 @@ namespace WealthERP.Advisor
 
                     int Count;
 
-                    customerList = advisorStaffBo.GetBMCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictCity, out genDictRM);
+                    customerList = advisorStaffBo.GetBMCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value,hdnIsProspect.Value, out genDictParent, out genDictCity, out genDictRM);
                     lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 }
 
@@ -490,6 +501,7 @@ namespace WealthERP.Advisor
                     dtRMCustomer.Columns.Add("Area");
                     dtRMCustomer.Columns.Add("City");
                     dtRMCustomer.Columns.Add("RMAssigned");
+                    dtRMCustomer.Columns.Add("IsProspect");
 
                     DataRow drRMCustomer;
 
@@ -534,6 +546,14 @@ namespace WealthERP.Advisor
                         drRMCustomer[7] = customerVo.Adr1Line3.ToString();
                         drRMCustomer[8] = customerVo.Adr1City.ToString();
                         drRMCustomer[9] = customerVo.AssignedRM.ToString();
+                        if (customerVo.IsProspect == 1)
+                        {
+                            drRMCustomer[10] = "Yes";
+                        }
+                        else
+                        {
+                            drRMCustomer[10] = "No";
+                        }
 
                         dtRMCustomer.Rows.Add(drRMCustomer);
                     }
@@ -1494,6 +1514,28 @@ namespace WealthERP.Advisor
                     this.BindCustomer(mypager.CurrentPage);
                 }
             }
+        }
+
+        protected void ddlIsProspect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlIsProspectFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlIsProspect");
+
+            hdnIsProspect.Value = ddlIsProspectFilter.SelectedValue;
+
+            this.BindGrid(mypager.CurrentPage, 0);
+        }
+
+        protected void SetValue(object sender, EventArgs e)
+        {
+            DropDownList ddl = (DropDownList)sender;
+            if (hdnIsProspect.Value.ToString() == "")
+            {
+                ddl.SelectedValue = "2";
+            }
+            else
+                ddl.SelectedValue = hdnIsProspect.Value.ToString();
+
+
         }
 
         protected void ddlParent_SelectedIndexChanged(object sender, EventArgs e)
