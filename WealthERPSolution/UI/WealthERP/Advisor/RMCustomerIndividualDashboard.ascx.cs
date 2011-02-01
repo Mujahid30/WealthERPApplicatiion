@@ -225,8 +225,9 @@ namespace WealthERP.Advisor
         {
             customerVo = customerBo.GetCustomer(customerId);
             Session["CustomerVo"] = customerVo;
-
+            Session["IsDashboard"] = "BankDetails";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
 
         /// <summary>
