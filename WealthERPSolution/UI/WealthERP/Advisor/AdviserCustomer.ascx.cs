@@ -539,8 +539,11 @@ namespace WealthERP.Advisor
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
 
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
-
+                if (ddlAction.SelectedItem.Value.ToString() != "Profile")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                }
+                else 
                 //to check whether he is group head or not
                 isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
                 //to set portfolio Id and its details
@@ -560,9 +563,37 @@ namespace WealthERP.Advisor
                 {
                     Session["IsDashboard"] = "false";
                     customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                    Session["customerPortfolioVo"] = customerPortfolioVo;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMCustomerIndividualDashboard", "loadcontrol('RMCustomerIndividualDashboard','login');", true);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        Session["customerPortfolioVo"] = customerPortfolioVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMCustomerIndividualDashboard", "loadcontrol('RMCustomerIndividualDashboard','login');", true);
+                    }
+                    else
+                    {
+                        //Session["IsDashboard"] = "FP";
+                        //if (customerId != 0)
+                        //{
+                        //    Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+                        //}
+                        /////Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                        //Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
+                        ////Session[SessionContents.FPS_AddProspectListActionStatus] = "FPDashBoard";
+                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
+                        isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                        if (isGrpHead == false)
+                        {
+                            customerId = customerBo.GetCustomerGroupHead(customerId);
+                        }
+                        else
+                        {
+                            customerId = customerVo.CustomerId;
+                        }
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+                        Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
+                        //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    }
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
