@@ -621,13 +621,20 @@ namespace WealthERP.Advisor
             Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
             if (str == "Mutual Fund")
             {
+                Session["IsDashboard"] = "MFAssets";
                 if (Session["S_CurrentUserRole"] == "Customer")
+                {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewMutualFundPortfolio','none');", true);
+                }
                 else
+                {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
+                }
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
             }
             else if (str == "Fixed Income")
             {
+                Session["IsDashboard"] = "FixedIncome";
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioFixedIncomeView','none');", true);
                 else
@@ -635,6 +642,7 @@ namespace WealthERP.Advisor
             }
             else if (str == "Govt Savings")
             {
+                Session["IsDashboard"] = "GovtSavings";
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewGovtSavings','none');", true);
                 else
@@ -642,6 +650,7 @@ namespace WealthERP.Advisor
             }
             else if (str == "Property")
             {
+                Session["IsDashboard"] = "Property";
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioProperty','none');", true);
                 else
@@ -649,6 +658,7 @@ namespace WealthERP.Advisor
             }
             else if (str == "Pension & Gratuities")
             {
+                Session["IsDashboard"] = "PensionGratuities";
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PensionPortfolio','none');", true);
                 else
@@ -656,6 +666,7 @@ namespace WealthERP.Advisor
             }
             else if (str == "Personal Items")
             {
+                Session["IsDashboard"] = "PersonalItems";
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioPersonal','none');", true);
                 else
@@ -663,6 +674,7 @@ namespace WealthERP.Advisor
             }
             else if (str == "Gold")
             {
+                Session["IsDashboard"] = "Gold";
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewGoldPortfolio','none');", true);
                 else
@@ -670,6 +682,7 @@ namespace WealthERP.Advisor
             }
             else if (str == "Collectibles")
             {
+                Session["IsDashboard"] = "Collectibles";
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewCollectiblesPortfolio','none');", true);
                 else
@@ -677,6 +690,7 @@ namespace WealthERP.Advisor
             }
             else if (str == "Cash&Savings")
             {
+                Session["IsDashboard"] = "CashandSavings";
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioCashSavingsView','none');", true);
                 else
@@ -684,6 +698,7 @@ namespace WealthERP.Advisor
             }
             else if (str == "Direct Equity")
             {
+                Session["IsDashboard"] = "DirectEquity";
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewEquityPortfolios','none');", true);
                 else
@@ -696,6 +711,7 @@ namespace WealthERP.Advisor
                 else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('LiabilityView','none');", true);
             }
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
 
         }
 
