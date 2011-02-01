@@ -905,5 +905,42 @@ namespace BoFPSuperlite
             return dsGetUnmanagedManagedDetailsForFP;
         }
 
+
+        /// <summary>
+        /// To get All the Prospect custoomers for perticular RMId.
+        /// </summary>
+        /// Vinayak Patil
+        /// <param name="RmId"></param>
+        /// <returns></returns>
+        public DataSet GetAllProspectCustomersForRM(int RmId)
+        {
+            CustomerProspectDao customerprospectdao = new CustomerProspectDao();
+            DataSet dsGetAllProspectCustomersForRM = new DataSet();
+            try
+            {
+                dsGetAllProspectCustomersForRM = customerprospectdao.GetAllProspectCustomersForRM(RmId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectBo.cs:GetFPCurrentAndRecomondedAssets()");
+                object[] objects = new object[3];
+                objects[0] = RmId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAllProspectCustomersForRM;
+
+        }
+
+
     }
 }
