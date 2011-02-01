@@ -356,7 +356,7 @@
             <tr>
                 <td>
                     <div style="display: inline">
-                        <asp:TextBox runat="server" ID="txtFindAdviserCustomer" Style="width: 110px" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchCustomer');" />
+                        <asp:TextBox runat="server" ID="txtFindAdviserCustomer" Style="width: 110px" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchAdviserCustomer');" />
                         <cc1:TextBoxWatermarkExtender ID="txtFindAdviserCustomer_TextBoxWatermarkExtender"
                             runat="server" TargetControlID="txtFindAdviserCustomer" WatermarkText="Find Customer">
                         </cc1:TextBoxWatermarkExtender>
