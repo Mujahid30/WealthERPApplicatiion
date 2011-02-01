@@ -50,6 +50,15 @@ namespace WealthERP.FP {
         protected global::Telerik.Web.UI.RadToolBar aplToolBar;
         
         /// <summary>
+        /// btnEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadToolBarButton btnEdit;
+        
+        /// <summary>
         /// msgRecordStatus control.
         /// </summary>
         /// <remarks>
@@ -66,6 +75,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
+        
+        /// <summary>
+        /// summeryTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTab summeryTab;
         
         /// <summary>
         /// RadInputManager1 control.

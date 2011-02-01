@@ -36,9 +36,11 @@ namespace WealthERP.FP
         AdvisorVo advisorVo = new AdvisorVo();
         RMVo rmVo = new RMVo();
         DataRow dr;
+        int ParentCustomerId = 0;
 
         //For Edit 
         int totalRecordsCount;
+        BoFPSuperlite.CustomerProspectBo customerProspectBo = new CustomerProspectBo();
         protected void Page_Init()
         {
 
@@ -52,7 +54,7 @@ namespace WealthERP.FP
             {
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 txtWERPDirectEquityM.Attributes.Add("onChange", "javascript:SubTotal(this);");
-
+                
                 if (!IsPostBack)
                 {
                     dt = new DataTable();
@@ -233,6 +235,7 @@ namespace WealthERP.FP
             }
 
         }
+        
         protected void DisablingControls()
         {
             pnlExpense.Enabled = false;
@@ -502,18 +505,13 @@ namespace WealthERP.FP
 
         protected void aplToolBar_ButtonClick(object sender, RadToolBarEventArgs e)
         {
-            //if (e.Item.Value == "Back")
-            //{
-            //    if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
-            //    {
-            //        Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
-            //    }
-            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
-            //}
             if (e.Item.Value == "Edit")
             {
-                Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                //if (RadTabStrip1.TabIndex != 0)
+                //{
+                    Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                //}
             }
             if (e.Item.Value == "Synchronize")
             {
@@ -522,8 +520,14 @@ namespace WealthERP.FP
                 if (advisorvo != null)
                 {
                     ManagedUnmanagedDetails(customerId, advisorvo.advisorId, 1);
+
+                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    ParentCustomerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                    Dictionary<string, object> Databuffer = customerProspectBo.Databuffer(ParentCustomerId);
+                    DataRetrival(Databuffer);
                 }
             }
+
         }
 
 
@@ -589,7 +593,7 @@ namespace WealthERP.FP
             userVo.Email = txtEmail.Text.ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
+            customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
             customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
             Session["Customer"] = "Customer";
             if (customerIds != null)
@@ -647,7 +651,7 @@ namespace WealthERP.FP
             userVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
+            customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
             List<int> customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
             if (customerIds != null)
             {
@@ -661,7 +665,7 @@ namespace WealthERP.FP
         }
         protected void btnCustomerProspect_Click(object sender, EventArgs e)
         {
-            int ParentCustomerId = 0;
+           
             int customerId = 0;
             bool bresult;
             bool bdetails;
@@ -673,7 +677,7 @@ namespace WealthERP.FP
             double instrumentTotal = 0.0;
             double subInstrumentTotal = 0.0;
             double groupTotal = 0.0;
-            BoFPSuperlite.CustomerProspectBo customerProspectBo = new CustomerProspectBo();
+            
 
             try
             {
@@ -1810,7 +1814,7 @@ namespace WealthERP.FP
             userVo.Email = txtEmail.Text.ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
+            customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
             customerBo.UpdateCustomer(customerVo);
             Session["Customer"] = "Customer";
 
@@ -1855,7 +1859,7 @@ namespace WealthERP.FP
             customerVo.Email = drChildCustomer["EmailId"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolioUnmanaged";
+            customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
             customerBo.UpdateCustomer(customerVo);
             Session["Customer"] = "Customer";
             if (drChildCustomer["C_CustomerId"] != null)
@@ -2242,22 +2246,30 @@ namespace WealthERP.FP
                         totalasset += cpasd.Value;
 
                     }
-                    txtAssets.Text = totalasset.ToString();
-                    txtIncome.Text = totalincome.ToString();
-                    txtExpense.Text = totalexpense.ToString();
-                    txtLiabilities.Text = totalliabilities.ToString();
-                    txtLifeInsurance.Text = totalli.ToString();
-                    txtGeneralInsurance.Text = totalgi.ToString();
+                   
 
-                    txtAssetTotal.Text = totalasset.ToString();
-                    txtIncomeTotal.Text = totalincome.ToString();
-                    txtExpenseTotal.Text = totalexpense.ToString();
-                    txtTotalLO.Text = totalliabilities.ToString();
-                    txtTotalLISA.Text = totalli.ToString();
-                    txtTotalGISA.Text = totalgi.ToString();
+                    //txtAssetTotal.Text = totalasset.ToString();
+                    //txtIncomeTotal.Text = totalincome.ToString();
+                    //txtExpenseTotal.Text = totalexpense.ToString();
+                    //txtTotalLO.Text = totalliabilities.ToString();
+                    //txtTotalLISA.Text = totalli.ToString();
+                    //txtTotalGISA.Text = totalgi.ToString();
 
                 }
             }
+            txtAssets.Text = totalasset.ToString();
+            txtIncome.Text = totalincome.ToString();
+            txtExpense.Text = totalexpense.ToString();
+            txtLiabilities.Text = totalliabilities.ToString();
+            txtLifeInsurance.Text = totalli.ToString();
+            txtGeneralInsurance.Text = totalgi.ToString();
+
+            txtAssetTotal.Text = totalasset.ToString();
+            txtIncomeTotal.Text = totalincome.ToString();
+            txtExpenseTotal.Text = totalexpense.ToString();
+            txtTotalLO.Text = totalliabilities.ToString();
+            txtTotalLISA.Text = totalli.ToString();
+            txtTotalGISA.Text = totalgi.ToString();
 
         }
 

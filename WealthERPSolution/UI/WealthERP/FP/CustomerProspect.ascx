@@ -1,5 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerProspect.ascx.cs"
-    EnableViewState="false" Inherits="WealthERP.FP.CustomerProspect"  %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" CodeBehind="CustomerProspect.ascx.cs"
+     Inherits="WealthERP.FP.CustomerProspect"  %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
 <script type="text/javascript">
@@ -217,8 +217,8 @@
             alert('Please Fill Date of Birth');
         }
     }
-    
 </script>
+
 
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
@@ -230,7 +230,7 @@
     Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
     Width="100%" Visible="false">
     <Items>
-        <telerik:RadToolBarButton runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
+        <telerik:RadToolBarButton ID="btnEdit" runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
             ImagePosition="Left" ToolTip="Edit">            
         </telerik:RadToolBarButton>
         <telerik:RadToolBarButton runat="server" Text="Synchronize" Value="Synchronize" ImageUrl="~/Images/Telerik/Synchronize.png"
@@ -248,15 +248,19 @@
         </td>
     </tr>
 </table>
+
+
+
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
-    EnableEmbeddedSkins="false" MultiPageID="CustomerProspectMultiPage" SelectedIndex="1"
-    Orientation="HorizontalTop" ReorderTabsOnSelect="false">
+    EnableEmbeddedSkins="False" MultiPageID="CustomerProspectMultiPage" 
+    SelectedIndex="5">
     <Tabs>
-        <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Summary.gif" Text="Summary"
-            Value="Summary">
+        <telerik:RadTab ID="summeryTab" runat="server" PostBack="true" TabIndex="0" 
+            ImageUrl="/Images/Telerik/FP/Summary.gif" Text="Summary"
+            Value="Summary" ToolTip="Summery"> 
         </telerik:RadTab>
-        <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Investment.gif" Text="Investment"
-            Value="Investment" Selected="True">
+        <telerik:RadTab runat="server" TabIndex="1" PostBack="true" ImageUrl="/Images/Telerik/FP/Investment.gif" Text="Investment"
+            Value="Investment">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Income.gif" Text="Income"
             Value="Income">
@@ -268,7 +272,7 @@
             Value="Liabilities">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/LifeInsurance.gif" Text="Life Insurance"
-            Value="LifeInsurance">
+            Value="LifeInsurance" Selected="True">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/GeneralInsurance.gif"
             Text="General Insurance" Value="General Insurance">
@@ -281,6 +285,7 @@
         <TargetControls>
             <telerik:TargetInput ControlID="txtFirstName" />
             <telerik:TargetInput ControlID="txtEmail" />
+            <telerik:TargetInput ControlID="txtPanNumber" />
         </TargetControls>
         <Validation IsRequired="True"></Validation>
     </telerik:TextBoxSetting>
@@ -455,7 +460,8 @@
 <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Telerik"
     EnableEmbeddedSkins="false">
 </telerik:RadAjaxLoadingPanel>
-<telerik:RadMultiPage ID="CustomerProspectMultiPage" runat="server" SelectedIndex="1">
+<telerik:RadMultiPage ID="CustomerProspectMultiPage" runat="server" 
+    SelectedIndex="5">
     <telerik:RadPageView ID="RadPageView1" runat="server">
         <asp:Panel ID="pnlSummary" runat="server">
             <table width="100%">
@@ -498,6 +504,8 @@
                                         <DateInput DateFormat="M/d/yyyy" DisplayDateFormat="d/M/yyyy">
                                         </DateInput>
                                     </telerik:RadDatePicker>
+                                   
+                                    
                                     <span id="Span10" class="spnRequiredField">*</span>
                                 </td>
                                 <td align="right">
@@ -1159,7 +1167,7 @@
                         <table width="60%">
                         <tr>
                         <td colspan="4">
-                        <asp:Label ID="lblincomenote" runat="server" Text="Note: All Income Details should be entered for monthly" CssClass="Error"></asp:Label>
+                        <asp:Label ID="lblincomenote" runat="server" Text="Note: Please Enter Monthly Income Details." Font-Size="Medium" CssClass="cmbField"></asp:Label>
                         </td>
                         </tr>
                             <tr>
@@ -1234,7 +1242,7 @@
                         <table width="60%">
                          <tr>
                         <td colspan="4">
-                        <asp:Label ID="lblexpensenote" runat="server" Text="Note: All Expense Details should be entered for monthly" CssClass="Error"></asp:Label>
+                        <asp:Label ID="lblexpensenote" runat="server" Text="Note: Please Enter Monthly Expense Details." Font-Size="Medium" CssClass="cmbField"></asp:Label>
                         </td>
                             <tr>
                                 <td align="right">
@@ -1388,7 +1396,7 @@
                             </tr>
                             <tr>
                                 <td align="right">
-                                    <asp:Label ID="lblPersonalLoan" runat="server" Text="Perosnal Loan : " CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblPersonalLoan" runat="server" Text="Personal Loan : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtWERPPersonalLoan" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
@@ -1776,7 +1784,7 @@
     </telerik:RadPageView>
 </telerik:RadMultiPage>
 <asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click"
-    OnClientClick="DateCheck()" Text="Save" Style="height: 26px" />
+    ValidationGroup="btnCustProsp" Text="Save" Style="height: 26px" />
 <asp:HiddenField ID="totalIncome" runat="server" />
 <asp:HiddenField ID="totalExpense" runat="server" />
 <asp:HiddenField ID="totalLiabilities" runat="server" />
