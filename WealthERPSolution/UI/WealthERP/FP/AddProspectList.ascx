@@ -7,7 +7,7 @@
 <script type="text/javascript">
     function DateCheck() {
         if (document.getElementById("<%=dpDOB.ClientID%>").value == "") {
-            alert("Please fill values");
+            alert("Please fill DOB");
             return false;
         }
     }
@@ -153,12 +153,16 @@
             </td>
             <td align="left">
                 <asp:TextBox ID="txtPinCode" runat="server" Text="" MaxLength="6" />
+                <asp:RegularExpressionValidator id="RegExpValforPincode" ControlToValidate="txtPinCode" ValidationExpression="\d+" Display="Static" EnableClientScript="true" 
+                    ErrorMessage="Please enter numbers only" Font-Size="11px" runat="server"/>
             </td>
             <td align="right">
                 <asp:Label ID="lblMobileNo" runat="server" Text="MobileNo : " CssClass="FieldName"></asp:Label>
             </td>
             <td align="left">
                 <asp:TextBox ID="txtMobileNo" runat="server" Text="" MaxLength="10" />
+                   <asp:RegularExpressionValidator id="RegExpValforMobNo" ControlToValidate="txtMobileNo" ValidationExpression="\d+" Display="Static" EnableClientScript="true" 
+                    ErrorMessage="Please enter numbers only" Font-Size="11px" runat="server"/>  
             </td>
             <td align="right">
                 <asp:Label ID="lblProspectAddDate" runat="server" Text="Prospect Add Date : " CssClass="FieldName"></asp:Label>
