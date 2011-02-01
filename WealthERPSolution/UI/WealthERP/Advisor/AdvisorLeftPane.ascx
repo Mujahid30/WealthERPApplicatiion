@@ -37,9 +37,8 @@
             <tr>
                 <td valign="top">
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
-                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="240px" 
-                        OnItemClick="RadPanelBar1_ItemClick" AllowCollapseAllItems="True" 
-                        ExpandMode="SingleExpandedItem">
+                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="240px" OnItemClick="RadPanelBar1_ItemClick"
+                        AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Admin" Value="Admin">
                                 <Items>
@@ -89,23 +88,7 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Association" Value="Customer Association">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF" Value="MF">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="MF Folios" Value="MF Folios">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Transactions" Value="View MF Transactions">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add MF Transactions">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="View Transactions" Value="View EQ Transactions">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
+                                            <telerik:RadPanelItem runat="server" Text="MF Folios" Value="MF Folios">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -115,7 +98,23 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF Commission MIS" Value="MF Commission MIS">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF" Value="MF">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="View Transactions" Value="View MF Transactions">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add MF Transactions">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="View Transactions" Value="View EQ Transactions">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add EQ Transactions">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Loan MIS" Value="Loan MIS">
                                             </telerik:RadPanelItem>
@@ -190,11 +189,7 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Prospect List" Value="Prospect List">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Manage Group Account" Value="Manage Group Account">
                                                 <Items>
@@ -212,21 +207,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Alert Notifications" Value="Alert Notifications">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF" Value="MF">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="View MF Transactions" Value="View MF Transactions">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add MF Transactions" Value="Add MF Transactions">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="View Equity Transactions" Value="View EQ Transactions">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Equity Transactions" Value="Add EQ Transactions">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
+                                            <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Loan" Value="Loan">
                                                 <Items>
@@ -243,23 +224,29 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Customer/Prospect MIS" Value="Prospect List">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF MIS" Value="MF MIS">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF Transactions" Value="MF">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="View MF Transactions" Value="View MF Transactions">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Add MF Transactions" Value="Add MF Transactions">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Loan MIS" Value="Loan MIS">
-                                            </telerik:RadPanelItem>
-                                        </Items>
-                                    </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Operations" Value="Operations">
-                                        <Items>
-                                            <telerik:RadPanelItem runat="server" Text="SMS" Value="SMS">
+                                            <telerik:RadPanelItem runat="server" Text="Equity Transactions" Value="Equity">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Alert SMS" Value="Alert SMS" Visible="false">
+                                                    <telerik:RadPanelItem runat="server" Text="View Equity Transactions" Value="View EQ Transactions">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
+                                                    <telerik:RadPanelItem runat="server" Text="Add Equity Transactions" Value="Add EQ Transactions">
                                                     </telerik:RadPanelItem>
                                                 </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Loan MIS" Value="Loan MIS">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -360,7 +347,8 @@
                         <cc1:TextBoxWatermarkExtender ID="txtFindAdviserCustomer_TextBoxWatermarkExtender"
                             runat="server" TargetControlID="txtFindAdviserCustomer" WatermarkText="Find Customer">
                         </cc1:TextBoxWatermarkExtender>
-                        <asp:Button ID="btnSearchAdviserCustomer" runat="server" CssClass="SearchButton" OnClientClick="javascript:callSearchControl('AdviserCustomer');return false;" />
+                        <asp:Button ID="btnSearchAdviserCustomer" runat="server" CssClass="SearchButton"
+                            OnClientClick="javascript:callSearchControl('AdviserCustomer');return false;" />
                     </div>
                 </td>
             </tr>
@@ -368,8 +356,8 @@
                 <td>
                     <div style="display: inline">
                         <asp:TextBox runat="server" ID="txtFindRMCustomer" Style="width: 110px" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchRMCustomer');" />
-                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1"
-                            runat="server" TargetControlID="txtFindRMCustomer" WatermarkText="Find Customer">
+                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtFindRMCustomer"
+                            WatermarkText="Find Customer">
                         </cc1:TextBoxWatermarkExtender>
                         <asp:Button ID="btnSearchRMCustomer" runat="server" CssClass="SearchButton" OnClientClick="javascript:callSearchControl('RMCustomer');return false;" />
                     </div>
