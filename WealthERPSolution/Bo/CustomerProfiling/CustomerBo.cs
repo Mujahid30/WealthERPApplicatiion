@@ -1257,6 +1257,20 @@ namespace BoCustomerProfiling
             }
             return result;
         }
+        public int GetCustomerGroupHead(int customerId)
+        {
+            int result ;
+
+            CustomerDao customerDao = new CustomerDao();
+           
+            {
+
+                result = customerDao.GetCustomerGroupHead(customerId);
+
+            }
+            return result;
+
+        }
         //FP SuperLite Related Functions
         //===================================================================================================================================
 
