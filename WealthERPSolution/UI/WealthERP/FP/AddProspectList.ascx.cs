@@ -907,7 +907,7 @@ namespace WealthERP.FP
                 {
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                 }
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
             }
             else if (e.Item.Value == "Edit")
             {
