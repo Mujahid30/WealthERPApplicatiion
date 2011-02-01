@@ -160,6 +160,83 @@ namespace WealthERP.Advisor
                         RadPanelBar1.FindItemByValue("Alerts").Expanded = true;
                         //Session["IsDashboard"] = "false";
                     }
+                    else if (IsDashboard == "MFAssets")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("MF").Selected = true;
+                        RadPanelBar1.FindItemByValue("MF").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "FixedIncome")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Fixed Income").Selected = true;
+                        RadPanelBar1.FindItemByValue("Fixed Income").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "GovtSavings")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Govt Savings").Selected = true;
+                        RadPanelBar1.FindItemByValue("Govt Savings").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "Property")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Property").Selected = true;
+                        RadPanelBar1.FindItemByValue("Property").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "PensionGratuities")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Pension and Gratuities").Selected = true;
+                        RadPanelBar1.FindItemByValue("Pension and Gratuities").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "PersonalItems")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Personal Assets").Selected = true;
+                        RadPanelBar1.FindItemByValue("Personal Assets").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "Gold")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Gold Assets").Selected = true;
+                        RadPanelBar1.FindItemByValue("Gold Assets").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "Collectibles")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Collectibles").Selected = true;
+                        RadPanelBar1.FindItemByValue("Collectibles").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "CashandSavings")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Cash and Savings").Selected = true;
+                        RadPanelBar1.FindItemByValue("Cash and Savings").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "DirectEquity")
+                    {
+                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Equity").Selected = true;
+                        RadPanelBar1.FindItemByValue("Equity").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
+                    else if (IsDashboard == "BankDetails")
+                    {
+                        RadPanelBar1.FindItemByValue("Profile Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Bank Details").Selected = true;
+                        RadPanelBar1.FindItemByValue("Bank Details").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
                     else
                     {
                         RadPanelBar1.CollapseAllItems();
