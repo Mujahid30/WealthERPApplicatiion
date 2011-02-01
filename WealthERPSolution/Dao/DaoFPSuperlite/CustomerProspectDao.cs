@@ -1183,5 +1183,49 @@ namespace DaoFPSuperlite
             }
             return dsGetAllDetailsForCustomerProspect;
         }
+
+        /// <summary>
+        /// To get All the Prospect custoomers for perticular RMId.
+        /// </summary>
+        /// Vinayak Patil
+        /// <param name="RmId"></param>
+        /// <returns></returns>
+        public DataSet GetAllProspectCustomersForRM(int RmId)
+        {
+            Database db;
+            DbCommand getAllProspectCustomersForRMCmd;
+            DataSet dsGetAllProspectCustomersForRM = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAllProspectCustomersForRMCmd = db.GetStoredProcCommand("SP_GetAllProspectCustomersForRM");
+                if (RmId != 0)
+                    db.AddInParameter(getAllProspectCustomersForRMCmd, "@AR_RMId", DbType.Int32, RmId);
+
+                dsGetAllProspectCustomersForRM = db.ExecuteDataSet(getAllProspectCustomersForRMCmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectDao.cs:GetAllProspectCustomersForRM(int CustomerId)GetAllDetailsForCustomerProspect(int CustomerId)");
+                object[] objects = new object[3];
+                objects[0] = RmId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAllProspectCustomersForRM;
+        }
+        
     }
 }
