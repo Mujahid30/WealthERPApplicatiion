@@ -1676,6 +1676,20 @@ namespace WealthERP.Advisor
             this.BindGrid(mypager.CurrentPage, 0);
         }
 
+        protected void SetValue(object sender, EventArgs e)
+        {
+            DropDownList ddl = (DropDownList)sender;
+            if (hdnIsProspect.Value.ToString() == "")
+            {
+                ddl.SelectedValue = "2";
+            }
+            else
+                ddl.SelectedValue = hdnIsProspect.Value.ToString();
+
+
+        }
+
+
         protected void ddlParent_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlParent = GetParentDDL();

@@ -177,7 +177,7 @@
                             <HeaderTemplate>
                              <asp:Label ID="lblHeaderIsProspect" runat="server" Text="Is Prospect"></asp:Label>
                              <br />
-                             <asp:DropDownList ID="ddlIsProspect" runat="server" OnSelectedIndexChanged="ddlIsProspect_SelectedIndexChanged" AutoPostBack="true" CssClass="GridViewCmbField">
+                             <asp:DropDownList ID="ddlIsProspect" runat="server" OnPreRender="SetValue" OnSelectedIndexChanged="ddlIsProspect_SelectedIndexChanged" AutoPostBack="true" CssClass="GridViewCmbField">
                                     <asp:ListItem Text="All" Value="2">
                                     </asp:ListItem>
                                     <asp:ListItem Text="Yes" Value="1">
