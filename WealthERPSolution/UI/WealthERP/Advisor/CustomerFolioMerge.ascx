@@ -134,7 +134,7 @@
                             
                         </HeaderTemplate>
                         <ItemTemplate>
-                         <asp:LinkButton ID="hypFolioNo" runat="server" CssClass="GridViewCmbField" OnClick="hypFolioNo_Click" Text='<%# Eval("Count").ToString() %>'>
+                         <asp:LinkButton ID="hypFolioNo" runat="server" CssClass="CmbField" OnClick="hypFolioNo_Click" Text='<%# Eval("Count").ToString() %>'>
                          </asp:LinkButton>
                            <%-- <asp:Label ID="lblFolioCount" runat="server" Text='<%# Eval("Count").ToString() %>'></asp:Label>--%>
                         </ItemTemplate>
