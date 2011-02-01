@@ -147,7 +147,7 @@ namespace WealthERP
 
                 hdnNameFilter.Value = customer;
 
-                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnactive.Value, out genDictParent, out genDictCity);
+                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnactive.Value, hdnIsProspect.Value, out genDictParent, out genDictCity);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerList == null)
@@ -482,7 +482,7 @@ namespace WealthERP
                     int Count;
 
                     //advisorStaffBo.GetCustomerList(rmVo.RMId, "C").ToString();
-                    customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value.Trim(), hdnAreaFilter.Value.Trim(), hdnPincodeFilter.Value.Trim(), hdnParentFilter.Value.Trim(), hdnCityFilter.Value.Trim(), hdnactive.Value, out genDictParent, out genDictCity);
+                    customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value.Trim(), hdnAreaFilter.Value.Trim(), hdnPincodeFilter.Value.Trim(), hdnParentFilter.Value.Trim(), hdnCityFilter.Value.Trim(), hdnactive.Value, hdnIsProspect.Value, out genDictParent, out genDictCity);
                     lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 }
 
@@ -1285,6 +1285,29 @@ namespace WealthERP
             }
             this.BindGrid(mypager.CurrentPage,0);
         }
+
+        protected void ddlIsProspect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlIsProspectFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlIsProspect");
+
+            hdnIsProspect.Value = ddlIsProspectFilter.SelectedValue;
+
+            this.BindGrid(mypager.CurrentPage, 0);
+        }
+
+        protected void SetValue(object sender, EventArgs e)
+        {
+            DropDownList ddl = (DropDownList)sender;
+            if (hdnIsProspect.Value.ToString() == "")
+            {
+                ddl.SelectedValue = "2";
+            }
+            else
+                ddl.SelectedValue = hdnIsProspect.Value.ToString();
+
+
+        }
+
 
         protected void btnPrintGrid_Click(object sender, EventArgs e)
         {

@@ -141,7 +141,7 @@
 <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
  <table width="100%" cellspacing="0" cellpadding="0">
  <tr>
-            <td class="rightField" colspan="2">
+            <td class="rightField">
                 <asp:GridView ID="gvCustomers" runat="server" AutoGenerateColumns="False" CellPadding="4"
                     ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="CustomerId,UserId" OnSelectedIndexChanged="gvCustomers_SelectedIndexChanged"
                     AllowSorting="True" HorizontalAlign="Center" OnSorting="gvCustomers_Sort">
@@ -228,8 +228,28 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <%--<asp:BoundField DataField="IsProspect" HeaderText="Is Prospect" />--%>
-                        <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />
+                       <%-- <asp:BoundField DataField="IsFPClient" HeaderText="Is FPClient" />--%>
                         <%--<asp:BoundField DataField="Pincode" HeaderText="Pincode" />--%>
+                        
+                         <asp:TemplateField HeaderStyle-Wrap="false" HeaderText="Is Prospect" 
+                            ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                             <asp:Label ID="lblHeaderddlIsProspect" runat="server" Text="Is Prospect"></asp:Label>
+                             <br />
+                             <asp:DropDownList ID="ddlIsProspect" runat="server" OnPreRender="SetValue" OnSelectedIndexChanged="ddlIsProspect_SelectedIndexChanged" AutoPostBack="true" CssClass="GridViewCmbField">
+                                    <asp:ListItem Text="All" Value="2">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="1">
+                                    </asp:ListItem>
+                                    <asp:ListItem Text="No" Value="0">
+                                    </asp:ListItem>
+                             </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblddlIsProspect" runat="server" Text='<%# Eval("IsProspect").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        
                         <asp:TemplateField HeaderText="IsActive">
                             <ItemTemplate>
                                 <asp:Label ID="lblIsActive" runat="server" Text='<%#Eval("IsActive") %>'>
@@ -387,3 +407,4 @@
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnassociation" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnassociationcount" runat="server" />
+<asp:HiddenField ID="hdnIsProspect" runat="server" Visible="false" />
