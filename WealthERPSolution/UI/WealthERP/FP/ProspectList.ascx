@@ -15,9 +15,32 @@
     }
 </script>
 
+<script type="text/javascript">
+
+    var initialValue = 0.0;
+
+    function update(footerBox, changedBox) {
+        var footerBoxControl = document.getElementById(footerBox);
+        var changedBoxControl = document.getElementById(changedBox);
+
+        var tempValue = footerBoxControl.value - initialValue;
+
+        footerBoxControl.value = parseFloat(tempValue) + parseFloat(changedBoxControl.value);
+    }
+
+    function getInitialValue(changedBox) {
+        var changedBoxControl = document.getElementById(changedBox);
+        initialValue = parseFloat(changedBoxControl.value);
+    }  
+        
+    </script> 
+ 
+<style type="text/css">    
+
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Prospect List"></asp:Label>
 <hr />
 <table width="100%">
@@ -31,43 +54,38 @@
 </table>
 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="80%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
-<telerik:RadGrid ID="RadGrid1" runat="server" Width="100%" GridLines="None" AutoGenerateColumns="False"
-        PageSize="15" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
-        ShowStatusBar="True" OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
-        Skin="Telerik" EnableEmbeddedSkins="false" OnUpdateCommand="RadGrid1_UpdateCommand" OnItemDataBound="RadGrid1_ItemDataBound"
-        AllowFilteringByColumn="True" DataSourceID="SqlDataSource1" 
+<telerik:RadGrid ID="gvCustomerProspectlist" runat="server" Width="100%" GridLines="None" AutoGenerateColumns="False"
+        PageSize="15" AllowSorting="True" AllowPaging="True" <%--OnPreRender="gvCustomerProspectlist_PreRender" OnItemDataBound="gvCustomerProspectlist_ItemDataBound" --%>
+        ShowStatusBar="True" ShowFooter="true"
+        Skin="Telerik" EnableEmbeddedSkins="false" 
+        AllowFilteringByColumn="True" 
         AllowAutomaticInserts="false">
         <MasterTableView AllowMultiColumnSorting="True" Width="100%" AutoGenerateColumns="false"
-            DataSourceID="SqlDataSource1" DataKeyNames="C_CustomerId">
+            DataKeyNames="C_CustomerId">
             <CommandItemSettings ExportToPdfText="Export to Pdf" />
             <Columns>
-                <telerik:GridTemplateColumn UniqueName="comboProspectSelect" 
-                    AllowFiltering="false">
+               
+                <telerik:GridTemplateColumn UniqueName="Name" HeaderText="Name" >
+                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                    <HeaderTemplate>
+                       <asp:Label ID="lblNAme" runat="server" Text="Name"></asp:Label>
+                    </HeaderTemplate>
                     <ItemTemplate>
-                        <telerik:RadComboBox Skin="Telerik" EnableEmbeddedSkins="false" ID="ddlProspectList" AutoPostBack="true" runat="server" HighlightTemplatedItems="true"
-                            OnSelectedIndexChanged="ddlProspectList_OnSelectedIndexChanged">
-                            <Items>
-                                <telerik:RadComboBoxItem Text="-Select-" Value="-Select-" />
-                                <%--<telerik:RadComboBoxItem ImageUrl="../Images/Telerik/FP/DashBoard.png" Text="FPDashboard"
-                                    Value="FPDashBoard" />--%>
-                                <telerik:RadComboBoxItem ImageUrl="/Images/Telerik/FP/DashBoard.png" Text="Financial Profile"
-                                    Value="FinancialPlanning" />
-                                <telerik:RadComboBoxItem ImageUrl="/Images/Telerik/View.gif" Text="View Profile"
-                                    Value="ViewProfile" />
-                            </Items>
-                        </telerik:RadComboBox>
+                        <asp:LinkButton ID="lnkbtnGvProspectListName" style="float: left" runat="server" OnClick="lnkbtnGvProspectListName_Click"
+                        Text='<%# Eval("Name").ToString() %>'></asp:LinkButton>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn DataField="Name" HeaderText="Name" SortExpression="Name" 
+               
+                <%--<telerik:GridBoundColumn DataField="Name" HeaderText="Name" SortExpression="Name" 
                     UniqueName="Name">
                     <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>--%>
+                
+                <telerik:GridBoundColumn DataField="IsProspect" HeaderText="Is Prospect" SortExpression="IsProspect" 
+                    UniqueName="IsProspect">
+                    <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-               
-               <%-- <telerik:GridDateTimeColumn UniqueName="DOB" PickerType="DatePicker" HeaderText="Date of Birth"
-                    HeaderStyle-HorizontalAlign="Center" DataField="C_DOB" FooterText="DateTimeColumn footer"
-                    DataFormatString="{0:dd/MM/yyyy}" EditDataFormatString="dd MMMM, yyyy">
-                    <ItemStyle Width="120px" />
-                </telerik:GridDateTimeColumn>--%>
+              
                 <telerik:GridBoundColumn DataField="C_Email" HeaderText="Email" SortExpression="C_Email"
                      UniqueName="C_Email">
                  <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
@@ -82,10 +100,18 @@
                     UniqueName="Address"  >
                     <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn DataField="Asset" HeaderText="Asset" SortExpression="Asset"
-                     UniqueName="Asset">
-                     <ItemStyle Width="" HorizontalAlign="Right" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                
+                <telerik:GridTemplateColumn UniqueName="Asset" HeaderText="Asset" >
+                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                    <ItemTemplate>
+                        <asp:Label ID="lblAsset" runat="server" CssClass="CmbField" Text='<%# Eval("Asset").ToString() %>'></asp:Label>
+                    </ItemTemplate>
+                    
+                    <FooterTemplate>
+                        <asp:Label ID="lblTotalAssets" runat="server" CssClass="CmbField" Text=""></asp:Label>
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+                
                  <telerik:GridBoundColumn DataField="Liabilities" HeaderText="Liabilities" SortExpression="Liabilities"
                     UniqueName="Liabilities">
                      <ItemStyle Width="" HorizontalAlign="Right" VerticalAlign="Top" />
@@ -95,12 +121,17 @@
                     UniqueName="Networth">
                      <ItemStyle Width="" HorizontalAlign="Right" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                
+                
             </Columns>
+                
         </MasterTableView>
+        
         <ClientSettings>
             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
         </ClientSettings>
     </telerik:RadGrid>
+    </telerik:RadAjaxPanel>
 <%--    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"
         SelectCommand="SELECT [C_DOB], [C_Email], [C_FirstName], [C_CustomerId],[C_Mobile1],[C_Adr1Line1]+','+[C_Adr1Line2]+','+[C_Adr1Line3] AS Address FROM [Customer] WHERE (([C_IsProspect] = @C_IsProspect) AND [AR_RMId]=@AR_RMId)">
         <SelectParameters>
@@ -109,7 +140,7 @@
              <asp:Parameter Name="AR_RMId" Type="Int32" />           
         </SelectParameters>
     </asp:SqlDataSource>--%>
-      <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"
+      <%--<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"
         SelectCommand="SELECT A.C_CustomerId, A.C_FirstName+' '+A.C_MiddleName+' '+A.C_LastName AS Name
 ,A.C_Email
 ,A.C_Mobile1
@@ -125,7 +156,6 @@ FROM dbo.Customer A
             <asp:Parameter DefaultValue="1" Name="C_IsFPClient" Type="Int32" />   
              <asp:Parameter Name="AR_RMId" Type="Int32" />           
         </SelectParameters>
-    </asp:SqlDataSource>
+    </asp:SqlDataSource>--%>
     <%--    <asp:SqlDataSource ID="SqlDataSourceCustomerRelation" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"
         SelectCommand="SP_GetCustomerRelation" SelectCommandType="StoredProcedure"></asp:SqlDataSource>--%>
-</telerik:RadAjaxPanel>
