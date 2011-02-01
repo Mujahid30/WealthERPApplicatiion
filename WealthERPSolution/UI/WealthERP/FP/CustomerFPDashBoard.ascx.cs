@@ -149,7 +149,8 @@ namespace WealthERP.Customer
 
             if (dsFPAssetsAndLiabilitesDetails.Tables[0].Rows.Count > 0)
             {
-                
+                lblChartBranchAUM.Visible = true;
+                hrCustAsset.Visible = true;
                 ErrorMessage.Visible = false;
                 drChvalues = branchAumDT.Rows[0];
                 for (int i = 0; i < branchAumDT.Columns.Count - 1; i++)
@@ -184,6 +185,7 @@ namespace WealthERP.Customer
                     ChartBranchAssets.Legends["BranchAssetsLegends"].Alignment = StringAlignment.Center;
                     ChartBranchAssets.Legends["BranchAssetsLegends"].TitleSeparator = LegendSeparatorStyle.GradientLine;
                     ChartBranchAssets.Legends["BranchAssetsLegends"].TitleSeparatorColor = Color.Black;
+                    //ChartBranchAssets.Legends["BranchAssetsLegends"].AutoFitMinFontSize
                     ChartBranchAssets.Series[0]["PieLabelStyle"] = "Outside";
                     ChartBranchAssets.Series[0]["PieStartAngle"] = "10";
                     ChartArea chartArea1 = ChartBranchAssets.ChartAreas[0];
@@ -220,7 +222,8 @@ namespace WealthERP.Customer
             }
             else
             {
-                
+                lblChartBranchAUM.Visible = false;
+                hrCustAsset.Visible = false;
                 ErrorMessage.Visible = true;
                 ChartBranchAssets.DataSource = null;
                 ChartBranchAssets.Visible = false;

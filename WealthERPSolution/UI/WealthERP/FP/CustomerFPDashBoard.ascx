@@ -79,7 +79,7 @@
                </td>
                <td >
                 <asp:Chart ID="ChartBranchAssets" runat="server" BackColor="Transparent"
-                     Width="400px" Height="200px"  >
+                     Width="400px" Height="250px"  >
                     <Series>
                         <asp:Series Name="seriesBranchAssets" LabelBackColor="Red" ChartType="Pie" 
                             LegendText="#VALX" YValueType="Double">  
@@ -95,6 +95,8 @@
      
                 </td>
             </tr>
+            </table>
+            <table style="width: 100%;">
             <tr>
                 <td align="left">
            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Current Asset Allocation"></asp:Label>
@@ -116,7 +118,7 @@
                                         <br />
             
             <asp:Chart ID="ChartCurrentAsset" runat="server" BackColor="Transparent"
-                    Width="400px" Height="200px"  >
+                    Width="400px" Height="250px"  >
                     <Series>
                         <asp:Series Name="sActualAsset" ChartArea="caActualAsset" LabelBackColor="Red" ChartType="Pie" 
                              LegendText="#VALX" YValueType="Double">  
@@ -138,7 +140,7 @@
                                         <br />
             
              <asp:Chart ID="ChartRecomonedAsset" runat="server" BackColor="Transparent"
-                     Width="400px" Height="200px"  >
+                     Width="400px" Height="250px"  >
                     <Series>
                         <asp:Series Name="sActualAsset" ChartArea="caActualAsset" LabelBackColor="Red" ChartType="Pie" 
                             LegendText="#VALX" YValueType="Double">  
