@@ -260,7 +260,7 @@
             Value="Summary" ToolTip="Summery"> 
         </telerik:RadTab>
         <telerik:RadTab runat="server" TabIndex="1" PostBack="true" ImageUrl="/Images/Telerik/FP/Investment.gif" Text="Investment"
-            Value="Investment">
+            Value="Investment" Selected="True">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Income.gif" Text="Income"
             Value="Income">
@@ -272,7 +272,7 @@
             Value="Liabilities">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/LifeInsurance.gif" Text="Life Insurance"
-            Value="LifeInsurance" Selected="True">
+            Value="LifeInsurance">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/GeneralInsurance.gif"
             Text="General Insurance" Value="General Insurance">
@@ -1167,7 +1167,7 @@
                         <table width="60%">
                         <tr>
                         <td colspan="4">
-                        <asp:Label ID="lblincomenote" runat="server" Text="Note: Please Enter Monthly Income Details." Font-Size="Medium" CssClass="cmbField"></asp:Label>
+                        <asp:Label ID="lblincomenote" runat="server" Text="Note: Please Enter Monthly Income Details." Font-Size="Small" CssClass="cmbField"></asp:Label>
                         </td>
                         </tr>
                             <tr>
@@ -1242,7 +1242,7 @@
                         <table width="60%">
                          <tr>
                         <td colspan="4">
-                        <asp:Label ID="lblexpensenote" runat="server" Text="Note: Please Enter Monthly Expense Details." Font-Size="Medium" CssClass="cmbField"></asp:Label>
+                        <asp:Label ID="lblexpensenote" runat="server" Text="Note: Please Enter Monthly Expense Details." Font-Size="Small" CssClass="cmbField"></asp:Label>
                         </td>
                             <tr>
                                 <td align="right">
