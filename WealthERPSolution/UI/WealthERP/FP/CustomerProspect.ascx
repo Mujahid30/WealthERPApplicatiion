@@ -253,7 +253,7 @@
 
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="CustomerProspectMultiPage" 
-    SelectedIndex="5">
+    SelectedIndex="1">
     <Tabs>
         <telerik:RadTab ID="summeryTab" runat="server" PostBack="true" TabIndex="0" 
             ImageUrl="/Images/Telerik/FP/Summary.gif" Text="Summary"
@@ -461,7 +461,7 @@
     EnableEmbeddedSkins="false">
 </telerik:RadAjaxLoadingPanel>
 <telerik:RadMultiPage ID="CustomerProspectMultiPage" runat="server" 
-    SelectedIndex="5">
+    SelectedIndex="1">
     <telerik:RadPageView ID="RadPageView1" runat="server">
         <asp:Panel ID="pnlSummary" runat="server">
             <table width="100%">
