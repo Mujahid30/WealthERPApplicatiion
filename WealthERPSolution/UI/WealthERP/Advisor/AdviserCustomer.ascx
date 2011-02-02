@@ -60,6 +60,40 @@
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer List"></asp:Label>
+                                <hr />
+        </td>
+    </tr>
+</table>
+<table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
+    visible="false">
+    <tr>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage1" runat="server" visible="true" align="center">
+                No Records found.....
+            </div>
+        </td>
+    </tr>
+</table>
+<table id="tblExport" class="TableBackground" width="100%" runat="server" cellpadding="0" cellspacing="0">
+    <tr>
+        <td width="50%" align="left">
+        <asp:ImageButton ID="imgBtnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" />
+        </td>
+        <td width="50%" align="left">
+        
+            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+       
+        </td>
+    </tr>
+</table>
+<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">      
+        
+        <tr>
+            <td class="rightField" width="100%">
                 <asp:GridView ID="gvCustomers" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                     CellPadding="4" CssClass="GridViewStyle" DataKeyNames="CustomerId,UserId,RMId"
                     OnSelectedIndexChanged="gvCustomers_SelectedIndexChanged" OnSorting="gvCustomers_Sort"
@@ -231,7 +265,7 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-            <hr />
+            <%--<hr />
         </td>
     </tr>
 </table>
@@ -264,7 +298,7 @@
     <table width="100%" cellspacing="0" cellpadding="0">      
         
         <tr>
-            <td class="rightField" width="100%">
+            <td class="rightField" width="100%">--%>
                 &nbsp;</td>
         </tr>        
     </table>
