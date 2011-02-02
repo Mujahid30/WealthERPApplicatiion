@@ -53,8 +53,10 @@ namespace WealthERP.CustomerPortfolio
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-                userType = Session["UserType"].ToString().ToLower();
-                if (userType == "rm")
+
+                userType = Session[SessionContents.CurrentUserRole].ToString();
+               // userType = Session["UserType"].ToString().ToLower();
+                if (userType == "RM")
                 {
                     txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                     txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
@@ -219,14 +221,14 @@ namespace WealthERP.CustomerPortfolio
             int Count = 0;
             totalAmount = 0;
             totalUnits = 0;
-            userType = Session["UserType"].ToString().ToLower();
+            //userType = Session["UserType"].ToString().ToLower();
             try
             {//pramod
                 if (ExportGridView == 1)
                 {
                     if (rbtnGroup.Checked)
                     {
-                        if (userType == "rm")
+                        if (userType == "RM")
                         {
                             mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, 5000, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
                         }
@@ -239,7 +241,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else
                     {
-                        if (userType == "rm")
+                        if (userType == "RM")
                         {
                             mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, 5000, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
                         }
@@ -256,7 +258,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     if (rbtnGroup.Checked)
                     {
-                        if (userType == "rm")
+                        if (userType == "RM")
                         {
                             mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
                         }
@@ -270,7 +272,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else
                     {
-                        if (userType == "rm")
+                        if (userType == "RM")
                         {
                             mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
                         }
@@ -474,7 +476,7 @@ namespace WealthERP.CustomerPortfolio
 
                 if (rbtnGroup.Checked)
                 {
-                    if (userType == "rm")
+                    if (userType == "RM")
                     {
                         mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
                     }
@@ -486,7 +488,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    if (userType == "rm")
+                    if (userType == "RM")
                     {
                         mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), hdnStatus.Value.Trim(), out genDictTranType, hdnFolioNumber.Value.Trim(), PasssedFolioValue, hdnCategory.Value.ToString(), int.Parse(hdnAMC.Value.ToString()), out genDictCategory, out genDictAMC);
                     }
