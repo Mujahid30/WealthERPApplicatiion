@@ -543,7 +543,9 @@ namespace WealthERP.Advisor
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
                 }
-                else 
+                else
+                {
+                }
                 //to check whether he is group head or not
                 isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
                 //to set portfolio Id and its details
