@@ -1933,6 +1933,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//SuperAdminConfiguration.ascx.
+        /// </summary>
+        internal static string SuperAdminConfiguration {
+            get {
+                return ResourceManager.GetString("SuperAdminConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SuperAdmin//SuperAdminLeftPane.ascx.
         /// </summary>
         internal static string SuperAdminLeftPane {
