@@ -15,27 +15,6 @@
     }
 </script>
 
-<script type="text/javascript">
-
-    var initialValue = 0.0;
-
-    function update(footerBox, changedBox) {
-        var footerBoxControl = document.getElementById(footerBox);
-        var changedBoxControl = document.getElementById(changedBox);
-
-        var tempValue = footerBoxControl.value - initialValue;
-
-        footerBoxControl.value = parseFloat(tempValue) + parseFloat(changedBoxControl.value);
-    }
-
-    function getInitialValue(changedBox) {
-        var changedBoxControl = document.getElementById(changedBox);
-        initialValue = parseFloat(changedBoxControl.value);
-    }  
-        
-    </script> 
- 
-<style type="text/css">    
 
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
@@ -54,19 +33,19 @@
 </table>
 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="80%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
-<telerik:RadGrid ID="gvCustomerProspectlist" runat="server" Width="100%" GridLines="None" AutoGenerateColumns="False"
-        PageSize="15" AllowSorting="True" AllowPaging="True" <%--OnPreRender="gvCustomerProspectlist_PreRender" OnItemDataBound="gvCustomerProspectlist_ItemDataBound" --%>
-        ShowStatusBar="True" ShowFooter="true"
+<telerik:RadGrid ID="gvCustomerProspectlist" runat="server" GridLines="None" AutoGenerateColumns="False"
+        PageSize="15" AllowSorting="True" AllowPaging="True" 
+        ShowStatusBar="True" ShowFooter="true" 
         Skin="Telerik" EnableEmbeddedSkins="false" 
         AllowFilteringByColumn="True" 
         AllowAutomaticInserts="false">
         <MasterTableView AllowMultiColumnSorting="True" Width="100%" AutoGenerateColumns="false"
-            DataKeyNames="C_CustomerId">
+            DataKeyNames="C_CustomerId" >
             <CommandItemSettings ExportToPdfText="Export to Pdf" />
             <Columns>
                
                 <telerik:GridTemplateColumn UniqueName="Name" HeaderText="Name" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" />
                     <HeaderTemplate>
                        <asp:Label ID="lblNAme" runat="server" Text="Name"></asp:Label>
                     </HeaderTemplate>
