@@ -1,0 +1,5 @@
+E:\FinancialCalculator\Wealth-ERP\Utility\bin\Debug\Utility.dll
+E:\FinancialCalculator\Wealth-ERP\Utility\bin\Debug\Utility.pdb
+E:\FinancialCalculator\Wealth-ERP\Utility\obj\Debug\ResolveAssemblyReference.cache
+E:\FinancialCalculator\Wealth-ERP\Utility\obj\Debug\Utility.dll
+E:\FinancialCalculator\Wealth-ERP\Utility\obj\Debug\Utility.pdb

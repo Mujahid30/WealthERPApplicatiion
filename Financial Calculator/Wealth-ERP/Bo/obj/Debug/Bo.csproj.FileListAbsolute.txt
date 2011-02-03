@@ -1,0 +1,12 @@
+E:\FinancialCalculator\Wealth-ERP\Bo\bin\Debug\Bo.dll
+E:\FinancialCalculator\Wealth-ERP\Bo\bin\Debug\Bo.pdb
+E:\FinancialCalculator\Wealth-ERP\Bo\bin\Debug\Dao.dll
+E:\FinancialCalculator\Wealth-ERP\Bo\bin\Debug\Microsoft.ApplicationBlocks.ExceptionManagement.dll
+E:\FinancialCalculator\Wealth-ERP\Bo\bin\Debug\Utility.dll
+E:\FinancialCalculator\Wealth-ERP\Bo\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+E:\FinancialCalculator\Wealth-ERP\Bo\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+E:\FinancialCalculator\Wealth-ERP\Bo\bin\Debug\Dao.pdb
+E:\FinancialCalculator\Wealth-ERP\Bo\bin\Debug\Utility.pdb
+E:\FinancialCalculator\Wealth-ERP\Bo\obj\Debug\ResolveAssemblyReference.cache
+E:\FinancialCalculator\Wealth-ERP\Bo\obj\Debug\Bo.dll
+E:\FinancialCalculator\Wealth-ERP\Bo\obj\Debug\Bo.pdb
