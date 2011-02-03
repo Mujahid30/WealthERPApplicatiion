@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Wealth-ERP", "..\Wealth-ERP", "{6E8DED97-B0B2-4D8D-8066-3D615755AB9D}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		TargetFramework = "3.5"
+		ProjectReferences = "{BBA3D7D1-1B95-4724-9A17-757602041217}|Calculator.dll;{FD8443F8-E455-41A5-AE48-E2A86A75D30D}|Bo.dll;{ABCEF8F0-C56A-4A5D-A515-CBC6E530AB5F}|Dao.dll;{72796907-4AFC-4EC7-97E9-35EF55CC3BD6}|Utility.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/Wealth-ERP"
+		Debug.AspNetCompiler.PhysicalPath = "..\Wealth-ERP\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Wealth-ERP\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Wealth-ERP"
+		Release.AspNetCompiler.PhysicalPath = "..\Wealth-ERP\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Wealth-ERP\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "1705"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bo", "Bo\Bo.csproj", "{FD8443F8-E455-41A5-AE48-E2A86A75D30D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dao", "Dao\Dao.csproj", "{ABCEF8F0-C56A-4A5D-A515-CBC6E530AB5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{72796907-4AFC-4EC7-97E9-35EF55CC3BD6}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
+		SccLocalPath0 = .
+		SccWebProject1 = true
+		SccProjectUniqueName1 = .
+		SccLocalPath1 = .
+		SccProjectEnlistmentChoice1 = 2
+		SccProjectUniqueName2 = Bo\\Bo.csproj
+		SccProjectName2 = Bo
+		SccLocalPath2 = Bo
+		SccProjectUniqueName3 = Dao\\Dao.csproj
+		SccProjectName3 = Dao
+		SccLocalPath3 = Dao
+		SccProjectUniqueName4 = Utility\\Utility.csproj
+		SccProjectName4 = Utility
+		SccLocalPath4 = Utility
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E8DED97-B0B2-4D8D-8066-3D615755AB9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E8DED97-B0B2-4D8D-8066-3D615755AB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E8DED97-B0B2-4D8D-8066-3D615755AB9D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E8DED97-B0B2-4D8D-8066-3D615755AB9D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{FD8443F8-E455-41A5-AE48-E2A86A75D30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD8443F8-E455-41A5-AE48-E2A86A75D30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD8443F8-E455-41A5-AE48-E2A86A75D30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD8443F8-E455-41A5-AE48-E2A86A75D30D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABCEF8F0-C56A-4A5D-A515-CBC6E530AB5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCEF8F0-C56A-4A5D-A515-CBC6E530AB5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCEF8F0-C56A-4A5D-A515-CBC6E530AB5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCEF8F0-C56A-4A5D-A515-CBC6E530AB5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72796907-4AFC-4EC7-97E9-35EF55CC3BD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72796907-4AFC-4EC7-97E9-35EF55CC3BD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72796907-4AFC-4EC7-97E9-35EF55CC3BD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72796907-4AFC-4EC7-97E9-35EF55CC3BD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

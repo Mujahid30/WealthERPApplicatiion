@@ -1,0 +1,473 @@
+
+General Information
+
+Additonal Info:
+Method: CalculatorBo.cs:DoCalculate()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:09:03
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: 88300655-1-129282251010312500
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Stack empty. ---> System.InvalidOperationException: Stack empty.
+   at System.Collections.Stack.Pop()
+   at FunctionParser.EvaluatePostfix()
+   at BoCalculator.CalculatorBo.DoCalculate(Int32 iInstrType, Int32 iInstrOPType, Hashtable hInputValues, String& sErrMsg, ArrayList& alErrorMsg)
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: CalculatorBo.cs:DoCalculate()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:09:40
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: 88300655-1-129282251010312500
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Stack empty. ---> System.InvalidOperationException: Stack empty.
+   at System.Collections.Stack.Pop()
+   at FunctionParser.EvaluatePostfix()
+   at BoCalculator.CalculatorBo.DoCalculate(Int32 iInstrType, Int32 iInstrOPType, Hashtable hInputValues, String& sErrMsg, ArrayList& alErrorMsg)
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: CalculatorBo.cs:DoCalculate()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:10:13
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: 88300655-1-129282251010312500
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Stack empty. ---> System.InvalidOperationException: Stack empty.
+   at System.Collections.Stack.Pop()
+   at FunctionParser.EvaluatePostfix()
+   at BoCalculator.CalculatorBo.DoCalculate(Int32 iInstrType, Int32 iInstrOPType, Hashtable hInputValues, String& sErrMsg, ArrayList& alErrorMsg)
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:CalculateResult()
+Double.MinValue: -1.79769313486232E+308
+Double.MaxValue: 1.79769313486232E+308
+Double.Epsilon: 4.94065645841247E-324
+Double.NegativeInfinity: -Infinity
+Double.PositiveInfinity: Infinity
+Double.NaN: NaN
+ArrayList.Capacity: 0
+ArrayList.Count: 0
+ArrayList.IsFixedSize: False
+ArrayList.IsReadOnly: False
+ArrayList.IsSynchronized: False
+ArrayList.SyncRoot: System.Object
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:19:41
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129282257605625000
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Index was outside the bounds of the array. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at BoCalculator.CalculatorBo.DoCalculate(Int32 iInstrType, Int32 iInstrOPType, Hashtable hInputValues, String& sErrMsg, ArrayList& alErrorMsg) in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 323
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 535
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:btnCalculate_Click()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:19:41
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129282257605625000
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed. ---> System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at System.Resources.ResourceManager.GetString(String name)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.PublishInternalException(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(BaseApplicationException exception)
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 555
+   at UserControl_FinanceCalculator.btnCalculate_Click(Object sender, EventArgs e) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 200
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:CalculateResult()
+Double.MinValue: -1.79769313486232E+308
+Double.MaxValue: 1.79769313486232E+308
+Double.Epsilon: 4.94065645841247E-324
+Double.NegativeInfinity: -Infinity
+Double.PositiveInfinity: Infinity
+Double.NaN: NaN
+ArrayList.Capacity: 0
+ArrayList.Count: 0
+ArrayList.IsFixedSize: False
+ArrayList.IsReadOnly: False
+ArrayList.IsSynchronized: False
+ArrayList.SyncRoot: System.Object
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:21:06
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129282257605625000
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Index was outside the bounds of the array. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at BoCalculator.CalculatorBo.DoCalculate(Int32 iInstrType, Int32 iInstrOPType, Hashtable hInputValues, String& sErrMsg, ArrayList& alErrorMsg) in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 323
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 535
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:btnCalculate_Click()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:21:06
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129282257605625000
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed. ---> System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at System.Resources.ResourceManager.GetString(String name)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.PublishInternalException(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(BaseApplicationException exception)
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 555
+   at UserControl_FinanceCalculator.btnCalculate_Click(Object sender, EventArgs e) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 200
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:CalculateResult()
+Double.MinValue: -1.79769313486232E+308
+Double.MaxValue: 1.79769313486232E+308
+Double.Epsilon: 4.94065645841247E-324
+Double.NegativeInfinity: -Infinity
+Double.PositiveInfinity: Infinity
+Double.NaN: NaN
+ArrayList.Capacity: 0
+ArrayList.Count: 0
+ArrayList.IsFixedSize: False
+ArrayList.IsReadOnly: False
+ArrayList.IsSynchronized: False
+ArrayList.SyncRoot: System.Object
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:22:30
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129282259007656250
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Index was outside the bounds of the array. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at BoCalculator.CalculatorBo.DoCalculate(Int32 iInstrType, Int32 iInstrOPType, Hashtable hInputValues, String& sErrMsg, ArrayList& alErrorMsg) in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 323
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 535
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:btnCalculate_Click()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:22:30
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129282259007656250
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed. ---> System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at System.Resources.ResourceManager.GetString(String name)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.PublishInternalException(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(BaseApplicationException exception)
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 555
+   at UserControl_FinanceCalculator.btnCalculate_Click(Object sender, EventArgs e) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 200
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:CalculateResult()
+Double.MinValue: -1.79769313486232E+308
+Double.MaxValue: 1.79769313486232E+308
+Double.Epsilon: 4.94065645841247E-324
+Double.NegativeInfinity: -Infinity
+Double.PositiveInfinity: Infinity
+Double.NaN: NaN
+ArrayList.Capacity: 0
+ArrayList.Count: 0
+ArrayList.IsFixedSize: False
+ArrayList.IsReadOnly: False
+ArrayList.IsSynchronized: False
+ArrayList.SyncRoot: System.Object
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:24:23
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129282259007656250
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Index was outside the bounds of the array. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at BoCalculator.CalculatorBo.DoCalculate(Int32 iInstrType, Int32 iInstrOPType, Hashtable hInputValues, String& sErrMsg, ArrayList& alErrorMsg) in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 323
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 535
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:btnCalculate_Click()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:24:23
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129282259007656250
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed. ---> System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at System.Resources.ResourceManager.GetString(String name)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.PublishInternalException(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(BaseApplicationException exception)
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 555
+   at UserControl_FinanceCalculator.btnCalculate_Click(Object sender, EventArgs e) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 200
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:CalculateResult()
+Double.MinValue: -1.79769313486232E+308
+Double.MaxValue: 1.79769313486232E+308
+Double.Epsilon: 4.94065645841247E-324
+Double.NegativeInfinity: -Infinity
+Double.PositiveInfinity: Infinity
+Double.NaN: NaN
+ArrayList.Capacity: 0
+ArrayList.Count: 0
+ArrayList.IsFixedSize: False
+ArrayList.IsReadOnly: False
+ArrayList.IsSynchronized: False
+ArrayList.SyncRoot: System.Object
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:25:24
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129282259007656250
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Index was outside the bounds of the array. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at BoCalculator.CalculatorBo.DoCalculate(Int32 iInstrType, Int32 iInstrOPType, Hashtable hInputValues, String& sErrMsg, ArrayList& alErrorMsg) in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 323
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 535
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:btnCalculate_Click()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 06/09/2010 11:25:24
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129282259007656250
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed. ---> System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at System.Resources.ResourceManager.GetString(String name)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.PublishInternalException(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(BaseApplicationException exception)
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 555
+   at UserControl_FinanceCalculator.btnCalculate_Click(Object sender, EventArgs e) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 200
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator.cs:CreateInputFields()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 20/09/2010 11:31:04
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129294360381718750
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: 'TableRow' cannot have children of type 'RequiredFieldValidator'. ---> System.ArgumentException: 'TableRow' cannot have children of type 'RequiredFieldValidator'.
+   at System.Web.UI.WebControls.TableRow.CellControlCollection.Add(Control child)
+   at UserControl_FinanceCalculator.CreateInputFields() in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 373
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator.cs:CreateInputFields()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 20/09/2010 11:33:50
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129294361835156250
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: 'TableRow' cannot have children of type 'RequiredFieldValidator'. ---> System.ArgumentException: 'TableRow' cannot have children of type 'RequiredFieldValidator'.
+   at System.Web.UI.WebControls.TableRow.CellControlCollection.Add(Control child)
+   at UserControl_FinanceCalculator.CreateInputFields() in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 373
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:CalculateResult()
+Double.MinValue: -1.79769313486232E+308
+Double.MaxValue: 1.79769313486232E+308
+Double.Epsilon: 4.94065645841247E-324
+Double.NegativeInfinity: -Infinity
+Double.PositiveInfinity: Infinity
+Double.NaN: NaN
+ArrayList.Capacity: 0
+ArrayList.Count: 0
+ArrayList.IsFixedSize: False
+ArrayList.IsReadOnly: False
+ArrayList.IsSynchronized: False
+ArrayList.SyncRoot: System.Object
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 20/09/2010 14:58:24
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129294477432187500
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Index was outside the bounds of the array. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at BoCalculator.CalculatorBo.DoCalculate(Int32 iInstrType, Int32 iInstrOPType, Hashtable hInputValues, String& sErrMsg, ArrayList& alErrorMsg) in D:\Projects\Wealth-ERP\Bo\CalculatorBo.cs:line 324
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 551
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator:btnCalculate_Click()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 20/09/2010 14:58:25
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: f07690f6-1-129294477432187500
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed. ---> System.Resources.MissingManifestResourceException: Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure "Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerText.resources" was correctly embedded or linked into assembly "Microsoft.ApplicationBlocks.ExceptionManagement" at compile time, or that all the satellite assemblies required are loadable and fully signed.
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at System.Resources.ResourceManager.GetString(String name)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.PublishInternalException(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(Exception exception, NameValueCollection additionalInfo)
+   at Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManager.Publish(BaseApplicationException exception)
+   at UserControl_FinanceCalculator.CalculateResult(Double& sResult, String& sErrMsg, ArrayList& alErroMsg) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 571
+   at UserControl_FinanceCalculator.btnCalculate_Click(Object sender, EventArgs e) in d:\Projects\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 201
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator.cs:LoadInstrumentType()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 27/09/2010 16:57:09
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: c05a0878-1-129300603983750000
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Value cannot be null.
+Parameter name: value ---> System.ArgumentNullException: Value cannot be null.
+Parameter name: value
+   at System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic)
+   at System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   at System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies)
+   at UserControl_FinanceCalculator.LoadInstrumentType() in d:\Project\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 50
+   --- End of inner exception stack trace ---
+
+
+General Information
+
+Additonal Info:
+Method: FinanceCalculator.cs:LoadInstrumentType()
+ExceptionManager.MachineName: SUGESH
+ExceptionManager.TimeStamp: 27/09/2010 16:59:57
+ExceptionManager.FullName: Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, PublicKeyToken=null
+ExceptionManager.AppDomainName: c05a0878-2-129300605379687500
+ExceptionManager.ThreadIdentity: SUGESH\Ashish
+ExceptionManager.WindowsIdentity: SUGESH\Ashish
+
+Exception Information
+Microsoft.ApplicationBlocks.ExceptionManagement.BaseApplicationException: Value cannot be null.
+Parameter name: value ---> System.ArgumentNullException: Value cannot be null.
+Parameter name: value
+   at System.Web.Caching.CacheEntry..ctor(String key, Object value, CacheDependency dependency, CacheItemRemovedCallback onRemovedHandler, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, Boolean isPublic)
+   at System.Web.Caching.CacheInternal.DoInsert(Boolean isPublic, String key, Object value, CacheDependency dependencies, DateTime utcAbsoluteExpiration, TimeSpan slidingExpiration, CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback, Boolean replace)
+   at System.Web.Caching.Cache.Insert(String key, Object value, CacheDependency dependencies)
+   at UserControl_FinanceCalculator.LoadInstrumentType() in d:\Project\Wealth-ERP\UserControl\FinanceCalculator.ascx.cs:line 50
+   --- End of inner exception stack trace ---
+
