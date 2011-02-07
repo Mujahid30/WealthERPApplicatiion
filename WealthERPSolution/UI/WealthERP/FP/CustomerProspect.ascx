@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" CodeBehind="CustomerProspect.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="CustomerProspect.ascx.cs"
      Inherits="WealthERP.FP.CustomerProspect"  %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
@@ -168,15 +168,7 @@
         document.getElementById("<%=txtTotalLO.ClientID%>").value = liabilitiestotal.toString();
         document.getElementById("<%=txtTotalLISA.ClientID%>").value = lifeInsuranceTotal.toString();
         document.getElementById("<%=txtTotalGISA.ClientID%>").value = generalInsuranceTotal.toString();
-        // Main Summary Page Totals
-        document.getElementById("<%=txtAssets.ClientID%>").value = assettotal.toString();
-        document.getElementById("<%=txtIncome.ClientID%>").value = incometotal.toString();
-        document.getElementById("<%=txtExpense.ClientID%>").value = expensetotal.toString();
-        document.getElementById("<%=txtLiabilities.ClientID%>").value = liabilitiestotal.toString();
-        document.getElementById("<%=txtLifeInsurance.ClientID%>").value = lifeInsuranceTotal.toString();
-        document.getElementById("<%=txtGeneralInsurance.ClientID%>").value = generalInsuranceTotal.toString();
-
-
+       
     }
     function SubTotal(columnstoadd1, columnstoadd2, columnstoadd3, columnstoadd4) {
         var tmp = 'ctrl_CustomerProspect_';
@@ -212,11 +204,7 @@
         document.getElementById(tmp4).value = subtotalvalue.toString();
         Total();
     }
-    function DateCheck() {
-        if (document.getElementById("<%=dpDOB.ClientID%>").value == "") {
-            alert('Please Fill Date of Birth');
-        }
-    }
+    
 </script>
 
 
@@ -252,30 +240,29 @@
 
 
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
-    EnableEmbeddedSkins="False" MultiPageID="CustomerProspectMultiPage" 
-    SelectedIndex="1">
+    EnableEmbeddedSkins="False" MultiPageID="CustomerProspectMultiPage" SelectedIndex="0" EnableViewState="true">
     <Tabs>
-        <telerik:RadTab ID="summeryTab" runat="server" PostBack="true" TabIndex="0" 
+        <%--<telerik:RadTab ID="summeryTab" runat="server" PostBack="true" TabIndex="0" 
             ImageUrl="/Images/Telerik/FP/Summary.gif" Text="Summary"
-            Value="Summary" ToolTip="Summery"> 
-        </telerik:RadTab>
-        <telerik:RadTab runat="server" TabIndex="1" PostBack="true" ImageUrl="/Images/Telerik/FP/Investment.gif" Text="Investment"
-            Value="Investment" Selected="True">
+            Value="Summary" ToolTip="Summery" Selected="True"> 
+        </telerik:RadTab>--%>
+        <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Investment.gif" Text="Investment"
+            Value="Investment" Selected="true" TabIndex="0">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Income.gif" Text="Income"
-            Value="Income">
+            Value="Income" TabIndex="1">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Expense.gif" Text="Expense"
-            Value="Expense">
+            Value="Expense" TabIndex="2">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/Liabilities.gif" Text="Liabilities"
-            Value="Liabilities">
+            Value="Liabilities" TabIndex="3">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/LifeInsurance.gif" Text="Life Insurance"
-            Value="LifeInsurance">
+            Value="LifeInsurance" TabIndex="4">
         </telerik:RadTab>
         <telerik:RadTab runat="server" ImageUrl="/Images/Telerik/FP/GeneralInsurance.gif"
-            Text="General Insurance" Value="General Insurance">
+            Text="General Insurance" Value="General Insurance" TabIndex="5">
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
@@ -460,9 +447,8 @@
 <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Telerik"
     EnableEmbeddedSkins="false">
 </telerik:RadAjaxLoadingPanel>
-<telerik:RadMultiPage ID="CustomerProspectMultiPage" runat="server" 
-    SelectedIndex="1">
-    <telerik:RadPageView ID="RadPageView1" runat="server">
+<telerik:RadMultiPage ID="CustomerProspectMultiPage" EnableViewState="true" runat="server" SelectedIndex="0">
+    <%--<telerik:RadPageView ID="RadPageView1" runat="server">
         <asp:Panel ID="pnlSummary" runat="server">
             <table width="100%">
                 <tr>
@@ -739,7 +725,7 @@
                 </tr>
             </table>
         </asp:Panel>
-    </telerik:RadPageView>
+    </telerik:RadPageView>--%>
     <telerik:RadPageView ID="RadPageView2" runat="server">
         <asp:Panel ID="pnlInvestment" runat="server">
             <table width="100%">
@@ -753,10 +739,10 @@
                                         
                                     </td>
                                     <td align="center">
-                                         <asp:Label ID="Label6" runat="server" Text="Portfolio (Managed)" CssClass="FieldName"></asp:Label>
+                                         <asp:Label ID="Label6" runat="server" Text="Portfolio <br> (Managed)" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td align="center">
-                                         <asp:Label ID="Label7" runat="server" Text="Portfolio (UnManaged)" CssClass="FieldName"></asp:Label>
+                                         <asp:Label ID="Label7" runat="server" Text="Portfolio <br> (UnManaged)" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td align="center">
                                          <asp:Label ID="Label8" runat="server" Text="Adjustment" CssClass="FieldName"></asp:Label>
@@ -768,10 +754,10 @@
                                         
                                     </td>
                                     <td align="center">
-                                         <asp:Label ID="Label5" runat="server" Text="Portfolio (Managed)" CssClass="FieldName"></asp:Label>
+                                         <asp:Label ID="Label5" runat="server" Text="Portfolio <br> (Managed)" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td align="center">
-                                         <asp:Label ID="Label10" runat="server" Text="Portfolio (UnManaged)" CssClass="FieldName"></asp:Label>
+                                         <asp:Label ID="Label10" runat="server" Text="Portfolio <br> (UnManaged)" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td align="center">
                                          <asp:Label ID="Label11" runat="server" Text="Adjustment" CssClass="FieldName"></asp:Label>

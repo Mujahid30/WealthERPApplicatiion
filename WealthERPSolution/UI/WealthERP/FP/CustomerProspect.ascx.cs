@@ -54,27 +54,27 @@ namespace WealthERP.FP
             {
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 txtWERPDirectEquityM.Attributes.Add("onChange", "javascript:SubTotal(this);");
-                
-                if (!IsPostBack)
-                {
-                    dt = new DataTable();
-                    dt.Columns.Add("C_CustomerId");
-                    dt.Columns.Add("CA_AssociationId");
-                    dt.Columns.Add("CustomerRelationship");
-                    dt.Columns.Add("FirstName");
-                    dt.Columns.Add("MiddleName");
-                    dt.Columns.Add("LastName");
-                    dt.Columns.Add("DOB");
-                    dt.Columns.Add("EmailId");
-                    Session[SessionContents.FPS_AddProspect_DataTable] = dt;
 
-                }
-                else
-                {
-                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                }
+                //if (!IsPostBack)
+                //{
+                //    dt = new DataTable();
+                //    dt.Columns.Add("C_CustomerId");
+                //    dt.Columns.Add("CA_AssociationId");
+                //    dt.Columns.Add("CustomerRelationship");
+                //    dt.Columns.Add("FirstName");
+                //    dt.Columns.Add("MiddleName");
+                //    dt.Columns.Add("LastName");
+                //    dt.Columns.Add("DOB");
+                //    dt.Columns.Add("EmailId");
+                //    Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+
+                //}
+                //else
+                //{
+                //    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                //}
                 rmVo = (RMVo)Session["rmVo"];
-                BindBranch(advisorVo, rmVo);
+                //BindBranch(advisorVo, rmVo);
                 if (Session[SessionContents.FPS_ProspectList_CustomerId] != null && Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != string.Empty)
                 {
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
@@ -83,65 +83,65 @@ namespace WealthERP.FP
                     hdnIsProspect.Value = customerVo.IsProspect.ToString();
                     Session[SessionContents.CustomerVo] = customerVo;
                     customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
-                    if (customerFamilyVoList != null)
-                    {
-                        if (!IsPostBack)
-                        {
-                            totalRecordsCount = customerFamilyVoList.Count;
-                            dt.Rows.Clear();
-                            foreach (CustomerFamilyVo customerFamilyVo in customerFamilyVoList)
-                            {
-                                DataRow dr = dt.NewRow();
-                                dr["CA_AssociationId"] = customerFamilyVo.AssociationId;
-                                dr["C_CustomerId"] = customerFamilyVo.AssociateCustomerId;
-                                dr["CustomerRelationship"] = customerFamilyVo.RelationshipCode;
-                                dr["FirstName"] = customerFamilyVo.FirstName;
-                                dr["MiddleName"] = customerFamilyVo.MiddleName;
-                                dr["LastName"] = customerFamilyVo.LastName;
-                                if (customerFamilyVo.DOB != DateTime.Parse("01/01/0001 00:00:00"))
-                                {
-                                    dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
-                                }
-                                dr["EmailId"] = customerFamilyVo.EmailId;
-                                dt.Rows.Add(dr);
-                            }
-                            Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                        }
-                    }
-                    else
-                    {
-                        tblChildCustomer.Visible = false;
-                    }
-                    txtFirstName.Text = customerVo.FirstName;
-                    txtMiddleName.Text = customerVo.MiddleName;
-                    txtLastName.Text = customerVo.LastName;
-                    //dpDOB.MinDate = DateTime.Parse("01/01/1930 00:00:00");
+                    //if (customerFamilyVoList != null)
+                    //{
+                    //    if (!IsPostBack)
+                    //    {
+                    //        totalRecordsCount = customerFamilyVoList.Count;
+                    //        dt.Rows.Clear();
+                    //        foreach (CustomerFamilyVo customerFamilyVo in customerFamilyVoList)
+                    //        {
+                    //            DataRow dr = dt.NewRow();
+                    //            dr["CA_AssociationId"] = customerFamilyVo.AssociationId;
+                    //            dr["C_CustomerId"] = customerFamilyVo.AssociateCustomerId;
+                    //            dr["CustomerRelationship"] = customerFamilyVo.RelationshipCode;
+                    //            dr["FirstName"] = customerFamilyVo.FirstName;
+                    //            dr["MiddleName"] = customerFamilyVo.MiddleName;
+                    //            dr["LastName"] = customerFamilyVo.LastName;
+                    //            if (customerFamilyVo.DOB != DateTime.Parse("01/01/0001 00:00:00"))
+                    //            {
+                    //                dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
+                    //            }
+                    //            dr["EmailId"] = customerFamilyVo.EmailId;
+                    //            dt.Rows.Add(dr);
+                    //        }
+                    //        Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                    //    }
+                    //}
+                    //else
+                    //{
+                        //tblChildCustomer.Visible = false;
+                    //}
+                    //txtFirstName.Text = customerVo.FirstName;
+                    //txtMiddleName.Text = customerVo.MiddleName;
+                    //txtLastName.Text = customerVo.LastName;
+                    ////dpDOB.MinDate = DateTime.Parse("01/01/1930 00:00:00");
 
-                    if (customerVo.Dob != DateTime.Parse("01/01/0001 00:00:00"))
-                    {
-                        dpDOB.SelectedDate = customerVo.Dob;
-                    }
-                    txtEmail.Text = customerVo.Email;
-                    txtPanNumber.Text = customerVo.PANNum;
-                    txtAddress1.Text = customerVo.Adr1Line1;
-                    txtAddress2.Text = customerVo.Adr1Line2;
-                    txtMobileNo.Text = customerVo.Mobile1.ToString();
-                    txtPinCode.Text = customerVo.Adr1PinCode.ToString();
-                    txtCity.Text = customerVo.Adr1City;
-                    txtState.Text = customerVo.Adr1State;
-                    txtCountry.Text = customerVo.Adr1Country;
-                    if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
-                    {
-                        dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
-                    }
-                    for (int i = 0; i < ddlPickBranch.Items.Count; i++)
-                    {
-                        if (ddlPickBranch.Items[i].Value == customerVo.BranchId.ToString())
-                        {
-                            ddlPickBranch.SelectedIndex = i;
-                        }
-                    }
-                    Rebind();
+                    //if (customerVo.Dob != DateTime.Parse("01/01/0001 00:00:00"))
+                    //{
+                    //    dpDOB.SelectedDate = customerVo.Dob;
+                    //}
+                    //txtEmail.Text = customerVo.Email;
+                    //txtPanNumber.Text = customerVo.PANNum;
+                    //txtAddress1.Text = customerVo.Adr1Line1;
+                    //txtAddress2.Text = customerVo.Adr1Line2;
+                    //txtMobileNo.Text = customerVo.Mobile1.ToString();
+                    //txtPinCode.Text = customerVo.Adr1PinCode.ToString();
+                    //txtCity.Text = customerVo.Adr1City;
+                    //txtState.Text = customerVo.Adr1State;
+                    //txtCountry.Text = customerVo.Adr1Country;
+                    //if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
+                    //{
+                    //    dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
+                    //}
+                    //for (int i = 0; i < ddlPickBranch.Items.Count; i++)
+                    //{
+                    //    if (ddlPickBranch.Items[i].Value == customerVo.BranchId.ToString())
+                    //    {
+                    //        ddlPickBranch.SelectedIndex = i;
+                    //    }
+                    //}
+                    //Rebind();
                     Dictionary<string, object> Databuffer = customerprospectbo.Databuffer(customerId);
                     DataRetrival(Databuffer);
                     AdvisorVo advisorvo = (AdvisorVo)Session[SessionContents.AdvisorVo];
@@ -160,18 +160,18 @@ namespace WealthERP.FP
                         aplToolBar.Visible = true;
                         aplToolBar.Controls[1].Visible = false;
                         //Disabling all Fields
-                        if (customerFamilyVoList != null)
-                        {
-                            RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
-                            RadGrid1.Columns[0].Visible = false;
-                            RadGrid1.AllowAutomaticInserts = false;
-                            RadGrid1.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
-                            ChildCustomerGridPanel.Enabled = false;
-                        }
-                        else
-                        {
-                            ChildCustomerGridPanel.Visible = false;
-                        }
+                        //if (customerFamilyVoList != null)
+                        //{
+                        //    RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
+                        //    RadGrid1.Columns[0].Visible = false;
+                        //    RadGrid1.AllowAutomaticInserts = false;
+                        //    RadGrid1.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
+                        //    ChildCustomerGridPanel.Enabled = false;
+                        //}
+                        //else
+                        //{
+                        //    ChildCustomerGridPanel.Visible = false;
+                        //}
                         DisablingControls();
                         btnCustomerProspect.Visible = false;
 
@@ -187,9 +187,9 @@ namespace WealthERP.FP
                         //RadToolBaaplToolBarrButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
                         //rtb.Visible = false;
                         btnCustomerProspect.Visible = true;
-                        RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
+                        //RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
 
-                        tblChildCustomer.Visible = true;
+                        //tblChildCustomer.Visible = true;
 
                     }
                     //DataRetrival(Databuffer);
@@ -235,7 +235,7 @@ namespace WealthERP.FP
             }
 
         }
-        
+
         protected void DisablingControls()
         {
             pnlExpense.Enabled = false;
@@ -244,7 +244,7 @@ namespace WealthERP.FP
             pnlInvestment.Enabled = false;
             pnlLiabilities.Enabled = false;
             pnlLifeInsurance.Enabled = false;
-            pnlSummary.Enabled = false;
+            //pnlSummary.Enabled = false;
             btnCustomerProspect.Visible = false;
 
         }
@@ -256,236 +256,237 @@ namespace WealthERP.FP
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
-        protected void RadGrid1_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
-        {
-            try
-            {
-                GridEditableItem editedItem = e.Item as GridEditableItem;
-                GridEditManager editMan = editedItem.EditManager;
-                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                dr = dt.NewRow();
-                try
-                {
-                    dt.Rows[e.Item.ItemIndex].Delete();
-                }
-                catch (Exception ex)
-                {
-                    RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to delete</strong>"));
-                    e.Canceled = true;
 
-                }
-                Rebind();
-            }
-            catch (Exception ex)
-            {
-                e.Canceled = true;
-                throw ex;
-            }
-        }
+        //protected void RadGrid1_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
+        //{
+        //    try
+        //    {
+        //        GridEditableItem editedItem = e.Item as GridEditableItem;
+        //        GridEditManager editMan = editedItem.EditManager;
+        //        dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+        //        dr = dt.NewRow();
+        //        try
+        //        {
+        //            dt.Rows[e.Item.ItemIndex].Delete();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to delete</strong>"));
+        //            e.Canceled = true;
 
-
-        protected void RadGrid1_UpdateCommand(object source, GridCommandEventArgs e)
-        {
-            try
-            {
-                GridEditableItem editedItem = e.Item as GridEditableItem;
-                GridEditManager editMan = editedItem.EditManager;
-                int i = 2;
-                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                dr = dt.NewRow();
-                foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
-                {
-
-                    if (column is IGridEditableColumn)
-                    {
-                        IGridEditableColumn editableCol = (column as IGridEditableColumn);
-                        if (editableCol.IsEditable)
-                        {
-                            IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
-                            string editorType = editor.ToString();
-                            string editorText = "unknown";
-                            object editorValue = null;
-
-                            if (editor is GridTextColumnEditor)
-                            {
-                                editorText = (editor as GridTextColumnEditor).Text;
-                                editorValue = (editor as GridTextColumnEditor).Text;
-                            }
-                            if (editor is GridBoolColumnEditor)
-                            {
-                                editorText = (editor as GridBoolColumnEditor).Value.ToString();
-                                editorValue = (editor as GridBoolColumnEditor).Value;
-                            }
-                            if (editor is GridDropDownColumnEditor)
-                            {
-                                editorText = (editor as GridDropDownColumnEditor).SelectedValue;
-                                editorValue = (editor as GridDropDownColumnEditor).SelectedValue;
-                            }
-                            if (editor is GridTemplateColumnEditor)
-                            {
-                                if (i != 3)
-                                {
-                                    TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
-                                    editorText = txt.Text;
-                                    editorValue = txt.Text;
-                                }
-                                else if (i == 3)
-                                {
-                                    TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
-                                    editorText = txt.Text;
-                                    editorValue = txt.Text;
-                                }
-
-                            }
-                            try
-                            {
-                                DataRow[] changedrows = dt.Select();
-                                changedrows[editedItem.ItemIndex][column.UniqueName] = editorValue;
+        //        }
+        //        Rebind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        e.Canceled = true;
+        //        throw ex;
+        //    }
+        //}
 
 
-                            }
-                            catch (Exception ex)
-                            {
-                                RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
-                                e.Canceled = true;
-                                break;
-                            }
-                        }
-                        i++;
-                    }
+        //protected void RadGrid1_UpdateCommand(object source, GridCommandEventArgs e)
+        //{
+        //    try
+        //    {
+        //        GridEditableItem editedItem = e.Item as GridEditableItem;
+        //        GridEditManager editMan = editedItem.EditManager;
+        //        int i = 2;
+        //        dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+        //        dr = dt.NewRow();
+        //        foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
+        //        {
 
-                }
-                Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                Rebind();
-            }
-            catch (Exception ex)
-            {
-                e.Canceled = true;
-                throw ex;
-            }
-        }
+        //            if (column is IGridEditableColumn)
+        //            {
+        //                IGridEditableColumn editableCol = (column as IGridEditableColumn);
+        //                if (editableCol.IsEditable)
+        //                {
+        //                    IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
+        //                    string editorType = editor.ToString();
+        //                    string editorText = "unknown";
+        //                    object editorValue = null;
 
-        protected void RadGrid1_InsertCommand(object source, GridCommandEventArgs e)
-        {
+        //                    if (editor is GridTextColumnEditor)
+        //                    {
+        //                        editorText = (editor as GridTextColumnEditor).Text;
+        //                        editorValue = (editor as GridTextColumnEditor).Text;
+        //                    }
+        //                    if (editor is GridBoolColumnEditor)
+        //                    {
+        //                        editorText = (editor as GridBoolColumnEditor).Value.ToString();
+        //                        editorValue = (editor as GridBoolColumnEditor).Value;
+        //                    }
+        //                    if (editor is GridDropDownColumnEditor)
+        //                    {
+        //                        editorText = (editor as GridDropDownColumnEditor).SelectedValue;
+        //                        editorValue = (editor as GridDropDownColumnEditor).SelectedValue;
+        //                    }
+        //                    if (editor is GridTemplateColumnEditor)
+        //                    {
+        //                        if (i != 3)
+        //                        {
+        //                            TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
+        //                            editorText = txt.Text;
+        //                            editorValue = txt.Text;
+        //                        }
+        //                        else if (i == 3)
+        //                        {
+        //                            TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
+        //                            editorText = txt.Text;
+        //                            editorValue = txt.Text;
+        //                        }
+
+        //                    }
+        //                    try
+        //                    {
+        //                        DataRow[] changedrows = dt.Select();
+        //                        changedrows[editedItem.ItemIndex][column.UniqueName] = editorValue;
 
 
-            try
-            {
-                GridEditableItem editedItem = e.Item as GridEditableItem;
-                GridEditManager editMan = editedItem.EditManager;
-                int i = 2;
-                int j = 0;
-                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                dr = dt.NewRow();
-                foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
-                {
-                    if (column is IGridEditableColumn)
-                    {
-                        IGridEditableColumn editableCol = (column as IGridEditableColumn);
-                        if (editableCol.IsEditable)
-                        {
-                            IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
-                            string editorType = editor.ToString();
-                            string editorText = "unknown";
-                            object editorValue = null;
+        //                    }
+        //                    catch (Exception ex)
+        //                    {
+        //                        RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
+        //                        e.Canceled = true;
+        //                        break;
+        //                    }
+        //                }
+        //                i++;
+        //            }
 
-                            if (editor is GridTextColumnEditor)
-                            {
-                                editorText = (editor as GridTextColumnEditor).Text;
-                                editorValue = (editor as GridTextColumnEditor).Text;
-                            }
-                            if (editor is GridBoolColumnEditor)
-                            {
-                                editorText = (editor as GridBoolColumnEditor).Value.ToString();
-                                editorValue = (editor as GridBoolColumnEditor).Value;
-                            }
-                            if (editor is GridDropDownColumnEditor)
-                            {
-                                editorText = (editor as GridDropDownColumnEditor).SelectedValue;
-                                editorValue = (editor as GridDropDownColumnEditor).SelectedValue;
-                            }
-                            if (editor is GridTemplateColumnEditor)
-                            {
-                                if (i != 3)
-                                {
-                                    TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
-                                    editorText = txt.Text;
-                                    editorValue = txt.Text;
-                                }
-                                else if (i == 3)
-                                {
-                                    TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
-                                    editorText = txt.Text;
-                                    editorValue = txt.Text;
-                                }
+        //        }
+        //        Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+        //        Rebind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        e.Canceled = true;
+        //        throw ex;
+        //    }
+        //}
 
-                            }
-                            try
-                            {
-                                dr[i] = editorText;
+        //protected void RadGrid1_InsertCommand(object source, GridCommandEventArgs e)
+        //{
 
-                            }
-                            catch (Exception ex)
-                            {
-                                RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
-                                e.Canceled = true;
-                                break;
-                            }
-                        }
-                        i++;
-                    }
-                }
-                dt.Rows.Add(dr);
-                Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                Rebind();
-            }
-            catch (Exception ex)
-            {
-                e.Canceled = true;
-                throw ex;
-            }
-        }
-        protected void RadGrid1_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
-        {
-            Rebind();
-        }
 
-        /// <summary>
-        /// Used to bind Data to RadGrid
-        /// </summary>
-        protected void Rebind()
-        {
-            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-            RadGrid1.DataSource = dt;
-        }
-        protected void RadGrid1_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
-        {
+        //    try
+        //    {
+        //        GridEditableItem editedItem = e.Item as GridEditableItem;
+        //        GridEditManager editMan = editedItem.EditManager;
+        //        int i = 2;
+        //        int j = 0;
+        //        dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+        //        dr = dt.NewRow();
+        //        foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
+        //        {
+        //            if (column is IGridEditableColumn)
+        //            {
+        //                IGridEditableColumn editableCol = (column as IGridEditableColumn);
+        //                if (editableCol.IsEditable)
+        //                {
+        //                    IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
+        //                    string editorType = editor.ToString();
+        //                    string editorText = "unknown";
+        //                    object editorValue = null;
 
-        }
-        protected void BindRelation(DropDownList ddList)
-        {
+        //                    if (editor is GridTextColumnEditor)
+        //                    {
+        //                        editorText = (editor as GridTextColumnEditor).Text;
+        //                        editorValue = (editor as GridTextColumnEditor).Text;
+        //                    }
+        //                    if (editor is GridBoolColumnEditor)
+        //                    {
+        //                        editorText = (editor as GridBoolColumnEditor).Value.ToString();
+        //                        editorValue = (editor as GridBoolColumnEditor).Value;
+        //                    }
+        //                    if (editor is GridDropDownColumnEditor)
+        //                    {
+        //                        editorText = (editor as GridDropDownColumnEditor).SelectedValue;
+        //                        editorValue = (editor as GridDropDownColumnEditor).SelectedValue;
+        //                    }
+        //                    if (editor is GridTemplateColumnEditor)
+        //                    {
+        //                        if (i != 3)
+        //                        {
+        //                            TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
+        //                            editorText = txt.Text;
+        //                            editorValue = txt.Text;
+        //                        }
+        //                        else if (i == 3)
+        //                        {
+        //                            TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
+        //                            editorText = txt.Text;
+        //                            editorValue = txt.Text;
+        //                        }
 
-        }
+        //                    }
+        //                    try
+        //                    {
+        //                        dr[i] = editorText;
+
+        //                    }
+        //                    catch (Exception ex)
+        //                    {
+        //                        RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
+        //                        e.Canceled = true;
+        //                        break;
+        //                    }
+        //                }
+        //                i++;
+        //            }
+        //        }
+        //        dt.Rows.Add(dr);
+        //        Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+        //        Rebind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        e.Canceled = true;
+        //        throw ex;
+        //    }
+        //}
+        //protected void RadGrid1_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        //{
+        //    Rebind();
+        //}
+
+        ///// <summary>
+        ///// Used to bind Data to RadGrid
+        ///// </summary>
+        //protected void Rebind()
+        //{
+        //    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+        //    RadGrid1.DataSource = dt;
+        //}
+        //protected void RadGrid1_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        //{
+
+        //}
+        //protected void BindRelation(DropDownList ddList)
+        //{
+
+        //}
 
         /// <summary>        
         /// Used to bind branches of the Branch dropdown       
         /// </summary>
         /// <param name="advisorVo"></param>
         /// <param name="rmVo"></param>
-        private void BindBranch(AdvisorVo advisorVo, RMVo rmVo)
-        {
-            AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
-            UploadCommonBo uploadsCommonDao = new UploadCommonBo();
-            //DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
-            DataSet ds = advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, advisorVo.advisorId, "A");
-            if (ds != null)
-            {
-                ddlPickBranch.DataSource = ds;
-                ddlPickBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
-                ddlPickBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
-                ddlPickBranch.DataBind();
-            }
-        }
+        //private void BindBranch(AdvisorVo advisorVo, RMVo rmVo)
+        //{
+        //    AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+        //    UploadCommonBo uploadsCommonDao = new UploadCommonBo();
+        //    //DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+        //    DataSet ds = advisorBranchBo.GetRMBranchAssociation(rmVo.RMId, advisorVo.advisorId, "A");
+        //    if (ds != null)
+        //    {
+        //        ddlPickBranch.DataSource = ds;
+        //        ddlPickBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
+        //        ddlPickBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
+        //        ddlPickBranch.DataBind();
+        //    }
+        //}
 
         /// <summary>
         /// Used to Check validation
@@ -509,8 +510,8 @@ namespace WealthERP.FP
             {
                 //if (RadTabStrip1.TabIndex != 0)
                 //{
-                    Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
                 //}
             }
             if (e.Item.Value == "Synchronize")
@@ -538,75 +539,75 @@ namespace WealthERP.FP
         /// <param name="rmVo"></param>
         /// <param name="createdById"></param>
         /// <returns></returns>
-        protected int CreateCustomerForAddProspect(UserVo userVo, RMVo rmVo, int createdById)
-        {
-            customerVo = new CustomerVo();
-            List<int> customerIds = new List<int>();
-            customerVo.RmId = rmVo.RMId;
-            customerVo.Type = "IND";
-            customerVo.FirstName = txtFirstName.Text.ToString();
-            customerVo.MiddleName = txtMiddleName.Text.ToString();
-            customerVo.LastName = txtLastName.Text.ToString();
-            userVo.FirstName = txtFirstName.Text.ToString();
-            userVo.MiddleName = txtMiddleName.Text.ToString();
-            userVo.LastName = txtLastName.Text.ToString();
-            customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            customerVo.Dob = dpDOB.SelectedDate.Value;
-            customerVo.Email = txtEmail.Text;
-            if (hdnIsActive.Value == "1")
-            {
-                customerVo.IsActive = 1;
-            }
-            else
-            {
-                customerVo.IsActive = 0;
-            }
-            if (hdnIsProspect.Value == "1")
-            {
-                customerVo.IsProspect = 1;
-            }
-            else
-            {
-                customerVo.IsProspect = 0;
-            }
-            customerVo.IsFPClient = 1;
-            customerVo.PANNum = txtPanNumber.Text;
-            customerVo.Adr1Line1 = txtAddress1.Text;
-            customerVo.Adr1Line2 = txtAddress2.Text;
-            customerVo.Adr1City = txtCity.Text;
-            customerVo.Adr1State = txtState.Text;
-            customerVo.Adr1Country = txtCountry.Text;
-            if (!string.IsNullOrEmpty(txtPinCode.Text))
-            {
-                customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
-            }
-            if (!string.IsNullOrEmpty(txtMobileNo.Text))
-            {
-                customerVo.Mobile1 = Int64.Parse(txtMobileNo.Text);
-            }
-            if (dpProspectAddDate.SelectedDate != null)
-            {
-                customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
-            }
-                    
-            Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
-            userVo.Email = txtEmail.Text.ToString();
-            customerPortfolioVo.IsMainPortfolio = 1;
-            customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
-            customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
-            Session["Customer"] = "Customer";
-            if (customerIds != null)
-            {
-                CustomerFamilyVo familyVo = new CustomerFamilyVo();
-                CustomerFamilyBo familyBo = new CustomerFamilyBo();
-                familyVo.AssociateCustomerId = customerIds[1];
-                familyVo.CustomerId = customerIds[1];
-                familyVo.Relationship = "SELF";
-                familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
-            }
-            return customerIds[1];
-        }
+        //protected int CreateCustomerForAddProspect(UserVo userVo, RMVo rmVo, int createdById)
+        //{
+        //    customerVo = new CustomerVo();
+        //    List<int> customerIds = new List<int>();
+        //    customerVo.RmId = rmVo.RMId;
+        //    customerVo.Type = "IND";
+        //    customerVo.FirstName = txtFirstName.Text.ToString();
+        //    customerVo.MiddleName = txtMiddleName.Text.ToString();
+        //    customerVo.LastName = txtLastName.Text.ToString();
+        //    userVo.FirstName = txtFirstName.Text.ToString();
+        //    userVo.MiddleName = txtMiddleName.Text.ToString();
+        //    userVo.LastName = txtLastName.Text.ToString();
+        //    customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+        //    customerVo.Dob = dpDOB.SelectedDate.Value;
+        //    customerVo.Email = txtEmail.Text;
+        //    if (hdnIsActive.Value == "1")
+        //    {
+        //        customerVo.IsActive = 1;
+        //    }
+        //    else
+        //    {
+        //        customerVo.IsActive = 0;
+        //    }
+        //    if (hdnIsProspect.Value == "1")
+        //    {
+        //        customerVo.IsProspect = 1;
+        //    }
+        //    else
+        //    {
+        //        customerVo.IsProspect = 0;
+        //    }
+        //    customerVo.IsFPClient = 1;
+        //    customerVo.PANNum = txtPanNumber.Text;
+        //    customerVo.Adr1Line1 = txtAddress1.Text;
+        //    customerVo.Adr1Line2 = txtAddress2.Text;
+        //    customerVo.Adr1City = txtCity.Text;
+        //    customerVo.Adr1State = txtState.Text;
+        //    customerVo.Adr1Country = txtCountry.Text;
+        //    if (!string.IsNullOrEmpty(txtPinCode.Text))
+        //    {
+        //        customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
+        //    }
+        //    if (!string.IsNullOrEmpty(txtMobileNo.Text))
+        //    {
+        //        customerVo.Mobile1 = Int64.Parse(txtMobileNo.Text);
+        //    }
+        //    if (dpProspectAddDate.SelectedDate != null)
+        //    {
+        //        customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
+        //    }
+
+        //    Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
+        //    userVo.Email = txtEmail.Text.ToString();
+        //    customerPortfolioVo.IsMainPortfolio = 1;
+        //    customerPortfolioVo.PortfolioTypeCode = "RGL";
+        //    customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+        //    customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
+        //    Session["Customer"] = "Customer";
+        //    if (customerIds != null)
+        //    {
+        //        CustomerFamilyVo familyVo = new CustomerFamilyVo();
+        //        CustomerFamilyBo familyBo = new CustomerFamilyBo();
+        //        familyVo.AssociateCustomerId = customerIds[1];
+        //        familyVo.CustomerId = customerIds[1];
+        //        familyVo.Relationship = "SELF";
+        //        familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
+        //    }
+        //    return customerIds[1];
+        //}
 
         /// <summary>
         /// Used to Create child customers for AddProspect Screen
@@ -616,56 +617,56 @@ namespace WealthERP.FP
         /// <param name="createdById"></param>
         /// <param name="drChildCustomer"></param>
         /// <param name="ParentCustomerId"></param>
-        protected void CreateCustomerForAddProspect(UserVo userVo, RMVo rmVo, int createdById, DataRow drChildCustomer, int ParentCustomerId)
-        {
-            customerVo = new CustomerVo();
-            customerVo.RmId = rmVo.RMId;
-            customerVo.Type = "IND";
-            customerVo.FirstName = drChildCustomer["FirstName"].ToString();
-            customerVo.MiddleName = drChildCustomer["MiddleName"].ToString();
-            customerVo.LastName = drChildCustomer["LastName"].ToString();
-            userVo.FirstName = drChildCustomer["FirstName"].ToString();
-            customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            if (dpDOB.SelectedDate != null && drChildCustomer["DOB"].ToString() != null && drChildCustomer["DOB"].ToString() != string.Empty)
-            {
-                customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
-            }
-            customerVo.Email = drChildCustomer["EmailId"].ToString();
-            customerVo.IsFPClient = 1;
-            if (hdnIsActive.Value == "1")
-            {
-                customerVo.IsActive = 1;
-            }
-            else
-            {
-                customerVo.IsActive = 0;
-            }
-            if (hdnIsProspect.Value == "1")
-            {
-                customerVo.IsProspect = 1;
-            }
-            else
-            {
-                customerVo.IsProspect = 0;
-            }
-            userVo.Email = drChildCustomer["EmailId"].ToString();
-            customerPortfolioVo.IsMainPortfolio = 1;
-            customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
-            List<int> customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
-            if (customerIds != null)
-            {
-                CustomerFamilyVo familyVo = new CustomerFamilyVo();
-                CustomerFamilyBo familyBo = new CustomerFamilyBo();
-                familyVo.AssociateCustomerId = customerIds[1];
-                familyVo.CustomerId = ParentCustomerId;
-                familyVo.Relationship = drChildCustomer["CustomerRelationship"].ToString();
-                familyBo.CreateCustomerFamily(familyVo, ParentCustomerId, userVo.UserId);
-            }
-        }
+        //protected void CreateCustomerForAddProspect(UserVo userVo, RMVo rmVo, int createdById, DataRow drChildCustomer, int ParentCustomerId)
+        //{
+        //    customerVo = new CustomerVo();
+        //    customerVo.RmId = rmVo.RMId;
+        //    customerVo.Type = "IND";
+        //    customerVo.FirstName = drChildCustomer["FirstName"].ToString();
+        //    customerVo.MiddleName = drChildCustomer["MiddleName"].ToString();
+        //    customerVo.LastName = drChildCustomer["LastName"].ToString();
+        //    userVo.FirstName = drChildCustomer["FirstName"].ToString();
+        //    customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+        //    if (dpDOB.SelectedDate != null && drChildCustomer["DOB"].ToString() != null && drChildCustomer["DOB"].ToString() != string.Empty)
+        //    {
+        //        customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
+        //    }
+        //    customerVo.Email = drChildCustomer["EmailId"].ToString();
+        //    customerVo.IsFPClient = 1;
+        //    if (hdnIsActive.Value == "1")
+        //    {
+        //        customerVo.IsActive = 1;
+        //    }
+        //    else
+        //    {
+        //        customerVo.IsActive = 0;
+        //    }
+        //    if (hdnIsProspect.Value == "1")
+        //    {
+        //        customerVo.IsProspect = 1;
+        //    }
+        //    else
+        //    {
+        //        customerVo.IsProspect = 0;
+        //    }
+        //    userVo.Email = drChildCustomer["EmailId"].ToString();
+        //    customerPortfolioVo.IsMainPortfolio = 1;
+        //    customerPortfolioVo.PortfolioTypeCode = "RGL";
+        //    customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+        //    List<int> customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
+        //    if (customerIds != null)
+        //    {
+        //        CustomerFamilyVo familyVo = new CustomerFamilyVo();
+        //        CustomerFamilyBo familyBo = new CustomerFamilyBo();
+        //        familyVo.AssociateCustomerId = customerIds[1];
+        //        familyVo.CustomerId = ParentCustomerId;
+        //        familyVo.Relationship = drChildCustomer["CustomerRelationship"].ToString();
+        //        familyBo.CreateCustomerFamily(familyVo, ParentCustomerId, userVo.UserId);
+        //    }
+        //}
         protected void btnCustomerProspect_Click(object sender, EventArgs e)
         {
-           
+
             int customerId = 0;
             bool bresult;
             bool bdetails;
@@ -677,20 +678,20 @@ namespace WealthERP.FP
             double instrumentTotal = 0.0;
             double subInstrumentTotal = 0.0;
             double groupTotal = 0.0;
-            
+
 
             try
             {
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 ParentCustomerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
-                foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
-                {
-                    if (item.IsInEditMode)
-                    {
-                        status = false;
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
-                    }
-                }
+                //foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                //{
+                //    if (item.IsInEditMode)
+                //    {
+                //        status = false;
+                //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                //    }
+                //}
                 if (status)
                 {
 
@@ -933,13 +934,13 @@ namespace WealthERP.FP
                     liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtHomeLoanLO.Text);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
-                
+
                 if (txtHomeLoanEMI.Text != string.Empty)
                 {
                     liabilitiesdetailsvo.EMIAmount = double.Parse(txtHomeLoanEMI.Text);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
-                
+
 
                 //Auto Loan
 
@@ -954,13 +955,13 @@ namespace WealthERP.FP
                     liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtAutoLoanLO.Text);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
-                
+
                 if (txtAutoLoanEMI.Text != string.Empty)
                 {
                     liabilitiesdetailsvo.EMIAmount = double.Parse(txtAutoLoanEMI.Text);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
-                
+
 
                 //Educational Loan
 
@@ -975,13 +976,13 @@ namespace WealthERP.FP
                     liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtEducationLoanLO.Text);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
-                
+
                 if (txtEducationLoanEMI.Text != string.Empty)
                 {
                     liabilitiesdetailsvo.EMIAmount = double.Parse(txtEducationLoanEMI.Text);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
-                
+
 
                 //Personal Loan
 
@@ -995,13 +996,13 @@ namespace WealthERP.FP
                 {
                     liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtPersonalLoanLO.Text);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
-                }             
+                }
                 if (txtPersonalLoanEMI.Text != string.Empty)
                 {
                     liabilitiesdetailsvo.EMIAmount = double.Parse(txtPersonalLoanEMI.Text);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
-                
+
 
                 //Other Loan
                 liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
@@ -1014,13 +1015,13 @@ namespace WealthERP.FP
                 {
                     liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtOtherLoanLO.Text);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
-                }  
+                }
                 if (txtOtherLoanEMI.Text != string.Empty)
                 {
                     liabilitiesdetailsvo.EMIAmount = double.Parse(txtOtherLoanEMI.Text);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
-                
+
                 //==========================================================================================================================
 
                 //Investment
@@ -1040,7 +1041,7 @@ namespace WealthERP.FP
                     assetgroupdetails.AdjustedValue = double.Parse(txtDirectEquityA.Text);
                     assetgroupdetails.Value = double.Parse(txtDirectEquity.Text);
                     assetgroupdetailslist.Add(assetgroupdetails);
-                    totalasset += assetgroupdetails.Value;                    
+                    totalasset += assetgroupdetails.Value;
                 }
                 //MF-Equity(Level1)
                 if (txtMFEquityA.Text != string.Empty)
@@ -1123,7 +1124,7 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "PR";
-                    assetgroupdetails.AdjustedValue= double.Parse(txtPropertyA.Text);
+                    assetgroupdetails.AdjustedValue = double.Parse(txtPropertyA.Text);
                     assetgroupdetails.Value = double.Parse(txtProperty.Text);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
@@ -1163,7 +1164,7 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "PM";
-                    assetgroupdetails.AdjustedValue= double.Parse(txtPMSA.Text);
+                    assetgroupdetails.AdjustedValue = double.Parse(txtPMSA.Text);
                     assetgroupdetails.Value = double.Parse(txtPMS.Text);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
@@ -1173,7 +1174,7 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "CS";
-                    assetgroupdetails.AdjustedValue= double.Parse(txtCashAndSavingsA.Text);
+                    assetgroupdetails.AdjustedValue = double.Parse(txtCashAndSavingsA.Text);
                     assetgroupdetails.Value = double.Parse(txtCashAndSavings.Text);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
@@ -1183,7 +1184,7 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "SP";
-                    assetgroupdetails.AdjustedValue= double.Parse(txtStructuredProductA.Text);
+                    assetgroupdetails.AdjustedValue = double.Parse(txtStructuredProductA.Text);
                     assetgroupdetails.Value = double.Parse(txtStructuredProduct.Text);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
@@ -1193,7 +1194,7 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "CM";
-                    assetgroupdetails.AdjustedValue= double.Parse(txtCommoditiesA.Text);
+                    assetgroupdetails.AdjustedValue = double.Parse(txtCommoditiesA.Text);
                     assetgroupdetails.Value = double.Parse(txtCommodities.Text);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
@@ -1203,86 +1204,86 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "OT";
-                    assetgroupdetails.AdjustedValue= double.Parse(txtInvestmentsOthersA.Text);
+                    assetgroupdetails.AdjustedValue = double.Parse(txtInvestmentsOthersA.Text);
                     assetgroupdetails.Value = double.Parse(txtInvestmentsOthers.Text);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //MF Consolidated value
-               
-                    assetgroupdetails = new CustomerProspectAssetGroupDetails();
-                    assetgroupdetails.AssetGroupCode = "MF";
-                    assetgroupdetails.Value = 0.0;
-                    if (txtMFEquityA.Text != string.Empty)
-                    {
-                        assetgroupdetails.AdjustedValue += double.Parse(txtMFEquityA.Text);
-                        //assetgroupdetails.Value += double.Parse(txtMFEquity.Text) ;
-                    }
 
-                    if (txtMFDebtA.Text != string.Empty)
-                    {
-                        assetgroupdetails.AdjustedValue += double.Parse(txtMFDebtA.Text);
-                        //assetgroupdetails.Value +=  double.Parse(txtMFDebt.Text);
-                    }
+                assetgroupdetails = new CustomerProspectAssetGroupDetails();
+                assetgroupdetails.AssetGroupCode = "MF";
+                assetgroupdetails.Value = 0.0;
+                if (txtMFEquityA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtMFEquityA.Text);
+                    //assetgroupdetails.Value += double.Parse(txtMFEquity.Text) ;
+                }
 
-                    if (txtMFHybridEquityA.Text != string.Empty)
-                    {
-                        assetgroupdetails.AdjustedValue += double.Parse(txtMFHybridEquityA.Text);
-                        //assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text);
-                    }
+                if (txtMFDebtA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtMFDebtA.Text);
+                    //assetgroupdetails.Value +=  double.Parse(txtMFDebt.Text);
+                }
 
-                    if (txtMFHybridDebtA.Text != string.Empty)
-                    {
-                        assetgroupdetails.AdjustedValue += double.Parse(txtMFHybridDebtA.Text);
-                        //assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text);
-                    }
-                    //MF Total
-                    if (txtMFEquity.Text != string.Empty)
-                    {                        
-                        assetgroupdetails.Value += double.Parse(txtMFEquity.Text) ;
-                    }
+                if (txtMFHybridEquityA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtMFHybridEquityA.Text);
+                    //assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text);
+                }
 
-                    if (txtMFDebt.Text != string.Empty)
-                    {
-                        
-                        assetgroupdetails.Value +=  double.Parse(txtMFDebt.Text);
-                    }
+                if (txtMFHybridDebtA.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedValue += double.Parse(txtMFHybridDebtA.Text);
+                    //assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text);
+                }
+                //MF Total
+                if (txtMFEquity.Text != string.Empty)
+                {
+                    assetgroupdetails.Value += double.Parse(txtMFEquity.Text);
+                }
 
-                    if (txtMFHybridEquity.Text != string.Empty)
-                    {                        
-                        assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text);
-                    }
+                if (txtMFDebt.Text != string.Empty)
+                {
 
-                    if (txtMFHybridDebt.Text != string.Empty)
-                    {                        
-                        assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text);
-                    }
-                    
-                    assetgroupdetailslist.Add(assetgroupdetails);                    
+                    assetgroupdetails.Value += double.Parse(txtMFDebt.Text);
+                }
+
+                if (txtMFHybridEquity.Text != string.Empty)
+                {
+                    assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text);
+                }
+
+                if (txtMFHybridDebt.Text != string.Empty)
+                {
+                    assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text);
+                }
+
+                assetgroupdetailslist.Add(assetgroupdetails);
                 //MF Hybrd Consolidation
-                    assetdetailsvo = new CustomerProspectAssetDetailsVo();
-                    assetdetailsvo.AssetGroupCode = "MF";
-                    assetdetailsvo.AssetInstrumentCategoryCode = "MFHY";
-                    if (txtMFHybridEquityA.Text != string.Empty)
-                    {
-                        assetdetailsvo.AdjustedValue += double.Parse(txtMFHybridEquityA.Text);                        
-                    }
+                assetdetailsvo = new CustomerProspectAssetDetailsVo();
+                assetdetailsvo.AssetGroupCode = "MF";
+                assetdetailsvo.AssetInstrumentCategoryCode = "MFHY";
+                if (txtMFHybridEquityA.Text != string.Empty)
+                {
+                    assetdetailsvo.AdjustedValue += double.Parse(txtMFHybridEquityA.Text);
+                }
 
-                    if (txtMFHybridDebtA.Text != string.Empty)
-                    {
-                        assetdetailsvo.AdjustedValue += double.Parse(txtMFHybridDebtA.Text);
-                    }
+                if (txtMFHybridDebtA.Text != string.Empty)
+                {
+                    assetdetailsvo.AdjustedValue += double.Parse(txtMFHybridDebtA.Text);
+                }
                 //MF-Hybrid Total Value
                 if (txtMFHybridEquity.Text != string.Empty)
-                    {
-                        assetdetailsvo.Value += double.Parse(txtMFHybridEquity.Text);
-                    }
+                {
+                    assetdetailsvo.Value += double.Parse(txtMFHybridEquity.Text);
+                }
 
-                    if (txtMFHybridDebt.Text != string.Empty)
-                    {
-                        assetdetailsvo.Value += double.Parse(txtMFHybridDebt.Text);
-                    }
-                    assetdetailsvolist.Add(assetdetailsvo);
+                if (txtMFHybridDebt.Text != string.Empty)
+                {
+                    assetdetailsvo.Value += double.Parse(txtMFHybridDebt.Text);
+                }
+                assetdetailsvolist.Add(assetdetailsvo);
                 //==========================================================================================================================
 
                 //Life Insurance
@@ -1297,7 +1298,7 @@ namespace WealthERP.FP
                     assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedTermSA.Text);
                 }
                 if (txtTotalTermSA.Text != string.Empty)
-                {                    
+                {
                     assetdetailsvo.Value = double.Parse(txtTotalTermSA.Text);
                     totalli += assetdetailsvo.Value;
                 }
@@ -1310,7 +1311,7 @@ namespace WealthERP.FP
                     assetdetailsvo.SurrMktVal = double.Parse(txtTermSurrMktVal.Text);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
-                
+
 
                 //Endowment
 
@@ -1322,7 +1323,7 @@ namespace WealthERP.FP
                     assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedEndowmentSA.Text);
                 }
                 if (txtTotalEndowmentSA.Text != string.Empty)
-                {                    
+                {
                     assetdetailsvo.Value = double.Parse(txtTotalEndowmentSA.Text);
                     totalli += assetdetailsvo.Value;
                 }
@@ -1335,7 +1336,7 @@ namespace WealthERP.FP
                     assetdetailsvo.SurrMktVal = double.Parse(txtEndowmentSurrMktVal.Text);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
-                
+
 
                 //Whole Life
 
@@ -1347,7 +1348,7 @@ namespace WealthERP.FP
                     assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedWholeLifeSA.Text);
                 }
                 if (txtTotalWholeLifeSA.Text != string.Empty)
-                {                    
+                {
                     assetdetailsvo.Value = double.Parse(txtTotalWholeLifeSA.Text);
                     totalli += assetdetailsvo.Value;
                 }
@@ -1360,7 +1361,7 @@ namespace WealthERP.FP
                     assetdetailsvo.SurrMktVal = double.Parse(txtWholeLifeSurrMktVal.Text);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
-                
+
 
                 //Money Back
 
@@ -1372,7 +1373,7 @@ namespace WealthERP.FP
                     assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedMoneyBackSA.Text);
                 }
                 if (txtTotalMoneyBackSA.Text != string.Empty)
-                {                   
+                {
                     assetdetailsvo.Value = double.Parse(txtTotalMoneyBackSA.Text);
                     totalli += assetdetailsvo.Value;
                 }
@@ -1385,7 +1386,7 @@ namespace WealthERP.FP
                     assetdetailsvo.SurrMktVal = double.Parse(txtMoneyBackSurrMktVal.Text);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
-               
+
 
                 //ULIP
 
@@ -1397,7 +1398,7 @@ namespace WealthERP.FP
                     assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedULIPSA.Text);
                 }
                 if (txtTotalULIPSA.Text != string.Empty)
-                {                    
+                {
                     assetdetailsvo.Value = double.Parse(txtTotalULIPSA.Text);
                     totalli += assetdetailsvo.Value;
                 }
@@ -1410,7 +1411,7 @@ namespace WealthERP.FP
                     assetdetailsvo.SurrMktVal = double.Parse(txtULIPSurrMktVal.Text);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
-                
+
 
                 //Others
 
@@ -1422,7 +1423,7 @@ namespace WealthERP.FP
                     assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedOthersLISA.Text);
                 }
                 if (txtTotalOthersLISA.Text != string.Empty)
-                {                    
+                {
                     assetdetailsvo.Value = double.Parse(txtTotalOthersLISA.Text);
                     totalli += assetdetailsvo.Value;
                 }
@@ -1435,7 +1436,7 @@ namespace WealthERP.FP
                     assetdetailsvo.SurrMktVal = double.Parse(txtOtherSurrMktVal.Text);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
-               
+
 
                 // Insurance Consolidation
                 assetgroupdetails = new CustomerProspectAssetGroupDetails();
@@ -1493,7 +1494,7 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails.Value += double.Parse(txtTotalOthersLISA.Text);
                 }
-                assetgroupdetailslist.Add(assetgroupdetails);       
+                assetgroupdetailslist.Add(assetgroupdetails);
                 //==========================================================================================================================
 
                 //General Insurance
@@ -1509,16 +1510,16 @@ namespace WealthERP.FP
                     assetdetailssubvo.AdjustedValue = double.Parse(txtHealthInsuranceCoverA.Text);
                 }
                 if (txtHealthInsuranceCoverSA.Text != string.Empty)
-                {                    
+                {
                     assetdetailssubvo.Value = double.Parse(txtHealthInsuranceCoverSA.Text);
                     totalgi += assetdetailssubvo.Value;
                 }
                 if (txtHealthInsuranceCoverP.Text != string.Empty)
                 {
                     assetdetailssubvo.Premium = double.Parse(txtHealthInsuranceCoverP.Text);
-                }                              
+                }
                 assetdetailssubvolist.Add(assetdetailssubvo);
-                
+
 
                 //Property Insurance Cover  
 
@@ -1531,7 +1532,7 @@ namespace WealthERP.FP
                     assetdetailssubvo.AdjustedValue = double.Parse(txtPropertyInsuranceCoverA.Text);
                 }
                 if (txtPropertyInsuranceCoverSA.Text != string.Empty)
-                {                    
+                {
                     assetdetailssubvo.Value = double.Parse(txtPropertyInsuranceCoverSA.Text);
                     totalgi += assetdetailssubvo.Value;
                 }
@@ -1539,9 +1540,9 @@ namespace WealthERP.FP
                 {
                     assetdetailssubvo.Premium = double.Parse(txtPropertyInsuranceCoverP.Text);
                 }
-               
+
                 assetdetailssubvolist.Add(assetdetailssubvo);
-               
+
 
                 //Personal Accident           
 
@@ -1554,7 +1555,7 @@ namespace WealthERP.FP
                     assetdetailssubvo.AdjustedValue = double.Parse(txtPersonalAccidentA.Text);
                 }
                 if (txtPersonalAccidentSA.Text != string.Empty)
-                {                    
+                {
                     assetdetailssubvo.Value = double.Parse(txtPersonalAccidentSA.Text);
                     totalgi += assetdetailssubvo.Value;
                 }
@@ -1562,9 +1563,9 @@ namespace WealthERP.FP
                 {
                     assetdetailssubvo.Premium = double.Parse(txtPersonalAccidentP.Text);
                 }
-                
+
                 assetdetailssubvolist.Add(assetdetailssubvo);
-                
+
 
                 //Others
 
@@ -1577,17 +1578,17 @@ namespace WealthERP.FP
                     assetdetailssubvo.AdjustedValue = double.Parse(txtOthersGIA.Text);
                 }
                 if (txtOthersGISA.Text != string.Empty)
-                {                    
+                {
                     assetdetailssubvo.Value = double.Parse(txtOthersGISA.Text);
                     totalgi += assetdetailssubvo.Value;
                 }
                 if (txtOthersGIP.Text != string.Empty)
                 {
                     assetdetailssubvo.Premium = double.Parse(txtOthersGIP.Text);
-                }                
+                }
                 assetdetailssubvolist.Add(assetdetailssubvo);
-                
-                
+
+
                 //General Insurance Consolidation
                 assetgroupdetails = new CustomerProspectAssetGroupDetails();
                 assetgroupdetails.AssetGroupCode = "GI";
@@ -1642,7 +1643,7 @@ namespace WealthERP.FP
                 customerprospectvo.TotalGeneralInsurance = totalgi;
                 customerprospectvo.TotalIncome = totalincome;
                 customerprospectvo.TotalLiabilities = totalliabilities;
-                customerprospectvo.TotalLifeInsurance = totalli ;
+                customerprospectvo.TotalLifeInsurance = totalli;
                 //==========================================================================================================================
                 //Bundling up               
                 if (incomedetailsvolist != null)
@@ -1673,7 +1674,7 @@ namespace WealthERP.FP
                 {
                     datacapturelist.Add("AssetGroupDetails", assetgroupdetailslist);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1701,7 +1702,7 @@ namespace WealthERP.FP
 
                 customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                 //Updating Parent Customer
-                UpdateCustomerForAddProspect(customerId);
+                //UpdateCustomerForAddProspect(customerId);
                 if (dt != null)
                 {
                     customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
@@ -1710,17 +1711,17 @@ namespace WealthERP.FP
 
                     foreach (DataRow dr in dt.Rows)
                     {
-                        if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
-                        {
-                            //Updating child Customers
-                            UpdateCustomerForAddProspect(customerId, dr);
-                        }
-                        else
-                        {
-                            //Sometimes there might be the Situation that person can add new Client Customers  in Add screen on that situation
-                            // this particular function works
-                            CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
-                        }
+                        //if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
+                        //{
+                        //    //Updating child Customers
+                        //    //UpdateCustomerForAddProspect(customerId, dr);
+                        //}
+                        //else
+                        //{
+                        //    //Sometimes there might be the Situation that person can add new Client Customers  in Add screen on that situation
+                        //    // this particular function works
+                        //    // CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
+                        //}
                     }
                 }
 
@@ -1757,126 +1758,126 @@ namespace WealthERP.FP
         /// </summary>
         /// <param name="customerId"></param>
         /// 
-        protected void UpdateCustomerForAddProspect(int customerId)
-        {
-            customerVo = new CustomerVo();
-            customerVo.CustomerId = customerId;
-            customerVo.RmId = rmVo.RMId;
-            customerVo.Type = "IND";
-            customerVo.FirstName = txtFirstName.Text.ToString();
-            customerVo.MiddleName = txtMiddleName.Text.ToString();
-            customerVo.LastName = txtLastName.Text.ToString();            
-            userVo.FirstName = txtFirstName.Text.ToString();
-            userVo.MiddleName = txtMiddleName.Text.ToString();
-            userVo.LastName = txtLastName.Text.ToString();
-            customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            if (dpDOB.SelectedDate != null)
-            {
-                customerVo.Dob = dpDOB.SelectedDate.Value;
-            }
-            customerVo.Email = txtEmail.Text;
-            customerVo.PANNum = txtPanNumber.Text;
-            customerVo.Adr1Line1 = txtAddress1.Text;
-            customerVo.Adr1Line2 = txtAddress2.Text;
-            customerVo.Adr1City = txtCity.Text;
-            customerVo.Adr1State = txtState.Text;
-            customerVo.Adr1Country = txtCountry.Text;
-            if (hdnIsActive.Value == "1")
-            {
-                customerVo.IsActive = 1;
-            }
-            else
-            {
-                customerVo.IsActive = 0;
-            }
-            if (hdnIsProspect.Value == "1")
-            {
-                customerVo.IsProspect = 1;
-            }
-            else
-            {
-                customerVo.IsProspect = 0;
-            }
-            customerVo.IsFPClient = 1;
-            if (!string.IsNullOrEmpty(txtPinCode.Text))
-            {
-                customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
-            }
-            if (!string.IsNullOrEmpty(txtMobileNo.Text))
-            {
-                customerVo.Mobile1 = Int64.Parse(txtMobileNo.Text);
-            }
-            if (dpProspectAddDate.SelectedDate != null)
-            {
-                customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
-            }
-            Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
-            userVo.Email = txtEmail.Text.ToString();
-            customerPortfolioVo.IsMainPortfolio = 1;
-            customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
-            customerBo.UpdateCustomer(customerVo);
-            Session["Customer"] = "Customer";
+        //protected void UpdateCustomerForAddProspect(int customerId)
+        //{
+        //    customerVo = new CustomerVo();
+        //    customerVo.CustomerId = customerId;
+        //    customerVo.RmId = rmVo.RMId;
+        //    customerVo.Type = "IND";
+        //    customerVo.FirstName = txtFirstName.Text.ToString();
+        //    customerVo.MiddleName = txtMiddleName.Text.ToString();
+        //    customerVo.LastName = txtLastName.Text.ToString();            
+        //    userVo.FirstName = txtFirstName.Text.ToString();
+        //    userVo.MiddleName = txtMiddleName.Text.ToString();
+        //    userVo.LastName = txtLastName.Text.ToString();
+        //    customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+        //    if (dpDOB.SelectedDate != null)
+        //    {
+        //        customerVo.Dob = dpDOB.SelectedDate.Value;
+        //    }
+        //    customerVo.Email = txtEmail.Text;
+        //    customerVo.PANNum = txtPanNumber.Text;
+        //    customerVo.Adr1Line1 = txtAddress1.Text;
+        //    customerVo.Adr1Line2 = txtAddress2.Text;
+        //    customerVo.Adr1City = txtCity.Text;
+        //    customerVo.Adr1State = txtState.Text;
+        //    customerVo.Adr1Country = txtCountry.Text;
+        //    if (hdnIsActive.Value == "1")
+        //    {
+        //        customerVo.IsActive = 1;
+        //    }
+        //    else
+        //    {
+        //        customerVo.IsActive = 0;
+        //    }
+        //    if (hdnIsProspect.Value == "1")
+        //    {
+        //        customerVo.IsProspect = 1;
+        //    }
+        //    else
+        //    {
+        //        customerVo.IsProspect = 0;
+        //    }
+        //    customerVo.IsFPClient = 1;
+        //    if (!string.IsNullOrEmpty(txtPinCode.Text))
+        //    {
+        //        customerVo.Adr1PinCode = int.Parse(txtPinCode.Text);
+        //    }
+        //    if (!string.IsNullOrEmpty(txtMobileNo.Text))
+        //    {
+        //        customerVo.Mobile1 = Int64.Parse(txtMobileNo.Text);
+        //    }
+        //    if (dpProspectAddDate.SelectedDate != null)
+        //    {
+        //        customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
+        //    }
+        //    Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
+        //    userVo.Email = txtEmail.Text.ToString();
+        //    customerPortfolioVo.IsMainPortfolio = 1;
+        //    customerPortfolioVo.PortfolioTypeCode = "RGL";
+        //    customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+        //    customerBo.UpdateCustomer(customerVo);
+        //    Session["Customer"] = "Customer";
 
-        }
+        //}
 
         /// <summary>
         /// Used to update Child Customers
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="drChildCustomer"></param>
-        protected void UpdateCustomerForAddProspect(int customerId, DataRow drChildCustomer)
-        {
-            customerVo = new CustomerVo();
-            customerVo.CustomerId = int.Parse(drChildCustomer["C_CustomerId"].ToString());
-            customerVo.RmId = rmVo.RMId;
-            customerVo.Type = "IND";
-            customerVo.FirstName = drChildCustomer["FirstName"].ToString();
-            customerVo.MiddleName = drChildCustomer["MiddleName"].ToString();
-            customerVo.LastName = drChildCustomer["LastName"].ToString();
-            customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
-            if (dpDOB.SelectedDate != null && drChildCustomer["DOB"].ToString() != null && drChildCustomer["DOB"].ToString() != string.Empty)
-            {
-                customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
-            }
-            if (hdnIsActive.Value == "1")
-            {
-                customerVo.IsActive = 1;
-            }
-            else
-            {
-                customerVo.IsActive = 0;
-            }
-            if (hdnIsProspect.Value == "1")
-            {
-                customerVo.IsProspect = 1;
-            }
-            else
-            {
-                customerVo.IsProspect = 0;
-            }
-            customerVo.IsFPClient = 1;
-            customerVo.Email = drChildCustomer["EmailId"].ToString();
-            customerPortfolioVo.IsMainPortfolio = 1;
-            customerPortfolioVo.PortfolioTypeCode = "RGL";
-            customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
-            customerBo.UpdateCustomer(customerVo);
-            Session["Customer"] = "Customer";
-            if (drChildCustomer["C_CustomerId"] != null)
-            {
-                if (int.Parse(drChildCustomer["C_CustomerId"].ToString()) != 0)
-                {
-                    CustomerFamilyVo familyVo = new CustomerFamilyVo();
-                    CustomerFamilyBo familyBo = new CustomerFamilyBo();
-                    familyVo.AssociationId = int.Parse(drChildCustomer["CA_AssociationId"].ToString());
-                    familyVo.AssociateCustomerId = int.Parse(drChildCustomer["C_CustomerId"].ToString());
-                    familyVo.CustomerId = customerId;
-                    familyVo.Relationship = drChildCustomer["CustomerRelationship"].ToString();
-                    familyBo.UpdateCustomerAssociate(familyVo, customerId, 0);
-                }
-            }
+        //protected void UpdateCustomerForAddProspect(int customerId, DataRow drChildCustomer)
+        //{
+        //    customerVo = new CustomerVo();
+        //    customerVo.CustomerId = int.Parse(drChildCustomer["C_CustomerId"].ToString());
+        //    customerVo.RmId = rmVo.RMId;
+        //    customerVo.Type = "IND";
+        //    customerVo.FirstName = drChildCustomer["FirstName"].ToString();
+        //    customerVo.MiddleName = drChildCustomer["MiddleName"].ToString();
+        //    customerVo.LastName = drChildCustomer["LastName"].ToString();
+        //    customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+        //    if (dpDOB.SelectedDate != null && drChildCustomer["DOB"].ToString() != null && drChildCustomer["DOB"].ToString() != string.Empty)
+        //    {
+        //        customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
+        //    }
+        //    if (hdnIsActive.Value == "1")
+        //    {
+        //        customerVo.IsActive = 1;
+        //    }
+        //    else
+        //    {
+        //        customerVo.IsActive = 0;
+        //    }
+        //    if (hdnIsProspect.Value == "1")
+        //    {
+        //        customerVo.IsProspect = 1;
+        //    }
+        //    else
+        //    {
+        //        customerVo.IsProspect = 0;
+        //    }
+        //    customerVo.IsFPClient = 1;
+        //    customerVo.Email = drChildCustomer["EmailId"].ToString();
+        //    customerPortfolioVo.IsMainPortfolio = 1;
+        //    customerPortfolioVo.PortfolioTypeCode = "RGL";
+        //    customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+        //    customerBo.UpdateCustomer(customerVo);
+        //    Session["Customer"] = "Customer";
+        //    if (drChildCustomer["C_CustomerId"] != null)
+        //    {
+        //        if (int.Parse(drChildCustomer["C_CustomerId"].ToString()) != 0)
+        //        {
+        //            CustomerFamilyVo familyVo = new CustomerFamilyVo();
+        //            CustomerFamilyBo familyBo = new CustomerFamilyBo();
+        //            familyVo.AssociationId = int.Parse(drChildCustomer["CA_AssociationId"].ToString());
+        //            familyVo.AssociateCustomerId = int.Parse(drChildCustomer["C_CustomerId"].ToString());
+        //            familyVo.CustomerId = customerId;
+        //            familyVo.Relationship = drChildCustomer["CustomerRelationship"].ToString();
+        //            familyBo.UpdateCustomerAssociate(familyVo, customerId, 0);
+        //        }
+        //    }
 
-        }
+        //}
 
         protected void DataRetrival(Dictionary<string, object> Databuffer)
         {
@@ -1885,7 +1886,7 @@ namespace WealthERP.FP
             double totalliabilities = 0.0;
             double totalasset = 0.0;
             double totalli = 0.0;
-            double totalgi = 0.0;            
+            double totalgi = 0.0;
             CustomerProspectVo customerprospectvo = new CustomerProspectVo();
             List<CustomerProspectIncomeDetailsVo> IncomeDetailsForCustomerProspect = Databuffer["IncomeDetailsList"] as List<CustomerProspectIncomeDetailsVo>;
             List<CustomerProspectExpenseDetailsVo> ExpenseDetailsForCustomerProspect = Databuffer["ExpenseDetailsList"] as List<CustomerProspectExpenseDetailsVo>;
@@ -1893,7 +1894,7 @@ namespace WealthERP.FP
             List<CustomerProspectAssetSubDetailsVo> CustomerFPAssetSubInstrumentDetails = Databuffer["AssetInstrumentSubDetailsList"] as List<CustomerProspectAssetSubDetailsVo>;
             List<CustomerProspectAssetDetailsVo> CustomerFPAssetInstrumentDetails = Databuffer["AssetInstrumentDetailsList"] as List<CustomerProspectAssetDetailsVo>;
             List<CustomerProspectAssetGroupDetails> CustomerFPAssetGroupDetails = Databuffer["AssetGroupDetailsList"] as List<CustomerProspectAssetGroupDetails>;
-            
+
             # region
             //Income 
             if (IncomeDetailsForCustomerProspect != null && IncomeDetailsForCustomerProspect.Count > 0)
@@ -2121,7 +2122,7 @@ namespace WealthERP.FP
                         txtInvestmentsOthers.Text = cpagd.Value.ToString();
                         totalasset += cpagd.Value;
                     }
-                   
+
                 }
             }
             //Second level logic
@@ -2129,7 +2130,7 @@ namespace WealthERP.FP
             {
                 foreach (CustomerProspectAssetDetailsVo cpad in CustomerFPAssetInstrumentDetails)
                 {
-                   
+
                     if (cpad.AssetGroupCode == "MF" && cpad.AssetInstrumentCategoryCode == "MFEQ")
                     {
                         txtMFEquityA.Text = cpad.AdjustedValue.ToString();
@@ -2141,8 +2142,8 @@ namespace WealthERP.FP
                         txtMFDebtA.Text = cpad.AdjustedValue.ToString();
                         txtMFDebt.Text = cpad.Value.ToString();
                         totalasset += cpad.Value;
-                    }                   
-                    
+                    }
+
                     //Life Insurance
                     if (cpad.AssetGroupCode == "IN" && cpad.AssetInstrumentCategoryCode == "INTP")
                     {
@@ -2204,7 +2205,7 @@ namespace WealthERP.FP
                         txtHealthInsuranceCoverA.Text = cpasd.AdjustedValue.ToString();
                         txtHealthInsuranceCoverSA.Text = cpasd.Value.ToString();
                         txtHealthInsuranceCoverP.Text = cpasd.Premium.ToString();
-                        
+
                         totalgi += cpasd.Value;
 
                     }
@@ -2212,7 +2213,7 @@ namespace WealthERP.FP
                     {
                         txtPropertyInsuranceCoverA.Text = cpasd.AdjustedValue.ToString();
                         txtPropertyInsuranceCoverSA.Text = cpasd.Value.ToString();
-                        txtPropertyInsuranceCoverP.Text = cpasd.Premium.ToString();                        
+                        txtPropertyInsuranceCoverP.Text = cpasd.Premium.ToString();
                         totalgi += cpasd.Value;
 
                     }
@@ -2220,7 +2221,7 @@ namespace WealthERP.FP
                     {
                         txtPersonalAccidentA.Text = cpasd.AdjustedValue.ToString();
                         txtPersonalAccidentSA.Text = cpasd.Value.ToString();
-                        txtPersonalAccidentP.Text = cpasd.Premium.ToString();                       
+                        txtPersonalAccidentP.Text = cpasd.Premium.ToString();
                         totalgi += cpasd.Value;
 
                     }
@@ -2228,7 +2229,7 @@ namespace WealthERP.FP
                     {
                         txtOthersGIA.Text = cpasd.AdjustedValue.ToString();
                         txtOthersGISA.Text = cpasd.Value.ToString();
-                        txtOthersGIP.Text = cpasd.Premium.ToString();                        
+                        txtOthersGIP.Text = cpasd.Premium.ToString();
                         totalgi += cpasd.Value;
 
                     }
@@ -2246,7 +2247,7 @@ namespace WealthERP.FP
                         totalasset += cpasd.Value;
 
                     }
-                   
+
 
                     //txtAssetTotal.Text = totalasset.ToString();
                     //txtIncomeTotal.Text = totalincome.ToString();
@@ -2257,12 +2258,12 @@ namespace WealthERP.FP
 
                 }
             }
-            txtAssets.Text = totalasset.ToString();
-            txtIncome.Text = totalincome.ToString();
-            txtExpense.Text = totalexpense.ToString();
-            txtLiabilities.Text = totalliabilities.ToString();
-            txtLifeInsurance.Text = totalli.ToString();
-            txtGeneralInsurance.Text = totalgi.ToString();
+            //txtAssets.Text = totalasset.ToString();
+            //txtIncome.Text = totalincome.ToString();
+            //txtExpense.Text = totalexpense.ToString();
+            //txtLiabilities.Text = totalliabilities.ToString();
+            //txtLifeInsurance.Text = totalli.ToString();
+            //txtGeneralInsurance.Text = totalgi.ToString();
 
             txtAssetTotal.Text = totalasset.ToString();
             txtIncomeTotal.Text = totalincome.ToString();
@@ -2273,7 +2274,7 @@ namespace WealthERP.FP
 
         }
 
-       
+
         protected void ManagedUnmanagedDetails(int customerId, int Advisorid, int Switch)
         {
             CustomerProspectBo customerprospectbo = new CustomerProspectBo();
@@ -2476,7 +2477,7 @@ namespace WealthERP.FP
                     {
                         txtWERPHealthInsuranceCover.Text = drThird["CFPASID_WERPManagedValue"].ToString();
                         txtHealthInsuranceCoverSA.Text = drThird["CFPASID_TotalValue"].ToString();
-                        
+
                     }
                     if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHO")
                     {
@@ -2496,7 +2497,6 @@ namespace WealthERP.FP
 
                 }
             }
-        }        
-      
+        }
     }
 }
