@@ -31,12 +31,12 @@
         </td>
     </tr>
 </table>
-<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="80%" EnableHistory="True"
+<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="90%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
 <telerik:RadGrid ID="gvCustomerProspectlist" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="True" AllowPaging="True" 
         ShowStatusBar="True" ShowFooter="true" 
-        Skin="Telerik" EnableEmbeddedSkins="false" 
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
         AllowFilteringByColumn="True" 
         AllowAutomaticInserts="false">
         <MasterTableView AllowMultiColumnSorting="True" Width="100%" AutoGenerateColumns="false"
@@ -107,6 +107,8 @@
         </MasterTableView>
         
         <ClientSettings>
+            <Scrolling AllowScroll="True" ScrollHeight="400px" UseStaticHeaders="True" SaveScrollPosition="true" FrozenColumnsCount="1">
+            </Scrolling>
             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
         </ClientSettings>
     </telerik:RadGrid>
