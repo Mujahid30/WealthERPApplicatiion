@@ -6,28 +6,14 @@
 
 <script id="pagescript" type="text/javascript" language="javascript">
     function callSearch(searchtype) {
-        if (searchtype == "RM") {
-            var searchstring = document.getElementById('ctrl_RMLeftPane_txtFindRM').value;
-            loadsearchcontrol('ViewRM', 'RM', searchstring);
-        }
-        else if (searchtype == "Branch") {
-            var searchstring = document.getElementById('ctrl_RMLeftPane_txtFindBranch').value;
-            loadsearchcontrol('ViewBranches', 'Branch', searchstring);
-        }
-        else if (searchtype == "Customer") {
-
-            var searchstring = document.getElementById('<%= txtFindCustomer.ClientID %>').value;
-            var userRole = document.getElementById('<%=hdnUserRole.ClientID %>').value;
-            if (userRole == "RM") {
-                loadsearchcontrol('RMCustomer', 'Customer', searchstring);
-            }
-            else if (userRole == "Adviser") {
-                loadsearchcontrol('AdviserCustomer', 'Customer', searchstring);
-            }
-            else if (userRole == "BM") {
-                loadsearchcontrol('BMCustomer', 'Customer', searchstring);
-            }
-        }
+        var searchstring = document.getElementById('<%= txtFindCustomer.ClientID %>').value;
+        var userRole = document.getElementById('<%=hdnUserRole.ClientID %>').value;
+        if (userRole == 'RM') 
+            loadsearchcontrol('RMCustomer', 'RMCustomer', searchstring);
+        else if (userRole == 'Adviser')
+            loadsearchcontrol('AdviserCustomer', 'AdviserCustomer', searchstring);
+        else if (userRole == 'BM')
+            loadsearchcontrol('BMCustomer', 'BMCustomer', searchstring);
     }
 </script>
 
@@ -72,13 +58,13 @@
             <tr>
                 <td>
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
-                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="240px"
-                        OnItemClick="RadPanelBar1_ItemClick" AllowCollapseAllItems="True" 
-                        ExpandMode="SingleExpandedItem">
+                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="240px" OnItemClick="RadPanelBar1_ItemClick"
+                        AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Home" Value="Home">
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Value="Group Dashboard" Text="Group Dashboard" Visible="false">
+                            <telerik:RadPanelItem runat="server" Value="Group Dashboard" Text="Group Dashboard"
+                                Visible="false">
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="Customer Dashboard" Value="Customer Dashboard">
                             </telerik:RadPanelItem>
@@ -252,7 +238,7 @@
             <tr>
                 <td>
                     <div style="display: inline">
-                        <asp:TextBox runat="server" ID="txtFindCustomer" Style="width: 110px" onkeypress="JSdoPostback(event,'ctrl_RMLeftPane_btnSearchCustomer')" />
+                        <asp:TextBox runat="server" ID="txtFindCustomer" Style="width: 110px" onkeypress="JSdoPostback(event,'ctrl_RMCustomerIndividualLeftPane_btnSearchCustomer')" />
                         <cc1:TextBoxWatermarkExtender ID="txtFindCustomer_TextBoxWatermarkExtender" runat="server"
                             TargetControlID="txtFindCustomer" WatermarkText="Find Customer">
                         </cc1:TextBoxWatermarkExtender>

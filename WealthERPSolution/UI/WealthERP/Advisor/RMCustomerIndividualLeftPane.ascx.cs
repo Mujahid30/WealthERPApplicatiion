@@ -68,7 +68,7 @@ namespace WealthERP.Advisor
                         hdnUserRole.Value = "BM";
                         
                     }
-                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Adviser")
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                     {
                         hdnUserRole.Value = "Adviser";
                         
@@ -76,6 +76,8 @@ namespace WealthERP.Advisor
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
                     {
                         RadPanelBar1.FindItemByValue("Home").Visible = false;
+                        txtFindCustomer.Visible = false;
+                        btnSearchCustomer.Visible = false;
                         
                     }
                     if (userVo.RoleList != null)
