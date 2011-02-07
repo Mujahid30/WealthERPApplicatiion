@@ -134,9 +134,9 @@
     <tr>
         <td>
             <ajaxToolkit:TabContainer ID="tabRiskProfilingAndAssetAllocation" runat="server"
-                ActiveTabIndex="0" Width="100%" Style="visibility: visible;">
-                <ajaxToolkit:TabPanel ID="tabRiskProfiling" runat="server" HeaderText="Risk Profiling"
-                    Visible="true">
+                ActiveTabIndex="1" Width="100%" Style="visibility: visible;">
+                <ajaxToolkit:TabPanel ID="tabRiskProfiling" runat="server" 
+                    HeaderText="Risk Profiling">
                     <HeaderTemplate>
                         Risk Profile
                     </HeaderTemplate>
@@ -244,8 +244,8 @@
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="tabAssetAllocation" runat="server" HeaderText="Asset Allocation"
-                    Visible="true">
+                <ajaxToolkit:TabPanel ID="tabAssetAllocation" runat="server" 
+                    HeaderText="Asset Allocation">
                     <HeaderTemplate>
                         Asset Allocation
                     </HeaderTemplate>
@@ -312,10 +312,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                               <%-- <td>
                                     <asp:Button ID="btnSave" runat="server" CssClass="PCGButton" OnClick="btnSave_Click"
                                         OnClientClick="return optionvalidation()" Text="Save" Width="62px" />
-                                </td>
+                                </td>--%>
                                 <td class="style1">
                                 </td>
                                 <td>

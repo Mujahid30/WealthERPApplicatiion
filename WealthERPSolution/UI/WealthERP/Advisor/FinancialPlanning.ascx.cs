@@ -949,46 +949,46 @@ namespace WealthERP.Advisor
                 throw ex;
             }
         }
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            string approvedon = txtApprovedByCustomerOn.Text;
+        //protected void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    string approvedon = txtApprovedByCustomerOn.Text;
 
-            DateTime now;
-            try
-            {
-                if (txtApprovedByCustomerOn.Text == "")
-                {
-                    now = DateTime.Now;
-                }
-                else
-                {
-                    now = DateTime.Parse(approvedon);
-                }
-                SetCustomerId();
-                //dsGetCustomerIdByName = riskprofilebo.GetCustomerIdByName(txtPickCustomer.Text);
-                //if (gvRecommendedAssetAllocation.Rows.Count > 0)
-                //{
-                //    for (int i = 0; i < gvRecommendedAssetAllocation.Rows.Count; i++)
-                //    {
-                //        if (gvRecommendedAssetAllocation.Rows[i].RowType == DataControlRowType.DataRow)
-                //        {
-                //            GridViewRow grv = gvRecommendedAssetAllocation.Rows[i];
-                //            int assetClassificationCode = int.Parse(gvRecommendedAssetAllocation.DataKeys[i][0].ToString());
-                //            double recommendedPercentage = double.Parse(grv.Cells[1].Text.ToString());
-                //            riskprofilebo.UpdateAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), assetClassificationCode, recommendedPercentage, 0, now, rmvo);
-                //        }
-                //    }
-                //}
+        //    DateTime now;
+        //    try
+        //    {
+        //        if (txtApprovedByCustomerOn.Text == "")
+        //        {
+        //            now = DateTime.Now;
+        //        }
+        //        else
+        //        {
+        //            now = DateTime.Parse(approvedon);
+        //        }
+        //        SetCustomerId();
+        //        //dsGetCustomerIdByName = riskprofilebo.GetCustomerIdByName(txtPickCustomer.Text);
+        //        //if (gvRecommendedAssetAllocation.Rows.Count > 0)
+        //        //{
+        //        //    for (int i = 0; i < gvRecommendedAssetAllocation.Rows.Count; i++)
+        //        //    {
+        //        //        if (gvRecommendedAssetAllocation.Rows[i].RowType == DataControlRowType.DataRow)
+        //        //        {
+        //        //            GridViewRow grv = gvRecommendedAssetAllocation.Rows[i];
+        //        //            int assetClassificationCode = int.Parse(gvRecommendedAssetAllocation.DataKeys[i][0].ToString());
+        //        //            double recommendedPercentage = double.Parse(grv.Cells[1].Text.ToString());
+        //        //            riskprofilebo.UpdateAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), assetClassificationCode, recommendedPercentage, 0, now, rmvo);
+        //        //        }
+        //        //    }
+        //        //}
 
-                riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
-                LoadAssetAllocation(riskCode);
+        //        riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+        //        LoadAssetAllocation(riskCode);
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
         protected void RiskFormClear()
         {
             tblRiskScore.Visible = false;
