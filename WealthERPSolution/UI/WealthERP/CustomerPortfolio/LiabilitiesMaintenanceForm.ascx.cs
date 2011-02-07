@@ -974,10 +974,12 @@ namespace WealthERP.CustomerPortfolio
                 if (liabilityVo.LoanStartDate != DateTime.MinValue)
                     txtLoanStartDate.Text = liabilityVo.LoanStartDate.ToShortDateString();
                 txtLoanStartDate.Enabled = false;
-
-                txtGuarantor.Text = liabilityVo.Guarantor.ToString();
-                txtGuarantor.Enabled = false;
-
+                if (!string.IsNullOrEmpty(liabilityVo.Guarantor))
+                {
+                    txtGuarantor.Text = liabilityVo.Guarantor.ToString();
+                    txtGuarantor.Enabled = false;
+                }
+                
                 txtNoOfInstallments.Text = liabilityVo.NoOfInstallments.ToString();
                 txtNoOfInstallments.Enabled = false;
 
