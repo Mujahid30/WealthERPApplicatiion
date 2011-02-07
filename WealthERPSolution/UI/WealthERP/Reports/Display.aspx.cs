@@ -473,16 +473,18 @@ namespace WealthERP.Reports
             fpSectional = (FinancialPlanningVo)Session["reportParams"];
             FinancialPlanningReportsBo financialPlanningReportsBo = new FinancialPlanningReportsBo();
             DataSet dsCustomerFPReportDetails = new DataSet();
-            if (Session["FPDataSet"] != null)
-            {
-                dsCustomerFPReportDetails = (DataSet)Session["FPDataSet"];
-            }
-            else 
-            {
-                dsCustomerFPReportDetails = financialPlanningReportsBo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass, out dynamicRiskClass);
-                Session["FPDataSet"] = dsCustomerFPReportDetails;
-            }
-                        
+            DataRow[] drOtherGoal;
+            //if (Session["FPDataSet"] != null)
+            //{
+            //    dsCustomerFPReportDetails = (DataSet)Session["FPDataSet"];
+            //}
+            //else 
+            //{
+            //    dsCustomerFPReportDetails = financialPlanningReportsBo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass, out dynamicRiskClass);
+            //    Session["FPDataSet"] = dsCustomerFPReportDetails;
+            //}
+
+            dsCustomerFPReportDetails = financialPlanningReportsBo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass, out dynamicRiskClass);
             dtFPReportText = dsCustomerFPReportDetails.Tables[0];
             dtMonthlyGoalAmount = dsCustomerFPReportDetails.Tables[6];
             dtRTGoalDetails = dsCustomerFPReportDetails.Tables[7];
@@ -541,7 +543,11 @@ namespace WealthERP.Reports
 
             if (dsCustomerFPReportDetails.Tables[5].Rows.Count > 0)
             {
-                crmain.SetParameterValue("OtherGoalSurpress", "1");
+                drOtherGoal = dsCustomerFPReportDetails.Tables[5].Select("GoalName='Retirement'");
+                if (dsCustomerFPReportDetails.Tables[5].Rows.Count == 1 && drOtherGoal.Count() == 1)
+                    crmain.SetParameterValue("OtherGoalSurpress", "0");
+                else
+                    crmain.SetParameterValue("OtherGoalSurpress", "1");
             }
             else
                 crmain.SetParameterValue("OtherGoalSurpress", "0");
@@ -1659,7 +1665,7 @@ namespace WealthERP.Reports
             }
 
             strOtherGoalText = strOtherGoalFinalText.ToString();
-            crmain.SetParameterValue("CustomerDOB", customerVo.Dob.Day + "-" + customerVo.Dob.ToString("MM") + "-" + customerVo.Dob.Year.ToString());
+            crmain.SetParameterValue("CustomerDOB", customerVo.Dob.Day + "-" + customerVo.Dob.ToString("MMM") + "-" + customerVo.Dob.Year.ToString());
             crmain.SetParameterValue("CustomerEmail",customerVo.Email.Trim());
             crmain.SetParameterValue("RMMessageParagraph", strRMMessage);
             crmain.SetParameterValue("ImageOpeningLine", strImageOpeningLine);
