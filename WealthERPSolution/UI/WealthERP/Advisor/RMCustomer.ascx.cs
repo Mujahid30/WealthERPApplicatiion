@@ -848,6 +848,7 @@ namespace WealthERP
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
+                    Session["IsDashboard"] = "portfolio";
                     if (customerVo.IsProspect == 0)
                     {
                         Session["IsDashboard"] = "portfolio";
