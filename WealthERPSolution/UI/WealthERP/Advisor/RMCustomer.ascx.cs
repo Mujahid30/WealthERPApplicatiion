@@ -810,6 +810,7 @@ namespace WealthERP
                         }
                         Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
                         Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        Session["BMCustomer"] = "RM";
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
                         //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     }
