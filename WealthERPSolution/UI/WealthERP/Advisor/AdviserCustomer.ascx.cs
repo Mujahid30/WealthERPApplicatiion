@@ -697,7 +697,27 @@ namespace WealthERP.Advisor
                     Session["IsDashboard"] = "FP";
                     if (customerId != 0)
                     {
-                        Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+                        if (customerVo.IsProspect == 0)
+                        {
+                            Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+                        }
+                        else
+                        {
+                            isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                            if (isGrpHead == false)
+                            {
+                                customerId = customerBo.GetCustomerGroupHead(customerId);
+                            }
+                            else
+                            {
+                                customerId = customerVo.CustomerId;
+                            }
+                            Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+                            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                            Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                            customerVo = customerBo.GetCustomer(customerId);
+                            Session["CustomerVo"] = customerVo;
+                        }
                     }
                     Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
