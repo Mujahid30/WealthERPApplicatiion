@@ -767,17 +767,48 @@ namespace WealthERP
 
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
                 }
+                if (ddlAction.SelectedItem.Value.ToString() == "Profile")
+                {
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                    }
+                    else
+                    {
+                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                    }
+
+                }
                 else
                 {
                 }
                 if (ddlAction.SelectedItem.Value.ToString() == "Dashboard")
                 {
                     Session["IsDashboard"] = "true";
-                    
-                   if(isGrpHead == true)
-                       ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMCustGroupDashboard','login');", true);
-                   else
-                       ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMCustIndiDashboard','login');", true);
+
+                    if (customerVo.IsProspect == 0)
+                    {
+                        if (isGrpHead == true)
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMCustGroupDashboard','login');", true);
+                        else
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMCustIndiDashboard','login');", true);
+                    }
+                    else
+                    {
+                        if (isGrpHead == true)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorRMCustGroupDashboard", "loadcontrol('AdvisorRMCustGroupDashboard','login');", true);
+                        }
+                        else
+                        {
+                            customerId = customerBo.GetCustomerGroupHead(customerId);
+                            customerVo = customerBo.GetCustomer(customerId);
+                            Session["CustomerVo"] = customerVo;
+
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorRMCustGroupDashboard", "loadcontrol('AdvisorRMCustGroupDashboard','login');", true);
+                        }
+
+                    }
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
@@ -817,14 +848,55 @@ namespace WealthERP
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Portfolio")
                 {
-                    Session["IsDashboard"] = "portfolio";
-                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioDashboard','login');", true);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session["IsDashboard"] = "portfolio";
+                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioDashboard','login');", true);
+                    }
+                    else
+                    {
+                        isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                        if (isGrpHead == false)
+                        {
+                            customerId = customerBo.GetCustomerGroupHead(customerId);
+                        }
+                        else
+                        {
+                            customerId = customerVo.CustomerId;
+                        }
+                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        customerVo = customerBo.GetCustomer(customerId);
+                        Session["CustomerVo"] = customerVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','login');", true);
+
+                    }
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "Alerts")
                 {
                     Session["IsDashboard"] = "alerts";
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
+                    if (isGrpHead == false)
+                    {
+                        if (customerVo.IsProspect == 1)
+                        {
+                            customerId = customerBo.GetCustomerGroupHead(customerId);
+                        }
+                        else
+                        {
+                            customerId = customerVo.CustomerId;
+                        }
+                    }
+                    else
+                    {
+                        customerId = customerVo.CustomerId;
+                    }
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                    customerVo = customerBo.GetCustomer(customerId);
+                    Session["CustomerVo"] = customerVo;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertNotifications','login');", true);
                 }
                 //else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
