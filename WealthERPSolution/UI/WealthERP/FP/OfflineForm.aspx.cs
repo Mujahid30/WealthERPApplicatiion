@@ -49,21 +49,21 @@ namespace WealthERP.FP
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             rmvo = (RMVo)Session["rmVo"];
             lblRMName.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
-            lblRMNameFamily.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
-            lblRmNameExpanse.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
-            lblRMRisk.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
-            lblRMRiskPro.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
+            //lblRMNameFamily.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
+            //lblRmNameExpanse.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
+            //lblRMRisk.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
+            //lblRMRiskPro.Text = rmvo.FirstName + " " + rmvo.MiddleName + " " + rmvo.LastName;
             //Img1.ImageUrl = advisorVo.LogoPath;
             lblOrgName.Text = advisorVo.OrganizationName;
-            lblOrgnameGoal.Text = advisorVo.OrganizationName;
-            lblOrgname1.Text = advisorVo.OrganizationName;
-            lblOrgRisk.Text = advisorVo.OrganizationName;
-            lblOrgQues.Text = advisorVo.OrganizationName;
+            //lblOrgnameGoal.Text = advisorVo.OrganizationName;
+            //lblOrgname1.Text = advisorVo.OrganizationName;
+            //lblOrgRisk.Text = advisorVo.OrganizationName;
+            //lblOrgQues.Text = advisorVo.OrganizationName;
             DateTime dtToday=DateTime.Now;
-            lblDate1.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
-            lblDate2.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
-            lblDate3.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
-            lblDate4.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
+            //lblDate1.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
+            //lblDate2.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
+            //lblDate3.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
+            //lblDate4.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
             lblDate5.Text = dtToday.Day + " " + dtToday.ToString("MMMM") + " " + dtToday.Year.ToString();
             dsGetRiskProfileQuestion = riskprofilebo.GetRiskProfileQuestion(advisorVo.advisorId);
             totalquestion = dsGetRiskProfileQuestion.Tables[0].Rows.Count;
@@ -89,10 +89,11 @@ namespace WealthERP.FP
                 PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
                 PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"6\"><hr /></td></tr>"));
                 PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
-                PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"6\">" + (i + 1) + "."));
+                PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"6\">"));
                 Label lbl = new Label();
                 lbl.ID = "lblQ" + (i + 1);
-                lbl.Text = dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_Question"].ToString();
+                lbl.Text = (i + 1).ToString() + ".";
+                lbl.Text = lbl.Text+dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_Question"].ToString();
                 lbl.CssClass = "FieldName";
                 PlaceHolder1.Controls.Add(lbl);
                 PlaceHolder1.Controls.Add(new LiteralControl("</td></tr>"));
@@ -109,18 +110,24 @@ namespace WealthERP.FP
                     PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
                     PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
                 }
-                PlaceHolder1.Controls.Add(new LiteralControl("<tr colspan=\"6\">"));
+                PlaceHolder1.Controls.Add(new LiteralControl("<tr><td colspan=\"6\">"));
                 optioncounttemp = 1;
                 for (int j = 0; j < dsGetRiskProfileQuestionOption.Tables[0].Rows.Count; j++)
                 {
-                    PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
-                    CheckBox rbtn = new CheckBox();
-                    rbtn.ID = "rbtnQ" + (i + 1) + "A" + (j + 1);
-                    rbtn.Text = dsGetRiskProfileQuestionOption.Tables[0].Rows[j]["QOM_Option"].ToString();  
-                    rbtn.CssClass = "txtField";                    
-                    PlaceHolder1.Controls.Add(rbtn);
-                    PlaceHolder1.Controls.Add(new LiteralControl("<br/>"));
+                    PlaceHolder1.Controls.Add(new LiteralControl("<tr><td>"));
+
+                    //CheckBox rbtn = new CheckBox();
+                    //rbtn.ID = "rbtnQ" + (i + 1) + "A" + (j + 1);
+                    //rbtn.Text = dsGetRiskProfileQuestionOption.Tables[0].Rows[j]["QOM_Option"].ToString().Trim();  
+                    //rbtn.CssClass = "txtField";                    
+                    //PlaceHolder1.Controls.Add(rbtn);
+                    
+                    PlaceHolder1.Controls.Add(new LiteralControl("<table border='1' cellspacing='0' cellpadding='4'><tr><td></td></tr></table>"));
+                    PlaceHolder1.Controls.Add(new LiteralControl("</td><td style='font-family: Verdana,Tahoma;font-weight: normal;font-size: x-small;color: #16518A;width: 400px;height: 17px;'>"));
+                    PlaceHolder1.Controls.Add(new LiteralControl(dsGetRiskProfileQuestionOption.Tables[0].Rows[j]["QOM_Option"].ToString().Trim()));
+    
                     PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
+                    PlaceHolder1.Controls.Add(new LiteralControl("</td></tr>"));
                     
                     optioncounttemp++;
                 }
@@ -129,7 +136,7 @@ namespace WealthERP.FP
                     optioncount = optioncounttemp;
                 }
 
-                PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
+                PlaceHolder1.Controls.Add(new LiteralControl("</td></tr>"));
             }
             //PlaceHolder1.Controls.Add(new LiteralControl("</table>"));
         }
