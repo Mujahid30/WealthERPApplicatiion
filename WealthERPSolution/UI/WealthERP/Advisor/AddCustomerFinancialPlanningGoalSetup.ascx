@@ -25,6 +25,17 @@
 //            return false;
 //        }
 
+        if (document.getElementById('<%=txtInflation.ClientID %>').value == "") {
+            alert("Inflation(%) cannot be empty.")
+            document.getElementById('<%=txtInflation.ClientID %>').focus();
+            return false;
+        }
+
+        if (document.getElementById('<%=txtExpRateOfReturn.ClientID %>').value == "") {
+            alert("Expected Rate of Return on new investment(%) cannot be empty.")
+            document.getElementById('<%=txtExpRateOfReturn.ClientID %>').focus();
+            return false;
+        }
 
         if (document.getElementById('<%=txtGoalCostToday.ClientID %>').value == "") {
             alert("Cost today cannot be empty.")
