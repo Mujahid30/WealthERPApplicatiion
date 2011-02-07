@@ -26,6 +26,8 @@ using BoCustomerPortfolio;
 using VoCustomerPortfolio;
 using WealthERP.Base;
 using System.Web.UI.HtmlControls;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
 
 
 namespace WealthERP.Reports
@@ -76,7 +78,7 @@ namespace WealthERP.Reports
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-        
+            SessionBo.CheckSession();
         }
         /// <summary>
         /// Page Load Functionality called from Source code 
@@ -128,120 +130,142 @@ namespace WealthERP.Reports
                         dtCustomerReportMailStatus.Columns.Add("CapitalGainSummary");                     
  
                     }
-
                     foreach (string arrStr in strSplitArr)
                     {
-
-                        if (Directory.Exists(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId))
+                        try
                         {
-                            DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
-
-                            foreach (FileInfo f in di.GetFiles())
+                            if (Directory.Exists(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId))
                             {
-                                f.Delete();
-                            }
-                        }
-                        else
-                            Directory.CreateDirectory(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
+                                DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
 
-                        if (!String.IsNullOrEmpty(arrStr))
-                        {
-                            CustomerId = int.Parse(arrStr);
-                            //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
-                            if (Request.Form[ctrlPrefix + "EmailGrpOrInd"] == "rbnGroup")
-                            {
-                                GroupCustomer = true;
-                                GroupCustometId = int.Parse(arrStr);
+                                foreach (FileInfo f in di.GetFiles())
+                                {
+                                    f.Delete();
+                                }
                             }
                             else
-                                GroupCustomer = false;
+                                Directory.CreateDirectory(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
 
-                            customerVo = customerBo.GetCustomer(CustomerId);
-
-                            if (!string.IsNullOrEmpty(customerVo.Email.Trim()))
+                            if (!String.IsNullOrEmpty(arrStr))
                             {
-                                clearAllReportString();
-                                ExportTODisk();
-                                MailSending();
-
-                                drCustomerReportMailStatus = dtCustomerReportMailStatus.NewRow();
-                                string CustometName = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
-                                drCustomerReportMailStatus["CustometName"] = CustometName;
-                                if(!string.IsNullOrEmpty(mFundSummary))
-                                    drCustomerReportMailStatus["MFundSummary"] = mFundSummary;
+                                CustomerId = int.Parse(arrStr);
+                                //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
+                                if (Request.Form[ctrlPrefix + "EmailGrpOrInd"] == "rbnGroup")
+                                {
+                                    GroupCustomer = true;
+                                    GroupCustometId = int.Parse(arrStr);
+                                }
                                 else
-                                    drCustomerReportMailStatus["MFundSummary"] = mailSendStatus;
+                                    GroupCustomer = false;
 
-                                if (!string.IsNullOrEmpty(portfolioRHolding))
-                                    drCustomerReportMailStatus["PortfolioRHolding"] = portfolioRHolding;
+                                customerVo = customerBo.GetCustomer(CustomerId);
+                                //customerVo.Email = "psahoo9@gmail.com";
+                                if (!string.IsNullOrEmpty(customerVo.Email.Trim()))
+                                {
+                                    clearAllReportString();
+                                    ExportTODisk();
+                                    MailSending();
+
+                                    drCustomerReportMailStatus = dtCustomerReportMailStatus.NewRow();
+                                    string CustometName = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
+                                    drCustomerReportMailStatus["CustometName"] = CustometName;
+                                    if (!string.IsNullOrEmpty(mFundSummary))
+                                        drCustomerReportMailStatus["MFundSummary"] = mFundSummary;
+                                    else
+                                        drCustomerReportMailStatus["MFundSummary"] = mailSendStatus;
+
+                                    if (!string.IsNullOrEmpty(portfolioRHolding))
+                                        drCustomerReportMailStatus["PortfolioRHolding"] = portfolioRHolding;
+                                    else
+                                        drCustomerReportMailStatus["PortfolioRHolding"] = mailSendStatus;
+
+                                    if (!string.IsNullOrEmpty(comprehensive))
+                                        drCustomerReportMailStatus["Comprehensive"] = comprehensive;
+                                    else
+                                        drCustomerReportMailStatus["Comprehensive"] = mailSendStatus;
+
+                                    if (!string.IsNullOrEmpty(eCapitalGainDetails))
+                                        drCustomerReportMailStatus["ECapitalGainDetails"] = eCapitalGainDetails;
+                                    else
+                                        drCustomerReportMailStatus["ECapitalGainDetails"] = mailSendStatus;
+
+                                    if (!string.IsNullOrEmpty(eCapitalGainsSummary))
+                                        drCustomerReportMailStatus["ECapitalGainsSummary"] = eCapitalGainsSummary;
+                                    else
+                                        drCustomerReportMailStatus["ECapitalGainsSummary"] = mailSendStatus;
+
+                                    if (!string.IsNullOrEmpty(transactionReport))
+                                        drCustomerReportMailStatus["TransactionReport"] = transactionReport;
+                                    else
+                                        drCustomerReportMailStatus["TransactionReport"] = mailSendStatus;
+
+                                    if (!string.IsNullOrEmpty(dividendStatement))
+                                        drCustomerReportMailStatus["DividendStatement"] = dividendStatement;
+                                    else
+                                        drCustomerReportMailStatus["DividendStatement"] = mailSendStatus;
+
+                                    if (!string.IsNullOrEmpty(dividendSummary))
+                                        drCustomerReportMailStatus["DividendSummary"] = dividendSummary;
+                                    else
+                                        drCustomerReportMailStatus["DividendSummary"] = mailSendStatus;
+
+                                    if (!string.IsNullOrEmpty(capitalGainDetails))
+                                        drCustomerReportMailStatus["CapitalGainDetails"] = capitalGainDetails;
+                                    else
+                                        drCustomerReportMailStatus["CapitalGainDetails"] = mailSendStatus;
+
+                                    if (!string.IsNullOrEmpty(capitalGainSummary))
+                                        drCustomerReportMailStatus["CapitalGainSummary"] = capitalGainSummary;
+                                    else
+                                        drCustomerReportMailStatus["CapitalGainSummary"] = mailSendStatus;
+
+                                    dtCustomerReportMailStatus.Rows.Add(drCustomerReportMailStatus);
+
+                                }
                                 else
-                                    drCustomerReportMailStatus["PortfolioRHolding"] = mailSendStatus;
+                                {
+                                    drCustomerReportMailStatus = dtCustomerReportMailStatus.NewRow();
+                                    string CustometName = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
+                                    drCustomerReportMailStatus["CustometName"] = CustometName;
+                                    drCustomerReportMailStatus["MFundSummary"] = "Email-Id Not in Profile";
+                                    drCustomerReportMailStatus["PortfolioRHolding"] = "Email-Id Not in Profile";
+                                    drCustomerReportMailStatus["Comprehensive"] = "Email-Id Not in Profile";
+                                    drCustomerReportMailStatus["ECapitalGainDetails"] = "Email-Id Not in Profile";
+                                    drCustomerReportMailStatus["ECapitalGainsSummary"] = "Email-Id Not in Profile";
+                                    drCustomerReportMailStatus["TransactionReport"] = "Email-Id Not in Profile";
+                                    drCustomerReportMailStatus["DividendStatement"] = "Email-Id Not in Profile";
+                                    drCustomerReportMailStatus["DividendSummary"] = "Email-Id Not in Profile";
+                                    drCustomerReportMailStatus["CapitalGainDetails"] = "Email-Id Not in Profile";
+                                    drCustomerReportMailStatus["CapitalGainSummary"] = "Email-Id Not in Profile";
+                                    dtCustomerReportMailStatus.Rows.Add(drCustomerReportMailStatus);
 
-                                if (!string.IsNullOrEmpty(comprehensive))
-                                    drCustomerReportMailStatus["Comprehensive"] = comprehensive;
-                                else
-                                    drCustomerReportMailStatus["Comprehensive"] = mailSendStatus;
+                                }
 
-                                if (!string.IsNullOrEmpty(eCapitalGainDetails))
-                                    drCustomerReportMailStatus["ECapitalGainDetails"] = eCapitalGainDetails;
-                                else
-                                    drCustomerReportMailStatus["ECapitalGainDetails"] = mailSendStatus;
-
-                                if (!string.IsNullOrEmpty(eCapitalGainsSummary))
-                                    drCustomerReportMailStatus["ECapitalGainsSummary"] = eCapitalGainsSummary;
-                                else
-                                    drCustomerReportMailStatus["ECapitalGainsSummary"] = mailSendStatus;
-
-                                if (!string.IsNullOrEmpty(transactionReport))
-                                    drCustomerReportMailStatus["TransactionReport"] = transactionReport;
-                                else
-                                    drCustomerReportMailStatus["TransactionReport"] = mailSendStatus;
-
-                                if (!string.IsNullOrEmpty(dividendStatement))
-                                    drCustomerReportMailStatus["DividendStatement"] = dividendStatement;
-                                else
-                                    drCustomerReportMailStatus["DividendStatement"] = mailSendStatus;
-
-                                if (!string.IsNullOrEmpty(dividendSummary))
-                                    drCustomerReportMailStatus["DividendSummary"] = dividendSummary;
-                                else
-                                    drCustomerReportMailStatus["DividendSummary"] = mailSendStatus;
-
-                                if (!string.IsNullOrEmpty(capitalGainDetails))
-                                    drCustomerReportMailStatus["CapitalGainDetails"] = capitalGainDetails;
-                                else
-                                    drCustomerReportMailStatus["CapitalGainDetails"] = mailSendStatus;
-
-                                if (!string.IsNullOrEmpty(capitalGainSummary))
-                                    drCustomerReportMailStatus["CapitalGainSummary"] = capitalGainSummary;
-                                else
-                                    drCustomerReportMailStatus["CapitalGainSummary"] = mailSendStatus;
-
-                                dtCustomerReportMailStatus.Rows.Add(drCustomerReportMailStatus);                     
-                                
                             }
-                            else
-                            {
-                                drCustomerReportMailStatus = dtCustomerReportMailStatus.NewRow();
-                                string CustometName=customerVo.FirstName+ " " + customerVo.MiddleName + " " + customerVo.LastName;
-                                drCustomerReportMailStatus["CustometName"] = CustometName;
-                                drCustomerReportMailStatus["MFundSummary"] = "Email-Id Not in Profile";
-                                drCustomerReportMailStatus["PortfolioRHolding"] = "Email-Id Not in Profile";
-                                drCustomerReportMailStatus["Comprehensive"] = "Email-Id Not in Profile";
-                                drCustomerReportMailStatus["ECapitalGainDetails"] = "Email-Id Not in Profile";
-                                drCustomerReportMailStatus["ECapitalGainsSummary"] = "Email-Id Not in Profile";
-                                drCustomerReportMailStatus["TransactionReport"] = "Email-Id Not in Profile";
-                                drCustomerReportMailStatus["DividendStatement"] = "Email-Id Not in Profile";
-                                drCustomerReportMailStatus["DividendSummary"] = "Email-Id Not in Profile";
-                                drCustomerReportMailStatus["CapitalGainDetails"] = "Email-Id Not in Profile";
-                                drCustomerReportMailStatus["CapitalGainSummary"] = "Email-Id Not in Profile";
-                                dtCustomerReportMailStatus.Rows.Add(drCustomerReportMailStatus);
-                                
-                            }
+
 
                         }
+                        catch (BaseApplicationException Ex)
+                        {
+                            throw Ex;
+                        }
+                        catch (Exception Ex)
+                        {
+                            BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                            NameValueCollection FunctionInfo = new NameValueCollection();
+                            FunctionInfo.Add("Method", "EmailReport.aspx.cs:sendMailFunction");
+                            object[] objects = new object[1];
+                            objects[0] = CustomerId;
+                            FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                            exBase.AdditionalInformation = FunctionInfo;
+                            ExceptionManager.Publish(exBase);
+                            throw exBase;
+
+                        }
+
 
                     }
+
                     if (dtCustomerReportMailStatus.Rows.Count > 0)
                     {
                         
@@ -850,7 +874,8 @@ namespace WealthERP.Reports
                         
                     }
                 }
-                AllFolioIds = AllFolioIds.Substring(0, AllFolioIds.Length - 1);
+                if (!string.IsNullOrEmpty(AllFolioIds.Trim()))
+                 AllFolioIds = AllFolioIds.Substring(0, AllFolioIds.Length - 1);
             
             return AllFolioIds;
         }
@@ -999,6 +1024,7 @@ namespace WealthERP.Reports
                 if(!string.IsNullOrEmpty(cust.Email))
                 {
                     Session["hidTo"] = txtTo.Text = cust.Email;
+                    //Session["hidTo"] = txtTo.Text = "psahoo9@gmail.com";
                 }
                 //if (!string.IsNullOrEmpty(customerVo.Email))
                 //{
