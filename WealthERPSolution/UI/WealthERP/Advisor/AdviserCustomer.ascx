@@ -59,7 +59,7 @@
 <table id="Table1" class="TableBackground" width="100%" runat="server">
     <tr>
         <td class="HeaderCell">
-            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer List"></asp:Label>
+            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer/Prospect List"></asp:Label>
                                 <hr />
         </td>
     </tr>
