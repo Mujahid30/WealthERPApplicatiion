@@ -707,7 +707,7 @@
                     
                     <div id="divOtherGoal" style="width: 100%;height: 100%; border: Solid 1px #EBEFF9 !important; border-color: #EBEFF9 !important" >
                          <br />
-                        <asp:Label ID="lblOtherGoalParagraph" runat="server" CssClass="GridViewCmbField" style="font-size:20 !important" Text="";>
+                        <asp:Label ID="lblOtherGoalParagraph" runat="server" CssClass="cmbField" style="font-size:20 !important" Text="";>
                         </asp:Label>
                  
                     </div>
@@ -790,7 +790,7 @@
                 <tr id="trRTParaGraph" runat="server" >
                 <td width="100%" style="width: 100%;height: 100%; border-width:medium !important; border-color:Blue !important">
                 <br />
-                <asp:Label ID="lblRTParagraph" runat="server" CssClass="GridViewCmbField" style="font-size:20 !important" Text="";>
+                <asp:Label ID="lblRTParagraph" runat="server" CssClass="cmbField" style="font-size:20 !important" Text="";>
                 </asp:Label>
                 <br />
                 </td>
