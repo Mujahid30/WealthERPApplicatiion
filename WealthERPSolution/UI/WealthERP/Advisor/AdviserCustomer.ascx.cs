@@ -665,7 +665,14 @@ namespace WealthERP.Advisor
                     isGrpHead = customerBo.CheckCustomerGroupHead(customerId);
                     if (isGrpHead == false)
                     {
-                        customerId = customerBo.GetCustomerGroupHead(customerId);
+                        if (customerVo.IsProspect == 1)
+                        {
+                            customerId = customerBo.GetCustomerGroupHead(customerId);
+                        }
+                        else
+                        {
+                            customerId = customerVo.CustomerId;
+                        }
                     }
                     else
                     {
