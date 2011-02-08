@@ -152,7 +152,7 @@
                 <asp:Label ID="lblPinCode" runat="server" Text="PinCode : " CssClass="FieldName"></asp:Label>
             </td>
             <td align="left">
-                <asp:TextBox ID="txtPinCode" runat="server" Text="" MaxLength="6" />
+                <asp:TextBox ID="txtPinCode" runat="server" Text="" MaxLength="6" /><br />
                 <asp:RegularExpressionValidator id="RegExpValforPincode" ControlToValidate="txtPinCode" ValidationExpression="\d+" Display="Static" EnableClientScript="true" 
                     ErrorMessage="Please enter numbers only" Font-Size="11px" runat="server"/>
             </td>
@@ -160,7 +160,7 @@
                 <asp:Label ID="lblMobileNo" runat="server" Text="MobileNo : " CssClass="FieldName"></asp:Label>
             </td>
             <td align="left">
-                <asp:TextBox ID="txtMobileNo" runat="server" Text="" MaxLength="10" />
+                <asp:TextBox ID="txtMobileNo" runat="server" Text="" MaxLength="10" /><br />
                    <asp:RegularExpressionValidator id="RegExpValforMobNo" ControlToValidate="txtMobileNo" ValidationExpression="\d+" Display="Static" EnableClientScript="true" 
                     ErrorMessage="Please enter numbers only" Font-Size="11px" runat="server"/>  
             </td>

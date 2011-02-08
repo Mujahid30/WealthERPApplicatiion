@@ -71,127 +71,130 @@ namespace WealthERP.FP
 
                 //SqlDataSourceCustomerRelation.ConnectionString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
                 rmVo = (RMVo)Session["rmVo"];
-                BindBranch(advisorVo, rmVo);
-                if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
+                if (!IsPostBack)
                 {
-                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
-                    customerVo = customerBo.GetCustomer(customerId);
-                    hdnIsActive.Value = customerVo.IsActive.ToString();
-                    hdnIsProspect.Value = customerVo.IsProspect.ToString();
-                    customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
-                    if (customerFamilyVoList != null)
+                    BindBranch(advisorVo, rmVo);
+                    if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
                     {
-
-                        totalRecordsCount = customerFamilyVoList.Count;
-                        dt.Rows.Clear();
-                        foreach (CustomerFamilyVo customerFamilyVo in customerFamilyVoList)
-                        {
-                            DataRow dr = dt.NewRow();
-                            dr["CA_AssociationId"] = customerFamilyVo.AssociationId;
-                            dr["C_CustomerId"] = customerFamilyVo.AssociateCustomerId;
-                            dr["CustomerRelationship"] = customerFamilyVo.RelationshipCode;
-                            dr["FirstName"] = customerFamilyVo.FirstName;
-                            dr["MiddleName"] = customerFamilyVo.MiddleName;
-                            dr["LastName"] = customerFamilyVo.LastName;
-                            if (customerFamilyVo.DOB != DateTime.Parse("01/01/0001 00:00:00"))
-                            {
-                                dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
-                            }
-                            dr["EmailId"] = customerFamilyVo.EmailId;
-                            dt.Rows.Add(dr);
-                        }
-                        Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-
-                    }
-                    else
-                    {
-                        tblChildCustomer.Visible = false;
-                    }
-                    txtFirstName.Text = customerVo.FirstName;
-                    txtMiddleName.Text = customerVo.MiddleName;
-                    txtLastName.Text = customerVo.LastName;
-                    if (customerVo.Dob != DateTime.Parse("01/01/0001 00:00:00") && customerVo.Dob != null)
-                    {
-                        dpDOB.SelectedDate = customerVo.Dob;
-                    }
-                    txtEmail.Text = customerVo.Email;
-                    txtPanNumber.Text = customerVo.PANNum;
-                    txtAddress1.Text = customerVo.Adr1Line1;
-                    txtAddress2.Text = customerVo.Adr1Line2;
-                    txtMobileNo.Text = customerVo.Mobile1.ToString();
-                    txtPinCode.Text = customerVo.Adr1PinCode.ToString();
-                    txtCity.Text = customerVo.Adr1City;
-                    txtState.Text = customerVo.Adr1State;
-                    txtCountry.Text = customerVo.Adr1Country;
-                    if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
-                    {
-                        dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
-                    }
-                    if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
-                    {
-                        dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
-                    }
-                    for (int i = 0; i < ddlPickBranch.Items.Count; i++)
-                    {
-                        if (ddlPickBranch.Items[i].Value == customerVo.BranchId.ToString())
-                        {
-                            ddlPickBranch.SelectedIndex = i;
-                        }
-                    }
-                    Rebind();
-                    if (Session[SessionContents.FPS_AddProspectListActionStatus].ToString() == "View")
-                    {
-                        // View things have been handled here
-                        aplToolBar.Visible = true;
-                        btnSubmit.Visible = false;
-                        btnSubmitAddDetails.Visible = false;
+                        customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                        customerVo = customerBo.GetCustomer(customerId);
+                        hdnIsActive.Value = customerVo.IsActive.ToString();
+                        hdnIsProspect.Value = customerVo.IsProspect.ToString();
+                        customerFamilyVoList = customerFamilyBo.GetCustomerFamily(customerId);
                         if (customerFamilyVoList != null)
                         {
-                            RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
-                            RadGrid1.Columns[0].Visible = false;
-                            RadGrid1.AllowAutomaticInserts = false;
-                            RadGrid1.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
-                            ChildCustomerGridPanel.Enabled = false;
+
+                            totalRecordsCount = customerFamilyVoList.Count;
+                            dt.Rows.Clear();
+                            foreach (CustomerFamilyVo customerFamilyVo in customerFamilyVoList)
+                            {
+                                DataRow dr = dt.NewRow();
+                                dr["CA_AssociationId"] = customerFamilyVo.AssociationId;
+                                dr["C_CustomerId"] = customerFamilyVo.AssociateCustomerId;
+                                dr["CustomerRelationship"] = customerFamilyVo.RelationshipCode;
+                                dr["FirstName"] = customerFamilyVo.FirstName;
+                                dr["MiddleName"] = customerFamilyVo.MiddleName;
+                                dr["LastName"] = customerFamilyVo.LastName;
+                                if (customerFamilyVo.DOB != DateTime.Parse("01/01/0001 00:00:00"))
+                                {
+                                    dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
+                                }
+                                dr["EmailId"] = customerFamilyVo.EmailId;
+                                dt.Rows.Add(dr);
+                            }
+                            Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+
                         }
                         else
                         {
-                            ChildCustomerGridPanel.Visible = false;
+                            tblChildCustomer.Visible = false;
                         }
-                        //Disabling all Fields
-                        txtEmail.Enabled = false;
-                        txtFirstName.Enabled = false;
-                        txtLastName.Enabled = false;
-                        txtMiddleName.Enabled = false;
-                        ddlPickBranch.Enabled = false;
-                        dpDOB.Enabled = false;
-                        txtPanNumber.Enabled = false;
-                        txtAddress1.Enabled = false;
-                        txtAddress2.Enabled = false;
-                        txtMobileNo.Enabled = false;
-                        txtPinCode.Enabled = false;
-                        txtCity.Enabled = false;
-                        txtState.Enabled = false;
-                        txtCountry.Enabled = false;                        
-                        dpProspectAddDate.Enabled = false;
-                        headertitle.Text = "View Prospect";
+                        txtFirstName.Text = customerVo.FirstName;
+                        txtMiddleName.Text = customerVo.MiddleName;
+                        txtLastName.Text = customerVo.LastName;
+                        if (customerVo.Dob != DateTime.Parse("01/01/0001 00:00:00") && customerVo.Dob != null)
+                        {
+                            dpDOB.SelectedDate = customerVo.Dob;
+                        }
+                        txtEmail.Text = customerVo.Email;
+                        txtPanNumber.Text = customerVo.PANNum;
+                        txtAddress1.Text = customerVo.Adr1Line1;
+                        txtAddress2.Text = customerVo.Adr1Line2;
+                        txtMobileNo.Text = customerVo.Mobile1.ToString();
+                        txtPinCode.Text = customerVo.Adr1PinCode.ToString();
+                        txtCity.Text = customerVo.Adr1City;
+                        txtState.Text = customerVo.Adr1State;
+                        txtCountry.Text = customerVo.Adr1Country;
+                        if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
+                        {
+                            dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
+                        }
+                        if (customerVo.ProspectAddDate != DateTime.Parse("01/01/0001 00:00:00") && customerVo.ProspectAddDate != null)
+                        {
+                            dpProspectAddDate.SelectedDate = customerVo.ProspectAddDate;
+                        }
+                        for (int i = 0; i < ddlPickBranch.Items.Count; i++)
+                        {
+                            if (ddlPickBranch.Items[i].Value == customerVo.BranchId.ToString())
+                            {
+                                ddlPickBranch.SelectedIndex = i;
+                            }
+                        }
+                        Rebind();
+                        if (Session[SessionContents.FPS_AddProspectListActionStatus].ToString() == "View")
+                        {
+                            // View things have been handled here
+                            aplToolBar.Visible = true;
+                            btnSubmit.Visible = false;
+                            btnSubmitAddDetails.Visible = false;
+                            if (customerFamilyVoList != null)
+                            {
+                                RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
+                                RadGrid1.Columns[0].Visible = false;
+                                RadGrid1.AllowAutomaticInserts = false;
+                                RadGrid1.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
+                                ChildCustomerGridPanel.Enabled = false;
+                            }
+                            else
+                            {
+                                ChildCustomerGridPanel.Visible = false;
+                            }
+                            //Disabling all Fields
+                            txtEmail.Enabled = false;
+                            txtFirstName.Enabled = false;
+                            txtLastName.Enabled = false;
+                            txtMiddleName.Enabled = false;
+                            ddlPickBranch.Enabled = false;
+                            dpDOB.Enabled = false;
+                            txtPanNumber.Enabled = false;
+                            txtAddress1.Enabled = false;
+                            txtAddress2.Enabled = false;
+                            txtMobileNo.Enabled = false;
+                            txtPinCode.Enabled = false;
+                            txtCity.Enabled = false;
+                            txtState.Enabled = false;
+                            txtCountry.Enabled = false;
+                            dpProspectAddDate.Enabled = false;
+                            headertitle.Text = "View Prospect";
 
+                        }
+                        else if (Session[SessionContents.FPS_AddProspectListActionStatus].ToString() == "Edit")
+                        {
+                            // Edit thing have been handled here
+                            aplToolBar.Visible = true;
+                            RadToolBarButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
+                            rtb.Visible = false;
+                            btnSubmit.Visible = true;
+                            btnSubmitAddDetails.Visible = true;
+                            btnSubmit.Text = "Update";
+                            btnSubmitAddDetails.Text = "Edit Finance Details";
+                            RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
+                            tblChildCustomer.Visible = true;
+                            headertitle.Text = "Edit Prospect";
+                        }
                     }
-                    else if (Session[SessionContents.FPS_AddProspectListActionStatus].ToString() == "Edit")
-                    {
-                        // Edit thing have been handled here
-                        aplToolBar.Visible = true;
-                        RadToolBarButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
-                        rtb.Visible = false;
-                        btnSubmit.Visible = true;
-                        btnSubmitAddDetails.Visible = true;
-                        btnSubmit.Text = "Update";
-                        btnSubmitAddDetails.Text = "Edit Finance Details";
-                        RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
-                        tblChildCustomer.Visible = true;
-                        headertitle.Text = "Edit Prospect";
-                    }
+                    RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
                 }
-                RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
 
             }
             catch (Exception ex)
@@ -863,14 +866,15 @@ namespace WealthERP.FP
                         int createdById = tempuservo.UserId;
                         bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
 
+                        Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+
+                        Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
+                        Session["IsDashboard"] = "FP";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
                     }
                 }
-                Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                 
-                Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
-                Session["IsDashboard"] = "FP";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
                 
                 //msgRecordStatus.Visible = true;
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
