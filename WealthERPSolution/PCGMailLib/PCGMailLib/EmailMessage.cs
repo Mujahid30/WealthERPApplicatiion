@@ -33,49 +33,97 @@ namespace PCGMailLib
         /// <param name="body"></param>
         public void AssignMailSettings(EmailTypes emailTypes, string body)
         {
-
-            switch (emailTypes)
+            if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
             {
-                case EmailTypes.AdviserRegistration:
-                    this.From = new MailAddress("admin@werp.com", "WealthERP Adviser Registration");
-                    this.Subject = "WERP Adviser Registration";
-                    break;
-                case EmailTypes.AdviserRMAccount:
-                    this.From = new MailAddress("admin@werp.com", "WealthERP");
-                    this.Subject = "WealthERP Account Details";
-                    break;
-                case EmailTypes.ForgotPassword:
-                    this.From = new MailAddress("admin@werp.com", "WealthERP");
-                    this.Subject = "WealthERP Forgot Password";
-                    break;
-                case EmailTypes.CustomerCredentials:
-                    this.From = new MailAddress("admin@werp.com", "WealthERP");
-                    this.Subject = "WealthERP Customer Account Credentials";
-                    break;
-                case EmailTypes.ResetPassword:
-                    this.From = new MailAddress("admin@werp.com", "WealthERP");
-                    this.Subject = "WealthERP Reset Password";
-                    break;
-                case EmailTypes.AdviserRegistrationNotification:
-                    this.To.Clear();
-                    this.CC.Clear();
-                    string toMailIdString = ConfigurationManager.AppSettings["AdminNotificationTo"].ToString();
-                    string[] toMailIds = toMailIdString.Split(',');
-                    foreach (string mailId in toMailIds)
-                    {
-                        this.To.Add(mailId);
-                    }
+                switch (emailTypes)
+                {
+                    case EmailTypes.AdviserRegistration:
+                        this.From = new MailAddress("admin@werp.com", "WealthERP Adviser Registration");
+                        this.Subject = "WERP Adviser Registration";
+                        break;
+                    case EmailTypes.AdviserRMAccount:
+                        this.From = new MailAddress("admin@werp.com", "WealthERP");
+                        this.Subject = "WealthERP Account Details";
+                        break;
+                    case EmailTypes.ForgotPassword:
+                        this.From = new MailAddress("admin@werp.com", "WealthERP");
+                        this.Subject = "WealthERP Forgot Password";
+                        break;
+                    case EmailTypes.CustomerCredentials:
+                        this.From = new MailAddress("admin@werp.com", "WealthERP");
+                        this.Subject = "WealthERP Customer Account Credentials";
+                        break;
+                    case EmailTypes.ResetPassword:
+                        this.From = new MailAddress("admin@werp.com", "WealthERP");
+                        this.Subject = "WealthERP Reset Password";
+                        break;
+                    case EmailTypes.AdviserRegistrationNotification:
+                        this.To.Clear();
+                        this.CC.Clear();
+                        string toMailIdString = ConfigurationManager.AppSettings["AdminNotificationTo"].ToString();
+                        string[] toMailIds = toMailIdString.Split(',');
+                        foreach (string mailId in toMailIds)
+                        {
+                            this.To.Add(mailId);
+                        }
 
-                    string CCMailIdString = ConfigurationManager.AppSettings["AdminNotificationCC"].ToString();
-                    string[] CCMailIds = CCMailIdString.Split(',');
-                    foreach (string mailId in CCMailIds)
-                    {
-                        this.CC.Add(mailId);
-                    }
+                        string CCMailIdString = ConfigurationManager.AppSettings["AdminNotificationCC"].ToString();
+                        string[] CCMailIds = CCMailIdString.Split(',');
+                        foreach (string mailId in CCMailIds)
+                        {
+                            this.CC.Add(mailId);
+                        }
 
-                    this.From = new MailAddress("admin@werp.com", "WealthERP");
-                    this.Subject = "WealthERP Adviser Registration";
-                    break;
+                        this.From = new MailAddress("admin@werp.com", "WealthERP");
+                        this.Subject = "WealthERP Adviser Registration";
+                        break;
+                }
+            }
+            else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+            {
+                switch (emailTypes)
+                {
+                    case EmailTypes.AdviserRegistration:
+                        this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch Adviser Registration");
+                        this.Subject = "MoneyTouch Adviser Registration";
+                        break;
+                    case EmailTypes.AdviserRMAccount:
+                        this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch");
+                        this.Subject = "MoneyTouch Account Details";
+                        break;
+                    case EmailTypes.ForgotPassword:
+                        this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch");
+                        this.Subject = "MoneyTouch Forgot Password";
+                        break;
+                    case EmailTypes.CustomerCredentials:
+                        this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch");
+                        this.Subject = "MoneyTouch Customer Account Credentials";
+                        break;
+                    case EmailTypes.ResetPassword:
+                        this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch");
+                        this.Subject = "MoneyTouch Reset Password";
+                        break;
+                    case EmailTypes.AdviserRegistrationNotification:
+                        this.To.Clear();
+                        this.CC.Clear();
+                        string toMailIdString = ConfigurationManager.AppSettings["AdminNotificationTo"].ToString();
+                        string[] toMailIds = toMailIdString.Split(',');
+                        foreach (string mailId in toMailIds)
+                        {
+                            this.To.Add(mailId);
+                        }
+
+                        string CCMailIdString = ConfigurationManager.AppSettings["AdminNotificationCC"].ToString();
+                        string[] CCMailIds = CCMailIdString.Split(',');
+                        foreach (string mailId in CCMailIds)
+                        {
+                            this.CC.Add(mailId);
+                        }
+
+                        this.From = new MailAddress("noreply@moneytouch.in", "MoneyTouch");
+                        this.Subject = "MoneyTouch Adviser Registration";
+                        break;
+                }
             }
             this.Body = body;
 
@@ -106,8 +154,14 @@ namespace PCGMailLib
         public void GetAdviserRegistrationMail(string loginId, string password, string name)
         {
             string emailContent = string.Empty;
-
-            emailContent = ReadTemplate("AdviserRegistration.html");
+            if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+            {
+                emailContent = ReadTemplate("AdviserRegistration.html");
+            }
+            else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+            {
+                emailContent = ReadTemplate("MT_AdviserRegistration.html");
+            }
             emailContent = emailContent.Replace("[LOGIN-ID]", loginId);
             emailContent = emailContent.Replace("[PASSWORD]", password);
             emailContent = emailContent.Replace("[Name]", name);
@@ -127,8 +181,15 @@ namespace PCGMailLib
         public void GetAdviserRegistrationMailNotification(string organizationname,string city,long mobileno,string loginId, string emailId, string name)
         {
             string emailContent = string.Empty;
-
-            emailContent = ReadTemplate("AdviserRegistrationNotification.html");
+            if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+            {
+                emailContent = ReadTemplate("AdviserRegistrationNotification.html");
+            }
+            else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+            {
+                emailContent = ReadTemplate("MT_AdviserRegistrationNotification.html");
+            }
+            
             emailContent = emailContent.Replace("[ORGANIZATION-NAME]", organizationname);
             emailContent = emailContent.Replace("[CITY]", city);
             emailContent = emailContent.Replace("[MOBILE NO]", mobileno.ToString());            
@@ -151,8 +212,15 @@ namespace PCGMailLib
         public void GetForgotPasswordMail(string loginId, string password, string name)
         {
             string emailContent = string.Empty;
-
-            emailContent = ReadTemplate("ForgotPassword.html");
+            if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+            {
+                emailContent = ReadTemplate("ForgotPassword.html");
+            }
+            else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+            {
+                emailContent = ReadTemplate("MT_ForgotPassword.html");
+            }
+            
             emailContent = emailContent.Replace("[LOGIN-ID]", loginId);
             emailContent = emailContent.Replace("[PASSWORD]", password);
             emailContent = emailContent.Replace("[Name]", name);
@@ -169,8 +237,15 @@ namespace PCGMailLib
         public void GetAdviserRMAccountMail(string loginId, string password, string name)
         {
             string emailContent = string.Empty;
-
-            emailContent = ReadTemplate("AdviserRMAccounts.html");
+            if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+            {
+                emailContent = ReadTemplate("AdviserRMAccounts.html");
+            }
+            else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+            {
+                emailContent = ReadTemplate("MT_AdviserRMAccounts.html");
+            }
+            
             emailContent = emailContent.Replace("[LOGIN-ID]", loginId);
             emailContent = emailContent.Replace("[PASSWORD]", password);
             emailContent = emailContent.Replace("[Name]", name);
@@ -189,8 +264,15 @@ namespace PCGMailLib
         public void GetCustomerAccountMail(string loginId, string password, string name)
         {
             string emailContent = string.Empty;
-
-            emailContent = ReadTemplate("CustomerCredentials.html");
+            if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+            {
+                emailContent = ReadTemplate("CustomerCredentials.html");
+            }
+            else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+            {
+                emailContent = ReadTemplate("MT_CustomerCredentials.html");
+            }
+            
             emailContent = emailContent.Replace("[LOGIN-ID]", loginId);
             emailContent = emailContent.Replace("[PASSWORD]", password);
             emailContent = emailContent.Replace("[Name]", name);
@@ -209,8 +291,15 @@ namespace PCGMailLib
         public void GetResetPasswordMail(string loginId, string password, string name)
         {
             string emailContent = string.Empty;
-
-            emailContent = ReadTemplate("ResetPassword.html");
+            if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+            {
+                emailContent = ReadTemplate("ResetPassword.html");
+            }
+            else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+            {
+                emailContent = ReadTemplate("MT_ResetPassword.html");
+            }
+            
             emailContent = emailContent.Replace("[LOGIN-ID]", loginId);
             emailContent = emailContent.Replace("[PASSWORD]", password);
             emailContent = emailContent.Replace("[Name]", name);
