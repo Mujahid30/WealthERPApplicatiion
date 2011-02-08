@@ -44,16 +44,16 @@ namespace DaoAdvisorProfiling
                 //db.AddInParameter(createCompleteAdvisorCmd, "@U_CreatedBy", DbType.Int32, 100);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@U_ModifiedBy", DbType.Int32, 100);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_OrgName", DbType.String, advisorVo.OrganizationName);
-                //db.AddInParameter(createCompleteAdvisorCmd, "@A_AddressLine1", DbType.String, advisorVo.AddressLine1);
-                //db.AddInParameter(createCompleteAdvisorCmd, "@A_AddressLine2", DbType.String, advisorVo.AddressLine2);
-                //db.AddInParameter(createCompleteAdvisorCmd, "@A_AddressLine3", DbType.String, advisorVo.AddressLine3);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_AddressLine1", DbType.String, advisorVo.AddressLine1);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_AddressLine2", DbType.String, advisorVo.AddressLine2);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_AddressLine3", DbType.String, advisorVo.AddressLine3);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_City", DbType.String, advisorVo.City);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@A_State", DbType.String, advisorVo.State);
-                //db.AddInParameter(createCompleteAdvisorCmd, "@A_PinCode", DbType.Int32, advisorVo.PinCode);
-                //db.AddInParameter(createCompleteAdvisorCmd, "@A_Country", DbType.String, advisorVo.Country);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_PinCode", DbType.Int32, advisorVo.PinCode);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_Country", DbType.String, advisorVo.Country);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone1STD", DbType.Int32, advisorVo.Phone1Std);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone1ISD", DbType.Int32, advisorVo.Phone1Isd);
-                //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone1Number", DbType.Int32, advisorVo.Phone1Number);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone1Number", DbType.Int32, advisorVo.Phone1Number);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone2STD", DbType.Int32, advisorVo.Phone2Std);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone2ISD", DbType.Int32, advisorVo.Phone2Isd);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone2Number", DbType.Int32, advisorVo.Phone2Number);
@@ -67,7 +67,10 @@ namespace DaoAdvisorProfiling
                 //db.AddInParameter(createCompleteAdvisorCmd, "@A_ContactPersonLastName", DbType.String, advisorVo.ContactPersonLastName);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_ContactPersonMobile", DbType.Int64, advisorVo.MobileNumber);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_IsMultiBranch", DbType.Int32, advisorVo.MultiBranch);
-
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_IsActive", DbType.Int16, advisorVo.IsActive);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_ActivationDate", DbType.DateTime, advisorVo.ActivationDate);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_DeactivateDate", DbType.DateTime, advisorVo.DeactivationDate);
+                db.AddInParameter(createCompleteAdvisorCmd, "@XAC_AdviserCategoryCode", DbType.String, advisorVo.Category);
                 db.AddInParameter(createCompleteAdvisorCmd, "@A_IsAssociateModel", DbType.Int32, advisorVo.Associates);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@A_ModifiedBy", DbType.Int32, 100);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@A_AdviserLogo", DbType.String, advisorVo.LogoPath);
@@ -1636,7 +1639,149 @@ namespace DaoAdvisorProfiling
             }
             return dsUserPotentialHomepage;
         }
-        
+
+
+        public DataSet GetXMLAdvisorCategory()
+        {
+            Database db;
+            DbCommand GetXMLAdvisorCategorycmd;
+            DataSet dsGetXMLAdvisorCategory;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetXMLAdvisorCategorycmd = db.GetStoredProcCommand("SP_GetXMLAdvisorCategory");
+                dsGetXMLAdvisorCategory = db.ExecuteDataSet(GetXMLAdvisorCategorycmd);
+
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserSibscriptionDetails(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = "GetXMLAdvisorCategory";
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetXMLAdvisorCategory;
+
+        }
+
+        /// <summary>
+        /// Updates Complete Advisor which includes AdviserRM,Adviser and Adviser Table
+        /// Caution:Please use this only if it is needed.
+        /// </summary>
+        /// <param name="userVo"></param>
+        /// <param name="adviserVo"></param>
+        /// <param name="rmVo"></param>
+        public void UpdateCompleteAdviser(UserVo userVo, AdvisorVo advisorVo, RMVo rmVo)
+        {
+            Database db;
+            DbCommand createCompleteAdvisorCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCompleteAdvisorCmd = db.GetStoredProcCommand("SP_UpdateCompleteAdviser");
+                //db.AddInParameter(createCompleteAdvisorCmd, "@U_Password", DbType.String, userVo.Password);
+                db.AddInParameter(createCompleteAdvisorCmd, "@U_FirstName ", DbType.String, userVo.FirstName);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@U_MiddleName", DbType.String, userVo.MiddleName);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@U_Lastname", DbType.String, userVo.LastName);
+                db.AddInParameter(createCompleteAdvisorCmd, "@U_Email", DbType.String, userVo.Email);
+                db.AddInParameter(createCompleteAdvisorCmd, "@U_UserType", DbType.String, userVo.UserType);
+                db.AddInParameter(createCompleteAdvisorCmd, "@U_LoginId", DbType.String, userVo.LoginId);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@U_CreatedBy", DbType.Int32, 100);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@U_ModifiedBy", DbType.Int32, 100);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_OrgName", DbType.String, advisorVo.OrganizationName);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_AddressLine1", DbType.String, advisorVo.AddressLine1);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_AddressLine2", DbType.String, advisorVo.AddressLine2);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_AddressLine3", DbType.String, advisorVo.AddressLine3);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_City", DbType.String, advisorVo.City);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_State", DbType.String, advisorVo.State);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_PinCode", DbType.Int32, advisorVo.PinCode);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_Country", DbType.String, advisorVo.Country);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone1STD", DbType.Int32, advisorVo.Phone1Std);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone1ISD", DbType.Int32, advisorVo.Phone1Isd);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone1Number", DbType.Int32, advisorVo.Phone1Number);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone2STD", DbType.Int32, advisorVo.Phone2Std);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone2ISD", DbType.Int32, advisorVo.Phone2Isd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_Phone2Number", DbType.Int32, advisorVo.Phone2Number);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_Email", DbType.String, advisorVo.Email);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_FAXISD", DbType.Int32, advisorVo.FaxIsd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_FAXSTD", DbType.Int32, advisorVo.FaxStd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_FAX", DbType.Int32, advisorVo.Fax);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@XABT_BusinessTypeCode", DbType.String, advisorVo.BusinessCode);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_ContactPersonFirstName", DbType.String, advisorVo.ContactPersonFirstName);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_ContactPersonMiddleName", DbType.String, advisorVo.ContactPersonMiddleName);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_ContactPersonLastName", DbType.String, advisorVo.ContactPersonLastName);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_ContactPersonMobile", DbType.Int64, advisorVo.MobileNumber);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_IsMultiBranch", DbType.Int32, advisorVo.MultiBranch);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_IsActive", DbType.String, advisorVo.IsActive);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_ActivationDate", DbType.DateTime, advisorVo.ActivationDate);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_DeactivateDate", DbType.DateTime, advisorVo.DeactivationDate);
+                db.AddInParameter(createCompleteAdvisorCmd, "@XAC_AdviserCategoryCode", DbType.String, advisorVo.Category);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_IsAssociateModel", DbType.Int32, advisorVo.Associates);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_ModifiedBy", DbType.Int32, 100);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@A_AdviserLogo", DbType.String, advisorVo.LogoPath);
+                db.AddInParameter(createCompleteAdvisorCmd, "@AR_FirstName", DbType.String, rmVo.FirstName);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_MiddleName", DbType.String, rmVo.MiddleName);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_LastName", DbType.String, rmVo.LastName);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_OfficePhoneDirectISD", DbType.Int32, rmVo.OfficePhoneDirectIsd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_OfficePhoneDirectSTD", DbType.Int32, rmVo.OfficePhoneDirectStd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_OfficePhoneDirect", DbType.Int32, rmVo.OfficePhoneDirectNumber);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_OfficePhoneExtISD", DbType.Int32, rmVo.OfficePhoneExtIsd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_OfficePhoneExtSTD", DbType.Int32, rmVo.OfficePhoneExtStd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_OfficePhoneExt", DbType.Int32, rmVo.OfficePhoneExtNumber);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_ResPhoneISD", DbType.Int32, rmVo.ResPhoneIsd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_ResPhoneSTD", DbType.Int32, rmVo.ResPhoneStd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_ResPhone", DbType.Int32, rmVo.ResPhoneNumber);
+                db.AddInParameter(createCompleteAdvisorCmd, "@AR_Mobile", DbType.Int64, rmVo.Mobile);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_FaxISD", DbType.Int32, rmVo.FaxIsd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_FaxSTD", DbType.Int32, rmVo.FaxStd);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_Fax", DbType.Int32, rmVo.Fax);
+                db.AddInParameter(createCompleteAdvisorCmd, "@AR_Email", DbType.String, rmVo.Email);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_JobFunction", DbType.String, rmVo.RMRole);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_IsExternalStaff", DbType.Int16, rmVo.IsExternal);
+                //db.AddInParameter(createCompleteAdvisorCmd, "@AR_CTC", DbType.Double, 0);                             
+
+                db.AddInParameter(createCompleteAdvisorCmd, "@U_UserId", DbType.Int32, userVo.UserId);
+                db.AddInParameter(createCompleteAdvisorCmd, "@AR_RMId", DbType.Int32, rmVo.RMId);
+                db.AddInParameter(createCompleteAdvisorCmd, "@A_AdviserId", DbType.Int32, advisorVo.advisorId);
+                db.ExecuteNonQuery(createCompleteAdvisorCmd);
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:CreateCompleteAdviser()");
+                object[] objects = new object[3];
+                objects[0] = advisorVo;
+                objects[1] = rmVo;
+                objects[2] = userVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
     }
 }
 
