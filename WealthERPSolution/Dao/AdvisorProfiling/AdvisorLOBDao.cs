@@ -467,5 +467,48 @@ namespace DaoAdvisorProfiling
             return result;
         }
 
+        /// <summary>
+        /// Used to Update Advisor's LOB Dependencies
+        /// </summary>
+        /// <param name="lobId"></param>
+        /// <param name="IsDependent"></param>
+        public void UpdateAdvisorLOB(int lobId, int IsDependent)
+        {
+
+            Database db;
+            DbCommand UpdateAdvisorLOBCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateAdvisorLOBCmd = db.GetStoredProcCommand("SP_UpdateAdvisorLOB");
+                db.AddInParameter(UpdateAdvisorLOBCmd, "@LOBId", DbType.Int32, lobId);
+                db.AddInParameter(UpdateAdvisorLOBCmd, "@IsDependent", DbType.Int32, IsDependent);
+                db.ExecuteNonQuery(UpdateAdvisorLOBCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorLOBDao.cs:GetAdvisorLOBs()");
+
+
+                object[] objects = new object[1];
+                objects[0] = lobId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+        }
+
     }
 }
