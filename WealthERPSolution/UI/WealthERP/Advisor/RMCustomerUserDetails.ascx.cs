@@ -465,7 +465,14 @@ namespace WealthERP.Advisor
 
                         if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
                         {
-                            email.From = new MailAddress(emailer.smtpUserName, "WealthERP");
+                            if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+                            {
+                                email.From = new MailAddress(emailer.smtpUserName, "WealthERP");
+                            }
+                            else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+                            {
+                                email.From = new MailAddress(emailer.smtpUserName, "MoneyTouch");
+                            }
                         }
                     }
                     //Sending mail...
