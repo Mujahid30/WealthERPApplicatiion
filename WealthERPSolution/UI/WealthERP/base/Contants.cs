@@ -171,6 +171,12 @@ namespace WealthERP.Base
         public const string FPS_TreeView_Status = "FPS_TreeView_Status";
         //public const string FPS_CustomerProspect_CustomerFamilyDataTable = "customerProspectCustomerFamilyDataTablet";
         //===================================================================================================================================
+        //Session contents for SuperAdmin Configuration
+        //===================================================================================================================================
+        public const string SAC_HostGeneralDetails = "hostgeneraldetails";
+
+        //===================================================================================================================================
+        
     }
 
     public static class Resources
