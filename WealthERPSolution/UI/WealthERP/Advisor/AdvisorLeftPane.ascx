@@ -33,11 +33,11 @@
 </asp:ScriptManager>--%>
 <asp:UpdatePanel ID="upnlAdviserleftpane" runat="server">
     <ContentTemplate>
-        <table style="valign: top">
+        <table style="valign: top; width:100%;">
             <tr>
                 <td valign="top">
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
-                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="240px" OnItemClick="RadPanelBar1_ItemClick"
+                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RadPanelBar1_ItemClick"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Admin" Value="Admin">
@@ -177,7 +177,7 @@
                     </telerik:RadPanelBar>
                     <telerik:RadPanelBar ID="RadPanelBar2" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" OnItemClick="RadPanelBar2_ItemClick"
-                        Width="240px" AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
+                        Width="100%" AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="RM" Value="RM">
                                 <Items>
@@ -267,7 +267,7 @@
                     </telerik:RadPanelBar>
                     <telerik:RadPanelBar ID="RadPanelBar3" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" OnItemClick="RadPanelBar3_ItemClick"
-                        Width="240px" AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
+                        Width="100%" AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="BM" Value="BM">
                                 <Items>
