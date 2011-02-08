@@ -1,6 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserLoanSchemeView.ascx.cs"
     Inherits="WealthERP.Loans.AdviserLoanSchemeView" %>
 <%@ Register Src="../General/Pager.ascx" TagName="Pager" TagPrefix="uc1" %>
+<div class="warning-msg" id="EditDisabledMessage" runat="server" visible="false">
+    <asp:Label ID="lblEditMessageDisabled" runat="server"></asp:Label>
+</div>
 <table width="100%">
     <tr>
         <td>
@@ -8,13 +11,17 @@
                 <tr>
                     <td>
                         <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Loan Schemes"></asp:Label>
-                       
                     </td>
                     <td align="right">
                         <asp:LinkButton ID="lnkAddNew" CssClass="LinkButtons" runat="server" OnClick="lnkAddNew_Click">Add New Scheme</asp:LinkButton>
                     </td>
                 </tr>
             </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <hr />
         </td>
     </tr>
     <tr>
@@ -26,8 +33,8 @@
     <tr>
         <td>
             <asp:GridView ID="gvAdviserLoanSchemeView" runat="server" AutoGenerateColumns="False"
-                CellPadding="4" DataKeyNames="SchemeId" AllowSorting="True" CssClass="GridViewStyle" ShowFooter="true"
-                EmptyDataText="No Schemes available.">
+                CellPadding="4" DataKeyNames="SchemeId" AllowSorting="True" CssClass="GridViewStyle"
+                ShowFooter="true" EmptyDataText="No Schemes available.">
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -39,7 +46,8 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Actions">
                         <ItemTemplate>
-                            <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
+                            <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
                                 <asp:ListItem Text="Select" Value="Select" />
                                 <asp:ListItem Text="View" Value="View" />
                                 <asp:ListItem Text="Edit" Value="Edit" />
