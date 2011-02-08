@@ -48,7 +48,7 @@
                 </td>
             </tr>
         </table>
-        <table>
+        <table style="valign: top; width:100%;">
             <tr>
                 <td>
                     <label id="lblExpressLinks" class="HeaderTextSmall">
@@ -58,7 +58,7 @@
             <tr>
                 <td>
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
-                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="240px" OnItemClick="RadPanelBar1_ItemClick"
+                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RadPanelBar1_ItemClick"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Home" Value="Home">
