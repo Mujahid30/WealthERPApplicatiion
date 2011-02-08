@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using VoAdvisorProfiling;
 namespace VoUser
 {
     /// <summary>
@@ -41,7 +41,14 @@ namespace VoUser
         private string m_LogoPath;
         private int m_Associates;
         private string m_Designation;
-
+        private string s_Category;
+        private string s_Status;
+        private DateTime s_ActivationDate;
+        private DateTime s_DeactivationDate;
+        private Int16 s_IsActive;
+        private string s_LOBAssetGroup;
+        private Int16 s_IsDependent;
+        private List<AdvisorLOBVo> advisorLOBVoList = new List<AdvisorLOBVo>();
 
       
        
@@ -218,7 +225,52 @@ namespace VoUser
             get { return m_Designation; }
             set { m_Designation = value; }
         }
+        public List<AdvisorLOBVo> AdvisorLOBVoList
+        {
+            get { return advisorLOBVoList; }
+            set { advisorLOBVoList = value; }
+        }
+        public Int16 IsDependent
+        {
+            get { return s_IsDependent; }
+            set { s_IsDependent = value; }
+        }
 
+        public string LOBAssetGroup
+        {
+            get { return s_LOBAssetGroup; }
+            set { s_LOBAssetGroup = value; }
+        }
+        public string Email1
+        {
+            get { return m_Email; }
+            set { m_Email = value; }
+        }
+        public string Category
+        {
+            get { return s_Category; }
+            set { s_Category = value; }
+        }
+        public string Status
+        {
+            get { return s_Status; }
+            set { s_Status = value; }
+        }
+        public DateTime ActivationDate
+        {
+            get { return s_ActivationDate; }
+            set { s_ActivationDate = value; }
+        }
+        public DateTime DeactivationDate
+        {
+            get { return s_DeactivationDate; }
+            set { s_DeactivationDate = value; }
+        }
+        public Int16 IsActive
+        {
+            get { return s_IsActive; }
+            set { s_IsActive = value; }
+        }
         #endregion Properties
 
 
