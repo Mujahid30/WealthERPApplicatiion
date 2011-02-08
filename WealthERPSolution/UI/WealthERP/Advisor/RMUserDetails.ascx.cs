@@ -14,6 +14,9 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using PCGMailLib;
 using System.Net.Mail;
 using BoCommon;
+using WealthERP.Base;
+using VoHostConfig;
+using System.Configuration;
 
 namespace WealthERP.Advisor
 {
@@ -410,6 +413,7 @@ namespace WealthERP.Advisor
             string statusMessage = string.Empty;
             advisorVo=(AdvisorVo)Session["advisorVo"];
             
+            
             if (Page.IsValid)
             {
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "$.colorbox({width: '700px', overlayClose: false, inline: true, href: '#LoadImage'});", true);
@@ -447,7 +451,15 @@ namespace WealthERP.Advisor
 
                                 if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
                                 {
-                                    email.From = new MailAddress(emailer.smtpUserName, "WealthERP");
+                                    if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+                                    {
+                                        email.From = new MailAddress(emailer.smtpUserName, "WealthERP");
+                                    }
+                                    else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+                                    {
+                                        email.From = new MailAddress(emailer.smtpUserName, "MoneyTouch");
+                                    }
+
                                 }
                             }
                             bool isMailSent = emailer.SendMail(email);
