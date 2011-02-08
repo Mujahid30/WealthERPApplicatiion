@@ -141,14 +141,19 @@
                                 height: 90px;" --%>
                                 <%--background-color: #D1E1F7"--%>
                                 <td colspan="3" valign="top" class="TDBackground" style="padding: 0px;">
-                                    <div style="width: 100%; height: 50px;">
-                                        <div style="float: left; z-index: 2000;">
-                                            <img alt="Advisor Logo" id="AdvisorLogo" runat="server" height="50" />
-                                        </div>
-                                        <div style="float: right; z-index: 2000;">
-                                            <img id="BranchLogo" runat="server" />
-                                        </div>
-                                    </div>
+                                    <table id="imgPlaceholders" width="100%">
+                                        <tr>
+                                            <td align="left" width="33%">
+                                                <img id="imgLeftPlaceHolder" runat="server" height="50" width="180" />
+                                            </td>
+                                            <td align="center" width="33%">
+                                                <img id="imgCenterPlaceholder" runat="server" height="50" width="180" />
+                                            </td>
+                                            <td align="right" center="34%">
+                                                <img id="imgRightPlaceholder" runat="server" style="height: 50px" width="180" />
+                                            </td>
+                                        </tr>
+                                    </table>
                                     <div style="clear: both; z-index: 2500; text-align: right;">
                                         &nbsp; <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
                                             class="LinkButtons" href="#">Settings</a>&nbsp;
