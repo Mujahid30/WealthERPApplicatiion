@@ -357,15 +357,21 @@ namespace WealthERP.Reports
             //    //DirectorySecurity dSecurity = dirInfo.GetAccessControl();
             //    //dSecurity.AddAccessRule(new FileSystemAccessRule(,FileSystemRights.Delete,AccessControlType.Deny));
             //}
-              string fileExtension = ".pdf";
-              string exportFilename = string.Empty;
-              System.Guid guid = System.Guid.NewGuid();
-              //For PDF View In Browser
-              string PDFNames = CurrentReportType.ToString() + "_" + guid + fileExtension;
-              exportFilename = Server.MapPath("~/Reports/TempReports/ViewInPDF/") + PDFNames;
-              PDFViewPath = PDFNames;
-              crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
-            
+            try
+            {
+                string fileExtension = ".pdf";
+                string exportFilename = string.Empty;
+                System.Guid guid = System.Guid.NewGuid();
+                //For PDF View In Browser
+                string PDFNames = CurrentReportType.ToString() + "_" + guid + fileExtension;
+                exportFilename = Server.MapPath("~/Reports/TempReports/ViewInPDF/") + PDFNames;
+                PDFViewPath = PDFNames;
+                crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
             
         }
 
@@ -474,6 +480,7 @@ namespace WealthERP.Reports
             FinancialPlanningReportsBo financialPlanningReportsBo = new FinancialPlanningReportsBo();
             DataSet dsCustomerFPReportDetails = new DataSet();
             DataRow[] drOtherGoal;
+            bool retFlag=false;
             //if (Session["FPDataSet"] != null)
             //{
             //    dsCustomerFPReportDetails = (DataSet)Session["FPDataSet"];
@@ -506,6 +513,7 @@ namespace WealthERP.Reports
             crmain.Subreports["KeyAssumptions"].Database.Tables["WerpAssumptions"].SetDataSource(dsCustomerFPReportDetails.Tables[4]);
             crmain.Subreports["GoalProfile"].Database.Tables["OtherGoal"].SetDataSource(dsCustomerFPReportDetails.Tables[5]);
             crmain.Subreports["GoalProfile"].Database.Tables["RTGoal"].SetDataSource(dsCustomerFPReportDetails.Tables[7]);
+            crmain.Subreports["RTGoalProfile"].Database.Tables["RTGoal"].SetDataSource(dsCustomerFPReportDetails.Tables[7]);
             crmain.Subreports["Income"].Database.Tables["Income"].SetDataSource(dsCustomerFPReportDetails.Tables[8]);
             crmain.Subreports["Expense"].Database.Tables["Expense"].SetDataSource(dsCustomerFPReportDetails.Tables[9]);
             crmain.Subreports["CashFlows"].Database.Tables["CashFlows"].SetDataSource(dtCashFlows);
@@ -539,12 +547,16 @@ namespace WealthERP.Reports
                 crmain.SetParameterValue("CustomerRiskClass", "  - -  ");
 
             crmain.SetParameterValue("SurpressPortfolioAlNonSCB", dynamicRiskClass.ToString());
-            //crmain.Database.Tables["ImageSection"].SetDataSource(ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage)));
 
+
+            drOtherGoal = dsCustomerFPReportDetails.Tables[5].Select("GoalName='Retirement'");
+            if (dsCustomerFPReportDetails.Tables[5].Rows.Count == 1 && drOtherGoal.Count() == 1)
+                retFlag=true;
+            //crmain.Database.Tables["ImageSection"].SetDataSource(ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + fpImage)));
+            
             if (dsCustomerFPReportDetails.Tables[5].Rows.Count > 0)
             {
-                drOtherGoal = dsCustomerFPReportDetails.Tables[5].Select("GoalName='Retirement'");
-                if (dsCustomerFPReportDetails.Tables[5].Rows.Count == 1 && drOtherGoal.Count() == 1)
+                if (retFlag==true)
                     crmain.SetParameterValue("OtherGoalSurpress", "0");
                 else
                     crmain.SetParameterValue("OtherGoalSurpress", "1");
