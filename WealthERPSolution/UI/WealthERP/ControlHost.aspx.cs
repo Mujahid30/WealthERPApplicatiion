@@ -10,21 +10,34 @@ using BoUser;
 using VoUser;
 using DaoCustomerPortfolio;
 using System.Web.Services;
+using DaoUser;
+using VoHostConfig;
+using WealthERP.Base;
 
 namespace WealthERP
 {
     public partial class ControlHost : System.Web.UI.Page
     {
         string path = string.Empty;
-        
+
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
-            {
-                Session["Theme"] = "Maroon";
-            }
+            GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
 
-            Page.Theme = Session["Theme"].ToString();
+            if (Session[SessionContents.SAC_HostGeneralDetails] != null)
+            {
+                generalconfigurationvo = (GeneralConfigurationVo)Session[SessionContents.SAC_HostGeneralDetails];
+
+                if (!string.IsNullOrEmpty(generalconfigurationvo.DefaultTheme))
+                {
+                    if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
+                    {
+                        Session["Theme"] = generalconfigurationvo.DefaultTheme;
+                    }
+                    Page.Theme = Session["Theme"].ToString();
+
+                }
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -193,6 +206,13 @@ namespace WealthERP
         {
             ResourceManager resourceMessages = new ResourceManager("WealthERP.BreadcrumbLinks", typeof(ControlHost).Assembly);
             return resourceMessages.GetString(pageID);
+        }
+
+        [WebMethod]
+        public static bool CheckLoginIdAvailability(string loginId)
+        {
+            UserDao userDao = new UserDao();
+            return userDao.ChkAvailability(loginId);
         }
     }
 }
