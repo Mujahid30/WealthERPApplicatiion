@@ -1536,12 +1536,11 @@ namespace DaoCustomerPortfolio
         #region robin
         /// <summary>
         /// Returns all the loan schemes for the adviser.
-        /// </summary>
-        /// <param name="advisorId"></param>
+        /// </summary>        
         /// <param name="page"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static DataSet GetLoanSchemes(int advisorId,int page, out int count)
+        public static DataSet GetLoanSchemes(int page, out int count)
         {
             Database db;
             DbCommand cmd;
@@ -1551,9 +1550,9 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //Get all loan schemes for the adviser.
-                cmd = db.GetStoredProcCommand("SP_LoanGetSchemes"); 
+                cmd = db.GetStoredProcCommand("SP_LoanGetSchemes");
 
-                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, advisorId);
+                //db.AddInParameter(cmd, "@AdviserId", DbType.Int32, advisorId);
                 db.AddInParameter(cmd, "@CurrentPage", DbType.Int32, page);
                 db.AddOutParameter(cmd, "@Count", DbType.Int32, count);
 
@@ -1576,7 +1575,7 @@ namespace DaoCustomerPortfolio
                 FunctionInfo.Add("GetLoanSchemes", "LiabilitiesDao.cs:GetLoanSchemes()");
 
                 object[] objects = new object[1];
-                objects[0] = advisorId;
+                objects[0] = "SuperAdmin";
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1780,7 +1779,7 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateCmd = db.GetStoredProcCommand("SP_LoanSchemeCreateScheme");
-                db.AddInParameter(updateCmd, "@A_AdviserId", DbType.Int32, schemeDetailsVo.AdviserId);
+                //db.AddInParameter(updateCmd, "@A_AdviserId", DbType.Int32, schemeDetailsVo.AdviserId);
                 db.AddInParameter(updateCmd, "@ALS_CreatedBy", DbType.Int32, schemeDetailsVo.CreatedBy);
                 db.AddInParameter(updateCmd, "@ALS_IsFloatingRateInterest", DbType.Int16, schemeDetailsVo.IsFloatingRateInterest);
                 db.AddInParameter(updateCmd, "@ALS_LoanSchemeName", DbType.String, schemeDetailsVo.LoanSchemeName);
