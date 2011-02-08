@@ -13,7 +13,7 @@
 </head>
 <body class="TableBackground">
     <form id="form1" runat="server">
-    <div style="width: 180px;">
+    <div>
         <asp:Panel ID="leftpanel" runat="server">
             <asp:PlaceHolder ID="phLeft" EnableViewState="true" runat="server"></asp:PlaceHolder>
         </asp:Panel>
