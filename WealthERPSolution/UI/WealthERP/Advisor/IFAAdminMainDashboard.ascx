@@ -131,3 +131,12 @@
         </td>
     </tr>
 </table>
+<table width="100%">
+<tr><td align="center">
+<div class="information-msg" id="MessageReceived" runat="server" visible="false" align="center">
+<br />
+    <asp:Label ID="lblSuperAdmnMessage" runat="server"></asp:Label>
+    <br />
+</div>
+</td></tr>
+</table>

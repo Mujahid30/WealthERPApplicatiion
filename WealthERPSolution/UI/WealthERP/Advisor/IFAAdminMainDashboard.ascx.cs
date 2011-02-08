@@ -16,6 +16,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Globalization;
 using BoCommon;
+using BoWerpAdmin;
 
 
 
@@ -31,6 +32,7 @@ namespace WealthERP.Advisor
         int customerTotal = 0;
         double total = 0;
         DataSet ds = new DataSet();
+        AdviserMaintenanceBo advisermaintanencebo = new AdviserMaintenanceBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -40,6 +42,18 @@ namespace WealthERP.Advisor
                 LoadAdminBranchPerformance();
                 LoadBranchPerfomanceChart();
                 LoadRMPerformanceChart();
+
+                DataSet dsMessage = advisermaintanencebo.GetMessageBroadcast();
+                if (dsMessage != null && dsMessage.Tables[0].Rows.Count > 0)
+                {
+                    MessageReceived.Visible = true;
+                    if (dsMessage.Tables[0].Rows[0]["ABM_IsActive"].ToString() == "1" && dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString() != "")
+                    {
+                        DateTime dtMessageDate = DateTime.Parse(dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessageDate"].ToString());
+                        lblSuperAdmnMessage.Text = "Message from SuperAdmin:" + dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString() + Environment.NewLine + " Sent on:" + dtMessageDate.ToString();
+                        //lblSuperAdmnMessage.Text+="\n Sent on:"+
+                    }
+                }
             }
             catch (BaseApplicationException Ex)
             {
