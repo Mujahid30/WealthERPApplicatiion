@@ -14,9 +14,9 @@ namespace VoAdvisorProfiling
 
         private int m_LOBId;
         private Int32 m_AdviserId;
-
         private string m_LOBClassificationCode;
-        private string m_IdentifierTypeCode;             
+        private string m_IdentifierTypeCode;
+        private string m_LOBClassificationType;  
         private DateTime m_ValidityDate;
         private string m_LicenseNumber;
         private string m_OrganizationName;
@@ -30,12 +30,22 @@ namespace VoAdvisorProfiling
         private string m_AgentType;
         private string m_AgentNum;
         private string m_BrokerCode;
-
+        private Int16 m_IsDependent;
       
         
 #endregion Fields
 
 #region Properties
+        public string LOBClassificationType
+        {
+            get { return m_LOBClassificationType; }
+            set { m_LOBClassificationType = value; }
+        }
+        public Int16 IsDependent
+        {
+            get { return m_IsDependent; }
+            set { m_IsDependent = value; }
+        }
         public string BrokerCode
         {
             get { return m_BrokerCode; }
