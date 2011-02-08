@@ -332,6 +332,16 @@ namespace BoAdvisorProfiling
             }
             return result;
         }
-         
+
+        /// <summary>
+        /// Used to Update Advisor's LOB Dependencies
+        /// </summary>
+        /// <param name="lobId"></param>
+        /// <param name="IsDependent"></param>
+        public void UpdateAdvisorLOB(int lobId, int IsDependent)
+        {
+            AdvisorLOBDao advisorlobdao = new AdvisorLOBDao();
+            advisorlobdao.UpdateAdvisorLOB(lobId, IsDependent);
+        }
     }
 }
