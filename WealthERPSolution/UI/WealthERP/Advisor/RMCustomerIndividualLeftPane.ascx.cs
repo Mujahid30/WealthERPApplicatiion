@@ -232,6 +232,13 @@ namespace WealthERP.Advisor
                         RadPanelBar1.FindItemByValue("Equity").Expanded = true;
                         //Session["IsDashboard"] = "false";
                     }
+                    else if (IsDashboard == "LiabilitiesView")
+                    {
+                        RadPanelBar1.FindItemByValue("Liabilities").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Liabilities").Selected = true;
+                        //RadPanelBar1.FindItemByValue("Equity").Expanded = true;
+
+                    }
                     else if (IsDashboard == "BankDetails")
                     {
                         RadPanelBar1.FindItemByValue("Profile Dashboard").Expanded = true;
