@@ -492,6 +492,7 @@ namespace WealthERP.FP
         protected bool DataPopulation(int ParentCustomerId, int customerId, DataTable dt, UserVo userVo, RMVo rmVo, int createdById)
         {
             bool bresult = true;
+           
             try
             {
 
@@ -500,6 +501,7 @@ namespace WealthERP.FP
                 if (btnSubmit.Text != "Update")
                 {
                     ParentCustomerId = CreateCustomerForAddProspect(userVo, rmVo, createdById);
+                    Session["FP_ParentCustomerId"] = ParentCustomerId ;
                     Session[SessionContents.FPS_ProspectList_CustomerId] = ParentCustomerId;
                     if (dt != null)
                     {
