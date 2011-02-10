@@ -75,9 +75,9 @@ namespace WealthERP.FP
                 //}
                 rmVo = (RMVo)Session["rmVo"];
                 //BindBranch(advisorVo, rmVo);
-                if (Session[SessionContents.FPS_ProspectList_CustomerId] != null && Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != string.Empty)
+                if ((Session["FP_ParentCustomerId"] != null) && (Session["FP_ParentCustomerId"].ToString() != string.Empty))
                 {
-                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                    customerId = int.Parse(Session["FP_ParentCustomerId"].ToString());
                     customerVo = customerBo.GetCustomer(customerId);
                     hdnIsActive.Value = customerVo.IsActive.ToString();
                     hdnIsProspect.Value = customerVo.IsProspect.ToString();
@@ -516,14 +516,14 @@ namespace WealthERP.FP
             }
             if (e.Item.Value == "Synchronize")
             {
-                int customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                int customerId = int.Parse(Session["FP_ParentCustomerId"].ToString());
                 AdvisorVo advisorvo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 if (advisorvo != null)
                 {
                     ManagedUnmanagedDetails(customerId, advisorvo.advisorId, 1);
 
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                    ParentCustomerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                    ParentCustomerId = int.Parse(Session["FP_ParentCustomerId"].ToString());
                     Dictionary<string, object> Databuffer = customerProspectBo.Databuffer(ParentCustomerId);
                     DataRetrival(Databuffer);
                 }
@@ -683,7 +683,7 @@ namespace WealthERP.FP
             try
             {
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                ParentCustomerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                ParentCustomerId = int.Parse(Session["FP_ParentCustomerId"].ToString());
                 //foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
                 //{
                 //    if (item.IsInEditMode)
@@ -1700,12 +1700,12 @@ namespace WealthERP.FP
             try
             {
 
-                customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                customerId = int.Parse(Session["FP_ParentCustomerId"].ToString());
                 //Updating Parent Customer
                 //UpdateCustomerForAddProspect(customerId);
                 if (dt != null)
                 {
-                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                    customerId = int.Parse(Session["FP_ParentCustomerId"].ToString());
 
                     dt = CustomerIdList(dt, customerId);
 

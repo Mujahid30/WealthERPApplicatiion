@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="true" CodeBehind="CustomerProspect.ascx.cs"
      Inherits="WealthERP.FP.CustomerProspect"  %>
+  
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
 <script type="text/javascript">
