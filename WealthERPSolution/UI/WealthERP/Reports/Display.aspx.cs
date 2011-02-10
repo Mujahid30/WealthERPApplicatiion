@@ -1444,7 +1444,7 @@ namespace WealthERP.Reports
 
             foreach(DataRow dr in dtCashFlows.Rows)
             {
-                if (dr["CashCategory"].ToString() == "Annual Surplus")
+                if (dr["CashCategory"].ToString() == "Surplus")
                 {
                     if (!string.IsNullOrEmpty(dr["Amount"].ToString()))
                         strCashFlowsText = strCashFlowsText.Replace("#AnnualSurplus#", convertUSCurrencyFormat(convertTo2Decimal(double.Parse(dr["Amount"].ToString()))));
