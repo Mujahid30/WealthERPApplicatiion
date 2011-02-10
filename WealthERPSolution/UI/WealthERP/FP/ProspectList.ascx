@@ -20,7 +20,7 @@
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 
-<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Prospect List"></asp:Label>
+<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Customer/Prospect MIS"></asp:Label>
 <hr />
 <table width="100%">
     <tr>
