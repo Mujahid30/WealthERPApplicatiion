@@ -706,6 +706,7 @@ namespace WealthERP.Advisor
             }
             else 
             {
+                Session["IsDashboard"] = "LiabilitiesView";
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('LiabilityView','none');", true);
                 else
