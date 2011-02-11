@@ -57,7 +57,7 @@ namespace WealthERP.General
                     SetUser(userId);
                 }
             }
-            btnSignIn.Attributes.Add("OnClick", "loadImage()");
+            //btnSignIn.Attributes.Add("OnClick", "loadImage()");
         }
 
         protected void btnSignIn_Click(object sender, EventArgs e)
@@ -95,8 +95,7 @@ namespace WealthERP.General
 
                     Session["id"] = "";
                     lblIllegal.Visible = true;
-
-
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "parent.loadCB();", true);
                     userVo = userBo.GetUser(txtLoginId.Text);
                     Session["UserVo"] = userVo;
                     AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
@@ -349,10 +348,9 @@ namespace WealthERP.General
                                         Session["Customer"] = "Customer";
                                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                     }
-                                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                                 }
                             }
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "sdfsfsfsfsfsfsfsdfs", "loadlinks('AdvisorLeftPane','login');", true);
                             GetLatestValuationDate();
                         }
                         //else if (userVo.UserType == "RM")
@@ -424,12 +422,12 @@ namespace WealthERP.General
                         else if (userVo.UserType == "Admin")
                         {
                             Session["refreshTheme"] = false;
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdminUpload','login','" + UserName + "','');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "asdasdadas", "loadcontrol('AdminUpload','login','" + UserName + "','');", true);
                         }
                     }
                     else
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ChangeTempPassword','none');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "asdasdadaasda", "loadcontrol('ChangeTempPassword','none');", true);
                     }
                 }
 
@@ -510,7 +508,7 @@ namespace WealthERP.General
                         Session["advisorBranchVo"] = advisorBranchVo;
                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                         Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "asdsdfdfgddfffdg", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                         //login user role Type
                         Session["S_CurrentUserRole"] = "Admin";
                     }
@@ -524,7 +522,7 @@ namespace WealthERP.General
                             Session["S_CurrentUserRole"] = "RM";
                             branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "dfgfgsfdsfgdsf", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
                         }
                         else if (roleList.Contains("RM") && roleList.Contains("Admin"))
                         {
@@ -534,7 +532,7 @@ namespace WealthERP.General
                             Session["S_CurrentUserRole"] = "Admin";
                             branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "wtetyryttyretr", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                         }
                         else if (roleList.Contains("BM") && roleList.Contains("Admin"))
                         {
@@ -560,7 +558,7 @@ namespace WealthERP.General
                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                             //login user role Type Issue Reported by Ajay on July 1 2010
                             Session["S_CurrentUserRole"] = "RM";
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "vbnnbmnmnsdffnm", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
 
                         }
                         else if (roleList.Contains("BM"))
@@ -571,13 +569,13 @@ namespace WealthERP.General
                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                             //login user role Type Issue Reported by Ajay on July 1 2010
                             Session["S_CurrentUserRole"] = "BM";
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "kljhkhjkhjkhjkhk", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
 
                         }
                         else
                         {
 
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "qweqweqeqeqdsf", "loginloadcontrol('AdvisorDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                         }
                     }
                     GetLatestValuationDate();
@@ -605,23 +603,23 @@ namespace WealthERP.General
                     Session["IsDashboard"] = "true";
                     isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
                     if (isGrpHead == true)
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustGroupDashboard','login','" + UserName + "','" + sourcePath + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "asddadasdgdgdg", "loginloadcontrol('AdvisorRMCustGroupDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                     else
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "werwrerwrwrwrwr", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
 
                 }
 
                 else if (userVo.UserType == "Admin")
                 {
                     Session["refreshTheme"] = false;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdminUpload','login','" + UserName + "','');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "hjkkhjkhjkhkjhhjkhj", "loginloadcontrol('AdminUpload','login','" + UserName + "','');", true);
 
 
                 }
             }
             else
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ChangeTempPassword','none');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "qweqweqasdadasds", "loadcontrol('ChangeTempPassword','none');", true);
             }
         }
         private void GetLatestValuationDate()
