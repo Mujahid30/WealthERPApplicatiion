@@ -49,7 +49,7 @@ namespace WealthERP.Advisor
             try
             {
                 customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
-                if (customerVo != null)
+                if ((customerVo != null) && (customerVo.CustomerId != 0))
                 {
                     Session[SessionContents.FPS_ProspectList_CustomerId] = customerVo.CustomerId;
                 }
