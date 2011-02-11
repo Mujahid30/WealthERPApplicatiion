@@ -95,7 +95,7 @@ namespace WealthERP.General
 
                     Session["id"] = "";
                     lblIllegal.Visible = true;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "parent.loadCB();", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "asdadadaasdafgeda", "parent.loadCB();", true);
                     userVo = userBo.GetUser(txtLoginId.Text);
                     Session["UserVo"] = userVo;
                     AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
