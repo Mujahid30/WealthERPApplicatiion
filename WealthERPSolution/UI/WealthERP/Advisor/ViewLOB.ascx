@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewLOB.ascx.cs" Inherits="WealthERP.Advisor.ViewLOB" %>
+
 <script>
     function checkIsDelete(selectObj) {
         if (selectObj.selectedIndex == 3) //3- Delete Option

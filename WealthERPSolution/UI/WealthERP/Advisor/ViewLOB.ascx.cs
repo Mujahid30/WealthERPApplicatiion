@@ -22,13 +22,13 @@ namespace WealthERP.Advisor
         string LOBId;
         AdvisorVo advisorVo = new AdvisorVo();
         AdvisorLOBBo advisorLOBBo = new AdvisorLOBBo();
-       // List<AdvisorLOBVo> advisorLOBList = null;
+        // List<AdvisorLOBVo> advisorLOBList = null;
         DataSet advisorLOBList = new DataSet();
         AdvisorLOBVo advisorLOBVo;
-        
+
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -48,7 +48,7 @@ namespace WealthERP.Advisor
                 FunctionInfo.Add("Method", "ViewLOB.ascx.cs:Page_Load()");
                 object[] objects = new object[1];
                 objects[0] = advisorVo;
-               
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -65,10 +65,10 @@ namespace WealthERP.Advisor
             {
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
-                
+
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                
-                advisorLOBList = advisorLOBBo.GetAdvisorLOBs(advisorVo.advisorId,null,null);
+
+                advisorLOBList = advisorLOBBo.GetAdvisorLOBs(advisorVo.advisorId, null, null);
 
                 if (advisorLOBList.Tables[0].Rows.Count > 0)
                 {
@@ -116,7 +116,7 @@ namespace WealthERP.Advisor
                 else
                 {
                     gvLOBList.Visible = false;
-                    ErrorMessage.Visible = true;                    
+                    ErrorMessage.Visible = true;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -277,7 +277,7 @@ namespace WealthERP.Advisor
                 objects[0] = advisorVo;
                 objects[1] = path;
                 objects[2] = advisorLOBList;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -287,7 +287,7 @@ namespace WealthERP.Advisor
 
         protected void gvLOBList_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            
+
             gvLOBList.PageIndex = e.NewPageIndex;
             gvLOBList.DataBind();
         }
@@ -295,7 +295,7 @@ namespace WealthERP.Advisor
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            string menu="";
+            string menu = "";
             int selectedRow = 0;
             int LOBId = 0;
             try
@@ -303,8 +303,8 @@ namespace WealthERP.Advisor
                 DropDownList MyDropDownList = (DropDownList)sender;
                 GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
                 selectedRow = gvr.RowIndex;
-                LOBId= int.Parse(gvLOBList.DataKeys[selectedRow].Value.ToString());
-                Session["LOBId"] = LOBId;                
+                LOBId = int.Parse(gvLOBList.DataKeys[selectedRow].Value.ToString());
+                Session["LOBId"] = LOBId;
                 menu = MyDropDownList.SelectedItem.Value.ToString();
                 if (menu == "Edit")
                 {
@@ -343,7 +343,7 @@ namespace WealthERP.Advisor
             }
 
 
-        
+
 
         }
     }
