@@ -20,20 +20,20 @@ namespace WealthERP.Advisor
 {
     public partial class EditLOB : System.Web.UI.UserControl
     {
-    
+
         AdvisorLOBBo advisorLOBBo = new AdvisorLOBBo();
         ProductMFBo productMfBo = new ProductMFBo();
         UserVo userVo = new UserVo();
         AdvisorVo advisorVo = new AdvisorVo();
         DataSet dsProductAmc;
-        int  LOBId;
+        int LOBId;
         string path = "";
         AdvisorLOBVo advisorLOBVo = new AdvisorLOBVo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-           
+
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -42,7 +42,7 @@ namespace WealthERP.Advisor
 
             cvMFExpiryDate.ValueToCompare = DateTime.Now.ToShortDateString();
 
-            if(!IsPostBack)
+            if (!IsPostBack)
                 editLOBDetails();
 
             if (Session["LOBGridAction"].ToString() == "LOBView")
@@ -60,7 +60,7 @@ namespace WealthERP.Advisor
                 lblEdit.Visible = true;
             }
         }
-     
+
 
         /// <summary>
         /// This method will loop through the child controls in user control and disable the controls.
@@ -95,7 +95,7 @@ namespace WealthERP.Advisor
                 {
                     DisableControls(ctrl);
                 }
-                
+
             }
 
         }
@@ -135,18 +135,18 @@ namespace WealthERP.Advisor
 
         public void editLOBDetails()
         {
-            
+
             string lobCode = "";
             try
             {
-              
-                
+
+
                 Session["LOBClassCode"] = advisorLOBVo.LOBClassificationCode.ToString();
                 lobCode = advisorLOBVo.LOBClassificationCode.ToString();
                 setVisibility();
                 setLOBVisibility(lobCode);
-               
-                
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -177,73 +177,73 @@ namespace WealthERP.Advisor
         }
 
         public void setVisibility()
-         {
-            
-                divMFDetails.Visible = false;
-                BrokerCash.Visible = false;
-                BrokerDerivative.Visible = false;
-                EquitySubBrokerCash.Visible = false;
-                EquitySubBrokerDerivative.Visible = false;
-                RemissaryCash.Visible = false;
-                RemissaryDerivative.Visible = false;
-                //btnLogin.Visible = false;
-                Insurance.Visible = false;
-                PostalSavings.Visible = false;
-                FixedIncome.Visible = false;
-                RealEstate.Visible = false;
-                Liabilities.Visible = false;
-                PMSBrokerCash.Visible = false;
-                PMSBrokerDerivative.Visible = false;
-                PMSSubBrokerCash.Visible = false;
-                PMSSubBrokerDerivative.Visible = false;
-                PMSRemissaryCash.Visible = false;
-                PMSRemissaryDerivative.Visible = false;
-                CommoditiesBrokerCash.Visible = false;
-                CommoditiesBrokerDerivatives.Visible = false;
-                CommoditiesSubBrokerCash.Visible = false;
-                CommoditiesSubBrokerDerivatives.Visible = false;
-                CommoditiesRemissaryCash.Visible = false;
-                CommoditiesRemissaryDerivatives.Visible = false;
-                trBCBse.Visible = false;
-                trBCNse.Visible = false;
-                trBDBse.Visible = false;
-                trBDNse.Visible = false;
-                trCommBCBse.Visible = false;
-                trCommBCNse.Visible = false;
-                trCommBDBse.Visible = false;
-                trCommBDNse.Visible = false;
-                trCommRCBse.Visible = false;
-                trCommRCNse.Visible = false;
-                trCommRDBse.Visible = false;
-                trCommRDNse.Visible = false;
-                trCommSBCBse.Visible = false;
-                trCommSBCNse.Visible = false;
-                trCommSBDBse.Visible = false;
-                trCommSBDBse.Visible = false;
-                trCommSBDNse.Visible = false;
-                trMFAddVariation.Visible = false;
-                trPMSBCBse.Visible = false;
-                trPMSBCNse.Visible = false;
-                trPMSBDBse.Visible = false;
-                trPMSBDNse.Visible = false;
-                trPMSRCBse.Visible = false;
-                trPMSRCNse.Visible = false;
-                trPMSRDBse.Visible = false;
-                trPMSRDNse.Visible = false;
-                trPMSSBCBse.Visible = false;
-                trPMSSBCNse.Visible = false;
-                trPMSSBDBse.Visible = false;
-                trPMSSBDNse.Visible = false;
-                trRCBse.Visible = false;
-                trRCNse.Visible = false;
-                trRDBse.Visible = false;
-                trRDNse.Visible = false;
-                trSCBse.Visible = false;
-                trSCNse.Visible = false;
-                trSDBse.Visible = false;
-                trSDNse.Visible = false;            
-            
-         }
+        {
+
+            divMFDetails.Visible = false;
+            BrokerCash.Visible = false;
+            BrokerDerivative.Visible = false;
+            EquitySubBrokerCash.Visible = false;
+            EquitySubBrokerDerivative.Visible = false;
+            RemissaryCash.Visible = false;
+            RemissaryDerivative.Visible = false;
+            //btnLogin.Visible = false;
+            Insurance.Visible = false;
+            PostalSavings.Visible = false;
+            FixedIncome.Visible = false;
+            RealEstate.Visible = false;
+            Liabilities.Visible = false;
+            PMSBrokerCash.Visible = false;
+            PMSBrokerDerivative.Visible = false;
+            PMSSubBrokerCash.Visible = false;
+            PMSSubBrokerDerivative.Visible = false;
+            PMSRemissaryCash.Visible = false;
+            PMSRemissaryDerivative.Visible = false;
+            CommoditiesBrokerCash.Visible = false;
+            CommoditiesBrokerDerivatives.Visible = false;
+            CommoditiesSubBrokerCash.Visible = false;
+            CommoditiesSubBrokerDerivatives.Visible = false;
+            CommoditiesRemissaryCash.Visible = false;
+            CommoditiesRemissaryDerivatives.Visible = false;
+            trBCBse.Visible = false;
+            trBCNse.Visible = false;
+            trBDBse.Visible = false;
+            trBDNse.Visible = false;
+            trCommBCBse.Visible = false;
+            trCommBCNse.Visible = false;
+            trCommBDBse.Visible = false;
+            trCommBDNse.Visible = false;
+            trCommRCBse.Visible = false;
+            trCommRCNse.Visible = false;
+            trCommRDBse.Visible = false;
+            trCommRDNse.Visible = false;
+            trCommSBCBse.Visible = false;
+            trCommSBCNse.Visible = false;
+            trCommSBDBse.Visible = false;
+            trCommSBDBse.Visible = false;
+            trCommSBDNse.Visible = false;
+            trMFAddVariation.Visible = false;
+            trPMSBCBse.Visible = false;
+            trPMSBCNse.Visible = false;
+            trPMSBDBse.Visible = false;
+            trPMSBDNse.Visible = false;
+            trPMSRCBse.Visible = false;
+            trPMSRCNse.Visible = false;
+            trPMSRDBse.Visible = false;
+            trPMSRDNse.Visible = false;
+            trPMSSBCBse.Visible = false;
+            trPMSSBCNse.Visible = false;
+            trPMSSBDBse.Visible = false;
+            trPMSSBDNse.Visible = false;
+            trRCBse.Visible = false;
+            trRCNse.Visible = false;
+            trRDBse.Visible = false;
+            trRDNse.Visible = false;
+            trSCBse.Visible = false;
+            trSCNse.Visible = false;
+            trSDBse.Visible = false;
+            trSDNse.Visible = false;
+
+        }
 
         public void setLOBVisibility(string lobCode)
         {
@@ -322,7 +322,7 @@ namespace WealthERP.Advisor
                     setLREA();
                     break;
 
-                    
+
 
             }
 
@@ -331,21 +331,21 @@ namespace WealthERP.Advisor
         #region Commodities
         private void setLCBC()
         {
-           LoadSubBrokerCode();
-           CommoditiesBrokerCash.Visible = true;
-           ddlCommBrCashBrokerName.SelectedValue = advisorLOBVo.BrokerCode.ToString();
-           ddlCommBrCashIdType.SelectedValue = advisorLOBVo.IdentifierTypeCode.ToString();
-           if (advisorLOBVo.IdentifierTypeCode.ToString() == "NSE")
-           {
-               trCommBCNse.Visible = true;
-               txtCommBrCashNSENum.Text = advisorLOBVo.Identifier.ToString();
-           }
-           else
-           {
-               trCommBCBse.Visible = true;
-               txtCommBrCashBSENum.Text = advisorLOBVo.Identifier.ToString();
-           }
-           
+            LoadSubBrokerCode();
+            CommoditiesBrokerCash.Visible = true;
+            ddlCommBrCashBrokerName.SelectedValue = advisorLOBVo.BrokerCode.ToString();
+            ddlCommBrCashIdType.SelectedValue = advisorLOBVo.IdentifierTypeCode.ToString();
+            if (advisorLOBVo.IdentifierTypeCode.ToString() == "NSE")
+            {
+                trCommBCNse.Visible = true;
+                txtCommBrCashNSENum.Text = advisorLOBVo.Identifier.ToString();
+            }
+            else
+            {
+                trCommBCBse.Visible = true;
+                txtCommBrCashBSENum.Text = advisorLOBVo.Identifier.ToString();
+            }
+
         }
 
         private void setLCBD()
@@ -365,7 +365,7 @@ namespace WealthERP.Advisor
                 trCommBDBse.Visible = true;
                 txtCommBrDerBSENum.Text = advisorLOBVo.Identifier.ToString();
             }
-            
+
         }
 
         private void setLCRC()
@@ -384,26 +384,26 @@ namespace WealthERP.Advisor
                 trCommRCNse.Visible = true;
                 txtCommRemissCashBSENum.Text = advisorLOBVo.Identifier.ToString();
             }
-           
+
         }
 
         private void setLCRD()
         {
             LoadSubBrokerCode();
-             CommoditiesRemissaryDerivatives.Visible = true;
-             ddlCommRemDerBrokerName.SelectedValue = advisorLOBVo.BrokerCode.ToString();
-             txtCommRemissDerLicenseNum.Text = advisorLOBVo.LicenseNumber.ToString();
-             ddlCommRemissIdType.SelectedValue = advisorLOBVo.IdentifierTypeCode.ToString();
-             if (advisorLOBVo.IdentifierTypeCode.ToString() == "NSE")
-             {
-                 trCommRDNse.Visible = true;
-                 txtCommRemissDerNSENum.Text = advisorLOBVo.Identifier.ToString();
-             }
-             else
-             {
-                 trCommRDBse.Visible = true;
-                 txtCommRemissDerBSENum.Text = advisorLOBVo.Identifier.ToString();
-             }
+            CommoditiesRemissaryDerivatives.Visible = true;
+            ddlCommRemDerBrokerName.SelectedValue = advisorLOBVo.BrokerCode.ToString();
+            txtCommRemissDerLicenseNum.Text = advisorLOBVo.LicenseNumber.ToString();
+            ddlCommRemissIdType.SelectedValue = advisorLOBVo.IdentifierTypeCode.ToString();
+            if (advisorLOBVo.IdentifierTypeCode.ToString() == "NSE")
+            {
+                trCommRDNse.Visible = true;
+                txtCommRemissDerNSENum.Text = advisorLOBVo.Identifier.ToString();
+            }
+            else
+            {
+                trCommRDBse.Visible = true;
+                txtCommRemissDerBSENum.Text = advisorLOBVo.Identifier.ToString();
+            }
         }
 
         private void setLCSC()
@@ -422,7 +422,7 @@ namespace WealthERP.Advisor
                 trCommSBCBse.Visible = true;
                 txtCommSubBrCashBSENum.Text = advisorLOBVo.Identifier.ToString();
             }
-            
+
         }
 
         private void setLCSD()
@@ -442,7 +442,7 @@ namespace WealthERP.Advisor
                 trCommSBDBse.Visible = true;
                 txtCommSubBrDerBSENum.Text = advisorLOBVo.Identifier.ToString();
             }
-            
+
         }
 
         //protected void ddlCommBrCashIdType_SelectedIndexChanged(object sender, EventArgs e)
@@ -594,7 +594,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -630,7 +630,7 @@ namespace WealthERP.Advisor
 
         protected void btnCommBrDer_Click(object sender, EventArgs e)
         {
-           
+
             string assetClass = "CM";
             string category = "BKR";
             string segment = "DER";
@@ -657,7 +657,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -675,7 +675,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -720,7 +720,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -738,7 +738,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -757,7 +757,7 @@ namespace WealthERP.Advisor
 
         protected void btnCommSubBrDer_Click(object sender, EventArgs e)
         {
-         
+
             string assetClass = "CM";
             string category = "SBR";
             string segment = "DER";
@@ -785,7 +785,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -803,7 +803,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -848,7 +848,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -866,7 +866,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -911,7 +911,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -929,7 +929,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -1018,7 +1018,7 @@ namespace WealthERP.Advisor
                 if (txtLiabTargetAmt.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAmount = double.Parse(txtLiabTargetAmt.Text.ToString().Trim());
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
 
 
                 PageRedirect();
@@ -1106,14 +1106,14 @@ namespace WealthERP.Advisor
             BrokerCash.Visible = true;
             ddlEqBrCashBrokerName.SelectedValue = advisorLOBVo.BrokerCode.ToString();
             ddlBrokerCashId.SelectedValue = advisorLOBVo.IdentifierTypeCode.ToString();
-            if(advisorLOBVo.IdentifierTypeCode.ToString()=="NSE")
+            if (advisorLOBVo.IdentifierTypeCode.ToString() == "NSE")
             {
                 trBCNse.Visible = true;
                 txtBrokerCashNseNumber.Text = advisorLOBVo.Identifier.ToString();
             }
             else
             {
-                trBCBse.Visible=true;
+                trBCBse.Visible = true;
                 txtBrokerCashBseNumber.Text = advisorLOBVo.Identifier.ToString();
             }
         }
@@ -1169,7 +1169,7 @@ namespace WealthERP.Advisor
                 trRDBse.Visible = true;
                 txtRemissDerivBseNumber.Text = advisorLOBVo.Identifier.ToString();
             }
-            
+
         }
         private void setLESC()
         {
@@ -1252,11 +1252,11 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
-                
+
                 objects[7] = segment;
                 objects[8] = category;
 
@@ -1317,7 +1317,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
 
                 }
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 btnBrokerDeriv.Enabled = false;
 
                 PageRedirect();
@@ -1336,7 +1336,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -1424,7 +1424,7 @@ namespace WealthERP.Advisor
                 }
 
                 btnSubCash.Enabled = false;
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
             }
             catch (BaseApplicationException Ex)
@@ -1513,7 +1513,7 @@ namespace WealthERP.Advisor
                 }
 
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
             }
             catch (BaseApplicationException Ex)
@@ -1530,7 +1530,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -1597,7 +1597,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
             }
             catch (BaseApplicationException Ex)
@@ -1614,7 +1614,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -1689,7 +1689,7 @@ namespace WealthERP.Advisor
 
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
             }
             catch (BaseApplicationException Ex)
@@ -1706,7 +1706,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -1730,7 +1730,7 @@ namespace WealthERP.Advisor
         {
             FixedIncome.Visible = true;
             txtFixIncOrgName.Text = advisorLOBVo.OrganizationName.ToString();
-            if(advisorLOBVo.ValidityDate != DateTime.MinValue)
+            if (advisorLOBVo.ValidityDate != DateTime.MinValue)
                 txtFixIncAgencyExpiry.Text = advisorLOBVo.ValidityDate.ToShortDateString();
             txtFixIncAgentNum.Text = advisorLOBVo.AgentNum.ToString();
             txtFixIncTargetAccount.Text = advisorLOBVo.TargetAccount.ToString();
@@ -1760,7 +1760,7 @@ namespace WealthERP.Advisor
                 if (txtFixIncTargetAmt.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAmount = double.Parse(txtFixIncTargetAmt.Text.ToString().Trim());
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
 
 
                 PageRedirect();
@@ -1780,7 +1780,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -1805,7 +1805,7 @@ namespace WealthERP.Advisor
             txtInsOrgName.Text = advisorLOBVo.OrganizationName.ToString();
             txtInsIRDANum.Text = advisorLOBVo.Identifier.ToString();
             txtInsAgentNum.Text = advisorLOBVo.AgentNum.ToString();
-            if(advisorLOBVo.ValidityDate != DateTime.MinValue)
+            if (advisorLOBVo.ValidityDate != DateTime.MinValue)
                 txtInsAgencyExpiry.Text = advisorLOBVo.ValidityDate.ToShortDateString();
             txtInsTargetPolicies.Text = advisorLOBVo.TargetAccount.ToString();
             txtInsTargetSumAssuredAmt.Text = advisorLOBVo.TargetAmount.ToString();
@@ -1839,7 +1839,7 @@ namespace WealthERP.Advisor
                 if (txtInsTargetPremiumAmt.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetPremiumAmount = double.Parse(txtInsTargetPremiumAmt.Text.ToString().Trim());
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
 
 
                 PageRedirect();
@@ -1905,7 +1905,7 @@ namespace WealthERP.Advisor
                 advisorLOBVo.Identifier = txtMFARNCode.Text.ToString();
                 advisorLOBVo.ValidityDate = DateTime.Parse(txtMFValidity.Text.ToString());
                 advisorLOBVo.LicenseNumber = "";
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 btnMFSubmit.Enabled = false;
                 divMFDetails.Visible = false;
                 PageRedirect();
@@ -1924,7 +1924,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -1994,7 +1994,7 @@ namespace WealthERP.Advisor
                 trPMSBDBse.Visible = true;
                 txtPMSBrDerBSENum.Text = advisorLOBVo.Identifier.ToString();
             }
-            
+
         }
         private void setLPRC()
         {
@@ -2012,26 +2012,26 @@ namespace WealthERP.Advisor
                 trPMSRCBse.Visible = true;
                 txtPMSRemissCashBSENum.Text = advisorLOBVo.Identifier.ToString();
             }
-            
+
         }
         private void setLPRD()
         {
             LoadSubBrokerCode();
-           PMSRemissaryDerivative.Visible = true;
-           ddlPMSRemDerBrokerName.SelectedValue = advisorLOBVo.BrokerCode.ToString();
-           txtPMSRemissDerLicenseNum.Text = advisorLOBVo.LicenseNumber.ToString();
-           ddlPMSRemissDerIdType.SelectedValue = advisorLOBVo.IdentifierTypeCode.ToString();
-           if (advisorLOBVo.IdentifierTypeCode.ToString() == "NSE")
-           {
-               trPMSRDBse.Visible = true;
-               txtPMSRemissDerNSENum.Text = advisorLOBVo.Identifier.ToString();
-           }
-           else
-           {
-               trRDBse.Visible = true;
-               txtPMSRemissDerBSENum.Text = advisorLOBVo.Identifier.ToString();
-           }
-          
+            PMSRemissaryDerivative.Visible = true;
+            ddlPMSRemDerBrokerName.SelectedValue = advisorLOBVo.BrokerCode.ToString();
+            txtPMSRemissDerLicenseNum.Text = advisorLOBVo.LicenseNumber.ToString();
+            ddlPMSRemissDerIdType.SelectedValue = advisorLOBVo.IdentifierTypeCode.ToString();
+            if (advisorLOBVo.IdentifierTypeCode.ToString() == "NSE")
+            {
+                trPMSRDBse.Visible = true;
+                txtPMSRemissDerNSENum.Text = advisorLOBVo.Identifier.ToString();
+            }
+            else
+            {
+                trRDBse.Visible = true;
+                txtPMSRemissDerBSENum.Text = advisorLOBVo.Identifier.ToString();
+            }
+
         }
         private void setLPSC()
         {
@@ -2049,7 +2049,7 @@ namespace WealthERP.Advisor
                 trPMSSBCBse.Visible = true;
                 txtPMSSubBrCashBSENum.Text = advisorLOBVo.Identifier.ToString();
             }
-           
+
         }
         private void setLPSD()
         {
@@ -2223,7 +2223,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.Identifier = txtBrokerCashNseNumber.Text.ToString();
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
 
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
@@ -2242,7 +2242,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -2290,7 +2290,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -2308,7 +2308,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -2358,7 +2358,7 @@ namespace WealthERP.Advisor
 
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -2376,7 +2376,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -2422,7 +2422,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -2440,7 +2440,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -2486,7 +2486,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -2504,7 +2504,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -2550,7 +2550,7 @@ namespace WealthERP.Advisor
                     advisorLOBVo.IdentifierTypeCode = "NSE";
                 }
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
                 PageRedirect();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewLOB','none');", true);
             }
@@ -2622,7 +2622,7 @@ namespace WealthERP.Advisor
                 if (txtRealEstTargetAmt.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAmount = double.Parse(txtRealEstTargetAmt.Text.ToString().Trim());
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
 
 
                 PageRedirect();
@@ -2642,7 +2642,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -2666,7 +2666,7 @@ namespace WealthERP.Advisor
             PostalSavings.Visible = true;
             txtPostalOrgName.Text = advisorLOBVo.OrganizationName.ToString();
             txtPostalAgentNum.Text = advisorLOBVo.AgentNum.ToString();
-            if(advisorLOBVo.ValidityDate != DateTime.MinValue)
+            if (advisorLOBVo.ValidityDate != DateTime.MinValue)
                 txtPostalAgencyExpiry.Text = advisorLOBVo.ValidityDate.ToShortDateString();
             txtPostalTargetAccount.Text = advisorLOBVo.TargetAccount.ToString();
             txtPostalTargetAmt.Text = advisorLOBVo.TargetAmount.ToString();
@@ -2695,7 +2695,7 @@ namespace WealthERP.Advisor
                 if (txtPostalTargetAmt.Text.ToString().Trim() != string.Empty)
                     advisorLOBVo.TargetAmount = double.Parse(txtPostalTargetAmt.Text.ToString().Trim());
 
-                advisorLOBBo.UpdateLOB(advisorLOBVo,advisorId,userId);
+                advisorLOBBo.UpdateLOB(advisorLOBVo, advisorId, userId);
 
 
                 PageRedirect();
@@ -2715,7 +2715,7 @@ namespace WealthERP.Advisor
 
                 object[] objects = new object[9];
                 objects[0] = assetClass;
-                
+
                 objects[2] = advisorLOBBo;
                 objects[3] = advisorLOBVo;
                 objects[4] = path;
@@ -2854,18 +2854,37 @@ namespace WealthERP.Advisor
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
             // txtMFValidity.Text = Calendar2.SelectedDate.ToShortDateString();
-        }    
-               
+        }
+
         private void PageRedirect()
         {
-            
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','action=ViewLOB');", true);
-                
+
+            if (Session["LOBGridAction"] != null)
+            {
+                if (Session["LOBGridAction"].ToString() == "LOBEdit" && ((UserVo)Session["userVo"]).UserType == "SuperAdmin")
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','?action=ViewLOB');", true);
+                }
+                else if (Session["LOBGridAction"].ToString() == "AdvisorLOBEdit")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','?action=ViewLOB');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','?action=ViewLOB');", true);
+
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','?action=ViewLOB');", true);
+            }
         }
-        
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -2916,7 +2935,8 @@ namespace WealthERP.Advisor
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','none');", true);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewLOB', 'none')", true);
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewLOB', 'none')", true);
+            PageRedirect();
         }
 
         protected void hiddenDelete_Click(object sender, EventArgs e)
@@ -2926,9 +2946,9 @@ namespace WealthERP.Advisor
             //{
             //    DeleteLOB();
             //}
-           
+
         }
-        
+
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
             EnableControls(this);
