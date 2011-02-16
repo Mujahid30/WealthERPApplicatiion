@@ -808,7 +808,7 @@ namespace WealthERP.Loans
 
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
-            if (Session["LoanSchemeView"].ToString() == "SuperAdmin")
+            if (Session["LoanSchemeView"]!=null && Session["LoanSchemeView"].ToString() == "SuperAdmin")
             {
                 string url = "?schemeId=" + schemeId + "&mode=Edit";
                 Session["LoanSchemeViewStatus"] = "Edit";
