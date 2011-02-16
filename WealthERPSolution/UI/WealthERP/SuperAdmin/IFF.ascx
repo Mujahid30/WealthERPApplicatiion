@@ -1,8 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IFF.ascx.cs" Inherits="WealthERP.SuperAdmin.IFF" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+
 <script>
 
 </script>
+
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
@@ -12,13 +14,13 @@
     </tr>
 </table>
 <table width="100%">
-<tr>
-<td align="center">
-<div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
-    No Records found.....
-</div>
-</td>
-</tr>
+    <tr>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+                No Records found.....
+            </div>
+        </td>
+    </tr>
 </table>
 <table class="TableBackground" width="100%">
     <%--<tr>
@@ -32,9 +34,11 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
-    <tr>
-        <td>
-            <div id="print" runat="server">
+</table>
+<asp:Panel ID="pnlIFFGrid" runat="server" Width="100%" ScrollBars="Horizontal">
+    <table class="TableBackground" width="100%">
+        <tr align="center">
+            <td>
                 <asp:GridView ID="gvAdvisorList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                     DataKeyNames="UserId" OnSorting="gvAdvisorList_Sorting" CssClass="GridViewStyle"
                     ShowFooter="True" OnRowDataBound="gvAdvisorList_RowDataBound">
@@ -99,14 +103,14 @@
                         </asp:BoundField>
                     </Columns>
                 </asp:GridView>
-            </div>
-        </td>
-    </tr>
-</table>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
 <div id="DivPager" runat="server">
     <table style="width: 100%">
         <tr id="trPager" runat="server">
-            <td>
+            <td align="center">
                 <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
             </td>
         </tr>

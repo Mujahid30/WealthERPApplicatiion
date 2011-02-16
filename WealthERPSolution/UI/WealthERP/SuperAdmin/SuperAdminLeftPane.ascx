@@ -4,7 +4,7 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 <telerik:RadPanelBar ID="RadPanelBar1" runat="server" ExpandAnimation-Type="InCubic"
-    ExpandMode="SingleExpandedItem" Width="210px" Skin="Telerik" EnableEmbeddedSkins="false"
+    ExpandMode="SingleExpandedItem" Width="100%" Skin="Telerik" EnableEmbeddedSkins="false"
     OnItemClick="RadPanelBar1_ItemClick">
     <Items>
         <telerik:RadPanelItem Text="IFF" Value="IFF">
