@@ -12,7 +12,7 @@
     <%-- <link href="CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="CSS/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
     <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
-
+       
     <script src="/Scripts/jquery.js" type="text/javascript"></script>
 
     <script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
@@ -23,12 +23,11 @@
 
     <script language="javascript" type="text/javascript">
         function loadCB() {
-        $(document).ready(function() {
-            $(".loadmediv").colorbox({overlayClose: false, inline: true, open: true, href: "#LoadImage",opacity:1 });
-            return true;
+            $(document).ready(function() {
+                $(".loadmediv").colorbox({ overlayClose: false, inline: true, open: true, href: "#LoadImage", opacity: 1 });
+                return true;
             })
         }
-        
         var timerEvent = null;
 
         function calcHeight(ifrm_id) {
@@ -154,14 +153,19 @@
                                 height: 90px;" --%>
                                 <%--background-color: #D1E1F7"--%>
                                 <td colspan="3" valign="top" class="TDBackground" style="padding: 0px;">
-                                    <div style="width: 100%; height: 50px;">
-                                        <div style="float: left; z-index: 2000;">
-                                            <img alt="Advisor Logo" id="AdvisorLogo" runat="server" height="50" />
-                                        </div>
-                                        <div style="float: right; z-index: 2000;">
-                                            <img id="BranchLogo" runat="server" />
-                                        </div>
-                                    </div>
+                                    <table id="imgPlaceholders" width="100%">
+                                        <tr style="height:55px" valign="middle">
+                                            <td align="left" width="33%">
+                                                <img id="imgLeftPlaceHolder" runat="server" height="50" width="180" />
+                                            </td>
+                                            <td align="center" width="33%">
+                                                <img id="imgCenterPlaceholder" runat="server" height="50" width="180" />
+                                            </td>
+                                            <td align="right" center="34%">
+                                                <img id="imgRightPlaceholder" runat="server" style="height: 50px" width="180" />
+                                            </td>
+                                        </tr>
+                                    </table>
                                     <div style="clear: both; z-index: 2500; text-align: right;">
                                         &nbsp; <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
                                             class="LinkButtons" href="#">Settings</a>&nbsp;
@@ -617,7 +621,7 @@
         </asp:UpdateProgress>
     </div>
     </form>
-    <table align="center" style="display: none;">
+      <table align="center" style="display: none;">
         <tr>
             <td>
                 <div id='LoadImage' >

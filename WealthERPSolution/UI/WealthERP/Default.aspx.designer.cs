@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP {
-    
-    
-    public partial class _Default {
-        
+namespace WealthERP
+{
+
+
+    public partial class _Default
+    {
+
         /// <summary>
         /// Head1 control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
-        
+
         /// <summary>
         /// MainForm control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm MainForm;
-        
+
         /// <summary>
         /// ScriptManager control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager;
-        
+
         /// <summary>
         /// GeneralHeader control.
         /// </summary>
@@ -48,25 +50,34 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl GeneralHeader;
-        
+
         /// <summary>
-        /// AdvisorLogo control.
+        /// imgLeftPlaceHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage AdvisorLogo;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgLeftPlaceHolder;
+
         /// <summary>
-        /// BranchLogo control.
+        /// imgCenterPlaceholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage BranchLogo;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgCenterPlaceholder;
+
+        /// <summary>
+        /// imgRightPlaceholder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgRightPlaceholder;
+
         /// <summary>
         /// LinkButtonSignIn control.
         /// </summary>
@@ -75,7 +86,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonSignIn;
-        
+
         /// <summary>
         /// LinkButtonContactUs control.
         /// </summary>
@@ -84,7 +95,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonContactUs;
-        
+
         /// <summary>
         /// lblSignOut control.
         /// </summary>
@@ -93,7 +104,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lblSignOut;
-        
+
         /// <summary>
         /// lblUserName control.
         /// </summary>
@@ -102,7 +113,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserName;
-        
+
         /// <summary>
         /// AdvisorHeader control.
         /// </summary>
@@ -111,7 +122,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl AdvisorHeader;
-        
+
         /// <summary>
         /// AdvisorMenu control.
         /// </summary>
@@ -120,7 +131,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu AdvisorMenu;
-        
+
         /// <summary>
         /// CustomerIndividualHeader control.
         /// </summary>
@@ -129,7 +140,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl CustomerIndividualHeader;
-        
+
         /// <summary>
         /// CustomerIndividualMenu control.
         /// </summary>
@@ -138,7 +149,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu CustomerIndividualMenu;
-        
+
         /// <summary>
         /// CustomerNonIndividualHeader control.
         /// </summary>
@@ -147,7 +158,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl CustomerNonIndividualHeader;
-        
+
         /// <summary>
         /// CustomerNonIndividualMenu control.
         /// </summary>
@@ -156,7 +167,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu CustomerNonIndividualMenu;
-        
+
         /// <summary>
         /// RMHeader control.
         /// </summary>
@@ -165,7 +176,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl RMHeader;
-        
+
         /// <summary>
         /// RMMenu control.
         /// </summary>
@@ -174,7 +185,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu RMMenu;
-        
+
         /// <summary>
         /// RMCLientHeaderIndividual control.
         /// </summary>
@@ -183,7 +194,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl RMCLientHeaderIndividual;
-        
+
         /// <summary>
         /// RMIndividualCLientMenu control.
         /// </summary>
@@ -192,7 +203,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu RMIndividualCLientMenu;
-        
+
         /// <summary>
         /// RMCLientHeaderNonIndividual control.
         /// </summary>
@@ -201,7 +212,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl RMCLientHeaderNonIndividual;
-        
+
         /// <summary>
         /// RMNonIndividualCLientMenu control.
         /// </summary>
@@ -210,7 +221,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu RMNonIndividualCLientMenu;
-        
+
         /// <summary>
         /// BMHeader control.
         /// </summary>
@@ -219,7 +230,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl BMHeader;
-        
+
         /// <summary>
         /// BMMenu control.
         /// </summary>
@@ -228,7 +239,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu BMMenu;
-        
+
         /// <summary>
         /// AdminHeader control.
         /// </summary>
@@ -237,7 +248,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl AdminHeader;
-        
+
         /// <summary>
         /// AdminMenu control.
         /// </summary>
@@ -246,7 +257,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu AdminMenu;
-        
+
         /// <summary>
         /// SwitchRolesHeader control.
         /// </summary>
@@ -255,7 +266,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl SwitchRolesHeader;
-        
+
         /// <summary>
         /// SwitchRolesMenu control.
         /// </summary>
@@ -264,7 +275,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu SwitchRolesMenu;
-        
+
         /// <summary>
         /// lblDate control.
         /// </summary>
@@ -273,7 +284,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDate;
-        
+
         /// <summary>
         /// lblBestViewed control.
         /// </summary>
@@ -282,7 +293,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBestViewed;
-        
+
         /// <summary>
         /// PCGLabel control.
         /// </summary>
@@ -291,7 +302,7 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label PCGLabel;
-        
+
         /// <summary>
         /// UpdateProgress1 control.
         /// </summary>
