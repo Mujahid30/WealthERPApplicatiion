@@ -1371,6 +1371,19 @@ namespace DaoAdvisorProfiling
                         advisorVo.LogoPath = dr["A_AdviserLogo"].ToString();
                     if (dr["A_Designation"] != DBNull.Value)
                         advisorVo.Designation = dr["A_Designation"].ToString();
+                    if (dr["XAC_AdviserCategory"] != null && dr["XAC_AdviserCategory"].ToString() != "")
+                        advisorVo.Category = dr["XAC_AdviserCategory"].ToString();
+                    if (dr["AL_IsDependent"] != null && dr["AL_IsDependent"].ToString() != "")
+                        advisorVo.IsDependent = Int16.Parse(dr["AL_IsDependent"].ToString());
+                    advisorVo.LoginId = dr["U_LoginId"].ToString();
+                    advisorVo.Password = dr["U_Password"].ToString();
+                    advisorVo.Email = dr["A_Email"].ToString();
+                    if (!string.IsNullOrEmpty(dr["A_IsActive"].ToString()))
+                        advisorVo.IsActive = Int16.Parse(dr["A_IsActive"].ToString());
+                    if (dr["A_ActivationDate"] != null && dr["A_ActivationDate"].ToString() != "")
+                        advisorVo.ActivationDate = DateTime.Parse(dr["A_ActivationDate"].ToString());
+                    if (dr["A_DeactivateDate"] != null && dr["A_DeactivateDate"].ToString() != "")
+                        advisorVo.DeactivationDate = DateTime.Parse(dr["A_DeactivateDate"].ToString());
                 }
 
 
