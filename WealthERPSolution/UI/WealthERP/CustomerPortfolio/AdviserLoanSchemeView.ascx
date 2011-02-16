@@ -1,9 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserLoanSchemeView.ascx.cs"
     Inherits="WealthERP.Loans.AdviserLoanSchemeView" %>
 <%@ Register Src="../General/Pager.ascx" TagName="Pager" TagPrefix="uc1" %>
+<table width="100%"><tr><td align="center">
 <div class="warning-msg" id="EditDisabledMessage" runat="server" visible="false">
     <asp:Label ID="lblEditMessageDisabled" runat="server"></asp:Label>
 </div>
+</td></tr></table>
 <table width="100%">
     <tr>
         <td>

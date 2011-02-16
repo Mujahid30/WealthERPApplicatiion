@@ -125,7 +125,7 @@ namespace WealthERP.Loans
                 schemeId = int.Parse(gvAdviserLoanSchemeView.DataKeys[selectedRow].Values["SchemeId"].ToString());
                 if (ddlAction.SelectedValue == "Edit")
                 {
-                    if (Session["LoanSchemeView"].ToString() == "SuperAdmin")
+                    if (Session["LoanSchemeView"]!=null && Session["LoanSchemeView"].ToString() == "SuperAdmin")
                     {
                         string url = "?schemeId=" + schemeId + "&mode=Edit";
                         Session["LoanSchemeId"] = schemeId;
@@ -135,7 +135,7 @@ namespace WealthERP.Loans
                     else
                     {
                         EditDisabledMessage.Visible = true;
-                        lblEditMessageDisabled.Text = "Advisor dont have rights to Edit Scheme";
+                        lblEditMessageDisabled.Text = "Sorry, you dont have Sufficient Permission to Edit Scheme";
                     }
                 }
                 else if (ddlAction.SelectedValue == "View")
