@@ -8,13 +8,16 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Configuration;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections;
+using System.Text.RegularExpressions;
+using System.Net.Mime;
 
 namespace PCGMailLib
 {
     /// <summary>
     /// Utility class for sending email
     /// </summary>
-    public class Emailer
+    public class Emailer : System.Web.UI.Page
     {
         public string smtpfromEmailId;
         public string smtpServer;
@@ -118,6 +121,11 @@ namespace PCGMailLib
                         mail.AlternateViews.Add(altrView);
                     }
                 }
+                else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")           
+                {
+                    ////Send message
+                    ProcessMailForInlineAttachments(ref mail, mail.Body);
+                }
                
                 SaveMail(mail);
 
@@ -147,7 +155,51 @@ namespace PCGMailLib
                 //throw exBase;
             }
         }
+        void ProcessMailForInlineAttachments(ref MailMessage oMM, string sBody)
+        {
+            //string sBody = oMM.Body;
+            Hashtable oHT = new Hashtable();
+            bool bHasInlineImages = false;
+            int lContentId = 96358;
+            foreach (Match oM in Regex.Matches(sBody, "src\\s*=\\s*\"(.+((jpg)|(gif)))\"", RegexOptions.IgnoreCase | RegexOptions.Multiline))
+            {
+                string sImgName = oM.Groups[1].Value;
+                if (sImgName.IndexOf("http") == -1)
+                {
+                    string sFilePath = Server.MapPath("\\Images\\") + sImgName;
+                    if (File.Exists(sFilePath))
+                    {
+                        if (!oHT.ContainsKey(sImgName))
+                        {
+                            oHT.Add(sImgName, lContentId);
+                            sBody = sBody.Replace(sImgName, "cid:" + lContentId.ToString());
+                            lContentId++;
+                        }
+                        bHasInlineImages = true;
+                    }
+                }
+            }
 
+            // HTML View
+            AlternateView oAV = AlternateView.CreateAlternateViewFromString(sBody, null, MediaTypeNames.Text.Html);
+            if (bHasInlineImages)
+            {
+                foreach (string sKey in oHT.Keys)
+                {
+                    string sFilePath = Server.MapPath("\\Images\\Money_Touch_360_logo1.gif");
+                    LinkedResource oLR = new LinkedResource(sFilePath);
+                    oLR.ContentType.Name = sKey;
+                    oLR.ContentId = oHT[sKey].ToString();
+
+                    oAV.LinkedResources.Add(oLR);
+                }
+            }
+            oMM.AlternateViews.Add(oAV);
+
+            // Plain Text View
+            //                oAV = AlternateView.CreateAlternateViewFromString("Plain Text View", null, MediaTypeNames.Text.Plain);
+            //              oMM.AlternateViews.Add(oAV);
+        }
         /// <summary>
         /// Save mail as an HTML file.
         /// </summary>
