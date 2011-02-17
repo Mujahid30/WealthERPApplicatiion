@@ -1795,6 +1795,45 @@ namespace DaoAdvisorProfiling
 
             }
         }
+
+        public string GetAdviserDomainName(int adviserId)
+        {
+            Database db;
+            DbCommand GetAdviserDomainName;
+            DataSet dsAdviserDomainName;
+            string domain = "";
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserDomainName = db.GetStoredProcCommand("SP_GetAdviserDomain");
+                db.AddInParameter(GetAdviserDomainName, "@AdviserId", DbType.Int32, adviserId);
+                dsAdviserDomainName = db.ExecuteDataSet(GetAdviserDomainName);
+                if (dsAdviserDomainName != null && dsAdviserDomainName.Tables[0].Rows.Count > 0)
+                {
+                    domain = dsAdviserDomainName.Tables[0].Rows[0]["Domain"].ToString();
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserDomainName(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return domain;
+
+        }
     }
 }
 
