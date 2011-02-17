@@ -107,7 +107,7 @@
         </MasterTableView>
         
         <ClientSettings>
-            <Scrolling AllowScroll="True" ScrollHeight="400px" UseStaticHeaders="True" SaveScrollPosition="true" FrozenColumnsCount="1">
+            <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="true" FrozenColumnsCount="1">
             </Scrolling>
             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
         </ClientSettings>
