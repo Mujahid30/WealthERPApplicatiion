@@ -1090,5 +1090,38 @@ namespace BoAdvisorProfiling
 
             }
         }
+
+        public string GetAdviserDomainName(int adviserId)
+        {
+
+            string domain = "";
+            AdvisorDao adviserDao = new AdvisorDao();
+            try
+            {
+
+                domain = adviserDao.GetAdviserDomainName(adviserId);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetAdviserDomainName(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return domain;
+
+        }
     }
 }
