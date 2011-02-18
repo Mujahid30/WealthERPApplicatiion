@@ -462,18 +462,20 @@
   </TransactionType>
 
   <CustomerRelationship>
-    <Relationship RelationshipCode="CH" Type="IND" Relationship="Child" Deleted="False" />
-    <Relationship RelationshipCode="SP" Type="IND" Relationship="Spouse" Deleted="False" />
-    <Relationship RelationshipCode="FA" Type="IND" Relationship="Father" Deleted="False" />
-    <Relationship RelationshipCode="MO" Type="IND" Relationship="Mother" Deleted="False" />
     <Relationship RelationshipCode="BR" Type="IND" Relationship="Brother" Deleted="False" />
-    <Relationship RelationshipCode="SI" Type="IND" Relationship="Sister" Deleted="False" />
-    <Relationship RelationshipCode="IOTH" Type="IND" Relationship="Other" Deleted="False" />
-    <Relationship RelationshipCode="MEM" Type="NIND" Relationship="Member" Deleted="False" />
-    <Relationship RelationshipCode="PRT" Type="NIND" Relationship="Partner" Deleted="False" />
+    <Relationship RelationshipCode="CH" Type="IND" Relationship="Child" Deleted="False" />
     <Relationship RelationshipCode="CLT" Type="NIND" Relationship="Client" Deleted="False" />
+    <Relationship RelationshipCode="DAO" Type="IND" Relationship="Daughter" Deleted="False" />
+    <Relationship RelationshipCode="FA" Type="IND" Relationship="Father" Deleted="False" />   
+    <Relationship RelationshipCode="MEM" Type="NIND" Relationship="Member" Deleted="False" />
+    <Relationship RelationshipCode="MO" Type="IND" Relationship="Mother" Deleted="False" />
+    <Relationship RelationshipCode="IOTH" Type="IND" Relationship="Other" Deleted="False" />
     <Relationship RelationshipCode="NOTH" Type="NIND" Relationship="Other" Deleted="False" />
-  </CustomerRelationship>
+    <Relationship RelationshipCode="PRT" Type="NIND" Relationship="Partner" Deleted="False" />
+    <Relationship RelationshipCode="SO" Type="IND" Relationship="Son" Deleted="False" />
+    <Relationship RelationshipCode="SP" Type="IND" Relationship="Spouse" Deleted="False" />
+    <Relationship RelationshipCode="SI" Type="IND" Relationship="Sister" Deleted="False" />   
+   </CustomerRelationship>
 
   <States>
     <State StateCode="ANI" StateName="Andaman and Nicobar Islands" Deleted="False" />
