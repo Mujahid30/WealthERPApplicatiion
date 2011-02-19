@@ -197,6 +197,7 @@ public class Encryption
         byte[] saltValueBytes = Encoding.ASCII.GetBytes(saltValue);
 
         // Convert our ciphertext into a byte array.
+        cipherText = cipherText.Replace(" ", "+");
         byte[] cipherTextBytes = Convert.FromBase64String(cipherText);
 
         // First, we must create a password, from which the key will be 
