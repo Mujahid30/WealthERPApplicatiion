@@ -447,6 +447,10 @@ namespace WealthERP.CustomerPortfolio
                     Session.Remove("insuranceULIPList");
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=view');", true);
                 }
+                if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -465,6 +469,21 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
             }
         }
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                bool DeleteAccount;
+                CustomerAccountsVo customeraccountvo = (CustomerAccountsVo)Session["customerAccountVo"];
+                int Account = customeraccountvo.AccountId;
+                DeleteAccount = customerAccountsBo.DeleteInsuranceAccount(Account);
+
+
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','none');", true);
+            }
+        }
+
 
         protected void gvrLifeInsurance_RowDataBound(object sender, GridViewRowEventArgs e)
         {
