@@ -1391,6 +1391,14 @@ namespace BoCustomerPortfolio
             }
             return customerAccountList;
         }
+        public bool DeleteInsuranceAccount(int accountId)
+        {
+            bool Delete;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            Delete = customerAccountDao.DeleteInsuranceAccount(accountId);
+            return Delete;
+
+        }
 
         #endregion
     }
