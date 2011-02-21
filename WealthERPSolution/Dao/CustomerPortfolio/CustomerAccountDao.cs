@@ -1935,6 +1935,27 @@ namespace DaoCustomerPortfolio
 
         }
 
+        public bool DeleteInsuranceAccount(int accountId)
+        {
+
+            
+               Database db;
+               DbCommand chkAvailabilityCmd;
+               bool bResult = false;
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkAvailabilityCmd = db.GetStoredProcCommand("SP_DeleteLifeInsurance");
+
+                db.AddInParameter(chkAvailabilityCmd, "@InsuranceAccount", DbType.String, accountId);
+                
+                db.ExecuteDataSet(chkAvailabilityCmd);
+                bResult = true;
+                return bResult;
+
+               
+                
+            }
+
         #endregion
 
     }
