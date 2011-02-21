@@ -50,6 +50,15 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.Image imgAdvisorLogo;
         
         /// <summary>
+        /// dynamicLoginContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell dynamicLoginContent;
+        
+        /// <summary>
         /// lblUserLoginContent control.
         /// </summary>
         /// <remarks>
@@ -57,6 +66,15 @@ namespace WealthERP.General {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserLoginContent;
+        
+        /// <summary>
+        /// MT_LoginContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell MT_LoginContent;
         
         /// <summary>
         /// txtLoginId control.

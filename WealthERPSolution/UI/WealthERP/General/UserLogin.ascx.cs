@@ -21,6 +21,7 @@ using BoCommon;
 using System.Data;
 using BoHostConfig;
 using VoHostConfig;
+using System.Configuration;
 
 namespace WealthERP.General
 {
@@ -36,7 +37,16 @@ namespace WealthERP.General
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
             if (!IsPostBack)
             {
-                
+                if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+                {
+                    MT_LoginContent.Visible = true;
+                    dynamicLoginContent.Visible = false;
+                }
+                else
+                {
+                    dynamicLoginContent.Visible = true;
+                    MT_LoginContent.Visible = false; 
+                }
                 if (Session[SessionContents.SAC_HostGeneralDetails] != null)
                 {
                     generalconfigurationvo = (GeneralConfigurationVo)Session[SessionContents.SAC_HostGeneralDetails];
@@ -46,7 +56,7 @@ namespace WealthERP.General
                     }
                     if (!string.IsNullOrEmpty(generalconfigurationvo.ApplicationName))
                     {
-                        lblCompanyName.Text = generalconfigurationvo.ApplicationName;
+                        lblCompanyName.Text = generalconfigurationvo.ApplicationName+" Login";
                     }
                 }
                 if (Request.ServerVariables["HTTPS"].ToString() == "")
