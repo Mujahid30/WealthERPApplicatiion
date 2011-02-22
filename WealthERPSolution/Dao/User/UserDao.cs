@@ -168,6 +168,8 @@ namespace DaoUser
                     userVo.Email = dr["U_Email"].ToString();
                     userVo.UserType = dr["U_UserType"].ToString();
                     userVo.LoginId = dr["U_LoginId"].ToString();
+                    if (!string.IsNullOrEmpty(dr["RoleList"].ToString()))
+                        userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
                 }
             }
 
