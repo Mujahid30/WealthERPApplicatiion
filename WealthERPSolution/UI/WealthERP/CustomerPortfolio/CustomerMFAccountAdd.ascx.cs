@@ -15,6 +15,7 @@ using WealthERP.Base;
 using VoUser;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using System.Web.Services;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -41,6 +42,14 @@ namespace WealthERP.CustomerPortfolio
         PortfolioBo portfolioBo = new PortfolioBo();
         string path;
         string action;
+
+
+        [WebMethod]
+        public void CheckTradeNoMFAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
+        {
+            //CustomerAccountDao checkAccDao = new CustomerAccountDao();
+            //return checkAccDao.CheckTradeNoAvailability(TradeAccNo, BrokerCode, PortfolioId);
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -793,6 +802,11 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        //protected void foliobutton_click(object sender, EventArgs e)
+        //{
+
+        //}
+
         protected void rbtnNo_CheckedChanged(object sender, EventArgs e)
         {
             if (ddlModeOfHolding.SelectedIndex != 0)
@@ -808,5 +822,16 @@ namespace WealthERP.CustomerPortfolio
 
 
         }
+        [WebMethod]
+        public void CheckTradeNoAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
+        {
+            //CustomerAccountDao checkAccDao = new CustomerAccountDao();
+           //return checkAccDao.CheckTradeNoAvailability(TradeAccNo, BrokerCode, PortfolioId);
+        }
+        protected void txtFolioNumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
