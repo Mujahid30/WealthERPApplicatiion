@@ -157,7 +157,11 @@ namespace WealthERP.CustomerPortfolio
                 {
                     qryString = "?FromPage=ViewGeneralInsuranceDetails&InsuranceId=" + insuranceId + "&action=View";
                 }
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
+                if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                }
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
             }
             catch (BaseApplicationException Ex)
             {
@@ -173,6 +177,21 @@ namespace WealthERP.CustomerPortfolio
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+            }
+        }
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                bool DeleteAccount;
+                CustomerVo customervo = (CustomerVo)Session["customerVo"];
+                int Account = customervo.CustomerId ;
+                CustomerPortfolioBo BoCustomerPortfolio = new CustomerPortfolioBo();
+                DeleteAccount = BoCustomerPortfolio.DeleteGIAccount(Account);
+
+
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','none');", true);
             }
         }
 

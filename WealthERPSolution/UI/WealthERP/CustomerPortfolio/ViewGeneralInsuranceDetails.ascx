@@ -1,8 +1,39 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewGeneralInsuranceDetails.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.ViewGeneralInsuranceDetails" %>
+    <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
+<script language="javascript" type="text/javascript">
+    function Print_Click(div, btnID) {
+        var ContentToPrint = document.getElementById(div);
+        var myWindowToPrint = window.open('', '', 'width=200,height=100,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,directories=0');
+        myWindowToPrint.document.write(document.getElementById(div).innerHTML);
+        // myWindowToPrint.document.write(ContentToPrint.innerHTML);
+        myWindowToPrint.document.close();
+        myWindowToPrint.focus();
+        myWindowToPrint.print();
+        myWindowToPrint.close();
+        var btn2 = document.getElementById(btnID);
+        btn2.click();
+    }
+    function showmessage() {
+
+        var bool = window.confirm('Are you sure you want to delete this policy?');
+
+        if (bool) {
+            document.getElementById("ctrl_ViewGeneralInsuranceDetails_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_ViewGeneralInsuranceDetails_hiddenassociation").click();
+
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_ViewGeneralInsuranceDetails_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_ViewGeneralInsuranceDetails_hiddenassociation").click();
+            return true;
+        }
+    }
+    </script>
 
 <table id="Table1" class="TableBackground" width="100%" runat="server">
     <tr>
@@ -49,6 +80,7 @@
                                 <asp:ListItem>Select </asp:ListItem>
                                 <asp:ListItem Text="Edit" Value="Edit">Edit</asp:ListItem>
                                 <asp:ListItem Text="View" Value="View">View</asp:ListItem>
+                                <asp:ListItem Text="Delete" Value="Delete">Delete</asp:ListItem>
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -81,3 +113,6 @@
 </table>
 <asp:HiddenField ID="hdnSort" runat="server" Value="Particulars ASC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
+    BorderStyle="None" BackColor="Transparent" />
