@@ -3080,6 +3080,14 @@ namespace BoCustomerPortfolio
             return customerportfoliodao.GetProductAssetInstrumentCategory();
         }
 
+        public bool DeleteGIAccount(int Account)
+        {
+            bool Delete;
+            CustomerPortfolioDao customerAccountDao = new CustomerPortfolioDao();
+            Delete = customerAccountDao.DeleteGIAccount(Account);
+            return Delete;
+
+        }
 
         /* Delete Eq NetPosition transaction entries for Latest val date */
 
