@@ -1715,6 +1715,26 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
+        public bool DeleteGIAccount(int Account)
+        {
+
+
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            bool bResult = false;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            chkAvailabilityCmd = db.GetStoredProcCommand("SP_DeleteGeneralInsurance");
+
+            db.AddInParameter(chkAvailabilityCmd, "@CustomerID", DbType.String, Account);
+
+            db.ExecuteDataSet(chkAvailabilityCmd);
+            bResult = true;
+            return bResult;
+
+
+
+        }
 
 
         #endregion
