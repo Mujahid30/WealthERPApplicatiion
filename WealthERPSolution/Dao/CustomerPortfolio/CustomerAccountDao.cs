@@ -579,6 +579,33 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
+        public bool CheckTradeNoMFAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int rowCount;
+            DataSet ds;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkAvailabilityCmd = db.GetStoredProcCommand("SP_CheckTradeMFAccAvailability");
+
+                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_No", DbType.String, TradeAccNo);
+                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_BrokerCode", DbType.String, BrokerCode);
+                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_PortfolioId", DbType.Int32, PortfolioId);
+
+                ds = db.ExecuteDataSet(chkAvailabilityCmd);
+                rowCount = ds.Tables[0].Rows.Count;
+                if (rowCount > 0)
+                {
+                    bResult = false;
+                }
+                else
+                {
+                    bResult = true;
+                }
+             return bResult;
+        }
 
         public DataSet GetCustomerPropertyAccounts(int portfolioId, string assetGroup, string assetCategory, string assetSubCategory)
         {
