@@ -117,6 +117,7 @@
                         <AlternatingRowStyle CssClass="AltRowStyle" />
                         <Columns>
                             <%--<asp:BoundField DataField="SchemePlanName" HeaderText="Scheme Plan Name" SortExpression="PASP_SchemePlanName" />--%>
+                            <asp:BoundField DataField="SchemePlanCode" HeaderText="Scheme Plan Code" />
                             <asp:TemplateField>
                                 <HeaderTemplate>
                                     <asp:Label ID="lblName" align="center" runat="server" Text="Scheme Plan Name"></asp:Label>
