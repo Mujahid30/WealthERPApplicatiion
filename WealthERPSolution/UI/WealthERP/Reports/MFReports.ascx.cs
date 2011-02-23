@@ -136,7 +136,7 @@ namespace WealthERP.Reports
             rdoIndividual.Attributes.Add("onClick", "javascript:ChangeCustomerSelectionTextBox(value);");
             rdoCustomerGroup.Attributes.Add("onClick", "javascript:ChangeGroupOrSelf(value);");
             rdoCustomerIndivisual.Attributes.Add("onClick", "javascript:ChangeGroupOrSelf(value);");
-
+            
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             // cvAsOnDate.ValueToCompare = DateTime.Now.ToShortDateString();
@@ -749,16 +749,16 @@ namespace WealthERP.Reports
             DataTable dtIndiviCustomerList = new DataTable();
 
             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-            {                
-                dtIndiviCustomerList = customerBo.GetMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+            {
+                dtIndiviCustomerList = customerBo.GetAllRMMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-            { 
-               
+            {
+
                 dtIndiviCustomerList = customerBo.GetAdviserCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
 
             }
-                       
+
 
             LBCustomer.DataSource = dtIndiviCustomerList;
             LBCustomer.DataTextField = "C_FirstName";
@@ -811,6 +811,33 @@ namespace WealthERP.Reports
         protected void RemoveAll_Click(object sender, EventArgs e)
         {
             this.moveSelectedItems(LBSelectCustomer, LBCustomer, true);
+        }
+
+        protected void rbnAllCustomer_CheckedChanged(object sender, EventArgs e)
+        {
+            LBSelectCustomer.Items.Clear();
+            LBCustomer.Items.Clear();
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtIndiviCustomerList = new DataTable();
+
+            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            {
+                dtIndiviCustomerList = customerBo.GetMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            {
+
+                dtIndiviCustomerList = customerBo.GetAllCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+            }
+
+
+            LBCustomer.DataSource = dtIndiviCustomerList;
+            LBCustomer.DataTextField = "C_FirstName";
+            LBCustomer.DataValueField = "C_CustomerId";
+            LBCustomer.DataBind();
+            tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+
         }
 
     }

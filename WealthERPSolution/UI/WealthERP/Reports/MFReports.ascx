@@ -373,21 +373,40 @@
     //Advisor Login MFreport RadioButton Selection change Validation...................
 
     function ChangeCustomerSelectionTextBox(value) {
-        
-        if (value == 'rdoGroup') {
-            
-            document.getElementById("<%= trGroupCustomer.ClientID %>").style.display = 'block';
-            document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'none';
-            document.getElementById("<%= txtParentCustomer.ClientID %>").value = '';
-
+        switch (value) {
+            case 'rdoGroup':
+                {
+                    document.getElementById("<%= trGroupCustomer.ClientID %>").style.display = 'block';
+                    document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'none';
+                    document.getElementById("<%= rbnAllCustomer.ClientID %>").style.display = 'none';
+                    document.getElementById("<%= txtParentCustomer.ClientID %>").value = '';
+                    break;
+                }
+             case 'rdoIndividual':
+             {
+                    document.getElementById("<%= trGroupCustomer.ClientID %>").style.display = 'none';
+                    document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'block';
+                    document.getElementById("<%= rbnAllCustomer.ClientID %>").style.display = 'none';
+                    document.getElementById("<%= txtParentCustomer.ClientID %>").value = '';
+                    break;
+                }
+            case 'chkCustomer':
+                {
+                    document.getElementById("<%= trGroupCustomer.ClientID %>").style.display = 'none';
+                    document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'none';
+                    document.getElementById("<%= rbnAllCustomer.ClientID %>").style.display = 'block';
+                    document.getElementById("<%= txtParentCustomer.ClientID %>").value = '';
+                    break;
+                }
+              default:
+              {
+                  document.getElementById("<%= trGroupCustomer.ClientID %>").style.display = 'block';
+                  document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'none';
+                  document.getElementById("<%= rbnAllCustomer.ClientID %>").style.display = 'none';
+                  document.getElementById("<%= txtParentCustomer.ClientID %>").value = '';
+              }    
+                
         }
-        else {
-
-            document.getElementById("<%= trGroupCustomer.ClientID %>").style.display = 'none';
-            document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'block';
-            document.getElementById("<%= txtCustomer.ClientID %>").value = '';
-        }
-
         document.getElementById("<%= trCustomerDetails.ClientID %>").style.display = 'none';
         document.getElementById("<%= divGroupCustomers.ClientID %>").innerHTML = '';
         document.getElementById("<%= divPortfolios.ClientID %>").innerHTML = '';
@@ -514,14 +533,6 @@
     {
         width: 620px;
     }
-    .style2
-    {
-        width: 280px;
-    }
-    .style3
-    {
-        width: 861px;
-    }
     .ddlReportType
     {
     font-family: Verdana,Tahoma;
@@ -557,7 +568,7 @@
             <table width="100%" cellpadding="0">
                 <tr>
                     <td>
-                        <ajaxToolkit:TabContainer ID="tabViewAndEmailReports" runat="server" ActiveTabIndex="0"
+                        <ajaxToolkit:TabContainer ID="tabViewAndEmailReports" runat="server" ActiveTabIndex="1"
                             Width="100%" Style="visibility: visible" 
                             OnClientActiveTabChanged="OnChanged">
                             <ajaxToolkit:TabPanel ID="tabpnlViewReports" runat="server" HeaderText="View Reports"
@@ -880,9 +891,17 @@
                                                 <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                                     Text="E-Mail report for :"></asp:Label><asp:RadioButton runat="server" ID="rbnGroup"
                                                         Text="Group" Class="cmbField" GroupName="EmailGrpOrInd" Checked="True" OnCheckedChanged="rbnGroup_CheckedChanged"
-                                                        AutoPostBack="True" /><asp:RadioButton runat="server" ID="rbnIndivisual" Text="Individual"
+                                                        AutoPostBack="True" /><asp:RadioButton runat="server" ID="rbnIndivisual" Text="Individual Without Group"
                                                             Class="cmbField" GroupName="EmailGrpOrInd" OnCheckedChanged="rbnIndivisual_CheckedChanged"
                                                             AutoPostBack="True" />
+                                                           
+   
+                                                    <tr>
+                                                    <td>
+                                                    <asp:RadioButton runat="server" ID="rbnAllCustomer" AutoPostBack="True" Text="All Individual" value="chkCustomer" GroupName="EmailGrpOrInd"  CssClass="cmbField" OnCheckedChanged="rbnAllCustomer_CheckedChanged" />
+                                                    </td>
+                                                    </tr>
+                                                    
                                                 <tr>
                                                     <td>
                                                         <div class="clearfix" style="margin-bottom: 1em;">
@@ -894,7 +913,6 @@
                                                                     <Triggers>
                                                                         <asp:AsyncPostBackTrigger ControlID="AddSelected" EventName="Click" />
                                                                         <asp:AsyncPostBackTrigger ControlID="RemoveSelected" EventName="Click" />
-                                                                        
                                                                         <asp:AsyncPostBackTrigger ControlID="SelectAll" EventName="Click" />
                                                                         <asp:AsyncPostBackTrigger ControlID="RemoveAll" EventName="Click" />
                                                                     </Triggers>
@@ -908,25 +926,20 @@
                                                             </asp:Panel>
                                                             <div style="float: left; margin: 0.5em; width: 138px; font-size: 0.9em; text-align: center;">
                                                                 <p>
-                                                                    
-                                                                     <asp:Button ID="AddSelected" runat="server" Text=">" Font-Bold="True" CssClass="PCGButton" 
-                                                                        onclick="AddSelected_Click"/>
-                                                                        
+                                                                    <asp:Button ID="AddSelected" runat="server" CssClass="PCGButton" 
+                                                                        Font-Bold="True" OnClick="AddSelected_Click" Text="&gt;" />
                                                                 </p>
                                                                 <p>
-                                                                    
-                                                                        <asp:Button ID="RemoveSelected" runat="server" Text="<" Font-Bold="True" CssClass="PCGButton" 
-                                                                        onclick="RemoveSelected_Click"/>
+                                                                    <asp:Button ID="RemoveSelected" runat="server" CssClass="PCGButton" 
+                                                                        Font-Bold="True" OnClick="RemoveSelected_Click" Text="&lt;" />
                                                                 </p>
                                                                 <p>
-                                                                    
-                                                                     <asp:Button ID="SelectAll" runat="server" Text=">>" Font-Bold="True" CssClass="PCGButton" 
-                                                                        onclick="SelectAll_Click" />
+                                                                    <asp:Button ID="SelectAll" runat="server" CssClass="PCGButton" Font-Bold="True" 
+                                                                        OnClick="SelectAll_Click" Text="&gt;&gt;" />
                                                                 </p>
                                                                 <p>
-                                                                   
-                                                                     <asp:Button ID="RemoveAll" runat="server" Text="<<" Font-Bold="True" CssClass="PCGButton" 
-                                                                        onclick="RemoveAll_Click"/>
+                                                                    <asp:Button ID="RemoveAll" runat="server" CssClass="PCGButton" Font-Bold="True" 
+                                                                        OnClick="RemoveAll_Click" Text="&lt;&lt;" />
                                                                 </p>
                                                             </div>
                                                             <asp:Panel ID="PLSelectCustomer" runat="server" DefaultButton="RemoveSelected" 
@@ -937,7 +950,6 @@
                                                                     <Triggers>
                                                                         <asp:AsyncPostBackTrigger ControlID="AddSelected" EventName="Click" />
                                                                         <asp:AsyncPostBackTrigger ControlID="RemoveSelected" EventName="Click" />
-                                                                        
                                                                         <asp:AsyncPostBackTrigger ControlID="SelectAll" EventName="Click" />
                                                                         <asp:AsyncPostBackTrigger ControlID="RemoveAll" EventName="Click" />
                                                                     </Triggers>
@@ -980,7 +992,7 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td>
-                                                                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -995,16 +1007,9 @@
                                                                                     Text="Portfolio Return-Holdoing" />
                                                                             </td>
                                                                         </tr>
-                                                                        <%--<tr>
+                                                                        <tr>
                                                                             <td>
-                                                                                <asp:CheckBox ID="chkPortfolioReturnRE" runat="server" class="cmbField" 
-                                                                                    Text="Portfolio Returns - Realized" />
-                                                                            </td>
-                                                                        </tr>--%>
-                                                                       
-                                                                         <tr>
-                                                                            <td>
-                                                                                 <asp:CheckBox ID="chkPortfolioAnalytics" runat="server" class="cmbField" 
+                                                                                <asp:CheckBox ID="chkPortfolioAnalytics" runat="server" class="cmbField" 
                                                                                     Text="Comprehensive Report" />
                                                                             </td>
                                                                         </tr>
