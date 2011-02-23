@@ -1795,7 +1795,12 @@ namespace DaoAdvisorProfiling
 
             }
         }
-
+  
+        /// <summary>
+        ///Getting domain name for login widget 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
         public string GetAdviserDomainName(int adviserId)
         {
             Database db;
@@ -1834,6 +1839,7 @@ namespace DaoAdvisorProfiling
             return domain;
 
         }
+        
     }
 }
 
