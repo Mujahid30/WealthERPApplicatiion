@@ -170,6 +170,8 @@ namespace DaoUser
                     userVo.LoginId = dr["U_LoginId"].ToString();
                     if (!string.IsNullOrEmpty(dr["RoleList"].ToString()))
                         userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
+                    if (dr["U_Theme"].ToString() != "")
+                        userVo.theme = dr["U_Theme"].ToString();
                 }
             }
 
