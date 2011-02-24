@@ -14,7 +14,7 @@
 </tr>
 <tr>
 <td class="leftField">
-<asp:Label ID="lblClassification" Text="Customer Classissification: " CssClass="FieldName" runat="server">
+<asp:Label ID="lblClassification" Text="Customer Classification: " CssClass="FieldName" runat="server">
 </asp:Label>
 </td>
 <td class="rightField">
