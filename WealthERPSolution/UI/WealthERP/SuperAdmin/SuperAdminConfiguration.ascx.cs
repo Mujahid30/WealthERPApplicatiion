@@ -110,10 +110,10 @@ namespace WealthERP.SuperAdmin
             Session["UploadFileName"] = e.File.FileName;
             //Thumbnail.Width = Unit.Pixel(200);
             //Thumbnail.Height = Unit.Pixel(150);
-            ////if (File.Exists(Server.MapPath(@"/Images/" + e.File.FileName)))
-            ////{
-            ////    Thumbnail.ImageUrl = Server.MapPath(@"/Images/" + e.File.FileName);
-            ////}
+            if (File.Exists(Server.MapPath(@"/Images/" + e.File.FileName)))
+            {
+                Thumbnail.ImageUrl = Server.MapPath(@"/Images/" + e.File.FileName);
+            }
 
             //using (Stream stream = e.File.InputStream)
             //{
