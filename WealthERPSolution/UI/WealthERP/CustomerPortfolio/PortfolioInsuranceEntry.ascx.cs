@@ -83,6 +83,8 @@ namespace WealthERP.CustomerPortfolio
                     ClearFields();
                     BindDropDowns(path, customerAccountVo.AssetCategory.ToString().Trim());
                     LoadInsuranceIssuerCode(path);
+                    LoadInsuranceIssuerDateTP(path);
+                    LoadInsuranceIssuerDateMP(path);
 
                     if (insuranceVo != null)
                     {
@@ -298,6 +300,27 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
+        public void LoadInsuranceIssuerDateTP(string path)
+        {
+            
+                DataTable dt = XMLBo.GetInsuranceIssuerDate(path);
+                ddlTPPrPayDate.DataSource = dt;
+                ddlTPPrPayDate.DataTextField = dt.Columns["Name"].ToString();
+                ddlTPPrPayDate.DataValueField = dt.Columns["Code"].ToString();
+                ddlTPPrPayDate.DataBind();
+                ddlTPPrPayDate.Items.Insert(0, new ListItem("Select Premium Date", "Select Premium Date"));
+        }
+
+        public void LoadInsuranceIssuerDateMP(string path)
+        {
+
+            DataTable dt = XMLBo.GetInsuranceIssuerDate(path);
+            ddlMPPrPayDate.DataSource = dt;
+            ddlMPPrPayDate.DataTextField = dt.Columns["Name"].ToString();
+            ddlMPPrPayDate.DataValueField = dt.Columns["Code"].ToString();
+            ddlMPPrPayDate.DataBind();
+            ddlMPPrPayDate.Items.Insert(0, new ListItem("Select Premium Date", "Select Premium Date"));
+        }
 
         private void SetControls(string action, InsuranceVo insuranceVo, CustomerAccountsVo customerAccountVo, string path)
         {
@@ -363,7 +386,7 @@ namespace WealthERP.CustomerPortfolio
                         txtMPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
                         ddlMPPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
                         txtMPPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
-                        txtMPPrPayDate.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        ddlMPPrPayDate.Text = insuranceVo.PremiumPaymentDate.ToString();
                         txtMPFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtMPLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         dtFrom = DateTime.Parse(txtMPFirstPremiumDate.Text);
@@ -411,7 +434,7 @@ namespace WealthERP.CustomerPortfolio
                         txtTPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
                         ddlTPPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
                         txtTPPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
-                        txtTPPrPayDate.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        ddlTPPrPayDate.Text = insuranceVo.PremiumPaymentDate.ToString();
                         txtTPFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtTPLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtTPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
@@ -546,7 +569,7 @@ namespace WealthERP.CustomerPortfolio
                     txtMPPremiumAmount.Text = "";
                     ddlMPPremiumFrequencyCode.SelectedIndex = -1;
                     txtMPPremiumDuration.Text = "";
-                    txtMPPrPayDate.Text = "";
+                    ddlMPPrPayDate.Text = "";
                     txtMPLastPremiumDate.Text = "";
                     txtMPFirstPremiumDate.Text = "";
                     txtMPGracePeriod.Text = "";
@@ -563,7 +586,7 @@ namespace WealthERP.CustomerPortfolio
                     txtTPPremiumAmount.Text = "";
                     ddlTPPremiumFrequencyCode.SelectedIndex = -1;
                     txtTPPremiumDuration.Text = "";
-                    txtTPPrPayDate.Text = "";
+                    ddlTPPrPayDate.Text = "";
                     txtTPLastPremiumDate.Text = "";
                     txtTPFirstPremiumDate.Text = "";
                     txtTPGracePeriod.Text = "";
@@ -685,7 +708,7 @@ namespace WealthERP.CustomerPortfolio
                         txtMPPremiumAmount.Enabled = false;
                         ddlMPPremiumFrequencyCode.Enabled = false;
                         txtMPPremiumDuration.Enabled = false;
-                        txtMPPrPayDate.Enabled = false;
+                        ddlMPPrPayDate.Enabled = false;
                         txtMPFirstPremiumDate.Enabled = false;
                         txtMPLastPremiumDate.Enabled = false;
                         txtMPGracePeriod.Enabled = false;
@@ -726,7 +749,7 @@ namespace WealthERP.CustomerPortfolio
                         txtTPPremiumAmount.Enabled = false;
                         ddlTPPremiumFrequencyCode.Enabled = false;
                         txtTPPremiumDuration.Enabled = false;
-                        txtTPPrPayDate.Enabled = false;
+                        ddlTPPrPayDate.Enabled = false;
                         txtTPFirstPremiumDate.Enabled = false;
                         txtTPLastPremiumDate.Enabled = false;
                         txtTPGracePeriod.Enabled = false;
@@ -876,7 +899,7 @@ namespace WealthERP.CustomerPortfolio
                         txtMPPremiumAmount.Enabled = true;
                         ddlMPPremiumFrequencyCode.Enabled = true;
                         txtMPPremiumDuration.Enabled = true;
-                        txtMPPrPayDate.Enabled = true;
+                        ddlMPPrPayDate.Enabled = true;
                         txtMPFirstPremiumDate.Enabled = true;
                         txtMPLastPremiumDate.Enabled = true;
                         txtMPGracePeriod.Enabled = true;
@@ -917,7 +940,7 @@ namespace WealthERP.CustomerPortfolio
                         txtTPPremiumAmount.Enabled = true;
                         ddlTPPremiumFrequencyCode.Enabled = true;
                         txtTPPremiumDuration.Enabled = true;
-                        txtTPPrPayDate.Enabled = true;
+                        ddlTPPrPayDate.Enabled = true;
                         txtTPFirstPremiumDate.Enabled = true;
                         txtTPLastPremiumDate.Enabled = true;
                         txtTPGracePeriod.Enabled = true;
@@ -1068,7 +1091,7 @@ namespace WealthERP.CustomerPortfolio
                         txtMPPremiumAmount.Enabled = true;
                         ddlMPPremiumFrequencyCode.Enabled = true;
                         txtMPPremiumDuration.Enabled = true;
-                        txtMPPrPayDate.Enabled = true;
+                        ddlMPPrPayDate.Enabled = true;
                         txtMPFirstPremiumDate.Enabled = true;
                         txtMPLastPremiumDate.Enabled = true;
                         txtMPGracePeriod.Enabled = true;
@@ -1092,7 +1115,7 @@ namespace WealthERP.CustomerPortfolio
                         txtTPPremiumAmount.Enabled = true;
                         ddlTPPremiumFrequencyCode.Enabled = true;
                         txtTPPremiumDuration.Enabled = true;
-                        txtTPPrPayDate.Enabled = true;
+                        ddlTPPrPayDate.Enabled = true;
                         txtTPFirstPremiumDate.Enabled = true;
                         txtTPLastPremiumDate.Enabled = true;
                         txtTPGracePeriod.Enabled = true;
@@ -1271,7 +1294,7 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.FirstPremiumDate = DateTime.Parse(txtTPFirstPremiumDate.Text.ToString());
                             insuranceVo.LastPremiumDate = DateTime.Parse(txtTPLastPremiumDate.Text.ToString());
 
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(txtTPPrPayDate.Text.Trim());
+                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlTPPrPayDate.Text.Trim());
                             if (txtTPGracePeriod.Text.Trim() != "")
                                 insuranceVo.GracePeriod = float.Parse(txtTPGracePeriod.Text.Trim());
                             if (txtTPPremiumAccum.Text.Trim() != "")
@@ -1417,7 +1440,7 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.FirstPremiumDate = DateTime.Parse(txtMPFirstPremiumDate.Text.ToString());
                             insuranceVo.LastPremiumDate = DateTime.Parse(txtMPLastPremiumDate.Text.ToString());
 
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(txtMPPrPayDate.Text.Trim());
+                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlMPPrPayDate.Text.Trim());
                             if (txtMPGracePeriod.Text.Trim() != "")
                                 insuranceVo.GracePeriod = float.Parse(txtMPGracePeriod.Text.Trim());
                             if (txtMPPremiumDuration.Text.Trim() != "")
@@ -1570,7 +1593,7 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.FirstPremiumDate = DateTime.Parse(txtTPFirstPremiumDate.Text.ToString());
                             insuranceVo.LastPremiumDate = DateTime.Parse(txtTPLastPremiumDate.Text.ToString());
 
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(txtTPPrPayDate.Text.Trim());
+                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlTPPrPayDate.Text.Trim());
                             if (txtTPGracePeriod.Text.Trim() != "")
                                 insuranceVo.GracePeriod = float.Parse(txtTPGracePeriod.Text.Trim());
                             if (txtTPPremiumAccum.Text.Trim() != "")
@@ -1770,7 +1793,7 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.PremiumFrequencyCode = ddlMPPremiumFrequencyCode.SelectedValue.Trim();
                             insuranceVo.FirstPremiumDate = DateTime.Parse(txtMPFirstPremiumDate.Text.ToString());
                             insuranceVo.LastPremiumDate = DateTime.Parse(txtMPLastPremiumDate.Text.ToString());
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(txtMPPrPayDate.Text.Trim());
+                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlMPPrPayDate.Text.Trim());
                             if (txtMPPremiumDuration.Text.Trim() != "")
                                 insuranceVo.PremiumDuration = float.Parse(txtMPPremiumDuration.Text.Trim());
                             else
