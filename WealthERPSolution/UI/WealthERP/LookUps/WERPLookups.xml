@@ -447,6 +447,39 @@
     <InsuranceIssuer InsuranceIssuerCode="SUDL" InsuranceIsserName="Star Union Dai-Ichi Life Insurance Company Limited" Deleted="False" />
     <InsuranceIssuer InsuranceIssuerCode="TAL" InsuranceIsserName="Tata AIG Life Insurance Company Limited" Deleted="False" />
   </InsuranceIssuers>
+  <WerpInsuranceIssuerDateCode>
+    <InsuranceIssuerDateCode Code="01" Name="01"/>
+    <InsuranceIssuerDateCode Code="02" Name="02"/>
+    <InsuranceIssuerDateCode Code="03" Name="03"/>
+    <InsuranceIssuerDateCode Code="04" Name="04"/>
+    <InsuranceIssuerDateCode Code="05" Name="05"/>
+    <InsuranceIssuerDateCode Code="06" Name="06"/>
+    <InsuranceIssuerDateCode Code="07" Name="07"/>
+    <InsuranceIssuerDateCode Code="08" Name="08"/>
+    <InsuranceIssuerDateCode Code="09" Name="09"/>
+    <InsuranceIssuerDateCode Code="10" Name="10"/>
+    <InsuranceIssuerDateCode Code="11" Name="11"/>
+    <InsuranceIssuerDateCode Code="12" Name="12"/>
+    <InsuranceIssuerDateCode Code="13" Name="13"/>
+    <InsuranceIssuerDateCode Code="14" Name="14"/>
+    <InsuranceIssuerDateCode Code="15" Name="15"/>
+    <InsuranceIssuerDateCode Code="16" Name="16"/>
+    <InsuranceIssuerDateCode Code="17" Name="17"/>
+    <InsuranceIssuerDateCode Code="18" Name="18"/>
+    <InsuranceIssuerDateCode Code="19" Name="19"/>
+    <InsuranceIssuerDateCode Code="20" Name="20"/>
+    <InsuranceIssuerDateCode Code="21" Name="21"/>
+    <InsuranceIssuerDateCode Code="22" Name="22"/>
+    <InsuranceIssuerDateCode Code="23" Name="23"/>
+    <InsuranceIssuerDateCode Code="24" Name="24"/>
+    <InsuranceIssuerDateCode Code="25" Name="25"/>
+    <InsuranceIssuerDateCode Code="26" Name="26"/>
+    <InsuranceIssuerDateCode Code="27" Name="27"/>
+    <InsuranceIssuerDateCode Code="28" Name="28"/>
+    <InsuranceIssuerDateCode Code="29" Name="29"/>
+    <InsuranceIssuerDateCode Code="30" Name="30"/>
+    <InsuranceIssuerDateCode Code="31" Name="31"/>
+  </WerpInsuranceIssuerDateCode>
 
   <ExchangeType>
     <Exchange ExchangeCode="BSE" ExchangeName="BSE" Deleted="False"/>
