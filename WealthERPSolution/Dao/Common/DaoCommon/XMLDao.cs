@@ -994,6 +994,16 @@ namespace DaoCommon
 
         }
 
+        public static DataTable GetInsuranceIssuerDate(string path)
+        {
+            DataSet ds;
+            DataTable dt;
+          
+                ds = new DataSet();
+                ds.ReadXml(path);
+                dt = ds.Tables["InsuranceIssuerDateCode"];
+                return dt;
+            }
         public static DataTable GetBroker(string path)
         {
             DataSet ds;
@@ -2366,6 +2376,20 @@ namespace DaoCommon
             return insuranceIssuerName;
 
         }
+        // public static string GetInsuranceIssuerDate(string path, string insuranceIssuerCode)
+        //{
+        //    DataSet ds;
+        //    DataTable dt;
+        //    DataRow[] dr;
+        //    string insuranceIssuerName;
+           
+        //        ds = new DataSet();
+        //        ds.ReadXml(path);
+        //        dt = ds.Tables["InsuranceIssuerDate"];
+        //        dr = dt.Select("InsuranceIssuerCode = '" + insuranceIssuerCode + "'");
+        //        insuranceIssuerName = dr[0][1].ToString();
+        //     return insuranceIssuerName;
+        // }
 
         public static string GetBrokerName(string path, string brokerCode)
         {
