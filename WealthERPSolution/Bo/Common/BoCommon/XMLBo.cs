@@ -687,6 +687,14 @@ namespace BoCommon
 
         }
 
+
+        public static DataTable GetInsuranceIssuerDate(string path)
+        {
+                DataTable dt;
+
+                dt = XMLDao.GetInsuranceIssuerDate(path);
+                return dt;
+        }
         public static DataTable GetBroker(string path)
         {
             DataTable dt;
