@@ -363,19 +363,22 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[0] = rmVo.UserId.ToString();
                             drAdvisorStaff[1] = rmVo.RMId.ToString();
                             drAdvisorStaff[2] = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
-
                             if (rmVo.IsExternal == 1)
-                                drAdvisorStaff[3] = "External";
+                                drAdvisorStaff[4] = "External";
                             else
-                                drAdvisorStaff[3] = "Internal";
-                            drAdvisorStaff[4] = string.Empty;
-                            drAdvisorStaff[5] = rmVo.Email.ToString();
-                            drAdvisorStaff[6] = string.Empty;
-                            drAdvisorStaff[7] = rmVo.Mobile.ToString();
+                                drAdvisorStaff[4] = "Internal";
+                            if (!string.IsNullOrEmpty(rmVo.StaffCode))
+                                drAdvisorStaff[3] = rmVo.StaffCode;
+                            else
+                                drAdvisorStaff[3] = "";
+                            drAdvisorStaff[5] = string.Empty;
+                            drAdvisorStaff[6] = rmVo.Email.ToString();
+                            drAdvisorStaff[8] = rmVo.Mobile.ToString();
+                            drAdvisorStaff[7] = string.Empty;
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
                         gvRMList.DataSource = dtAdvisorStaff;
-                        gvRMList.Columns[3].Visible = false;
+                        gvRMList.Columns[5].Visible = false;
                         gvRMList.Columns[4].Visible = false;
                         gvRMList.DataBind();
 
