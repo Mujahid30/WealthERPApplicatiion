@@ -35,7 +35,7 @@
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
 <telerik:RadGrid ID="gvCustomerProspectlist" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="True" AllowPaging="True" 
-        ShowStatusBar="True" ShowFooter="true" 
+        ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
         AllowFilteringByColumn="True" 
         AllowAutomaticInserts="false">
@@ -44,7 +44,7 @@
             <CommandItemSettings ExportToPdfText="Export to Pdf" />
             <Columns>
                
-                <telerik:GridTemplateColumn UniqueName="Name" HeaderText="Name" >
+                <telerik:GridTemplateColumn DataField="Name" AllowFiltering="true" UniqueName="Name" HeaderText="Name" >
                 <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" />
                     <HeaderTemplate>
                        <asp:Label ID="lblNAme" runat="server" Text="Name"></asp:Label>
@@ -80,7 +80,7 @@
                     <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridTemplateColumn UniqueName="Asset" HeaderText="Asset" >
+                <telerik:GridTemplateColumn UniqueName="Asset" AllowFiltering="true" DataField="Asset" HeaderText="Asset" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblAsset" runat="server" CssClass="CmbField" Text='<%# Eval("Asset").ToString() %>'></asp:Label>
