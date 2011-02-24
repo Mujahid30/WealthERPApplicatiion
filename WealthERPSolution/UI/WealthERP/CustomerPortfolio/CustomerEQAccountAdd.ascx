@@ -312,7 +312,13 @@
                 </td>
             </tr>
             
-     <tr>
+     
+            
+        </table>
+    </ContentTemplate>
+</asp:UpdatePanel>
+<table width="100%">
+<tr>
          <td colspan="2" class="SubmitCell">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
@@ -321,10 +327,7 @@
         </td>
       
     </tr>
-            
-        </table>
-    </ContentTemplate>
-</asp:UpdatePanel>
+    </table>
 
 <input type="hidden" id="hidValid" />
 <input type="hidden" id="hidStatus" runat="server" />
