@@ -54,6 +54,7 @@
         </td>
     </tr>
 </table>
+<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
 <table style="width: 100%;">
     <tr>
         <td colspan="3">
@@ -375,6 +376,7 @@
         </td>
     </tr>
 </table>
+</asp:Panel>
 <asp:Button ID="btnEQNPSearch" runat="server" Text="" OnClick="btnEQNPSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnEQRealizedSearch" runat="server" Text="" OnClick="btnEQRealizedSearch_Click"
