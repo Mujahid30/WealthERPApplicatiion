@@ -140,13 +140,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.CheckBox chkProfileSummary;
         
         /// <summary>
-        /// chkCurrentObservation control.
+        /// chkGeneralInsurance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkCurrentObservation;
+        protected global::System.Web.UI.WebControls.CheckBox chkGeneralInsurance;
         
         /// <summary>
         /// chkFinancialHealth control.
@@ -158,13 +158,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.CheckBox chkFinancialHealth;
         
         /// <summary>
-        /// chkDisclaimer control.
+        /// chkCurrentObservation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkDisclaimer;
+        protected global::System.Web.UI.WebControls.CheckBox chkCurrentObservation;
         
         /// <summary>
         /// chkGoalProfile control.
@@ -174,6 +174,15 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkGoalProfile;
+        
+        /// <summary>
+        /// chkDisclaimer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkDisclaimer;
         
         /// <summary>
         /// chkNotes control.
