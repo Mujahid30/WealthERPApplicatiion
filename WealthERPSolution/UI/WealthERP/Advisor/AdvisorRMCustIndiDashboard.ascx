@@ -8,6 +8,9 @@
             <asp:Label ID="Label9" runat="server" CssClass="HeaderTextBig" Text="Customer Dashboard"></asp:Label>
         </td>
     </tr>
+    </table>
+    <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">  
     <tr>
         <td colspan="2">
             &nbsp;
@@ -178,3 +181,4 @@
         </td>
     </tr>
 </table>
+</asp:Panel>
