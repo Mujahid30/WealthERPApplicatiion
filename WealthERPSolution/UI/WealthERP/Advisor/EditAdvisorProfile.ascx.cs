@@ -417,7 +417,7 @@ namespace WealthERP.Advisor
                     if (logoChange.HasFile)
                     {
                         string[] fileName = logoChange.FileName.Split('.');
-                        advisorVo.LogoPath = advisorVo.OrganizationName + "_" + fileName[0] + ".jpg";
+                        advisorVo.LogoPath = advisorVo.OrganizationName + "_" + fileName[0] + ".png";
                         //advisorBranchVo.LogoPath = advisorVo.advisorId + "_" + txtBranchCode.Text.ToString() + ".jpg";
                         HttpPostedFile myFile = logoChange.PostedFile;
                         UploadImage(path, myFile, advisorVo.LogoPath);
@@ -749,15 +749,15 @@ namespace WealthERP.Advisor
             //final_image = new System.Drawing.Bitmap(target_width, target_height);
             final_image = new System.Drawing.Bitmap(new_width, new_height);
             graphic = System.Drawing.Graphics.FromImage(final_image);
-            graphic.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.White), new System.Drawing.Rectangle(0, 0, new_width, new_height));
+            graphic.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.Transparent), new System.Drawing.Rectangle(0, 0, new_width, new_height));
             //int paste_x = (target_width - new_width) / 2;
             //int paste_y = (target_height - new_height) / 2;
-            graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High; /* new way */
+            graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic; /* new way */
             //graphic.DrawImage(original_image, paste_x, paste_y, new_width, new_height);
             graphic.DrawImage(original_image, 0, 0, new_width, new_height);
 
             ms = new MemoryStream();
-            final_image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            final_image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
             saveJpeg(UploadImagePath + fileName, final_image, 100); //jpeg_image_upload.FileName
             ms.Dispose();
         }
@@ -770,7 +770,7 @@ namespace WealthERP.Advisor
 
             // Jpeg image codec
             ImageCodecInfo jpegCodec =
-               this.getEncoderInfo("image/jpeg");
+               this.getEncoderInfo("image/png");
 
             if (jpegCodec == null)
                 return;
