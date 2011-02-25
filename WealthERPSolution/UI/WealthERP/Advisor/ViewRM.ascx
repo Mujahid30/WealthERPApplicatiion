@@ -36,7 +36,9 @@
         </td>
     </tr>
 </table>
-<table width="100%" class="TableBackground">
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
+
 <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="View Staff"></asp:Label>
@@ -80,6 +82,7 @@
         </td>
     </tr>
 </table>
+</asp:Panel>
 
 
 
