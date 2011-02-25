@@ -307,6 +307,29 @@ namespace DaoReports
             }
             return dsCustomerFPReportDetails;
         }
+        public DataSet GetFPQuestionnaire(FPOfflineFormVo reports, int adviserId)
+        {
+
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand getfpOfflineFormCmd;
+            DataSet dsfpOfflineForm;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getfpOfflineFormCmd = db.GetStoredProcCommand("SP_GetFPQuestionnaire");
+                db.AddInParameter(getfpOfflineFormCmd, "@AdviserId", DbType.Int32, adviserId);
+                dsfpOfflineForm = db.ExecuteDataSet(getfpOfflineFormCmd);
+                return dsfpOfflineForm;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+        }
      
 
     }
