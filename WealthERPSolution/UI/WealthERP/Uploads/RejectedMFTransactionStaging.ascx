@@ -114,7 +114,8 @@
         </td>
     </tr>
 </table>
-<table>
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td>
             <asp:Panel runat="server">
@@ -231,7 +232,11 @@
             </asp:Panel>
         </td>
     </tr>
-    <tr id="trReprocess" runat="server">
+   
+</table>
+</asp:Panel>
+<table width="100%">
+ <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
                 CssClass="PCGLongButton" OnClientClick="Loading(true);" />
@@ -251,7 +256,7 @@
             </asp:Label>
         </td>
     </tr>
-</table>
+    </table>
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
         <tr align="center">
