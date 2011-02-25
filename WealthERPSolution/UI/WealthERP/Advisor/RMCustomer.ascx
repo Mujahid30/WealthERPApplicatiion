@@ -75,8 +75,29 @@
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer/Prospect List"></asp:Label>
-            <hr />
         </td>
+        <td width="50%" align="left">
+        
+            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+       
+        </td>
+        <td align="right">
+        <asp:ImageButton ID="imgBtnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" />
+        </td>
+    </tr>
+    <tr>
+    <td>
+    <hr />           
+    </td>
+    <td>
+    <hr />           
+    </td>
+    <td>
+    <hr />           
+    </td>
     </tr>
 </table>
 <table id="ErrorMessage" align="center" runat="server">
@@ -124,17 +145,8 @@
 
 <table id="tblExport" class="TableBackground" width="100%" runat="server" cellpadding="0" cellspacing="0">
     <tr>
-        <td width="50%" align="left">
-        <asp:ImageButton ID="imgBtnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px" />
-        </td>
-        <td width="50%" align="left">
         
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-       
-        </td>
+        
     </tr>
 </table>
 

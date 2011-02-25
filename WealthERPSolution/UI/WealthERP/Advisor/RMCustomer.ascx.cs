@@ -364,11 +364,11 @@ namespace WealthERP
                 {
                     rowCount = 0;
                 }
-                ratio = rowCount / 20;
-                mypager.PageCount = rowCount % 20 == 0 ? ratio : ratio + 1;
+                ratio = rowCount / 10;
+                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
                 mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 20)+1).ToString();
-                upperlimit = (mypager.CurrentPage * 20).ToString();
+                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
+                upperlimit = (mypager.CurrentPage * 10).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
                 PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
