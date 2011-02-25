@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>WealthERP Reports</title>
+    <title>Reports</title>
     <style>
         body
         {
@@ -219,10 +219,7 @@
                     BorderColor="#789FC8" BorderStyle="Solid" BorderWidth="1" EnableDatabaseLogonPrompt="True"
                      DisplayGroupTree="False" EnableViewState="true"  OnNavigate="CrystalReportViewer1_Navigate"
                     ToolbarStyle-Width="770px" Width="100%" />
-                     <CR:CrystalReportViewer ID="CrystalReportViewer2" runat="server" AutoDataBind="true"
-                    BorderColor="#789FC8" BorderStyle="Solid" BorderWidth="1" EnableDatabaseLogonPrompt="True"
-                     DisplayGroupTree="False" EnableViewState="true" 
-                    ToolbarStyle-Width="770px" Width="100%" />
+                     
             </td>
         </tr>
          <tr>
