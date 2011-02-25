@@ -484,6 +484,43 @@ namespace WealthERP.Reports
                 throw (ex);
             }
         }
+
+        private void DisplayReport(FPOfflineFormVo report)
+        {
+            RMVo rmVo = (RMVo)Session["rmVo"];
+            try
+            {
+                FinancialPlanningReportsBo financialPlanningReportsBo = new FinancialPlanningReportsBo();
+                report = (FPOfflineFormVo)Session["reportParams"];
+                crmain.Load(Server.MapPath("FPOfflineForm.rpt"));
+
+                DataSet dsFPQuestionnaire = financialPlanningReportsBo.GetFPQuestionnaire(report, advisorVo.advisorId);
+                DataTable dtFPQuestionnaire = dsFPQuestionnaire.Tables[0];
+                if (dtFPQuestionnaire.Rows.Count > 0)
+                {
+                    crmain.SetDataSource(dtFPQuestionnaire);
+                    setLogo();
+                    //AssignReportViewerProperties();
+                    crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + (rmVo.FirstName + " " + rmVo.MiddleName + " " + rmVo.LastName).Trim());
+
+                    CrystalReportViewer1.ReportSource = crmain;
+                    if (crmain.PrintOptions.PaperOrientation == PaperOrientation.Landscape)
+                    {
+                        CrystalReportViewer1.Attributes.Add("ToolbarStyle-Width", "900px");
+                    }
+
+                    CrystalReportViewer1.EnableDrillDown = true;
+                    CrystalReportViewer1.HasCrystalLogo = false;
+                }
+                else
+                    SetNoRecords();
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
         
         private void DisplayReport(FinancialPlanningVo fpSectional,int test)
         {
@@ -503,7 +540,8 @@ namespace WealthERP.Reports
             fpSectional = (FinancialPlanningVo)Session["reportParams"];
             FinancialPlanningReportsBo financialPlanningReportsBo = new FinancialPlanningReportsBo();
             dsCustomerFPReportDetails = new DataSet();
-            
+            DataRow[] drOtherGoal;
+            bool retFlag = false;
             //if (Session["FPDataSet"] != null)
             //{
             //    dsCustomerFPReportDetails = (DataSet)Session["FPDataSet"];
