@@ -261,7 +261,8 @@
 <html>
 <body class="Landscape">
     <div id="tbl" runat="server">
-        <table>
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
             <tr>
                 <td align="right">
                     <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
@@ -296,7 +297,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Scrip">
                                 <HeaderTemplate>
-                                    <asp:Label ID="lblScheme" runat="server" Text="Scrip"></asp:Label>
+                                    <asp:Label ID="lblScheme" runat="server" Text="Scrip"></asp:Label><br />
                                     <asp:TextBox Text='<%# hdnSchemeSearch.Value %>' ID="txtSchemeSearch" runat="server"
                                         CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMEQMultipleTransactionsView_btnScripSearch');" />
                                 </HeaderTemplate>
@@ -359,15 +360,12 @@
                             <asp:BoundField DataField="Portfolio Name" HeaderText="Portfolio Name"></asp:BoundField>
                         </Columns>
                     </asp:GridView>
-                    &nbsp;
                 </td>
             </tr>
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-            </tr>
-            <tr id="trPager" runat="server">
+        </table>
+</asp:Panel>
+<table width="100%">
+<tr id="trPager" runat="server">
                 <td>
                     <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
                 </td>
@@ -377,7 +375,7 @@
                     <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found..."></asp:Label>
                 </td>
             </tr>
-        </table>
+            </table>
     </div>
 </body>
 </html>
