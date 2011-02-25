@@ -51,6 +51,10 @@ namespace VoReports
         public int isProspect;
         public int advisorId;
     }
+    public struct FPOfflineFormVo
+    {
+        public int advisorId;
+    }
 
     public enum ReportType
     {
@@ -59,7 +63,8 @@ namespace VoReports
         EquityReports = 2,
         PortfolioReports = 3,
         FinancialPlanning = 4,
-        FinancialPlanningSectional=5
+        FinancialPlanningSectional=5,
+        FPOfflineForm=6
     }
 
 
