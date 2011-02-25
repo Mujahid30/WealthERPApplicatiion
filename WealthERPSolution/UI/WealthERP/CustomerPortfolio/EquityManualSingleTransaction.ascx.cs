@@ -356,6 +356,10 @@ namespace WealthERP.CustomerPortfolio
                     genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
                     tradeDate = DateTime.Parse(genDict["EQDate"].ToString());
                 }
+                if (tradeDate == DateTime.MinValue)
+                {
+                    tradeDate = DateTime.Today;
+                }
                 eqPortfolioVoList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId, portfolioId, tradeDate, txtScrip.Text, ddlTradeAcc.SelectedItem.Value.ToString());
                 if (eqPortfolioVoList != null && eqPortfolioVoList.Count > 0)
                 {
