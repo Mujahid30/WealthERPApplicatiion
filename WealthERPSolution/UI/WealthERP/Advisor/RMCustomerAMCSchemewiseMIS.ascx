@@ -224,6 +224,9 @@
     </td>
         
     </tr>
+    </table>
+    <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td colspan="3">
         <asp:UpdatePanel ID="upnl" runat="server">
@@ -328,6 +331,7 @@
                     </td>
                 </tr>
 </table>
+    </asp:Panel>
 
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
