@@ -158,7 +158,8 @@
     align="center" style="margin-left: 80px">
     Reassign successfully.....
 </div>
-<table width="100%">
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
 <tr>
 <td colspan="3">
 <table>
@@ -343,20 +344,16 @@
     </tr>
     <tr style="width:100%">
     <td colspan="3">
-    <table width="100%">
-    <tr id="trPager" runat="server" width="100%" >
-        <td align="right">
-            <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-        </td>
-       
-    </tr>
-    </table>
+    
     </td>
     </tr>
-    <tr>
+</table>
+</asp:Panel>
+<table width="100%">
+<tr>
     <td>
     <table>
-    <tr id="trReassignBranch" runat="server">
+<tr id="trReassignBranch" runat="server">
         <td class="SubmitCell" align="left">
             <asp:Label ID="Label2" Text="Pick Branch: " CssClass="FieldName" runat="server"></asp:Label> 
         </td>
@@ -378,11 +375,7 @@
             <span id="spanBranchRM" class="spnRequiredField" runat="server">*</span>
         </td>
     </tr>
-    <tr>
-    <td colspan="2">
-    </td>
-    </tr>
-    <tr>
+<tr>
     <td>
     
     </td>
@@ -404,11 +397,14 @@
                 Text="Reassign" onclick="btnReassignRM_Click" />         
         </td>
     </tr>
-    </table>
-    </td>
+     </table>
+    <tr id="trPager" runat="server" width="100%" >
+        <td align="right">
+            <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
+        </td>
+       
     </tr>
-    
-</table>
+    </table>
 
 <asp:Button ID="btnBranchSearch" runat="server" Text="" OnClick="btnBranchSearch_Click" BorderStyle="None" BackColor="Transparent"  />
 <asp:Button ID="btnRMSearch" runat="server" Text="" onclick="btnRMSearch_Click" BorderStyle="None" BackColor="Transparent" />    
