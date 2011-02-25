@@ -250,7 +250,8 @@
 <html>
 <body class="Landscape">
     <div id="tbl" runat="server">
-        <table width="100%">
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
             <tr>
                 <td align="right">
                     <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
@@ -394,15 +395,12 @@
                             </asp:GridView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                    &nbsp;
+                   
                 </td>
             </tr>
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-            </tr>
+            
         </table>
+     </asp:Panel>
     </div>
 </body>
 </html>

@@ -201,7 +201,7 @@ namespace WealthERP.CustomerPortfolio
         }
 
         private void BindGrid(int ExportGridView, int currentPage, DateTime convertedFromDate, DateTime convertedToDate)
-        {
+            {
             Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
             Dictionary<string, string> genDictCategory = new Dictionary<string, string>();
             Dictionary<string, int> genDictAMC = new Dictionary<string, int>();
@@ -780,11 +780,11 @@ namespace WealthERP.CustomerPortfolio
                     rowCount = Convert.ToInt32(hdnRecordCount.Value);
                 if (rowCount > 0)
                 {
-                    ratio = rowCount / 30;
-                    mypager.PageCount = rowCount % 30 == 0 ? ratio : ratio + 1;
+                    ratio = rowCount / 10;
+                    mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
                     mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    lowerlimit = (((mypager.CurrentPage - 1) * 30) + 1).ToString();
-                    upperlimit = (mypager.CurrentPage * 30).ToString();
+                    lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
+                    upperlimit = (mypager.CurrentPage * 10).ToString();
                     if (mypager.CurrentPage == mypager.PageCount)
                         upperlimit = hdnRecordCount.Value;
                     PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
