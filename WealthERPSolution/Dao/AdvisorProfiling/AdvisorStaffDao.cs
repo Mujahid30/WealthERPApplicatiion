@@ -1968,6 +1968,7 @@ namespace DaoAdvisorProfiling
                         rmVo.FirstName = dr["AR_FirstName"].ToString();
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
                         rmVo.LastName = dr["AR_LastName"].ToString();
+                        rmVo.StaffCode = dr["AR_StaffCode"].ToString();
                         rmVo.Mobile = Convert.ToInt64(dr["AR_Mobile"].ToString());
                         rmVo.Email = dr["AR_Email"].ToString();
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
