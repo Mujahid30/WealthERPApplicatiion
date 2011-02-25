@@ -149,7 +149,8 @@
     </tr>
 </table>
 <div id="tbl" runat="server">
-    <table>
+   <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td>
                 <asp:GridView ID="gvMFTransactions" runat="server" AllowSorting="True" AutoGenerateColumns="False"
@@ -262,20 +263,18 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-                &nbsp;
             </td>
         </tr>
-        <tr>
-            <td>
-                &nbsp;
-            </td>
-        </tr>
+        </table>
+    </asp:Panel>
+   <table id="tblpager" class="TableBackground" width="100%" runat="server">
         <tr id="trPager" runat="server">
             <td>
                 <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
             </td>
         </tr>
-    </table>
+        </table>
+    
 </div>
 <asp:Button ID="btnTranSchemeSearch" runat="server" Text="" OnClick="btnTranSchemeSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
