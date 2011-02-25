@@ -11,6 +11,8 @@
         var liabilitiestotal = 0.0;
         var lifeInsuranceTotal = 0.0;
         var generalInsuranceTotal = 0.0;
+        var AllLIandGIPremiumTotal = 0.0;
+        var allEMIsTotal = 0.0;
         //Assets
         if (document.getElementById("<%=txtDirectEquity.ClientID%>").value != "") {
             assettotal += parseFloat(document.getElementById("<%=txtDirectEquity.ClientID%>").value);
@@ -98,9 +100,6 @@
         if (document.getElementById("<%=txtUtilites.ClientID%>").value != "") {
             expensetotal += parseFloat(document.getElementById("<%=txtUtilites.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtInsurance.ClientID%>").value != "") {
-            expensetotal += parseFloat(document.getElementById("<%=txtInsurance.ClientID%>").value);
-        }
         if (document.getElementById("<%=txtHealthPersonalCare.ClientID%>").value != "") {
             expensetotal += parseFloat(document.getElementById("<%=txtHealthPersonalCare.ClientID%>").value);
         }
@@ -162,14 +161,67 @@
             generalInsuranceTotal += parseFloat(document.getElementById("<%=txtOthersGISA.ClientID%>").value);
         }
 
+        //LifeInsurance Premium total
+        if (document.getElementById("<%=txtTermP.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTermP.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtEndowmentP.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtEndowmentP.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtWholeLifeP.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtWholeLifeP.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtMoneyBackP.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtMoneyBackP.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtULIPP.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtULIPP.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtOthersLIP.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtOthersLIP.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtHealthInsuranceCoverP.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtHealthInsuranceCoverP.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtPropertyInsuranceCoverP.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtPropertyInsuranceCoverP.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtPersonalAccidentP.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtPersonalAccidentP.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtOthersGIP.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtOthersGIP.ClientID%>").value);
+        }
+
+        //All Liability Tab's EMI Total
+        if (document.getElementById("<%=txtHomeLoanEMI.ClientID%>").value != "") {
+            allEMIsTotal += parseFloat(document.getElementById("<%=txtHomeLoanEMI.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtAutoLoanEMI.ClientID%>").value != "") {
+            allEMIsTotal += parseFloat(document.getElementById("<%=txtAutoLoanEMI.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtPersonalLoanEMI.ClientID%>").value != "") {
+            allEMIsTotal += parseFloat(document.getElementById("<%=txtPersonalLoanEMI.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtEducationLoanEMI.ClientID%>").value != "") {
+            allEMIsTotal += parseFloat(document.getElementById("<%=txtEducationLoanEMI.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtOtherLoanEMI.ClientID%>").value != "") {
+            allEMIsTotal += parseFloat(document.getElementById("<%=txtOtherLoanEMI.ClientID%>").value);
+        }
+
+
+        //Insurance and EMI Total from LI and GI Premium & Liability EMI
+        document.getElementById("<%=txtInsurance.ClientID%>").value = (AllLIandGIPremiumTotal / 12).toString();
+        document.getElementById("<%=txtExpenseEMI.ClientID%>").value = (allEMIsTotal / 12).toString();
         //Sectional Total
         document.getElementById("<%=txtAssetTotal.ClientID%>").value = assettotal.toString();
         document.getElementById("<%=txtIncomeTotal.ClientID%>").value = incometotal.toString();
-        document.getElementById("<%=txtExpenseTotal.ClientID%>").value = expensetotal.toString();
+        document.getElementById("<%=txtExpenseTotal.ClientID%>").value = (expensetotal + (AllLIandGIPremiumTotal / 12) + (allEMIsTotal / 12)).toString();
         document.getElementById("<%=txtTotalLO.ClientID%>").value = liabilitiestotal.toString();
         document.getElementById("<%=txtTotalLISA.ClientID%>").value = lifeInsuranceTotal.toString();
         document.getElementById("<%=txtTotalGISA.ClientID%>").value = generalInsuranceTotal.toString();
-       
+        
     }
     function SubTotal(columnstoadd1, columnstoadd2, columnstoadd3, columnstoadd4) {
         var tmp = 'ctrl_CustomerProspect_';
@@ -215,6 +267,10 @@
 
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Finance Profile"></asp:Label>
 <hr />
+ <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
+    <tr>
+        <td>
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
     Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
     Width="100%" Visible="false">
@@ -337,6 +393,7 @@
             <telerik:TargetInput ControlID="txtHealthPersonalCare" />
             <telerik:TargetInput ControlID="txtDomesticHelp" />
             <telerik:TargetInput ControlID="txtConveyance" />
+            <telerik:TargetInput ControlID="txtExpenseEMI" />
             <telerik:TargetInput ControlID="txtOthersExpense" />
             <telerik:TargetInput ControlID="txtExpenseTotal" />
             <telerik:TargetInput ControlID="txtHomeLoanA" />
@@ -1269,10 +1326,10 @@
                                     <asp:TextBox ID="txtUtilites" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
-                                    <asp:Label ID="lblInsurance" runat="server" Text="Insurance : " CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblInsurance" runat="server" Text="Insurance Premium : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtInsurance" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtInsurance" ReadOnly="true" Enabled="false" runat="server" Style="direction: rtl"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -1297,12 +1354,14 @@
                                 <td align="left">
                                     <asp:TextBox ID="txtConveyance" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
+                                
                                 <td align="right">
-                                    <asp:Label ID="lblOthersExpense" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblExpenseEMI" runat="server" Text="EMI : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOthersExpense" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
+                                    <asp:TextBox ID="txtExpenseEMI" runat="server" ReadOnly="true" Enabled="false" Style="direction: rtl"></asp:TextBox>
                                 </td>
+                                
                             </tr>
                             <tr>
                                 <td align="right">
@@ -1312,9 +1371,11 @@
                                     <asp:TextBox ID="txtExpenseTotal" runat="server" Style="direction: rtl" Enabled="false"
                                         EnableViewState="true"></asp:TextBox>
                                 </td>
-                                <td>
+                                <td align="right">
+                                    <asp:Label ID="lblOthersExpense" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
                                 </td>
-                                <td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtOthersExpense" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                         </table>
@@ -1360,7 +1421,7 @@
                                     <asp:TextBox ID="txtHomeLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>                                
                                 <td align="left">
-                                    <asp:TextBox ID="txtHomeLoanEMI" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtHomeLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -1378,7 +1439,7 @@
                                     <asp:TextBox ID="txtAutoLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>                               
                                 <td align="left">
-                                    <asp:TextBox ID="txtAutoLoanEMI" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtAutoLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -1396,7 +1457,7 @@
                                     <asp:TextBox ID="txtPersonalLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>                               
                                 <td align="left">
-                                    <asp:TextBox ID="txtPersonalLoanEMI" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtPersonalLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -1414,7 +1475,7 @@
                                     <asp:TextBox ID="txtEducationLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>                                
                                 <td align="left">
-                                    <asp:TextBox ID="txtEducationLoanEMI" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtEducationLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -1433,7 +1494,7 @@
                                 </td>
                                
                                 <td align="left">
-                                    <asp:TextBox ID="txtOtherLoanEMI" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtOtherLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -1510,7 +1571,7 @@
                                     <asp:TextBox ID="txtTotalTermSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtTermP" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtTermP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtTermSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
@@ -1531,7 +1592,7 @@
                                     <asp:TextBox ID="txtTotalEndowmentSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtEndowmentP" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtEndowmentP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtEndowmentSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
@@ -1552,7 +1613,7 @@
                                     <asp:TextBox ID="txtTotalWholeLifeSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtWholeLifeP" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtWholeLifeP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtWholeLifeSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
@@ -1574,7 +1635,7 @@
                                     <asp:TextBox ID="txtTotalMoneyBackSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtMoneyBackP" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtMoneyBackP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtMoneyBackSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
@@ -1595,7 +1656,7 @@
                                     <asp:TextBox ID="txtTotalULIPSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtULIPP" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtULIPP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtULIPSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
@@ -1617,7 +1678,7 @@
                                     <asp:TextBox ID="txtTotalOthersLISA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOthersLIP" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtOthersLIP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtOtherSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
@@ -1685,7 +1746,7 @@
                                         onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtHealthInsuranceCoverP" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtHealthInsuranceCoverP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 
                             </tr>
@@ -1708,7 +1769,7 @@
                                         onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPropertyInsuranceCoverP" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtPropertyInsuranceCoverP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                
                             </tr>
@@ -1727,7 +1788,7 @@
                                     <asp:TextBox ID="txtPersonalAccidentSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtPersonalAccidentP" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtPersonalAccidentP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 
                             </tr>
@@ -1746,7 +1807,7 @@
                                     <asp:TextBox ID="txtOthersGISA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtOthersGIP" runat="server" Style="direction: rtl"></asp:TextBox>
+                                    <asp:TextBox ID="txtOthersGIP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                
                             </tr>
@@ -1772,6 +1833,9 @@
 </telerik:RadMultiPage>
 <asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click"
     ValidationGroup="btnCustProsp" Text="Save" Style="height: 26px" />
+    </td>
+    </tr>
+    </table></asp:Panel>
 <asp:HiddenField ID="totalIncome" runat="server" />
 <asp:HiddenField ID="totalExpense" runat="server" />
 <asp:HiddenField ID="totalLiabilities" runat="server" />

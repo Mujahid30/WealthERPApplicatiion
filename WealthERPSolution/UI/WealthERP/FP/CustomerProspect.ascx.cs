@@ -40,6 +40,11 @@ namespace WealthERP.FP
 
         //For Edit 
         int totalRecordsCount;
+        int totalEMIForExpense = 0;
+        int totalLIPremium = 0;
+        int totalGIPremium = 0;
+        int finalPremiumtotal = 0;
+        int finalExpenseEMItotal = 0;
         BoFPSuperlite.CustomerProspectBo customerProspectBo = new CustomerProspectBo();
         protected void Page_Init()
         {
@@ -666,7 +671,6 @@ namespace WealthERP.FP
         //}
         protected void btnCustomerProspect_Click(object sender, EventArgs e)
         {
-
             int customerId = 0;
             bool bresult;
             bool bdetails;
@@ -678,8 +682,6 @@ namespace WealthERP.FP
             double instrumentTotal = 0.0;
             double subInstrumentTotal = 0.0;
             double groupTotal = 0.0;
-
-
             try
             {
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
@@ -818,103 +820,7 @@ namespace WealthERP.FP
                     incomedetailsvolist.Add(incomedetailsvo);
                     totalincome += incomedetailsvo.IncomeValue;
                 }
-                //==========================================================================================================================
-
-                //Expense
-                //==========================================================================================================================
-                VoFPSuperlite.CustomerProspectExpenseDetailsVo expensedetailsvo;
-                List<CustomerProspectExpenseDetailsVo> expensedetailsvolist = new List<CustomerProspectExpenseDetailsVo>();
-                //Transportation = Nothing but Conveyance
-                if (txtConveyance.Text != string.Empty)
-                {
-                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    expensedetailsvo.ExpenseCategoryCode = 1;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtConveyance.Text);
-                    expensedetailsvolist.Add(expensedetailsvo);
-                    totalexpense += expensedetailsvo.ExpenseValue;
-                }
-                //Food
-                if (txtFood.Text != string.Empty)
-                {
-                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    expensedetailsvo.ExpenseCategoryCode = 2;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtFood.Text);
-                    expensedetailsvolist.Add(expensedetailsvo);
-                    totalexpense += expensedetailsvo.ExpenseValue;
-                }
-                //Rent
-                if (txtRent.Text != string.Empty)
-                {
-                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    expensedetailsvo.ExpenseCategoryCode = 3;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtRent.Text);
-                    expensedetailsvolist.Add(expensedetailsvo);
-                    totalexpense += expensedetailsvo.ExpenseValue;
-                }
-                //Utilities
-                if (txtUtilites.Text != string.Empty)
-                {
-                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    expensedetailsvo.ExpenseCategoryCode = 4;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtUtilites.Text);
-                    expensedetailsvolist.Add(expensedetailsvo);
-                    totalexpense += expensedetailsvo.ExpenseValue;
-                }
-                //Health & Personal Care
-                if (txtHealthPersonalCare.Text != string.Empty)
-                {
-                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    expensedetailsvo.ExpenseCategoryCode = 5;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtHealthPersonalCare.Text);
-                    expensedetailsvolist.Add(expensedetailsvo);
-                    totalexpense += expensedetailsvo.ExpenseValue;
-                }
-                //Personal Wear
-                if (txtPersonalWear.Text != string.Empty)
-                {
-                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    expensedetailsvo.ExpenseCategoryCode = 6;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtPersonalWear.Text);
-                    expensedetailsvolist.Add(expensedetailsvo);
-                    totalexpense += expensedetailsvo.ExpenseValue;
-                }
-                //Entertainment & Holidays
-                if (txtEntertainmentHolidays.Text != string.Empty)
-                {
-                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    expensedetailsvo.ExpenseCategoryCode = 7;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtEntertainmentHolidays.Text);
-                    expensedetailsvolist.Add(expensedetailsvo);
-                    totalexpense += expensedetailsvo.ExpenseValue;
-                }
-                //Domestic Help
-                if (txtDomesticHelp.Text != string.Empty)
-                {
-                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    expensedetailsvo.ExpenseCategoryCode = 8;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtDomesticHelp.Text);
-                    expensedetailsvolist.Add(expensedetailsvo);
-                    totalexpense += expensedetailsvo.ExpenseValue;
-                }
-                //Insurance Premium
-                if (txtInsurance.Text != string.Empty)
-                {
-                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    expensedetailsvo.ExpenseCategoryCode = 9;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtInsurance.Text);
-                    expensedetailsvolist.Add(expensedetailsvo);
-                    totalexpense += expensedetailsvo.ExpenseValue;
-                }
-                //Other Expenses
-                if (txtOthersExpense.Text != string.Empty)
-                {
-                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
-                    expensedetailsvo.ExpenseCategoryCode = 10;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtOthersExpense.Text);
-                    expensedetailsvolist.Add(expensedetailsvo);
-                    totalexpense += expensedetailsvo.ExpenseValue;
-                }
-                //==========================================================================================================================
+               
 
 
                 //Liabilities(Loan)
@@ -1021,6 +927,28 @@ namespace WealthERP.FP
                     liabilitiesdetailsvo.EMIAmount = double.Parse(txtOtherLoanEMI.Text);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
+
+                //Calculating Total EMI
+                if (txtHomeLoanEMI.Text == "")
+                    txtHomeLoanEMI.Text = "0";
+                if (txtAutoLoanEMI.Text == "")
+                    txtAutoLoanEMI.Text = "0";
+                if (txtPersonalLoanEMI.Text == "")
+                    txtPersonalLoanEMI.Text = "0";
+                if (txtEducationLoanEMI.Text == "")
+                    txtEducationLoanEMI.Text = "0";
+                if (txtOtherLoanEMI.Text == "")
+                    txtOtherLoanEMI.Text = "0";
+
+                if ((txtHomeLoanEMI.Text != "") || (txtAutoLoanEMI.Text != "") || (txtPersonalLoanEMI.Text != "") || (txtEducationLoanEMI.Text != "") || (txtOtherLoanEMI.Text != ""))
+                {
+                    totalEMIForExpense = (int.Parse(txtHomeLoanEMI.Text) + int.Parse(txtAutoLoanEMI.Text) + int.Parse(txtPersonalLoanEMI.Text) + int.Parse(txtEducationLoanEMI.Text) + int.Parse(txtOtherLoanEMI.Text));
+                }
+
+                if (totalEMIForExpense != 0)
+                {
+                    finalExpenseEMItotal = totalEMIForExpense / 12;
+                }
 
                 //==========================================================================================================================
 
@@ -1436,6 +1364,23 @@ namespace WealthERP.FP
                     assetdetailsvo.SurrMktVal = double.Parse(txtOtherSurrMktVal.Text);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
+                if (txtTermP.Text == "")
+                    txtTermP.Text = "0";
+                if (txtEndowmentP.Text == "")
+                    txtEndowmentP.Text = "0";
+                if (txtWholeLifeP.Text == "")
+                    txtWholeLifeP.Text = "0";
+                if (txtMoneyBackP.Text == "")
+                    txtMoneyBackP.Text = "0";
+                if (txtULIPP.Text == "")
+                    txtULIPP.Text = "0";
+                if (txtOthersLIP.Text == "")
+                    txtOthersLIP.Text = "0";
+                
+                if ((txtTermP.Text != "") || (txtEndowmentP.Text != "") || (txtWholeLifeP.Text != "") || (txtMoneyBackP.Text != "") || (txtULIPP.Text != "") || (txtOthersLIP.Text != ""))
+                {
+                    totalLIPremium = int.Parse(txtTermP.Text) + int.Parse(txtEndowmentP.Text) + int.Parse(txtWholeLifeP.Text) + int.Parse(txtMoneyBackP.Text) + int.Parse(txtULIPP.Text) + int.Parse(txtOthersLIP.Text);
+                }
 
 
                 // Insurance Consolidation
@@ -1587,6 +1532,23 @@ namespace WealthERP.FP
                     assetdetailssubvo.Premium = double.Parse(txtOthersGIP.Text);
                 }
                 assetdetailssubvolist.Add(assetdetailssubvo);
+                if (txtHealthInsuranceCoverP.Text == "")
+                    txtHealthInsuranceCoverP.Text = "0";
+                if (txtPropertyInsuranceCoverP.Text == "")
+                    txtPropertyInsuranceCoverP.Text = "0";
+                if (txtPersonalAccidentP.Text == "")
+                    txtPersonalAccidentP.Text = "0";
+                if (txtOthersGIP.Text == "")
+                    txtOthersGIP.Text = "0";
+                if ((txtHealthInsuranceCoverP.Text != "") || (txtPropertyInsuranceCoverP.Text != "") || (txtPersonalAccidentP.Text != "") || (txtOthersGIP.Text != ""))
+                {
+                    totalGIPremium = (int.Parse(txtHealthInsuranceCoverP.Text) + int.Parse(txtPropertyInsuranceCoverP.Text) + int.Parse(txtPersonalAccidentP.Text) + int.Parse(txtOthersGIP.Text));
+                }
+
+                if ((totalLIPremium != 0) || (totalGIPremium != 0))
+                {
+                    finalPremiumtotal = (totalLIPremium + totalGIPremium) / 12;
+                }
 
 
                 //General Insurance Consolidation
@@ -1635,6 +1597,122 @@ namespace WealthERP.FP
                 assetdetailsvo.AdjustedValue = assetgroupdetails.AdjustedValue;
                 assetdetailsvo.Value = assetgroupdetails.Value;
                 assetdetailsvolist.Add(assetdetailsvo);
+
+
+
+
+
+                //==========================================================================================================================
+
+                //Expense
+                //==========================================================================================================================
+                VoFPSuperlite.CustomerProspectExpenseDetailsVo expensedetailsvo;
+                List<CustomerProspectExpenseDetailsVo> expensedetailsvolist = new List<CustomerProspectExpenseDetailsVo>();
+                //Transportation = Nothing but Conveyance
+                if (txtConveyance.Text != string.Empty)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 1;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtConveyance.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //Food
+                if (txtFood.Text != string.Empty)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 2;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtFood.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //Rent
+                if (txtRent.Text != string.Empty)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 3;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtRent.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //Utilities
+                if (txtUtilites.Text != string.Empty)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 4;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtUtilites.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //Health & Personal Care
+                if (txtHealthPersonalCare.Text != string.Empty)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 5;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtHealthPersonalCare.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //Personal Wear
+                if (txtPersonalWear.Text != string.Empty)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 6;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtPersonalWear.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //Entertainment & Holidays
+                if (txtEntertainmentHolidays.Text != string.Empty)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 7;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtEntertainmentHolidays.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //Domestic Help
+                if (txtDomesticHelp.Text != string.Empty)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 8;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtDomesticHelp.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //Insurance Premium
+                if (finalPremiumtotal != 0)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 9;
+                    expensedetailsvo.ExpenseValue = finalPremiumtotal;
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //Other Expenses
+                if (txtOthersExpense.Text != string.Empty)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 10;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtOthersExpense.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //For EMI 
+                if (finalExpenseEMItotal != 0)
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 11;
+                    expensedetailsvo.ExpenseValue = finalExpenseEMItotal;
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //==========================================================================================================================
+
+
+
+
+
                 //==========================================================================================================================
                 //Main total Details Summing up
                 //==========================================================================================================================
@@ -1987,6 +2065,11 @@ namespace WealthERP.FP
                     if (cped.ExpenseCategoryCode == 10)
                     {
                         txtOthersExpense.Text = cped.ExpenseValue.ToString();
+                        totalexpense += cped.ExpenseValue;
+                    }
+                    if (cped.ExpenseCategoryCode == 11)
+                    {
+                        txtExpenseEMI.Text = cped.ExpenseValue.ToString();
                         totalexpense += cped.ExpenseValue;
                     }
 

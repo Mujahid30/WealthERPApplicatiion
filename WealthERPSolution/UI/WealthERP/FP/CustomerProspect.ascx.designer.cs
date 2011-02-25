@@ -41,6 +41,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label headertitle;
         
         /// <summary>
+        /// tbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel tbl;
+        
+        /// <summary>
         /// aplToolBar control.
         /// </summary>
         /// <remarks>
@@ -1346,22 +1355,22 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtConveyance;
         
         /// <summary>
-        /// lblOthersExpense control.
+        /// lblExpenseEMI control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOthersExpense;
+        protected global::System.Web.UI.WebControls.Label lblExpenseEMI;
         
         /// <summary>
-        /// txtOthersExpense control.
+        /// txtExpenseEMI control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOthersExpense;
+        protected global::System.Web.UI.WebControls.TextBox txtExpenseEMI;
         
         /// <summary>
         /// lblExpenseTotal control.
@@ -1380,6 +1389,24 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtExpenseTotal;
+        
+        /// <summary>
+        /// lblOthersExpense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOthersExpense;
+        
+        /// <summary>
+        /// txtOthersExpense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOthersExpense;
         
         /// <summary>
         /// RadPageView5 control.
