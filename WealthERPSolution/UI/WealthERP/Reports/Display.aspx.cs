@@ -56,6 +56,7 @@ namespace WealthERP.Reports
         EquityReportVo equityReport = new EquityReportVo();
         PortfolioReportVo portfolioReport = new PortfolioReportVo();
         FinancialPlanningVo financialPlanning = new FinancialPlanningVo();
+        FPOfflineFormVo fpOfflineForm = new FPOfflineFormVo();
         AdvisorVo advisorVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
@@ -97,6 +98,10 @@ namespace WealthERP.Reports
                     else if (Request.Form["ctrl_FPSectional$btnViewReport"] != null || Request.Form["ctrl_FPSectional$btnViewInPDF"] != null)
                     {
                         return ReportType.FinancialPlanningSectional;
+                    }
+                    if (Request.Form["ctrl_OfflineForm$btnViewInPDF"] != null)
+                    {
+                        return ReportType.FPOfflineForm;
                     }
                     else
                         return ReportType.Invalid;
@@ -156,6 +161,12 @@ namespace WealthERP.Reports
                 btnSendMail.Visible = false;
                 CurrentReportType = ReportType.FinancialPlanningSectional;
                 ctrlPrefix = "ctrl_FPSectional$";
+            }
+            if (Request.Form["ctrl_OfflineForm$btnViewInPDF"] != null)
+            {
+                btnSendMail.Visible = false;
+                CurrentReportType = ReportType.FPOfflineForm;
+                ctrlPrefix = "ctrl_OfflineForm$";
             }
            
             if (PreviousPage != null)
@@ -302,6 +313,10 @@ namespace WealthERP.Reports
             else if (CurrentReportType == ReportType.FinancialPlanningSectional)
             {
                 DisplayReport(financialPlanning, 1); 
+            }
+            else if (CurrentReportType == ReportType.FPOfflineForm)
+            {
+                DisplayReport(fpOfflineForm);
             }
             else
             {
@@ -455,6 +470,42 @@ namespace WealthERP.Reports
                    
 
                 
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+        private void DisplayReport(FPOfflineFormVo report)
+        {
+            RMVo rmVo = (RMVo)Session["rmVo"];  
+            try
+            {
+                FinancialPlanningReportsBo financialPlanningReportsBo = new FinancialPlanningReportsBo();
+                report = (FPOfflineFormVo)Session["reportParams"];
+                crmain.Load(Server.MapPath("FPOfflineForm.rpt"));
+
+                DataSet dsFPQuestionnaire = financialPlanningReportsBo.GetFPQuestionnaire(report, advisorVo.advisorId);
+                DataTable dtFPQuestionnaire = dsFPQuestionnaire.Tables[0];
+                if (dtFPQuestionnaire.Rows.Count > 0)
+               {
+                crmain.SetDataSource(dtFPQuestionnaire);
+                setLogo();
+                //AssignReportViewerProperties();
+                crmain.SetParameterValue("RMName", "Advisor / Financial Planner: " + (rmVo.FirstName + " " + rmVo.MiddleName + " " + rmVo.LastName).Trim());
+
+                CrystalReportViewer1.ReportSource = crmain;
+                if (crmain.PrintOptions.PaperOrientation == PaperOrientation.Landscape)
+                {
+                    CrystalReportViewer1.Attributes.Add("ToolbarStyle-Width", "900px");
+                }
+
+                CrystalReportViewer1.EnableDrillDown = true;
+                CrystalReportViewer1.HasCrystalLogo = false;
+                }
+                else
+                 SetNoRecords();
+               
             }
             catch (Exception ex)
             {
@@ -2554,6 +2605,11 @@ namespace WealthERP.Reports
                 financialPlanning.advisorId = advisorVo.advisorId;
 
                     Session["reportParams"] = financialPlanning;
+            }
+            else if (CurrentReportType == ReportType.FPOfflineForm)
+            {
+                fpOfflineForm.advisorId = advisorVo.advisorId; 
+                Session["reportParams"] = fpOfflineForm;
             }
 
         }
