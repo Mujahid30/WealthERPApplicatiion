@@ -89,6 +89,7 @@
         </td>
     </tr>
 </table>
+  <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
 <table style="width: 100%;">
     <tr>
         <td colspan="3">
@@ -96,9 +97,10 @@
                 <div class="tabbertab tabbertabdefault" runat="server" id="divNotional">
                     <h6 class="HeaderText">
                         Holdings</h6>
-                    <table>
+              
+                    <table width="100%" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td>
+                             <td class="rightField" width="100%">
                                 <div id="dvNotionalPortfolio" runat="server">
                                     <asp:Label ID="lblMessageNotional" Visible="false" Text="No Record Exists" runat="server"
                                         CssClass="Field"></asp:Label>
@@ -106,9 +108,9 @@
                                         runat="server" CssClass="Field"></asp:Label><asp:LinkButton ID="lnkGetBackNotionalLink"
                                             runat="server" OnClick="GetBackNotionalLink_Click" Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
                                     <asp:GridView ID="gvMFPortfolioNotional" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                        CellPadding="4" DataKeyNames="SI.No" EnableViewState="true" CssClass="GridViewStyle"
+                                        CellPadding="4" DataKeyNames="SI.No" EnableViewState="true" HorizontalAlign="Center" CssClass="GridViewStyle"
                                         ShowFooter="True" OnSorting="gvMFPortfolioNotional_Sorting" OnRowCommand="gvMFPortfolioNotional_RowCommand"
-                                        OnPageIndexChanging="gvMFPortfolioNotional_PageIndexChanging" OnDataBound="gvMFPortfolioNotional_DataBound"
+                                        OnPageIndexChanging="gvMFPortfolioNotional_PageIndexChanging" Width="100%" OnDataBound="gvMFPortfolioNotional_DataBound"
                                         OnRowDataBound="gvMFPortfolioNotional_RowDataBound">
                                         <RowStyle CssClass="RowStyle" />
                                         <FooterStyle CssClass="FooterStyle" />
@@ -198,6 +200,7 @@
                             </td>
                         </tr>
                     </table>
+                  
                 </div>
                 <div class="tabbertab" runat="server" id="divAll">
                     <h6 class="HeaderText">
@@ -554,6 +557,7 @@
         </td>
     </tr>--%>
 </table>
+</asp:Panel>
 <table>
 <tr>
         <td colspan="3">
