@@ -115,6 +115,9 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
+    </table>
+    <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td>
             <asp:GridView ID="gvProcessLog" runat="server" AutoGenerateColumns="False" CellPadding="4"
@@ -173,13 +176,8 @@
             </label>
         </td>
     </tr>
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-   
 </table>
+    </asp:Panel>
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
         <tr align="center">
