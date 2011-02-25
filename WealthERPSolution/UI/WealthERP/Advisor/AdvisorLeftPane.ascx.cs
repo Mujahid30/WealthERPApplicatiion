@@ -770,6 +770,10 @@ namespace WealthERP.Advisor
                     Session[SessionContents.LoanProcessTracking] = null;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanProcessTracking','login');", true);
                 }
+                else if (e.Item.Value == "FP Offline Form")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineForm','login');", true);
+                }
                 else if (e.Item.Value == "MF MIS")
                 {
                     Session["UserType"] = "rm";
