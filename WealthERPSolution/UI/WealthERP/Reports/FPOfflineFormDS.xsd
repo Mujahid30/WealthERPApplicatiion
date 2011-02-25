@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="FPOfflineFormDS" targetNamespace="http://tempuri.org/FPOfflineFormDS.xsd" xmlns:mstns="http://tempuri.org/FPOfflineFormDS.xsd" xmlns="http://tempuri.org/FPOfflineFormDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="FPOfflineFormDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="FPOfflineFormDS" msprop:Generator_UserDSName="FPOfflineFormDS" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="FPOfflineForm" msprop:Generator_UserTableName="FPOfflineForm" msprop:Generator_RowDeletedName="FPOfflineFormRowDeleted" msprop:Generator_TableClassName="FPOfflineFormDataTable" msprop:Generator_RowChangedName="FPOfflineFormRowChanged" msprop:Generator_RowClassName="FPOfflineFormRow" msprop:Generator_RowChangingName="FPOfflineFormRowChanging" msprop:Generator_RowEvArgName="FPOfflineFormRowChangeEvent" msprop:Generator_RowEvHandlerName="FPOfflineFormRowChangeEventHandler" msprop:Generator_TablePropName="FPOfflineForm" msprop:Generator_TableVarName="tableFPOfflineForm" msprop:Generator_RowDeletingName="FPOfflineFormRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="QM_Question" msprop:Generator_UserColumnName="QM_Question" msprop:Generator_ColumnPropNameInRow="QM_Question" msprop:Generator_ColumnVarNameInTable="columnQM_Question" msprop:Generator_ColumnPropNameInTable="QM_QuestionColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="QOM_Option" msprop:Generator_UserColumnName="QOM_Option" msprop:Generator_ColumnPropNameInRow="QOM_Option" msprop:Generator_ColumnVarNameInTable="columnQOM_Option" msprop:Generator_ColumnPropNameInTable="QOM_OptionColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
