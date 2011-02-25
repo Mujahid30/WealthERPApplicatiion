@@ -23,6 +23,9 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
+    </table>
+<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td colspan="3">
             <asp:GridView ID="gvrSystematicSchemes" runat="server" AllowSorting="True" AutoGenerateColumns="False"
@@ -79,6 +82,7 @@
         </td>
     </tr>
 </table>
+</asp:Panel>
 <table style="width: 100%" id="tblPager" runat="server" visible="false">
     <tr>
         <td>
