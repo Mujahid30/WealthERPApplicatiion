@@ -91,7 +91,8 @@
     </tr>
 </table>
 <div id="tbl" runat="server">
-    <table>
+<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td colspan="4">
                 <asp:GridView ID="gvEquityTransactions" runat="server" AutoGenerateColumns="False"
@@ -180,11 +181,9 @@
                 </asp:GridView>
             </td>
         </tr>
-        <tr>
-            <td>
-                &nbsp;
-            </td>
-        </tr>
+        </table>
+           </asp:Panel>
+        <table width="100%">
         <tr id="trPager" runat="server">
             <td>
                 <uc1:Pager ID="Pager1" runat="server" />
