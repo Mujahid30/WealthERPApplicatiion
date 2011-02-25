@@ -568,7 +568,7 @@
             <table width="100%" cellpadding="0">
                 <tr>
                     <td>
-                        <ajaxToolkit:TabContainer ID="tabViewAndEmailReports" runat="server" ActiveTabIndex="1"
+                        <ajaxToolkit:TabContainer ID="tabViewAndEmailReports" runat="server" ActiveTabIndex="0"
                             Width="100%" Style="visibility: visible" 
                             OnClientActiveTabChanged="OnChanged">
                             <ajaxToolkit:TabPanel ID="tabpnlViewReports" runat="server" HeaderText="View Reports"
