@@ -285,6 +285,30 @@ namespace DaoReports
                 else
                     liabilitiesTotal = 0;
                 netWorthTotal = assetTotal - liabilitiesTotal;
+
+                dsCustomerFPReportDetails.Tables[0].TableName = "ReportSection";
+                dsCustomerFPReportDetails.Tables[1].TableName = "CustomerFamilyDetails";
+                dsCustomerFPReportDetails.Tables[2].TableName = "AssetToal";
+                dsCustomerFPReportDetails.Tables[3].TableName = "LiabilitiesTotal";
+                dsCustomerFPReportDetails.Tables[4].TableName = "KeyAssumption";
+                dsCustomerFPReportDetails.Tables[5].TableName = "OtherGoal";
+                dsCustomerFPReportDetails.Tables[6].TableName = "MonthlyGoalTotal";
+                dsCustomerFPReportDetails.Tables[7].TableName = "RTGoal";
+                dsCustomerFPReportDetails.Tables[8].TableName = "Income";
+                dsCustomerFPReportDetails.Tables[9].TableName = "Expense";
+                dsCustomerFPReportDetails.Tables[10].TableName = "CashFlow";
+                dsCustomerFPReportDetails.Tables[11].TableName = "AssetDetails";
+                dsCustomerFPReportDetails.Tables[12].TableName = "LiabilitiesDetail";
+                dsCustomerFPReportDetails.Tables[13].TableName = "RiskProfile";
+                dsCustomerFPReportDetails.Tables[14].TableName = "LifeInsurance";
+                dsCustomerFPReportDetails.Tables[15].TableName = "GeneralInsurance";
+                dsCustomerFPReportDetails.Tables[16].TableName = "HLV";
+                dsCustomerFPReportDetails.Tables[17].TableName = "AdvisorRiskClass";
+                dsCustomerFPReportDetails.Tables[18].TableName = "AdvisorPortfolioAllocation";
+                dsCustomerFPReportDetails.Tables[19].TableName = "FPRatio";
+                dsCustomerFPReportDetails.Tables[20].TableName = "FPRatioDetails";
+                dsCustomerFPReportDetails.Tables[21].TableName = "LoanEMI";
+
             }
             catch (BaseApplicationException Ex)
             {
