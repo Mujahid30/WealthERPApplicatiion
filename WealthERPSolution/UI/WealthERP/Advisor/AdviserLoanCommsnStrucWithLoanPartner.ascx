@@ -10,9 +10,10 @@
             <hr />
         </td>
     </tr>
+</table>
 
-
-
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td>
             <asp:ScriptManager ID="AdvLnCommnLnPrtLnScripManager" runat="server">
@@ -155,6 +156,9 @@
             </asp:GridView>
         </td>
     </tr>
+    </table>
+    </asp:Panel>
+    <table width="100%">
     <tr id= "trValueInserted" runat="server" visible="false" >
         <td>
             <asp:Label ID="lblValueInserted" Text="New Values Inserted Successfully" runat="server" CssClass="FieldName"></asp:Label>
