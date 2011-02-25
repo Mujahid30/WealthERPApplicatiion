@@ -56,23 +56,17 @@
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Customer/Prospect List"></asp:Label>
-            <hr />
         </td>
-    </tr>
-</table>
-
-<table class="TableBackground" width="100%" id="tblGv" runat="server">
-<tr>
-<td>
+        <td width="50%" align="left">
+            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+        </td>
+        <td align="right">
             <asp:ImageButton ID="imageExcel" 
                 ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png" runat="server"
             AlternateText="Excel" ToolTip="Export to Excel" 
                 OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
                 OnClick="imageExcel_Click" />
-
-            <%--<asp:ImageButton ID="imgBtnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px" />--%>
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="imageExcel" DynamicServicePath="" BackgroundCssClass="modalBackground"
                 Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();">
@@ -80,7 +74,22 @@
             <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
                 BorderStyle="None" BackColor="Transparent" ToolTip="Print" />
         </td>
-        </tr>
+    </tr>
+     <tr>
+    <td>
+    <hr />           
+    </td>
+    <td>
+    <hr />           
+    </td>
+    <td>
+    <hr />           
+    </td>
+    </tr>
+</table>
+
+<table class="TableBackground" width="100%" id="tblGv" runat="server">
+
          <tr id="Tr1" runat="server">
         <td>
             <asp:Panel ID="Panel1" runat="server" CssClass="ExortPanelpopup" style="display:none">
@@ -125,49 +134,13 @@
             </asp:Panel>
            <asp:Button CssClass="ExportButton" ID="btnExportExcel" Style="display: none" 
                 runat="server" Height="31px" Width="35px" onclick="btnExportExcel_Click2" />
-           
-            <%--<asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none" 
-                Height="31px" Width="35px" onclick="btnExportExcel_Click1" />--%>
-        </td>
-    </tr>
-
-    <%--<tr id="Tr1" runat="server" visible="true">
-        <td>
-            <asp:RadioButton ID="rbtnExcel" Text="Excel" runat="server" GroupName="grpExport"
-                CssClass="cmbField" />
-            <asp:RadioButton ID="rbtnPDF" Text="PDF" runat="server" GroupName="grpExport" CssClass="cmbField" />
-            <asp:RadioButton ID="rbtnWord" Text="Word" runat="server" GroupName="grpExport" CssClass="cmbField" />
-        </td>
-        <td>
-        </td>
-    </tr>--%>
-    <%--<tr>
-        <td class="style1">
-            <asp:RadioButton ID="rbtnSingle" Text="Current Page" runat="server" GroupName="grpPage"
-                CssClass="cmbField" AutoPostBack="true" OnCheckedChanged="rbtnSingle_CheckedChanged" />
-            <asp:RadioButton ID="rbtnMultiple" Text="All Pages" runat="server" GroupName="grpPage"
-                CssClass="cmbField" AutoPostBack="true" OnCheckedChanged="rbtnMultiple_CheckedChanged" />
-        </td>
-        <td>
-            <asp:Button ID="btnExport" runat="server" OnClick="btnExport_Click" Text="Export"
-                CssClass="ButtonField" />
-            <asp:Button ID="btnPrint" runat="server" OnClick="btnPrint_Click" Text="Print" CssClass="ButtonField" />
-            <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                BorderStyle="None" BackColor="Transparent" />
-        </td>
-    </tr>--%>
-        
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
      </table>
 <div id="tbl" runat="server">
-    <table>
+    <table style="vertical-align: top;">
     <tr>
-        <td>
+        <td style="vertical-align: top;">
             <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
             <asp:DropDownList ID="ddlBMBranchList" CssClass="cmbField"  runat="server" onselectedindexchanged="ddlBMBranchList_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
@@ -186,6 +159,9 @@
             </table>
         </td>
     </tr>
+    </table>
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td class="rightField" colspan="2">
                 <asp:GridView ID="gvCustomers" runat="server" AutoGenerateColumns="False" CellPadding="4"
@@ -283,6 +259,7 @@
             </td>
         </tr>
     </table>
+</asp:Panel>
 </div>
 <table width="100%">
     <tr id="trPager" style="text-align: center" runat="server">

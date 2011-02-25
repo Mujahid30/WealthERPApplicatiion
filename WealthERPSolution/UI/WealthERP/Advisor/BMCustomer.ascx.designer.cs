@@ -41,13 +41,22 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// tblGv control.
+        /// lblCurrentPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblGv;
+        protected global::System.Web.UI.WebControls.Label lblCurrentPage;
+        
+        /// <summary>
+        /// lblTotalRows control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalRows;
         
         /// <summary>
         /// imageExcel control.
@@ -75,6 +84,15 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPrintGrid;
+        
+        /// <summary>
+        /// tblGv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblGv;
         
         /// <summary>
         /// Tr1 control.
@@ -140,24 +158,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Button btnExportExcel;
         
         /// <summary>
-        /// lblCurrentPage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurrentPage;
-        
-        /// <summary>
-        /// lblTotalRows control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalRows;
-        
-        /// <summary>
         /// tbl control.
         /// </summary>
         /// <remarks>
@@ -192,6 +192,15 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable ErrorMessage;
+        
+        /// <summary>
+        /// Panel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel2;
         
         /// <summary>
         /// gvCustomers control.
