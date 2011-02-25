@@ -502,6 +502,10 @@ namespace WealthERP.CustomerPortfolio
                         genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
                         tradeDate = DateTime.Parse(genDict["MFDate"].ToString());
                     }
+                    if (tradeDate == DateTime.MinValue)
+                    {
+                        tradeDate = DateTime.Today;
+                    }
                     mfPortfolioVoList = customerPortfolioBo.GetCustomerMFPortfolio(customerVo.CustomerId, portfolioId, tradeDate, lblScheme.Text, ddlFolioNum.SelectedItem.Text, "");
                     if (mfPortfolioVoList != null && mfPortfolioVoList.Count > 0)
                     {
