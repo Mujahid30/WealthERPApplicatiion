@@ -390,6 +390,24 @@ namespace BoReports
             else
                 return (pmt * (1.0 + rate * type) * (1.0 - Math.Pow((1.0 + rate), nper)) / rate - fv) / Math.Pow((1.0 + rate), nper);
         }
+        public DataSet GetFPQuestionnaire(FPOfflineFormVo report, int adviserId)
+        {
+            FinancialPlanningReportsDao financialPlanningReportsDao = new FinancialPlanningReportsDao();
+            DataSet dtFPQuestionnaire = new DataSet();
+
+            try
+            {
+                DataSet dsFPQuestionnaire = financialPlanningReportsDao.GetFPQuestionnaire(report, adviserId);
+                dtFPQuestionnaire = dsFPQuestionnaire;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return dtFPQuestionnaire;
+
+        }
 
     }
 }
