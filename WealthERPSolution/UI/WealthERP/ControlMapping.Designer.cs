@@ -1366,6 +1366,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reports//FPOfflineForm.ascx.
+        /// </summary>
+        internal static string OfflineForm {
+            get {
+                return ResourceManager.GetString("OfflineForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//PensionAndGratuities.ascx.
         /// </summary>
         internal static string PensionAndGratuities {

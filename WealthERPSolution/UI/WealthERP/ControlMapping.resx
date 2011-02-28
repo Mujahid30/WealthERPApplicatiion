@@ -1125,6 +1125,10 @@
     <value>SuperAdmin//SuperAdminMessageBroadcast.ascx</value>
     <comment>SuperAdmin//SuperAdminMessageBroadcast.ascx</comment>
   </data>
+  <data name="OfflineForm" xml:space="preserve">
+    <value>Reports//FPOfflineForm.ascx</value>
+    <comment>Reports//FPOfflineForm.ascx</comment>
+  </data>
   <data name="SuperAdminConfiguration" xml:space="preserve">
     <value>SuperAdmin//SuperAdminConfiguration.ascx</value>
     <comment>SuperAdmin//SuperAdminConfiguration.ascx</comment>
