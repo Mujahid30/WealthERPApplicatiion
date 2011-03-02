@@ -35,12 +35,13 @@
         $("#hidValidCheck").val("0");
         
         if ($("#<%=txtFolioNumber.ClientID %>").val() == "") {
+            
             $("#spnLoginStatus").html("");
             return;
         }
         
         $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
-        
+
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -48,20 +49,21 @@
             url: "ControlHost.aspx/CheckTradeNoMFAvailability",
             data: "{ 'TradeAccNo': '" + $("#<%=txtFolioNumber.ClientID %>").val() + "','BrokerCode': '" + $("#<%=ddlProductAmc.ClientID %>").val() + "','PortfolioId': '" + $("#<%=ddlPortfolio.ClientID %>").val() + "' }",
             error: function(xhr, status, error) {
-                     },
+            },
             success: function(msg) {
-               
-                if (msg.d) {
+
+                if (msg.d) {                    
                     $("#hidValidCheck").val("1");
                     $("#spnLoginStatus").removeClass();
                     $("#spnLoginStatus").addClass("success");
                     $("#spnLoginStatus").html("");
                 }
                 else {
+
                     $("#hidValidCheck").val("0");
                     $("#spnLoginStatus").removeClass();
-                    $("#spnLoginStatus").addClass("error");
-                    $("#spnLoginStatus").html("This trade account exists.");
+                    alert("This trade account already Exists");
+                    return false;
                 }
             }
 
@@ -69,7 +71,7 @@
     }
     function isValid() {
 
-        if (document.getElementById('hidValidCheck').value == '1') {
+        if ($("#hidValidCheck").val() == '1') {
             Page_ClientValidate();
             return Page_IsValid;
         }
@@ -151,6 +153,7 @@
                         CssClass="cvPCG"></asp:CompareValidator>
                 </td>
             </tr>
+           
             <tr>
                 <td class="leftField">
                     <asp:Label ID="lblFolioNum" runat="server" CssClass="FieldName" Text="Folio Number :"></asp:Label>
@@ -164,6 +167,7 @@
                     </asp:RequiredFieldValidator>
                 </td>
             </tr>
+           
             <tr>
                 <td class="leftField">
                     <asp:Label ID="lblJointHolding" runat="server" CssClass="FieldName" Text="Joint Holding :"></asp:Label>
@@ -195,7 +199,7 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtAccountDate" runat="server" CssClass="txtField"></asp:TextBox>
                     <ajaxToolkit:CalendarExtender ID="txtAccountDate_CalendarExtender" runat="server"
-                        TargetControlID="txtAccountDate" Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+                        TargetControlID="txtAccountDate" Format="dd/MM/yyyy">
                     </ajaxToolkit:CalendarExtender>
                     <ajaxToolkit:TextBoxWatermarkExtender ID="txtAccountDate_TextBoxWatermarkExtender"
                         runat="server" TargetControlID="txtAccountDate" WatermarkText="dd/mm/yyyy">
@@ -354,8 +358,8 @@
 <td colspan="2" class="SubmitCell">
                     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnSubmit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnSubmit', 'S');"
-                        Text="Submit" OnClick="btnSubmit_Click" />
+                        Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
                     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
-                        Text="Update" OnClick="btnUpdate_Click" />
+                        Text="Update" OnClick="btnUpdate_Click" OnClientClick="return isValid()" />
                 </td>
