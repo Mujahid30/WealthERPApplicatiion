@@ -520,6 +520,8 @@ namespace WealthERP.Reports
             {
                 throw (ex);
             }
+            ExportInPDF();
+
         }
         
         private void DisplayReport(FinancialPlanningVo fpSectional,int test)
