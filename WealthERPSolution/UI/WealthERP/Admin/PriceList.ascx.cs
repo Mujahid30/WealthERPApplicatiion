@@ -267,8 +267,8 @@ namespace WealthERP.Admin
             int ratio = rowCount / 10;
             mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
             mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-            string lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
-            upperlimit = (mypager.CurrentPage * 10).ToString();
+            string lowerlimit = (((mypager.CurrentPage - 1) * 15)+1).ToString();
+            upperlimit = (mypager.CurrentPage * 15).ToString();
             if (mypager.CurrentPage == mypager.PageCount)
                 upperlimit = hdnMFCount.Value;
             string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
