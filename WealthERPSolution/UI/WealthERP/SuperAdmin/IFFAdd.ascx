@@ -198,14 +198,14 @@
         </td>
         <td>
             <asp:TextBox ID="txtAddressLine1" CssClass="txtField" runat="server" Width="175px"
-                MaxLength="7"></asp:TextBox>
+                MaxLength="75"></asp:TextBox>
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="AddressLine1RequiredFieldValidator" runat="server"
                 ControlToValidate="txtAddressLine1" ErrorMessage="Atleast Address Line 1 Required"
                 CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
-            <asp:Label ID="lblAddressLine2" Text="Address Line 2:" CssClass="FieldName" runat="server"></asp:Label>
+            <asp:Label ID="lblAddressLine2" Text="Address Line 2:" CssClass="FieldName" runat="server" MaxLength="75"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtAddressLine2" CssClass="txtField" runat="server" Width="175px"
