@@ -519,7 +519,7 @@ namespace DaoAdvisorProfiling
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
                         rmVo.LastName = dr["AR_LastName"].ToString();
                         if (!string.IsNullOrEmpty(dr["AR_StaffCode"].ToString()))
-                          rmVo.StaffCode = dr["AR_StaffCode"].ToString();
+                            rmVo.StaffCode = dr["AR_StaffCode"].ToString();
                         if (dr["AR_OfficePhoneDirect"].ToString() != "" && dr["AR_OfficePhoneDirect"] != null)
                             rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                         if (dr["AR_OfficePhoneDirectISD"].ToString() != "" && dr["AR_OfficePhoneDirectISD"] != null)
@@ -656,7 +656,7 @@ namespace DaoAdvisorProfiling
                     if (dr["AR_StaffCode"] != DBNull.Value)
                         rmVo.StaffCode = dr["AR_StaffCode"].ToString();
                     else
-                        rmVo.LastName = string.Empty; 
+                        rmVo.StaffCode = string.Empty;
                     if (dr["AR_OfficePhoneDirect"] != DBNull.Value)
                         rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                     if (dr["AR_OfficePhoneDirectISD"] != DBNull.Value)
@@ -799,7 +799,7 @@ namespace DaoAdvisorProfiling
                     if (dr["AR_Email"] != DBNull.Value)
                         rmVo.Email = dr["AR_Email"].ToString();
                     if (dr["AR_JobFunction"] != DBNull.Value)
-                        rmVo.RMRole = dr["AR_JobFunction"].ToString();               
+                        rmVo.RMRole = dr["AR_JobFunction"].ToString();
 
                     if (dr["AR_IsExternalStaff"] != DBNull.Value && dr["AR_IsExternalStaff"].ToString() != "")
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
@@ -964,7 +964,7 @@ namespace DaoAdvisorProfiling
                         customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
                         customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
                         customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
-                       
+
                         customerVo.Email = dr["C_Email"].ToString();
                         if (dr["Parent"].ToString() != "")
                             customerVo.ParentCustomer = dr["Parent"].ToString();
