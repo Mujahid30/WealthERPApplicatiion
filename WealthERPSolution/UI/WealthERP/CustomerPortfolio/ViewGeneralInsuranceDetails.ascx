@@ -29,7 +29,7 @@
         }
         else {
             document.getElementById("ctrl_ViewGeneralInsuranceDetails_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_ViewGeneralInsuranceDetails_hiddenassociation").click();
+//            document.getElementById("ctrl_ViewGeneralInsuranceDetails_hiddenassociation").click();
             return true;
         }
     }
