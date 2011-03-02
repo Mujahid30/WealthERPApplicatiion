@@ -762,10 +762,15 @@ namespace WealthERP
                 // getting portfolio id and its details
                 customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                 Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                if (ddlAction.SelectedItem.Value.ToString() != "Profile")
+
+                if (ddlAction.SelectedItem.Value.ToString() != "Delete Profile")
                 {
 
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                    if (ddlAction.SelectedItem.Value.ToString() != "Profile")
+                    {
+
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                    }
                 }
                 if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
@@ -1673,7 +1678,8 @@ namespace WealthERP
 
                 if (customerBo.DeleteCustomer(customerVo.CustomerId, "D"))
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMCustomer','login');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
                 }
 
             }
