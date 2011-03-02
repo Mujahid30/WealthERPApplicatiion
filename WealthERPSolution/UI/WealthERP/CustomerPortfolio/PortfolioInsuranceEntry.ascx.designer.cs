@@ -635,13 +635,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblEPPremiumPayDate;
         
         /// <summary>
-        /// txtEPPrPayDate control.
+        /// ddlEPPrPayDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEPPrPayDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEPPrPayDate;
         
         /// <summary>
         /// rfvEPPrPayDate control.
@@ -932,13 +932,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblWLPPremiumPayDate;
         
         /// <summary>
-        /// txtWLPPrPayDate control.
+        /// ddlWLPPrPayDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWLPPrPayDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlWLPPrPayDate;
         
         /// <summary>
         /// rfvWLPPrPayDate control.
@@ -1463,13 +1463,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblULIPPremiumPayDate;
         
         /// <summary>
-        /// txtULIPPrPayDate control.
+        /// ddlULIPPrPayDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtULIPPrPayDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlULIPPrPayDate;
         
         /// <summary>
         /// rfvULIPPrPayDate control.
