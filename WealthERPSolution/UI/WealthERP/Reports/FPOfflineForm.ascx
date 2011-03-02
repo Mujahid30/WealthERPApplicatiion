@@ -37,7 +37,7 @@
    </tr>      
    <tr>
        <td style="width:50%">
-      <asp:Button ID="btnViewInPDF" runat="server" Text="Export To PDF" OnClientClick="return CustomerValidate('pdf')"
+      <asp:Button ID="btnViewInPDF" runat="server" Text="View Form" OnClientClick="return CustomerValidate('pdf')"
      PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />
     </td>
    </tr>
