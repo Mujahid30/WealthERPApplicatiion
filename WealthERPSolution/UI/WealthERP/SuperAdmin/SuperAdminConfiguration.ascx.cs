@@ -15,10 +15,12 @@ namespace WealthERP.SuperAdmin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //uplLogoUpload.TargetFolder = Server.MapPath(@"/Images/");
-            //uplLogoUpload.TemporaryFolder = Server.MapPath(@"/Images/");
+            //uplLogoUpload.TargetFolder = Server.MapPath(@"~/Images/");
+            ////uplLogoUpload.TemporaryFolder = Server.MapPath(@"/Images/");
+            //uplLogoUpload.TargetPhysicalFolder = Server.MapPath(@"~/Images/");
             if (!IsPostBack)
             {
+                
                 GeneralConfigurationBo generalconfigurationbo = new GeneralConfigurationBo();
                 GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
                 UserVo uservo = (UserVo)Session["UserVo"];
@@ -60,7 +62,7 @@ namespace WealthERP.SuperAdmin
                 {
                     lblFileUploaded.Visible = true;
                     lblFileUploaded.Text = generalconfigurationvo.HostLogo;
-                    hdnUplFileName.Value = generalconfigurationvo.HostLogo;
+                    //hdnUplFileName.Value = generalconfigurationvo.HostLogo;
                 }
             }
         }
@@ -88,14 +90,15 @@ namespace WealthERP.SuperAdmin
                 //{
                 //    generalconfigurationvo.HostLogo = Session["UploadFileName"].ToString();
                 //}
-                if (hdnUplFileName.Value != "")
+                if (!string.IsNullOrEmpty(RadUpload1.UploadedFiles[0].FileName.ToString()))
                 {
-                    generalconfigurationvo.HostLogo = hdnUplFileName.Value;
+                    generalconfigurationvo.HostLogo = RadUpload1.UploadedFiles[0].FileName.ToString(); ;
                 }
                 recordstatus = generalconfigurationbo.AddHostGeneralConfiguration(uservo.UserId, generalconfigurationvo);
                 if (recordstatus)
                 {
                     msgRecordStatus.Visible = true;
+                    lblFileUploaded.Text = RadUpload1.UploadedFiles[0].FileName.ToString();
                 }
                 else
                 {
@@ -110,10 +113,10 @@ namespace WealthERP.SuperAdmin
             Session["UploadFileName"] = e.File.FileName;
             //Thumbnail.Width = Unit.Pixel(200);
             //Thumbnail.Height = Unit.Pixel(150);
-            if (File.Exists(Server.MapPath(@"/Images/" + e.File.FileName)))
-            {
-                Thumbnail.ImageUrl = Server.MapPath(@"/Images/" + e.File.FileName);
-            }
+            //if (File.Exists(Server.MapPath(@"/Images/" + e.File.FileName)))
+            //{
+            //    Thumbnail.ImageUrl = Server.MapPath(@"/Images/" + e.File.FileName);
+            //}
 
             //using (Stream stream = e.File.InputStream)
             //{

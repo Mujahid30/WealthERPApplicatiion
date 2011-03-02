@@ -32,35 +32,29 @@
     {
         font-family: Verdana,Tahoma;
         font-weight: bold;
-        font-size: x-small; 
-        display: none;
+        font-size: x-small;        
     }
+      
 </style>
-
+<style id="Style1" type="text/css" runat="server">
+        .radupload { float: left; margin-bottom:20px; }
+        .bigModule { clear: both; }
+        .smallModule { margin-bottom:20px; }
+        #controlContainer { vertical-align: top; padding: 20px 10px; }
+        .ruProgressArea { position: absolute; top: 0; left: 10px; }
+        input.RadUploadSubmit { margin-top: 20px; }
+    </style>
 <script language="javascript" type="text/javascript" src="~/Scripts/JScript.js"></script>
 
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+
 <script type="text/javascript">
-    function fileUploaded(sender, args) {
-        var name = args.get_fileName();
-        var $ = $telerik.$;
-        document.getElementById("<%=hdnUplFileName.ClientID %>").value = name;        
-        $(".info-panel").show();
+    function myOnClientFileSelected(radUpload, eventArgs) {
+        document.getElementById("filestatus").style.display = "block";
         
-        
-        $telerik.$(".invalid").html("");
-        sender.deleteFileInputAt(0);
     }
-
-    function validationFailed(sender, args) {
-        $telerik.$(".invalid")
-                .html("Invalid extension, please choose an image file");
-        sender.deleteFileInputAt(0);
-    }
-  
 </script>
-
 
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Application Configuration"></asp:Label>
 <hr />
@@ -73,22 +67,19 @@
         </td>
     </tr>
 </table>
-<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" 
-    EnableEmbeddedSkins="False">
-   
-    <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior1" 
-        ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ErrorMessage="Invalid Email">
+<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="False">
+    <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior1" ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"
+        ErrorMessage="Invalid Email">
         <TargetControls>
-            <telerik:TargetInput ControlID="txtEmailId" />            
-        </TargetControls>        
+            <telerik:TargetInput ControlID="txtEmailId" />
+        </TargetControls>
     </telerik:RegExpTextBoxSetting>
-     <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior2" 
-        ValidationExpression="\d+" ErrorMessage="Please Type Only Numbers">
+    <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior2" ValidationExpression="\d+"
+        ErrorMessage="Please Type Only Numbers">
         <TargetControls>
-            <telerik:TargetInput ControlID="txtTelephoneNo" />            
-        </TargetControls>        
-
-<Validation IsRequired="True"></Validation>
+            <telerik:TargetInput ControlID="txtTelephoneNo" />
+        </TargetControls>
+        <Validation IsRequired="True"></Validation>
     </telerik:RegExpTextBoxSetting>
 </telerik:RadInputManager>
 <table width="100%">
@@ -97,14 +88,13 @@
             <asp:Label ID="lblHostLogo" runat="server" Text="Position of Host Logo: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <telerik:RadComboBox ID="ddlPickHostLogoPosition" runat="server"
-                ShowToggleImage="True" EmptyMessage="-Select-" Skin="Telerik" 
-                EnableEmbeddedSkins="false" Width="205px" >
+            <telerik:RadComboBox ID="ddlPickHostLogoPosition" runat="server" ShowToggleImage="True"
+                EmptyMessage="-Select-" Skin="Telerik" EnableEmbeddedSkins="false" Width="205px">
                 <ExpandAnimation Type="InExpo"></ExpandAnimation>
                 <Items>
                     <telerik:RadComboBoxItem Text="Top Left Corner" Value="TopLeftCorner" ImageUrl="../Images/TopLeft.gif" />
                     <telerik:RadComboBoxItem Text="Top Right Corner" Value="TopRightCorner" ImageUrl="../Images/TopRight.gif"
-                      Selected="true"  />
+                        Selected="true" />
                     <telerik:RadComboBoxItem Text="Top Center" Value="TopCenter" ImageUrl="../Images/TopCenter.gif" />
                     <telerik:RadComboBoxItem Text="No Logo" Value="NoLogo" ImageUrl="../Images/nologo.png" />
                 </Items>
@@ -113,23 +103,16 @@
         <td align="right">
             <asp:Label ID="lblUploadLogo" runat="server" Text="Browse Logo: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
-            <span class="invalid"></span>
-            <div class="info-panel">
+        <td id="controlContainer" colspan="2">
+            <span class="invalid"></span>            
+                <div class="info-panel" id="filestatus" style="display:none">
                 File Uploaded Successfully...
             </div>
-            <telerik:RadAsyncUpload runat="server" ID="uplLogoUpload" MaxFileInputsCount="1"
-                OnClientFileUploaded="fileUploaded" OnFileUploaded="uplLogoUpload_FileUploaded"
-                AllowedFileExtensions="jpeg,jpg,gif,png,bmp" 
-                OnClientValidationFailed="validationFailed" Width="205px">
-                <Localization Select="Choose Logo" />
-            </telerik:RadAsyncUpload>
+            
+            <telerik:RadUpload ID="RadUpload1" runat="server" TargetFolder="/Images/" OnClientFileSelected="myOnClientFileSelected"
+                OverwriteExistingFiles="false" MaxFileInputsCount="1" AllowedFileExtensions="jpeg,jpg,gif,png,bmp"  InitialFileInputsCount="1" ControlObjectsVisibility="None" />
             <asp:Label ID="lblFileUploaded" runat="server" Text="" CssClass="FieldName" Visible="false"></asp:Label>
-        </td>
-        <td rowspan="2">
-            <telerik:RadBinaryImage runat="server" Width="220px" Height="53px" ResizeMode="Fit" Visible="false"
-                ID="Thumbnail" />
-        </td>
+        </td>        
     </tr>
     <tr>
         <td align="right">
@@ -138,8 +121,8 @@
         </td>
         <td>
             <telerik:RadComboBox ID="ddlPickAdvisorLogoPosition" runat="server" ExpandAnimation-Type="Linear"
-                ShowToggleImage="True" EmptyMessage="-Select-" Skin="Telerik" 
-                EnableEmbeddedSkins="false" Width="205px" >
+                ShowToggleImage="True" EmptyMessage="-Select-" Skin="Telerik" EnableEmbeddedSkins="false"
+                Width="205px">
                 <ExpandAnimation Type="InExpo"></ExpandAnimation>
                 <Items>
                     <telerik:RadComboBoxItem Text="Top Left Corner" Value="TopLeftCorner" ImageUrl="../Images/TopLeft.gif"
@@ -150,15 +133,10 @@
             </telerik:RadComboBox>
         </td>
         <td colspan="2">
-        <asp:CompareValidator id="Compare1" runat="server" Display="Dynamic"
-       ControlToValidate="ddlPickHostLogoPosition" 
-       ControlToCompare="ddlPickAdvisorLogoPosition"
-       EnableClientScript="True"
-       CssClass="rfvPCG"
-       Operator="NotEqual"
-       ErrorMessage="Please select different Adviser Logo Position"/>
+            <asp:CompareValidator ID="Compare1" runat="server" Display="Dynamic" ControlToValidate="ddlPickHostLogoPosition"
+                ControlToCompare="ddlPickAdvisorLogoPosition" EnableClientScript="True" CssClass="rfvPCG"
+                Operator="NotEqual" ErrorMessage="Please select different Adviser Logo Position" />
         </td>
-        
         <td>
         </td>
     </tr>
@@ -168,9 +146,8 @@
         </td>
         <td>
             <telerik:RadComboBox ID="ddlApplyTheme" runat="server" ExpandAnimation-Type="Linear"
-                ShowToggleImage="True" EmptyMessage="-Select-" Skin="Telerik" 
-                EnableEmbeddedSkins="false" Width="205px"
-                >
+                ShowToggleImage="True" EmptyMessage="-Select-" Skin="Telerik" EnableEmbeddedSkins="false"
+                Width="205px">
                 <ExpandAnimation Type="InExpo"></ExpandAnimation>
                 <Items>
                     <telerik:RadComboBoxItem Text="Maroon" Value="Maroon" ImageUrl="../Images/red-sample.gif" />
@@ -209,8 +186,7 @@
             <asp:Label ID="lblTelephoneNo" runat="server" Text="Telephone No: " CssClass="FieldName"></asp:Label>
         </td>
         <td colspan="2">
-            <asp:TextBox ID="txtTelephoneNo" runat="server" Text="" MaxLength="12" 
-                Width="205px"></asp:TextBox>
+            <asp:TextBox ID="txtTelephoneNo" runat="server" Text="" MaxLength="12" Width="205px"></asp:TextBox>
         </td>
         <td>
         </td>
@@ -252,8 +228,8 @@
             <asp:Label ID="lblLoginPageContent" runat="server" Text="Login Page Content: " CssClass="FieldName"></asp:Label>
         </td>
         <td colspan="3">
-            <asp:TextBox ID="txtLoginPageContent" runat="server" Text="" Width="500px" 
-                TextMode="MultiLine" Height="90px"></asp:TextBox>
+            <asp:TextBox ID="txtLoginPageContent" runat="server" Text="" Width="500px" TextMode="MultiLine"
+                Height="90px"></asp:TextBox>
         </td>
         <td>
         </td>

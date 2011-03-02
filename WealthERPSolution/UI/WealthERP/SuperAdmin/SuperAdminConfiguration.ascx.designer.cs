@@ -14,6 +14,15 @@ namespace WealthERP.SuperAdmin {
     public partial class SuperAdminConfiguration {
         
         /// <summary>
+        /// Style1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Style1;
+        
+        /// <summary>
         /// RadScriptManager1 control.
         /// </summary>
         /// <remarks>
@@ -77,13 +86,13 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.Label lblUploadLogo;
         
         /// <summary>
-        /// uplLogoUpload control.
+        /// RadUpload1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadAsyncUpload uplLogoUpload;
+        protected global::Telerik.Web.UI.RadUpload RadUpload1;
         
         /// <summary>
         /// lblFileUploaded control.
@@ -93,15 +102,6 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFileUploaded;
-        
-        /// <summary>
-        /// Thumbnail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadBinaryImage Thumbnail;
         
         /// <summary>
         /// lblAdvisorLogoPosition control.
