@@ -134,7 +134,7 @@ function showassocation() {
                     <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="txtField" Width="110px"></asp:TextBox>
                     <asp:DropDownList ID="ddlMeasureCode" runat="server" CssClass="cmbField" Width="50px" Visible ="false"  >
                     </asp:DropDownList>
-                    <asp:Label ID="lblMeasureCode" runat="server" CssClass="FieldName" Text="Gram"></asp:Label>
+                    <asp:Label ID="lblMeasureCode" runat="server" CssClass="FieldName" Text="per Gram"></asp:Label>
               
                     <span id="Span4" class="spnRequiredField">*</span>
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPurchasePrice"
