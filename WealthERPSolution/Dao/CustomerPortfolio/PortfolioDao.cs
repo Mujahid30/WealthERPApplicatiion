@@ -195,6 +195,30 @@ namespace DaoCustomerPortfolio
             }
             return dsGetCustomerPortfolio;
         }
+        public DataSet GetGoldPrice(string Date)
+        {
+            Database db;
+            DbCommand getCustomerPortfolioCmd;
+            DataSet dsGetGoldPrice;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerPortfolioCmd = db.GetStoredProcCommand("SP_GetGoldPrice");
+            db.AddInParameter(getCustomerPortfolioCmd, "PG_Date", DbType.String, Date);
+            dsGetGoldPrice = db.ExecuteDataSet(getCustomerPortfolioCmd);
+            return dsGetGoldPrice;
+        }
+        public DataSet GetGoldPriceCurrent(string Date)
+        {
+            Database db;
+            DbCommand getCustomerPortfolioCmd;
+            DataSet dsGetGoldPrice;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            getCustomerPortfolioCmd = db.GetStoredProcCommand("SP_GetGoldPriceCurrent");
+            db.AddInParameter(getCustomerPortfolioCmd, "PG_Date", DbType.String, Date);
+            dsGetGoldPrice = db.ExecuteDataSet(getCustomerPortfolioCmd);
+            return dsGetGoldPrice;
+        }
 
         public List<CustomerPortfolioVo> GetCustomerPortfolios(int customerId)
         {
