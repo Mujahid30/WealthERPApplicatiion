@@ -2275,6 +2275,7 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("PreviousMonthDate", DateBo.GetPreviousMonthLastDate(report.FromDate).ToShortDateString());
+                            crmain.SetParameterValue("AsOnDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
 
                             //For PDF View In Browser : Author-Pramod
