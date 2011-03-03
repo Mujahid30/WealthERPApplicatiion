@@ -247,18 +247,18 @@ namespace BoUploads
                                     }
                                     if (drValidations["CheckValue"].ToString() == "1")
                                     {
-                                        string m = drInputfile[columnname].ToString();
-                                        string n = m.TrimEnd(new char[] { ' ' });
-                                        n = m.TrimEnd(new char[] { '\n' });
-                                        if ( n !=  "Margin")
-                                        {
+                                    //    string m = drInputfile[columnname].ToString();
+                                    //    string n = m.TrimEnd(new char[] { ' ' });
+                                    //    n = m.TrimEnd(new char[] { '\n' });
+                                    //    if ( n !=  "Margin")
+                                    //    {
                                             
-                                            drInputfile["Error"] = "Wrong file format, does not contain all columns";
-                                            //drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
+                                    //        drInputfile["Error"] = "Wrong file format, does not contain all columns";
+                                    //        //drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
 
 
-                                            continue;
-                                        }
+                                    //        continue;
+                                    //    }
 
                                     }
                                     if (drValidations["CheckValue"].ToString() == "2")
