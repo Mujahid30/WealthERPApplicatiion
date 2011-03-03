@@ -169,6 +169,9 @@
             </asp:GridView>
         </td>
     </tr>
+</table>
+    </asp:Panel>
+    <table width="100%">
     <tr id="trTransactionMessage" runat="server" visible="false">
         <td class="Message">
             <label id="lblEmptyTranEmptyMsg" class="FieldName">
@@ -176,8 +179,7 @@
             </label>
         </td>
     </tr>
-</table>
-    </asp:Panel>
+    </table>
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
         <tr align="center">
