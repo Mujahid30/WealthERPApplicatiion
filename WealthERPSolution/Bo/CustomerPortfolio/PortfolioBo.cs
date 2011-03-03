@@ -282,7 +282,7 @@ namespace BoCustomerPortfolio
             return dsGetCustomerPortfolio;
 
         }
-        public DataSet GetGoldPrice(string Date)
+        public DataSet GetGoldPrice(DateTime Date)
         {
             DataSet dsGetGoldPrice = new DataSet();
             PortfolioDao portfolioDao = new PortfolioDao();
@@ -290,7 +290,7 @@ namespace BoCustomerPortfolio
             return dsGetGoldPrice;
 
         }
-        public DataSet GetGoldPriceCurrent(string Date)
+        public DataSet GetGoldPriceCurrent(DateTime Date)
         {
             DataSet dsGetGoldPrice = new DataSet();
             PortfolioDao portfolioDao = new PortfolioDao();
