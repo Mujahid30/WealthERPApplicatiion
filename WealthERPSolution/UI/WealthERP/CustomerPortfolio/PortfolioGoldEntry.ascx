@@ -2,12 +2,19 @@
     Inherits="WealthERP.CustomerPortfolio.PortfolioGoldEntry" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
+
 <script type="text/javascript" src="../Scripts/Calender/calendar.js"> </script>
 
 <script type="text/javascript" src="../Scripts/Calender/lang/calendar-en.js"> </script>
 
 <script type="text/javascript" src="../Scripts/Calender/calendar-setup.js"></script>
+<script language="javascript" type="text/javascript">
+function showassocation() {
 
+    alert('Please enter Quantity');
+        
+    }
+</script>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="upPnl" runat="server">
@@ -80,7 +87,7 @@
                     <asp:Label ID="lblPurchaseDate" runat="server" CssClass="FieldName" Text="Purchase Date:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPurchaseDate" runat="server" CssClass="txtField" Width="110px"></asp:TextBox>
+                    <asp:TextBox ID="txtPurchaseDate" runat="server" CssClass="txtField" Width="110px" AutoPostBack="true"></asp:TextBox>
                     <span id="Span23" class="spnRequiredField">*</span>
                       <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPurchaseDate"
                         ErrorMessage="Please enter the Purchase Date" Display="Dynamic" runat="server"
@@ -108,7 +115,7 @@
                     <asp:Label ID="lblQuantity" runat="server" CssClass="FieldName" Text="Quantity:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtQuantity" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                    <asp:TextBox ID="txtQuantity" runat="server" CssClass="txtField" MaxLength="10" AutoPostBack="true" onblur=""></asp:TextBox>
                     <%--<span id="Span3" class="spnRequiredField">*</span>--%>
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtQuantity"
                         ErrorMessage="<br />Please enter a Quantity" Display="Dynamic" runat="server"
@@ -125,10 +132,12 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="txtField" Width="110px"></asp:TextBox>
-                    <asp:DropDownList ID="ddlMeasureCode" runat="server" CssClass="cmbField" Width="50px">
+                    <asp:DropDownList ID="ddlMeasureCode" runat="server" CssClass="cmbField" Width="50px" Visible ="false"  >
                     </asp:DropDownList>
+                    <asp:Label ID="lblMeasureCode" runat="server" CssClass="FieldName" Text="Gram"></asp:Label>
+              
                     <span id="Span4" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPurchasePrice"
+                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPurchasePrice"
                         ErrorMessage="<br />Please enter a Purchase Price" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
@@ -137,7 +146,11 @@
                         Display="Dynamic"></asp:CompareValidator>
                     <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlMeasureCode"
                         ErrorMessage="<br />Please select a Measure Code" Operator="NotEqual" ValueToCompare="Select a Measure Code"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
+                
+                
+                    <asp:Button ID="btnUsePrice" runat="server" Text="Use Price" CssClass="PCGMediumButton"
+                          OnClick="btnUsePrice_Click" AutoPostBack="true"/>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblPurchaseValue" runat="server" CssClass="FieldName" Text="Purchase Cost(Rs):"></asp:Label>
@@ -145,13 +158,13 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtPurchaseValue" runat="server" CssClass="txtField"></asp:TextBox>
                     <span id="Span5" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtPurchaseValue"
+                   <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtPurchaseValue"
                         ErrorMessage="<br />Please enter a Purchase Value" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br />Please enter a numeric value"
                         Type="Double" ControlToValidate="txtPurchaseValue" Operator="DataTypeCheck" CssClass="cvPCG"
-                        Display="Dynamic"></asp:CompareValidator>
+                        Display="Dynamic"></asp:CompareValidator>--%>
                 </td>
             </tr>
             <tr>

@@ -362,8 +362,9 @@ namespace WealthERP.CustomerPortfolio
                 goldVo.Name = txtName.Text.ToString();
                 goldVo.AssetGroupCode = "GD";
                 goldVo.AssetCategoryCode = ddlCategory.SelectedItem.Value.ToString().Trim();
-                if (ddlMeasureCode.SelectedItem.Value != string.Empty && ddlMeasureCode.SelectedIndex >= 0)
-                    goldVo.MeasureCode = ddlMeasureCode.SelectedItem.Value.ToString().Trim();
+                //if (ddlMeasureCode.SelectedItem.Value != string.Empty && ddlMeasureCode.SelectedIndex >= 0)
+                    //goldVo.MeasureCode = ddlMeasureCode.SelectedItem.Value.ToString().Trim();
+                    goldVo.MeasureCode = "GR";
                 if (txtQuantity.Text.Trim() != string.Empty)
                     goldVo.Quantity = float.Parse(txtQuantity.Text.ToString());
                 // goldVo.PurchaseDate = DateTime.Parse(ddlDay.SelectedItem.Value.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString());
@@ -420,6 +421,48 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        protected void btnUsePrice_Click(object sender, EventArgs e)
+        {
+            DataSet ds = new DataSet();
+
+            ds = portfolioBo.GetGoldPrice(txtPurchaseDate.ToString());
+            txtPurchasePrice.Text = ds.Tables[0].Rows[0][0].ToString();
+            if (!string.IsNullOrEmpty(txtPurchaseDate.Text))
+            {
+                if (!string.IsNullOrEmpty(txtQuantity.Text))
+                    txtPurchaseValue.Text = (Math.Round((double.Parse(txtPurchasePrice.Text) * double.Parse(txtQuantity.Text)), 4)).ToString();
+
+                else
+                {
+                    txtPurchasePrice.Text = "0.00";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Quantity');", true);
+                }
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "alert('Please enter Quantity');", true);
+
+                //txtPurchaseValue.Text = " ";
+                if (!string.IsNullOrEmpty(txtQuantity.Text))
+                {
+                    DataSet ds1 = new DataSet();
+                    ds1 = portfolioBo.GetGoldPriceCurrent(txtPurchaseDate.ToString());
+                    txtCurrentPrice.Text = ds1.Tables[0].Rows[0][0].ToString();
+                    txtCurrentValue.Text = (Math.Round((double.Parse(txtCurrentPrice.Text) * double.Parse(txtQuantity.Text)), 4)).ToString();
+                }
+                else
+                {
+                    txtPurchasePrice.Text = "0.00";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Quantity');", true);
+                }
+            }
+            else
+            {
+                txtPurchasePrice.Text = "0.00";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Date');", true);
+            }
+
+            
+
+        }
+
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
             GoldVo newGoldVo = new GoldVo();
@@ -436,7 +479,8 @@ namespace WealthERP.CustomerPortfolio
                     newGoldVo.CurrentValue = float.Parse(txtCurrentValue.Text);
                 newGoldVo.PortfolioId = goldVo.PortfolioId;
                 newGoldVo.GoldNPId = goldVo.GoldNPId;
-                newGoldVo.MeasureCode = ddlMeasureCode.SelectedValue.ToString().Trim();
+                //newGoldVo.MeasureCode = ddlMeasureCode.SelectedValue.ToString().Trim();
+                newGoldVo.MeasureCode = "GR";
                 newGoldVo.Name = txtName.Text;
                 if (txtPurchaseDate.Text.Trim() != string.Empty)
                     newGoldVo.PurchaseDate = DateTime.Parse(txtPurchaseDate.Text);
