@@ -282,6 +282,22 @@ namespace BoCustomerPortfolio
             return dsGetCustomerPortfolio;
 
         }
+        public DataSet GetGoldPrice(string Date)
+        {
+            DataSet dsGetGoldPrice = new DataSet();
+            PortfolioDao portfolioDao = new PortfolioDao();
+            dsGetGoldPrice = portfolioDao.GetGoldPrice(Date);
+            return dsGetGoldPrice;
+
+        }
+        public DataSet GetGoldPriceCurrent(string Date)
+        {
+            DataSet dsGetGoldPrice = new DataSet();
+            PortfolioDao portfolioDao = new PortfolioDao();
+            dsGetGoldPrice = portfolioDao.GetGoldPriceCurrent(Date);
+            return dsGetGoldPrice;
+
+        }
         public DataTable GetRMCustomerPortfolios(int rmId,int currentPage,out int count,string nameSrchValue)
         {
             DataTable dtGetCustomerPortfolios = new DataTable();
