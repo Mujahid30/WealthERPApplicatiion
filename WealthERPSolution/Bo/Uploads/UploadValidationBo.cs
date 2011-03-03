@@ -247,9 +247,12 @@ namespace BoUploads
                                     }
                                     if (drValidations["CheckValue"].ToString() == "1")
                                     {
-
-                                        if (drInputfile[columnname].ToString() != "Margin" )
+                                        string m = drInputfile[columnname].ToString();
+                                        string n = m.TrimEnd(new char[] { ' ' });
+                                        n = m.TrimEnd(new char[] { '\n' });
+                                        if ( n !=  "Margin")
                                         {
+                                            
                                             drInputfile["Error"] = "Wrong file format, does not contain all columns";
                                             //drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
 
