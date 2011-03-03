@@ -40,11 +40,11 @@ namespace WealthERP.FP
 
         //For Edit 
         int totalRecordsCount;
-        int totalEMIForExpense = 0;
-        int totalLIPremium = 0;
-        int totalGIPremium = 0;
-        int finalPremiumtotal = 0;
-        int finalExpenseEMItotal = 0;
+        float totalEMIForExpense = 0;
+        float totalLIPremium = 0;
+        float totalGIPremium = 0;
+        float finalPremiumtotal = 0;
+        float finalExpenseEMItotal = 0;
         BoFPSuperlite.CustomerProspectBo customerProspectBo = new CustomerProspectBo();
         protected void Page_Init()
         {
@@ -942,7 +942,7 @@ namespace WealthERP.FP
 
                 if ((txtHomeLoanEMI.Text != "") || (txtAutoLoanEMI.Text != "") || (txtPersonalLoanEMI.Text != "") || (txtEducationLoanEMI.Text != "") || (txtOtherLoanEMI.Text != ""))
                 {
-                    totalEMIForExpense = (int.Parse(txtHomeLoanEMI.Text) + int.Parse(txtAutoLoanEMI.Text) + int.Parse(txtPersonalLoanEMI.Text) + int.Parse(txtEducationLoanEMI.Text) + int.Parse(txtOtherLoanEMI.Text));
+                    totalEMIForExpense = (float.Parse(txtHomeLoanEMI.Text) + float.Parse(txtAutoLoanEMI.Text) + float.Parse(txtPersonalLoanEMI.Text) + float.Parse(txtEducationLoanEMI.Text) + float.Parse(txtOtherLoanEMI.Text));
                 }
 
                 if (totalEMIForExpense != 0)
@@ -1379,7 +1379,7 @@ namespace WealthERP.FP
                 
                 if ((txtTermP.Text != "") || (txtEndowmentP.Text != "") || (txtWholeLifeP.Text != "") || (txtMoneyBackP.Text != "") || (txtULIPP.Text != "") || (txtOthersLIP.Text != ""))
                 {
-                    totalLIPremium = int.Parse(txtTermP.Text) + int.Parse(txtEndowmentP.Text) + int.Parse(txtWholeLifeP.Text) + int.Parse(txtMoneyBackP.Text) + int.Parse(txtULIPP.Text) + int.Parse(txtOthersLIP.Text);
+                    totalLIPremium = float.Parse(txtTermP.Text) + float.Parse(txtEndowmentP.Text) + float.Parse(txtWholeLifeP.Text) + float.Parse(txtMoneyBackP.Text) + float.Parse(txtULIPP.Text) + float.Parse(txtOthersLIP.Text);
                 }
 
 
@@ -1542,7 +1542,7 @@ namespace WealthERP.FP
                     txtOthersGIP.Text = "0";
                 if ((txtHealthInsuranceCoverP.Text != "") || (txtPropertyInsuranceCoverP.Text != "") || (txtPersonalAccidentP.Text != "") || (txtOthersGIP.Text != ""))
                 {
-                    totalGIPremium = (int.Parse(txtHealthInsuranceCoverP.Text) + int.Parse(txtPropertyInsuranceCoverP.Text) + int.Parse(txtPersonalAccidentP.Text) + int.Parse(txtOthersGIP.Text));
+                    totalGIPremium = (float.Parse(txtHealthInsuranceCoverP.Text) + float.Parse(txtPropertyInsuranceCoverP.Text) + float.Parse(txtPersonalAccidentP.Text) + float.Parse(txtOthersGIP.Text));
                 }
 
                 if ((totalLIPremium != 0) || (totalGIPremium != 0))
@@ -2363,6 +2363,42 @@ namespace WealthERP.FP
             CustomerProspectBo customerprospectbo = new CustomerProspectBo();
             DataSet dsGetWERPDetails = customerprospectbo.GetUnmanagedManagedDetailsForFP(customerId, Advisorid, Switch);
 
+
+            if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow drFourth in dsGetWERPDetails.Tables[3].Rows)
+                {
+
+                    if (drFourth["XLT_LoanTypeCode"].ToString() == "1")
+                    {
+                        txtWERPHomeLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
+                        txtHomeLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
+                    }
+                    if (drFourth["XLT_LoanTypeCode"].ToString() == "2")
+                    {
+                        txtWERPAutoLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
+                        txtAutoLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
+                    }
+
+                    if (drFourth["XLT_LoanTypeCode"].ToString() == "5")
+                    {
+                        txtWERPPersonalLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
+                        txtPersonalLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
+                    }
+                    if (drFourth["XLT_LoanTypeCode"].ToString() == "6")
+                    {
+                        txtInvestmentsOthers.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
+                        txtInvestmentsOthers.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
+                    }
+                    if (drFourth["XLT_LoanTypeCode"].ToString() == "9")
+                    {
+                        txtWERPOtherLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
+                        txtOtherLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
+                    }
+
+                }
+            }
+
             //First Level Category
             if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[0].Rows.Count > 0)
             {
@@ -2452,40 +2488,7 @@ namespace WealthERP.FP
                     }
                 }
             }
-            if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow drFourth in dsGetWERPDetails.Tables[3].Rows)
-                {
-
-                    if (drFourth["XLT_LoanTypeCode"].ToString() == "1")
-                    {
-                        txtWERPHomeLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
-                        txtHomeLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
-                    }
-                    if (drFourth["XLT_LoanTypeCode"].ToString() == "2")
-                    {
-                        txtWERPAutoLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
-                        txtAutoLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
-                    }
-
-                    if (drFourth["XLT_LoanTypeCode"].ToString() == "5")
-                    {
-                        txtWERPPersonalLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
-                        txtPersonalLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
-                    }
-                    if (drFourth["XLT_LoanTypeCode"].ToString() == "6")
-                    {
-                        txtInvestmentsOthers.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
-                        txtInvestmentsOthers.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
-                    }
-                    if (drFourth["XLT_LoanTypeCode"].ToString() == "9")
-                    {
-                        txtWERPOtherLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
-                        txtOtherLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
-                    }
-
-                }
-            }
+            
 
             // Second Level Category
             if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[1].Rows.Count > 0)
