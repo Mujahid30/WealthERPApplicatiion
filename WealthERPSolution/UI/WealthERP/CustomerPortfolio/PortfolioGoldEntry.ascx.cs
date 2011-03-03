@@ -425,7 +425,7 @@ namespace WealthERP.CustomerPortfolio
         {
             DataSet ds = new DataSet();
 
-            ds = portfolioBo.GetGoldPrice(txtPurchaseDate.ToString());
+            ds = portfolioBo.GetGoldPrice(DateTime.Parse(txtPurchaseDate.Text));
             txtPurchasePrice.Text = ds.Tables[0].Rows[0][0].ToString();
             if (!string.IsNullOrEmpty(txtPurchaseDate.Text))
             {
@@ -443,7 +443,7 @@ namespace WealthERP.CustomerPortfolio
                 if (!string.IsNullOrEmpty(txtQuantity.Text))
                 {
                     DataSet ds1 = new DataSet();
-                    ds1 = portfolioBo.GetGoldPriceCurrent(txtPurchaseDate.ToString());
+                    ds1 = portfolioBo.GetGoldPriceCurrent(DateTime.Parse(txtPurchaseDate.Text));
                     txtCurrentPrice.Text = ds1.Tables[0].Rows[0][0].ToString();
                     txtCurrentValue.Text = (Math.Round((double.Parse(txtCurrentPrice.Text) * double.Parse(txtQuantity.Text)), 4)).ToString();
                 }
