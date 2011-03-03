@@ -63,6 +63,8 @@
     <Reference Include="Telerik.Web.UI, Version=2010.2.826.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\MyDatabaseApp.dll" />
+    <Content Include="bin\MyDatabaseApp.pdb" />
     <Content Include="Default.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
