@@ -195,7 +195,7 @@ namespace DaoCustomerPortfolio
             }
             return dsGetCustomerPortfolio;
         }
-        public DataSet GetGoldPrice(string Date)
+        public DataSet GetGoldPrice(DateTime Date)
         {
             Database db;
             DbCommand getCustomerPortfolioCmd;
@@ -203,11 +203,11 @@ namespace DaoCustomerPortfolio
 
             db = DatabaseFactory.CreateDatabase("wealtherp");
             getCustomerPortfolioCmd = db.GetStoredProcCommand("SP_GetGoldPrice");
-            db.AddInParameter(getCustomerPortfolioCmd, "PG_Date", DbType.String, Date);
+            db.AddInParameter(getCustomerPortfolioCmd, "PG_Date", DbType.DateTime, Date);
             dsGetGoldPrice = db.ExecuteDataSet(getCustomerPortfolioCmd);
             return dsGetGoldPrice;
         }
-        public DataSet GetGoldPriceCurrent(string Date)
+        public DataSet GetGoldPriceCurrent(DateTime Date)
         {
             Database db;
             DbCommand getCustomerPortfolioCmd;
@@ -215,7 +215,7 @@ namespace DaoCustomerPortfolio
 
             db = DatabaseFactory.CreateDatabase("wealtherp");
             getCustomerPortfolioCmd = db.GetStoredProcCommand("SP_GetGoldPriceCurrent");
-            db.AddInParameter(getCustomerPortfolioCmd, "PG_Date", DbType.String, Date);
+            db.AddInParameter(getCustomerPortfolioCmd, "PG_Date", DbType.DateTime, Date);
             dsGetGoldPrice = db.ExecuteDataSet(getCustomerPortfolioCmd);
             return dsGetGoldPrice;
         }
