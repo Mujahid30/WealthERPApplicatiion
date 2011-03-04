@@ -101,7 +101,10 @@ namespace WealthERP.SuperAdmin
                 if (recordstatus)
                 {
                     msgRecordStatus.Visible = true;
-                    lblFileUploaded.Text = RadUpload1.UploadedFiles[0].FileName.ToString();
+                    if (RadUpload1.UploadedFiles != null && RadUpload1.UploadedFiles.Count > 0)
+                    {
+                        lblFileUploaded.Text = RadUpload1.UploadedFiles[0].FileName.ToString();
+                    }
                 }
                 else
                 {
