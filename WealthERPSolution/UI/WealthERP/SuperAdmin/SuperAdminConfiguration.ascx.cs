@@ -90,9 +90,12 @@ namespace WealthERP.SuperAdmin
                 //{
                 //    generalconfigurationvo.HostLogo = Session["UploadFileName"].ToString();
                 //}
-                if (!string.IsNullOrEmpty(RadUpload1.UploadedFiles[0].FileName.ToString()))
+                if (RadUpload1.UploadedFiles != null && RadUpload1.UploadedFiles.Count > 0)
                 {
-                    generalconfigurationvo.HostLogo = RadUpload1.UploadedFiles[0].FileName.ToString(); ;
+                    if (!string.IsNullOrEmpty(RadUpload1.UploadedFiles[0].FileName.ToString()))
+                    {
+                        generalconfigurationvo.HostLogo = RadUpload1.UploadedFiles[0].FileName.ToString(); ;
+                    }
                 }
                 recordstatus = generalconfigurationbo.AddHostGeneralConfiguration(uservo.UserId, generalconfigurationvo);
                 if (recordstatus)
