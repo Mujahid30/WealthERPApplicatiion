@@ -385,15 +385,15 @@ namespace WealthERP.Advisor
                     else if (hdnall.Value == "2")
                     {
                         hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 1);
+                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
                     }
                     else if (hdnall.Value == "3")
                     {
                         hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
                         hdnrmId.Value = ddlRMEQ.SelectedValue;
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 1);
+                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 3);
                     }
-                    dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo,0, 0, 0, 0);
+                    //dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo,0, 0, 0, 0);
                 }
             }
 
