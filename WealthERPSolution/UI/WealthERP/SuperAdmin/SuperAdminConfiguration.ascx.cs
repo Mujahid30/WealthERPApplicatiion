@@ -97,6 +97,10 @@ namespace WealthERP.SuperAdmin
                         generalconfigurationvo.HostLogo = RadUpload1.UploadedFiles[0].FileName.ToString(); ;
                     }
                 }
+                else
+                {
+                    generalconfigurationvo.HostLogo = lblFileUploaded.Text;
+                }
                 recordstatus = generalconfigurationbo.AddHostGeneralConfiguration(uservo.UserId, generalconfigurationvo);
                 if (recordstatus)
                 {
