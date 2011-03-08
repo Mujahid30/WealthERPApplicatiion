@@ -1681,7 +1681,7 @@ namespace WealthERP.FP
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //Insurance Premium
-                if (finalPremiumtotal != 0)
+                if ((finalPremiumtotal != 0) || (finalPremiumtotal == 0))
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 9;
@@ -1699,7 +1699,7 @@ namespace WealthERP.FP
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //For EMI 
-                if (finalExpenseEMItotal != 0)
+                if ((finalExpenseEMItotal != 0) || (finalExpenseEMItotal == 0))
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 11;
