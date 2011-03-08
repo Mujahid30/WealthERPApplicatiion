@@ -535,6 +535,7 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("PreviousMonthDate", DateBo.GetPreviousMonthLastDate(report.FromDate).ToShortDateString());
+                            crmain.SetParameterValue("AsOnDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             exportFilename = Server.MapPath("~/Reports/TempReports/") + rmVo.RMId + "/" + report.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                             crmain.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, exportFilename);
@@ -898,7 +899,7 @@ namespace WealthERP.Reports
                     
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
-                        if (custPortfolio.PortfolioName == "MyPortfolio")
+                        if (custPortfolio.PortfolioName == "MyPortfolio" || custPortfolio.PortfolioName == "MyPortfolioProspect")
                         {
                             portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
                             portfolioIDs = portfolioIDs + ",";
