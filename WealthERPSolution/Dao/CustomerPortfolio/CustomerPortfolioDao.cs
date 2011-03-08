@@ -1715,7 +1715,7 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
-        public bool DeleteGIAccount(int Account)
+        public bool DeleteGIAccount(int Account, int InsuranceNo)
         {
 
 
@@ -1725,7 +1725,7 @@ namespace DaoCustomerPortfolio
 
             db = DatabaseFactory.CreateDatabase("wealtherp");
             chkAvailabilityCmd = db.GetStoredProcCommand("SP_DeleteGeneralInsurance");
-
+            db.AddInParameter(chkAvailabilityCmd, "@InsuranceNo", DbType.String, InsuranceNo);
             db.AddInParameter(chkAvailabilityCmd, "@CustomerID", DbType.String, Account);
 
             db.ExecuteDataSet(chkAvailabilityCmd);
