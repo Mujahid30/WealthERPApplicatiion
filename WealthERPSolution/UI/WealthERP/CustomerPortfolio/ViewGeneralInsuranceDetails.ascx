@@ -29,7 +29,7 @@
         }
         else {
             document.getElementById("ctrl_ViewGeneralInsuranceDetails_hdnMsgValue").value = 0;
-//            document.getElementById("ctrl_ViewGeneralInsuranceDetails_hiddenassociation").click();
+            document.getElementById("ctrl_ViewGeneralInsuranceDetails_hiddenassociation").click();
             return true;
         }
     }
@@ -77,7 +77,7 @@
                         <ItemTemplate>
                             <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
                                 OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged">
-                                <asp:ListItem>Select </asp:ListItem>
+                                <asp:ListItem>Select </asp:ListItem> 
                                 <asp:ListItem Text="Edit" Value="Edit">Edit</asp:ListItem>
                                 <asp:ListItem Text="View" Value="View">View</asp:ListItem>
                                 <asp:ListItem Text="Delete" Value="Delete">Delete</asp:ListItem>

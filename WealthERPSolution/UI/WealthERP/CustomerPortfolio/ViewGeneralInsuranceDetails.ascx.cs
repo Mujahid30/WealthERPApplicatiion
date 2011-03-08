@@ -10,6 +10,7 @@ using WealthERP.Base;
 using BoCommon;
 using System;
 
+
 namespace WealthERP.CustomerPortfolio
 {
     public partial class ViewGeneralInsuranceDetails : System.Web.UI.UserControl
@@ -22,6 +23,7 @@ namespace WealthERP.CustomerPortfolio
         {
             customerVo = (CustomerVo)Session["customerVo"];
             BindGeneralInsuranceGridview(123);
+
         }
 
         private void BindGeneralInsuranceGridview(int portfolioId)
@@ -143,10 +145,18 @@ namespace WealthERP.CustomerPortfolio
                 GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
                 int selectedRow = gvr.RowIndex;
                 int.TryParse(gvGeneralInsurance.DataKeys[selectedRow].Value.ToString(),out insuranceId);
+                int Insurance = insuranceId;
+                // insuranceId;
+                
 
                 //// Set the VO into the Session
                 //insuranceVo = insuranceBo.GetInsuranceAsset(insuranceId);
-                //Session["insuranceVo"] = insuranceVo;
+                InsuranceVo insuranceVo = new InsuranceVo();
+                
+                insuranceVo.AccountId = insuranceId;
+                Session["insuranceId"] = insuranceVo;
+                
+                
                 //Session["customerAccountVo"] = customerAccountsBo.GetCustomerInsuranceAccount(insuranceVo.AccountId);
 
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
@@ -161,7 +171,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
+               // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
             }
             catch (BaseApplicationException Ex)
             {
@@ -187,15 +197,21 @@ namespace WealthERP.CustomerPortfolio
                 bool DeleteAccount;
                 CustomerVo customervo = (CustomerVo)Session["customerVo"];
                 int Account = customervo.CustomerId ;
+                InsuranceVo insuranceVo = (InsuranceVo)Session["insuranceId"];
+                int InsuranceNo = insuranceVo.AccountId;
+
+                
+
+                //int Insurance = Session ;
                 CustomerPortfolioBo BoCustomerPortfolio = new CustomerPortfolioBo();
-                DeleteAccount = BoCustomerPortfolio.DeleteGIAccount(Account);
+                DeleteAccount = BoCustomerPortfolio.DeleteGIAccount(Account, InsuranceNo);
 
 
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','none');", true);
             }
             if (val == "0")
             {
-
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','none');", true);
             }
         }
 
