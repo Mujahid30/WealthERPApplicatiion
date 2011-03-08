@@ -477,7 +477,7 @@ namespace WealthERP.CustomerPortfolio
                     else if (customerAccountVo.AssetCategory.Trim() == "INUP")
                     {
                         ddlULIPPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
-                        ddlULIPPrPayDate.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        ddlULIPPrPayDate.SelectedItem.Text = insuranceVo.PremiumPaymentDate.ToString();
                         txtULIPFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtULIPLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtULIPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
@@ -629,7 +629,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (CategoryCode == "INUP")
                 {
                     ddlULIPPremiumFrequencyCode.SelectedIndex = -1;
-                    ddlULIPPrPayDate.Text = "";
+                    ddlULIPPrPayDate.Text = insuranceVo.PremiumPaymentDate.ToString();
                     ddlUlipPlans.SelectedIndex = -1;
                     txtULIPLastPremiumDate.Text = "";
                     txtULIPFirstPremiumDate.Text = "";
@@ -1269,7 +1269,7 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo.MaturityValue = 0;
                         insuranceVo.GracePeriod = 0;
                         insuranceVo.ULIPCharges = 0;
-                        insuranceVo.PremiumPaymentDate = 0;
+                        insuranceVo.PremiumPaymentDate = Int16.Parse(ddlULIPPrPayDate.Text); 
 
                         if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INEP")
                         {
