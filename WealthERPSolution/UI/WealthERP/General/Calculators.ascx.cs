@@ -13,14 +13,12 @@ namespace WealthERP.General
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
         }
-
-
-
 
         protected void btnCalculateEMI_Click(object sender, EventArgs e)
         {
-            if (txtLoanAmount.Text == "")
+             if (txtLoanAmount.Text == "")
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
             else if (txtTenureYears.Text == "")
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
@@ -73,6 +71,8 @@ namespace WealthERP.General
                     gvRepaymentSchedule.DataBind();
                 }
             }
+
+            
         }
         protected void btnCalculatePV_Click(object sender, EventArgs e)
         {
@@ -240,6 +240,7 @@ namespace WealthERP.General
                 txtPVFutureValue.Text = null;
                 trPVPaymentMade.Visible = true;
                 trFutureValue.Visible = true;
+               // select.Text = "Select DropDown";
             }
 
             if (ddlChooseTypePV.SelectedValue == "1")
@@ -263,6 +264,8 @@ namespace WealthERP.General
                 trPVPaymentMade.Visible = false;
 
             }
+          
+
         }
         protected void ddlchooseTypeFV_SelectedIndexChanged1(object sender, EventArgs e)
         {

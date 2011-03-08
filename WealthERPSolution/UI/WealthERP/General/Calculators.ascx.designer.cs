@@ -113,24 +113,6 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.TextBox txtTenureMonths;
         
         /// <summary>
-        /// RangeValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
-        
-        /// <summary>
-        /// RangeValidator6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator6;
-        
-        /// <summary>
         /// txtTenureMonths_TextBoxWatermarkExtender control.
         /// </summary>
         /// <remarks>
@@ -158,13 +140,13 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.TextBox txtInterest;
         
         /// <summary>
-        /// RangeValidator3 control.
+        /// RegularExpressionValidator8 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator3;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator8;
         
         /// <summary>
         /// lblInstallmentFrequency control.
@@ -419,6 +401,15 @@ namespace WealthERP.General {
         protected global::System.Web.UI.UpdatePanel uplPresentValue;
         
         /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -527,13 +518,13 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.TextBox txtPVInterestRate;
         
         /// <summary>
-        /// RangeValidator2 control.
+        /// RegularExpressionValidator9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator9;
         
         /// <summary>
         /// lblPaymentFrequency control.
@@ -572,13 +563,13 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.TextBox txtPVNoOfPayments;
         
         /// <summary>
-        /// RangeValidator4 control.
+        /// RegularExpressionValidator10 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator4;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator10;
         
         /// <summary>
         /// txtPVType control.
@@ -669,6 +660,15 @@ namespace WealthERP.General {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
         
         /// <summary>
         /// Label2 control.
@@ -779,13 +779,13 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.TextBox txtFVInterestRate;
         
         /// <summary>
-        /// RangeValidator5 control.
+        /// RegularExpressionValidator11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator5;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator11;
         
         /// <summary>
         /// lblFVPaymentFrequency control.
@@ -824,13 +824,13 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.TextBox txtFVNoOfPayments;
         
         /// <summary>
-        /// RangeValidator7 control.
+        /// RegularExpressionValidator12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator7;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator12;
         
         /// <summary>
         /// txtFVType control.
