@@ -318,8 +318,8 @@
 
   <Measure>
     <MeasureCode MeasureCode="GR" Measure="Gram" AssetGroup="GD" Deleted="False" />
-    <MeasureCode MeasureCode="KG" Measure="Kilogram" AssetGroup="GD" Deleted="False" />
-    <MeasureCode MeasureCode="OU" Measure="Ounce" AssetGroup="GD" Deleted="False" />
+    <!--<MeasureCode MeasureCode="KG" Measure="Kilogram" AssetGroup="GD" Deleted="False" />
+    <MeasureCode MeasureCode="OU" Measure="Ounce" AssetGroup="GD" Deleted="False" />-->
     <MeasureCode MeasureCode="SF" Measure="SquareFeet" AssetGroup="PR" Deleted="False" />
     <MeasureCode MeasureCode="YD" Measure="Yard" AssetGroup="PR" Deleted="False" />
   </Measure>
