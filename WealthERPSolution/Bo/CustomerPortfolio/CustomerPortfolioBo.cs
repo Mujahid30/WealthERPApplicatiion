@@ -3080,11 +3080,11 @@ namespace BoCustomerPortfolio
             return customerportfoliodao.GetProductAssetInstrumentCategory();
         }
 
-        public bool DeleteGIAccount(int Account)
+        public bool DeleteGIAccount(int Account, int InsuranceNo)
         {
             bool Delete;
             CustomerPortfolioDao customerAccountDao = new CustomerPortfolioDao();
-            Delete = customerAccountDao.DeleteGIAccount(Account);
+            Delete = customerAccountDao.DeleteGIAccount(Account, InsuranceNo);
             return Delete;
 
         }
