@@ -202,10 +202,8 @@ namespace WealthERP.General
                                 Session[SessionContents.LogoPath] = sourcePath;
 
                                 roleList = userBo.GetUserRoles(userVo.UserId);
-
-
-
                                 count = roleList.Count;
+                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "adviserpaneleftttt", "loadlinks('AdvisorLeftPane','login');", true);
 
                                 if (count == 3)
                                 {
@@ -397,7 +395,7 @@ namespace WealthERP.General
                                         //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                                     }
                                 }
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+                                
                                 GetLatestValuationDate();
                             }
                             //else if (userVo.UserType == "RM")
