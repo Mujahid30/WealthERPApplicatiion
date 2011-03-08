@@ -162,17 +162,20 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
                     qryString = "FromPage=ViewGeneralInsuranceDetails&InsuranceId=" + insuranceId + "&action=Edit";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
+           
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "View")
                 {
                     qryString = "FromPage=ViewGeneralInsuranceDetails&InsuranceId=" + insuranceId + "&action=View";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
+           
                 }
                 if (ddlAction.SelectedItem.Value.ToString() == "Delete")
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
-               // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
-            }
+                }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
