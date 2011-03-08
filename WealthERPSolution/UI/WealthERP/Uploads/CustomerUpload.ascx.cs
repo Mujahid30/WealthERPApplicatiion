@@ -304,7 +304,7 @@ namespace WealthERP.Uploads
             Dictionary<string, string> genDictEQTranx = new Dictionary<string, string>();
             genDictEQTranx.Add("Standard", "WP");
             genDictEQTranx.Add("India Infoline", "IIFL");
-            genDictEQTranx.Add("ODIN", "ODIN");
+            //genDictEQTranx.Add("ODIN", "ODIN");
             return genDictEQTranx;
         }
 
