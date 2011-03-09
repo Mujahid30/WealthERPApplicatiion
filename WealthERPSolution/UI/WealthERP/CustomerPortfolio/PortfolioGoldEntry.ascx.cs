@@ -67,6 +67,13 @@ namespace WealthERP.CustomerPortfolio
                     LoadAssetCategories();
                     LoadMeasureCode();
                 }
+                if (Session["GoldActionStatus"] != null)
+                {                    
+                    if (Session["GoldActionStatus"].ToString() == "Edit")
+                    {
+                        SetEditFields();
+                    }
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -125,7 +132,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 //lblHeader.Text = "Gold Details Edit Form";
                 goldVo = (GoldVo)Session["goldVo"];
-
+                Session["GoldActionStatus"] = "Edit";
                 btnSubmit.Visible = false;
                 btnSaveChanges.Visible = true;
 
@@ -540,8 +547,15 @@ namespace WealthERP.CustomerPortfolio
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
+            Session.Remove("GoldActionStatus");
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio', 'none')", true);
         }
-
+        protected void Page_Unload(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                Session.Remove("GoldActionStatus");
+            }
+        }
     }
 }

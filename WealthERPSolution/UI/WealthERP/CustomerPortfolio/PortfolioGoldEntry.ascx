@@ -87,7 +87,7 @@ function showassocation() {
                     <asp:Label ID="lblPurchaseDate" runat="server" CssClass="FieldName" Text="Purchase Date:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPurchaseDate" runat="server" CssClass="txtField" Width="110px" AutoPostBack="true"></asp:TextBox>
+                    <asp:TextBox ID="txtPurchaseDate" runat="server" CssClass="txtField" Width="110px" ></asp:TextBox>
                     <span id="Span23" class="spnRequiredField">*</span>
                       <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPurchaseDate"
                         ErrorMessage="Please enter the Purchase Date" Display="Dynamic" runat="server"
@@ -115,7 +115,7 @@ function showassocation() {
                     <asp:Label ID="lblQuantity" runat="server" CssClass="FieldName" Text="Quantity:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtQuantity" runat="server" CssClass="txtField" MaxLength="10" AutoPostBack="true" onblur=""></asp:TextBox>
+                    <asp:TextBox ID="txtQuantity" runat="server" CssClass="txtField" MaxLength="10"  onblur=""></asp:TextBox>
                     <%--<span id="Span3" class="spnRequiredField">*</span>--%>
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtQuantity"
                         ErrorMessage="<br />Please enter a Quantity" Display="Dynamic" runat="server"
@@ -150,7 +150,7 @@ function showassocation() {
                 
                 
                     <asp:Button ID="btnUsePrice" runat="server" Text="Use Price" CssClass="PCGMediumButton"
-                          OnClick="btnUsePrice_Click" AutoPostBack="true"/>
+                          OnClick="btnUsePrice_Click" />
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblPurchaseValue" runat="server" CssClass="FieldName" Text="Purchase Cost(Rs):"></asp:Label>
