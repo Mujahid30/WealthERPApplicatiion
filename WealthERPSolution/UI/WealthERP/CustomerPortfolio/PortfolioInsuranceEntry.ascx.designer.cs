@@ -644,15 +644,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.DropDownList ddlEPPrPayDate;
         
         /// <summary>
-        /// rfvEPPrPayDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEPPrPayDate;
-        
-        /// <summary>
         /// CompareValidator14 control.
         /// </summary>
         /// <remarks>
@@ -660,15 +651,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator14;
-        
-        /// <summary>
-        /// cvRange1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvRange1;
         
         /// <summary>
         /// trEPGracePeriod control.
@@ -941,15 +923,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.DropDownList ddlWLPPrPayDate;
         
         /// <summary>
-        /// rfvWLPPrPayDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvWLPPrPayDate;
-        
-        /// <summary>
         /// CompareValidator18 control.
         /// </summary>
         /// <remarks>
@@ -957,15 +930,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator18;
-        
-        /// <summary>
-        /// cvRange2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvRange2;
         
         /// <summary>
         /// trWLPGracePeriod control.
@@ -1256,15 +1220,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator22;
         
         /// <summary>
-        /// cvRange3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvRange3;
-        
-        /// <summary>
         /// trMPGracePeriod control.
         /// </summary>
         /// <remarks>
@@ -1472,15 +1427,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.DropDownList ddlULIPPrPayDate;
         
         /// <summary>
-        /// rfvULIPPrPayDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvULIPPrPayDate;
-        
-        /// <summary>
         /// CompareValidator24 control.
         /// </summary>
         /// <remarks>
@@ -1488,15 +1434,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator24;
-        
-        /// <summary>
-        /// cvRange4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvRange4;
         
         /// <summary>
         /// trULIPGracePeriod control.

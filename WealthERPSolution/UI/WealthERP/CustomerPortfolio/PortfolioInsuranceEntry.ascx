@@ -414,16 +414,11 @@
         <td>
             <asp:DropDownList ID="ddlEPPrPayDate" runat="server" CssClass="txtField"></asp:DropDownList>
             <span id="Span11" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="rfvEPPrPayDate" ControlToValidate="ddlEPPrPayDate"
-                ErrorMessage="Please enter the Premium Payment Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="Please enter a integer value"
+            <span class="Apple-style-span" 
+                style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium; ">
+            <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="Please Select Premium Date"
                 Type="Integer" ControlToValidate="ddlEPPrPayDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
-            <asp:CompareValidator ID="cvRange1" runat="server" ErrorMessage="Premium Payment Date has to be less than or equal to 31"
-                Type="Integer" ControlToValidate="ddlEPPrPayDate" Operator="LessThanEqual" ValueToCompare="31"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                Display="Dynamic"></asp:CompareValidator>           
         </td>
     </tr>
     <tr id="trEPGracePeriod" runat="server">
@@ -534,16 +529,10 @@
         <td>
             <asp:DropDownList ID="ddlWLPPrPayDate" runat="server" CssClass="txtField"></asp:DropDownList>
             <span id="Span16" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="rfvWLPPrPayDate" ControlToValidate="ddlWLPPrPayDate"
-                ErrorMessage="Please Enter Premium Payment Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator18" runat="server" ErrorMessage="Please an Integer Value"
+            <asp:CompareValidator ID="CompareValidator18" runat="server" ErrorMessage="Please Select Premium Date"
                 Type="Integer" ControlToValidate="ddlWLPPrPayDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic"></asp:CompareValidator>
-            <asp:CompareValidator ID="cvRange2" runat="server" ErrorMessage="Premium Payment Date has to be less than or equal to 31"
-                Type="Integer" ControlToValidate="ddlWLPPrPayDate" Operator="LessThanEqual" ValueToCompare="31"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+
         </td>
     </tr>
     <tr id="trWLPGracePeriod" runat="server">
@@ -658,12 +647,9 @@
                 ErrorMessage="Please Enter Premium Payment Date" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator22" runat="server" ErrorMessage="Please Enter an Integer Value"
+            <asp:CompareValidator ID="CompareValidator22" runat="server" ErrorMessage="Please Select Premium Date"
                 Type="Integer" ControlToValidate="ddlMPPrPayDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic"></asp:CompareValidator>
-            <asp:CompareValidator ID="cvRange3" runat="server" ErrorMessage="Premium Payment Date has to be less than or equal to 31"
-                Type="Integer" ControlToValidate="ddlMPPrPayDate" Operator="LessThanEqual" ValueToCompare="31"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trMPGracePeriod" runat="server">
@@ -742,16 +728,11 @@
         <td>
             <asp:DropDownList ID="ddlULIPPrPayDate" runat="server" CssClass="txtField"></asp:DropDownList>
             <span id="Span24" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="rfvULIPPrPayDate" ControlToValidate="ddlULIPPrPayDate"
-                ErrorMessage="Please Enter Premium Payment Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator24" runat="server" ErrorMessage="Please Enter an Integer"
+
+            <asp:CompareValidator ID="CompareValidator24" runat="server" ErrorMessage="Please Select Premium Date"
                 Type="Integer" ControlToValidate="ddlULIPPrPayDate" Operator="DataTypeCheck"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
-            <asp:CompareValidator ID="cvRange4" runat="server" ErrorMessage="Premium Payment Date has to be less than or equal to 31"
-                Type="Integer" ControlToValidate="ddlULIPPrPayDate" Operator="LessThanEqual"
-                ValueToCompare="31" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+
         </td>
     </tr>
     <tr id="trULIPGracePeriod" runat="server">
