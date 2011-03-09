@@ -52,6 +52,7 @@ namespace WealthERP.Advisor
         public void GetAdviserCustomerForSMS()
         {
             int adviserId = 0;
+            int rmId = 0;
             string namesearch = "";
             List<CustomerVo> customerList=new List<CustomerVo>();
             AdvisorBo adviserBo=new AdvisorBo();
@@ -66,8 +67,11 @@ namespace WealthERP.Advisor
             DataRow dr;
             if (Session["advisorVo"] != null)
                 adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
-            
-            customerList=adviserBo.GetAdviserCustomersForSMS(adviserId,namesearch);
+
+            if (Session["rmVo"] != null)
+                rmId = ((RMVo)Session["rmVo"]).RMId;
+
+            customerList = adviserBo.GetAdviserCustomersForSMS(rmId, namesearch);
             if(customerList!=null)
             {
                 for(int i=0;i<customerList.Count;i++)
