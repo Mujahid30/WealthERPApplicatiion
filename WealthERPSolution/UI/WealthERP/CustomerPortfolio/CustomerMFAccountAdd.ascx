@@ -31,8 +31,8 @@
 
 <script type="text/javascript">
     function checkLoginId2() {
-        
-        $("#hidValidCheck").val("0");
+
+        document.getElementById('<%=hdnStatus.ClientID %>').value = "0";
         
         if ($("#<%=txtFolioNumber.ClientID %>").val() == "") {
             
@@ -52,15 +52,14 @@
             },
             success: function(msg) {
 
-                if (msg.d) {                    
-                    $("#hidValidCheck").val("1");
-                    $("#spnLoginStatus").removeClass();
-                    $("#spnLoginStatus").addClass("success");
-                    $("#spnLoginStatus").html("");
+                if (msg.d) {
+                    document.getElementById('<%=hdnStatus.ClientID %>').value = "1";
+                    $("#spnLoginStatus").html("");                                      
+
                 }
                 else {
 
-                    $("#hidValidCheck").val("0");
+                    document.getElementById('<%=hdnStatus.ClientID %>').value = "0";
                     $("#spnLoginStatus").removeClass();
                     alert("This trade account already Exists");
                     return false;
@@ -69,9 +68,8 @@
 
         });
     }
-    function isValid() {
-
-        if ($("#hidValidCheck").val() == '1') {
+    function isValid() {        
+        if (document.getElementById('<%=hdnStatus.ClientID %>').value == '1') {
             Page_ClientValidate();
             return Page_IsValid;
         }
@@ -363,3 +361,4 @@
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
                         Text="Update" OnClick="btnUpdate_Click" OnClientClick="return isValid()" />
                 </td>
+<asp:HiddenField ID="hdnStatus" runat="server" />
