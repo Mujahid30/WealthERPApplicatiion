@@ -253,7 +253,7 @@
                                                         <asp:Label ID="Label1" runat="server" Text="Do you wish to input? :" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td align="left">
-                                                        <asp:DropDownList ID="ddlChooseTypePV" runat="server" 
+                                                        <asp:DropDownList ID="ddlChooseTypePV" runat="server" Width="38%" 
                                                             CssClass="cmbField" AutoPostBack="True" 
                                                             onselectedindexchanged="ddlChooseTypePV_SelectedIndexChanged">
                                                             <asp:ListItem Value="0" Text="-Select-"></asp:ListItem>
@@ -309,7 +309,7 @@
                                                         <asp:Label ID="lblPaymentFrequency" runat="server" Text="Payment Frequency:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td align="left">
-                                                        <asp:DropDownList ID="ddlPVPaymentFrequency" runat="server" CssClass="cmbField">
+                                                        <asp:DropDownList ID="ddlPVPaymentFrequency" runat="server" Width="38%" CssClass="cmbField">
                                                             <asp:ListItem Text="Daily" Value="DA"></asp:ListItem>
                                                             <asp:ListItem Text="Weekly" Value="WK"></asp:ListItem>
                                                             <asp:ListItem Text="FortNightly" Value="FN"></asp:ListItem>
@@ -392,7 +392,7 @@
                                     <asp:Label ID="Label2" runat="server" Text="Do you wish to input? :" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:DropDownList ID="ddlchooseTypeFV" runat="server" 
+                                    <asp:DropDownList ID="ddlchooseTypeFV" runat="server" Width="38%" 
                                         CssClass="cmbField" AutoPostBack="True" 
                                         onselectedindexchanged="ddlchooseTypeFV_SelectedIndexChanged1">
                                         <asp:ListItem Text="-Select-" Value="0"></asp:ListItem>
@@ -451,7 +451,7 @@
                                     <asp:Label ID="lblFVPaymentFrequency" runat="server" Text="Payment Frequency:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:DropDownList ID="ddlFVPaymentFrequency" runat="server" CssClass="cmbField">
+                                    <asp:DropDownList ID="ddlFVPaymentFrequency" runat="server" Width="38%" CssClass="cmbField">
                                         <asp:ListItem Text="Daily" Value="DA"></asp:ListItem>
                                         <asp:ListItem Text="Weekly" Value="WK"></asp:ListItem>
                                         <asp:ListItem Text="FortNightly" Value="FN"></asp:ListItem>
