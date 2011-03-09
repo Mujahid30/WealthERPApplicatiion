@@ -147,13 +147,6 @@ namespace WealthERP.FP
                     //    }
                     //}
                     //Rebind();
-                    Dictionary<string, object> Databuffer = customerprospectbo.Databuffer(customerId);
-                    DataRetrival(Databuffer);
-                    AdvisorVo advisorvo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-                    if (advisorvo != null)
-                    {
-                        ManagedUnmanagedDetails(customerId, advisorvo.advisorId, 0);
-                    }
                     if (Session[SessionContents.FPS_CustomerPospect_ActionStatus] == null)
                     {
                         Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
@@ -237,6 +230,18 @@ namespace WealthERP.FP
             {
                 throw ex;
 
+            }
+
+            if (!IsPostBack)
+            {
+                customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                AdvisorVo advisorvo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                ManagedUnmanagedDetails(customerId, advisorvo.advisorId, 1);
+
+                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                ParentCustomerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                Dictionary<string, object> Databuffer = customerProspectBo.Databuffer(ParentCustomerId);
+                DataRetrival(Databuffer);
             }
 
         }
