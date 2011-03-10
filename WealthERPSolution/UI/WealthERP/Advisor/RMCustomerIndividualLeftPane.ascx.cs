@@ -879,6 +879,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Register Systematic Schemes")
                 {
+                    Session.Remove("systematicSetupVo");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioSystematicEntry", "loadcontrol('PortfolioSystematicEntry', 'none')", true);
                 }
                 else if (e.Item.Value == "Fixed Income")
