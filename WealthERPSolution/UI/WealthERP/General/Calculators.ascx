@@ -26,35 +26,43 @@
         document.getElementById("<%= txtTenureYears.ClientID %>").value = '';
 
 
-        document.getElementById("<%= RegularExpressionValidator3.ClientID %>").style.visibility = 'hidden';
-        document.getElementById("<%= RegularExpressionValidator8.ClientID %>").style.visibility = 'hidden';
+       
         document.getElementById("<%= RegularExpressionValidator1.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator2.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator21.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator20.ClientID %>").style.visibility = 'hidden';
 
         //PV tab Controls
-        document.getElementById("<%= txtPVFutureValue.ClientID %>").value = '';
-        document.getElementById("<%= txtPVPaymentMade.ClientID %>").value = '';
+       
         document.getElementById("<%= txtPVInterestRate.ClientID %>").value = '';
         document.getElementById("<%= txtPVNoOfPayments.ClientID %>").value = '';
 
-        document.getElementById("<%= RegularExpressionValidator5.ClientID %>").style.visibility = 'hidden';
-        document.getElementById("<%= RegularExpressionValidator4.ClientID %>").style.visibility = 'hidden';
+        
         document.getElementById("<%= RegularExpressionValidator9.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator10.ClientID %>").style.visibility = 'hidden';
 
 
         //FV tab Controls
-        document.getElementById("<%= txtFVFutureValue.ClientID %>").value = '';
-        document.getElementById("<%= txtFVPaymentMade.ClientID %>").value = '';
+        
         document.getElementById("<%= txtFVInterestRate.ClientID %>").value = '';
         document.getElementById("<%= txtFVNoOfPayments.ClientID %>").value = '';
 
-        document.getElementById("<%= RegularExpressionValidator6.ClientID %>").style.visibility = 'hidden';
-        document.getElementById("<%= RegularExpressionValidator7.ClientID %>").style.visibility = 'hidden';
+        
         document.getElementById("<%= RegularExpressionValidator11.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator12.ClientID %>").style.visibility = 'hidden';
+
+        document.getElementById("<%= txtPVFutureValue.ClientID %>").value = '';
+        document.getElementById("<%= RegularExpressionValidator5.ClientID %>").style.visibility = 'hidden';
+        document.getElementById("<%= txtPVPaymentMade.ClientID %>").value = '';
+        document.getElementById("<%= txtFVFutureValue.ClientID %>").value = '';
+        document.getElementById("<%= txtFVPaymentMade.ClientID %>").value = '';
+        
+        document.getElementById("<%= RegularExpressionValidator4.ClientID %>").style.visibility = 'hidden';
+        document.getElementById("<%= RegularExpressionValidator6.ClientID %>").style.visibility = 'hidden';
+        document.getElementById("<%= RegularExpressionValidator7.ClientID %>").style.visibility = 'hidden';
+       
+        
+        
 
 
         document.getElementById("<%= hidTabIndex.ClientID %>").value = sender.get_activeTab()._tabIndex;

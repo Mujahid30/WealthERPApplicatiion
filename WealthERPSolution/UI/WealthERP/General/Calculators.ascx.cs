@@ -109,10 +109,10 @@ namespace WealthERP.General
                     pvFutureValue = -pvFutureValue;
                 int.TryParse(rblPVType.SelectedItem.Value.ToString(), out pvType);
                 frequencyCode = ddlPVPaymentFrequency.SelectedItem.Value.ToString();
-                if (ddlchooseTypeFV.SelectedValue == "2")
+                if (ddlChooseTypePV.SelectedValue == "2")
                 {
                     frequencyCode = "";
-                    interestRatePerPeriod = 0;
+                    interestRatePerPeriod = pvInterestRate;
                 }
                 else
                 {
@@ -201,8 +201,8 @@ namespace WealthERP.General
                 if (ddlchooseTypeFV.SelectedValue == "2")
                 {
                     frequencyCode = "";
-                    interestRatePerPeriod = 0;
 
+                    interestRatePerPeriod = fvInterestRate ;
                 }
                 else
                 {
