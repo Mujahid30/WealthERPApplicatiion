@@ -13,12 +13,14 @@ namespace WealthERP.General
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
+
+
         }
 
         protected void btnCalculateEMI_Click(object sender, EventArgs e)
         {
-             if (txtLoanAmount.Text == "")
+            if (txtLoanAmount.Text == "")
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
             else if (txtTenureYears.Text == "")
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
@@ -72,7 +74,7 @@ namespace WealthERP.General
                 }
             }
 
-            
+
         }
         protected void btnCalculatePV_Click(object sender, EventArgs e)
         {
@@ -102,44 +104,52 @@ namespace WealthERP.General
                 {
                     pvPayment = -pvPayment;
                 }
-                 double.TryParse(txtPVFutureValue.Text, out pvFutureValue);
+                double.TryParse(txtPVFutureValue.Text, out pvFutureValue);
                 if (pvFutureValue > 0)
                     pvFutureValue = -pvFutureValue;
                 int.TryParse(rblPVType.SelectedItem.Value.ToString(), out pvType);
                 frequencyCode = ddlPVPaymentFrequency.SelectedItem.Value.ToString();
-                switch (frequencyCode)
+                if (ddlchooseTypeFV.SelectedValue == "2")
                 {
-                    case "AM":
-                        break;
-                    case "DA":
-                        interestRatePerPeriod = pvInterestRate / 365;
-                        break;
-                    case "FN":
-                        interestRatePerPeriod = pvInterestRate / 24;
-                        break;
-                    case "HY":
-                        interestRatePerPeriod = pvInterestRate / 2; ;
-                        break;
-                    case "MN":
-                        interestRatePerPeriod = pvInterestRate / 12; ;
-
-                        break;
-                    case "NA":
-
-                        break;
-                    case "QT":
-                        interestRatePerPeriod = pvInterestRate / 4;
-                        break;
-                    case "WK":
-                        interestRatePerPeriod = pvInterestRate / 52;
-                        break;
-                    case "YR":
-                        interestRatePerPeriod = pvInterestRate;
-
-                        break;
+                    frequencyCode = "";
+                    interestRatePerPeriod = 0;
                 }
-                //type=ddlChooseType.SelectedItem.Value.ToString();
+                else
+                {
 
+                    switch (frequencyCode)
+                    {
+                        case "AM":
+                            break;
+                        case "DA":
+                            interestRatePerPeriod = pvInterestRate / 365;
+                            break;
+                        case "FN":
+                            interestRatePerPeriod = pvInterestRate / 24;
+                            break;
+                        case "HY":
+                            interestRatePerPeriod = pvInterestRate / 2; ;
+                            break;
+                        case "MN":
+                            interestRatePerPeriod = pvInterestRate / 12; ;
+
+                            break;
+                        case "NA":
+
+                            break;
+                        case "QT":
+                            interestRatePerPeriod = pvInterestRate / 4;
+                            break;
+                        case "WK":
+                            interestRatePerPeriod = pvInterestRate / 52;
+                            break;
+                        case "YR":
+                            interestRatePerPeriod = pvInterestRate;
+
+                            break;
+                    }
+                    //type=ddlChooseType.SelectedItem.Value.ToString();
+                }
                 //switch (type)
                 //{
                 //    case "PI" :
@@ -188,36 +198,45 @@ namespace WealthERP.General
                 string frequencyCode = "";
                 double interestRatePerPeriod = 0;
                 frequencyCode = ddlFVPaymentFrequency.SelectedItem.Value.ToString();
-                switch (frequencyCode)
+                if (ddlchooseTypeFV.SelectedValue == "2")
                 {
-                    case "AM":
-                        break;
-                    case "DA":
-                        interestRatePerPeriod = fvInterestRate / 365;
-                        break;
-                    case "FN":
-                        interestRatePerPeriod = fvInterestRate / 24;
-                        break;
-                    case "HY":
-                        interestRatePerPeriod = fvInterestRate / 2; ;
-                        break;
-                    case "MN":
-                        interestRatePerPeriod = fvInterestRate / 12; ;
+                    frequencyCode = "";
+                    interestRatePerPeriod = 0;
 
-                        break;
-                    case "NA":
+                }
+                else
+                {
+                    switch (frequencyCode)
+                    {
+                        case "AM":
+                            break;
+                        case "DA":
+                            interestRatePerPeriod = fvInterestRate / 365;
+                            break;
+                        case "FN":
+                            interestRatePerPeriod = fvInterestRate / 24;
+                            break;
+                        case "HY":
+                            interestRatePerPeriod = fvInterestRate / 2; ;
+                            break;
+                        case "MN":
+                            interestRatePerPeriod = fvInterestRate / 12; ;
 
-                        break;
-                    case "QT":
-                        interestRatePerPeriod = fvInterestRate / 4;
-                        break;
-                    case "WK":
-                        interestRatePerPeriod = fvInterestRate / 52;
-                        break;
-                    case "YR":
-                        interestRatePerPeriod = fvInterestRate;
+                            break;
+                        case "NA":
 
-                        break;
+                            break;
+                        case "QT":
+                            interestRatePerPeriod = fvInterestRate / 4;
+                            break;
+                        case "WK":
+                            interestRatePerPeriod = fvInterestRate / 52;
+                            break;
+                        case "YR":
+                            interestRatePerPeriod = fvInterestRate;
+
+                            break;
+                    }
                 }
                 futureValue = calculator.FutureValue(interestRatePerPeriod, fvNoOfInstallments, fvPayment, fvPresentValue, fvType);
                 trFVResult.Visible = true;
@@ -232,6 +251,8 @@ namespace WealthERP.General
         {
             if (ddlChooseTypePV.SelectedValue == "0" || ddlChooseTypePV.SelectedValue == "3")
             {
+                lblInstallmentFrequency.Visible = true;
+                trPvFr.Visible = true;
                 lblPVFutureValue.Visible = true;
                 txtPVFutureValue.Visible = true;
                 lblPVPaymentMade.Visible = true;
@@ -240,11 +261,13 @@ namespace WealthERP.General
                 txtPVFutureValue.Text = null;
                 trPVPaymentMade.Visible = true;
                 trFutureValue.Visible = true;
-               // select.Text = "Select DropDown";
+                // select.Text = "Select DropDown";
             }
 
             if (ddlChooseTypePV.SelectedValue == "1")
             {
+                lblInstallmentFrequency.Visible = true;
+                trPvFr.Visible = true;
                 lblPVPaymentMade.Visible = true;
                 txtPVPaymentMade.Visible = true;
                 txtPVFutureValue.Text = null;
@@ -255,6 +278,10 @@ namespace WealthERP.General
             }
             if (ddlChooseTypePV.SelectedValue == "2")
             {
+
+                lblInstallmentFrequency.Visible = false;
+                trPvFr.Visible = false;
+
                 lblPVFutureValue.Visible = true;
                 txtPVFutureValue.Visible = true;
                 txtPVPaymentMade.Text = null;
@@ -264,13 +291,15 @@ namespace WealthERP.General
                 trPVPaymentMade.Visible = false;
 
             }
-          
+
 
         }
         protected void ddlchooseTypeFV_SelectedIndexChanged1(object sender, EventArgs e)
         {
-         if (ddlchooseTypeFV.SelectedValue == "0" || ddlchooseTypeFV.SelectedValue == "3")
+            if (ddlchooseTypeFV.SelectedValue == "0" || ddlchooseTypeFV.SelectedValue == "3")
             {
+                lblFVPaymentFrequency.Visible = true;
+                trFvFr.Visible = true;
                 lblFVPresentValue.Visible = true;
                 txtFVFutureValue.Visible = true;
                 lblFVPaymentMade.Visible = true;
@@ -280,8 +309,10 @@ namespace WealthERP.General
                 trFvPaymentMade.Visible = true;
                 trFVPresentValue.Visible = true;
             }
-         if (ddlchooseTypeFV.SelectedValue == "1")
+            if (ddlchooseTypeFV.SelectedValue == "1")
             {
+                lblFVPaymentFrequency.Visible = true;
+                trFvFr.Visible = true;
                 lblFVPaymentMade.Visible = true;
                 txtFVPaymentMade.Visible = true;
                 txtPVFutureValue.Text = null;
@@ -292,6 +323,8 @@ namespace WealthERP.General
             }
             if (ddlchooseTypeFV.SelectedValue == "2")
             {
+                lblFVPaymentFrequency.Visible = false;
+                trFvFr.Visible = false;
                 lblFVPaymentMade.Visible = false;
                 txtFVPaymentMade.Visible = false;
                 txtPVFutureValue.Text = null;

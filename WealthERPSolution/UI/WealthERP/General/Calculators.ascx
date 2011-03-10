@@ -22,11 +22,16 @@
         document.getElementById("<%= txtInterest.ClientID %>").value = '';
         document.getElementById("<%= txtStartDate.ClientID %>").value = '';
         document.getElementById("<%= txtEndDate.ClientID %>").value = '';
+        document.getElementById("<%= txtTenureMonths.ClientID %>").value = '';
+        document.getElementById("<%= txtTenureYears.ClientID %>").value = '';
+
 
         document.getElementById("<%= RegularExpressionValidator3.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator8.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator1.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator2.ClientID %>").style.visibility = 'hidden';
+        document.getElementById("<%= RegularExpressionValidator21.ClientID %>").style.visibility = 'hidden';
+        document.getElementById("<%= RegularExpressionValidator20.ClientID %>").style.visibility = 'hidden';
 
         //PV tab Controls
         document.getElementById("<%= txtPVFutureValue.ClientID %>").value = '';
@@ -50,8 +55,7 @@
         document.getElementById("<%= RegularExpressionValidator7.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator11.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator12.ClientID %>").style.visibility = 'hidden';
-        document.getElementById("<%= RegularExpressionValidator13.ClientID %>").style.visibility = 'hidden';
-        document.getElementById("<%= RegularExpressionValidator14.ClientID %>").style.visibility = 'hidden';
+
 
         document.getElementById("<%= hidTabIndex.ClientID %>").value = sender.get_activeTab()._tabIndex;
         //uncheckallCehckBoxes();
@@ -67,83 +71,79 @@
         $('.ScreenTip1').bubbletip($('#div1'), { deltaDirection: 'right' })
     });
 </script>--%>
+
 <table width="100%">
     <tr>
         <td>
-            <cc1:TabContainer ID="tabCalculators" runat="server" Width="100%" Style="visibility: visible"
-                OnClientActiveTabChanged="OnChanged" ActiveTabIndex="0">
-                <cc1:TabPanel ID="tabpnlEMICalculator" runat="server" HeaderText="EMI Calculator"
-                    Width="100%">
+            <cc1:TabContainer ID="tabCalculators" runat="server" Width="100%" Style=" visibility: visible"
+                OnClientActiveTabChanged="OnChanged" ActiveTabIndex="0" >
+                <cc1:TabPanel ID="tabpnlEMICalculator" runat="server" TabIndex="0" HeaderText="EMI Calculator"
+                     Width="100%">
                     <HeaderTemplate>
                         EMI (Loan) Calculators
-                    </HeaderTemplate>
+                     </HeaderTemplate>
                     <ContentTemplate>
                         <table>
                             <tr>
                                 <td align="right">
-                                    <asp:Label ID="lblmandatory" runat="server" Text="All Fields are mandatory :-" CssClass="FieldName"
-                                        ForeColor="red"></asp:Label>
-                                </td>
-                                <td style="width:80px">&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td>
+                                    <asp:Label ID="lblmandatory" runat="server" Text="All Fields are mandatory :-" 
+                                        CssClass="FieldName" ForeColor="red"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="style1">
+                                <td align="right">
                                     <asp:Label ID="lblLOanAmount" runat="server" Text="Loan Amount:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtLoanAmount" runat="server" CssClass="Field"></asp:TextBox>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="FieldName"
-                                        ControlToValidate="txtLoanAmount" ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*" Display="Dynamic"></asp:RegularExpressionValidator>
-                                </td>
-                                <td>
+                                    <asp:TextBox ID="txtLoanAmount" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="FieldName" ControlToValidate="txtLoanAmount"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="right" class="style1">
                                     <asp:Label ID="lblTenure" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>
                                 </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtTenureYears" runat="server" ValidationGroup="grpTenure" CssClass="Field"></asp:TextBox>
+                                <td align="left" class="style1">
+                                    <asp:TextBox ID="txtTenureYears" runat="server" Width="120px"  CssClass="Field"></asp:TextBox>
                                     <cc1:TextBoxWatermarkExtender ID="txtTenureYears_TextBoxWatermarkExtender" runat="server"
                                         TargetControlID="txtTenureYears" WatermarkText="Years" Enabled="True">
                                     </cc1:TextBoxWatermarkExtender>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator13" ValidationGroup="grpTenure"
-                                        runat="server" CssClass="FieldName" ControlToValidate="txtTenureYears" ErrorMessage="<br />Please Enter Numeric Value"
-                                        ValidationExpression="\d+\.?\d*" Display="Dynamic"></asp:RegularExpressionValidator>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtTenureMonths" runat="server" ValidationGroup="grpTenure" CssClass="Field"></asp:TextBox>
+                                    <asp:TextBox ID="txtTenureMonths" Width="120px"  runat="server" CssClass="Field"></asp:TextBox>
+                                    
+                                    
                                     <cc1:TextBoxWatermarkExtender ID="txtTenureMonths_TextBoxWatermarkExtender" runat="server"
                                         TargetControlID="txtTenureMonths" WatermarkText="Months" Enabled="True">
                                     </cc1:TextBoxWatermarkExtender>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ValidationGroup="grpTenure"
-                                        runat="server" CssClass="FieldName" ControlToValidate="txtTenureMonths" ErrorMessage="<br />Please Enter Numeric Value"
-                                        ValidationExpression="\d+\.?\d*" Display="Dynamic"></asp:RegularExpressionValidator>
-                                </td>
+                                    
+                                
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidator21" runat="server" CssClass="FieldName" ControlToValidate="txtTenureYears"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                               <asp:RegularExpressionValidator ID="RegularExpressionValidator20" runat="server" CssClass="FieldName" ControlToValidate="txtTenureMonths"
+                                        ErrorMessage="" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                
+                               
+                           </td>
                             </tr>
                             <tr>
                                 <td align="right">
                                     <asp:Label ID="lblInterestRate" runat="server" Text="Interest Rate(%) p.a:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtInterest" runat="server" CssClass="Field"></asp:TextBox>
+                                    <asp:TextBox ID="txtInterest" runat="server" Width="120px"  CssClass="Field"></asp:TextBox>
                                     <%--<span id="Span2" class="spnRequiredField">*</span>--%>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" runat="server" CssClass="FieldName"
-                                        ControlToValidate="txtInterest" ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*" Display="Dynamic"></asp:RegularExpressionValidator>
-                                </td>
-                                <td>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" runat="server" CssClass="FieldName" ControlToValidate="txtInterest"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                        
                                 </td>
                             </tr>
                             <tr>
                                 <td align="right">
                                     <asp:Label ID="lblInstallmentFrequency" runat="server" Text="Installment Frequency:"
-                                        CssClass="FieldName"></asp:Label>
+                                        CssClass="FieldName" ></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:DropDownList ID="ddlFrequency" runat="server" Width="43%" CssClass="cmbField">
+                                    <asp:DropDownList ID="ddlFrequency" runat="server" Width="125px" CssClass="cmbField">
                                         <asp:ListItem Text="Daily" Value="DA"></asp:ListItem>
                                         <asp:ListItem Text="Weekly" Value="WK"></asp:ListItem>
                                         <asp:ListItem Text="FortNightly" Value="FN"></asp:ListItem>
@@ -153,17 +153,15 @@
                                         <asp:ListItem Text="Yearly" Value="YR"></asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
-                                <td>
-                                </td>
                             </tr>
-                            <tr>
+                           <tr>
                                 <td align="right">
                                     <asp:Label ID="lblStartDate" runat="server" Text="Installment Start Date:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtStartDate" runat="server" CssClass="Field"></asp:TextBox>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="FieldName"
-                                        ErrorMessage="Invalid Date" ControlToValidate="txtStartDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$" Display="Dynamic"></asp:RegularExpressionValidator>
+                                    <asp:TextBox ID="txtStartDate" runat="server" Width="120px"  CssClass="Field"></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="FieldName" ErrorMessage="Invalid Date"
+                                        ControlToValidate="txtStartDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
                                     <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtStartDate"
                                         Format="dd/MM/yyyy" Enabled="True">
                                     </cc1:CalendarExtender>
@@ -171,17 +169,15 @@
                                         TargetControlID="txtStartDate" WatermarkText="dd/mm/yyyy" Enabled="True">
                                     </cc1:TextBoxWatermarkExtender>
                                 </td>
-                                <td>
-                                </td>
                             </tr>
                             <tr>
                                 <td align="right">
                                     <asp:Label ID="lblEndDate" runat="server" Text="Installment End Date:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtEndDate" runat="server" CssClass="Field"></asp:TextBox>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="FieldName"
-                                        ErrorMessage="Invalid Date" ControlToValidate="txtEndDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$" Display="Dynamic"></asp:RegularExpressionValidator>
+                                    <asp:TextBox ID="txtEndDate" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="FieldName" ErrorMessage="Invalid Date"
+                                        ControlToValidate="txtEndDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
                                     <cc1:CalendarExtender ID="txtEndDate_CalendarExtender" runat="server" TargetControlID="txtEndDate"
                                         Format="dd/MM/yyyy" Enabled="True">
                                     </cc1:CalendarExtender>
@@ -189,23 +185,24 @@
                                         TargetControlID="txtEndDate" WatermarkText="dd/mm/yyyy" Enabled="True">
                                     </cc1:TextBoxWatermarkExtender>
                                 </td>
-                                <%--  <td>
+                              <%--  <td>
                                     <asp:Label ID="output" runat="server" CssClass="Field"></asp:Label>
                                 </td>--%>
-                                <td>
-                                </td>
+                              
+                            
                             </tr>
                         </table>
+                        
                         <table width="100%">
-                            <tr>
-                                <td colspan="2">
-                                    <asp:Button ID="btnCalculateEMI" runat="server" CssClass="PCGButton" OnClick="btnCalculateEMI_Click"
-                                        Text="Calculate" />
-                                </td>
-                                <td align="left">
-                                    &nbsp;
-                                </td>
-                            </tr>
+                              <tr>
+                                    <td colspan="2">
+                                        <asp:Button ID="btnCalculateEMI" runat="server" CssClass="PCGButton" OnClick="btnCalculateEMI_Click"
+                                            Text="Calculate" />
+                                    </td>
+                                    <td align="left">
+                                        &nbsp;
+                                    </td>
+                                </tr>
                         </table>
                         <table id="tblResult" runat="server" visible="False">
                             <tr id="Tr1" runat="server">
@@ -287,8 +284,7 @@
                         </table>
                     </ContentTemplate>
                 </cc1:TabPanel>
-                <cc1:TabPanel ID="tabpnlPV" runat="server" HeaderText="Present Value Calculator"
-                    Width="100%">
+                <cc1:TabPanel ID="tabpnlPV" runat="server" TabIndex="1" HeaderText="Present Value Calculator" Width="100%">
                     <HeaderTemplate>
                         Present Value Calculator</HeaderTemplate>
                     <ContentTemplate>
@@ -298,23 +294,24 @@
                                     <asp:UpdatePanel runat="server" ID="uplPresentValue" UpdateMode="Conditional">
                                         <ContentTemplate>
                                             <table>
-                                                <tr>
-                                                    <td align="left">
-                                                        <asp:Label ID="Label3" runat="server" Text="All Fields are mandatory :-" CssClass="FieldName"
-                                                            ForeColor="red"></asp:Label>
-                                                    </td>
-                                                </tr>
+                                            <tr>
+                                <td align="left">
+                                    <asp:Label ID="Label3" runat="server" Text="All Fields are mandatory :-" 
+                                        CssClass="FieldName" ForeColor="red"></asp:Label>
+                                </td>
+                            </tr>
                                                 <tr>
                                                     <td align="right">
                                                         <asp:Label ID="Label1" runat="server" Text="Do you wish to input? :" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td align="left">
-                                                        <asp:DropDownList ID="ddlChooseTypePV" runat="server" Width="43%" CssClass="cmbField"
-                                                            AutoPostBack="True" OnSelectedIndexChanged="ddlChooseTypePV_SelectedIndexChanged">
+                                                        <asp:DropDownList ID="ddlChooseTypePV" runat="server" Width="125px" 
+                                                            CssClass="cmbField" AutoPostBack="True" 
+                                                            onselectedindexchanged="ddlChooseTypePV_SelectedIndexChanged">
                                                             <asp:ListItem Value="0" Text="-Select-"></asp:ListItem>
-                                                            <asp:ListItem Value="1" Text="Payment Installment"></asp:ListItem>
-                                                            <asp:ListItem Value="2" Text="Future Value"></asp:ListItem>
-                                                            <asp:ListItem Value="3" Text="Both"></asp:ListItem>
+                                                            <asp:ListItem Value="1" Text="Payment Installment" ></asp:ListItem>
+                                                            <asp:ListItem Value="2" Text="Future Value" ></asp:ListItem>
+                                                            <asp:ListItem Value="3" Text="Both" ></asp:ListItem>
                                                         </asp:DropDownList>
                                                         <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="FieldName" ControlToValidate="ddlChooseTypePV" ErrorMessage="Please Select The DropDown" InitialValue="0"></asp:RequiredFieldValidator>--%>
                                                     </td>
@@ -324,10 +321,9 @@
                                                         <asp:Label ID="lblPVFutureValue" runat="server" Text="Future Value:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td align="left">
-                                                        <asp:TextBox ID="txtPVFutureValue" runat="server" CssClass="Field"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" CssClass="FieldName"
-                                                            ControlToValidate="txtPVFutureValue" ErrorMessage="Please Enter Numeric Value"
-                                                            ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                                        <asp:TextBox ID="txtPVFutureValue" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                                       <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" CssClass="FieldName" ControlToValidate="txtPVFutureValue"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                                                         <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ControlToValidate="txtPVFutureValue"
                                                             ErrorMessage="Invalid Amount" ValidationExpression="(\$)?(\d)+\,?(\d)+"></asp:RegularExpressionValidator>--%>
                                                     </td>
@@ -338,34 +334,34 @@
                                                             CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td align="left">
-                                                        <asp:TextBox ID="txtPVPaymentMade" runat="server" CssClass="Field"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" CssClass="FieldName"
-                                                            ControlToValidate="txtPVPaymentMade" ErrorMessage="Please Enter Numeric Value"
-                                                            ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
-                                                        <%-- <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="txtPVPaymentMade"
+                                                        <asp:TextBox ID="txtPVPaymentMade" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                                                                                              <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" CssClass="FieldName" ControlToValidate="txtPVPaymentMade"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+
+                                                       <%-- <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="txtPVPaymentMade"
                                                             ErrorMessage="Invalid Amount" ValidationExpression="(\$)?(\d)+\,?(\d)+"></asp:RegularExpressionValidator>--%>
                                                     </td>
                                                 </tr>
+                                                
                                                 <tr>
                                                     <td align="right">
                                                         <asp:Label ID="lblPVInterestRate" runat="server" Text="Interest Rate(%) p.a:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td align="left">
-                                                        <asp:TextBox ID="txtPVInterestRate" runat="server" CssClass="Field"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" CssClass="FieldName"
-                                                            ControlToValidate="txtPVInterestRate" ErrorMessage="Please Enter Numeric Value"
-                                                            ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                                        <asp:TextBox ID="txtPVInterestRate" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                                      <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" CssClass="FieldName" ControlToValidate="txtPVInterestRate"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator> 
                                                         <%--<asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="txtPVInterestRate"
                                                             Display="Dynamic" ErrorMessage="Invalid!" MaximumValue="99.99" MinimumValue="0.0"
                                                             Type="Double"></asp:RangeValidator>--%>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr runat="server" id="trPvFr">
                                                     <td align="right">
                                                         <asp:Label ID="lblPaymentFrequency" runat="server" Text="Payment Frequency:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td align="left">
-                                                        <asp:DropDownList ID="ddlPVPaymentFrequency" runat="server" Width="43%" CssClass="cmbField">
+                                                        <asp:DropDownList ID="ddlPVPaymentFrequency" runat="server" Width="125px" CssClass="cmbField">
                                                             <asp:ListItem Text="Daily" Value="DA"></asp:ListItem>
                                                             <asp:ListItem Text="Weekly" Value="WK"></asp:ListItem>
                                                             <asp:ListItem Text="FortNightly" Value="FN"></asp:ListItem>
@@ -378,14 +374,13 @@
                                                 </tr>
                                                 <tr>
                                                     <td align="right">
-                                                        <asp:Label ID="lblPVNoOfPayments" runat="server" Text="Total No. of Installments (no.of Periods):"
+                                                        <asp:Label ID="lblPVNoOfPayments" runat="server" Text="No. Of Periods(In Years):"
                                                             CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td align="left">
-                                                        <asp:TextBox ID="txtPVNoOfPayments" runat="server" CssClass="Field" ToolTip="Input the No. of Years * Payment frequency (eg: Payment frequency is depend on what you have selected in DropDownList i.e. Daily(365),Weekly(52),Half Yearly(2),yearly(1)..etc)"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server"
-                                                            CssClass="FieldName" ControlToValidate="txtPVNoOfPayments" ErrorMessage="Please Enter Numeric Value"
-                                                            ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                                        <asp:TextBox ID="txtPVNoOfPayments" runat="server" Width="120px" CssClass="Field" ToolTip="Input the No. of Years * Payment frequency (eg: Payment frequency is depend on what you have selected in DropDownList i.e. Daily(365),Weekly(52),Half Yearly(2),yearly(1)..etc)"></asp:TextBox>
+                                                      <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" CssClass="FieldName" ControlToValidate="txtPVNoOfPayments"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                                                         <%--<asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="txtPVNoOfPayments"
                                                             Display="Dynamic" ErrorMessage="Invalid!" MaximumValue="99.99" MinimumValue="0.0"
                                                             Type="Double"></asp:RangeValidator>--%>
@@ -402,9 +397,10 @@
                                                         </asp:RadioButtonList>
                                                     </td>
                                                 </tr>
+                                                
                                             </table>
                                             <table width="100%">
-                                                <tr>
+                                            <tr>
                                                     <td colspan="2">
                                                         <asp:Button ID="btnCalculatePV" runat="server" CssClass="PCGButton" OnClick="btnCalculatePV_Click"
                                                             Text="Calculate" />
@@ -426,146 +422,148 @@
                         </table>
                     </ContentTemplate>
                 </cc1:TabPanel>
-                <cc1:TabPanel ID="tabpnlFV" runat="server" HeaderText="Future Value Calculator" Width="100%">
+                <cc1:TabPanel ID="tabpnlFV" runat="server" TabIndex="2" HeaderText="Future Value Calculator" Width="100%">
                     <HeaderTemplate>
                         Future Value Calculator</HeaderTemplate>
                     <ContentTemplate>
-                        <table>
-                            <tr>
-                                <td>
-                                    <asp:UpdatePanel runat="server" ID="UpdatePanel1" UpdateMode="Conditional">
-                                        <ContentTemplate>
-                                            <table>
-                                                <tr>
-                                                    <td align="left">
-                                                        <asp:Label ID="Label4" runat="server" Text="All Fields are mandatory :-" CssClass="FieldName"
-                                                            ForeColor="red"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="right">
-                                                        <asp:Label ID="Label2" runat="server" Text="Do you wish to input? :" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td align="left">
-                                                        <asp:DropDownList ID="ddlchooseTypeFV" runat="server" Width="43%" CssClass="cmbField"
-                                                            AutoPostBack="True" OnSelectedIndexChanged="ddlchooseTypeFV_SelectedIndexChanged1">
-                                                            <asp:ListItem Text="-Select-" Value="0"></asp:ListItem>
-                                                            <asp:ListItem Text="Payment Installment" Value="1"></asp:ListItem>
-                                                            <asp:ListItem Text="Present Value" Value="2"></asp:ListItem>
-                                                            <asp:ListItem Text="Both" Value="3"></asp:ListItem>
-                                                        </asp:DropDownList>
-                                                        <%--<asp:RequiredFieldValidator ID="reqddlcnt" runat="server" CssClass="FieldName" ControlToValidate="ddlchooseTypeFV" ErrorMessage="Please Select The DropDown" InitialValue="0"></asp:RequiredFieldValidator>--%>
-                                                    </td>
-                                                    <td align="left">
-                                                        <%--<asp:Label ID="select" runat="server" Text="" CssClass="FieldName" ForeColor="red"></asp:Label>--%>
-                                                    </td>
-                                                </tr>
-                                                <tr runat="server" id="trFVPresentValue">
-                                                    <td align="right">
-                                                        <asp:Label ID="lblFVPresentValue" runat="server" Text="Present Value:" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td align="left">
-                                                        <asp:TextBox ID="txtFVFutureValue" runat="server" CssClass="Field"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" CssClass="FieldName"
-                                                            ControlToValidate="txtFVFutureValue" ErrorMessage="Please Enter Numeric Value"
-                                                            ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
-                                                        <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ControlToValidate="txtFVFutureValue"
-                                        ErrorMessage="Invalid Amount" ValidationExpression="(\$)?(\d)+\,?(\d)+"></asp:RegularExpressionValidator>--%>
-                                                    </td>
-                                                </tr>
-                                                <tr runat="server" id="trFvPaymentMade">
-                                                    <td align="right">
-                                                        <asp:Label ID="lblFVPaymentMade" runat="server" Text="Payment Installment (Loan Installment):"
-                                                            CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td align="left">
-                                                        <asp:TextBox ID="txtFVPaymentMade" runat="server" CssClass="Field"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" CssClass="FieldName"
-                                                            ControlToValidate="txtFVPaymentMade" ErrorMessage="Please Enter Numeric Value"
-                                                            ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
-                                                        <%--<asp:RegularExpressionValidator
-                                        ID="RegularExpressionValidator7" runat="server" ControlToValidate="txtFVPaymentMade"
-                                        ErrorMessage="Invalid Amount" ValidationExpression="(\$)?(\d)+\,?(\d)+"></asp:RegularExpressionValidator>--%>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="right">
-                                                        <asp:Label ID="lblFVInterestRate" runat="server" Text="Interest Rate(%) p.a:" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td align="left">
-                                                        <asp:TextBox ID="txtFVInterestRate" runat="server" CssClass="Field"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server"
-                                                            CssClass="FieldName" ControlToValidate="txtFVInterestRate" ErrorMessage="Please Enter Numeric Value"
-                                                            ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
-                                                        <%-- <asp:RangeValidator
-                                        ID="RangeValidator5" runat="server" ControlToValidate="txtFVInterestRate" Display="Dynamic"
-                                        ErrorMessage="Invalid!" MaximumValue="99.99" MinimumValue="0.0" Type="Double"></asp:RangeValidator>--%>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="right">
-                                                        <asp:Label ID="lblFVPaymentFrequency" runat="server" Text="Payment Frequency:" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td align="left">
-                                                        <asp:DropDownList ID="ddlFVPaymentFrequency" runat="server" Width="43%" CssClass="cmbField">
-                                                            <asp:ListItem Text="Daily" Value="DA"></asp:ListItem>
-                                                            <asp:ListItem Text="Weekly" Value="WK"></asp:ListItem>
-                                                            <asp:ListItem Text="FortNightly" Value="FN"></asp:ListItem>
-                                                            <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
-                                                            <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>
-                                                            <asp:ListItem Text="Half Yearly" Value="HY"></asp:ListItem>
-                                                            <asp:ListItem Text="Yearly" Value="YR"></asp:ListItem>
-                                                        </asp:DropDownList>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="right">
-                                                        <asp:Label ID="lblFVNoOfPayments" runat="server" Text="Total No. of Installments (no.of Periods):"
-                                                            CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td align="left">
-                                                        <asp:TextBox ID="txtFVNoOfPayments" runat="server" CssClass="Field" ToolTip="Input the No. of Years * Payment frequency (eg: Payment frequency is depend on what you have selected in DropDownList i.e. Daily(365),Weekly(52),Half Yearly(2),yearly(1)..etc)"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server"
-                                                            CssClass="FieldName" ControlToValidate="txtFVNoOfPayments" ErrorMessage="Please Enter Numeric Value"
-                                                            ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
-                                                        <%--<asp:RangeValidator ID="RangeValidator7" runat="server" ControlToValidate="txtFVNoOfPayments"
-                                                            Display="Dynamic" ErrorMessage="Invalid!" MaximumValue="99.99" MinimumValue="0.0"
-                                                            Type="Double"></asp:RangeValidator>--%>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="right">
-                                                        <asp:Label ID="txtFVType" runat="server" Text="Payments Are Due at:" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td align="left">
-                                                        <asp:RadioButtonList ID="rblFVType" runat="server" CssClass="Field" RepeatDirection="Horizontal">
-                                                            <asp:ListItem Text="the end of the period" Value="0" Selected="True"></asp:ListItem>
-                                                            <asp:ListItem Text="the beginning of the period" Value="1"></asp:ListItem>
-                                                        </asp:RadioButtonList>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <table width="100%">
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <asp:Button ID="btnCalculateFV" runat="server" CssClass="PCGButton" OnClick="btnCalculateFV_Click"
-                                                            Text="Calculate" />
-                                                    </td>
-                                                </tr>
-                                                <tr id="trFVResult" runat="server" visible="False">
-                                                    <td id="Td6" runat="server" align="right">
-                                                        <asp:Label ID="lblFV" runat="server" CssClass="FieldName" Text="Future Value:"></asp:Label>
-                                                    </td>
-                                                    <td id="Td7" runat="server" align="left">
-                                                        <asp:Label ID="lblFVValue" runat="server" CssClass="Field"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                    <table>
+                    <tr>
+                    <td>
+                     <asp:UpdatePanel runat="server" ID="UpdatePanel1" UpdateMode="Conditional">
+                     <ContentTemplate>
+                     
+                    <table>
+                    <tr>
+                                <td align="left">
+                                    <asp:Label ID="Label4" runat="server" Text="All Fields are mandatory :-" 
+                                        CssClass="FieldName" ForeColor="red"></asp:Label>
                                 </td>
                             </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="Label2" runat="server" Text="Do you wish to input? :" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:DropDownList ID="ddlchooseTypeFV" runat="server" Width="125px" 
+                                        CssClass="cmbField" AutoPostBack="True" 
+                                        onselectedindexchanged="ddlchooseTypeFV_SelectedIndexChanged1">
+                                        <asp:ListItem Text="-Select-" Value="0"></asp:ListItem>
+                                        <asp:ListItem Text="Payment Installment" Value="1"></asp:ListItem>
+                                        <asp:ListItem Text="Present Value" Value="2"></asp:ListItem>
+                                        <asp:ListItem Text="Both" Value="3"></asp:ListItem>
+                                    </asp:DropDownList>
+                                    <%--<asp:RequiredFieldValidator ID="reqddlcnt" runat="server" CssClass="FieldName" ControlToValidate="ddlchooseTypeFV" ErrorMessage="Please Select The DropDown" InitialValue="0"></asp:RequiredFieldValidator>--%>
+                                </td>
+                                <td align="left">
+                                <%--<asp:Label ID="select" runat="server" Text="" CssClass="FieldName" ForeColor="red"></asp:Label>--%>
+                                </td>
+                                
+                            </tr>
+                            <tr runat="server" id="trFVPresentValue">
+                                <td align="right">
+                                    <asp:Label ID="lblFVPresentValue" runat="server" Text="Present Value:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtFVFutureValue" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" CssClass="FieldName" ControlToValidate="txtFVFutureValue"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                    <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ControlToValidate="txtFVFutureValue"
+                                        ErrorMessage="Invalid Amount" ValidationExpression="(\$)?(\d)+\,?(\d)+"></asp:RegularExpressionValidator>--%>
+                                </td>
+                            </tr>
+                            <tr runat="server" id="trFvPaymentMade">
+                                <td align="right">
+                                    <asp:Label ID="lblFVPaymentMade" runat="server" Text="Payment Installment (Loan Installment):"
+                                        CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtFVPaymentMade" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                   <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" CssClass="FieldName" ControlToValidate="txtFVPaymentMade"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                    <%--<asp:RegularExpressionValidator
+                                        ID="RegularExpressionValidator7" runat="server" ControlToValidate="txtFVPaymentMade"
+                                        ErrorMessage="Invalid Amount" ValidationExpression="(\$)?(\d)+\,?(\d)+"></asp:RegularExpressionValidator>--%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="lblFVInterestRate" runat="server" Text="Interest Rate(%) p.a:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtFVInterestRate" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                  <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server" CssClass="FieldName" ControlToValidate="txtFVInterestRate"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                   <%-- <asp:RangeValidator
+                                        ID="RangeValidator5" runat="server" ControlToValidate="txtFVInterestRate" Display="Dynamic"
+                                        ErrorMessage="Invalid!" MaximumValue="99.99" MinimumValue="0.0" Type="Double"></asp:RangeValidator>--%>
+                                </td>
+                            </tr>
+                            <tr runat="server" id="trFvFr">
+                                <td align="right">
+                                    <asp:Label ID="lblFVPaymentFrequency" runat="server" Text="Payment Frequency:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:DropDownList ID="ddlFVPaymentFrequency" runat="server" Width="125px" CssClass="cmbField">
+                                        <asp:ListItem Text="Daily" Value="DA"></asp:ListItem>
+                                        <asp:ListItem Text="Weekly" Value="WK"></asp:ListItem>
+                                        <asp:ListItem Text="FortNightly" Value="FN"></asp:ListItem>
+                                        <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
+                                        <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>
+                                        <asp:ListItem Text="Half Yearly" Value="HY"></asp:ListItem>
+                                        <asp:ListItem Text="Yearly" Value="YR"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="lblFVNoOfPayments" runat="server" Text="No. Of Periods(In Years):"
+                                        CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtFVNoOfPayments" runat="server" Width="120px" CssClass="Field" ToolTip="Input the No. of Years * Payment frequency (eg: Payment frequency is depend on what you have selected in DropDownList i.e. Daily(365),Weekly(52),Half Yearly(2),yearly(1)..etc)"></asp:TextBox>
+                                   <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" CssClass="FieldName" ControlToValidate="txtFVNoOfPayments"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                    <%--<asp:RangeValidator ID="RangeValidator7" runat="server" ControlToValidate="txtFVNoOfPayments"
+                                                            Display="Dynamic" ErrorMessage="Invalid!" MaximumValue="99.99" MinimumValue="0.0"
+                                                            Type="Double"></asp:RangeValidator>--%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="txtFVType" runat="server" Text="Payments Are Due at:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:RadioButtonList ID="rblFVType" runat="server" CssClass="Field" RepeatDirection="Horizontal">
+                                        <asp:ListItem Text="the end of the period" Value="0" Selected="True"></asp:ListItem>
+                                        <asp:ListItem Text="the beginning of the period" Value="1"></asp:ListItem>
+                                    </asp:RadioButtonList>
+                                </td>
+                               
+                            </tr>
                         </table>
+                        <table width="100%">
+                         <tr>
+                                    <td colspan="2">
+                                        <asp:Button ID="btnCalculateFV" runat="server" CssClass="PCGButton" OnClick="btnCalculateFV_Click"
+                                            Text="Calculate" />
+                                    </td>
+                                </tr>
+                                <tr id="trFVResult" runat="server" visible="False">
+                                    <td id="Td6" runat="server" align="right">
+                                        <asp:Label ID="lblFV" runat="server" CssClass="FieldName" Text="Future Value:"></asp:Label>
+                                    </td>
+                                    <td id="Td7" runat="server" align="left">
+                                        <asp:Label ID="lblFVValue" runat="server" CssClass="Field"></asp:Label>
+                                    </td>
+                                </tr>
+                        
+                        </table>
+                    </ContentTemplate>
+                    </asp:UpdatePanel>
+                    </td>
+                    </tr>
+                    </table>
+                        
                     </ContentTemplate>
                 </cc1:TabPanel>
             </cc1:TabContainer>
