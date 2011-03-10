@@ -580,7 +580,8 @@ namespace WealthERP.CustomerPortfolio
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFManualSingleTran','?prevPage=CustomerMFAccountAdd');", true);
                 }
                 else
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "message", "loadcontrol('CustomerMFFolioView');", true);
+                   
             }
             catch (BaseApplicationException Ex)
             {
@@ -828,10 +829,7 @@ namespace WealthERP.CustomerPortfolio
             //CustomerAccountDao checkAccDao = new CustomerAccountDao();
            //return checkAccDao.CheckTradeNoAvailability(TradeAccNo, BrokerCode, PortfolioId);
         }
-        protected void txtFolioNumber_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+       
 
     }
 }

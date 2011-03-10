@@ -31,11 +31,8 @@
 
 <script type="text/javascript">
     function checkLoginId2() {
-
-        document.getElementById('<%=hdnStatus.ClientID %>').value = "0";
-        
-        if ($("#<%=txtFolioNumber.ClientID %>").val() == "") {
-            
+        $("#hidValidCheck").val("0");      
+        if ($("#<%=txtFolioNumber.ClientID %>").val() == "") {            
             $("#spnLoginStatus").html("");
             return;
         }
@@ -49,17 +46,17 @@
             url: "ControlHost.aspx/CheckTradeNoMFAvailability",
             data: "{ 'TradeAccNo': '" + $("#<%=txtFolioNumber.ClientID %>").val() + "','BrokerCode': '" + $("#<%=ddlProductAmc.ClientID %>").val() + "','PortfolioId': '" + $("#<%=ddlPortfolio.ClientID %>").val() + "' }",
             error: function(xhr, status, error) {
+                alert("Sorry. Something went wrong!");
             },
             success: function(msg) {
 
                 if (msg.d) {
-                    document.getElementById('<%=hdnStatus.ClientID %>').value = "1";
-                    $("#spnLoginStatus").html("");                                      
-
+                    $("#hidValidCheck").val("1");
+                    $("#spnLoginStatus").html("");   
                 }
                 else {
 
-                    document.getElementById('<%=hdnStatus.ClientID %>').value = "0";
+                    $("#hidValidCheck").val("0");
                     $("#spnLoginStatus").removeClass();
                     alert("This trade account already Exists");
                     return false;
@@ -69,7 +66,7 @@
         });
     }
     function isValid() {        
-        if (document.getElementById('<%=hdnStatus.ClientID %>').value == '1') {
+        if ($("#hidValidCheck").val() == '1') {
             Page_ClientValidate();
             return Page_IsValid;
         }
@@ -104,8 +101,6 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
-<asp:UpdatePanel ID="upnl1" runat="server">
-    <ContentTemplate>
         <table width="100%" class="TableBackground">
             <tr>
                 <td class="HeaderCell">
@@ -157,8 +152,8 @@
                     <asp:Label ID="lblFolioNum" runat="server" CssClass="FieldName" Text="Folio Number :"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" OnTextChanged="txtFolioNumber_TextChanged"
-                        AutoPostBack="true" MaxLength="15" onchange="checkLoginId2()"></asp:TextBox>
+                    <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" 
+                       MaxLength="15" onchange="checkLoginId2()"></asp:TextBox>
                     <span id="Span3" class="spnRequiredField">*</span><span id="spnLoginStatus"></span>
                     <asp:RequiredFieldValidator ID="rfvFolioNumber" ControlToValidate="txtFolioNumber"
                         ErrorMessage="Please enter a Folio Number" Display="Dynamic" runat="server" CssClass="rfvPCG">
@@ -347,7 +342,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="hidden" id="hidValidCheck" />
+                    
                 </td>
             </tr>
         </table>
@@ -360,7 +355,5 @@
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
                         Text="Update" OnClick="btnUpdate_Click" OnClientClick="return isValid()" />
                 </td>
-<asp:HiddenField ID="hdnStatus" runat="server" />
 
-    </ContentTemplate>
-</asp:UpdatePanel>
+<input type="hidden" id="hidValidCheck" />

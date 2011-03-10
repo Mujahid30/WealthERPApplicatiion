@@ -23,15 +23,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// upnl1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upnl1;
-        
-        /// <summary>
         /// lblView control.
         /// </summary>
         /// <remarks>
@@ -363,14 +354,5 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdate;
-        
-        /// <summary>
-        /// hdnStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnStatus;
     }
 }
