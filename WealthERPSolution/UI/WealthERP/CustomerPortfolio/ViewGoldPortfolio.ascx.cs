@@ -355,6 +355,11 @@ namespace WealthERP.CustomerPortfolio
             set { ViewState["sortDirection"] = value; }
         }
 
+        protected void btn_Update(object sender, EventArgs e)
+        {
+            //goldList = goldBo.GetGoldNetPosition(portfolioId, mypager.CurrentPage, hdnSort.Value, out count);
+
+        }
     }
 
 }

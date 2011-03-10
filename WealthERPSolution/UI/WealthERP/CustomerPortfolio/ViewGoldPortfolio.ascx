@@ -70,5 +70,10 @@
         </tr>
     </table>
 </div>
+
+<tr>
+<asp:Button ID="btnUpdateNP" runat="server" Text="Update Current Value" OnClick="btn_Update" CssClass="PCGLongButton" AutoPostBack="true" />
+</tr>
+
 <asp:HiddenField ID="hdnSort" runat="server" Value="InstrumentCategory ASC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
