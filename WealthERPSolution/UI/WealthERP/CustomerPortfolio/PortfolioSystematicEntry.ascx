@@ -96,7 +96,7 @@
         <td>
             <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
                                     <asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtField" AutoComplete="Off"
-                                        AutoPostBack="true"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
+                                        ></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
                                             runat="server" TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
                                         </cc1:TextBoxWatermarkExtender>
                                     <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
