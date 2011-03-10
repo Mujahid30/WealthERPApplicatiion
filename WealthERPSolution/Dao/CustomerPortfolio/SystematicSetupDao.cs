@@ -39,7 +39,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_StartDate",DbType.DateTime,systematicSetupVo.StartDate);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_EndDate",DbType.DateTime,systematicSetupVo.EndDate);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_SystematicDate",DbType.Int32,systematicSetupVo.SystematicDate);
-                db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_Amount",DbType.Double,systematicSetupVo.Amount);
+                db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_Amount",DbType.Decimal,systematicSetupVo.Amount);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_IsManual",DbType.Int32,systematicSetupVo.IsManual);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@XES_SourceCode",DbType.String,systematicSetupVo.SourceCode);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@XF_FrequencyCode",DbType.String,systematicSetupVo.FrequencyCode);
