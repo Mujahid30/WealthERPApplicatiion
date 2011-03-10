@@ -90,8 +90,7 @@ namespace WealthERP.CustomerPortfolio
                         trJoint2Header.Visible = false;
                         ddlModeOfHolding.Enabled = false;
                         ddlModeOfHolding.SelectedValue = "SI";
-                        lnkEdit.Visible = false;
-                        btnUpdate.Visible = false;
+                        lnkEdit.Visible = false;                        
                         rbtnNo.Checked = true;
                         BindModeOfHolding();
                         BindAMC();
@@ -702,8 +701,9 @@ namespace WealthERP.CustomerPortfolio
         }
 
         protected void lnkEdit_Click(object sender, EventArgs e)
-        {
+        {            
             EditFolioDetails();
+            btnUpdate.Visible = true;
         }
 
         protected void rbtnYes_CheckedChanged1(object sender, EventArgs e)

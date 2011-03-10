@@ -351,8 +351,7 @@
                 </td>
             </tr>
         </table>
-    </ContentTemplate>
-</asp:UpdatePanel>
+
 <td colspan="2" class="SubmitCell">
                     <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnSubmit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnSubmit', 'S');"
@@ -362,3 +361,6 @@
                         Text="Update" OnClick="btnUpdate_Click" OnClientClick="return isValid()" />
                 </td>
 <asp:HiddenField ID="hdnStatus" runat="server" />
+
+    </ContentTemplate>
+</asp:UpdatePanel>
