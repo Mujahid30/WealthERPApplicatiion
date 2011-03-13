@@ -292,6 +292,7 @@ namespace WealthERP.Advisor
             {
                 double no_of_units = 0;
                 double aum = 0;
+
                 decimal AumPercentage = 0;
                 for (int i = 0; i < dsMISReport.Tables[0].Rows.Count; i++)
                 {
@@ -303,7 +304,7 @@ namespace WealthERP.Advisor
                 {
 
                     //no_of_units = Convert.ToDouble(dr["Units"].ToString());
-                    aum = Convert.ToInt32(dr["AUM"].ToString());
+                    aum = Convert.ToDouble(dr["AUM"].ToString());
                     AumPercentage = decimal.Parse(dr["Percentage"].ToString());
                     //totalUnits = totalUnits + no_of_units;
                     totalAum = totalAum + aum;
