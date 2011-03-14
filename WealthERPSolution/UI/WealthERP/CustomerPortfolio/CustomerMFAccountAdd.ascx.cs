@@ -438,6 +438,12 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        protected void btn_amccheck(object sender, EventArgs e)
+        {
+            txtFolioNumber.Text = "";
+
+        }
+
         protected void rbtnYes_CheckedChanged(object sender, EventArgs e)
         {
             try

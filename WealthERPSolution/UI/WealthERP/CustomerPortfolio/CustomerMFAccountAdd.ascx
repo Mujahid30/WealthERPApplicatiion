@@ -46,7 +46,7 @@
             url: "ControlHost.aspx/CheckTradeNoMFAvailability",
             data: "{ 'TradeAccNo': '" + $("#<%=txtFolioNumber.ClientID %>").val() + "','BrokerCode': '" + $("#<%=ddlProductAmc.ClientID %>").val() + "','PortfolioId': '" + $("#<%=ddlPortfolio.ClientID %>").val() + "' }",
             error: function(xhr, status, error) {
-                alert("Sorry. Something went wrong!");
+                alert("Please select AMC!");
             },
             success: function(msg) {
 
@@ -138,11 +138,11 @@
                     <asp:Label ID="lblFolioNum0" runat="server" CssClass="FieldName" Text="AMC Code :"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:DropDownList ID="ddlProductAmc" runat="server" CssClass="cmbLongField">
+                    <asp:DropDownList ID="ddlProductAmc" AutoPostBack="true" runat="server" OnSelectedIndexChanged="btn_amccheck" CssClass="cmbLongField">
                     </asp:DropDownList>
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="cvProductAmc" runat="server" ControlToValidate="ddlProductAmc"
-                        ErrorMessage="Please select an AMC Code" Operator="NotEqual" ValueToCompare="Select an AMC Code"
+                        ErrorMessage="Please select an AMC Code"  Operator="NotEqual" ValueToCompare="Select an AMC Code"
                         CssClass="cvPCG"></asp:CompareValidator>
                 </td>
             </tr>
