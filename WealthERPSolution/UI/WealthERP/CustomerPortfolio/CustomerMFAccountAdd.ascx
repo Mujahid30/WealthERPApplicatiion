@@ -58,7 +58,7 @@
 
                     $("#hidValidCheck").val("0");
                     $("#spnLoginStatus").removeClass();
-                    alert("This trade account already Exists");
+                    alert("Folio Number Already Exists");
                     return false;
                 }
             }
@@ -72,7 +72,7 @@
         }
         else {
             Page_ClientValidate();
-            alert('Your Selected Trade Number is not available. Please choose some other Trade Number');
+            alert('Folio Number Already Exists');
             return false;
         }
     }
