@@ -40,6 +40,7 @@
         
         document.getElementById("<%= RegularExpressionValidator9.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator10.ClientID %>").style.visibility = 'hidden';
+        
 
 
         //FV tab Controls
@@ -60,9 +61,8 @@
         document.getElementById("<%= RegularExpressionValidator4.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator6.ClientID %>").style.visibility = 'hidden';
         document.getElementById("<%= RegularExpressionValidator7.ClientID %>").style.visibility = 'hidden';
-       
-        
-        
+
+
 
 
         document.getElementById("<%= hidTabIndex.ClientID %>").value = sender.get_activeTab()._tabIndex;
@@ -321,8 +321,8 @@
                                                             <asp:ListItem Value="2" Text="Future Value" ></asp:ListItem>
                                                             <asp:ListItem Value="3" Text="Both" ></asp:ListItem>
                                                         </asp:DropDownList>
-                                                        <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="FieldName" ControlToValidate="ddlChooseTypePV" ErrorMessage="Please Select The DropDown" InitialValue="0"></asp:RequiredFieldValidator>--%>
-                                                    </td>
+<%--                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="FieldName" ControlToValidate="ddlChooseTypePV" ErrorMessage="Please Select The DropDown" InitialValue="0"></asp:RequiredFieldValidator>
+--%>                                                    </td>
                                                 </tr>
                                                 <tr runat="server" id="trFutureValue">
                                                     <td align="right">
@@ -386,7 +386,7 @@
                                                             CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td align="left">
-                                                        <asp:TextBox ID="txtPVNoOfPayments" runat="server" Width="120px" CssClass="Field" ToolTip="Input the No. of Years * Payment frequency (eg: Payment frequency is depend on what you have selected in DropDownList i.e. Daily(365),Weekly(52),Half Yearly(2),yearly(1)..etc)"></asp:TextBox>
+                                                        <asp:TextBox ID="txtPVNoOfPayments" runat="server" Width="120px" CssClass="Field" ToolTip="Input the No. of Years * Payment frequency"></asp:TextBox>
                                                       <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" CssClass="FieldName" ControlToValidate="txtPVNoOfPayments"
                                         ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                                                         <%--<asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="txtPVNoOfPayments"
@@ -460,8 +460,8 @@
                                         <asp:ListItem Text="Present Value" Value="2"></asp:ListItem>
                                         <asp:ListItem Text="Both" Value="3"></asp:ListItem>
                                     </asp:DropDownList>
-                                    <%--<asp:RequiredFieldValidator ID="reqddlcnt" runat="server" CssClass="FieldName" ControlToValidate="ddlchooseTypeFV" ErrorMessage="Please Select The DropDown" InitialValue="0"></asp:RequiredFieldValidator>--%>
-                                </td>
+<%--                                   <asp:RequiredFieldValidator ID="reqddlcnt" runat="server" CssClass="FieldName" ControlToValidate="ddlchooseTypeFV" ErrorMessage="Please Select The DropDown" InitialValue="0"></asp:RequiredFieldValidator>
+--%>                                </td>
                                 <td align="left">
                                 <%--<asp:Label ID="select" runat="server" Text="" CssClass="FieldName" ForeColor="red"></asp:Label>--%>
                                 </td>
@@ -528,7 +528,7 @@
                                         CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtFVNoOfPayments" runat="server" Width="120px" CssClass="Field" ToolTip="Input the No. of Years * Payment frequency (eg: Payment frequency is depend on what you have selected in DropDownList i.e. Daily(365),Weekly(52),Half Yearly(2),yearly(1)..etc)"></asp:TextBox>
+                                    <asp:TextBox ID="txtFVNoOfPayments" runat="server" Width="120px" CssClass="Field" ToolTip="Input the No. of Years * Payment frequency"></asp:TextBox>
                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" CssClass="FieldName" ControlToValidate="txtFVNoOfPayments"
                                         ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                                     <%--<asp:RangeValidator ID="RangeValidator7" runat="server" ControlToValidate="txtFVNoOfPayments"

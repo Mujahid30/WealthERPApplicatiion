@@ -21,17 +21,17 @@ namespace WealthERP.General
         protected void btnCalculateEMI_Click(object sender, EventArgs e)
         {
             if (txtLoanAmount.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtTenureYears.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtInterest.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtStartDate.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtEndDate.Text == "")
                 //output1.Text = "Fill the blank fields marked with *";
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else
             {
                 Calculator calculator = new Calculator();
@@ -78,12 +78,14 @@ namespace WealthERP.General
         }
         protected void btnCalculatePV_Click(object sender, EventArgs e)
         {
-            if (txtPVPaymentMade.Text == "" && txtPVFutureValue.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+           if(ddlChooseTypePV.SelectedValue=="0")
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select the Drop Down');", true);
+            else if (txtPVPaymentMade.Text == "" && txtPVFutureValue.Text == "")
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtPVInterestRate.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtPVNoOfPayments.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else
             {
                 Calculator calculator = new Calculator();
@@ -167,13 +169,15 @@ namespace WealthERP.General
         }
         protected void btnCalculateFV_Click(object sender, EventArgs e)
         {
+            if (ddlchooseTypeFV.SelectedValue == "0")
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('please select the Drop Down');", true);
             if (txtFVPaymentMade.Text == "" && txtFVFutureValue.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             //Response.Write("<script>alert('Fill the blank fields')</script>");
             else if (txtFVInterestRate.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtFVNoOfPayments.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else
             {
                 Calculator calculator = new Calculator();
