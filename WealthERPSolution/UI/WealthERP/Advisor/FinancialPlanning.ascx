@@ -268,6 +268,11 @@
                             </tr>
                         </table>
                         <table width="100%">
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblAgeErrormsg" runat="server" CssClass="cmbField" Font-Bold="true" Visible="false" Text="No Age to display chart. Please Fill Date of Birth in profile!"></asp:Label>
+                            </td>
+                        </tr>
                             <tr>
                                 <td>
                                     <br />

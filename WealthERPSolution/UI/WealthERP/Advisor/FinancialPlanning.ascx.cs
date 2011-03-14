@@ -375,6 +375,7 @@ namespace WealthERP.Advisor
                         {
                             age = 0;
                             lblAgeResult.Text = "No Age Set";
+                            lblAgeErrormsg.Visible = true;
                         }
                         lblAgeResult.Text = age.ToString();
 
