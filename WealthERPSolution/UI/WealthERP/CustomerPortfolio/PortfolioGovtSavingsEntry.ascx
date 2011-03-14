@@ -195,7 +195,8 @@
                     <asp:Label ID="lblDepositAmount" runat="server" CssClass="FieldName" Text="Deposit Amount:"></asp:Label>
                 </td>
                 <td class="rightField" colspan="3">
-                    <asp:TextBox ID="txtDepositAmount" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtDepositAmount" AutoPostBack="true" runat="server" CssClass="txtField" 
+                        ontextchanged="txtDepositAmount_TextChanged"></asp:TextBox>
                      <asp:CompareValidator ID="cvDepositAmount" runat="server" ErrorMessage="<br/>Please enter a numeric value"
                         Type="Double" ControlToValidate="txtDepositAmount" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>

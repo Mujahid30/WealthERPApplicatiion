@@ -760,5 +760,10 @@ namespace WealthERP.CustomerPortfolio
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', 'action=GS')", true);
         }
         #endregion Events
+
+        protected void txtDepositAmount_TextChanged(object sender, EventArgs e)
+        {
+            txtCurrentValue.Text = txtDepositAmount.Text;
+        }
     }
 }
