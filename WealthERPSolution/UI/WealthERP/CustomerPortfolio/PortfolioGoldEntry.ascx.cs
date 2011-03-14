@@ -365,18 +365,18 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                if (string.IsNullOrEmpty(txtPurchaseValue.Text))
+                if (string.IsNullOrEmpty(txtPurchasePrice.Text))
                 {
                     //txtPurchaseValue.Text = "0.00";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Cost');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Rate');", true);
 
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(txtPurchasePrice.Text))
+                    if (string.IsNullOrEmpty(txtPurchaseValue.Text))
                     {
                         //txtPurchasePrice.Text = "0.00";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Rate');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Cost');", true);
 
                     }
                     else
@@ -495,18 +495,18 @@ namespace WealthERP.CustomerPortfolio
             GoldVo newGoldVo = new GoldVo();
             try
             {
-                if (string.IsNullOrEmpty(txtPurchaseValue.Text))
+                if (string.IsNullOrEmpty(txtPurchasePrice.Text))
                 {
                     //txtPurchaseValue.Text = "0.00";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Cost');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Rate');", true);
 
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(txtPurchasePrice.Text))
+                    if (string.IsNullOrEmpty(txtPurchaseValue.Text))
                     {
                         //txtPurchasePrice.Text = "0.00";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Rate');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Cost');", true);
 
                     }
                     else
