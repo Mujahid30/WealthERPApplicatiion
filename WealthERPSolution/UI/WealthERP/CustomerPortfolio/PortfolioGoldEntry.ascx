@@ -50,7 +50,7 @@ function showassocation() {
                     <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
                 </td>
                 <td class="rightField" colspan="3">
-                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddlCategory" runat="server" OnSelectedIndexChanged="btn_categorycheck" AutoPostBack="true" CssClass="cmbField">
                     </asp:DropDownList>
                     <asp:Label ID="lblAssetCategory" runat="server" CssClass="Field"></asp:Label>
                     <span id="Span8" class="spnRequiredField">*</span>
@@ -116,7 +116,7 @@ function showassocation() {
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtQuantity" runat="server" CssClass="txtField" MaxLength="10"  onblur=""></asp:TextBox>
-                    <%--<span id="Span3" class="spnRequiredField">*</span>--%>
+                    <span id="Span3" class="spnRequiredField">*</span>
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtQuantity"
                         ErrorMessage="<br />Please enter a Quantity" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
@@ -149,7 +149,7 @@ function showassocation() {
                         CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
                 
                 
-                    <asp:Button ID="btnUsePrice" runat="server" Text="Use Price" CssClass="PCGMediumButton"
+                    <asp:Button ID="btnUsePrice" runat="server" Text="Use Price" Visible ="false"  CssClass="PCGMediumButton"
                           OnClick="btnUsePrice_Click" />
                 </td>
                 <td class="leftField">

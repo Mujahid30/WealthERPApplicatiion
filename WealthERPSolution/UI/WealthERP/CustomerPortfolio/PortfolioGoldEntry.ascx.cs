@@ -136,71 +136,81 @@ namespace WealthERP.CustomerPortfolio
                 btnSubmit.Visible = false;
                 btnSaveChanges.Visible = true;
 
+
                 // Asset Group - Gold
 
                 // Asset Category 
                 lblAssetCategory.Text = goldVo.AssetCategoryName.ToString().Trim();
                 ddlCategory.Visible = false;
-
-                // Purchase Date
-                if (goldVo.PurchaseDate != null && goldVo.PurchaseDate != DateTime.MinValue)
-                    txtPurchaseDate.Text = goldVo.PurchaseDate.ToShortDateString().ToString();
-                txtPurchaseDate.Enabled = true;
-                txtPurchaseDate_CalendarExtender.Enabled = true;
-
-                // Sale Date
-                if (goldVo.SellDate != DateTime.MinValue)
-                    txtSaleDate.Text = goldVo.SellDate.ToShortDateString().ToString();
-                txtSaleDate.Enabled = true;
-                txtSaleDate_CalendarExtender.Enabled = true;
-
-                // Current Price
-                txtCurrentPrice.Text = goldVo.CurrentPrice.ToString();
-                txtCurrentPrice.Enabled = true;
-
-                // Current Value 
-                txtCurrentValue.Text = goldVo.CurrentValue.ToString();
-                txtCurrentValue.Enabled = true;
-
-                // Particulars / Name
-                txtName.Text = goldVo.Name.ToString();
-                txtName.Enabled = true;
-
-                // Purchase Price
-                txtPurchasePrice.Text = goldVo.PurchasePrice.ToString();
-                txtPurchasePrice.Enabled = true;
-
-                // Purchase Value
-                txtPurchaseValue.Text = goldVo.PurchaseValue.ToString();
-                txtPurchaseValue.Enabled = true;
-
-                // Quantity
-                txtQuantity.Text = goldVo.Quantity.ToString();
-                txtQuantity.Enabled = true;
-
-                // Remarks 
-                txtRemarks.Text = goldVo.Remarks.ToString();
-                txtRemarks.Enabled = true;
-
-                // Sales Rate / Sell Price
-                if (goldVo.SellPrice != 0)
-                    txtSaleRate.Text = goldVo.SellPrice.ToString();
+                if (lblAssetCategory.Text == "Gems & Jewellery -- Gold")
+                {
+                    btnUsePrice.Visible = true;
+                }
+                else
                 
-                txtSaleRate.Enabled = true;
-                // Sale Value
-                if (goldVo.SellValue != 0)
-                    txtSaleValue.Text = goldVo.SellValue.ToString();
-                
-                txtSaleValue.Enabled = true;
+                    btnUsePrice.Visible = false;
+                    
+
+                    // Purchase Date
+                    if (goldVo.PurchaseDate != null && goldVo.PurchaseDate != DateTime.MinValue)
+                        txtPurchaseDate.Text = goldVo.PurchaseDate.ToShortDateString().ToString();
+                    txtPurchaseDate.Enabled = true;
+                    txtPurchaseDate_CalendarExtender.Enabled = true;
+
+                    // Sale Date
+                    if (goldVo.SellDate != DateTime.MinValue)
+                        txtSaleDate.Text = goldVo.SellDate.ToShortDateString().ToString();
+                    txtSaleDate.Enabled = true;
+                    txtSaleDate_CalendarExtender.Enabled = true;
+
+                    // Current Price
+                    txtCurrentPrice.Text = goldVo.CurrentPrice.ToString();
+                    txtCurrentPrice.Enabled = true;
+
+                    // Current Value 
+                    txtCurrentValue.Text = goldVo.CurrentValue.ToString();
+                    txtCurrentValue.Enabled = true;
+
+                    // Particulars / Name
+                    txtName.Text = goldVo.Name.ToString();
+                    txtName.Enabled = true;
+
+                    // Purchase Price
+                    txtPurchasePrice.Text = goldVo.PurchasePrice.ToString();
+                    txtPurchasePrice.Enabled = true;
+
+                    // Purchase Value
+                    txtPurchaseValue.Text = goldVo.PurchaseValue.ToString();
+                    txtPurchaseValue.Enabled = true;
+
+                    // Quantity
+                    txtQuantity.Text = goldVo.Quantity.ToString();
+                    txtQuantity.Enabled = true;
+
+                    // Remarks 
+                    txtRemarks.Text = goldVo.Remarks.ToString();
+                    txtRemarks.Enabled = true;
+
+                    // Sales Rate / Sell Price
+                    if (goldVo.SellPrice != 0)
+                        txtSaleRate.Text = goldVo.SellPrice.ToString();
+
+                    txtSaleRate.Enabled = true;
+                    // Sale Value
+                    if (goldVo.SellValue != 0)
+                        txtSaleValue.Text = goldVo.SellValue.ToString();
+
+                    txtSaleValue.Enabled = true;
 
 
-                // MeasureCode
-                LoadMeasureCode();
-                ddlMeasureCode.SelectedValue = goldVo.MeasureCode.ToString().Trim();
-                ddlMeasureCode.Enabled = true;
-                
-                
-            }
+                    // MeasureCode
+                    LoadMeasureCode();
+                    ddlMeasureCode.SelectedValue = goldVo.MeasureCode.ToString().Trim();
+                    ddlMeasureCode.Enabled = true;
+
+
+                }
+            
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -361,70 +371,90 @@ namespace WealthERP.CustomerPortfolio
             ddlCategory.Items.Insert(0, new ListItem("Select a Category", "Select a Category"));
         }
 
+        protected void btn_categorycheck(object sender, EventArgs e)
+        {
+            if (ddlCategory.SelectedValue == "GDGJ" || ddlCategory.SelectedValue == "GDSR")
+            {
+                btnUsePrice.Visible = false;
+            }
+            else
+            {
+                btnUsePrice.Visible = true;
+            }
+
+        }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(txtPurchasePrice.Text))
+                if (string.IsNullOrEmpty(txtQuantity.Text))
                 {
-                    //txtPurchaseValue.Text = "0.00";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Rate');", true);
-
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Quantity');", true);
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(txtPurchaseValue.Text))
+
+                    if (string.IsNullOrEmpty(txtPurchasePrice.Text))
                     {
-                        //txtPurchasePrice.Text = "0.00";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Cost');", true);
+                        //txtPurchaseValue.Text = "0.00";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Rate');", true);
 
                     }
                     else
                     {
-
-
-                        goldVo.PortfolioId = portfolioId;
-                        goldVo.Name = txtName.Text.ToString();
-                        goldVo.AssetGroupCode = "GD";
-                        goldVo.AssetCategoryCode = ddlCategory.SelectedItem.Value.ToString().Trim();
-                        //if (ddlMeasureCode.SelectedItem.Value != string.Empty && ddlMeasureCode.SelectedIndex >= 0)
-                        //goldVo.MeasureCode = ddlMeasureCode.SelectedItem.Value.ToString().Trim();
-                        goldVo.MeasureCode = "GR";
-                        if (txtQuantity.Text.Trim() != string.Empty)
-                            goldVo.Quantity = float.Parse(txtQuantity.Text.ToString());
-                        // goldVo.PurchaseDate = DateTime.Parse(ddlDay.SelectedItem.Value.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString());
-                        if (txtPurchaseDate.Text.Trim() != string.Empty)
-                            goldVo.PurchaseDate = DateTime.Parse(txtPurchaseDate.Text);
-                        if (txtPurchasePrice.Text.Trim() != string.Empty)
-                            goldVo.PurchasePrice = float.Parse(txtPurchasePrice.Text.Trim());
-                        if (txtPurchaseValue.Text.Trim() != string.Empty)
-                            goldVo.PurchaseValue = float.Parse(txtPurchaseValue.Text.Trim());
-                        if (txtCurrentPrice.Text.Trim() != string.Empty)
-                            goldVo.CurrentPrice = float.Parse(txtCurrentPrice.Text.Trim());
-                        if (txtCurrentValue.Text.Trim() != string.Empty)
-                            goldVo.CurrentValue = float.Parse(txtCurrentValue.Text.Trim());
-                        // goldVo.SellDate = DateTime.Parse(ddlSaleDay.SelectedItem.Value.ToString() + "/" + ddlSaleMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString());
-                        if (txtSaleDate.Text.Trim() != "")
-                            goldVo.SellDate = DateTime.Parse(txtSaleDate.Text.Trim());
-                        else
-                            goldVo.SellDate = DateTime.MinValue;
-
-                        if (txtSaleRate.Text.Trim() != "")
-                            goldVo.SellPrice = float.Parse(txtSaleRate.Text.Trim());
-                        else
-                            goldVo.SellPrice = float.Parse("0");
-
-                        if (txtSaleValue.Text.Trim() != "")
-                            goldVo.SellValue = float.Parse(txtSaleValue.Text.Trim());
-                        else
-                            goldVo.SellValue = float.Parse("0");
-
-                        goldVo.Remarks = txtRemarks.Text.ToString();
-
-                        if (goldBo.CreateGoldNetPosition(goldVo, userVo.UserId))
+                        if (string.IsNullOrEmpty(txtPurchaseValue.Text))
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio', 'none')", true);
-                            // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio','none');", true);
+                            //txtPurchasePrice.Text = "0.00";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Cost');", true);
+
+                        }
+                        else
+                        {
+
+
+                            goldVo.PortfolioId = portfolioId;
+                            goldVo.Name = txtName.Text.ToString();
+                            goldVo.AssetGroupCode = "GD";
+                            goldVo.AssetCategoryCode = ddlCategory.SelectedItem.Value.ToString().Trim();
+                            //if (ddlMeasureCode.SelectedItem.Value != string.Empty && ddlMeasureCode.SelectedIndex >= 0)
+                            //goldVo.MeasureCode = ddlMeasureCode.SelectedItem.Value.ToString().Trim();
+                            goldVo.MeasureCode = "GR";
+                            if (txtQuantity.Text.Trim() != string.Empty)
+                                goldVo.Quantity = float.Parse(txtQuantity.Text.ToString());
+                            // goldVo.PurchaseDate = DateTime.Parse(ddlDay.SelectedItem.Value.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString());
+                            if (txtPurchaseDate.Text.Trim() != string.Empty)
+                                goldVo.PurchaseDate = DateTime.Parse(txtPurchaseDate.Text);
+                            if (txtPurchasePrice.Text.Trim() != string.Empty)
+                                goldVo.PurchasePrice = float.Parse(txtPurchasePrice.Text.Trim());
+                            if (txtPurchaseValue.Text.Trim() != string.Empty)
+                                goldVo.PurchaseValue = float.Parse(txtPurchaseValue.Text.Trim());
+                            if (txtCurrentPrice.Text.Trim() != string.Empty)
+                                goldVo.CurrentPrice = float.Parse(txtCurrentPrice.Text.Trim());
+                            if (txtCurrentValue.Text.Trim() != string.Empty)
+                                goldVo.CurrentValue = float.Parse(txtCurrentValue.Text.Trim());
+                            // goldVo.SellDate = DateTime.Parse(ddlSaleDay.SelectedItem.Value.ToString() + "/" + ddlSaleMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString());
+                            if (txtSaleDate.Text.Trim() != "")
+                                goldVo.SellDate = DateTime.Parse(txtSaleDate.Text.Trim());
+                            else
+                                goldVo.SellDate = DateTime.MinValue;
+
+                            if (txtSaleRate.Text.Trim() != "")
+                                goldVo.SellPrice = float.Parse(txtSaleRate.Text.Trim());
+                            else
+                                goldVo.SellPrice = float.Parse("0");
+
+                            if (txtSaleValue.Text.Trim() != "")
+                                goldVo.SellValue = float.Parse(txtSaleValue.Text.Trim());
+                            else
+                                goldVo.SellValue = float.Parse("0");
+
+                            goldVo.Remarks = txtRemarks.Text.ToString();
+
+                            if (goldBo.CreateGoldNetPosition(goldVo, userVo.UserId))
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio', 'none')", true);
+                                // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio','none');", true);
+                            }
                         }
                     }
                 }
@@ -495,65 +525,72 @@ namespace WealthERP.CustomerPortfolio
             GoldVo newGoldVo = new GoldVo();
             try
             {
-                if (string.IsNullOrEmpty(txtPurchasePrice.Text))
+                if (string.IsNullOrEmpty(txtQuantity.Text))
                 {
-                    //txtPurchaseValue.Text = "0.00";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Rate');", true);
-
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Quantity');", true);
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(txtPurchaseValue.Text))
+                    if (string.IsNullOrEmpty(txtPurchasePrice.Text))
                     {
-                        //txtPurchasePrice.Text = "0.00";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Cost');", true);
+                        //txtPurchaseValue.Text = "0.00";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Rate');", true);
 
                     }
                     else
                     {
-                        goldVo = (GoldVo)Session["goldVo"];
-                        userVo = (UserVo)Session["userVo"];
-
-                        newGoldVo.AssetCategoryCode = goldVo.AssetCategoryCode.ToString().Trim();
-                        newGoldVo.AssetGroupCode = goldVo.AssetGroupCode.ToString().Trim();
-                        if (txtCurrentPrice.Text.Trim() != string.Empty)
-                            newGoldVo.CurrentPrice = float.Parse(txtCurrentPrice.Text);
-                        if (txtCurrentValue.Text.Trim() != string.Empty)
-                            newGoldVo.CurrentValue = float.Parse(txtCurrentValue.Text);
-                        newGoldVo.PortfolioId = goldVo.PortfolioId;
-                        newGoldVo.GoldNPId = goldVo.GoldNPId;
-                        //newGoldVo.MeasureCode = ddlMeasureCode.SelectedValue.ToString().Trim();
-                        newGoldVo.MeasureCode = "GR";
-                        newGoldVo.Name = txtName.Text;
-                        if (txtPurchaseDate.Text.Trim() != string.Empty)
-                            newGoldVo.PurchaseDate = DateTime.Parse(txtPurchaseDate.Text);
-                        if (txtPurchasePrice.Text.Trim() != string.Empty)
-                            newGoldVo.PurchasePrice = float.Parse(txtPurchasePrice.Text);
-                        if (txtPurchaseValue.Text.Trim() != string.Empty)
-                            newGoldVo.PurchaseValue = float.Parse(txtPurchaseValue.Text);
-                        if (txtQuantity.Text.Trim() != string.Empty)
-                            newGoldVo.Quantity = float.Parse(txtQuantity.Text);
-                        newGoldVo.Remarks = (txtRemarks.Text);
-
-                        if (txtSaleDate.Text.Trim() != "")
-                            newGoldVo.SellDate = DateTime.Parse(txtSaleDate.Text.Trim());
-                        else
-                            newGoldVo.SellDate = DateTime.MinValue;
-
-                        if (txtSaleRate.Text.Trim() != "")
-                            newGoldVo.SellPrice = float.Parse(txtSaleRate.Text.Trim());
-                        else
-                            newGoldVo.SellPrice = float.Parse("0");
-
-                        if (txtSaleValue.Text.Trim() != "")
-                            newGoldVo.SellValue = float.Parse(txtSaleValue.Text.Trim());
-                        else
-                            newGoldVo.SellValue = float.Parse("0");
-
-                        if (goldBo.UpdateGoldNetPosition(newGoldVo, userVo.UserId))
+                        if (string.IsNullOrEmpty(txtPurchaseValue.Text))
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio', 'none')", true);
-                            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio','none');", true);
+                            //txtPurchasePrice.Text = "0.00";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Purchase Cost');", true);
+
+                        }
+                        else
+                        {
+                            goldVo = (GoldVo)Session["goldVo"];
+                            userVo = (UserVo)Session["userVo"];
+
+                            newGoldVo.AssetCategoryCode = goldVo.AssetCategoryCode.ToString().Trim();
+                            newGoldVo.AssetGroupCode = goldVo.AssetGroupCode.ToString().Trim();
+                            if (txtCurrentPrice.Text.Trim() != string.Empty)
+                                newGoldVo.CurrentPrice = float.Parse(txtCurrentPrice.Text);
+                            if (txtCurrentValue.Text.Trim() != string.Empty)
+                                newGoldVo.CurrentValue = float.Parse(txtCurrentValue.Text);
+                            newGoldVo.PortfolioId = goldVo.PortfolioId;
+                            newGoldVo.GoldNPId = goldVo.GoldNPId;
+                            //newGoldVo.MeasureCode = ddlMeasureCode.SelectedValue.ToString().Trim();
+                            newGoldVo.MeasureCode = "GR";
+                            newGoldVo.Name = txtName.Text;
+                            if (txtPurchaseDate.Text.Trim() != string.Empty)
+                                newGoldVo.PurchaseDate = DateTime.Parse(txtPurchaseDate.Text);
+                            if (txtPurchasePrice.Text.Trim() != string.Empty)
+                                newGoldVo.PurchasePrice = float.Parse(txtPurchasePrice.Text);
+                            if (txtPurchaseValue.Text.Trim() != string.Empty)
+                                newGoldVo.PurchaseValue = float.Parse(txtPurchaseValue.Text);
+                            if (txtQuantity.Text.Trim() != string.Empty)
+                                newGoldVo.Quantity = float.Parse(txtQuantity.Text);
+                            newGoldVo.Remarks = (txtRemarks.Text);
+
+                            if (txtSaleDate.Text.Trim() != "")
+                                newGoldVo.SellDate = DateTime.Parse(txtSaleDate.Text.Trim());
+                            else
+                                newGoldVo.SellDate = DateTime.MinValue;
+
+                            if (txtSaleRate.Text.Trim() != "")
+                                newGoldVo.SellPrice = float.Parse(txtSaleRate.Text.Trim());
+                            else
+                                newGoldVo.SellPrice = float.Parse("0");
+
+                            if (txtSaleValue.Text.Trim() != "")
+                                newGoldVo.SellValue = float.Parse(txtSaleValue.Text.Trim());
+                            else
+                                newGoldVo.SellValue = float.Parse("0");
+
+                            if (goldBo.UpdateGoldNetPosition(newGoldVo, userVo.UserId))
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio', 'none')", true);
+                                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio','none');", true);
+                            }
                         }
                     }
                 }
