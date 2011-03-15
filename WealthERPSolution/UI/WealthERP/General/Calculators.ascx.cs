@@ -331,7 +331,7 @@ namespace WealthERP.General
                 trFvFr.Visible = false;
                 lblFVPaymentMade.Visible = false;
                 txtFVPaymentMade.Visible = false;
-                txtPVFutureValue.Text = null;
+                txtFVPaymentMade.Text = null;
                 lblFVPresentValue.Visible = true;
                 txtPVFutureValue.Visible = true;
                 trFVPresentValue.Visible = true;
