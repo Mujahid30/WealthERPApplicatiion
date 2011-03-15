@@ -73,28 +73,31 @@
                 success: function(msg) {
 
                     if (msg.d) {
+                        alert('Trade account is available');
                         $("#hidValid").val("1");
                         $("#spnLoginStatus").removeClass();
                         $("#spnLoginStatus").addClass("success");
                         $("#spnLoginStatus").html("");
                     }
                     else {
+                        alert('Trade account already exists');
                         $("#hidValid").val("0");
                         $("#spnLoginStatus").removeClass();
                         $("#spnLoginStatus").addClass("error");
-                        $("#spnLoginStatus").html("This trade account exists.");
                     }
                 }
 
             });
         }
         function isValid() {
-           
+         
             if (document.getElementById('hidValid').value == '1') {
+               
                 Page_ClientValidate();
                 return Page_IsValid;
             }
             else {
+                
                 Page_ClientValidate();
                 alert('Your Selected Trade Number is not available. Please choose some other Trade Number');
                 return false;
@@ -322,7 +325,7 @@
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                 Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
-           <asp:Button ID="btnUpdate" runat="server" OnClientClick="return isValid()" CssClass="PCGButton" Text="Update" onclick="btnUpdate_Click" Visible="False" />
+           <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" onclick="btnUpdate_Click" Visible="False" />
         </td>
       
     </tr>

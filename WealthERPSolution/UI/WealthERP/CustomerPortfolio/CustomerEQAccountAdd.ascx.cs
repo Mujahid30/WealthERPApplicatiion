@@ -39,7 +39,7 @@ namespace WealthERP.CustomerPortfolio
         string path;
         string Id;
         CustomerAccountDao checkAccDao = new CustomerAccountDao();
-       
+
         [WebMethod]
         public static bool CheckTradeNoAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
@@ -192,24 +192,24 @@ namespace WealthERP.CustomerPortfolio
 
                 //if (!CheckEQAccDetails(TradeNum))
                 //{
-                    if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "MultipleEqEntry")
-                    {
-                        string queryString = "?prevPage=TradeAccAdd";
-                        // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
+                if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "MultipleEqEntry")
+                {
+                    string queryString = "?prevPage=TradeAccAdd";
+                    // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMMultipleEqTransactionsEntry','" + queryString + "');", true);
 
-                    }
-                    else if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "EquityManualSingleTransaction")
-                    {
-                        string queryString = "?prevPage=TradeAccAdd";
-                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
-                    }
-                    else
-                    {
-                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
-                    }
+                }
+                else if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "EquityManualSingleTransaction")
+                {
+                    string queryString = "?prevPage=TradeAccAdd";
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
+                }
+                else
+                {
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                }
                 //}
                 //else
                 //{
@@ -363,10 +363,10 @@ namespace WealthERP.CustomerPortfolio
                 newAccountVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
                 newAccountVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
                 newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
-                if(txtAccountStartingDate.Text != "")
+                if (txtAccountStartingDate.Text != "")
                     newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
-                
-                    
+
+
 
                 if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
