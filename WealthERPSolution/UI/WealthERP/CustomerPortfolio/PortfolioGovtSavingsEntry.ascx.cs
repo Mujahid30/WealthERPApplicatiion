@@ -589,6 +589,8 @@ namespace WealthERP.CustomerPortfolio
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.DataBind();
+            //cvAccopenDateCheckCurrent.ValueToCompare = DateTime.Now.ToShortDateString();
             try
             {
 

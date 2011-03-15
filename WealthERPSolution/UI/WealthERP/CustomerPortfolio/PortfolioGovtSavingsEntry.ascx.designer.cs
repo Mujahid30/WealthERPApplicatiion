@@ -158,6 +158,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.CompareValidator cvAccOpenDate;
         
         /// <summary>
+        /// cvAccopenDateCheckCurrent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvAccopenDateCheckCurrent;
+        
+        /// <summary>
         /// lblAccountwith control.
         /// </summary>
         /// <remarks>
@@ -318,6 +327,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvDepositDate;
+        
+        /// <summary>
+        /// cmpareValidatorOnDates control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpareValidatorOnDates;
         
         /// <summary>
         /// lblMaturityDate control.

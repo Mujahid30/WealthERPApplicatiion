@@ -74,7 +74,11 @@
                     <asp:CompareValidator ID="cvAccOpenDate" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtAccOpenDate" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>
-                </td>
+                        
+                    <asp:CompareValidator ID="cvAccopenDateCheckCurrent" runat="server" ErrorMessage="<br />Account Opening Date should not be more the current date"
+                        Type="Date" ControlToValidate="txtAccOpenDate" ValueToCompare= '<%# DateTime.Today.ToString("dd/MM/yyyy") %>' Operator="LessThanEqual" CssClass="cvPCG"
+                        Display="Dynamic"></asp:CompareValidator>
+                </td>e
                 <td class="leftField">
                     <asp:Label runat="server" CssClass="FieldName" Text="Account with:" ID="lblAccountwith"></asp:Label>
                 </td>
@@ -154,10 +158,16 @@
                         Type="Date" ControlToValidate="txtDepositDate" CssClass="cvPCG" Operator="LessThanEqual" 
                         ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                         
+                        
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="cvDepositDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtDepositDate" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>
+                        
+                        <asp:CompareValidator ID="cmpareValidatorOnDates" runat="server"
+                        ErrorMessage="Deposit date cannot be greater than Account Opening date"
+                        ControlToCompare="txtDepositDate" CssClass="cvPCG" ControlToValidate="txtAccOpenDate"
+                        Operator="GreaterThanEqual" Type="Date"></asp:CompareValidator>
                      </span>
                 </td>
                 <td class="leftField">
