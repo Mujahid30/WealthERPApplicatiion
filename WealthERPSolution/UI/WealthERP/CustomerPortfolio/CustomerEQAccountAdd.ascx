@@ -196,7 +196,7 @@
                     <asp:Label ID="lblFolioNum" runat="server" CssClass="FieldName" Text="Trade Account Number : "></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtTradeNum" runat="server" OnTextChanged="txtTradeNum_TextChanged" CssClass="txtField" AutoPostBack="true" MaxLength="15" onchange="checkLoginId()"></asp:TextBox>
+                    <asp:TextBox ID="txtTradeNum" runat="server" OnTextChanged="txtTradeNum_TextChanged" CssClass="txtField" AutoPostBack="true" MaxLength="20" onchange="checkLoginId()"></asp:TextBox>
                     <span id="Span3" class="spnRequiredField">*</span><span id="spnLoginStatus"></span>
                     
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtTradeNum"
@@ -315,15 +315,14 @@
      
             
         </table>
-    </ContentTemplate>
-</asp:UpdatePanel>
+
 <table width="100%">
 <tr>
          <td colspan="2" class="SubmitCell">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                 Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
-           <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" onclick="btnUpdate_Click" Visible="False" />
+           <asp:Button ID="btnUpdate" runat="server" OnClientClick="return isValid()" CssClass="PCGButton" Text="Update" onclick="btnUpdate_Click" Visible="False" />
         </td>
       
     </tr>
@@ -334,3 +333,6 @@
 <table width="100%" class="TableBackground" border="1">
     
 </table>
+
+    </ContentTemplate>
+</asp:UpdatePanel>
