@@ -615,56 +615,136 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            string TradeAccNo;
+            string BrokerCode;
+            int PortfolioId;
             CustomerAccountsVo newAccountVo = new CustomerAccountsVo();
             CustomerAccountAssociationVo AccountAssociationVo = new CustomerAccountAssociationVo();
             customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];
+            string oldaccount;
+            oldaccount = customerAccountsVo.AccountNum;
             newAccountVo.AccountNum = txtFolioNumber.Text;
-            newAccountVo.AssetClass = "MF";
-            if (rbtnNo.Checked)
-                newAccountVo.IsJointHolding = 0;
-            else
-                newAccountVo.IsJointHolding = 1;
-            if (ddlModeOfHolding.SelectedValue != "Select Mode of Holding")
-                newAccountVo.ModeOfHoldingCode = ddlModeOfHolding.SelectedItem.Value.ToString();
-            if (txtAccountDate.Text != "")
-                newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountDate.Text.Trim());
-            newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
-            newAccountVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
-            newAccountVo.AccountId = customerAccountsVo.AccountId;
-            if (customerTransactionBo.UpdateCustomerMFFolioDetails(newAccountVo, userVo.UserId))
+            if (oldaccount == txtFolioNumber.Text)
             {
-                customerTransactionBo.DeleteMFFolioAccountAssociates(newAccountVo.AccountId);
-                AccountAssociationVo.AccountId = newAccountVo.AccountId;
-                AccountAssociationVo.CustomerId = customerVo.CustomerId;
 
-                foreach (GridViewRow gvr in this.gvNominee2.Rows)
+                newAccountVo.AssetClass = "MF";
+                if (rbtnNo.Checked)
+                    newAccountVo.IsJointHolding = 0;
+                else
+                    newAccountVo.IsJointHolding = 1;
+                if (ddlModeOfHolding.SelectedValue != "Select Mode of Holding")
+                    newAccountVo.ModeOfHoldingCode = ddlModeOfHolding.SelectedItem.Value.ToString();
+                if (txtAccountDate.Text != "")
+                    newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountDate.Text.Trim());
+                newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+                newAccountVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
+                newAccountVo.AccountId = customerAccountsVo.AccountId;
+                if (customerTransactionBo.UpdateCustomerMFFolioDetails(newAccountVo, userVo.UserId))
                 {
-                    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
-                    {
+                    customerTransactionBo.DeleteMFFolioAccountAssociates(newAccountVo.AccountId);
+                    AccountAssociationVo.AccountId = newAccountVo.AccountId;
+                    AccountAssociationVo.CustomerId = customerVo.CustomerId;
 
-                        AccountAssociationVo.AssociationId = int.Parse(gvNominee2.DataKeys[gvr.RowIndex].Value.ToString());
-                        AccountAssociationVo.AssociationType = "Nominee";
-                        customerAccountBo.CreateMFAccountAssociation(AccountAssociationVo, userVo.UserId);
-                    }
-                }
-                if (rbtnYes.Checked)
-                {
-                    foreach (GridViewRow gvr in this.gvJoint2.Rows)
+                    foreach (GridViewRow gvr in this.gvNominee2.Rows)
                     {
                         if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                         {
 
-                            AccountAssociationVo.AssociationId = int.Parse(gvJoint2.DataKeys[gvr.RowIndex].Value.ToString());
-                            AccountAssociationVo.AssociationType = "Joint Holder";
+                            AccountAssociationVo.AssociationId = int.Parse(gvNominee2.DataKeys[gvr.RowIndex].Value.ToString());
+                            AccountAssociationVo.AssociationType = "Nominee";
                             customerAccountBo.CreateMFAccountAssociation(AccountAssociationVo, userVo.UserId);
                         }
                     }
+                    if (rbtnYes.Checked)
+                    {
+                        foreach (GridViewRow gvr in this.gvJoint2.Rows)
+                        {
+                            if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                            {
 
+                                AccountAssociationVo.AssociationId = int.Parse(gvJoint2.DataKeys[gvr.RowIndex].Value.ToString());
+                                AccountAssociationVo.AssociationType = "Joint Holder";
+                                customerAccountBo.CreateMFAccountAssociation(AccountAssociationVo, userVo.UserId);
+                            }
+                        }
+
+                    }
                 }
+
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView','none');", true);
             }
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView','none');", true);
+            else
+            {
+                TradeAccNo = txtFolioNumber.Text;
+                BrokerCode = customerAccountsVo.AMCCode.ToString();
+                PortfolioId = customerAccountsVo.AccountId;
+
+
+                if (ControlHost.CheckTradeNoAvailabilityAccount(TradeAccNo, BrokerCode, PortfolioId))
+                {
+
+                    newAccountVo.AssetClass = "MF";
+                    if (rbtnNo.Checked)
+                        newAccountVo.IsJointHolding = 0;
+                    else
+                        newAccountVo.IsJointHolding = 1;
+                    if (ddlModeOfHolding.SelectedValue != "Select Mode of Holding")
+                        newAccountVo.ModeOfHoldingCode = ddlModeOfHolding.SelectedItem.Value.ToString();
+                    if (txtAccountDate.Text != "")
+                        newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountDate.Text.Trim());
+                    newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+                    newAccountVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
+                    newAccountVo.AccountId = customerAccountsVo.AccountId;
+                    if (customerTransactionBo.UpdateCustomerMFFolioDetails(newAccountVo, userVo.UserId))
+                    {
+                        customerTransactionBo.DeleteMFFolioAccountAssociates(newAccountVo.AccountId);
+                        AccountAssociationVo.AccountId = newAccountVo.AccountId;
+                        AccountAssociationVo.CustomerId = customerVo.CustomerId;
+
+                        foreach (GridViewRow gvr in this.gvNominee2.Rows)
+                        {
+                            if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                            {
+
+                                AccountAssociationVo.AssociationId = int.Parse(gvNominee2.DataKeys[gvr.RowIndex].Value.ToString());
+                                AccountAssociationVo.AssociationType = "Nominee";
+                                customerAccountBo.CreateMFAccountAssociation(AccountAssociationVo, userVo.UserId);
+                            }
+                        }
+                        if (rbtnYes.Checked)
+                        {
+                            foreach (GridViewRow gvr in this.gvJoint2.Rows)
+                            {
+                                if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                                {
+
+                                    AccountAssociationVo.AssociationId = int.Parse(gvJoint2.DataKeys[gvr.RowIndex].Value.ToString());
+                                    AccountAssociationVo.AssociationType = "Joint Holder";
+                                    customerAccountBo.CreateMFAccountAssociation(AccountAssociationVo, userVo.UserId);
+                                }
+                            }
+
+                        }
+                    }
+
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView','none');", true);
+                }
+
+
+
+                else
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Folio Already Exists');", true);
+
+                }
+
+
+
+            }
         }
+
 
         protected void gvJoint2_RowDataBound(object sender, GridViewRowEventArgs e)
         {

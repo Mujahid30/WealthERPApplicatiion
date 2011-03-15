@@ -38,14 +38,14 @@
         }
         
         $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
-
-        $.ajax({
+         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             url: "ControlHost.aspx/CheckTradeNoMFAvailability",
             data: "{ 'TradeAccNo': '" + $("#<%=txtFolioNumber.ClientID %>").val() + "','BrokerCode': '" + $("#<%=ddlProductAmc.ClientID %>").val() + "','PortfolioId': '" + $("#<%=ddlPortfolio.ClientID %>").val() + "' }",
             error: function(xhr, status, error) {
+            
                 alert("Please select AMC!");
             },
             success: function(msg) {
@@ -353,7 +353,7 @@
                         Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
                     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
-                        Text="Update" OnClick="btnUpdate_Click" OnClientClick="return isValid()" />
+                        Text="Update" OnClick="btnUpdate_Click"  />
                 </td>
 
 <input type="hidden" id="hidValidCheck" />
