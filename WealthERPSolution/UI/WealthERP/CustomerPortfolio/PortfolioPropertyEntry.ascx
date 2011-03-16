@@ -16,9 +16,18 @@
 <asp:ScriptManager ID="scrptMgr" runat="server">
 
 </asp:ScriptManager>
+<script type="text/javascript">
+    function SetCurrentValue() {
+        
+
+    };
+</script>
 <script type="text/javascript" language="javascript">
     var content_Prefix = "ctrl_PortfolioPropertyEntry_";
     function CalculateCost(txtPurchasePrice, txtQuantity, txtPurchaseValue) {
+        TextboxesSwapingVales();
+       
+
         txtQuantity = content_Prefix + txtQuantity;
         txtQty = document.getElementById(txtQuantity);
         txtPurchaseValue = content_Prefix + txtPurchaseValue;
@@ -27,7 +36,32 @@
             txtPurchaseVal.value = (txtPurchasePrice.value * txtQty.value).toFixed(2);
             txtMonth.value = parseFloat(txtMonth.value).toFixed(2);
         }
+
+        MoveValuetoCurrentVal()
     }
+
+    function CalculateCostForCurrentVal(txtPurchasePrice, txtQuantity, txtCurrentValue) {
+        
+        txtQuantity = content_Prefix + txtQuantity;
+        txtQty = document.getElementById(txtQuantity);
+        txtCurrentValue = content_Prefix + txtCurrentValue;
+        txtPurchaseVal = document.getElementById(txtCurrentValue);
+        if (!isNaN(txtPurchasePrice.value) && txtPurchasePrice.value != 0 && !isNaN(txtQty.value) && txtQty.value != 0) {
+            txtPurchaseVal.value = (txtPurchasePrice.value * txtQty.value).toFixed(2);
+            txtMonth.value = parseFloat(txtMonth.value).toFixed(2);
+        }
+    }
+    
+    function TextboxesSwapingVales() {
+        if (document.getElementById('<%=txtPurchasePrice.ClientID %>').value > 0)
+            document.getElementById('<%=txtCurrentPrice.ClientID %>').value = document.getElementById('<%=txtPurchasePrice.ClientID %>').value;
+    }
+
+    function MoveValuetoCurrentVal() {
+        if (document.getElementById('<%=txtPurchaseValue.ClientID %>').value > 0)
+            document.getElementById('<%=txtCurrentValue.ClientID %>').value = document.getElementById('<%=txtPurchaseValue.ClientID %>').value;
+    }
+
 </script>
 <%--<asp:UpdatePanel ID="up1" runat="server">
     <ContentTemplate>--%>
@@ -293,7 +327,7 @@
             <asp:Label ID="Label8" runat="server" Text="Purchase Rate per Unit(Rs):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="txtField" onblur="CalculateCost(this,'txtQuantity','txtPurchaseValue')"></asp:TextBox>
+            <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="txtField"  onblur="MoveValuetoCurrentVal()" onchange="CalculateCost(this,'txtQuantity','txtPurchaseValue')"></asp:TextBox>
             <span id="Span11" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvPurchasePrice" ControlToValidate="txtPurchasePrice"
                 ErrorMessage="<br>Please enter the Purchase Price" Display="Dynamic" runat="server"
@@ -335,7 +369,7 @@
             <asp:Label ID="Label11" runat="server" Text="Current Rate per Unit(Rs):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtCurrentPrice" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtCurrentPrice" onblur="CalculateCostForCurrentVal(this,'txtQuantity','txtCurrentValue')"  runat="server" CssClass="txtField"></asp:TextBox>
             <%--<span id="Span13" class="spnRequiredField">*</span>--%>
             <%--<asp:RequiredFieldValidator ID="rfvCurrentPrice" ControlToValidate="txtCurrentPrice"
                         ErrorMessage="Please enter the Current Price" Display="Dynamic" runat="server"
