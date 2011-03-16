@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WealthERP.Base;
+using VoHostConfig;
+using BoHostConfig;
 
 namespace WealthERP
 {
@@ -11,12 +14,25 @@ namespace WealthERP
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
+            GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
+            GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
+
+            generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(0);
+            Session[SessionContents.SAC_HostGeneralDetails] = generalconfigurationvo;
+            if (Session[SessionContents.SAC_HostGeneralDetails] != null)
             {
-                Session["Theme"] = "Maroon";
+                generalconfigurationvo = (GeneralConfigurationVo)Session[SessionContents.SAC_HostGeneralDetails];
+
+                if (!string.IsNullOrEmpty(generalconfigurationvo.DefaultTheme))
+                {
+                    if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
+                    {
+                        Session["Theme"] = generalconfigurationvo.DefaultTheme;
+                    }
+                    Page.Theme = Session["Theme"].ToString();
+                }
             }
-            Page.Theme = Session["Theme"].ToString();
-        }
+        }        
 
         protected void Page_Load(object sender, EventArgs e)
         {
