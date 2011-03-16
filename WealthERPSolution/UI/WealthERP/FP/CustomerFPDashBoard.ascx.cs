@@ -513,115 +513,122 @@ namespace WealthERP.Customer
         public void GetAssetAllocation()
         {
             DataSet dsGetCustomerRiskProfile = riskprofilebo.GetCustomerRiskProfile(CustomerId, advisorVo.advisorId);
-            riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
-
-            DataSet dsGetAssetAllocationRules = riskprofilebo.GetAssetAllocationRules(riskCode, advisorVo.advisorId);
-            DataTable dtAsset = new DataTable();
-            dtAsset.Columns.Add("AssetType");
-            dtAsset.Columns.Add("Percentage");
-            dtAsset.Columns.Add("AssetTypeCode");
-            DataRow drAsset;
-            double equityAdjustment = 0;
-            double equitycalc = 0.0;
-            double equityPercentage = 0;
-            double debtpercentage = 0;
-            double cashPercentage = 0;
-            if (dsGetAssetAllocationRules != null && dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() != advisorVo.advisorId.ToString())
+            if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
             {
-                foreach (DataRow dr in dsGetAssetAllocationRules.Tables[0].Rows)
+                riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+                DataSet dsGetAssetAllocationRules = riskprofilebo.GetAssetAllocationRules(riskCode, advisorVo.advisorId);
+                DataTable dtAsset = new DataTable();
+                dtAsset.Columns.Add("AssetType");
+                dtAsset.Columns.Add("Percentage");
+                dtAsset.Columns.Add("AssetTypeCode");
+                DataRow drAsset;
+                double equityAdjustment = 0;
+                double equitycalc = 0.0;
+                double equityPercentage = 0;
+                double debtpercentage = 0;
+                double cashPercentage = 0;
+                if (dsGetAssetAllocationRules != null && dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() != advisorVo.advisorId.ToString())
                 {
-                    if (dr["WAC_AssetClassification"].ToString() == "Cash")
+                    foreach (DataRow dr in dsGetAssetAllocationRules.Tables[0].Rows)
                     {
-                        cashPercentage = double.Parse(dr["WAAR_AssetAllocationPercenatge"].ToString());
+                        if (dr["WAC_AssetClassification"].ToString() == "Cash")
+                        {
+                            cashPercentage = double.Parse(dr["WAAR_AssetAllocationPercenatge"].ToString());
+                        }
+                        else if (dr["WAC_AssetClassification"].ToString() == "Equity")
+                        {
+                            equityAdjustment = double.Parse(dr["WAAR_Adjustment"].ToString());
+                        }
                     }
-                    else if (dr["WAC_AssetClassification"].ToString() == "Equity")
-                    {
-                        equityAdjustment = double.Parse(dr["WAAR_Adjustment"].ToString());
-                    }
-                }
-                equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
-                equityPercentage = (((100 - cashPercentage) * equitycalc + (equityAdjustment)));
-                debtpercentage = (100 - equityPercentage - cashPercentage);
-                drAsset = dtAsset.NewRow();
-                drAsset[0] = "Equity";
-                drAsset[1] = equityPercentage.ToString();
-                drAsset[2] = 1;
-                dtAsset.Rows.Add(drAsset);
-                drAsset = dtAsset.NewRow();
-                drAsset[0] = "Debt";
-                drAsset[1] = debtpercentage.ToString();
-                drAsset[2] = 2;
-                dtAsset.Rows.Add(drAsset);
-                drAsset = dtAsset.NewRow();
-                drAsset[0] = "Cash";
-                drAsset[1] = cashPercentage.ToString();
-                drAsset[2] = 3;
-                dtAsset.Rows.Add(drAsset);
-            }
-            else
-            {
-                foreach (DataRow dr in dsGetAssetAllocationRules.Tables[0].Rows)
-                {
+                    equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
+                    equityPercentage = (((100 - cashPercentage) * equitycalc + (equityAdjustment)));
+                    debtpercentage = (100 - equityPercentage - cashPercentage);
                     drAsset = dtAsset.NewRow();
-                    drAsset[0] = dr["WAC_AssetClassification"].ToString();
-                    if (dr["WAAR_AssetAllocationPercenatge"] != null)
-                        drAsset[1] = dr["WAAR_AssetAllocationPercenatge"].ToString();
-                    else
-                        drAsset[1] = 0;
-                    drAsset[2] = dr["WAC_AssetClassificationCode"].ToString();
+                    drAsset[0] = "Equity";
+                    drAsset[1] = equityPercentage.ToString();
+                    drAsset[2] = 1;
+                    dtAsset.Rows.Add(drAsset);
+                    drAsset = dtAsset.NewRow();
+                    drAsset[0] = "Debt";
+                    drAsset[1] = debtpercentage.ToString();
+                    drAsset[2] = 2;
+                    dtAsset.Rows.Add(drAsset);
+                    drAsset = dtAsset.NewRow();
+                    drAsset[0] = "Cash";
+                    drAsset[1] = cashPercentage.ToString();
+                    drAsset[2] = 3;
                     dtAsset.Rows.Add(drAsset);
                 }
-            }
-            dtRecommendedAllocation = dtAsset;
+                else
+                {
+                    foreach (DataRow dr in dsGetAssetAllocationRules.Tables[0].Rows)
+                    {
+                        drAsset = dtAsset.NewRow();
+                        drAsset[0] = dr["WAC_AssetClassification"].ToString();
+                        if (dr["WAAR_AssetAllocationPercenatge"] != null)
+                            drAsset[1] = dr["WAAR_AssetAllocationPercenatge"].ToString();
+                        else
+                            drAsset[1] = 0;
+                        drAsset[2] = dr["WAC_AssetClassificationCode"].ToString();
+                        dtAsset.Rows.Add(drAsset);
+                    }
+                }
+                dtRecommendedAllocation = dtAsset;
 
-            if ((dtAsset.Rows.Count > 0) && (dtAsset.ToString() != null))
-            {
-                lblCurrChartErrorDisplay.Visible = false;
-                /* For Chart binding */
-                Legend ShowRecomondedAssetAlllegend = null;
-                ShowRecomondedAssetAlllegend = new Legend("ShowRecomondedAssetAlllegendLegends");
-                ShowRecomondedAssetAlllegend.Enabled = true;
-                Series seriesAssets = new Series("RecomondedAsset");
-                seriesAssets.ChartType = SeriesChartType.Pie;
-                ChartRecomonedAsset.Visible = true;
-                ChartRecomonedAsset.Series.Clear();
-                ChartRecomonedAsset.Series.Add(seriesAssets);
-                ChartRecomonedAsset.DataSource = dtAsset;
-                ChartRecomonedAsset.Series[0].XValueMember = "AssetType";
-                ChartRecomonedAsset.Series[0].YValueMembers = "Percentage";
-                ChartRecomonedAsset.Series[0].ToolTip = "#VALX: #PERCENT";
-                ChartRecomonedAsset.Legends.Add(ShowRecomondedAssetAlllegend);
-                ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Title = "Assets";
-                ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleAlignment = StringAlignment.Center;
-                ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.None;
-                ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Alignment = StringAlignment.Center;
-                ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.GradientLine;
-                ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparatorColor = Color.Black;
+                if ((dtAsset.Rows.Count > 0) && (dtAsset.ToString() != null))
+                {
+                    lblCurrChartErrorDisplay.Visible = false;
+                    /* For Chart binding */
+                    Legend ShowRecomondedAssetAlllegend = null;
+                    ShowRecomondedAssetAlllegend = new Legend("ShowRecomondedAssetAlllegendLegends");
+                    ShowRecomondedAssetAlllegend.Enabled = true;
+                    Series seriesAssets = new Series("RecomondedAsset");
+                    seriesAssets.ChartType = SeriesChartType.Pie;
+                    ChartRecomonedAsset.Visible = true;
+                    ChartRecomonedAsset.Series.Clear();
+                    ChartRecomonedAsset.Series.Add(seriesAssets);
+                    ChartRecomonedAsset.DataSource = dtAsset;
+                    ChartRecomonedAsset.Series[0].XValueMember = "AssetType";
+                    ChartRecomonedAsset.Series[0].YValueMembers = "Percentage";
+                    ChartRecomonedAsset.Series[0].ToolTip = "#VALX: #PERCENT";
+                    ChartRecomonedAsset.Legends.Add(ShowRecomondedAssetAlllegend);
+                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Title = "Assets";
+                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleAlignment = StringAlignment.Center;
+                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.None;
+                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Alignment = StringAlignment.Center;
+                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.GradientLine;
+                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparatorColor = Color.Black;
 
-                // Enable X axis margin
-                LegendCellColumn colorColumn = new LegendCellColumn();
-                colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
-                colorColumn.HeaderBackColor = Color.WhiteSmoke;
-                ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(colorColumn);
-                ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].BackColor = Color.FloralWhite;
-                LegendCellColumn totalColumn = new LegendCellColumn();
-                totalColumn.Alignment = ContentAlignment.MiddleLeft;
-                totalColumn.Text = "#VALX: #PERCENT";
-                totalColumn.Name = "AssetsColumn";
-                totalColumn.HeaderBackColor = Color.WhiteSmoke;
-                ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(totalColumn);
-                ChartRecomonedAsset.Series[0]["PieLabelStyle"] = "Disabled";
-                ChartRecomonedAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
-                ChartRecomonedAsset.BackColor = Color.Transparent;
-                ChartRecomonedAsset.ChartAreas[0].BackColor = Color.Transparent;
-                ChartRecomonedAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
-                ChartRecomonedAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
-                tdCurrentAssetAllocation.Visible = true;
-                ChartRecomonedAsset.DataBind();
+                    // Enable X axis margin
+                    LegendCellColumn colorColumn = new LegendCellColumn();
+                    colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
+                    colorColumn.HeaderBackColor = Color.WhiteSmoke;
+                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(colorColumn);
+                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].BackColor = Color.FloralWhite;
+                    LegendCellColumn totalColumn = new LegendCellColumn();
+                    totalColumn.Alignment = ContentAlignment.MiddleLeft;
+                    totalColumn.Text = "#VALX: #PERCENT";
+                    totalColumn.Name = "AssetsColumn";
+                    totalColumn.HeaderBackColor = Color.WhiteSmoke;
+                    ChartRecomonedAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(totalColumn);
+                    ChartRecomonedAsset.Series[0]["PieLabelStyle"] = "Disabled";
+                    ChartRecomonedAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
+                    ChartRecomonedAsset.BackColor = Color.Transparent;
+                    ChartRecomonedAsset.ChartAreas[0].BackColor = Color.Transparent;
+                    ChartRecomonedAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
+                    ChartRecomonedAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+                    tdCurrentAssetAllocation.Visible = true;
+                    ChartRecomonedAsset.DataBind();
+                }
+                else
+                {
+                    lblChartErrorDisplay.Visible = true;
+                    ChartRecomonedAsset.Visible = false;
+                }
             }
             else
             {
-                lblCurrChartErrorDisplay.Visible = true;
+                lblChartErrorDisplay.Visible = true;
                 ChartRecomonedAsset.Visible = false;
             }
         }
