@@ -61,43 +61,40 @@
                 return;
             }
             $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
-            $.ajax({
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                url: "ControlHost.aspx/CheckTradeNoAvailability",
-                data: "{ 'TradeAccNo': '" + $("#<%=txtTradeNum.ClientID %>").val() + "','BrokerCode': '" + $("#<%=ddlBrokerCode.ClientID %>").val() + "','PortfolioId': '" + $("#<%=ddlPortfolio.ClientID %>").val() + "' }",
-                error: function(xhr, status, error) {
-                    alert("Sorry. Something went wrong!");
-                },
-                success: function(msg) {
+          $.ajax({
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              url: "ControlHost.aspx/CheckTradeNoAvailability",
+              data: "{ 'TradeAccNo': '" + $("#<%=txtTradeNum.ClientID %>").val() + "','BrokerCode': '" + $("#<%=ddlBrokerCode.ClientID %>").val() + "','PortfolioId': '" + $("#<%=ddlPortfolio.ClientID %>").val() + "' }",
+              error: function(xhr, status, error) {
+                  alert("Sorry. Something went wrong!");
+              },
+              success: function(msg) {
 
-                    if (msg.d) {
-                        alert('Trade account is available');
-                        $("#hidValid").val("1");
-                        $("#spnLoginStatus").removeClass();
-                        $("#spnLoginStatus").addClass("success");
-                        $("#spnLoginStatus").html("");
-                    }
-                    else {
-                        alert('Trade account already exists');
-                        $("#hidValid").val("0");
-                        $("#spnLoginStatus").removeClass();
-                        $("#spnLoginStatus").addClass("error");
-                    }
-                }
+                  if (msg.d) {
 
-            });
+                      $("#hidValid").val("1");
+                      $("#spnLoginStatus").removeClass();
+                      $("#spnLoginStatus").addClass("success");
+                      $("#spnLoginStatus").html("");
+                  }
+                  else {
+                      alert('Trade account already exists');
+                      $("#hidValid").val("0");
+                      $("#spnLoginStatus").removeClass();
+                      $("#spnLoginStatus").addClass("error");
+                  }
+              }
+
+          });
         }
         function isValid() {
-         
             if (document.getElementById('hidValid').value == '1') {
-               
                 Page_ClientValidate();
                 return Page_IsValid;
             }
             else {
-                
                 Page_ClientValidate();
                 alert('Your Selected Trade Number is not available. Please choose some other Trade Number');
                 return false;
@@ -330,6 +327,9 @@
       
     </tr>
     </table>
+    
+        </ContentTemplate>
+</asp:UpdatePanel>
 
 <input type="hidden" id="hidValid" />
 <input type="hidden" id="hidStatus" runat="server" />
@@ -337,5 +337,3 @@
     
 </table>
 
-    </ContentTemplate>
-</asp:UpdatePanel>
