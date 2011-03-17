@@ -524,8 +524,8 @@ namespace DaoCustomerPortfolio
             }
             return dsGetCustomerAssetAccounts;
         }
-      
 
+        //For Submit Button in Add EQ Account
         public bool CheckTradeNoAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
 
@@ -563,7 +563,7 @@ namespace DaoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "UserDao.cs:ChkAvailability()");
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CheckTradeNoAvailability()");
 
 
                 object[] objects = new object[5];
@@ -579,6 +579,61 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
+        //For Update Button in Add EQ Account
+        public bool CheckTradeNoAvailabilityForUpdate(string TradeAccNo, string BrokerCode, int PortfolioId)
+        {
+
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int rowCount;
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkAvailabilityCmd = db.GetStoredProcCommand("SP_CheckTradeAccAvailabilityForUpdate");
+
+                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_No", DbType.String, TradeAccNo);
+                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_BrokerCode", DbType.String, BrokerCode);
+                db.AddInParameter(chkAvailabilityCmd, "@TradeAcc_PortfolioId", DbType.Int32, PortfolioId);
+
+                ds = db.ExecuteDataSet(chkAvailabilityCmd);
+                rowCount = ds.Tables[0].Rows.Count;
+                if (rowCount > 0)
+                {
+                    bResult = false;
+                }
+                else
+                {
+                    bResult = true;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CheckTradeNoAvailabilityForUpdate()");
+
+
+                object[] objects = new object[5];
+                objects[0] = TradeAccNo;
+                objects[1] = BrokerCode;
+                objects[2] = PortfolioId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
         public bool CheckTradeNoMFAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
             bool bResult = false;
