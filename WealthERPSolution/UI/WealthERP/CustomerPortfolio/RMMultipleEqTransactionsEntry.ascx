@@ -163,6 +163,11 @@
             <ajaxToolkit:FilteredTextBoxExtender ID="txtQuantity_E" runat="server" Enabled="True"
                 TargetControlID="txtQuantity" FilterType="Numbers">
             </ajaxToolkit:FilteredTextBoxExtender>
+             <span id="Span7" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator SetFocusOnError="true" ID="qtyValidation" runat="server"
+                        ControlToValidate="txtQuantity" Display="Dynamic" ErrorMessage="Select Quantity"
+                        CssClass="rfvPCG"></asp:RequiredFieldValidator>
+                       
         </td>
         <td align="right">
             <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Brokerage:"></asp:Label>
