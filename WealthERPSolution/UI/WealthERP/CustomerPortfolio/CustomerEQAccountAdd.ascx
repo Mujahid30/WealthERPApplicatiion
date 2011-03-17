@@ -322,7 +322,7 @@
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
                 Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
-           <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" onclick="btnUpdate_Click" Visible="False" />
+           <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" onclick="btnUpdate_Click" OnClientClick="return isValid()" Visible="False" />
         </td>
       
     </tr>
