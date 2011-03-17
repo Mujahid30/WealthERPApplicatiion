@@ -350,27 +350,72 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            string TradeAccNo;
+            string BrokerCode;
+            int PortfolioId;
+            string oldaccountID;
             try
             {
                 CustomerAccountsVo newAccountVo = new CustomerAccountsVo();
                 CustomerAccountAssociationVo AccountAssociationVo = new CustomerAccountAssociationVo();
                 customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
+                oldaccountID = customerAccountsVo.TradeNum;
+               newAccountVo.TradeNum = txtTradeNum.Text.ToString();
+               if (oldaccountID == txtTradeNum.Text)
+               {
+                   newAccountVo.AccountId = customerAccountsVo.AccountId;
 
-                newAccountVo.AccountId = customerAccountsVo.AccountId;
-                newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedValue);
-                newAccountVo.BrokerCode = ddlBrokerCode.SelectedValue;
-                newAccountVo.TradeNum = txtTradeNum.Text.ToString();
-                newAccountVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
-                newAccountVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
-                newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
-                if (txtAccountStartingDate.Text != "")
-                    newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
+                   newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedValue);
+                   newAccountVo.BrokerCode = ddlBrokerCode.SelectedValue;
+
+                   newAccountVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
+                   newAccountVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
+                   newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
+                   if (txtAccountStartingDate.Text != "")
+                       newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
 
 
 
-                if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
-                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                   if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
+                       //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                       ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+               }
+               else
+               {
+                   TradeAccNo = txtTradeNum.Text;
+                   BrokerCode = customerAccountsVo.BrokerCode.ToString();
+                   PortfolioId = customerAccountsVo.PortfolioId;
+
+                   if (ControlHost.CheckTradeNoAvailabilityForUpdate(TradeAccNo, BrokerCode, PortfolioId))
+                   {
+                       newAccountVo.AccountId = customerAccountsVo.AccountId;
+
+                       newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedValue);
+                       newAccountVo.BrokerCode = ddlBrokerCode.SelectedValue;
+
+                       newAccountVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
+                       newAccountVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
+                       newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
+                       if (txtAccountStartingDate.Text != "")
+                           newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
+
+
+
+                       if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
+                           //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                   }
+                   else
+                   {
+
+                       ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Trade account already exists');", true);
+
+                   }
+
+
+
+               }
+
 
             }
             catch (BaseApplicationException Ex)
