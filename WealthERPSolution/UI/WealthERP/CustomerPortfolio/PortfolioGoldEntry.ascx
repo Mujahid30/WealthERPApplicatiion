@@ -112,10 +112,10 @@ function showassocation() {
                         ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="lblQuantity" runat="server" CssClass="FieldName" Text="Quantity:"></asp:Label>
+                    <asp:Label ID="lblQuantity" runat="server" CssClass="FieldName" Text="Quantity(Grams):"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtQuantity" runat="server" CssClass="txtField" MaxLength="10"  onblur=""></asp:TextBox>
+                    <asp:TextBox ID="txtQuantity" runat="server" CssClass="txtField" MaxLength="10" AutoPostBack="true"  OnTextChanged="btn_costUpdate"></asp:TextBox>
                     <span id="Span3" class="spnRequiredField">*</span>
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtQuantity"
                         ErrorMessage="<br />Please enter a Quantity" Display="Dynamic" runat="server"
@@ -131,20 +131,20 @@ function showassocation() {
                     <asp:Label ID="lblPurchasePrice" runat="server" CssClass="FieldName" Text="Purchase Rate per Unit(Rs):"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="txtField" Width="110px"></asp:TextBox>
+                    <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="txtField" OnTextChanged="btn_costUpdate" AutoPostBack="true" Width="110px"></asp:TextBox>
                     <asp:DropDownList ID="ddlMeasureCode" runat="server" CssClass="cmbField" Width="50px" Visible ="false"  >
                     </asp:DropDownList>
-                    <asp:Label ID="lblMeasureCode" runat="server" CssClass="FieldName" Text="per Gram"></asp:Label>
+                    <asp:Label ID="lblMeasureCode" runat="server" CssClass="FieldName" Text="Grams"></asp:Label>
               
                     <span id="Span4" class="spnRequiredField">*</span>
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPurchasePrice"
                         ErrorMessage="<br />Please enter a Purchase Price" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                     <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please enter a numeric value"
                         Type="Double" ControlToValidate="txtPurchasePrice" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>
-                    <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlMeasureCode"
+                    <%--<asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlMeasureCode"
                         ErrorMessage="<br />Please select a Measure Code" Operator="NotEqual" ValueToCompare="Select a Measure Code"
                         CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
                 
@@ -156,7 +156,7 @@ function showassocation() {
                     <asp:Label ID="lblPurchaseValue" runat="server" CssClass="FieldName" Text="Purchase Cost(Rs):"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPurchaseValue" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtPurchaseValue" runat="server" Enabled="false" CssClass="txtField"></asp:TextBox>
                     <span id="Span5" class="spnRequiredField">*</span>
                    <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtPurchaseValue"
                         ErrorMessage="<br />Please enter a Purchase Value" Display="Dynamic" runat="server"
@@ -183,7 +183,8 @@ function showassocation() {
                     <asp:Label ID="lblCurrentPrice" runat="server" CssClass="FieldName" Text="Current Rate per Unit(Rs):"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCurrentPrice" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtCurrentPrice" runat="server" AutoPostBack="true" OnTextChanged= "Current_PriceChange" CssClass="txtField"></asp:TextBox>
+                    <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Grams"></asp:Label>
                     <%--<span id="Span6" class="spnRequiredField">*</span>--%>
                     <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtPurchaseDate"
                         ErrorMessage="<br />Please select a Purchase Date" Display="Dynamic" runat="server"
@@ -192,12 +193,14 @@ function showassocation() {
                     <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="<br />Please enter a numeric value"
                         Type="Double" ControlToValidate="txtCurrentPrice" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>
+                        <asp:Button ID="btnSellPrice" runat="server" Text="Use Price" Visible ="False"  CssClass="PCGMediumButton"
+                          OnClick="btnUseSellPrice_Click" />
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblCurrentValue" runat="server" CssClass="FieldName" Text="Current Value(Rs):"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtCurrentValue" runat="server" Enabled="false" CssClass="txtField"></asp:TextBox>
                     <%-- <span id="Span7" class="spnRequiredField">*</span>--%>
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtPurchaseDate"
                         ErrorMessage="<br />Please select a Purchase Date" Display="Dynamic" runat="server"
@@ -234,6 +237,9 @@ function showassocation() {
                     <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtSaleDate" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>
+                       <%-- <asp:CompareValidator ID="cvAccopenDateCheckCurrent" runat="server" ErrorMessage="<br />Account Opening Date should not be more the current date"
+                        Type="Date" ControlToValidate="txtSaleDate" ValueToCompare= '<%# DateTime.Today.ToString("dd/MM/yyyy") %>' Operator="LessThanEqual" CssClass="cvPCG"
+                        Display="Dynamic"></asp:CompareValidator>--%>
                 </td>
             </tr>
             <tr>
@@ -241,16 +247,19 @@ function showassocation() {
                     <asp:Label ID="lblSaleRate" runat="server" CssClass="FieldName" Text="Sale Rate per unit(Rs):"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtSaleRate" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtSaleRate" runat="server" AutoPostBack="true" OnTextChanged="Button_SaleRate" CssClass="txtField"></asp:TextBox>
+                    <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Grams"></asp:Label>
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />Please enter a numeric value"
                         Type="Double" ControlToValidate="txtSaleRate" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>
+                         <asp:Button ID="btnSaleCost" runat="server" Text="Use Price" Visible ="false"  CssClass="PCGMediumButton"
+                          OnClick="btnUseSellCost_Click" />
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblSaleValue" runat="server" CssClass="FieldName" Text="Sale Value(Rs):"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtSaleValue" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtSaleValue" runat="server" Enabled="false" CssClass="txtField"></asp:TextBox>
                     <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="<br />Please enter a numeric value"
                         Type="Double" ControlToValidate="txtSaleValue" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>

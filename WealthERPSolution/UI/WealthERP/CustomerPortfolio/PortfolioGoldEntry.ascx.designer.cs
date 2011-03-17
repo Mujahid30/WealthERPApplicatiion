@@ -266,6 +266,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblMeasureCode;
         
         /// <summary>
+        /// CompareValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
+        
+        /// <summary>
         /// btnUsePrice control.
         /// </summary>
         /// <remarks>
@@ -320,6 +329,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.TextBox txtCurrentPrice;
         
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
         /// CompareValidator5 control.
         /// </summary>
         /// <remarks>
@@ -327,6 +345,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator5;
+        
+        /// <summary>
+        /// btnSellPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSellPrice;
         
         /// <summary>
         /// lblCurrentValue control.
@@ -428,6 +455,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.TextBox txtSaleRate;
         
         /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+        
+        /// <summary>
         /// CompareValidator9 control.
         /// </summary>
         /// <remarks>
@@ -435,6 +471,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator9;
+        
+        /// <summary>
+        /// btnSaleCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaleCost;
         
         /// <summary>
         /// lblSaleValue control.

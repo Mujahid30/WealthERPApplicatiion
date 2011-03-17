@@ -145,10 +145,16 @@ namespace WealthERP.CustomerPortfolio
                 if (lblAssetCategory.Text == "Gems & Jewellery -- Gold")
                 {
                     btnUsePrice.Visible = true;
+                    btnSellPrice.Visible = true;
+                    btnSaleCost.Visible = true;
+
+
                 }
                 else
                 
                     btnUsePrice.Visible = false;
+                   btnSellPrice.Visible = false;
+                   btnSaleCost.Visible = false;
                     
 
                     // Purchase Date
@@ -371,15 +377,58 @@ namespace WealthERP.CustomerPortfolio
             ddlCategory.Items.Insert(0, new ListItem("Select a Category", "Select a Category"));
         }
 
+        protected void Current_PriceChange(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtQuantity.Text))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Quantity');", true);
+            }
+            else
+            {
+                txtCurrentValue.Text = (Math.Round((double.Parse(txtCurrentPrice.Text) * double.Parse(txtQuantity.Text)), 4)).ToString();
+            }
+        }
+        protected void Button_SaleRate(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtQuantity.Text))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Quantity');", true);
+            }
+            else
+            {
+                txtSaleValue.Text = (Math.Round((double.Parse(txtSaleRate.Text) * double.Parse(txtQuantity.Text)), 4)).ToString();
+            }
+        }
+
+        protected void btn_costUpdate(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtQuantity.Text))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Quantity');", true);
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(txtPurchasePrice.Text))
+                {
+                    txtPurchasePrice.Text = "0";
+                }
+                txtPurchaseValue.Text = (Math.Round((double.Parse(txtPurchasePrice.Text) * double.Parse(txtQuantity.Text)), 4)).ToString();
+            }
+        }
+
         protected void btn_categorycheck(object sender, EventArgs e)
         {
             if (ddlCategory.SelectedValue == "GDGJ" || ddlCategory.SelectedValue == "GDSR")
             {
                 btnUsePrice.Visible = false;
+                btnSellPrice.Visible = false ;
+                btnSaleCost.Visible = false;
             }
             else
             {
                 btnUsePrice.Visible = true;
+                btnSellPrice.Visible = true;
+                btnSaleCost.Visible = true;
             }
 
         }
@@ -477,6 +526,55 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
             }
         }
+        protected void btnUseSellPrice_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtQuantity.Text))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Quantity');", true);
+            }
+            else
+            {
+                //if (string.IsNullOrEmpty(txtCurrentPrice.Text))
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Rate');", true);
+                //}
+                //else
+                {
+
+                    DataSet ds = new DataSet();
+                    string txtPurchaseCurrentDate = Convert.ToString(DateTime.Now);
+                    string price;
+                    ds = portfolioBo.GetGoldPrice(DateTime.Parse(txtPurchaseCurrentDate));
+                    price = ds.Tables[0].Rows[0][0].ToString();
+                    txtCurrentValue.Text = (Math.Round((double.Parse(price) * double.Parse(txtQuantity.Text)), 4)).ToString();
+                    txtCurrentPrice.Text = price;
+                }
+            }
+        }
+
+        protected void btnUseSellCost_Click(object sender, EventArgs e)
+        {
+
+            
+                if (!string.IsNullOrEmpty(txtSaleDate.Text))
+                {
+
+                    DataSet ds = new DataSet();
+
+                    ds = portfolioBo.GetGoldPrice(DateTime.Parse(txtSaleDate.Text));
+                    string saleprice;
+                    saleprice = ds.Tables[0].Rows[0][0].ToString();
+                    txtSaleValue.Text = (Math.Round((double.Parse(saleprice) * double.Parse(txtQuantity.Text)), 4)).ToString();
+                    txtSaleRate.Text = saleprice;
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Sale Date');", true);
+                }
+            }
+           
+            
+        
 
         protected void btnUsePrice_Click(object sender, EventArgs e)
         {
@@ -501,8 +599,8 @@ namespace WealthERP.CustomerPortfolio
                 {
                     DataSet ds1 = new DataSet();
                     ds1 = portfolioBo.GetGoldPriceCurrent(DateTime.Parse(txtPurchaseDate.Text));
-                    txtCurrentPrice.Text = ds1.Tables[0].Rows[0][0].ToString();
-                    txtCurrentValue.Text = (Math.Round((double.Parse(txtCurrentPrice.Text) * double.Parse(txtQuantity.Text)), 4)).ToString();
+                    //txtCurrentPrice.Text = ds1.Tables[0].Rows[0][0].ToString();
+                    //txtCurrentValue.Text = (Math.Round((double.Parse(txtCurrentPrice.Text) * double.Parse(txtQuantity.Text)), 4)).ToString();
                 }
                 else
                 {
