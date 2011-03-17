@@ -151,10 +151,11 @@ namespace WealthERP.CustomerPortfolio
 
                 }
                 else
-                
+                {
                     btnUsePrice.Visible = false;
-                   btnSellPrice.Visible = false;
-                   btnSaleCost.Visible = false;
+                    btnSellPrice.Visible = false;
+                    btnSaleCost.Visible = false;
+                }
                     
 
                     // Purchase Date
