@@ -626,7 +626,8 @@ namespace WealthERP.Advisor
                     txtPinCode.Enabled = false;
                     txtSTD1.Enabled = false;
                     txtSTD2.Enabled = false;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorProfile','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorProfile','none');", true);                    
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "adviserpaneleftttttt", "loadlinks('AdvisorLeftPane','login');", true);
                 }
                 else
                 {
