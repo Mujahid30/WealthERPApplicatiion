@@ -26,6 +26,7 @@ namespace WealthERP.SuperAdmin
                 if (advisorVo != null)
                 {
                     _dsGetSubscriptionDetails = _advisersubscriptionbo.GetAdviserSubscriptionPlanDetails(advisorVo.advisorId);
+                    Session["SubscriptionDetails"] = _dsGetSubscriptionDetails;
                     if (_dsGetSubscriptionDetails != null && _dsGetSubscriptionDetails.Tables[0].Rows.Count>0)
                     {
                         txtComment.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_Comments"].ToString();
@@ -189,6 +190,7 @@ namespace WealthERP.SuperAdmin
             DataSet _dsSelectCheckList;
             AdviserSubscriptionBo _advisersubscriptionbo = new AdviserSubscriptionBo();
             _dsSelectCheckList = _advisersubscriptionbo.GetWerpPlanFlavours(_planid);
+            DataSet _tempSubscriptionDetails = (DataSet)Session["SubscriptionDetails"];
             for (int k = 0; k < chkModules.Items.Count; k++)
             {
                 if (chkModules.Items[k].Selected == true)
@@ -196,13 +198,41 @@ namespace WealthERP.SuperAdmin
                     chkModules.Items[k].Selected = false;
                 }
             }
-            if (_dsSelectCheckList != null && _dsSelectCheckList.Tables[0].Rows.Count > 0)
+            if (_planid != 3)
             {
-                for (int i = 0; i < _dsSelectCheckList.Tables[0].Rows.Count; i++)
+                if (_dsSelectCheckList != null && _dsSelectCheckList.Tables[0].Rows.Count > 0)
                 {
-                    chkModules.Items[int.Parse(_dsSelectCheckList.Tables[0].Rows[i]["WF_FlavourId"].ToString()) - 1].Selected = true;
+                    for (int i = 0; i < _dsSelectCheckList.Tables[0].Rows.Count; i++)
+                    {
+                        for (int j = 0; j < chkModules.Items.Count; j++)
+                        {
+                            if (chkModules.Items[j].Value == _dsSelectCheckList.Tables[0].Rows[i]["WF_FlavourId"].ToString())
+                            {
+                                chkModules.Items[j].Selected = true;
+                            }
+                        }
+
+                    }
                 }
             }
+            else if (_planid == 3)
+            {
+                if (_tempSubscriptionDetails != null && _tempSubscriptionDetails.Tables[1].Rows.Count > 0)
+                {
+                    for (int i = 0; i < _tempSubscriptionDetails.Tables[1].Rows.Count; i++)
+                    {
+                        for (int j = 0; j < chkModules.Items.Count; j++)
+                        {
+                            if (chkModules.Items[j].Value == _tempSubscriptionDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString())
+                            {
+                                chkModules.Items[j].Selected = true;
+                            }
+                        }
+                        //chkModules.SelectedItem.Value = _dsGetSubscriptionDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString();
+                    }
+                }
+            }
+          
             if (_planid != 3)
             {
                 chkModules.Enabled = false;
