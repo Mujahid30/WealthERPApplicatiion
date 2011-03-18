@@ -35,6 +35,7 @@ namespace WealthERP.FP
         AdvisorVo advisorVo = new AdvisorVo();
         RMVo rmVo = new RMVo();
         DataRow dr;
+        PortfolioBo portfolioBo = new PortfolioBo();
 
         //For Edit 
         int totalRecordsCount;
@@ -539,9 +540,13 @@ namespace WealthERP.FP
                             }
                         }
                     }
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentCustomerId);
+                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
 
                 }
                 bresult = true;
+                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentCustomerId);
+                Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
 
             }
             catch (Exception ex)
