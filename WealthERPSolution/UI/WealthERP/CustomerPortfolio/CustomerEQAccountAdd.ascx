@@ -196,7 +196,7 @@
                     <asp:Label ID="lblFolioNum" runat="server" CssClass="FieldName" Text="Trade Account Number : "></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtTradeNum" runat="server" OnTextChanged="txtTradeNum_TextChanged" CssClass="txtField" AutoPostBack="true" MaxLength="20" onchange="checkLoginId()"></asp:TextBox>
+                    <asp:TextBox ID="txtTradeNum" runat="server" OnTextChanged="txtTradeNum_TextChanged" CssClass="txtField" MaxLength="20" onchange="checkLoginId()"></asp:TextBox>
                     <span id="Span3" class="spnRequiredField">*</span><span id="spnLoginStatus"></span>
                     
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtTradeNum"
