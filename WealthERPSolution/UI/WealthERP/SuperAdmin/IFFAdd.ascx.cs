@@ -855,7 +855,7 @@ namespace WealthERP.SuperAdmin
         {
             try
             {
-                advisorVo = (AdvisorVo)Session["advisorVo"];
+                
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "mainframe", "loadcontrol('Subscription','none');", true);
             }
             catch (Exception ex)
