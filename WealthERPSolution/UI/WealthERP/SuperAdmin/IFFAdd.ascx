@@ -457,7 +457,8 @@
                 OnClick="btnSendLoginId_Click" />
         </td>
         <td>
-            &nbsp;
+            <asp:Button ID="btnSubscription" runat="server" Text="Add/Edit Subscription" CssClass="PCGMediumButton" OnClick="btnSubscription_Click"
+                />
         </td>
     </tr>
 </table>
