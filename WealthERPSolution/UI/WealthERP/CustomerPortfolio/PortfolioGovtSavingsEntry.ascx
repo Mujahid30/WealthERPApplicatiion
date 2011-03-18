@@ -2,10 +2,16 @@
     Inherits="WealthERP.CustomerPortfolio.PortfolioGovtSavingsEntry" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
+
+<script type="text/javascript" language="javascript">
+    function ShiftValuet() {
+        if (document.getElementById('<%=txtDepositAmount.ClientID %>').value > 0)
+            document.getElementById('<%=txtCurrentValue.ClientID %>').value = document.getElementById('<%=txtDepositAmount.ClientID %>').value;
+    }
+</script>
+
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
-<%--<asp:UpdatePanel ID="up1" runat="server">
-<contenttemplate>--%>
         <table style="width: 100%;" class="TableBackground">
         <tr>
                 <td class="HeaderCell" colspan="4">
@@ -165,9 +171,9 @@
                         Display="Dynamic"></asp:CompareValidator>
                         
                         <asp:CompareValidator ID="cmpareValidatorOnDates" runat="server"
-                        ErrorMessage="Deposit date cannot be greater than Account Opening date"
+                        ErrorMessage="Deposit date cannot be less than Account Opening date"
                         ControlToCompare="txtDepositDate" CssClass="cvPCG" ControlToValidate="txtAccOpenDate"
-                        Operator="GreaterThanEqual" Type="Date"></asp:CompareValidator>
+                        Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
                      </span>
                 </td>
                 <td class="leftField">
@@ -205,8 +211,8 @@
                     <asp:Label ID="lblDepositAmount" runat="server" CssClass="FieldName" Text="Deposit Amount:"></asp:Label>
                 </td>
                 <td class="rightField" colspan="3">
-                    <asp:TextBox ID="txtDepositAmount" AutoPostBack="true" runat="server" CssClass="txtField" 
-                        ontextchanged="txtDepositAmount_TextChanged"></asp:TextBox>
+                    <asp:TextBox ID="txtDepositAmount" runat="server" CssClass="txtField" 
+                        onblur="ShiftValuet()"></asp:TextBox>
                      <asp:CompareValidator ID="cvDepositAmount" runat="server" ErrorMessage="<br/>Please enter a numeric value"
                         Type="Double" ControlToValidate="txtDepositAmount" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>

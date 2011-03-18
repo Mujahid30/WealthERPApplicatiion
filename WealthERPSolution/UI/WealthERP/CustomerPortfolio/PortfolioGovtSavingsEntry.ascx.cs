@@ -763,9 +763,9 @@ namespace WealthERP.CustomerPortfolio
         }
         #endregion Events
 
-        protected void txtDepositAmount_TextChanged(object sender, EventArgs e)
-        {
-            txtCurrentValue.Text = txtDepositAmount.Text;
-        }
+        //protected void txtDepositAmount_TextChanged(object sender, EventArgs e)
+        //{
+        //    txtCurrentValue.Text = txtDepositAmount.Text;
+        //}
     }
 }
