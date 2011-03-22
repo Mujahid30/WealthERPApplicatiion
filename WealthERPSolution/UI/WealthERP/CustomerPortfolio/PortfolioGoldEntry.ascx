@@ -131,7 +131,8 @@ function showassocation() {
                     <asp:Label ID="lblPurchasePrice" runat="server" CssClass="FieldName" Text="Purchase Rate per Unit(Rs):"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="txtField" OnTextChanged="btn_costUpdate" AutoPostBack="true" Width="110px"></asp:TextBox>
+                    <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="txtField" 
+                        OnTextChanged="btn_costUpdate" AutoPostBack="true" Width="121px"></asp:TextBox>
                     <asp:DropDownList ID="ddlMeasureCode" runat="server" CssClass="cmbField" Width="50px" Visible ="false"  >
                     </asp:DropDownList>
                     <asp:Label ID="lblMeasureCode" runat="server" CssClass="FieldName" Text="Grams"></asp:Label>

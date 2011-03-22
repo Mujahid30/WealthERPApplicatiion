@@ -135,7 +135,7 @@ namespace WealthERP.CustomerPortfolio
                 Session["GoldActionStatus"] = "Edit";
                 btnSubmit.Visible = false;
                 btnSaveChanges.Visible = true;
-
+                
 
                 // Asset Group - Gold
 
@@ -147,6 +147,7 @@ namespace WealthERP.CustomerPortfolio
                     btnUsePrice.Visible = true;
                     btnSellPrice.Visible = true;
                     btnSaleCost.Visible = true;
+                    txtCurrentPrice.Enabled = false;
 
 
                 }
@@ -155,6 +156,8 @@ namespace WealthERP.CustomerPortfolio
                     btnUsePrice.Visible = false;
                     btnSellPrice.Visible = false;
                     btnSaleCost.Visible = false;
+                    txtCurrentPrice.Enabled = true;
+                    //txtCurrentValue.Enabled = true;
                 }
                     
 
@@ -172,11 +175,11 @@ namespace WealthERP.CustomerPortfolio
 
                     // Current Price
                     txtCurrentPrice.Text = goldVo.CurrentPrice.ToString();
-                    txtCurrentPrice.Enabled = true;
+                    //txtCurrentPrice.Enabled = true;
 
                     // Current Value 
                     txtCurrentValue.Text = goldVo.CurrentValue.ToString();
-                    txtCurrentValue.Enabled = true;
+                    //txtCurrentValue.Enabled = true;
 
                     // Particulars / Name
                     txtName.Text = goldVo.Name.ToString();
@@ -424,12 +427,14 @@ namespace WealthERP.CustomerPortfolio
                 btnUsePrice.Visible = false;
                 btnSellPrice.Visible = false ;
                 btnSaleCost.Visible = false;
+                txtCurrentPrice.Enabled = true;
             }
             else
             {
                 btnUsePrice.Visible = true;
                 btnSellPrice.Visible = true;
                 btnSaleCost.Visible = true;
+                txtCurrentPrice.Enabled = false;
             }
 
         }
