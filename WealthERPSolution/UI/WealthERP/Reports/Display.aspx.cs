@@ -603,6 +603,7 @@ namespace WealthERP.Reports
             crmain.Subreports["KeyAssumptions"].Database.Tables["WerpAssumptions"].SetDataSource(dtKeyAssumption);
             crmain.Subreports["GoalProfile"].Database.Tables["OtherGoal"].SetDataSource(dtOtherGoal);
             crmain.Subreports["GoalProfile"].Database.Tables["RTGoal"].SetDataSource(dtRTGoal);
+            crmain.Subreports["RTGoalProfile"].Database.Tables["RTGoal"].SetDataSource(dtRTGoal);
             crmain.Subreports["Income"].Database.Tables["Income"].SetDataSource(dtIncome);
             crmain.Subreports["Expense"].Database.Tables["Expense"].SetDataSource(dtExpense);
             crmain.Subreports["CashFlows"].Database.Tables["CashFlows"].SetDataSource(dtCashFlow);
