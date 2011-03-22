@@ -81,7 +81,7 @@
             <span id="Span4" class="spnRequiredField">*<br />
             </span>
             
-            <asp:RequiredFieldValidator ID="reqtxtEmail" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
+            <asp:RequiredFieldValidator ID="reqtxtEmail" ValidationGroup="btnSave" ControlToValidate="txtEmail"
                 ErrorMessage="Please enter the Email address" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
@@ -96,13 +96,16 @@
             <asp:Label ID="lblPassword" runat="server" Text="Password:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtPassword" runat="server" CssClass="txtField" TextMode="Password"></asp:TextBox>
-              <span id="Span3" class="spnRequiredField">*<br />
-              <asp:RequiredFieldValidator ID="reqtxtPassword" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
+            <asp:TextBox ID="txtPassword" runat="server" CssClass="txtField" MaxLength="15" TextMode="Password"></asp:TextBox>
+              <span id="Span3" class="spnRequiredField">*<br />  
+              <asp:RequiredFieldValidator ID="reqtxtPassword" ValidationGroup="btnSave" ControlToValidate="txtPassword"
                 ErrorMessage="Please enter the password" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             </span>
+            <asp:Label ID="lblNote" Text="Maximum 15 Characters"
+                CssClass="rfvPCG" runat="server"></asp:Label>
+           
         </td>
     </tr>
     <tr>
