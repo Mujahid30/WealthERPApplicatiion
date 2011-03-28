@@ -594,7 +594,7 @@ namespace WealthERP.CustomerPortfolio
             try
             {
 
-                cvDepositDate1.ValueToCompare = DateTime.Now.ToShortDateString();
+               // cvDepositDate1.ValueToCompare = DateTime.Now.ToShortDateString();
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
                 setMode(); //Set Add/Edit/View Mode based on the query string parameter.
 

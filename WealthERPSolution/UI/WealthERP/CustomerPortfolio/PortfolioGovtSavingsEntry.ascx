@@ -160,9 +160,9 @@
                     <asp:RequiredFieldValidator ID="rfvDepositDate" ControlToValidate="txtDepositDate"
                         ErrorMessage="Please select a Deposit Date" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
-                    <asp:CompareValidator ID="cvDepositDate1" runat="server" ErrorMessage="<br/>The deposit date should not be greater than current date."
+                    <%--<asp:CompareValidator ID="cvDepositDate1" runat="server" ErrorMessage="<br/>The deposit date should not be greater than current date."
                         Type="Date" ControlToValidate="txtDepositDate" CssClass="cvPCG" Operator="LessThanEqual" 
-                        ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                        ValueToCompare="" Display="Dynamic"></asp:CompareValidator>--%>
                         
                         
                     </asp:RequiredFieldValidator>
