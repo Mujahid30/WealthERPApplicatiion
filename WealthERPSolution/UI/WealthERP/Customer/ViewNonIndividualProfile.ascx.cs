@@ -56,7 +56,7 @@ namespace WealthERP.Customer
                 lblName.Text = customerVo.ContactFirstName+ " " + customerVo.ContactMiddleName + " " + customerVo.ContactLastName;
                 lblCustomerCode.Text = customerVo.CustCode.ToString();
                 lblPanNum.Text = customerVo.PANNum.ToString();
-                lblCompanyName.Text = customerVo.FirstName;
+                lblCompanyName.Text = customerVo.CompanyName;
                 if (customerVo.BranchName != null)
                 {
                     lblBranch.Text = customerVo.BranchName.ToString();
