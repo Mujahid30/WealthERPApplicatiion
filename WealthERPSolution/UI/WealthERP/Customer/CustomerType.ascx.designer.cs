@@ -176,15 +176,6 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.DropDownList ddlSalutation;
         
         /// <summary>
-        /// cmpddlSalutation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmpddlSalutation;
-        
-        /// <summary>
         /// trIndividualName control.
         /// </summary>
         /// <remarks>
