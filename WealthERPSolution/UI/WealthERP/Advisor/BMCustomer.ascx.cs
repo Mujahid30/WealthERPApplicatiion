@@ -890,14 +890,14 @@ namespace WealthERP.Advisor
                     Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFPDashBoard", "loadcontrol('CustomerFPDashBoard','login');", true);
                 }
-                else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
-                {
-                    tempUser = new UserVo();
-                    tempUser = userBo.GetUserDetails(userId);
-                    Session["CustomerUser"] = tempUser;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "GenerateLoginPassword", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+                //else if (ddlAction.SelectedItem.Value.ToString() == "User Details")
+                //{
+                //    tempUser = new UserVo();
+                //    tempUser = userBo.GetUserDetails(userId);
+                //    Session["CustomerUser"] = tempUser;
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "GenerateLoginPassword", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
-                }
+                //}
 
             }
             catch (Exception Ex)
