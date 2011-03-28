@@ -565,6 +565,19 @@ namespace WealthERP.CustomerPortfolio
             EnableDisableControls("edit");
         }
 
+        protected void btn_costUpdate(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtQuantity.Text))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter Area');", true);
+            }
+            else
+            {
+
+                txtSaleProceeds.Text = (Math.Round((double.Parse(txtQuantity.Text) * double.Parse(txtSaleRate.Text)), 4)).ToString();
+            }
+        }
+
         protected void ddlInstrumentCat_SelectedIndexChanged(object sender, EventArgs e)
         {
             try

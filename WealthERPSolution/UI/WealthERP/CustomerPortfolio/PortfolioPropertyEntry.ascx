@@ -426,7 +426,7 @@
             <asp:Label ID="Label27" runat="server" Text="Sale Rate per Unit(Rs):" CssClass="FieldName"></asp:Label>
         </td>
         <td colspan="2" class="rightField">
-            <asp:TextBox ID="txtSaleRate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtSaleRate" runat="server" AutoPostBack="true" OnTextChanged="btn_costUpdate" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="cvSaleRate" runat="server" ErrorMessage="<br>Please enter a numeric value"
                 Type="Double" ControlToValidate="txtSaleRate" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic"></asp:CompareValidator>
@@ -437,7 +437,7 @@
             <asp:Label ID="Label26" runat="server" Text="Sale Proceeds(Rs):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
-            <asp:TextBox ID="txtSaleProceeds" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtSaleProceeds" runat="server" Enabled ="false" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="cvSaleProceeds" runat="server" ErrorMessage="<br>Please enter a numeric value"
                 Type="Double" ControlToValidate="txtSaleProceeds" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic"></asp:CompareValidator>
