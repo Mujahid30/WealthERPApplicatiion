@@ -143,6 +143,7 @@ namespace WealthERP.CustomerPortfolio
         {
             if (ddlTransactionType.SelectedItem.Value == "Sell")
             {
+                trPrice.Visible = true;
                 tdUnitsLabel.Visible = true;
                 tdUnitsValue.Visible = true;
                 tdSTTLabel.Visible = true;
@@ -164,6 +165,7 @@ namespace WealthERP.CustomerPortfolio
             }
             if (ddlTransactionType.SelectedItem.Value == "Buy" || ddlTransactionType.SelectedItem.Value == "Holdings")
             {
+                trPrice.Visible = true;
                 tdUnitsLabel.Visible = true;
                 tdUnitsValue.Visible = true;
                 tdSTTLabel.Visible = false;
@@ -184,6 +186,7 @@ namespace WealthERP.CustomerPortfolio
             }
             if (ddlTransactionType.SelectedItem.Value == "Dividend Reinvestment")
             {
+                trPrice.Visible = true;
                 trDividentRate.Visible = true;
                 tdUnitsLabel.Visible = true;
                 tdUnitsValue.Visible = true;
@@ -203,6 +206,7 @@ namespace WealthERP.CustomerPortfolio
             }
             if (ddlTransactionType.SelectedItem.Value == "SIP")
             {
+                trPrice.Visible = true;
                 tdUnitsLabel.Visible = true;
                 tdUnitsValue.Visible = true;
                 tdSTTLabel.Visible = false;
@@ -226,6 +230,7 @@ namespace WealthERP.CustomerPortfolio
             }
             if (ddlTransactionType.SelectedItem.Value == "Switch")
             {
+                trPrice.Visible = true;
                 trDividentRate.Visible = false;
                 tdUnitsLabel.Visible = true;
                 tdUnitsValue.Visible = true;
@@ -245,6 +250,7 @@ namespace WealthERP.CustomerPortfolio
             }
             if (ddlTransactionType.SelectedItem.Value == "SWP")
             {
+                trPrice.Visible = true;
                 trDividentRate.Visible = false;
                 tdUnitsLabel.Visible = true;
                 tdUnitsValue.Visible = true;
@@ -266,6 +272,7 @@ namespace WealthERP.CustomerPortfolio
             }
             if (ddlTransactionType.SelectedItem.Value == "STP")
             {
+                trPrice.Visible = true;
                 trDividentRate.Visible = false;
                 tdUnitsLabel.Visible = true;
                 tdUnitsValue.Visible = true;
@@ -285,6 +292,8 @@ namespace WealthERP.CustomerPortfolio
             }
             if (ddlTransactionType.SelectedItem.Value == "Dividend Payout")
             {
+                trPrice.Visible = false;
+                txtPrice.Text = null;
                 trDividentRate.Visible = true;
                 tdUnitsLabel.Visible = false;
                 tdUnitsValue.Visible = false;

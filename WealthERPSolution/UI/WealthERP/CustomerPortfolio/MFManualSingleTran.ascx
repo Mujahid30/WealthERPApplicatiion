@@ -273,7 +273,7 @@
                     
                 </td>
             </tr>
-            <tr>
+            <tr runat="server" id="trPrice">
                 <td class="leftField">
                     <asp:Label ID="Label18" runat="server" Text="Price :" CssClass="FieldName"></asp:Label>
                 </td>
@@ -288,6 +288,8 @@
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
+                </tr>
+                <tr>
                 <td class="leftField" id="tdNAVPurchasedLabel" runat="server" colspan="2">
                     <asp:Label ID="lblNAVPurchased" runat="server" Text="NAV of Scheme Purchased into :"
                         CssClass="FieldName"></asp:Label>
