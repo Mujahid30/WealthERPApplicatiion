@@ -54,6 +54,7 @@ namespace WealthERP.Advisor
 
         }
 
+
         protected void rbtnEquity_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnEquity.Checked)
@@ -731,14 +732,14 @@ namespace WealthERP.Advisor
                     {
                         if (e.Row.Cells[1].Text == MFValuationDate.ToShortDateString())
                         {
-                            e.Row.CssClass = "HighLightRowStyle";
+                           // e.Row.CssClass = "HighLightRowStyle";
                         }
                     }
                     else
                     {
                         if (e.Row.Cells[1].Text == EQValuationDate.ToShortDateString())
                         {
-                            e.Row.CssClass = "HighLightRowStyle";
+                           // e.Row.CssClass = "HighLightRowStyle";
                         }
                     }
                 }
@@ -753,5 +754,7 @@ namespace WealthERP.Advisor
             string val = Convert.ToString(hdnMsgValue.Value);
             UpdateLOG(val, assetGroup);
         }
+
+       
     }
 }

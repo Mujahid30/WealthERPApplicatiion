@@ -52,16 +52,49 @@
             document.getElementById("ctrl_DailyValuation_hdnMsgValue").value = 1;
             document.getElementById("ctrl_DailyValuation_hiddenUpdateNetPosition").click();
         }
-
-
-
-
-
-
-
-
     }
-  
+//    function CheckAll() {
+//        alert("abc..");
+//        var panel = document.getElementById('<%= gvValuationDate.ClientID %>');
+//        var chkArray = gvValuationDate.getElementsByTagName("input");
+//        alert(chkArray);
+//        for (var i = 0; i < chkArray.length; i++) {
+//            if (chkArray[i].type == "checkbox") {
+//                alert(chkArray[i]);
+//                if (chkArray[i].checked == false) {
+
+//                    chkArray[i].checked = true;
+//                }
+//                else
+//                    chkArray[i].checked = false;
+//            }
+//        }
+//    };
+    function checkAllBoxes() 
+    {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvValuationDate.Rows.Count %>');
+        var gvControl = document.getElementById('<%= gvValuationDate.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkBx";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkBoxAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template            
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    } 
+    
    
 </script>
 
@@ -137,7 +170,8 @@
         <td colspan="2" style="margin-left: 40px">
             <asp:GridView ID="gvValuationDate" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 CssClass="GridViewStyle" AllowSorting="True" HorizontalAlign="Center" ShowFooter="true"
-                OnRowDataBound="gvValuationDate_RowDataBound">
+                OnRowDataBound="gvValuationDate_RowDataBound" 
+                >
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerSettings Visible="False" />
                 <RowStyle CssClass="RowStyle" />
@@ -149,8 +183,12 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Select">
                         <ItemTemplate>
+  
                             <asp:CheckBox ID="chkBx" runat="server" />
                         </ItemTemplate>
+                        <HeaderTemplate>
+                            <input id="chkBoxAll"  name="vehicle" value="Bike" type="checkbox" onclick="checkAllBoxes()" />
+                        </HeaderTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="Valuation Date" HeaderText="Valuation Date (dd/mm/yyyy)" />
                     <asp:BoundField DataField="Valuation Status" HeaderText="Valuation Status" />
