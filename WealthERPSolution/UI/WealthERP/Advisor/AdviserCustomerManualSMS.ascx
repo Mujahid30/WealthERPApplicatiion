@@ -2,6 +2,32 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
+<script language="javascript" type="text/javascript">
+function checkAllBoxes() 
+    {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvCustomerSMSAlerts.Rows.Count %>');
+        var gvControl = document.getElementById('<%= gvCustomerSMSAlerts.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkCustomerSMSAlert";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkBoxAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template            
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+    </script>
 <table width="100%">
 <tr><td><asp:Label ID="lblCustomerSMS" Text="Customer Manual SMS" CssClass="HeaderTextSmall" runat="server"></asp:Label> </td></tr>
 <tr><td>
@@ -48,6 +74,9 @@
                                 <ItemTemplate>
                                    <asp:CheckBox ID="chkCustomerSMSAlert" runat="server" Visible="false" CssClass="Field"  />
                                 </ItemTemplate>
+                                <HeaderTemplate>
+                            <input id="chkBoxAll"  name="vehicle" value="Bike" type="checkbox" onclick="checkAllBoxes()" />
+                        </HeaderTemplate>
                             </asp:TemplateField>
                             
                              <asp:TemplateField ItemStyle-Wrap="false">
