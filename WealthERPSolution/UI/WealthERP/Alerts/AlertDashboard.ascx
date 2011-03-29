@@ -1,8 +1,35 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AlertDashboard.ascx.cs"
     Inherits="WealthERP.Alerts.AlertDashboard" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<script language="javascript" type="text/javascript">
+function checkAllBoxes() 
+    {
 
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvSystemAlerts.Rows.Count %>');
+        var gvControl = document.getElementById('<%= gvSystemAlerts.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkId";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkBoxAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template            
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+    </script>
+    
 <div>
+
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
             <td colspan="2" class="rightField">
@@ -61,6 +88,9 @@
                                 <ItemTemplate>
                                     <asp:CheckBox ID="chkId" runat="server" />
                                 </ItemTemplate>
+                                <HeaderTemplate>
+                            <input id="chkBoxAll"  name="vehicle" value="Bike" type="checkbox" onclick="checkAllBoxes()" />
+                        </HeaderTemplate>
                             </asp:TemplateField>
                             <%--Subscription Status--%>
                             <%--<asp:TemplateField HeaderText="Subscribed">
