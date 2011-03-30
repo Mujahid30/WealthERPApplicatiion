@@ -88,6 +88,7 @@ namespace WealthERP.CustomerPortfolio
                     LoadInsuranceIssuerDateMP(path);
                     LoadInsuranceIssuerDatePAY(path);
                     LoadInsuranceIssuerDateTR(path);
+                    LoadInsuranceIssuerDateOT(path);
                     if (insuranceVo != null)
                     {
                         if (Manage == "edit")
@@ -159,6 +160,23 @@ namespace WealthERP.CustomerPortfolio
             trEPBonus.Visible = false;
             trEPSurrenderValue.Visible = false;
             trEPRemarks.Visible = false;
+
+
+
+
+
+
+
+
+
+            trOTPremiumAmount.Visible = false;
+            trOTPremiumPeriod.Visible = false;
+            trOTPremiumFirstLast.Visible = false;
+            trOTGracePeriod.Visible = false;
+            trOTBonus.Visible = false;
+            trOTSurrenderValue.Visible = false;
+            trOTRemarks.Visible = false;
+
 
             trWLPPremiumAmount.Visible = false;
             trWLPPremiumPeriod.Visible = false;
@@ -252,6 +270,17 @@ namespace WealthERP.CustomerPortfolio
                     ddlWLPPremiumFrequencyCode.DataBind();
                     ddlWLPPremiumFrequencyCode.Items.Insert(0, new ListItem("Select a Frequency Code", "Select a Frequency Code"));
                 }
+                else if (CategoryCode == "INOT")
+                {
+                    ddlOTPremiumFrequencyCode.DataSource = dt;
+                    ddlOTPremiumFrequencyCode.DataTextField = dt.Columns["Frequency"].ToString();
+                    ddlOTPremiumFrequencyCode.DataValueField = dt.Columns["FrequencyCode"].ToString();
+                    ddlOTPremiumFrequencyCode.DataBind();
+                    ddlOTPremiumFrequencyCode.Items.Insert(0, new ListItem("Select a Frequency Code", "Select a Frequency Code"));
+
+                }
+
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -354,7 +383,16 @@ namespace WealthERP.CustomerPortfolio
             ddlEPPrPayDate.DataBind();
             ddlEPPrPayDate.Items.Insert(0, new ListItem("Select Premium Date", "Select Premium Date"));
         }
-
+        public void LoadInsuranceIssuerDateOT(string path)
+        {
+            DataTable dt = XMLBo.GetInsuranceIssuerDate(path);
+                ddlOTPrPayDate.DataSource=dt;
+            ddlOTPrPayDate.DataSource = dt;
+            ddlOTPrPayDate.DataTextField = dt.Columns["Name"].ToString();
+            ddlOTPrPayDate.DataValueField = dt.Columns["Code"].ToString();
+            ddlOTPrPayDate.DataBind();
+            ddlOTPrPayDate.Items.Insert(0, new ListItem("Select Premium Date", "Select Premium Date"));
+        }
         private void SetControls(string action, InsuranceVo insuranceVo, CustomerAccountsVo customerAccountVo, string path)
         {
             List<InsuranceULIPVo> insuranceULIPList = new List<InsuranceULIPVo>();
@@ -414,6 +452,22 @@ namespace WealthERP.CustomerPortfolio
                         txtEPRemarks.Text = insuranceVo.Remarks.ToString();
 
                     }
+                    else if (customerAccountVo.AssetCategory.Trim() == "INOT")
+                    {
+                        txtOTpremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
+                        ddlOTPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
+                        txtOTPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
+                        ddlOTPrPayDate.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        txtOTLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
+                        txtOTFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
+                        txtOTGracePeriod.Text = insuranceVo.GracePeriod.ToString();
+                        txtOTPremiumAccumulated.Text = insuranceVo.PremiumAccumalated.ToString();
+                        txtOTBonusAccumulated.Text = insuranceVo.BonusAccumalated.ToString();
+                        txtOTSurrenderValue.Text = insuranceVo.SurrenderValue.ToString();
+                        txtOTMaturityValue.Text = insuranceVo.MaturityValue.ToString();
+                        txtOTRemarks.Text = insuranceVo.Remarks.ToString();
+
+                    }
                     else if (customerAccountVo.AssetCategory.Trim() == "INMP")
                     {
                         txtMPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
@@ -453,7 +507,7 @@ namespace WealthERP.CustomerPortfolio
 
                                 TextBox txtBox1 = new TextBox();
                                 txtBox1 = ((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString()));
-                                if(moneyBackEpisodeVo.CIMBE_RepaymentDate != DateTime.MinValue)
+                                if (moneyBackEpisodeVo.CIMBE_RepaymentDate != DateTime.MinValue)
                                     txtBox1.Text = moneyBackEpisodeVo.CIMBE_RepaymentDate.ToShortDateString();
                                 TextBox txtBox2 = new TextBox();
                                 txtBox2 = ((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString()));
@@ -541,6 +595,21 @@ namespace WealthERP.CustomerPortfolio
                         txtWPMaturityValue.Text = insuranceVo.MaturityValue.ToString();
                         txtWLPRemarks.Text = insuranceVo.Remarks.ToString();
                     }
+                    //if (customerAccountVo.AssetCategory.Trim() == "INOT")
+                    //{ 
+                    //    txtOTPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
+                    //    ddlOTPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
+                    //    txtEPPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
+                    //    ddlEPPrPayDate.SelectedItem.Text = insuranceVo.PremiumPaymentDate.ToString();
+                    //    txtLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
+                    //    txtFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
+                    //    txtEPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
+                    //    txtEPPremiumAccumulated.Text = insuranceVo.PremiumAccumalated.ToString();
+                    //    txtEPBonusAccumulated.Text = insuranceVo.BonusAccumalated.ToString();
+                    //    txtEPSurrenderValue.Text = insuranceVo.SurrenderValue.ToString();
+                    //    txtEPMaturityValue.Text = insuranceVo.MaturityValue.ToString();
+                    //    txtEPRemarks.Text = insuranceVo.Remarks.ToString();
+                    //}
 
                     // Enable/Disable Controls
                     EnableDisableControls(action, customerAccountVo.AssetCategory.ToString().Trim());
@@ -653,6 +722,22 @@ namespace WealthERP.CustomerPortfolio
                     txtWPMaturityValue.Text = "";
                     txtWLPRemarks.Text = "";
                 }
+                else if (CategoryCode == "INOT")
+                {
+                    txtOTpremiumAmount.Text = "";
+                    ddlOTPremiumFrequencyCode.SelectedIndex = -1;
+                    txtOTPremiumDuration.Text = "";
+                    ddlOTPrPayDate.Text = "";
+                    txtOTFirstPremiumDate.Text = "";
+                    txtOTLastPremiumDate.Text = "";
+                    txtOTGracePeriod.Text = "";
+                    txtOTPremiumAccumulated.Text = "";
+                    txtOTBonusAccumulated.Text = "";
+                    txtOTSurrenderValue.Text = "";
+                    txtOTMaturityValue.Text = "";
+                    txtOTRemarks.Text = "";
+                }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -721,6 +806,30 @@ namespace WealthERP.CustomerPortfolio
                         txtEPSurrenderValue.Enabled = false;
                         txtEPMaturityValue.Enabled = false;
                         txtEPRemarks.Enabled = false;
+                    }
+                    else if (CategoryCode == "INOT")
+                    {
+                        trOTPremiumAmount.Visible = true;
+                        trOTPremiumPeriod.Visible = true;
+                        trOTPremiumFirstLast.Visible = true;
+                        trOTGracePeriod.Visible = true;
+                        trOTBonus.Visible = true;
+                        trOTSurrenderValue.Visible = true;
+                        trOTRemarks.Visible = true;
+                        trValuationHeader.Visible = true;
+
+                        txtOTpremiumAmount.Enabled = false;
+                        ddlOTPremiumFrequencyCode.Enabled = false;
+                        txtOTPremiumDuration.Enabled = false;
+                        ddlOTPrPayDate.Enabled = false;
+                        txtOTFirstPremiumDate.Enabled = false;
+                        txtOTLastPremiumDate.Enabled = false;
+                        txtOTGracePeriod.Enabled = false;
+                        txtOTPremiumAccumulated.Enabled = false;
+                        txtOTBonusAccumulated.Enabled = false;
+                        txtOTSurrenderValue.Enabled = false;
+                        txtOTMaturityValue.Enabled = false;
+                        txtOTRemarks.Enabled = false;
                     }
                     else if (CategoryCode == "INMP")
                     {
@@ -913,6 +1022,31 @@ namespace WealthERP.CustomerPortfolio
                         txtEPMaturityValue.Enabled = true;
                         txtEPRemarks.Enabled = true;
                     }
+                    else if (CategoryCode == "INOT")
+                    {
+                              trOTPremiumAmount.Visible = true;
+                        trOTPremiumPeriod.Visible = true;
+                        trOTPremiumFirstLast.Visible = true;
+                        trOTGracePeriod.Visible = true;
+                        trOTBonus.Visible = true;
+                        trOTSurrenderValue.Visible = true;
+                        trOTRemarks.Visible = true;
+                        trValuationHeader.Visible = true;
+
+                        txtOTpremiumAmount.Enabled = true;
+                        ddlOTPremiumFrequencyCode.Enabled = true;
+                        txtOTPremiumDuration.Enabled = true;
+                        ddlOTPrPayDate.Enabled = true;
+                        txtOTFirstPremiumDate.Enabled = true;
+                        txtOTLastPremiumDate.Enabled = true;
+                        txtOTGracePeriod.Enabled = true;
+                        txtOTPremiumAccumulated.Enabled = true;
+                        txtOTBonusAccumulated.Enabled = true;
+                        txtOTSurrenderValue.Enabled = true;
+                        txtOTMaturityValue.Enabled = true;
+                        txtOTRemarks.Enabled = true;
+                    }
+
                     else if (CategoryCode == "INMP")
                     {
                         trMPPremiumAmount.Visible = true;
@@ -1206,6 +1340,32 @@ namespace WealthERP.CustomerPortfolio
                         txtWPMaturityValue.Enabled = true;
                         txtWLPRemarks.Enabled = true;
                     }
+                    else if (CategoryCode == "INOT")
+                    {
+                        trOTPremiumAmount.Visible = true;
+                        trOTPremiumPeriod.Visible = true;
+                        trOTPremiumFirstLast.Visible = true;
+                        trOTGracePeriod.Visible = true;
+                        trOTBonus.Visible = true;
+                        trOTSurrenderValue.Visible = true;
+                        trOTRemarks.Visible = true;
+                        trValuationHeader.Visible = true;
+
+                        txtOTpremiumAmount.Enabled = true;
+                        ddlOTPremiumFrequencyCode.Enabled = true;
+                        txtOTPremiumDuration.Enabled = true;
+                        ddlOTPrPayDate.Enabled = true;
+                        txtOTFirstPremiumDate.Enabled = true;
+                        txtOTLastPremiumDate.Enabled = true;
+                        txtOTGracePeriod.Enabled = true;
+                        txtOTPremiumAccumulated.Enabled = true;
+                        txtOTBonusAccumulated.Enabled = true;
+                        txtOTSurrenderValue.Enabled = true;
+                        txtOTMaturityValue.Enabled = true;
+                        txtOTRemarks.Enabled = true;
+
+                    }
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1295,6 +1455,33 @@ namespace WealthERP.CustomerPortfolio
                             insuranceId = insuranceBo.CreateInsurancePortfolio(insuranceVo, userVo.UserId);
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
                         }
+                        else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INOT")
+                        {
+                            if (txtOTpremiumAmount.Text.Trim() != "")
+                                insuranceVo.PremiumAmount = float.Parse(txtOTpremiumAmount.Text.Trim());
+                            insuranceVo.PremiumFrequencyCode = ddlOTPremiumFrequencyCode.SelectedValue.ToString().Trim();
+                            insuranceVo.FirstPremiumDate = DateTime.Parse(txtOTFirstPremiumDate.Text.ToString());
+                            insuranceVo.LastPremiumDate = DateTime.Parse(txtOTLastPremiumDate.Text.ToString());
+
+                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlOTPrPayDate.Text);
+                            if (txtOTGracePeriod.Text.Trim() != "")
+                                insuranceVo.GracePeriod = float.Parse(txtOTGracePeriod.Text);
+                            if (txtOTPremiumAccumulated.Text.Trim() != "")
+                                insuranceVo.PremiumAccumalated = float.Parse(txtOTPremiumAccumulated.Text);
+                            if (txtOTBonusAccumulated.Text.Trim() != "")
+                                insuranceVo.BonusAccumalated = float.Parse(txtOTBonusAccumulated.Text);
+                            if (txtOTSurrenderValue.Text.Trim() != "")
+                                insuranceVo.SurrenderValue = float.Parse(txtOTSurrenderValue.Text);
+                            if (txtOTMaturityValue.Text.Trim() != "")
+                                insuranceVo.MaturityValue = float.Parse(txtOTMaturityValue.Text);
+                            insuranceVo.Remarks = txtOTRemarks.Text.Trim();
+
+                           insuranceId = insuranceBo.CreateInsurancePortfolio(insuranceVo, userVo.UserId);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+                        }
+
+
+                        
                         else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INWP")
                         {
                             if (txtWLPPremiumAmount.Text.Trim() != "")
@@ -1590,6 +1777,36 @@ namespace WealthERP.CustomerPortfolio
                                 Session.Remove("table");
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
                             }
+                        }
+                        else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INOT")
+                        { 
+                            if (txtOTpremiumAmount.Text.Trim() != "")
+                                insuranceVo.PremiumAmount = float.Parse(txtOTpremiumAmount.Text.Trim());
+                            insuranceVo.PremiumFrequencyCode = ddlOTPremiumFrequencyCode.SelectedValue.ToString().Trim();
+                            insuranceVo.FirstPremiumDate = DateTime.Parse(txtOTFirstPremiumDate.Text.ToString());
+                            insuranceVo.LastPremiumDate = DateTime.Parse(txtOTLastPremiumDate.Text.ToString());
+
+                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlOTPrPayDate.Text);
+                            if (txtOTGracePeriod.Text.Trim() != "")
+                                insuranceVo.GracePeriod = float.Parse(txtOTGracePeriod.Text);
+                            if (txtOTPremiumAccumulated.Text.Trim() != "")
+                                insuranceVo.PremiumAccumalated = float.Parse(txtOTPremiumAccumulated.Text);
+                            if (txtOTBonusAccumulated.Text.Trim() != "")
+                                insuranceVo.BonusAccumalated = float.Parse(txtOTBonusAccumulated.Text);
+                            if (txtOTSurrenderValue.Text.Trim() != "")
+                                insuranceVo.SurrenderValue = float.Parse(txtOTSurrenderValue.Text);
+                            if (txtOTMaturityValue.Text.Trim() != "")
+                                insuranceVo.MaturityValue = float.Parse(txtOTMaturityValue.Text);
+                            insuranceVo.Remarks = txtOTRemarks.Text.Trim();
+
+                            if(insuranceBo.UpdateInsurancePortfolio(insuranceVo,userVo.UserId))
+                            { Session.Remove("table");
+                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(),"leftpane","loadcontrol('ViewInsuranceDetails','login');", true);
+                            }
+                        }
+
+                            
+                           
                         }
                         else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INWP")
                         {
@@ -2013,7 +2230,7 @@ namespace WealthERP.CustomerPortfolio
                         }
                     }
                 }
-            }
+            
 
             catch (BaseApplicationException Ex)
             {
@@ -2461,6 +2678,20 @@ namespace WealthERP.CustomerPortfolio
 
                 float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
                 txtEPPremiumDuration.Text = NoOfMonths.ToString("f2");
+               // txtOTPremiumDuration.Text = NoOfMonths.ToString("f2");
+            }
+        }
+        protected void txtOTLastPremiumDate_TextChanged(object sender, EventArgs e)
+        { 
+            if (txtOTFirstPremiumDate.Text != "dd/mm/yyyy" && txtOTFirstPremiumDate.Text != string.Empty && txtOTLastPremiumDate.Text != "dd/mm/yyyy" && txtOTLastPremiumDate.Text != string.Empty)
+            {
+                DateTime dtFrom = DateTime.Parse(txtOTFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtOTLastPremiumDate.Text);
+                DateBo dtBo = new DateBo();
+
+                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                
+                txtOTPremiumDuration.Text = NoOfMonths.ToString("f2");
             }
         }
 
