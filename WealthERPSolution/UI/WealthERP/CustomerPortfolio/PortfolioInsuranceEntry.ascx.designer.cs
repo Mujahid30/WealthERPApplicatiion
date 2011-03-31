@@ -923,13 +923,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.DropDownList ddlOTPrPayDate;
         
         /// <summary>
-        /// CompareValidator53 control.
+        /// cmpddlOTPrPayDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator53;
+        protected global::System.Web.UI.WebControls.CompareValidator cmpddlOTPrPayDate;
         
         /// <summary>
         /// trOTGracePeriod control.

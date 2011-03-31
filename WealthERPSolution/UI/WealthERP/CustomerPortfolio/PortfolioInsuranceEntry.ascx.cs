@@ -457,7 +457,7 @@ namespace WealthERP.CustomerPortfolio
                         txtOTpremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
                         ddlOTPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
                         txtOTPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
-                        ddlOTPrPayDate.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        ddlOTPrPayDate.SelectedItem.Text = insuranceVo.PremiumPaymentDate.ToString();
                         txtOTLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtOTFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtOTGracePeriod.Text = insuranceVo.GracePeriod.ToString();

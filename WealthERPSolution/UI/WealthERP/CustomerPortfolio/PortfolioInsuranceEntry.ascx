@@ -529,15 +529,15 @@
             <asp:Label ID="lblOTPremiumPayDate" runat="server" CssClass="FieldName" Text="Premium Payment Date:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlOTPrPayDate" runat="server" CssClass="txtField"></asp:DropDownList>
+            <asp:DropDownList ID="ddlOTPrPayDate" runat="server" CssClass="cmbField"></asp:DropDownList>
             <span id="Span10" class="spnRequiredField">*</span>
             <span class="Apple-style-span" 
                 style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium; ">
           
          
-          <asp:CompareValidator ID="CompareValidator53" runat="server" ErrorMessage="Please Select Premium Date"
-                Type="String" ControlToValidate="ddlOTPrPayDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+          <asp:CompareValidator ID="cmpddlOTPrPayDate" runat="server" ErrorMessage="Please Select Premium Date"
+            Type="String" ValueToCompare="Select Premium Date" ControlToValidate="ddlOTPrPayDate" Operator="NotEqual" CssClass="cvPCG"
+            Display="Dynamic"></asp:CompareValidator>
   <%--<asp:RequiredFieldValidator id="Requiredfieldvalidator3" Runat="server" CssClass="cvPCG" ControlToValidate="ddlOTPrPayDate" ErrorMessage="Please Select Premium Date" ValidationExpression=???????></asp:RequiredFieldValidator> --%>          
         </td>
     </tr>
