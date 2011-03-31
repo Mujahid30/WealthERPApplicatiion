@@ -1336,5 +1336,17 @@ namespace DaoUploads
             return dsProcessIds;
         }
 
+        public void DeleteMFTransactionStaging(int StagingID)
+      {
+            
+            Database db;
+            DbCommand deletetransactions;
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deletetransactions = db.GetStoredProcCommand("SP_DeleteStagingTransaction");
+                db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+                db.ExecuteDataSet(deletetransactions);
+            
+        }
     }
 }
