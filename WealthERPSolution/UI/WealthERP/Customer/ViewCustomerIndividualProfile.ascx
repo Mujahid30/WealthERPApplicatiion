@@ -72,14 +72,14 @@
             &nbsp;
         </td>
     </tr>
-    <tr>
+    <!--<tr>
     <td>
     </td>
     <td>
     <asp:Checkbox ID="chkprospect" runat="server" CssClass="txtField"  Text="Prospect" 
                 AutoPostBack="false"  Enabled = "false" /></asp:Label>
                 </td>
-    </tr>
+    </tr>-->
     <tr>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
