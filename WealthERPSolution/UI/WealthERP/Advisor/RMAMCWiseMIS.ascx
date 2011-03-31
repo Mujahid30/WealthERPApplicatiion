@@ -51,8 +51,83 @@
                 BorderStyle="None" BackColor="Transparent" ToolTip="Print" />--%>
         </td>
     </tr>
+    <tr>
+    <td>
+    <table style="width: 62%; margin: 0px; padding: 0px;" cellpadding="1" cellspacing="1">
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblMISType" runat="server" CssClass="FieldName">MIS Type:</asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlMISType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMISType_SelectedIndexChanged"
+                AutoPostBack="true">
+                <asp:ListItem Value="AMCWiseAUM" Selected="True">AMC Wise AUM</asp:ListItem>
+                <asp:ListItem Value="AMCSchemeWiseAUM">Scheme Wise AUM</asp:ListItem>
+                <asp:ListItem Value="FolioWiseAUM">Folio Wise AUM</asp:ListItem>
+                <asp:ListItem Value="TurnOverSummary">Turn Over Summary</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td align="right">
+            <span id="spnBranch" runat="server">
+                <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged"
+                AutoPostBack="true">
+                 <%--<asp:ListItem Value="1086" Text="All"></asp:ListItem>
+                 <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>
+                 <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem> --%>
+            </asp:DropDownList>
+            </span>
+        </td>
+    </tr>
+    <tr id="trRange" runat="server">
+        <td align="right" valign="top">
+            <asp:Label ID="lblDate" runat="server" CssClass="FieldName">As on Date:</asp:Label>
+        </td>
+        <td valign="top">
+            <asp:TextBox ID="txtDate" runat="server" CssClass="txtField" Height="16px" Width="145px"></asp:TextBox>
+            <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtDate"
+                OnClientDateSelectionChanged="checkdate" Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="txtFromDate_TextBoxWatermarkExtender" runat="server"
+                TargetControlID="txtDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtDate"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select a Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="btnGo">
+            </asp:RequiredFieldValidator>
+        </td>
+        <td align="right" valign="top">
+            <span id="spnRM" runat="server">
+                <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
+        </td>
+        <td valign="top">
+            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" 
+                AutoPostBack="true" onselectedindexchanged="ddlRM_SelectedIndexChanged">
+            </asp:DropDownList>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+            <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo" CssClass="PCGButton"
+                onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMAMCSchemewiseMIS_btnGo', 'S');"
+                OnClick="btnGo_Click" />
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
+    </td>
+    </tr>
     
-    <table>
+    <%--<table>
     <tr>    
         <td>
             <asp:Label ID="lblMISType" runat="server" CssClass="FieldName">&nbsp;&nbsp;&nbsp;MIS Type:</asp:Label>
@@ -69,9 +144,7 @@
                 <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
                 <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged"
                     AutoPostBack="true"> 
-                    <%-- <asp:ListItem Value="1086" Text="All"></asp:ListItem>
-                     <asp:ListItem Value="1145" Text="AJAY SINGH"></asp:ListItem>
-                     <asp:ListItem Value="1058" Text="INVESTPRO FINANCIAL  SERV"></asp:ListItem>--%>                   
+                               
                 </asp:DropDownList>
             </span>
         </td>
@@ -114,7 +187,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </td>
     </tr>    
-    </table>
+    </table>--%>
     <tr id="trMessage" runat="server" visible="false">
         <td colspan="3">
             <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found."></asp:Label>
