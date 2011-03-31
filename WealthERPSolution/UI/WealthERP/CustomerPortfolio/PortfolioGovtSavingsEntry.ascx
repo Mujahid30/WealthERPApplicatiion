@@ -84,7 +84,7 @@
                     <asp:CompareValidator ID="cvAccopenDateCheckCurrent" runat="server" ErrorMessage="<br />Account Opening Date should not be more the current date"
                         Type="Date" ControlToValidate="txtAccOpenDate" ValueToCompare= '<%# DateTime.Today.ToString("dd/MM/yyyy") %>' Operator="LessThanEqual" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>
-                </td>e
+                </td>
                 <td class="leftField">
                     <asp:Label runat="server" CssClass="FieldName" Text="Account with:" ID="lblAccountwith"></asp:Label>
                 </td>
