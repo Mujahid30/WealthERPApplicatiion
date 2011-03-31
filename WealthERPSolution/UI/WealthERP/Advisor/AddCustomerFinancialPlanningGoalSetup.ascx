@@ -23,7 +23,12 @@
 //        if (parseInt(CurrentInvestPurpose) == 0 && parseInt(aboveRateOfInterest) > 0) {
 //            alert("Fill correct investment amount")
 //            return false;
-//        }
+        //        }
+        if (document.getElementById('<%=ddlGoalType.ClientID %>').value == "0") {
+            alert("Please Select a Goal")
+            document.getElementById('<%=ddlGoalType.ClientID %>').focus();
+            return false;
+        }
 
         if (document.getElementById('<%=txtInflation.ClientID %>').value == "") {
             alert("Inflation(%) cannot be empty.")
@@ -312,11 +317,7 @@
                         <asp:DropDownList ID="ddlGoalType" runat="server" AutoPostBack="True" CssClass="cmbField"
                               OnSelectedIndexChanged="ddlGoalType_SelectedIndexChanged">
                         </asp:DropDownList>
-                        <span id="spanGoalType" class="spnRequiredField" runat="server">*</span>
-                        <asp:CompareValidator ID="ddlPickRiskClass_CompareValidator" runat="server" ControlToValidate="ddlGoalType"
-                                        ErrorMessage="Please select a Goal" Operator="NotEqual" ValueToCompare="Select"
-                                        Display="Dynamic" CssClass="cvPCG">
-                        </asp:CompareValidator>
+                        <span id="spanGoalType" class="spnRequiredField" runat="server">*</span>                      
                     </td>
                 </tr>
                 <tr>
