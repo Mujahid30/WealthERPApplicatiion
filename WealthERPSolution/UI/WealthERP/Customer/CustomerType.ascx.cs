@@ -371,7 +371,7 @@ namespace WealthERP.Customer
                     //}
                     //else
                     //{
-                        customerVo.IsProspect = 0;
+                    //    customerVo.IsProspect = 0;
                     //}
 
                     customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
