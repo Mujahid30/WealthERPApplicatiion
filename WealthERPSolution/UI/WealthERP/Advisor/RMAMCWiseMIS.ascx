@@ -34,23 +34,7 @@
             <hr />
         </td>
     </tr>
-    <tr>
-        <td>
-            <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
-            <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/App_Themes/Maroon/Images/Export_Word.jpg"
-                runat="server" AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click"
-                OnClientClick="setFormat('word')" />
-            <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/App_Themes/Maroon/Images/Export_Pdf.gif"
-                runat="server" AlternateText="PDF" OnClientClick="setFormat('pdf')" ToolTip="Export To PDF"
-                OnClick="imgBtnPdf_Click" />
-            <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/App_Themes/Maroon/Images/Print.gif"
-                runat="server" AlternateText="Print" OnClientClick="setFormat('print')" ToolTip="Print"
-                OnClick="imgBtnPrint_Click" />
-            <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
-                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />--%>
-        </td>
-    </tr>
+    
     <tr>
     <td>
     <table style="width: 62%; margin: 0px; padding: 0px;" cellpadding="1" cellspacing="1">
@@ -126,7 +110,23 @@
 </table>
     </td>
     </tr>
-    
+    <tr>
+        <td>
+            <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
+            <%--<asp:ImageButton ID="imgBtnWord" ImageUrl="~/App_Themes/Maroon/Images/Export_Word.jpg"
+                runat="server" AlternateText="Word" ToolTip="Export To Word" OnClick="imgBtnWord_Click"
+                OnClientClick="setFormat('word')" />
+            <asp:ImageButton ID="imgBtnPdf" ImageUrl="~/App_Themes/Maroon/Images/Export_Pdf.gif"
+                runat="server" AlternateText="PDF" OnClientClick="setFormat('pdf')" ToolTip="Export To PDF"
+                OnClick="imgBtnPdf_Click" />
+            <asp:ImageButton ID="imgBtnPrint" ImageUrl="~/App_Themes/Maroon/Images/Print.gif"
+                runat="server" AlternateText="Print" OnClientClick="setFormat('print')" ToolTip="Print"
+                OnClick="imgBtnPrint_Click" />
+            <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
+                BorderStyle="None" BackColor="Transparent" ToolTip="Print" />--%>
+        </td>
+    </tr>
     <%--<table>
     <tr>    
         <td>
