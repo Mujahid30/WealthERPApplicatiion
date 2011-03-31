@@ -837,6 +837,8 @@ namespace WealthERP.Advisor
 
             string userName = rmUserVo.FirstName + " " + rmUserVo.MiddleName + " " + rmUserVo.LastName;
             email.GetAdviserRMAccountMail("rm" + Session["userId"].ToString(), Encryption.Decrypt(rmUserVo.Password), userName);
+            email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
+            email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
             email.To.Add(rmUserVo.Email);
 
             AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
@@ -853,7 +855,7 @@ namespace WealthERP.Advisor
 
                 if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
                 {
-                    email.From = new MailAddress(emailer.smtpUserName, "WealthERP");
+                    email.From = new MailAddress(emailer.smtpUserName, advisorVo.OrganizationName);
                 }
             }
             bool isMailSent = emailer.SendMail(email);
