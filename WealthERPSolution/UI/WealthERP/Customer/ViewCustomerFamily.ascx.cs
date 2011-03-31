@@ -258,23 +258,39 @@ namespace WealthERP.Customer
             gvCustomerFamily.PageIndex = e.NewPageIndex;
             BindGrid();
         }
-   
-         protected void Deactive_Click(object sender, EventArgs e)
-        {
 
-           
-                string GoalIds = GetSelectedGoalIDString();
-                int folioDs =  customerFamilyBo.CustomerFamilyDissociation(GoalIds);
-             if (folioDs > 1 )
-             {
-                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true); 
-             }
-             else
-             {
-                 Dissociatecustomer();
-             }
-            
+        protected void Deactive_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+
+            foreach (GridViewRow gvr in this.gvCustomerFamily.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                {
+                    i = i + 1;
+                }
             }
+
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select Customer!');", true);
+            }
+            else
+            {
+
+                string GoalIds = GetSelectedGoalIDString();
+                int folioDs = customerFamilyBo.CustomerFamilyDissociation(GoalIds);
+                if (folioDs > 1)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
+                }
+                else
+                {
+                    Dissociatecustomer();
+                }
+
+            }
+        }
          protected void hiddenassociationfound_Click(object sender, EventArgs e)
          {
             
