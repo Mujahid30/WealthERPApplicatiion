@@ -92,7 +92,7 @@
   <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
 <table style="width: 100%;">
     <tr>
-        <td colspan="3">
+        <td>
             <div class="tabber" id="divMain">
                 <div class="tabbertab tabbertabdefault" runat="server" id="divNotional">
                     <h6 class="HeaderText">
@@ -205,7 +205,7 @@
                 <div class="tabbertab" runat="server" id="divAll">
                     <h6 class="HeaderText">
                         All</h6>
-                    <table>
+                    <table id="tblAll" runat="server">
                         <tr>
                             <td>
                                 <div id="dvMFPortfolio" runat="server">
@@ -494,13 +494,13 @@
         </td>
     </tr>
     <tr>
-        <td colspan="3">
+        <td>
             <!--  <asp:Button ID="btnUpdateNP" runat="server" OnClick="btnUpdateNP_Click" Text="Update Net Position"
                 Visible="False" CssClass="ButtonField" Width="162px" />-->
         </td>
     </tr>
     <tr>
-        <td colspan="3">
+        <td>
            
         </td>
     </tr>
@@ -588,8 +588,11 @@
 <asp:HiddenField ID="hdnRealizedSelectedCategory" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAllSelectedCategory" runat="server" Visible="false" />
 
-<script>
-
+<script type="text/javascript">
+    document.getElementById("<%= divAll.ClientID %>").style.display = 'none';
+    document.getElementById("<%= Div1.ClientID %>").style.display = 'none';
+    document.getElementById("<%= divRealized.ClientID %>").style.display = 'none';
+    
     if (document.getElementById('<%= hdnSelectedTab.ClientID %>').value == "" || document.getElementById('<%= hdnSelectedTab.ClientID %>').value == "3") {
         document.getElementById('<%= hdnSelectedTab.ClientID %>').value = 0;
     }
