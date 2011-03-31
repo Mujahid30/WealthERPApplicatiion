@@ -525,11 +525,14 @@ namespace WealthERP.CustomerPortfolio
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
 
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
+                    msgRecordStatus.Visible = true;
 
-                    Response.Redirect("ControlHost.aspx?pageid=TransactionsView", false);
+                    //Response.Redirect("ControlHost.aspx?pageid=TransactionsView", false);
                 }
                 else
                 {
+                    //msgRecordStatus.InnerText = "Adding records is not successfull";
+                    //msgRecordStatus.Style.Add("background", "Red");
                     RequiredFieldValidator3.ErrorMessage = "Please Select Proper Scheme Name";
                     RequiredFieldValidator3.IsValid = false;
                 }

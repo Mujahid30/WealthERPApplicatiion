@@ -40,7 +40,9 @@
         return false;
     };
     //****************************************************************
-    
+//    function ShowMessage() {
+//        alert('Transaction aded Successfully');
+//    }
 
     
 </script>
@@ -83,6 +85,15 @@
                 </td>
             </tr>
         </table>
+        <table width="100%">
+        <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Transaction added Successfully
+            </div>
+        </td>
+       </tr>
+       </table>
         <table style="width: 100%;" class="TableBackground">
             <tr>
                 <td class="leftField">
@@ -415,7 +426,7 @@
                 <td class="SubmitCell" colspan="5">
                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_MFManualSingleTran_btnSubmit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_MFManualSingleTran_btnSubmit', 'S');"
-                        ValidationGroup="MFSubmit" OnClick="btnSubmit_Click" />
+                        ValidationGroup="MFSubmit" OnClick="btnSubmit_Click"  />
                 </td>
             </tr>
         </table>
