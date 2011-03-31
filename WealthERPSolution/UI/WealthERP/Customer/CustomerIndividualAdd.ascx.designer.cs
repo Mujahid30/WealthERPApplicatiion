@@ -275,6 +275,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtPanNumber;
         
         /// <summary>
+        /// chkdummypan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkdummypan;
+        
+        /// <summary>
         /// rfvPanNumber control.
         /// </summary>
         /// <remarks>
@@ -1470,6 +1479,33 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtRBIApprovalDate_TextBoxWatermarkExtender;
+        
+        /// <summary>
+        /// Label9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label9;
+        
+        /// <summary>
+        /// chkmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkmail;
+        
+        /// <summary>
+        /// chksms control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chksms;
         
         /// <summary>
         /// lblDob control.

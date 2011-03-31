@@ -155,10 +155,15 @@
         </td>
         <td class="rightField" width="75%">
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+             &nbsp;
+             &nbsp;
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
+                AutoPostBack="true" />
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
+            
         </td>
     </tr>
     <tr>
@@ -699,7 +704,19 @@
                             </td>
                         </tr>
                         <tr>
-        <td class="leftField">
+        
+        <td class="leftField" width="25%">
+                                <asp:Label ID="Label9" runat="server" Text="Alert Preferences:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                 <asp:Checkbox ID="chkmail" runat="server" CssClass="txtField" Text="Via Mail"
+                AutoPostBack="false"  Enabled = "true"/>
+                &nbsp;
+            &nbsp;
+                 <asp:Checkbox ID="chksms" runat="server" CssClass="txtField" Text="Via SMS"
+                AutoPostBack="false"  Enabled = "true"/>
+                            </td>
+                            <td class="leftField">
             <asp:Label ID="lblDob" runat="server" CssClass="FieldName" Text="Date of Birth:"></asp:Label>
         </td>
         <td class="rightField" >

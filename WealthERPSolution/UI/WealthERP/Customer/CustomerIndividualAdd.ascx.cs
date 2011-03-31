@@ -184,6 +184,24 @@ namespace WealthERP.Customer
                     {
                         customerVo.Gender = "F";
                     }
+                    if (chkdummypan.Checked)
+                    {
+                        customerVo.DummyPAN = 1;
+                    }
+                    else
+                        customerVo.DummyPAN = 0;
+                    if (chksms.Checked)
+                    {
+                        customerVo.ViaSMS = 1;
+                    }
+                    else
+                        customerVo.ViaSMS = 0;
+                    if (chkmail.Checked)
+                    {
+                        customerVo.AlertViaEmail = 1;
+                    }
+                    else
+                        customerVo.AlertViaEmail = 0;
 
                     if (txtDob.Text.ToString() != "")
                         customerVo.Dob = DateTime.Parse(txtDob.Text.ToString());
