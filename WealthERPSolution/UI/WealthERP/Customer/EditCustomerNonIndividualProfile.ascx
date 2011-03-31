@@ -23,14 +23,14 @@
             &nbsp;
         </td>
     </tr>
-    <tr>
+    <!--<tr>
     <td>
     </td>
     <td>
     <asp:Checkbox ID="chkprospectn" runat="server" CssClass="txtField"  Text="Prospect" 
                 AutoPostBack="false"  Enabled = "true" /></asp:Label>
                 </td>
-    </tr>
+    </tr>-->
     <tr>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
