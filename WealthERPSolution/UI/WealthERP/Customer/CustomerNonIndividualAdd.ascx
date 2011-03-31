@@ -176,6 +176,10 @@
         <td class="rightField" colspan="2">
             <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
             <span id="spPanNumber" class="spnRequiredField">*</span>
+             &nbsp;
+             &nbsp;
+            <asp:Checkbox ID="chkdummypan" runat="server" CssClass="txtField" Text="Dummy PAN"
+                AutoPostBack="true" />
             <br />
             <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
@@ -437,6 +441,40 @@
             &nbsp;
         </td>
     </tr>
+     <div class="tabbertab" id="divAddInfo">
+                    <h6>
+                        Additional Information</h6>
+                    <table width="100%">
+                        <tr>
+                            <td colspan="4">
+                                <asp:Label ID="Label44" CssClass="HeaderTextSmall" runat="server" Text="Additional Information"></asp:Label>
+                                <hr />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                &nbsp
+                            </td>
+                        </tr>
+                        <tr>
+                        <td class="leftField" width="25%">
+                                <asp:Label ID="Label4" runat="server" Text="Alert Preferences:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField" width="25%">
+                                 <asp:Checkbox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail"
+                AutoPostBack="true"  Enabled = "false"/>
+                &nbsp;
+            &nbsp;
+                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS"
+                AutoPostBack="true"  Enabled = "false"/>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        </table>
+                        </div>
     <tr>
         <td class="SubmitCell" colspan="3">
             <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit"

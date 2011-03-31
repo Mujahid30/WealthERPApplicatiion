@@ -141,6 +141,24 @@ namespace WealthERP.Customer
                        
 
                         txtDateofProfiling.Text = DateTime.Today.Date.ToString();
+                        if (chkdummypan.Checked)
+                        {
+                            customerVo.DummyPAN = 1;
+                        }
+                        else
+                            customerVo.DummyPAN = 0;
+                        if (chksmsn.Checked)
+                        {
+                            customerVo.ViaSMS = 1;
+                        }
+                        else
+                            customerVo.ViaSMS = 0;
+                        if (chkmailn.Checked)
+                        {
+                            customerVo.AlertViaEmail = 1;
+                        }
+                        else
+                            customerVo.AlertViaEmail = 0;
 
                         customerVo.ContactFirstName = txtFirstName.Text.ToString();
                         customerVo.ContactMiddleName = txtMiddleName.Text.ToString();
