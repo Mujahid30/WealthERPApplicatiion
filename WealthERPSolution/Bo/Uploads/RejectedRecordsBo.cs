@@ -970,5 +970,19 @@ namespace BoUploads
 
             return dsProcessIds;
         }
+        public void DeleteMFTransactionStaging(int StagingID)
+       {
+            
+                RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+
+                rejecetedRecords.DeleteMFTransactionStaging(StagingID);
+
+            
+        }
+       
     }
+
+    
 }
+
+
