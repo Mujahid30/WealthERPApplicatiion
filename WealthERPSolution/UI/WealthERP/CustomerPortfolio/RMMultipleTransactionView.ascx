@@ -111,14 +111,14 @@
                 <input id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" type="radio" />
                 <label for="rbtnSin" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
                     font-weight: 500">Current Page</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <br />
                 &nbsp;&nbsp;
                 <input id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')"
                     type="radio" />
                 <label for="Radio1" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
                     font-weight: 500">All Pages</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
                 <br />
                 <div align="center">
                     <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
@@ -264,7 +264,9 @@
                         <ContentTemplate>
                             <asp:GridView ID="gvMFTransactions" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                                 CellPadding="4" EnableViewState="true" AllowPaging="false" CssClass="GridViewStyle"
-                                ShowFooter="True" DataKeyNames="TransactionId" OnRowDataBound="gvMFTransactions_RowDataBound">
+                                ShowFooter="True" DataKeyNames="TransactionId" 
+                                OnRowDataBound="gvMFTransactions_RowDataBound" 
+                                onselectedindexchanged="gvMFTransactions_SelectedIndexChanged">
                                 <FooterStyle CssClass="FooterStyle" />
                                 <RowStyle CssClass="RowStyle" Wrap="False" />
                                 <EditRowStyle CssClass="EditRowStyle" />

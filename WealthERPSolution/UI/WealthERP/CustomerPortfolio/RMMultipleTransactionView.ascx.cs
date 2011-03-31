@@ -1446,6 +1446,11 @@ namespace WealthERP.CustomerPortfolio
             return ddl;
         }
 
+        protected void gvMFTransactions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
         //private void ExportGridView(string Filetype)
         //{
