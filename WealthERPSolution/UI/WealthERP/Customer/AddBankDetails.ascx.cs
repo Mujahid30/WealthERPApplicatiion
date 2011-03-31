@@ -195,7 +195,12 @@ namespace WealthERP.Customer
                     txtBranchName.Text = "";
                     txtIfsc.Text = "";
                     txtMicr.Text = "";
+                    ddlAccountType.SelectedIndex = 0;
+                    ddlModeOfOperation.SelectedIndex = 0;
 
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bank details added successfully');", true);
+                   
+                    
                 }
                 else
                 {

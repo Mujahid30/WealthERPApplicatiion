@@ -187,7 +187,7 @@
         <td class="rightField">
             <asp:TextBox ID="txtBankAdrPinCode" runat="server" CssClass="txtField" MaxLength="6"></asp:TextBox>
             <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="Enter a numeric value"
-                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtBankAdrPinCode" Operator="DataTypeCheck"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtBankAdrPinCode" ValidationGroup="btnSubmit" Operator="DataTypeCheck"
                 Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField">
@@ -202,11 +202,12 @@
     <tr>
         <td class="leftField">
             <asp:Label ID="lblMicr" runat="server" Text="MICR:" CssClass="FieldName"></asp:Label>
+           
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtMicr" runat="server" CssClass="txtField" MaxLength="9"></asp:TextBox>
             <asp:CompareValidator ID="cvMicr" runat="server" ErrorMessage="Enter a numeric value"
-                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtMicr" Operator="DataTypeCheck"
+                CssClass="rfvPCG" Type="Integer" ValidationGroup="btnSubmit" ControlToValidate="txtMicr" Operator="DataTypeCheck"
                 Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField">
