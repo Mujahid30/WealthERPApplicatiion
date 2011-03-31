@@ -50,12 +50,12 @@
     </tr>
     <tr>
     <td>
-    </td>
-    <td>
+<%--</td>
+   <td>
     <asp:Checkbox ID="chkprospect" runat="server" CssClass="txtField"  Text="Prospect" 
                 AutoPostBack="false"  Enabled = "true" /></asp:Label>
                 </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
@@ -159,10 +159,10 @@
                 <asp:ListItem>Ms.</asp:ListItem>
                 <asp:ListItem>M/S.</asp:ListItem>
             </asp:DropDownList>
-            <span id="Span5" class="spnRequiredField">*</span>
+<%--            <span id="Span5" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cmpddlSalutation" runat="server" ControlToValidate="ddlSalutation"
                 ErrorMessage="Please select a Salutation for customer" Operator="NotEqual" ValueToCompare="Select a Salutation"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
         </td>
     </tr>
     <tr>
