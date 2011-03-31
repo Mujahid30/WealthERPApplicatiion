@@ -4,14 +4,14 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
 
-<script type="text/javascript">
+<%--<script type="text/javascript">
     function DateCheck() {
         if (document.getElementById("<%=dpDOB.ClientID%>").value == "") {
             alert("Please fill DOB");
             return false;
         }
     }
-</script>
+</script>--%>
 
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
@@ -19,6 +19,15 @@
 <telerik:RadFormDecorator ID="RadFormDecorator1" runat="server" DecoratedControls="All"
     Skin="Telerik" EnableEmbeddedSkins="false" />
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Add Prospect"></asp:Label>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Record created Successfully
+            </div>
+        </td>
+    </tr>
+</table>
 <hr />
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
     Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
@@ -32,15 +41,6 @@
         </telerik:RadToolBarButton>
     </Items>
 </telerik:RadToolBar>
-<table width="100%">
-    <tr>
-        <td align="center">
-            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
-                Record created Successfully
-            </div>
-        </td>
-    </tr>
-</table>
 <div style="float: left; width: 100%;" id="Div1" runat="server">
     <asp:Label ID="Label1" runat="server" CssClass="HeaderText" Text="Self"></asp:Label>
     <hr />
@@ -85,14 +85,17 @@
                     <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                     </DateInput>
                 </telerik:RadDatePicker>
-                <span id="Span3" class="spnRequiredField">*</span>
+               
             </td>
             <td align="right">
                 <asp:Label ID="lblEmailId" runat="server" Text="Email Id : " CssClass="FieldName"></asp:Label>
             </td>
             <td align="left">
                 <asp:TextBox ID="txtEmail" runat="server" Text="" />
-                <span id="Span2" class="spnRequiredField">*</span>
+                <!--<span id="Span2" class="spnRequiredField">*</span> -->
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
+                ErrorMessage="<br>Please enter a valid Email ID" Display="Dynamic" runat="server" EnableClientScript="true" 
+                ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Font-Size="11px" ></asp:RegularExpressionValidator>
             </td>
             <td align="right">
                 <asp:Label ID="lblPickBranch" runat="server" Text="Branch Name : " CssClass="FieldName"></asp:Label>
@@ -190,7 +193,7 @@
         ErrorMessage="Is Required">
         <TargetControls>
             <telerik:TargetInput ControlID="txtFirstName" />
-            <telerik:TargetInput ControlID="txtEmail" />
+           
             <telerik:TargetInput ControlID="txtChildFirstName" />
             <telerik:TargetInput ControlID="txtGridEmailId" />
             <telerik:TargetInput ControlID="txtPanNumber" />
@@ -207,7 +210,7 @@
     <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior1" Validation-IsRequired="true"
         ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ErrorMessage="Invalid Email">
         <TargetControls>
-            <telerik:TargetInput ControlID="txtEmail" />
+           
             <telerik:TargetInput ControlID="txtGridEmailId" />
         </TargetControls>
         <Validation IsRequired="True"></Validation>
@@ -299,9 +302,9 @@
     <tr>
         <td align="center">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                OnClientClick="return DateCheck()" />
+                 />
             &nbsp;<asp:Button ID="btnSubmitAddDetails" runat="server" Text="Add Finance Details"
-                OnClick="btnSubmitAddDetails_Click" OnClientClick="return DateCheck()" />
+                OnClick="btnSubmitAddDetails_Click"  />
         </td>
     </tr>
 </table>

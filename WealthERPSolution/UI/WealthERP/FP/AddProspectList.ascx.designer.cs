@@ -50,15 +50,6 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label headertitle;
         
         /// <summary>
-        /// aplToolBar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadToolBar aplToolBar;
-        
-        /// <summary>
         /// msgRecordStatus control.
         /// </summary>
         /// <remarks>
@@ -66,6 +57,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        
+        /// <summary>
+        /// aplToolBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadToolBar aplToolBar;
         
         /// <summary>
         /// Div1 control.
@@ -174,6 +174,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        
+        /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
         /// lblPickBranch control.
