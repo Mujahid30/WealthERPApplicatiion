@@ -270,12 +270,13 @@
                             <HeaderTemplate>
                                 <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" CssClass="cmbField"
                                     OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">
+                                     <asp:ListItem Text="All" Value="2">
+                                    </asp:ListItem>
                                     <asp:ListItem Text="Active" Value="1">
                                     </asp:ListItem>
                                     <asp:ListItem Text="InActive" Value="0">
                                     </asp:ListItem>
-                                    <asp:ListItem Text="All" Value="2">
-                                    </asp:ListItem>
+                                   
                                 </asp:DropDownList>
                             </HeaderTemplate>
                         </asp:TemplateField>

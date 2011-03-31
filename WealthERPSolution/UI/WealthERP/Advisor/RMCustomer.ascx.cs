@@ -1403,18 +1403,19 @@ namespace WealthERP
         protected void ddlActiveFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlFilter = (DropDownList)gvCustomers.HeaderRow.FindControl("ddlActiveFilter");
-            if (int.Parse(ddlFilter.SelectedValue) == 1)
-            {
-                hdnactive.Value = "A";
-            }
-            if (int.Parse(ddlFilter.SelectedValue) == 0)
-            {
-                hdnactive.Value = "I";
-            }
-            if (int.Parse(ddlFilter.SelectedValue) == 2)
-            {
-                hdnactive.Value = "D";
-            }
+            hdnactive.Value = ddlFilter.SelectedValue;
+            //if (int.Parse(ddlFilter.SelectedValue) == 1)
+            //{
+            //    hdnactive.Value = "A";
+            //}
+            //if (int.Parse(ddlFilter.SelectedValue) == 0)
+            //{
+            //    hdnactive.Value = "I";
+            //}
+            //if (int.Parse(ddlFilter.SelectedValue) == 2)
+            //{
+            //    hdnactive.Value = "D";
+            //}
             this.BindGrid(mypager.CurrentPage,0);
         }
 
