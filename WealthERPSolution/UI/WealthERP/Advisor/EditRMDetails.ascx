@@ -5,8 +5,7 @@
     function showmessage() {
 
         var bool = window.confirm('Are you sure you want to delete this record?');
-        if (bool) {
-            alert(bool);
+        if (bool) {         
             document.getElementById("ctrl_EditRMDetails_hdnMsgValue").value = 1;
             document.getElementById("ctrl_EditRMDetails_hiddenDelete").click();
             return false;
