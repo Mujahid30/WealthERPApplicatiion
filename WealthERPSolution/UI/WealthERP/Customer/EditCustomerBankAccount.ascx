@@ -32,25 +32,24 @@
         width: 69px;
     }
 </style>
+<table cssclass="TableBackground" style="width:100%;">
+      <tr>
+            <td colspan="4" class="HeaderCell">
+                <asp:Label ID="Label34" runat="server" Text="Edit Bank Details" CssClass="HeaderTextBig"></asp:Label>
+                <hr />
+            </td>
+        </tr>
+</table>
 <table cssclass="TableBackground">
+
+ 
     <tr>
-        <td class="style1">
-            &nbsp;
-        </td>
-        <td colspan="2">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label27" runat="server" CssClass="FieldName" Text="Account Type"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label27" runat="server" CssClass="FieldName" Text="Account Type: "></asp:Label>
         </td>
         <td class="style8" align="left">
-            <asp:DropDownList ID="ddlAccountType" runat="server" CssClass="cmbField" Width="180px">
-                <asp:ListItem></asp:ListItem>
+            <asp:DropDownList ID="ddlAccountType" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="-Select-" Value="-Select-" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Savings" Value="SV" ></asp:ListItem>
                 <asp:ListItem Text="C.C." Value="CC" ></asp:ListItem>
                 <asp:ListItem Text="Current" Value="CR" ></asp:ListItem>
@@ -70,8 +69,8 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label28" runat="server" CssClass="FieldName" Text="Account Number"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label28" runat="server" CssClass="FieldName" Text="Account Number: "></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="txtField"></asp:TextBox>
@@ -84,12 +83,12 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label29" runat="server" Text="Mode of Operation" CssClass="FieldName"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label29" runat="server" Text="Mode of Operation: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:DropDownList ID="ddlModeOfOperation" CssClass="cmbField" runat="server">
-                <asp:ListItem></asp:ListItem>
+                <asp:ListItem Text="-Select-" Value="-Select-" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Anyone or Survivor" Value="AS" ></asp:ListItem>
                <asp:ListItem Text="As Per Board Resolution" Value="BR" ></asp:ListItem>
                 <asp:ListItem Text="Either or Survivor" Value="ES" ></asp:ListItem>
@@ -97,7 +96,7 @@
                <asp:ListItem Text="Jointly" Value="JO" ></asp:ListItem>
                 <asp:ListItem Text="Other" Value="OT" ></asp:ListItem>
                 <asp:ListItem Text="Severaly" Value="SE" ></asp:ListItem>
-                <asp:ListItem Text="Singly" Value="SI" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Singly" Value="SI" ></asp:ListItem>
                 <asp:ListItem Text="Self Only" Value="SO" ></asp:ListItem>
                 <asp:ListItem Text="To be categorized" Value="TBC" ></asp:ListItem>
             </asp:DropDownList>
@@ -110,8 +109,8 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label30" runat="server" Text="Bank Name" CssClass="FieldName"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label30" runat="server" Text="Bank Name: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField"></asp:TextBox>
@@ -124,8 +123,8 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label31" runat="server" Text="Branch Name" CssClass="FieldName"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label31" runat="server" Text="Branch Name: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField"></asp:TextBox>
@@ -137,11 +136,8 @@
             &nbsp;
         </td>
     </tr>
-    <tr>
-        <td class="style1" align="left">
-            &nbsp;
-        </td>
-        <td class="style8" align="left">
+  <tr>
+        <td class="style8">
             &nbsp;
         </td>
         <td class="style3">
@@ -151,10 +147,19 @@
             &nbsp;
         </td>
     </tr>
-    <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label26" runat="server" Text="Branch Details" CssClass="FieldName"></asp:Label>
-        </td>
+    </table>
+    
+ <table cssclass="TableBackground" style="width:100%;">
+      <tr>
+            <td colspan="4" class="HeaderCell">
+                <asp:Label ID="Label1" runat="server" Text="Branch Details" CssClass="HeaderTextSmall"></asp:Label>
+                <hr />
+            </td>
+        </tr>
+        
+</table>
+ <table cssclass="TableBackground"> 
+ <tr>
         <td class="style8">
             &nbsp;
         </td>
@@ -166,8 +171,8 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label19" runat="server" Text="Line1" CssClass="FieldName"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label19" runat="server" Text="Line1: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBankAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
@@ -180,8 +185,8 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label20" runat="server" Text="Line2" CssClass="FieldName"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label20" runat="server" Text="Line2: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBankAdrLine2" runat="server" CssClass="txtField"></asp:TextBox>
@@ -194,8 +199,8 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label21" runat="server" Text="Line3" CssClass="FieldName"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label21" runat="server" Text="Line3: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBankAdrLine3" runat="server" CssClass="txtField"></asp:TextBox>
@@ -208,34 +213,32 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label22" runat="server" CssClass="FieldName" Text="City"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label22" runat="server" CssClass="FieldName" Text="City:"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
-        <td class="style3" align="left">
-            <asp:Label ID="Label23" runat="server" CssClass="FieldName" Text="State"></asp:Label>
+        <td class="style3" align="right">
+            <asp:Label ID="Label23" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
         </td>
-        <td align="left">
+        <td align="left" class="style8">
             <asp:DropDownList ID="ddlBankAdrState" runat="server" CssClass="txtField">
-                <asp:ListItem>Karnataka</asp:ListItem>
-                <asp:ListItem>Andhra</asp:ListItem>
-                <asp:ListItem>Tamil Nadu</asp:ListItem>
+               
             </asp:DropDownList>
         </td>
     </tr>
     <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label24" runat="server" Text="Pin Code" CssClass="FieldName"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label24" runat="server" Text="Pin Code: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBankAdrPinCode" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
-        <td class="style3" align="left">
-            <asp:Label ID="Label25" runat="server" Text="Country" CssClass="FieldName"></asp:Label>
+        <td class="style3" align="right">
+            <asp:Label ID="Label25" runat="server" Text="Country: " CssClass="FieldName"></asp:Label>
         </td>
-        <td align="left">
+        <td align="left" class="style8">
             <asp:DropDownList ID="ddlBankAdrCountry" runat="server" CssClass="cmbField">
                 <asp:ListItem>India</asp:ListItem>
                 <asp:ListItem>USA</asp:ListItem>
@@ -243,14 +246,14 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="left">
-            <asp:Label ID="Label32" runat="server" Text="MICR" CssClass="FieldName"></asp:Label>
+        <td class="style1" align="right">
+            <asp:Label ID="Label32" runat="server" Text="MICR: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtMicr" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
-        <td class="style3" align="left">
-            <asp:Label ID="Label33" runat="server" Text="IFSC" CssClass="FieldName"></asp:Label>
+        <td class="style3" align="right">
+            <asp:Label ID="Label33" runat="server" Text="IFSC: " CssClass="FieldName"></asp:Label>
         </td>
         <td align="left">
             <asp:TextBox ID="txtIfsc" runat="server" CssClass="txtField"></asp:TextBox>
@@ -278,4 +281,5 @@
         <td class="style11">
         </td>
     </tr>
-</table>
+    </table> 
+

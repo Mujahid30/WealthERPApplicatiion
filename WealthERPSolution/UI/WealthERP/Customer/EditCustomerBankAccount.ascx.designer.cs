@@ -14,6 +14,15 @@ namespace WealthERP.Customer {
     public partial class EditCustomerBankAccount {
         
         /// <summary>
+        /// Label34 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label34;
+        
+        /// <summary>
         /// Label27 control.
         /// </summary>
         /// <remarks>
@@ -104,13 +113,13 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtBranchName;
         
         /// <summary>
-        /// Label26 control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label26;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// Label19 control.

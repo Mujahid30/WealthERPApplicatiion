@@ -11,6 +11,8 @@ using BoUser;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
+using System.Data;
+using System.Configuration;
 
 namespace WealthERP.Customer
 {
@@ -20,9 +22,16 @@ namespace WealthERP.Customer
         CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
         int customerId;
         int customerBankAccId;
-
+        DataTable dtStates = new DataTable();
+        string path;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                BindSatesToDP(path);
+            }
+
             try
             {
                 SessionBo.CheckSession();
@@ -43,7 +52,9 @@ namespace WealthERP.Customer
                 txtBankAdrCity.Text = customerBankAccountVo.BranchAdrCity.ToString();
                 txtIfsc.Text = customerBankAccountVo.IFSC.ToString();
                 txtMicr.Text = customerBankAccountVo.MICR.ToString();
-                ddlBankAdrState.SelectedValue = customerBankAccountVo.BranchAdrState;
+                if (customerBankAccountVo.BranchAdrState != null && customerBankAccountVo.BranchAdrState != "")
+                    ddlBankAdrState.SelectedValue = customerBankAccountVo.BranchAdrState;
+                //ddlBankAdrState.SelectedValue = customerBankAccountVo.BranchAdrState;
                 ddlBankAdrCountry.SelectedValue = customerBankAccountVo.BranchAdrCountry;
 
             }
@@ -65,6 +76,42 @@ namespace WealthERP.Customer
                 ExceptionManager.Publish(exBase);
                 throw exBase;
 
+            }
+        }
+
+        private void BindSatesToDP(string path)
+        {
+           
+            try
+            {
+                
+                // Bind State Drop Downs
+                dtStates = XMLBo.GetStates(path);
+                ddlBankAdrState.DataSource = dtStates;
+                ddlBankAdrState.DataTextField = "StateName";
+                ddlBankAdrState.DataValueField = "StateCode";
+                ddlBankAdrState.DataBind();
+                ddlBankAdrState.Items.Insert(0, new ListItem("Select a State", "Select a State"));
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "EditCustomerBankAccount.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[2];
+                objects[0] = path;
+                objects[1] = dtStates;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
 
@@ -91,7 +138,9 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
                 customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
                 customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
-                customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedItem.Value.ToString();
+                if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
+                    customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
+                //customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedItem.Value.ToString();
                 customerBankAccountVo.BranchAdrCountry = ddlBankAdrCountry.SelectedItem.Value.ToString();
                 customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
                 customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
@@ -125,3 +174,5 @@ namespace WealthERP.Customer
 
     }
 }
+
+
