@@ -17,6 +17,7 @@
             alert("Warning! - Date Cannot be in the future");
         }
     }
+
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -51,6 +52,12 @@
             <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_Click" CssClass="LinkButtons"> Edit</asp:LinkButton>
         </td>
     </tr>
+    <tr>
+    <td>
+
+    </td>
+    </tr>
+    
     <tr>
         <td colspan="4">
             &nbsp;
@@ -222,8 +229,8 @@
                 OnClick="btnSubmit_Click" />
         </td>
         <td>                <asp:Button ID="btnCancel" runat="server" 
-                Text="Cancel Transaction" CssClass="PCGLongButton" Visible="false" 
-                onclick="btnCancel_Click" />
+                Text="Cancel Transaction" CssClass="PCGLongButton" Visible="false" CausesValidation="True"
+                onclick="btnCancel_Click" OnClientClick="javascript: return confirm('Are you sure you want to cancell the Transaction?')"/>
 </td>
     </tr>
 </table>
