@@ -113,6 +113,19 @@
         </ClientSettings>
     </telerik:RadGrid>
     </telerik:RadAjaxPanel>
+    
+    <table width="100%" style="text-align:left">
+    <tr>
+    <td>
+    
+    </td>
+    </tr>
+        <tr>
+            <td>
+                <asp:Label ID="lblNote" runat="server" CssClass="HeaderTextSmall" Text="Note: Data on the screen can be updated by clicking on finance profile synchronization button."></asp:Label>
+            </td>
+        </tr>    
+    </table>
 <%--    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:wealtherp %>"
         SelectCommand="SELECT [C_DOB], [C_Email], [C_FirstName], [C_CustomerId],[C_Mobile1],[C_Adr1Line1]+','+[C_Adr1Line2]+','+[C_Adr1Line3] AS Address FROM [Customer] WHERE (([C_IsProspect] = @C_IsProspect) AND [AR_RMId]=@AR_RMId)">
         <SelectParameters>
