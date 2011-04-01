@@ -111,14 +111,14 @@
                 <input id="rbtnSin" runat="server" name="Radio" onclick="setPageType('single')" type="radio" />
                 <label for="rbtnSin" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
                     font-weight: 500">Current Page</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <br />
                 &nbsp;&nbsp;
                 <input id="Radio1" runat="server" name="Radio" onclick="setPageType('multiple')"
                     type="radio" />
                 <label for="Radio1" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
                     font-weight: 500">All Pages</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
                 <br />
                 <div align="center">
                     <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
@@ -305,8 +305,9 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Type">
                                         <HeaderTemplate>
-                                            <asp:Label ID="lblAMC" runat="server" Text="AMC"></asp:Label>
-                                            <asp:DropDownList ID="ddlAMC" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
+                                            <asp:Label ID="lblAMC" runat="server" Text="AMC"  ></asp:Label>
+                                            <br />
+                                            <asp:DropDownList ID="ddlAMC" AutoPostBack="true" Width="220px" runat="server" CssClass="GridViewCmbField"
                                                 OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged">
                                             </asp:DropDownList>
                                         </HeaderTemplate>
@@ -318,6 +319,7 @@
                                     <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Scheme">
                                         <HeaderTemplate>
                                             <asp:Label ID="lblScheme" runat="server" Text="Scheme"></asp:Label>
+                                            <br />
                                             <asp:TextBox ID="txtSchemeSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMMultipleTransactionView_btnSchemeSearch');" />
                                         </HeaderTemplate>
                                         <ItemTemplate>
