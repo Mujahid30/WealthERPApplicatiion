@@ -161,6 +161,29 @@
                                     
               </td>
         </table>
+     <table width="100%" style="text-align:left">
+  
+     <tr>
+    <td>
+    
+    </td>
+    </tr>
+    <tr>
+    <td>
+    
+    </td>
+    </tr>
+    <tr>
+    <td>
+    
+    </td>
+    </tr>
+        <tr>
+            <td>
+                <asp:Label ID="lblNote" runat="server" CssClass="HeaderTextSmall" Text="Note: Data on the screen can be updated by clicking on finance profile synchronization button."></asp:Label>
+            </td>
+        </tr>    
+    </table>
         
 <asp:HiddenField ID="lblRScore" runat="server" Visible="false" />
 <asp:HiddenField ID="lblRClass" runat="server" Visible="false" />
