@@ -805,16 +805,25 @@ namespace DaoAdvisorProfiling
                         advisorBranchVo.City = dr["AB_City"].ToString();
                         advisorBranchVo.Country = dr["AB_Country"].ToString();
                         advisorBranchVo.Email = dr["AB_Email"].ToString();
+                        if (!string.IsNullOrEmpty(dr["AB_Fax"].ToString().Trim()))
                         advisorBranchVo.Fax = int.Parse(dr["AB_Fax"].ToString());
+                        if (!string.IsNullOrEmpty(dr["AB_FaxSTD"].ToString().Trim()))
                         advisorBranchVo.FaxStd = int.Parse(dr["AB_FaxSTD"].ToString());
+                        if (!string.IsNullOrEmpty(dr["AB_FaxISD"].ToString().Trim()))
                         advisorBranchVo.FaxIsd = int.Parse(dr["AB_FaxISD"].ToString());
-
+                        if (!string.IsNullOrEmpty(dr["AB_Phone1ISD"].ToString().Trim()))
                         advisorBranchVo.Phone1Isd = int.Parse(dr["AB_Phone1ISD"].ToString());
+                        if (!string.IsNullOrEmpty(dr["AB_Phone2ISD"].ToString().Trim()))
                         advisorBranchVo.Phone2Isd = int.Parse(dr["AB_Phone2ISD"].ToString());
+                        if (!string.IsNullOrEmpty(dr["AB_Phone1STD"].ToString().Trim()))
                         advisorBranchVo.Phone1Std = int.Parse(dr["AB_Phone1STD"].ToString());
+                        if (!string.IsNullOrEmpty(dr["AB_Phone2STD"].ToString().Trim()))
                         advisorBranchVo.Phone2Std = int.Parse(dr["AB_Phone2STD"].ToString());
+                        if (!string.IsNullOrEmpty(dr["AB_Phone1"].ToString().Trim()))
                         advisorBranchVo.Phone1Number = int.Parse(dr["AB_Phone1"].ToString());
+                        if (!string.IsNullOrEmpty(dr["AB_Phone2"].ToString().Trim()))
                         advisorBranchVo.Phone2Number = int.Parse(dr["AB_Phone2"].ToString());
+                        if (!string.IsNullOrEmpty(dr["AB_PinCode"].ToString().Trim()))
                         advisorBranchVo.PinCode = int.Parse(dr["AB_PinCode"].ToString());
                         advisorBranchVo.State = dr["AB_State"].ToString();
                         branchList.Add(advisorBranchVo);
