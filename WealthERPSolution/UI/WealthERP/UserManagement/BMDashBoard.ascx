@@ -151,10 +151,10 @@
         </tr>
         <tr>
         <td style="vertical-align: top">
-         <asp:GridView ID="gvRMCustNetworth" runat="server" AllowSorting="True" 
+         <asp:GridView ID="gvRMCustNetworth" runat="server" 
                     Width="550px" AutoGenerateColumns="False" GridLines="Both"
-                CellPadding="4" EnableViewState="false" AllowPaging="True" ShowFooter="true"
-                CssClass="GridViewStyle" ToolTip="Top 5 Customers Networth GridView" >
+                CellPadding="4" EnableViewState="true" AllowPaging="True" ShowFooter="true"
+                CssClass="GridViewStyle" ToolTip="Top 5 Customers Networth GridView" DataKeyNames="Staff_Code" >
                 <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -165,10 +165,25 @@
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                <%-- OnRowCreated="gvBMDashBoardGrid_RowCreated" --%>
                     <Columns>
-                    <asp:BoundField DataField="RmName" HeaderText="Name" ItemStyle-HorizontalAlign="Left" />
-                    <asp:BoundField DataField="Staff_Code" HeaderText="Code" ItemStyle-HorizontalAlign="Right"/>
-                    <asp:BoundField DataField="Customer_base" HeaderText="Customer Base" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Customer_networth" DataFormatString="{0:n}" HtmlEncode="false" HeaderText="NetWorth" ItemStyle-HorizontalAlign="Right" />
+                    <asp:TemplateField HeaderText="RMName" >
+                    <ItemTemplate>
+                    <asp:LinkButton ID="lnkRMName" runat="server" Text='<%# Eval("RmName") %>' 
+                         onclick="lnkRMName_Click"></asp:LinkButton>
+                     </ItemTemplate>
+                    </asp:TemplateField>
+               <%--     <asp:BoundField DataField="RmName" HeaderText="Name" ItemStyle-HorizontalAlign="Left" />--%>
+                    <asp:BoundField DataField="Staff_Code" HeaderText="Code" 
+                            ItemStyle-HorizontalAlign="Right">
+<ItemStyle HorizontalAlign="Right"></ItemStyle>
+                        </asp:BoundField>
+                    <asp:BoundField DataField="Customer_base" HeaderText="Customer Base" 
+                            ItemStyle-HorizontalAlign="Right" >
+<ItemStyle HorizontalAlign="Right"></ItemStyle>
+                        </asp:BoundField>
+                    <asp:BoundField DataField="Customer_networth" DataFormatString="{0:n}" 
+                            HtmlEncode="false" HeaderText="NetWorth" ItemStyle-HorizontalAlign="Right" >
+<ItemStyle HorizontalAlign="Right"></ItemStyle>
+                        </asp:BoundField>
                     </Columns>
                 </asp:GridView>
         <br />
@@ -219,8 +234,9 @@
         
          <asp:GridView ID="gvCustNetWorth" runat="server" AllowSorting="True" 
                     Width="550px" AutoGenerateColumns="False" GridLines="Both"
-                CellPadding="4" EnableViewState="false" AllowPaging="True" ShowFooter="true"
-                CssClass="GridViewStyle" ToolTip="Top 5 Customers Networth GridView" >
+                CellPadding="4" EnableViewState="true" AllowPaging="True" ShowFooter="true"
+                CssClass="GridViewStyle" ToolTip="Top 5 Customers Networth GridView" DataKeyNames="CustomerId" 
+                onselectedindexchanged="gvCustNetWorth_SelectedIndexChanged" >
                   <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -230,7 +246,14 @@
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                     <Columns>
-                    <asp:BoundField DataField="Customer" HeaderText="Customer" ItemStyle-HorizontalAlign="Left" />
+                    <asp:TemplateField runat="server" HeaderText="Customer">
+                    <ItemTemplate>
+                     <asp:LinkButton ID="lnkCustomer" runat="server" CssClass="CmbField" Text='<%# Eval("Customer") %>' onclick="lnkCustomer_Click">
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                    </asp:TemplateField>
+                    <%--<asp:BoundField DataField="Customer" HeaderText="Customer" ItemStyle-HorizontalAlign="Left" />--%>
+                    <asp:BoundField DataField="CustomerId" HeaderText="CustomerId" ItemStyle-HorizontalAlign="Right" />
                     <asp:BoundField DataField="Asset" HeaderText="Asset" DataFormatString="{0:n}" HtmlEncode="false" ItemStyle-HorizontalAlign="Right"/>
                     <asp:BoundField DataField="Liabilities" DataFormatString="{0:n}" HtmlEncode="false" HeaderText="Liabilities" ItemStyle-HorizontalAlign="Right" />
                     <asp:BoundField DataField="Networth" DataFormatString="{0:n}" HtmlEncode="false" HeaderText="NetWorth" ItemStyle-HorizontalAlign="Right" />
@@ -250,10 +273,7 @@
                     </asp:ChartArea>
                 </ChartAreas>
         </asp:Chart>
-        
-        
         </td>
-        
         </tr>
         
     </table>

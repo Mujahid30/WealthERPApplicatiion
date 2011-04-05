@@ -1,22 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using VoUser;
+using System.Globalization;
 using VoAdvisorProfiling;
 using BoAdvisorProfiling;
-using BoCommon;
-using System.Data;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
-using System.Web.UI.DataVisualization.Charting;
+using BoCustomerProfiling;
+using BoCustomerPortfolio;
+using BoAlerts;
 using System.Drawing;
-using System.Collections;
+using System.Web.UI.DataVisualization.Charting;
+using System.Data;
+using WealthERP.Customer;
 using System.Collections.Specialized;
-using System.Globalization;
+using WealthERP.Base;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using BoCommon;
 
 
 namespace WealthERP.UserManagement
 {
     public partial class BMDashBoard : System.Web.UI.UserControl
     {
+       
         DataSet branchDetailsDS = new DataSet();
         DataTable branchAumDT = new DataTable();
         DataTable topFiveRMDT = new DataTable();
@@ -26,37 +35,92 @@ namespace WealthERP.UserManagement
         RMVo rmVo = new RMVo();
         int rmId;
         bool GridViewCultureFlag = true;
+        AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+        AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
+        UserVo userVo = new UserVo();
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            UserVo userVo = new UserVo();
-            RMVo rmVo = new RMVo();
-            //userType = Session["UserType"].ToString().ToLower();
-            AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
-            AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
-            AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
-            int branchId;
-            userVo = (UserVo)Session["userVo"];
-            rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
-            rmId = rmVo.RMId;
-            
-            Session["rmVo"] = rmVo;
-            branchId = advisorBranchBo.GetBranchId(rmVo.RMId);
-            
-
+                  
            
-                advisorBranchVo = advisorBranchBo.GetBranch(branchId);
-                Session["advisorBranchVo"] = advisorBranchVo;
+            //userType = Session["UserType"].ToString().ToLower();
+          
+            int branchId;
+            
            
             if (!IsPostBack)
             {
+                userVo = (UserVo)Session["userVo"];
+                rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
+                rmId = rmVo.RMId;
+
+                Session["rmVo"] = rmVo;
+                branchId = advisorBranchBo.GetBranchId(rmVo.RMId);
+                advisorBranchVo = advisorBranchBo.GetBranch(branchId);
+
+
+                //advisorBranchVo = advisorBranchBo.GetBranch(branchId);
+                Session["advisorBranchVo"] = advisorBranchVo;
+
+
+
+
                 BindBranchDropDown();
                 bindGrid(0, int.Parse(ddlBMBranch.SelectedValue.ToString()), 1);
                 bindChart(0, int.Parse(ddlBMBranch.SelectedValue.ToString()), 1);
+               
             }
 
             
+        }
+        protected void lnkCustomer_Click(object sender, EventArgs e)
+        {
+            CustomerVo customerVo = new CustomerVo();
+            CustomerBo customerBo = new CustomerBo();
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvCustNetWorth.DataKeys[rowIndex];
+            int customerId = Convert.ToInt32(dk.Value);
+
+
+            if (customerId != 0)
+            {
+                Session[SessionContents.FPS_ProspectList_CustomerId] = customerId;
+            }
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+            Session["IsDashboard"] = "CustDashboard";
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndividualLeftPane.ascx", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+        }
+        //protected void lnkRMName_Click(object sender, EventArgs e)
+        //{ 
+
+        //}
+
+        protected void lnkRMName_Click(object sender, EventArgs e)
+        {
+
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
+            
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvRMCustNetworth.DataKeys[rowIndex];
+            
+            int rmId = System.Convert.ToInt32(dk.Value);
+            if (rmId != 0)
+            {
+                Session["BMDashBoardRMId"] = rmId;
+            }
+            //rmVo = adviserStaffBo.GetAdvisorStaffDetails(rmId);
+            Session[SessionContents.CurrentUserRole] = "RM";
+
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
         }
 
         protected void BMDashBoardGrid_RowDataBound(object sender, GridViewRowEventArgs row)
@@ -67,7 +131,8 @@ namespace WealthERP.UserManagement
         protected void bindChart(int advisorBranchId, int branchHeadId, int all)
         {
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
-          
+            CustomerVo customerVo = new CustomerVo();
+            CustomerBo customerBo = new CustomerBo();
             Legend Branchlegend = null;
             Branchlegend = new Legend("BranchAssetsLegends");
             Branchlegend.Enabled = true;
@@ -548,6 +613,23 @@ namespace WealthERP.UserManagement
                 throw exBase;
             }
         }
+
+        protected void gvCustNetWorth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void gvRMCustNetworth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnHello_Click(object sender, EventArgs e)
+        {
+            //Response.Write("Hellsckvj");
+        }
+
+       
 
         /* End For Binding the Branch Dropdowns */
 
