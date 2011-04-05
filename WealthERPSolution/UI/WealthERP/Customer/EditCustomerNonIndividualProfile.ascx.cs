@@ -211,7 +211,7 @@ namespace WealthERP.Customer
                 customerVo.ContactFirstName = txtFirstName.Text.ToString();
                 customerVo.ContactMiddleName = txtMiddleName.Text.ToString();
                 customerVo.ContactLastName = txtLastName.Text.ToString();
-                customerVo.FirstName = txtCompanyName.Text.ToString();
+                customerVo.CompanyName = txtCompanyName.Text.ToString();
                 customerVo.CustCode = txtCustomerCode.Text.ToString();
                 customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
                 if (customerVo.Salutation == "Mr.")
