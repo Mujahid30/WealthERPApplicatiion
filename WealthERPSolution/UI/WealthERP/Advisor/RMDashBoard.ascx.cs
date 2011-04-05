@@ -40,9 +40,14 @@ namespace WealthERP.Advisor
             try
             {
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-               
 
+                if (Session["BMDashBoardRMId"] != null)
+                {
+                    rmId = int.Parse(Session["BMDashBoardRMId"].ToString());
+                }
+                else
                 rmId = rmVo.RMId;
+
                 dsCurrentValues = getCurrentValuesforRM(rmId);
                 getCustomerListforRM(rmId);
                 dt = dsCurrentValues.Tables[0];
