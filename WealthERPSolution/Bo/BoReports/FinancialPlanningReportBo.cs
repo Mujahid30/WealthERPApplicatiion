@@ -55,18 +55,18 @@ namespace BoReports
             double autoLoan = 0;
             double currEquity = 0;
             double toatlGoalAmount = 0;
-            DataTable dtCustomerFPRatio=new DataTable("CustomerFPRatio");
-            double loan_To_Assets_Ratio=0;
-            double savings_To_Income_Ratio=0;
+            DataTable dtCustomerFPRatio = new DataTable("CustomerFPRatio");
+            double loan_To_Assets_Ratio = 0;
+            double savings_To_Income_Ratio = 0;
             double debt_Ratio = 0;
-            double debt_To_Income_Ratio=0;
-            double solvency_Ratio =0;
-            double life_Insurance_Cover_Ratio=0;
+            double debt_To_Income_Ratio = 0;
+            double solvency_Ratio = 0;
+            double life_Insurance_Cover_Ratio = 0;
             int annualSalary = 0;
             double cashAndSaving = 0;
             double totalMonthlyEMI = 0;
 
-            Dictionary<string, int> dicCustomerFPRatio = new Dictionary<string, int> ();
+            Dictionary<string, decimal> dicCustomerFPRatio = new Dictionary<string, decimal>();
 
             string strInvestment = string.Empty;
             string strHomeLoan = string.Empty;
@@ -80,9 +80,9 @@ namespace BoReports
             dsCustomerFPReportDetails.AcceptChanges();
             dtExpense = dsCustomerFPReportDetails.Tables["Expense"];
             dtIncome = dsCustomerFPReportDetails.Tables["Income"];
-            dtLoanEMI=dsCustomerFPReportDetails.Tables["LoanEMI"];
+            dtLoanEMI = dsCustomerFPReportDetails.Tables["LoanEMI"];
             //**************GEARING RATIO*****************
-          
+
             if (asset != 0)
                 loan_To_Assets_Ratio = (liabilities / asset) * 100;
 
@@ -99,19 +99,19 @@ namespace BoReports
 
             if (Convert.ToString(dtLoanEMI.Rows[0][0]) != string.Empty)
             {
-                totalMonthlyEMI = double.Parse(dtLoanEMI.Rows[0][0].ToString())/12;
+                totalMonthlyEMI = double.Parse(dtLoanEMI.Rows[0][0].ToString()) / 12;
             }
             //**************LIFE INSURANCE COVER*****************
 
             if (annualSalary != 0)
-                life_Insurance_Cover_Ratio = sumAssuredLI / annualSalary;
-              //Objetc sumObject = _itemCheckData.Table.Compute("Sum(reco_price)", "");
-               // dtExpense.Sum("ExpenseAmount");
+                life_Insurance_Cover_Ratio = sumAssuredLI / (annualSalary * 12);
+            //Objetc sumObject = _itemCheckData.Table.Compute("Sum(reco_price)", "");
+            // dtExpense.Sum("ExpenseAmount");
             //dsCustomerFPReportDetails.Tables.RemoveAt(16);
             //dsCustomerFPReportDetails.AcceptChanges();
             //dsCustomerFPReportDetails.Tables.RemoveAt(16);
             //dsCustomerFPReportDetails.AcceptChanges();
-            
+
             foreach (DataRow dr in dtHLVAnalysis.Rows)
             {
                 if (dr["HLV_Type"].ToString().Trim() == "Inflation Rate")
@@ -156,14 +156,21 @@ namespace BoReports
                 debt_Ratio = liabilities / netWorth;
             //**************Debt Ratio *****************
 
-            HLVbasedIncome = PV(discountRate / 100, yearsLeftRT, -totalIncomeMonthly, 0, 1);
+            HLVbasedIncome = PV(discountRate / 100, yearsLeftRT, -(annualSalary * 12), 0, 1);
             totalAnnualIncome = totalIncomeMonthly * 12;
             DataRow drHLVbasedAnalysis;
             drHLVbasedAnalysis = dtHLVAnalysis.NewRow();
             drHLVbasedAnalysis["HLV_Type"] = "HLV based on income";
             drHLVbasedAnalysis["HLV_Values"] = convertUSCurrencyFormat(Math.Round(double.Parse(HLVbasedIncome.ToString()), 2));
             dtHLVAnalysis.Rows.Add(drHLVbasedAnalysis);
+
+            drHLVbasedAnalysis = dtHLVAnalysis.NewRow();
+            drHLVbasedAnalysis["HLV_Type"] = "Salary income(annual)";
+            drHLVbasedAnalysis["HLV_Values"] = convertUSCurrencyFormat(Math.Round(double.Parse((annualSalary * 12).ToString()), 2));
+            dtHLVAnalysis.Rows.InsertAt(drHLVbasedAnalysis, 1);
+            dtHLVAnalysis.Rows.RemoveAt(2);
             dsCustomerFPReportDetails.Tables.Add(dtHLVAnalysis);
+
 
 
             dtHLVBasedIncome.Columns.Add("HLVIncomeType");
@@ -172,17 +179,17 @@ namespace BoReports
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Financial Net Worth";
-            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(netWorth,2));
+            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(netWorth, 2));
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Insurance Cover Recommended";
-            drHLVBasedIncome["HLVIncomeValue"] =convertUSCurrencyFormat(Math.Round(double.Parse((HLVbasedIncome - netWorth).ToString()), 2)); 
+            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(double.Parse((HLVbasedIncome - netWorth).ToString()), 2));
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
             drHLVBasedIncome["HLVIncomeType"] = "Current Insurance Cover";
-            drHLVBasedIncome["HLVIncomeValue"] =convertUSCurrencyFormat(Math.Round(sumAssuredLI));
+            drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(sumAssuredLI));
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
@@ -257,8 +264,8 @@ namespace BoReports
             {
                 if (!string.IsNullOrEmpty(strInvestment))
                 {
-                   if (totalFixedIncome>0 || totalFixedIncome>0)
-                     strInvestment += ", " + "Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
+                    if (totalFixedIncome > 0 || totalFixedIncome > 0)
+                        strInvestment += ", " + "Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
                     else if (totalFixedIncome == 0 && totalOther == 0)
                     {
                         strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
@@ -272,7 +279,7 @@ namespace BoReports
             {
                 if (!string.IsNullOrEmpty(strInvestment))
                 {
-                    if (totalOther>0)
+                    if (totalOther > 0)
                         strInvestment += ", " + "Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
                     else
                         strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
@@ -284,7 +291,7 @@ namespace BoReports
             if (totalOther > 0)
             {
                 if (!string.IsNullOrEmpty(strInvestment))
-                    strInvestment +="and " + "Rs. " + convertUSCurrencyFormat(totalOther) + " in others";
+                    strInvestment += "and " + "Rs. " + convertUSCurrencyFormat(totalOther) + " in others";
                 else
                     strInvestment = "Your current investments is Rs. " + convertUSCurrencyFormat(totalOther) + " in others";
 
@@ -381,8 +388,8 @@ namespace BoReports
             //drHealthAnalysis["Ratio"] = "Financial Asset allocation -equity(%)";
             //drHealthAnalysis["value"] = convertUSCurrencyFormat(Math.Round(currEquity, 3)).ToString();
             drHealthAnalysis["Ratio"] = "Gearing Ratio (%)";
-            
-            drHealthAnalysis["value"] =39;
+
+            drHealthAnalysis["value"] = 39;
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
 
             foreach (DataRow dr in dsCustomerFPReportDetails.Tables["MonthlyGoalTotal"].Rows)
@@ -393,17 +400,17 @@ namespace BoReports
 
             drHealthAnalysis = dtHealthAnalysis.NewRow();
             //drHealthAnalysis["Ratio"] = "Savings/Income Ratio";
-            drHealthAnalysis["Ratio"] = "Savings Ratio (%)";            
+            drHealthAnalysis["Ratio"] = "Savings Ratio (%)";
             if (totalIncomeMonthly != 0)
                 //drHealthAnalysis["value"] =Math.Round((toatlGoalAmount / totalIncome), 3).ToString();
                 drHealthAnalysis["value"] = 56;
             else
                 drHealthAnalysis["value"] = 56;
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
-           
+
             drHealthAnalysis = dtHealthAnalysis.NewRow();
             //drHealthAnalysis["Ratio"] = "Loan/Financial Assets Ratio";
-            drHealthAnalysis["Ratio"] = "Emergency Fund Ratio (Months)";            
+            drHealthAnalysis["Ratio"] = "Emergency Fund Ratio (Months)";
             if (asset != 0)
                 //drHealthAnalysis["value"] = Math.Round((liabilities / asset), 3).ToString();
                 drHealthAnalysis["value"] = 50;
@@ -420,32 +427,32 @@ namespace BoReports
                 {
                     case "1":
                         {
-                            dicCustomerFPRatio.Add(dr[0].ToString(), int.Parse(Math.Round(savings_To_Income_Ratio).ToString()));
+                            dicCustomerFPRatio.Add(dr[0].ToString(), decimal.Parse(Math.Round(savings_To_Income_Ratio, 2).ToString()));
                             break;
                         }
                     case "2":
                         {
-                            dicCustomerFPRatio.Add(dr[0].ToString(), int.Parse(Math.Round(debt_To_Income_Ratio).ToString()));
+                            dicCustomerFPRatio.Add(dr[0].ToString(), decimal.Parse(Math.Round(debt_To_Income_Ratio, 2).ToString()));
                             break;
                         }
                     case "4":
                         {
-                            dicCustomerFPRatio.Add(dr[0].ToString(), int.Parse(Math.Round(solvency_Ratio).ToString()));
+                            dicCustomerFPRatio.Add(dr[0].ToString(), decimal.Parse(Math.Round(solvency_Ratio, 2).ToString()));
                             break;
                         }
                     case "5":
                         {
-                            dicCustomerFPRatio.Add(dr[0].ToString(), int.Parse(Math.Round(debt_Ratio).ToString()));
+                            dicCustomerFPRatio.Add(dr[0].ToString(), decimal.Parse(Math.Round(debt_Ratio, 2).ToString()));
                             break;
                         }
                     case "8":
                         {
-                            dicCustomerFPRatio.Add(dr[0].ToString(), int.Parse(Math.Round(loan_To_Assets_Ratio).ToString()));
+                            dicCustomerFPRatio.Add(dr[0].ToString(), decimal.Parse(Math.Round(loan_To_Assets_Ratio, 2).ToString()));
                             break;
                         }
                     case "10":
                         {
-                            dicCustomerFPRatio.Add(dr[0].ToString(), int.Parse(Math.Round(life_Insurance_Cover_Ratio).ToString()));
+                            dicCustomerFPRatio.Add(dr[0].ToString(), decimal.Parse(Math.Round(life_Insurance_Cover_Ratio, 2).ToString()));
 
                             break;
                         }
@@ -461,7 +468,7 @@ namespace BoReports
             //dicCustomerFPRatio.Add("Gearing Ratio", int.Parse(Math.Round(gearingRatio).ToString()));
             //dicCustomerFPRatio.Add("Life Insurance Cover", int.Parse(Math.Round(lifeInsuranceCoverRatio).ToString()));
 
-            
+
             //dsCustomerFPReportDetails.Tables.Add("AssetClass",dtAssetClass);
 
             //dsCustomerFPReportDetails.Tables.Add(dtPortfolioAllocation);
@@ -493,7 +500,7 @@ namespace BoReports
             //    }
             //}
             //dsCustomerFPReportDetails.Tables.Add(dtAllGoalChart);
-            dtCustomerFPRatio= createCustomerRatioTable(dsCustomerFPReportDetails.Tables["FPRatio"],dsCustomerFPReportDetails.Tables["FPRatioDetails"],dicCustomerFPRatio); 
+            dtCustomerFPRatio = createCustomerRatioTable(dsCustomerFPReportDetails.Tables["FPRatio"], dsCustomerFPReportDetails.Tables["FPRatioDetails"], dicCustomerFPRatio);
             dsCustomerFPReportDetails.Tables.Add(dtCustomerFPRatio);
             return dsCustomerFPReportDetails;
         }
@@ -542,9 +549,9 @@ namespace BoReports
 
         }
 
-        public DataTable createCustomerRatioTable(DataTable dtFpRatio, DataTable dtFpRatioDetails, Dictionary<string, int> dicCustomerFPRatio)
+        public DataTable createCustomerRatioTable(DataTable dtFpRatio, DataTable dtFpRatioDetails, Dictionary<string, decimal> dicCustomerFPRatio)
         {
-            DataTable dtCustomerFPRatio=new DataTable("CustomerFPRatio");
+            DataTable dtCustomerFPRatio = new DataTable("CustomerFPRatio");
             dtCustomerFPRatio.Columns.Add("RatioId");
             dtCustomerFPRatio.Columns.Add("RatioName");
             dtCustomerFPRatio.Columns.Add("RatioPunchLine");
@@ -555,15 +562,15 @@ namespace BoReports
             dtCustomerFPRatio.Columns.Add("RatioColor");
             dtCustomerFPRatio.Columns.Add("RatioDescription");
             DataRow drCustomerFPRatio;
-            DataRow[] drCurrentRow;            
-            foreach(DataRow dr in dtFpRatio.Rows)
+            DataRow[] drCurrentRow;
+            foreach (DataRow dr in dtFpRatio.Rows)
             {
                 string strRatioRangeOne = "";
                 string strRatioRangeTwo = "";
                 string strRatioRangeThree = "";
                 string strRatioColor = "";
                 string strRatioRangeDescription = "";
-                int tempRatiovalue = 0;
+                decimal tempRatiovalue = 0;
                 drCustomerFPRatio = dtCustomerFPRatio.NewRow();
                 drCustomerFPRatio["RatioId"] = dr["WFFR_RatioId"];
                 drCustomerFPRatio["RatioName"] = dr["AFFR_Ratio"];
@@ -572,14 +579,14 @@ namespace BoReports
                 drCurrentRow = dtFpRatioDetails.Select("WFFR_RatioId=" + int.Parse(dr["WFFR_RatioId"].ToString()).ToString());
                 foreach (DataRow drRatio in drCurrentRow)
                 {
-                    int tempLower=0;
-                    int tempUpper=0;
+                    int tempLower = 0;
+                    int tempUpper = 0;
                     if (Convert.ToString(drRatio["AFFRDR_RangeLowerLimit"]) != String.Empty)
-                        tempLower=int.Parse(drRatio["AFFRDR_RangeLowerLimit"].ToString());
+                        tempLower = int.Parse(drRatio["AFFRDR_RangeLowerLimit"].ToString());
 
                     if (Convert.ToString(drRatio["AFFRDR_RangeUpperLimit"]) != String.Empty)
                         tempUpper = int.Parse(drRatio["AFFRDR_RangeUpperLimit"].ToString());
-                   
+
 
                     //strRatioRange += tempLower.ToString() + "-" + tempUpper.ToString()+"--";
 
@@ -587,7 +594,7 @@ namespace BoReports
                     {
                         if (tempLower == 0 && tempUpper != 0)
                         {
-                            strRatioRangeOne = "<="+tempUpper.ToString();
+                            strRatioRangeOne = "<=" + tempUpper.ToString();
 
                         }
                         //else if (tempLower != 0 && tempUpper != 0)
@@ -598,7 +605,7 @@ namespace BoReports
                     }
                     if (string.IsNullOrEmpty(strRatioRangeTwo.Trim()))
                     {
-                        if (tempLower!=0 && tempUpper!=0)
+                        if (tempLower != 0 && tempUpper != 0)
                         {
                             strRatioRangeTwo = tempLower.ToString() + "-" + tempUpper.ToString();
 
@@ -607,11 +614,11 @@ namespace BoReports
                         {
                             strRatioRangeTwo = tempLower.ToString() + "-" + tempUpper.ToString();
                         }
- 
+
                     }
                     if (string.IsNullOrEmpty(strRatioRangeThree.Trim()))
                     {
-                        if (tempUpper == 0 && tempLower !=0)
+                        if (tempUpper == 0 && tempLower != 0)
                         {
                             strRatioRangeThree = ">=" + tempLower.ToString();
 
@@ -628,7 +635,7 @@ namespace BoReports
                     if (dicCustomerFPRatio.ContainsKey(drRatio["WFFR_RatioId"].ToString())) // True
                     {
                         tempRatiovalue = dicCustomerFPRatio[(drRatio["WFFR_RatioId"].ToString())];
-                        
+
                     }
                     if (tempLower != 0 && tempUpper != 0 && tempRatiovalue >= tempLower && tempRatiovalue <= tempUpper)
                     {
@@ -645,7 +652,7 @@ namespace BoReports
                             strRatioColor = drRatio["AFFRDR_RangeColour"].ToString();
                             strRatioRangeDescription = drRatio["AFFRDR_RangeDescription"].ToString();
                         }
- 
+
                     }
                     else if (tempLower != 0 && tempRatiovalue >= tempLower)
                     {
@@ -654,12 +661,12 @@ namespace BoReports
                             strRatioColor = drRatio["AFFRDR_RangeColour"].ToString();
                             strRatioRangeDescription = drRatio["AFFRDR_RangeDescription"].ToString();
                         }
- 
+
                     }
 
                     tempLower = 0;
                     tempUpper = 0;
-                                      
+
                 }
 
                 drCustomerFPRatio["RatioValue"] = tempRatiovalue;
@@ -676,7 +683,7 @@ namespace BoReports
                 strRatioRangeDescription = string.Empty;
 
                 dtCustomerFPRatio.Rows.Add(drCustomerFPRatio);
-                
+
             }
 
 
