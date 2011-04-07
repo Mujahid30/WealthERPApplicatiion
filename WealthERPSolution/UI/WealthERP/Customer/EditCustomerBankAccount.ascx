@@ -307,7 +307,7 @@
                     &nbsp;
                 </td>
                 <td align="left">
-                    <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Save" CssClass="PCGButton"
+                    <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Save" CssClass="PCGButton" ValidationGroup="btnSubmit"
                         onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_EditCustomerBankAccount_btnEdit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_EditCustomerBankAccount_btnEdit', 'S');" />
                 </td>

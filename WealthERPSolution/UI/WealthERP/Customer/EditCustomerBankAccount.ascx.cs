@@ -136,15 +136,21 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
                 customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
                 customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
+                if (customerBankAccountVo.BranchAdrPinCode !=0)
                 customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
+                else
+                    customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
                 customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
                 if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
                     customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
+             
                 //customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedItem.Value.ToString();
                 customerBankAccountVo.BranchAdrCountry = ddlBankAdrCountry.SelectedItem.Value.ToString();
                 customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
-                customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
-
+                if (customerBankAccountVo.MICR!=0)
+                    customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
+                else
+                    customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
                 customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId);
 
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
