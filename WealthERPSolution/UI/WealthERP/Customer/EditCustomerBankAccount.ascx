@@ -233,7 +233,7 @@
             <asp:Label ID="Label24" runat="server" Text="Pin Code: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
-            <asp:TextBox ID="txtBankAdrPinCode" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtBankAdrPinCode" runat="server" MaxLength="6" CssClass="txtField"></asp:TextBox>
         </td>
         <td class="style3" align="right">
             <asp:Label ID="Label25" runat="server" Text="Country: " CssClass="FieldName"></asp:Label>
