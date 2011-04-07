@@ -457,7 +457,7 @@ namespace WealthERP.CustomerPortfolio
                         txtOTpremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
                         ddlOTPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
                         txtOTPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
-                        ddlOTPrPayDate.SelectedItem.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        ddlOTPrPayDate.SelectedValue = insuranceVo.PremiumPaymentDate.ToString();
                         txtOTLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtOTFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtOTGracePeriod.Text = insuranceVo.GracePeriod.ToString();
@@ -1463,7 +1463,7 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.FirstPremiumDate = DateTime.Parse(txtOTFirstPremiumDate.Text.ToString());
                             insuranceVo.LastPremiumDate = DateTime.Parse(txtOTLastPremiumDate.Text.ToString());
 
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlOTPrPayDate.Text);
+                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlOTPrPayDate.SelectedValue);
                             if (txtOTGracePeriod.Text.Trim() != "")
                                 insuranceVo.GracePeriod = float.Parse(txtOTGracePeriod.Text);
                             if (txtOTPremiumAccumulated.Text.Trim() != "")
