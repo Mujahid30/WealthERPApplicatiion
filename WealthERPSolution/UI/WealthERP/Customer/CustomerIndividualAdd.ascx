@@ -78,10 +78,10 @@
                 <asp:ListItem>Mrs.</asp:ListItem>
                 <asp:ListItem>Ms.</asp:ListItem>
             </asp:DropDownList>
-            <span id="Span2" class="spnRequiredField">*</span>
+           <%-- <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cmpddlSalutation" runat="server" ControlToValidate="ddlSalutation"
                 ErrorMessage="Please select a Salutation for customer" Operator="NotEqual" ValueToCompare="Select a Salutation"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
         </td>
     </tr>
     <tr>
@@ -199,12 +199,12 @@
                             </td>
                             <td class="rightField" colspan="3">
                                 <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
-                                <span id="Span3" class="spnRequiredField">*</span>
+                               <%-- <span id="Span3" class="spnRequiredField">*</span>
                                 <br />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtCorrAdrLine1"
                                     ErrorMessage="Please enter Line1 of Correspondence Address" Display="Dynamic"
                                     runat="server" CssClass="rfvPCG">
-                                </asp:RequiredFieldValidator>
+                                </asp:RequiredFieldValidator>--%>
                             </td>
                         </tr>
                         <tr>
