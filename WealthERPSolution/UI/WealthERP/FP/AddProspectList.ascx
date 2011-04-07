@@ -195,7 +195,7 @@
             <telerik:TargetInput ControlID="txtFirstName" />
            
             <telerik:TargetInput ControlID="txtChildFirstName" />
-            <telerik:TargetInput ControlID="txtGridEmailId" />
+           <%-- <telerik:TargetInput ControlID="txtGridEmailId" />--%>
             <telerik:TargetInput ControlID="txtPanNumber" />
         </TargetControls>
         <Validation IsRequired="True"></Validation>
