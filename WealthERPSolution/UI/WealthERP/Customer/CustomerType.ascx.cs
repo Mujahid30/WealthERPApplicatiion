@@ -470,6 +470,10 @@ namespace WealthERP.Customer
                     userVo.Email = txtEmail.Text.ToString();
                     userVo.UserType = "Customer";
                     customerVo.Dob = DateTime.MinValue;
+                    if (chkdummypan.Checked)
+                        customerVo.DummyPAN = 1;
+                    else
+                        customerVo.DummyPAN = 0;
                     customerVo.ProfilingDate = DateTime.Today;
                     customerVo.RBIApprovalDate = DateTime.MinValue;
                     customerVo.CommencementDate = DateTime.MinValue;
