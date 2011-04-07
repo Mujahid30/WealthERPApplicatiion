@@ -230,7 +230,7 @@
         </td>
         <td>                <asp:Button ID="btnCancel" runat="server" 
                 Text="Cancel Transaction" CssClass="PCGLongButton" Visible="false" CausesValidation="True"
-                onclick="btnCancel_Click" OnClientClick="javascript: return confirm('Are you sure you want to cancell the Transaction?')"/>
+                onclick="btnCancel_Click" OnClientClick="javascript: return confirm('Are you sure you want to cancel the Transaction?')"/>
 </td>
     </tr>
 </table>
