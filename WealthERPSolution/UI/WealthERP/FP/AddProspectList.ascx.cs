@@ -863,8 +863,19 @@ namespace WealthERP.FP
             int customerId = 0;
             bool bresult;
             bool status = true;
+         
             try
             {
+                int adviserId = (int)Session["adviserId"];
+                if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+
+                }
+                else
+                    {
+
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
                 {
@@ -899,6 +910,8 @@ namespace WealthERP.FP
                 //msgRecordStatus.Visible = true;
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
             }
+        }
+            
             catch (Exception Ex)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
