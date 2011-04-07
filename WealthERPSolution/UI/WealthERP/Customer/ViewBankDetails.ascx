@@ -25,7 +25,7 @@
     </tr>
     <tr>
         <td>
-            <asp:GridView ID="gvCustomerBankAccounts" runat="server" AutoGenerateColumns="False"
+            <asp:GridView ID="gvCustomerBankAccounts" runat="server" AutoGenerateColumns="False"  AllowSorting="True" 
                 CellPadding="4" CssClass="GridViewStyle" DataKeyNames="CustBankAccId" 
                 OnSelectedIndexChanged="gvCustomerBankAccounts_SelectedIndexChanged" ShowFooter="True">
                 <FooterStyle CssClass="FooterStyle" />
@@ -34,6 +34,7 @@
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                 <HeaderStyle CssClass="HeaderStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
                     <asp:CommandField ShowSelectButton="True" />
                     <asp:BoundField DataField="Bank Name" HeaderText="Bank Name"  />
