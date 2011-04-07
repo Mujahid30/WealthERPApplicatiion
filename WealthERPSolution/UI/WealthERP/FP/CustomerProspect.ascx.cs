@@ -2369,7 +2369,7 @@ namespace WealthERP.FP
             DataSet dsGetWERPDetails = customerprospectbo.GetUnmanagedManagedDetailsForFP(customerId, Advisorid, Switch);
 
 
-            if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[0].Rows.Count > 0)
+            if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[3].Rows.Count > 0)
             {
                 foreach (DataRow drFourth in dsGetWERPDetails.Tables[3].Rows)
                 {
