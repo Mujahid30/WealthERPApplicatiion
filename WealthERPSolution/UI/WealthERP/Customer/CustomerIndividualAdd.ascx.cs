@@ -82,6 +82,11 @@ namespace WealthERP.Customer
                     txtLastName.Text = customerVo.LastName.ToString();
                     txtEmail.Text = customerVo.Email.ToString();
                     txtPanNumber.Text = customerVo.PANNum;
+                    if (customerVo.DummyPAN == 1)
+                        chkdummypan.Checked = true;
+                    else
+                        chkdummypan.Checked = false;
+
                     txtProfilingDate.Text = DateTime.Today.Date.ToShortDateString().ToString();
                     txtRMName.Text = rmVo.FirstName + " " + rmVo.MiddleName + " " + rmVo.LastName;
                     BindDropDowns(path);
