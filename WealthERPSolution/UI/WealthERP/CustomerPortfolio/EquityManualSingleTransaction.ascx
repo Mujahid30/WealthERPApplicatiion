@@ -87,9 +87,11 @@
                 CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem" />
             <span id="Span1" class="spnRequiredField">*</span>
             <br />
+            <span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter few characters of Scrip Particular</span><br />
             <asp:RequiredFieldValidator ID="rfvScrip" ControlToValidate="txtScrip" ErrorMessage="Enter few characters of Scrip Particular" CssClass="rfvPCG"
                 runat="server" InitialValue="" ValidationGroup="EQ">
             </asp:RequiredFieldValidator>
+            
         </td>
       
     </tr>
