@@ -253,7 +253,7 @@
         
             <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
-            <span id="Span3" class="spnRequiredField">*</span>
+            
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPhDirectPhoneNumber"
                 ErrorMessage="Please enter phone number" Display="Dynamic" runat="server" CssClass="rfvPCG"></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtPhDirectPhoneNumber"
