@@ -63,10 +63,10 @@
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="LOB" Value="LOB">
-                                                <Items>
+                                                <%--<Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add LOB" Value="Add LOB">
                                                     </telerik:RadPanelItem>
-                                                </Items>
+                                                </Items>--%>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
                                                 <Items>
