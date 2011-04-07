@@ -55,6 +55,10 @@ namespace WealthERP.Customer
                     txtCompanyName.Text = "";
                     txtDateofProfiling.Enabled = true;
                     txtDateofProfiling.Text = DateTime.Today.ToShortDateString();
+                    if (customerVo.DummyPAN == 1)
+                        chkdummypan.Checked = true;
+                    else
+                        chkdummypan.Checked = false;
                 }
                
                 

@@ -434,13 +434,6 @@
             </tr>
         </table>
     </div>
-</div>
-<table class="TableBackground" style="width: 100%">
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
      <div class="tabbertab" id="divAddInfo">
                     <h6>
                         Additional Information</h6>
@@ -475,6 +468,14 @@
                         </tr>
                         </table>
                         </div>
+</div>
+<table class="TableBackground" style="width: 100%">
+    <tr>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    
     <tr>
         <td class="SubmitCell" colspan="3">
             <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit"
