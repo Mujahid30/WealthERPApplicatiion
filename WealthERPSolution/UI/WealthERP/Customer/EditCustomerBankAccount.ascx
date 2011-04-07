@@ -167,16 +167,24 @@
             &nbsp;
         </td>
         <td>
+            &nbsp;</td>
+        <td>
+            &nbsp;</td>
+        <td>
             &nbsp;
         </td>
     </tr>
     <tr>
         <td class="style1" align="right">
-            <asp:Label ID="Label19" runat="server" Text="Line1: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label19" runat="server" Text="Line1(House No/Building):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBankAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
+        <td class="style3">
+            &nbsp;</td>
+        <td class="style3">
+            &nbsp;</td>
         <td class="style3">
             &nbsp;
         </td>
@@ -186,11 +194,15 @@
     </tr>
     <tr>
         <td class="style1" align="right">
-            <asp:Label ID="Label20" runat="server" Text="Line2: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label20" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBankAdrLine2" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
+        <td class="style3" align="left">
+            &nbsp;</td>
+        <td class="style3" align="left">
+            &nbsp;</td>
         <td class="style3" align="left">
             &nbsp;
         </td>
@@ -200,11 +212,15 @@
     </tr>
     <tr>
         <td class="style1" align="right">
-            <asp:Label ID="Label21" runat="server" Text="Line3: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label21" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBankAdrLine3" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
+        <td class="style3">
+            &nbsp;</td>
+        <td class="style3">
+            &nbsp;</td>
         <td class="style3">
             &nbsp;
         </td>
@@ -220,6 +236,10 @@
             <asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
         <td class="style3" align="right">
+            &nbsp;</td>
+        <td class="style3" align="right">
+            &nbsp;</td>
+        <td class="style3" align="right">
             <asp:Label ID="Label23" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
         </td>
         <td align="left" class="style8">
@@ -229,16 +249,23 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="right">
+        <td class="style1" align="right" valign="top">
             <asp:Label ID="Label24" runat="server" Text="Pin Code: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
             <asp:TextBox ID="txtBankAdrPinCode" runat="server" MaxLength="6" CssClass="txtField"></asp:TextBox>
+             <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="<br />Enter a numeric value"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtBankAdrPinCode" ValidationGroup="btnSubmit" Operator="DataTypeCheck"
+                Display="Dynamic"></asp:CompareValidator>
         </td>
-        <td class="style3" align="right">
+        <td class="style3" align="right" valign="top">
+            &nbsp;</td>
+        <td class="style3" align="right" valign="top">
+            &nbsp;</td>
+        <td class="style3" align="right" valign="top">
             <asp:Label ID="Label25" runat="server" Text="Country: " CssClass="FieldName"></asp:Label>
         </td>
-        <td align="left" class="style8">
+        <td align="left" class="style8" valign="top">
             <asp:DropDownList ID="ddlBankAdrCountry" runat="server" CssClass="cmbField">
                 <asp:ListItem>India</asp:ListItem>
                 <asp:ListItem>USA</asp:ListItem>
@@ -246,23 +273,31 @@
         </td>
     </tr>
     <tr>
-        <td class="style1" align="right">
+        <td class="style1" align="right" valign="top">
             <asp:Label ID="Label32" runat="server" Text="MICR: " CssClass="FieldName"></asp:Label>
+            
         </td>
-        <td class="style8" align="left">
+        <td class="style8" align="left" valign="top">
             <asp:TextBox ID="txtMicr" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:CompareValidator ID="cvMicr" runat="server" ErrorMessage="<br />Enter a numeric value"
+                CssClass="rfvPCG" Type="Integer" ValidationGroup="btnSubmit" ControlToValidate="txtMicr" Operator="DataTypeCheck"
+                Display="Dynamic"></asp:CompareValidator>
         </td>
-        <td class="style3" align="right">
+        <td class="style3" align="right" valign="top">
+            &nbsp;</td>
+        <td class="style3" align="right" valign="top">
+            &nbsp;</td>
+        <td class="style3" align="right" valign="top">
             <asp:Label ID="Label33" runat="server" Text="IFSC: " CssClass="FieldName"></asp:Label>
         </td>
-        <td align="left">
+        <td align="left" valign="top">
             <asp:TextBox ID="txtIfsc" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
     <tr>
         <td class="style9">
         </td>
-        <td class="style10" colspan="2" align="left">
+        <td class="style10" colspan="4" align="left">
         </td>
         <table style="width: 549px">
             <tr>

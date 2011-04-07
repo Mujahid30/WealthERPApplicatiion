@@ -230,6 +230,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtBankAdrPinCode;
         
         /// <summary>
+        /// cvBankPinCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvBankPinCode;
+        
+        /// <summary>
         /// Label25 control.
         /// </summary>
         /// <remarks>
@@ -264,6 +273,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMicr;
+        
+        /// <summary>
+        /// cvMicr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvMicr;
         
         /// <summary>
         /// Label33 control.
