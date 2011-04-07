@@ -469,7 +469,7 @@ namespace WealthERP.CustomerPortfolio
 
                             goldVo.PortfolioId = portfolioId;
                             goldVo.Name = txtName.Text.ToString();
-                            goldVo.AssetGroupCode = "GD";
+                           // goldVo.AssetGroupCode = "GD";
                             goldVo.AssetCategoryCode = ddlCategory.SelectedItem.Value.ToString().Trim();
                             //if (ddlMeasureCode.SelectedItem.Value != string.Empty && ddlMeasureCode.SelectedIndex >= 0)
                             //goldVo.MeasureCode = ddlMeasureCode.SelectedItem.Value.ToString().Trim();
