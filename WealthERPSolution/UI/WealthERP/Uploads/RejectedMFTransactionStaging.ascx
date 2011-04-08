@@ -120,7 +120,7 @@
         <td>
             <asp:Panel runat="server">
                 <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                    ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="CMFTSId" AllowSorting="true"
+                    ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="CMFTSId,ProcessId,FolioNumber,InvestorName" AllowSorting="true"
                     OnSorting="gvWERPTrans_Sort">
                     <FooterStyle CssClass="FooterStyle" />
                     <RowStyle CssClass="RowStyle" />
@@ -130,6 +130,11 @@
                     <HeaderStyle CssClass="HeaderStyle" />
                     <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
+                    <asp:TemplateField HeaderText="Select">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkId" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
@@ -138,7 +143,7 @@
                                 </asp:DropDownList>
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
+                                <asp:Label ID="lblRejectReasonHeader"  runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField>
@@ -242,6 +247,8 @@
                 CssClass="PCGLongButton" OnClientClick="Loading(true);" />
             <asp:Button ID="btnMapFolios" runat="server" CssClass="PCGLongButton" Text="Map Folios"
                 OnClick="btnMapFolios_Click" />
+                <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
+                OnClick="btnDelete_Click" />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">

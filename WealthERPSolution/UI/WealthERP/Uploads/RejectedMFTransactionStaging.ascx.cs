@@ -49,7 +49,7 @@ namespace WealthERP.Uploads
             if (Request.QueryString["filetypeId"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
 
-         
+
 
             GetPageCount();
             this.BindEquityTransactionGrid(ProcessId);
@@ -67,7 +67,7 @@ namespace WealthERP.Uploads
                 int ratio = rowCount / 10;
                 mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
                 mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
+                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
                 upperlimit = (mypager.CurrentPage * 10).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
@@ -80,17 +80,17 @@ namespace WealthERP.Uploads
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             SessionBo.CheckSession();
-            btnReprocess.Attributes.Add("onclick","setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
+            btnReprocess.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
             {
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-                
+
             }
-            
+
 
             if (Request.QueryString["filetypeId"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
@@ -135,7 +135,7 @@ namespace WealthERP.Uploads
 
             rejectedRecordsBo = new RejectedRecordsBo();
 
-            dsRejectedRecords = rejectedRecordsBo.GetRejectedMFTransactionStaging(adviserVo.advisorId, mypager.CurrentPage, out Count,  hdnSort.Value, int.Parse(hdnProcessIdFilter.Value), hdnRejectReasonFilter.Value,hdnFileNameFilter.Value,hdnFolioFilter.Value,hdnTransactionTypeFilter.Value, hdnInvNameFilter.Value, hdnSourceTypeFilter.Value, hdnSchemeNameFilter.Value);
+            dsRejectedRecords = rejectedRecordsBo.GetRejectedMFTransactionStaging(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, int.Parse(hdnProcessIdFilter.Value), hdnRejectReasonFilter.Value, hdnFileNameFilter.Value, hdnFolioFilter.Value, hdnTransactionTypeFilter.Value, hdnInvNameFilter.Value, hdnSourceTypeFilter.Value, hdnSchemeNameFilter.Value);
 
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
             if (Count > 0)
@@ -650,7 +650,7 @@ namespace WealthERP.Uploads
 
         #endregion
 
-        
+
 
         private SortDirection GridViewSortDirection
         {
@@ -764,7 +764,7 @@ namespace WealthERP.Uploads
 
             BindEquityTransactionGrid(ProcessId);
             //used to display alert msg after completion of reprocessing
-             
+
         }
 
         private bool MFWERPTransactionWERPInsertion(int ProcessId, out int countTransactionsInserted, out int countRejectedRecords, int fileTypeId)
@@ -784,12 +784,12 @@ namespace WealthERP.Uploads
             bool CommonTransChecks = false;
             if (fileTypeId == 1)
             {
-               
-               bool camsDatatranslationCheckResult = uploadsCommonBo.UploadsCAMSDataTranslationForReprocess(ProcessId);
-               if (camsDatatranslationCheckResult)
-               {
-                   CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "CA", "CAMS");
-               }
+
+                bool camsDatatranslationCheckResult = uploadsCommonBo.UploadsCAMSDataTranslationForReprocess(ProcessId);
+                if (camsDatatranslationCheckResult)
+                {
+                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "CA", "CAMS");
+                }
             }
             else if (fileTypeId == 3)
             {
@@ -827,15 +827,15 @@ namespace WealthERP.Uploads
                 {
                     processlogVo.IsInsertionToWERPComplete = 1;
                     processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(ProcessId, "WPMF");
-                    
+
                     processlogVo.EndTime = DateTime.Now;
-                    
+
                     if (fileTypeId == 1)
-                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeCAMS);
+                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeCAMS);
                     else if (fileTypeId == 3)
-                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeKarvy);
+                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeKarvy);
                     else if (fileTypeId == 15)
-                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeTemp);
+                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeTemp);
                     else if (fileTypeId == 17)
                         processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeDeutsche);
                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
@@ -948,13 +948,58 @@ namespace WealthERP.Uploads
         }
 
 
-        
+
         protected void btnMapFolios_Click(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RejectedFoliosUploads','login');", true);
         }
 
-        
-       
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+
+            foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                {
+                    i = i + 1;
+                }
+            }
+
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+            }
+            else
+            {
+                CustomerTransactionDelete();
+            }
+
+        }
+
+
+
+        private void CustomerTransactionDelete()
+        {
+            foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                {
+                    rejectedRecordsBo = new RejectedRecordsBo();
+
+                    int StagingID = int.Parse(gvWERPTrans.DataKeys[gvr.RowIndex].Values["CMFTSId"].ToString());
+
+                    rejectedRecordsBo.DeleteMFTransactionStaging(StagingID);
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFTransactionStaging','login');", true);
+                    
+                    
+                   
+                }
+            }
+
+        }
+
     }
+
 }
