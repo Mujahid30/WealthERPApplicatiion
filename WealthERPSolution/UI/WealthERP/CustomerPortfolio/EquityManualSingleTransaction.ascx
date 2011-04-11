@@ -86,14 +86,21 @@
                 EnableCaching="false" CompletionSetCount="5" CompletionInterval="1000" OnClientItemSelected="GetSchemeCode" CompletionListCssClass="AutoCompleteExtender_CompletionList"
                 CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem" />
             <span id="Span1" class="spnRequiredField">*</span>
-            <br />
+           
+            
+            
+        </td>
+      
+    </tr>
+    <tr>
+        <td class="leftField">
+            &nbsp;</td>
+        <td class="rightField" colspan="2">
             <span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter few characters of Scrip Particular</span><br />
             <asp:RequiredFieldValidator ID="rfvScrip" ControlToValidate="txtScrip" ErrorMessage="Enter few characters of Scrip Particular" CssClass="rfvPCG"
                 runat="server" InitialValue="" ValidationGroup="EQ">
             </asp:RequiredFieldValidator>
-            
-        </td>
-      
+           </td>
     </tr>
     <tr>
       <td >
@@ -168,7 +175,7 @@
             </asp:DropDownList>
              <div id="divTradeAcc" runat="server" class="dvInLine">
             <span id="Span4" class="spnRequiredField">*</span>
-                      
+                 <br/>     
             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlTradeAcc"
                 ErrorMessage="Please select your Trade Number" Operator="NotEqual" ValueToCompare="Select the Trade Number"
                 ValidationGroup="EQ" CssClass="cvPCG"></asp:CompareValidator>
