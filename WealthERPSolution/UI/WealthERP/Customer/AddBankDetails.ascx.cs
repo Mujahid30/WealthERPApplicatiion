@@ -235,7 +235,7 @@ namespace WealthERP.Customer
             int customerId = 0;
             try
             {
-               // if (Validation())
+                if (Validation())
                 {
                     rmVo = (RMVo)Session["RmVo"];
 
@@ -258,21 +258,21 @@ namespace WealthERP.Customer
                     customerBankAccountVo.AccountType = ddlAccountType.SelectedValue.ToString();
                     customerBankAccountVo.AccountNum = txtAccountNumber.Text.ToString();
 
-                    if (ddlModeOfOperation.SelectedValue.ToString() !="Select a Mode of Holding")
-                    customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedValue.ToString();
+                    if (ddlModeOfOperation.SelectedValue.ToString() != "Select a Mode of Holding")
+                        customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedValue.ToString();
                     customerBankAccountVo.BankName = txtBankName.Text.ToString();
                     customerBankAccountVo.BranchName = txtBranchName.Text.ToString();
                     customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
                     customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
                     customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
-                    if(txtBankAdrPinCode.Text.ToString()!="")
-                    customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
+                    if (txtBankAdrPinCode.Text.ToString() != "")
+                        customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
                     customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
-                    if(ddlBankAdrState.SelectedValue.ToString()!="Select a State")
-                    customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
+                    if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
+                        customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
                     customerBankAccountVo.BranchAdrCountry = ddlBankAdrCountry.SelectedValue.ToString();
-                    if(txtMicr.Text.ToString()!="")
-                    customerBankAccountVo.MICR = long.Parse(txtMicr.Text.ToString());
+                    if (txtMicr.Text.ToString() != "")
+                        customerBankAccountVo.MICR = long.Parse(txtMicr.Text.ToString());
                     customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
                     customerBankAccountVo.Balance = 0;
                     //customerBankAccountVo.Balance = long.Parse(txtBalance.Text.ToString());
@@ -292,8 +292,26 @@ namespace WealthERP.Customer
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
                     }
+                    txtAccountNumber.Text = "";
+                    txtBankAdrLine1.Text = "";
+                    txtBankAdrLine2.Text = "";
+                    txtBankAdrLine3.Text = "";
+                    txtBankAdrPinCode.Text = "";
+                    txtBankAdrCity.Text = "";
+                    txtBankName.Text = "";
+                    txtBranchName.Text = "";
+                    txtIfsc.Text = "";
+                    txtMicr.Text = "";
+                    ddlAccountType.SelectedIndex = 0;
+                    ddlModeOfOperation.SelectedIndex = 0;
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bank details added successfully');", true);
 
                 }
+                else
+                {
+                }
+
 
                 
             }
