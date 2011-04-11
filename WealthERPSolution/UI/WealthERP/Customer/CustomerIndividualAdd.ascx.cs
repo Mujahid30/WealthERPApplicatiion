@@ -514,22 +514,22 @@ namespace WealthERP.Customer
         {
             bool result = true;
 
-            if (!ChkMailId(txtEmail.Text.ToString()))
-            {
-                result = false;
-                lblEmail.CssClass = "Error";
-            }
+            //if (!ChkMailId(txtEmail.Text.ToString()))
+            //{
+            //    result = false;
+            //    lblEmail.CssClass = "Error";
+            //}
 
-            if (txtLastName.Text.ToString() == "")
-            {
-                lblName.CssClass = "Error";
-                result = false;
-            }
-            else
-            {
-                lblName.CssClass = "FieldName";
-                result = true;
-            }
+            //if (txtLastName.Text.ToString() == "")
+            //{
+            //    lblName.CssClass = "Error";
+            //    result = false;
+            //}
+            //else
+            //{
+            //    lblName.CssClass = "FieldName";
+            //    result = true;
+            //}
 
             if (txtPanNumber.Text.ToString() == "")
             {
@@ -541,16 +541,16 @@ namespace WealthERP.Customer
                 lblPanNum.CssClass = "FieldName";
                 result = true;
             }
-            if (txtCorrAdrLine1.Text.ToString() == "")
-            {
-                lblAdrLine1.CssClass = "Error";
-                result = false;
-            }
-            else
-            {
-                lblAdrLine1.CssClass = "FieldName";
-                result = true;
-            }
+            //if (txtCorrAdrLine1.Text.ToString() == "")
+            //{
+            //    lblAdrLine1.CssClass = "Error";
+            //    result = false;
+            //}
+            //else
+            //{
+            //    lblAdrLine1.CssClass = "FieldName";
+            //    result = true;
+            //}
 
             if (txtOfcFax.Text.ToString() == "")
             {
