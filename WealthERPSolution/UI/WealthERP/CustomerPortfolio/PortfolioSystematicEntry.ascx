@@ -107,11 +107,8 @@
                                         UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
                                     <span id="Span1" class="spnRequiredField">*<br />
                                     </span>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSearchScheme"
-                                        ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                                        ValidationGroup="MFSubmit">
-                                    </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
-                                        few characters of Scheme Name.</span>
+                                    <%--<span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
+                                        few characters of Scheme Name.</span>--%>
         </td>
        
     </tr>
@@ -134,13 +131,22 @@
                                         UseContextKey="true" OnClientItemSelected="GetSwitchSchemeCode" />
                                     <span id="Span7" class="spnRequiredField">*<br />
                                     </span>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtSwicthSchemeSearch"
-                                        ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                                        ValidationGroup="MFSubmit">
-                                    </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
-                                        few characters of Scheme Name.</span>
+                                    
                     
                 </td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td>
+            
+            <td>
+            <span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
+                                        few characters of Scheme Name.</span><br />
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSearchScheme"
+                                        ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                        ValidationGroup="MFSubmit">
+                                    </asp:RequiredFieldValidator>
+                                       </td>
+           
             </tr>
     <tr>
         <td class="leftField" width="25%">
