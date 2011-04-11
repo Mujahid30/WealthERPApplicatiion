@@ -253,7 +253,7 @@
                     </ItemTemplate>
                     </asp:TemplateField>
                     <%--<asp:BoundField DataField="Customer" HeaderText="Customer" ItemStyle-HorizontalAlign="Left" />--%>
-                    <asp:BoundField DataField="CustomerId" HeaderText="CustomerId" ItemStyle-HorizontalAlign="Right" />
+                   <%-- <asp:BoundField DataField="CustomerId" HeaderText="CustomerId" ItemStyle-HorizontalAlign="Right" />--%>
                     <asp:BoundField DataField="Asset" HeaderText="Asset" DataFormatString="{0:n}" HtmlEncode="false" ItemStyle-HorizontalAlign="Right"/>
                     <asp:BoundField DataField="Liabilities" DataFormatString="{0:n}" HtmlEncode="false" HeaderText="Liabilities" ItemStyle-HorizontalAlign="Right" />
                     <asp:BoundField DataField="Networth" DataFormatString="{0:n}" HtmlEncode="false" HeaderText="NetWorth" ItemStyle-HorizontalAlign="Right" />

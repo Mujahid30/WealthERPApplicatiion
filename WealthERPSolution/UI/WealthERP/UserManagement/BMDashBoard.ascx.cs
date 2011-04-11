@@ -48,29 +48,22 @@ namespace WealthERP.UserManagement
             //userType = Session["UserType"].ToString().ToLower();
           
             int branchId;
+            userVo = (UserVo)Session["userVo"];
+            rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
+            rmId = rmVo.RMId;
+
+            Session["rmVo"] = rmVo;
+            branchId = advisorBranchBo.GetBranchId(rmVo.RMId);
+            advisorBranchVo = advisorBranchBo.GetBranch(branchId);
+
+            Session["advisorBranchVo"] = advisorBranchVo;
             
            
             if (!IsPostBack)
             {
-                userVo = (UserVo)Session["userVo"];
-                rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
-                rmId = rmVo.RMId;
-
-                Session["rmVo"] = rmVo;
-                branchId = advisorBranchBo.GetBranchId(rmVo.RMId);
-                advisorBranchVo = advisorBranchBo.GetBranch(branchId);
-
-
-                //advisorBranchVo = advisorBranchBo.GetBranch(branchId);
-                Session["advisorBranchVo"] = advisorBranchVo;
-
-
-
-
                 BindBranchDropDown();
                 bindGrid(0, int.Parse(ddlBMBranch.SelectedValue.ToString()), 1);
                 bindChart(0, int.Parse(ddlBMBranch.SelectedValue.ToString()), 1);
-               
             }
 
             
@@ -519,6 +512,7 @@ namespace WealthERP.UserManagement
                 hrTop5Rm.Visible = true;
                 ErrorMsgForTop5RMs.Visible = false;
                 lblTop5RM.Visible = true;
+                gvRMCustNetworth.Visible = true;
                 
                 for (i = 0; i < topFiveRMDT.Rows.Count-1; i++)
                 {
@@ -546,6 +540,7 @@ namespace WealthERP.UserManagement
             {
                 hrTop5Cust.Visible = true;
                 ErrorMsgForTop5Customer.Visible = false;
+                gvCustNetWorth.Visible = true;
                 lblTop5CustNetworth.Visible = true;
                 gvCustNetWorth.DataSource = topFiveCustomerDT;
                 gvCustNetWorth.DataBind();
