@@ -245,8 +245,7 @@
         
             <asp:TextBox ID="txtPhDirectSTD" runat="server" CssClass="txtField" Width="55px"
                 MaxLength="3"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="rfvphDirect" ControlToValidate="txtPhDirectSTD" ErrorMessage="Please enter STD Code"
-                Display="Dynamic" runat="server" CssClass="rfvPCG"></asp:RequiredFieldValidator>
+            
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPhDirectSTD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
@@ -254,8 +253,7 @@
             <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px"
                 MaxLength="8"></asp:TextBox>
             
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPhDirectPhoneNumber"
-                ErrorMessage="Please enter phone number" Display="Dynamic" runat="server" CssClass="rfvPCG"></asp:RequiredFieldValidator>
+            
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtPhDirectPhoneNumber"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
