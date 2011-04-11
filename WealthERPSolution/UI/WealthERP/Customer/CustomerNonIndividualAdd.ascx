@@ -212,11 +212,6 @@
                 </td>
                 <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
-                    <span id="spCorrAdrLine1" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="rfvCorrAdrLine1" ControlToValidate="txtCorrAdrLine1"
-                        ErrorMessage="<br />Please enter Line1 of Correspondence Address" Display="Dynamic"
-                        runat="server" CssClass="rfvPCG">
-                    </asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>

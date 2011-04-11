@@ -603,17 +603,17 @@ namespace WealthERP.Customer
                 lblPANNum.CssClass = "FieldName";
                 result = true;
             }
-            if (txtCorrAdrLine1.Text.ToString() == "")
-            {
-                lblAdrLine1.CssClass = "Error";
-                result = false;
+            //if (txtCorrAdrLine1.Text.ToString() == "")
+            //{
+            //    lblAdrLine1.CssClass = "Error";
+            //    result = false;
 
-            }
-            else
-            {
-                lblAdrLine1.CssClass = "FieldName";
-                result = true;
-            }
+            //}
+            //else
+            //{
+            //    lblAdrLine1.CssClass = "FieldName";
+            //    result = true;
+            //}
             //if (txtCorrAdrCity.Text.ToString() == "")
             //{
             //    lblAdrCity.CssClass = "Error";
