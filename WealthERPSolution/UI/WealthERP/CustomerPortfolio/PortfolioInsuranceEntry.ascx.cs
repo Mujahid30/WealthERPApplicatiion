@@ -1429,7 +1429,7 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo.MaturityValue = 0;
                         insuranceVo.GracePeriod = 0;
                         insuranceVo.ULIPCharges = 0;
-                        insuranceVo.PremiumPaymentDate = 0; 
+                        insuranceVo.PremiumPaymentDate = 0;
 
                         if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INEP")
                         {
@@ -1476,12 +1476,12 @@ namespace WealthERP.CustomerPortfolio
                                 insuranceVo.MaturityValue = float.Parse(txtOTMaturityValue.Text);
                             insuranceVo.Remarks = txtOTRemarks.Text.Trim();
 
-                           insuranceId = insuranceBo.CreateInsurancePortfolio(insuranceVo, userVo.UserId);
+                            insuranceId = insuranceBo.CreateInsurancePortfolio(insuranceVo, userVo.UserId);
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
                         }
 
 
-                        
+
                         else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INWP")
                         {
                             if (txtWLPPremiumAmount.Text.Trim() != "")
@@ -1779,7 +1779,7 @@ namespace WealthERP.CustomerPortfolio
                             }
                         }
                         else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INOT")
-                        { 
+                        {
                             if (txtOTpremiumAmount.Text.Trim() != "")
                                 insuranceVo.PremiumAmount = float.Parse(txtOTpremiumAmount.Text.Trim());
                             insuranceVo.PremiumFrequencyCode = ddlOTPremiumFrequencyCode.SelectedValue.ToString().Trim();
@@ -1799,15 +1799,16 @@ namespace WealthERP.CustomerPortfolio
                                 insuranceVo.MaturityValue = float.Parse(txtOTMaturityValue.Text);
                             insuranceVo.Remarks = txtOTRemarks.Text.Trim();
 
-                            if(insuranceBo.UpdateInsurancePortfolio(insuranceVo,userVo.UserId))
-                            { Session.Remove("table");
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(),"leftpane","loadcontrol('ViewInsuranceDetails','login');", true);
+                            if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
+                            {
+                                Session.Remove("table");
+                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
                             }
                         }
 
-                            
-                           
-                        }
+
+
+
                         else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INWP")
                         {
                             if (txtWLPPremiumAmount.Text.Trim() != "")
@@ -1942,11 +1943,11 @@ namespace WealthERP.CustomerPortfolio
                                         }
                                         else
                                         {
-                                            if(allocationPer != string.Empty)
+                                            if (allocationPer != string.Empty)
                                                 insuranceUlipList[i].CIUP_AllocationPer = float.Parse(allocationPer.ToString());
-                                            if(purchasePrice!=string.Empty)
+                                            if (purchasePrice != string.Empty)
                                                 insuranceUlipList[i].CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
-                                            if(units != string.Empty)
+                                            if (units != string.Empty)
                                                 insuranceUlipList[i].CIUP_Unit = float.Parse(units.ToString());
                                             if (purchaseDate != string.Empty)
                                                 insuranceUlipList[i].CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
@@ -2077,7 +2078,7 @@ namespace WealthERP.CustomerPortfolio
                             else
                                 insuranceVo.MaturityValue = 0.0F;
                             insuranceVo.PolicyPeriod = float.Parse(txtMPPolicyTerm.Text.Trim());
-                            
+
                             insuranceVo.Remarks = txtMPRemarks.Text.Trim();
 
                             // Put this under a C# Transaction Block
@@ -2157,7 +2158,7 @@ namespace WealthERP.CustomerPortfolio
                                         else
                                             moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.MinValue;
                                         string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
-                                        if(repaidPercent != string.Empty && repaidPercent != null)
+                                        if (repaidPercent != string.Empty && repaidPercent != null)
                                             moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
                                         else
                                             moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse("0.00");
@@ -2230,8 +2231,8 @@ namespace WealthERP.CustomerPortfolio
                         }
                     }
                 }
-            
 
+            }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
