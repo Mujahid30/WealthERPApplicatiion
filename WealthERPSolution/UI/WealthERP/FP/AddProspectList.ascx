@@ -13,6 +13,15 @@
     }
 </script>--%>
 
+<%--<script type="text/javascript">
+    function ValidationError(txtbox) {
+        var RegExp = "^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"
+        if (txtbox. == false) {
+            alert(txtbox);
+        }
+    }
+</script>--%>
+
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
@@ -211,7 +220,7 @@
         ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ErrorMessage="Invalid Email">
         <TargetControls>
            
-            <telerik:TargetInput ControlID="txtGridEmailId" />
+            <%--<telerik:TargetInput ControlID="txtGridEmailId" />--%>
         </TargetControls>
         <Validation IsRequired="True"></Validation>
     </telerik:RegExpTextBoxSetting>
@@ -276,7 +285,10 @@
                                         <asp:Label runat="server" ID="lblGridEmailId" Text='<%# Eval("EmailId")%>'></asp:Label>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox runat="server" ID="txtGridEmailId" Text='<%# Bind("EmailId") %>'></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="txtGridEmailId" onchange="ValidationError(this.value);" Text='<%# Bind("EmailId") %>'></asp:TextBox>
+                                        
+                                        <asp:RegularExpressionValidator ID="RExpForValidEmail" Display="Dynamic" runat="server" Text="Invalid Email"
+                                        ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ControlToValidate="txtGridEmailId"></asp:RegularExpressionValidator>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
