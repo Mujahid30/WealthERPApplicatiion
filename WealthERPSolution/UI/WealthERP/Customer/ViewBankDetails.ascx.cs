@@ -28,11 +28,22 @@ namespace WealthERP.Customer
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            List<int> customerIds = new List<int>();
+            int customerId = 0;
             try
             {
                 SessionBo.CheckSession();
-                customerVo = (CustomerVo)Session["CustomerVo"];
-                customerId = customerVo.CustomerId;
+                if (Session["CustomerIds"] != null)
+                {
+                    customerIds = (List<int>)Session["CustomerIds"];
+                    customerId = customerIds[1];
+                }
+                else
+                {
+                    customerVo = (CustomerVo)Session["CustomerVo"];
+                    customerId = customerVo.CustomerId;
+                }
+                
 
                 customerBankAccountList = customerBankAccountBo.GetCustomerBankAccounts(customerId);
                 if (customerBankAccountList.Count!=0)
