@@ -319,6 +319,14 @@ namespace WealthERP.Customer
             List<int> customerIds = null;
             try
             {
+                if (chkdummypan.Checked)
+                {
+                    customerVo.DummyPAN = 1;
+                }
+                else
+                {
+                    customerVo.DummyPAN = 0;
+                }
                 Nullable<DateTime> dt = new DateTime();
                 customerIds = new List<int>();
                 lblPanDuplicate.Visible = false;
@@ -357,14 +365,7 @@ namespace WealthERP.Customer
                         userVo.FirstName = txtCompanyName.Text.ToString();
                     }
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
-                    if (chkdummypan.Checked)
-                    {
-                        customerVo.DummyPAN = 1;
-                    }
-                    else
-                    {
-                        customerVo.DummyPAN = 0;
-                    }
+                   
                     //if (chkprospect.Checked)
                     //{
                     //    customerVo.IsProspect = 1;
@@ -432,6 +433,15 @@ namespace WealthERP.Customer
             List<int> customerIds = null;
             try
             {
+
+                if (chkdummypan.Checked)
+                {
+                    customerVo.DummyPAN = 1;
+                }
+                else
+                {
+                    customerVo.DummyPAN = 0;
+                }
                 if (Validation())
                 {
                     customerIds = new List<int>();
