@@ -121,29 +121,26 @@
                                         CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                                         CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                                         UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
-                                    <span id="Span6" class="spnRequiredField">*
+                                    <span id="Span6" class="spnRequiredField">*<br />
                                     </span>
-                                     
+                                    
+                                        
                                  
                 </td>
             </tr>
-            <tr style="width:100%">
-                <td class="leftField">
-                    &nbsp;</td>
-                <td class="rightField" colspan="4">
-                
-                                    <span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
-                                        few characters of Scheme Name.</span>   <br />
-                   <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSearchScheme"
+            <tr>
+                <td>
+                </td>
+                <td><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
+                                        few characters of Scheme Name.</span><br/>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSearchScheme"
                                         ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
                                         ValidationGroup="MFSubmit">
                                     </asp:RequiredFieldValidator>
-                                 
-                                    <asp:CompareValidator ID="cmpSchemeName" runat="server" ErrorMessage="<br />Please select a transaction type"
+                 <asp:CompareValidator ID="cmpSchemeName" runat="server" ErrorMessage="<br />Please select a transaction type"
                                   ValidationGroup="MFSubmit" ControlToValidate="txtSearchScheme" Operator="NotEqual"
                                   CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
-               </td>
-            </tr>
+                </td>
             <tr>
                 <td>
                     &nbsp;
@@ -271,7 +268,7 @@
                 <td class="leftField" id="tdSchemeToLabel" runat="server" colspan="2">
                     <asp:Label ID="lblSchemeTo" runat="server" Text="Scheme To :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" id="tdSchemeToValue" runat="server" >
+                <td class="rightField" id="tdSchemeToValue" runat="server" colspan="2" >
                  <asp:HiddenField ID="txtSwitchSchemeCode" runat="server" 
                         onvaluechanged="txtSwitchSchemeCode_ValueChanged" />
                                     <asp:TextBox ID="txtSwicthSchemeSearch" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -352,7 +349,7 @@
                     <asp:Label ID="lblPricePurchased" runat="server" Text="Price of Scheme Purchased into :"
                         CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" id="tdPricePurchasedValue" runat="server">
+                <td class="rightField" id="tdPricePurchasedValue" runat="server" colspan="2">
                     <asp:TextBox ID="txtPricePurchased" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
                     <span id="Span11" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPricePurchased"
@@ -383,7 +380,7 @@
                <td class="leftField" id="tdAmtPurchasedLabel" runat="server" colspan="2">
                     <asp:Label ID="lblAmtPurchased" runat="server" Text="Amount :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" id="tdAmtPurchasedValue" runat="server">
+                <td class="rightField" id="tdAmtPurchasedValue" runat="server" colspan="2">
                     <asp:TextBox ID="txtAmtPurchased" runat="server" CssClass="txtField" 
                         MaxLength="18" ontextchanged="txtAmtPurchased_TextChanged" AutoPostBack="true"></asp:TextBox>
                     <span id="Span15" class="spnRequiredField">*</span>
@@ -414,7 +411,7 @@
                  <td class="leftField" id="tdUnitsAllotedLabel" runat="server" colspan="2">
                     <asp:Label ID="lblUnitsAlloted" runat="server" Text="Units Allotted :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" id="tdUnitsAllotedValue" runat="server">
+                <td class="rightField" id="tdUnitsAllotedValue" runat="server"  colspan="2">
                     <asp:TextBox ID="txtUnitsAlloted" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
                     <span id="Span13" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator50" ControlToValidate="txtUnitsAlloted"
