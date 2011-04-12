@@ -32,7 +32,9 @@ namespace WealthERP.Customer
         protected void Page_Load(object sender, EventArgs e)
         {
             try
+
             {
+                
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -46,6 +48,10 @@ namespace WealthERP.Customer
                     txtEmail.Text = customerVo.Email.ToString();
                     txtPanNumber.Text = customerVo.PANNum.ToString();
                     txtCompanyName.Text = customerVo.FirstName.ToString();
+                    if (customerVo.DummyPAN == 1)
+                        chkdummypan.Checked = true;
+                    else
+                        chkdummypan.Checked = false;
                 }
                 else if (Session["Current_Link"].ToString() == "RMCustomerNonIndividualLeftPane")
                 {

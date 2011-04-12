@@ -450,11 +450,11 @@
                             </td>
                             <td class="rightField" width="25%">
                                  <asp:Checkbox ID="chkmailn" runat="server" CssClass="txtField" Text="Via Mail"
-                AutoPostBack="true"  Enabled = "false"/>
+                />
                 &nbsp;
             &nbsp;
                  <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS"
-                AutoPostBack="true"  Enabled = "false"/>
+                  />
                             </td>
                             <td>
                             </td>
