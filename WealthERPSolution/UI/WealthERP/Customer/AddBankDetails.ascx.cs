@@ -115,8 +115,8 @@ namespace WealthERP.Customer
 
         protected void btnYes_Click(object sender, EventArgs e)
         {
-            List<int> customerIds = new List<int>();
-            int customerId = 0;
+            //List<int> customerIds = new List<int>();
+            //int customerId = 0;
             try
             {
                 if (Validation())
@@ -129,16 +129,18 @@ namespace WealthERP.Customer
                     {
                         chk = Session["Check"].ToString();
                     }
-                    if (Session["CustomerIds"] != null)
-                    {
-                        customerIds = (List<int>)Session["CustomerIds"];
-                        customerId = customerIds[1];
-                    }
-                    else
-                    {
-                        customerVo = (CustomerVo)Session["customerVo"];
-                        customerId = customerVo.CustomerId;
-                    }
+                    //if (Session["CustomerIds"] != null)
+                    //{
+                    //    customerIds = (List<int>)Session["CustomerIds"];
+                    //    customerId = customerIds[1];
+                    //}
+                    //else
+                    //{
+                    //    customerVo = (CustomerVo)Session["customerVo"];
+                    //    customerId = customerVo.CustomerId;
+                    //}
+                    customerVo = (CustomerVo)Session["customerVo"];
+                    customerId = customerVo.CustomerId;
 
                     //if (ddlModeOfOperation.SelectedValue.ToString() != "Select a Mode of Holding")
                     //    customerBankAccountVo.ModeOfOperation = ddlModeOfOperation.SelectedValue.ToString();
@@ -231,8 +233,8 @@ namespace WealthERP.Customer
 
         protected void btnNo_Click(object sender, EventArgs e)
         {
-            List<int> customerIds = new List<int>();
-            int customerId = 0;
+            //List<int> customerIds = new List<int>();
+            //int customerId = 0;
             try
             {
                 if (Validation())
@@ -245,16 +247,20 @@ namespace WealthERP.Customer
                     }
                     userId = rmVo.UserId;
 
-                    if (Session["CustomerIds"] != null)
-                    {
-                        customerIds = (List<int>)Session["CustomerIds"];
-                        customerId = customerIds[1];
-                    }
-                    else
-                    {
-                        customerVo = (CustomerVo)Session["customerVo"];
-                        customerId = customerVo.CustomerId;
-                    }
+                    //if (Session["CustomerIds"] != null)
+                    //{
+                    //    customerIds = (List<int>)Session["CustomerIds"];
+                    //    customerId = customerIds[1];
+                    //}
+                    //else
+                    //{
+                    //    customerVo = (CustomerVo)Session["customerVo"];
+                    //    customerId = customerVo.CustomerId;
+                    //}
+
+                    customerVo = (CustomerVo)Session["customerVo"];
+                    customerId = customerVo.CustomerId;
+
                     customerBankAccountVo.AccountType = ddlAccountType.SelectedValue.ToString();
                     customerBankAccountVo.AccountNum = txtAccountNumber.Text.ToString();
 
