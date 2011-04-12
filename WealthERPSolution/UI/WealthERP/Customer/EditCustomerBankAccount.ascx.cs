@@ -20,6 +20,7 @@ namespace WealthERP.Customer
     {
         CustomerBankAccountVo customerBankAccountVo = new CustomerBankAccountVo();
         CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
+        CustomerVo customerVo = new CustomerVo();
         int customerId;
         int customerBankAccId;
         DataTable dtStates = new DataTable();
@@ -35,7 +36,8 @@ namespace WealthERP.Customer
             try
             {
                 SessionBo.CheckSession();
-                customerId = int.Parse(Session["CustomerId"].ToString());
+                customerVo = (CustomerVo)Session["customerVo"];
+                customerId = customerVo.CustomerId;
                 customerBankAccId = int.Parse(Session["CustBankAccId"].ToString());
                 customerBankAccountVo = customerBankAccountBo.GetCustomerBankAccount(customerId, customerBankAccId);
 
@@ -124,7 +126,8 @@ namespace WealthERP.Customer
         {
             try
             {
-                customerId = int.Parse(Session["CustomerId"].ToString());
+                customerVo = (CustomerVo)Session["customerVo"];
+                customerId = customerVo.CustomerId;
                 customerBankAccId = int.Parse(Session["CustBankAccId"].ToString());
 
                 customerBankAccountVo.CustBankAccId = customerBankAccId;
