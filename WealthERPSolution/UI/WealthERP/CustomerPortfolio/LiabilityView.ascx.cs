@@ -68,8 +68,10 @@ namespace WealthERP.CustomerPortfolio
                     {
                         dr[5] = "Lumpsum";
                         dr[6] = Math.Round(liabilityVo.LumpsumRepaymentAmount, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        loanOutStanding = calculator.GetLoanOutstanding(liabilityVo.CompoundFrequency, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 1, liabilityVo.LumpsumRepaymentAmount, liabilityVo.NoOfInstallments);
-                        dr[7] = Math.Round(loanOutStanding, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        //loanOutStanding = calculator.GetLoanOutstanding(liabilityVo.CompoundFrequency, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 1, liabilityVo.LumpsumRepaymentAmount, liabilityVo.NoOfInstallments);
+                        //loanOutStanding = liabilityVo.OutstandingAmount;
+                        //dr[7] = Math.Round(loanOutStanding, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        dr[7] = liabilityVo.OutstandingAmount;
                         dr[8] = "-";
                         dr[9] = "-";
                     }
@@ -77,8 +79,10 @@ namespace WealthERP.CustomerPortfolio
                     {
                         dr[5] = "Installment";
                         dr[6] = Math.Round(liabilityVo.EMIAmount, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        loanOutStanding = calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
-                        dr[7] = Math.Round(loanOutStanding, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        //loanOutStanding = calculator.GetLoanOutstanding(liabilityVo.FrequencyCodeEMI, liabilityVo.LoanAmount, liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, 2, liabilityVo.EMIAmount, liabilityVo.NoOfInstallments);
+                        //loanOutStanding = liabilityVo.OutstandingAmount;
+                        //dr[7] = Math.Round(loanOutStanding, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        dr[7] = liabilityVo.OutstandingAmount;
                         nextInsDate = calculator.GetNextPremiumDate(liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, liabilityVo.FrequencyCodeEMI);
                         if (nextInsDate != DateTime.MinValue)
                             dr[8] = nextInsDate.ToLongDateString();
