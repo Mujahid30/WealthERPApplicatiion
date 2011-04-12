@@ -2387,13 +2387,15 @@ namespace WealthERP.FP
 
                     if (drFourth["XLT_LoanTypeCode"].ToString() == "5")
                     {
-                        txtWERPPersonalLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
-                        txtPersonalLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
+                        
+                        txtWERPEducationLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
+                        txtEducationLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();                        
+                        
                     }
                     if (drFourth["XLT_LoanTypeCode"].ToString() == "6")
                     {
-                        txtInvestmentsOthers.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
-                        txtInvestmentsOthers.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
+                        txtWERPPersonalLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
+                        txtPersonalLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
                     }
                     if (drFourth["XLT_LoanTypeCode"].ToString() == "9")
                     {
@@ -2404,7 +2406,7 @@ namespace WealthERP.FP
                 }
             }
 
-            //First Level Category
+            //First Level Category`
             if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow drFirst in dsGetWERPDetails.Tables[0].Rows)
