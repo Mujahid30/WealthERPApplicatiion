@@ -456,10 +456,12 @@
             <asp:Button ID="btnSendLoginId" runat="server" Text="Send Login Id" CssClass="PCGMediumButton"
                 OnClick="btnSendLoginId_Click" />
         </td>
-        <td>
+       <%-- Add/Edit Subscription Option not included in this release so hiding this button for this release --%>
+       
+       <%-- <td>
             <asp:Button ID="btnSubscription" runat="server" Text="Add/Edit Subscription" CssClass="PCGMediumButton" OnClick="btnSubscription_Click"
                 />
-        </td>
+        </td>--%>
     </tr>
 </table>
 <input type="hidden" id="hidValid" />
