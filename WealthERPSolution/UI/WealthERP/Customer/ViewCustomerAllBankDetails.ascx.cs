@@ -19,6 +19,7 @@ namespace WealthERP.Customer
     {
         CustomerBankAccountVo customerBankAccountVo = new CustomerBankAccountVo();
         CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
+        CustomerVo customerVo = new CustomerVo();
         int customerId;
         int customerBankAccId;
         string state = string.Empty;
@@ -30,7 +31,10 @@ namespace WealthERP.Customer
             {
                 SessionBo.CheckSession();
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                customerId = int.Parse(Session["CustomerId"].ToString());
+
+                customerVo = (CustomerVo)Session["CustomerVo"];
+                customerId = customerVo.CustomerId;
+
                 customerBankAccId = int.Parse(Session["CustBankAccId"].ToString());
                 customerBankAccountVo = customerBankAccountBo.GetCustomerBankAccount(customerId, customerBankAccId);
 
