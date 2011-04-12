@@ -588,7 +588,7 @@ namespace WealthERP.Advisor
                             customerVo = customerBo.GetCustomer(customerId);
                             Session["CustomerVo"] = customerVo;
 
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorRMCustGroupDashboard", "loadcontrol('AdvisorRMCustGroupDashboard','login');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorRMCustGroupDashboard", "loadcontrol('AdvisorRMCustIndiDashboard','login');", true);
                         }
 
                     }
