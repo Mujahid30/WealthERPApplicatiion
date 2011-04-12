@@ -550,46 +550,46 @@ namespace WealthERP.CustomerPortfolio
             set { ViewState["sortDirection"] = value; }
         }
 
-        protected void btnDeleteSelected_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                foreach (GridViewRow dr in gvMFTransactions.Rows)
-                {
-                    customerVo = (CustomerVo)Session["CustomerVo"];
-                    customerId = customerVo.CustomerId;
+        //protected void btnDeleteSelected_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        foreach (GridViewRow dr in gvMFTransactions.Rows)
+        //        {
+        //            customerVo = (CustomerVo)Session["CustomerVo"];
+        //            customerId = customerVo.CustomerId;
 
-                    CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
-                    if (checkBox.Checked)
-                    {
-                        int TransactionID = Convert.ToInt32(gvMFTransactions.DataKeys[dr.RowIndex].Value);
-                        if (customerTransactionBo.DeleteMFTransaction(TransactionID))
-                        {
-                            // Success Message
+        //            CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
+        //            if (checkBox.Checked)
+        //            {
+        //                int TransactionID = Convert.ToInt32(gvMFTransactions.DataKeys[dr.RowIndex].Value);
+        //                if (customerTransactionBo.DeleteMFTransaction(TransactionID))
+        //                {
+        //                    // Success Message
 
-                        }
-                    }
-                }
-                BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "TransactionsView.ascx:btnDeleteSelected_Click()");
-                object[] objects = new object[1];
-                objects[0] = customerVo;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+        //                }
+        //            }
+        //        }
+        //        BindGridView(customerId, mypager.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "TransactionsView.ascx:btnDeleteSelected_Click()");
+        //        object[] objects = new object[1];
+        //        objects[0] = customerVo;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
 
-            }
-        }
+        //    }
+        //}
 
         protected void gvMFTransactions_DataBound(object sender, EventArgs e)
         {
