@@ -441,7 +441,7 @@ namespace WealthERP.CustomerPortfolio
                         txtEPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
                         ddlEPPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
                         txtEPPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
-                        ddlEPPrPayDate.SelectedItem.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        ddlEPPrPayDate.SelectedValue= insuranceVo.PremiumPaymentDate.ToString();
                         txtLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtEPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
@@ -473,7 +473,7 @@ namespace WealthERP.CustomerPortfolio
                         txtMPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
                         ddlMPPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
                         txtMPPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
-                        ddlMPPrPayDate.SelectedItem.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        ddlMPPrPayDate.SelectedValue = insuranceVo.PremiumPaymentDate.ToString();
                         txtMPFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtMPLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         dtFrom = DateTime.Parse(txtMPFirstPremiumDate.Text);
@@ -521,7 +521,7 @@ namespace WealthERP.CustomerPortfolio
                         txtTPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
                         ddlTPPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
                         txtTPPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
-                        ddlTPPrPayDate.SelectedItem.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        ddlTPPrPayDate.SelectedValue = insuranceVo.PremiumPaymentDate.ToString();
                         txtTPFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtTPLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtTPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
@@ -531,7 +531,7 @@ namespace WealthERP.CustomerPortfolio
                     else if (customerAccountVo.AssetCategory.Trim() == "INUP")
                     {
                         ddlULIPPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
-                        ddlULIPPrPayDate.SelectedItem.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        ddlULIPPrPayDate.SelectedValue = insuranceVo.PremiumPaymentDate.ToString();
                         txtULIPFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtULIPLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtULIPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
@@ -585,7 +585,7 @@ namespace WealthERP.CustomerPortfolio
                         txtWLPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
                         ddlWLPPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
                         txtWLPPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
-                        ddlWLPPrPayDate.SelectedItem.Text = insuranceVo.PremiumPaymentDate.ToString();
+                        ddlWLPPrPayDate.SelectedValue = insuranceVo.PremiumPaymentDate.ToString();
                         txtWLPFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtWLPLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtWLPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
