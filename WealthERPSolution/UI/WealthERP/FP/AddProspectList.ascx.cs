@@ -437,8 +437,8 @@ namespace WealthERP.FP
 
         }
 
-        
-       
+
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             int ParentCustomerId = 0;
@@ -446,52 +446,161 @@ namespace WealthERP.FP
             bool bresult;
             bool status = true;
             rmVo = (RMVo)Session["rmVo"];
+            string editstatus = "";
             int adviserId = (int)Session["adviserId"];
-            if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
-            {
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+            if (Session[SessionContents.FPS_AddProspectListActionStatus]!=null)
+             editstatus = Session[SessionContents.FPS_AddProspectListActionStatus].ToString();
 
-            }
-            else
+            if (editstatus == "Edit")
             {
-                try
+                customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                customerVo = customerBo.GetCustomer(customerId);
+                if (customerVo.PANNum.ToString() != txtPanNumber.Text.ToString())
                 {
-                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                    foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                    if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
                     {
-                        if (item.IsInEditMode)
-                        {
-                            status = false;
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
-                        }
-                    }
-                    if (status)
-                    {
-                        if (Validation())
-                        {
 
-                            userVo = new UserVo();
-                            rmVo = (RMVo)Session["rmVo"];
-                            tempuservo = (UserVo)Session["uservo"];
-                            int createdById = tempuservo.UserId;
-                            bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
-                            msgRecordStatus.Visible = true;
-                            btnSubmit.Text = "Update";
-                        }
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+
                     }
                     else
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
-                    }
+                        try
+                        {
+                            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                            foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                            {
+                                if (item.IsInEditMode)
+                                {
+                                    status = false;
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                                }
+                            }
+                            if (status)
+                            {
+                                if (Validation())
+                                {
 
+                                    userVo = new UserVo();
+                                    rmVo = (RMVo)Session["rmVo"];
+                                    tempuservo = (UserVo)Session["uservo"];
+                                    int createdById = tempuservo.UserId;
+                                    bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
+                                    msgRecordStatus.Visible = true;
+                                    btnSubmit.Text = "Update";
+                                }
+                            }
+                            else
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                            }
+
+                        }
+                        catch (Exception Ex)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
+                        }
+                    }
                 }
-                catch (Exception Ex)
+                else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
+                    try
+                    {
+                        dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                        foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                        {
+                            if (item.IsInEditMode)
+                            {
+                                status = false;
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                            }
+                        }
+                        if (status)
+                        {
+                            if (Validation())
+                            {
+
+                                userVo = new UserVo();
+                                rmVo = (RMVo)Session["rmVo"];
+                                tempuservo = (UserVo)Session["uservo"];
+                                int createdById = tempuservo.UserId;
+                                bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
+                                msgRecordStatus.Visible = true;
+                                btnSubmit.Text = "Update";
+                            }
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                        }
+
+                    }
+                    catch (Exception Ex)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
+                    }
                 }
+
             }
+            
+            
+            if (editstatus != "Edit")
+            {
+                
+                    if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
+                    {
+
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+
+                    }
+                
+
+
+                else
+                {
+                    try
+                    {
+                        dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                        foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                        {
+                            if (item.IsInEditMode)
+                            {
+                                status = false;
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                            }
+                        }
+                        if (status)
+                        {
+                            if (Validation())
+                            {
+
+                                userVo = new UserVo();
+                                rmVo = (RMVo)Session["rmVo"];
+                                tempuservo = (UserVo)Session["uservo"];
+                                int createdById = tempuservo.UserId;
+                                bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
+                                msgRecordStatus.Visible = true;
+                                btnSubmit.Text = "Update";
+                            }
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                        }
+
+                    }
+                    catch (Exception Ex)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
+                    }
+                }
         }
+            
+            
+            }
+       
+    
 
         /// <summary>
         ///Same set of code has to be used twice so i have created it as Function which will give boolean result
@@ -867,49 +976,139 @@ namespace WealthERP.FP
             try
             {
                 int adviserId = (int)Session["adviserId"];
-                if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
-                {
+                string editstatus = "";
+               
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+                if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
+                    editstatus = Session[SessionContents.FPS_AddProspectListActionStatus].ToString();
+
+                if (editstatus == "Edit")
+                {
+                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                    customerVo = customerBo.GetCustomer(customerId);
+                    if (customerVo.PANNum.ToString() != txtPanNumber.Text.ToString())
+                    {
+                        if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
+                        {
+
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+
+                        }
+                        else
+                        {
+
+                            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                            foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                            {
+                                if (item.IsInEditMode)
+                                {
+                                    status = false;
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                                }
+                            }
+                            if (status)
+                            {
+
+                                if (Validation())
+                                {
+
+                                    userVo = new UserVo();
+                                    rmVo = (RMVo)Session["rmVo"];
+                                    tempuservo = (UserVo)Session["uservo"];
+                                    int createdById = tempuservo.UserId;
+                                    bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
+
+                                    Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+
+                                    Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
+                                    Session["IsDashboard"] = "FP";
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                                }
+                            }
+
+
+                            //msgRecordStatus.Visible = true;
+                            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                        }
+                    }
+                    else
+                    {
+
+                        dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                        foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                        {
+                            if (item.IsInEditMode)
+                            {
+                                status = false;
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                            }
+                        }
+                        if (status)
+                        {
+
+                            if (Validation())
+                            {
+
+                                userVo = new UserVo();
+                                rmVo = (RMVo)Session["rmVo"];
+                                tempuservo = (UserVo)Session["uservo"];
+                                int createdById = tempuservo.UserId;
+                                bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
+
+                                Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+
+                                Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
+                                Session["IsDashboard"] = "FP";
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                            }
+                        }
+
+
+                        //msgRecordStatus.Visible = true;
+                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                    }
+
 
                 }
                 else
-                    {
-
-                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
-                {
-                    if (item.IsInEditMode)
-                    {
-                        status = false;
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
-                    }
-                }
-                if (status)
                 {
 
-                    if (Validation())
+                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                    {
+                        if (item.IsInEditMode)
+                        {
+                            status = false;
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                        }
+                    }
+                    if (status)
                     {
 
-                        userVo = new UserVo();
-                        rmVo = (RMVo)Session["rmVo"];
-                        tempuservo = (UserVo)Session["uservo"];
-                        int createdById = tempuservo.UserId;
-                        bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
+                        if (Validation())
+                        {
 
-                        Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                            userVo = new UserVo();
+                            rmVo = (RMVo)Session["rmVo"];
+                            tempuservo = (UserVo)Session["uservo"];
+                            int createdById = tempuservo.UserId;
+                            bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
 
-                        Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
-                        Session["IsDashboard"] = "FP";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                            Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+
+                            Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "Edit";
+                            Session["IsDashboard"] = "FP";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerProspect','login');", true);
+                        }
                     }
+
+
+                    //msgRecordStatus.Visible = true;
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
                 }
-                
-                
-                //msgRecordStatus.Visible = true;
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
-            }
         }
             
             catch (Exception Ex)
