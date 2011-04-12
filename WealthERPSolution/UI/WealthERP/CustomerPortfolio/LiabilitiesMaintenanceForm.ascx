@@ -19,6 +19,13 @@
     }
 </script>
 
+<script type="text/javascript" language="javascript">
+    function ShiftValuet() {
+        if (document.getElementById('<%=txtLoanAmount.ClientID %>').value > 0)
+            document.getElementById('<%=txtLoanOutstandingAmount.ClientID %>').value = document.getElementById('<%=txtLoanAmount.ClientID %>').value;
+    }
+</script>
+
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="upnlLiabilities" runat="server">
@@ -89,7 +96,7 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtLoanAmount" runat="server" CssClass="txtField" 
-                        MaxLength="18" ontextchanged="txtLoanAmount_TextChanged" AutoPostBack="true"></asp:TextBox>
+                        MaxLength="18" ontextchanged="txtLoanAmount_TextChanged" onblur="ShiftValuet()" AutoPostBack="true"></asp:TextBox>
                     <span id="Span4" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtLoanAmount"
                         ErrorMessage="<br />Please enter a loan amount" Display="Dynamic" CssClass="rfvPCG"
