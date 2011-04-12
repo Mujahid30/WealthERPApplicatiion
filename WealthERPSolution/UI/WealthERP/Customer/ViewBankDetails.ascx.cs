@@ -28,22 +28,11 @@ namespace WealthERP.Customer
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<int> customerIds = new List<int>();
-            int customerId = 0;
             try
             {
                 SessionBo.CheckSession();
-                if (Session["CustomerIds"] != null)
-                {
-                    customerIds = (List<int>)Session["CustomerIds"];
-                    customerId = customerIds[1];
-                }
-                else
-                {
-                    customerVo = (CustomerVo)Session["CustomerVo"];
-                    customerId = customerVo.CustomerId;
-                }
-                
+                customerVo = (CustomerVo)Session["CustomerVo"];
+                customerId = customerVo.CustomerId;
 
                 customerBankAccountList = customerBankAccountBo.GetCustomerBankAccounts(customerId);
                 if (customerBankAccountList.Count!=0)
@@ -113,9 +102,8 @@ namespace WealthERP.Customer
 
         protected void gvCustomerBankAccounts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Session["CustomerId"] = customerVo.CustomerId;
+           
             Session["CustBankAccId"] = gvCustomerBankAccounts.SelectedDataKey.Value.ToString();
-
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCustomerAllBankDetails','none');", true);
 
 
