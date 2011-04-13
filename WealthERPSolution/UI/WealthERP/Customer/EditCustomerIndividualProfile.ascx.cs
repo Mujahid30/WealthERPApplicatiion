@@ -506,9 +506,9 @@ namespace WealthERP.Customer
                         customerVo.DummyPAN = 1;
                     }
                     else
-                    //{
-                    //    customerVo.DummyPAN = 0;
-                    //}
+                    {
+                        customerVo.DummyPAN = 0;
+                    }
                     //if (chkprospect.Checked)
                     //{
                     //    customerVo.IsProspect = 1;
