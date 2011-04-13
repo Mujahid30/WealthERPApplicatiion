@@ -547,6 +547,103 @@ namespace WealthERP.FP
             
             if (editstatus != "Edit")
             {
+                if (Session[SessionContents.FPS_ProspectList_CustomerId] != null)
+                
+                customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                if (customerId != 0  )
+                {
+                    customerVo = customerBo.GetCustomer(customerId);
+                    if (customerVo.PANNum.ToString() != txtPanNumber.Text.ToString())
+                    {
+                        if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
+                        {
+
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+
+                        }
+                        else
+                        {
+                            try
+                            {
+                                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                                foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                                {
+                                    if (item.IsInEditMode)
+                                    {
+                                        status = false;
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                                    }
+                                }
+                                if (status)
+                                {
+                                    if (Validation())
+                                    {
+
+                                        userVo = new UserVo();
+                                        rmVo = (RMVo)Session["rmVo"];
+                                        tempuservo = (UserVo)Session["uservo"];
+                                        int createdById = tempuservo.UserId;
+                                        bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
+                                        msgRecordStatus.Visible = true;
+                                        btnSubmit.Text = "Update";
+                                    }
+                                }
+                                else
+                                {
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                                }
+
+                            }
+                            catch (Exception Ex)
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                            foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                            {
+                                if (item.IsInEditMode)
+                                {
+                                    status = false;
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                                }
+                            }
+                            if (status)
+                            {
+                                if (Validation())
+                                {
+
+                                    userVo = new UserVo();
+                                    rmVo = (RMVo)Session["rmVo"];
+                                    tempuservo = (UserVo)Session["uservo"];
+                                    int createdById = tempuservo.UserId;
+                                    bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
+                                    msgRecordStatus.Visible = true;
+                                    btnSubmit.Text = "Update";
+                                }
+                            }
+                            else
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                            }
+
+                        }
+                        catch (Exception Ex)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
+                        }
+                    }
+
+                }
+               
+                else
+                {
+
                 
                     if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
                     {
@@ -595,6 +692,7 @@ namespace WealthERP.FP
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
                     }
                 }
+            }
         }
             
             
