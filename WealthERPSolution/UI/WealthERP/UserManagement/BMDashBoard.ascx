@@ -165,17 +165,16 @@
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                <%-- OnRowCreated="gvBMDashBoardGrid_RowCreated" --%>
                     <Columns>
-                    <asp:TemplateField HeaderText="RMName" >
+<%--                    <asp:TemplateField HeaderText="RMName" >
                     <ItemTemplate>
                     <asp:LinkButton ID="lnkRMName" runat="server" Text='<%# Eval("RmName") %>' 
                          onclick="lnkRMName_Click"></asp:LinkButton>
                      </ItemTemplate>
-                    </asp:TemplateField>
-               <%--     <asp:BoundField DataField="RmName" HeaderText="Name" ItemStyle-HorizontalAlign="Left" />--%>
-                    <asp:BoundField DataField="Staff_Code" HeaderText="Code" 
-                            ItemStyle-HorizontalAlign="Right">
-<ItemStyle HorizontalAlign="Right"></ItemStyle>
-                        </asp:BoundField>
+                    </asp:TemplateField>--%>
+                    <asp:BoundField DataField="RmName" HeaderText="Name" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="Staff_Code" HeaderText="Code" ItemStyle-HorizontalAlign="Right">
+                    <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                       </asp:BoundField>
                     <asp:BoundField DataField="Customer_base" HeaderText="Customer Base" 
                             ItemStyle-HorizontalAlign="Right" >
 <ItemStyle HorizontalAlign="Right"></ItemStyle>

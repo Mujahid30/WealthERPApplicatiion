@@ -43,7 +43,8 @@ namespace WealthERP.UserManagement
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-                  
+            UserVo userVo = new UserVo();
+            RMVo rmVo = new RMVo();     
            
             //userType = Session["UserType"].ToString().ToLower();
           
@@ -89,32 +90,29 @@ namespace WealthERP.UserManagement
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndividualLeftPane.ascx", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
+
+
         //protected void lnkRMName_Click(object sender, EventArgs e)
-        //{ 
+        //{
 
+        //    GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+        //    AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
+            
+        //    int rowIndex = gvRow.RowIndex;
+        //    DataKey dk = gvRMCustNetworth.DataKeys[rowIndex];
+            
+        //    int rmId = System.Convert.ToInt32(dk.Value);
+        //    if (rmId != 0)
+        //    {
+        //        Session["BMDashBoardRMId"] = rmId;
+        //    }
+        //    //rmVo = adviserStaffBo.GetAdvisorStaffDetails(rmId);
+        //    Session[SessionContents.CurrentUserRole] = "RM";
+
+
+        //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
+        //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
         //}
-
-        protected void lnkRMName_Click(object sender, EventArgs e)
-        {
-
-            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
-            AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
-            
-            int rowIndex = gvRow.RowIndex;
-            DataKey dk = gvRMCustNetworth.DataKeys[rowIndex];
-            
-            int rmId = System.Convert.ToInt32(dk.Value);
-            if (rmId != 0)
-            {
-                Session["BMDashBoardRMId"] = rmId;
-            }
-            //rmVo = adviserStaffBo.GetAdvisorStaffDetails(rmId);
-            Session[SessionContents.CurrentUserRole] = "RM";
-
-
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
-        }
 
         protected void BMDashBoardGrid_RowDataBound(object sender, GridViewRowEventArgs row)
         {
@@ -619,10 +617,7 @@ namespace WealthERP.UserManagement
 
         }
 
-        protected void btnHello_Click(object sender, EventArgs e)
-        {
-            //Response.Write("Hellsckvj");
-        }
+ 
 
        
 
