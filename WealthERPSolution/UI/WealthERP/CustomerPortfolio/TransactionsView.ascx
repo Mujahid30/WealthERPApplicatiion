@@ -166,15 +166,15 @@
                     <HeaderStyle CssClass="HeaderStyle" />
                     <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
-                        <%--<asp:TemplateField HeaderText="Select">
+                        <asp:TemplateField HeaderText="Select">
                             <ItemTemplate>
                                 <asp:CheckBox ID="chkBx" runat="server" />
                             </ItemTemplate>
                           <FooterTemplate>
-                                <asp:Button ID="btnDeleteSelected" CssClass="FieldName" OnClick="btnDeleteSelected_Click"
-                                    runat="server" Text="Delete" />
+                               <%-- <asp:Button ID="btnDeleteSelected" CssClass="FieldName" OnClick="btnDeleteSelected_Click"
+                                    runat="server" Text="Delete" />--%>
                             </FooterTemplate>
-                        </asp:TemplateField>--%>
+                        </asp:TemplateField>
                         <asp:ButtonField CommandName="Select" HeaderText="View Details" ShowHeader="True" Text="View Details"
                             ItemStyle-Wrap="false">
                             <ItemStyle Wrap="False"></ItemStyle>
