@@ -544,6 +544,7 @@ namespace WealthERP.Advisor
 
                         drLifeInsurance[0] = dr["Policy"].ToString();
                         drLifeInsurance[1] = dr["InsuranceType"].ToString();
+                        
                         drLifeInsurance[2] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                         drLifeInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
                         drLifeInsurance[4] = dr["PremiumFrequency"].ToString();
@@ -567,16 +568,19 @@ namespace WealthERP.Advisor
                     dtGenInsDetails.Columns.Add("SumAssured");
                     dtGenInsDetails.Columns.Add("PremiumAmount");
 
-                    foreach (DataRow dr in dsInsuranceDetails.Tables[1].Rows)
+                    if (dsInsuranceDetails.Tables[1].Rows.Count > 0)
                     {
-                        drGeneralInsurance = dtGenInsDetails.NewRow();
+                        foreach (DataRow dr in dsInsuranceDetails.Tables[1].Rows)
+                        {
+                            drGeneralInsurance = dtGenInsDetails.NewRow();
 
-                        drGeneralInsurance[0] = dr["PolicyIssuer"].ToString();
-                        drGeneralInsurance[1] = dr["InsuranceType"].ToString();
-                        drGeneralInsurance[2] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                        drGeneralInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
+                            drGeneralInsurance[0] = dr["PolicyIssuer"].ToString();
+                            drGeneralInsurance[1] = dr["InsuranceType"].ToString();
+                            drGeneralInsurance[2] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                            drGeneralInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
-                        dtGenInsDetails.Rows.Add(drGeneralInsurance);
+                            dtGenInsDetails.Rows.Add(drGeneralInsurance);
+                        }
                     }
                     gvGeneralInsurance.DataSource = dtGenInsDetails;
                     gvGeneralInsurance.DataBind();
