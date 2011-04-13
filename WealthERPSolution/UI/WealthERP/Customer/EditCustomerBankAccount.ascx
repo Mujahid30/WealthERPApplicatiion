@@ -277,8 +277,9 @@
             <asp:Label ID="Label32" runat="server" Text="MICR: " CssClass="FieldName"></asp:Label>
             
         </td>
+        <!--MICR Validation-->
         <td class="style8" align="left" valign="top">
-            <asp:TextBox ID="txtMicr" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtMicr" runat="server" CssClass="txtField" MaxLength="9"></asp:TextBox>
             <asp:CompareValidator ID="cvMicr" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="rfvPCG" Type="Integer" ValidationGroup="btnSubmit" ControlToValidate="txtMicr" Operator="DataTypeCheck"
                 Display="Dynamic"></asp:CompareValidator>
