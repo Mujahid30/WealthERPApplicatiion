@@ -461,7 +461,8 @@ namespace WealthERP.CustomerPortfolio
                         if (txtDividentRate.Text != string.Empty || txtDividentRate.Text != "")
                             mfTransactionVo.DividendRate = float.Parse(txtDividentRate.Text.ToString());
                         mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
-                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        //mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        mfTransactionVo.Price = 0;
                         mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
                         mfTransactionVo.TransactionClassificationCode = "DVP";
                         mfTransactionVo.BuySell = "S";
@@ -593,15 +594,18 @@ namespace WealthERP.CustomerPortfolio
         protected void txtAmount_TextChanged(object sender, EventArgs e)
         {
             if (txtAmount.Text != "" && commonMethods.IsNumeric(txtAmount.Text))
-            {                
-                txtUnits.Text = (Math.Round((double.Parse(txtAmount.Text) / double.Parse(txtPrice.Text)), 4)).ToString();
-                txtSTT.Text = (Math.Round((double.Parse(txtAmount.Text) - Math.Round((double.Parse(txtUnits.Text) * double.Parse(txtNAV.Text)), 2)), 2)).ToString();
-                if (txtAmtPurchased.Visible)
+            {
+                if (ddlTransactionType.SelectedItem.Value != "Dividend Payout")
                 {
-                    txtAmtPurchased.Text = txtAmount.Text;
-                    if (txtPricePurchased.Text != "" && txtAmtPurchased.Text != "" && txtAmtPurchased.Text != "0")
+                    txtUnits.Text = (Math.Round((double.Parse(txtAmount.Text) / double.Parse(txtPrice.Text)), 4)).ToString();
+                    txtSTT.Text = (Math.Round((double.Parse(txtAmount.Text) - Math.Round((double.Parse(txtUnits.Text) * double.Parse(txtNAV.Text)), 2)), 2)).ToString();
+                    if (txtAmtPurchased.Visible)
                     {
-                        txtUnitsAlloted.Text = (Math.Round((double.Parse(txtAmtPurchased.Text) / double.Parse(txtPricePurchased.Text)), 4)).ToString();
+                        txtAmtPurchased.Text = txtAmount.Text;
+                        if (txtPricePurchased.Text != "" && txtAmtPurchased.Text != "" && txtAmtPurchased.Text != "0")
+                        {
+                            txtUnitsAlloted.Text = (Math.Round((double.Parse(txtAmtPurchased.Text) / double.Parse(txtPricePurchased.Text)), 4)).ToString();
+                        }
                     }
                 }
             }
