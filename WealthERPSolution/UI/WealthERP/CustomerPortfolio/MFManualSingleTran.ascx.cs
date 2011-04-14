@@ -527,6 +527,9 @@ namespace WealthERP.CustomerPortfolio
 
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
                     msgRecordStatus.Visible = true;
+                    cleanAllFields();
+                 
+                   
 
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView", false);
                 }
@@ -559,6 +562,44 @@ namespace WealthERP.CustomerPortfolio
             }
 
         }
+        public void cleanAllFields()
+        {
+         txtSearchScheme.Text="";
+        ddlTransactionType.SelectedIndex=0;
+        ddlFolioNum.SelectedIndex=0;
+        txtTransactionDate.Text="";
+        txtNAV.Text="";
+         txtPrice.Text="";
+        txtAmount.Text="";
+        txtUnits.Text="";
+        txtSTT.Text="";
+        txtNAVPurchased.Text="";
+        txtPricePurchased.Text="";
+        txtAmtPurchased.Text="";
+        txtUnitsAlloted.Text="";
+        txtSwicthSchemeSearch.Text="";
+        txtDividentRate.Text = "";
+        lblScheme.Text = "";
+        ddlPortfolio.SelectedIndex = 0;
+        lblSchemeName.Visible = false;
+
+
+        tdSchemeNameLabel.Visible = false;
+        tdSchemeNameValue.Visible = false;
+        tdSchemeToLabel.Visible = false;
+        tdSchemeToValue.Visible = false;
+        tdNAVPurchasedLabel.Visible = false;
+        tdNAVPurchasedValue.Visible = false;
+        tdPricePurchasedLabel.Visible = false;
+        tdPricePurchasedValue.Visible = false;
+        tdAmtPurchasedLabel.Visible = false;
+        tdAmtPurchasedValue.Visible = false;
+        tdUnitsAllotedLabel.Visible = false;
+        tdUnitsAllotedValue.Visible = false;
+        tdSwitchUseNAV.Visible = false;
+        tdSTTLabel.Visible = true;
+        tdSTTValue.Visible = true;
+        }
 
         protected void txtSearchScheme_TextChanged(object sender, EventArgs e)
         {
@@ -566,8 +607,10 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void txtSchemeCode_ValueChanged(object sender, EventArgs e)
         {
+            msgRecordStatus.Visible = false;
             tdSchemeNameLabel.Visible = true;
             tdSchemeNameValue.Visible = true;
+            lblSchemeName.Visible = true;
             lblScheme.Text = txtSearchScheme.Text;
             schemePlanCode = int.Parse(txtSchemeCode.Value);
             txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = schemePlanCode.ToString();

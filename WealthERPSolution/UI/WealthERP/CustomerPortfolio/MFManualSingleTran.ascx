@@ -330,10 +330,10 @@
                 </td>
             </tr>
             <tr>
-                <td class="leftField">
+                <td class="leftField" id="tdAmountlbl">
                     <asp:Label ID="Label9" runat="server" Text="Amount :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField">
+                <td class="rightField" id="tdAmount">
                     <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" OnTextChanged="txtAmount_TextChanged"
                         MaxLength="18" AutoPostBack="true"></asp:TextBox>
                     <span id="Span10" class="spnRequiredField">*</span>
@@ -431,11 +431,18 @@
             </tr>
             <tr>
                 <td class="SubmitCell" colspan="5">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_MFManualSingleTran_btnSubmit', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_MFManualSingleTran_btnSubmit', 'S');"
-                        ValidationGroup="MFSubmit" OnClick="btnSubmit_Click"  />
+                  
                 </td>
             </tr>
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
+<table>
+<tr>
+<td class="leftField">
+  <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_MFManualSingleTran_btnSubmit', 'S');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_MFManualSingleTran_btnSubmit', 'S');"
+                        ValidationGroup="MFSubmit" OnClick="btnSubmit_Click"  />
+</td>
+</tr>
+</table>
