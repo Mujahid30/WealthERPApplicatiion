@@ -3128,6 +3128,7 @@
     <Content Include="bin\ICSharpCode.SharpZipLib.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll" />
+    <Content Include="bin\Microsoft.ApplicationBlocks.ExceptionManagement.pdb" />
     <Content Include="bin\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
     <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll" />
