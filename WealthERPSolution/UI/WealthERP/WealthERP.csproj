@@ -285,7 +285,6 @@
     <Content Include="General\SessionExpired.ascx" />
     <Content Include="General\UnderConstruction.ascx" />
     <Content Include="Images\3DSYRW_4009.jpg" />
-    <Content Include="Images\ABC Corporation Private Limited_FINAL LOGO_without_punch.jpg" />
     <Content Include="Images\ajax_loader.gif" />
     <Content Include="Images\arrow-down-double.jpg" />
     <Content Include="CSS\Images\comnav-arrowon.png" />
@@ -325,20 +324,13 @@
     <Content Include="General\UserLogout.ascx" />
     <Content Include="Global.asax" />
     <Content Include="Images\arrow_double_down_7.gif" />
-    <Content Include="Images\asdf_punch_line.jpg" />
     <Content Include="Images\baby.jpg" />
     <Content Include="Images\baby2.jpg" />
     <Content Include="Images\Ben Nov 6 003.jpg" />
-    <Content Include="Images\Blue.jpg" />
-    <Content Include="Images\Bret_logo_main.jpg" />
-    <Content Include="Images\Bret_Logo_without_punchline.jpg" />
     <Content Include="Images\check.jpg" />
     <Content Include="Images\Creek.jpg" />
     <Content Include="Images\cross.jpg" />
     <Content Include="Images\DoubleArrowUP+noshadow=yes+bg=#7e0517+font=Garamond_Bold+size=15+color=#FFFFCC.gif" />
-    <Content Include="Images\FINAL LOGO_Latest3.jpg" />
-    <Content Include="Images\FINAL LOGO_without_punch.jpg" />
-    <Content Include="Images\FINAL_LOGO_3.jpg" />
     <Content Include="Images\gdfgdf.jpg" />
     <Content Include="Images\gf.jpg" />
     <Content Include="Images\Header1.jpg" />
@@ -354,19 +346,12 @@
     <Content Include="Images\ImgNextMN.gif" />
     <Content Include="Images\ImgPrevMD.gif" />
     <Content Include="Images\ImgPrevMN.gif" />
-    <Content Include="Images\in_ch_bg2.jpg" />
-    <Content Include="Images\jijiji_FINAL LOGO_Latest3.jpg" />
-    <Content Include="Images\jik_FINAL LOGO_Latest3.jpg" />
     <Content Include="Images\logo.jpg" />
     <Content Include="Advisor\RMProfile.ascx" />
     <Content Include="Advisor\RMCustomer.ascx" />
     <Content Include="Images\logo2.jpg" />
     <Content Include="Images\logo3.jpg" />
     <Content Include="Images\logo6.jpg" />
-    <Content Include="Images\punch_line.jpg" />
-    <Content Include="Images\sdg_FINAL LOGO_Latest3.jpg" />
-    <Content Include="Images\skeleton.jpg" />
-    <Content Include="Images\tik_FINAL LOGO_Latest3.jpg" />
     <Content Include="Images\_MG_0267.jpg" />
     <Content Include="LookUps\lookup.xml" />
     <Content Include="LookUps\WERPLookups.xml" />
@@ -1741,13 +1726,6 @@
     <Compile Include="Customer\CustomerExpense.ascx.designer.cs">
       <DependentUpon>CustomerExpense.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Customer\CustomerFPDashBoard.ascx.cs">
-      <DependentUpon>CustomerFPDashBoard.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Customer\CustomerFPDashBoard.ascx.designer.cs">
-      <DependentUpon>CustomerFPDashBoard.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Customer\CustomerIncome.ascx.cs">
       <DependentUpon>CustomerIncome.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1937,12 +1915,47 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FP\AddProspectList.ascx.cs">
+      <DependentUpon>AddProspectList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\AddProspectList.ascx.designer.cs">
+      <DependentUpon>AddProspectList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="FP\ByPass.aspx.cs">
       <DependentUpon>ByPass.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FP\ByPass.aspx.designer.cs">
       <DependentUpon>ByPass.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\CustomerFPDashBoard.ascx.cs">
+      <DependentUpon>CustomerFPDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerFPDashBoard.ascx.designer.cs">
+      <DependentUpon>CustomerFPDashBoard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\CustomerProspect.ascx.cs">
+      <DependentUpon>CustomerProspect.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerProspect.ascx.designer.cs">
+      <DependentUpon>CustomerProspect.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\OfflineForm.aspx.cs">
+      <DependentUpon>OfflineForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\OfflineForm.aspx.designer.cs">
+      <DependentUpon>OfflineForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\ProspectList.ascx.cs">
+      <DependentUpon>ProspectList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\ProspectList.ascx.designer.cs">
+      <DependentUpon>ProspectList.ascx</DependentUpon>
     </Compile>
     <Compile Include="General\AdvisorHeader.ascx.cs">
       <DependentUpon>AdvisorHeader.ascx</DependentUpon>
@@ -1971,6 +1984,13 @@
     </Compile>
     <Compile Include="General\ChangeTempPassword.ascx.designer.cs">
       <DependentUpon>ChangeTempPassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="General\Dashboard.ascx.cs">
+      <DependentUpon>Dashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\Dashboard.ascx.designer.cs">
+      <DependentUpon>Dashboard.ascx</DependentUpon>
     </Compile>
     <Compile Include="General\error3.aspx.cs">
       <DependentUpon>error3.aspx</DependentUpon>
@@ -2070,6 +2090,13 @@
     <Compile Include="General\UserSettingsLeftPane.ascx.designer.cs">
       <DependentUpon>UserSettingsLeftPane.ascx</DependentUpon>
     </Compile>
+    <Compile Include="General\ViewPensionDetails.ascx.cs">
+      <DependentUpon>ViewPensionDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\ViewPensionDetails.ascx.designer.cs">
+      <DependentUpon>ViewPensionDetails.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2165,6 +2192,17 @@
       <DependentUpon>FinancialPlanningReport.ascx</DependentUpon>
     </Compile>
     <Compile Include="Reports\FPDataSet.Designer.cs" />
+    <Compile Include="Reports\FPOfflineForm.ascx.cs">
+      <DependentUpon>FPOfflineForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\FPOfflineForm.ascx.designer.cs">
+      <DependentUpon>FPOfflineForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\FPOfflineForm.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\FPOfflineFormDS.Designer.cs" />
     <Compile Include="Reports\FPReports.ascx.cs">
       <DependentUpon>FPReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2172,6 +2210,20 @@
     <Compile Include="Reports\FPReports.ascx.designer.cs">
       <DependentUpon>FPReports.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\FPSectional.ascx.cs">
+      <DependentUpon>FPSectional.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\FPSectional.ascx.designer.cs">
+      <DependentUpon>FPSectional.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\FPSectionalReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FPSectionalReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\FPSectionalReportDS.Designer.cs" />
     <Compile Include="Reports\Images.Designer.cs" />
     <Compile Include="Reports\IndivisualCustomerAssetAllocationDetails.cs">
       <AutoGen>True</AutoGen>
@@ -2244,6 +2296,13 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\MultiiAssetReportDS.Designer.cs" />
+    <Compile Include="Reports\OfflineForm.ascx.cs">
+      <DependentUpon>OfflineForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OfflineForm.ascx.designer.cs">
+      <DependentUpon>OfflineForm.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\PortfolioReports.ascx.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2257,6 +2316,48 @@
     </Compile>
     <Compile Include="SessionExpired.aspx.designer.cs">
       <DependentUpon>SessionExpired.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\IFF.ascx.cs">
+      <DependentUpon>IFF.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\IFF.ascx.designer.cs">
+      <DependentUpon>IFF.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\IFFAdd.ascx.cs">
+      <DependentUpon>IFFAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\IFFAdd.ascx.designer.cs">
+      <DependentUpon>IFFAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\Subscription.ascx.cs">
+      <DependentUpon>Subscription.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\Subscription.ascx.designer.cs">
+      <DependentUpon>Subscription.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\SuperAdminConfiguration.ascx.cs">
+      <DependentUpon>SuperAdminConfiguration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\SuperAdminConfiguration.ascx.designer.cs">
+      <DependentUpon>SuperAdminConfiguration.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\SuperAdminLeftPane.ascx.cs">
+      <DependentUpon>SuperAdminLeftPane.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\SuperAdminLeftPane.ascx.designer.cs">
+      <DependentUpon>SuperAdminLeftPane.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\SuperAdminMessageBroadcast.ascx.cs">
+      <DependentUpon>SuperAdminMessageBroadcast.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\SuperAdminMessageBroadcast.ascx.designer.cs">
+      <DependentUpon>SuperAdminMessageBroadcast.ascx</DependentUpon>
     </Compile>
     <Compile Include="Uploads\CAMSProfileFolioInputRejects.ascx.cs">
       <DependentUpon>CAMSProfileFolioInputRejects.ascx</DependentUpon>
@@ -2494,9 +2595,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CustomerAssetAllocationDetails.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CustomerAssetAllocationDetails.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CustomerInvestmentDetails.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CustomerInvestmentDetails1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\EligibleCapitalGainsDetails.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2525,6 +2628,22 @@
     <EmbeddedResource Include="Reports\FinancialPlanning.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FinancialPlanning1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\FPOfflineForm.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FPOfflineForm1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\FPSectionalReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FPSectionalReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\IndivisualCustomerAssetAllocationDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>IndivisualCustomerAssetAllocationDetails1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\IndivisualCustomerInvestmentDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>IndivisualCustomerInvestmentDetails1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFDividend.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2580,6 +2699,10 @@
       <Project>{92650A8F-D5DF-486E-9181-A00799F2C50C}</Project>
       <Name>BoFPSuperlite</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoHostConfig\BoHostConfig.csproj">
+      <Project>{474120D8-F814-40FB-96F8-376B9480D925}</Project>
+      <Name>BoHostConfig</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Bo\BoMarketDataPull\BoMarketDataPull.csproj">
       <Project>{11F67200-9287-465A-9A0C-2B7DE855D61D}</Project>
       <Name>BoMarketDataPull</Name>
@@ -2587,6 +2710,10 @@
     <ProjectReference Include="..\..\Bo\BoReports\BoReports.csproj">
       <Project>{3F53C1DE-8C38-409F-8BB3-82D8FA9E63EF}</Project>
       <Name>BoReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoSuperAdmin\BoSuperAdmin.csproj">
+      <Project>{C519DA67-11AB-4966-8BFC-C3013475FDF7}</Project>
+      <Name>BoSuperAdmin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Bo\BoWerpAdmin\BoWerpAdmin.csproj">
       <Project>{185F42DE-55D9-42DA-994E-F8E4DF385D0D}</Project>
@@ -2692,6 +2819,10 @@
       <Project>{A12294FA-59FB-40FC-858B-58AB8F9F6FFB}</Project>
       <Name>DaoFPSuperlite</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Dao\DaoHostConfig\DaoHostConfig.csproj">
+      <Project>{49CF07E4-838A-44CD-9D73-43EA6CD73839}</Project>
+      <Name>DaoHostConfig</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Dao\DaoMarketDataPull\DaoMarketDataPull.csproj">
       <Project>{46D98F10-031C-4B6C-90C6-3248F5ECCD20}</Project>
       <Name>DaoMarketDataPull</Name>
@@ -2699,6 +2830,10 @@
     <ProjectReference Include="..\..\Dao\DaoReports\DaoReports.csproj">
       <Project>{4C297977-2FAD-4445-9B81-8EF884AFFB4E}</Project>
       <Name>DaoReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\DaoSuperAdmin\DaoSuperAdmin.csproj">
+      <Project>{865642DC-3F87-4784-BCF1-8CCC89CB0BBC}</Project>
+      <Name>DaoSuperAdmin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Dao\DaoWerpAdmin\DaoWerpAdmin.csproj">
       <Project>{1D5C78A2-C1EA-477B-BAA2-7264A3BAB647}</Project>
@@ -2792,9 +2927,17 @@
       <Project>{1AEA591A-AD55-45F2-8C6C-C40FDA3D8B2F}</Project>
       <Name>VoFPSuperlite</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Vo\VoHostConfig\VoHostConfig.csproj">
+      <Project>{79536054-767B-4D41-9528-A85436EED67D}</Project>
+      <Name>VoHostConfig</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Vo\VoReports\VoReports.csproj">
       <Project>{07805AD5-0780-4FFF-9157-7714A5928E32}</Project>
       <Name>VoReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\VoSuperAdmin\VoSuperAdmin.csproj">
+      <Project>{1DBDE460-D9A9-462A-84DE-A5C73D3C7D05}</Project>
+      <Name>VoSuperAdmin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Vo\VoWerpAdmin\VoWerpAdmin.csproj">
       <Project>{E391CECB-4D6C-4FC4-8C88-1BF3C6367BE9}</Project>
@@ -2980,10 +3123,21 @@
     <Content Include="App_Themes\Purple\Images\warning.png" />
     <Content Include="App_Themes\Purple\StyleSheet.css" />
     <Content Include="bin\AjaxControlToolkit.dll" />
-    <Content Include="bin\AjaxControlToolkit.pdb" />
+    <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
+    <Content Include="bin\Financial.dll" />
+    <Content Include="bin\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="bin\itextsharp.dll" />
+    <Content Include="bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll" />
+    <Content Include="bin\Microsoft.Office.Interop.Excel.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.dll" />
+    <Content Include="bin\Microsoft.Practices.ObjectBuilder2.dll" />
+    <Content Include="bin\Microsoft.Practices.Unity.dll" />
+    <Content Include="bin\Microsoft.Vbe.Interop.dll" />
+    <Content Include="bin\office.dll" />
     <Content Include="bin\Telerik.Web.UI.dll" />
-    <Content Include="bin\DaoCaching.dll" />
-    <Content Include="bin\DaoCaching.pdb" />
     <Content Include="CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="CSS\Images\splitter_bar_right_pointer.jpg" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
@@ -3008,52 +3162,128 @@
     <Content Include="Customer\AddDematAccountDetails.ascx" />
     <Content Include="Customer\CustomerAdvisorsNote.ascx" />
     <Content Include="Customer\CustomerExpense.ascx" />
-    <Content Include="Customer\CustomerFPDashBoard.ascx" />
     <Content Include="Customer\CustomerIncome.ascx" />
     <Content Include="Customer\DematAccountDetails.ascx" />
     <Content Include="Customer\GroupAccountSetup.ascx" />
     <Content Include="Emails\Templates\AdviserRegistration.html" />
     <Content Include="Emails\Templates\AdviserRegistrationNotification.html" />
     <Content Include="Emails\Templates\AdviserRMAccounts.html" />
+    <Content Include="Emails\Templates\CustomerCredentials.html" />
+    <Content Include="Emails\Templates\ForgotPassword.html" />
+    <Content Include="Emails\Templates\MT_AdviserRegistration.html" />
+    <Content Include="Emails\Templates\MT_AdviserRegistrationNotification.html" />
+    <Content Include="Emails\Templates\MT_AdviserRMAccounts.html" />
+    <Content Include="Emails\Templates\MT_CustomerCredentials.html" />
+    <Content Include="Emails\Templates\MT_ForgotPassword.html" />
+    <Content Include="Emails\Templates\MT_ResetPassword.htm" />
+    <Content Include="Emails\Templates\MT_ResetPassword.html" />
+    <Content Include="Emails\Templates\ResetPassword.htm" />
+    <Content Include="Emails\Templates\ResetPassword.html" />
     <Content Include="favicon.ico" />
+    <Content Include="FP\AddProspectList.ascx" />
     <Content Include="FP\ByPass.aspx" />
+    <Content Include="FP\CustomerFPDashBoard.ascx" />
+    <Content Include="FP\CustomerProspect.ascx" />
     <Content Include="FP\FinancialPlanning.htm" />
+    <Content Include="FP\OfflineForm.aspx" />
+    <Content Include="FP\ProspectList.ascx" />
     <Content Include="General\Calculators.ascx" />
+    <Content Include="General\Dashboard.ascx" />
     <Content Include="General\SetTheme.ascx" />
     <Content Include="General\UserSettings.ascx" />
     <Content Include="General\UserSettingsLeftPane.ascx" />
+    <Content Include="General\ViewPensionDetails.ascx" />
     <Content Include="Help.htm" />
+    <Content Include="Images\1044_BRIFF1.jpg" />
+    <Content Include="Images\1044_Eastnd.jpg" />
+    <Content Include="Images\1044_Eastnd1.jpg" />
+    <Content Include="Images\1044_Karis.jpg" />
+    <Content Include="Images\1044_Mang.jpg" />
+    <Content Include="Images\1044_Mangala.jpg" />
+    <Content Include="Images\1044_prin.jpg" />
+    <Content Include="Images\1044_South.jpg" />
+    <Content Include="Images\1044_Southnd.jpg" />
     <Content Include="Images\arrow_double_up_7.gif" />
+    <Content Include="Images\blue-sample.gif" />
     <Content Include="Images\collapse.png" />
+    <Content Include="Images\Expense.png" />
     <Content Include="Images\Export_Excel.png" />
     <Content Include="Images\Export_Pdf.gif" />
     <Content Include="Images\Export_Word.jpg" />
+    <Content Include="Images\FPReportFooter.JPG" />
+    <Content Include="Images\FPReportHeader.JPG" />
+    <Content Include="Images\Goal.png" />
     <Content Include="Images\greenStatus.png" />
     <Content Include="Images\h2_trigger_a.gif" />
     <Content Include="Images\help.png" />
     <Content Include="Images\helpImage.png" />
     <Content Include="Images\helpInfo.png" />
     <Content Include="Images\help_button.png" />
+    <Content Include="Images\income.png" />
     <Content Include="Images\info.png" />
     <Content Include="Images\info_image.png" />
+    <Content Include="Images\Investment.png" />
+    <Content Include="Images\liabilities.png" />
     <Content Include="Images\loader.gif" />
     <Content Include="Images\Loading.gif" />
+    <Content Include="Images\loadingGIF.gif" />
+    <Content Include="Images\logoplaceholder.jpg" />
+    <Content Include="Images\MailSend-loader.gif" />
     <Content Include="Images\MenuSeparator.jpg" />
+    <Content Include="Images\Money_Touch_360_logo1.gif" />
+    <Content Include="Images\nologo.png" />
+    <Content Include="Images\PersonalDetails.png" />
     <Content Include="Images\Portfolios.jpg" />
     <Content Include="Images\Print.gif" />
+    <Content Include="Images\purple-sample.gif" />
     <Content Include="Images\QuestionImage\QM1006.jpg" />
+    <Content Include="Images\Questionnaire.png" />
+    <Content Include="Images\red-sample.gif" />
     <Content Include="Images\redStatus.png" />
+    <Content Include="Images\RiskProtection.png" />
+    <Content Include="Images\SCBFPImage.jpg" />
     <Content Include="Images\ScreenInfo.png" />
     <Content Include="Images\spacer.png" />
+    <Content Include="Images\Standard Chartered Bank_800px-Standard_Chartered_Bank_logo.jpg" />
+    <Content Include="Images\Standard Chartered Bank_AmpsysLogo.jpg" />
+    <Content Include="Images\Standard Chartered_d33013900a7ff179ab7cba2826f5_grande - Copy.jpg" />
+    <Content Include="Images\StandardCharted_sbc.jpg" />
     <Content Include="Images\submit.png" />
+    <Content Include="Images\Telerik\AddButton.gif" />
+    <Content Include="Images\Telerik\BackButton.gif" />
+    <Content Include="Images\Telerik\Cancel.gif" />
+    <Content Include="Images\Telerik\Delete.gif" />
+    <Content Include="Images\Telerik\Edit.gif" />
+    <Content Include="Images\Telerik\EditButton.gif" />
+    <Content Include="Images\Telerik\FinancialPlanningIcon.gif" />
+    <Content Include="Images\Telerik\FP\DashBoard.png" />
+    <Content Include="Images\Telerik\FP\Expense.gif" />
+    <Content Include="Images\Telerik\FP\GeneralInsurance.gif" />
+    <Content Include="Images\Telerik\FP\Income.gif" />
+    <Content Include="Images\Telerik\FP\Investment.gif" />
+    <Content Include="Images\Telerik\FP\Liabilities.gif" />
+    <Content Include="Images\Telerik\FP\LifeInsurance.gif" />
+    <Content Include="Images\Telerik\FP\Summary.gif" />
+    <Content Include="Images\Telerik\Synchronize.png" />
+    <Content Include="Images\Telerik\Update.gif" />
+    <Content Include="Images\Telerik\View.gif" />
     <Content Include="Images\toggle_block_btm.gif" />
     <Content Include="Images\toggle_block_stretch.gif" />
+    <Content Include="Images\TopCenter.gif" />
+    <Content Include="Images\TopLeft.gif" />
+    <Content Include="Images\TopRight.gif" />
     <Content Include="Images\Trans.png" />
     <Content Include="Images\undermain.jpg" />
     <Content Include="Images\Wait.gif" />
     <Content Include="Images\WealthERP_logo.png" />
     <Content Include="Images\werplogo.jpg" />
     <Content Include="LookUps\Questions.xml" />
+    <Content Include="MarketDataDownloadFiles\AMFIData.txt" />
+    <Content Include="MarketDataDownloadFiles\AMFIData.xml" />
+    <Content Include="MarketDataDownloadFiles\AMFIDataFiltered.txt" />
+    <Content Include="MarketDataDownloadFiles\BseEquitiesFiltered.txt" />
+    <Content Include="MarketDataDownloadFiles\NseEquities.txt" />
+    <Content Include="MarketDataDownloadFiles\NseEquitiesFiltered.txt" />
     <Content Include="Register.aspx" />
     <Content Include="RegistrationConfirmation.aspx" />
     <Content Include="Releases.html" />
@@ -3063,11 +3293,14 @@
     <Content Include="Reports\EmailReport.aspx" />
     <Content Include="Reports\EquityReports.ascx" />
     <Content Include="Reports\FinancialPlanningReport.ascx" />
+    <Content Include="Reports\FPOfflineForm.ascx" />
     <Content Include="Reports\FPReports.ascx" />
+    <Content Include="Reports\FPSectional.ascx" />
     <Content Include="Reports\images\controls.png" />
     <Content Include="Reports\images\loading.gif" />
     <Content Include="Reports\images\MailSend-loader.gif" />
     <Content Include="Reports\MFReports.ascx" />
+    <Content Include="Reports\OfflineForm.ascx" />
     <Content Include="Reports\PortfolioReports.ascx" />
     <Content Include="Scripts\Dashboard.js" />
     <Content Include="Scripts\jquery-1.3.1.min.js" />
@@ -3075,9 +3308,16 @@
     <Content Include="Scripts\jquery-ui-1.7.2.custom.min.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jQuery.bubbletip-1.0.6.js" />
+    <Content Include="Scripts\jquery.colorbox-min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="SessionExpired.aspx" />
+    <Content Include="SuperAdmin\IFF.ascx" />
+    <Content Include="SuperAdmin\IFFAdd.ascx" />
+    <Content Include="SuperAdmin\Subscription.ascx" />
+    <Content Include="SuperAdmin\SuperAdminConfiguration.ascx" />
+    <Content Include="SuperAdmin\SuperAdminLeftPane.ascx" />
+    <Content Include="SuperAdmin\SuperAdminMessageBroadcast.ascx" />
     <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />
     <Content Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.sln" />
     <Content Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.dtproj.user" />
@@ -3471,6 +3711,8 @@
     <Content Include="YUI\rel_interstitial_loading.gif" />
     <Content Include="YUI\slider\slider-min.js" />
     <Content Include="YUI\utilities\utilities.js" />
+    <None Include="MarketDataDownloadFiles\BseEquities.CSV" />
+    <None Include="MarketDataDownloadFiles\BseEquitiesFiltered.csv" />
     <None Include="Reports\CapitalGainDetailsDs.xsc">
       <DependentUpon>CapitalGainDetailsDs.xsd</DependentUpon>
     </None>
@@ -3602,6 +3844,28 @@
     </None>
     <None Include="Reports\FPDataSet.xss">
       <DependentUpon>FPDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\FPOfflineFormDS.xsc">
+      <DependentUpon>FPOfflineFormDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\FPOfflineFormDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FPOfflineFormDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\FPOfflineFormDS.xss">
+      <DependentUpon>FPOfflineFormDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\FPSectionalReportDS.xsc">
+      <DependentUpon>FPSectionalReportDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\FPSectionalReportDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FPSectionalReportDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\FPSectionalReportDS.xss">
+      <DependentUpon>FPSectionalReportDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\Images.xsc">
       <DependentUpon>Images.xsd</DependentUpon>
@@ -3935,7 +4199,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="MarketDataDownloadFiles\" />
     <Folder Include="Reports\App_LocalResources\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
