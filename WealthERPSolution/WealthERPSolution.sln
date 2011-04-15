@@ -34,6 +34,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoUser", "Bo\User\BoUser.csproj", "{D34F58BD-27F2-4C13-82E0-1A694CEAA430}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoAdvisorProfiling", "Dao\AdvisorProfiling\DaoAdvisorProfiling.csproj", "{B3A976E6-D981-4E80-8E59-92197CFB43B8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{79B272B3-D311-430C-8559-7EC324E0C9E7} = {79B272B3-D311-430C-8559-7EC324E0C9E7}
+		{D34F58BD-27F2-4C13-82E0-1A694CEAA430} = {D34F58BD-27F2-4C13-82E0-1A694CEAA430}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoCalculator", "Dao\Calculator\DaoCalculator.csproj", "{422A6051-72C2-42C1-BE26-C178B619C4F8}"
 EndProject
@@ -42,6 +46,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoCustomerGoalProfiling", "Dao\CustomerGoalProfiling\DaoCustomerGoalProfiling.csproj", "{3C69D200-2BB8-4A9F-9F4D-AD4C7332CD50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoCustomerPortfolio", "Dao\CustomerPortfolio\DaoCustomerPortfolio.csproj", "{5E81A7D9-9476-428B-97EC-7F7224FEE1A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2D02B850-6EB4-439D-9754-61E2AE98BB4B} = {2D02B850-6EB4-439D-9754-61E2AE98BB4B}
+		{422A6051-72C2-42C1-BE26-C178B619C4F8} = {422A6051-72C2-42C1-BE26-C178B619C4F8}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoCustomerProfiling", "Dao\CustomerProfiling\DaoCustomerProfiling.csproj", "{25A93A43-71AB-4A87-B5EB-9104C6E476DA}"
 EndProject
@@ -58,6 +66,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoUploads", "Dao\Uploads\DaoUploads.csproj", "{134DAB18-43B9-42C3-9907-376EB30BC2AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoUser", "Dao\User\DaoUser.csproj", "{79B272B3-D311-430C-8559-7EC324E0C9E7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5707F305-5EEF-4E89-BC28-5F771F3ABA33} = {5707F305-5EEF-4E89-BC28-5F771F3ABA33}
+		{F034F6F7-2938-4126-921E-9847633F0624} = {F034F6F7-2938-4126-921E-9847633F0624}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoAdvisorProfiling", "Vo\AdvisorProfiling\VoAdvisorProfiling.csproj", "{E48FFEBF-AC77-4063-A48C-C9381B5D4C6F}"
 EndProject
@@ -118,6 +130,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoReports", "Bo\BoReports\BoReports.csproj", "{3F53C1DE-8C38-409F-8BB3-82D8FA9E63EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoReports", "Dao\DaoReports\DaoReports.csproj", "{4C297977-2FAD-4445-9B81-8EF884AFFB4E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F166259A-BF9E-457B-97E4-7B0157427D86} = {F166259A-BF9E-457B-97E4-7B0157427D86}
+		{5E81A7D9-9476-428B-97EC-7F7224FEE1A0} = {5E81A7D9-9476-428B-97EC-7F7224FEE1A0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoReports", "Vo\VoReports\VoReports.csproj", "{07805AD5-0780-4FFF-9157-7714A5928E32}"
 EndProject

@@ -3123,6 +3123,8 @@
     <Content Include="App_Themes\Purple\Images\warning.png" />
     <Content Include="App_Themes\Purple\StyleSheet.css" />
     <Content Include="bin\AjaxControlToolkit.dll" />
+    <Content Include="bin\BoHostConfig.dll" />
+    <Content Include="bin\BoHostConfig.pdb" />
     <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
     <Content Include="bin\Financial.dll" />
     <Content Include="bin\ICSharpCode.SharpZipLib.dll" />
