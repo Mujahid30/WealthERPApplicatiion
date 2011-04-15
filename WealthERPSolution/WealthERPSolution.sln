@@ -10,6 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{87F12C18-A4A6-4CD8-AD61-2598571DF999}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoAdvisorProfiling", "Bo\AdvisorProfiling\BoAdvisorProfiling.csproj", "{57F14CB4-03CF-4E2D-B015-CBF45984F8A6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B3A976E6-D981-4E80-8E59-92197CFB43B8} = {B3A976E6-D981-4E80-8E59-92197CFB43B8}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoCalculator", "Bo\Calculator\BoCalculator.csproj", "{2D02B850-6EB4-439D-9754-61E2AE98BB4B}"
 EndProject
@@ -24,6 +27,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoCustomerReports", "Bo\CustomerReports\BoCustomerReports.csproj", "{6D697603-F637-41AA-A858-D8EA7A28DF0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoCustomerRiskProfiling", "Bo\CustomerRiskProfiling\BoCustomerRiskProfiling.csproj", "{91A1DC4B-5F18-467D-A8EB-17FECF9FCE81}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F15A983D-A783-4935-AABE-59173BCF134B} = {F15A983D-A783-4935-AABE-59173BCF134B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoMarketFeeds", "Bo\MarketFeeds\BoMarketFeeds.csproj", "{A985DB74-ED6C-400F-BC9A-63F9097F11D0}"
 EndProject
@@ -32,6 +38,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoSupportData", "Bo\SupportData\BoSupportData.csproj", "{8B45A3CF-FC46-4C8E-998E-6E752C3E2412}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoUser", "Bo\User\BoUser.csproj", "{D34F58BD-27F2-4C13-82E0-1A694CEAA430}"
+	ProjectSection(ProjectDependencies) = postProject
+		{79B272B3-D311-430C-8559-7EC324E0C9E7} = {79B272B3-D311-430C-8559-7EC324E0C9E7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoAdvisorProfiling", "Dao\AdvisorProfiling\DaoAdvisorProfiling.csproj", "{B3A976E6-D981-4E80-8E59-92197CFB43B8}"
 	ProjectSection(ProjectDependencies) = postProject
