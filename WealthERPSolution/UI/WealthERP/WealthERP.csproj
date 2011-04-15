@@ -2811,10 +2811,6 @@
       <Project>{38E6C00C-F53F-4329-8638-BF1F50DE9508}</Project>
       <Name>DaoCustomerRiskProfiling</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Dao\DaoCaching\DaoCaching.csproj">
-      <Project>{EB49C276-7400-485C-987A-8610D69E9E25}</Project>
-      <Name>DaoCaching</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Dao\DaoFPSuperlite\DaoFPSuperlite.csproj">
       <Project>{A12294FA-59FB-40FC-858B-58AB8F9F6FFB}</Project>
       <Name>DaoFPSuperlite</Name>
