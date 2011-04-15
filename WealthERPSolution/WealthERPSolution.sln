@@ -23,6 +23,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoCustomerPortfolio", "Bo\CustomerPortfolio\BoCustomerPortfolio.csproj", "{F166259A-BF9E-457B-97E4-7B0157427D86}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoCustomerProfiling", "Bo\CustomerProfiling\BoCustomerProfiling.csproj", "{F15A983D-A783-4935-AABE-59173BCF134B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{25A93A43-71AB-4A87-B5EB-9104C6E476DA} = {25A93A43-71AB-4A87-B5EB-9104C6E476DA}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoCustomerReports", "Bo\CustomerReports\BoCustomerReports.csproj", "{6D697603-F637-41AA-A858-D8EA7A28DF0D}"
 EndProject
@@ -131,6 +134,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoUploads", "Bo\Uploads\BoUploads.csproj", "{7FB3964A-1B3C-45BF-88CB-2693C2C3CF67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoMarketDataPull", "Bo\BoMarketDataPull\BoMarketDataPull.csproj", "{11F67200-9287-465A-9A0C-2B7DE855D61D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{185F42DE-55D9-42DA-994E-F8E4DF385D0D} = {185F42DE-55D9-42DA-994E-F8E4DF385D0D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoMarketDataPull", "Dao\DaoMarketDataPull\DaoMarketDataPull.csproj", "{46D98F10-031C-4B6C-90C6-3248F5ECCD20}"
 EndProject
