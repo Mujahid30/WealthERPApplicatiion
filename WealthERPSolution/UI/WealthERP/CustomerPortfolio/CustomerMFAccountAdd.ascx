@@ -31,32 +31,33 @@
 
 <script type="text/javascript">
     function checkLoginId2() {
-        $("#hidValidCheck").val("0");      
+        $("#<%= hidValidCheck.ClientID %>").val("0");      
         if ($("#<%=txtFolioNumber.ClientID %>").val() == "") {            
             $("#spnLoginStatus").html("");
             return;
         }
         
         $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
-         $.ajax({
+        $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             url: "ControlHost.aspx/CheckTradeNoMFAvailability",
             data: "{ 'TradeAccNo': '" + $("#<%=txtFolioNumber.ClientID %>").val() + "','BrokerCode': '" + $("#<%=ddlProductAmc.ClientID %>").val() + "','PortfolioId': '" + $("#<%=ddlPortfolio.ClientID %>").val() + "' }",
             error: function(xhr, status, error) {
-            
+
                 alert("Please select AMC!");
             },
             success: function(msg) {
 
                 if (msg.d) {
-                    $("#hidValidCheck").val("1");
-                    $("#spnLoginStatus").html("");   
+                    
+                    $("#<%= hidValidCheck.ClientID %>").val("1");
+                    $("#spnLoginStatus").html("");
                 }
                 else {
 
-                    $("#hidValidCheck").val("0");
+                    $("#<%= hidValidCheck.ClientID %>").val("0");
                     $("#spnLoginStatus").removeClass();
                     alert("Folio Number Already Exists");
                     return false;
@@ -65,8 +66,8 @@
 
         });
     }
-    function isValid() {        
-        if ($("#hidValidCheck").val() == '1') {
+    function isValid() {
+        if ($("#<%= hidValidCheck.ClientID %>").val() == '1') {
             Page_ClientValidate();
             return Page_IsValid;
         }
@@ -356,4 +357,4 @@
                         Text="Update" OnClick="btnUpdate_Click"  />
                 </td>
 
-<input type="hidden" id="hidValidCheck" />
+<asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true"/>
