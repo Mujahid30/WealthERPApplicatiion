@@ -817,7 +817,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerProspect", "loadcontrol('CustomerProspect','login')", true);
                 }
-                else if (e.Item.Value == "Assumptions & Preferences")
+                else if (e.Item.Value == "Preferences")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerAssumptionsPreferencesSetup", "loadcontrol('CustomerAssumptionsPreferencesSetup','login')", true);
                 }
