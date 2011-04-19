@@ -94,18 +94,42 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial Planning">
+                           <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial Planning">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Finance Profile" Value="Finance Profile">
                                     </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Assumptions & Preferences" Value="Assumptions & Preferences">
+                                    </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Advisor Notes" Value="Advisor Notes">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Risk profile and asset allocation" Value="Risk profile and asset allocation">
+                                    <telerik:RadPanelItem runat="server" Text="Risk Profile and Asset Allocation" Value="Risk profile and asset allocation">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Goal Profiling" Value="Goal Profiling">
+                                     <telerik:RadPanelItem runat="server" Text="Projections" Value="Projections">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Goal Planning" Value="Goal Planning">
+                                     <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Goal Setup" Value="Goal Setup">
+                                            </telerik:RadPanelItem>
+                                     </Items>
+                                     <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Goal Funding" Value="Goal Funding">
+                                            </telerik:RadPanelItem>
+                                     </Items>
+                                    </telerik:RadPanelItem>
+                                    
+                                     <telerik:RadPanelItem runat="server" Text="Analytics" Value="Analytics">
+                                     <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Standard" Value="Standard">
+                                            </telerik:RadPanelItem>
+                                     </Items>
+                                     <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Dynamic" Value="Dynamic">
+                                            </telerik:RadPanelItem>
+                                     </Items>
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
+
                             <telerik:RadPanelItem runat="server" Text="Portfolio Dashboard" Value="Portfolio Dashboard">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
