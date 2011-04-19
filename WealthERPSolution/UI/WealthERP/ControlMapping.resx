@@ -1137,4 +1137,28 @@
     <value>Customer//CustomerAssumptionsPreferencesSetup.ascx</value>
     <comment>Customer//CustomerAssumptionsPreferencesSetup.ascx</comment>
   </data>
+  <data name="CustomerFPAnalyticsDynamic" xml:space="preserve">
+    <value>FP//CustomerFPAnalyticsDynamic.ascx</value>
+    <comment>FP//CustomerFPAnalyticsDynamic.ascx</comment>
+  </data>
+  <data name="CustomerFPAnalyticsStandard" xml:space="preserve">
+    <value>FP//CustomerFPAnalyticsStandard.ascx</value>
+    <comment>FP//CustomerFPAnalyticsStandard.ascx</comment>
+  </data>
+  <data name="CustomerFPGoalFunding" xml:space="preserve">
+    <value>FP//CustomerFPGoalFunding.ascx</value>
+    <comment>FP//CustomerFPGoalFunding.ascx</comment>
+  </data>
+  <data name="CustomerFPGoalPlanningDetails" xml:space="preserve">
+    <value>FP//CustomerFPGoalPlanningDetails.ascx</value>
+    <comment>FP//CustomerFPGoalPlanningDetails.ascx</comment>
+  </data>
+  <data name="CustomerFPGoalSetup" xml:space="preserve">
+    <value>FP//CustomerFPGoalSetup.ascx</value>
+    <comment>FP//CustomerFPGoalSetup.ascx</comment>
+  </data>
+  <data name="CustomerFPProjections" xml:space="preserve">
+    <value>FP//CustomerFPProjections.ascx</value>
+    <comment>FP//CustomerFPProjections.ascx</comment>
+  </data>
 </root>

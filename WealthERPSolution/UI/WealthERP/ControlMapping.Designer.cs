@@ -682,11 +682,65 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FP//CustomerFPAnalyticsDynamic.ascx.
+        /// </summary>
+        internal static string CustomerFPAnalyticsDynamic {
+            get {
+                return ResourceManager.GetString("CustomerFPAnalyticsDynamic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FP//CustomerFPAnalyticsStandard.ascx.
+        /// </summary>
+        internal static string CustomerFPAnalyticsStandard {
+            get {
+                return ResourceManager.GetString("CustomerFPAnalyticsStandard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FP//CustomerFPDashBoard.ascx.
         /// </summary>
         internal static string CustomerFPDashBoard {
             get {
                 return ResourceManager.GetString("CustomerFPDashBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FP//CustomerFPGoalFunding.ascx.
+        /// </summary>
+        internal static string CustomerFPGoalFunding {
+            get {
+                return ResourceManager.GetString("CustomerFPGoalFunding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FP//CustomerFPGoalPlanningDetails.ascx.
+        /// </summary>
+        internal static string CustomerFPGoalPlanningDetails {
+            get {
+                return ResourceManager.GetString("CustomerFPGoalPlanningDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FP//CustomerFPGoalSetup.ascx.
+        /// </summary>
+        internal static string CustomerFPGoalSetup {
+            get {
+                return ResourceManager.GetString("CustomerFPGoalSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FP//CustomerFPProjections.ascx.
+        /// </summary>
+        internal static string CustomerFPProjections {
+            get {
+                return ResourceManager.GetString("CustomerFPProjections", resourceCulture);
             }
         }
         

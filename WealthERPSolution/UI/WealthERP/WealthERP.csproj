@@ -1936,12 +1936,54 @@
     <Compile Include="FP\ByPass.aspx.designer.cs">
       <DependentUpon>ByPass.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FP\CustomerFPAnalyticsDynamic.ascx.cs">
+      <DependentUpon>CustomerFPAnalyticsDynamic.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerFPAnalyticsDynamic.ascx.designer.cs">
+      <DependentUpon>CustomerFPAnalyticsDynamic.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\CustomerFPAnalyticsStandard.ascx.cs">
+      <DependentUpon>CustomerFPAnalyticsStandard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerFPAnalyticsStandard.ascx.designer.cs">
+      <DependentUpon>CustomerFPAnalyticsStandard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="FP\CustomerFPDashBoard.ascx.cs">
       <DependentUpon>CustomerFPDashBoard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FP\CustomerFPDashBoard.ascx.designer.cs">
       <DependentUpon>CustomerFPDashBoard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\CustomerFPGoalFunding.ascx.cs">
+      <DependentUpon>CustomerFPGoalFunding.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerFPGoalFunding.ascx.designer.cs">
+      <DependentUpon>CustomerFPGoalFunding.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\CustomerFPGoalPlanningDetails.ascx.cs">
+      <DependentUpon>CustomerFPGoalPlanningDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerFPGoalPlanningDetails.ascx.designer.cs">
+      <DependentUpon>CustomerFPGoalPlanningDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\CustomerFPGoalSetup.ascx.cs">
+      <DependentUpon>CustomerFPGoalSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerFPGoalSetup.ascx.designer.cs">
+      <DependentUpon>CustomerFPGoalSetup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\CustomerFPProjections.ascx.cs">
+      <DependentUpon>CustomerFPProjections.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerFPProjections.ascx.designer.cs">
+      <DependentUpon>CustomerFPProjections.ascx</DependentUpon>
     </Compile>
     <Compile Include="FP\CustomerProspect.ascx.cs">
       <DependentUpon>CustomerProspect.ascx</DependentUpon>
@@ -3187,7 +3229,13 @@
     <Content Include="favicon.ico" />
     <Content Include="FP\AddProspectList.ascx" />
     <Content Include="FP\ByPass.aspx" />
+    <Content Include="FP\CustomerFPAnalyticsDynamic.ascx" />
+    <Content Include="FP\CustomerFPAnalyticsStandard.ascx" />
     <Content Include="FP\CustomerFPDashBoard.ascx" />
+    <Content Include="FP\CustomerFPGoalFunding.ascx" />
+    <Content Include="FP\CustomerFPGoalPlanningDetails.ascx" />
+    <Content Include="FP\CustomerFPGoalSetup.ascx" />
+    <Content Include="FP\CustomerFPProjections.ascx" />
     <Content Include="FP\CustomerProspect.ascx" />
     <Content Include="FP\FinancialPlanning.htm" />
     <Content Include="FP\OfflineForm.aspx" />
