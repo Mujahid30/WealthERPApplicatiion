@@ -600,6 +600,13 @@
     <Compile Include="Advisor\AdviserRMCustNonIndiDashboard.ascx.designer.cs">
       <DependentUpon>AdviserRMCustNonIndiDashboard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\AdviserRMMFSystematicMIS.ascx.cs">
+      <DependentUpon>AdviserRMMFSystematicMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserRMMFSystematicMIS.ascx.designer.cs">
+      <DependentUpon>AdviserRMMFSystematicMIS.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\AdviserStaffSMTP.ascx.cs">
       <DependentUpon>AdviserStaffSMTP.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3003,6 +3010,7 @@
     <Content Include="Advisor\AdviserLoanCommsnStrucWithLoanPartner.ascx" />
     <Content Include="Advisor\AdviserLoanMIS.ascx" />
     <Content Include="Advisor\AdviserMFMIS.ascx" />
+    <Content Include="Advisor\AdviserRMMFSystematicMIS.ascx" />
     <Content Include="Advisor\AdviserStaffSMTP.ascx" />
     <Content Include="Advisor\AdvisorMISCommission.ascx" />
     <Content Include="Advisor\AdvisorRMCustGroupDashboard.ascx" />

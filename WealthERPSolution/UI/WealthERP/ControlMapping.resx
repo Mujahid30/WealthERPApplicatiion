@@ -1161,4 +1161,8 @@
     <value>FP//CustomerFPProjections.ascx</value>
     <comment>FP//CustomerFPProjections.ascx</comment>
   </data>
+  <data name="AdviserRMMFSystematicMIS" xml:space="preserve">
+    <value>Advisor//AdviserRMMFSystematicMIS.ascx</value>
+    <comment>Advisor//AdviserRMMFSystematicMIS.ascx</comment>
+  </data>
 </root>

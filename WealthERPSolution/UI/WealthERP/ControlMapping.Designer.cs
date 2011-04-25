@@ -277,6 +277,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//AdviserRMMFSystematicMIS.ascx.
+        /// </summary>
+        internal static string AdviserRMMFSystematicMIS {
+            get {
+                return ResourceManager.GetString("AdviserRMMFSystematicMIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//AdviserStaffSMTP.ascx.
         /// </summary>
         internal static string AdviserStaffSMTP {
