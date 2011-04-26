@@ -434,6 +434,7 @@ namespace WealthERP.Advisor
                             string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
                             email.GetAdviserRMAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
                             email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
+                            email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                             email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
                             email.To.Add(userVo.Email);
 
@@ -458,7 +459,7 @@ namespace WealthERP.Advisor
                                     }
                                     else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
                                     {
-                                        email.From = new MailAddress(emailer.smtpUserName, "MoneyTouch");
+                                        email.From = new MailAddress(emailer.smtpUserName, advisorVo.OrganizationName);
                                     }
 
                                 }
