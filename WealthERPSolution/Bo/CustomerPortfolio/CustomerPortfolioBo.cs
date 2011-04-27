@@ -1614,14 +1614,14 @@ namespace BoCustomerPortfolio
                         mfPortfolioVoList[i].CostOfPurchase = Math.Round(costOfAcquisition, 5);
                         mfPortfolioVoList[i].AcqCostExclDivReinvst = Math.Round(acqCostExclDivReinvst, 5);
                         mfPortfolioVoList[i].CurrentNAV = GetMFSchemePlanNAV(mfPortfolioVoList[i].MFCode, tradeDate);
-                        mfPortfolioVoList[i].RealizedPNL = Math.Round(actualProfitLoss, 5);
+                        mfPortfolioVoList[i].RealizedPNL = Math.Round(realizedSalesProceed - costOfSales, 5);
 
                         mfPortfolioVoList[i].CurrentValue = Math.Round(currentValue, 5);
                         if (notionalProfitLoss != 0)
-                            mfPortfolioVoList[i].UnRealizedPNL = Math.Round(notionalProfitLoss, 5);
+                            mfPortfolioVoList[i].UnRealizedPNL = Math.Round(currentValue - acqCostExclDivReinvst, 5);
                         else
                             mfPortfolioVoList[i].UnRealizedPNL = 0;
-                        mfPortfolioVoList[i].TotalPNL = Math.Round(totalProfitLoss, 5);
+                        mfPortfolioVoList[i].TotalPNL = Math.Round(realizedSalesProceed - costOfSales + currentValue - acqCostExclDivReinvst + dividendIncome, 5);
                         mfPortfolioVoList[i].RealizedSalesProceed = Math.Round(realizedSalesProceed, 5);
                         mfPortfolioVoList[i].SalesQuantity = Math.Round(salesQuantity, 5);
                         mfPortfolioVoList[i].CostOfSales = Math.Round(costOfSales, 5);
@@ -2506,6 +2506,7 @@ namespace BoCustomerPortfolio
                 }
                 else
                 {
+                    mfPortfolioTransactionVoList[i].NewCostOfAcquisition = mfPortfolioTransactionVoList[i].BuyPrice * mfPortfolioTransactionVoList[i].BuyQuantity;
                     if (mfPortfolioTransactionVoList[i].BuyQuantity != 0)
                     {
                         mfPortfolioTransactionVoList[i].CostOfAcquisition = mfPortfolioTransactionVoList[i].BuyPrice * mfPortfolioTransactionVoList[i].BuyQuantity;
@@ -2519,7 +2520,7 @@ namespace BoCustomerPortfolio
                         else
                             mfPortfolioTransactionVoList[i].RealizedProfitLoss = 0;
                         if (mfPortfolioTransactionVoList[i].CurrentValue != 0)
-                            mfPortfolioTransactionVoList[i].NotionalProfitLoss = mfPortfolioTransactionVoList[i].CurrentValue - mfPortfolioTransactionVoList[i].CostOfAcquisition;
+                            mfPortfolioTransactionVoList[i].NotionalProfitLoss = mfPortfolioTransactionVoList[i].CurrentValue - mfPortfolioTransactionVoList[i].NewCostOfAcquisition;
                         if (mfPortfolioTransactionVoList[i].AgeOfInvestment < 365)
                         {
                             if (mfPortfolioTransactionVoList[i].NotionalProfitLoss != 0)
