@@ -802,7 +802,7 @@ namespace WealthERP.CustomerPortfolio
                             }
                             if ( mfPortfolioVo.CostOfSales != 0)
                             {
-                                absreturn = (double.Parse(((mfPortfolioVo.RealizedPNL / mfPortfolioVo.CostOfSales)*100).ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                                absreturn = (double.Parse((((mfPortfolioVo.RealizedPNL + mfPortfolioVo.DividendIncome) / mfPortfolioVo.CostOfSales)*100).ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                                 drMFPortfolioRealized[8] = absreturn;
                             }
                             else
@@ -1477,7 +1477,7 @@ namespace WealthERP.CustomerPortfolio
                 e.Row.Cells[17].Attributes.Add("align", "Right");
                 e.Row.Cells[18].Text = double.Parse(realized_all.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[18].Attributes.Add("align", "Right");
-                e.Row.Cells[19].Text = double.Parse((realized_all + unrealised_all).ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Row.Cells[19].Text = double.Parse((realized_all + unrealised_all + divIncomeTotal).ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[19].Attributes.Add("align", "Right");
             }
                 DataSet dsGetProductAssteInstrumentCategory = customerPortfolioBo.GetProductAssetInstrumentCategory();
