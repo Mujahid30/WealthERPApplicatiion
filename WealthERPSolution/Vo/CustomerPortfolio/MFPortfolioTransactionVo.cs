@@ -23,6 +23,7 @@ namespace VoCustomerPortfolio
         private double m_CurrentNAV;      
         private double m_CurrentValue;        
         private double m_CostOfAcquisition;
+        private double m_NewCostOfAcquisition;
         private double m_RealizedSalesValue;
         private double m_CostOfSales;
         private double m_NetCost;
@@ -98,6 +99,11 @@ namespace VoCustomerPortfolio
         {
             get { return m_CostOfAcquisition; }
             set { m_CostOfAcquisition = value; }
+        }
+        public double NewCostOfAcquisition
+        {
+            get { return m_NewCostOfAcquisition; }
+            set { m_NewCostOfAcquisition = value; }
         }
 
         public double RealizedSalesValue
