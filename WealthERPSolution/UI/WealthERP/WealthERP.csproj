@@ -4191,6 +4191,7 @@
     <None Include="UploadPackages\OdinNSEUploadPackage\UploadOdinNSETransactionStagingToOdinNSEXtrnlTransaction.dtsx" />
     <None Include="UploadPackages\OdinNSEUploadPackage\UploadOdinNSETransactionStagingToWerpEquityTransactionTable.dtsx" />
     <None Include="UploadPackages\OdinNSEUploadPackage\UploadOdinNSEXtrnlTransactionInputToOdinNSEXtrnlTransactionStaging.dtsx" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\StandardFolioUploadPackageXMLtoInput.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadsCommonFolioChecksInFolioStaging.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadStdFolioFromFolioStagingToWerpTable.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageXMLtoInput.dtsx" />
