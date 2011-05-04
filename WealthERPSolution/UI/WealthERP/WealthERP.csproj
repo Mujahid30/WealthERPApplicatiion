@@ -4193,6 +4193,7 @@
     <None Include="UploadPackages\OdinNSEUploadPackage\UploadOdinNSEXtrnlTransactionInputToOdinNSEXtrnlTransactionStaging.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadsCommonFolioChecksInFolioStaging.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadStdFolioFromFolioStagingToWerpTable.dtsx" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageXMLtoInput.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.database" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.dtproj" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadsCommonFolioChecksInFolioStaging.dtsx" />
