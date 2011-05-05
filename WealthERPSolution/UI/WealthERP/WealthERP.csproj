@@ -4197,6 +4197,7 @@
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.dtproj" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadsCommonFolioChecksInFolioStaging.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadStdFolioFromFolioStagingToWerpTable.dtsx" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadStdFolioXMLtoInput.dtsx" />
     <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadsCommonProfileChecksInProfileStaging.dtsx" />
     <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadsDataTranslationChecksInStdProfileMainStaging.dtsx" />
     <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadStdProfileDataFromFileToInput.dtsx" />
