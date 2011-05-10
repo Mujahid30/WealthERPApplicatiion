@@ -16,14 +16,14 @@ namespace WealthERP.FP
         CustomerVo customerVo = new CustomerVo();
         int customerAge = 0;
         CustomerFPAnalyticsBo customerFPAnalyticsBo = new CustomerFPAnalyticsBo();
-        DataTable dtFutureSurplusEngine;
+        DataSet dsFPAnalyticsEngine;
         protected void Page_Load(object sender, EventArgs e)
         {
             customerVo = (CustomerVo)Session["customerVo"];
 
             if (!Page.IsPostBack)
             {
-                dtFutureSurplusEngine = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
+                dsFPAnalyticsEngine = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
                 BindYearDropDowns();
                 BindCustomerProjectedAssumption();
                 
