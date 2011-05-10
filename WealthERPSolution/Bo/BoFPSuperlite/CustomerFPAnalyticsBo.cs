@@ -46,21 +46,21 @@ namespace BoFPSuperlite
         }
 
 
-        public DataTable FutureSurplusEngine(int CustomerID)
+        public DataSet FutureSurplusEngine(int CustomerID)
         {
             CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
             DataSet customerDataForFutureSurplusEngineDs;
             decimal totalIncome;
             decimal  totalExpense;
             int age;
-            DataTable dtFutureSurplusEngine = new DataTable();
+            DataSet dsFPAnalyticsEngine = new DataSet();
             try
             {
                 customerDataForFutureSurplusEngineDs = customerFPAnalyticsDao.GetCustomerDataForFutureSurplusEngine(CustomerID, out totalIncome, out totalExpense, out age);
 
                 if (age != 0 && customerDataForFutureSurplusEngineDs.Tables[0].Rows.Count > 0 && customerDataForFutureSurplusEngineDs.Tables[1].Rows.Count > 0)
                 {
-                    dtFutureSurplusEngine = CreateFutureSurplusEngine(customerDataForFutureSurplusEngineDs, totalIncome, totalExpense, age);
+                    dsFPAnalyticsEngine = CreateFutureSurplusEngine(customerDataForFutureSurplusEngineDs, totalIncome, totalExpense, age);
                 }
 
             }
@@ -84,7 +84,7 @@ namespace BoFPSuperlite
                 throw exBase;
 
             }
-            return dtFutureSurplusEngine;
+            return dsFPAnalyticsEngine;
         }
 
         public DataSet CreateFutureSurplusEngine(DataSet dsCustomerData,decimal totalIncome, decimal totalExpense,int age)
