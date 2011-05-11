@@ -191,7 +191,9 @@
 .RadGrid_Telerik .rgFooterDiv,
 .RadGrid_Telerik .rgFooter
 {
-	background:#e0e5f5;
+	background-image:url('Grid/rgCommandRow.gif');
+	color : White;
+	font-weight: bold;
 }
 
 .RadGrid_Telerik .rgFooter td
