@@ -1226,6 +1226,37 @@ namespace DaoFPSuperlite
             }
             return dsGetAllProspectCustomersForRM;
         }
+
+
+        /// <summary>
+        /// To get the FP analytic Standard data .. 
+        /// </summary>
+        /// Created by   ** Bhoopendra Sahoo **
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        
+        public DataSet GetCustomerFPAnalyticsStandard(int customerId)
+        {
+            Database db;
+            DbCommand getCustomerFPAnalyticsStandardCmd;
+            DataSet dsGetCustomerFPAnalyticsStandard = null;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerFPAnalyticsStandardCmd = db.GetStoredProcCommand("SP_FPAnalyticsStandard");
+                db.AddInParameter(getCustomerFPAnalyticsStandardCmd, "@CustomerId", DbType.Int32,customerId);
+                dsGetCustomerFPAnalyticsStandard = db.ExecuteDataSet(getCustomerFPAnalyticsStandardCmd);
+            }
+
+             catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetCustomerFPAnalyticsStandard;
+        }
+
+        // ***** End ****
         
     }
 }

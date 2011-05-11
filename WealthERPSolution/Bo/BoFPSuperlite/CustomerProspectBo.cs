@@ -941,6 +941,28 @@ namespace BoFPSuperlite
 
         }
 
+        /// <summary>
+        /// To get the FP analytic Standard data .. 
+        /// </summary>
+        /// Created by   ** Bhoopendra Sahoo **
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        
+        public DataSet GetCustomerFPAnalyticsStandard(int customerId)
+        {
+            DataSet dsGetCustomerFPAnalyticsStandard;
+            CustomerProspectDao customerprospectdao = new CustomerProspectDao();
+            try
+            {
+                dsGetCustomerFPAnalyticsStandard = customerprospectdao.GetCustomerFPAnalyticsStandard(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetCustomerFPAnalyticsStandard;
+        }
+        // *** End ***
 
     }
 }
