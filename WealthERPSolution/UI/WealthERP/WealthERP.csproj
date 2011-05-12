@@ -50,6 +50,7 @@
     </Reference>
     <Reference Include="DanLudwig.Controls.AspAjax.ListBox, Version=0.3.3856.27484, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Financial, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="FusionCharts, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
@@ -1119,6 +1120,7 @@
     <Compile Include="Advisor\ChangeLoginId.ascx.designer.cs">
       <DependentUpon>ChangeLoginId.ascx</DependentUpon>
     </Compile>
+    <Compile Include="bin\FusionCharts.cs" />
     <Compile Include="BreadcrumbLinks.Designer.cs" />
     <Compile Include="BreadCrumbScripts.Designer.cs" />
     <Compile Include="ControlHost.aspx.cs">
@@ -3178,6 +3180,7 @@
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
     <Content Include="bin\Financial.dll" />
+    <Content Include="bin\FusionCharts.dll" />
     <Content Include="bin\ICSharpCode.SharpZipLib.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll" />
@@ -3248,6 +3251,89 @@
     <Content Include="FP\FinancialPlanning.htm" />
     <Content Include="FP\OfflineForm.aspx" />
     <Content Include="FP\ProspectList.ascx" />
+    <Content Include="FusionCharts\AngularGauge.swf" />
+    <Content Include="FusionCharts\Area2D.swf" />
+    <Content Include="FusionCharts\Bar2D.swf" />
+    <Content Include="FusionCharts\Bubble.swf" />
+    <Content Include="FusionCharts\Bulb.swf" />
+    <Content Include="FusionCharts\CandleStick.swf" />
+    <Content Include="FusionCharts\Column2D.swf" />
+    <Content Include="FusionCharts\Column3D.swf" />
+    <Content Include="FusionCharts\Cylinder.swf" />
+    <Content Include="FusionCharts\data.xml" />
+    <Content Include="FusionCharts\Doughnut2D.swf" />
+    <Content Include="FusionCharts\Doughnut3D.swf" />
+    <Content Include="FusionCharts\DragArea.swf" />
+    <Content Include="FusionCharts\DragColumn2D.swf" />
+    <Content Include="FusionCharts\DragLine.swf" />
+    <Content Include="FusionCharts\DragNode.swf" />
+    <Content Include="FusionCharts\DrawingPad.swf" />
+    <Content Include="FusionCharts\ErrorBar2D.swf" />
+    <Content Include="FusionCharts\Funnel.swf" />
+    <Content Include="FusionCharts\FusionCharts.js" />
+    <Content Include="FusionCharts\Gantt.swf" />
+    <Content Include="FusionCharts\HBullet.swf" />
+    <Content Include="FusionCharts\HLED.swf" />
+    <Content Include="FusionCharts\HLinearGauge.swf" />
+    <Content Include="FusionCharts\InverseMSArea.swf" />
+    <Content Include="FusionCharts\InverseMSColumn2D.swf" />
+    <Content Include="FusionCharts\InverseMSLine.swf" />
+    <Content Include="FusionCharts\Kagi.swf" />
+    <Content Include="FusionCharts\Line.swf" />
+    <Content Include="FusionCharts\LogMSColumn2D.swf" />
+    <Content Include="FusionCharts\LogMSLine.swf" />
+    <Content Include="FusionCharts\MSArea.swf" />
+    <Content Include="FusionCharts\MSBar2D.swf" />
+    <Content Include="FusionCharts\MSBar3D.swf" />
+    <Content Include="FusionCharts\MSColumn2D.swf" />
+    <Content Include="FusionCharts\MSColumn3D.swf" />
+    <Content Include="FusionCharts\MSColumn3DLineDY.swf" />
+    <Content Include="FusionCharts\MSColumnLine3D.swf" />
+    <Content Include="FusionCharts\MSCombi2D.swf" />
+    <Content Include="FusionCharts\MSCombi3D.swf" />
+    <Content Include="FusionCharts\MSCombiDY2D.swf" />
+    <Content Include="FusionCharts\MSLine.swf" />
+    <Content Include="FusionCharts\MSSpline.swf" />
+    <Content Include="FusionCharts\MSSplineArea.swf" />
+    <Content Include="FusionCharts\MSStackedColumn2D.swf" />
+    <Content Include="FusionCharts\MSStackedColumn2DLineDY.swf" />
+    <Content Include="FusionCharts\MultiAxisLine.swf" />
+    <Content Include="FusionCharts\MultiLevelPie.swf" />
+    <Content Include="FusionCharts\Pie2D.swf" />
+    <Content Include="FusionCharts\Pie3D.swf" />
+    <Content Include="FusionCharts\Pyramid.swf" />
+    <Content Include="FusionCharts\Radar.swf" />
+    <Content Include="FusionCharts\RealTimeArea.swf" />
+    <Content Include="FusionCharts\RealTimeColumn.swf" />
+    <Content Include="FusionCharts\RealTimeLine.swf" />
+    <Content Include="FusionCharts\RealTimeLineDY.swf" />
+    <Content Include="FusionCharts\RealTimeStackedArea.swf" />
+    <Content Include="FusionCharts\RealTimeStackedColumn.swf" />
+    <Content Include="FusionCharts\Scatter.swf" />
+    <Content Include="FusionCharts\ScrollArea2D.swf" />
+    <Content Include="FusionCharts\ScrollColumn2D.swf" />
+    <Content Include="FusionCharts\ScrollCombi2D.swf" />
+    <Content Include="FusionCharts\ScrollCombiDY2D.swf" />
+    <Content Include="FusionCharts\ScrollLine2D.swf" />
+    <Content Include="FusionCharts\ScrollStackedColumn2D.swf" />
+    <Content Include="FusionCharts\SelectScatter.swf" />
+    <Content Include="FusionCharts\SparkColumn.swf" />
+    <Content Include="FusionCharts\SparkLine.swf" />
+    <Content Include="FusionCharts\SparkWinLoss.swf" />
+    <Content Include="FusionCharts\Spline.swf" />
+    <Content Include="FusionCharts\SplineArea.swf" />
+    <Content Include="FusionCharts\SSGrid.swf" />
+    <Content Include="FusionCharts\StackedArea2D.swf" />
+    <Content Include="FusionCharts\StackedBar2D.swf" />
+    <Content Include="FusionCharts\StackedBar3D.swf" />
+    <Content Include="FusionCharts\StackedColumn2D.swf" />
+    <Content Include="FusionCharts\StackedColumn3D.swf" />
+    <Content Include="FusionCharts\StackedColumn3DLineDY.swf" />
+    <Content Include="FusionCharts\Thermometer.swf" />
+    <Content Include="FusionCharts\VBullet.swf" />
+    <Content Include="FusionCharts\VLED.swf" />
+    <Content Include="FusionCharts\Waterfall.swf" />
+    <Content Include="FusionCharts\Waterfall2D.swf" />
     <Content Include="General\Calculators.ascx" />
     <Content Include="General\Dashboard.ascx" />
     <Content Include="General\SetTheme.ascx" />
@@ -4261,6 +4347,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="FusionChartXMLFiles\" />
     <Folder Include="Reports\App_LocalResources\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
