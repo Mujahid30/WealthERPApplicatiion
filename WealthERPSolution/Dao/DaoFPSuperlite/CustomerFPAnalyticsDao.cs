@@ -81,6 +81,7 @@ namespace DaoFPSuperlite
                 customerDataForFutureSurplusDs.Tables[3].TableName = "CustomerAssetAllocation";
                 customerDataForFutureSurplusDs.Tables[4].TableName = "CustomerCurrentAssetAllocation";
                 customerDataForFutureSurplusDs.Tables[5].TableName = "CustomerGoalFunding";
+                customerDataForFutureSurplusDs.Tables[6].TableName = "CustomerFutureSavings";
 
                 Object objIncomeTotal = db.GetParameterValue(customerDataForFutureSurplusCmd, "@IncomeTotal");
                 if (objIncomeTotal != DBNull.Value)
