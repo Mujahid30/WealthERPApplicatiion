@@ -116,6 +116,11 @@ namespace BoFPSuperlite
             decimal cashAgreedPercent = 0;
             decimal alternateAgreedPercent = 0;
 
+            decimal equityFutureSavingPercent = 0;
+            decimal debtFutureSavingPercent = 0;
+            decimal cashFutureSavingPercent = 0;
+            decimal alternateFutureSavingPercent = 0;
+
             decimal equityAmount = 0;
             decimal debtAmount = 0;
             decimal cashAmount = 0;
@@ -137,6 +142,7 @@ namespace BoFPSuperlite
             DataTable dtCustomerAssetAllocation;
             DataTable dtCustomerCurrentAssetAllocation;
             DataTable dtCustomerGoalFunding;
+            DataTable dtCustomerFutureSaving;
             dtCustomerStaticAssumption = dsCustomerData.Tables["CustomerStaticAssumption"];
             dtCustomerProjectedAssumption = dsCustomerData.Tables["CustomerProjectedAssumption"];
             dtIncomeDetails = dsCustomerData.Tables["CustomerFPIncomeDetails"];
@@ -144,7 +150,7 @@ namespace BoFPSuperlite
 
             dtCustomerCurrentAssetAllocation = dsCustomerData.Tables["CustomerCurrentAssetAllocation"];
             dtCustomerGoalFunding = dsCustomerData.Tables["CustomerGoalFunding"];
-
+            dtCustomerFutureSaving = dsCustomerData.Tables["CustomerFutureSavings"];
 
 
             DataTable dtFutureSurplusEngine = new DataTable();
@@ -155,19 +161,19 @@ namespace BoFPSuperlite
             dtFutureSurplusEngine.Columns.Add("ExpenseGrowth");
             dtFutureSurplusEngine.Columns.Add("AvailableSurplus");
 
-            dtFutureSurplusEngine.Columns.Add("AgrEquityPercent");
+            dtFutureSurplusEngine.Columns.Add("FutureSavingEquityPercent");
             dtFutureSurplusEngine.Columns.Add("EquityAmount");
             dtFutureSurplusEngine.Columns.Add("EquityFutureValue");
 
-            dtFutureSurplusEngine.Columns.Add("AgrDebtPercent");
+            dtFutureSurplusEngine.Columns.Add("FutureSavingDebtPercent");
             dtFutureSurplusEngine.Columns.Add("DebtAmount");
             dtFutureSurplusEngine.Columns.Add("DebtFutureValue");
 
-            dtFutureSurplusEngine.Columns.Add("AgrCashPercent");
+            dtFutureSurplusEngine.Columns.Add("FutureSavingCashPercent");
             dtFutureSurplusEngine.Columns.Add("CashAmount");
             dtFutureSurplusEngine.Columns.Add("CashFutureValue");
 
-            dtFutureSurplusEngine.Columns.Add("AgrAlternatePercent");
+            dtFutureSurplusEngine.Columns.Add("FutureSavingAlternatePercent");
             dtFutureSurplusEngine.Columns.Add("AlternateAmount");
             dtFutureSurplusEngine.Columns.Add("AlternateFutureValue");
 
@@ -242,6 +248,33 @@ namespace BoFPSuperlite
             decimal debtGoalFundedAmount = 0;
             decimal cashGoalFundedAmount = 0;
             decimal alternateGoalFundedAmount = 0;
+
+
+
+            //***********************************************************************************************
+
+            DataRow[] drACustomerFutureSavingAllocation = dtCustomerFutureSaving.Select("CFS_Year=" + DateTime.Now.Year.ToString());
+            foreach (DataRow dr in drACustomerFutureSavingAllocation)
+            {
+                if (Convert.ToString(dr["WAC_AssetClassification"]) == "Equity")
+                {
+                    equityFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                }
+                else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Debt")
+                {
+                    debtFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                }
+                else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Cash")
+                {
+                    cashFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                }
+                else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Alternate")
+                {
+                    alternateFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                }
+            }
+
+            //**********************************************************************************************************************
 
 
             //***********************************************************************************************
@@ -396,8 +429,8 @@ namespace BoFPSuperlite
 
             //**************************Equity******************************
             equityAgreedPercent =Math.Round(equityAllocationPercent + equityAggAdjustment);
-            drFutureSurplusEngine["AgrEquityPercent"] = equityAgreedPercent;
-            equityAmount =Math.Round((surplusForTheTempYear / 100 * equityAgreedPercent),2);
+            drFutureSurplusEngine["FutureSavingEquityPercent"] = equityFutureSavingPercent;
+            equityAmount = Math.Round((surplusForTheTempYear / 100 * equityFutureSavingPercent), 2);
             drFutureSurplusEngine["EquityAmount"] = equityAmount;
             if (equityAmount != 0)
             equityAmountFV=Math.Round(decimal.Parse(FutureValue(double.Parse((equityGrowthRate/100).ToString()),1,0,-double.Parse(equityAmount.ToString()),0).ToString()),2);
@@ -405,8 +438,8 @@ namespace BoFPSuperlite
 
             //**************************Debt******************************
             debtAgreedPercent =Math.Round(debtAllocationPercent + debtAggAdjustment);
-            drFutureSurplusEngine["AgrDebtPercent"] = debtAgreedPercent;
-            debtAmount =Math.Round((surplusForTheTempYear / 100 * debtAgreedPercent),2);
+            drFutureSurplusEngine["FutureSavingDebtPercent"] = debtFutureSavingPercent;
+            debtAmount = Math.Round((surplusForTheTempYear / 100 * debtFutureSavingPercent), 2);
             drFutureSurplusEngine["DebtAmount"] = debtAmount;
             if (debtAmount != 0)
             debtAmountFV =Math.Round(decimal.Parse(FutureValue(double.Parse((debtGrowthRate / 100).ToString()), 1, 0, -double.Parse(debtAmount.ToString()), 0).ToString()),2);
@@ -414,8 +447,8 @@ namespace BoFPSuperlite
 
             //**************************Cash******************************
             cashAgreedPercent =Math.Round(cashAllocationPercent + cashAggAdjustment);
-            drFutureSurplusEngine["AgrCashPercent"] = cashAgreedPercent;
-            cashAmount =Math.Round(surplusForTheTempYear / 100 * cashAgreedPercent);
+            drFutureSurplusEngine["FutureSavingCashPercent"] = cashFutureSavingPercent;
+            cashAmount = Math.Round(surplusForTheTempYear / 100 * cashFutureSavingPercent);
             drFutureSurplusEngine["CashAmount"] = cashAmount;
             if (cashAmount != 0)
                 cashAmountFV =Math.Round(decimal.Parse(FutureValue(double.Parse((cashGrowthRate / 100).ToString()), 1, 0, -double.Parse(cashAmount.ToString()), 0).ToString()));
@@ -423,8 +456,8 @@ namespace BoFPSuperlite
 
             //**************************Alternate******************************
             alternateAgreedPercent =Math.Round(alternateAllocationPercent + alternateAggAdjustment);
-            drFutureSurplusEngine["AgrAlternatePercent"] = alternateAgreedPercent;
-            alternateAmount =Math.Round(surplusForTheTempYear / 100 * alternateAgreedPercent);
+            drFutureSurplusEngine["FutureSavingAlternatePercent"] = alternateFutureSavingPercent;
+            alternateAmount = Math.Round(surplusForTheTempYear / 100 * alternateFutureSavingPercent);
             drFutureSurplusEngine["alternateAmount"] = alternateAmount;
             if (alternateAmount != 0)
             alternateAmountFV = decimal.Parse(FutureValue(double.Parse((alternateGrowthRate / 100).ToString()), 1, 0, -double.Parse(alternateAmount.ToString()), 0).ToString());
@@ -537,8 +570,8 @@ namespace BoFPSuperlite
             drAlternateRebalancingEngine["MoneyAvailableAfterRWReturn"] = alternateAmountAvailableAfterRebalancingAndWithdrawlsWithReturns;
             drAlternateRebalancingEngine["BalanceMoney"] = alternateBalanceAmount;
             dtRebalancingEngine.Rows.Add(drAlternateRebalancingEngine);
-           
-           
+
+            tempYear++;
 
             //***************************************************************************************************************************************
 
@@ -549,7 +582,35 @@ namespace BoFPSuperlite
                 cashCurrentPercent = cashAgreedPercent;
                 alternateCurrentPercent = alternateAgreedPercent;
 
-                drFutureSurplusEngine = dtFutureSurplusEngine.NewRow();               
+                drFutureSurplusEngine = dtFutureSurplusEngine.NewRow();
+
+
+                //***********************************************************************************************
+
+                drACustomerFutureSavingAllocation = dtCustomerFutureSaving.Select("CFS_Year=" + tempYear.ToString());
+                foreach (DataRow dr in drACustomerFutureSavingAllocation)
+                {
+                    if (Convert.ToString(dr["WAC_AssetClassification"]) == "Equity")
+                    {
+                        equityFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    }
+                    else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Debt")
+                    {
+                        debtFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    }
+                    else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Cash")
+                    {
+                        cashFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    }
+                    else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Alternate")
+                    {
+                        alternateFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    }
+                }
+
+                //**********************************************************************************************************************
+
+
                 drGrowthRateYearWise = dtCustomerProjectedAssumption.Select("CPA_Year=" + tempYear.ToString());
                 foreach (DataRow dr in drGrowthRateYearWise)
                 {
@@ -631,8 +692,8 @@ namespace BoFPSuperlite
 
                 //**************************Equity******************************
                 equityAgreedPercent = Math.Round(equityAllocationPercent + equityAggAdjustment);
-                drFutureSurplusEngine["AgrEquityPercent"] = equityAgreedPercent;
-                equityAmount = Math.Round((surplusForTheTempYear / 100 * equityAgreedPercent), 2);
+                drFutureSurplusEngine["FutureSavingEquityPercent"] = equityFutureSavingPercent;
+                equityAmount = Math.Round((surplusForTheTempYear / 100 * equityFutureSavingPercent), 2);
                 drFutureSurplusEngine["EquityAmount"] = equityAmount;
                 if (equityAmount != 0)
                     equityAmountFV = Math.Round(decimal.Parse(FutureValue(double.Parse((equityGrowthRate / 100).ToString()), 1, 0, -double.Parse(equityAmount.ToString()), 0).ToString()), 2);
@@ -640,8 +701,8 @@ namespace BoFPSuperlite
 
                 //**************************Debt******************************
                 debtAgreedPercent = Math.Round(debtAllocationPercent + debtAggAdjustment);
-                drFutureSurplusEngine["AgrDebtPercent"] = debtAgreedPercent;
-                debtAmount = Math.Round((surplusForTheTempYear / 100 * debtAgreedPercent), 2);
+                drFutureSurplusEngine["FutureSavingDebtPercent"] = debtFutureSavingPercent;
+                debtAmount = Math.Round((surplusForTheTempYear / 100 * debtFutureSavingPercent), 2);
                 drFutureSurplusEngine["DebtAmount"] = debtAmount;
                 if (debtAmount != 0)
                     debtAmountFV = Math.Round(decimal.Parse(FutureValue(double.Parse((debtGrowthRate / 100).ToString()), 1, 0, -double.Parse(debtAmount.ToString()), 0).ToString()), 2);
@@ -649,8 +710,8 @@ namespace BoFPSuperlite
 
                 //**************************Cash******************************
                 cashAgreedPercent = Math.Round(cashAllocationPercent + cashAggAdjustment);
-                drFutureSurplusEngine["AgrCashPercent"] = cashAgreedPercent;
-                cashAmount = Math.Round(surplusForTheTempYear / 100 * cashAgreedPercent);
+                drFutureSurplusEngine["FutureSavingCashPercent"] = cashFutureSavingPercent;
+                cashAmount = Math.Round(surplusForTheTempYear / 100 * cashFutureSavingPercent);
                 drFutureSurplusEngine["CashAmount"] = cashAmount;
                 if (cashAmount != 0)
                     cashAmountFV = Math.Round(decimal.Parse(FutureValue(double.Parse((cashGrowthRate / 100).ToString()), 1, 0, -double.Parse(cashAmount.ToString()), 0).ToString()));
@@ -658,8 +719,8 @@ namespace BoFPSuperlite
 
                 //**************************Alternate******************************
                 alternateAgreedPercent = Math.Round(alternateAllocationPercent + alternateAggAdjustment);
-                drFutureSurplusEngine["AgrAlternatePercent"] = alternateAgreedPercent;
-                alternateAmount = Math.Round(surplusForTheTempYear / 100 * alternateAgreedPercent);
+                drFutureSurplusEngine["FutureSavingAlternatePercent"] = alternateFutureSavingPercent;
+                alternateAmount = Math.Round(surplusForTheTempYear / 100 * alternateFutureSavingPercent);
                 drFutureSurplusEngine["alternateAmount"] = alternateAmount;
                 if (alternateAmount != 0)
                     alternateAmountFV = decimal.Parse(FutureValue(double.Parse((alternateGrowthRate / 100).ToString()), 1, 0, -double.Parse(alternateAmount.ToString()), 0).ToString());
