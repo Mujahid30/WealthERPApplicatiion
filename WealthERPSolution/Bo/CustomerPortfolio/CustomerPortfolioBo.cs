@@ -1618,7 +1618,7 @@ namespace BoCustomerPortfolio
 
                         mfPortfolioVoList[i].CurrentValue = Math.Round(currentValue, 5);
                         if (notionalProfitLoss != 0)
-                            mfPortfolioVoList[i].UnRealizedPNL = Math.Round(currentValue - acqCostExclDivReinvst, 5);
+                            mfPortfolioVoList[i].UnRealizedPNL = Math.Round(notionalProfitLoss, 5);
                         else
                             mfPortfolioVoList[i].UnRealizedPNL = 0;
                         mfPortfolioVoList[i].TotalPNL = Math.Round(realizedSalesProceed - costOfSales + currentValue - acqCostExclDivReinvst + dividendIncome, 5);
@@ -2520,7 +2520,7 @@ namespace BoCustomerPortfolio
                         else
                             mfPortfolioTransactionVoList[i].RealizedProfitLoss = 0;
                         if (mfPortfolioTransactionVoList[i].CurrentValue != 0)
-                            mfPortfolioTransactionVoList[i].NotionalProfitLoss = mfPortfolioTransactionVoList[i].CurrentValue - mfPortfolioTransactionVoList[i].NewCostOfAcquisition;
+                            mfPortfolioTransactionVoList[i].NotionalProfitLoss = mfPortfolioTransactionVoList[i].CurrentValue - mfPortfolioTransactionVoList[i].CostOfAcquisition;
                         if (mfPortfolioTransactionVoList[i].AgeOfInvestment < 365)
                         {
                             if (mfPortfolioTransactionVoList[i].NotionalProfitLoss != 0)
