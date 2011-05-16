@@ -126,5 +126,89 @@ namespace DaoFPSuperlite
             return customerDataForFutureSurplusDs;
         }
 
+
+        public void UpdateFPProjectionAssetAllocation(int customerId, int tempYear, decimal equityAgreedAssetAllocation, decimal debtAgreedAssetAllocation, decimal cashAgreedAssetAllocation, decimal alternateAgreedAssetAllocation)
+        {
+            Database db;
+            DbCommand updateAssetAllocationCmd;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateAssetAllocationCmd = db.GetStoredProcCommand("SP_UpdateFPProjectionAssetAllocation");
+                db.AddInParameter(updateAssetAllocationCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(updateAssetAllocationCmd, "@year", DbType.Int32, tempYear);
+                db.AddInParameter(updateAssetAllocationCmd, "@euiityAgreed", DbType.Decimal, equityAgreedAssetAllocation);
+                db.AddInParameter(updateAssetAllocationCmd, "@debtAgreed", DbType.Decimal, debtAgreedAssetAllocation);
+                db.AddInParameter(updateAssetAllocationCmd, "@cashAgreed", DbType.Decimal, cashAgreedAssetAllocation);
+                db.AddInParameter(updateAssetAllocationCmd, "@alternateAgreed", DbType.Decimal, alternateAgreedAssetAllocation);
+              
+
+                db.ExecuteNonQuery(updateAssetAllocationCmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+
+        public void UpdateFutureSavingProjection(int customerId, int advisorId, decimal equityFutureAllocation, decimal debtFutureAllocation, decimal cashFutureAllocation, decimal alternateFutureAllocation, int tempYear)
+        {
+            Database db;
+            DbCommand updateFutureSavingCmd;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateFutureSavingCmd = db.GetStoredProcCommand("SP_UpdateFutureSavingProjection");
+                db.AddInParameter(updateFutureSavingCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(updateFutureSavingCmd, "@adviserId", DbType.Int32, advisorId);
+                db.AddInParameter(updateFutureSavingCmd, "@year", DbType.Int32, tempYear);
+                db.AddInParameter(updateFutureSavingCmd, "@equityPercent", DbType.Decimal, equityFutureAllocation);
+                db.AddInParameter(updateFutureSavingCmd, "@debtPercent", DbType.Decimal, debtFutureAllocation);
+                db.AddInParameter(updateFutureSavingCmd, "@cashPercent", DbType.Decimal, cashFutureAllocation);
+                db.AddInParameter(updateFutureSavingCmd, "@alternatePercent", DbType.Decimal, alternateFutureAllocation);
+
+
+                db.ExecuteNonQuery(updateFutureSavingCmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        
+        }
+        public DataTable BindDropdownsRebalancing(int adviserId)
+        {
+            Database db;
+            DbCommand BindDropdownsRebalancingCmd;
+            DataTable dtBindDropdownsRebalancing=new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                BindDropdownsRebalancingCmd = db.GetStoredProcCommand("SP_BindDropdownsRebalancing");
+
+                db.AddInParameter(BindDropdownsRebalancingCmd, "@adviserId", DbType.Int32, adviserId);
+                DataSet ds = db.ExecuteDataSet(BindDropdownsRebalancingCmd);
+                if (ds != null)
+                {
+                    dtBindDropdownsRebalancing = ds.Tables[0];
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dtBindDropdownsRebalancing;
+        }
+         
     }
 }
