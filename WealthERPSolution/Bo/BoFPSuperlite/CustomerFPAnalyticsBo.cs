@@ -258,19 +258,19 @@ namespace BoFPSuperlite
             {
                 if (Convert.ToString(dr["WAC_AssetClassification"]) == "Equity")
                 {
-                    equityFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    equityFutureSavingPercent = decimal.Parse(Convert.ToString(dr["CFS_AllocationPercentage"]));
                 }
                 else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Debt")
                 {
-                    debtFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    debtFutureSavingPercent = decimal.Parse(Convert.ToString(dr["CFS_AllocationPercentage"]));
                 }
                 else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Cash")
                 {
-                    cashFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    cashFutureSavingPercent = decimal.Parse(Convert.ToString(dr["CFS_AllocationPercentage"]));
                 }
                 else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Alternate")
                 {
-                    alternateFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    alternateFutureSavingPercent = decimal.Parse(Convert.ToString(dr["CFS_AllocationPercentage"]));
                 }
             }
 
@@ -592,19 +592,19 @@ namespace BoFPSuperlite
                 {
                     if (Convert.ToString(dr["WAC_AssetClassification"]) == "Equity")
                     {
-                        equityFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                        equityFutureSavingPercent = decimal.Parse(Convert.ToString(dr["CFS_AllocationPercentage"]));
                     }
                     else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Debt")
                     {
-                        debtFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                        debtFutureSavingPercent = decimal.Parse(Convert.ToString(dr["CFS_AllocationPercentage"]));
                     }
                     else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Cash")
                     {
-                        cashFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                        cashFutureSavingPercent = decimal.Parse(Convert.ToString(dr["CFS_AllocationPercentage"]));
                     }
                     else if (Convert.ToString(dr["WAC_AssetClassification"]) == "Alternate")
                     {
-                        alternateFutureSavingPercent = decimal.Parse(Convert.ToString(dr["Amount"]));
+                        alternateFutureSavingPercent = decimal.Parse(Convert.ToString(dr["CFS_AllocationPercentage"]));
                     }
                 }
 
@@ -866,6 +866,59 @@ namespace BoFPSuperlite
             result = System.Numeric.Financial.Pmt(rate, nper, pv, fv, 0);
             return result;
         }
+        public void UpdateFPProjectionAssetAllocation(int customerId, int tempYear, decimal equityAgreedAssetAllocation, decimal debtAgreedAssetAllocation, decimal cashAgreedAssetAllocation, decimal alternateAgreedAssetAllocation)
 
+        {
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+          
+
+            try
+            {
+                customerFPAnalyticsDao.UpdateFPProjectionAssetAllocation(customerId,tempYear,equityAgreedAssetAllocation,debtAgreedAssetAllocation,cashAgreedAssetAllocation,alternateAgreedAssetAllocation);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+
+        public void UpdateFutureSavingProjection(int customerId, int advisorId, decimal equityFutureAllocation, decimal debtFutureAllocation, decimal cashFutureAllocation, decimal alternateFutureAllocation, int tempYear)
+     {
+         CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+
+
+         try
+         {
+             customerFPAnalyticsDao.UpdateFutureSavingProjection(customerId, advisorId, equityFutureAllocation, debtFutureAllocation, cashFutureAllocation, alternateFutureAllocation, tempYear);
+
+         }
+           catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+     }
+
+        public DataTable BindDropdownsRebalancing(int adviserId)
+        {
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+            DataTable dtBindDropdownsRebalancing = new DataTable();
+
+            try
+            {
+              dtBindDropdownsRebalancing=customerFPAnalyticsDao.BindDropdownsRebalancing(adviserId);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtBindDropdownsRebalancing;
+        }
+    
     }
 }
