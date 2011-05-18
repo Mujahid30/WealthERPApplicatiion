@@ -3385,6 +3385,7 @@
     <Content Include="Images\purple-sample.gif" />
     <Content Include="Images\QuestionImage\QM1006.jpg" />
     <Content Include="Images\Questionnaire.png" />
+    <Content Include="Images\RatioDownArrow.png" />
     <Content Include="Images\red-sample.gif" />
     <Content Include="Images\redStatus.png" />
     <Content Include="Images\RiskProtection.png" />
