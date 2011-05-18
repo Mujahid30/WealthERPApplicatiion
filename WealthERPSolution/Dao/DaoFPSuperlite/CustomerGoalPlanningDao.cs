@@ -168,5 +168,125 @@ namespace DaoFPSuperlite
 
 
         }
+
+        public CustomerAssumptionVo GetAllCustomerAssumption(int CustomerID,int goalYear)
+        {
+            Database db;
+            DbCommand allCustomerAssumptionCmd;
+            DataSet allCustomerAssumptionDs;
+            CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo(); 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                allCustomerAssumptionCmd = db.GetStoredProcCommand("SP_GetCustomerAssumptionForGoalSetup");
+                db.AddInParameter(allCustomerAssumptionCmd, "@CustomerId", DbType.Int32, CustomerID);
+                db.AddInParameter(allCustomerAssumptionCmd, "@Year", DbType.Int32, goalYear);
+                allCustomerAssumptionDs = db.ExecuteDataSet(allCustomerAssumptionCmd);
+                DataTable dtCustomerStaticAssumption = allCustomerAssumptionDs.Tables[0];
+                DataTable dtCustomerProjectedAssumption = allCustomerAssumptionDs.Tables[1];
+                foreach (DataRow dr in dtCustomerStaticAssumption.Rows)
+                {
+                    if(Convert.ToString(dr["WA_AssumptionId"])=="LE")
+                    {
+                        customerAssumptionVo.CustomerEOL = int.Parse(Math.Round(double.Parse(dr["CSA_Value"].ToString()), 0).ToString());
+
+                    }
+                    else if (Convert.ToString(dr["WA_AssumptionId"]) == "RA")
+                    {
+                        customerAssumptionVo.RetirementAge = int.Parse(Math.Round(double.Parse(dr["CSA_Value"].ToString()), 0).ToString());
+
+                    }
+ 
+                }
+                foreach (DataRow dr in dtCustomerProjectedAssumption.Rows)
+                {
+                    switch(Convert.ToString(dr["WA_AssumptionId"]))
+                    {
+                        case "IR":
+                            {
+                               customerAssumptionVo.InflationPercent=double.Parse(Convert.ToString(dr["CPA_Value"]));
+                               break;
+                            }                        
+                        case "PRT":
+                            {
+                                customerAssumptionVo.PostRetirementReturn = double.Parse(Convert.ToString(dr["CPA_Value"]));
+                                break;
+                            }
+                        case "RNI":
+                            {
+                                customerAssumptionVo.ReturnOnNewInvestment = double.Parse(Convert.ToString(dr["CPA_Value"]));
+                                break;
+                            }
+                    }
+                }
+              
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerGoalSetupDao:GetAllCustomerAssumption()");
+
+
+                object[] objects = new object[1];
+                objects[0] = CustomerID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return customerAssumptionVo;
+            
+        }
+
+        public DataSet GetCustomerGoalDetails(int CustomerID)
+        {
+            Database db;
+            DbCommand customerGoalDetailsCmd;
+            DataSet customerGoalDetailsDS;
+          
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                customerGoalDetailsCmd = db.GetStoredProcCommand("SP_GetCustomersAllGoalDetails");
+                db.AddInParameter(customerGoalDetailsCmd, "@CustomerId", DbType.Int32, CustomerID);
+                customerGoalDetailsDS = db.ExecuteDataSet(customerGoalDetailsCmd);                
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerGoalPlanningDao:GetCustomerGoalDetails()");
+
+
+                object[] objects = new object[1];
+                objects[0] = CustomerID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return customerGoalDetailsDS;
+
+        }
+
+
     }
 }
