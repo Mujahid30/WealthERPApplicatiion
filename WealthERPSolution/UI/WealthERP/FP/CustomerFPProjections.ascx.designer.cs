@@ -104,6 +104,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RadioButton rdbYearRangeWise;
         
         /// <summary>
+        /// trPickYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPickYear;
+        
+        /// <summary>
         /// lblTerm control.
         /// </summary>
         /// <remarks>
@@ -120,6 +129,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPickYear;
+        
+        /// <summary>
+        /// trRangeYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRangeYear;
         
         /// <summary>
         /// Label1 control.
@@ -158,6 +176,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.DropDownList ddlToYear;
         
         /// <summary>
+        /// cvlblRangeTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvlblRangeTo;
+        
+        /// <summary>
         /// Label3 control.
         /// </summary>
         /// <remarks>
@@ -194,15 +221,6 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RangeValidator txtEquityRV;
         
         /// <summary>
-        /// txtEquityCV control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator txtEquityCV;
-        
-        /// <summary>
         /// lblDebt control.
         /// </summary>
         /// <remarks>
@@ -228,15 +246,6 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RangeValidator txtDebtRV;
-        
-        /// <summary>
-        /// txtDebtCV control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator txtDebtCV;
         
         /// <summary>
         /// lblCash control.
@@ -266,15 +275,6 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RangeValidator txtCashRV;
         
         /// <summary>
-        /// txtCashCV control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator txtCashCV;
-        
-        /// <summary>
         /// lblAlternate control.
         /// </summary>
         /// <remarks>
@@ -302,22 +302,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RangeValidator txtAlternateRV;
         
         /// <summary>
-        /// txtAlternateCV control.
+        /// trBtnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator txtAlternateCV;
-        
-        /// <summary>
-        /// trValidation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trValidation;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnSubmit;
         
         /// <summary>
         /// btnSubmitAggredAllocation control.
@@ -329,13 +320,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Button btnSubmitAggredAllocation;
         
         /// <summary>
-        /// Panel3 control.
+        /// RadAjaxPanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel3;
+        protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel1;
         
         /// <summary>
         /// gvAssetAllocation control.
@@ -344,7 +335,7 @@ namespace WealthERP.FP {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvAssetAllocation;
+        protected global::Telerik.Web.UI.RadGrid gvAssetAllocation;
         
         /// <summary>
         /// RadPageView1 control.
@@ -365,166 +356,256 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
-        /// RadioButton1 control.
+        /// rbtnFSPickYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton1;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnFSPickYear;
         
         /// <summary>
-        /// RadioButton2 control.
+        /// rbtnFSRangeYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton2;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnFSRangeYear;
         
         /// <summary>
-        /// Label4 control.
+        /// trPickYearFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPickYearFS;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// lblChooseYearFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.Label lblChooseYearFS;
         
         /// <summary>
-        /// Label5 control.
+        /// ddlPickYearFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPickYearFS;
         
         /// <summary>
-        /// DropDownList2 control.
+        /// trRangeYearFSFROM control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRangeYearFSFROM;
         
         /// <summary>
-        /// Label6 control.
+        /// lblRangeYearFSFROM control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
+        protected global::System.Web.UI.WebControls.Label lblRangeYearFSFROM;
         
         /// <summary>
-        /// DropDownList3 control.
+        /// ddlRangeYearFSFROM control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRangeYearFSFROM;
         
         /// <summary>
-        /// Label7 control.
+        /// lblRangeYearFSTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
+        protected global::System.Web.UI.WebControls.Label lblRangeYearFSTo;
         
         /// <summary>
-        /// Label8 control.
+        /// ddlRangeYearFSTO control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRangeYearFSTO;
         
         /// <summary>
-        /// TextBox1 control.
+        /// cvRangeYearFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.CompareValidator cvRangeYearFS;
         
         /// <summary>
-        /// Label9 control.
+        /// lblAgreedFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label9;
+        protected global::System.Web.UI.WebControls.Label lblAgreedFS;
         
         /// <summary>
-        /// TextBox2 control.
+        /// lblEquityFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.Label lblEquityFS;
         
         /// <summary>
-        /// Label10 control.
+        /// txtEquityFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label10;
+        protected global::System.Web.UI.WebControls.TextBox txtEquityFS;
         
         /// <summary>
-        /// TextBox3 control.
+        /// rvEquityFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.RangeValidator rvEquityFS;
         
         /// <summary>
-        /// Label11 control.
+        /// lblDebtFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label11;
+        protected global::System.Web.UI.WebControls.Label lblDebtFS;
         
         /// <summary>
-        /// TextBox4 control.
+        /// txtDebtFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.TextBox txtDebtFS;
         
         /// <summary>
-        /// Button1 control.
+        /// rvDebtFS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.RangeValidator rvDebtFS;
+        
+        /// <summary>
+        /// lblCashFS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCashFS;
+        
+        /// <summary>
+        /// txtCashFS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCashFS;
+        
+        /// <summary>
+        /// rvCashFS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvCashFS;
+        
+        /// <summary>
+        /// lblAlternateFS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlternateFS;
+        
+        /// <summary>
+        /// txtAlternateFS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAlternateFS;
+        
+        /// <summary>
+        /// rvAlternateFS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvAlternateFS;
+        
+        /// <summary>
+        /// tr3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr3;
+        
+        /// <summary>
+        /// btnSubmitFpFs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitFpFs;
+        
+        /// <summary>
+        /// RadAjaxPanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel2;
+        
+        /// <summary>
+        /// gdvwFutureSavings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gdvwFutureSavings;
         
         /// <summary>
         /// RadPageView3 control.
@@ -543,5 +624,41 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel2;
+        
+        /// <summary>
+        /// lblAssetClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAssetClass;
+        
+        /// <summary>
+        /// ddlRebalancing control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRebalancing;
+        
+        /// <summary>
+        /// RadAjaxPanel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel3;
+        
+        /// <summary>
+        /// rdRebalancing control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid rdRebalancing;
     }
 }
