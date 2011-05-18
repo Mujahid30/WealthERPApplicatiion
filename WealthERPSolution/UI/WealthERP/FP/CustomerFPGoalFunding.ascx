@@ -1,205 +1,211 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFPGoalFunding.ascx.cs" Inherits="WealthERP.FP.CustomerFPGoalFunding" %>
 
 
-<style type="text/css">
-    .style1
-    {
-        height: 26px;
-    }
-</style>
 
-
-<table width="100%">
+<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Goal Funding"></asp:Label>
+<hr />
+<table class="TableBackground" style="width: 100%">
 <tr>
- <td class="leftField" style="width:15%">
-  <asp:Label ID="lblGoals" runat="server" CssClass="FieldName" Text="Pick a Goal :">
-  </asp:Label>
- </td>                    
-                       
-<td colspan="4" class="rightField">
- <asp:DropDownList ID="ddlGoals" runat="server" CssClass="cmbField">
- </asp:DropDownList>
-</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td class="leftField">
+        <asp:Label ID="lblPickGoal" runat="server" CssClass="FieldName" Text="Pick a Goal:"></asp:Label>
+    </td> 
+    <td>
+        <asp:DropDownList ID="ddlPickGoal" CssClass="cmbField" runat="server">
+            <asp:ListItem>Select</asp:ListItem>
+            <asp:ListItem>Goal1</asp:ListItem>
+            <asp:ListItem>Goal2</asp:ListItem>
+            <asp:ListItem>Goal3</asp:ListItem>
+            <asp:ListItem></asp:ListItem>
+        </asp:DropDownList>
+    </td>
+</tr>
+<tr>
+    <td class="leftField">
+    <asp:Label ID="lblGoalAmount" runat="server" CssClass="FieldName" Text="Goal Amount requirement in"></asp:Label>
+         <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="2025:"></asp:Label>
+    </td>
+    <td>
+         
+        <asp:TextBox ID="txtGoalAmountReq" CssClass="txtField"   Width="95%" runat="server" 
+             Style="direction: rtl" ReadOnly="True"></asp:TextBox>
+        </td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+    <td></td>
+    <td align="center">
+    <asp:Label ID="lblAvailableCorpus" runat="server" CssClass="FieldName" Text="Available Corpus in<br/>Starting of Goal Year"></asp:Label>
+    </td>
+    <td align="center">
+        <asp:Label ID="lblAllocatedAmount" runat="server" CssClass="FieldName" Text="Allocated Amount"></asp:Label>
+    </td>
+    <td align="center">
+        <asp:Label ID="lblAllocation" runat="server" CssClass="FieldName" Text="% Allocation"></asp:Label>
+    </td>
+    <td align="center">
+        <asp:Label ID="lblAfterAllocation" runat="server" CssClass="FieldName" Text="Remaining Corpus<br/>After Allocation"></asp:Label>
+    </td>
+</tr>
+<tr>
+    <td class="leftField"  >
+        <asp:Label ID="lblEquity" runat="server" CssClass="FieldName" Text="Equity:"></asp:Label>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox3" CssClass="txtField"  Width="95%" runat="server" Style="direction: rtl" ReadOnly="True"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox7" CssClass="txtField"   Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox14" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox15" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+</tr>
+<tr>
+    <td class="leftField"  >
+        <asp:Label ID="lblDebt" runat="server" CssClass="FieldName" Text="Debt:"></asp:Label>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox4" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox8" CssClass="txtField"   Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox13" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox16" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+</tr>
+<tr>
+    <td class="leftField"  >
+        <asp:Label ID="lblCash" runat="server" CssClass="FieldName" Text="Cash:"></asp:Label>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox5" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox9" CssClass="txtField"   Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox12" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox17" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+</tr>
+<tr>
+    <td class="leftField">
+        <asp:Label ID="lblAlternate" runat="server" CssClass="FieldName" Text="Alternate:"></asp:Label>
+    </td>
+    <td>
+        <asp:TextBox ID="TextBox6" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox10" CssClass="txtField"   Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox11" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+     <td>
+        <asp:TextBox ID="TextBox18" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+    </td>
+</tr>
+<tr>
+    <td></td>
+    <td align="center">
+        <asp:Label ID="lblTotal" runat="server" CssClass="FieldName" Text="Total"></asp:Label>
+    </td>
+    <td align="center">
+        <asp:Label ID="lblTotalAmount" runat="server" CssClass="FieldName" Text="(Total)"></asp:Label>
+    </td>
+    <td></td>
+    <td></td>
 </tr>
 
 <tr>
-<td colspan="5">
-<asp:Label ID="lblGoalAmount" runat="server" CssClass="FieldName" Text="">
-</asp:Label>
-</td>
+    <td></td>
+    <td>&nbsp;</td>
 </tr>
-
 <tr>
-<td>
-</td>
-<td style="width:15%">
-<asp:Label ID="lblAvailablecorpus" runat="server" CssClass="FieldName" Text="Available corpus in starting of goal year">
-</asp:Label>
-</td>
-<td>
-<asp:Label ID="lblAllocatedAmount" runat="server" CssClass="FieldName" Text="Allocated Amount">
-</asp:Label>
-</td>
-
-<td>
-<asp:Label ID="lblAllocationPercentage" runat="server" CssClass="FieldName" Text="(%)Allocation">
-</asp:Label>
-</td>
-
-<td>
-<asp:Label ID="lblRemainingCorpus" runat="server" CssClass="FieldName" Text="Remaining corpus after allocation">
-</asp:Label>
-</td>
+    <td class="leftField">
+        <asp:Label ID="lblGap" runat="server" CssClass="FieldName" Text="Gap After Allocation:"></asp:Label>
+    </td>
+    <td>
+        <asp:TextBox ID="txtGapAfterAllocation" CssClass="txtField"   Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+    </td>
 </tr>
-
-
 <tr>
-<td style="width:15%">
-<asp:Label ID="lblEquity" runat="server" CssClass="FieldName" Text="Equity">
-</asp:Label>
-</td>
-
-<td class="style1">
- <asp:TextBox ID="txtEquityAvlCorpus" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
-<td class="style1">
- <asp:TextBox ID="txtEquityAllocatedAmount" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
-<td class="style1">
- <asp:TextBox ID="txtEquityAllocationPercentage" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
-<td class="style1">
- <asp:TextBox ID="txtEquityRemainingCorpus" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
+    <td class="leftField">
+        &nbsp;</td>
+    <td>
+        &nbsp;</td>    
 </tr>
-
 <tr>
-<td style="width:15%">
-<asp:Label ID="lblDebt" runat="server" CssClass="FieldName" Text="Debt">
-</asp:Label>
-</td>
-
-<td>
- <asp:TextBox ID="txtDebtAvlCorpus" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
-<td>
- <asp:TextBox ID="txtDebtAllocatedAmount" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
-<td>
- <asp:TextBox ID="txtDebtAllocationPercentage" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
-<td>
- <asp:TextBox ID="txtDebtRemainingCorpus" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
+    <td class="leftField">
+    <asp:Label ID="lblMoney" runat="server" CssClass="FieldName" Text="You Have Enough Money:"></asp:Label>
+    </td>
+    <td>
+        <asp:Label ID="lblYesNo" runat="server" CssClass="FieldName" Text="Yes/No"></asp:Label>
+        </td>
 </tr>
-
 <tr>
-<td style="width:15%">
-<asp:Label ID="lblCash" runat="server" CssClass="FieldName" Text="Cash">
-</asp:Label>
-</td>
-
-<td>
- <asp:TextBox ID="txtCashAvlCorpus" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
-<td>
- <asp:TextBox ID="txtCashAllocatedAmount" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
-<td>
- <asp:TextBox ID="txtCashAllocationPercentage" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
-<td>
- <asp:TextBox ID="txtCashRemainingCorpus" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
+    <td></td>
+    <td></td>
 </tr>
-
 <tr>
-<td>
-<asp:Label ID="lblTotal" runat="server" CssClass="FieldName" Text="Total">
-</asp:Label>
-</td>
-
-<td>
-<asp:Label ID="lblTotalAvlCorpus" runat="server" CssClass="FieldName" Text="">
-</asp:Label> 
-</td>
-
-<td>
-<asp:Label ID="lblTotalAllocatedAmount" runat="server" CssClass="FieldName" Text="">
-</asp:Label>  
-</td>
-
-<td>
-<asp:Label ID="lblTotalAllocationPercentage" runat="server" CssClass="FieldName" Text="">
-</asp:Label> 
-</td>
-
-<td>
-<asp:Label ID="lblTotalRemainingCorpus" runat="server" CssClass="FieldName" Text="">
-</asp:Label> 
-</td>
+    <td>
+        &nbsp;</td>
+    <td>
+    <asp:Checkbox ID="chkGoalFundByLoan" runat="server" CssClass="FieldName" Text="Goal to be Funded by Loan"
+                AutoPostBack="false"  />
+    </td>
 </tr>
-
 <tr>
-<td colspan="5">
-<asp:Label ID="lblGoalGap" runat="server" CssClass="FieldName" Text="Total">
-</asp:Label>
-</td>
+    <td>
+        &nbsp;</td>
+    <td>
+        &nbsp;</td>
 </tr>
-
 <tr>
-<td class="leftField" style="width:15%">
-  
- </td> 
-<td colspan="4">
-<asp:CheckBox ID="chkGoalFundByLoan" runat="server" Text="Goal to be funded by loan" CssClass="FieldName"/>
-</td>
+    <td class="leftField">
+        <asp:Label ID="lblLoanAmount" runat="server" CssClass="FieldName" Text="Loan Amount to be Taken for goal Funding:"></asp:Label>
+    </td>
+    <td>
+        <asp:TextBox ID="txtLoanAmountFunding" runat="server"   Width="95%" Style="direction: rtl"></asp:TextBox></td>
+    <td class="leftField">
+        <asp:Label ID="lblStartYear" runat="server" CssClass="FieldName" Text="Start Loan Year:"></asp:Label>
+    </td>
+    <td>
+        <asp:TextBox ID="txtStartLoanYr" runat="server"   Width="95%" Style="direction: rtl"></asp:TextBox>
+    </td>
 </tr>
-
 <tr>
- <td class="leftField" style="width:15%">
-  <asp:Label ID="lblLoanAmountGoalFund" runat="server" CssClass="FieldName" Text="Loan amount to be taken for goal funding :">
-  </asp:Label>
- </td>                    
-                       
-<td colspan="4" class="rightField">
- <asp:TextBox ID="txtLoanAmountGoalFund" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
+    <td></td>
+    <td></td>
 </tr>
-
 <tr>
- <td class="leftField" style="width:15%">
-  <asp:Label ID="lblStartLoanYear" runat="server" CssClass="FieldName" Text="start loan year :">
-  </asp:Label>
- </td>                    
-                       
-<td colspan="4" class="rightField">
- <asp:TextBox ID="txtStartLoanYear" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
- </asp:TextBox>
-</td>
+    <td></td>
+    <td></td>
 </tr>
-
 <tr>
- <td class="leftField" style="width:15%">
-  
- </td>                    
-                       
-<td colspan="4" class="rightField">
- <asp:Button ID="btnRTSave" runat="server" CssClass="PCGButton" 
-                            Text="Submit" ValidationGroup="btnRTSave"  />
-</td>
+    <td></td>
+    <td>
+        <asp:Button ID="btnSubmit" CssClass="PCGButton" runat="server" Text="Submit" />
+    </td>
 </tr>
 </table>

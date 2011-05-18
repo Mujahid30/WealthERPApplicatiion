@@ -14,22 +14,31 @@ namespace WealthERP.FP {
     public partial class CustomerFPGoalFunding {
         
         /// <summary>
-        /// lblGoals control.
+        /// headertitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGoals;
+        protected global::System.Web.UI.WebControls.Label headertitle;
         
         /// <summary>
-        /// ddlGoals control.
+        /// lblPickGoal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlGoals;
+        protected global::System.Web.UI.WebControls.Label lblPickGoal;
+        
+        /// <summary>
+        /// ddlPickGoal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPickGoal;
         
         /// <summary>
         /// lblGoalAmount control.
@@ -41,13 +50,31 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblGoalAmount;
         
         /// <summary>
-        /// lblAvailablecorpus control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAvailablecorpus;
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// txtGoalAmountReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGoalAmountReq;
+        
+        /// <summary>
+        /// lblAvailableCorpus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAvailableCorpus;
         
         /// <summary>
         /// lblAllocatedAmount control.
@@ -59,22 +86,22 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblAllocatedAmount;
         
         /// <summary>
-        /// lblAllocationPercentage control.
+        /// lblAllocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAllocationPercentage;
+        protected global::System.Web.UI.WebControls.Label lblAllocation;
         
         /// <summary>
-        /// lblRemainingCorpus control.
+        /// lblAfterAllocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRemainingCorpus;
+        protected global::System.Web.UI.WebControls.Label lblAfterAllocation;
         
         /// <summary>
         /// lblEquity control.
@@ -86,40 +113,40 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblEquity;
         
         /// <summary>
-        /// txtEquityAvlCorpus control.
+        /// TextBox3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEquityAvlCorpus;
+        protected global::System.Web.UI.WebControls.TextBox TextBox3;
         
         /// <summary>
-        /// txtEquityAllocatedAmount control.
+        /// TextBox7 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEquityAllocatedAmount;
+        protected global::System.Web.UI.WebControls.TextBox TextBox7;
         
         /// <summary>
-        /// txtEquityAllocationPercentage control.
+        /// TextBox14 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEquityAllocationPercentage;
+        protected global::System.Web.UI.WebControls.TextBox TextBox14;
         
         /// <summary>
-        /// txtEquityRemainingCorpus control.
+        /// TextBox15 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEquityRemainingCorpus;
+        protected global::System.Web.UI.WebControls.TextBox TextBox15;
         
         /// <summary>
         /// lblDebt control.
@@ -131,40 +158,40 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblDebt;
         
         /// <summary>
-        /// txtDebtAvlCorpus control.
+        /// TextBox4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDebtAvlCorpus;
+        protected global::System.Web.UI.WebControls.TextBox TextBox4;
         
         /// <summary>
-        /// txtDebtAllocatedAmount control.
+        /// TextBox8 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDebtAllocatedAmount;
+        protected global::System.Web.UI.WebControls.TextBox TextBox8;
         
         /// <summary>
-        /// txtDebtAllocationPercentage control.
+        /// TextBox13 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDebtAllocationPercentage;
+        protected global::System.Web.UI.WebControls.TextBox TextBox13;
         
         /// <summary>
-        /// txtDebtRemainingCorpus control.
+        /// TextBox16 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDebtRemainingCorpus;
+        protected global::System.Web.UI.WebControls.TextBox TextBox16;
         
         /// <summary>
         /// lblCash control.
@@ -176,40 +203,85 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblCash;
         
         /// <summary>
-        /// txtCashAvlCorpus control.
+        /// TextBox5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCashAvlCorpus;
+        protected global::System.Web.UI.WebControls.TextBox TextBox5;
         
         /// <summary>
-        /// txtCashAllocatedAmount control.
+        /// TextBox9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCashAllocatedAmount;
+        protected global::System.Web.UI.WebControls.TextBox TextBox9;
         
         /// <summary>
-        /// txtCashAllocationPercentage control.
+        /// TextBox12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCashAllocationPercentage;
+        protected global::System.Web.UI.WebControls.TextBox TextBox12;
         
         /// <summary>
-        /// txtCashRemainingCorpus control.
+        /// TextBox17 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCashRemainingCorpus;
+        protected global::System.Web.UI.WebControls.TextBox TextBox17;
+        
+        /// <summary>
+        /// lblAlternate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlternate;
+        
+        /// <summary>
+        /// TextBox6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox6;
+        
+        /// <summary>
+        /// TextBox10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox10;
+        
+        /// <summary>
+        /// TextBox11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox11;
+        
+        /// <summary>
+        /// TextBox18 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox18;
         
         /// <summary>
         /// lblTotal control.
@@ -221,49 +293,49 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblTotal;
         
         /// <summary>
-        /// lblTotalAvlCorpus control.
+        /// lblTotalAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalAvlCorpus;
+        protected global::System.Web.UI.WebControls.Label lblTotalAmount;
         
         /// <summary>
-        /// lblTotalAllocatedAmount control.
+        /// lblGap control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalAllocatedAmount;
+        protected global::System.Web.UI.WebControls.Label lblGap;
         
         /// <summary>
-        /// lblTotalAllocationPercentage control.
+        /// txtGapAfterAllocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalAllocationPercentage;
+        protected global::System.Web.UI.WebControls.TextBox txtGapAfterAllocation;
         
         /// <summary>
-        /// lblTotalRemainingCorpus control.
+        /// lblMoney control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalRemainingCorpus;
+        protected global::System.Web.UI.WebControls.Label lblMoney;
         
         /// <summary>
-        /// lblGoalGap control.
+        /// lblYesNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGoalGap;
+        protected global::System.Web.UI.WebControls.Label lblYesNo;
         
         /// <summary>
         /// chkGoalFundByLoan control.
@@ -275,48 +347,48 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.CheckBox chkGoalFundByLoan;
         
         /// <summary>
-        /// lblLoanAmountGoalFund control.
+        /// lblLoanAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLoanAmountGoalFund;
+        protected global::System.Web.UI.WebControls.Label lblLoanAmount;
         
         /// <summary>
-        /// txtLoanAmountGoalFund control.
+        /// txtLoanAmountFunding control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLoanAmountGoalFund;
+        protected global::System.Web.UI.WebControls.TextBox txtLoanAmountFunding;
         
         /// <summary>
-        /// lblStartLoanYear control.
+        /// lblStartYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStartLoanYear;
+        protected global::System.Web.UI.WebControls.Label lblStartYear;
         
         /// <summary>
-        /// txtStartLoanYear control.
+        /// txtStartLoanYr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtStartLoanYear;
+        protected global::System.Web.UI.WebControls.TextBox txtStartLoanYr;
         
         /// <summary>
-        /// btnRTSave control.
+        /// btnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRTSave;
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
     }
 }

@@ -141,7 +141,7 @@
                         </asp:ListItem>
                         </asp:DropDownList>
                         <span id="span1" class="spnRequiredField" runat="server">*</span>
-                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlGoalType" ValueToCompare="Select"
+                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPriority" ValueToCompare="Select"
 	                      ErrorMessage="Goal Objective Required" Operator="NotEqual" CssClass="rfvPCG" ValidationGroup="btnSave" ></asp:CompareValidator>                     
                     </td>
                 </tr>
@@ -263,7 +263,12 @@
 
 <asp:Panel ID="PnlRetirement" runat="server">
 <table>
-<tr>
+    <tr>
+    <td colspan="2">
+     <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="You have chosen to do retirement planning with "></asp:Label>
+    </td>
+    </tr>
+    <tr>
                     <td class="leftField">
                         <asp:Label ID="lbl" runat="server" CssClass="FieldName" Text="Goal Cost today (monthly) :"></asp:Label>
                     </td>
@@ -272,7 +277,7 @@
                         </asp:TextBox>
                     </td>
 </tr>
-<tr>
+    <tr>
                      <td class="leftField">
                         <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Corpus to be left behind :"></asp:Label>
                     </td>
@@ -281,7 +286,7 @@
                         </asp:TextBox>
                     </td>
 </tr>
-<tr>
+    <tr>
                 <td>
                 &nbsp;&nbsp;
                 </td>

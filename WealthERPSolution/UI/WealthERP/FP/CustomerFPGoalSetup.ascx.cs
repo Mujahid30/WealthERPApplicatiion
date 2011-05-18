@@ -110,6 +110,7 @@ namespace WealthERP.FP
             
             if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
             {
+                if (ddlPickChild.SelectedIndex!=0)
                 goalPlanningVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
             } 
             if (txtComment.Text != "")
