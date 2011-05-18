@@ -2973,10 +2973,189 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
-    
+
+        public DataTable BindDropDownassumption()
+        {
+
+            Database db;
+            DbCommand cmdBindDropDownassumption;
+            DataSet dsBindDropDownassumption;
+            DataTable dtBindDropDownassumption;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdBindDropDownassumption = db.GetStoredProcCommand("SP_GetAssumptionList");
+
+                dsBindDropDownassumption = db.ExecuteDataSet(cmdBindDropDownassumption);
+                dtBindDropDownassumption = dsBindDropDownassumption.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtBindDropDownassumption;
+        }
+        public void InsertCustomerStaticDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType)
+        {
+
+            Database db;
+            DbCommand cmdInsertCustomerStaticDetalis;
+         
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdInsertCustomerStaticDetalis = db.GetStoredProcCommand("sp_InsertCustomerStaticAssumption");
+                db.AddInParameter(cmdInsertCustomerStaticDetalis, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(cmdInsertCustomerStaticDetalis, "@WA_AssumptionId", DbType.String, assumptionType);
+                db.AddInParameter(cmdInsertCustomerStaticDetalis, "@CSA_Value", DbType.Decimal, assumptionValue);
+                db.AddInParameter(cmdInsertCustomerStaticDetalis, "@CSA_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(cmdInsertCustomerStaticDetalis, "@CSA_ModifiedBy", DbType.Int32, userId);
+                db.ExecuteDataSet(cmdInsertCustomerStaticDetalis);
+               
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+        public void UpdateCustomerProjectedDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType,int selectedYear,int rangeFromYear,int rangeToYear)
+        {
+
+            Database db;
+            DbCommand cmdUpdateCustomerProjectedDetalis;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdUpdateCustomerProjectedDetalis = db.GetStoredProcCommand("SP_UpdateCustomerProjectedDetalis");
+                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@WA_AssumptionId", DbType.String, assumptionType);
+                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@CPA_Value", DbType.Decimal, assumptionValue);
+                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@CPA_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@CPA_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@year", DbType.Int32, selectedYear);
+                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@RangeFromyear", DbType.Int32, rangeFromYear);
+                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@RangeToyear", DbType.Int32, rangeToYear);
+                db.ExecuteDataSet(cmdUpdateCustomerProjectedDetalis);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+        public int ExpiryAgeOfAdviser(int adviserId,int customerId)
+        {
+
+            Database db;
+            DbCommand cmdExpiryAgeOfAdviser;
+            int expiryAge;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdExpiryAgeOfAdviser = db.GetStoredProcCommand("sp_ExpiryAgeOfAdviser");
+                db.AddInParameter(cmdExpiryAgeOfAdviser, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdExpiryAgeOfAdviser, "@customerId", DbType.Int32, customerId);
+                //db.AddOutParameter(cmdExpiryAgeOfAdviser, "@LE", DbType.Int32, 1000);
+                db.AddOutParameter(cmdExpiryAgeOfAdviser, "@LE", DbType.Int16,100);
+              
+                 db.ExecuteNonQuery(cmdExpiryAgeOfAdviser);
+                 expiryAge = Convert.ToInt16(db.GetParameterValue(cmdExpiryAgeOfAdviser, "@LE").ToString());
+
+                 //expiryAge = (int)cmdExpiryAgeOfAdviser.Parameters["@LE"].Value;
+
+                //Object objRes = db.GetParameterValue(cmdExpiryAgeOfAdviser, "@LE");
+                //if (objRes != DBNull.Value)
+                //    expiryAge = (int)db.GetParameterValue(cmdExpiryAgeOfAdviser, "@LE");
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return expiryAge;
+        }
+
+        public DataSet GetAllCustomersAssumptions(int customerId)
+        {
+
+            Database db;
+            DbCommand cmdGetAllCustomersAssumptions;
+            DataSet dsGetAllCustomersAssumptions;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetAllCustomersAssumptions = db.GetStoredProcCommand("SP_GetAllCustomersAssumptions");
+                db.AddInParameter(cmdGetAllCustomersAssumptions, "@C_CustomerId", DbType.Int32, customerId);
+         
+
+               dsGetAllCustomersAssumptions= db.ExecuteDataSet(cmdGetAllCustomersAssumptions);
+             }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetAllCustomersAssumptions;
+        }
+
+
+        public void InsertPlanPreferences(int customerId, int calculationBasisId, int calculationId)
+        {
+            Database db;
+            DbCommand cmdInsertPlanPreferences;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertPlanPreferences = db.GetStoredProcCommand("SP_InsertPlanPreferences");
+                db.AddInParameter(cmdInsertPlanPreferences, "@C_CustomerId ", DbType.Int32, customerId);
+                db.AddInParameter(cmdInsertPlanPreferences, "@CalculationBasisId ", DbType.Int32, calculationBasisId);
+                db.AddInParameter(cmdInsertPlanPreferences, "@CalculationId", DbType.Int32, calculationId);
+                db.AddOutParameter(cmdInsertPlanPreferences, "@res", DbType.Int32, 0);
+
+                db.ExecuteNonQuery(cmdInsertPlanPreferences);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+
+        }
+        public DataSet SetDefaultPlanRetirementValueForCustomer(int customerId)
+        {
+            Database db;
+            DbCommand cmdSetDefaultPlanRetirementValueForCustomer;
+            DataSet dsSetDefaultPlanRetirementValueForCustomer;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdSetDefaultPlanRetirementValueForCustomer = db.GetStoredProcCommand("SP_PlanRetirementValue");
+                db.AddInParameter(cmdSetDefaultPlanRetirementValueForCustomer, "@C_CustomerId ", DbType.Int32, customerId);
+                dsSetDefaultPlanRetirementValueForCustomer = db.ExecuteDataSet(cmdSetDefaultPlanRetirementValueForCustomer);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSetDefaultPlanRetirementValueForCustomer;
+
+
+        }
+
+        
     }
-
-
-
 }
 
