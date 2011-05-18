@@ -1454,6 +1454,94 @@ namespace BoCustomerProfiling
             return dtCustomerNames;
         }
 
+        public DataTable BindDropDownassumption()
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtBindDropDownassumption = new DataTable();
+            try
+            {
+                dtBindDropDownassumption = customerDao.BindDropDownassumption();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtBindDropDownassumption;
+        }
+        public void InsertCustomerStaticDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                customerDao.InsertCustomerStaticDetalis(userId,customerId,assumptionValue,assumptionType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        public void UpdateCustomerProjectedDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType, int selectedYear, int rangeFromYear, int rangeToYear)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            customerDao.UpdateCustomerProjectedDetalis(userId, customerId, assumptionValue, assumptionType, selectedYear, rangeFromYear, rangeToYear);
+        }
+        public int ExpiryAgeOfAdviser(int adviserId,int customerId)
+        { 
+            CustomerDao customerDao=new CustomerDao();
+            int expiryAge;
+            try
+            {
+                expiryAge = customerDao.ExpiryAgeOfAdviser(adviserId, customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return expiryAge;
+        }
+        public DataSet GetAllCustomersAssumptions(int customerId)
+        {
+            CustomerDao customerDao=new CustomerDao();
+            DataSet dsGetAllCustomersAssumptions;
+            try
+            {
+                dsGetAllCustomersAssumptions = customerDao.GetAllCustomersAssumptions(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsGetAllCustomersAssumptions;
+        }
+
+        public void InsertPlanPreferences(int customerId, int calculationBasisId, int calculationId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                customerDao.InsertPlanPreferences(customerId, calculationBasisId, calculationId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        public DataSet SetDefaultPlanRetirementValueForCustomer(int customerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataSet dsSetDefaultPlanRetirementValueForCustomer;
+            try
+            {
+               dsSetDefaultPlanRetirementValueForCustomer= customerDao.SetDefaultPlanRetirementValueForCustomer(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSetDefaultPlanRetirementValueForCustomer;
+        }
     }
 
 }
