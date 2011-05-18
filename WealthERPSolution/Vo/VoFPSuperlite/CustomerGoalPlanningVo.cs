@@ -45,7 +45,14 @@ namespace VoFPSuperlite
         private string G_ChildName;
         private int G_GoalId;
         private bool G_IsOnetimeOccurence;
+        private double G_CorpusLeftBehind;
 
+        public double CorpusLeftBehind
+        {
+            get { return G_CorpusLeftBehind; }
+            set { G_CorpusLeftBehind = value; }
+        }
+        
         public bool IsOnetimeOccurence
         {
             get { return G_IsOnetimeOccurence; }
@@ -223,10 +230,83 @@ namespace VoFPSuperlite
         }
 
 
-    
-
-
-
-
+        
     }
+
+    public class CustomerAssumptionVo
+    {
+        private double A_InflationPercent;
+
+        public double InflationPercent
+        {
+            get { return A_InflationPercent; }
+            set { A_InflationPercent = value; }
+        }
+        private int A_CustomerAge;
+
+        public int CustomerAge
+        {
+            get { return A_CustomerAge; }
+            set { A_CustomerAge = value; }
+        }
+
+        private int A_SpouseAge;
+
+        public int SpouseAge
+        {
+            get { return A_SpouseAge; }
+            set { A_SpouseAge = value; }
+        }
+
+        private int A_RetirementAge;
+
+        public int RetirementAge
+        {
+            get { return A_RetirementAge; }
+            set { A_RetirementAge = value; }
+        }
+
+        private double A_PostRetirementReturn;
+
+        public double PostRetirementReturn
+        {
+            get { return A_PostRetirementReturn; }
+            set { A_PostRetirementReturn = value; }
+        }
+
+        private double A_ReturnOnNewInvestment;
+
+        public double ReturnOnNewInvestment
+        {
+            get { return A_ReturnOnNewInvestment; }
+            set { A_ReturnOnNewInvestment = value; }
+        }
+
+        private int A_CustomerEOL;
+
+        public int CustomerEOL
+        {
+            get { return A_CustomerEOL; }
+            set { A_CustomerEOL = value; }
+        }
+
+        private int A_SpouseEOL;
+
+        public int SpouseEOL
+        {
+            get { return A_SpouseEOL; }
+            set { A_SpouseEOL = value; }
+        }
+
+        private double A_CorpusToBeLeftBehind;
+
+        public double CorpusToBeLeftBehind
+        {
+            get { return A_CorpusToBeLeftBehind; }
+            set { A_CorpusToBeLeftBehind = value; }
+        }
+    }
+
+
+  
 }
