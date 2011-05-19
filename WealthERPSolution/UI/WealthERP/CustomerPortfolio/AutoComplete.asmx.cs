@@ -290,6 +290,56 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+        /// <summary>
+        /// Get BM Parent Customer Names
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="count"></param>
+        /// <param name="contextKey"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string[] GetBMParentCustomerNames(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtCustomerName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtCustomerName = customerBo.GetBMParentCustomerNames(prefixText, int.Parse(contextKey));
+            foreach (DataRow dr in dtCustomerName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
+        /// <summary>
+        /// Get BM Individual Customer Name
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="count"></param>
+        /// <param name="contextKey"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string[] GetBMIndividualCustomerNames(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtCustomerName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtCustomerName = customerBo.GetBMIndividualCustomerNames(prefixText, int.Parse(contextKey));
+             foreach (DataRow dr in dtCustomerName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
+
+
 
 
     }
