@@ -155,7 +155,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerCmd, "@C_ProspectAddDate", DbType.DateTime, customerVo.ProspectAddDate);
                 db.AddOutParameter(createCustomerCmd, "@CustomerId", DbType.Int32, 5000);
-                
+
                 if (db.ExecuteNonQuery(createCustomerCmd) != 0)
 
                     customerId = int.Parse(db.GetParameterValue(createCustomerCmd, "CustomerId").ToString());
@@ -281,7 +281,7 @@ namespace DaoCustomerProfiling
                     }
                     if (!string.IsNullOrEmpty(dr["C_ProspectAddDate"].ToString()))
                         customerVo.ProspectAddDate = Convert.ToDateTime(dr["C_ProspectAddDate"].ToString());
-                    
+
                     customerVo.AdviseNote = dr["C_Comments"].ToString();
                     if (!string.IsNullOrEmpty(dr["ACC_CustomerClassificationId"].ToString()))
                     {
@@ -2777,18 +2777,18 @@ namespace DaoCustomerProfiling
         }
         public int GetCustomerGroupHead(int customerId)
         {
-            int result ;          
+            int result;
             Database db;
             DbCommand checkCustomerGrpHeadCmd;
 
-           
+
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 checkCustomerGrpHeadCmd = db.GetStoredProcCommand("SP_GetCustomerGrpHead");
                 db.AddInParameter(checkCustomerGrpHeadCmd, "@CustomerId", DbType.Int32, customerId);
 
                 result = int.Parse(db.ExecuteScalar(checkCustomerGrpHeadCmd).ToString());
-                
+
             }
             return result;
         }
@@ -2878,7 +2878,7 @@ namespace DaoCustomerProfiling
             Database db;
             DbCommand getCustomerListCmd;
             DataSet getCustomerDs;
-            
+
             db = DatabaseFactory.CreateDatabase("wealtherp");
             getCustomerListCmd = db.GetStoredProcCommand("SP_CustomerPortfolioList");
             db.AddInParameter(getCustomerListCmd, "@CustomerID", DbType.Int32, customerId);
@@ -3003,7 +3003,7 @@ namespace DaoCustomerProfiling
 
             Database db;
             DbCommand cmdInsertCustomerStaticDetalis;
-         
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -3015,7 +3015,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdInsertCustomerStaticDetalis, "@CSA_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(cmdInsertCustomerStaticDetalis, "@CSA_ModifiedBy", DbType.Int32, userId);
                 db.ExecuteDataSet(cmdInsertCustomerStaticDetalis);
-               
+
 
             }
             catch (BaseApplicationException Ex)
@@ -3025,7 +3025,7 @@ namespace DaoCustomerProfiling
 
         }
 
-        public void UpdateCustomerProjectedDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType,int selectedYear,int rangeFromYear,int rangeToYear)
+        public void UpdateCustomerProjectedDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType, int selectedYear, int rangeFromYear, int rangeToYear)
         {
 
             Database db;
@@ -3054,7 +3054,7 @@ namespace DaoCustomerProfiling
             }
 
         }
-        public int ExpiryAgeOfAdviser(int adviserId,int customerId)
+        public int ExpiryAgeOfAdviser(int adviserId, int customerId)
         {
 
             Database db;
@@ -3069,12 +3069,12 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdExpiryAgeOfAdviser, "@A_AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdExpiryAgeOfAdviser, "@customerId", DbType.Int32, customerId);
                 //db.AddOutParameter(cmdExpiryAgeOfAdviser, "@LE", DbType.Int32, 1000);
-                db.AddOutParameter(cmdExpiryAgeOfAdviser, "@LE", DbType.Int16,100);
-              
-                 db.ExecuteNonQuery(cmdExpiryAgeOfAdviser);
-                 expiryAge = Convert.ToInt16(db.GetParameterValue(cmdExpiryAgeOfAdviser, "@LE").ToString());
+                db.AddOutParameter(cmdExpiryAgeOfAdviser, "@LE", DbType.Int16, 100);
 
-                 //expiryAge = (int)cmdExpiryAgeOfAdviser.Parameters["@LE"].Value;
+                db.ExecuteNonQuery(cmdExpiryAgeOfAdviser);
+                expiryAge = Convert.ToInt16(db.GetParameterValue(cmdExpiryAgeOfAdviser, "@LE").ToString());
+
+                //expiryAge = (int)cmdExpiryAgeOfAdviser.Parameters["@LE"].Value;
 
                 //Object objRes = db.GetParameterValue(cmdExpiryAgeOfAdviser, "@LE");
                 //if (objRes != DBNull.Value)
@@ -3100,10 +3100,10 @@ namespace DaoCustomerProfiling
                 //To retreive data from the table 
                 cmdGetAllCustomersAssumptions = db.GetStoredProcCommand("SP_GetAllCustomersAssumptions");
                 db.AddInParameter(cmdGetAllCustomersAssumptions, "@C_CustomerId", DbType.Int32, customerId);
-         
 
-               dsGetAllCustomersAssumptions= db.ExecuteDataSet(cmdGetAllCustomersAssumptions);
-             }
+
+                dsGetAllCustomersAssumptions = db.ExecuteDataSet(cmdGetAllCustomersAssumptions);
+            }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -3154,8 +3154,96 @@ namespace DaoCustomerProfiling
 
 
         }
+        public DataTable GetBMParentCustomerNames(string prefixText, int rmId)
+        {
 
-        
+            Database db;
+            DbCommand cmdGetBMParentCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetBMParentCustomerNames = db.GetStoredProcCommand("SP_GetBMParentCustomerNames");
+                db.AddInParameter(cmdGetBMParentCustomerNames, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetBMParentCustomerNames, "@RMId", DbType.Int32, rmId);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetBMParentCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetBMParentCustomerNames()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+
+
+        }
+        public DataTable GetBMIndividualCustomerNames(string prefixText, int rmId)
+        {
+
+            Database db;
+            DbCommand cmdGetBMParentCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetBMParentCustomerNames = db.GetStoredProcCommand("SP_GetBMIndividualCustomerNames");
+                db.AddInParameter(cmdGetBMParentCustomerNames, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetBMParentCustomerNames, "@RMId", DbType.Int32, rmId);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetBMParentCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetBMIndividualCustomerNames()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+
+
+        }
     }
 }
 
