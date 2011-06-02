@@ -285,6 +285,8 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="MF MIS" Value="MF MIS">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF Systematic MIS" Value="MF systematic MIS">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
                                             </telerik:RadPanelItem>
                                         </Items>

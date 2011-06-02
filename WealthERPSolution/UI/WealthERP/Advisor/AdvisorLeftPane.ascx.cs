@@ -582,6 +582,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "MF systematic MIS")
                 {
+                    Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','login');", true);
                 }
                 else if (e.Item.Value == "MF Commission MIS")
@@ -862,6 +863,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "bm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMAMCwiseMIS", "loadcontrol('RMAMCwiseMIS','login');", true);
                 }
+                else if (e.Item.Value == "MF systematic MIS")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','login');", true);
+                }
                 else if (e.Item.Value == "Equity MIS")
                 {
                     Session["UserType"] = "bm";
@@ -891,7 +897,7 @@ namespace WealthERP.Advisor
         {
             AdvisorBo advisorBo = new AdvisorBo();
             DataSet dsTreeNodes;
-            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType);
+            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType,advisorVo.advisorId);
             return dsTreeNodes;
         }
 
