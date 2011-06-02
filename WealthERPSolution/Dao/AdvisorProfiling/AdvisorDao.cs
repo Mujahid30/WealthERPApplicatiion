@@ -1535,7 +1535,7 @@ namespace DaoAdvisorProfiling
         /// </summary>
         /// <param name="userRole"></param>
         /// <returns></returns>
-        public DataSet GetTreeNodesBasedOnUserRoles(string userRole,string treeType)
+        public DataSet GetTreeNodesBasedOnUserRoles(string userRole,string treeType,int adviserId)
         {
             Database db;
             DbCommand GetAdviserTreeNodes;
@@ -1547,6 +1547,7 @@ namespace DaoAdvisorProfiling
                 GetAdviserTreeNodes = db.GetStoredProcCommand("SP_GetTreeNodesBasedOnUserRoles");
                 db.AddInParameter(GetAdviserTreeNodes, "@userrole", DbType.String, userRole);
                 db.AddInParameter(GetAdviserTreeNodes, "@treetype", DbType.String, treeType);
+                db.AddInParameter(GetAdviserTreeNodes, "@adviserId", DbType.Int32, adviserId);
 
                 dsAdviserTreeNodes = db.ExecuteDataSet(GetAdviserTreeNodes);
             }
