@@ -909,14 +909,14 @@ namespace BoAdvisorProfiling
         /// </summary>
         /// <param name="adviserId"></param>
         /// <returns></returns>
-        public DataSet GetTreeNodesBasedOnUserRoles(string userRole,string treeType)
+        public DataSet GetTreeNodesBasedOnUserRoles(string userRole,string treeType,int adviserId)
         {
             AdvisorDao advisorDao = new AdvisorDao();
             DataSet dsAdviserTreeNodes;
 
             try
             {
-                dsAdviserTreeNodes = advisorDao.GetTreeNodesBasedOnUserRoles(userRole,treeType);
+                dsAdviserTreeNodes = advisorDao.GetTreeNodesBasedOnUserRoles(userRole,treeType,adviserId);
 
             }
             catch (BaseApplicationException Ex)
