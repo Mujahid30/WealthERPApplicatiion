@@ -259,7 +259,7 @@ namespace WealthERP.Advisor
                     else
                         treeType = "Admin";
 
-                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("Customer", treeType);
+                    dsTreeNodes = GetTreeNodesBasedOnUserRoles(treeType,"Customer");
                     if (dsTreeNodes.Tables[0].Rows.Count > 0)
                         SetAdminTreeNodesForRoles(dsTreeNodes, "Customer");
 
@@ -1057,7 +1057,7 @@ namespace WealthERP.Advisor
         {
             AdvisorBo advisorBo = new AdvisorBo();
             DataSet dsTreeNodes;
-            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType);
+            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType,advisorVo.advisorId);
             return dsTreeNodes;
         }
 
@@ -1080,7 +1080,7 @@ namespace WealthERP.Advisor
                         flag = tempView.Find(Item.Value);
                         if (flag == -1)
                         {
-                            Item.Enabled = false;
+                            Item.Visible = false;
                         }
                         else
                         {
@@ -1102,7 +1102,7 @@ namespace WealthERP.Advisor
                         flag = tempView.Find(Item.Value);
                         if (flag == -1)
                         {
-                            Item.Enabled = false;
+                            Item.Visible = false;
                         }
                         else
                         {
@@ -1125,7 +1125,7 @@ namespace WealthERP.Advisor
                         flag = tempView.Find(Item.Value);
                         if (flag == -1)
                         {
-                            Item.Enabled = false;
+                            Item.Visible = false;
                         }
                         else
                         {
