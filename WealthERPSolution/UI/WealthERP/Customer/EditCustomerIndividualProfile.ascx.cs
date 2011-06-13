@@ -148,37 +148,39 @@ namespace WealthERP.Customer
                     {
                         chkmail.Checked = false;
                     }
+                    
                     txtGuardianFirstName.Text = customerVo.ContactFirstName;
                     txtGuardianLastName.Text = customerVo.ContactLastName;
                     txtGuardianMiddleName.Text = customerVo.ContactMiddleName;
-                    txtFirstName.Text = customerVo.FirstName.ToString();
-                    txtMiddleName.Text = customerVo.MiddleName.ToString();
-                    txtLastName.Text = customerVo.LastName.ToString();
-                    txtCustomerCode.Text = customerVo.CustCode.ToString();
-                    txtPanNumber.Text = customerVo.PANNum.ToString();
+                    txtFirstName.Text = customerVo.FirstName;
+                    txtMiddleName.Text = customerVo.MiddleName;
+                    txtLastName.Text = customerVo.LastName;
+                    txtCustomerCode.Text = customerVo.CustCode;
+                    txtPanNumber.Text = customerVo.PANNum;
 
-                    txtCorrAdrLine1.Text = customerVo.Adr1Line1.ToString();
-                    txtCorrAdrLine2.Text = customerVo.Adr1Line2.ToString();
-                    txtCorrAdrLine3.Text = customerVo.Adr1Line3.ToString();
+                    txtCorrAdrLine1.Text = customerVo.Adr1Line1;
+                    txtCorrAdrLine2.Text = customerVo.Adr1Line2;
+                    txtCorrAdrLine3.Text = customerVo.Adr1Line3;
                     txtCorrAdrPinCode.Text = customerVo.Adr1PinCode.ToString();
-                    txtCorrAdrCity.Text = customerVo.Adr1City.ToString();
-                    ddlCorrAdrState.SelectedValue = customerVo.Adr1State.ToString();
-                    txtCorrAdrCountry.Text = customerVo.Adr1Country.ToString();
-                    txtPermAdrLine1.Text = customerVo.Adr2Line1.ToString();
-                    txtPermAdrLine2.Text = customerVo.Adr2Line2.ToString();
-                    txtPermAdrLine3.Text = customerVo.Adr2Line3.ToString();
+                    txtCorrAdrCity.Text = customerVo.Adr1City;
+                    ddlCorrAdrState.SelectedValue = customerVo.Adr1State;
+                    txtCorrAdrCountry.Text = customerVo.Adr1Country;
+                    txtPermAdrLine1.Text = customerVo.Adr2Line1;
+                    txtPermAdrLine2.Text = customerVo.Adr2Line2;
+                    
+                        txtPermAdrLine3.Text = customerVo.Adr2Line3;
                     txtPermAdrPinCode.Text = customerVo.Adr2PinCode.ToString();
-                    txtPermAdrCity.Text = customerVo.Adr2City.ToString();
-                    ddlPermAdrState.SelectedValue = customerVo.Adr2State.ToString();
-                    txtPermAdrCountry.Text = customerVo.Adr2Country.ToString();
-                    txtOfcCompanyName.Text = customerVo.CompanyName.ToString();
-                    txtOfcAdrLine1.Text = customerVo.OfcAdrLine1.ToString();
-                    txtOfcAdrLine2.Text = customerVo.OfcAdrLine2.ToString();
-                    txtOfcAdrLine3.Text = customerVo.OfcAdrLine3.ToString();
+                    txtPermAdrCity.Text = customerVo.Adr2City;
+                    ddlPermAdrState.SelectedValue = customerVo.Adr2State;
+                    txtPermAdrCountry.Text = customerVo.Adr2Country;
+                    txtOfcCompanyName.Text = customerVo.CompanyName;
+                    txtOfcAdrLine1.Text = customerVo.OfcAdrLine1;
+                    txtOfcAdrLine2.Text = customerVo.OfcAdrLine2;
+                    txtOfcAdrLine3.Text = customerVo.OfcAdrLine3;
                     txtOfcAdrPinCode.Text = customerVo.OfcAdrPinCode.ToString();
-                    txtOfcAdrCity.Text = customerVo.OfcAdrCity.ToString();
-                    ddlOfcAdrState.SelectedValue = customerVo.OfcAdrState.ToString();
-                    txtOfcAdrCountry.Text = customerVo.OfcAdrCountry.ToString();
+                    txtOfcAdrCity.Text = customerVo.OfcAdrCity;
+                    ddlOfcAdrState.SelectedValue = customerVo.OfcAdrState;
+                    txtOfcAdrCountry.Text = customerVo.OfcAdrCountry;
                     txtResPhoneNoIsd.Text = customerVo.ResISDCode.ToString();
                     txtResPhoneNoStd.Text = customerVo.ResSTDCode.ToString();
                     txtResPhoneNo.Text = customerVo.ResPhoneNum.ToString();
@@ -193,9 +195,9 @@ namespace WealthERP.Customer
                     txtResFaxStd.Text = customerVo.STDFax.ToString();
                     txtMobile1.Text = customerVo.Mobile1.ToString();
                     txtMobile2.Text = customerVo.Mobile2.ToString();
-                    txtEmail.Text = customerVo.Email.ToString();
-                    txtAltEmail.Text = customerVo.AltEmail.ToString();
-                    txtRBIRefNo.Text = customerVo.RBIRefNum.ToString();
+                    txtEmail.Text = customerVo.Email;
+                    txtAltEmail.Text = customerVo.AltEmail;
+                    txtRBIRefNo.Text = customerVo.RBIRefNum;
                     if (customerVo.RBIApprovalDate == DateTime.MinValue)
                         txtRBIRefDate.Text = "";
                     else
@@ -211,7 +213,7 @@ namespace WealthERP.Customer
                     else
                         txtJobStartDate.Text = customerVo.JobStartDate.ToShortDateString();
 
-                    txtMotherMaidenName.Text = customerVo.MothersMaidenName.ToString();
+                    txtMotherMaidenName.Text = customerVo.MothersMaidenName;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -346,10 +348,15 @@ namespace WealthERP.Customer
                 if (Validation())
                 {
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue.ToString());
-                    customerVo.Salutation = ddlSalutation.SelectedValue;
-                    customerVo.FirstName = txtFirstName.Text.ToString();
-                    customerVo.MiddleName = txtMiddleName.Text.ToString();
-                    customerVo.LastName = txtLastName.Text.ToString();
+                    //customerVo.Salutation = ddlSalutation.SelectedValue;
+                    if (ddlSalutation.SelectedIndex == 0)
+                        customerVo.Salutation = "";
+                    else
+                        customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
+
+                    customerVo.FirstName = txtFirstName.Text;
+                    customerVo.MiddleName = txtMiddleName.Text;
+                    customerVo.LastName = txtLastName.Text;
                     if (rbtnIndividual.Checked)
                     {
                         customerVo.Type = "IND";
@@ -379,14 +386,14 @@ namespace WealthERP.Customer
 
 
 
-                    customerVo.Adr1Line1 = txtCorrAdrLine1.Text.ToString();
-                    customerVo.Adr1Line2 = txtCorrAdrLine2.Text.ToString();
-                    customerVo.Adr1Line3 = txtCorrAdrLine3.Text.ToString();
+                    customerVo.Adr1Line1 = txtCorrAdrLine1.Text;
+                    customerVo.Adr1Line2 = txtCorrAdrLine2.Text;
+                    customerVo.Adr1Line3 = txtCorrAdrLine3.Text;
                     if (txtCorrAdrPinCode.Text == "")
                         customerVo.Adr1PinCode = 0;
                     else
-                        customerVo.Adr1PinCode = int.Parse(txtCorrAdrPinCode.Text.ToString());
-                    customerVo.Adr1City = txtCorrAdrCity.Text.ToString();
+                        customerVo.Adr1PinCode = int.Parse(txtCorrAdrPinCode.Text);
+                    customerVo.Adr1City = txtCorrAdrCity.Text;
                     if (ddlCorrAdrState.SelectedIndex == 0)
                         customerVo.Adr1State = "";
                     else
