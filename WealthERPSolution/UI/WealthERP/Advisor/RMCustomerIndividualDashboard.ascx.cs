@@ -51,24 +51,24 @@ namespace WealthERP.Advisor
                 lblPhone.Text = customerVo.ResISDCode.ToString() + " - " + customerVo.ResSTDCode.ToString() + " - " + customerVo.ResPhoneNum.ToString();
                 lblEmail.Text = customerVo.Email.ToString();
 
-                sbAddress.Append(customerVo.Adr1Line1.ToString());
+                sbAddress.Append(customerVo.Adr1Line1);
                 sbAddress.Append("<br />");
-                sbAddress.Append(customerVo.Adr1Line2.ToString());
+                sbAddress.Append(customerVo.Adr1Line2);
                 sbAddress.Append("<br />");
-                sbAddress.Append(customerVo.Adr1Line3.ToString());
+                sbAddress.Append(customerVo.Adr1Line3);
                 sbAddress.Append("<br />");
-                sbAddress.Append(customerVo.Adr1PinCode.ToString());
+                sbAddress.Append(customerVo.Adr1PinCode);
                 sbAddress.Append("<br />");
 
-                if (customerVo.Adr1State.ToString() != "")
+                if (customerVo.Adr1State != "")
                 {
-                    sbAddress.Append(XMLBo.GetStateName(path, customerVo.Adr1State.ToString()));
+                    sbAddress.Append(XMLBo.GetStateName(path, customerVo.Adr1State));
                     sbAddress.Append("<br />");
                 }
                 
-                sbAddress.Append(customerVo.Adr1City.ToString());
+                sbAddress.Append(customerVo.Adr1City);
                 sbAddress.Append("<br />");
-                sbAddress.Append(customerVo.Adr1Country.ToString());
+                sbAddress.Append(customerVo.Adr1Country);
 
                 lblAddress.Text = sbAddress.ToString();
 
@@ -97,7 +97,7 @@ namespace WealthERP.Advisor
                         CustomerFamilyVo customerFamilyVo = new CustomerFamilyVo();
                         customerFamilyVo = customerFamilyList[i];
                         drCustomerFamily[0] = customerFamilyVo.AssociateCustomerId.ToString();
-                        drCustomerFamily[1] = customerFamilyVo.AssociateCustomerName.ToString();
+                        drCustomerFamily[1] = customerFamilyVo.AssociateCustomerName;
                         drCustomerFamily[2] = customerFamilyVo.Relationship;
                         dtCustomerFamilyList.Rows.Add(drCustomerFamily);
 
@@ -172,11 +172,11 @@ namespace WealthERP.Advisor
                         customerBankAccountVo = new CustomerBankAccountVo();
                         customerBankAccountVo = customerBankAccountList[i];
                         //drCustomerBankAccount[0] = customerBankAccountVo.CustBankAccId.ToString();
-                        drCustomerBankAccount[0] = customerBankAccountVo.BankName.ToString();
+                        drCustomerBankAccount[0] = customerBankAccountVo.BankName;
                         //drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
-                        drCustomerBankAccount[1] = customerBankAccountVo.AccountType.ToString();
+                        drCustomerBankAccount[1] = customerBankAccountVo.AccountType;
                         //drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
-                        drCustomerBankAccount[2] = customerBankAccountVo.AccountNum.ToString();
+                        drCustomerBankAccount[2] = customerBankAccountVo.AccountNum;
 
                         dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
                     }
