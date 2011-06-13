@@ -15,6 +15,7 @@ using BoUser;
 using BoCommon;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using BoAdvisorProfiling;
 
 namespace WealthERP.Customer
 {
@@ -35,7 +36,7 @@ namespace WealthERP.Customer
         UserVo tempUserVo = new UserVo();
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
-
+        AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         int rmId;
         //int userId;
         string path;
@@ -43,6 +44,7 @@ namespace WealthERP.Customer
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            userVo = (UserVo)Session["UserVo"];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
             txtMarriageDate_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
@@ -54,7 +56,16 @@ namespace WealthERP.Customer
                 rmVo = (RMVo)Session["rmVo"];
 
                 customerVo = (CustomerVo)Session["CustomerVo"];
+                if (Request.QueryString["RmId"] != null)
+                {
+                    rmId = int.Parse(Request.QueryString["RmId"].ToString());
 
+                    rmVo = advisorStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                }
+                else
+                {
+                    rmId = rmVo.RMId;
+                }
                 if (!IsPostBack)
                 {
                     if (customerVo.SubType != "NRI")
@@ -305,7 +316,7 @@ namespace WealthERP.Customer
                         customerIds = (List<int>)Session["CustomerIds"];
                         customerVo.CustomerId = customerIds[1];
                         customerBo.UpdateCustomer(customerVo);
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
                     }
                 }
                 else
