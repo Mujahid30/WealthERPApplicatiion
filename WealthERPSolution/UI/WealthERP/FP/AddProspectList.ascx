@@ -22,6 +22,36 @@
     }
 </script>--%>
 
+<script type="text/javascript">
+    function ConvertToCustomerConfirmation() {
+    if (confirm("Are you sure you want to convert to Customer ?"))
+        return true;
+    else
+        return false;
+    }
+
+</script>
+
+<script type="text/javascript">
+    function showmessage() {
+        if (confirm("Are you sure you want to delete this child customer?")) {
+            document.getElementById("ctrl_AddProspectList_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_AddProspectList_hiddenassociation").click();
+            return true;
+        }
+        else {
+            document.getElementById("ctrl_AddProspectList_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_AddProspectList_hiddenassociation").click();
+            return false;
+        }
+
+    }
+
+    function showassocation() {
+        alert("Customer has associations, cannot be deleted");
+    }
+</script>
+
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
@@ -317,8 +347,15 @@
                  />
             &nbsp;<asp:Button ID="btnSubmitAddDetails" runat="server" Text="Add Finance Details"
                 OnClick="btnSubmitAddDetails_Click"  />
+                &nbsp; <asp:Button ID="btnConvertToCustomer" runat="server" 
+                Text="Convert to Customer" OnClientClick="return ConvertToCustomerConfirmation()" onclick="btnConvertToCustomer_Click" />
         </td>
     </tr>
 </table>
+
+<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
+    BorderStyle="None" BackColor="Transparent" ForeColor="Transparent"   />
 <asp:HiddenField ID="hdnIsActive" runat="server" />
 <asp:HiddenField ID="hdnIsProspect" runat="server" />
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="hdnassociationcount" runat="server" />

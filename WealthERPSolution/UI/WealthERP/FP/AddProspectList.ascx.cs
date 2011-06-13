@@ -35,7 +35,9 @@ namespace WealthERP.FP
         AdvisorVo advisorVo = new AdvisorVo();
         RMVo rmVo = new RMVo();
         DataRow dr;
+        string Role = "";
         PortfolioBo portfolioBo = new PortfolioBo();
+        CustomerFamilyVo familyVo = new CustomerFamilyVo();
 
         //For Edit 
         int totalRecordsCount;
@@ -47,33 +49,46 @@ namespace WealthERP.FP
         {
             try
             {
-
+                
                 int customerId = 0;
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
-                if (!IsPostBack)
-                {
-                    dt = new DataTable();
-                    dt.Columns.Add("C_CustomerId");
-                    dt.Columns.Add("CA_AssociationId");
-                    dt.Columns.Add("CustomerRelationship");
-                    dt.Columns.Add("FirstName");
-                    dt.Columns.Add("MiddleName");
-                    dt.Columns.Add("LastName");
-                    dt.Columns.Add("DOB");
-                    dt.Columns.Add("EmailId");
-                    Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                if(Session[SessionContents.CurrentUserRole].ToString() != "")
+                    Role = Session[SessionContents.CurrentUserRole].ToString();
 
+                if ((Role != "") && (Role == "Admin"))
+                {
+                    btnConvertToCustomer.Enabled = true;
                 }
                 else
                 {
-                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    btnConvertToCustomer.Enabled = false;
                 }
+
+                    if (!IsPostBack)
+                    {
+                        dt = new DataTable();
+                        dt.Columns.Add("C_CustomerId");
+                        dt.Columns.Add("CA_AssociationId");
+                        dt.Columns.Add("CustomerRelationship");
+                        dt.Columns.Add("FirstName");
+                        dt.Columns.Add("MiddleName");
+                        dt.Columns.Add("LastName");
+                        dt.Columns.Add("DOB");
+                        dt.Columns.Add("EmailId");
+                        Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+
+                    }
+                    else
+                    {
+                        dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    }
 
                 //SqlDataSourceCustomerRelation.ConnectionString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
                 rmVo = (RMVo)Session["rmVo"];
                 if (!IsPostBack)
                 {
+                    //if(Role == "
                     BindBranch(advisorVo, rmVo);
                     if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
                     {
@@ -148,6 +163,7 @@ namespace WealthERP.FP
                             aplToolBar.Visible = true;
                             btnSubmit.Visible = false;
                             btnSubmitAddDetails.Visible = false;
+                            btnConvertToCustomer.Visible = false;
                             if (customerFamilyVoList != null)
                             {
                                 RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
@@ -178,11 +194,14 @@ namespace WealthERP.FP
                             dpProspectAddDate.Enabled = false;
                             headertitle.Text = "View Prospect";
 
+                            RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
+
                         }
                         else if (Session[SessionContents.FPS_AddProspectListActionStatus].ToString() == "Edit")
                         {
                             // Edit thing have been handled here
                             aplToolBar.Visible = true;
+                            btnConvertToCustomer.Visible = true;
                             RadToolBarButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
                             rtb.Visible = false;
                             btnSubmit.Visible = true;
@@ -192,10 +211,13 @@ namespace WealthERP.FP
                             RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
                             tblChildCustomer.Visible = true;
                             headertitle.Text = "Edit Prospect";
+
+                            RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = true;
                         }
                     }
-                    RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
+                    //RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = true;
                 }
+               
 
             }
             catch (Exception ex)
@@ -203,7 +225,7 @@ namespace WealthERP.FP
                 throw ex;
 
             }
-
+            hiddenassociation.Style.Add("display", "none");
         }
 
 
@@ -238,7 +260,15 @@ namespace WealthERP.FP
                 dr = dt.NewRow();
                 try
                 {
-                    dt.Rows[e.Item.ItemIndex].Delete();
+                    if (dt.Rows[e.Item.ItemIndex]["C_CustomerId"].ToString() != "")
+                    {
+                        ChildDeletionFunction();
+                        Session["ChildCustomerId"] = dt.Rows[e.Item.ItemIndex]["C_CustomerId"].ToString();
+                    }
+                    else
+                    {
+                        dt.Rows[e.Item.ItemIndex].Delete();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -253,6 +283,12 @@ namespace WealthERP.FP
                 e.Canceled = true;
                 throw ex;
             }
+            
+        }
+
+        private void ChildDeletionFunction()
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
         }
         protected void RadGrid1_UpdateCommand(object source, GridCommandEventArgs e)
         {
@@ -449,8 +485,8 @@ namespace WealthERP.FP
             string editstatus = "";
             int adviserId = (int)Session["adviserId"];
 
-            if (Session[SessionContents.FPS_AddProspectListActionStatus]!=null)
-             editstatus = Session[SessionContents.FPS_AddProspectListActionStatus].ToString();
+            if (Session[SessionContents.FPS_AddProspectListActionStatus] != null)
+                editstatus = Session[SessionContents.FPS_AddProspectListActionStatus].ToString();
 
             if (editstatus == "Edit")
             {
@@ -543,14 +579,14 @@ namespace WealthERP.FP
                 }
 
             }
-            
-            
+
+
             if (editstatus != "Edit")
             {
                 if (Session[SessionContents.FPS_ProspectList_CustomerId] != null)
-                
-                customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
-                if (customerId != 0  )
+
+                    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                if (customerId != 0)
                 {
                     customerVo = customerBo.GetCustomer(customerId);
                     if (customerVo.PANNum.ToString() != txtPanNumber.Text.ToString())
@@ -640,63 +676,61 @@ namespace WealthERP.FP
                     }
 
                 }
-               
+
                 else
                 {
 
-                
+
                     if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
                     {
 
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
 
                     }
-                
 
 
-                else
-                {
-                    try
+
+                    else
                     {
-                        dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                        foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
+                        try
                         {
-                            if (item.IsInEditMode)
+                            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                            foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
                             {
-                                status = false;
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                                if (item.IsInEditMode)
+                                {
+                                    status = false;
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling Data for Family Members is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
+                                }
                             }
-                        }
-                        if (status)
-                        {
-                            if (Validation())
+                            if (status)
                             {
+                                if (Validation())
+                                {
 
-                                userVo = new UserVo();
-                                rmVo = (RMVo)Session["rmVo"];
-                                tempuservo = (UserVo)Session["uservo"];
-                                int createdById = tempuservo.UserId;
-                                bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
-                                msgRecordStatus.Visible = true;
-                                btnSubmit.Text = "Update";
+                                    userVo = new UserVo();
+                                    rmVo = (RMVo)Session["rmVo"];
+                                    tempuservo = (UserVo)Session["uservo"];
+                                    int createdById = tempuservo.UserId;
+                                    bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
+                                    msgRecordStatus.Visible = true;
+                                    btnSubmit.Text = "Update";
+                                }
                             }
-                        }
-                        else
-                        {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
-                        }
+                            else
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :');", true);
+                            }
 
-                    }
-                    catch (Exception Ex)
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
+                        }
+                        catch (Exception Ex)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Something Went Wrong \n Record Status: Unsuccessful \n Error Details :" + Ex.Message + "');", true);
+                        }
                     }
                 }
             }
         }
-            
-            
-            }
        
     
 
@@ -741,7 +775,7 @@ namespace WealthERP.FP
                         dt = CustomerIdList(dt, customerId);
                     }
                     //Updating Parent Customer
-                    UpdateCustomerForAddProspect(customerId);
+                    UpdateCustomerForAddProspect(customerId, false);
                     if (dt != null)
                     {
 
@@ -750,7 +784,7 @@ namespace WealthERP.FP
                             if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
                             {
                                 //Updating child Customers
-                                UpdateCustomerForAddProspect(customerId, dr);
+                                UpdateCustomerForAddProspect(customerId, dr, false);
                             }
                             else
                             {
@@ -782,7 +816,7 @@ namespace WealthERP.FP
         /// </summary>
         /// <param name="customerId"></param>
         /// 
-        protected void UpdateCustomerForAddProspect(int customerId)
+        protected void UpdateCustomerForAddProspect(int customerId, bool convertToCuctomer)
         {
             customerVo = new CustomerVo();
             
@@ -831,14 +865,8 @@ namespace WealthERP.FP
                 {
                     customerVo.IsActive = 0;
                 }
-                if (hdnIsProspect.Value == "1")
-                {
-                    customerVo.IsProspect = 1;
-                }
-                else
-                {
-                    customerVo.IsProspect = 0;
-                }
+              
+
                 if (dpProspectAddDate.SelectedDate != null)
                 {
                     customerVo.ProspectAddDate = dpProspectAddDate.SelectedDate;
@@ -847,9 +875,30 @@ namespace WealthERP.FP
                 Session["customerVo"] = customerVo;
                 Session["CustomerVo"] = customerVo;
                 userVo.Email = txtEmail.Text.ToString();
+                //if (chkprospect.Checked == true)
+                //{
+                //    customerPortfolioVo.IsMainPortfolio = 1;
+                //    customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+                //}
+                //else
+                //{
+                //    customerPortfolioVo.IsMainPortfolio = 1;
+                //    customerPortfolioVo.PortfolioName = "MyPortfolio";
+                //}
                 customerPortfolioVo.IsMainPortfolio = 1;
                 customerPortfolioVo.PortfolioTypeCode = "RGL";
-                customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+
+                if (convertToCuctomer == true)
+                {
+                    customerPortfolioVo.PortfolioName = "MyPortfolio";
+                    customerVo.IsProspect = 0;
+                }
+                else
+                {
+                    customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+                    customerVo.IsProspect = 1;
+                }
+                
                 customerBo.UpdateCustomer(customerVo);
                 Session["Customer"] = "Customer";
                 Session[SessionContents.CustomerVo] = customerVo;
@@ -868,10 +917,13 @@ namespace WealthERP.FP
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="drChildCustomer"></param>
-        protected void UpdateCustomerForAddProspect(int customerId, DataRow drChildCustomer)
+        protected void UpdateCustomerForAddProspect(int customerId, DataRow drChildCustomer, bool convertToCuctomer)
         {
             customerVo = new CustomerVo();
-            customerVo.CustomerId = int.Parse(drChildCustomer["C_CustomerId"].ToString());
+            if (drChildCustomer["C_CustomerId"].ToString() != "")
+                customerVo.CustomerId = int.Parse(drChildCustomer["C_CustomerId"].ToString());
+            else
+                customerVo.CustomerId = familyVo.AssociateCustomerId;
             customerVo.RmId = rmVo.RMId;
             customerVo.Type = "IND";
             customerVo.FirstName = drChildCustomer["FirstName"].ToString();
@@ -902,13 +954,21 @@ namespace WealthERP.FP
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
             customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+
+            if (convertToCuctomer == true)
+            {
+                customerVo.IsProspect = 0;
+            }
+            else
+            {
+                customerVo.IsProspect = 1;
+            }
             customerBo.UpdateCustomer(customerVo);
             Session["Customer"] = "Customer";
-            if (drChildCustomer["C_CustomerId"] != null)
+            if (drChildCustomer["C_CustomerId"].ToString() != "")
             {
                 if (int.Parse(drChildCustomer["C_CustomerId"].ToString()) != 0)
                 {
-                    CustomerFamilyVo familyVo = new CustomerFamilyVo();
                     CustomerFamilyBo familyBo = new CustomerFamilyBo();
                     familyVo.AssociationId = int.Parse(drChildCustomer["CA_AssociationId"].ToString());
                     familyVo.AssociateCustomerId = int.Parse(drChildCustomer["C_CustomerId"].ToString());
@@ -920,7 +980,6 @@ namespace WealthERP.FP
             //Session[SessionContents.CustomerVo] = customerVo;
             //Session["customerVo"] = customerVo;
             //Session["CustomerVo"] = customerVo;
-
         }
 
         /// <summary>
@@ -977,7 +1036,7 @@ namespace WealthERP.FP
                     
                     Session[SessionContents.FPS_CustomerProspect_CustomerVo] = customerVo;
                     userVo.Email = txtEmail.Text.ToString();
-                    customerPortfolioVo.IsMainPortfolio = 1;
+                    customerPortfolioVo.IsMainPortfolio = 0;
                     customerPortfolioVo.PortfolioTypeCode = "RGL";
                     customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
                     customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
@@ -1046,7 +1105,7 @@ namespace WealthERP.FP
 
 
             userVo.Email = drChildCustomer["EmailId"].ToString();
-            customerPortfolioVo.IsMainPortfolio = 1;
+            customerPortfolioVo.IsMainPortfolio = 0;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
             customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
             //Session[SessionContents.CustomerVo] = customerVo;
@@ -1055,7 +1114,7 @@ namespace WealthERP.FP
             List<int> customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, createdById);
             if (customerIds != null)
             {
-                CustomerFamilyVo familyVo = new CustomerFamilyVo();
+                
                 CustomerFamilyBo familyBo = new CustomerFamilyBo();
                 familyVo.AssociateCustomerId = customerIds[1];
                 familyVo.CustomerId = ParentCustomerId;
@@ -1236,10 +1295,13 @@ namespace WealthERP.FP
 
         protected void aplToolBar_ButtonClick(object sender, RadToolBarEventArgs e)
         {
-            string bmRole;
-            if(Session["BMCustomer"]!=null)
-                bmRole=Session["BMCustomer"].ToString();
-            else bmRole=string.Empty;
+            string userRole;
+            //if(Session["BMCustomer"]!=null)
+            //    bmRole=Session["BMCustomer"].ToString();
+            //else bmRole=string.Empty;
+
+            userRole = Convert.ToString(Session[SessionContents.CurrentUserRole]);
+            Session["IsCustomerGrid"] = "HighlightCustomerNode";
 
             if (e.Item.Value == "Back")
             {
@@ -1248,20 +1310,20 @@ namespace WealthERP.FP
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                 }
 
-                if (bmRole == "BM")
+                if (userRole == "BM")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BMCustomer','login');", true);                    
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BMCustomer','login');", true);
                 }
-                else
-                    if (bmRole == "RM")
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomer','login');", true);
-                    }
-                    else
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
-                   
-                    }
+                else if(userRole == "RM")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomer','login');", true);
+                }   
+                else if(userRole == "Admin")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+                }
+                
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
                     
             }
             else if (e.Item.Value == "Edit")
@@ -1287,6 +1349,106 @@ namespace WealthERP.FP
                 }
             }
             return dt;
+        }
+
+        protected void btnConvertToCustomer_Click(object sender, EventArgs e)
+        {
+            int customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+           
+            //Updating Parent Customer for changing him from Prospect to Non Prospect..
+            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+            int PortFolioId = customerPortfolioVo.PortfolioId;
+            
+            //UpdateCustomerExistingPortfolio(PortFolioId);
+            AddCustomerManagePortFolio(customerId);
+            UpdateCustomerForAddProspect(customerId, true);
+
+            // Converting all child customers from Prospect to Non Prospect..
+            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+
+            if ((dt.Rows.Count != 0) && (dt != null))
+            {
+                int ChildcustomerId = 0;
+                int ChildPortFolioId = 0;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    
+                    tempuservo = (UserVo)Session["uservo"];
+                    int createdById = tempuservo.UserId;
+
+                    if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
+                    {
+                        ChildcustomerId = Convert.ToInt32(dr["C_CustomerID"]);
+                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ChildcustomerId);
+                        ChildPortFolioId = customerPortfolioVo.PortfolioId;
+
+                        //UpdateCustomerExistingPortfolio(ChildPortFolioId);
+                        AddCustomerManagePortFolio(ChildcustomerId);
+                        UpdateCustomerForAddProspect(customerId, dr, true);
+                    }
+                    else
+                    {
+                        CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
+                        ChildcustomerId = familyVo.AssociateCustomerId;
+                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ChildcustomerId);
+                        ChildPortFolioId = customerPortfolioVo.PortfolioId;
+                        //UpdateCustomerExistingPortfolio(ChildPortFolioId);
+                        AddCustomerManagePortFolio(ChildcustomerId);
+                        UpdateCustomerForAddProspect(customerId, dr, true);
+                    }
+
+                    
+
+                }
+            }
+            Session["IsCustomerGrid"] = "HighlightCustomerNode";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
+        }
+        // Update Customer Existing Portfolio..
+        private void UpdateCustomerExistingPortfolio(int CustomerId)
+        {
+            customerPortfolioVo.IsMainPortfolio = 0;
+            customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+            customerPortfolioVo.CustomerId = CustomerId;
+            portfolioBo.UpdateCustomerPortfolio(customerPortfolioVo, userVo.UserId);
+        }
+
+        // Creating Customer Manage PortFolio..
+        private void AddCustomerManagePortFolio(int customerId)
+        {
+            customerPortfolioVo.CustomerId = customerId;
+            customerPortfolioVo.IsMainPortfolio = 1;
+            customerPortfolioVo.PMSIdentifier = "";
+            customerPortfolioVo.PortfolioName = "MyPortfolio";
+            customerPortfolioVo.PortfolioTypeCode = "RGL";
+            portfolioBo.CreateCustomerPortfolio(customerPortfolioVo, userVo.UserId);
+        }
+        // To Delete the customers
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            int customerId = 0;
+            string val = Convert.ToString(hdnMsgValue.Value);
+            string associationStatus = "";
+            if (val == "1")
+            {
+                customerId = int.Parse(Session["ChildCustomerId"].ToString());
+                hdnassociationcount.Value = customerBo.CheckAndDeleteTheChildCustomers("C", customerId).ToString();
+                associationStatus = Convert.ToString(hdnassociationcount.Value);
+
+                if (associationStatus == "0")
+                {
+                    if (customerBo.DeleteChildCustomer(customerId, "D"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddProspectList','login');", true);
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showassocation();", true);
+                    //Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
+                }
+            }
         }
 
     }
