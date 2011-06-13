@@ -57,7 +57,7 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-                    lblProfilingDate.Text = customerVo.ProfilingDate.ToShortDateString().ToString();
+                    lblProfilingDate.Text = customerVo.ProfilingDate.ToShortDateString();
                 }
                 if (customerVo.Dob.Year == 1800 || customerVo.Dob==DateTime.MinValue)
                 {
@@ -65,21 +65,21 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-                    lblDob.Text = customerVo.Dob.ToShortDateString().ToString();
+                    lblDob.Text = customerVo.Dob.ToShortDateString();
                 }
                 
                 //hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerVo.CustomerId).ToString();
                 lblGuardianName.Text = customerVo.ContactFirstName + " " + customerVo.ContactMiddleName + " " + customerVo.ContactLastName;
                 lblName.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
-                lblCustCode.Text = customerVo.CustCode.ToString();
-                lblPanNum.Text = customerVo.PANNum.ToString();
-                lblCorrLine1.Text = customerVo.Adr1Line1.ToString();
-                lblCorrLine2.Text = customerVo.Adr1Line2.ToString();
-                lblCorrLine3.Text = customerVo.Adr1Line3.ToString();
+                lblCustCode.Text = customerVo.CustCode;
+                lblPanNum.Text = customerVo.PANNum;
+                lblCorrLine1.Text = customerVo.Adr1Line1;
+                lblCorrLine2.Text = customerVo.Adr1Line2;
+                lblCorrLine3.Text = customerVo.Adr1Line3;
                 lblCorrPinCode.Text = customerVo.Adr1PinCode.ToString();
-                lblCorrCity.Text = customerVo.Adr1City.ToString();
-                if (customerVo.BranchName != null && customerVo.BranchName.ToString() != "")
-                    lblBranch.Text = customerVo.BranchName.ToString();
+                lblCorrCity.Text = customerVo.Adr1City;
+                if (customerVo.BranchName != null && customerVo.BranchName != "")
+                    lblBranch.Text = customerVo.BranchName;
                 else
                     lblBranch.Text = "";
                 customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
@@ -94,7 +94,7 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-                    lblJobStart.Text = customerVo.JobStartDate.ToShortDateString().ToString();
+                    lblJobStart.Text = customerVo.JobStartDate.ToShortDateString();
                 }
 
                 if (customerVo.ResidenceLivingDate.Year == 1800 || customerVo.ResidenceLivingDate == DateTime.MinValue)
@@ -103,7 +103,7 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-                    lblLiving.Text = customerVo.ResidenceLivingDate.ToShortDateString().ToString();
+                    lblLiving.Text = customerVo.ResidenceLivingDate.ToShortDateString();
                 }
 
                 if (customerVo.Adr1State == "")
@@ -111,45 +111,45 @@ namespace WealthERP.Customer
                     lblCorrState.Text = "";
                 }
                 else
-                lblCorrState.Text = XMLBo.GetStateName(path, customerVo.Adr1State.ToString());
+                lblCorrState.Text = XMLBo.GetStateName(path, customerVo.Adr1State);
 
-                lblMotherMaiden.Text = customerVo.MothersMaidenName.ToString();
-                lblCorrCountry.Text = customerVo.Adr1Country.ToString();
-                lblPermLine1.Text = customerVo.Adr2Line1.ToString();
-                lblPermLine2.Text = customerVo.Adr2Line2.ToString();
-                lblPermLine3.Text = customerVo.Adr2Line3.ToString();
+                lblMotherMaiden.Text = customerVo.MothersMaidenName;
+                lblCorrCountry.Text = customerVo.Adr1Country;
+                lblPermLine1.Text = customerVo.Adr2Line1;
+                lblPermLine2.Text = customerVo.Adr2Line2;
+                lblPermLine3.Text = customerVo.Adr2Line3;
                 lblPermPinCode.Text = customerVo.Adr2PinCode.ToString();
-                lblPermCity.Text = customerVo.Adr2City.ToString();
+                lblPermCity.Text = customerVo.Adr2City;
                 if (customerVo.Adr2State == "")
                 {
                     lblPermState.Text = "";
                 }
                 else
-                lblPermState.Text = XMLBo.GetStateName(path,customerVo.Adr2State.ToString());
+                lblPermState.Text = XMLBo.GetStateName(path,customerVo.Adr2State);
 
-                lblPermCountry.Text = customerVo.Adr2Country.ToString();
-                lblCompanyName.Text = customerVo.CompanyName.ToString();
-                lblOfcLine1.Text = customerVo.OfcAdrLine1.ToString();
-                lblOfcLine2.Text = customerVo.OfcAdrLine2.ToString();
-                lblOfcLine3.Text = customerVo.OfcAdrLine3.ToString();
+                lblPermCountry.Text = customerVo.Adr2Country;
+                lblCompanyName.Text = customerVo.CompanyName;
+                lblOfcLine1.Text = customerVo.OfcAdrLine1;
+                lblOfcLine2.Text = customerVo.OfcAdrLine2;
+                lblOfcLine3.Text = customerVo.OfcAdrLine3;
                 lblOfcPinCode.Text = customerVo.OfcAdrPinCode.ToString();
-                lblOfcCity.Text = customerVo.OfcAdrCity.ToString();
+                lblOfcCity.Text = customerVo.OfcAdrCity;
 
                 if (customerVo.OfcAdrState == "")
                 {
                     lblOfcState.Text = "";
                 }
                 else
-                lblOfcState.Text = XMLBo.GetStateName(path, customerVo.OfcAdrState.ToString());
-                lblOfcCountry.Text = customerVo.OfcAdrCountry.ToString();
+                lblOfcState.Text = XMLBo.GetStateName(path, customerVo.OfcAdrState);
+                lblOfcCountry.Text = customerVo.OfcAdrCountry;
                 lblResPhone.Text = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
                 lblOfcPhone.Text = customerVo.OfcISDCode.ToString() + "-" + customerVo.OfcSTDCode.ToString() + "-" + customerVo.OfcPhoneNum.ToString();
                 lblOfcFax.Text = customerVo.OfcISDFax.ToString() + "-" + customerVo.OfcSTDFax.ToString() + "-" + customerVo.OfcFax.ToString();
                 lblResFax.Text = customerVo.ISDFax.ToString() + "-" + customerVo.STDFax.ToString() + "-" + customerVo.Fax.ToString();
                 lblMobile1.Text = customerVo.Mobile1.ToString();
                 lblMobile2.Text = customerVo.Mobile2.ToString();
-                lblEmail.Text = customerVo.Email.ToString();
-                lblAltEmail.Text = customerVo.AltEmail.ToString();
+                lblEmail.Text = customerVo.Email;
+                lblAltEmail.Text = customerVo.AltEmail;
                 if (customerVo.DummyPAN == 1)
                 {
                     chkdummypan.Checked = true;
@@ -184,11 +184,11 @@ namespace WealthERP.Customer
                 }
 
                 if (customerVo.Occupation != null)
-                    lblOccupation.Text = XMLBo.GetOccupationName(path, customerVo.Occupation.ToString());
+                    lblOccupation.Text = XMLBo.GetOccupationName(path, customerVo.Occupation);
                 else
                     lblOccupation.Text = "";
                 if (customerVo.MaritalStatus != null)
-                    lblMaritalStatus.Text = XMLBo.GetMaritalStatusName(path, customerVo.MaritalStatus.ToString());
+                    lblMaritalStatus.Text = XMLBo.GetMaritalStatusName(path, customerVo.MaritalStatus);
                 else
                     lblMaritalStatus.Text = "";
                 if (customerVo.MarriageDate.Year == 1800 || customerVo.MarriageDate == DateTime.MinValue)
@@ -196,14 +196,14 @@ namespace WealthERP.Customer
                 else
                     lblMarriageDate.Text = customerVo.MarriageDate.ToShortDateString();
                 if (customerVo.Qualification != null)
-                    lblQualification.Text = XMLBo.GetQualificationName(path, customerVo.Qualification.ToString());
+                    lblQualification.Text = XMLBo.GetQualificationName(path, customerVo.Qualification);
                 else
                     lblQualification.Text = "";
                 if (customerVo.Nationality != null)
-                    lblNationality.Text = XMLBo.GetNationalityName(path, customerVo.Nationality.ToString());
+                    lblNationality.Text = XMLBo.GetNationalityName(path, customerVo.Nationality);
                 else
                     lblNationality.Text = "";
-                lblRBIRefNo.Text = customerVo.RBIRefNum.ToString();
+                lblRBIRefNo.Text = customerVo.RBIRefNum;
                 if (customerVo.RBIApprovalDate.Year == 1800 || customerVo.RBIApprovalDate==DateTime.MinValue)
                     
                 {
@@ -211,11 +211,11 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-                    lblRBIRefDate.Text = customerVo.RBIApprovalDate.ToShortDateString().ToString();
+                    lblRBIRefDate.Text = customerVo.RBIApprovalDate.ToShortDateString();
                 }
                 if (customerVo.Nationality != null)
                 {
-                    lblNationality.Text = XMLBo.GetNationalityName(path, customerVo.Nationality.ToString());
+                    lblNationality.Text = XMLBo.GetNationalityName(path, customerVo.Nationality);
                 }
                 else
                     lblNationality.Text = "";
