@@ -72,13 +72,29 @@
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlAdviserBranchList" runat="server" CssClass="cmbField">
+              <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server"  CssClass="cmbField" 
+                onselectedindexchanged="ddlAdviserBranchList_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
             <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator2" runat="server"
                 ControlToValidate="ddlAdviserBranchList" ErrorMessage="Please select a Branch"
-                Operator="NotEqual" ValueToCompare="Select a Branch" CssClass="cvPCG" Display="Dynamic">
+                Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
+            </asp:CompareValidator>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="Select RM:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlAdviseRMList" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <span id="Span8" class="spnRequiredField">*</span>
+            <br />
+          <asp:CompareValidator ID="CompareValidator2" runat="server"
+                ControlToValidate="ddlAdviseRMList" ErrorMessage=" "
+                Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
             </asp:CompareValidator>
         </td>
     </tr>
@@ -92,7 +108,7 @@
             <span id="Span1" class="spnRequiredField">*</span>
             <br />
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
-                ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select a Sub-Type"
+                ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
