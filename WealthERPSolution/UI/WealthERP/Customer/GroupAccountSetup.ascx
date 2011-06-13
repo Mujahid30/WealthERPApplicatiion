@@ -23,6 +23,15 @@
 
 </script>
 
+<script type="text/javascript">
+    function checkRMSelectedOrNot() {
+        if (document.getElementById("<%=ddlSelectRMs.ClientID%>").value == "Select RM") {
+            alert('Please Select RM');
+        }
+    }
+
+</script>
+
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
@@ -31,15 +40,41 @@
         </td>
     </tr>
 </table>
+<asp:UpdatePanel ID="upGroupAccRM" runat="server">
+<ContentTemplate>
 <table>
     <tr>
+    <td align="right">
+            <asp:Label ID="lblSelectRM" runat="server" style="text-align: right" Text="Select RM: " CssClass="FieldName"></asp:Label>
+        </td>
         <td>
+            <asp:DropDownList ID="ddlSelectRMs" style="vertical-align: middle" Width="180"  CssClass="cmbField" runat="server" AutoPostBack="true" onselectedindexchanged="ddlSelectRMs_SelectedIndexChanged">
+            
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblStaffCode" runat="server" CssClass="FieldName" Text="Staff Code: "></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtStaffCode" runat="server" Enabled="false" ReadOnly="true" CssClass="txtField"></asp:TextBox>
+        </td>
+        <td>
+         <asp:Label ID="lblBranch" runat="server" Text="Branch: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:Label ID="lblRMsBranch" runat="server" Text="" CssClass="FieldName"></asp:Label>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
             <asp:Label ID="lblParentCustomer" runat="server" CssClass="FieldName" Text="Pick Parent Customer:"></asp:Label>
         </td>
         <td colspan="3">
             <asp:HiddenField ID="txtParentCustomerId" runat="server" OnValueChanged="txtParentCustomer_TextChanged" />
             <asp:HiddenField ID="txtParentCustomerType" runat="server" />
-            <asp:TextBox ID="txtParentCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
+           <asp:TextBox ID="txtParentCustomer" onblur="checkRMSelectedOrNot()" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="true"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtParentCustomer_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtParentCustomer" WatermarkText="Type the Customer Name">
@@ -59,7 +94,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td align="right">
             <asp:Label ID="lblPanParent" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
         </td>
         <td>
@@ -80,12 +115,12 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td align="right">
             <asp:Label ID="lblMemberCustomer" runat="server" CssClass="FieldName" Text="Pick Member Customer:"></asp:Label>
         </td>
         <td colspan="3">
             <asp:HiddenField ID="txtMemberCustomerId" runat="server" />
-            <asp:TextBox ID="txtMemberCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
+            <asp:TextBox ID="txtMemberCustomer" onblur="checkRMSelectedOrNot()" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="true" OnTextChanged="txtMemberCustomer_TextChanged"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtMemberCustomer_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtMemberCustomer" WatermarkText="Type the Customer Name">
@@ -105,7 +140,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+         <td align="right">
             <asp:Label ID="lblPanMember" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
         </td>
         <td>
@@ -156,3 +191,5 @@
         </td>
     </tr>
 </table>
+</ContentTemplate>
+</asp:UpdatePanel>
