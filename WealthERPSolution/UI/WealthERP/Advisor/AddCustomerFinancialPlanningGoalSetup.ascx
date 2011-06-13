@@ -734,12 +734,12 @@
                             <FooterStyle CssClass="FooterStyle" />
                             <AlternatingRowStyle CssClass="AltRowStyle" />
                             <Columns>
-                                <%--   <asp:TemplateField HeaderText="Select">
+                                   <asp:TemplateField HeaderText="Select">
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chkGoalOutput" runat="server" CssClass="cmbField" />
+                                        <asp:CheckBox ID="chkRTGoalOutput" runat="server" CssClass="cmbField" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                --%>
+                                
                                 <asp:TemplateField HeaderText="Goal Type">
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkRTGoalType" runat="server" CssClass="cmbField" 

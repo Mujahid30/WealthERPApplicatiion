@@ -156,7 +156,7 @@ namespace WealthERP.Advisor
                                 else
                                     if (gvOUT == 0 && gvRT == 1)
                                     {
-
+                                        Delete.Visible = true;
                                         lblHeaderOutPut.Text = "Customer Goal Profile Details";
                                         gvRetirement.Visible = true;
                                         lblTotalText.Visible = true;
@@ -277,7 +277,7 @@ namespace WealthERP.Advisor
                     else
                         if (gvOUT == 0 && gvRT == 1)
                         {
-
+                            Delete.Visible = true;
                             lblHeaderOutPut.Text = "Customer Goal Profile Details";
                             gvRetirement.Visible = true;
                             lblTotalText.Visible = true;
@@ -384,7 +384,7 @@ namespace WealthERP.Advisor
 
                     //lblGoalDescription.Visible = false;
                     //txtGoalDescription.Visible = false;
-                    trGoalDesc.Visible = false;
+                    trGoalDesc.Visible = true;
                     //lblROIFutureInvest.Visible = false;
                     //txtROIFutureInvest.Visible = false;
                     //RequiredFieldValidator6.Visible = false;
@@ -396,6 +396,7 @@ namespace WealthERP.Advisor
                     ddlGoalType.Text = goalProfileSetupVo.Goalcode;
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
+                    txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
                     ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
                     //txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     //txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
@@ -443,6 +444,7 @@ namespace WealthERP.Advisor
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
                     ddlPickChild.Enabled = false;
                     ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
                     //txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     //txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
                     txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
@@ -488,6 +490,7 @@ namespace WealthERP.Advisor
                     ddlPickChild.SelectedValue = goalProfileSetupVo.AssociateId.ToString();
                     ddlPickChild.Enabled = false;
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
+                    txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
                     ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
                     //txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     //txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
@@ -534,6 +537,7 @@ namespace WealthERP.Advisor
                     txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
                     ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
                     //txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     //txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
                     txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
@@ -576,6 +580,7 @@ namespace WealthERP.Advisor
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
                     ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
                     //txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     //txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
                     txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
@@ -620,7 +625,7 @@ namespace WealthERP.Advisor
                 case "BH":
                     lblGoalCostToday.Text = "Home Cost Today :";
                     lblGoalYear.Text = "Goal Year :";
-
+                    trGoalDesc.Visible = true;
 
                     trGoalDesc.Visible = false;
 
@@ -683,7 +688,7 @@ namespace WealthERP.Advisor
                     trGoalDesc.Visible = false;
 
                     trROIFutureInvestment.Visible = true;
-
+                    txtROIFutureInvest.Text = "7";
                     lblGoalYear.Text = "Goal Year :";
                     lblGoalCostToday.Text = "Annual Requirment Today :";
                     //default  current investment and Rate of return of above to 0
@@ -762,6 +767,10 @@ namespace WealthERP.Advisor
                 if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
                 {
                     goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
+                }
+                if (ddlGoalType.SelectedValue == "OT" || ddlGoalType.SelectedValue == "BH")
+                {
+                    goalProfileSetupVo.GoalDescription = txtGoalDescription.Text.ToString();
                 }
                 goalProfileSetupVo.CurrInvestementForGoal = 0;
                 goalProfileSetupVo.ROIEarned = 0;
@@ -1118,6 +1127,15 @@ namespace WealthERP.Advisor
                     gvGoalIds += Convert.ToString(gvGoalOutPut.DataKeys[gvRow.RowIndex].Value) + "~";
                 }
             }
+            foreach (GridViewRow gvRow in gvRetirement.Rows)
+            {
+                CheckBox ChkBxItem = (CheckBox)gvRow.FindControl("chkRTGoalOutput");
+                if (ChkBxItem.Checked)
+                {
+                    gvGoalIds += Convert.ToString(gvRetirement.DataKeys[gvRow.RowIndex].Value) + "~";
+                }
+            }
+
             return gvGoalIds;
 
         }
@@ -1235,7 +1253,7 @@ namespace WealthERP.Advisor
                 goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
                 goalProfileSetupVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
                 goalProfileSetupVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
-                if (ddlGoalType.SelectedValue == "OT")
+                if (ddlGoalType.SelectedValue == "OT" || ddlGoalType.SelectedValue == "BH")
                 {
                     goalProfileSetupVo.GoalDescription = txtGoalDescription.Text.ToString();
                 }
@@ -1390,7 +1408,7 @@ namespace WealthERP.Advisor
                     //lblPickCustomer.Text = "Pick a Customer :";
                     lblGoalbjective.Text = "Pick Goal Objective :";
                     lblPickChild.Text = "Select a child for Goal planning :";
-                    lblGoalCostToday.Text = "Goal Cost Today :";
+                    //lblGoalCostToday.Text = "Goal Cost Today :";
 
                 }
                 else
@@ -1544,6 +1562,10 @@ namespace WealthERP.Advisor
                 if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
                 {
                     goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
+                }
+                if (ddlGoalType.SelectedValue == "OT" || ddlGoalType.SelectedValue == "BH")
+                {
+                    goalProfileSetupVo.GoalDescription = txtGoalDescription.Text.ToString();
                 }
                 goalProfileSetupVo.CurrInvestementForGoal = 0;
                 goalProfileSetupVo.ROIEarned =0;
