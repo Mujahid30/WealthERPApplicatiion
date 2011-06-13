@@ -81,7 +81,7 @@
             &nbsp;
         </td>
     </tr>
-    <tr>
+    <tr id="trSalutation" runat="server">
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
         </td>
@@ -468,7 +468,7 @@
                     <asp:Label ID="Label37" runat="server" Text="Email Id:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField" style="width: 30%"></asp:TextBox>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
                         ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
                         ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>

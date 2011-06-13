@@ -42,10 +42,12 @@ namespace WealthERP.Customer
                     {
                         
                         rbtnIndividual.Checked = true;
+                        trSalutation.Visible = true;
                     }
                     else
                     {
                         rbtnNonIndividual.Checked = true;
+                        trSalutation.Visible = false;
                     }
 
                     if (customerVo.ProfilingDate == DateTime.MinValue)
@@ -213,15 +215,16 @@ namespace WealthERP.Customer
                 customerVo.ContactLastName = txtLastName.Text.ToString();
                 customerVo.CompanyName = txtCompanyName.Text.ToString();
                 customerVo.CustCode = txtCustomerCode.Text.ToString();
-                customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
-                if (customerVo.Salutation == "Mr.")
-                {
-                    customerVo.Gender = "M";
-                }
-                else
-                {
-                    customerVo.Gender = "F";
-                }
+                //customerVo.Salutation = ddlSalutation.SelectedItem.Value.ToString();
+                
+                //if (customerVo.Salutation == "Mr.")
+                //{
+                //    customerVo.Gender = "M";
+                //}
+                //else
+                //{
+                //    customerVo.Gender = "F";
+                //}
                 if (txtDateofRegistration.Text == "")
                 {
                     customerVo.RegistrationDate = DateTime.MinValue;
