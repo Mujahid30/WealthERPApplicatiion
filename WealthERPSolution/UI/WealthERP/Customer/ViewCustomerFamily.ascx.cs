@@ -11,6 +11,7 @@ using BoUser;
 using System.Data;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using BoAdvisorProfiling;
 
 namespace WealthERP.Customer
 {
@@ -26,6 +27,10 @@ namespace WealthERP.Customer
         int customerId;
         int memberCustomerId;
         RMVo rmVo = new RMVo();
+        int rmId = 0;
+        DataTable dtGetAllTheRMList = new DataTable();
+        DataSet dsGetAllTheRMList = new DataSet();
+        AdvisorVo advisorVo = new AdvisorVo();
         
 
         protected void Page_Load(object sender, EventArgs e)
@@ -34,10 +39,45 @@ namespace WealthERP.Customer
             {
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 userVo = (UserVo)Session["userVo"];
-
+                advisorVo = (AdvisorVo)Session["advisorVo"];
                 rmVo = (RMVo)Session["RMVo"];
 
-                BindGrid();
+                if (!IsPostBack)
+                {
+                    BindRMDropDown();
+                    if (Request.QueryString["RMId"] != null)
+                    {
+                        rmId = int.Parse(Request.QueryString["RMId"].ToString());
+                        ddlSelectRMs.SelectedValue = rmId.ToString();
+
+                        hdnadviserId.Value = "0";
+                        hdnrmId.Value = rmId.ToString();
+                    }
+                    else if (((Request.QueryString["AfterDeassociationRMId"] != null) || (Request.QueryString["AfterDeassociationAdviserId"] != null)) && (Request.QueryString["action"] == "Deassociation"))
+                    {
+                        
+                        if (Request.QueryString["AfterDeassociationRMId"] != null)
+                        {
+                            hdnadviserId.Value = "0";
+                            hdnrmId.Value = Request.QueryString["AfterDeassociationRMId"];
+                            ddlSelectRMs.SelectedValue = Request.QueryString["AfterDeassociationRMId"];
+                        }
+                        else
+                        {
+                            hdnrmId.Value = "0";
+                            hdnadviserId.Value = Request.QueryString["AfterDeassociationAdviserId"];
+                            ddlSelectRMs.SelectedValue = Request.QueryString["AfterDeassociationAdviserId"];
+                        }
+                    }
+                    else
+                    {
+                        hdnadviserId.Value = advisorVo.advisorId.ToString();
+                        hdnrmId.Value = "0";
+                    }
+
+
+                    BindGrid();
+                }
                 //lblMessage.Visible = true;
                 //gvCustomerFamily.Visible = false;
             }
@@ -63,11 +103,53 @@ namespace WealthERP.Customer
 
         }
 
+        // Created by Vinayak Patil
+        // TO GET ALL THE STAFFS WHO IS HAVING ONLY ADMIN AND RM ROLES UNDER THE PERTICULAR ADVISER
+
+        private void BindRMDropDown()
+        {
+            try
+            {
+                AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+                dsGetAllTheRMList = advisorStaffBo.GetAllAdviserRMsHavingOnlyAdminRMRole(advisorVo.advisorId, 0);
+                if (dsGetAllTheRMList != null)
+                {
+                    dtGetAllTheRMList = dsGetAllTheRMList.Tables[0];
+                    if (dtGetAllTheRMList.Rows.Count > 0)
+                    {
+                        ddlSelectRMs.DataSource = dtGetAllTheRMList;
+                        ddlSelectRMs.DataValueField = dtGetAllTheRMList.Columns["RMId"].ToString();
+                        ddlSelectRMs.DataTextField = dtGetAllTheRMList.Columns["RMName"].ToString();
+                        ddlSelectRMs.DataBind();
+                    }
+                }
+                ddlSelectRMs.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", advisorVo.advisorId.ToString()));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ViewCustomerFamily.ascx.cs:BindRMDropDown()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
         private void BindGrid()
         {
             try
             {
-                dtAssociations = customerFamilyBo.GetCustomerAssociations(rmVo.RMId, hdnNameFilter.Value);
+                dtAssociations = customerFamilyBo.GetCustomerAssociations(int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), hdnNameFilter.Value);
                 if (dtAssociations.Rows.Count == 0)
                 {
                     lblMessage.Visible = true;
@@ -216,11 +298,11 @@ namespace WealthERP.Customer
             {
                 if (e.Row.FindControl("LinkButton1") != null)
                 {
-                    if (e.Row.Cells[2].Text.ToString()=="Self")
+                    if (e.Row.Cells[3].Text.ToString() == "Self")
                     {
                         str = ((LinkButton)e.Row.FindControl("LinkButton1")).Text.ToString();
-                        e.Row.Cells[0].Controls.Remove(e.Row.FindControl("LinkButton1"));
-                        e.Row.Cells[0].Text = str;
+                        e.Row.Cells[1].Controls.Remove(e.Row.FindControl("LinkButton1"));
+                        e.Row.Cells[1].Text = str;
                     }
                 }
             }
@@ -261,6 +343,8 @@ namespace WealthERP.Customer
 
         protected void Deactive_Click(object sender, EventArgs e)
         {
+            //ddlSelectRMs.EnableViewState = true;
+
             int i = 0;
 
             foreach (GridViewRow gvr in this.gvCustomerFamily.Rows)
@@ -277,7 +361,6 @@ namespace WealthERP.Customer
             }
             else
             {
-
                 string GoalIds = GetSelectedGoalIDString();
                 int folioDs = customerFamilyBo.CustomerFamilyDissociation(GoalIds);
                 if (folioDs > 1)
@@ -302,9 +385,13 @@ namespace WealthERP.Customer
          {
              string GoalIds = GetSelectedGoalIDString();
              int folioDs = customerFamilyBo.CustomerDissociate(GoalIds, userVo.UserId);
-             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCustomerFamily','none');", true);
 
-
+             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCustomerFamily','none');", true);
+             if(ddlSelectRMs.SelectedIndex != 0)
+                Response.Redirect("ControlHost.aspx?pageid=ViewCustomerFamily&AfterDeassociationRMId=" + ddlSelectRMs.SelectedValue + "&action=Deassociation", false);
+             else
+                 Response.Redirect("ControlHost.aspx?pageid=ViewCustomerFamily&AfterDeassociationAdviserId=" + advisorVo.advisorId + "&action=Deassociation", false);
+            
          }
          private string GetSelectedGoalIDString()
          {
@@ -321,6 +408,22 @@ namespace WealthERP.Customer
              }
              return gvGoalIds;
 
+         }
+
+         protected void ddlSelectRMs_SelectedIndexChanged(object sender, EventArgs e)
+         {
+             if (ddlSelectRMs.SelectedIndex != 0)
+             {
+                 hdnadviserId.Value = "0";
+                 hdnrmId.Value = ddlSelectRMs.SelectedValue;
+             }
+             else
+             {
+                 hdnadviserId.Value = advisorVo.advisorId.ToString();
+                 hdnrmId.Value = "0";
+
+             }
+             BindGrid();
          }
     }
 }

@@ -34,11 +34,33 @@
    
 </script>
 
+<script type="text/javascript">
+    function ConfirmDeassociation() {
+    if (confirm("Are you sure you want to Deassociate this Customer ?"))
+        return true;
+    else
+        return false;
+    }
+
+</script>
+
 <table class="TableBackground" style="width: 100%;">
     <tr>
         <td colspan="3">
             <asp:Label ID="lblHeader" runat="server" Text="Customer Associations" CssClass="HeaderTextBig"></asp:Label>
             <hr />
+        </td>
+    </tr>
+    <tr>
+    <td class="rightField" style="width: 8%">
+            <asp:Label ID="lblSelectRM" runat="server" Text="Select RM: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlSelectRMs" style="vertical-align: middle" Width="180"  
+                CssClass="cmbField" runat="server" AutoPostBack="true" 
+                onselectedindexchanged="ddlSelectRMs_SelectedIndexChanged">
+            
+            </asp:DropDownList>
         </td>
     </tr>
     <tr>
@@ -91,7 +113,7 @@
     </td>
         <td align="left">        
         <asp:Button ID="btnDissociate" runat="server"  
-                 CssClass="PCGMediumButton" OnClick="Deactive_Click" 
+                 CssClass="PCGMediumButton" OnClientClick="return ConfirmDeassociation()" OnClick="Deactive_Click" 
                 Text="Disassociate"  />            
         </td>
     </tr>
@@ -110,3 +132,6 @@
 <asp:Button ID="btnNameSearch" runat="server" Text="" BorderStyle="None" BackColor="Transparent"
     OnClick="btnNameSearch_Click1" />
 <asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />
+
+<asp:HiddenField ID="hdnadviserId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
