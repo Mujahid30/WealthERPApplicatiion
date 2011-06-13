@@ -14,6 +14,7 @@ using System.Configuration;
 using System.Data;
 using BoCommon;
 using VoCustomerPortfolio;
+using BoAdvisorProfiling;
 
 namespace WealthERP.Customer
 {
@@ -29,6 +30,7 @@ namespace WealthERP.Customer
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         CustomerFamilyVo customerFamilyVo = new CustomerFamilyVo();
         CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
+        AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -39,11 +41,21 @@ namespace WealthERP.Customer
                 this.Page.Culture = "en-GB";
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 rmVo = (RMVo)Session["rmVo"];
+                customerVo = (CustomerVo)Session["CustomerVo"];
 
+                if (Request.QueryString["RmId"] != null)
+                {
+                    rmId = int.Parse(Request.QueryString["RmId"].ToString());
+                    rmVo = advisorStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                }
+                else
+                {
+                    rmId = rmVo.RMId;
+                }
                 txtDateofProfiling.Text = DateTime.Today.ToShortDateString();
                 if (Session["Current_Link"].ToString() == "AdvisorLeftPane")
                 {
-                    customerVo = (CustomerVo)Session["CustomerVo"];
+                    // customerVo = (CustomerVo)Session["CustomerVo"];
                     txtRmName.Text = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
                     txtEmail.Text = customerVo.Email.ToString();
                     txtPanNumber.Text = customerVo.PANNum.ToString();
@@ -55,7 +67,7 @@ namespace WealthERP.Customer
                 }
                 else if (Session["Current_Link"].ToString() == "RMCustomerNonIndividualLeftPane")
                 {
-                    customerVo = (CustomerVo)Session["CustomerVo"];
+                    //customerVo = (CustomerVo)Session["CustomerVo"];
                     txtRmName.Text = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
                     txtEmail.Text = "";
                     txtCompanyName.Text = "";
@@ -253,13 +265,13 @@ namespace WealthERP.Customer
                             customerIds = (List<int>)Session["CustomerIds"];
                             customerVo.CustomerId = customerIds[1];
                             customerBo.UpdateCustomer(customerVo);
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
                             // Session.Remove("CustomerIds");
                         }
 
 
 
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
                     }
 
                     else if (Session["Current_Link"].ToString() == "RMCustomerNonIndividualLeftPane")
