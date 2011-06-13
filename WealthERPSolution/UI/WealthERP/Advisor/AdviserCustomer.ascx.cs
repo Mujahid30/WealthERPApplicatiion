@@ -178,9 +178,17 @@ namespace WealthERP.Advisor
                 //trPageChoice.Visible = false;
                 if (Session["Current_Link"].ToString() == "AdvisorLeftPane" || Session["Current_Link"].ToString() == "RMCustomerIndividualLeftPane" || Session["Current_Link"].ToString() == "LeftPanel_Links")
                 {
-                    if (Session["Customer"].ToString() == "Customer")
+                    if (Session["Customer"] != null)
                     {
-                        this.BindGrid(mypager.CurrentPage, 0);
+                        if (Session["Customer"].ToString() == "Customer")
+                        {
+                            this.BindGrid(mypager.CurrentPage, 0);
+                        }
+                        else
+                        {
+                            this.BindCustomer(mypager.CurrentPage);
+                            
+                        }
                     }
                     else
                     {
@@ -790,10 +798,14 @@ namespace WealthERP.Advisor
                 //    }
                 //}
 
-
-                customer = Session["Customer"].ToString();
-                if (customer.ToLower().Trim() == "find customer" || customer.ToLower().Trim() == "")
-                    customer = "";
+                if (Session["Customer"] != null)
+                {
+                    customer = Session["Customer"].ToString();
+                    if (customer.ToLower().Trim() == "find customer" || customer.ToLower().Trim() == "")
+                        customer = "";
+                    // Search Term is input into this hidden field
+                    hdnNameFilter.Value = customer;
+                }
 
                 rmVo = (RMVo)Session["rmVo"];
 
