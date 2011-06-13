@@ -371,6 +371,8 @@ namespace WealthERP.Alerts
         CustomerBo customerBo = new CustomerBo();
         UserVo userVo = new UserVo();
         AlertsBo alertsBo = new AlertsBo();
+        AdvisorVo advisorVo = new AdvisorVo();
+        int advisorId;
         int rmId;
         int userId;
         int EventID;
@@ -508,11 +510,13 @@ namespace WealthERP.Alerts
                 if (!IsPostBack)
                 {
                     userVo = (UserVo)Session[SessionContents.UserVo];
-                    rmVo = (RMVo)Session[SessionContents.RmVo];
-                    if (Session[SessionContents.RmVo] != null)
-                    {
-                        rmId = rmVo.RMId;
-                    }
+                    advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                    advisorId = advisorVo.advisorId;
+                    //rmVo = (RMVo)Session[SessionContents.RmVo];
+                    //if (Session[SessionContents.RmVo] != null)
+                    //{
+                    //    rmId = rmVo.RMId;
+                    //}
                     userId = userVo.UserId;
                     tblOccurrenceEdit.Visible = false;
                     tblReminderEdit.Visible = false;
@@ -788,6 +792,8 @@ namespace WealthERP.Alerts
             try
             {
                 userVo = (UserVo)Session[SessionContents.UserVo];
+                advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                advisorId = advisorVo.advisorId;
                 rmVo = (RMVo)Session[SessionContents.RmVo];
                 rmId = rmVo.RMId;
                 userId = userVo.UserId;
@@ -804,7 +810,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "SIP" && eventType == "Date")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserSIPReminderAlert(rmId, 0, 0, 0, 1, sipReminder, userId);
+                                alertsBo.SaveAdviserSIPReminderAlert(advisorId, 0, 0, 0, 1, sipReminder, userId);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Reminder";
@@ -816,7 +822,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "SWP" && eventType == "Date")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserSWPReminderAlert(rmId, 0, 0, 0, 1, swpReminder, userId);
+                                alertsBo.SaveAdviserSWPReminderAlert(advisorId, 0, 0, 0, 1, swpReminder, userId);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Reminder";
@@ -827,7 +833,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "SIP" && eventType == "Transactional")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserSIPConfirmationAlert(rmId, 0, 0, 0, 1, userId);
+                                alertsBo.SaveAdviserSIPConfirmationAlert(advisorId, 0, 0, 0, 1, userId);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Confirmation";
@@ -838,7 +844,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "SWP" && eventType == "Transactional")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserSWPConfirmationAlert(rmId, 0, 0, 0, 1, userId);
+                                alertsBo.SaveAdviserSWPConfirmationAlert(advisorId, 0, 0, 0, 1, userId);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Confirmation";
@@ -849,7 +855,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "Anniversary" && eventType == "Date")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserAnniversaryReminderAlert(rmId, userId, anniversaryReminder);
+                                alertsBo.SaveAdviserAnniversaryReminderAlert(advisorId, userId, anniversaryReminder);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Reminder";
@@ -860,7 +866,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "DOB" && eventType == "Date")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserDOBReminderAlert(rmId, userId, dobReminder);
+                                alertsBo.SaveAdviserDOBReminderAlert(advisorId, userId, dobReminder);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br />" + eventCode.ToString() + " Reminder";
@@ -871,7 +877,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "ELSS Maturity" && eventType == "Date")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserELSSMaturityReminderAlert(rmId, 0, 0, 0, 1, elssReminder, userId);
+                                alertsBo.SaveAdviserELSSMaturityReminderAlert(advisorId, 0, 0, 0, 1, elssReminder, userId);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Reminder";
@@ -882,7 +888,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "Insurance Premium payment" && eventType == "Date")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserInsuranceReminderAlert(rmId, 0, 0, 0, 1, insuranceReminder, userId);
+                                alertsBo.SaveAdviserInsuranceReminderAlert(advisorId, 0, 0, 0, 1, insuranceReminder, userId);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Reminder";
@@ -893,7 +899,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "FD/Recurring Deposit" && eventType == "Date")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserFDRecurringDepositReminderAlert(rmId, 0, 0, 0, 1, fdRecurringReminder, userId);
+                                alertsBo.SaveAdviserFDRecurringDepositReminderAlert(advisorId, 0, 0, 0, 1, fdRecurringReminder, userId);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Reminder";
@@ -904,7 +910,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "Bank FD Maturity" && eventType == "Date")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserFDMaturityReminderAlert(rmId, 0, 0, 0, 1, fdMaturityReminder, userId);
+                                alertsBo.SaveAdviserFDMaturityReminderAlert(advisorId, 0, 0, 0, 1, fdMaturityReminder, userId);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Reminder";
@@ -915,7 +921,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "MF Dividend" && eventType == "Transactional")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserMFDividendConfirmationAlert(rmId, 0, 0, 0, 1, userId);
+                                alertsBo.SaveAdviserMFDividendConfirmationAlert(advisorId, 0, 0, 0, 1, userId);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Confirmation";
@@ -926,7 +932,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "Property" && eventType == "Data")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserPropertyOccurrenceAlert(rmId, 0, 0, 0, 1, userId, propertyCondition, propertyOccurrence);
+                                alertsBo.SaveAdviserPropertyOccurrenceAlert(advisorId, 0, 0, 0, 1, userId, propertyCondition, propertyOccurrence);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Occurrence";
@@ -937,7 +943,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "Personal" && eventType == "Data")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserPersonalOccurrenceAlert(rmId, 0, 0, 0, 1, userId, personalCondition, personalOccurrence);
+                                alertsBo.SaveAdviserPersonalOccurrenceAlert(advisorId, 0, 0, 0, 1, userId, personalCondition, personalOccurrence);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Occurrence";
@@ -948,7 +954,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "MF Absolute Stop Loss" && eventType == "Data")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserMFStopLossOccurrenceAlert(rmId, 0, 0, 0, 1, userId, mfStopLossCondition, mfStopLossPreset);
+                                alertsBo.SaveAdviserMFStopLossOccurrenceAlert(advisorId, 0, 0, 0, 1, userId, mfStopLossCondition, mfStopLossPreset);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Occurrence";
@@ -959,7 +965,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "MF Absolute Profit booking" && eventType == "Data")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserMFProfitBookingOccurrenceAlert(rmId, 0, 0, 0, 1, userId, mfProfitBookingCondition, mfProfitBookingPreset);
+                                alertsBo.SaveAdviserMFProfitBookingOccurrenceAlert(advisorId, 0, 0, 0, 1, userId, mfProfitBookingCondition, mfProfitBookingPreset);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Occurrence";
@@ -970,7 +976,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "Equity Absolute stop Loss" && eventType == "Data")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserEQStopLossOccurrenceAlert(rmId, 0, 0, 0, 1, userId, mfStopLossCondition, mfStopLossPreset);
+                                alertsBo.SaveAdviserEQStopLossOccurrenceAlert(advisorId, 0, 0, 0, 1, userId, mfStopLossCondition, mfStopLossPreset);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Occurrence";
@@ -981,7 +987,7 @@ namespace WealthERP.Alerts
                         if (eventCode == "Equity Absolute Profit booking" && eventType == "Data")
                         {
                             if (count == 0)
-                                alertsBo.SaveAdviserEQProfitBookingOccurrenceAlert(rmId, 0, 0, 0, 1, userId, mfProfitBookingCondition, mfProfitBookingPreset);
+                                alertsBo.SaveAdviserEQProfitBookingOccurrenceAlert(advisorId, 0, 0, 0, 1, userId, mfProfitBookingCondition, mfProfitBookingPreset);
                             else
                             {
                                 lblError.Text = lblError.Text + "<br>" + eventCode.ToString() + " Occurrence";

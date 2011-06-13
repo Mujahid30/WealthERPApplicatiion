@@ -37,6 +37,11 @@ function checkAllBoxes()
                 <hr />
             </td>
         </tr>
+           <td>
+        <asp:label ID="lblNote" style="font-size: 12px;" Text="Note:Defaults can be changed from Edit Default button below which will be applied for all customers." CssClass="cmbField" runat="server"></asp:label>
+         </td>
+        </tr>
+        <tr>
         <tr>
             <td class="leftField">
                 <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
