@@ -63,10 +63,10 @@
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="LOB" Value="LOB">
-                                                <%--<Items>
+                                                <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add LOB" Value="Add LOB">
                                                     </telerik:RadPanelItem>
-                                                </Items>--%>
+                                                </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
                                                 <Items>
@@ -85,9 +85,27 @@
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
-                                        <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Association" Value="Customer Association">
+                                        <Items>                                          
+                                            
+                                            <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
                                             </telerik:RadPanelItem>
+                                            
+                                             <telerik:RadPanelItem runat="server" Text="Manage Group Account" Value="Manage Group Account">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Group Account" Value="Add Group Account">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            
+                                            <telerik:RadPanelItem runat="server" Text="Reassign RM/Branch" Value="Customer Association">
+                                            </telerik:RadPanelItem>
+                                            
+                                            <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
+                                            </telerik:RadPanelItem>
+                                            
+                                            <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
+                                            </telerik:RadPanelItem>
+                                            
                                             <telerik:RadPanelItem runat="server" Text="MF Folios" Value="MF Folios">
                                             </telerik:RadPanelItem>
                                         </Items>
@@ -189,28 +207,28 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
-                                            </telerik:RadPanelItem>
+                                            <%--<telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
+                                            </telerik:RadPanelItem>--%>
                                             <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Manage Group Account" Value="Manage Group Account">
+                                           <%-- <telerik:RadPanelItem runat="server" Text="Manage Group Account" Value="Manage Group Account">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Group Account" Value="Add Group Account">
                                                     </telerik:RadPanelItem>
                                                 </Items>
-                                            </telerik:RadPanelItem>
+                                            </telerik:RadPanelItem>--%>
                                             <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Portfolio" Value="Add Portfolio">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
-                                            </telerik:RadPanelItem>
+                                            <%--<telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
+                                            </telerik:RadPanelItem>--%>
                                             <telerik:RadPanelItem runat="server" Text="Alert Notifications" Value="Alert Notifications">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
-                                            </telerik:RadPanelItem>
+                                            <%--<telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
+                                            </telerik:RadPanelItem>--%>
                                             <telerik:RadPanelItem runat="server" Text="Loan" Value="Loan">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Loan Proposal" Value="Loan Proposal">
@@ -219,9 +237,9 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form">
+                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form"
+                                                NavigateUrl="~/FP/OfflineForm.aspx" Target="_blank">
                                             </telerik:RadPanelItem>
- 
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
@@ -289,6 +307,16 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Equity MIS" Value="Equity MIS">
                                             </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                     <telerik:RadPanelItem runat="server" Text="Customer Reports" Value="Customer Report">
+                                        <Items>
+                                            <%--<telerik:RadPanelItem runat="server" Text="Multi Asset" Value="Multi Asset Report">
+                                            </telerik:RadPanelItem>--%>
+                                            <telerik:RadPanelItem runat="server" Text="MF" Value="MF Report">
+                                            </telerik:RadPanelItem>
+                                           <%-- <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity Report">
+                                            </telerik:RadPanelItem>--%>
                                         </Items>
                                     </telerik:RadPanelItem>
                                 </Items>

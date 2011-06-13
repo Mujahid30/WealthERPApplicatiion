@@ -60,7 +60,7 @@ namespace WealthERP.Advisor
                     txtFindAdviserCustomer.Visible = false;
                     btnSearchAdviserCustomer.Visible = false;
                 }
-                else if (!userVo.RoleList.Contains("BM"))
+                else if (userVo.RoleList.Contains("BM"))
                 {
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
@@ -120,22 +120,35 @@ namespace WealthERP.Advisor
                 if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                 {
                     RadPanelBar1.FindItemByValue("Admin").Expanded = true;
-                    RadPanelBar1.FindItemByValue("Admin Home").Selected = true;
+                    if(Session["IsCustomerGrid"] == null)
+                        RadPanelBar1.FindItemByValue("Admin Home").Selected = true;
+                    else
+                        RadPanelBar1.FindItemByValue("Customer").Selected = true;
+
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                 {
                     RadPanelBar3.FindItemByValue("BM").Expanded = true;
-                    RadPanelBar3.FindItemByValue("BM Home").Selected = true;
+
+                    if (Session["IsCustomerGrid"] == null)
+                        RadPanelBar3.FindItemByValue("BM Home").Selected = true;
+                    else
+                        RadPanelBar3.FindItemByValue("Customer").Selected = true;
+
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                 {
                     RadPanelBar2.FindItemByValue("RM").Expanded = true;
-                    RadPanelBar2.FindItemByValue("RM Home").Selected = true;
+
+                    if (Session["IsCustomerGrid"] == null)
+                        RadPanelBar2.FindItemByValue("RM Home").Selected = true;
+                    else
+                        RadPanelBar2.FindItemByValue("Customer").Selected = true;
+
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
-
 
             }
 
@@ -519,10 +532,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','login');", true);
                 }
-                //else if (e.Item.Value == "Add LOB")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddLOB','login');", true);
-                //}
+                else if (e.Item.Value == "Add LOB")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddLOB','login');", true);
+                }
                 else if (e.Item.Value == "Staff")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','login');", true);
@@ -548,9 +561,30 @@ namespace WealthERP.Advisor
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                 }
+                else if (e.Item.Value == "Add Customer")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
+                }
+                else if (e.Item.Value == "Manage Group Account")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerFamily','login');", true);
+                }
+                else if (e.Item.Value == "Add Group Account")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GroupAccountSetup','login');", true);
+                }
                 else if (e.Item.Value == "Customer Association")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CuCustomerAssociationSetup','login');", true);
+                }
+                else if (e.Item.Value == "Alert Configuration")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "Customized SMS")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomerManualSMS", "loadcontrol('AdviserCustomerManualSMS','none');", true);
                 }
                 else if (e.Item.Value == "MF Folios")
                 {
@@ -704,10 +738,10 @@ namespace WealthERP.Advisor
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomer','login');", true);
                 }
-                else if (e.Item.Value == "Add Customer")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
-                }
+                //else if (e.Item.Value == "Add Customer")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
+                //}
                 else if (e.Item.Value == "Prospect List")
                 {
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
@@ -722,14 +756,14 @@ namespace WealthERP.Advisor
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
                 }
-                else if (e.Item.Value == "Manage Group Account")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerFamily','login');", true);
-                }
-                else if (e.Item.Value == "Add Group Account")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GroupAccountSetup','login');", true);
-                }
+                //else if (e.Item.Value == "Manage Group Account")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerFamily','login');", true);
+                //}
+                //else if (e.Item.Value == "Add Group Account")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GroupAccountSetup','login');", true);
+                //}
                 else if (e.Item.Value == "Manage Portfolio")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolio','login');", true);
@@ -738,10 +772,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolioSetup','login');", true);
                 }
-                else if (e.Item.Value == "Alert Configuration")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertDashBoard','login');", true);
-                }
+                //else if (e.Item.Value == "Alert Configuration")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertDashBoard','login');", true);
+                //}
                 else if (e.Item.Value == "Alert Notifications")
                 {
                     Session["UserType"] = "rm";
@@ -798,11 +832,11 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
                 }
-                else if (e.Item.Value == "Customized SMS")
-                {
-                    Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomerManualSMS", "loadcontrol('AdviserCustomerManualSMS','none');", true);
-                }
+                //else if (e.Item.Value == "Customized SMS")
+                //{
+                //    Session["UserType"] = "rm";
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomerManualSMS", "loadcontrol('AdviserCustomerManualSMS','none');", true);
+                //}
                 else if (e.Item.Value == "Multi Asset Report")
                 {
                     Session["UserType"] = "rm";
@@ -873,6 +907,21 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "bm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserEQMIS", "loadcontrol('AdviserEQMIS','login');", true);
                 }
+                //else if (e.Item.Value == "Multi Asset Report")
+                //{
+                //    Session["UserType"] = "bm";
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioReports','login');", true);
+                //}
+                else if (e.Item.Value == "MF Report")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFReports','login');", true);
+                }
+                //else if (e.Item.Value == "Equity Report")
+                //{
+                //    Session["UserType"] = "bm";
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EquityReports','login');", true);
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -897,7 +946,7 @@ namespace WealthERP.Advisor
         {
             AdvisorBo advisorBo = new AdvisorBo();
             DataSet dsTreeNodes;
-            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType,advisorVo.advisorId);
+            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType, advisorVo.advisorId);
             return dsTreeNodes;
         }
 
