@@ -41,6 +41,9 @@ namespace WealthERP.Customer
             CustomerId = customerVo.CustomerId;
             //dsGetRiskProfileRules = riskprofilebo.GetRiskProfileRules();
             //GetRiskCode();
+            if(Session["advisorVo"]!=null)
+               advisorVo = (AdvisorVo)Session["advisorVo"];
+
             if (!IsPostBack)
             {
                 bindGrid(CustomerId);
