@@ -156,7 +156,7 @@
                                     <table id="imgPlaceholders" width="100%">
                                         <tr style="height:55px" valign="middle">
                                             <td align="left" width="33%">
-                                                <img id="imgLeftPlaceHolder" runat="server" height="50" width="180" />
+                                                <img id="imgLeftPlaceHolder" runat="server"/>
                                             </td>
                                             <td align="center" width="33%">
                                                 <img id="imgCenterPlaceholder" runat="server" height="50" width="180" />
