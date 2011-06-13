@@ -637,9 +637,16 @@ namespace WealthERP.Advisor
                     }
 
                 }
-
-                riskprofilebo.AddCustomerRiskProfileDetails(customerId, rScore, DateTime.Now, riskCode, rmvo, 0);
-                dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                if (customerVo.Dob != DateTime.MinValue)
+                {
+                    riskprofilebo.AddCustomerRiskProfileDetails(customerId, rScore, DateTime.Now, riskCode, rmvo, 0);
+                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Please fill DOB to create Risk profile.');", true);
+                    return;
+                }
 
                 //====================================
                 //
@@ -1193,7 +1200,7 @@ namespace WealthERP.Advisor
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
-                AddToAssetAllocation();
+                //AddToAssetAllocation();
                 tblRiskScore.Visible = true;
                 //tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             }
@@ -1230,7 +1237,7 @@ namespace WealthERP.Advisor
             if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
             {
                 LoadAssetAllocation(riskCode);
-                AddToAssetAllocation();
+                //AddToAssetAllocation();
                 tblRiskScore.Visible = true;
                 //tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
             }
@@ -1294,19 +1301,37 @@ namespace WealthERP.Advisor
             riskCode = ddlPickRiskClass.SelectedValue;
             //Session["riskCode"] = riskCode;
 
-            tblRiskScore.Visible = true;
-            lblRClass.Visible = true;
-            lblRiskProfileDate.Visible = true;
-            trRiskProfilingParagraph.Visible = true;
+            
             Session["btnSubmitForPickRiskclass"] = null;
 
-            riskprofilebo.AddCustomerRiskProfileDetails(customerId, 0, DateTime.Now, riskCode, rmvo, 1);
-            lblRClass.Text = ddlPickRiskClass.SelectedItem.ToString();
+            if (customerVo.Dob != DateTime.MinValue)
+            {
+                riskprofilebo.AddCustomerRiskProfileDetails(customerId, 0, DateTime.Now, riskCode, rmvo, 1);
+                //dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                lblRClass.Text = ddlPickRiskClass.SelectedItem.ToString();
+                lblRiskProfilingParagraph.Visible = true;
+                tblRiskScore.Visible = true;
+                lblRClass.Visible = true;
+                lblRiskProfileDate.Visible = true;
+                trRiskProfilingParagraph.Visible = true;
+            }
+            else
+            {
+                lblRiskProfilingParagraph.Visible = false;
+                tblRiskScore.Visible = false;
+                lblRClass.Visible = false;
+                lblRiskProfileDate.Visible = false;
+                trRiskProfilingParagraph.Visible = false;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Please fill DOB to create Risk profile.');", true);
+                return;
+            }
+            
+            
             lblRScore.Visible = false;
 
             LoadAssetAllocation(riskCode);
             AddToAssetAllocation();
-            lblRiskProfilingParagraph.Visible = true;
+            
             if (dsGetRiskProfileRules.Tables[0].Rows.Count > 0)
             {
                 foreach(DataRow dr in dsGetRiskProfileRules.Tables[0].Rows)
