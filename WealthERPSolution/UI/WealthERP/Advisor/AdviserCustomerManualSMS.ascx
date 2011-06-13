@@ -36,7 +36,18 @@ function checkAllBoxes()
 <td><asp:Label ID="lblLicenceName" Text="SMS Licence Left:" runat="server" CssClass="FieldName"></asp:Label></td>
 <td><asp:Label ID="lblLincenceValue" Text="" runat="server" CssClass="Field"></asp:Label></td>
 </tr>
-<tr>
+    <tr>
+        <td>
+            <asp:Label ID="lblSelectRM" runat="server" Text="RM: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlSelectRMs" style="vertical-align: middle" Width="180"  
+            CssClass="cmbField" runat="server" AutoPostBack="true" 
+                onselectedindexchanged="ddlSelectRMs_SelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+    </tr>
+<tr id="trmsgTxtBox" runat="server">
 <td><asp:Label ID="lblMessage" Text="Message:" runat="server" CssClass="FieldName"></asp:Label></td>
 <td><asp:TextBox ID="txtMessage" TextMode="MultiLine" Text="" runat="server" 
         Height="53px" Width="269px"></asp:TextBox>
@@ -51,13 +62,27 @@ function checkAllBoxes()
 </tr>
 </table>
 </td></tr>
+<tr>
+<td>
+<table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
+    visible="false">
+    <tr>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage1" runat="server" visible="true" align="center">
+                No Customers found to send SMS.....
+            </div>
+        </td>
+    </tr>
+</table>
+</td>
+</tr>
 
 <tr>
 
 <td>
 <asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="300px" 
                        Width="100%" ScrollBars="Vertical" Visible="false" HorizontalAlign="Left">
-<asp:Label ID="lblNoRecords" Text="No Alert Exists" runat="server" Visible="false" CssClass="FieldName"></asp:Label>
+<%--<asp:Label ID="lblNoRecords" Text="No Alert Exists" runat="server" Visible="false" CssClass="FieldName"></asp:Label>--%>
 <asp:GridView ID="gvCustomerSMSAlerts" DataKeyNames="CustomerId" runat="server" AutoGenerateColumns="False" CellPadding="4"
                         Width="624px" Height="78px" 
                         Font-Size="Small" CssClass="GridViewStyle" 
@@ -103,3 +128,7 @@ function checkAllBoxes()
     BorderStyle="None" BackColor="Transparent" 
     onclick="btnSearch_Click" /></td></tr>
 </table>
+<asp:HiddenField ID="hdnAdviserId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnRmId" runat="server" Visible="false" />
+
+<asp:HiddenField ID="hdnCheckDPselection" runat="server" Visible="false" />

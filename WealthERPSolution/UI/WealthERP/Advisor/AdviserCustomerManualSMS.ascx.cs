@@ -10,17 +10,72 @@ using VoUser;
 using BoAdvisorProfiling;
 using BoAlerts;
 using BoCommon;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
 
 namespace WealthERP.Advisor
 {
     public partial class AdviserCustomerManualSMS : System.Web.UI.UserControl
     {
+        int rmId = 0;
+        int adviserId = 0;
+        DataTable dtGetAllTheRMList = new DataTable();
+        DataSet dsGetAllTheRMList = new DataSet();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["advisorVo"] != null)
+                adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
             if (!IsPostBack)
             {
+                BindRMDropDown();
+                hdnAdviserId.Value = adviserId.ToString();
+                hdnRmId.Value = "0";
+
                 setAdviserSMSLicenseInfo();
                 GetAdviserCustomerForSMS();
+            }
+        }
+
+        // Created by Vinayak Patil
+        // TO GET ALL THE STAFFS WHO IS HAVING ONLY ADMIN AND RM ROLES UNDER THE PERTICULAR ADVISER
+
+        private void BindRMDropDown()
+        {
+            try
+            {
+                AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+                dsGetAllTheRMList = advisorStaffBo.GetAllAdviserRMsHavingOnlyAdminRMRole(adviserId, 0);
+                if (dtGetAllTheRMList != null)
+                {
+                    dtGetAllTheRMList = dsGetAllTheRMList.Tables[0];
+                    if (dtGetAllTheRMList.Rows.Count > 0)
+                    {
+                        ddlSelectRMs.DataSource = dtGetAllTheRMList;
+                        ddlSelectRMs.DataValueField = dtGetAllTheRMList.Columns["RMId"].ToString();
+                        ddlSelectRMs.DataTextField = dtGetAllTheRMList.Columns["RMName"].ToString();
+                        ddlSelectRMs.DataBind();
+                    }
+                }
+                ddlSelectRMs.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindRMDropDown()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
         public void setAdviserSMSLicenseInfo()
@@ -28,9 +83,9 @@ namespace WealthERP.Advisor
             AdvisorBo adviserBo = new AdvisorBo();
             DataSet dsAdviserSubscriptionDetails;
             int smsLicense = 0;
-            int adviserId = 0;
-            if (Session["advisorVo"] != null)
-                adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
+            //int adviserId = 0;
+            //if (Session["advisorVo"] != null)
+            //    adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
             dsAdviserSubscriptionDetails = adviserBo.GetAdviserSubscriptionDetails(adviserId);
             if (dsAdviserSubscriptionDetails != null)
             {
@@ -51,8 +106,8 @@ namespace WealthERP.Advisor
         }
         public void GetAdviserCustomerForSMS()
         {
-            int adviserId = 0;
-            int rmId = 0;
+            //int adviserId = 0;
+            //int rmId = 0;
             string namesearch = "";
             List<CustomerVo> customerList=new List<CustomerVo>();
             AdvisorBo adviserBo=new AdvisorBo();
@@ -65,14 +120,15 @@ namespace WealthERP.Advisor
                 namesearch = ((TextBox)gvCustomerSMSAlerts.HeaderRow.FindControl("txtCustomerSearch")).Text;
             }
             DataRow dr;
-            if (Session["advisorVo"] != null)
-                adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
+            //if (Session["advisorVo"] != null)
+            //    adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
+            ErrorMessage.Visible = false;
+            btnSend.Visible = true;
+            if (hdnCheckDPselection.Value != "")
+                namesearch = "";
 
-            if (Session["rmVo"] != null)
-                rmId = ((RMVo)Session["rmVo"]).RMId;
-
-            customerList = adviserBo.GetAdviserCustomersForSMS(rmId, namesearch);
-            if(customerList!=null)
+            customerList = adviserBo.GetAdviserCustomersForSMS(int.Parse(hdnAdviserId.Value), int.Parse(hdnRmId.Value), namesearch);
+            if (customerList.Count != 0)
             {
                 for(int i=0;i<customerList.Count;i++)
                 {
@@ -92,19 +148,40 @@ namespace WealthERP.Advisor
 
                     dtAdviserCustomerAlerts.Rows.Add(dr);
                 }
-
+                trmsgTxtBox.Visible = true;
                 gvCustomerSMSAlerts.DataSource = dtAdviserCustomerAlerts;
                 gvCustomerSMSAlerts.DataBind();
                 gvCustomerSMSAlerts.Visible = true;
                 pnlCustomerSMSAlerts.Visible = true;
-                lblNoRecords.Visible = false;
+                //lblNoRecords.Visible = false;
+                BindGridSearchBoxes(namesearch);
             }
             else
             {
-                lblNoRecords.Visible = true;
-                gvCustomerSMSAlerts.Visible = false;
+                if (hdnCheckDPselection.Value != "")
+                {
+                    btnSend.Visible = false;
+                    gvCustomerSMSAlerts.Visible = false;
+                    trmsgTxtBox.Visible = false;
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+                        btnSend.Visible = false;
+                        trmsgTxtBox.Visible = false;
+                    }
+                    else
+                    {
+                        btnSend.Visible = true;
+                        trmsgTxtBox.Visible = true;
+                    }
+                    gvCustomerSMSAlerts.Visible = true;
+                }
+                ErrorMessage.Visible = true;
+                
             }
-            BindGridSearchBoxes(namesearch);
+            
         }
         private void BindGridSearchBoxes(string customerSearch)
         {
@@ -138,6 +215,7 @@ namespace WealthERP.Advisor
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            hdnCheckDPselection.Value = "";
             GetAdviserCustomerForSMS();
         }
 
@@ -207,6 +285,23 @@ namespace WealthERP.Advisor
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough SMS Credits to process this request');", true);
 
             }
+        }
+
+        protected void ddlSelectRMs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            hdnCheckDPselection.Value = ddlSelectRMs.SelectedValue;
+            if (ddlSelectRMs.SelectedIndex != 0)
+            {
+                hdnAdviserId.Value = "0";
+                hdnRmId.Value = ddlSelectRMs.SelectedValue;
+            }
+            else
+            {
+                hdnAdviserId.Value = adviserId.ToString();
+                hdnRmId.Value = "0";
+            }
+            GetAdviserCustomerForSMS();
+
         }
     }
 }
