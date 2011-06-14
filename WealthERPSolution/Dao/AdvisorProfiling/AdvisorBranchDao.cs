@@ -2178,6 +2178,51 @@ namespace DaoAdvisorProfiling
      }
 
         /* End For Branch RM dropdowns */
+
+
+    /// <summary>
+     /// Getting RM's who are all not having BM role. Added by <<Kirteeshree>>
+    /// </summary>
+    /// <param name="branchId"></param>
+    /// <param name="branchHeadId"></param>
+    /// <returns></returns>
+
+     public DataSet GetAllRMsWithOutBMRole(int branchId, int branchHeadId)
+     {
+         Database db;
+         DbCommand getBranchsRMCmd;
+         DataSet ds = null;
+
+         try
+         {
+             db = DatabaseFactory.CreateDatabase("wealtherp");
+             getBranchsRMCmd = db.GetStoredProcCommand("SP_GetAllRMsWithOutBMRole");
+             db.AddInParameter(getBranchsRMCmd, "@branchId", DbType.Int16, branchId);
+             db.AddInParameter(getBranchsRMCmd, "@branchHeadId", DbType.Int16, branchHeadId);
+
+             ds = db.ExecuteDataSet(getBranchsRMCmd);
+
+
+         }
+         catch (BaseApplicationException Ex)
+         {
+             throw Ex;
+         }
+         catch (Exception Ex)
+         {
+             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+             NameValueCollection FunctionInfo = new NameValueCollection();
+             FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetAllRMsWithOutBMRole()");
+             object[] objects = new object[3];
+             objects[0] = branchId;
+             objects[1] = branchHeadId;
+             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+             exBase.AdditionalInformation = FunctionInfo;
+             ExceptionManager.Publish(exBase);
+             throw exBase;
+         }
+         return ds;
+     }
     }
 
     
