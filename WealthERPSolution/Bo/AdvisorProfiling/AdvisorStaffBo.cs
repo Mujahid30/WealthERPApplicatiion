@@ -654,7 +654,7 @@ namespace BoAdvisorProfiling
         /// <param name="genDictParent"></param>
         /// <param name="genDictCity"></param>
         /// <returns></returns>
-        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter,string active,string isProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
+        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression,string panFilter, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter,string active,string isProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
         {
             List<CustomerVo> customerList = null;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
@@ -664,7 +664,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                customerList = advisorStaffDao.GetCustomerList(rmId, currentPage, out count, sortExpression, nameFilter, areaFilter, pincodeFilter, parentFilter, cityFilter, active, isProspect, out genDictParent, out genDictCity);
+                customerList = advisorStaffDao.GetCustomerList(rmId, currentPage, out count, sortExpression,panFilter, nameFilter, areaFilter, pincodeFilter, parentFilter, cityFilter, active, isProspect, out genDictParent, out genDictCity);
             }
             catch (BaseApplicationException Ex)
             {
@@ -705,7 +705,7 @@ namespace BoAdvisorProfiling
         /// <param name="genDictCity"></param>
         /// <param name="genDictRM"></param>
         /// <returns></returns>
-        public List<CustomerVo> GetBMCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, string isProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
+        public List<CustomerVo> GetBMCustomerList(int rmId, int currentPage, out int count, string sortExpression,string panFilter, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, string isProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
         {
             List<CustomerVo> customerList = null;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
@@ -716,7 +716,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                customerList = advisorStaffDao.GetBMCustomerList(rmId, currentPage, out count, sortExpression, nameFilter, areaFilter, pincodeFilter, parentFilter, cityFilter, RMFilter,isProspect, out genDictParent, out genDictCity, out genDictRM);
+                customerList = advisorStaffDao.GetBMCustomerList(rmId, currentPage, out count, sortExpression,panFilter, nameFilter, areaFilter, pincodeFilter, parentFilter, cityFilter, RMFilter,isProspect, out genDictParent, out genDictCity, out genDictRM);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1169,7 +1169,7 @@ namespace BoAdvisorProfiling
 
         /* To Get All Customers Associated to the Perticular BM */
 
-        public List<CustomerVo> GetAllBMCustomerList(int branchId, int branchHeadId, int all, int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter,string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
+        public List<CustomerVo> GetAllBMCustomerList(int branchId, int branchHeadId, int all, int rmId, int currentPage, out int count, string sortExpression,string panFilter, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter,string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
         {
             List<CustomerVo> customerList = null;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
@@ -1179,7 +1179,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                customerList = advisorStaffDao.GetAllBMCustomerList(branchId, branchHeadId, all, rmId, currentPage, out count, sortExpression, nameFilter, areaFilter, pincodeFilter, parentFilter, cityFilter, RMFilter,IsProspect, out genDictParent, out genDictCity, out genDictRM);
+                customerList = advisorStaffDao.GetAllBMCustomerList(branchId, branchHeadId, all, rmId, currentPage, out count, sortExpression,panFilter, nameFilter, areaFilter, pincodeFilter, parentFilter, cityFilter, RMFilter,IsProspect, out genDictParent, out genDictCity, out genDictRM);
             }
             catch (BaseApplicationException Ex)
             {
