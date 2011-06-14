@@ -258,6 +258,7 @@
 <telerik:RadAjaxLoadingPanel ID="FamilyMemberDetailsLoading" runat="server" Skin="Telerik"
     EnableEmbeddedSkins="false">
 </telerik:RadAjaxLoadingPanel>
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
 <table width="100%" runat="server" id="tblChildCustomer">
     <tr>
         <td>
@@ -341,6 +342,9 @@
             </div>
         </td>
     </tr>
+</table>
+</asp:Panel>
+<table width="100%">
     <tr>
         <td align="center">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"

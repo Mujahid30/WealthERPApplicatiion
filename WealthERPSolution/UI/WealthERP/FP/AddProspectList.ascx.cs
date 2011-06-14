@@ -49,11 +49,8 @@ namespace WealthERP.FP
         {
             try
             {
-                
-                int customerId = 0;
-                advisorVo = (AdvisorVo)Session["advisorVo"];
 
-                if(Session[SessionContents.CurrentUserRole].ToString() != "")
+                if (Session[SessionContents.CurrentUserRole].ToString() != "")
                     Role = Session[SessionContents.CurrentUserRole].ToString();
 
                 if ((Role != "") && (Role == "Admin"))
@@ -64,6 +61,11 @@ namespace WealthERP.FP
                 {
                     btnConvertToCustomer.Enabled = false;
                 }
+
+
+                int customerId = 0;
+                advisorVo = (AdvisorVo)Session["advisorVo"];
+
 
                     if (!IsPostBack)
                     {
@@ -163,7 +165,7 @@ namespace WealthERP.FP
                             aplToolBar.Visible = true;
                             btnSubmit.Visible = false;
                             btnSubmitAddDetails.Visible = false;
-                            btnConvertToCustomer.Visible = false;
+                            btnConvertToCustomer.Enabled = false;
                             if (customerFamilyVoList != null)
                             {
                                 RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
@@ -203,6 +205,7 @@ namespace WealthERP.FP
                             aplToolBar.Visible = true;
                             btnConvertToCustomer.Visible = true;
                             RadToolBarButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
+                            btnConvertToCustomer.Enabled = true;
                             rtb.Visible = false;
                             btnSubmit.Visible = true;
                             btnSubmitAddDetails.Visible = true;
@@ -819,7 +822,7 @@ namespace WealthERP.FP
         protected void UpdateCustomerForAddProspect(int customerId, bool convertToCuctomer)
         {
             customerVo = new CustomerVo();
-            
+
             try
             {
                 customerVo.CustomerId = customerId;
@@ -911,6 +914,8 @@ namespace WealthERP.FP
             }
 
         }
+
+
 
         /// <summary>
         /// Used to update Child Customers
@@ -1449,6 +1454,43 @@ namespace WealthERP.FP
                     //Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
                 }
             }
+        }
+
+        
+
+        // Functions Used for Conver to Customer Functionality: (Added by: Vinayak Patil)
+
+        protected void btnConvertToCustomer_Click(object sender, EventArgs e)
+        {
+            int customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+            
+
+            //Updating Parent Customer for changing him from Prospect to Non Prospect..
+            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+            int PortFolioId = customerPortfolioVo.PortfolioId;
+            UpdateCustomerForAddProspect(customerId, true);
+            UpdateCustomerPortfolio(PortFolioId);
+            NewPortFolioInsertion(customerId);
+
+            msgRecordStatus.Visible = true;
+            msgRecordStatus.InnerText = "Converted to Customer Successfully";
+
+        }
+
+        private void UpdateCustomerPortfolio(int CustomerId)
+        {
+            customerPortfolioVo.IsMainPortfolio = 0;
+            customerPortfolioVo.CustomerId = CustomerId;
+            portfolioBo.UpdateCustomerPortfolio(customerPortfolioVo, userVo.UserId);
+        }
+        private void NewPortFolioInsertion(int customerId)
+        {
+            customerPortfolioVo.CustomerId = customerId;
+            customerPortfolioVo.IsMainPortfolio = 1;
+            customerPortfolioVo.PMSIdentifier = "";
+            customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+            customerPortfolioVo.PortfolioTypeCode = "RGL";
+            portfolioBo.CreateCustomerPortfolio(customerPortfolioVo, userVo.UserId);
         }
 
     }
