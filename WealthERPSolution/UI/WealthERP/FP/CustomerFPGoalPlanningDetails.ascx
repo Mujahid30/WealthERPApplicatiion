@@ -5,7 +5,7 @@
 <table class="TableBackground" style="width: 100%">
 <tr>
 <td>
-<asp:Panel ID="tbl" runat="server" class="Landscape" Width="62%" ScrollBars="Horizontal">
+<asp:Panel ID="tbl" runat="server" class="Landscape" Width="68%" ScrollBars="Horizontal">
 
 <asp:GridView ID="gvrGoalPlanning" runat="server" AllowSorting="True" AutoGenerateColumns="False" HorizontalAlign="Center"
                 CellPadding="4" EnableViewState="True" AllowPaging="True" ShowFooter="true"
