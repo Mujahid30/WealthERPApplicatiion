@@ -386,6 +386,8 @@ namespace DaoCustomerProfiling
                         customerVo.RMMobile = long.Parse(dr["AR_RM_Moble"].ToString());
                     else
                         customerVo.RMMobile = 0;
+                    if (!string.IsNullOrEmpty(dr["C_TaxSlab"].ToString()))
+                        customerVo.TaxSlab = int.Parse(dr["C_TaxSlab"].ToString());
                 }
             }
 
@@ -930,6 +932,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_IsAct", DbType.Int32, customerVo.IsActive);
                 db.AddInParameter(editCustomerCmd, "@C_ClassCode", DbType.Int32, customerVo.CustomerClassificationID);
                 db.AddInParameter(editCustomerCmd, "@C_ProspectAddDate", DbType.DateTime, customerVo.ProspectAddDate);
+                db.AddInParameter(editCustomerCmd, "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;
 
@@ -3151,8 +3154,6 @@ namespace DaoCustomerProfiling
                 throw Ex;
             }
             return dsSetDefaultPlanRetirementValueForCustomer;
-
-
         }
         public DataTable GetBMParentCustomerNames(string prefixText, int rmId)
         {
@@ -3347,6 +3348,41 @@ namespace DaoCustomerProfiling
             }
             return strRMRecommendationHTML;
 
+        public DataSet GetCustomerTaxSlab(int CustomerID, int age, string Gender)
+        {
+            Database db;
+            DbCommand cmdGetTaxSlab;
+            DataSet dsGetTaxSlab = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetTaxSlab = db.GetStoredProcCommand("SP_GetTaxSlab");
+                db.AddInParameter(cmdGetTaxSlab, "@C_Age", DbType.Int32, age);
+                db.AddInParameter(cmdGetTaxSlab, "@C_Gender", DbType.String, Gender);
+                db.AddInParameter(cmdGetTaxSlab, "@CustomerId", DbType.Int32, CustomerID);
+                dsGetTaxSlab = db.ExecuteDataSet(cmdGetTaxSlab);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerExpenseDetails()");
+                object[] objects = new object[3];
+                objects[0] = age;
+                objects[1] = Gender;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetTaxSlab;
         }
 
         // To Check and Delete the Child Customers.. 
@@ -3442,4 +3478,3 @@ namespace DaoCustomerProfiling
 
     }
 }
-
