@@ -1094,7 +1094,7 @@ namespace DaoAdvisorProfiling
             return customerList;
         }
 
-        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string Active, string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
+        public List<CustomerVo> GetCustomerList(int rmId, int currentPage, out int count, string sortExpression,string panFilter, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string Active, string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
             CustomerVo customerVo;
@@ -1139,6 +1139,11 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, IsProspect);
                 else
                     db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, "2");
+
+                if (panFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, panFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, DBNull.Value);
 
 
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
@@ -1226,7 +1231,7 @@ namespace DaoAdvisorProfiling
             return customerList;
         }
 
-        public List<CustomerVo> GetBMCustomerList(int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, string isProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
+        public List<CustomerVo> GetBMCustomerList(int rmId, int currentPage, out int count, string sortExpression,string panFilter, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, string isProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
             CustomerVo customerVo;
@@ -1266,6 +1271,11 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, isProspect);
                 else
                     db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, "2");
+
+                if (panFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, panFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, DBNull.Value);
 
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
@@ -1994,7 +2004,7 @@ namespace DaoAdvisorProfiling
 
         /* BM Customer List */
 
-        public List<CustomerVo> GetAllBMCustomerList(int branchId, int branchHeadId, int all, int rmId, int currentPage, out int count, string sortExpression, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
+        public List<CustomerVo> GetAllBMCustomerList(int branchId, int branchHeadId, int all, int rmId, int currentPage, out int count, string sortExpression, string panFilter, string nameFilter, string areaFilter, string pincodeFilter, string parentFilter, string cityFilter, string RMFilter, string IsProspect, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictCity, out Dictionary<string, string> genDictRM)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
             CustomerVo customerVo;
@@ -2047,6 +2057,11 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, IsProspect);
                 else
                     db.AddInParameter(getCustomerListCmd, "@IsProspect", DbType.String, "2");
+
+                if (panFilter != "")
+                    db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, panFilter);
+                else
+                    db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, DBNull.Value);
 
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
