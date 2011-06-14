@@ -27,6 +27,8 @@ namespace WealthERP.Base
         public const string ExtractTypeEQDematAccount = "EQDA";
         public const string ExtractTypeEQTransaction = "EQT";
         public const string ExtractTypeMFSystematic = "MFSS";
+        public const string ExtractTypeMFFolio = "MFFO";
+
 
         // External File Types
         public const string UploadExternalTypeCAMS = "CA";
@@ -45,6 +47,7 @@ namespace WealthERP.Base
         public const string UploadFileTypeFolio = "Folio";
         public const string UploadFileTypeSystematic = "Systematic";
         public const string UploadFileTypeTradeAccount = "Trade Account";
+        public const string UploadFileTypeStdFolio = "Standard Folio";
         public const string UploadFileTypeDematAccount = "Demat Account";
         public const string UploadFileTypeTransaction = "Transaction";
 
@@ -119,6 +122,7 @@ namespace WealthERP.Base
             DeutscheProfile = 18,
             IIFLTransaction=19,
             ODINTransaction=20
+
         }
     }
 
