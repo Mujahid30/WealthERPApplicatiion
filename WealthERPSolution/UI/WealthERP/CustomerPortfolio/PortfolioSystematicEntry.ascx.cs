@@ -80,6 +80,7 @@ namespace WealthERP.CustomerPortfolio
                     SetControls("entry", systematicSetupVo, path);
                 }
             }
+        
         }
 
         /// <summary>
@@ -147,6 +148,13 @@ namespace WealthERP.CustomerPortfolio
                     ddlFrequency.SelectedIndex = -1;
                     txtAmount.Text = "";
                     txtPeriod.Text = "";
+                    SipChequeDate_CalendarExtender.Enabled=true;
+                    SipChequeDate_TextBoxWatermarkExtender.Enabled=true;
+                    txtSipChecqueNo.Text = "";
+                    ddlPeriodSelection.SelectedIndex = -1;
+                    RegistrationDate_CalendarExtender.Enabled = true;
+                    RegistrationDate_TextBoxWatermarkExtender.Enabled = true;
+                    ddlPaymentMode.SelectedIndex= -1;
                 }
                 else
                 {
@@ -162,9 +170,16 @@ namespace WealthERP.CustomerPortfolio
                     txtSystematicDate.Text = "";
                     ddlFrequency.SelectedValue = "";
                     txtAmount.Text = systematicSetupVo.Amount.ToString();
+                    SipChequeDate_CalendarExtender.Enabled = true;
+                    SipChequeDate_TextBoxWatermarkExtender.Enabled = true;
                     //tsPeriod=systematicSetupVo.EndDate.Subtract(systematicSetupVo.StartDate);
-                    txtPeriod.Text = "";
-                    
+                    txtPeriod.Text = systematicSetupVo.Period.ToString();
+                    txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
+                    ddlPeriodSelection.SelectedValue = systematicSetupVo.PeriodSelection.ToString();
+                    RegistrationDate_CalendarExtender.Enabled = true;
+                    RegistrationDate_TextBoxWatermarkExtender.Enabled = true;
+                    ddlPaymentMode.SelectedValue = systematicSetupVo.PaymentMode.ToString();
+
                 }
             }
             else
@@ -176,7 +191,7 @@ namespace WealthERP.CustomerPortfolio
                     if (systematicSetupVo.SchemePlanSwitch != "")
                     {
                         txtSwicthSchemeSearch.Text = systematicSetupVo.SchemePlanSwitch;
-                        txtSwitchSchemeCode.Value = systematicSetupVo.SchemePlanCodeSwitch.ToString();
+                        //txtSwitchSchemeCode.Value = systematicSetupVo.SchemePlanCodeSwitch.ToString();
                     }
                 }
                 ddlMFAccount.SelectedValue = systematicSetupVo.AccountId.ToString();
@@ -186,9 +201,31 @@ namespace WealthERP.CustomerPortfolio
                 txtSystematicDate.Text = systematicSetupVo.SystematicDate.ToString();
                 ddlFrequency.SelectedValue = systematicSetupVo.FrequencyCode.Trim();
                 txtAmount.Text = systematicSetupVo.Amount.ToString();
+                txtPeriod.Text = systematicSetupVo.Period.ToString();
+                txtEndDate.Text = systematicSetupVo.EndDate.ToShortDateString();
                 //tsPeriod=systematicSetupVo.EndDate.Subtract(systematicSetupVo.StartDate);
-                txtPeriod.Text = (-12 * (systematicSetupVo.StartDate.Year - systematicSetupVo.EndDate.Year) + systematicSetupVo.StartDate.Month - systematicSetupVo.EndDate.Month).ToString();
+                //txtPeriod.Text = (-12 * (systematicSetupVo.StartDate.Year - systematicSetupVo.EndDate.Year) + systematicSetupVo.StartDate.Month - systematicSetupVo.EndDate.Month).ToString();
                 systematicSetupId = systematicSetupVo.SystematicSetupId;
+                txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
+                txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
+                //if (txtSipChequeDate.Text != "")
+                //    txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
+                //else
+                //    txtSipChequeDate.Text = "";
+                //if (txtSipChecqueNo.Text != "")
+                //    txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
+                //else
+                //    txtSipChecqueNo.Text = "";
+
+                ddlPeriodSelection.Text = ddlPeriodSelection.SelectedValue.ToString();
+                if (txtRegistrationDate.Text != "")
+                    txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToString();
+                else
+                    txtRegistrationDate.Text = "";
+                if (ddlPaymentMode.SelectedValue != "")
+                    ddlPaymentMode.SelectedValue = systematicSetupVo.PaymentMode;
+                else
+                    ddlPaymentMode.SelectedValue = ""; 
             }
 
         }
@@ -244,8 +281,45 @@ namespace WealthERP.CustomerPortfolio
                 txtPeriod.Enabled = false;
                 txtSystematicDate.Enabled = false;
                 trSystematicDate.Visible = true;
-
+                txtSipChequeDate.Enabled = false;
+                
+                txtSipChecqueNo.Enabled = false;
+                
+                ddlPeriodSelection.Enabled = false;
+                txtRegistrationDate.Enabled = false;
+                txtEndDate.Enabled = false;
                 btnSubmit.Visible = false;
+                if (systematicSetupVo.SystematicTypeCode == "SIP")
+                {
+                    trSipChequeNo.Visible = true;
+                    trSipChequeDate.Visible = true;
+                    trSwitchScheme.Visible = false;
+                    lblScheme.Text = "Choose Invested Scheme";
+                    trPaymentMode.Visible = true;
+                    ddlPaymentMode.Enabled = false;
+                    txtPeriod.Text = systematicSetupVo.Period.ToString();
+
+                }
+                if (systematicSetupVo.SystematicTypeCode == "STP")
+                {
+                    trSwitchScheme.Visible = true;
+                    lblScheme.Text = "Choose Transaction Scheme";
+                    ddlPaymentMode.Enabled = false;
+                    trPaymentMode.Visible = true;
+                    trSipChequeDate.Visible = false;
+                    trSipChequeNo.Visible = false;
+                }
+                if (systematicSetupVo.SystematicTypeCode == "SWP")
+                {
+                    trSipChequeNo.Visible = false;
+                    trSipChequeDate.Visible = false;
+                    trSwitchScheme.Visible = false;
+                    lblScheme.Text = "Choose Withdrawed Scheme";
+                    trPaymentMode.Visible = true;
+                    ddlPaymentMode.Enabled = false;
+                    txtPeriod.Text = systematicSetupVo.Period.ToString();
+
+                }
 
             }
             else if (action == "entry")
@@ -292,8 +366,15 @@ namespace WealthERP.CustomerPortfolio
                 trSystematicDateChk1.Visible = true;
                 trSystematicDateChk2.Visible = true;
                 trSystematicDateChk3.Visible = true;
+                txtSipChequeDate.Enabled = true;
+                txtEndDate.Enabled = true;
                 btnSubmit.Text = "Submit";
                 btnSubmit.Visible = true;
+                ddlPeriodSelection.Enabled = true;
+                txtRegistrationDate.Enabled = true;
+                ddlPaymentMode.Visible = true;
+
+
             }
 
             else if (action == "edit")
@@ -341,6 +422,53 @@ namespace WealthERP.CustomerPortfolio
                 trSystematicDateChk1.Visible = false;
                 trSystematicDateChk2.Visible = false;
                 trSystematicDateChk3.Visible = false;
+                           
+                txtEndDate.Enabled = true;
+                txtRegistrationDate.Enabled = true;
+               
+                
+                ddlPeriodSelection.Enabled = true;
+
+                if ((systematicSetupVo.SystematicTypeCode == "SIP") || (systematicSetupVo.SystematicTypeCode == "STP"))
+                {
+                    trPaymentMode.Visible = true;
+                    ddlPaymentMode.Enabled = true;
+
+                    if (systematicSetupVo.PaymentModeCode == "PD")
+                        ddlPaymentMode.SelectedItem.Text = "PDC";
+                    else if (systematicSetupVo.PaymentModeCode == "ES")
+                        ddlPaymentMode.SelectedItem.Text = "ECS";
+                }
+
+                if (systematicSetupVo.SystematicTypeCode == "SIP")
+                {
+                    trSipChequeNo.Visible = true;
+                    trSipChequeDate.Visible = true;
+                    trSwitchScheme.Visible = false;
+                    lblScheme.Text = "Choose Invested Scheme";
+                }
+                if (systematicSetupVo.SystematicTypeCode == "STP")
+                {
+                    trSwitchScheme.Visible = true;
+                    lblScheme.Text = "Choose Transaction Scheme";
+                    trSipChequeDate.Visible = false;
+                    trSipChequeNo.Visible = false;
+                }
+                if (systematicSetupVo.SystematicTypeCode == "SWP")
+                {
+                    trSwitchScheme.Visible = true;
+                    lblScheme.Text = "Choose Withdrawal Scheme";
+                    trSipChequeDate.Visible = false;
+                    trSipChequeNo.Visible = false;
+                }
+                txtPeriod.Text = systematicSetupVo.Period.ToString();
+                if(systematicSetupVo.FrequencyCode == "DA")
+                    ddlPeriodSelection.SelectedItem.Text = "Days";
+                if(systematicSetupVo.FrequencyCode=="MN")
+                    ddlPeriodSelection.SelectedItem.Text="Months";
+                if(systematicSetupVo.FrequencyCode=="YR")
+                     ddlPeriodSelection.SelectedItem.Text="Years";
+                //ddlPeriodSelection. = systematicSetupVo.FrequencyCode;
                 btnSubmit.Text = "Update";
 
                 btnSubmit.Visible = true;
@@ -354,6 +482,14 @@ namespace WealthERP.CustomerPortfolio
         /// <param name="e"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            if (ddlPaymentMode.SelectedItem.Value == "ECS")
+            {
+                hdnddlPaymentMode.Value = "ES";
+            }
+            else if (ddlPaymentMode.SelectedItem.Value == "PDC")
+            {
+                hdnddlPaymentMode.Value = "PD";
+            }
             userVo = (UserVo)Session["userVo"];
             customerVo = (CustomerVo)Session["CustomerVo"];
             
@@ -370,21 +506,57 @@ namespace WealthERP.CustomerPortfolio
                     
             }
             if (btnSubmit.Text == "Update")
+            {
                 systematicSetupVo = (SystematicSetupVo)Session["systematicSetupVo"];
+            }
             systematicSetupVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);
             systematicSetupVo.SystematicTypeCode = ddlSystematicType.SelectedItem.Value.ToString();
             systematicSetupVo.AccountId = int.Parse(ddlMFAccount.SelectedItem.Value.ToString());
             systematicSetupVo.StartDate = DateTime.Parse(txtStartDate.Text.ToString());
             systematicSetupVo.FrequencyCode = ddlFrequency.SelectedItem.Value.ToString();
-            systematicSetupVo.Amount = int.Parse(txtAmount.Text.ToString());
-            systematicSetupVo.EndDate = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString()));
+            systematicSetupVo.Amount = double.Parse(txtAmount.Text.ToString().Trim());
+            //systematicSetupVo.EndDate = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString()));
+            systematicSetupVo.EndDate = DateTime.Parse(txtEndDate.Text);
+            systematicSetupVo.Period = int.Parse(txtPeriod.Text.ToString());
             systematicSetupVo.IsManual = 1;
+            if (txtSipChequeDate.Text.ToString() != "" )
+                systematicSetupVo.SipChequeDate = DateTime.Parse(txtSipChequeDate.Text.ToString());
+            else
+                systematicSetupVo.SipChequeDate = DateTime.MinValue;
+            if (txtSipChecqueNo.Text.ToString() != "")
+                systematicSetupVo.SipChequeNo = int.Parse(txtSipChecqueNo.Text.ToString());
+            else
+                systematicSetupVo.SipChequeNo = 0;
+
+            if (txtRegistrationDate.Text.ToString()!= "")
+                 systematicSetupVo.RegistrationDate = DateTime.Parse(txtRegistrationDate.Text.ToString());
+            else
+                systematicSetupVo.RegistrationDate = DateTime.MinValue;
+            systematicSetupVo.PeriodSelection = ddlPeriodSelection.SelectedItem.Value.ToString();
+            //systematicSetupVo.EndDate = DateTime.Parse(txtEndDate.Text);
+            if (ddlPaymentMode.SelectedItem.Value.ToString() != "")
+                systematicSetupVo.PaymentMode = ddlPaymentMode.SelectedItem.Value.ToString();
+            else
+                systematicSetupVo.PaymentMode = null;
+
+            systematicSetupVo.PaymentModeCode = hdnddlPaymentMode.Value;
             systematicSetupVo.SourceCode = "WP";
             if (systematicSetupVo.SystematicTypeCode == "STP" && txtSwicthSchemeSearch.Text!="")
             {
-                systematicSetupVo.SchemePlanCodeSwitch = int.Parse(txtSwitchSchemeCode.Value);
+                //systematicSetupVo.SchemePlanCodeSwitch = int.Parse(txtSwitchSchemeCode.Value);
                 systematicSetupVo.SchemePlanSwitch = txtSwicthSchemeSearch.Text.ToString();
+                systematicSetupVo.PaymentMode = ddlPeriodSelection.SelectedItem.Value.ToString();
             }
+            if (systematicSetupVo.SystematicTypeCode == "SIP")
+            {
+                if(txtSipChequeDate.Text != "")
+                    systematicSetupVo.SipChequeDate = DateTime.Parse(txtSipChequeDate.Text.ToString());
+                if(txtSipChecqueNo.Text != "")
+                    systematicSetupVo.SipChequeNo = int.Parse(txtSipChecqueNo.Text.ToString());
+                if(ddlPaymentMode.SelectedItem.Value != "")
+                    systematicSetupVo.PaymentMode = ddlPaymentMode.SelectedItem.Value.ToString();
+            }
+
             if (btnSubmit.Text == "Submit")
             {
                 //CheckBox chk = new CheckBox();
@@ -579,9 +751,21 @@ namespace WealthERP.CustomerPortfolio
         private DateTime CalcEndDate(int period, DateTime startDate)
         {
             DateTime endDate = new DateTime();
-
-            endDate = startDate.AddMonths(period);
-
+            if (ddlPeriodSelection.SelectedItem.Value == "Days")
+            {
+                endDate = startDate.AddDays(period);
+            }
+            else if (ddlPeriodSelection.SelectedItem.Value == "Months")
+            {
+                endDate = startDate.AddMonths(period);
+            }
+            else if (ddlPeriodSelection.SelectedItem.Value == "Years")
+            {
+                endDate = startDate.AddYears(period);
+            }
+            
+            
+            
             return endDate;
         }
 
@@ -608,13 +792,42 @@ namespace WealthERP.CustomerPortfolio
         {
             if (ddlSystematicType.SelectedValue == "STP")
             {
+                Session["SystematicType"] = "STP";
                 trSwitchScheme.Visible = true;
+                lblScheme.Text = "Choose Transaction Scheme";
+                trPaymentMode.Visible = true;
+                trSipChequeDate.Visible = false;
+                trSipChequeNo.Visible = false;
+            }
+            if (ddlSystematicType.SelectedValue == "SIP")
+            {
+                Session["SystematicType"] = "SIP";
+                trSwitchScheme.Visible = false;
+                lblScheme.Text = "Choose Invested Scheme";
+                trPaymentMode.Visible = true;
+                trSipChequeDate.Visible = true;
+                trSipChequeNo.Visible = true;
 
             }
-            else
+            if (ddlSystematicType.SelectedValue == "SWP")
             {
+                Session["SystematicType"] = "SWP";
                 trSwitchScheme.Visible = false;
+                lblScheme.Text = "Choose Withdraw Scheme";
+                trPaymentMode.Visible = false;
+                trSipChequeDate.Visible = false;
+                trSipChequeNo.Visible = false;
             }
+            //else
+            //{
+            //    trSwitchScheme.Visible = false;
+            //}
         }
-    }
+
+        protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtEndDate.Text = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString())).ToShortDateString();
+        }
+
+      }
 }
