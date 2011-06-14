@@ -71,14 +71,14 @@ namespace BoUploads
             try
             {
                 Package stdProPkg1 = App.LoadPackage(Packagepath, null);
-                stdProPkg1.Variables["varAdviserId1"].Value = adviserId;
-                stdProPkg1.Variables["varAdviserId3"].Value = adviserId;
-                stdProPkg1.Variables["varAdviserId5"].Value = adviserId;
-                stdProPkg1.Variables["varProcessId1"].Value = processId;
-                stdProPkg1.Variables["varProcessId2"].Value = processId;
-                stdProPkg1.Variables["varProcessId3"].Value = processId;
-                stdProPkg1.Variables["varProcessId4"].Value = processId;
-                stdProPkg1.Variables["varProcessId5"].Value = processId;
+                stdProPkg1.Variables["varAdviserId"].Value = adviserId;
+                stdProPkg1.Variables["varAdviserId"].Value = adviserId;
+                stdProPkg1.Variables["varAdviserId"].Value = adviserId;
+                stdProPkg1.Variables["varProcessId"].Value = processId;
+                stdProPkg1.Variables["varProcessId"].Value = processId;
+                stdProPkg1.Variables["varProcessId"].Value = processId;
+                stdProPkg1.Variables["varProcessId"].Value = processId;
+                stdProPkg1.Variables["varProcessId"].Value = processId;
                 stdProPkg1.ImportConfigurationFile(configPath);
                 //stdProPkg1.Configurations[0].ConfigurationString = configPath;
                 DTSExecResult stdProResult1 = stdProPkg1.Execute();
