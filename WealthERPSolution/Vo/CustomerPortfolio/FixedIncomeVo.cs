@@ -20,7 +20,7 @@ namespace VoCustomerPortfolio
         private string m_CompoundInterestFrequencyCode;
         private string m_InterestPayableFrequencyCode;
         private string m_Name;
-        private int m_IssueDate;
+        private DateTime m_IssueDate;
         private double m_PrinciaplAmount;
         private double m_InterestAmtPaidOut;
         private double m_InterestAmtAccumulated;
@@ -103,7 +103,7 @@ namespace VoCustomerPortfolio
             set { m_Name = value; }
         }
 
-        public int IssueDate
+        public DateTime IssueDate
         {
             get { return m_IssueDate; }
             set { m_IssueDate = value; }
