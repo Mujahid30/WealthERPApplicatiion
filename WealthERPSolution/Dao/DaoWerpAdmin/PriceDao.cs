@@ -92,7 +92,7 @@ namespace DaoWerpAdmin
         }
 
 
-        public DataSet GetAMFISnapshot(string Flag, String Search, int CurrentPage)
+        public DataSet GetAMFISnapshot(string Flag, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
         {
 
             DataSet ds;
@@ -105,12 +105,15 @@ namespace DaoWerpAdmin
                 db.AddInParameter(Cmd, "@Search", DbType.String, Search);
                 db.AddInParameter(Cmd, "@Flag", DbType.String, Flag);
                 db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(Cmd, "@amfiCode", DbType.Int32, amfiCode);
+                db.AddInParameter(Cmd, "@schemeCode", DbType.Int32, schemeCode);
+                db.AddInParameter(Cmd, "@selectAllCode", DbType.Int32, selectAllCode);
                 ds = db.ExecuteDataSet(Cmd);
                 return ds;
             }
         }
 
-        public int GetAMFICountSnapshot(string Flag, String Search, int CurrentPage)
+        public int GetAMFICountSnapshot(string Flag, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
         {
             DataSet ds;
             Database db;
@@ -122,11 +125,14 @@ namespace DaoWerpAdmin
                 db.AddInParameter(Cmd, "@Flag", DbType.String, Flag);
                 db.AddInParameter(Cmd, "@Search", DbType.String, Search);
                 db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(Cmd, "@amfiCode", DbType.Int32, amfiCode);
+                db.AddInParameter(Cmd, "@schemeCode", DbType.Int32, schemeCode);
+                db.AddInParameter(Cmd, "@selectAllCode", DbType.Int32, selectAllCode);
                 ds = db.ExecuteDataSet(Cmd);
                 return Convert.ToInt32(ds.Tables[0].Rows[0][0].ToString());
             }
         }
-        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage)
+        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
         {
 
             DataSet ds;
@@ -141,12 +147,16 @@ namespace DaoWerpAdmin
                 db.AddInParameter(Cmd, "@Search", DbType.String, Search);
                 db.AddInParameter(Cmd, "@Flag", DbType.String, Flag);
                 db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(Cmd, "@amfiCode", DbType.Int32, amfiCode);
+                db.AddInParameter(Cmd, "@schemeCode", DbType.Int32, schemeCode);
+                db.AddInParameter(Cmd, "@selectAllCode", DbType.Int32, selectAllCode);
+
                 ds = db.ExecuteDataSet(Cmd);
                 return ds;
             }
         }
 
-        public int GetAMFICount(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage)
+        public int GetAMFICount(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage, int amfiCode, int schemeCode,int selectAllCode)
         {
             DataSet ds;
             Database db;
@@ -160,10 +170,63 @@ namespace DaoWerpAdmin
                 db.AddInParameter(Cmd, "@StartDate", DbType.DateTime, StartDate);
                 db.AddInParameter(Cmd, "@EndDate", DbType.DateTime, EndDate);
                 db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(Cmd, "@amfiCode", DbType.Int32, amfiCode);
+                db.AddInParameter(Cmd, "@schemeCode", DbType.Int32, schemeCode);
+                db.AddInParameter(Cmd, "@selectAllCode", DbType.Int32, selectAllCode);
                 ds = db.ExecuteDataSet(Cmd);
                 return Convert.ToInt32(ds.Tables[0].Rows[0][0].ToString());
             }
         }
+
+        public DataTable GetMutualFundList()
+        {
+            Database db;
+            DbCommand cmdGetMutualFundList;
+            DataTable dtGetMutualFundList;
+            DataSet dsGetMutualFundList = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetMutualFundList = db.GetStoredProcCommand("SP_GetMutualFundList");
+                dsGetMutualFundList = db.ExecuteDataSet(cmdGetMutualFundList);
+                dtGetMutualFundList = dsGetMutualFundList.Tables[0];
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetMutualFundList;
+        }
+
+        public DataTable GetAllScehmeList(int amcCode)
+        {
+            Database db;
+            DbCommand cmdGetAllScehmeList;
+            DataTable dtGetAllScehmeList;
+            DataSet dsGetAllScehmeList = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetAllScehmeList = db.GetStoredProcCommand("SP_GetAllScehmeList");
+                db.AddInParameter(cmdGetAllScehmeList, "@AMC_Code", DbType.String, amcCode);
+                dsGetAllScehmeList = db.ExecuteDataSet(cmdGetAllScehmeList);
+
+                dtGetAllScehmeList = dsGetAllScehmeList.Tables[0];
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAllScehmeList;
+        }
+
+        
 
         
     }
