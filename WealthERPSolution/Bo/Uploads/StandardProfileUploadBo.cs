@@ -259,7 +259,47 @@ namespace BoUploads
             }
             return IsProcessComplete;
         }
-        
+        //Vishal
+        public bool StdFolioStaggingToWERP(int processId, int AdviserId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package stdProPkg5 = App.LoadPackage(Packagepath, null);
+                stdProPkg5.ImportConfigurationFile(configPath);
+                //stdProPkg5.Configurations[0].ConfigurationString = configPath;
+                stdProPkg5.Variables["varProcessId"].Value = processId;
+               
+                stdProPkg5.Variables["varAdviserId"].Value = AdviserId;
+               
+
+                DTSExecResult stdProResult5 = stdProPkg5.Execute();
+                if (stdProResult5.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "StandardProfileUploadBo.cs:StdCommonProfileChecks()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[1] = AdviserId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
         //Sixth Phase: Common Profile Checks
         public bool StdCommonProfileChecks(int processId, int AdviserId, string Packagepath, string configPath)
         {
@@ -270,6 +310,12 @@ namespace BoUploads
                 stdProPkg5.ImportConfigurationFile(configPath);
                 //stdProPkg5.Configurations[0].ConfigurationString = configPath;
                 stdProPkg5.Variables["varProcessId"].Value = processId;
+                stdProPkg5.Variables["varProcessId"].Value = processId;
+                stdProPkg5.Variables["varProcessId"].Value = processId;
+                stdProPkg5.Variables["varProcessId"].Value = processId;
+                stdProPkg5.Variables["varProcessId"].Value = processId;
+                stdProPkg5.Variables["varAdviserId"].Value = AdviserId;
+                stdProPkg5.Variables["varAdviserId"].Value = AdviserId;
                 stdProPkg5.Variables["varAdviserId"].Value = AdviserId;
 
                 DTSExecResult stdProResult5 = stdProPkg5.Execute();
