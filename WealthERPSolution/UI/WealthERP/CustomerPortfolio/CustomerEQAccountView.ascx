@@ -1,6 +1,27 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerEQAccountView.ascx.cs"
  Inherits="WealthERP.CustomerPortfolio.CustomerEQAccountView" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+
+<script type="text/javascript">
+    function ShowAlertToDelete() {
+
+        var bool = window.confirm('Are you sure you want to delete this Trade Account?');
+
+        if (bool) {
+            document.getElementById("ctrl_CustomerEQAccountView_hdnStatusValue").value = 1;
+            document.getElementById("ctrl_CustomerEQAccountView_btnTradeNoAssociation").click();
+
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_CustomerEQAccountView_hdnStatusValue").value = 0;
+            document.getElementById("ctrl_CustomerEQAccountView_btnTradeNoAssociation").click();
+            return true;
+        }
+    }
+
+</script>
+
 <table class="TableBackground" style="width: 100%">
     <tr>
         <td class="HeaderCell">
@@ -48,6 +69,7 @@
                                 <asp:ListItem Text="Select" />
                                 <asp:ListItem Text="View" />
                                 <asp:ListItem Text="Edit" />
+                                <asp:ListItem Text="Delete" />
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -73,4 +95,7 @@
 </div>
 <asp:HiddenField ID="hdnSort" runat="server" Value="InstrumentCategory ASC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
+<asp:HiddenField ID="hdnStatusValue" runat="server" />
+<asp:Button ID="btnTradeNoAssociation" runat="server" BorderStyle="None" 
+    BackColor="Transparent" onclick="btnTradeNoAssociation_Click" />
 

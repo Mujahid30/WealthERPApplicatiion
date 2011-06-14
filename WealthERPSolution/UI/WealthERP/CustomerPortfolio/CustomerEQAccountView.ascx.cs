@@ -25,6 +25,7 @@ namespace WealthERP.CustomerPortfolio
         CustomerAccountsVo FolioVo = new CustomerAccountsVo();
         int FolioId = 0;
         int EQAccountId = 0;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -145,6 +146,7 @@ namespace WealthERP.CustomerPortfolio
                 GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
                 int selectedRow = gvr.RowIndex;
                 EQAccountId = int.Parse(gvEQAcc.DataKeys[selectedRow].Value.ToString());
+                Session["AccountId"] = EQAccountId;
                 Session["EQAccountVoRow"] = CustomerTransactionBo.GetCustomerEQAccountDetails(EQAccountId, portfolioId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
                 {
@@ -153,6 +155,21 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlAction.SelectedValue.ToString() == "View")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd','action=View');", true);
+                }
+                if (ddlAction.SelectedValue.ToString() == "Delete")
+                {
+                    bool CheckTradeAccAssociationWithTransactions;
+                    CheckTradeAccAssociationWithTransactions = CustomerTransactionBo.CheckEQTradeAccNoAssociatedWithTransactions(EQAccountId);
+
+                    if (CheckTradeAccAssociationWithTransactions == true)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Trade Account can not be deleted as some Transactions are Associsated with this Trade Account Number.');", true);
+                    }
+                    else if(CheckTradeAccAssociationWithTransactions == false)
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "ShowAlertToDelete();", true);
+                    }
+
                 }
             }
             catch (Exception Ex)
@@ -168,6 +185,21 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
+        }
+
+        protected void btnTradeNoAssociation_Click(object sender, EventArgs e)
+        {
+            string HiddenVal = hdnStatusValue.Value;
+            if(Session["AccountId"] != "")
+                EQAccountId = int.Parse(Session["AccountId"].ToString());
+            if (HiddenVal == "1")
+            {
+                bool DeleteTradeAccAssociationCheck;
+                DeleteTradeAccAssociationCheck = CustomerTransactionBo.DeleteTradeAccount(EQAccountId);
+
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+            }
+
         }
 
         
