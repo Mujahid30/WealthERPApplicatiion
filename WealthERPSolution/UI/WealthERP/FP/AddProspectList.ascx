@@ -351,8 +351,11 @@
                  />
             &nbsp;<asp:Button ID="btnSubmitAddDetails" runat="server" Text="Add Finance Details"
                 OnClick="btnSubmitAddDetails_Click"  />
-                &nbsp; <asp:Button ID="btnConvertToCustomer" runat="server" 
-                Text="Convert to Customer" OnClientClick="return ConvertToCustomerConfirmation()" onclick="btnConvertToCustomer_Click" />
+                &nbsp; 
+                <asp:Button ID="btnConvertToCustomer" runat="server" 
+                Text="Convert to Customer" 
+                OnClientClick="return ConvertToCustomerConfirmation()" 
+                onclick="btnConvertToCustomer_Click" />
         </td>
     </tr>
 </table>

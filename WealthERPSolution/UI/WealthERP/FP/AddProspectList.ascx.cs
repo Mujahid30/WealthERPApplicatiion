@@ -1356,60 +1356,6 @@ namespace WealthERP.FP
             return dt;
         }
 
-        protected void btnConvertToCustomer_Click(object sender, EventArgs e)
-        {
-            int customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
-           
-            //Updating Parent Customer for changing him from Prospect to Non Prospect..
-            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-            int PortFolioId = customerPortfolioVo.PortfolioId;
-            
-            //UpdateCustomerExistingPortfolio(PortFolioId);
-            AddCustomerManagePortFolio(customerId);
-            UpdateCustomerForAddProspect(customerId, true);
-
-            // Converting all child customers from Prospect to Non Prospect..
-            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-
-            if ((dt.Rows.Count != 0) && (dt != null))
-            {
-                int ChildcustomerId = 0;
-                int ChildPortFolioId = 0;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    
-                    tempuservo = (UserVo)Session["uservo"];
-                    int createdById = tempuservo.UserId;
-
-                    if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
-                    {
-                        ChildcustomerId = Convert.ToInt32(dr["C_CustomerID"]);
-                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ChildcustomerId);
-                        ChildPortFolioId = customerPortfolioVo.PortfolioId;
-
-                        //UpdateCustomerExistingPortfolio(ChildPortFolioId);
-                        AddCustomerManagePortFolio(ChildcustomerId);
-                        UpdateCustomerForAddProspect(customerId, dr, true);
-                    }
-                    else
-                    {
-                        CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
-                        ChildcustomerId = familyVo.AssociateCustomerId;
-                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ChildcustomerId);
-                        ChildPortFolioId = customerPortfolioVo.PortfolioId;
-                        //UpdateCustomerExistingPortfolio(ChildPortFolioId);
-                        AddCustomerManagePortFolio(ChildcustomerId);
-                        UpdateCustomerForAddProspect(customerId, dr, true);
-                    }
-
-                    
-
-                }
-            }
-            Session["IsCustomerGrid"] = "HighlightCustomerNode";
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
-        }
         // Update Customer Existing Portfolio..
         private void UpdateCustomerExistingPortfolio(int CustomerId)
         {
@@ -1459,24 +1405,6 @@ namespace WealthERP.FP
         
 
         // Functions Used for Conver to Customer Functionality: (Added by: Vinayak Patil)
-
-        protected void btnConvertToCustomer_Click(object sender, EventArgs e)
-        {
-            int customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
-            
-
-            //Updating Parent Customer for changing him from Prospect to Non Prospect..
-            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-            int PortFolioId = customerPortfolioVo.PortfolioId;
-            UpdateCustomerForAddProspect(customerId, true);
-            UpdateCustomerPortfolio(PortFolioId);
-            NewPortFolioInsertion(customerId);
-
-            msgRecordStatus.Visible = true;
-            msgRecordStatus.InnerText = "Converted to Customer Successfully";
-
-        }
-
         private void UpdateCustomerPortfolio(int CustomerId)
         {
             customerPortfolioVo.IsMainPortfolio = 0;
@@ -1491,6 +1419,61 @@ namespace WealthERP.FP
             customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
             customerPortfolioVo.PortfolioTypeCode = "RGL";
             portfolioBo.CreateCustomerPortfolio(customerPortfolioVo, userVo.UserId);
+        }
+
+        protected void btnConvertToCustomer_Click(object sender, EventArgs e)
+        {
+            int customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+
+            //Updating Parent Customer for changing him from Prospect to Non Prospect..
+            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+            int PortFolioId = customerPortfolioVo.PortfolioId;
+
+            //UpdateCustomerExistingPortfolio(PortFolioId);
+            AddCustomerManagePortFolio(customerId);
+            UpdateCustomerForAddProspect(customerId, true);
+
+            // Converting all child customers from Prospect to Non Prospect..
+            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+
+            if ((dt.Rows.Count != 0) && (dt != null))
+            {
+                int ChildcustomerId = 0;
+                int ChildPortFolioId = 0;
+                foreach (DataRow dr in dt.Rows)
+                {
+
+                    tempuservo = (UserVo)Session["uservo"];
+                    int createdById = tempuservo.UserId;
+
+                    if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
+                    {
+                        ChildcustomerId = Convert.ToInt32(dr["C_CustomerID"]);
+                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ChildcustomerId);
+                        ChildPortFolioId = customerPortfolioVo.PortfolioId;
+
+                        //UpdateCustomerExistingPortfolio(ChildPortFolioId);
+                        AddCustomerManagePortFolio(ChildcustomerId);
+                        UpdateCustomerForAddProspect(customerId, dr, true);
+                    }
+                    else
+                    {
+                        CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
+                        ChildcustomerId = familyVo.AssociateCustomerId;
+                        customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ChildcustomerId);
+                        ChildPortFolioId = customerPortfolioVo.PortfolioId;
+                        //UpdateCustomerExistingPortfolio(ChildPortFolioId);
+                        AddCustomerManagePortFolio(ChildcustomerId);
+                        UpdateCustomerForAddProspect(customerId, dr, true);
+                    }
+
+
+
+                }
+            }
+            Session["IsCustomerGrid"] = "HighlightCustomerNode";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
         }
 
     }
