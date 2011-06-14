@@ -132,7 +132,7 @@ namespace BoCustomerPortfolio
                                                             out Dictionary<string, string> genDictTranType,
                                                             out Dictionary<string, string> genDictExchange,
                                                             out Dictionary<string, string> genDictTradeDate,
-                                                            string SortExpression
+                                                            string SortExpression, DateTime FromDate, DateTime ToDate
                                                             )
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
@@ -145,7 +145,7 @@ namespace BoCustomerPortfolio
 
             try
             {
-                eqTransactionsList = customerTransactionDao.GetEquityTransactions(customerId, portfolioId, export, currentPage, out Count, ScripFilter, TradeNumFilter, TranTypeFilter, ExchangeFilter, TradeDateFilter, out genDictTranType, out genDictExchange, out genDictTradeDate, SortExpression);
+                eqTransactionsList = customerTransactionDao.GetEquityTransactions(customerId, portfolioId, export, currentPage, out Count, ScripFilter, TradeNumFilter, TranTypeFilter, ExchangeFilter, TradeDateFilter, out genDictTranType, out genDictExchange, out genDictTradeDate, SortExpression,FromDate,ToDate);
             }
             catch (BaseApplicationException Ex)
             {
