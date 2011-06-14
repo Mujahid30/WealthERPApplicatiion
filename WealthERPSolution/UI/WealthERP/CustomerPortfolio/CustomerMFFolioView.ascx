@@ -46,6 +46,29 @@
     }
 </script>
 
+<script type="text/javascript">
+
+    function ShowAlertToDelete() {
+
+        var bool = window.confirm('Are you sure you want to delete this MF Folio?');
+
+        if (bool) {
+            document.getElementById("ctrl_CustomerMFFolioView_hdnStatusValue").value = 1;
+            document.getElementById("ctrl_CustomerMFFolioView_btnFolioAssociation").click();
+
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_CustomerMFFolioView_hdnStatusValue").value = 0;
+            document.getElementById("ctrl_CustomerMFFolioView_btnFolioAssociation").click();
+            return true;
+        }
+    }
+
+</script>
+
+
+
 <table class="TableBackground" style="width: 100%">
     <tr>
         <td class="HeaderCell">
@@ -99,6 +122,7 @@
                                 <asp:ListItem Text="Select" />
                                 <asp:ListItem Text="View" />
                                 <asp:ListItem Text="Edit" />
+                                <asp:ListItem Text="Delete" />
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -216,3 +240,8 @@
 <asp:HiddenField ID="hdnSort" runat="server" Value="InstrumentCategory ASC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
+
+<asp:HiddenField ID="hdnStatusValue" runat="server" />
+<asp:Button ID="btnFolioAssociation" runat="server" BorderStyle="None" 
+    BackColor="Transparent" onclick="btnFolioAssociation_Click" 
+    style="height: 22px" />
