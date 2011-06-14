@@ -69,7 +69,7 @@ namespace WealthERP.Uploads
         DataSet dsXML = new DataSet();
         DataTable dtInputRejects;
         string message = "";
-        
+
         int customerId;
         int customerId2;
         int userId;
@@ -100,7 +100,7 @@ namespace WealthERP.Uploads
             lblFileType.Visible = false;
 
             string lastUploadDate = "";
-            btn_Upload.Attributes.Add("onclick","setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
+            btn_Upload.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             this.Page.Culture = "en-US";
             SessionBo.CheckSession();
             rmVo = (RMVo)Session["rmVo"];
@@ -108,14 +108,14 @@ namespace WealthERP.Uploads
             adviserVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["UserVo"];
             DateTime uploadDate;
-            
+
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
             if (lastUploadDate != "")
             {
                 //DateTime dt = new DateTime();
                 //String.Format("{0:d}", dt);
-                
+
                 lblLastUploadDateText.Visible = true;
                 lblLastUploadDate.Visible = true;
                 if (lastUploadDate != "01/01/0001 00:00:00")
@@ -126,7 +126,7 @@ namespace WealthERP.Uploads
                 else
                 {
                     lastUploadDate = "No Uploaded History!";
- 
+
                 }
 
                 lblLastUploadDate.Text = lastUploadDate.ToString();
@@ -146,19 +146,19 @@ namespace WealthERP.Uploads
 
             if (!IsPostBack)
             {
-                
-                    lblMessage.Text = "";
-                    lblError.Text = "";
 
-                    //trFileTypeRow.Visible = false;
-                    trError.Visible = false;
-                    trMessage.Visible = false;
-                    rbSkipRowsNo.Checked = true;
+                lblMessage.Text = "";
+                lblError.Text = "";
 
-                    BindListBranch(adviserVo.advisorId, "adviser");
-                
+                //trFileTypeRow.Visible = false;
+                trError.Visible = false;
+                trMessage.Visible = false;
+                rbSkipRowsNo.Checked = true;
+
+                BindListBranch(adviserVo.advisorId, "adviser");
+
             }
-            divInputErrorList.Visible = false;            
+            divInputErrorList.Visible = false;
 
         }
 
@@ -166,7 +166,15 @@ namespace WealthERP.Uploads
         {
             Dictionary<string, string> genDictProfile = new Dictionary<string, string>();
             genDictProfile.Add("Standard", "WP");
-            
+
+            return genDictProfile;
+        }
+        //MF FOLIO DIctonary - Vishal
+        private static Dictionary<string, string> GetMFFolioGenericDictionary()
+        {
+            Dictionary<string, string> genDictProfile = new Dictionary<string, string>();
+            genDictProfile.Add("Standard", "MFF");
+
             return genDictProfile;
         }
 
@@ -358,7 +366,7 @@ namespace WealthERP.Uploads
                 bool deutscheFolioWerpInsertionResult = false;
                 bool stdProCommonDeleteResult = false;
                 bool stdFolioCommonDeleteResult = false;
-
+                bool stdFolToWERPTable = false;
                 string InputInsertionProgress = "";
                 string XtrnlInsertionProgress = "";
                 string XMLProgress = "";
@@ -377,6 +385,94 @@ namespace WealthERP.Uploads
                     if (XmlCreated == true && rejectUpload_Flag == false)
                     {
                         trError.Visible = false;
+
+                        #region Standard Folio Upload VISHAL
+                        //*****************************************************************************************************************************
+                        //Standard Folio Upload
+                        if (ddlUploadType.SelectedValue == Contants.ExtractTypeFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
+                        {
+                            packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioXMLtoInput.dtsx");
+                            bool stdProInputResult = StandardProfileUploadBo.StdInsertToInputProfile(packagePath, fileName, configPath);
+                            if (stdProInputResult)
+                            {
+                                processlogVo.IsInsertionToInputComplete = 1;
+                                processlogVo.IsInsertionToXtrnlComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                if (updateProcessLog1)
+                                {
+                                    packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
+                                    //stdProFirstStagingResult = StandardProfileUploadBo.StdInsertToFirstStaging(UploadProcessId, packagePath, configPath);
+                                    bool stdProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadFolioUploadCount(UploadProcessId, "RE");                
+                                
+                                if(stdProCommonChecksResult)
+                                {
+                                    processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                    processlogVo.EndTime = DateTime.Now;
+                                    bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                    packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
+                                    //stdProFirstStagingResult = StandardProfileUploadBo.StdInsertToFirstStaging(UploadProcessId, packagePath, configPath);
+                                    stdFolToWERPTable = StandardProfileUploadBo.StdFolioStaggingToWERP(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
+                                    if (stdFolToWERPTable)
+                                    {
+                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        processlogVo.NoOfCustomerInserted = uploadsCommonBo.GetUploadFolioUploadCount(UploadProcessId, "UP");
+                                       
+                                    }
+                                }
+                             }
+
+                            }
+
+                            if (XmlCreated)
+                                XMLProgress = "Done";
+                            else
+                                XMLProgress = "Failure";
+
+                            if (stdProInputResult)
+                            {
+                                XtrnlInsertionProgress = "NA";
+                                InputInsertionProgress = "Done";
+                            }
+                            else
+                            {
+                                InputInsertionProgress = "Failure";
+                                XtrnlInsertionProgress = "1";
+                            }
+
+                            if (stdProInputResult)
+                                FirstStagingInsertionProgress = "Done";
+                            else
+                                FirstStagingInsertionProgress = "Failure";
+
+
+
+                            if (stdFolToWERPTable)
+                                WERPInsertionProgress = "Done";
+                            else
+                                WERPInsertionProgress = "Failure";
+
+                            // Update Process Summary Text Boxes
+                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                            txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
+                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+                            processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
+                            Session[SessionContents.ProcessLogVo] = processlogVo;
+                             bool updateProcessLog4 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
+                            {
+                                msgUploadComplete.Visible = true;
+                            }
+
+                        }
+
+                        #endregion Standard Folio Upload
+
 
                         #region Standard Profile Upload
                         //*****************************************************************************************************************************
@@ -1787,18 +1883,18 @@ namespace WealthERP.Uploads
                                                 // WERP Equity Insert To 2nd Staging Transaction
                                                 //int filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "EQ", Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction);
                                                 packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadEQStdTranStagingToEQTranStaging.dtsx");
-                                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction &&  ddlListCompany.SelectedValue == Contants.UploadExternalTypeIIFL)
+                                                if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeIIFL)
                                                 {
                                                     werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 19); // EQ Trans XML File Type Id = 8
                                                 }
                                                 else
                                                     werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 8); // EQ Trans XML File Type Id = 8
-                                                
+
                                                 if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
                                                 {
                                                     werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 20); // EQ Trans XML File Type Id = 8
                                                 }
-                                                
+
 
                                                 if (werpEQSecondStagingResult)
                                                 {
@@ -1819,12 +1915,12 @@ namespace WealthERP.Uploads
                                                             if (WERPEQTranWerpResult)
                                                             {
                                                                 processlogVo.IsInsertionToWERPComplete = 1;
-                                                               
-                                                               
-                                                               
 
-                                                           
-                                                          }
+
+
+
+
+                                                            }
                                                             processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "EQT");
                                                             processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPEQ");
                                                             processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, "WPEQ");
@@ -2187,11 +2283,10 @@ namespace WealthERP.Uploads
                 }
             }
 
-            
+
         }
 
         protected void ddlUploadType_SelectedIndexChanged(object sender, EventArgs e)
-
         {
             //Label6.Visible = true;
             //rbSkipRowsYes.Visible = true;
@@ -2205,6 +2300,16 @@ namespace WealthERP.Uploads
             else
             {
                 trListBranch.Visible = false;
+            }
+            //MF FOLIO UPLOADS DROPDOWN POPULATE -VISHAL 
+            if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFFolio)
+            {   // MF FOLIO  Only
+                ddlListCompany.DataSource = GetMFFolioGenericDictionary();
+                ddlListCompany.DataTextField = "Key";
+                ddlListCompany.DataValueField = "Value";
+                ddlListCompany.DataBind();
+                ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+
             }
             if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
             {   // Profile Only
@@ -2366,8 +2471,8 @@ namespace WealthERP.Uploads
         //}
 
 
-     /*  ***************************************** */ 
-     /*  Coding for Download Standerd upload files */
+        /*  ***************************************** */
+        /*  Coding for Download Standerd upload files */
 
 
         //protected void lnkbtnpup_Click1(object sender, EventArgs e)
@@ -2413,8 +2518,8 @@ namespace WealthERP.Uploads
         }
 
 
-     /* *** */ 
-     /* End */
+        /* *** */
+        /* End */
 
 
         protected void ddlListCompany_SelectedIndexChanged(object sender, EventArgs e)
@@ -2425,6 +2530,10 @@ namespace WealthERP.Uploads
             upload.Visible = false;
             lbluploadtype.Visible = false;
             ddlAction.Visible = false;
+            Label6.Visible = true;
+            rbSkipRowsYes.Visible = true;
+            rbSkipRowsNo.Visible = true;
+            SkiprowsVisible.Visible = true;
             //Span4.visible = false;
             if (ddlListCompany.SelectedIndex != 0)
             {
@@ -2446,9 +2555,18 @@ namespace WealthERP.Uploads
             else
             {
                 lblFileType.Visible = false;
-              
-            }
 
+            }
+            //Hide Skip Rows for MF Folo Upload - vishal
+            if (ddlUploadType.SelectedValue == "MFFO" || ddlUploadType.SelectedValue == "MFF")
+            {
+                Label6.Visible = false;
+                rbSkipRowsYes.Visible = false;
+                rbSkipRowsNo.Visible = false;
+                SkiprowsVisible.Visible = false;
+
+
+            }
             if (ddlUploadType.SelectedValue == "P" && ddlListCompany.SelectedValue == "WP")
             {
                 //lnkbtnpup.Style.Add("display", "block");
@@ -2506,11 +2624,11 @@ namespace WealthERP.Uploads
             {
                 msg = "MFSD-221 Combo";
             }
-            else if ((ddlUploadType == "MFT" && ddlCompanyType == "TN" ) || (ddlUploadType == "MFT" && ddlCompanyType == "DT") || (ddlUploadType == "PMFF" && ddlCompanyType == "TN") || (ddlUploadType == "PMFF" && ddlCompanyType == "DT"))
+            else if ((ddlUploadType == "MFT" && ddlCompanyType == "TN") || (ddlUploadType == "MFT" && ddlCompanyType == "DT") || (ddlUploadType == "PMFF" && ddlCompanyType == "TN") || (ddlUploadType == "PMFF" && ddlCompanyType == "DT"))
             {
                 msg = "Standard Combo";
             }
-           
+
             return msg;
         }
 
@@ -2568,8 +2686,8 @@ namespace WealthERP.Uploads
 
                         FileUpload.SaveAs(filepath + "\\" + filename);
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
-                        
-                        if(strFileReadError != "")
+
+                        if (strFileReadError != "")
                         {
                             filereadflag = false;
                             rejectUpload_Flag = true;
@@ -2613,7 +2731,7 @@ namespace WealthERP.Uploads
                         if (dsXML.Tables.Count > 0)
                             ValidateInputfile(Contants.UploadExternalTypeDeutsche, Contants.ExtractTypeMFTransaction, pathxml, skiprowsval);
 
-                        
+
 
                     }
                 }
@@ -2740,13 +2858,13 @@ namespace WealthERP.Uploads
                     }
                     if (filereadflag == true)
                     {
-                        
+
                         if (rbSkipRowsYes.Checked)
                         {
                             ds = SkipRows(ds);
 
                             //for getting line number of error data in the file when validating
-                            skiprowsval = Convert.ToInt16(txtNoOfRows.Text)+1;
+                            skiprowsval = Convert.ToInt16(txtNoOfRows.Text) + 1;
                         }
 
                         //get all column nams for the selcted file type
@@ -2764,8 +2882,8 @@ namespace WealthERP.Uploads
                         //Reject upload if there are any data error validations
                         if (dsXML.Tables.Count > 0)
                             ValidateInputfile(Contants.UploadExternalTypeCAMS, Contants.ExtractTypeMFTransaction, pathxml, skiprowsval);
-                        
-                        
+
+
                     }
                 }
                 #endregion
@@ -2919,7 +3037,7 @@ namespace WealthERP.Uploads
                         //Reject upload if there are any data error validations
                         if (dsXML.Tables.Count > 0)
                             ValidateInputfile(Contants.UploadExternalTypeKarvy, Contants.ExtractTypeMFTransaction, pathxml, skiprowsval);
-                        
+
                     }
                 }
                 #endregion
@@ -3223,6 +3341,45 @@ namespace WealthERP.Uploads
                 }
                 #endregion
 
+                #region Standard MF Folio Upload Vishal
+                // Standard Equity Trade Account
+                else if (ddlUploadType.SelectedValue == Contants.ExtractTypeFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
+                {
+                    if (extension == "xls" || extension == "xlsx")
+                    {
+                        string Filepath = Server.MapPath("UploadFiles") + "\\WERPEqProf.xls";
+                        FileUpload.SaveAs(Filepath);
+                        ds = readFile.ReadExcelfile(Filepath);
+
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames((int)Contants.UploadTypes.MFstandardFolio);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.MFstandardFolio);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+                        int count = dsXML.Tables[0].Rows.Count;
+                        txtExternalTotalRecords.Text = dsXML.Tables[0].Rows.Count.ToString();
+                       
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", Contants.UploadExternalTypeStandard, Contants.UploadFileTypeStdFolio);
+                    }
+                    else
+                    {
+                        XmlCreated = false;
+                        ValidationProgress = "Failure";
+                    }
+                }
+                #endregion
+
+
                 #region Standard Equity Transaction
                 // Standard Equity Transaction
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
@@ -3307,7 +3464,7 @@ namespace WealthERP.Uploads
                         dsXML = dsIIFLTemp;
 
                         if (dsXML.Tables.Count > 0)
-                        
+
                             ValidateInputfile(Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction, pathxml, skiprowsval);
 
                         if (badData == false)
@@ -3354,34 +3511,34 @@ namespace WealthERP.Uploads
                                             dtIIFL.Rows.Add(dr1);
                                         }
 
-                                            if (dr.ItemArray[0].ToString() == "NSE" && double.Parse(dr.ItemArray[8].ToString()) > 0)
-                                            {
-                                                dr1 = dtIIFL.NewRow();
-                                                dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                                dr1["PEM_ScripCode"] = dr["Scrip Name"].ToString();
-                                                dr1["WETT_TransactionCode"] = 2;
-                                                dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
-                                                dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
-                                                dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
-                                                dr1["CET_BuySell"] = "S";
-                                                dr1["XE_ExchangeCode"] = "NSE";
-                                                dr1["CET_Brokerage"] = 0;
-                                                dr1["CET_ServiceTax"] = 0;
-                                                dr1["CET_EducationCess"] = 0;
-                                                dr1["CET_STT"] = 0;
-                                                dr1["CET_OtherCharges"] = 0;
-                                                dr1["CET_RateInclBrokerage"] = 0;
-                                                dr1["CET_TradeTotal"] = 0;
-                                                dr1["CET_TradeNum"] = 0;
-                                                dr1["CET_OrderNum"] = 0;
-                                                dr1["CET_IsSpeculative"] = 0;
+                                        if (dr.ItemArray[0].ToString() == "NSE" && double.Parse(dr.ItemArray[8].ToString()) > 0)
+                                        {
+                                            dr1 = dtIIFL.NewRow();
+                                            dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                            dr1["PEM_ScripCode"] = dr["Scrip Name"].ToString();
+                                            dr1["WETT_TransactionCode"] = 2;
+                                            dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
+                                            dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
+                                            dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
+                                            dr1["CET_BuySell"] = "S";
+                                            dr1["XE_ExchangeCode"] = "NSE";
+                                            dr1["CET_Brokerage"] = 0;
+                                            dr1["CET_ServiceTax"] = 0;
+                                            dr1["CET_EducationCess"] = 0;
+                                            dr1["CET_STT"] = 0;
+                                            dr1["CET_OtherCharges"] = 0;
+                                            dr1["CET_RateInclBrokerage"] = 0;
+                                            dr1["CET_TradeTotal"] = 0;
+                                            dr1["CET_TradeNum"] = 0;
+                                            dr1["CET_OrderNum"] = 0;
+                                            dr1["CET_IsSpeculative"] = 0;
 
-                                                ifl++;
-                                                dtIIFL.Rows.Add(dr1);
+                                            ifl++;
+                                            dtIIFL.Rows.Add(dr1);
 
-                                            }
                                         }
-                                    
+                                    }
+
                                     else if (dr.ItemArray[0].ToString() == "BSE")
                                     {
                                         if (double.Parse(dr.ItemArray[5].ToString()) > 0)
@@ -3410,56 +3567,56 @@ namespace WealthERP.Uploads
                                             dtIIFL.Rows.Add(dr1);
                                         }
 
-                                            if (double.Parse(dr.ItemArray[8].ToString()) > 0)
-                                            {
-                                                dr1 = dtIIFL.NewRow();
-                                                dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                                dr1["PEM_ScripCode"] = dr["Scrip Code"].ToString();
-                                                dr1["WETT_TransactionCode"] = 2;
-                                                dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
-                                                dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
-                                                dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
-                                                dr1["CET_BuySell"] = "S";
-                                                dr1["XE_ExchangeCode"] = "BSE";
-                                                dr1["CET_Brokerage"] = 0;
-                                                dr1["CET_ServiceTax"] = 0;
-                                                dr1["CET_EducationCess"] = 0;
-                                                dr1["CET_STT"] = 0;
-                                                dr1["CET_OtherCharges"] = 0;
-                                                dr1["CET_RateInclBrokerage"] = 0;
-                                                dr1["CET_TradeTotal"] = 0;
-                                                dr1["CET_TradeNum"] = 0;
-                                                dr1["CET_OrderNum"] = 0;
-                                                dr1["CET_IsSpeculative"] = 0;
+                                        if (double.Parse(dr.ItemArray[8].ToString()) > 0)
+                                        {
+                                            dr1 = dtIIFL.NewRow();
+                                            dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
+                                            dr1["PEM_ScripCode"] = dr["Scrip Code"].ToString();
+                                            dr1["WETT_TransactionCode"] = 2;
+                                            dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
+                                            dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
+                                            dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
+                                            dr1["CET_BuySell"] = "S";
+                                            dr1["XE_ExchangeCode"] = "BSE";
+                                            dr1["CET_Brokerage"] = 0;
+                                            dr1["CET_ServiceTax"] = 0;
+                                            dr1["CET_EducationCess"] = 0;
+                                            dr1["CET_STT"] = 0;
+                                            dr1["CET_OtherCharges"] = 0;
+                                            dr1["CET_RateInclBrokerage"] = 0;
+                                            dr1["CET_TradeTotal"] = 0;
+                                            dr1["CET_TradeNum"] = 0;
+                                            dr1["CET_OrderNum"] = 0;
+                                            dr1["CET_IsSpeculative"] = 0;
 
-                                                ifl++;
-                                                dtIIFL.Rows.Add(dr1);
-                                            }
-                                            
-                                        
-                                       
+                                            ifl++;
+                                            dtIIFL.Rows.Add(dr1);
+                                        }
+
+
+
                                     }
-                                   
+
                                 }
-                                
+
                             }
-                            
+
                             //DataSet dsXML = new DataSet();
-                           
-                          
-                           dsXML.Tables.Remove("Table1");
-                           dsXML.Tables.Add(dtIIFL);
-                            
+
+
+                            dsXML.Tables.Remove("Table1");
+                            dsXML.Tables.Add(dtIIFL);
+
                         }
 
 
-                            //Get filetypeid from XML
-                            filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "EQ", Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction);
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "EQ", Contants.UploadExternalTypeIIFL, Contants.UploadFileTypeTransaction);
 
-                            //dsXML.Tables.Add(dtIIFL);
+                        //dsXML.Tables.Add(dtIIFL);
 
 
-                        
+
                     }
                     else
                     {
@@ -3479,7 +3636,7 @@ namespace WealthERP.Uploads
                     {
                         string odinFileName = (System.Guid.NewGuid()).ToString();
 
-                        string Filepath = Server.MapPath("UploadFiles") + "\\"+odinFileName+".xls";
+                        string Filepath = Server.MapPath("UploadFiles") + "\\" + odinFileName + ".xls";
                         FileUpload.SaveAs(Filepath);
                         string filetype = ddlAction.SelectedValue.ToString();
                         ds = readFile.ReadTxtFile(Filepath, filetype);
@@ -3777,7 +3934,7 @@ namespace WealthERP.Uploads
                             processlogVo.NoOfTotalRecords = count;
                         }
                         else
-                        processlogVo.NoOfTotalRecords = ds.Tables[0].Rows.Count;
+                            processlogVo.NoOfTotalRecords = ds.Tables[0].Rows.Count;
                         processlogVo.UserId = userVo.UserId;
 
                         if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfile)
@@ -3907,7 +4064,7 @@ namespace WealthERP.Uploads
 
 
                 int dsfileCount = dsFile.Tables[0].Rows.Count;
-                              
+
 
                 //Add headers to the datatable which will be used for creating xml
                 foreach (DataRow dr in dsActual.Tables[0].Rows)
@@ -3990,7 +4147,7 @@ namespace WealthERP.Uploads
 
                 //For inserting the values into table used for creating xml if all mandatory is there
 
-                if(rejectUpload_Flag == false)
+                if (rejectUpload_Flag == false)
                     dsXML.Tables.Add(dt);
             }
             catch (BaseApplicationException Ex)
@@ -4144,7 +4301,7 @@ namespace WealthERP.Uploads
         }
 
         private void BindListBranch(int advisorId, string Id)
-      {
+        {
             UploadCommonBo uploadCommonBo = new UploadCommonBo();
             DataSet ds = uploadCommonBo.GetAdviserBranchList(advisorId, Id);
 
@@ -4174,7 +4331,7 @@ namespace WealthERP.Uploads
                 rejectUpload_Flag = true;
                 DataTable dtdtinputvalidationerror = new DataTable();
                 dtdtinputvalidationerror = dtInputRejects;
-                
+
                 gvInputError.DataSource = dtdtinputvalidationerror;
                 gvInputError.DataBind();
                 divInputErrorList.Visible = true;
@@ -4213,7 +4370,7 @@ namespace WealthERP.Uploads
             gvInputError.DataBind();
             divresult.Visible = false;
             ViewState["dtinputvalidationerror"] = dtInputRejects;
-        }        
+        }
     }
 }
 

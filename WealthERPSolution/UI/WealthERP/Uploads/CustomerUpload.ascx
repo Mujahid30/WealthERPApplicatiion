@@ -179,6 +179,7 @@
                <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
                 <asp:ListItem Value="PMFF">Profile & MF Folio</asp:ListItem>
                 <asp:ListItem Value="MFT">MF Transaction</asp:ListItem>
+                <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>      
                 <asp:ListItem Value="EQTA">Equity Trade Account Only</asp:ListItem>
                <%-- <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>--%>
                 <asp:ListItem Value="EQT">Equity Transaction</asp:ListItem>
