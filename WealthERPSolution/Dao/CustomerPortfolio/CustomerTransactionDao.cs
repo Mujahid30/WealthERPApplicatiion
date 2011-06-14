@@ -175,7 +175,7 @@ namespace DaoCustomerPortfolio
                                                             out Dictionary<string, string> genDictTranType,
                                                             out Dictionary<string, string> genDictExchange,
                                                             out Dictionary<string, string> genDictTradeDate,
-                                                            string SortExpression
+                                                            string SortExpression, DateTime FromDate, DateTime ToDate
                                                             )
         {
             List<EQTransactionVo> eqTransactionsList = null;
@@ -221,7 +221,8 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getEquityTransactionsCmd, "@tranTypeFilter", DbType.String, DBNull.Value);
 
                 db.AddInParameter(getEquityTransactionsCmd, "@sortExpression", DbType.String, SortExpression);
-
+                db.AddInParameter(getEquityTransactionsCmd, "@fromDate", DbType.DateTime, FromDate);
+                db.AddInParameter(getEquityTransactionsCmd, "@toDate", DbType.DateTime, ToDate);
                 dsGetEquityTransactions = db.ExecuteDataSet(getEquityTransactionsCmd);
                 if (dsGetEquityTransactions.Tables[0].Rows.Count > 0)
                 {
@@ -256,7 +257,7 @@ namespace DaoCustomerPortfolio
                         eqTransactionVo.STT = float.Parse(dr["CET_STT"].ToString());
                         eqTransactionVo.OtherCharges = float.Parse(dr["CET_OtherCharges"].ToString());
                         eqTransactionVo.RateInclBrokerage = float.Parse(dr["CET_RateInclBrokerage"].ToString());
-                        eqTransactionVo.TradeTotal = float.Parse(dr["CET_TradeTotal"].ToString());
+                        eqTransactionVo.TradeTotal = double.Parse(dr["CET_TradeTotal"].ToString());
                         eqTransactionVo.BrokerCode = dr["XB_BrokerCode"].ToString();
                         eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
                         eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
