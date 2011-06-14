@@ -37,9 +37,9 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createFixedIncomePortfolioCmd, "@XF_InterestPayableFrequencyCode", DbType.String, fixedincomeVo.InterestPayableFrequencyCode);
                 db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_Name", DbType.String, fixedincomeVo.Name);
                 if (fixedincomeVo.IssueDate != null)
-                    db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_IssueDate", DbType.Int32, fixedincomeVo.IssueDate);
+                    db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_IssueDate", DbType.DateTime, fixedincomeVo.IssueDate);
                 else
-                    db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_IssueDate", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_IssueDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_PrincipalAmount", DbType.Decimal, fixedincomeVo.PrinciaplAmount);
                 db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_InterestAmtPaidOut", DbType.Decimal, fixedincomeVo.InterestAmtPaidOut);
                 db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_InterestAmtAcculumated", DbType.Decimal, fixedincomeVo.InterestAmtAccumulated);
@@ -241,7 +241,7 @@ namespace DaoCustomerPortfolio
                     fixedIncomeVo.InterestRate = float.Parse(dr["CFINP_InterestRate"].ToString());
                     fixedIncomeVo.IsInterestAccumulated = int.Parse(dr["CFINP_IsInterestAccumulated"].ToString());
                     if(dr["CFINP_IssueDate"].ToString()!=String.Empty)
-                        fixedIncomeVo.IssueDate = int.Parse(dr["CFINP_IssueDate"].ToString());
+                        fixedIncomeVo.IssueDate = DateTime.Parse(dr["CFINP_IssueDate"].ToString());
                     if (dr["CFINP_MaturityDate"].ToString() != String.Empty)
                         fixedIncomeVo.MaturityDate = DateTime.Parse(dr["CFINP_MaturityDate"].ToString());
                     fixedIncomeVo.MaturityFaceValue=float.Parse(dr["CFINP_MaturityFaceValue"].ToString());
