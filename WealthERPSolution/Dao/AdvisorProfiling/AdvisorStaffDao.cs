@@ -2184,5 +2184,57 @@ namespace DaoAdvisorProfiling
         }
 
         /* ****************** */
+
+
+
+        /// <summary>
+        /// TO GET ALL THE STAFFS WHO IS HAVING ONLY ADMIN AND RM ROLES UNDER THE PERTICULAR ADVISER
+        /// </summary>
+        /// Created by Vinayak Patil
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+
+        public DataSet GetAllAdviserRMsHavingOnlyAdminRMRole(int adviserId, int rmId)
+        {
+            Database db;
+            DbCommand getAdviserRMListCmd;
+            DataSet getAdviserRMListDs;
+            DataTable dt = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAdviserRMListCmd = db.GetStoredProcCommand("SP_GetStaffsHavingOnlyRMRole");
+                if (adviserId != 0)
+                    db.AddInParameter(getAdviserRMListCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                else
+                    db.AddInParameter(getAdviserRMListCmd, "@A_AdviserId", DbType.Int32, DBNull.Value);
+
+                if (rmId != 0)
+                    db.AddInParameter(getAdviserRMListCmd, "@AR_RMId", DbType.Int32, rmId);
+                else
+                    db.AddInParameter(getAdviserRMListCmd, "@AR_RMId", DbType.Int32, DBNull.Value);
+
+                getAdviserRMListDs = db.ExecuteDataSet(getAdviserRMListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:GetAdviserRM()");
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = rmId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return getAdviserRMListDs;
+        }
     }
 }
