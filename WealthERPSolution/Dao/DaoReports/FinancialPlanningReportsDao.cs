@@ -234,7 +234,7 @@ namespace DaoReports
         /// <param name="report"></param>
         /// <remarks>Get All the details of Financial Planning of customers</remarks>
         /// <returns></returns>
-        public DataSet GetCustomerFPDetails(FinancialPlanningVo report,out double assetTotal,out double liabilitiesTotal,out double netWorthTotal,out string riskClass,out double sumAssuredLI,out int dynamicAdvisorRiskClass)
+        public DataSet GetCustomerFPDetails(FinancialPlanningVo report, out double assetTotal, out double liabilitiesTotal, out double netWorthTotal, out string riskClass, out double sumAssuredLI, out int dynamicAdvisorRiskClass)
         {
             Database db;
             DbCommand cmdCustomerFPReportDetails;
@@ -245,38 +245,38 @@ namespace DaoReports
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdCustomerFPReportDetails = db.GetStoredProcCommand("SP_RPT_GetFPReportDetails");
-                db.AddInParameter(cmdCustomerFPReportDetails, "@AdvisorId", DbType.Int32,report.advisorId);
+                db.AddInParameter(cmdCustomerFPReportDetails, "@AdvisorId", DbType.Int32, report.advisorId);
                 db.AddInParameter(cmdCustomerFPReportDetails, "@CustomerId", DbType.Int32, report.CustomerId);
-                db.AddOutParameter(cmdCustomerFPReportDetails,"@RiskClass", DbType.String,50);
+                db.AddOutParameter(cmdCustomerFPReportDetails, "@RiskClass", DbType.String, 50);
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@InsuranceSUMAssured", DbType.Decimal, 20);
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@AssetTotal", DbType.Decimal, 20);
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@DynamicRiskClsaaAdvisor", DbType.Int16, 2);
-                
+
                 dsCustomerFPReportDetails = db.ExecuteDataSet(cmdCustomerFPReportDetails);
 
-                 Object riskClassObj = db.GetParameterValue(cmdCustomerFPReportDetails, "@RiskClass");
-                 if (riskClassObj != DBNull.Value)
-                     riskClass = db.GetParameterValue(cmdCustomerFPReportDetails, "@RiskClass").ToString();
-                 else
-                     riskClass = string.Empty;
+                Object riskClassObj = db.GetParameterValue(cmdCustomerFPReportDetails, "@RiskClass");
+                if (riskClassObj != DBNull.Value)
+                    riskClass = db.GetParameterValue(cmdCustomerFPReportDetails, "@RiskClass").ToString();
+                else
+                    riskClass = string.Empty;
 
-                 Object objSumAssuredLI = db.GetParameterValue(cmdCustomerFPReportDetails, "@InsuranceSUMAssured");
-                 if (objSumAssuredLI != DBNull.Value)
-                     sumAssuredLI = double.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@InsuranceSUMAssured").ToString());
-                 else
-                     sumAssuredLI = 0;
+                Object objSumAssuredLI = db.GetParameterValue(cmdCustomerFPReportDetails, "@InsuranceSUMAssured");
+                if (objSumAssuredLI != DBNull.Value)
+                    sumAssuredLI = double.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@InsuranceSUMAssured").ToString());
+                else
+                    sumAssuredLI = 0;
 
-                 Object objAssetTotal = db.GetParameterValue(cmdCustomerFPReportDetails, "@AssetTotal");
-                 if (objAssetTotal != DBNull.Value)
-                     assetTotal = double.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@AssetTotal").ToString());
-                 else
-                     assetTotal = 0;
+                Object objAssetTotal = db.GetParameterValue(cmdCustomerFPReportDetails, "@AssetTotal");
+                if (objAssetTotal != DBNull.Value)
+                    assetTotal = double.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@AssetTotal").ToString());
+                else
+                    assetTotal = 0;
 
-                 Object objDynamicRiskClass = db.GetParameterValue(cmdCustomerFPReportDetails, "@DynamicRiskClsaaAdvisor");
-                 if (objAssetTotal != DBNull.Value)
-                     dynamicAdvisorRiskClass = int.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@DynamicRiskClsaaAdvisor").ToString());
-                 else
-                     dynamicAdvisorRiskClass = 0;
+                Object objDynamicRiskClass = db.GetParameterValue(cmdCustomerFPReportDetails, "@DynamicRiskClsaaAdvisor");
+                if (objAssetTotal != DBNull.Value)
+                    dynamicAdvisorRiskClass = int.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@DynamicRiskClsaaAdvisor").ToString());
+                else
+                    dynamicAdvisorRiskClass = 0;
 
                 dtAsset = dsCustomerFPReportDetails.Tables[2];
                 dtLiabilities = dsCustomerFPReportDetails.Tables[3];
@@ -308,6 +308,8 @@ namespace DaoReports
                 dsCustomerFPReportDetails.Tables[19].TableName = "FPRatio";
                 dsCustomerFPReportDetails.Tables[20].TableName = "FPRatioDetails";
                 dsCustomerFPReportDetails.Tables[21].TableName = "LoanEMI";
+                dsCustomerFPReportDetails.Tables[22].TableName = "HLVAssumption";
+                dsCustomerFPReportDetails.Tables[23].TableName = "RMRecommendation";
 
             }
             catch (BaseApplicationException Ex)
