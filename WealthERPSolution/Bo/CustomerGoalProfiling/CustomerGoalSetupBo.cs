@@ -110,6 +110,7 @@ namespace BoCustomerGoalProfiling
             result = System.Numeric.Financial.Pmt(rate, nper, pv, fv, 0);
             return result;
         }
+
         public decimal GetInflationPercent()
         {
             CustomerGoalSetupDao CustomerGoalDao = new CustomerGoalSetupDao();
