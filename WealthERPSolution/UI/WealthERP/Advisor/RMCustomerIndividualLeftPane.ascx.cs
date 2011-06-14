@@ -256,10 +256,15 @@ namespace WealthERP.Advisor
                     //Code to unhide the tree nodes based on User Roles
                     if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
                         treeType = "Customer";
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                        treeType = "RM";
+
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                        treeType = "BM";
                     else
                         treeType = "Admin";
 
-                    dsTreeNodes = GetTreeNodesBasedOnUserRoles(treeType,"Customer");
+                    dsTreeNodes = GetTreeNodesBasedOnUserRoles(treeType, "Customer");
                     if (dsTreeNodes.Tables[0].Rows.Count > 0)
                         SetAdminTreeNodesForRoles(dsTreeNodes, "Customer");
 
@@ -773,6 +778,23 @@ namespace WealthERP.Advisor
                         {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerIndividualProfile", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
                         }
+                        if (customerVo.IsProspect == 1)
+                        {
+                            Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddProspectList", "loadcontrol('AddProspectList','none');", true);
+                        }
+                        else if(customerVo.IsProspect == 0)
+                        {
+                            //if (Session["ButtonConvertToCustomer"] != null)
+                            //{
+                            //    Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddProspectList", "loadcontrol('AddProspectList','none');", true);
+                            //}
+                            //else
+                            //{
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerIndividualProfile", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                            //}
+                        }
                     }
                     else
                     {
@@ -1072,7 +1094,7 @@ namespace WealthERP.Advisor
         {
             AdvisorBo advisorBo = new AdvisorBo();
             DataSet dsTreeNodes;
-            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType,advisorVo.advisorId);
+            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType, advisorVo.advisorId);
             return dsTreeNodes;
         }
 
