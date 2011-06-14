@@ -13,6 +13,7 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
+
 <script type="text/javascript" language="javascript">
     function checkDate(sender, args) {
 
@@ -39,6 +40,17 @@
         else {
             document.getElementById('<%= txtMarriageDate.ClientID %>').disabled = true;
         }
+    }
+</script>
+<script type="text/javascript">
+    function CheckParameters() {
+        if (((document.getElementById('<%= rbtnMale.ClientID %>').checked == false) && (document.getElementById('<%= rbtnFemale.ClientID %>').checked == false)) && (document.getElementById('<%= txtDob.ClientID %>').value == "dd/mm/yyyy")){
+            if ((document.getElementById('<%= txtDob.ClientID %>').value == "dd/mm/yyyy")) {
+                alert('Please select gender, date of birth and Income for the customer to get the tax slab ');
+            }
+            return false;
+        }
+       
     }
 </script>
 
@@ -732,6 +744,22 @@
             </div>
         </td>
     </tr>
+                    <tr id="trForResidence" runat="server">
+                     <td class="leftField">
+                            <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable:"></asp:Label>
+                        </td>
+                        <td class="rightField" width="25%">
+                            <asp:TextBox ID="txtSlab" runat="server" CssClass="txtField"></asp:TextBox>
+                            <asp:CompareValidator ID="cmpareSlabForOther" ControlToValidate="txtSlab"
+                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Tax slab."
+                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                        </td>
+                    <td>
+                    <asp:Button ID="btnGetSlab" runat="server" Text="Get the slab" 
+                        CssClass="PCGMediumButton" OnClientClick="return CheckParameters()" 
+                        onclick="btnGetSlab_Click" />
+                    </td>
+                    </tr>
                     </table>
                 </div>
             </div>
@@ -751,3 +779,8 @@
 </table>
 <%--  </ContentTemplate>
 </asp:UpdatePanel>--%>
+
+
+<asp:HiddenField ID="hdnGender" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnAge" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnTaxSlabValue" runat="server" Visible="false" />
