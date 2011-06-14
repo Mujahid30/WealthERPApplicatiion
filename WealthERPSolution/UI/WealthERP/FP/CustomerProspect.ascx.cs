@@ -825,6 +825,16 @@ namespace WealthERP.FP
                     incomedetailsvolist.Add(incomedetailsvo);
                     totalincome += incomedetailsvo.IncomeValue;
                 }
+                //Income Disposable (post tax)
+                if (txtDisposable.Text != string.Empty)
+                {
+                    incomedetailsvo = new CustomerProspectIncomeDetailsVo();
+                    incomedetailsvo.IncomeCategoryCode = 7;
+                    incomedetailsvo.IncomeValue = double.Parse(txtDisposable.Text);
+                    incomedetailsvolist.Add(incomedetailsvo);
+                    //totalincome += incomedetailsvo.IncomeValue;
+                }
+
                
 
 
@@ -1712,6 +1722,27 @@ namespace WealthERP.FP
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
+                //For MF SIP
+                if ((txtMFSIPMIS.Text != string.Empty))
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 12;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtMFSIPMIS.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+                //For Reccuring Deposit
+                if ((txtReccuringDeposit.Text != string.Empty))
+                {
+                    expensedetailsvo = new CustomerProspectExpenseDetailsVo();
+                    expensedetailsvo.ExpenseCategoryCode = 13;
+                    expensedetailsvo.ExpenseValue = double.Parse(txtReccuringDeposit.Text);
+                    expensedetailsvolist.Add(expensedetailsvo);
+                    totalexpense += expensedetailsvo.ExpenseValue;
+                }
+
+
+
                 //==========================================================================================================================
 
 
@@ -1724,7 +1755,8 @@ namespace WealthERP.FP
                 customerprospectvo.TotalAssets = totalasset;
                 customerprospectvo.TotalExpense = totalexpense;
                 customerprospectvo.TotalGeneralInsurance = totalgi;
-                customerprospectvo.TotalIncome = totalincome;
+                if(txtDisposable.Text != "")
+                    customerprospectvo.TotalIncome = int.Parse(txtDisposable.Text);
                 customerprospectvo.TotalLiabilities = totalliabilities;
                 customerprospectvo.TotalLifeInsurance = totalli;
                 //==========================================================================================================================
@@ -2014,6 +2046,11 @@ namespace WealthERP.FP
                         txtOthersIncome.Text = cpid.IncomeValue.ToString();
                         totalincome += cpid.IncomeValue;
                     }
+                    if (cpid.IncomeCategoryCode == 7)
+                    {
+                        txtDisposable.Text = cpid.IncomeValue.ToString();
+                        //totalincome += cpid.IncomeValue;
+                    }
 
                 }
             }
@@ -2075,6 +2112,16 @@ namespace WealthERP.FP
                     if (cped.ExpenseCategoryCode == 11)
                     {
                         txtExpenseEMI.Text = cped.ExpenseValue.ToString();
+                        totalexpense += cped.ExpenseValue;
+                    }
+                    if (cped.ExpenseCategoryCode == 12)
+                    {
+                        txtMFSIPMIS.Text = cped.ExpenseValue.ToString();
+                        totalexpense += cped.ExpenseValue;
+                    }
+                    if (cped.ExpenseCategoryCode == 13)
+                    {
+                        txtReccuringDeposit.Text = cped.ExpenseValue.ToString();
                         totalexpense += cped.ExpenseValue;
                     }
 
@@ -2355,6 +2402,8 @@ namespace WealthERP.FP
 
             txtAssetTotal.Text = totalasset.ToString();
             txtIncomeTotal.Text = totalincome.ToString();
+
+            txtIncomePostTax.Text = totalincome.ToString();
             txtExpenseTotal.Text = totalexpense.ToString();
             txtTotalLO.Text = totalliabilities.ToString();
             txtTotalLISA.Text = totalli.ToString();
@@ -2590,6 +2639,28 @@ namespace WealthERP.FP
 
                 }
             }
+            if (dsGetWERPDetails.Tables[6].Rows.Count > 0)
+            {
+                txtSlabProfile.Text = dsGetWERPDetails.Tables[6].Rows[0]["C_TaxSlab"].ToString();
+                txtSlabAsPerProfile.Text = txtSlabProfile.Text;
+            }
+
+            if (dsGetWERPDetails.Tables[7].Rows.Count > 0)
+            {
+                txtMFSIPMIS.Text = dsGetWERPDetails.Tables[7].Rows[0]["CFPED_Value"].ToString();
+            }
+
+            if (dsGetWERPDetails.Tables[8].Rows.Count > 0)
+            {
+                txtReccuringDeposit.Text = dsGetWERPDetails.Tables[8].Rows[0]["CFPED_Value"].ToString();
+            }
+            
+
+        }
+
+        protected void btnCalculationSubmit_Click(object sender, EventArgs e)
+        {
+            lblFinalResults.Text = "Disposable income (post tax) is"+ txtIncomePostTax.Text + "";
         }
     }
 }

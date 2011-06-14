@@ -2,6 +2,8 @@
      Inherits="WealthERP.FP.CustomerProspect"  %>
   
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <script type="text/javascript">
     function Total() {
@@ -112,6 +114,15 @@
         if (document.getElementById("<%=txtOthersExpense.ClientID%>").value != "") {
             expensetotal += parseFloat(document.getElementById("<%=txtOthersExpense.ClientID%>").value);
         }
+        // To add MF SIP and Reccuring Deposit value to total
+
+        if (document.getElementById("<%=txtMFSIPMIS.ClientID%>").value != "") {
+            expensetotal += parseFloat(document.getElementById("<%=txtMFSIPMIS.ClientID%>").value);
+        }
+        if (document.getElementById("<%=txtReccuringDeposit.ClientID%>").value != "") {
+            expensetotal += parseFloat(document.getElementById("<%=txtReccuringDeposit.ClientID%>").value);
+        }
+        
         //Liabilities
         if (document.getElementById("<%=txtHomeLoanLO.ClientID%>").value != "") {
             liabilitiestotal += parseFloat(document.getElementById("<%=txtHomeLoanLO.ClientID%>").value);
@@ -217,6 +228,7 @@
         //Sectional Total
         document.getElementById("<%=txtAssetTotal.ClientID%>").value = assettotal.toString();
         document.getElementById("<%=txtIncomeTotal.ClientID%>").value = incometotal.toString();
+        document.getElementById("<%=txtDisposable.ClientID%>").value = document.getElementById("<%=txtIncomeTotal.ClientID%>").value;
         document.getElementById("<%=txtExpenseTotal.ClientID%>").value = (expensetotal + (AllLIandGIPremiumTotal / 12) + (allEMIsTotal / 12)).toString();
         document.getElementById("<%=txtTotalLO.ClientID%>").value = liabilitiestotal.toString();
         document.getElementById("<%=txtTotalLISA.ClientID%>").value = lifeInsuranceTotal.toString();
@@ -257,6 +269,85 @@
         document.getElementById(tmp4).value = subtotalvalue.toString();
         Total();
     }
+    
+</script>
+
+<script type="text/javascript">
+
+    function CallFuncOnTxtTaxableIncome() {
+    
+    var TaxSlab = document.getElementById("<%=txtSlabAsPerProfile.ClientID%>");
+    var TaxableIncome = document.getElementById("<%=txtTaxableIncome.ClientID%>");
+    var TaxToBePaid = document.getElementById("<%= txtTaxtoBePaid.ClientID %>");
+    var TaxIncomePreTax =  document.getElementById("<%= txtIncomePreTax.ClientID %>");
+    
+        if ((parseInt(TaxSlab.value) != 0) && (parseInt(TaxableIncome.value) != 0)) {
+
+            document.getElementById("<%= txtTaxtoBePaid.ClientID %>").value = (parseInt(TaxSlab.value) / 100) * parseInt(TaxableIncome.value);
+        }
+        if(TaxIncomePreTax.value == "")
+        {
+        parseInt(TaxIncomePreTax.value) = 0;
+        }
+    }
+
+    function CallFunOnTxtIncomePreTax() {
+        var PreTax = document.getElementById("<%= txtIncomePreTax.ClientID %>");
+        var TaxToBePaid = document.getElementById("<%= txtTaxtoBePaid.ClientID %>");
+
+        if (parseInt(PreTax.value) > parseInt(TaxToBePaid.value)) {
+            
+            document.getElementById("<%= txtIncomePostTax.ClientID %>").value = PreTax - TaxToBePaid;
+            document.getElementById("<%= txtDisposable.ClientID %>").value = document.getElementById("<%= txtIncomePostTax.ClientID %>").value;
+        }
+        else if (parseInt(PreTax.value) < parseInt(TaxToBePaid.value)) {
+            alert('Disposable income (pre tax) should be greater then Tax to be paid');
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    function CallFunOnCalculation() {
+
+        var TaxableIncome = document.getElementById("<%= txtTaxableIncome.ClientID %>").value;
+        var SlabAsPerProfile = document.getElementById("<%= txtSlabAsPerProfile.ClientID %>").value;
+        var TaxtoBePaid = document.getElementById("<%= txtTaxtoBePaid.ClientID %>").value;
+        var IncomePreTax = document.getElementById("<%= txtIncomePreTax.ClientID %>").value;
+        //var IncomePostTax = document.getElementById("<%= txtIncomePostTax.ClientID %>").value;
+        var InComeTotal = document.getElementById("<%= txtIncomeTotal.ClientID %>").value;
+
+        document.getElementById("<%= txtTaxableIncome.ClientID %>").value = "0";
+
+        document.getElementById("<%= txtIncomePreTax.ClientID %>").value  = parseInt(InComeTotal);
+
+               
+    }
+</script>
+<script type="text/javascript">
+
+    function CancelButtonFun() {
+
+        var InComeTotal = document.getElementById("<%= txtIncomeTotal.ClientID %>").value;
+
+        document.getElementById("<%= txtTaxableIncome.ClientID %>").value = 0;
+        document.getElementById("<%= txtDisposable.ClientID %>").value = InComeTotal;
+
+    }
+    function SubmitButtonFun() {
+        document.getElementById("<%= txtDisposable.ClientID %>").value = document.getElementById("<%= txtIncomePostTax.ClientID %>").value;
+    }
+    
+    function MainCalculate() {
+        var TaxToBePaid = document.getElementById("<%= txtTaxtoBePaid.ClientID %>").value;
+        var TaxIncomePreTax = document.getElementById("<%= txtIncomePreTax.ClientID %>").value;
+        
+        if (TaxIncomePreTax != "") {
+            document.getElementById("<%= txtIncomePostTax.ClientID %>").value = TaxIncomePreTax - TaxToBePaid;
+        }
+
+        
+    }
+
     
 </script>
 
@@ -432,6 +523,17 @@
             <telerik:TargetInput ControlID="txtPersonalAccidentP" />
             <telerik:TargetInput ControlID="txtOthersGIA" />
             <telerik:TargetInput ControlID="txtOthersGIP" />
+            <telerik:TargetInput ControlID="txtMFSIPMIS" />
+            <telerik:TargetInput ControlID="txtReccuringDeposit" />
+            
+            <telerik:TargetInput ControlID="txtDisposable" />
+            <telerik:TargetInput ControlID="txtSlabProfile" />
+            
+            <telerik:TargetInput ControlID="txtTaxableIncome" />
+            <telerik:TargetInput ControlID="txtSlabAsPerProfile" />
+            <telerik:TargetInput ControlID="txtTaxtoBePaid" />
+            <telerik:TargetInput ControlID="txtIncomePreTax" />
+            <telerik:TargetInput ControlID="txtIncomePostTax" />
            
         </TargetControls>
     </telerik:NumericTextBoxSetting>
@@ -1216,7 +1318,7 @@
                         </tr>
                             <tr>
                                 <td align="right">
-                                    <asp:Label ID="lblSalary" runat="server" Text="Salary : " CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblSalary" runat="server" Text="Gross Salary : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtSalary" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
@@ -1267,9 +1369,102 @@
                                     <asp:TextBox ID="txtIncomeTotal" runat="server" Style="direction: rtl" Enabled="false"
                                         EnableViewState="true"></asp:TextBox>
                                 </td>
-                                <td>
+                                <td align="right">
+                                    <asp:Label ID="lblTxtSlabProfile" runat="server" Text="Tax slab as per your profile" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtSlabProfile" runat="server" onblur="fillValueToPopup();" Style="direction: rtl" Enabled="false"
+                                        EnableViewState="true"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                             <td align="right">
+                                    <asp:Label ID="lblDisposable" runat="server" Text="Disposable Income (post tax) : " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtDisposable" runat="server" Style="direction: rtl" ></asp:TextBox>
+                                </td>
+                            
+                            </tr>
+                            <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td align="left">
+                                    <asp:Button ID="btnSlabCalculate" runat="server" OnClientClick="CallFunOnCalculation()" Text="Calculate" CssClass="PCGButton" />
+                                    
+                                    <cc1:ModalPopupExtender ID="mdlPopupSlabCalculate" runat="server" PopupControlID="CalculatePopUp"
+                                    TargetControlID="btnSlabCalculate" OkControlID="btnCalculationSubmit" CancelControlID="btnCancel" BackgroundCssClass="modalBackground" Enabled="true" Drag="true">
+                                    </cc1:ModalPopupExtender>
+                                    
                                 </td>
                                 <td>
+                                    <asp:Panel ID="CalculatePopUp" onclick="MainCalculate()" Width="300px" CssClass="ModelPup" runat="server">
+                                     <table>
+                                         <tr>
+                                            <td>
+                                                <asp:Label ID="lblTaxableIncome" runat="server" Text="Taxable Income" CssClass="FieldName"></asp:Label>
+                                            </td>
+                                            <td align="left">
+                                                <asp:TextBox ID="txtTaxableIncome" runat="server" onchange="CallFuncOnTxtTaxableIncome()" Style="direction: rtl" ></asp:TextBox>
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>    
+                                            <td>
+                                                <asp:Label ID="lbltxtSlabAsPerProfile" runat="server" Text="As per your profile your tax slab is" CssClass="FieldName"></asp:Label>
+                                            </td>
+                                            <td align="left">
+                                                <asp:TextBox ID="txtSlabAsPerProfile" runat="server" ReadOnly="true" Enabled="false" Style="direction: rtl" ></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lblTaxtoBePaid" runat="server" Text="Tax to be paid" CssClass="FieldName"></asp:Label>
+                                            </td>
+                                            <td align="left">
+                                                <asp:TextBox ID="txtTaxtoBePaid" runat="server" Style="direction: rtl" ></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lblIncomePreTax" runat="server" Text="Disposable income (pre tax)" CssClass="FieldName"></asp:Label>
+                                            </td>
+                                            <td align="left">
+                                                <asp:TextBox ID="txtIncomePreTax" runat="server" onchange="CallFunOnTxtIncomePreTax()" Style="direction: rtl" ></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lblIncomePostTax" runat="server" Text="Disposable income (post tax)" CssClass="FieldName"></asp:Label>
+                                            </td>
+                                            <td align="left">
+                                                <asp:TextBox ID="txtIncomePostTax" runat="server" Style="direction: rtl" ></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Button ID="btnCalculationSubmit" runat="server" Text="Submit" 
+                                                    CssClass="PCGButton" OnClientClick="SubmitButtonFun()" onclick="btnCalculationSubmit_Click" />
+                                            </td>
+                                            <td>
+                                                <asp:Button ID="btnCancel" OnClientClick="CancelButtonFun()" runat="server" Text="Cancel" CssClass="PCGButton" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <asp:Label ID="lblFinalResults" runat="server" Text="" CssClass="FieldName"></asp:Label> 
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </asp:Panel>
                                 </td>
                             </tr>
                         </table>
@@ -1288,6 +1483,7 @@
                         <td colspan="4">
                         <asp:Label ID="lblexpensenote" runat="server" Text="Note: Please Enter Monthly Expense Details." Font-Size="Small" CssClass="cmbField"></asp:Label>
                         </td>
+                        </tr>
                             <tr>
                                 <td align="right">
                                     <asp:Label ID="lblFood" runat="server" Text="Food : " CssClass="FieldName"></asp:Label>
@@ -1362,6 +1558,20 @@
                                     <asp:TextBox ID="txtExpenseEMI" runat="server" ReadOnly="true" Enabled="false" Style="direction: rtl"></asp:TextBox>
                                 </td>
                                 
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <asp:Label ID="lblMFMIS" runat="server" Text="MF SIP:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtMFSIPMIS" runat="server" ReadOnly="true" Enabled="false" Style="direction: rtl" onchange="Total()></asp:TextBox>
+                                </td>
+                                <td align="right">
+                                    <asp:Label ID="lblReccuringDeposit" runat="server" Text="Recurring Deposit :" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtReccuringDeposit" runat="server" ReadOnly="true" Enabled="false" Style="direction: rtl" onchange="Total()></asp:TextBox>
+                                </td>
                             </tr>
                             <tr>
                                 <td align="right">
