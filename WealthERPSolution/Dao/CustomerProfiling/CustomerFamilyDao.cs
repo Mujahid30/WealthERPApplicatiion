@@ -222,7 +222,14 @@ namespace DaoCustomerProfiling
             return familyList;
         }
 
-        public DataTable GetCustomerAssociations(int rmId, string nameSrchValue)
+        /// <summary>
+        /// Modified by Vinayak Patil.. Customer Association functionality for adviser..
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="nameSrchValue"></param>
+        /// <returns></returns>
+        public DataTable GetCustomerAssociations(int adviserId, int rmId, string nameSrchValue)
         {
             Database db;
             DbCommand cmdGetCustomerAssociations;
@@ -233,7 +240,16 @@ namespace DaoCustomerProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCustomerAssociations = db.GetStoredProcCommand("SP_GetCustomerAssociations");
-                db.AddInParameter(cmdGetCustomerAssociations, "@AR_RMId", DbType.Int32, rmId);
+                if (adviserId != 0)
+                    db.AddInParameter(cmdGetCustomerAssociations, "@A_AdviserId", DbType.Int32, adviserId);
+                else
+                    db.AddInParameter(cmdGetCustomerAssociations, "@A_AdviserId", DbType.Int32, DBNull.Value);
+
+                if (rmId != 0)
+                    db.AddInParameter(cmdGetCustomerAssociations, "@AR_RMId", DbType.Int32, rmId);
+                else
+                    db.AddInParameter(cmdGetCustomerAssociations, "@AR_RMId", DbType.Int32, DBNull.Value);
+
                 db.AddInParameter(cmdGetCustomerAssociations, "@nameFilter", DbType.String, nameSrchValue);
                 dsCustomerAssociations = db.ExecuteDataSet(cmdGetCustomerAssociations);
                 dtCustomerAssociations = dsCustomerAssociations.Tables[0];
@@ -250,8 +266,9 @@ namespace DaoCustomerProfiling
                 FunctionInfo.Add("Method", "CustomerFamilyDao.cs:GetCustomerFamily()");
 
 
-                object[] objects = new object[1];
+                object[] objects = new object[2];
                 objects[0] = rmId;
+                objects[1] = adviserId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -389,7 +406,7 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerFamily;
         }
-        public DataTable GetCustomerAssociateDetails(int associationId)
+        public DataSet GetCustomerAssociateDetails(int associationId)
         {
             Database db;
             DbCommand getAssociateDetailsCmd;
@@ -424,7 +441,7 @@ namespace DaoCustomerProfiling
                 throw exBase;
 
             }
-            return dtAssociateDetails;
+            return getAssociateDetailsDs;
         }
 
         public int GetCustomersAssociationId(int customerId)
