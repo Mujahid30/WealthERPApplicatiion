@@ -48,6 +48,7 @@ namespace WealthERP.SuperAdmin
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
         private bool IsAddUpdate = false;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //btnSubmit.Attributes.Add("onclick", "Validation('" + ddlStatus.ClientID + "');");
@@ -162,6 +163,16 @@ namespace WealthERP.SuperAdmin
                                 calExeActivationDate.SelectedDate = DateTime.Now;
                             }
                         }
+                        if (advisorVo.MultiBranch == 1)
+                        {
+                            rbtnYes.Checked = true;
+                            rbtnNo.Checked = false;
+                        }
+                        else if (advisorVo.MultiBranch == 0)
+                        {
+                            rbtnNo.Checked = true;
+                            rbtnYes.Checked = false;
+                        }
                     }
 
                     catch (Exception ex)
@@ -241,6 +252,7 @@ namespace WealthERP.SuperAdmin
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            
             try
             {
                 if (btnSubmit.Text == "Update")
@@ -594,6 +606,20 @@ namespace WealthERP.SuperAdmin
             calExeActivationDate.SelectedDate = DateTime.Parse(Session["IFFActivationDate"].ToString());
             txtDeactivationDate.Text = Session["IFFDeactivationDate"].ToString();
             calExeDeactivationDate.SelectedDate = DateTime.Parse(Session["IFFDeactivationDate"].ToString());
+            if (Session["IFFIsMultiBranch"] != null)
+            {
+                if (Session["IFFIsMultiBranch"] == "1")
+                {
+                    rbtnYes.Checked = true;
+                    rbtnNo.Checked = false;
+                }
+                else if (Session["IFFIsMultiBranch"] == "0")
+                {
+                    rbtnYes.Checked = false;
+                    rbtnNo.Checked = true;
+                }
+            }
+
             if (Session["IFFCategory"] != null)
             {
 
@@ -621,6 +647,7 @@ namespace WealthERP.SuperAdmin
                 }
 
             }
+
         }
         public void DataPopulating()
         {
@@ -661,7 +688,7 @@ namespace WealthERP.SuperAdmin
             Session["IFFTelephoneNumber"] = txtTelephoneNumber.Text;
             advisorVo.ContactPersonFirstName = txtContactPerson.Text.ToString();
             advisorVo.MobileNumber = Convert.ToInt64(txtMobileNo.Text.Trim());
-            advisorVo.MultiBranch = 1;
+            //advisorVo.MultiBranch = 1;
             advisorVo.OrganizationName = txtNameofIFF.Text.Trim();
             Session["IFFNameofIFF"] = txtNameofIFF.Text.Trim();
             advisorVo.Email = userVo.Email;
@@ -686,6 +713,17 @@ namespace WealthERP.SuperAdmin
                 Session["IFFDeactivationDate"] = txtDeactivationDate.Text;
                 advisorVo.IsActive = 0;
                 Session["IFFIsActive"] = "0";
+            }
+            //Check Whether multibranch option checked or not.
+            if (rbtnNo.Checked == true)
+            {
+                Session["IFFIsMultiBranch"] = "0";
+                advisorVo.MultiBranch = 0;
+            }
+            else if(rbtnYes.Checked == true)
+            {
+                Session["IFFIsMultiBranch"] = "1";
+                advisorVo.MultiBranch = 1;
             }
 
         }

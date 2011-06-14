@@ -302,12 +302,7 @@
         <td>
             <asp:TextBox ID="txtTelephoneNumber" CssClass="txtField" runat="server" MaxLength="8"
                 Width="175px"></asp:TextBox>
-            <%--<span id="Span7" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtTelephoneNumber"
-                ErrorMessage="Telephone No Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
-            <%--            <asp:CompareValidator ID="telephoneValidator" ControlToValidate="txtTelephoneNumber"
-                runat="server" Display="Dynamic" ErrorMessage="Please give only numbers" Operator="DataTypeCheck"
-                Type="Integer"></asp:CompareValidator>--%>
+            
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG"
                 ErrorMessage="Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtTelephoneNumber"
                 Display="Dynamic"></asp:RegularExpressionValidator>
@@ -374,6 +369,16 @@
                 ErrorMessage="DeActivationDate Required" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
             <asp:CompareValidator CssClass="cvPCG" Display="Dynamic" ID="dateCompareValidator"
                 runat="server"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr>
+        <td id="tdMultiBranch" runat="server" class="leftField">
+            <asp:Label ID="lblMultiBranchNetwork" runat="server" CssClass="FieldName" Text="Multibranch Network :"></asp:Label>
+        </td>
+        
+        <td id="tdRadioBtnMultiBranch"  runat="server" class="rightField" colspan="3">
+            <asp:RadioButton ID="rbtnYes" runat="server" CssClass="txtField" Checked="true" Text="Yes" GroupName="grpMultiBranch" />
+            <asp:RadioButton ID="rbtnNo" runat="server" CssClass="txtField" Text="No" GroupName="grpMultiBranch" />
         </td>
     </tr>
     <tr>
