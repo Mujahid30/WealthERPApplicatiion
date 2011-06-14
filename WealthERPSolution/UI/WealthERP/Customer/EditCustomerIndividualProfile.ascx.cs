@@ -31,6 +31,10 @@ namespace WealthERP.Customer
         DataTable dtQualification = new DataTable();
         DataTable dtState = new DataTable();
         DataTable dtCustomerSubType = new DataTable();
+
+        DataSet dsGetSlab = new DataSet();
+        int years;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             cvDepositDate1.ValueToCompare = DateTime.Now.ToShortDateString();
@@ -64,6 +68,16 @@ namespace WealthERP.Customer
                     {
                         trGuardianName.Visible = false;
                     }
+
+                    if ((customerVo.SubType == "RES") && (customerVo.Type == "IND"))
+                    {
+                        btnGetSlab.Visible = true;
+                    }
+                    else
+                    {
+                        btnGetSlab.Visible = false;
+                    }
+
                     BindDropDowns();
 
                     //Bind Adviser Branch List
@@ -198,6 +212,9 @@ namespace WealthERP.Customer
                     txtEmail.Text = customerVo.Email;
                     txtAltEmail.Text = customerVo.AltEmail;
                     txtRBIRefNo.Text = customerVo.RBIRefNum;
+
+                    txtSlab.Text = customerVo.TaxSlab.ToString();
+
                     if (customerVo.RBIApprovalDate == DateTime.MinValue)
                         txtRBIRefDate.Text = "";
                     else
@@ -500,6 +517,9 @@ namespace WealthERP.Customer
                     else
                         customerVo.Mobile2 = long.Parse(txtMobile2.Text.ToString());
 
+                    if (txtSlab.Text != "")
+                        customerVo.TaxSlab = int.Parse(txtSlab.Text);
+
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.AltEmail = txtAltEmail.Text.ToString();
 
@@ -704,6 +724,98 @@ namespace WealthERP.Customer
                     trGuardianName.Visible = false;
                 }
             }
+            if (ddlCustomerSubType.SelectedValue == "RES")
+            {
+                btnGetSlab.Visible = true;
+            }
+            else
+            {
+                btnGetSlab.Visible = false;
+            }
         }
+
+        protected void btnGetSlab_Click(object sender, EventArgs e)
+        {
+            if ((customerVo.Gender == "") && (customerVo.Dob == DateTime.MinValue) && (txtDob.Text == ""))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
+            }
+            if (customerVo.Gender != "")
+            {
+                if (customerVo.Gender == "M")
+                    hdnGender.Value = "Male";
+                else
+                    hdnGender.Value = "Female";
+            }
+            if (txtDob.Text != "")
+            {
+                CalculateAge(DateTime.Parse(txtDob.Text));
+            }
+            dsGetSlab = customerBo.GetCustomerTaxSlab(customerVo.CustomerId, years, hdnGender.Value);
+            if (dsGetSlab.Tables[0].Columns[0].ToString() != "Income")
+            {
+                if(dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString() != null)
+                    txtSlab.Text = dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString();
+            }
+            else if ((dsGetSlab.Tables[0].Rows[0]["Income"].ToString() == null) || (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() == "0"))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+            }
+            else if (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide the proper required customer information to get Tax slab..');", true);
+            }
+        }
+        public int CalculateAge(DateTime birthDate)
+        {
+            DateTime now = DateTime.Today;
+
+            years = now.Year - birthDate.Year;
+
+            if (now.Month < birthDate.Month || (now.Month == birthDate.Month && now.Day < birthDate.Day))
+                --years;
+
+            return years;
+        }
+
+
+
+        //private void BindTaxSlabDropDown()
+        //{
+        //    try
+        //    {
+        //        if (dsGetSlab.Tables[0].Rows.Count > 0)
+        //        {
+        //            ddlTaxSlab.DataSource = dsGetSlab.Tables[0]; ;
+        //            ddlTaxSlab.DataValueField = dsGetSlab.Tables[0].Columns["WTSR_TaxPer"].ToString();
+        //            ddlTaxSlab.DataTextField = dsGetSlab.Tables[0].Columns["Income Range"].ToString();
+        //            ddlTaxSlab.DataBind();
+        //        }
+        //        ddlTaxSlab.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "CustomerIndividualAdd.ascx:BindTaxSlabDropDown()");
+
+        //        object[] objects = new object[4];
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
+
+        //protected void ddlTaxSlab_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    hdnTaxSlabValue.Value = ddlTaxSlab.SelectedValue;
+        //}
     }
 }
