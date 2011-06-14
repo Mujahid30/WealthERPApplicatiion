@@ -101,27 +101,26 @@ namespace WealthERP.FP
 
         }
 
+      protected void ddlRebalancing_OnSelectIndexChanged(object sender, EventArgs e)
+      {
+          Session["PickAssetClassDPSelected"] = ddlRebalancing.SelectedItem.ToString();
+          if(ddlRebalancing.SelectedItem.ToString() != "-Select-")
+            CallRebalancing();
+      }
 
-        protected void ddlRebalancing_OnSelectIndexChanged(object sender, EventArgs e)
-        {
-            Session["PickAssetClassDPSelected"] = ddlRebalancing.SelectedItem.ToString();
-            if (ddlRebalancing.SelectedItem.ToString() != "-Select-")
-                CallRebalancing();
-        }
-
-        protected void CallRebalancing()
-        {
-            string assetClass = ddlRebalancing.SelectedItem.ToString();
-            DataSet dsRebalancing = new DataSet();
-            DataTable dtRebalancing = new DataTable();
-            dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
-            dtRebalancing = BindRebalancingGrid(dsRebalancing.Tables[1], assetClass);
-            rdRebalancing.DataSource = dtRebalancing;
-            rdRebalancing.DataBind();
-        }
-        private DataTable BindRebalancingGrid(DataTable dtRebalancing, string assetClass)
-        {
-            DataTable dtRebalancingGrid = new DataTable();
+      protected void CallRebalancing()
+      {
+          string assetClass = ddlRebalancing.SelectedItem.ToString();
+          DataSet dsRebalancing = new DataSet();
+          DataTable dtRebalancing = new DataTable();
+          dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
+          dtRebalancing = BindRebalancingGrid(dsRebalancing.Tables[1], assetClass);
+          rdRebalancing.DataSource = dtRebalancing;
+          rdRebalancing.DataBind();
+      }
+      private DataTable BindRebalancingGrid(DataTable dtRebalancing,string assetClass)
+      {
+          DataTable dtRebalancingGrid = new DataTable();
             dtRebalancingGrid.Columns.Add("Year");
             dtRebalancingGrid.Columns.Add("Money_Available");
             dtRebalancingGrid.Columns.Add("Existing_Asset_Allocation");
