@@ -815,13 +815,13 @@ namespace BoAlerts
 
         #region NewNewAlertSetup
 
-        public bool SaveAdviserSIPReminderAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserSIPReminderAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserSIPReminderAlert(rmId, customerId, accountId, schemeId, isBulk, reminderDays, userId);
+                bResult = alertsDao.SaveAdviserSIPReminderAlert(advisorId, customerId, accountId, schemeId, isBulk, reminderDays, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -835,7 +835,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserSIPReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = reminderDays;
                 objects[2] = userId;
 
@@ -847,13 +847,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserSWPReminderAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserSWPReminderAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserSWPReminderAlert(rmId, customerId, accountId, schemeId, isBulk, reminderDays, userId);
+                bResult = alertsDao.SaveAdviserSWPReminderAlert(advisorId, customerId, accountId, schemeId, isBulk, reminderDays, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -867,7 +867,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserSWPReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = reminderDays;
                 objects[2] = userId;
 
@@ -879,13 +879,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserDOBReminderAlert(int rmId, int userId, int reminderDays)
+        public bool SaveAdviserDOBReminderAlert(int advisorId, int userId, int reminderDays)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserDOBReminderAlert(rmId, reminderDays, userId);
+                bResult = alertsDao.SaveAdviserDOBReminderAlert(advisorId, reminderDays, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -899,7 +899,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserDOBReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = reminderDays;
                 objects[2] = userId;
 
@@ -911,13 +911,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserAnniversaryReminderAlert(int rmId, int userId, int reminderDays)
+        public bool SaveAdviserAnniversaryReminderAlert(int advisorId, int userId, int reminderDays)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserAnniversaryReminderAlert(rmId, reminderDays, userId);
+                bResult = alertsDao.SaveAdviserAnniversaryReminderAlert(advisorId, reminderDays, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -931,7 +931,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserAnniversaryReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = reminderDays;
                 objects[2] = userId;
 
@@ -943,13 +943,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserELSSMaturityReminderAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserELSSMaturityReminderAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserELSSMaturityReminderAlert(rmId, customerId, accountId, schemeId, isBulk, reminderDays, userId);
+                bResult = alertsDao.SaveAdviserELSSMaturityReminderAlert(advisorId, customerId, accountId, schemeId, isBulk, reminderDays, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -963,7 +963,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserELSSMaturityReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = reminderDays;
                 objects[2] = userId;
 
@@ -975,13 +975,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserFDMaturityReminderAlert(int rmId, int customerId, int accountId, int fdId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserFDMaturityReminderAlert(int advisorId, int customerId, int accountId, int fdId, int isBulk, int reminderDays, int userId)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserFDMaturityReminderAlert(rmId, customerId, accountId, fdId, isBulk, reminderDays, userId);
+                bResult = alertsDao.SaveAdviserFDMaturityReminderAlert(advisorId, customerId, accountId, fdId, isBulk, reminderDays, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -995,7 +995,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserFDMaturityReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = reminderDays;
                 objects[2] = userId;
 
@@ -1007,13 +1007,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserFDRecurringDepositReminderAlert(int rmId, int customerId, int accountId, int fdId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserFDRecurringDepositReminderAlert(int advisorId, int customerId, int accountId, int fdId, int isBulk, int reminderDays, int userId)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserFDRecurringDepositReminderAlert(rmId, customerId, accountId, fdId, isBulk, reminderDays, userId); 
+                bResult = alertsDao.SaveAdviserFDRecurringDepositReminderAlert(advisorId, customerId, accountId, fdId, isBulk, reminderDays, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1027,7 +1027,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserFDRecurringDepositReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = reminderDays;
                 objects[2] = userId;
 
@@ -1040,13 +1040,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserInsuranceReminderAlert(int rmId, int customerId, int accountId, int insuranceId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserInsuranceReminderAlert(int advisorId, int customerId, int accountId, int insuranceId, int isBulk, int reminderDays, int userId)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserInsuranceReminderAlert(rmId, customerId, accountId, insuranceId, isBulk, reminderDays, userId);
+                bResult = alertsDao.SaveAdviserInsuranceReminderAlert(advisorId, customerId, accountId, insuranceId, isBulk, reminderDays, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1060,7 +1060,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserInsuranceReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = reminderDays;
                 objects[2] = userId;
 
@@ -1073,13 +1073,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserSIPConfirmationAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int userId)
+        public bool SaveAdviserSIPConfirmationAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int userId)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserSIPConfirmationAlert(rmId, customerId, accountId, schemeId, isBulk, userId);
+                bResult = alertsDao.SaveAdviserSIPConfirmationAlert(advisorId, customerId, accountId, schemeId, isBulk, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1093,7 +1093,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserSIPConfirmationAlert()");
 
                 object[] objects = new object[2];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -1104,13 +1104,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserSWPConfirmationAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int userId)
+        public bool SaveAdviserSWPConfirmationAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int userId)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserSWPConfirmationAlert(rmId, customerId, accountId, schemeId, isBulk, userId);
+                bResult = alertsDao.SaveAdviserSWPConfirmationAlert(advisorId, customerId, accountId, schemeId, isBulk, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1124,7 +1124,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserSWPConfirmationAlert()");
 
                 object[] objects = new object[2];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
 
 
@@ -1136,13 +1136,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserMFDividendConfirmationAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int userId)
+        public bool SaveAdviserMFDividendConfirmationAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int userId)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserMFDividendConfirmationAlert(rmId, customerId, accountId, schemeId, isBulk, userId);
+                bResult = alertsDao.SaveAdviserMFDividendConfirmationAlert(advisorId, customerId, accountId, schemeId, isBulk, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1156,7 +1156,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserMFDividendConfirmationAlert()");
 
                 object[] objects = new object[2];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -1167,13 +1167,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserPersonalOccurrenceAlert(int rmId, int customerId, int accountId, int personalNpId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserPersonalOccurrenceAlert(int advisorId, int customerId, int accountId, int personalNpId, int isBulk, int userId, string condition, int presetValue)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserPersonalOccurrenceAlert(rmId, customerId, accountId, personalNpId, isBulk, userId, condition, presetValue);
+                bResult = alertsDao.SaveAdviserPersonalOccurrenceAlert(advisorId, customerId, accountId, personalNpId, isBulk, userId, condition, presetValue);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1187,7 +1187,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserPersonalOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -1200,13 +1200,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserPropertyOccurrenceAlert(int rmId, int customerId, int accountId, int propertyNpId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserPropertyOccurrenceAlert(int advisorId, int customerId, int accountId, int propertyNpId, int isBulk, int userId, string condition, int presetValue)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserPropertyOccurrenceAlert(rmId, customerId, accountId, propertyNpId, isBulk, userId, condition, presetValue);
+                bResult = alertsDao.SaveAdviserPropertyOccurrenceAlert(advisorId, customerId, accountId, propertyNpId, isBulk, userId, condition, presetValue);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1220,7 +1220,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserPropertyOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -1233,13 +1233,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserMFStopLossOccurrenceAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserMFStopLossOccurrenceAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int userId, string condition, int presetValue)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserMFStopLossOccurrenceAlert(rmId, customerId, accountId, schemeId, isBulk, userId, condition, presetValue);
+                bResult = alertsDao.SaveAdviserMFStopLossOccurrenceAlert(advisorId, customerId, accountId, schemeId, isBulk, userId, condition, presetValue);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1253,7 +1253,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserMFStopLossOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -1266,13 +1266,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserMFProfitBookingOccurrenceAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserMFProfitBookingOccurrenceAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int userId, string condition, int presetValue)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserMFProfitBookingOccurrenceAlert(rmId, customerId, accountId, schemeId, isBulk, userId, condition, presetValue);
+                bResult = alertsDao.SaveAdviserMFProfitBookingOccurrenceAlert(advisorId, customerId, accountId, schemeId, isBulk, userId, condition, presetValue);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1286,7 +1286,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserMFProfitBookingOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -1299,13 +1299,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserEQStopLossOccurrenceAlert(int rmId, int customerId, int accountId, int scripId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserEQStopLossOccurrenceAlert(int advisorId, int customerId, int accountId, int scripId, int isBulk, int userId, string condition, int presetValue)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserEQStopLossOccurrenceAlert(rmId, customerId, accountId, scripId, isBulk, userId, condition, presetValue);
+                bResult = alertsDao.SaveAdviserEQStopLossOccurrenceAlert(advisorId, customerId, accountId, scripId, isBulk, userId, condition, presetValue);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1319,7 +1319,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserEQStopLossOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -1332,13 +1332,13 @@ namespace BoAlerts
             return bResult;
         }
 
-        public bool SaveAdviserEQProfitBookingOccurrenceAlert(int rmId, int customerId, int accountId, int scripId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserEQProfitBookingOccurrenceAlert(int advisorId, int customerId, int accountId, int scripId, int isBulk, int userId, string condition, int presetValue)
         {
             bool bResult = false;
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                bResult = alertsDao.SaveAdviserEQProfitBookingOccurrenceAlert(rmId, customerId, accountId, scripId, isBulk, userId, condition, presetValue);
+                bResult = alertsDao.SaveAdviserEQProfitBookingOccurrenceAlert(advisorId, customerId, accountId, scripId, isBulk, userId, condition, presetValue);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1352,7 +1352,7 @@ namespace BoAlerts
                 FunctionInfo.Add("Method", "AlertsBo.cs:SaveAdviserEQProfitBookingOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -1586,7 +1586,7 @@ namespace BoAlerts
             return bResult;
         }
         #endregion
-        
+
         /// <summary>
         /// Modified the function to add a name filter in the Alert notifications gridview.
         /// </summary>
@@ -1602,7 +1602,7 @@ namespace BoAlerts
             AlertsDao alertsDao = new AlertsDao();
             try
             {
-                dsAdviserCustomerSMSAlerts = alertsDao.GetAdviserCustomerSMSAlerts(id, usertype, currentpage,nameFilter, out count);
+                dsAdviserCustomerSMSAlerts = alertsDao.GetAdviserCustomerSMSAlerts(id, usertype, currentpage, nameFilter, out count);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1630,12 +1630,12 @@ namespace BoAlerts
         public bool UpdateAlertStatus(List<int> alertIdList, int alertStatus)
         {
             bool bResult = false;
-           
+
             try
             {
                 for (int i = 0; i < alertIdList.Count; i++)
                 {
-                    bResult=UpdateAlertStatus(alertIdList[i], alertStatus);
+                    bResult = UpdateAlertStatus(alertIdList[i], alertStatus);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1659,7 +1659,7 @@ namespace BoAlerts
             }
             return bResult;
         }
-        
+
         public bool UpdateAlertStatus(int alertId, int alertStatus)
         {
             bool bResult = false;
