@@ -33,6 +33,19 @@
     }
 </style>
 
+<script type="text/javascript">
+    function ExportMyChart() {
+    alert('Hi')
+    var chartObject = getChartFromId('myFirst');
+    alert(chartObject);
+        if (chartObject.hasRendered())
+        alert('Inside IF')
+         chartObject.exportChart();
+    }
+</script>   
+
+<script src="../FusionCharts/FusionCharts.js" type="text/javascript"></script>
+
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
@@ -118,13 +131,13 @@ SelectedIndex="0">
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:Image ID="imgRedStatus1" ImageAlign="Middle" ImageUrl="../Images/redStatus.png" runat="server" />
+                                        <asp:Image ID="imgRedStatus1" ImageAlign="Middle" ImageUrl="../Images/RatioDownArrow.png" runat="server" />
                                     </td>
                                     <td>
-                                        <asp:Image ID="imgRedStatus2" ImageAlign="Middle" ImageUrl="../Images/redStatus.png" runat="server"  />
+                                        <asp:Image ID="imgRedStatus2" ImageAlign="Middle" ImageUrl="../Images/RatioDownArrow.png" runat="server"  />
                                     </td>
                                     <td>
-                                        <asp:Image ID="imgRedStatus3" ImageAlign="Middle" ImageUrl="../Images/redStatus.png" runat="server" />
+                                        <asp:Image ID="imgRedStatus3" ImageAlign="Middle" ImageUrl="../Images/RatioDownArrow.png" runat="server" />
                                     </td>
                                 </tr>
                             </table>
@@ -159,10 +172,10 @@ SelectedIndex="0">
                         <asp:Label ID="lblIncomeChart" runat="server" Text="Income" CssClass="HeaderTextSmall"> 
                         </asp:Label><hr />
                     </td>
-                    <td valign="top">
+                    <%--<td valign="top">
                         <asp:Label ID="lblExpenseChart" runat="server" Text="Expense" CssClass="HeaderTextSmall">
                         </asp:Label><hr />
-                    </td>       
+                    </td>   --%>    
                 </tr>
                 <tr>
                     <td>
@@ -628,6 +641,86 @@ SelectedIndex="0">
 
 <telerik:RadPageView ID="RadPageCashFlow" runat="server">
 
-<asp:Panel ID="pnlPageCashFlow" runat="server"></asp:Panel>
+<asp:Panel ID="pnlPageCashFlow" runat="server">
+
+<table style="width: 100%">
+            <tr>
+                <td><br />
+                    <asp:Label ID="lblCashFlowHeader" runat="server" Text="Cash Flow Charts" style="font-size: 15px;" CssClass="HeaderTextBig"> </asp:Label>
+                <hr />
+                </td>
+            </tr>
+    </table>
+ 
+
+<telerik:RadTabStrip ID="CashFlowTabstrip" runat="server" EnableTheming="True" Skin="Telerik"
+EnableEmbeddedSkins="False" MultiPageID="CashFlowTabMultiTabId" 
+SelectedIndex="0">
+    <Tabs>
+          <telerik:RadTab runat="server" Text="Income, Expense and Surplus Chart"
+            Value="Income, Expense and Surplus Chart" TabIndex="0">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="Corpus Chart"
+        Value="Corpus Chart" TabIndex="1">
+        </telerik:RadTab>
+    </Tabs>
+
+</telerik:RadTabStrip>
+
+<telerik:RadMultiPage ID="CashFlowTabMultiTabId" runat="server" EnableViewState="true"
+SelectedIndex="0">
+
+<telerik:RadPageView ID="lineChartPageView" runat="server">
+
+<asp:Panel ID="pnllineChart" runat="server">
+    <table id="tblLineChart" runat="server" style="width: 100%;">
+        <tr style="width: 100%">
+            <td style="width: 100%; text-align: center">
+                <asp:Literal ID="literalLineChart" runat="server"></asp:Literal>
+            </td>
+        </tr>
+    </table>
+    
+       <table id="ErrorMessageLineChart" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+        <tr>
+            <td align="center">
+                <div class="failure-msg" id="divErrLineChart" runat="server" visible="true" align="center">
+                    No Records found to show Income, Expense and Surplus Chart...
+                </div>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
+
+</telerik:RadPageView>
+
+<telerik:RadPageView ID="areaChartPageView" runat="server">
+
+<asp:Panel ID="pnlareaChart" runat="server">
+
+    <table id="tblAreaChart" runat="server" style="width: 100%">
+        <tr style="width: 100%">
+            <td style="width: 100%; text-align: center">
+                <asp:Literal ID="literalAreaChart" runat="server"></asp:Literal>
+            </td>
+        </tr>
+    </table>
+    
+       <table id="ErrorMessageAreaChart" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+        <tr>
+            <td align="center">
+                <div class="failure-msg" id="divErrAreaChart" runat="server" visible="true" align="center">
+                    No Records found to show Corpus Chart...
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</asp:Panel>
+
+</telerik:RadPageView>
+</telerik:RadMultiPage>
+   
+</asp:Panel>
 </telerik:RadPageView>                   
 </telerik:RadMultiPage>
