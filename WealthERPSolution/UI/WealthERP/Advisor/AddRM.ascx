@@ -350,7 +350,7 @@
                 ErrorMessage="Please enter an Email ID" Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
-                ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
+                ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
                 ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
             <asp:Label ID="lblEmailDuplicate" runat="server" CssClass="Error" Text="Email Id already exists"></asp:Label>
         </td>
