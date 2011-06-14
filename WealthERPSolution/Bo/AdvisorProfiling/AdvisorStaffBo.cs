@@ -1239,6 +1239,44 @@ namespace BoAdvisorProfiling
         }
 
         /* ******************** */
+
+
+        /// <summary>
+        /// TO GET ALL THE STAFFS WHO IS HAVING ONLY ADMIN AND RM ROLES UNDER THE PERTICULAR ADVISER
+        /// </summary>
+        /// Created by Vinayak Patil
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+
+        public DataSet GetAllAdviserRMsHavingOnlyAdminRMRole(int adviserId, int rmId)
+        {
+            DataSet dsAdviserRMList;
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            try
+            {
+                dsAdviserRMList = advisorStaffDao.GetAllAdviserRMsHavingOnlyAdminRMRole(adviserId, rmId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserRM()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserRMList;
+        }
+
+
+        /* ******************** */
      
 
         
