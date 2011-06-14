@@ -1259,10 +1259,10 @@ namespace BoCustomerProfiling
         }
         public int GetCustomerGroupHead(int customerId)
         {
-            int result ;
+            int result;
 
             CustomerDao customerDao = new CustomerDao();
-           
+
             {
 
                 result = customerDao.GetCustomerGroupHead(customerId);
@@ -1474,7 +1474,7 @@ namespace BoCustomerProfiling
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                customerDao.InsertCustomerStaticDetalis(userId,customerId,assumptionValue,assumptionType);
+                customerDao.InsertCustomerStaticDetalis(userId, customerId, assumptionValue, assumptionType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1486,9 +1486,9 @@ namespace BoCustomerProfiling
             CustomerDao customerDao = new CustomerDao();
             customerDao.UpdateCustomerProjectedDetalis(userId, customerId, assumptionValue, assumptionType, selectedYear, rangeFromYear, rangeToYear);
         }
-        public int ExpiryAgeOfAdviser(int adviserId,int customerId)
-        { 
-            CustomerDao customerDao=new CustomerDao();
+        public int ExpiryAgeOfAdviser(int adviserId, int customerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
             int expiryAge;
             try
             {
@@ -1502,7 +1502,7 @@ namespace BoCustomerProfiling
         }
         public DataSet GetAllCustomersAssumptions(int customerId)
         {
-            CustomerDao customerDao=new CustomerDao();
+            CustomerDao customerDao = new CustomerDao();
             DataSet dsGetAllCustomersAssumptions;
             try
             {
@@ -1534,7 +1534,7 @@ namespace BoCustomerProfiling
             DataSet dsSetDefaultPlanRetirementValueForCustomer;
             try
             {
-               dsSetDefaultPlanRetirementValueForCustomer= customerDao.SetDefaultPlanRetirementValueForCustomer(customerId);
+                dsSetDefaultPlanRetirementValueForCustomer = customerDao.SetDefaultPlanRetirementValueForCustomer(customerId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1573,7 +1573,7 @@ namespace BoCustomerProfiling
                 throw exBase;
 
             }
-            return dtCustomerNames; 
+            return dtCustomerNames;
         }
 
         public DataTable GetBMIndividualCustomerNames(string prefixText, int rmId)
@@ -1606,8 +1606,146 @@ namespace BoCustomerProfiling
                 throw exBase;
 
             }
-            return dtCustomerNames;  
+            return dtCustomerNames;
         }
-    }
 
+        // Added for FP Sectional Report.. Added on 13th June 2011
+        public DataSet DefaultFPReportsAssumtion(int customerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataSet dsDefaultFPReportsAssumtion = new DataSet();
+            try
+            {
+                dsDefaultFPReportsAssumtion = customerDao.DefaultFPReportsAssumtion(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsDefaultFPReportsAssumtion;
+        }
+
+        public void CustomerFPReportsAssumption(int customerId, decimal assumptionInflation, decimal assumptionInvestment, decimal assumptionDr)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                customerDao.CustomerFPReportsAssumption(customerId, assumptionInflation, assumptionInvestment, assumptionDr);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+
+        }
+
+        public void AddRMRecommendationForCustomer(int customerId, string strRMRecHTML)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+
+            try
+            {
+                customerDao.AddRMRecommendationForCustomer(customerId, strRMRecHTML);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+
+        public string GetRMRecommendationForCustomer(int customerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            string strRMRecommendationHTML;
+
+            try
+            {
+                strRMRecommendationHTML = customerDao.GetRMRecommendationForCustomer(customerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return strRMRecommendationHTML;
+        }
+
+        // To Check and Delete the Child Customers.. 
+        // Added by Vinayak Patil..
+
+        public int CheckAndDeleteTheChildCustomers(string Flag, int CustomerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            int associationStatus = 0;
+
+            try
+            {
+                associationStatus = customerDao.CheckAndDeleteTheChildCustomers(Flag, CustomerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:CheckAndDeleteTheChildCustomers()");
+
+
+                object[] objects = new object[3];
+                objects[0] = Flag;
+                objects[1] = CustomerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return associationStatus;
+        }
+
+
+        // To delete the child customer <<Added by Vinayak Patil>>
+
+        public bool DeleteChildCustomer(int customerId, string Flag)
+        {
+            bool bResult = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                bResult = customerDao.DeleteChildCustomer(customerId, Flag);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:DeleteCustomer()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+    }
 }
