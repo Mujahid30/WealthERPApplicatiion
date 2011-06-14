@@ -348,214 +348,329 @@ namespace WealthERP.Advisor
             }
             Trigger();
         }
+
+
+        // ..... Commented by Vinayak Patil ..... //
+        // ..... Reason: From RE: 3.0 Recomonded asset allocation assets calculation getting from database So UI Calculation logic has been removed ..... //
+
+        // Comment starts .. 
+        // {
+
+        //public void LoadAssetAllocation(string riskcode)
+        //{
+        //    int age = 0;
+        //    try
+        //    {
+        //        if (customerId != 0)
+        //        {
+        //            if (riskcode != null)
+        //            {
+        //                dsGetCustomerDOBById = riskprofilebo.GetCustomerDOBById(customerId);
+
+        //                if (dsGetCustomerDOBById.Tables[0].Rows[0]["C_DOB"].ToString() != "" && dsGetCustomerDOBById.Tables[0].Rows[0]["C_DOB"].ToString() != null)
+        //                {
+        //                    DateTime bday = DateTime.Parse(dsGetCustomerDOBById.Tables[0].Rows[0]["C_DOB"].ToString());
+        //                    DateTime now = DateTime.Today;
+        //                    age = now.Year - bday.Year;
+        //                    if (now < bday.AddYears(age))
+        //                    {
+        //                        age--;
+        //                    }
+        //                    lblAgeResult.Text = age.ToString();
+
+        //                }
+        //                else
+        //                {
+        //                    age = 0;
+        //                    lblAgeResult.Text = "No Age Set";
+        //                    lblAgeErrormsg.Visible = true;
+        //                }
+        //                lblAgeResult.Text = age.ToString();
+
+        //                lblChartErrorDisplay.Visible = false;
+        //                if (lblRClass.Text != "" || lblRClass.Text != null)
+        //                {
+
+        //                    lblRiskClass.Visible = true;
+        //                    lblRiskScore.Visible = true;
+        //                    lblRClassRs.Text = lblRClass.Text;
+        //                    lblRscoreAA.Text = lblRScore.Text;
+        //                    Session["Score"] = lblRscoreAA.Text;
+        //                }
+        //                else
+        //                {
+        //                    lblRClassRs.Text = "Fill Risk Profile to know Risk class and Risk Score";
+        //                }
+        //                DataSet dsGetAssetAllocationRules = riskprofilebo.GetAssetAllocationRules(riskcode, advisorVo.advisorId);
+        //                DataTable dtAsset = new DataTable();
+
+        //                dtAsset.Columns.Add("AssetType");
+        //                dtAsset.Columns.Add("Percentage");
+        //                dtAsset.Columns.Add("AssetTypeCode");
+        //                DataRow drAsset;
+        //                double equityAdjustment = 0;
+        //                double equitycalc = 0.0;
+        //                double equityPercentage = 0;
+        //                double debtpercentage = 0;
+        //                if (age != 0 && (dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() == advisorVo.advisorId.ToString() || dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() == "1000"))
+        //                {
+        //                    if (dsGetAssetAllocationRules != null && dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() != advisorVo.advisorId.ToString())
+        //                    {
+
+        //                        foreach (DataRow dr in dsGetAssetAllocationRules.Tables[0].Rows)
+        //                        {
+        //                            if (dr["WAC_AssetClassification"].ToString() == "Cash")
+        //                            {
+        //                                cashPercentage = double.Parse(dr["WAAR_AssetAllocationPercenatge"].ToString());
+        //                            }
+        //                            else if (dr["WAC_AssetClassification"].ToString() == "Equity")
+        //                            {
+        //                                equityAdjustment = double.Parse(dr["WAAR_Adjustment"].ToString());
+        //                            }
+        //                        }
+        //                        equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
+        //                        equityPercentage = (((100 - cashPercentage) * equitycalc + (equityAdjustment)));
+        //                        debtpercentage = (100 - equityPercentage - cashPercentage);
+        //                        drAsset = dtAsset.NewRow();
+        //                        drAsset[0] = "Equity";
+        //                        drAsset[1] = equityPercentage.ToString();
+        //                        drAsset[2] = 1;
+        //                        dtAsset.Rows.Add(drAsset);
+        //                        drAsset = dtAsset.NewRow();
+        //                        drAsset[0] = "Debt";
+        //                        drAsset[1] = debtpercentage.ToString();
+        //                        drAsset[2] = 2;
+        //                        dtAsset.Rows.Add(drAsset);
+        //                        drAsset = dtAsset.NewRow();
+        //                        drAsset[0] = "Cash";
+        //                        drAsset[1] = cashPercentage.ToString();
+        //                        drAsset[2] = 3;
+        //                        dtAsset.Rows.Add(drAsset);
+
+
+
+        //                    }
+        //                    else
+        //                    {
+        //                        foreach (DataRow dr in dsGetAssetAllocationRules.Tables[0].Rows)
+        //                        {
+        //                            drAsset = dtAsset.NewRow();
+
+        //                            drAsset[0] = dr["WAC_AssetClassification"].ToString();
+        //                            if (dr["WAAR_AssetAllocationPercenatge"] != null)
+        //                                drAsset[1] = dr["WAAR_AssetAllocationPercenatge"].ToString();
+        //                            else
+        //                                drAsset[1] = 0;
+        //                            drAsset[2] = dr["WAC_AssetClassificationCode"].ToString();
+        //                            dtAsset.Rows.Add(drAsset);
+        //                        }
+        //                    }
+        //                    dtRecommendedAllocation = dtAsset;
+        //                    //gvRecommendedAssetAllocation.DataSource = dtAsset;
+        //                    //gvRecommendedAssetAllocation.DataBind();
+        //                    //================================
+        //                    //
+        //                    //Chart Control Part is show below
+        //                    //
+        //                    //================================    
+
+        //                    if ((dtAsset.Rows.Count > 0) && (dtAsset.ToString() != null))
+        //                    {
+
+        //                        tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+        //                        Legend ShowRecomondedAssetAlllegend = null;
+        //                        ShowRecomondedAssetAlllegend = new Legend("ShowRecomondedAssetAlllegendLegends");
+        //                        ShowRecomondedAssetAlllegend.Enabled = true;
+
+        //                        Series seriesAssets = new Series("sActualAsset");
+        //                        seriesAssets.ChartType = SeriesChartType.Pie;
+        //                        cActualAsset.Visible = true;
+        //                        lblRecommondedChart.Visible = true;
+        //                        cActualAsset.Series.Clear();
+        //                        cActualAsset.Series.Add(seriesAssets);
+        //                        cActualAsset.DataSource = dtAsset;
+        //                        cActualAsset.Series[0].XValueMember = "AssetType";
+        //                        cActualAsset.Series[0].YValueMembers = "Percentage";
+        //                        cActualAsset.Series[0].ToolTip = "#VALX: #PERCENT";
+        //                        cActualAsset.Series[0]["PieLabelStyle"] = "Disabled";
+
+        //                        cActualAsset.Legends.Add(ShowRecomondedAssetAlllegend);
+        //                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Title = "Assets";
+        //                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleAlignment = StringAlignment.Center;
+        //                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.None;
+        //                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Alignment = StringAlignment.Center;
+        //                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.GradientLine;
+        //                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparatorColor = Color.Black;
+
+        //                        // Enable X axis margin
+        //                        LegendCellColumn colorColumn = new LegendCellColumn();
+        //                        colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
+        //                        colorColumn.HeaderBackColor = Color.WhiteSmoke;
+        //                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(colorColumn);
+        //                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].BackColor = Color.FloralWhite;
+        //                        LegendCellColumn totalColumn = new LegendCellColumn();
+        //                        totalColumn.Alignment = ContentAlignment.MiddleLeft;
+
+        //                        totalColumn.Text = "#VALX: #PERCENT";
+        //                        totalColumn.Name = "AssetsColumn";
+        //                        totalColumn.HeaderBackColor = Color.WhiteSmoke;
+        //                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(totalColumn);
+        //                        cActualAsset.Series[0]["PieLabelStyle"] = "Disabled";
+
+        //                        // Enable X axis margin
+        //                        cActualAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
+        //                        cActualAsset.BackColor = Color.Transparent;
+        //                        cActualAsset.ChartAreas[0].BackColor = Color.Transparent;
+        //                        cActualAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
+        //                        cActualAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+        //                        cActualAsset.DataBind();
+        //                        tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+        //                    }
+        //                    else
+        //                    {
+        //                        tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+        //                        lblChartErrorDisplay.Visible = true;
+        //                        AssetFormClear();
+        //                    }
+        //                    trCurrentAssetAllocation.Visible = true;
+        //                    ShowCurrentAssetAllocationPieChart();
+        //                }
+        //                else
+        //                {
+        //                    AssetFormClear();
+        //                    ShowCurrentAssetAllocationPieChart();
+        //                    if (DScurrentAsset.Tables[0].Rows.Count > 0)
+        //                        tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+        //                    else
+        //                        tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+        //                }
+        //            }
+        //        }
+
+        //        # region Dont need this
+
+        //        # endregion
+        //        if (customerId != 0 && age != 0)
+        //        {
+        //            if (trCustomerAssetText.Visible == false)
+        //                trCustomerAssetText.Visible = true;
+        //            lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+
+        // }
+        // End ..
+
+
+        // Added to show the Recomonded Asset allocation chart
+        // Added by Vinayak Patil for RE: 3.0
+
         public void LoadAssetAllocation(string riskcode)
         {
-            int age = 0;
-            try
+            DataTable dtAsset = new DataTable();
+
+            if (customerVo.Dob != DateTime.MinValue)
             {
-                if (customerId != 0)
+                DateTime bday = customerVo.Dob;
+                DateTime now = DateTime.Today;
+                age = now.Year - bday.Year;
+                if (now < bday.AddYears(age))
                 {
-                    if (riskcode != null)
+                    age--;
+                }
+
+                lblAgeResult.Text = age.ToString();
+
+                lblChartErrorDisplay.Visible = false;
+                if (lblRClass.Text != "" || lblRClass.Text != null)
+                {
+                    lblRiskClass.Visible = true;
+                    lblRiskScore.Visible = true;
+                    lblRClassRs.Text = lblRClass.Text;
+                    lblRscoreAA.Text = lblRScore.Text;
+                    Session["Score"] = lblRscoreAA.Text;
+                }
+                else
+                {
+                    lblRClassRs.Text = "Fill Risk Profile to know Risk class and Risk Score";
+                }
+
+                DataSet dsGetRecomondedAssetAllocationData = riskprofilebo.GetAssetAllocationData(customerVo.CustomerId);
+                if (dsGetRecomondedAssetAllocationData.Tables.Count > 0)
+                {
+                    dtAsset = dsGetRecomondedAssetAllocationData.Tables[0];
+
+                    if ((dtAsset.Rows.Count > 0) && (dtAsset.ToString() != null))
                     {
-                        dsGetCustomerDOBById = riskprofilebo.GetCustomerDOBById(customerId);
+                        // ***** Chart Binding Starts here ***** //
 
-                        if (dsGetCustomerDOBById.Tables[0].Rows[0]["C_DOB"].ToString() != "" && dsGetCustomerDOBById.Tables[0].Rows[0]["C_DOB"].ToString() != null)
-                        {
-                            DateTime bday = DateTime.Parse(dsGetCustomerDOBById.Tables[0].Rows[0]["C_DOB"].ToString());
-                            DateTime now = DateTime.Today;
-                            age = now.Year - bday.Year;
-                            if (now < bday.AddYears(age))
-                            {
-                                age--;
-                            }
-                            lblAgeResult.Text = age.ToString();
+                        tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                        Legend ShowRecomondedAssetAlllegend = null;
+                        ShowRecomondedAssetAlllegend = new Legend("ShowRecomondedAssetAlllegendLegends");
+                        ShowRecomondedAssetAlllegend.Enabled = true;
 
-                        }
-                        else
-                        {
-                            age = 0;
-                            lblAgeResult.Text = "No Age Set";
-                            lblAgeErrormsg.Visible = true;
-                        }
-                        lblAgeResult.Text = age.ToString();
+                        Series seriesAssets = new Series("sActualAsset");
+                        seriesAssets.ChartType = SeriesChartType.Pie;
+                        cActualAsset.Visible = true;
+                        lblRecommondedChart.Visible = true;
+                        cActualAsset.Series.Clear();
+                        cActualAsset.Series.Add(seriesAssets);
+                        cActualAsset.DataSource = dtAsset;
+                        cActualAsset.Series[0].XValueMember = "AssetType";
+                        cActualAsset.Series[0].YValueMembers = "Percentage";
+                        cActualAsset.Series[0].ToolTip = "#VALX: #PERCENT";
+                        cActualAsset.Series[0]["PieLabelStyle"] = "Disabled";
 
-                        lblChartErrorDisplay.Visible = false;
-                        if (lblRClass.Text != "" || lblRClass.Text != null)
-                        {
+                        cActualAsset.Legends.Add(ShowRecomondedAssetAlllegend);
+                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Title = "Assets";
+                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleAlignment = StringAlignment.Center;
+                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.None;
+                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Alignment = StringAlignment.Center;
+                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.GradientLine;
+                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparatorColor = Color.Black;
 
-                            lblRiskClass.Visible = true;
-                            lblRiskScore.Visible = true;
-                            lblRClassRs.Text = lblRClass.Text;
-                            lblRscoreAA.Text = lblRScore.Text;
-                            Session["Score"] = lblRscoreAA.Text;
-                        }
-                        else
-                        {
-                            lblRClassRs.Text = "Fill Risk Profile to know Risk class and Risk Score";
-                        }
-                        DataSet dsGetAssetAllocationRules = riskprofilebo.GetAssetAllocationRules(riskcode, advisorVo.advisorId);
-                        DataTable dtAsset = new DataTable();
+                        // Enable X axis margin
+                        LegendCellColumn colorColumn = new LegendCellColumn();
+                        colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
+                        colorColumn.HeaderBackColor = Color.WhiteSmoke;
+                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(colorColumn);
+                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].BackColor = Color.FloralWhite;
+                        LegendCellColumn totalColumn = new LegendCellColumn();
+                        totalColumn.Alignment = ContentAlignment.MiddleLeft;
 
-                        dtAsset.Columns.Add("AssetType");
-                        dtAsset.Columns.Add("Percentage");
-                        dtAsset.Columns.Add("AssetTypeCode");
-                        DataRow drAsset;
-                        double equityAdjustment = 0;
-                        double equitycalc = 0.0;
-                        double equityPercentage = 0;
-                        double debtpercentage = 0;
-                        if (age != 0 && (dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() == advisorVo.advisorId.ToString() || dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() == "1000"))
-                        {
-                            if (dsGetAssetAllocationRules != null && dsGetAssetAllocationRules.Tables[0].Rows[0]["A_AdviserId"].ToString() != advisorVo.advisorId.ToString())
-                            {
+                        totalColumn.Text = "#VALX: #PERCENT";
+                        totalColumn.Name = "AssetsColumn";
+                        totalColumn.HeaderBackColor = Color.WhiteSmoke;
+                        cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(totalColumn);
+                        cActualAsset.Series[0]["PieLabelStyle"] = "Disabled";
 
-                                foreach (DataRow dr in dsGetAssetAllocationRules.Tables[0].Rows)
-                                {
-                                    if (dr["WAC_AssetClassification"].ToString() == "Cash")
-                                    {
-                                        cashPercentage = double.Parse(dr["WAAR_AssetAllocationPercenatge"].ToString());
-                                    }
-                                    else if (dr["WAC_AssetClassification"].ToString() == "Equity")
-                                    {
-                                        equityAdjustment = double.Parse(dr["WAAR_Adjustment"].ToString());
-                                    }
-                                }
-                                equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
-                                equityPercentage = (((100 - cashPercentage) * equitycalc + (equityAdjustment)));
-                                debtpercentage = (100 - equityPercentage - cashPercentage);
-                                drAsset = dtAsset.NewRow();
-                                drAsset[0] = "Equity";
-                                drAsset[1] = equityPercentage.ToString();
-                                drAsset[2] = 1;
-                                dtAsset.Rows.Add(drAsset);
-                                drAsset = dtAsset.NewRow();
-                                drAsset[0] = "Debt";
-                                drAsset[1] = debtpercentage.ToString();
-                                drAsset[2] = 2;
-                                dtAsset.Rows.Add(drAsset);
-                                drAsset = dtAsset.NewRow();
-                                drAsset[0] = "Cash";
-                                drAsset[1] = cashPercentage.ToString();
-                                drAsset[2] = 3;
-                                dtAsset.Rows.Add(drAsset);
+                        // Enable X axis margin
+                        cActualAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
+                        cActualAsset.BackColor = Color.Transparent;
+                        cActualAsset.ChartAreas[0].BackColor = Color.Transparent;
+                        cActualAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
+                        cActualAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+                        cActualAsset.DataBind();
+                        tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
 
-
-
-                            }
-                            else
-                            {
-                                foreach (DataRow dr in dsGetAssetAllocationRules.Tables[0].Rows)
-                                {
-                                    drAsset = dtAsset.NewRow();
-
-                                    drAsset[0] = dr["WAC_AssetClassification"].ToString();
-                                    if (dr["WAAR_AssetAllocationPercenatge"] != null)
-                                        drAsset[1] = dr["WAAR_AssetAllocationPercenatge"].ToString();
-                                    else
-                                        drAsset[1] = 0;
-                                    drAsset[2] = dr["WAC_AssetClassificationCode"].ToString();
-                                    dtAsset.Rows.Add(drAsset);
-                                }
-                            }
-                            dtRecommendedAllocation = dtAsset;
-                            //gvRecommendedAssetAllocation.DataSource = dtAsset;
-                            //gvRecommendedAssetAllocation.DataBind();
-                            //================================
-                            //
-                            //Chart Control Part is show below
-                            //
-                            //================================    
-
-                            if ((dtAsset.Rows.Count > 0) && (dtAsset.ToString() != null))
-                            {
-
-                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
-                                Legend ShowRecomondedAssetAlllegend = null;
-                                ShowRecomondedAssetAlllegend = new Legend("ShowRecomondedAssetAlllegendLegends");
-                                ShowRecomondedAssetAlllegend.Enabled = true;
-
-                                Series seriesAssets = new Series("sActualAsset");
-                                seriesAssets.ChartType = SeriesChartType.Pie;
-                                cActualAsset.Visible = true;
-                                lblRecommondedChart.Visible = true;
-                                cActualAsset.Series.Clear();
-                                cActualAsset.Series.Add(seriesAssets);
-                                cActualAsset.DataSource = dtAsset;
-                                cActualAsset.Series[0].XValueMember = "AssetType";
-                                cActualAsset.Series[0].YValueMembers = "Percentage";
-                                cActualAsset.Series[0].ToolTip = "#VALX: #PERCENT";
-                                cActualAsset.Series[0]["PieLabelStyle"] = "Disabled";
-
-                                cActualAsset.Legends.Add(ShowRecomondedAssetAlllegend);
-                                cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Title = "Assets";
-                                cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleAlignment = StringAlignment.Center;
-                                cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.None;
-                                cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Alignment = StringAlignment.Center;
-                                cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparator = LegendSeparatorStyle.GradientLine;
-                                cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleSeparatorColor = Color.Black;
-
-                                // Enable X axis margin
-                                LegendCellColumn colorColumn = new LegendCellColumn();
-                                colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
-                                colorColumn.HeaderBackColor = Color.WhiteSmoke;
-                                cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(colorColumn);
-                                cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].BackColor = Color.FloralWhite;
-                                LegendCellColumn totalColumn = new LegendCellColumn();
-                                totalColumn.Alignment = ContentAlignment.MiddleLeft;
-
-                                totalColumn.Text = "#VALX: #PERCENT";
-                                totalColumn.Name = "AssetsColumn";
-                                totalColumn.HeaderBackColor = Color.WhiteSmoke;
-                                cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].CellColumns.Add(totalColumn);
-                                cActualAsset.Series[0]["PieLabelStyle"] = "Disabled";
-
-                                // Enable X axis margin
-                                cActualAsset.ChartAreas["caActualAsset"].AxisX.IsMarginVisible = true;
-                                cActualAsset.BackColor = Color.Transparent;
-                                cActualAsset.ChartAreas[0].BackColor = Color.Transparent;
-                                cActualAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
-                                cActualAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
-                                cActualAsset.DataBind();
-                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
-                            }
-                            else
-                            {
-                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
-                                lblChartErrorDisplay.Visible = true;
-                                AssetFormClear();
-                                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No age set for this customer');", true);
-                            }
-                            trCurrentAssetAllocation.Visible = true;
-                            ShowCurrentAssetAllocationPieChart();
-                        }
-                        else
-                        {
-
-                            AssetFormClear();
-                            ShowCurrentAssetAllocationPieChart();
-                            if (DScurrentAsset.Tables[0].Rows.Count > 0)
-                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
-                            else
-                                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
-                            //trCurrentAssetAllocation.Visible = false;
-                        }
+                        //     ***** End *****        //
                     }
                 }
-
-                # region Dont need this
-
-                # endregion
-                if (customerId != 0 && age != 0)
+                else
                 {
-                    if (trCustomerAssetText.Visible == false)
-                        trCustomerAssetText.Visible = true;
-                    lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
+                    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+                    lblChartErrorDisplay.Visible = true;
+                    AssetFormClear();
                 }
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                trCurrentAssetAllocation.Visible = true;
+                ShowCurrentAssetAllocationPieChart();
             }
         }
         public void SetCustomerId()
@@ -585,8 +700,8 @@ namespace WealthERP.Advisor
             string tempRID = "";
 
 
-            lblRiskProfileDate.Visible = true;
-            lblRiskProfileDate.Text = DateTime.Now.ToShortDateString();
+           
+            
             listRiskOptionVo = (List<RiskOptionVo>)ViewState["ListRiskOption"];
             SetCustomerId();
             try
@@ -614,10 +729,7 @@ namespace WealthERP.Advisor
                     }
                 }
 
-                tblRiskScore.Visible = true;
-                lblRScore.Visible = true;
-                lblRClass.Visible = true;
-                lblRScore.Text = rScore.ToString();
+                
                 for (int i = 0; i < dsGetRiskProfileRules.Tables[0].Rows.Count; i++)
                 {
                     int minLimit = int.Parse(dsGetRiskProfileRules.Tables[0].Rows[i]["WRPR_RiskScoreLowerLimit"].ToString());
@@ -639,12 +751,24 @@ namespace WealthERP.Advisor
                 }
                 if (customerVo.Dob != DateTime.MinValue)
                 {
-                    riskprofilebo.AddCustomerRiskProfileDetails(customerId, rScore, DateTime.Now, riskCode, rmvo, 0);
+                    lblRiskProfileDate.Visible = true;
+                    lblRiskProfileDate.Text = DateTime.Now.ToShortDateString();
+                    tblRiskScore.Visible = true;
+                    lblRScore.Visible = true;
+                    lblRClass.Visible = true;
+                    lblRScore.Text = rScore.ToString();
+
+                    riskprofilebo.AddCustomerRiskProfileDetails(advisorVo.advisorId, customerId, rScore, DateTime.Now, riskCode, rmvo, 0, customerVo.Dob);
                     dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Please fill DOB to create Risk profile.');", true);
+                    lblRiskProfileDate.Visible = false;
+                    tblRiskScore.Visible = false;
+                    lblRScore.Visible = false;
+                    lblRClass.Visible = false;
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill DOB to create Risk profile.');", true);
                     return;
                 }
 
@@ -676,7 +800,7 @@ namespace WealthERP.Advisor
 
 
                 LoadAssetAllocation(riskCode);
-                AddToAssetAllocation();
+                //AddToAssetAllocation();
                 tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
                 if (customerId != 0 && age != 0)
                 {
@@ -924,39 +1048,51 @@ namespace WealthERP.Advisor
                 throw ex;
             }
         }
-        protected void AddToAssetAllocation()
-        {
-            string approvedon = txtApprovedByCustomerOn.Text;
-            DateTime now;
-            try
-            {
-                if (txtApprovedByCustomerOn.Text == "")
-                {
-                    now = DateTime.Now;
-                }
-                else
-                {
-                    now = DateTime.Parse(approvedon);
-                }
-                SetCustomerId();
 
-                if (dtRecommendedAllocation != null && dtRecommendedAllocation.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dtRecommendedAllocation.Rows)
-                    {
-                        riskprofilebo.AddAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), int.Parse(dr["AssetTypeCode"].ToString()), double.Parse(dr["Percentage"].ToString()), 0, now, rmvo);
-                    }
-                }
+        // ..... Commented by Vinayak Patil ..... //
+        // ..... Reason: From RE: 3.0 Adding Asset Allocation from Database So Removed the Adding asset allocation logic from UI ..... //
+
+        // Comment starts .. 
+        // {
+
+        //protected void AddToAssetAllocation()
+        //{
+        //    string approvedon = txtApprovedByCustomerOn.Text;
+        //    DateTime now;
+        //    try
+        //    {
+        //        if (txtApprovedByCustomerOn.Text == "")
+        //        {
+        //            now = DateTime.Now;
+        //        }
+        //        else
+        //        {
+        //            now = DateTime.Parse(approvedon);
+        //        }
+        //        SetCustomerId();
+
+        //        if (dtRecommendedAllocation != null && dtRecommendedAllocation.Rows.Count > 0)
+        //        {
+        //            foreach (DataRow dr in dtRecommendedAllocation.Rows)
+        //            {
+        //                riskprofilebo.AddAssetAllocationDetails(int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), int.Parse(dr["AssetTypeCode"].ToString()), double.Parse(dr["Percentage"].ToString()), 0, now, rmvo);
+        //            }
+        //        }
 
 
-                riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+        //        riskCode = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+        // } 
+        // End ...
+
+
         //protected void btnSave_Click(object sender, EventArgs e)
         //{
         //    string approvedon = txtApprovedByCustomerOn.Text;
@@ -1297,7 +1433,7 @@ namespace WealthERP.Advisor
         protected void btnSubmitForPickRiskclass_Click(object sender, EventArgs e)
         {
 
-            dsGlobal = riskprofilebo.GetAdviserRiskClasses(advisorVo.advisorId);
+            //dsGlobal = riskprofilebo.GetAdviserRiskClasses(advisorVo.advisorId);
             riskCode = ddlPickRiskClass.SelectedValue;
             //Session["riskCode"] = riskCode;
 
@@ -1306,32 +1442,32 @@ namespace WealthERP.Advisor
 
             if (customerVo.Dob != DateTime.MinValue)
             {
-                riskprofilebo.AddCustomerRiskProfileDetails(customerId, 0, DateTime.Now, riskCode, rmvo, 1);
-                //dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
-                lblRClass.Text = ddlPickRiskClass.SelectedItem.ToString();
-                lblRiskProfilingParagraph.Visible = true;
                 tblRiskScore.Visible = true;
                 lblRClass.Visible = true;
                 lblRiskProfileDate.Visible = true;
                 trRiskProfilingParagraph.Visible = true;
+                lblRClass.Visible = true;
+                lblRClass.Text = ddlPickRiskClass.SelectedItem.ToString();
+
+                riskprofilebo.AddCustomerRiskProfileDetails(advisorVo.advisorId, customerId, 0, DateTime.Now, riskCode, rmvo, 1, customerVo.Dob);
             }
             else
             {
-                lblRiskProfilingParagraph.Visible = false;
                 tblRiskScore.Visible = false;
                 lblRClass.Visible = false;
                 lblRiskProfileDate.Visible = false;
                 trRiskProfilingParagraph.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Please fill DOB to create Risk profile.');", true);
+                lblRClass.Visible = false;
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill DOB to create Risk profile.');", true);
                 return;
             }
-            
             
             lblRScore.Visible = false;
 
             LoadAssetAllocation(riskCode);
-            AddToAssetAllocation();
-            
+            //AddToAssetAllocation();
+            lblRiskProfilingParagraph.Visible = true;
             if (dsGetRiskProfileRules.Tables[0].Rows.Count > 0)
             {
                 foreach(DataRow dr in dsGetRiskProfileRules.Tables[0].Rows)
@@ -1344,6 +1480,12 @@ namespace WealthERP.Advisor
                 //lblRiskProfilingParagraph.Text = dsGetRiskProfileRules.Tables[0].Rows[i]["ARC_RiskText"].ToString();
             }
             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+            if (customerId != 0 && customerVo.Dob != DateTime.MinValue)
+            {
+                if (trCustomerAssetText.Visible == false)
+                    trCustomerAssetText.Visible = true;
+                lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
+            }
         }
     }
 }
