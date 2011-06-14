@@ -150,6 +150,7 @@ namespace WealthERP.Customer
                 lblMobile2.Text = customerVo.Mobile2.ToString();
                 lblEmail.Text = customerVo.Email;
                 lblAltEmail.Text = customerVo.AltEmail;
+                txtSlab.Text = customerVo.TaxSlab.ToString();
                 if (customerVo.DummyPAN == 1)
                 {
                     chkdummypan.Checked = true;

@@ -562,6 +562,16 @@
         </td>
     
                         </tr>
+                        <tr>
+                        <td class="leftField">
+                            <asp:Label ID="lblSlab" runat="server" CssClass="FieldName" Text="Tax slab applicable:"></asp:Label>
+                        </td>
+                        <td class="rightField" width="25%">
+                        
+                          <asp:Label ID="txtSlab" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                        </td>
+                        
+                    </tr>
                         
                     </table>
                 </div>
