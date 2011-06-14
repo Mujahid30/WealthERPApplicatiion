@@ -98,6 +98,7 @@ namespace VoUser
         private int m_sms;
         private int m_mail;
         private DateTime? m_ProspectAddDate;
+        private int m_TaxSlab;
 
       
 
@@ -168,6 +169,11 @@ namespace VoUser
         {
             get { return m_ProspectAddDate; }
             set { m_ProspectAddDate = value; }
+        }
+        public int TaxSlab
+        {
+            get { return m_TaxSlab; }
+            set { m_TaxSlab = value; }
         }
 
         #endregion Fields
@@ -553,6 +559,7 @@ namespace VoUser
             get { return m_IsProspect; }
             set { m_IsProspect = value; }
         }
+       
         #endregion Properties
 
     }
