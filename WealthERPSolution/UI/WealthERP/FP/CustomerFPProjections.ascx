@@ -186,6 +186,7 @@
 
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="FP Projection"></asp:Label>
 <br />
+</br>
 
 <telerik:RadTabStrip ID="RadTabStripFPProjection" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="CustomerFPProjection" SelectedIndex="0" EnableViewState="true">
@@ -755,7 +756,8 @@
         </asp:Panel>
  </telerik:RadPageView>
 </telerik:RadMultiPage>
-<%--
+
 <script language="javascript" type="text/javascript">
-    document.getElementById('<%=trValidation.ClientID %>').style.display = 'none';
- </script>--%>
+    document.getElementById('<%=trRangeYear.ClientID %>').style.display = 'none';
+    document.getElementById('<%=trRangeYearFSFROM.ClientID %>').style.display = 'none'; 
+ </script>

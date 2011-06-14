@@ -31,17 +31,22 @@ namespace WealthERP.FP
             adviserVo = (AdvisorVo)Session["advisorVo"];
             if (!Page.IsPostBack)
             {
-               
+                Session["PickAssetClassDPSelected"] = null;
                 dsFPAnalyticsEngine = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
                 BindYearDropDowns();
                 BindDropdownsRebalancing();
 
                 ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "pageloadscript", @"ShowHideGaolType();", true);
                 ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "pageloadscript", @"ShowHideGaolTypeFS();", true);
-                
+
             }
             BindCustomerProjectedAssumption();
             BindFPFutureSavingGrid();
+
+            if (Session["PickAssetClassDPSelected"] != null)
+            {
+                CallRebalancing();
+            }
 
         }
 
@@ -49,7 +54,7 @@ namespace WealthERP.FP
         {
             int lifeExpentancy = 0;
             lifeExpentancy = customerBo.ExpiryAgeOfAdviser(adviserVo.advisorId, customerVo.CustomerId);
-          
+
             if (customerVo.Dob != DateTime.MinValue)
                 customerAge = DateTime.Now.Year - customerVo.Dob.Year;
 
@@ -67,8 +72,8 @@ namespace WealthERP.FP
                 ddlPickYearFS.Items.Add(currentYear.ToString());
                 ddlRangeYearFSFROM.Items.Add(currentYear.ToString());
                 ddlRangeYearFSTO.Items.Add(currentYear.ToString());
-                    
-                
+
+
             }
             //ddlPickYear.Items.Insert(0, new ListItem("Select", "Select"));
             //ddlFromYear.Items.Insert(0, new ListItem("Select", "Select"));
@@ -76,18 +81,18 @@ namespace WealthERP.FP
         }
         private void BindDropdownsRebalancing()
         {
-          DataTable dtBindDropdownsRebalancing = new DataTable();
-         dtBindDropdownsRebalancing=customerFPAnalyticsBo.BindDropdownsRebalancing(adviserVo.advisorId);
-         ddlRebalancing.DataSource = dtBindDropdownsRebalancing;
-         ddlRebalancing.DataTextField = dtBindDropdownsRebalancing.Columns["WAC_AssetClassification"].ToString();
-         ddlRebalancing.DataValueField = dtBindDropdownsRebalancing.Columns["WAC_AssetClassificationCode"].ToString();
-         ddlRebalancing.DataBind();
-         ddlRebalancing.Items.Insert(0, new ListItem("-Select-", "-Select-"));
+            DataTable dtBindDropdownsRebalancing = new DataTable();
+            dtBindDropdownsRebalancing = customerFPAnalyticsBo.BindDropdownsRebalancing(adviserVo.advisorId);
+            ddlRebalancing.DataSource = dtBindDropdownsRebalancing;
+            ddlRebalancing.DataTextField = dtBindDropdownsRebalancing.Columns["WAC_AssetClassification"].ToString();
+            ddlRebalancing.DataValueField = dtBindDropdownsRebalancing.Columns["WAC_AssetClassificationCode"].ToString();
+            ddlRebalancing.DataBind();
+            ddlRebalancing.Items.Insert(0, new ListItem("-Select-", "-Select-"));
 
         }
         private void BindFPFutureSavingGrid()
         {
-            DataSet dsFPFutureSavingGrid=new DataSet();
+            DataSet dsFPFutureSavingGrid = new DataSet();
             DataTable dtFPFutureSavingGrid = new DataTable();
             dsFPFutureSavingGrid = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
             dtFPFutureSavingGrid = CreateFutureSavingProjection(dsFPFutureSavingGrid.Tables[0]);
@@ -95,22 +100,28 @@ namespace WealthERP.FP
             gdvwFutureSavings.DataBind();
 
         }
-        
 
-      protected void ddlRebalancing_OnSelectIndexChanged(object sender, EventArgs e)
-      {
-          string assetClass = ddlRebalancing.SelectedItem.ToString();
-          DataSet dsRebalancing = new DataSet();
-          DataTable dtRebalancing = new DataTable();
-          dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
-          dtRebalancing= BindRebalancingGrid(dsRebalancing.Tables[1],assetClass);
-          rdRebalancing.DataSource = dtRebalancing;
-          rdRebalancing.DataBind();
 
-      }
-      private DataTable BindRebalancingGrid(DataTable dtRebalancing,string assetClass)
-      {
-          DataTable dtRebalancingGrid = new DataTable();
+        protected void ddlRebalancing_OnSelectIndexChanged(object sender, EventArgs e)
+        {
+            Session["PickAssetClassDPSelected"] = ddlRebalancing.SelectedItem.ToString();
+            if (ddlRebalancing.SelectedItem.ToString() != "-Select-")
+                CallRebalancing();
+        }
+
+        protected void CallRebalancing()
+        {
+            string assetClass = ddlRebalancing.SelectedItem.ToString();
+            DataSet dsRebalancing = new DataSet();
+            DataTable dtRebalancing = new DataTable();
+            dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
+            dtRebalancing = BindRebalancingGrid(dsRebalancing.Tables[1], assetClass);
+            rdRebalancing.DataSource = dtRebalancing;
+            rdRebalancing.DataBind();
+        }
+        private DataTable BindRebalancingGrid(DataTable dtRebalancing, string assetClass)
+        {
+            DataTable dtRebalancingGrid = new DataTable();
             dtRebalancingGrid.Columns.Add("Year");
             dtRebalancingGrid.Columns.Add("Money_Available");
             dtRebalancingGrid.Columns.Add("Existing_Asset_Allocation");
@@ -149,7 +160,7 @@ namespace WealthERP.FP
                     }
 
                 }
-          }
+            }
 
             if (assetClass == "Debt")
             {
@@ -229,24 +240,24 @@ namespace WealthERP.FP
                 }
             }
 
-          
 
-            
 
-  
-          
-          
-          
-          
-          return dtRebalancingGrid;
 
-      }
+
+
+
+
+
+
+            return dtRebalancingGrid;
+
+        }
         private void BindCustomerProjectedAssumption()
         {
             DataSet dsCustomerProjectedAssetAllocation;
             DataTable dtCustomerProjectedAssetAllocation;
             dsCustomerProjectedAssetAllocation = customerFPAnalyticsBo.GetCustomerProjectedAssetAllocation(customerVo.CustomerId);
-            dtCustomerProjectedAssetAllocation=CreateAssetAllocationTable(dsCustomerProjectedAssetAllocation.Tables[0]);
+            dtCustomerProjectedAssetAllocation = CreateAssetAllocationTable(dsCustomerProjectedAssetAllocation.Tables[0]);
             gvAssetAllocation.DataSource = dtCustomerProjectedAssetAllocation;
             gvAssetAllocation.DataBind();
 
@@ -270,16 +281,16 @@ namespace WealthERP.FP
             dtFutureSavingProjection.Columns.Add("Alternate_Allocation_per");
             dtFutureSavingProjection.Columns.Add("Alternate_Allocation");
             dtFutureSavingProjection.Columns.Add("Alternate_FutureValue");
-            
+
             dtFutureSavingProjection.Columns.Add("Amount_Returns");
 
             DataRow drFutureSavingProjection;
 
-          
-          
+
+
             int tempYear = 0;
-            
-             //int assetClassificationCode = 0;
+
+            //int assetClassificationCode = 0;
             //DataRow[] drFutureSavingProjectionYearWise;
             foreach (DataRow drFutureSaving in dtFutureSaving.Rows)
             {
@@ -288,31 +299,31 @@ namespace WealthERP.FP
                 //    tempYear = int.Parse(drFutureSaving["Year"].ToString());
                 //    //drFinalAssumption["Year"] = tempYear.ToString();
                 //    drFutureSavingProjectionYearWise = dtFutureSaving.Select("Year=" + tempYear.ToString());
-                    drFutureSavingProjection = dtFutureSavingProjection.NewRow();
+                drFutureSavingProjection = dtFutureSavingProjection.NewRow();
 
                 //    foreach (DataRow dr in drFutureSavingProjectionYearWise)
                 //    {
-                    drFutureSavingProjection["Year"] = drFutureSaving["Year"].ToString();
-                    drFutureSavingProjection["IncomeGrowthRate"] = drFutureSaving["IncomeGrowth"].ToString();
-                    drFutureSavingProjection["ExpenseGrowthRate"] = drFutureSaving["ExpenseGrowth"].ToString();
-                    drFutureSavingProjection["Avialable_Surplus"] = drFutureSaving["AvailableSurplus"].ToString();
-                    drFutureSavingProjection["Equity_Allocation_per"] = drFutureSaving["FutureSavingEquityPercent"].ToString();   
-                    drFutureSavingProjection["Equity_Allocation"] = drFutureSaving["EquityAmount"].ToString();
-                    drFutureSavingProjection["Equity_FutureValue"] = drFutureSaving["EquityFutureValue"].ToString();
-                    drFutureSavingProjection["Debt_Allocation_per"] = drFutureSaving["FutureSavingDebtPercent"].ToString();
-                    drFutureSavingProjection["Debt_Allocation"] = drFutureSaving["DebtAmount"].ToString();
-                    drFutureSavingProjection["Debt_FutureValue"] = drFutureSaving["DebtFutureValue"].ToString();
-                    drFutureSavingProjection["Cash_Allocation_per"] = drFutureSaving["FutureSavingCashPercent"].ToString();
-                    drFutureSavingProjection["Cash_Allocation"] = drFutureSaving["CashAmount"].ToString();
-                    drFutureSavingProjection["Cash_FutureValue"] = drFutureSaving["CashFutureValue"].ToString();
-                    drFutureSavingProjection["Alternate_Allocation_per"] = drFutureSaving["FutureSavingAlternatePercent"].ToString();
-                    drFutureSavingProjection["Alternate_Allocation"] = drFutureSaving["alternateAmount"].ToString();
-                    drFutureSavingProjection["Alternate_FutureValue"] = drFutureSaving["AlternateFutureValue"].ToString();
-               
-                    drFutureSavingProjection["Amount_Returns"] = drFutureSaving["TotalAssetFutureValues"].ToString();
-                    dtFutureSavingProjection.Rows.Add(drFutureSavingProjection);
-                }
-            
+                drFutureSavingProjection["Year"] = drFutureSaving["Year"].ToString();
+                drFutureSavingProjection["IncomeGrowthRate"] = drFutureSaving["IncomeGrowth"].ToString();
+                drFutureSavingProjection["ExpenseGrowthRate"] = drFutureSaving["ExpenseGrowth"].ToString();
+                drFutureSavingProjection["Avialable_Surplus"] = drFutureSaving["AvailableSurplus"].ToString();
+                drFutureSavingProjection["Equity_Allocation_per"] = drFutureSaving["FutureSavingEquityPercent"].ToString();
+                drFutureSavingProjection["Equity_Allocation"] = drFutureSaving["EquityAmount"].ToString();
+                drFutureSavingProjection["Equity_FutureValue"] = drFutureSaving["EquityFutureValue"].ToString();
+                drFutureSavingProjection["Debt_Allocation_per"] = drFutureSaving["FutureSavingDebtPercent"].ToString();
+                drFutureSavingProjection["Debt_Allocation"] = drFutureSaving["DebtAmount"].ToString();
+                drFutureSavingProjection["Debt_FutureValue"] = drFutureSaving["DebtFutureValue"].ToString();
+                drFutureSavingProjection["Cash_Allocation_per"] = drFutureSaving["FutureSavingCashPercent"].ToString();
+                drFutureSavingProjection["Cash_Allocation"] = drFutureSaving["CashAmount"].ToString();
+                drFutureSavingProjection["Cash_FutureValue"] = drFutureSaving["CashFutureValue"].ToString();
+                drFutureSavingProjection["Alternate_Allocation_per"] = drFutureSaving["FutureSavingAlternatePercent"].ToString();
+                drFutureSavingProjection["Alternate_Allocation"] = drFutureSaving["alternateAmount"].ToString();
+                drFutureSavingProjection["Alternate_FutureValue"] = drFutureSaving["AlternateFutureValue"].ToString();
+
+                drFutureSavingProjection["Amount_Returns"] = drFutureSaving["TotalAssetFutureValues"].ToString();
+                dtFutureSavingProjection.Rows.Add(drFutureSavingProjection);
+            }
+
             return dtFutureSavingProjection;
         }
         protected DataTable CreateAssetAllocationTable(DataTable dtAssetAllocation)
@@ -387,7 +398,7 @@ namespace WealthERP.FP
 
             dtFPProjectionAssetAllocation = dtCustomerProjectedAssetAllocation;
             return dtCustomerProjectedAssetAllocation;
- 
+
         }
         protected void btnSubmitAggredAllocation_OnClick(object sender, EventArgs e)
         {
@@ -404,23 +415,23 @@ namespace WealthERP.FP
             decimal alternateAgreedAssetAllocation = 0;
             int tempYear = 0;
 
-            if(txtEquity.Text.ToString() != "")
+            if (txtEquity.Text.ToString() != "")
                 equityAssetAllocation = decimal.Parse(txtEquity.Text.ToString());
 
-            if(txtDebt.Text.ToString()!="")
+            if (txtDebt.Text.ToString() != "")
                 debtAssetAllocation = decimal.Parse(txtDebt.Text.ToString());
 
-            if(txtCash.Text.ToString()!="")
+            if (txtCash.Text.ToString() != "")
                 cashAssetAllocation = decimal.Parse(txtCash.Text.ToString());
 
-            if(txtAlternate.Text.ToString()!="")
+            if (txtAlternate.Text.ToString() != "")
                 alternateAssetAllocation = decimal.Parse(txtAlternate.Text.ToString());
 
             tempYear = int.Parse(ddlPickYear.SelectedValue.ToString());
 
             foreach (DataRow dr in dtFPProjectionAssetAllocation.Rows)
             {
-                if(tempYear == int.Parse(dr["Year"].ToString()))
+                if (tempYear == int.Parse(dr["Year"].ToString()))
                 {
                     if (equityAssetAllocation != 0)
                     {
@@ -429,7 +440,7 @@ namespace WealthERP.FP
                             alternateAgreedAssetAllocation = alternateAssetAllocation - 0;
                         }
                         else
-                      equityAgreedAssetAllocation=equityAssetAllocation - decimal.Parse(dr["Rec_Equity"].ToString());
+                            equityAgreedAssetAllocation = equityAssetAllocation - decimal.Parse(dr["Rec_Equity"].ToString());
                     }
                     if (debtAssetAllocation != 0)
                     {
@@ -438,7 +449,7 @@ namespace WealthERP.FP
                             alternateAgreedAssetAllocation = alternateAssetAllocation - 0;
                         }
                         else
-                        debtAgreedAssetAllocation = debtAssetAllocation - decimal.Parse(dr["Rec_Debt"].ToString()) ;
+                            debtAgreedAssetAllocation = debtAssetAllocation - decimal.Parse(dr["Rec_Debt"].ToString());
                     }
                     if (cashAssetAllocation != 0)
                     {
@@ -447,7 +458,7 @@ namespace WealthERP.FP
                             alternateAgreedAssetAllocation = alternateAssetAllocation - 0;
                         }
                         else
-                        cashAgreedAssetAllocation = cashAssetAllocation - decimal.Parse(dr["Rec_Cash"].ToString()) ;
+                            cashAgreedAssetAllocation = cashAssetAllocation - decimal.Parse(dr["Rec_Cash"].ToString());
                     }
                     if (alternateAssetAllocation != 0)
                     {
@@ -456,7 +467,7 @@ namespace WealthERP.FP
                             alternateAgreedAssetAllocation = alternateAssetAllocation - 0;
                         }
                         else
-                        alternateAgreedAssetAllocation = alternateAssetAllocation - decimal.Parse(dr["Rec_Alternate"].ToString());
+                            alternateAgreedAssetAllocation = alternateAssetAllocation - decimal.Parse(dr["Rec_Alternate"].ToString());
                     }
                     break;
                 }
@@ -466,7 +477,7 @@ namespace WealthERP.FP
 
 
         }
-       
+
         protected void btnSubmitFpFs_OnClick(object sender, EventArgs e)
         {
             decimal equityFutureAllocation = 0;
@@ -486,11 +497,11 @@ namespace WealthERP.FP
             if (txtAlternateFS.Text.ToString() != "")
                 alternateFutureAllocation = int.Parse(txtAlternateFS.Text.ToString());
 
-            int tempYear=int.Parse(ddlPickYearFS.SelectedValue.ToString());
+            int tempYear = int.Parse(ddlPickYearFS.SelectedValue.ToString());
             customerFPAnalyticsBo.UpdateFutureSavingProjection(customerVo.CustomerId, adviserVo.advisorId, equityFutureAllocation, debtFutureAllocation, cashFutureAllocation, alternateFutureAllocation, tempYear);
             BindFPFutureSavingGrid();
         }
-        
+
         //protected void gvAssetAllocation_PreRender(object sender, EventArgs e)
         //{
         //    gvAssetAllocation.UseAccessibleHeader = true;
