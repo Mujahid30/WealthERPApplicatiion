@@ -897,12 +897,13 @@ namespace WealthERP.CustomerPortfolio
                     }
                     fixedincomeVo.DepositFrequencyCode = ddlFrequencyOfDeposit.SelectedItem.Value.ToString();
                     fixedincomeVo.SubsequentDepositAmount = float.Parse(txtSubsequentDepositAmt.Text.ToString());
-                    fixedincomeVo.IssueDate = int.Parse(txtDDBIssueDate.Text.Trim());
+                    fixedincomeVo.IssueDate = DateTime.Parse(txtDDBIssueDate.Text.Trim());
                     fixedincomeVo.InterestPayableFrequencyCode = ddlPayableFrequencyCode.SelectedItem.Value.ToString();
                     if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
                     {
                         fixedincomeVo.IsInterestAccumulated = 1;
-                        fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        if(txtInterestAmtCredited.Text != "")
+                            fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
                     }
                     else
                     {
@@ -951,7 +952,7 @@ namespace WealthERP.CustomerPortfolio
                             fixedincomeVo.InterestAmtPaidOut = int.Parse(txtInterestAmtCredited.Text.ToString());
                         }
                     }
-                    fixedincomeVo.IssueDate = int.Parse(txtIssueDate.Text.Trim());
+                    fixedincomeVo.IssueDate = DateTime.Parse(txtIssueDate.Text.Trim());
                     fixedincomeVo.PurchaseDate = DateTime.Parse(txtPurchaseDate.Text.Trim());
                     fixedincomeVo.MaturityDate = DateTime.Parse(txtPMaturityDate.Text.Trim());
                     fixedincomeVo.PurchasePrice = float.Parse(txtPurPurchasePrice.Text.ToString());
@@ -973,7 +974,7 @@ namespace WealthERP.CustomerPortfolio
                     fixedincomeVo.AssetInstrumentCategoryCode = customerAccountsVo.AssetCategory;
                     fixedincomeVo.DebtIssuerCode = ddlDebtIssuerCode.SelectedItem.Value.ToString();
                     fixedincomeVo.Name = txtAssetParticulars.Text;
-                    fixedincomeVo.IssueDate = int.Parse(txtDDBIssueDate.Text.Trim());
+                    fixedincomeVo.IssueDate = DateTime.Parse(txtDDBIssueDate.Text.Trim());
                    fixedincomeVo.MaturityDate = DateTime.Parse(txtDDBMaturityDate.Text.Trim());
                     fixedincomeVo.PurchaseDate = DateTime.Parse(txtDDBPurchaseDate.Text.Trim());
                     fixedincomeVo.FaceValue = float.Parse(txtDDBFaceValueIssue.Text.ToString());
@@ -1458,7 +1459,7 @@ namespace WealthERP.CustomerPortfolio
                     newFixedIncomeVo.DepositFrequencyCode = ddlFrequencyOfDeposit.SelectedItem.Value.ToString();
                     newFixedIncomeVo.SubsequentDepositAmount = float.Parse(txtSubsequentDepositAmt.Text.ToString());
                     //  newFixedIncomeVo.IssueDate = DateTime.Parse(ddlDepositDay.SelectedItem.Value.ToString() + "/" + ddlDepositMonth.SelectedItem.Value.ToString() + "/" + ddlDepositYear.SelectedItem.Text.ToString());
-                    newFixedIncomeVo.IssueDate = int.Parse(txtDBScheduleDate.Text);
+                    newFixedIncomeVo.IssueDate = DateTime.Parse(txtDBScheduleDate.Text);
                     newFixedIncomeVo.InterestPayableFrequencyCode = ddlPayableFrequencyCode.SelectedItem.Value.ToString();
                     if (txtInterestAmtCredited.Text == "")
                     {
@@ -1499,7 +1500,7 @@ namespace WealthERP.CustomerPortfolio
                         newFixedIncomeVo.InterestAmtPaidOut = int.Parse(txtInterestAmtCredited.Text.ToString());
                     }
                     // newFixedIncomeVo.IssueDate = DateTime.Parse(ddlIssueDay.SelectedItem.Value.ToString() + "/" + ddlIssueMonth.SelectedItem.Value.ToString() + "/" + ddlIssueYear.SelectedItem.Text.ToString());
-                    newFixedIncomeVo.IssueDate = int.Parse(txtIssueDate.Text);
+                    newFixedIncomeVo.IssueDate = DateTime.Parse(txtIssueDate.Text);
                     //  newFixedIncomeVo.PurchaseDate = DateTime.Parse(ddlPurPurchaseDay.SelectedItem.Value.ToString() + "/" + ddlPurPurchaseMonth.SelectedItem.Value.ToString() + "/" + ddlPurPurchaseYear.SelectedItem.Text.ToString());
                     newFixedIncomeVo.PurchaseDate = DateTime.Parse(txtPurchaseDate.Text);
                     //newFixedIncomeVo.MaturityDate = DateTime.Parse(ddlPurMaturityDay.SelectedItem.Value.ToString() + "/" + ddlPurMaturityMonth.SelectedItem.Value.ToString() + "/" + ddlPurMaturityYear.SelectedItem.Text.ToString());
@@ -1529,7 +1530,7 @@ namespace WealthERP.CustomerPortfolio
                     //newFixedIncomeVo.PurchaseDate = DateTime.Parse(ddlDDBPurchaseDay.SelectedItem.Value.ToString() + "/" + ddlDDBPurchaseMonth.SelectedItem.Value.ToString() + "/" + ddlDDBPurchaseYear.SelectedItem.Text.ToString());
                     newFixedIncomeVo.MaturityDate = DateTime.Parse(txtDDBMaturityDate.Text);
                     newFixedIncomeVo.PurchaseDate = DateTime.Parse(txtDDBPurchaseDate.Text);
-                    newFixedIncomeVo.IssueDate = int.Parse(txtDDBIssueDate.Text);
+                    newFixedIncomeVo.IssueDate = DateTime.Parse(txtDDBIssueDate.Text);
                     newFixedIncomeVo.FaceValue = float.Parse(txtDDBFaceValueIssue.Text.ToString());
                     newFixedIncomeVo.MaturityFaceValue = float.Parse(txtDDBFaceValueMat.Text.ToString());
                     newFixedIncomeVo.PurchasePrice = float.Parse(txtDDBPurchasePrice.Text.ToString());
