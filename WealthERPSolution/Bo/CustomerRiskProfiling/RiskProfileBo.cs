@@ -32,9 +32,9 @@ namespace BoCustomerRiskProfiling
         {
             return riskprofiledao.GetCustomerDOBById(customerId);
         }
-        public void AddCustomerRiskProfileDetails(int customerId, int crpscore, DateTime riskdate, string riskclasscode, RMVo rmvo, int IsDirectRiskClass)
+        public void AddCustomerRiskProfileDetails(int AdviserId,int customerId, int crpscore, DateTime riskdate, string riskclasscode, RMVo rmvo, int IsDirectRiskClass,DateTime CustDOB)
         {
-            riskprofiledao.AddCustomerRiskProfileDetails(customerId, crpscore, riskdate, riskclasscode, rmvo, IsDirectRiskClass);
+            riskprofiledao.AddCustomerRiskProfileDetails(AdviserId, customerId, crpscore, riskdate, riskclasscode, rmvo, IsDirectRiskClass, CustDOB);
         }
         public void AddCustomerResponseToQuestion(int RpId, int questionId, int optionId, RMVo rmvo)
         {
@@ -53,6 +53,20 @@ namespace BoCustomerRiskProfiling
         {
             return riskprofiledao.GetAssetAllocationRules(riskclasscode,adviserId);
         }
+
+        /// <summary>
+        /// To Get Customers Recomonded Asset Allocation Data to bind the Recomonded asset allocation chart in Finance Profile
+        /// </summary>
+        /// Created by Vinayak Patil on 05-11-2011
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
+
+        public DataSet GetAssetAllocationData(int CustomerId)
+        {
+            return riskprofiledao.GetAssetAllocationData(CustomerId);
+        }
+       
+
         public void AddAssetAllocationDetails(int riskprofileid, int assetClassificationCode, double recommendedPercentage, double currentPercentage, DateTime clientapprovedon, RMVo rmvo)
         {
             riskprofiledao.AddAssetAllocationDetails(riskprofileid, assetClassificationCode, recommendedPercentage, currentPercentage, clientapprovedon, rmvo);
