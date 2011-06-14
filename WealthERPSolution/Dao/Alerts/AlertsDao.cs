@@ -12,7 +12,7 @@ using VoAlerts;
 namespace DaoAlerts
 {
     public class AlertsDao
-    {    
+    {
 
         #region NewAlertSetup
 
@@ -1276,7 +1276,7 @@ namespace DaoAlerts
         /// <param name="reminderDays">The parameter for calculating the next occurrence. Indicates the number of days before the actual event</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserSIPReminderAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserSIPReminderAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1286,7 +1286,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveSIPReminderAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserSIPReminderAlert");
-                db.AddInParameter(saveSIPReminderAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveSIPReminderAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveSIPReminderAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveSIPReminderAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -1319,7 +1319,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserSIPReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = reminderDays;
 
@@ -1339,7 +1339,7 @@ namespace DaoAlerts
         /// <param name="reminderDays">The parameter for calculating the next occurrence. Indicates the number of days before the actual event</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserSWPReminderAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserSWPReminderAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1349,7 +1349,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveSWPReminderAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserSWPReminderAlert");
-                db.AddInParameter(saveSWPReminderAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveSWPReminderAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveSWPReminderAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveSWPReminderAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -1382,7 +1382,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserSWPReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = reminderDays;
 
@@ -1402,7 +1402,7 @@ namespace DaoAlerts
         /// <param name="reminderDays">The parameter for calculating the next occurrence. Indicates the number of days before the actual event</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserAnniversaryReminderAlert(int rmId, int reminderDays, int userId)
+        public bool SaveAdviserAnniversaryReminderAlert(int advisorId, int reminderDays, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1412,7 +1412,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveAnniversaryReminderAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserAnniversaryReminderAlert");
-                db.AddInParameter(saveAnniversaryReminderAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveAnniversaryReminderAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveAnniversaryReminderAlertCmd, "@UserId", DbType.Int32, userId);
                 db.AddInParameter(saveAnniversaryReminderAlertCmd, "@reminderDays", DbType.Int32, reminderDays);
 
@@ -1432,7 +1432,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserAnniversaryReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = reminderDays;
 
@@ -1452,7 +1452,7 @@ namespace DaoAlerts
         /// <param name="reminderDays">The parameter for calculating the next occurrence. Indicates the number of days before the actual event</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserDOBReminderAlert(int rmId, int reminderDays, int userId)
+        public bool SaveAdviserDOBReminderAlert(int advisorId, int reminderDays, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1462,7 +1462,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveDOBReminderAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserDOBReminderAlert");
-                db.AddInParameter(saveDOBReminderAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveDOBReminderAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveDOBReminderAlertCmd, "@UserId", DbType.String, userId);
                 db.AddInParameter(saveDOBReminderAlertCmd, "@reminderDays", DbType.Int32, reminderDays);
 
@@ -1482,7 +1482,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserDOBReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = reminderDays;
 
@@ -1502,7 +1502,7 @@ namespace DaoAlerts
         /// <param name="reminderDays">The parameter for calculating the next occurrence. Indicates the number of days before the actual event</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserELSSMaturityReminderAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserELSSMaturityReminderAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int reminderDays, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1512,7 +1512,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveELSSMaturityReminderAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserELSSMaturityReminderAlert");
-                db.AddInParameter(saveELSSMaturityReminderAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveELSSMaturityReminderAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveELSSMaturityReminderAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveELSSMaturityReminderAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -1545,7 +1545,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserELSSMaturityReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = reminderDays;
 
@@ -1565,7 +1565,7 @@ namespace DaoAlerts
         /// <param name="reminderDays">The parameter for calculating the next occurrence. Indicates the number of days before the actual event</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserFDMaturityReminderAlert(int rmId, int customerId, int accountId, int fdId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserFDMaturityReminderAlert(int advisorId, int customerId, int accountId, int fdId, int isBulk, int reminderDays, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1575,7 +1575,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveFDMaturityReminderAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserFDMaturityReminderAlert");
-                db.AddInParameter(saveFDMaturityReminderAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveFDMaturityReminderAlertCmd, "@adviserid", DbType.Int32, advisorId);
                 db.AddInParameter(saveFDMaturityReminderAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveFDMaturityReminderAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -1608,7 +1608,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserFDMaturityReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = reminderDays;
 
@@ -1628,7 +1628,7 @@ namespace DaoAlerts
         /// <param name="reminderDays">The parameter for calculating the next occurrence. Indicates the number of days before the actual event</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserFDRecurringDepositReminderAlert(int rmId, int customerId, int accountId, int fdId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserFDRecurringDepositReminderAlert(int advisorId, int customerId, int accountId, int fdId, int isBulk, int reminderDays, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1638,7 +1638,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveFDRecurringDepositReminderAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserFDRecurringDepositReminderAlert");
-                db.AddInParameter(saveFDRecurringDepositReminderAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveFDRecurringDepositReminderAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveFDRecurringDepositReminderAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveFDRecurringDepositReminderAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -1671,7 +1671,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserFDRecurringDepositReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = reminderDays;
 
@@ -1691,7 +1691,7 @@ namespace DaoAlerts
         /// <param name="reminderDays">The parameter for calculating the next occurrence. Indicates the number of days before the actual event</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserInsuranceReminderAlert(int rmId, int customerId, int accountId, int insuranceId, int isBulk, int reminderDays, int userId)
+        public bool SaveAdviserInsuranceReminderAlert(int advisorId, int customerId, int accountId, int insuranceId, int isBulk, int reminderDays, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1701,7 +1701,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveInsuranceReminderAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserInsurancePremiumReminderAlert");
-                db.AddInParameter(saveInsuranceReminderAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveInsuranceReminderAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveInsuranceReminderAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveInsuranceReminderAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -1734,7 +1734,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserInsuranceReminderAlert()");
 
                 object[] objects = new object[3];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = reminderDays;
 
@@ -1753,7 +1753,7 @@ namespace DaoAlerts
         /// <param name="rmId">the rmId of the person for whom the setup needs to be done</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserSIPConfirmationAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int userId)
+        public bool SaveAdviserSIPConfirmationAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1763,7 +1763,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveSIPConfirmationAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserSIPConfirmationAlert");
-                db.AddInParameter(saveSIPConfirmationAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveSIPConfirmationAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveSIPConfirmationAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveSIPConfirmationAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -1795,7 +1795,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserSIPConfirmationAlert()");
 
                 object[] objects = new object[2];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, null);
@@ -1813,7 +1813,7 @@ namespace DaoAlerts
         /// <param name="rmId">the rmId of the person for whom the setup needs to be done</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserSWPConfirmationAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int userId)
+        public bool SaveAdviserSWPConfirmationAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1823,7 +1823,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveSWPConfirmationAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserSWPConfirmationAlert");
-                db.AddInParameter(saveSWPConfirmationAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveSWPConfirmationAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveSWPConfirmationAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveSWPConfirmationAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -1855,7 +1855,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserSWPConfirmationAlert()");
 
                 object[] objects = new object[2];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, null);
@@ -1873,7 +1873,7 @@ namespace DaoAlerts
         /// <param name="rmId">the rmId of the person for whom the setup needs to be done</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserMFDividendConfirmationAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int userId)
+        public bool SaveAdviserMFDividendConfirmationAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int userId)
         {
             Database db;
             bool bResult = false;
@@ -1883,7 +1883,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveMFDividendConfirmationAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserMFDividendConfirmationAlert");
-                db.AddInParameter(saveMFDividendConfirmationAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveMFDividendConfirmationAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveMFDividendConfirmationAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveMFDividendConfirmationAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -1915,7 +1915,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserMFDividendConfirmationAlert()");
 
                 object[] objects = new object[2];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, null);
@@ -1933,7 +1933,7 @@ namespace DaoAlerts
         /// <param name="rmId">the rmId of the person for whom the setup needs to be done</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserPersonalOccurrenceAlert(int rmId, int customerId, int accountId, int personalNpId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserPersonalOccurrenceAlert(int advisorId, int customerId, int accountId, int personalNpId, int isBulk, int userId, string condition, int presetValue)
         {
             Database db;
             bool bResult = false;
@@ -1943,7 +1943,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 savePersonalOccurrenceAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserPersonalOccurrenceAlert");
-                db.AddInParameter(savePersonalOccurrenceAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(savePersonalOccurrenceAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(savePersonalOccurrenceAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(savePersonalOccurrenceAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -1977,7 +1977,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserPersonalOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -1997,7 +1997,7 @@ namespace DaoAlerts
         /// <param name="rmId">the rmId of the person for whom the setup needs to be done</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserPropertyOccurrenceAlert(int rmId, int customerId, int accountId, int propertyNpId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserPropertyOccurrenceAlert(int advisorId, int customerId, int accountId, int propertyNpId, int isBulk, int userId, string condition, int presetValue)
         {
             Database db;
             bool bResult = false;
@@ -2007,7 +2007,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 savePropertyOccurrenceAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserPropertyOccurrenceAlert");
-                db.AddInParameter(savePropertyOccurrenceAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(savePropertyOccurrenceAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(savePropertyOccurrenceAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(savePropertyOccurrenceAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -2041,7 +2041,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserPropertyOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -2061,7 +2061,7 @@ namespace DaoAlerts
         /// <param name="rmId">the rmId of the person for whom the setup needs to be done</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserMFStopLossOccurrenceAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserMFStopLossOccurrenceAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int userId, string condition, int presetValue)
         {
             Database db;
             bool bResult = false;
@@ -2071,7 +2071,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveMFStopLossOccurrenceAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserMFStopLossOccurrenceAlert");
-                db.AddInParameter(saveMFStopLossOccurrenceAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveMFStopLossOccurrenceAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveMFStopLossOccurrenceAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveMFStopLossOccurrenceAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -2105,7 +2105,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserMFStopLossOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -2125,7 +2125,7 @@ namespace DaoAlerts
         /// <param name="rmId">the rmId of the person for whom the setup needs to be done</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserMFProfitBookingOccurrenceAlert(int rmId, int customerId, int accountId, int schemeId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserMFProfitBookingOccurrenceAlert(int advisorId, int customerId, int accountId, int schemeId, int isBulk, int userId, string condition, int presetValue)
         {
             Database db;
             bool bResult = false;
@@ -2135,7 +2135,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveMFProfitBookingOccurrenceAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserMFProfitBookingOccurrenceAlert");
-                db.AddInParameter(saveMFProfitBookingOccurrenceAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveMFProfitBookingOccurrenceAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveMFProfitBookingOccurrenceAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveMFProfitBookingOccurrenceAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -2169,7 +2169,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserMFProfitBookingOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -2189,7 +2189,7 @@ namespace DaoAlerts
         /// <param name="rmId">the rmId of the person for whom the setup needs to be done</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserEQStopLossOccurrenceAlert(int rmId, int customerId, int accountId, int scripId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserEQStopLossOccurrenceAlert(int advisorId, int customerId, int accountId, int scripId, int isBulk, int userId, string condition, int presetValue)
         {
             Database db;
             bool bResult = false;
@@ -2199,7 +2199,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveEQStopLossOccurrenceAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserEQStopLossOccurrenceAlert");
-                db.AddInParameter(saveEQStopLossOccurrenceAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveEQStopLossOccurrenceAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveEQStopLossOccurrenceAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveEQStopLossOccurrenceAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -2233,7 +2233,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserEQStopLossOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -2253,7 +2253,7 @@ namespace DaoAlerts
         /// <param name="rmId">the rmId of the person for whom the setup needs to be done</param>
         /// <param name="userId">UserId of the person subscribing</param>
         /// <returns>Boolean Value tochk if the process was successful</returns>
-        public bool SaveAdviserEQProfitBookingOccurrenceAlert(int rmId, int customerId, int accountId, int scripId, int isBulk, int userId, string condition, int presetValue)
+        public bool SaveAdviserEQProfitBookingOccurrenceAlert(int advisorId, int customerId, int accountId, int scripId, int isBulk, int userId, string condition, int presetValue)
         {
             Database db;
             bool bResult = false;
@@ -2263,7 +2263,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 saveEQProfitBookingOccurrenceAlertCmd = db.GetStoredProcCommand("SP_SaveAdviserEQProfitBookingOccurrenceAlert");
-                db.AddInParameter(saveEQProfitBookingOccurrenceAlertCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(saveEQProfitBookingOccurrenceAlertCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(saveEQProfitBookingOccurrenceAlertCmd, "@UserId", DbType.Int32, userId);
                 if (customerId != 0)
                     db.AddInParameter(saveEQProfitBookingOccurrenceAlertCmd, "@CustomerId", DbType.Int32, customerId);
@@ -2297,7 +2297,7 @@ namespace DaoAlerts
                 FunctionInfo.Add("Method", "AlertsDao.cs:SaveAdviserEQProfitBookingOccurrenceAlert()");
 
                 object[] objects = new object[4];
-                objects[0] = rmId;
+                objects[0] = advisorId;
                 objects[1] = userId;
                 objects[2] = condition;
                 objects[3] = presetValue;
@@ -2589,7 +2589,7 @@ namespace DaoAlerts
 
 
         #endregion
-        
+
         /// <summary>
         /// Modified the function to add a name filter in the Alert notifications gridview.
         /// </summary>
@@ -2599,9 +2599,9 @@ namespace DaoAlerts
         /// <param name="nameFilter"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public DataSet GetAdviserCustomerSMSAlerts(int id,string usertype, int currentpage,string nameFilter, out int count)
+        public DataSet GetAdviserCustomerSMSAlerts(int id, string usertype, int currentpage, string nameFilter, out int count)
         {
-            
+
             Database db;
             DbCommand getAdviserSMSAlertsCmd;
             DataSet dsAdviserSMSAlerts;
@@ -2619,7 +2619,7 @@ namespace DaoAlerts
 
                 dsAdviserSMSAlerts = db.ExecuteDataSet(getAdviserSMSAlertsCmd);
                 count = Int32.Parse(dsAdviserSMSAlerts.Tables[1].Rows[0][0].ToString());
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -2649,7 +2649,7 @@ namespace DaoAlerts
             bool bResult = false;
             Database db;
             DbCommand updateAlertStatusCmd;
-            
+
 
             try
             {
@@ -2659,7 +2659,7 @@ namespace DaoAlerts
                 db.AddInParameter(updateAlertStatusCmd, "@AlertStatus", DbType.Int16, alertStatus);
 
                 db.ExecuteNonQuery(updateAlertStatusCmd);
-                bResult=true;
+                bResult = true;
 
 
             }
@@ -2690,7 +2690,7 @@ namespace DaoAlerts
         {
 
             Database db;
-            DbCommand updateCustomerMobileNumber;  
+            DbCommand updateCustomerMobileNumber;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2722,7 +2722,7 @@ namespace DaoAlerts
             }
 
         }
-       
+
         /// <summary>
         /// Function to delete the notifications from the notifications grid view (MP)
         /// </summary>
@@ -2739,7 +2739,7 @@ namespace DaoAlerts
                 deleteSMSAlertsCmd = db.GetStoredProcCommand("SP_DeleteAdviserCustomerSMSAlerts");
                 db.AddInParameter(deleteSMSAlertsCmd, "@AlertId", DbType.Int32, alertId);
 
-                if(db.ExecuteNonQuery(deleteSMSAlertsCmd)  != 0)
+                if (db.ExecuteNonQuery(deleteSMSAlertsCmd) != 0)
                     bResult = true;
             }
             catch (BaseApplicationException Ex)
