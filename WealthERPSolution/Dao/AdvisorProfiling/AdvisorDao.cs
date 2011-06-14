@@ -250,10 +250,10 @@ namespace DaoAdvisorProfiling
             return Ids;
         }
 
-        public List<CustomerVo> GetAdviserCustomersForSMS(int adviserId, string namefilter)
+        public List<CustomerVo> GetAdviserCustomersForSMS(int adviserId, int rmId, string namefilter)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
-            CustomerVo customerVo=new CustomerVo();
+            CustomerVo customerVo = new CustomerVo();
             Database db;
             DbCommand getAdviserCustomersForSMSCmd;
             DataSet getCustomerDs;
@@ -262,8 +262,17 @@ namespace DaoAdvisorProfiling
 
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdviserCustomersForSMSCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerForSMS");
-                db.AddInParameter(getAdviserCustomersForSMSCmd, "@A_AdviserId", DbType.Int32, adviserId);
-                if(namefilter!="")
+                if (adviserId != 0)
+                    db.AddInParameter(getAdviserCustomersForSMSCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                else
+                    db.AddInParameter(getAdviserCustomersForSMSCmd, "@A_AdviserId", DbType.Int32, DBNull.Value);
+
+                if (rmId != 0)
+                    db.AddInParameter(getAdviserCustomersForSMSCmd, "@rmID", DbType.Int32, rmId);
+                else
+                    db.AddInParameter(getAdviserCustomersForSMSCmd, "@rmID", DbType.Int32, DBNull.Value);
+
+                if (namefilter != "")
                     db.AddInParameter(getAdviserCustomersForSMSCmd, "@namefilter", DbType.String, namefilter);
                 else
                     db.AddInParameter(getAdviserCustomersForSMSCmd, "@namefilter", DbType.String, DBNull.Value);
@@ -296,8 +305,9 @@ namespace DaoAdvisorProfiling
                 FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserCustomersForSMS(int adviserId, string namefilter)");
 
 
-                object[] objects = new object[1];
+                object[] objects = new object[3];
                 objects[0] = adviserId;
+                objects[1] = rmId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
