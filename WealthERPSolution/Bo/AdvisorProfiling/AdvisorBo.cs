@@ -399,14 +399,14 @@ namespace BoAdvisorProfiling
         /// <param name="adviserId"></param>
         /// <param name="namefilter"></param>
         /// <returns>List of CustomerVo</returns>
-        public List<CustomerVo> GetAdviserCustomersForSMS(int adviserId, string namefilter)
+        public List<CustomerVo> GetAdviserCustomersForSMS(int adviserId, int rmId, string namefilter)
         {
             List<CustomerVo> customerList = new List<CustomerVo>();
-            
+
             AdvisorDao adviserDao = new AdvisorDao();
             try
             {
-                customerList = adviserDao.GetAdviserCustomersForSMS(adviserId, namefilter);
+                customerList = adviserDao.GetAdviserCustomersForSMS(adviserId, rmId, namefilter);
             }
             catch (BaseApplicationException Ex)
             {
@@ -420,9 +420,10 @@ namespace BoAdvisorProfiling
                 FunctionInfo.Add("Method", "AdvisorBo.cs:GetAdviserCustomersForSMS(int adviserId, string namefilter)");
 
 
-                object[] objects = new object[2];
+                object[] objects = new object[3];
                 objects[0] = adviserId;
-                
+                objects[1] = rmId;
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
