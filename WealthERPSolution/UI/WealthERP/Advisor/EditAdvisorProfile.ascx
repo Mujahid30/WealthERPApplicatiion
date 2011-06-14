@@ -324,7 +324,7 @@
             <asp:RadioButton ID="rbtnAssModelTypeNo" runat="server" CssClass="txtField" Text="No" GroupName="grpAssModel" />
         </td>
     </tr>
-    <tr>
+    <%--<tr>
         <td class="leftField">
             <asp:Label ID="Label19" runat="server" CssClass="FieldName" Text="Multibranch Network :"></asp:Label>
         </td>
@@ -332,7 +332,7 @@
             <asp:RadioButton ID="rbtnYes" runat="server" CssClass="txtField" Text="Yes" GroupName="grpMultiBranch" />
             <asp:RadioButton ID="rbtnNo" runat="server" CssClass="txtField" Text="No" GroupName="grpMultiBranch" />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="4">
             &nbsp;

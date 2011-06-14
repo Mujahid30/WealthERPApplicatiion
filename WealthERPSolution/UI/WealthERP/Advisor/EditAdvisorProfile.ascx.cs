@@ -86,16 +86,16 @@ namespace WealthERP.Advisor
                         rbtnAssModelTypeNo.Checked = true;
                     }
 
-                    if (advisorVo.MultiBranch == 1)
-                    {
-                        rbtnYes.Checked = true;
-                        rbtnNo.Checked = false;
-                    }
-                    else
-                    {
-                        rbtnNo.Checked = true;
-                        rbtnYes.Checked = false;
-                    }
+                    //if (advisorVo.MultiBranch == 1)
+                    //{
+                    //    rbtnYes.Checked = true;
+                    //    rbtnNo.Checked = false;
+                    //}
+                    //else
+                    //{
+                    //    rbtnNo.Checked = true;
+                    //    rbtnYes.Checked = false;
+                    //}
                     if (advisorVo.AddressLine1 != null)
                         txtAddressLine1.Text = advisorVo.AddressLine1.ToString();
                     if (advisorVo.AddressLine2 != null)
@@ -400,12 +400,12 @@ namespace WealthERP.Advisor
             {
                 if (Validation())
                 {
-                    string multibranch = "";
-                    if (rbtnNo.Checked)
-                    {
-                        multibranch = "No";
-                    }
-                    else { multibranch = "yes"; }
+                    //string multibranch = "";
+                    //if (rbtnNo.Checked)
+                    //{
+                    //    multibranch = "No";
+                    //}
+                    //else { multibranch = "yes"; }
                     advisorVo.UserId = userVo.UserId;
                     newRmVo.UserId = userVo.UserId;
                     newRmVo.FirstName = txtFirstName.Text.Trim().ToString();
@@ -495,14 +495,14 @@ namespace WealthERP.Advisor
                         advisorVo.MobileNumber = 0;
                         newRmVo.Mobile = 0;
                     }
-                    if (rbtnNo.Checked)
-                    {
-                        advisorVo.MultiBranch = 0;
-                    }
-                    else
-                    {
-                        advisorVo.MultiBranch = 1;
-                    }
+                    //if (rbtnNo.Checked)
+                    //{
+                    //    advisorVo.MultiBranch = 0;
+                    //}
+                    //else
+                    //{
+                    //    advisorVo.MultiBranch = 1;
+                    //}
 
                     if (rbtnAssModelTypeNo.Checked)
                         advisorVo.Associates = 0;
@@ -601,8 +601,8 @@ namespace WealthERP.Advisor
                     //advisorStaffBo.UpdateStaff(newRmVo);
 
 
-                    rbtnYes.Enabled = false;
-                    rbtnNo.Enabled = false;
+                    //rbtnYes.Enabled = false;
+                    //rbtnNo.Enabled = false;
                     txtCity.Enabled = false;
                     ddlBusinessType.Enabled = false;
 
