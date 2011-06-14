@@ -46,6 +46,33 @@
        }
    }
   </script>
+ 
+ <script type="text/javascript">
+
+     function ShowHideGaolType() {
+
+         
+         document.getElementById("<%= trRangeYear.ClientID %>").style.display = 'none';
+         if (document.getElementById("<%= rdbYearWise.ClientID %>").checked == true) {
+
+             document.getElementById("<%= trPickYear.ClientID %>").style.display = 'block';
+
+             document.getElementById("<%= trRangeYear.ClientID %>").visible = false;
+         }
+         else if (document.getElementById("<%= rdbYearRangeWise.ClientID %>").checked == true) {
+             document.getElementById("<%= trPickYear.ClientID %>").style.display = 'none';
+             document.getElementById("<%= trRangeYear.ClientID %>").style.display = 'block';
+         }
+         var assumptiontype = document.getElementById("<%=ddlPickAssumtion.ClientID %>").value;
+         if (assumptiontype == 'LE' || assumptiontype == 'RA') {
+
+             document.getElementById("<%= trRbtnYear.ClientID %>").style.display = 'none';
+         }
+
+     }
+  
+
+</script>
   
 
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
@@ -142,46 +169,45 @@
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgbtnSubmit"></asp:CompareValidator>
                 </td>
                 
-                </tr><tr ID="trRbtnYearDetail" runat="server">
-                    <td>
-                        <asp:RadioButton ID="rbtnyear" runat="server" AutoPostBack="true" 
-                            Checked="true" CssClass="cmbField" GroupName="gpYear" 
-                            OnCheckedChanged="rbtnyear_OnCheckChanged" Text="Apply to a year" />
-                    </td>
-                    <td align="right">
-                        <asp:RadioButton ID="rbtnRangeYear" runat="server" AutoPostBack="true" 
-                            CssClass="cmbField" GroupName="gpYear" 
-                            OnCheckedChanged="rbtnRangeYear_OnCheckChanged" 
-                            Text="Apply to a range of years" />
-                    </td>
-                </tr></table>
-               <table> <tr ID="trYearRangeDetail" runat="server">
-                    <td ID="tdLblYear" runat="server" align="right">
-                    <asp:Label ID="lblyear" runat="server" Text="Enter a year:" CssClass="FieldName"></asp:Label>
-                   </td>
-                   <td ID="tdtxtYear" runat="server">
-                   <asp:DropDownList ID="ddlYear" runat="server" CssClass="cmbField" 
-                           ></asp:DropDownList>
-                   </td>
-                   <td ID="tdlblRangeYear" runat="server">
-     <asp:Label ID="lblRangeYear" runat="server" Text="Enter a year range" CssClass="FieldName"></asp:Label>
- 
-                  </td>
-                  <td ID="tdlblRangeFrom" runat="server">
-                      <asp:Label ID="lblRangeFrom" runat="server" CssClass="FieldName" Text="From"></asp:Label>
-                      <asp:DropDownList ID="ddlYearRangeFrom" runat="server"
-                          CssClass="cmbField">
-                      </asp:DropDownList>
-                  </td>
-                    <td ID="tdlblRangeTo" runat="server">
-                        <asp:Label ID="lblRangeTo" runat="server" CssClass="FieldName" Text="To"></asp:Label>
-                        <asp:DropDownList ID="ddlYearRangeTo" runat="server"
-                            CssClass="cmbField">
-                        </asp:DropDownList></td>
-                    <td><asp:CompareValidator ID="cvlblRangeTo" runat="server" ValidationGroup="vgbtnSubmit" ControlToCompare="ddlYearRangeFrom" ControlToValidate="ddlYearRangeTo" Operator="GreaterThanEqual" ErrorMessage="To Year can not be leas then From Year" CssClass="cvPCG"></asp:CompareValidator></td>
-                       
-                    
-              </tr></table><table>
+                </tr></table>  <table>
+        <tr id="trRbtnYear" runat="server">
+        <td >
+        <asp:RadioButton ID="rdbYearWise" runat="server" Checked="true" GroupName="year" Text="Edit value for a year" Class="FieldName" onClick="return ShowHideGaolType()"/>
+        </td><td><asp:RadioButton ID="rdbYearRangeWise" runat="server" GroupName="year" Text="Edit value for a range of years" Class="FieldName" onClick="return ShowHideGaolType()"/>
+        </td>        
+        </tr></table>
+        <table>
+        
+        <tr id="trPickYear" runat="server">
+        <td align="right">
+        <asp:Label ID="lblTerm" runat="server" Text="Pick a year : " CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+        <asp:DropDownList ID="ddlPickYear" runat="server" CssClass="cmbField">
+        </asp:DropDownList>
+        </td>
+        </tr>  
+        
+        <tr id="trRangeYear" runat="server">
+        <td align="right">
+        <asp:Label ID="Label1" runat="server" Text="From year : " CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left">
+        <asp:DropDownList ID="ddlFromYear" runat="server" CssClass="cmbField">
+        </asp:DropDownList>
+        </td>
+        <td></td>
+        <td align="right">
+        <asp:Label ID="Label2" runat="server" Text="To year : " CssClass="FieldName"></asp:Label>
+        </td><td></td>
+        <td align="left" >
+        <asp:DropDownList ID="ddlToYear" runat="server" CssClass="cmbField">
+        </asp:DropDownList>
+        </td><td><asp:CompareValidator ID="cvlblRangeTo" runat="server" ValidationGroup="vgbtnSubmit" ControlToCompare="ddlFromYear" ControlToValidate="ddlToYear" Operator="GreaterThanEqual" ErrorMessage="To Year can not be leas then From Year" CssClass="cvPCG"></asp:CompareValidator></td>
+        </tr>
+        </table>
+                
+               <table>
               <tr><td align="right" valign="middle">
                     <asp:Label ID="lblAssumptionValue" runat="server" CssClass="FieldName" 
                         Text="Enter Assumption value:"></asp:Label>
@@ -378,4 +404,8 @@
                </asp:Panel>
                     </telerik:RadPageView>
                     
-                    </telerik:RadMultiPage>                   
+                    </telerik:RadMultiPage>  
+                    <script language="javascript" type="text/javascript">
+                        document.getElementById('<%=trRangeYear.ClientID %>').style.display = 'none';
+                        
+ </script>                 

@@ -176,148 +176,103 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.CompareValidator cvPickAssumption;
         
         /// <summary>
-        /// trRbtnYearDetail control.
+        /// trRbtnYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRbtnYearDetail;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRbtnYear;
         
         /// <summary>
-        /// rbtnyear control.
+        /// rdbYearWise control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtnyear;
+        protected global::System.Web.UI.WebControls.RadioButton rdbYearWise;
         
         /// <summary>
-        /// rbtnRangeYear control.
+        /// rdbYearRangeWise control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtnRangeYear;
+        protected global::System.Web.UI.WebControls.RadioButton rdbYearRangeWise;
         
         /// <summary>
-        /// trYearRangeDetail control.
+        /// trPickYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trYearRangeDetail;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPickYear;
         
         /// <summary>
-        /// tdLblYear control.
+        /// lblTerm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLblYear;
+        protected global::System.Web.UI.WebControls.Label lblTerm;
         
         /// <summary>
-        /// lblyear control.
+        /// ddlPickYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblyear;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPickYear;
         
         /// <summary>
-        /// tdtxtYear control.
+        /// trRangeYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtYear;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRangeYear;
         
         /// <summary>
-        /// ddlYear control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlYear;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// tdlblRangeYear control.
+        /// ddlFromYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRangeYear;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFromYear;
         
         /// <summary>
-        /// lblRangeYear control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRangeYear;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// tdlblRangeFrom control.
+        /// ddlToYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRangeFrom;
-        
-        /// <summary>
-        /// lblRangeFrom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRangeFrom;
-        
-        /// <summary>
-        /// ddlYearRangeFrom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlYearRangeFrom;
-        
-        /// <summary>
-        /// tdlblRangeTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRangeTo;
-        
-        /// <summary>
-        /// lblRangeTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRangeTo;
-        
-        /// <summary>
-        /// ddlYearRangeTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlYearRangeTo;
+        protected global::System.Web.UI.WebControls.DropDownList ddlToYear;
         
         /// <summary>
         /// cvlblRangeTo control.

@@ -109,27 +109,27 @@ namespace WealthERP.Customer
         
        
 
-        protected void rbtnyear_OnCheckChanged(object sender, EventArgs e)
-        {
-            tdLblYear.Visible=true;
-            tdtxtYear.Visible=true;
-            tdlblRangeYear.Visible=false;
-            tdlblRangeFrom.Visible=false;
-            tdlblRangeTo.Visible = false;
+        //protected void rbtnyear_OnCheckChanged(object sender, EventArgs e)
+        //{
+        //    tdLblYear.Visible=true;
+        //    tdtxtYear.Visible=true;
+        //    tdlblRangeYear.Visible=false;
+        //    tdlblRangeFrom.Visible=false;
+        //    tdlblRangeTo.Visible = false;
 
 
 
-        }
-        protected void rbtnRangeYear_OnCheckChanged(object sender, EventArgs e)
-        {
-            tdLblYear.Visible = false;
-            tdtxtYear.Visible = false;
-            tdlblRangeYear.Visible = true;
-            tdlblRangeFrom.Visible = true;
-            tdlblRangeTo.Visible = true;
+        //}
+        //protected void rbtnRangeYear_OnCheckChanged(object sender, EventArgs e)
+        //{
+        //    tdLblYear.Visible = false;
+        //    tdtxtYear.Visible = false;
+        //    tdlblRangeYear.Visible = true;
+        //    tdlblRangeFrom.Visible = true;
+        //    tdlblRangeTo.Visible = true;
 
 
-        }
+        //}
         public void BindDropDownassumption()
         {
             DataTable dtBindDropDownassumption = new DataTable();
@@ -144,19 +144,20 @@ namespace WealthERP.Customer
         protected void ddlPickAssumtion_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             msgRecordStatus.Visible = false;
-            rbtnyear.Checked = true;
-            rbtnRangeYear.Checked = false;
-            trRbtnYearDetail.Visible = true;
-            trYearRangeDetail.Visible = true;
-            tdLblYear.Visible = true;
-            tdtxtYear.Visible = true;
-            tdlblRangeYear.Visible = false;
-            tdlblRangeFrom.Visible = false;
-            tdlblRangeTo.Visible = false;
+            rdbYearWise.Checked = true;
+            rdbYearRangeWise.Checked = false;
+            trRangeYear.Visible = true;
+            trPickYear.Visible = true;
+            //tdLblYear.Visible = true;
+            //tdtxtYear.Visible = true;
+            //tdlblRangeYear.Visible = false;
+            //tdlblRangeFrom.Visible = false;
+            //tdlblRangeTo.Visible = false;
             if (ddlPickAssumtion.SelectedValue == "LE" || ddlPickAssumtion.SelectedValue == "RA")
             {
-                trRbtnYearDetail.Visible = false;
-                trYearRangeDetail.Visible = false;
+                trRangeYear.Visible = false;
+                trPickYear.Visible = false;
+                trRbtnYear.Visible = false;
             }
             else
             {
@@ -173,14 +174,14 @@ namespace WealthERP.Customer
 
         public void SetDefaultVisibilty()
         {
-            tdLblYear.Visible = true;
-            tdtxtYear.Visible = true;
-            tdlblRangeYear.Visible = true;
-            tdlblRangeFrom.Visible = true;
-            tdlblRangeTo.Visible = true;
-            tdlblRangeYear.Visible = false;
-            tdlblRangeFrom.Visible = false;
-            tdlblRangeTo.Visible = false;
+            //tdLblYear.Visible = true;
+            //tdtxtYear.Visible = true;
+            //tdlblRangeYear.Visible = true;
+            //tdlblRangeFrom.Visible = true;
+            //tdlblRangeTo.Visible = true;
+            //tdlblRangeYear.Visible = false;
+            //tdlblRangeFrom.Visible = false;
+            //tdlblRangeTo.Visible = false;
 
             msgRecordStatus.Visible = false;
 
@@ -213,10 +214,10 @@ namespace WealthERP.Customer
             }
             else
             {
-                if (rbtnyear.Checked)
+                if (rdbYearWise.Checked)
                 {
                     int yearSelected = 0;
-                    yearSelected = int.Parse(ddlYear.SelectedItem.Text.ToString());
+                    yearSelected = int.Parse(ddlPickYear.SelectedItem.Text.ToString());
                     userId = userVo.UserId;
                     customerId = customerVo.CustomerId;
                     assumptionValue = decimal.Parse(txtAssumptionValue.Text.ToString());
@@ -229,8 +230,8 @@ namespace WealthERP.Customer
                     int rangeToYear = 0;
                     userId = userVo.UserId;
                     customerId = customerVo.CustomerId;
-                    rangeFromYear = int.Parse(ddlYearRangeFrom.SelectedItem.Text.ToString());
-                    rangeToYear = int.Parse(ddlYearRangeTo.SelectedItem.Text.ToString());
+                    rangeFromYear = int.Parse(ddlFromYear.SelectedItem.Text.ToString());
+                    rangeToYear = int.Parse(ddlToYear.SelectedItem.Text.ToString());
                     assumptionValue = decimal.Parse(txtAssumptionValue.Text.ToString());
                     customerBo.UpdateCustomerProjectedDetalis(userId, customerId, assumptionValue, ddlPickAssumtion.SelectedValue.ToString().Trim(),0,rangeFromYear,rangeToYear);
                 
@@ -244,9 +245,9 @@ namespace WealthERP.Customer
                 //tdlblRangeYear.Visible = false;
                 //tdLblYear.Visible = true;
                 //tdtxtYear.Visible = true;
-                ddlYearRangeFrom.SelectedIndex = 0;
-                ddlYearRangeTo.SelectedIndex = 0;
-                ddlYear.SelectedIndex = 0;
+                ddlFromYear.SelectedIndex = 0;
+                ddlToYear.SelectedIndex = 0;
+                ddlPickYear.SelectedIndex = 0;
                
               
             }
@@ -271,9 +272,9 @@ namespace WealthERP.Customer
                 nextPeriod = todayAgeInYear + remainingAge;
                 for (; todayAgeInYear <= nextPeriod; todayAgeInYear++)
                 {
-                    ddlYear.Items.Add(todayAgeInYear.ToString());
-                    ddlYearRangeFrom.Items.Add(todayAgeInYear.ToString());
-                    ddlYearRangeTo.Items.Add(todayAgeInYear.ToString());
+                    ddlPickYear.Items.Add(todayAgeInYear.ToString());
+                    ddlFromYear.Items.Add(todayAgeInYear.ToString());
+                    ddlToYear.Items.Add(todayAgeInYear.ToString());
                 }
         }
 
@@ -421,36 +422,36 @@ namespace WealthERP.Customer
             {
                 rbtnCorpus.Enabled = true;
                 rbtnNoCorpus.Enabled = true;
-                rbtnRangeYear.Enabled = true;
+                rdbYearRangeWise.Enabled = true;
                 rbtnSelfOnly.Enabled = true;
                 rbtnSpouse.Enabled = true;
-                rbtnyear.Enabled = true;
+                rdbYearWise.Enabled = true;
                 btnCalculationBasis.Enabled = true;
                 btnPlanPreference.Enabled = true;
                 btnSubmit.Enabled = true;
                 //txtAssumptionValue.Enabled = true;
                 ddlPickAssumtion.Enabled = true;
-                ddlYear.Enabled = true;
-                ddlYearRangeFrom.Enabled = true;
-                ddlYearRangeTo.Enabled = true;
+                ddlPickYear.Enabled = true;
+                ddlFromYear.Enabled = true;
+                ddlToYear.Enabled = true;
                 
            }
             else
             {
                 rbtnCorpus.Enabled = false;
                 rbtnNoCorpus.Enabled = false;
-                rbtnRangeYear.Enabled = false;
+                rdbYearRangeWise.Enabled = false;
                 rbtnSelfOnly.Enabled = false;
                 rbtnSpouse.Enabled = false;
-                rbtnyear.Enabled = false;
+                rdbYearWise.Enabled = false;
                 btnCalculationBasis.Enabled = false;
                 btnPlanPreference.Enabled = false;
                 btnSubmit.Enabled = false;
                 txtAssumptionValue.Enabled = false;
                 ddlPickAssumtion.Enabled = false;
-                ddlYear.Enabled = false;
-                ddlYearRangeFrom.Enabled = false;
-                ddlYearRangeTo.Enabled = false;
+                ddlPickYear.Enabled = false;
+                ddlFromYear.Enabled = false;
+                ddlToYear.Enabled = false;
                 
                 
             }
