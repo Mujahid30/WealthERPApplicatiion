@@ -141,16 +141,16 @@ namespace DaoCustomerRiskProfiling
             return dsGetCustomerIdByName;
         }
 
-
         //Adding  Customer RiskProfile Details
-        public void AddCustomerRiskProfileDetails(int customerId, int crpscore, DateTime riskdate, string riskclasscode, RMVo rmvo, int IsDirectRiskClass)
+        public void AddCustomerRiskProfileDetails(int AdviserId, int customerId, int crpscore, DateTime riskdate, string riskclasscode, RMVo rmvo, int IsDirectRiskClass,DateTime CustDOB)
         {
             Database db;
             DbCommand dbAddCustomerRiskProfileDetails;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbAddCustomerRiskProfileDetails = db.GetStoredProcCommand("SP_AddCustomerRiskProfileDetails");
+                dbAddCustomerRiskProfileDetails = db.GetStoredProcCommand("SP_AddRiskProfileAndAssetAllocationToCustomer");
+                db.AddInParameter(dbAddCustomerRiskProfileDetails, "@AdviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@C_CustomerId", DbType.Int32, customerId);
                 if (IsDirectRiskClass==0)
                     db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_Score", DbType.Int32, crpscore);
@@ -158,8 +158,12 @@ namespace DaoCustomerRiskProfiling
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@XRC_RiskClassCode", DbType.String, riskclasscode);
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_CreatedBy", DbType.Int32, rmvo.RMId);
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_ModifiedBy", DbType.Int32, rmvo.RMId);
-                db.AddOutParameter(dbAddCustomerRiskProfileDetails, "@RPId", DbType.Int32, 1000);
+                //db.AddOutParameter(dbAddCustomerRiskProfileDetails, "@RPId", DbType.Int32, 1000);
                 db.AddInParameter(dbAddCustomerRiskProfileDetails, "@CRP_IsDirectRiskClass", DbType.Int32, IsDirectRiskClass);
+                if (!string.IsNullOrEmpty(CustDOB.ToString()))
+                    db.AddInParameter(dbAddCustomerRiskProfileDetails, "@DOB", DbType.DateTime, CustDOB);
+                db.AddOutParameter(dbAddCustomerRiskProfileDetails, "@RiskProfileId", DbType.Int32, 1000);
+
                 db.ExecuteNonQuery(dbAddCustomerRiskProfileDetails);
 
             }
@@ -320,6 +324,48 @@ namespace DaoCustomerRiskProfiling
             return dsGetAssetAllocationRules;
 
         }
+
+
+        /// <summary>
+        /// To Get Customers Recomonded Asset Allocation Data to bind the Recomonded asset allocation chart in Finance Profile
+        /// </summary>
+        /// Created by Vinayak Patil on 05-11-2011
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
+
+        public DataSet GetAssetAllocationData(int CustomerId)
+        {
+            Database db;
+            DataSet dsGetAssetAllocationData;
+            DbCommand dbGetAssetAllocationData;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbGetAssetAllocationData = db.GetStoredProcCommand("SP_GetCustomersRecomondedAssetAllocationData");
+                db.AddInParameter(dbGetAssetAllocationData, "@CustomerId", DbType.Int32, CustomerId);
+                dsGetAssetAllocationData = db.ExecuteDataSet(dbGetAssetAllocationData);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RiskProfileDao.cs:GetAssetAllocationData()");
+                object[] objects = new object[1];
+                objects[0] = CustomerId;
+                FunctionInfo = baseEx.AddObject(FunctionInfo, objects);
+                baseEx.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(baseEx);
+                throw baseEx;
+            }
+            return dsGetAssetAllocationData;
+        }
+
+
 
         //Adding Asset allocation Details in dbo.CustomerAssetAllocation
         public void AddAssetAllocationDetails(int riskprofileid, int assetClassificationCode, double recommendedPercentage, double currentPercentage, DateTime clientapprovedon, RMVo rmvo)
