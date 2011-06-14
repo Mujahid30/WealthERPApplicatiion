@@ -80,8 +80,9 @@ namespace BoFPSuperlite
 
                 foreach (CustomerProspectIncomeDetailsVo cpid in customerProspectIncomeDetailsVoList)
                 {
-                    customerprospectdao.AddCustomerFPIncomeDetails(customerId, userId, cpid);
-                    totalincome += cpid.IncomeValue;
+                        customerprospectdao.AddCustomerFPIncomeDetails(customerId, userId, cpid);
+                        if(cpid.IncomeCategoryCode != 7)
+                            totalincome += cpid.IncomeValue;
                 }
             }
             catch (Exception ex)
