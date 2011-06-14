@@ -1668,5 +1668,153 @@ namespace BoCustomerPortfolio
             return customerTransactionDao.GetTransactionType(transname);
         }
 
+        /// <summary>
+        /// To check whether TradeAccount No. associated with EQ Transaction <<Vinayak Patil>>
+        /// </summary>
+        /// <param name="eqTradeAccId"></param>
+        /// <returns></returns>
+        
+        public bool CheckEQTradeAccNoAssociatedWithTransactions(int eqTradeAccId)
+        {
+            bool blResult = false;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                blResult = customerTransactionDao.CheckEQTradeAccNoAssociatedWithTransactions(eqTradeAccId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:CheckEQTradeAccNoAssociatedWithTransactions()");
+                object[] objects = new object[2];
+                objects[0] = eqTradeAccId;
+                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+
+        /// <summary>
+        /// To Delete Trade Account <<Vinayak Patil>>
+        /// </summary>
+        /// <param name="eqTradeAccId"></param>
+        /// <returns></returns>
+
+        public bool DeleteTradeAccount(int eqTradeAccId)
+        {
+            bool blResult = false;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                blResult = customerTransactionDao.DeleteTradeAccount(eqTradeAccId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:CheckEQTradeAccNoAssociatedWithTransactions()");
+                object[] objects = new object[2];
+                objects[0] = eqTradeAccId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+
+        /// <summary>
+        /// To check whether MFFolio associated with MF Transaction <<Vinayak Patil>>
+        /// </summary>
+        /// <param name="FolioId"></param>
+        /// <returns></returns>
+        
+        public bool CheckMFFOlioAssociatedWithTransactions(int FolioId)
+        {
+            bool blResult = false;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                blResult = customerTransactionDao.CheckMFFOlioAssociatedWithTransactions(FolioId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:CheckMFFOlioAssociatedWithTransactions()");
+                object[] objects = new object[2];
+                objects[0] = FolioId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+
+        /// <summary>
+        /// To Delete MF Folio <<Vinayak Patil>
+        /// </summary>
+        /// <param name="FolioId"></param>
+        /// <returns></returns>
+
+        public bool DeleteMFFolio(int FolioId)
+        {
+            bool blResult = false;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                blResult = customerTransactionDao.DeleteMFFolio(FolioId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:CheckEQTradeAccNoAssociatedWithTransactions()");
+                object[] objects = new object[2];
+                objects[0] = FolioId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+
     }
 }
