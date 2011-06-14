@@ -871,26 +871,27 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvMFTransactions_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.Footer)
-            {
-                e.Row.Cells[1].Text = "Total ";
-                if(GridViewCultureFlag==true)
-                e.Row.Cells[10].Text = decimal.Parse(totalAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                else
-                {
-                    e.Row.Cells[10].Text = decimal.Parse(totalAmount.ToString()).ToString();
-                }
-                e.Row.Cells[10].Attributes.Add("align", "Right");
-                if (GridViewCultureFlag == true)
-                e.Row.Cells[9].Text = decimal.Parse(totalUnits.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                else
-                {
-                    e.Row.Cells[9].Text = decimal.Parse(totalUnits.ToString()).ToString();
-                }
-                e.Row.Cells[9].Attributes.Add("align", "Right");
+            // Commented the code to remove Total Ammount and Units from the Grid <<Vinayak Patil>>
+            //if (e.Row.RowType == DataControlRowType.Footer)
+            //{
+            //    e.Row.Cells[1].Text = "Total ";
+            //    if (GridViewCultureFlag == true)
+            //        e.Row.Cells[10].Text = decimal.Parse(totalAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+            //    else
+            //    {
+            //        e.Row.Cells[10].Text = decimal.Parse(totalAmount.ToString()).ToString();
+            //    }
+            //    e.Row.Cells[10].Attributes.Add("align", "Right");
+            //    if (GridViewCultureFlag == true)
+            //        e.Row.Cells[9].Text = decimal.Parse(totalUnits.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+            //    else
+            //    {
+            //        e.Row.Cells[9].Text = decimal.Parse(totalUnits.ToString()).ToString();
+            //    }
+            //    e.Row.Cells[9].Attributes.Add("align", "Right");
 
 
-            }
+            //}
             if (e.Row.RowType == DataControlRowType.Header)
             {
                 DropDownList ddlStatus = (DropDownList)e.Row.FindControl("ddlStatus");
