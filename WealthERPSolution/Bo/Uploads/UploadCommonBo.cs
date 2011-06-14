@@ -3084,7 +3084,17 @@ namespace BoUploads
 
             return count;
         }
+        //vishal to count the uploaded records
+        public int GetUploadFolioUploadCount(int processID, string source)
+        {
+            int count = 0;
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
 
+
+                count = uploadDAO.GetUploadFolioUploadCount(processID, source);
+
+            return count;
+        }
         public int GetUploadTransactionInputRejectCount(int processID, string source)
         {
             int count = 0;
