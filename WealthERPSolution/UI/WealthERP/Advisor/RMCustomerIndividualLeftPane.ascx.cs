@@ -764,7 +764,15 @@ namespace WealthERP.Advisor
                 {
                     if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == null)
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerIndividualProfile", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                        if (customerVo.IsProspect == 1)
+                        {
+                            Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddProspectList", "loadcontrol('AddProspectList','login');", true);
+                        }
+                        else if(customerVo.IsProspect == 0)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerIndividualProfile", "loadcontrol('ViewCustomerIndividualProfile','none');", true);
+                        }
                     }
                     else
                     {
@@ -775,8 +783,15 @@ namespace WealthERP.Advisor
                 {
                     if (customerVo.Type.ToUpper().ToString() == "IND" || customerVo.Type == null)
                     {
-
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerIndividualProfile", "loadcontrol('EditCustomerIndividualProfile','none');", true);
+                        if (customerVo.IsProspect == 1)
+                        {
+                            Session[SessionContents.FPS_AddProspectListActionStatus] = "Edit";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddProspectList", "loadcontrol('AddProspectList','login');", true);
+                        }
+                        else if (customerVo.IsProspect == 0)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerIndividualProfile", "loadcontrol('EditCustomerIndividualProfile','none');", true);
+                        }
                     }
                     else
                     {
