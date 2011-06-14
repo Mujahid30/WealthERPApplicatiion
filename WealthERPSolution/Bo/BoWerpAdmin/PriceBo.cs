@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using DaoWerpAdmin;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
 
 namespace BoWerpAdmin
 {
@@ -46,37 +47,65 @@ namespace BoWerpAdmin
 
 
 
-        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage)
+        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetAMFIRecord(Flag, StartDate, EndDate, Search, CurrentPage);
+            return PriceObj.GetAMFIRecord(Flag, StartDate, EndDate, Search, CurrentPage, amfiCode, schemeCode,selectAllCode);
 
         }
 
 
-        public int GetAMFICount(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage)
+        public int GetAMFICount(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetAMFICount(Flag, StartDate, EndDate, Search, CurrentPage);
+            return PriceObj.GetAMFICount(Flag, StartDate, EndDate, Search, CurrentPage,amfiCode,schemeCode,selectAllCode);
 
         }
 
 
 
-        public DataSet GetAMFISnapshot(string Flag, String Search, int CurrentPage)
+        public DataSet GetAMFISnapshot(string Flag, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetAMFISnapshot(Flag, Search, CurrentPage);
+            return PriceObj.GetAMFISnapshot(Flag, Search, CurrentPage,amfiCode,schemeCode,selectAllCode);
 
         }
 
-        public int GetAMFICountSnapshot(string Flag, String Search, int CurrentPage)
+        public int GetAMFICountSnapshot(string Flag, String Search, int CurrentPage, int amfiCode, int schemeCode,int selectAllCode)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetAMFICountSnapshot(Flag, Search,CurrentPage);
+            return PriceObj.GetAMFICountSnapshot(Flag, Search, CurrentPage, amfiCode, schemeCode, selectAllCode);
 
         }
 
+        public DataTable GetMutualFundList()
+        {
+            DataTable dtGetMutualFund = new DataTable();
+            PriceDao priceDao=new PriceDao();
+            try
+            {
+                dtGetMutualFund = priceDao.GetMutualFundList();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetMutualFund;
+        }
+        public DataTable GetAllScehmeList(int amcCode)
+        {
+            DataTable dtGetAllScehmeList = new DataTable();
+            PriceDao priceDao = new PriceDao();
+            try
+            {
+                dtGetAllScehmeList = priceDao.GetAllScehmeList(amcCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAllScehmeList;
+        }
 
      }
 }
