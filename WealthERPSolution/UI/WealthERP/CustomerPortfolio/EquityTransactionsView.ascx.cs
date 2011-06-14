@@ -14,6 +14,7 @@ using WealthERP.Base;
 using System.IO;
 using System.Web.UI.HtmlControls;
 using iTextSharp.text;
+using System.Collections;
 using iTextSharp.text.pdf;
 using BoCommon;
 
@@ -30,6 +31,9 @@ namespace WealthERP.CustomerPortfolio
         int index;
         static int portfolioId;
         PortfolioBo portfolioBo = new PortfolioBo();
+        DateTime dtFrom = new DateTime();
+        DateTime dtTo = new DateTime();
+        Hashtable ht = new Hashtable();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
@@ -66,7 +70,7 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 GetPageCount();
-                this.BindGridView(customerVo.CustomerId, Pager1.CurrentPage, 0);
+                this.BindGridView(customerVo.CustomerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             }
             catch (BaseApplicationException Ex)
             {
@@ -153,7 +157,21 @@ namespace WealthERP.CustomerPortfolio
                 {
                     portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                     BindPortfolioDropDown();
-                    BindGridView(customerId, Pager1.CurrentPage, 0);
+                    if (Session["tranDates"] != null)
+                    {
+                        ht = (Hashtable)Session["tranDates"];
+                        txtFromTran.Text = ht["From"].ToString();
+                        txtToTran.Text = ht["To"].ToString();
+                        BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+                        Session.Remove("tranDates");
+                    }
+                    else
+                    {
+                        txtFromTran.Text = DateTime.Now.ToShortDateString().ToString();
+                        txtToTran.Text = DateTime.Now.ToShortDateString().ToString();
+                        BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+
+                    }
 
                 }
 
@@ -192,7 +210,7 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
-        private void BindGridView(int customerId, int CurrentPage, int export)
+        private void BindGridView(int customerId, int CurrentPage, int export, DateTime from, DateTime to)
         {
             string type, mode;
 
@@ -214,17 +232,18 @@ namespace WealthERP.CustomerPortfolio
                 int Count;
                 if (export == 1)
                 {
-                    equityTransactionList = customerTransactionBo.GetEquityTransactions(customerId, portfolioId, 1, CurrentPage, out Count, hdnScripFilter.Value.Trim(), hdnTradeNum.Value.Trim(), hdnTranType.Value.Trim(), hdnExchange.Value.Trim(), hdnTradeDate.Value.Trim(), out genDictTranType, out genDictExchange, out genDictTradeDate,hdnSort.Value);
+                    equityTransactionList = customerTransactionBo.GetEquityTransactions(customerId, portfolioId, 1, CurrentPage, out Count, hdnScripFilter.Value.Trim(), hdnTradeNum.Value.Trim(), hdnTranType.Value.Trim(), hdnExchange.Value.Trim(), hdnTradeDate.Value.Trim(), out genDictTranType, out genDictExchange, out genDictTradeDate,hdnSort.Value, from, to);
                 }
                 else
                 {
-                    equityTransactionList = customerTransactionBo.GetEquityTransactions(customerId, portfolioId, 0, CurrentPage, out Count, hdnScripFilter.Value.Trim(), hdnTradeNum.Value.Trim(), hdnTranType.Value.Trim(), hdnExchange.Value.Trim(), hdnTradeDate.Value.Trim(), out genDictTranType, out genDictExchange, out genDictTradeDate,hdnSort.Value);
+                    equityTransactionList = customerTransactionBo.GetEquityTransactions(customerId, portfolioId, 0, CurrentPage, out Count, hdnScripFilter.Value.Trim(), hdnTradeNum.Value.Trim(), hdnTranType.Value.Trim(), hdnExchange.Value.Trim(), hdnTradeDate.Value.Trim(), out genDictTranType, out genDictExchange, out genDictTradeDate, hdnSort.Value, from, to);
                     hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                 }
 
                 if (equityTransactionList != null)
                 {
-                    lblMsg.Visible = false;
+                   // lblMsg.Visible = false;
+                    ErrorMessage.Visible = false;
                     tblGv.Visible = true;
                     dtEquityTransactions.Columns.Add("TransactionId");
                     dtEquityTransactions.Columns.Add("TradeNum");
@@ -375,7 +394,7 @@ namespace WealthERP.CustomerPortfolio
                     lblCurrentPage.Visible = false;
                     lblTotalRows.Visible = false;
                     trPager.Visible = false;
-                    lblMsg.Visible = true;
+                    ErrorMessage.Visible = true;
                     gvEquityTransactions.DataSource = null;
                     gvEquityTransactions.DataBind();
                     tblGv.Visible = false;
@@ -416,7 +435,7 @@ namespace WealthERP.CustomerPortfolio
                         customerTransactionBo.DeleteEQTransaction(TransactionID);
                     }
                 }
-                BindGridView(customerId, Pager1.CurrentPage, 0);
+                BindGridView(customerId, Pager1.CurrentPage, 0,dtFrom,dtTo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -439,6 +458,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvEquityTransactions_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            Hashtable hshTranDates;
             try
             {
                 if (e.CommandName.ToString() != "Sort")
@@ -449,7 +469,12 @@ namespace WealthERP.CustomerPortfolio
 
                     if (e.CommandName == "Select")
                     {
+                        hshTranDates = new Hashtable();
+                        hshTranDates.Add("From", txtFromTran.Text);
+                        hshTranDates.Add("To", txtToTran.Text);
+                        Session["tranDates"] = hshTranDates;
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityTransaction','none');", true);
+                        Session["EQUITYEditValue"] = "Value";
                     }
                 }
             }
@@ -515,7 +540,7 @@ namespace WealthERP.CustomerPortfolio
 
             try
             {
-                equityTransactionList = customerTransactionBo.GetEquityTransactions(customerId, portfolioId, 0, Pager1.CurrentPage, out Count, hdnScripFilter.Value.Trim(), hdnTradeNum.Value.Trim(), hdnTranType.Value.Trim(), hdnExchange.Value.Trim(), hdnTradeDate.Value.Trim(), out genDictTranType, out genDictExchange, out genDictTradeDate,hdnSort.Value);
+                equityTransactionList = customerTransactionBo.GetEquityTransactions(customerId, portfolioId, 0, Pager1.CurrentPage, out Count, hdnScripFilter.Value.Trim(), hdnTradeNum.Value.Trim(), hdnTranType.Value.Trim(), hdnExchange.Value.Trim(), hdnTradeDate.Value.Trim(), out genDictTranType, out genDictExchange, out genDictTradeDate, hdnSort.Value, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
                 if (equityTransactionList != null)
                 {
                     gvEquityTransactions.FooterRow.Cells[1].Text = "Total Records : " + equityTransactionList.Count.ToString();
@@ -552,7 +577,7 @@ namespace WealthERP.CustomerPortfolio
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
-            BindGridView(customerId, Pager1.CurrentPage, 0);
+            BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
         }
 
         protected void btnScripSearch_Click(object sender, EventArgs e)
@@ -562,7 +587,7 @@ namespace WealthERP.CustomerPortfolio
             if (txtName != null)
             {
                 hdnScripFilter.Value = txtName.Text.Trim();
-                BindGridView(customerId, Pager1.CurrentPage, 0);
+                BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             }
         }
 
@@ -573,7 +598,7 @@ namespace WealthERP.CustomerPortfolio
             if (txtName != null)
             {
                 hdnTradeNum.Value = txtName.Text.Trim();
-                BindGridView(customerId, Pager1.CurrentPage, 0);
+                BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             }
         }
 
@@ -586,12 +611,12 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlTranType.SelectedIndex != 0)
                 {   // Bind the Grid with Only Selected Values
                     hdnTranType.Value = ddlTranType.SelectedValue;
-                    BindGridView(customerId, Pager1.CurrentPage, 0);
+                    BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
                 }
                 else
                 {   // Bind the Grid with Only All Values
                     hdnTranType.Value = "";
-                    BindGridView(customerId, Pager1.CurrentPage, 0);
+                    BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
                 }
             }
         }
@@ -605,12 +630,12 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlExchange.SelectedIndex != 0)
                 {   // Bind the Grid with Only Selected Values
                     hdnExchange.Value = ddlExchange.SelectedValue;
-                    BindGridView(customerId, Pager1.CurrentPage, 0);
+                    BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
                 }
                 else
                 {   // Bind the Grid with Only All Values
                     hdnExchange.Value = "";
-                    BindGridView(customerId, Pager1.CurrentPage, 0);
+                    BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
                 }
             }
         }
@@ -624,12 +649,12 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlTradeDate.SelectedIndex != 0)
                 {   // Bind the Grid with Only Selected Values
                     hdnTradeDate.Value =DateTime.Parse( ddlTradeDate.SelectedValue).ToString("MM/dd/yyyy");
-                    BindGridView(customerId, Pager1.CurrentPage, 0);
+                    BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
                 }
                 else
                 {   // Bind the Grid with Only All Values
                     hdnTradeDate.Value = "";
-                    BindGridView(customerId, Pager1.CurrentPage, 0);
+                    BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
                 }
             }
         }
@@ -720,12 +745,12 @@ namespace WealthERP.CustomerPortfolio
             if (rbtnMultiple.Checked)
             {
 
-                BindGridView(customerId, Pager1.CurrentPage, 1);
+                BindGridView(customerId, Pager1.CurrentPage, 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
 
             }
             else
             {
-                BindGridView(customerId,int.Parse(hdnCurrentPage.Value.ToString()), 0);
+                BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             }
             PrepareGridViewForExport(gvEquityTransactions);
             if (rbtnExcel.Checked)
@@ -741,7 +766,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 ExportGridView("Word");
             }
-            BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0);
+            BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             gvEquityTransactions.Columns[0].Visible = true;
             gvEquityTransactions.Columns[1].Visible = true;
         }
@@ -1096,11 +1121,11 @@ namespace WealthERP.CustomerPortfolio
             gvEquityTransactions.Columns[1].Visible = false;
             if (rbtnMultiple.Checked)
             {
-                BindGridView(customerId, Pager1.CurrentPage, 1);
+                BindGridView(customerId, Pager1.CurrentPage, 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             }
             else
             {
-                BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0);
+                BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             }
             PrepareGridViewForExport(gvEquityTransactions);
             if (gvEquityTransactions.HeaderRow != null)
@@ -1157,7 +1182,7 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void btnPrintGrid_Click(object sender, EventArgs e)
         {
-            BindGridView(customerId, Pager1.CurrentPage, 0);
+            BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             gvEquityTransactions.Columns[0].Visible = true;
             gvEquityTransactions.Columns[1].Visible = true;
         }
@@ -1168,7 +1193,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void rbtnMultiple_CheckedChanged(object sender, EventArgs e)
         {
-            BindGridView(customerId, Pager1.CurrentPage, 1);
+            BindGridView(customerId, Pager1.CurrentPage, 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "AferExportAll('ctrl_EquityTransactionsView_btnPrintGrid');", true);
         }
 
@@ -1187,13 +1212,13 @@ namespace WealthERP.CustomerPortfolio
                 {
                     GridSortDirection = SortDirection.Descending;
                     hdnSort.Value = sortExpression + " DESC";
-                    this.BindGridView(customerId, Pager1.CurrentPage, 0);
+                    this.BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
                 }
                 else
                 {
                     GridSortDirection = SortDirection.Ascending;
                     hdnSort.Value = sortExpression + " ASC";
-                    this.BindGridView(customerId, Pager1.CurrentPage, 0);
+                    this.BindGridView(customerId, Pager1.CurrentPage, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
 
                 }
             }
@@ -1227,6 +1252,14 @@ namespace WealthERP.CustomerPortfolio
                 return (SortDirection)ViewState["GridSortDirection"];
             }
             set { ViewState["GridSortDirection"] = value; }
+        }
+        protected void btnViewTran_Click(object sender, EventArgs e)
+        {
+
+            dtFrom = DateTime.Parse(txtFromTran.Text);
+            dtTo = DateTime.Parse(txtToTran.Text);
+           // hdnStatus.Value = "1";
+            BindGridView(customerId,Pager1.CurrentPage, 0, dtFrom, dtTo);
         }
     }
 }

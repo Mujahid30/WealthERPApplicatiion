@@ -26,6 +26,19 @@
         var btn = document.getElementById(btnID);
         btn.click();
     }
+     function checkDate(sender, args) {
+
+        var selectedDate = new Date();
+        selectedDate = sender._selectedDate;
+
+        var todayDate = new Date();
+        var msg = "";
+
+        if (selectedDate > todayDate) {
+            sender._selectedDate = todayDate;
+            sender._textbox.set_Value(sender._selectedDate.format(sender._format));
+            alert("Warning! - Date Cannot be in the future");
+        }    }
 </script>
 
 <table  style="width: 100%;" class="TableBackground"  runat="server">
@@ -46,8 +59,52 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2" >
+       <%-- <td colspan="2" >
             <asp:Label ID="lblMsg" runat="server" CssClass="Error" Text="You dont have any transaction..!"></asp:Label>
+        </td>--%>
+    </tr>
+</table>
+<table class="TableBackground">
+    <tr>
+        <td>
+            <asp:Label ID="lblFromTran" Text="From" CssClass="Field" runat="server" />
+        </td>
+        <td>
+            <asp:TextBox ID="txtFromTran" runat="server" CssClass="txtField"></asp:TextBox>
+            <cc1:CalendarExtender ID="txtFromTran_CalendarExtender" runat="server" TargetControlID="txtFromTran"
+                Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="txtFromTran_TextBoxWatermarkExtender" runat="server"
+                TargetControlID="txtFromTran" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+        </td>
+        <td>
+            <asp:Label ID="lblToTran" Text="To" CssClass="Field" runat="server" />
+        </td>
+        <td>
+            <asp:TextBox ID="txtToTran" runat="server" CssClass="txtField"></asp:TextBox>
+            <cc1:CalendarExtender ID="txtToTran_CalendarExtender" runat="server" TargetControlID="txtToTran"
+                Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="txtToTran_TextBoxWatermarkExtender" runat="server"
+                TargetControlID="txtToTran" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtToTran"
+                ErrorMessage="To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
+                ControlToCompare="txtFromTran" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic">
+            </asp:CompareValidator>
+        </td>
+        <td>
+            <asp:Button ID="btnViewTran" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewTran_Click" />
+        </td>
+    </tr>
+</table>
+<table id="ErrorMessage" align="center" runat="server">
+    <tr>
+        <td>
+            <div class="failure-msg" align="center">
+                No Records found.....
+            </div>
         </td>
     </tr>
 </table>
@@ -94,7 +151,7 @@
 <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
-            <td colspan="4">
+            <td>
                 <asp:GridView ID="gvEquityTransactions" runat="server" AutoGenerateColumns="False"
                     CellPadding="4" DataKeyNames="TransactionId" EnableViewState="true" CssClass="GridViewStyle"
                     AllowSorting="True" ShowFooter="True" OnRowCommand="gvEquityTransactions_RowCommand"
