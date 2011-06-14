@@ -447,7 +447,7 @@ namespace WealthERP.Advisor
                     TextBox txtArea = GetAreaTextBox();
                     if (txtArea != null)
                     {
-                        if (hdnNameFilter.Value != "")
+                        if (hdnAreaFilter.Value != "")
                         {
                             txtArea.Text = hdnAreaFilter.Value.ToString();
                         }
@@ -1670,7 +1670,7 @@ namespace WealthERP.Advisor
         protected void btnPincodeSearch_Click(object sender, EventArgs e)
         {
             TextBox txtPincode = GetPincodeTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtPincode != null)
             {
                 hdnPincodeFilter.Value = txtPincode.Text.Trim();
@@ -1687,7 +1687,7 @@ namespace WealthERP.Advisor
         protected void btnPANSearch_Click(object sender, EventArgs e)
         {
             TextBox txtPAN = GetPANTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtPAN != null)
             {
                 hndPAN.Value = txtPAN.Text.Trim();
@@ -1704,7 +1704,7 @@ namespace WealthERP.Advisor
         protected void btnAreaSearch_Click(object sender, EventArgs e)
         {
             TextBox txtArea = GetAreaTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtArea != null)
             {
                 hdnAreaFilter.Value = txtArea.Text.Trim();
@@ -1722,7 +1722,7 @@ namespace WealthERP.Advisor
         protected void btnNameSearch_Click(object sender, EventArgs e)
         {
             TextBox txtName = GetCustNameTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtName != null)
             {
                 hdnNameFilter.Value = txtName.Text.Trim();
