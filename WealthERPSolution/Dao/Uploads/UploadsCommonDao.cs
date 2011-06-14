@@ -745,6 +745,29 @@ namespace DaoUploads
 
             return count;
         }
+        //Vishal count number of uploaded records
+        public int GetUploadFolioUploadCount(int processID, string source)
+        {
+            int count = 0;
+
+            Database db;
+            DbCommand getCount;
+           
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_CountInsertedFolioRejected");
+                db.AddInParameter(getCount, "@processId", DbType.Int32, processID);
+                db.AddInParameter(getCount, "@source", DbType.String, source);
+                db.AddOutParameter(getCount, "@InputStageValue", DbType.Int32, 1000);
+
+                db.ExecuteNonQuery(getCount);
+                count = Convert.ToInt32(db.GetParameterValue(getCount, "@InputStageValue").ToString());
+                //string result = (db.ExecuteScalar(getCount).ToString());
+                //count = int.Parse(result);
+                   
+
+
+            return count;
+        }
 
         //Get the count for number of profiles that are rejected in Input table for a Transaction Upload 
         public int GetUploadTransactionInputRejectCount(int processID, string source)
