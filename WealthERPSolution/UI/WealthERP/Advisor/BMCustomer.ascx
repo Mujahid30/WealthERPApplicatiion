@@ -146,24 +146,22 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
-        <td>
-            <table id="ErrorMessage" width="100%" align="center" runat="server">
+    </table>
+    <table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" align="center" runat="server">
                 <tr>
-                    <td style="width: 100%">
+                    <td style="width: 100%" align="center">
                         <div class="failure-msg" style="text-align: center" align="center">
-                            No Customers found for selected Branch...
+                            No Records found.....
                         </div>
                     </td>
                 </tr>
-            </table>
-        </td>
-    </tr>
     </table>
+        
+    
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
-            <td class="rightField" colspan="2">
+            <td class="rightField">
                 <asp:GridView ID="gvCustomers" runat="server" AutoGenerateColumns="False" CellPadding="4"
                     CssClass="GridViewStyle" DataKeyNames="CustomerId,UserId" OnSelectedIndexChanged="gvCustomers_SelectedIndexChanged"
                     AllowSorting="True" HorizontalAlign="Center" OnSorting="gvCustomers_Sort" GridLines="Both" Width="1480px">
@@ -209,6 +207,20 @@
                                 <asp:Label ID="lblParentHeader" runat="server" Text='<%# Eval("Parent").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        
+                        <asp:TemplateField ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblPAN" runat="server" Text="PAN"></asp:Label>
+                                <br />
+                                <asp:TextBox ID="txtPAN" runat="server" CssClass="GridViewTxtField" 
+                                    
+                                    onkeydown="return JSdoPostback(event,'ctrl_BMCustomer_btnPANSearch');" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblPANHeader" runat="server" Text='<%# Eval("PAN Number").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
                        
                         <asp:BoundField DataField="Phone Number" HeaderText="Phone" ItemStyle-Width="100px" />
                         <asp:BoundField DataField="Email" HeaderText="Email" ItemStyle-Width="90px" />
@@ -233,6 +245,23 @@
                             <ItemTemplate>
                                 <asp:Label ID="lblCityHeader" runat="server" Text='<%# Eval("City").ToString() %>'></asp:Label>
                             </ItemTemplate>
+                        </asp:TemplateField>
+                        
+                        <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblAssignedRM" runat="server" Text="Assigned RM"></asp:Label>
+                                <br />
+                                <asp:DropDownList ID="ddlAssignedRM" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                    OnSelectedIndexChanged="ddlAssignedRM_SelectedIndexChanged">
+                                </asp:DropDownList>
+                                
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblAssignedRMHeader" runat="server" 
+                                    Text='<%# Eval("RMAssigned").ToString() %>'></asp:Label>
+                                
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False" />
                         </asp:TemplateField>
                         
                         <asp:TemplateField HeaderStyle-Wrap="false" HeaderText="Is Prospect" 
@@ -268,12 +297,18 @@
         </td>
     </tr>
 </table>
+
+<asp:Button ID="btnPANSearch" runat="server" Text="" OnClick="btnPANSearch_Click"
+    BorderStyle="None" BackColor="Transparent" />
+    
 <asp:Button ID="btnPincodeSearch" runat="server" Text="" OnClick="btnPincodeSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnAreaSearch" runat="server" Text="" OnClick="btnAreaSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
+    
+<asp:HiddenField ID="hndPAN" runat="server" Visible="false" />    
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />

@@ -81,7 +81,7 @@ namespace WealthERP.Advisor
             try
             {
                 GetPageCount();
-                if (Session["Customer"] == "Customer")
+                if ((Session["Customer"] == "Customer") && (hndAll.Value != "0"))
                 {
                     this.BindGrid(mypager.CurrentPage, 0);
                 }
@@ -136,15 +136,15 @@ namespace WealthERP.Advisor
 
                 int Count = 0;
 
-                hdnNameFilter.Value = customer;
+                //hdnNameFilter.Value = customer;
 
-                customerList = advisorStaffBo.GetAllBMCustomerList(int.Parse(hndBranchID.Value.ToString()), int.Parse(hndBranchHeadId.Value.ToString()), int.Parse(hndAll.Value.ToString()), rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value,hdnIsProspect.Value, out genDictParent, out genDictCity, out genDictRM);
+                customerList = advisorStaffBo.GetAllBMCustomerList(int.Parse(hndBranchID.Value.ToString()), int.Parse(hndBranchHeadId.Value.ToString()), int.Parse(hndAll.Value.ToString()), rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value, hdnIsProspect.Value, out genDictParent, out genDictCity, out genDictRM);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerList == null)
                 {
                     ErrorMessage.Visible = true;
-                    gvCustomers.Visible = false;
+                    //gvCustomers.Visible = false;
                     tblGv.Visible = false;
                     mypager.Visible = false;
                 }
@@ -159,6 +159,7 @@ namespace WealthERP.Advisor
                     dtRMCustomer.Columns.Add("UserId");
                     dtRMCustomer.Columns.Add("Parent");
                     dtRMCustomer.Columns.Add("Cust_Comp_Name");
+                    dtRMCustomer.Columns.Add("PAN Number");
                     dtRMCustomer.Columns.Add("Phone Number");
                     dtRMCustomer.Columns.Add("Email");
                     dtRMCustomer.Columns.Add("Address");
@@ -184,8 +185,13 @@ namespace WealthERP.Advisor
                         }
                         drRMCustomer[3] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
 
-                        drRMCustomer[4] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
-                        drRMCustomer[5] = customerVo.Email.ToString();
+                        if (customerVo.PANNum != null)
+                            drRMCustomer[4] = customerVo.PANNum.ToString();
+                        else
+                            drRMCustomer[4] = "";
+
+                        drRMCustomer[5] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
+                        drRMCustomer[6] = customerVo.Email.ToString();
                         if (customerVo.Adr1Line1 == null)
                             customerVo.Adr1Line1 = "";
                         if (customerVo.Adr1Line2 == null)
@@ -196,29 +202,29 @@ namespace WealthERP.Advisor
                             customerVo.Adr1City = "";
                         if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() == "")
                         {
-                            drRMCustomer[6] = "-";
+                            drRMCustomer[7] = "-";
                         }
                         else if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() != "")
                         {
-                            drRMCustomer[6] = customerVo.Adr1Line2.ToString();
+                            drRMCustomer[7] = customerVo.Adr1Line2.ToString();
                         }
                         else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString() == "")
                         {
-                            drRMCustomer[6] = customerVo.Adr1Line1.ToString();
+                            drRMCustomer[7] = customerVo.Adr1Line1.ToString();
                         }
                         else
-                            drRMCustomer[6] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString();
-                        drRMCustomer[7] = customerVo.Adr1Line3.ToString();
-                        drRMCustomer[8] = customerVo.Adr1City.ToString();
-                        drRMCustomer[9] = customerVo.AssignedRM.ToString();
+                            drRMCustomer[7] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString();
+                        drRMCustomer[8] = customerVo.Adr1Line3.ToString();
+                        drRMCustomer[9] = customerVo.Adr1City.ToString();
+                        drRMCustomer[10] = customerVo.AssignedRM.ToString();
 
                         if (customerVo.IsProspect == 1)
                         {
-                            drRMCustomer[10] = "Yes";
+                            drRMCustomer[11] = "Yes";
                         }
                         else
                         {
-                            drRMCustomer[10] = "No";
+                            drRMCustomer[11] = "No";
                         }
 
                         dtRMCustomer.Rows.Add(drRMCustomer);
@@ -302,6 +308,15 @@ namespace WealthERP.Advisor
                         if (hdnNameFilter.Value != "")
                         {
                             txtArea.Text = hdnAreaFilter.Value.ToString();
+                        }
+                    }
+
+                    TextBox txtPAN = GetPANTextBox();
+                    if (txtPAN != null)
+                    {
+                        if (hndPAN.Value != "")
+                        {
+                            txtPAN.Text = hndPAN.Value.ToString();
                         }
                     }
 
@@ -469,7 +484,7 @@ namespace WealthERP.Advisor
 
                     int Count;
 
-                    customerList = advisorStaffBo.GetBMCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value,hdnIsProspect.Value, out genDictParent, out genDictCity, out genDictRM);
+                    customerList = advisorStaffBo.GetBMCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value,hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnRMFilter.Value,hdnIsProspect.Value, out genDictParent, out genDictCity, out genDictRM);
                     lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 }
 
@@ -495,6 +510,7 @@ namespace WealthERP.Advisor
                     dtRMCustomer.Columns.Add("UserId");
                     dtRMCustomer.Columns.Add("Parent");
                     dtRMCustomer.Columns.Add("Cust_Comp_Name");
+                    dtRMCustomer.Columns.Add("PAN Number");
                     dtRMCustomer.Columns.Add("Phone Number");
                     dtRMCustomer.Columns.Add("Email");
                     dtRMCustomer.Columns.Add("Address");
@@ -519,8 +535,13 @@ namespace WealthERP.Advisor
                         }
                         drRMCustomer[3] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
 
-                        drRMCustomer[4] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
-                        drRMCustomer[5] = customerVo.Email.ToString();
+                        if (customerVo.PANNum != null)
+                            drRMCustomer[4] = customerVo.PANNum.ToString();
+                        else
+                            drRMCustomer[4] = "";
+
+                        drRMCustomer[5] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
+                        drRMCustomer[6] = customerVo.Email.ToString();
                         if (customerVo.Adr1Line1 == null)
                             customerVo.Adr1Line1 = "";
                         if (customerVo.Adr1Line2 == null)
@@ -531,28 +552,28 @@ namespace WealthERP.Advisor
                             customerVo.Adr1City = "";
                         if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() == "")
                         {
-                            drRMCustomer[6] = "-";
+                            drRMCustomer[7] = "-";
                         }
                         else if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() != "")
                         {
-                            drRMCustomer[6] = customerVo.Adr1Line2.ToString();
+                            drRMCustomer[7] = customerVo.Adr1Line2.ToString();
                         }
                         else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString() == "")
                         {
-                            drRMCustomer[6] = customerVo.Adr1Line1.ToString();
+                            drRMCustomer[7] = customerVo.Adr1Line1.ToString();
                         }
                         else
-                            drRMCustomer[6] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString();
-                        drRMCustomer[7] = customerVo.Adr1Line3.ToString();
-                        drRMCustomer[8] = customerVo.Adr1City.ToString();
-                        drRMCustomer[9] = customerVo.AssignedRM.ToString();
+                            drRMCustomer[7] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString();
+                        drRMCustomer[8] = customerVo.Adr1Line3.ToString();
+                        drRMCustomer[9] = customerVo.Adr1City.ToString();
+                        drRMCustomer[10] = customerVo.AssignedRM.ToString();
                         if (customerVo.IsProspect == 1)
                         {
-                            drRMCustomer[10] = "Yes";
+                            drRMCustomer[11] = "Yes";
                         }
                         else
                         {
-                            drRMCustomer[10] = "No";
+                            drRMCustomer[11] = "No";
                         }
 
                         dtRMCustomer.Rows.Add(drRMCustomer);
@@ -633,9 +654,18 @@ namespace WealthERP.Advisor
                     TextBox txtArea = GetAreaTextBox();
                     if (txtArea != null)
                     {
-                        if (hdnNameFilter.Value != "")
+                        if (hdnAreaFilter.Value != "")
                         {
                             txtArea.Text = hdnAreaFilter.Value.ToString();
+                        }
+                    }
+
+                    TextBox txtPAN = GetPANTextBox();
+                    if (txtPAN != null)
+                    {
+                        if (hndPAN.Value != "")
+                        {
+                            txtPAN.Text = hndPAN.Value.ToString();
                         }
                     }
 
@@ -1632,7 +1662,7 @@ namespace WealthERP.Advisor
                 }
                 //string sessionCust = Session["Customer"].ToString();
                 //if (Session["Customer"].ToString() == "Customer")
-                if (Session["Customer"] != null)
+                if ((Session["Customer"] != null) && (hndAll.Value != "0"))
                 {
                     this.BindGrid(mypager.CurrentPage, 0);
                 }
@@ -1682,7 +1712,7 @@ namespace WealthERP.Advisor
 
                 if (Session["Customer"] != null)
                 {
-                    if (Session["Customer"].ToString() == "Customer")
+                    if ((Session["Customer"].ToString() == "Customer") && (hndAll.Value != "0"))
                     {
                         this.BindGrid(mypager.CurrentPage, 0);
                     }
@@ -1690,6 +1720,34 @@ namespace WealthERP.Advisor
                     {
                         this.BindCustomer(mypager.CurrentPage);
                     }
+                }
+                else
+                {
+                    this.BindCustomer(mypager.CurrentPage);
+                }
+            }
+        }
+
+        protected void ddlAssignedRM_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlRM = GetRMDDL();
+
+            if (ddlRM != null)
+            {
+                if (ddlRM.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+                    //hdnRMFilter.Value = ddlRM.SelectedValue;
+                    hdnRMFilter.Value = ddlRM.SelectedItem.Value;
+                    //hdnCurrentPage.Value = "";
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnRMFilter.Value = "";
+                }
+
+                if ((Session["Customer"].ToString() == "Customer") && (hndAll.Value != "0"))
+                {
+                    this.BindGrid(mypager.CurrentPage, 0);
                 }
                 else
                 {
@@ -1728,11 +1786,11 @@ namespace WealthERP.Advisor
         protected void btnPincodeSearch_Click(object sender, EventArgs e)
         {
             TextBox txtPincode = GetPincodeTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtPincode != null)
             {
                 hdnPincodeFilter.Value = txtPincode.Text.Trim();
-                if (Session["Customer"].ToString() == "Customer")
+                if ((Session["Customer"].ToString() == "Customer") && (hndAll.Value != "0"))
                 {
                     this.BindGrid(mypager.CurrentPage, 0);
                 }
@@ -1746,11 +1804,11 @@ namespace WealthERP.Advisor
         protected void btnAreaSearch_Click(object sender, EventArgs e)
         {
             TextBox txtArea = GetAreaTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtArea != null)
             {
                 hdnAreaFilter.Value = txtArea.Text.Trim();
-                if (Session["Customer"] == null || Session["Customer"].ToString() == "Customer")
+                if ((Session["Customer"] == null || Session["Customer"].ToString() == "Customer") && (hndAll.Value != "0"))
                 {
                     this.BindGrid(mypager.CurrentPage, 0);
                 }
@@ -1764,11 +1822,11 @@ namespace WealthERP.Advisor
         protected void btnNameSearch_Click(object sender, EventArgs e)
         {
             TextBox txtName = GetCustNameTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtName != null)
             {
                 hdnNameFilter.Value = txtName.Text.Trim();
-                if (Session["Customer"] == null || Session["Customer"].ToString() == "Customer")
+                if ((Session["Customer"] == null || Session["Customer"].ToString() == "Customer") && (hndAll.Value != "0"))
                 {
                     this.BindGrid(mypager.CurrentPage, 0);
                 }
@@ -1778,6 +1836,25 @@ namespace WealthERP.Advisor
                 }
             }
         }
+
+        protected void btnPANSearch_Click(object sender, EventArgs e)
+        {
+            TextBox txtPAN = GetPANTextBox();
+            hdnCurrentPage.Value = "1";
+            if (txtPAN != null)
+            {
+                hndPAN.Value = txtPAN.Text.Trim();
+                if ((Session["Customer"].ToString() == "Customer") && (hndAll.Value != "0"))
+                {
+                    this.BindGrid(mypager.CurrentPage, 0);
+                }
+                else
+                {
+                    this.BindCustomer(mypager.CurrentPage);
+                }
+            }
+        }
+
 
         private DropDownList GetParentDDL()
         {
@@ -1843,6 +1920,22 @@ namespace WealthERP.Advisor
             return txt;
         }
 
+        private TextBox GetPANTextBox()
+        {
+            TextBox txt = new TextBox();
+            if (gvCustomers.HeaderRow != null)
+            {
+                if ((TextBox)gvCustomers.HeaderRow.FindControl("txtPAN") != null)
+                {
+                    txt = (TextBox)gvCustomers.HeaderRow.FindControl("txtPAN");
+                }
+            }
+            else
+                txt = null;
+
+            return txt;
+        }
+
         private TextBox GetAreaTextBox()
         {
             TextBox txt = new TextBox();
@@ -1877,6 +1970,14 @@ namespace WealthERP.Advisor
 
         protected void ddlBMBranchList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            hdnPincodeFilter.Value = "";
+            hdnAreaFilter.Value = "";
+            hdnNameFilter.Value = "";
+            hdnCityFilter.Value = "";
+            hdnParentFilter.Value = "";
+            hdnRMFilter.Value = "";
+            hndPAN.Value = "";
+
             if (ddlBMBranchList.SelectedIndex == 0)
             {
                 hndAll.Value = "1";
