@@ -37,6 +37,7 @@ namespace BoReports
             DataTable dtExpense;
             DataTable dtIncome;
             DataTable dtLoanEMI;
+            DataTable dtHLVAssumption;
             double HLVbasedIncome = 0;
             double inflationPer = 0;
             double discountRate = 0;
@@ -65,6 +66,7 @@ namespace BoReports
             int annualSalary = 0;
             double cashAndSaving = 0;
             double totalMonthlyEMI = 0;
+            double totalIncomeAnnual = 0;
 
             Dictionary<string, decimal> dicCustomerFPRatio = new Dictionary<string, decimal>();
 
@@ -81,6 +83,7 @@ namespace BoReports
             dtExpense = dsCustomerFPReportDetails.Tables["Expense"];
             dtIncome = dsCustomerFPReportDetails.Tables["Income"];
             dtLoanEMI = dsCustomerFPReportDetails.Tables["LoanEMI"];
+            dtHLVAssumption = dsCustomerFPReportDetails.Tables["HLVAssumption"];
             //**************GEARING RATIO*****************
 
             if (asset != 0)
@@ -95,6 +98,7 @@ namespace BoReports
                 {
                     annualSalary = int.Parse(Math.Round(double.Parse(dr["IncomeAmount"].ToString())).ToString());
                 }
+                totalIncomeAnnual += int.Parse(Math.Round(double.Parse(dr["IncomeAmount"].ToString())).ToString()) * 12;
             }
 
             if (Convert.ToString(dtLoanEMI.Rows[0][0]) != string.Empty)
@@ -111,6 +115,14 @@ namespace BoReports
             //dsCustomerFPReportDetails.AcceptChanges();
             //dsCustomerFPReportDetails.Tables.RemoveAt(16);
             //dsCustomerFPReportDetails.AcceptChanges();
+            foreach (DataRow dr in dtHLVAssumption.Rows)
+            {
+                if (dr["Assumption_Type"].ToString().Trim() == "Discount Rate")
+                {
+                    if (!string.IsNullOrEmpty(dr["Assumption_Values"].ToString()))
+                        discountRate = double.Parse(dr["Assumption_Values"].ToString());
+                }
+            }
 
             foreach (DataRow dr in dtHLVAnalysis.Rows)
             {
@@ -120,11 +132,11 @@ namespace BoReports
                         inflationPer = double.Parse(dr["HLV_Values"].ToString());
                 }
 
-                if (dr["HLV_Type"].ToString().Trim() == "Discount Rate")
-                {
-                    if (!string.IsNullOrEmpty(dr["HLV_Values"].ToString()))
-                        discountRate = double.Parse(dr["HLV_Values"].ToString());
-                }
+                //if (dr["HLV_Type"].ToString().Trim() == "Discount Rate")
+                //{
+                //    if (!string.IsNullOrEmpty(dr["HLV_Values"].ToString()))
+                //        discountRate = double.Parse(dr["HLV_Values"].ToString());
+                //}
 
                 if (dr["HLV_Type"].ToString().Trim() == "Years left till retirement")
                 {
@@ -156,7 +168,7 @@ namespace BoReports
                 debt_Ratio = liabilities / netWorth;
             //**************Debt Ratio *****************
 
-            HLVbasedIncome = PV(discountRate / 100, yearsLeftRT, -(annualSalary * 12), 0, 1);
+            HLVbasedIncome = PV(discountRate / 100, yearsLeftRT, -(totalIncomeAnnual), 0, 1);
             totalAnnualIncome = totalIncomeMonthly * 12;
             DataRow drHLVbasedAnalysis;
             drHLVbasedAnalysis = dtHLVAnalysis.NewRow();
@@ -165,10 +177,10 @@ namespace BoReports
             dtHLVAnalysis.Rows.Add(drHLVbasedAnalysis);
 
             drHLVbasedAnalysis = dtHLVAnalysis.NewRow();
-            drHLVbasedAnalysis["HLV_Type"] = "Salary income(annual)";
-            drHLVbasedAnalysis["HLV_Values"] = convertUSCurrencyFormat(Math.Round(double.Parse((annualSalary * 12).ToString()), 2));
-            dtHLVAnalysis.Rows.InsertAt(drHLVbasedAnalysis, 1);
-            dtHLVAnalysis.Rows.RemoveAt(2);
+            drHLVbasedAnalysis["HLV_Type"] = "Income(annual)";
+            drHLVbasedAnalysis["HLV_Values"] = convertUSCurrencyFormat(Math.Round(double.Parse((totalIncomeAnnual).ToString()), 2));
+            dtHLVAnalysis.Rows.InsertAt(drHLVbasedAnalysis, 0);
+            dtHLVAnalysis.Rows.RemoveAt(1);
             dsCustomerFPReportDetails.Tables.Add(dtHLVAnalysis);
 
 
@@ -183,7 +195,7 @@ namespace BoReports
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
             drHLVBasedIncome = dtHLVBasedIncome.NewRow();
-            drHLVBasedIncome["HLVIncomeType"] = "Insurance Cover Recommended";
+            drHLVBasedIncome["HLVIncomeType"] = "Insurance Cover Recommended(HLV – Financial Net Worth)";
             drHLVBasedIncome["HLVIncomeValue"] = convertUSCurrencyFormat(Math.Round(double.Parse((HLVbasedIncome - netWorth).ToString()), 2));
             dtHLVBasedIncome.Rows.Add(drHLVBasedIncome);
 
@@ -234,10 +246,10 @@ namespace BoReports
                     if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
                         totalFixedIncome = double.Parse(dr["AssetValues"].ToString());
                 }
-                else if (dr["AssetGroupCode"].ToString() == "OT")
+                else if (dr["AssetGroupCode"].ToString() == "OT" || dr["AssetGroupCode"].ToString() == "PG" || dr["AssetGroupCode"].ToString() == "GS" || dr["AssetGroupCode"].ToString() == "CS" || dr["AssetGroupCode"].ToString() == "SP" || dr["AssetGroupCode"].ToString() == "PM" || dr["AssetGroupCode"].ToString() == "GD" || dr["AssetGroupCode"].ToString() == "CM" || dr["AssetGroupCode"].ToString() == "CL")
                 {
                     if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
-                        totalOther = double.Parse(dr["AssetValues"].ToString());
+                        totalOther += double.Parse(dr["AssetValues"].ToString());
 
                 }
                 else if (dr["AssetGroupCode"].ToString() == "CS")
@@ -255,7 +267,7 @@ namespace BoReports
 
             if (totalEquity > 0)
             {
-                strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalEquity) + " in equity";
+                strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalEquity) + " in Equity";
             }
             else
                 strInvestment = string.Empty;
@@ -280,20 +292,20 @@ namespace BoReports
                 if (!string.IsNullOrEmpty(strInvestment))
                 {
                     if (totalOther > 0)
-                        strInvestment += ", " + "Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
+                        strInvestment += ", " + "Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in Fixed Income ";
                     else
-                        strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
+                        strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in Fixed Income ";
                 }
                 else
-                    strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in FixedIncome ";
+                    strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalFixedIncome) + " in Fixed Income ";
 
             }
             if (totalOther > 0)
             {
                 if (!string.IsNullOrEmpty(strInvestment))
-                    strInvestment += "and " + "Rs. " + convertUSCurrencyFormat(totalOther) + " in others";
+                    strInvestment += "and " + "Rs. " + convertUSCurrencyFormat(totalOther) + " in Others";
                 else
-                    strInvestment = "Your current investments is Rs. " + convertUSCurrencyFormat(totalOther) + " in others";
+                    strInvestment = "Your current investments is Rs. " + convertUSCurrencyFormat(totalOther) + " in Others";
 
             }
 
