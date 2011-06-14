@@ -3244,6 +3244,202 @@ namespace DaoCustomerProfiling
 
 
         }
+        // Added for FP Sectional Report.. Added on 13th June 2011
+        public DataSet DefaultFPReportsAssumtion(int customerId)
+        {
+            Database db;
+            DbCommand DefaultFPReportsAssumtionCmd;
+
+            DataSet ds;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DefaultFPReportsAssumtionCmd = db.GetStoredProcCommand("SP_DefaultCustomerFPReportsAssumption");
+                db.AddInParameter(DefaultFPReportsAssumtionCmd, "@customerId", DbType.Int32, customerId);
+                ds = db.ExecuteDataSet(DefaultFPReportsAssumtionCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return ds;
+        }
+
+        public void CustomerFPReportsAssumption(int customerId, decimal assumptionInflation, decimal assumptionInvestment, decimal assumptionDr)
+        {
+            Database db;
+            DbCommand CustomerAssumptionCmd;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CustomerAssumptionCmd = db.GetStoredProcCommand("SP_UpdateCustomerFPReportsAssumption");
+                db.AddInParameter(CustomerAssumptionCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(CustomerAssumptionCmd, "@assumptionInflation", DbType.Double, assumptionInflation);
+                db.AddInParameter(CustomerAssumptionCmd, "@assumptionInvestment", DbType.Double, assumptionInvestment);
+                db.AddInParameter(CustomerAssumptionCmd, "@assumptionDr", DbType.Double, assumptionDr);
+
+
+
+                db.ExecuteNonQuery(CustomerAssumptionCmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+        public void AddRMRecommendationForCustomer(int customerId, string strRMRecHTML)
+        {
+            Database db;
+            DbCommand CustomerRMRecommendationCmd;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CustomerRMRecommendationCmd = db.GetStoredProcCommand("SP_InsertCustomerRMRecommendationText");
+                db.AddInParameter(CustomerRMRecommendationCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(CustomerRMRecommendationCmd, "@RMRecHTML_Text", DbType.String, strRMRecHTML);
+                db.ExecuteNonQuery(CustomerRMRecommendationCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+        public string GetRMRecommendationForCustomer(int customerId)
+        {
+            Database db;
+            DbCommand getCustomerRMRecommendationCmd;
+            DataSet getCustomerRMRecommendationDS;
+            string strRMRecommendationHTML;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerRMRecommendationCmd = db.GetStoredProcCommand("SP_GetCustomerRMRecommendationText");
+                db.AddInParameter(getCustomerRMRecommendationCmd, "@CustomerId", DbType.Int32, customerId);
+                db.ExecuteNonQuery(getCustomerRMRecommendationCmd);
+                getCustomerRMRecommendationDS = db.ExecuteDataSet(getCustomerRMRecommendationCmd);
+                if (getCustomerRMRecommendationDS.Tables[0].Rows.Count > 0)
+                {
+                    strRMRecommendationHTML = Convert.ToString(getCustomerRMRecommendationDS.Tables[0].Rows[0][0]);
+                }
+                else
+                {
+                    strRMRecommendationHTML = string.Empty;
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return strRMRecommendationHTML;
+
+        }
+
+        // To Check and Delete the Child Customers.. 
+        // Added by Vinayak Patil..
+
+        public int CheckAndDeleteTheChildCustomers(string Flag, int CustomerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            int associationStatus = 0;
+            int getCount = 0;
+            Database db;
+            DbCommand cmddeleteChildCustomer;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmddeleteChildCustomer = db.GetStoredProcCommand("SP_CheckAndDeleteTheChildCustomers");
+                db.AddInParameter(cmddeleteChildCustomer, "@Flag", DbType.String, Flag);
+                db.AddInParameter(cmddeleteChildCustomer, "@C_CustomerId", DbType.Int32, CustomerId);
+                db.AddOutParameter(cmddeleteChildCustomer, "@CountFlag", DbType.Int32, 0);
+                getCount = db.ExecuteNonQuery(cmddeleteChildCustomer);
+                getCount = (int)db.GetParameterValue(cmddeleteChildCustomer, "@CountFlag");
+
+                if (getCount != 0)
+                    associationStatus = 1;
+                else
+                    associationStatus = 0;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:CheckAndDeleteTheChildCustomers()");
+
+
+                object[] objects = new object[3];
+                objects[0] = Flag;
+                objects[1] = CustomerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return associationStatus;
+        }
+
+        // To delete the child customer <<Added by Vinayak Patil>>
+
+        public bool DeleteChildCustomer(int customerId, string Flag)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteCustomerBankCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteCustomerBankCmd = db.GetStoredProcCommand("SP_CheckAndDeleteTheChildCustomers");
+                db.AddInParameter(deleteCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(deleteCustomerBankCmd, "@Flag", DbType.String, Flag);
+                if (db.ExecuteNonQuery(deleteCustomerBankCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:DeleteCustomer()");
+
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                //objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
     }
 }
 
