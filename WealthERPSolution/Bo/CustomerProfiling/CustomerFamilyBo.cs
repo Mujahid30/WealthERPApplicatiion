@@ -156,13 +156,20 @@ namespace BoCustomerProfiling
 
         }
 
-        public DataTable GetCustomerAssociations(int rmId, string nameSrchValue)
+        /// <summary>
+        /// Modified by Vinayak Patil.. Customer Association functionality for adviser..
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="nameSrchValue"></param>
+        /// <returns></returns>
+        public DataTable GetCustomerAssociations(int adviserId, int rmId, string nameSrchValue)
         {
             DataTable dt = new DataTable();
             CustomerFamilyDao customerFamilyDao = new CustomerFamilyDao();
             try
             {
-                dt = customerFamilyDao.GetCustomerAssociations(rmId, nameSrchValue);
+                dt = customerFamilyDao.GetCustomerAssociations(adviserId, rmId, nameSrchValue);
             }
             catch (BaseApplicationException Ex)
             {
@@ -176,8 +183,9 @@ namespace BoCustomerProfiling
                 FunctionInfo.Add("Method", "CustomerFamilyBo.cs:GetCustomerFamily()");
 
 
-                object[] objects = new object[1];
+                object[] objects = new object[2];
                 objects[0] = rmId;
+                objects[0] = adviserId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -251,15 +259,15 @@ namespace BoCustomerProfiling
             return dtCustomerFamily;
         }
 
-        public DataTable GetCustomerAssociateDetails(int associationId)
+        public DataSet GetCustomerAssociateDetails(int associationId)
         {
 
-            DataTable dtAssociateDetails = null;
+            DataSet dsAssociateDetails = null;
             CustomerFamilyDao customerFamilyDao = new CustomerFamilyDao();
 
             try
             {
-                dtAssociateDetails = customerFamilyDao.GetCustomerAssociateDetails(associationId);
+                dsAssociateDetails = customerFamilyDao.GetCustomerAssociateDetails(associationId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -278,7 +286,7 @@ namespace BoCustomerProfiling
                 throw exBase;
 
             }
-            return dtAssociateDetails;
+            return dsAssociateDetails;
         }
 
         public int GetCustomersAssociationId(int customerId)
