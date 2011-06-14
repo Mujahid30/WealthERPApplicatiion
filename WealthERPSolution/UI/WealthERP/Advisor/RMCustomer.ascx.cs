@@ -147,7 +147,7 @@ namespace WealthERP
 
                 hdnNameFilter.Value = customer;
 
-                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnactive.Value, hdnIsProspect.Value, out genDictParent, out genDictCity);
+                customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value,hndPAN.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnCityFilter.Value, hdnactive.Value, hdnIsProspect.Value, out genDictParent, out genDictCity);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerList == null)
@@ -324,6 +324,15 @@ namespace WealthERP
                         }
                     }
 
+                    TextBox txtPAN = GetPANTextBox();
+                    if (txtPAN != null)
+                    {
+                        if (hndPAN.Value != "")
+                        {
+                            txtPAN.Text = hndPAN.Value.ToString();
+                        }
+                    }
+
                     this.GetPageCount();
                 }
             }
@@ -482,7 +491,7 @@ namespace WealthERP
                     int Count;
 
                     //advisorStaffBo.GetCustomerList(rmVo.RMId, "C").ToString();
-                    customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value.Trim(), hdnAreaFilter.Value.Trim(), hdnPincodeFilter.Value.Trim(), hdnParentFilter.Value.Trim(), hdnCityFilter.Value.Trim(), hdnactive.Value, hdnIsProspect.Value, out genDictParent, out genDictCity);
+                    customerList = advisorStaffBo.GetCustomerList(rmVo.RMId, mypager.CurrentPage, out Count, hdnSort.Value,hndPAN.Value, hdnNameFilter.Value.Trim(), hdnAreaFilter.Value.Trim(), hdnPincodeFilter.Value.Trim(), hdnParentFilter.Value.Trim(), hdnCityFilter.Value.Trim(), hdnactive.Value, hdnIsProspect.Value, out genDictParent, out genDictCity);
                     lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 }
 
@@ -492,7 +501,7 @@ namespace WealthERP
                     ErrorMessage.Visible = true;                    
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
-                    tbl.Visible = false;
+                    //tbl.Visible = false;
 
                 }
                 else
@@ -662,6 +671,15 @@ namespace WealthERP
                         if (hdnAreaFilter.Value != "")
                         {
                             txtArea.Text = hdnAreaFilter.Value.ToString();
+                        }
+                    }
+
+                    TextBox txtPAN = GetPANTextBox();
+                    if (txtPAN != null)
+                    {
+                        if (hndPAN.Value != "")
+                        {
+                            txtPAN.Text = hndPAN.Value.ToString();
                         }
                     }
 
@@ -1503,7 +1521,7 @@ namespace WealthERP
         protected void btnPincodeSearch_Click(object sender, EventArgs e)
         {
             TextBox txtPincode = GetPincodeTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtPincode != null)
             {
                 hdnPincodeFilter.Value = txtPincode.Text.Trim();
@@ -1521,7 +1539,7 @@ namespace WealthERP
         protected void btnAreaSearch_Click(object sender, EventArgs e)
         {
             TextBox txtArea = GetAreaTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtArea != null)
             {
                 hdnAreaFilter.Value = txtArea.Text.Trim();
@@ -1536,10 +1554,29 @@ namespace WealthERP
             }
         }
 
+        protected void btnPANSearch_Click(object sender, EventArgs e)
+        {
+            TextBox txtPAN = GetPANTextBox();
+            hdnCurrentPage.Value = "1";
+            if (txtPAN != null)
+            {
+                hndPAN.Value = txtPAN.Text.Trim();
+                if (Session["Customer"].ToString() == "Customer")
+                {
+                    this.BindGrid(mypager.CurrentPage, 0);
+                }
+                else
+                {
+                    this.BindCustomer(mypager.CurrentPage);
+                }
+            }
+        }
+
+
         protected void btnNameSearch_Click(object sender, EventArgs e)
         {
             TextBox txtName = GetCustNameTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtName != null)
             {
                 hdnNameFilter.Value = txtName.Text.Trim();
@@ -1610,6 +1647,22 @@ namespace WealthERP
                 if ((TextBox)gvCustomers.HeaderRow.FindControl("txtAreaSearch") != null)
                 {
                     txt = (TextBox)gvCustomers.HeaderRow.FindControl("txtAreaSearch");
+                }
+            }
+            else
+                txt = null;
+
+            return txt;
+        }
+
+        private TextBox GetPANTextBox()
+        {
+            TextBox txt = new TextBox();
+            if (gvCustomers.HeaderRow != null)
+            {
+                if ((TextBox)gvCustomers.HeaderRow.FindControl("txtPAN") != null)
+                {
+                    txt = (TextBox)gvCustomers.HeaderRow.FindControl("txtPAN");
                 }
             }
             else

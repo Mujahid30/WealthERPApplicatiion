@@ -203,7 +203,26 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <%--<asp:BoundField DataField="Parent" HeaderText="Parent" SortExpression="Parent" />--%>
-                        <asp:BoundField DataField="PAN Number" HeaderText="PAN Number" />
+                        
+                       <%-- *** Commented for adding Filter on Pan no. By Vinayak Patil ***
+                       
+                        <asp:BoundField DataField="PAN Number" HeaderText="PAN Number" />--%>
+                        
+                         <asp:TemplateField ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblPAN" runat="server" Text="PAN"></asp:Label>
+                                <br />
+                                <asp:TextBox ID="txtPAN" runat="server" CssClass="GridViewTxtField" 
+                                    
+                                    onkeydown="return JSdoPostback(event,'ctrl_RMCustomer_btnPANSearch');" />
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblPANHeader" runat="server" 
+                                    Text='<%# Eval("PAN Number").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
+                        
                         <asp:BoundField DataField="Mobile Number" HeaderText="Mobile Number" />
                         <asp:BoundField DataField="Phone Number" HeaderText="Phone Number" />
                         <asp:BoundField DataField="Email" HeaderText="Email" />
@@ -399,6 +418,9 @@
         </tr>
 </table>
 
+<asp:Button ID="btnPANSearch" runat="server" Text="" OnClick="btnPANSearch_Click"
+    BorderStyle="None" BackColor="Transparent" />
+    
 <asp:Button ID="btnPincodeSearch" runat="server" Text="" OnClick="btnPincodeSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnAreaSearch" runat="server" Text="" OnClick="btnAreaSearch_Click"
@@ -407,6 +429,8 @@
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
     BorderStyle="None" BackColor="Transparent" />
+    
+<asp:HiddenField ID="hndPAN" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
