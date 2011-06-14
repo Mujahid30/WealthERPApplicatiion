@@ -1453,6 +1453,7 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        
 
         public DataTable BindDropDownassumption()
         {
@@ -1542,6 +1543,42 @@ namespace BoCustomerProfiling
             }
             return dsSetDefaultPlanRetirementValueForCustomer;
         }
+        
+        
+        public DataSet GetCustomerTaxSlab(int CustomerID,int age, string Gender)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataSet dsGetTaxSlab = new DataSet(); 
+            try
+            {
+                dsGetTaxSlab = customerDao.GetCustomerTaxSlab(CustomerID,age, Gender);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAllRMMemberCustomerName()");
+
+
+                object[] objects = new object[4];
+                objects[0] = age;
+                objects[1] = Gender;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetTaxSlab;
+
+        }
+
 
         public DataTable GetBMParentCustomerNames(string prefixText, int rmId)
         {
