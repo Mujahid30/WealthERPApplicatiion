@@ -59,7 +59,7 @@ namespace WealthERP.Customer
                     txtRmName.Text = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
                     txtEmail.Text = customerVo.Email.ToString();
                     txtPanNumber.Text = customerVo.PANNum.ToString();
-                    txtCompanyName.Text = customerVo.FirstName.ToString();
+                    txtCompanyName.Text = customerVo.CompanyName;
                     if (customerVo.DummyPAN == 1)
                         chkdummypan.Checked = true;
                     else
