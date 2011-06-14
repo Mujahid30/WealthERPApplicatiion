@@ -29,6 +29,12 @@ namespace VoCustomerPortfolio
         private string m_Frequency;
         private string m_PaymentModeCode;
         private string m_PaymentMode;
+        private DateTime m_SipChequeDate;
+        private int m_SipChequeNo;
+        private int m_period;
+        private string m_PeriodSelection;
+        private DateTime m_RegistrationDate;
+       
 
         #endregion
 
@@ -155,7 +161,35 @@ namespace VoCustomerPortfolio
             get { return m_PaymentMode; }
             set { m_PaymentMode = value; }
         }
+        public DateTime SipChequeDate
+        {
+            get { return m_SipChequeDate; }
+            set { m_SipChequeDate = value; }
+        }
+        public int SipChequeNo
+        {
+            get { return m_SipChequeNo; }
+            set { m_SipChequeNo = value; }
+        }
+        public int Period
+        {
+            get { return m_period;}
+            set { m_period=value;}
+        }
+        public string PeriodSelection
+        {
+            get { return m_PeriodSelection; }
+            set { m_PeriodSelection=value; }
+
+        }
+        public DateTime RegistrationDate
+        {
+            get {  return m_RegistrationDate;}
+            set {   m_RegistrationDate=value;}
+        }
+
         #endregion
+
 
     }
 }
