@@ -437,9 +437,26 @@ namespace WealthERP.Advisor
         protected void CallAllGridBindingFunctions()
         {
             SetParameter();
-            BindgvSystematicMIS();
-            BindgvCalenderDetailView();
-            BindreptCalenderSummaryView();
+            GetDataFromDB();
+            if (dsBindGvSystematicMIS.Tables.Count != 0)
+            {
+                tblMessage.Visible = false;
+                ErrorMessage.Visible = false;
+                BindgvSystematicMIS();
+                BindgvCalenderDetailView();
+                BindreptCalenderSummaryView();
+            }
+            else
+            {
+                tblMessage.Visible = true;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
+            }
+        }
+
+        private void GetDataFromDB()
+        {
+            dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value));
         }
 
         private void SetParameter()
@@ -771,7 +788,7 @@ namespace WealthERP.Advisor
             {
 
              
-                dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value));
+               
                 
                 dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
                 dtSystematicMIS2 = dsBindGvSystematicMIS.Tables[1];

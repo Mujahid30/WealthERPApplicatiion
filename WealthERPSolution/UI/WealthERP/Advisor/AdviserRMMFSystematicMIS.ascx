@@ -137,10 +137,10 @@
       <td valign="middle" align="Right">
          <asp:Label ID="lblFromDate" Text="From:" runat="server" CssClass="FieldName">
          </asp:Label>
-         <span id="SpanFromDate" class="spnRequiredField">*</span>
+        
          </td>
          <td align="left">
-         <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox>
+         <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox> <span id="SpanFromDate" class="spnRequiredField">*</span>
          <ajaxToolkit:CalendarExtender ID="txtFrom_CalendarExtender" runat="server" TargetControlID="txtFrom" Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
          </ajaxToolkit:CalendarExtender>
          <ajaxToolkit:TextBoxWatermarkExtender ID="txtFrom_TextBoxWatermarkExtender" runat="server" TargetControlID="txtFrom" WatermarkText="dd/mm/yyyy" Enabled="True">
@@ -150,10 +150,10 @@
           </td>          
          <td valign="middle" align="Right">
              <asp:Label ID="lblToDate" runat="server" CssClass="FieldName" Text="To:"></asp:Label>
-             <span id="SpanToDate" class="spnRequiredField">*</span>
+             
              </td>
              <td align="left">
-              <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
+              <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox> <span id="SpanToDate" class="spnRequiredField">*</span>
               <ajaxToolkit:CalendarExtender ID="txtTo_CalendarExtender" runat="server" TargetControlID="txtTo" Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
                </ajaxToolkit:CalendarExtender>
                 <ajaxToolkit:TextBoxWatermarkExtender ID="txtTo_TextBoxWatermarkExtender" runat="server" TargetControlID="txtTo" WatermarkText="dd/mm/yyyy" Enabled="True">
@@ -295,14 +295,7 @@
         </td>
     </tr>
 </table>
-<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
-    <tr>
-    <td align="center">
-     <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
-    </div>
-    </td>
-    </tr>
- </table>
+
         </asp:Panel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="RadPageView2" runat="server">
@@ -429,6 +422,14 @@
     </telerik:RadPageView>
 </telerik:RadMultiPage>
 </div>
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+    <tr>
+    <td align="center">
+     <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+    </div>
+    </td>
+    </tr>
+ </table>
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
