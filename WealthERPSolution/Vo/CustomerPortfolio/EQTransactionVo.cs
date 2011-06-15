@@ -34,7 +34,7 @@ namespace VoCustomerPortfolio
         private float m_STT;
         private float m_OtherCharges;       
         private float m_RateInclBrokerage;        
-        private float m_TradeTotal;
+        private double m_TradeTotal;
         private string m_BrokerCode;
         private int m_IsSplit;        
         private int m_SplitTransactionId;
@@ -181,7 +181,7 @@ namespace VoCustomerPortfolio
             set { m_RateInclBrokerage = value; }
         }
         
-        public float TradeTotal
+        public double TradeTotal
         {
             get { return m_TradeTotal; }
             set { m_TradeTotal = value; }
