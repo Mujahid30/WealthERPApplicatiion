@@ -736,10 +736,7 @@ namespace WealthERP.Customer
 
         protected void btnGetSlab_Click(object sender, EventArgs e)
         {
-            if ((customerVo.Gender == "") && (customerVo.Dob == DateTime.MinValue) && (txtDob.Text == ""))
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
-            }
+           
             if (customerVo.Gender != "")
             {
                 if (customerVo.Gender == "M")
@@ -751,19 +748,30 @@ namespace WealthERP.Customer
             {
                 CalculateAge(DateTime.Parse(txtDob.Text));
             }
-            dsGetSlab = customerBo.GetCustomerTaxSlab(customerVo.CustomerId, years, hdnGender.Value);
-            if (dsGetSlab.Tables[0].Columns[0].ToString() != "Income")
+
+            if (((customerVo.Gender == "") && (customerVo.Dob == DateTime.MinValue)) && (txtDob.Text == ""))
             {
-                if(dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString() != null)
-                    txtSlab.Text = dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
             }
-            else if ((dsGetSlab.Tables[0].Rows[0]["Income"].ToString() == null) || (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() == "0"))
+            else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+                dsGetSlab = customerBo.GetCustomerTaxSlab(customerVo.CustomerId, years, hdnGender.Value);
             }
-            else if (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() != null)
+            if (dsGetSlab.Tables.Count != 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide the proper required customer information to get Tax slab..');", true);
+                if (dsGetSlab.Tables[0].Columns[0].ToString() != "Income")
+                {
+                    if (dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString() != null)
+                        txtSlab.Text = dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString();
+                }
+                else if ((dsGetSlab.Tables[0].Rows.Count == 0) || (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() == "0.00"))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+                }
+                else if (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide the proper required customer information to get Tax slab..');", true);
+                }
             }
         }
         public int CalculateAge(DateTime birthDate)
