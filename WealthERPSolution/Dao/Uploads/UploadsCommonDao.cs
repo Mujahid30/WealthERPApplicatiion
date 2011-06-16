@@ -283,7 +283,7 @@ namespace DaoUploads
                 db.AddInParameter(updateProcessCmd, "@ADUL_ModifiedBy", DbType.Int32, processlogVo.ModifiedBy);
                 db.AddInParameter(updateProcessCmd, "@U_UserId", DbType.Int32, processlogVo.UserId);
                 db.AddInParameter(updateProcessCmd, "@ADUL_Comment", DbType.String, processlogVo.Comment);
-                db.AddInParameter(updateProcessCmd, "@ADUL_EndTime", DbType.DateTime, processlogVo.EndTime);
+                db.AddInParameter(updateProcessCmd, "@ADUL_EndTime", DbType.DateTime,DateTime.Now);
                 db.AddInParameter(updateProcessCmd, "@ADUL_NoOfRejectRecords", DbType.Int32, processlogVo.NoOfRejectedRecords);
                 db.AddInParameter(updateProcessCmd, "@ADUL_NoOfCustomersCreated", DbType.Int32, processlogVo.NoOfCustomerInserted);
                 db.AddInParameter(updateProcessCmd, "@ADUL_NoOfAccountsCreated", DbType.Int32, processlogVo.NoOfAccountsInserted);
