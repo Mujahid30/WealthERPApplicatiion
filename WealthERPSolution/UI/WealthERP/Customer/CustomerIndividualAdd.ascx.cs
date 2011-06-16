@@ -714,7 +714,14 @@ namespace WealthERP.Customer
         // Functionality for Getting Customer Tax Slab
         protected void btnGetSlab_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+            if (((rbtnMale.Checked == true) || (rbtnFemale.Checked == true)) && (txtDob.Text != ""))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+            }
         }
         public int CalculateAge(DateTime birthDate)
         {
