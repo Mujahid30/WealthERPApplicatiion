@@ -52,7 +52,7 @@ namespace AmpsysJobDaemon
                     foreach (DataRow drMF in dsMFValuationDate.Tables[0].Rows)
                     {
                         MFValuationDate = DateTime.Parse(drMF["WTD_Date"].ToString());
-                        if (MFValuationDate != DateTime.Today)
+                        if (MFValuationDate != DateTime.Today || DateTime.Today.Hour>23)
                         {
                             if (drMF["STAT"].ToString() == "Pending. Changes Found")
                             {
