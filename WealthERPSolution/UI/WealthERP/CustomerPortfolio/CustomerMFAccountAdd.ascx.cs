@@ -585,8 +585,17 @@ namespace WealthERP.CustomerPortfolio
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFManualSingleTran','?prevPage=CustomerMFAccountAdd');", true);
                 }
+                else if (Request.QueryString["FromPage"] == "PortfolioSystematicEntry")
+                {
+                    Response.Redirect("ControlHost.aspx?pageid=PortfolioSystematicEntry&Folionumber=" + customerAccountsVo.AccountNum + "&FromPage=" + "CustomerMFAccountAdd", false);
+                    //Response.Redirect("ControlHost.aspx?pageid=PortfolioSystematicEntry&Folionumber=" + customerAccountsVo.AccountNum + "", false);
+                }
                 else
+                {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "message", "loadcontrol('CustomerMFFolioView');", true);
+                }
+
+                
                    
             }
             catch (BaseApplicationException Ex)
