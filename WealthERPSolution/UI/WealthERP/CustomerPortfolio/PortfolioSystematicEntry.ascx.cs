@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ using BoProductMaster;
 using WealthERP.Base;
 using VoUser;
 using BoCommon;
+
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -42,11 +44,11 @@ namespace WealthERP.CustomerPortfolio
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            portfolioId = customerAccountsVo.PortfolioId;
             // Check Querystring to see if its an Edit/View/Entry
             if (Request.QueryString["action"] != null)
                 Manage = Request.QueryString["action"].ToString();
-
+            path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             if (!IsPostBack)
             {
                 userVo = (UserVo)Session[SessionContents.UserVo];
@@ -58,6 +60,8 @@ namespace WealthERP.CustomerPortfolio
                 }
 
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                customerAccountsVo = (CustomerAccountsVo)Session[SessionContents.CustomerMFAccount];
+         
 
 
                 if (systematicSetupVo != null)
@@ -79,8 +83,206 @@ namespace WealthERP.CustomerPortfolio
                 {
                     SetControls("entry", systematicSetupVo, path);
                 }
+
+                if (Request.QueryString["FromPage"] == "CustomerMFAccountAdd")
+                {
+                    MaintainPageStateForControls();
+                }
             }
         
+        }
+
+        private void MaintainPageStateForControls()
+        {
+            if ((Session["SystematicHT"] != null) && (Session["SystematicHT"].ToString() != ""))
+            {
+                Hashtable hashRetainPreviousState = new Hashtable();
+                hashRetainPreviousState = (Hashtable)Session["SystematicHT"];
+
+                ddlSystematicType.SelectedItem.Value = hashRetainPreviousState["SystematicType"].ToString();
+                txtSearchScheme.Text = hashRetainPreviousState["SearchScheme"].ToString();
+                txtSwicthSchemeSearch.Text = hashRetainPreviousState["SwicthSchemeSearch"].ToString();
+                //ddlFolioNumber.SelectedValue = hashRetainPreviousState["FolioNumber"].ToString();
+                txtStartDate.Text = hashRetainPreviousState["StartDate"].ToString();
+                txtSipChequeDate.Text = hashRetainPreviousState["SipChequeDate"].ToString();
+                txtSipChecqueNo.Text = hashRetainPreviousState["SipChecqueNo"].ToString();
+                txtSchemeCode.Value = hashRetainPreviousState["SchemeCode"].ToString();
+                BindFolioDropDown();
+                if (Session["MaintainCheckBoxes"] != null)
+                {
+                    SetPreviousValuesForCheckboxes();
+                }
+                txtSystematicDate.Text = hashRetainPreviousState["SystematicDate"].ToString();
+                ddlFrequency.SelectedValue = hashRetainPreviousState["Frequency"].ToString();
+                txtAmount.Text = hashRetainPreviousState["Amount"].ToString();
+                txtPeriod.Text = hashRetainPreviousState["Period"].ToString();
+                ddlPeriodSelection.SelectedValue = hashRetainPreviousState["PeriodSelection"].ToString();
+                txtEndDate.Text = hashRetainPreviousState["EndDate"].ToString();
+                txtRegistrationDate.Text = hashRetainPreviousState["RegistrationDate"].ToString();
+                ddlPaymentMode.SelectedValue = hashRetainPreviousState["PaymentMode"].ToString();
+            }
+        }
+
+        private void SetPreviousValuesForCheckboxes()
+        {
+            Hashtable hashSetPreviousValuesForCheckboxes = new Hashtable();
+            hashSetPreviousValuesForCheckboxes = (Hashtable)Session["MaintainCheckBoxes"];
+            if (hashSetPreviousValuesForCheckboxes["chkDate1"] == "1")
+                chkDate1.Checked = true;
+            else
+                chkDate1.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate2"] == "1")
+                chkDate2.Checked = true;
+            else
+                chkDate2.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate3"] == "1")
+                chkDate3.Checked = true;
+            else
+                chkDate3.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate4"] == "1")
+                chkDate4.Checked = true;
+            else
+                chkDate4.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate5"] == "1")
+                chkDate5.Checked = true;
+            else
+                chkDate5.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate6"] == "1")
+                chkDate6.Checked = true;
+            else
+                chkDate6.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate7"] == "1")
+                chkDate7.Checked = true;
+            else
+                chkDate7.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate8"] == "1")
+                chkDate8.Checked = true;
+            else
+                chkDate8.Checked = false;
+
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate9"] == "1")
+                chkDate9.Checked = true;
+            else
+                chkDate9.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate10"] == "1")
+                chkDate10.Checked = true;
+            else
+                chkDate10.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate11"] == "1")
+                chkDate11.Checked = true;
+            else
+                chkDate11.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate12"] == "1")
+                chkDate12.Checked = true;
+            else
+                chkDate12.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate13"] == "1")
+                chkDate13.Checked = true;
+            else
+                chkDate13.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate13"] == "1")
+                chkDate13.Checked = true;
+            else
+                chkDate13.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate14"] == "1")
+                chkDate14.Checked = true;
+            else
+                chkDate14.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate15"] == "1")
+                chkDate15.Checked = true;
+            else
+                chkDate15.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate16"] == "1")
+                chkDate16.Checked = true;
+            else
+                chkDate16.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate17"] == "1")
+                chkDate17.Checked = true;
+            else
+                chkDate17.Checked = false;
+            if (hashSetPreviousValuesForCheckboxes["chkDate18"] == "1")
+                chkDate18.Checked = true;
+            else
+                chkDate18.Checked = false;
+            if (hashSetPreviousValuesForCheckboxes["chkDate19"] == "1")
+                chkDate19.Checked = true;
+            else
+                chkDate19.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate20"] == "1")
+                chkDate20.Checked = true;
+            else
+                chkDate20.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate21"] == "1")
+                chkDate21.Checked = true;
+            else
+                chkDate21.Checked = false;
+            if (hashSetPreviousValuesForCheckboxes["chkDate22"] == "1")
+                chkDate22.Checked = true;
+            else
+                chkDate22.Checked = false;
+            if (hashSetPreviousValuesForCheckboxes["chkDate23"] == "1")
+                chkDate23.Checked = true;
+            else
+                chkDate23.Checked = false;
+            if (hashSetPreviousValuesForCheckboxes["chkDate24"] == "1")
+                chkDate24.Checked = true;
+            else
+                chkDate24.Checked = false;
+            if (hashSetPreviousValuesForCheckboxes["chkDate25"] == "1")
+                chkDate25.Checked = true;
+            else
+                chkDate25.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate26"] == "1")
+                chkDate26.Checked = true;
+            else
+                chkDate26.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate27"] == "1")
+                chkDate27.Checked = true;
+            else
+                chkDate27.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate28"] == "1")
+                chkDate28.Checked = true;
+            else
+                chkDate28.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate29"] == "1")
+                chkDate29.Checked = true;
+            else
+                chkDate29.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate30"] == "1")
+                chkDate30.Checked = true;
+            else
+                chkDate30.Checked = false;
+
+            if (hashSetPreviousValuesForCheckboxes["chkDate31"] == "1")
+                chkDate31.Checked = true;
+            else
+                chkDate31.Checked = false;
+
+
         }
 
         /// <summary>
@@ -108,17 +310,17 @@ namespace WealthERP.CustomerPortfolio
             ddlFrequency.DataBind();
             ddlFrequency.Items.Insert(0, "Select Frequency");
 
-            //Bind the Customer Account Details to dropdown
-            if(schemePlanCode!=0)
-                dsCustomerMFAccounts = customerAccountBo.GetCustomerMFAccounts(portfolioId, AssetGroupCode, schemePlanCode);
-            else
-                dsCustomerMFAccounts = customerAccountBo.GetCustomerMFAccounts(portfolioId, AssetGroupCode, 0);
+            ////Bind the Customer Account Details to dropdown
+            //if (schemePlanCode != 0)
+            //    dsCustomerMFAccounts = customerAccountBo.GetCustomerMFAccounts(portfolioId, AssetGroupCode, schemePlanCode);
+            //else
+            //    dsCustomerMFAccounts = customerAccountBo.GetCustomerMFAccounts(portfolioId, AssetGroupCode, 0);
 
-            ddlMFAccount.DataSource = dsCustomerMFAccounts.Tables[0];
-            ddlMFAccount.DataTextField = "CMFA_FolioNum";
-            ddlMFAccount.DataValueField = "CMFA_AccountId";
-            ddlMFAccount.DataBind();
-            ddlMFAccount.Items.Insert(0, "Select a Folio");
+            //ddlFolioNumber.DataSource = dsCustomerMFAccounts.Tables[0];
+            //ddlFolioNumber.DataTextField = "CMFA_FolioNum";
+            //ddlFolioNumber.DataValueField = "CMFA_AccountId";
+            //ddlFolioNumber.DataBind();
+            //ddlFolioNumber.Items.Insert(0, "Select a Folio");
 
         }
 
@@ -132,6 +334,7 @@ namespace WealthERP.CustomerPortfolio
         private void SetControls(string action, SystematicSetupVo systematicSetupVo, string path)
         {
             BindDropDowns(path);
+            BindFolioDropDown();
 
             EnableDisableControls(action);
 
@@ -142,7 +345,7 @@ namespace WealthERP.CustomerPortfolio
                     txtStartDate_CalendarExtender.Enabled = true;
                     txtStartDate_TextBoxWatermarkExtender.Enabled = true;
                     ddlSystematicType.SelectedIndex = -1;
-                    ddlMFAccount.SelectedIndex = -1;
+                    ddlFolioNumber.SelectedIndex = -1;
                     txtStartDate.Text = "";
                     txtSystematicDate.Text = "";
                     ddlFrequency.SelectedIndex = -1;
@@ -161,7 +364,7 @@ namespace WealthERP.CustomerPortfolio
                     txtStartDate_CalendarExtender.Enabled = true;
                     txtStartDate_TextBoxWatermarkExtender.Enabled = true;
                     ddlSystematicType.SelectedValue = systematicSetupVo.SystematicTypeCode.Trim();
-                    ddlMFAccount.SelectedValue = systematicSetupVo.AccountId.ToString();
+                    ddlFolioNumber.SelectedValue = systematicSetupVo.AccountId.ToString();
                     txtSearchScheme.Text = systematicSetupVo.SchemePlan.ToString();
                     txtSchemeCode.Value = systematicSetupVo.SchemePlanCode.ToString();
                     if (systematicSetupVo.SchemePlan != "")
@@ -194,7 +397,7 @@ namespace WealthERP.CustomerPortfolio
                         //txtSwitchSchemeCode.Value = systematicSetupVo.SchemePlanCodeSwitch.ToString();
                     }
                 }
-                ddlMFAccount.SelectedValue = systematicSetupVo.AccountId.ToString();
+                ddlFolioNumber.SelectedValue = systematicSetupVo.AccountId.ToString();
                 txtSearchScheme.Text = systematicSetupVo.SchemePlan.ToString();
                 txtSchemeCode.Value = systematicSetupVo.SchemePlanCode.ToString();
                 txtStartDate.Text = systematicSetupVo.StartDate.ToShortDateString();
@@ -206,7 +409,10 @@ namespace WealthERP.CustomerPortfolio
                 //tsPeriod=systematicSetupVo.EndDate.Subtract(systematicSetupVo.StartDate);
                 //txtPeriod.Text = (-12 * (systematicSetupVo.StartDate.Year - systematicSetupVo.EndDate.Year) + systematicSetupVo.StartDate.Month - systematicSetupVo.EndDate.Month).ToString();
                 systematicSetupId = systematicSetupVo.SystematicSetupId;
-                txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
+                if (txtSipChequeDate.Text != "")
+                    txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
+                else
+                    txtSipChequeDate.Text = "";
                 txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
                 //if (txtSipChequeDate.Text != "")
                 //    txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
@@ -217,15 +423,17 @@ namespace WealthERP.CustomerPortfolio
                 //else
                 //    txtSipChecqueNo.Text = "";
 
-                ddlPeriodSelection.Text = ddlPeriodSelection.SelectedValue.ToString();
+                ddlPeriodSelection.SelectedValue = systematicSetupVo.FrequencyCode;
                 if (txtRegistrationDate.Text != "")
                     txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToString();
                 else
                     txtRegistrationDate.Text = "";
-                if (ddlPaymentMode.SelectedValue != "")
-                    ddlPaymentMode.SelectedValue = systematicSetupVo.PaymentMode;
-                else
-                    ddlPaymentMode.SelectedValue = ""; 
+
+                if (systematicSetupVo.PaymentModeCode == "PD")
+                    ddlPaymentMode.SelectedValue = "PD";
+                else if (systematicSetupVo.PaymentModeCode == "ES")
+                    ddlPaymentMode.SelectedValue = "ES";
+    
             }
 
         }
@@ -239,7 +447,7 @@ namespace WealthERP.CustomerPortfolio
             if (action == "view")
             {
                 ddlSystematicType.Enabled = false;
-                ddlMFAccount.Enabled = false;
+                ddlFolioNumber.Enabled = false;
                 txtSearchScheme.Enabled = false;
                 txtStartDate.Enabled = false;
                 //chkDate1.Enabled = false;
@@ -289,6 +497,7 @@ namespace WealthERP.CustomerPortfolio
                 txtRegistrationDate.Enabled = false;
                 txtEndDate.Enabled = false;
                 btnSubmit.Visible = false;
+                btnAddFolio.Visible = false;
                 if (systematicSetupVo.SystematicTypeCode == "SIP")
                 {
                     trSipChequeNo.Visible = true;
@@ -325,7 +534,7 @@ namespace WealthERP.CustomerPortfolio
             else if (action == "entry")
             {
                 ddlSystematicType.Enabled = true;
-                ddlMFAccount.Enabled = true;
+                ddlFolioNumber.Enabled = true;
                 txtSearchScheme.Enabled = true;
                 txtStartDate.Enabled = true;
                 chkDate1.Enabled = true;
@@ -380,7 +589,7 @@ namespace WealthERP.CustomerPortfolio
             else if (action == "edit")
             {
                 ddlSystematicType.Enabled = true;
-                ddlMFAccount.Enabled = true;
+                ddlFolioNumber.Enabled = true;
                 txtSearchScheme.Enabled = true;
                 txtStartDate.Enabled = true;
                 //chkDate1.Enabled = true;
@@ -434,10 +643,10 @@ namespace WealthERP.CustomerPortfolio
                     trPaymentMode.Visible = true;
                     ddlPaymentMode.Enabled = true;
 
-                    if (systematicSetupVo.PaymentModeCode == "PD")
-                        ddlPaymentMode.SelectedItem.Text = "PDC";
-                    else if (systematicSetupVo.PaymentModeCode == "ES")
-                        ddlPaymentMode.SelectedItem.Text = "ECS";
+                    //if (systematicSetupVo.PaymentModeCode == "PD")
+                    //    ddlPaymentMode.SelectedItem.Text = "PDC";
+                    //else if (systematicSetupVo.PaymentModeCode == "ES")
+                    //    ddlPaymentMode.SelectedItem.Text = "ECS";
                 }
 
                 if (systematicSetupVo.SystematicTypeCode == "SIP")
@@ -465,9 +674,9 @@ namespace WealthERP.CustomerPortfolio
                 if(systematicSetupVo.FrequencyCode == "DA")
                     ddlPeriodSelection.SelectedItem.Text = "Days";
                 if(systematicSetupVo.FrequencyCode=="MN")
-                    ddlPeriodSelection.SelectedItem.Text="Months";
+                    ddlPeriodSelection.SelectedItem.Text = "Months";
                 if(systematicSetupVo.FrequencyCode=="YR")
-                     ddlPeriodSelection.SelectedItem.Text="Years";
+                    ddlPeriodSelection.SelectedItem.Text = "Years";
                 //ddlPeriodSelection. = systematicSetupVo.FrequencyCode;
                 btnSubmit.Text = "Update";
 
@@ -482,11 +691,11 @@ namespace WealthERP.CustomerPortfolio
         /// <param name="e"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (ddlPaymentMode.SelectedItem.Value == "ECS")
+            if (ddlPaymentMode.SelectedItem.Value == "ES")
             {
                 hdnddlPaymentMode.Value = "ES";
             }
-            else if (ddlPaymentMode.SelectedItem.Value == "PDC")
+            else if (ddlPaymentMode.SelectedItem.Value == "PD")
             {
                 hdnddlPaymentMode.Value = "PD";
             }
@@ -509,9 +718,12 @@ namespace WealthERP.CustomerPortfolio
             {
                 systematicSetupVo = (SystematicSetupVo)Session["systematicSetupVo"];
             }
-            systematicSetupVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);
+            if (txtSchemeCode.Value.ToString() != "")
+                systematicSetupVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);
+            else
+                systematicSetupVo.SystematicTypeCode = null;
             systematicSetupVo.SystematicTypeCode = ddlSystematicType.SelectedItem.Value.ToString();
-            systematicSetupVo.AccountId = int.Parse(ddlMFAccount.SelectedItem.Value.ToString());
+            systematicSetupVo.AccountId = int.Parse(ddlFolioNumber.SelectedItem.Value.ToString());
             systematicSetupVo.StartDate = DateTime.Parse(txtStartDate.Text.ToString());
             systematicSetupVo.FrequencyCode = ddlFrequency.SelectedItem.Value.ToString();
             systematicSetupVo.Amount = double.Parse(txtAmount.Text.ToString().Trim());
@@ -534,10 +746,10 @@ namespace WealthERP.CustomerPortfolio
                 systematicSetupVo.RegistrationDate = DateTime.MinValue;
             systematicSetupVo.PeriodSelection = ddlPeriodSelection.SelectedItem.Value.ToString();
             //systematicSetupVo.EndDate = DateTime.Parse(txtEndDate.Text);
-            if (ddlPaymentMode.SelectedItem.Value.ToString() != "")
-                systematicSetupVo.PaymentMode = ddlPaymentMode.SelectedItem.Value.ToString();
-            else
-                systematicSetupVo.PaymentMode = null;
+            //if (ddlPaymentMode.SelectedItem.Value.ToString() != "")
+            //    systematicSetupVo.PaymentMode = ddlPaymentMode.SelectedItem.Value.ToString();
+            //else
+            //    systematicSetupVo.PaymentMode = null;
 
             systematicSetupVo.PaymentModeCode = hdnddlPaymentMode.Value;
             systematicSetupVo.SourceCode = "WP";
@@ -751,15 +963,15 @@ namespace WealthERP.CustomerPortfolio
         private DateTime CalcEndDate(int period, DateTime startDate)
         {
             DateTime endDate = new DateTime();
-            if (ddlPeriodSelection.SelectedItem.Value == "Days")
+            if (ddlPeriodSelection.SelectedItem.Value == "DA")
             {
                 endDate = startDate.AddDays(period);
             }
-            else if (ddlPeriodSelection.SelectedItem.Value == "Months")
+            else if (ddlPeriodSelection.SelectedItem.Value == "MN")
             {
                 endDate = startDate.AddMonths(period);
             }
-            else if (ddlPeriodSelection.SelectedItem.Value == "Years")
+            else if (ddlPeriodSelection.SelectedItem.Value == "YR")
             {
                 endDate = startDate.AddYears(period);
             }
@@ -784,8 +996,29 @@ namespace WealthERP.CustomerPortfolio
         {
             schemePlanCode = int.Parse(txtSchemeCode.Value.ToString());
             txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = schemePlanCode.ToString();
+            BindFolioDropDown();
             //path=Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             //BindDropDowns(path);
+        }
+    /// <summary>
+    /// Binding the Folio number according to the selection of Scheme name.
+    /// </summary>
+        private void BindFolioDropDown()
+        {
+            portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+            if (txtSchemeCode.Value != "")
+                schemePlanCode = Convert.ToInt32(txtSchemeCode.Value);
+            //portfolioId = customerAccountsVo.PortfolioId;
+            if (schemePlanCode != 0)
+                dsCustomerMFAccounts = customerAccountBo.GetCustomerMFAccounts(portfolioId, AssetGroupCode, schemePlanCode);
+            else
+                dsCustomerMFAccounts = customerAccountBo.GetCustomerMFAccounts(portfolioId, AssetGroupCode, 0);
+
+            ddlFolioNumber.DataSource = dsCustomerMFAccounts.Tables[0];
+            ddlFolioNumber.DataTextField = "CMFA_FolioNum";
+            ddlFolioNumber.DataValueField = "CMFA_AccountId";
+            ddlFolioNumber.DataBind();
+            ddlFolioNumber.Items.Insert(0, "Select a Folio");
         }
 
         protected void ddlSystematicType_SelectedIndexChanged(object sender, EventArgs e)
@@ -794,7 +1027,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 Session["SystematicType"] = "STP";
                 trSwitchScheme.Visible = true;
-                lblScheme.Text = "Choose Transaction Scheme";
+                lblScheme.Text = "Choose Invested Scheme";
                 trPaymentMode.Visible = true;
                 trSipChequeDate.Visible = false;
                 trSipChequeNo.Visible = false;
@@ -803,7 +1036,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 Session["SystematicType"] = "SIP";
                 trSwitchScheme.Visible = false;
-                lblScheme.Text = "Choose Invested Scheme";
+                lblScheme.Text = "Choose Scheme";
                 trPaymentMode.Visible = true;
                 trSipChequeDate.Visible = true;
                 trSipChequeNo.Visible = true;
@@ -813,7 +1046,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 Session["SystematicType"] = "SWP";
                 trSwitchScheme.Visible = false;
-                lblScheme.Text = "Choose Withdraw Scheme";
+                lblScheme.Text = "Choose Invested Scheme";
                 trPaymentMode.Visible = false;
                 trSipChequeDate.Visible = false;
                 trSipChequeNo.Visible = false;
@@ -828,6 +1061,173 @@ namespace WealthERP.CustomerPortfolio
         {
             txtEndDate.Text = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString())).ToShortDateString();
         }
+
+        protected void txtPeriod_TextChanged(object sender, EventArgs e)
+        {
+            txtEndDate.Text = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString())).ToShortDateString();
+ 
+        }
+
+        protected void btnAddFolio_Click(object sender, EventArgs e)
+        {
+             SaveCurrentPageState();
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?FromSysPage=PortfolioSystematicEntry');", true);
+            Response.Redirect("ControlHost.aspx?pageid=CustomerMFAccountAdd&FromPage=" + "PortfolioSystematicEntry", false);
+        }
+
+        private void SaveCurrentPageState()
+        {
+            Hashtable hashSaveCurrentPageStatus = new Hashtable();
+            hashSaveCurrentPageStatus.Add("SystematicType", ddlSystematicType.SelectedItem.Value);
+            hashSaveCurrentPageStatus.Add("SearchScheme", txtSearchScheme.Text);
+            hashSaveCurrentPageStatus.Add("SchemeCode", txtSchemeCode.Value);
+            hashSaveCurrentPageStatus.Add("SwicthSchemeSearch", txtSwicthSchemeSearch.Text);
+            //hashSaveCurrentPageStatus.Add("FolioNumber", ddlFolioNumber.SelectedValue);
+            hashSaveCurrentPageStatus.Add("StartDate", txtStartDate.Text);
+            hashSaveCurrentPageStatus.Add("SipChequeDate", txtSipChequeDate.Text);
+            hashSaveCurrentPageStatus.Add("SipChecqueNo", txtSipChecqueNo.Text);
+            SaveCheckboxes();
+            hashSaveCurrentPageStatus.Add("SystematicDate", txtSystematicDate.Text);
+            hashSaveCurrentPageStatus.Add("Frequency", ddlFrequency.SelectedValue);
+            hashSaveCurrentPageStatus.Add("Amount", txtAmount.Text);
+            hashSaveCurrentPageStatus.Add("Period", txtPeriod.Text);
+            hashSaveCurrentPageStatus.Add("PeriodSelection", ddlPeriodSelection.SelectedValue);
+            hashSaveCurrentPageStatus.Add("EndDate", txtEndDate.Text);
+            hashSaveCurrentPageStatus.Add("RegistrationDate", txtRegistrationDate.Text);
+            hashSaveCurrentPageStatus.Add("PaymentMode", ddlPaymentMode.SelectedValue);
+
+            Session["SystematicHT"] = hashSaveCurrentPageStatus;
+        }
+
+        private void SaveCheckboxes()
+        {
+            Hashtable hashSavecheckBoxes = new Hashtable();
+            if (chkDate1.Checked == true)
+                hashSavecheckBoxes.Add("chkDate1", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate1", 0);
+            if (chkDate2.Checked == true)
+                hashSavecheckBoxes.Add("chkDate2", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate2", 0);
+            if (chkDate3.Checked == true)
+                hashSavecheckBoxes.Add("chkDate3", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate3", 0);
+            if (chkDate4.Checked == true)
+                hashSavecheckBoxes.Add("chkDate4", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate4", 0);
+            if (chkDate5.Checked == true)
+                hashSavecheckBoxes.Add("chkDate5", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate5", 0);
+            if (chkDate6.Checked == true)
+                hashSavecheckBoxes.Add("chkDate6", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate6", 0);
+            if (chkDate7.Checked == true)
+                hashSavecheckBoxes.Add("chkDate7", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate7", 0);
+            if (chkDate8.Checked == true)
+                hashSavecheckBoxes.Add("chkDate8", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate8", 0);
+            if (chkDate10.Checked == true)
+                hashSavecheckBoxes.Add("chkDate10", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate10", 0);
+
+            if (chkDate11.Checked == true)
+                hashSavecheckBoxes.Add("chkDate11", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate11", 0);
+            if (chkDate12.Checked == true)
+                hashSavecheckBoxes.Add("chkDate12", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate12", 0);
+            if (chkDate13.Checked == true)
+                hashSavecheckBoxes.Add("chkDate13", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate13", 0);
+            if (chkDate14.Checked == true)
+                hashSavecheckBoxes.Add("chkDate14", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate14", 0);
+            if (chkDate15.Checked == true)
+                hashSavecheckBoxes.Add("chkDate15", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate15", 0);
+            if (chkDate16.Checked == true)
+                hashSavecheckBoxes.Add("chkDate16", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate16", 0);
+            if (chkDate17.Checked == true)
+                hashSavecheckBoxes.Add("chkDate17", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate17", 0);
+            if (chkDate18.Checked == true)
+                hashSavecheckBoxes.Add("chkDate18", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate18", 0);
+            if (chkDate19.Checked == true)
+                hashSavecheckBoxes.Add("chkDate19", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate19", 0);
+            if (chkDate20.Checked == true)
+                hashSavecheckBoxes.Add("chkDate20", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate20", 0);
+            if (chkDate21.Checked == true)
+                hashSavecheckBoxes.Add("chkDate21", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate21", 0);
+            if (chkDate22.Checked == true)
+                hashSavecheckBoxes.Add("chkDate22", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate22", 0);
+            if (chkDate23.Checked == true)
+                hashSavecheckBoxes.Add("chkDate23", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate23", 0);
+            if (chkDate24.Checked == true)
+                hashSavecheckBoxes.Add("chkDate24", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate24", 0);
+            if (chkDate25.Checked == true)
+                hashSavecheckBoxes.Add("chkDate25", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate25", 0);
+            if (chkDate26.Checked == true)
+                hashSavecheckBoxes.Add("chkDate26", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate26", 0);
+            if (chkDate27.Checked == true)
+                hashSavecheckBoxes.Add("chkDate27", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate27", 0);
+            if (chkDate28.Checked == true)
+                hashSavecheckBoxes.Add("chkDate28", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate28", 0);
+            if (chkDate29.Checked == true)
+                hashSavecheckBoxes.Add("chkDate29", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate29", 0);
+            if (chkDate30.Checked == true)
+                hashSavecheckBoxes.Add("chkDate30", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate30", 0);
+            if (chkDate31.Checked == true)
+                hashSavecheckBoxes.Add("chkDate31", 1);
+            else
+                hashSavecheckBoxes.Add("chkDate31", 0);
+
+            Session["MaintainCheckBoxes"] = hashSavecheckBoxes;
+        }
+        
+
 
       }
 }

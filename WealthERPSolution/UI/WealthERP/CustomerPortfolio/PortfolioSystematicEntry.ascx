@@ -36,6 +36,7 @@
 
             return false;
         };
+
     </script>
 <table class="TableBackground" style="width: 100%">
     <tr>
@@ -79,74 +80,15 @@
     </tr>
     <tr>
         <td class="leftField" width="25%">
-            <asp:Label ID="lblMFAccount" runat="server" Text="Folio:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlMFAccount" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <span id="Span6" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="cvMFAccount" runat="server" ErrorMessage="<br />Select a Folio"
-                ControlToValidate="ddlMFAccount" class="rfvPCG" Operator="NotEqual"
-                ValueToCompare="Select a Folio" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
-        </td>
-        <td>
-          <%--  <asp:CompareValidator ID="cvMFAccount" runat="server" ErrorMessage="Select a Folio"
-                ValidationGroup="MFSubmit" ControlToValidate="ddlMFAccount" class="rfvPCG" Operator="NotEqual"
-                ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>--%>
-        </td>
-    </tr>
-    <tr id="trSipChequeDate" runat="server" visible="false">
-       <td class="leftField" width="25%">
-            <asp:Label ID="lblSipChequeDate" runat="server" Text="First SIP Cheque Date: " CssClass="FieldName"></asp:Label>
-        
-        </td>
-        <td>
-        <asp:TextBox ID="txtSipChequeDate" runat="server" CssClass="txtField"></asp:TextBox>
-          <cc1:CalendarExtender ID="SipChequeDate_CalendarExtender" runat="server" TargetControlID="txtSipChequeDate"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="SipChequeDate_TextBoxWatermarkExtender" runat="server"
-                TargetControlID="txtSipChequeDate" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-            <%--<span id="Span8" class="spnRequiredField">*</span>--%>
-           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtSipChequeDate"
-                ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter SIP Cheque Date" Display="Dynamic"
-                runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>--%>
-        </td>
-        <td>
-          <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtSipChequeDate" ErrorMessage="Please select a SIP Cheque Date"
-                Display="Dynamic" runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
-                Type="Date" ControlToValidate="txtSipChequeDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
-        </td>
-    </tr>
-        <tr id="trSipChequeNo" runat="server" visible="false">
-       <td class="leftField" width="25%">
-            <asp:Label ID="lblSipChequeNo" runat="server" Text="First SIP Cheque No.: " CssClass="FieldName"></asp:Label>
-        
-        </td>
-        <td>
-        <asp:TextBox ID="txtSipChecqueNo" runat="server" CssClass="txtField"></asp:TextBox>
-         <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="<br/>Enter a numeric value"
-                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtSipChecqueNo" ValidationGroup="btnSubmit" Operator="DataTypeCheck"
-                Display="Dynamic"></asp:CompareValidator>
-        </td>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField" width="25%">
             <asp:Label ID="lblScheme" runat="server" Text="Choose Scheme:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
-                                    <asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtField" AutoComplete="Off"
-                                        ></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
+                                    <asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="true">
+                                    </asp:TextBox>
+                                    <cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
                                             runat="server" TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
-                                        </cc1:TextBoxWatermarkExtender>
+                                    </cc1:TextBoxWatermarkExtender>
                                     <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
                                         TargetControlID="txtSearchScheme" ServiceMethod="GetSchemeList" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                         MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
@@ -183,7 +125,7 @@
                     
                 </td>
             </tr>
-            <tr>
+    <tr>
             <td>&nbsp;</td>
             
             <td>
@@ -196,6 +138,24 @@
                                        </td>
            
             </tr>
+    <tr>
+        <td class="leftField" width="25%">
+            <asp:Label ID="lblMFAccount" runat="server" Text="Folio:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlFolioNumber" runat="server" CssClass="cmbField" >
+            </asp:DropDownList>
+            <span id="Span6" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="cvMFAccount" runat="server" ErrorMessage="<br />Select a Folio"
+                ControlToValidate="ddlFolioNumber" class="rfvPCG" Operator="NotEqual"
+                ValueToCompare="Select a Folio" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+        </td>
+        <td>
+         <asp:Button ID="btnAddFolio" runat="server" Text="AddFolio" CssClass="PCGButton" 
+                onclick="btnAddFolio_Click" style="height: 26px" 
+                />
+        </td>
+    </tr>
     <tr>
         <td class="leftField" width="25%">
             <asp:Label ID="lblStartDate" runat="server" Text="Start date:" CssClass="FieldName"></asp:Label>
@@ -215,14 +175,55 @@
             </asp:RequiredFieldValidator>
         </td>
         <td>
-            <asp:RequiredFieldValidator ID="rfvStartDate" ControlToValidate="txtStartDate" ErrorMessage="Please select a Start Date"
-                Display="Dynamic" runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvStartDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtStartDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
+    <tr id="trSipChequeDate" runat="server" visible="false">
+       <td class="leftField" width="25%">
+            <asp:Label ID="lblSipChequeDate" runat="server" Text="First SIP Cheque Date: " CssClass="FieldName"></asp:Label>
+        
+        </td>
+        <td>
+        <asp:TextBox ID="txtSipChequeDate" runat="server" CssClass="txtField"></asp:TextBox>
+          <cc1:CalendarExtender ID="SipChequeDate_CalendarExtender" runat="server" TargetControlID="txtSipChequeDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="SipChequeDate_TextBoxWatermarkExtender" runat="server"
+                TargetControlID="txtSipChequeDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <%--<span id="Span8" class="spnRequiredField">*</span>--%>
+           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtSipChequeDate"
+                ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter SIP Cheque Date" Display="Dynamic"
+                runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>--%>
+        </td>
+        <td>
+
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtSipChequeDate" Operator="DataTypeCheck" CssClass="cvPCG"
+                Display="Dynamic"></asp:CompareValidator>
+        </td>
+    </tr>
+        <tr id="trSipChequeNo" runat="server" visible="false">
+       <td class="leftField" width="25%">
+            <asp:Label ID="lblSipChequeNo" runat="server" Text="First SIP Cheque No.: " CssClass="FieldName"></asp:Label>
+        
+        </td>
+        <td>
+        <asp:TextBox ID="txtSipChecqueNo" runat="server" CssClass="txtField"></asp:TextBox>
+         <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="<br/>Enter a numeric value"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtSipChecqueNo" ValidationGroup="btnSubmit" Operator="DataTypeCheck"
+                Display="Dynamic"></asp:CompareValidator>
+        </td>
+        <td>
+        </td>
+    </tr>
+    
+    
+            
+    
     <tr id="trSystematicDateChk1" runat="server">
         <td width="25%" class="leftField">
             <asp:Label ID="lblSystematicDate" runat="server" Text="Date of Systematic Trx:" CssClass="FieldName"></asp:Label>
@@ -331,19 +332,26 @@
             <asp:Label ID="lblPeriod" runat="server" Text="Period of Systematic Trx:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtPeriod" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPeriod" runat="server" CssClass="txtField" 
+                AutoPostBack="true" ValidationGroup="MFSubmit" CausesValidation="true" ontextchanged="txtPeriod_TextChanged" ></asp:TextBox>
             <span id="Span5" class="spnRequiredField">*</span>
             <asp:DropDownList ID="ddlPeriodSelection" runat="server" AutoPostBack="true" 
-                CssClass="cmbField" 
+                CssClass="cmbField" CausesValidation="true" ValidationGroup="MFSubmit"
                 onselectedindexchanged="ddlPeriodSelection_SelectedIndexChanged" >
-            <asp:ListItem>Days</asp:ListItem>
-            <asp:ListItem>Months</asp:ListItem>
-            <asp:ListItem>Years</asp:ListItem>
+            <%--<asp:ListItem>Select</asp:ListItem>  --%> 
+            <asp:ListItem Text="Days" Value="DA"></asp:ListItem>
+            <asp:ListItem Text="Months" Value="MN"></asp:ListItem>
+            <asp:ListItem Text="Years" Value="YR"></asp:ListItem>
             </asp:DropDownList>
+           <%-- <span id="Span8" class="spnRequiredField">*</span>--%>
             <%--<asp:Label ID="lblMonths" runat="server" Text="in Months" CssClass="txtField"></asp:Label>--%>
              <asp:RequiredFieldValidator ID="rfvPeriod" ControlToValidate="txtPeriod" ErrorMessage="<br />Please Enter a Period"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="MFSubmit">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>&nbsp;&nbsp;
+<%--             <asp:CompareValidator ID="CompareValidator_ddlPeriodSelection" runat="server"
+                ControlToValidate="ddlPeriodSelection" ErrorMessage="<br />Please select any Period Type from the Dropdown"
+                Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
+            </asp:CompareValidator>--%>
         </td>
         <td>
 
@@ -368,12 +376,12 @@
             </asp:RequiredFieldValidator>--%>
         </td>
         <td>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtEndDate" ErrorMessage="Please select a End Date"
+ <%--       <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtEndDate" ErrorMessage="Please select a End Date"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtEndDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                Display="Dynamic"></asp:CompareValidator>--%>
         </td>
     </tr>
         <tr>
@@ -390,9 +398,9 @@
             </cc1:TextBoxWatermarkExtender>
         </td>
         <td>
-         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtRegistrationDate" ErrorMessage="Please select a Registration Date"
+       <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtRegistrationDate" ErrorMessage="Please select a Registration Date"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtRegistrationDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic"></asp:CompareValidator>
@@ -405,8 +413,8 @@
         <td>
         <asp:HiddenField ID="hdnddlPaymentMode" runat="server" />
        <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField">
-         <asp:ListItem Text="ECS" Value="ECS"></asp:ListItem>
-         <asp:ListItem Text="PDC" Value="PDC"></asp:ListItem>
+         <asp:ListItem Text="ECS" Value="ES"></asp:ListItem>
+         <asp:ListItem Text="PDC" Value="PD"></asp:ListItem>
        </asp:DropDownList>
         </td>
         <td>
