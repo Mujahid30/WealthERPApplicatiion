@@ -2677,10 +2677,6 @@
       <Project>{185F42DE-55D9-42DA-994E-F8E4DF385D0D}</Project>
       <Name>BoWerpAdmin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Bo\Calculator\BoCalculator.csproj">
-      <Project>{2D02B850-6EB4-439D-9754-61E2AE98BB4B}</Project>
-      <Name>BoCalculator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Bo\Common\BoCommon\BoCommon.csproj">
       <Project>{F034F6F7-2938-4126-921E-9847633F0624}</Project>
       <Name>BoCommon</Name>
