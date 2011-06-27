@@ -2677,6 +2677,10 @@
       <Project>{185F42DE-55D9-42DA-994E-F8E4DF385D0D}</Project>
       <Name>BoWerpAdmin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Bo\Calculator\BoCalculator.csproj">
+      <Project>{2D02B850-6EB4-439D-9754-61E2AE98BB4B}</Project>
+      <Name>BoCalculator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Bo\Common\BoCommon\BoCommon.csproj">
       <Project>{F034F6F7-2938-4126-921E-9847633F0624}</Project>
       <Name>BoCommon</Name>
@@ -3091,6 +3095,7 @@
     <Content Include="bin\BoUploads.pdb" />
     <Content Include="bin\BoUser.pdb" />
     <Content Include="bin\BoWerpAdmin.pdb" />
+    <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
     <Content Include="bin\DaoAdvisorProfiling.pdb" />
     <Content Include="bin\DaoCustomerGoalProfiling.pdb" />
     <Content Include="bin\DaoCustomerPortfolio.pdb" />
@@ -3101,6 +3106,9 @@
     <Content Include="bin\DaoReports.pdb" />
     <Content Include="bin\DaoUser.pdb" />
     <Content Include="bin\DaoWerpAdmin.pdb" />
+    <Content Include="bin\Financial.dll" />
+    <Content Include="bin\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\Telerik.Web.UI.dll" />
     <Content Include="bin\DaoCaching.dll" />
     <Content Include="bin\DaoCaching.pdb" />
