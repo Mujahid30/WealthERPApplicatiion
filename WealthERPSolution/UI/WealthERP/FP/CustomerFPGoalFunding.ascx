@@ -1,6 +1,34 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFPGoalFunding.ascx.cs" Inherits="WealthERP.FP.CustomerFPGoalFunding" %>
 
+<script type="text/javascript">
 
+    function roundNumber(num, dec) {
+        var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+        return result;
+    }
+
+    function EquityValidation() {
+        var equityAvlAmount = 0;
+        equityAvlAmount=document.getElementById("<%=txtEquityAvlCorps.ClientID %>").value;
+        var equityAmountAllAmount = 0;
+        equityAmountAllAmount = document.getElementById("<%=txtEquityAllAmt.ClientID %>").value;
+
+        if (equityAmountAllAmount > equityAvlAmount) {
+            alert(equityAmountAllAmount);
+            alert(equityAvlAmount);
+            alert("Can't be greater value");
+        }
+        else {
+
+            var equityAllPercent = equityAmountAllAmount * 100 / equityAvlAmount;
+            var equityRemaingCorps = equityAvlAmount - equityAmountAllAmount;
+            document.getElementById("<%=txtEquityAllPer.ClientID %>").value = roundNumber(equityAllPercent,2);
+            document.getElementById("<%=txtEquityRemainCorpus.ClientID %>").value = equityRemaingCorps;
+        }
+        
+        
+    }
+</script>
 
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Goal Funding"></asp:Label>
 <hr />
@@ -14,7 +42,8 @@
         <asp:Label ID="lblPickGoal" runat="server" CssClass="FieldName" Text="Pick a Goal:"></asp:Label>
     </td> 
     <td>
-        <asp:DropDownList ID="ddlPickGoal" CssClass="cmbField" runat="server">
+        <asp:DropDownList ID="ddlPickGoal" CssClass="cmbField" runat="server" 
+            onselectedindexchanged="ddlPickGoal_SelectedIndexChanged" AutoPostBack="true">
             <asp:ListItem>Select</asp:ListItem>
             <asp:ListItem>Goal1</asp:ListItem>
             <asp:ListItem>Goal2</asp:ListItem>
@@ -62,16 +91,16 @@
         <asp:Label ID="lblEquity" runat="server" CssClass="FieldName" Text="Equity:"></asp:Label>
     </td>
      <td>
-        <asp:TextBox ID="TextBox3" CssClass="txtField"  Width="95%" runat="server" Style="direction: rtl" ReadOnly="True"></asp:TextBox>
+        <asp:TextBox ID="txtEquityAvlCorps" CssClass="txtField"  Width="95%" runat="server" Style="direction: rtl" ReadOnly="True"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox7" CssClass="txtField"   Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtEquityAllAmt" CssClass="txtField" OnBlur="return EquityValidation()"  Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox14" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtEquityAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox15" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtEquityRemainCorpus" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>
@@ -79,16 +108,16 @@
         <asp:Label ID="lblDebt" runat="server" CssClass="FieldName" Text="Debt:"></asp:Label>
     </td>
      <td>
-        <asp:TextBox ID="TextBox4" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtDebtAvlCorps" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox8" CssClass="txtField"   Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtDebtAllAmt" CssClass="txtField" OnBlur=""  Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox13" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtDebtAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox16" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtDebtRemainCorpus" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>
@@ -96,16 +125,16 @@
         <asp:Label ID="lblCash" runat="server" CssClass="FieldName" Text="Cash:"></asp:Label>
     </td>
      <td>
-        <asp:TextBox ID="TextBox5" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtCashAvlCorps" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox9" CssClass="txtField"   Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtCashAllAmt" CssClass="txtField" OnBlur=""  Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox12" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtCashAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox17" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtCashRemainCorpus" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>
@@ -113,16 +142,16 @@
         <asp:Label ID="lblAlternate" runat="server" CssClass="FieldName" Text="Alternate:"></asp:Label>
     </td>
     <td>
-        <asp:TextBox ID="TextBox6" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtAlternateAvlCorps" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox10" CssClass="txtField"   Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtAlternateAllAmt" CssClass="txtField"  OnBlur="" Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox11" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtAlternateAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="TextBox18" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtAlternateRemainCorpus" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>

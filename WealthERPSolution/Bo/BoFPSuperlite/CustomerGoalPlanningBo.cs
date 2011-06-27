@@ -305,5 +305,40 @@ namespace BoFPSuperlite
 
         }
 
+        public DataSet GetCustomerGoalList(int CustomerID)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet customerGoalListDS;
+
+            try
+            {
+                customerGoalListDS = customerGoalPlanningDao.GetCustomerGoalList(CustomerID);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerGoalPlanningBo:GetCustomerGoalList()");
+
+                object[] objects = new object[1];
+                objects[0] = CustomerID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return customerGoalListDS;
+
+        }
+
     }
 }

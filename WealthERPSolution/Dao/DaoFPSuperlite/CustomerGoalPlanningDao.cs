@@ -287,6 +287,45 @@ namespace DaoFPSuperlite
 
         }
 
+        public DataSet GetCustomerGoalList(int CustomerID)
+        {
+            Database db;
+            DbCommand customerGoalListCmd;
+            DataSet customerGoalListDS;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                customerGoalListCmd = db.GetStoredProcCommand("SP_GetCustomerGoalList");
+                db.AddInParameter(customerGoalListCmd, "@CustomerId", DbType.Int32, CustomerID);
+                customerGoalListDS = db.ExecuteDataSet(customerGoalListCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerGoalPlanningDao:GetCustomerGoalList()");
+
+
+                object[] objects = new object[1];
+                objects[0] = CustomerID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return customerGoalListDS;
+
+        }
 
     }
 }
