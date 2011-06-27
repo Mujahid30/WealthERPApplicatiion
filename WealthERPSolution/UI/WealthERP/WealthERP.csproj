@@ -2343,6 +2343,11 @@
     <Compile Include="Reports\MFTransactions.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\MFTransactionsOpeningClosingDs.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MFTransactionsOpeningClosingDs.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\MultiAssetReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -2734,6 +2739,10 @@
     <EmbeddedResource Include="Reports\MFTransactions.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MFTransactions1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFTransactionsOpeningClosing.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFTransactionsOpeningClosing.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MultiAssetReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -4126,6 +4135,17 @@
     </None>
     <None Include="Reports\MFTransactionDS.xss">
       <DependentUpon>MFTransactionDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFTransactionsOpeningClosingDs.xsc">
+      <DependentUpon>MFTransactionsOpeningClosingDs.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFTransactionsOpeningClosingDs.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFTransactionsOpeningClosingDs.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\MFTransactionsOpeningClosingDs.xss">
+      <DependentUpon>MFTransactionsOpeningClosingDs.xsd</DependentUpon>
     </None>
     <None Include="Reports\MultiAssetReportDS.xsc">
       <DependentUpon>MultiAssetReportDS.xsd</DependentUpon>
