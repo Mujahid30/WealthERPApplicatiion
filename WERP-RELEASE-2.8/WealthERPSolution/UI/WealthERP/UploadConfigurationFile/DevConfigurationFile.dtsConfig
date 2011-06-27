@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DTSConfiguration>
+  <DTSConfigurationHeading>
+    <DTSConfigurationFileInfo GeneratedBy="PCG\mpillai" GeneratedFromPackageName="UploadProfileStagingToXtrnlProfile" GeneratedFromPackageID="{7EBA9745-F137-46ED-8C89-E1EC98D35363}" GeneratedDate="7/7/2009 12:36:29 PM"/>
+  </DTSConfigurationHeading>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.wealtherpV2.sa].Properties[InitialCatalog]" ValueType="String">
+    <ConfiguredValue>WealthERP_DEV</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.wealtherpV2.sa].Properties[Password]" ValueType="String">
+    <ConfiguredValue>crystal93#</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.wealtherpV2.sa].Properties[ServerName]" ValueType="String">
+    <ConfiguredValue>MOON</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.wealtherpV2.sa].Properties[UserName]" ValueType="String">
+    <ConfiguredValue>platinum</ConfiguredValue>
+  </Configuration>
+</DTSConfiguration>

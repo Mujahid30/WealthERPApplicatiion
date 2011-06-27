@@ -1,0 +1,285 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="C_PANNum" type="xs:string" minOccurs="0" />
+                <xs:element name="Trade_Account_Number" type="xs:string" minOccurs="0" />
+                <xs:element name="PEM_ScripCode" type="xs:string" minOccurs="0" />
+                <xs:element name="WETT_TransactionCode" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_TradeDate" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_Rate" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_Quantity" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_BuySell" type="xs:string" minOccurs="0" />
+                <xs:element name="XE_ExchangeCode" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_Brokerage" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_ServiceTax" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_EducationCess" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_STT" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_OtherCharges" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_RateInclBrokerage" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_TradeTotal" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_TradeNum" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_OrderNum" type="xs:string" minOccurs="0" />
+                <xs:element name="CET_IsSpeculative" type="xs:string" minOccurs="0" />
+                <xs:element name="ProcessId" type="xs:string" minOccurs="0" />
+                <xs:element name="AdviserId" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedOn" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedOn" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table1>
+    <C_PANNum>ABD1234567</C_PANNum>
+    <Trade_Account_Number>   RQDI7     </Trade_Account_Number>
+    <PEM_ScripCode>RELIANCE  </PEM_ScripCode>
+    <WETT_TransactionCode>1</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>1150.05</CET_Rate>
+    <CET_Quantity>10</CET_Quantity>
+    <CET_BuySell>B</CET_BuySell>
+    <XE_ExchangeCode>NSE</XE_ExchangeCode>
+    <CET_Brokerage>200.23</CET_Brokerage>
+    <CET_ServiceTax>565.2</CET_ServiceTax>
+    <CET_EducationCess>34.92</CET_EducationCess>
+    <CET_STT>565.2</CET_STT>
+    <CET_OtherCharges>34.92</CET_OtherCharges>
+    <CET_TradeTotal>1651</CET_TradeTotal>
+    <CET_IsSpeculative>0</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_PANNum>AJFL098123</C_PANNum>
+    <Trade_Account_Number>PZSM8     </Trade_Account_Number>
+    <PEM_ScripCode>CHAMBLFERT</PEM_ScripCode>
+    <WETT_TransactionCode>2</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>1153</CET_Rate>
+    <CET_Quantity>50</CET_Quantity>
+    <CET_BuySell>S</CET_BuySell>
+    <XE_ExchangeCode>NSE</XE_ExchangeCode>
+    <CET_IsSpeculative>1</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_PANNum>BNZJ156842</C_PANNum>
+    <PEM_ScripCode>UNITECH   </PEM_ScripCode>
+    <WETT_TransactionCode>1</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>449</CET_Rate>
+    <CET_Quantity>12</CET_Quantity>
+    <CET_BuySell>B</CET_BuySell>
+    <XE_ExchangeCode>NSE</XE_ExchangeCode>
+    <CET_Brokerage>123.98</CET_Brokerage>
+    <CET_ServiceTax>345.1</CET_ServiceTax>
+    <CET_EducationCess>23.54</CET_EducationCess>
+    <CET_STT>345.1</CET_STT>
+    <CET_OtherCharges>23.54</CET_OtherCharges>
+    <CET_TradeTotal>1658</CET_TradeTotal>
+    <CET_IsSpeculative>1</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_PANNum>BNZJ156842</C_PANNum>
+    <Trade_Account_Number>G31B2     </Trade_Account_Number>
+    <PEM_ScripCode>CHAMBLFERT</PEM_ScripCode>
+    <WETT_TransactionCode>1</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>449.4</CET_Rate>
+    <CET_Quantity>10</CET_Quantity>
+    <CET_BuySell>B</CET_BuySell>
+    <XE_ExchangeCode>NSE</XE_ExchangeCode>
+    <CET_Brokerage>144.09</CET_Brokerage>
+    <CET_ServiceTax>789.12</CET_ServiceTax>
+    <CET_EducationCess>13.98</CET_EducationCess>
+    <CET_STT>789.12</CET_STT>
+    <CET_OtherCharges>13.98</CET_OtherCharges>
+    <CET_TradeTotal>1674</CET_TradeTotal>
+    <CET_IsSpeculative>1</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_PANNum>BNZJ156842</C_PANNum>
+    <Trade_Account_Number>XJKB3     </Trade_Account_Number>
+    <PEM_ScripCode>RELCAPITAL</PEM_ScripCode>
+    <WETT_TransactionCode>1</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>1132</CET_Rate>
+    <CET_Quantity>5</CET_Quantity>
+    <CET_BuySell>B</CET_BuySell>
+    <XE_ExchangeCode>NSE</XE_ExchangeCode>
+    <CET_Brokerage>566.64</CET_Brokerage>
+    <CET_ServiceTax>456.98</CET_ServiceTax>
+    <CET_EducationCess>87.23</CET_EducationCess>
+    <CET_STT>456.98</CET_STT>
+    <CET_OtherCharges>87.23</CET_OtherCharges>
+    <CET_TradeTotal>1685</CET_TradeTotal>
+    <CET_IsSpeculative>1</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_PANNum>BNZJ156842</C_PANNum>
+    <Trade_Account_Number>FSAFS</Trade_Account_Number>
+    <PEM_ScripCode>533022</PEM_ScripCode>
+    <WETT_TransactionCode>2</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>151.05</CET_Rate>
+    <CET_Quantity>7</CET_Quantity>
+    <CET_BuySell>S</CET_BuySell>
+    <XE_ExchangeCode>BSE</XE_ExchangeCode>
+    <CET_IsSpeculative>1</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_PANNum>BNZJ156842</C_PANNum>
+    <Trade_Account_Number>XZ589     </Trade_Account_Number>
+    <WETT_TransactionCode>2</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>31.9</CET_Rate>
+    <CET_Quantity>10</CET_Quantity>
+    <CET_BuySell>BS</CET_BuySell>
+    <XE_ExchangeCode>BSE</XE_ExchangeCode>
+    <CET_Brokerage>233.87</CET_Brokerage>
+    <CET_ServiceTax>123.6</CET_ServiceTax>
+    <CET_EducationCess>54.98</CET_EducationCess>
+    <CET_STT>123.6</CET_STT>
+    <CET_OtherCharges>54.98</CET_OtherCharges>
+    <CET_TradeTotal>2680</CET_TradeTotal>
+    <CET_IsSpeculative>1</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_PANNum>BNZJ156842</C_PANNum>
+    <Trade_Account_Number>LCP74     </Trade_Account_Number>
+    <PEM_ScripCode>LT    </PEM_ScripCode>
+    <WETT_TransactionCode>1</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>101</CET_Rate>
+    <CET_Quantity>55</CET_Quantity>
+    <CET_BuySell>B</CET_BuySell>
+    <XE_ExchangeCode>NSE</XE_ExchangeCode>
+    <CET_Brokerage>98.12</CET_Brokerage>
+    <CET_ServiceTax>25.98</CET_ServiceTax>
+    <CET_EducationCess>32.82</CET_EducationCess>
+    <CET_STT>25.98</CET_STT>
+    <CET_OtherCharges>32.82</CET_OtherCharges>
+    <CET_TradeTotal>3677</CET_TradeTotal>
+    <CET_IsSpeculative>1</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_PANNum>BNZJ156842</C_PANNum>
+    <Trade_Account_Number>PZSM8     </Trade_Account_Number>
+    <PEM_ScripCode>514274</PEM_ScripCode>
+    <WETT_TransactionCode>2</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>1167.7</CET_Rate>
+    <CET_Quantity>20</CET_Quantity>
+    <CET_BuySell>S</CET_BuySell>
+    <XE_ExchangeCode>BSE</XE_ExchangeCode>
+    <CET_Brokerage>123.65</CET_Brokerage>
+    <CET_ServiceTax>34.18</CET_ServiceTax>
+    <CET_EducationCess>12.23</CET_EducationCess>
+    <CET_STT>34.18</CET_STT>
+    <CET_OtherCharges>12.23</CET_OtherCharges>
+    <CET_TradeTotal>36272.56</CET_TradeTotal>
+    <CET_IsSpeculative>1</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_PANNum>BNZJ156842</C_PANNum>
+    <Trade_Account_Number>PZSM8     </Trade_Account_Number>
+    <PEM_ScripCode>503673</PEM_ScripCode>
+    <WETT_TransactionCode>1</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>31.2</CET_Rate>
+    <CET_Quantity>22</CET_Quantity>
+    <CET_BuySell>B</CET_BuySell>
+    <XE_ExchangeCode>BSE</XE_ExchangeCode>
+    <CET_Brokerage>98.2</CET_Brokerage>
+    <CET_ServiceTax>12.65</CET_ServiceTax>
+    <CET_EducationCess>9.23</CET_EducationCess>
+    <CET_STT>12.65</CET_STT>
+    <CET_OtherCharges>9.23</CET_OtherCharges>
+    <CET_IsSpeculative>1</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_PANNum>BNZJ156842</C_PANNum>
+    <Trade_Account_Number>XZ589     </Trade_Account_Number>
+    <PEM_ScripCode>LT    </PEM_ScripCode>
+    <WETT_TransactionCode>1</WETT_TransactionCode>
+    <CET_TradeDate>11/21/2008 12:00:00 AM</CET_TradeDate>
+    <CET_Rate>31.2</CET_Rate>
+    <CET_Quantity>10</CET_Quantity>
+    <CET_BuySell>B</CET_BuySell>
+    <XE_ExchangeCode>NSE</XE_ExchangeCode>
+    <CET_IsSpeculative>0</CET_IsSpeculative>
+    <ProcessId>1302</ProcessId>
+    <AdviserId>1004</AdviserId>
+    <CreatedBy>1665</CreatedBy>
+    <CreatedOn>8/13/2009 2:05:49 PM</CreatedOn>
+    <ModifiedBy>1665</ModifiedBy>
+    <ModifiedOn>8/13/2009 2:05:49 PM</ModifiedOn>
+  </Table1>
+</NewDataSet>

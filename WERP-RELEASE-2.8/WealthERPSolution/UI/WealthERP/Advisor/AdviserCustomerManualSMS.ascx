@@ -1,0 +1,134 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserCustomerManualSMS.ascx.cs" Inherits="WealthERP.Advisor.AdviserCustomerManualSMS" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
+<script language="javascript" type="text/javascript">
+function checkAllBoxes() 
+    {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvCustomerSMSAlerts.Rows.Count %>');
+        var gvControl = document.getElementById('<%= gvCustomerSMSAlerts.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkCustomerSMSAlert";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkBoxAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template            
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+    </script>
+<table width="100%">
+<tr><td><asp:Label ID="lblCustomerSMS" Text="Customer Manual SMS" CssClass="HeaderTextSmall" runat="server"></asp:Label> </td></tr>
+<tr><td>
+<table>
+<tr>
+<td><asp:Label ID="lblLicenceName" Text="SMS Licence Left:" runat="server" CssClass="FieldName"></asp:Label></td>
+<td><asp:Label ID="lblLincenceValue" Text="" runat="server" CssClass="Field"></asp:Label></td>
+</tr>
+    <tr>
+        <td>
+            <asp:Label ID="lblSelectRM" runat="server" Text="RM: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlSelectRMs" style="vertical-align: middle" Width="180"  
+            CssClass="cmbField" runat="server" AutoPostBack="true" 
+                onselectedindexchanged="ddlSelectRMs_SelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+    </tr>
+<tr id="trmsgTxtBox" runat="server">
+<td><asp:Label ID="lblMessage" Text="Message:" runat="server" CssClass="FieldName"></asp:Label></td>
+<td><asp:TextBox ID="txtMessage" TextMode="MultiLine" Text="" runat="server" 
+        Height="53px" Width="269px"></asp:TextBox>
+<ajaxToolkit:TextBoxWatermarkExtender ID="txtToDate_TextBoxWatermarkExtender" runat="server"
+ TargetControlID="txtMessage" WatermarkText="Enter Your Messsage">
+</ajaxToolkit:TextBoxWatermarkExtender>
+<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtMessage"
+ CssClass="rfvPCG" ErrorMessage="<br />Please Enter Your Message" Display="Dynamic"
+ runat="server" InitialValue="" ValidationGroup="btnSend"> 
+</asp:RequiredFieldValidator>
+</td>
+</tr>
+</table>
+</td></tr>
+<tr>
+<td>
+<table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
+    visible="false">
+    <tr>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage1" runat="server" visible="true" align="center">
+                No Customers found to send SMS.....
+            </div>
+        </td>
+    </tr>
+</table>
+</td>
+</tr>
+
+<tr>
+
+<td>
+<asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="300px" 
+                       Width="100%" ScrollBars="Vertical" Visible="false" HorizontalAlign="Left">
+<%--<asp:Label ID="lblNoRecords" Text="No Alert Exists" runat="server" Visible="false" CssClass="FieldName"></asp:Label>--%>
+<asp:GridView ID="gvCustomerSMSAlerts" DataKeyNames="CustomerId" runat="server" AutoGenerateColumns="False" CellPadding="4"
+                        Width="624px" Height="78px" 
+                        Font-Size="Small" CssClass="GridViewStyle" 
+                        ShowFooter="true" OnRowDataBound="gvCustomerSMSAlerts_RowDataBound" EnableViewState="true">
+                        <SelectedRowStyle Font-Bold="True" CssClass="SelectedRowStyle" />
+                        <HeaderStyle Font-Bold="True" Font-Size="Small" ForeColor="White" CssClass="HeaderStyle" />
+                        <EditRowStyle Font-Size="X-Small" CssClass="EditRowStyle" />
+                        <AlternatingRowStyle BorderStyle="None" CssClass="AltRowStyle" />
+                        <RowStyle CssClass="RowStyle" />
+                        <FooterStyle CssClass="FooterStyle" />
+                        <Columns>                      
+
+                            <asp:TemplateField HeaderText="Select">
+                                <ItemTemplate>
+                                   <asp:CheckBox ID="chkCustomerSMSAlert" runat="server" Visible="false" CssClass="Field"  />
+                                </ItemTemplate>
+                                <HeaderTemplate>
+                            <input id="chkBoxAll"  name="vehicle" value="Bike" type="checkbox" onclick="checkAllBoxes()" />
+                        </HeaderTemplate>
+                            </asp:TemplateField>
+                            
+                             <asp:TemplateField ItemStyle-Wrap="false">
+                                <HeaderTemplate>
+                                    <asp:Label ID="lblCustomerName" runat="server" Text="Customer Name"></asp:Label>
+                                    <asp:TextBox ID="txtCustomerSearch" runat="server" CssClass="GridViewtxtField" onkeydown="return JSdoPostback(event,'ctrl_AdviserCustomerManualSMS_btnSearch');" />
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCustomerNameHeader" runat="server" Text='<%# Eval("CustomerName").ToString() %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            
+                            <asp:BoundField DataField="Mobile" HeaderText="Mobile" />
+
+                        </Columns>
+                        
+                    </asp:GridView>
+                    </asp:Panel>
+</td>
+</tr>
+<tr><td><asp:Button ID="btnSend" Text="Send SMS" runat="server" 
+        CssClass="PCGButton" onclick="btnSend_Click"/> </td></tr>
+        <tr><td><asp:Button ID="btnSearch" runat="server" Text=""
+    BorderStyle="None" BackColor="Transparent" 
+    onclick="btnSearch_Click" /></td></tr>
+</table>
+<asp:HiddenField ID="hdnAdviserId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnRmId" runat="server" Visible="false" />
+
+<asp:HiddenField ID="hdnCheckDPselection" runat="server" Visible="false" />

@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <!--<link rel="stylesheet" type="text/css" media="print" href="images/print.css">-->
+    <title>WealthERP Releases</title>
+    <style type="text/css">
+        html
+        {
+            overflow-y: scroll;
+        }
+        body
+        {
+            font: 10px normal Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7em;
+        }
+        *, * focus
+        {
+            outline: none;
+            margin: 0;
+            padding: 0;
+        }
+        .container
+        {
+            width: 500px;
+            margin: 0 auto;
+        }
+        ol
+        {
+            line-height: 30px;
+           margin:10px;
+        }
+        h1
+        {
+            font: 4em normal Georgia, 'Times New Roman' , Times, serif;
+            text-align: center;
+            padding: 20px 0;
+            color: #aaa;
+        }
+        h1 span
+        {
+            color: #666;
+        }
+        h1 small
+        {
+            font: 0.3em normal Verdana, Arial, Helvetica, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1.5em;
+            display: block;
+            color: #666;
+        }
+        h2.trigger
+        {
+            padding: 0 0 0 50px;
+            margin: 0 0 5px 0;
+            background: url(images/h2_trigger_a.gif) no-repeat;
+            height: 46px;
+            line-height: 46px;
+            width: 450px;
+            font-size: 1.6em;
+            font-weight: normal;
+            float: left;
+        }
+        h2.trigger a
+        {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+        }
+        h2.trigger a:hover
+        {
+            color: #ccc;
+        }
+        h2.active
+        {
+            background-position: left bottom;
+        }
+        .toggle_container
+        {
+            margin: 0 0 5px;
+            padding: 0;
+            border-top: 1px solid #d6d6d6;
+            background: #f0f0f0 url(images/toggle_block_stretch.gif) repeat-y left top;
+            overflow: hidden;
+            font-size: 1.2em;
+            width: 500px;
+            clear: both;
+        }
+        .toggle_container .block
+        {
+            padding: 20px;
+            background: url(images/toggle_block_btm.gif) no-repeat left bottom;
+        }
+        .toggle_container .block p
+        {
+            padding: 5px 0;
+            margin: 5px 0;
+        }
+        .toggle_container h3
+        {
+            font: 2.5em normal Georgia, "Times New Roman" , Times, serif;
+            margin: 0 0 10px;
+            padding: 0 0 5px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+        .toggle_container img
+        {
+            float: left;
+            margin: 10px 15px 15px 0;
+            padding: 5px;
+            background: #ddd;
+            border: 1px solid #ccc;
+        }
+    </style>
+
+    <script type="text/javascript" src="Scripts/jquery.js" ></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".toggle_container").hide();
+            $('.container div:first').slideToggle("slow,");
+
+            $("h2.trigger").toggle(function() {
+                $(this).addClass("active");
+            }, function() {
+                $(this).removeClass("active");
+            });
+
+            $("h2.trigger").click(function() {
+            if ($(this).next(".toggle_container").css('display') == 'block')
+                $(this).removeClass("active")
+            else
+                $(this).addClass("active")
+                
+                $(this).next(".toggle_container").slideToggle("slow,");
+            });
+
+        });
+    </script>
+
+</head>
+<body>
+
+
+<div style="text-align:center">
+<br />
+<img src="Images/werplogo.jpg" alt="WealthERP Logo" />
+<br /><br />
+</div>
+    
+    <div class="container">
+    
+        <h2 class="trigger active">
+            <a href="#">Release 1.5.5 (05 Jan, 2010)</a></h2>
+        <div style="display: block;" class="toggle_container">
+            <div class="block">
+                <ol>
+                    <li>Relabeled &ldquo; Adviser &ldquo; role to &ldquo;Admin &ldquo;</li>
+                    <li>Improved adviser registration for quick registration . Number of fields reduced.</li>
+                    <li>Added Website and business model type fields to adviser profile</li>
+                    <li>Added auto generated login id logic instead of using email id for staff users.</li>
+                    <li>Provided Reset password feature for adviser admin.</li>
+                    <li>Provided Change login id feature for all users.</li>
+                    <li>Added Historical valuation using historical prices.</li>
+                    <li>Added feature for generating Login id and password for Staff on creation itself.
+                    </li>
+                    <li>Provided feature for Adviser admin to view MF and Equity prices.</li>
+                    <li>Provided feature for RM to&nbsp; view and add Equity transactions for multiple customers</li>
+                    <li>Provided feature for RM to&nbsp; view and add MF transactions for multiple customers
+                        ,Scheme/ folio MIS and AMC wise MIS</li>
+                    <li>Provided feature for RM to view and add Customer Group Association.</li>
+                    <li>Provided feature for RM to view and add&nbsp; Customer Portfolio&nbsp; Setup
+                    </li>
+                    <li>Removed &nbsp;Customer group and portfolio setup feature from customer Profile</li>
+                    <li>Provided web login for adviser&rsquo;s customer to login and view their profile,
+                        portfolio, alert, liabilities details.</li>
+                </ol>
+            </div>
+        </div>
+        <h2 class="trigger">
+            <a href="#">Release 1.5.4 (12 Dec, 2009)</a></h2>
+        <div style="display: none;" class="toggle_container">
+            <div class="block">
+                <ol>
+                    <li>Fixed alignments, spelling mistakes, Missing headers</li>
+                    <li>Improved MF Transaction Uploads-Rejection Transaction Type Management, Added&nbsp;
+                        Is Rejection and RejectCode for each Transaction type, Added duplicate Transaction
+                        Check with the combination Scheme Plan+Acct+Transaction type+units+Amount+Trans
+                        date+ transaction number, Fixed CAMS trans date in transaction table using the data
+                        from CIMFCXT_ValueDate, Null handling for price, amount and unit columns</li>
+                    <li>Enhanced &nbsp;MF Valaution with the rules for Rejections, Bonus and Dividend.</li>
+                </ol>
+            </div>
+        </div>
+        <h2 class="trigger">
+            <a href="#">Release 1.5.3(20 Nov, 2009)</a></h2>
+        <div style="display: none;" class="toggle_container">
+            <div class="block">
+                <ol>
+                    <li>Standardization : Completed for Cash &amp; Savings ,Pension&amp;Gratuities,Property
+                        ,Insurance ,FI&nbsp; modules</li>
+                    <li>Improved Uploads Rejects and Process Log: Make all Reject Counts Proper, Show Input
+                        Reject Count, Show Input Rejects in a Grid View</li>
+                    <li>Enhanced Customer Association UI &ndash; restricted multiple association for same
+                        person</li>
+                    <li>Fix issues on Absolute/Annual Returns Calculation</li>
+                    <li>Improved handling Uploads package errors.</li>
+                    <li>&nbsp;Removed Transaction Duplicate Check, </li>
+                    <li>Added Price to be derived from Amount/Units logic to uploads</li>
+                    <li>Encrypt User Passwords, SMTP Passwords, Login Track</li>
+                    <li>Adviser Profiling: Added option to change Adviser Logo </li>
+                    <li>Added PAN Number column&nbsp; to Adviser and RM Customer&nbsp; list </li>
+                    <li>LOB: Restrict multiple ARN Entries for MF LOB, mandatory marked for all LOBs</li>
+                    <li>Customer profiling: moved PAN number to basic profiling screen, fixed the portfolio
+                        creation logic for uploaded customers</li>
+                    <li>Provided WERP Help&nbsp; link for users</li>
+                    <li>Resolved the left links overlapping search boxes when expanded</li>
+                </ol>
+            </div>
+        </div>
+        <h2 class="trigger">
+            <a href="#">Release 1.5.2(04 Nov, 2009)</a></h2>
+        <div style="display: none;" class="toggle_container">
+            <div class="block">
+                <ol>
+                    <li>Revamp uploads- Improved external data mapping to WERP to reduce dependency on
+                        file format</li>
+                </ol>
+            </div>
+        </div>
+        <h2 class="trigger">
+            <a href="#">Release 1.5.1(13 Oct, 2009)</a></h2>
+        <div style="display: none;" class="toggle_container">
+            <div class="block">
+                <ol>
+                    <li>Added Customer Expense module</li>
+                    <li>Provided feature for Theme preference setup for Adviser</li>
+                    <li>Added Price snapshot concept to price upload logic to make it easier</li>
+                </ol>
+            </div>
+        </div>
+        <h2 class="trigger">
+            <a href="#">Release 1.5 (29 Sept,2009)</a></h2>
+        <div style="display: none;" class="toggle_container">
+            <div class="block">
+                <ol>
+                    <li>Added Customer list for Admin and RM login</li>
+                    <li>Provided feature for Loan scheme setup feature added for Admin login</li>
+                    <li>Added &nbsp;LOBS for other asset classes: liabilities, Real estate, Insurance, PMs,
+                        Commodity.</li>
+                    <li>Provided feature for adviser admin to setup &nbsp;Associate Category</li>
+                    <li>Provided feature for Adviser SMTP setup</li>
+                    <li>Improved Staff creation. Added feature for adding internal and external staff.</li>
+                    <li>Improved Adviser Branch creation. Added feature for adding internal and associate
+                        branch. Added Commission sharing structure for associate branches. </li>
+                    <li>Provided feature for Associate and adviser logo handling</li>
+                    <li>Provided feature for capturing Commission sharing structure with Loan partner</li>
+                    <li>Added MF and Equity turnover MIS for admin and RM login</li>
+                    <li>Added Absolute&nbsp; return, annual return and XIRR to MF net position views</li>
+                    <li>Provided feature for Collapsible Left and Right Panels </li>
+                    <li>Added Customer Income module</li>
+                    <li>Added Customer Liabilities module</li>
+                    <li>Improved Customer MF transaction view to include date range pick up.</li>
+                    <li>Provided feature to WERP admin for uploading and downloading Equity and MF daily
+                        price data via UI.</li>
+                    <li>Provided views for RM to setup bulk alerts and change the defaults</li>
+                    <li>Provided Loan process tracking feature &nbsp;for RM login</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

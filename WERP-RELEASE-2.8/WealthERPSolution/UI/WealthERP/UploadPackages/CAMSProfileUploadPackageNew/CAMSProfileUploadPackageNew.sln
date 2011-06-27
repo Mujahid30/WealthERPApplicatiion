@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{D183A3D8-5FD8-494B-B014-37F57B35E655}") = "CAMSProfileUploadPackageNew", "CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew.dtproj", "{76C93832-852B-43DB-8C0D-E34FCC73818E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76C93832-852B-43DB-8C0D-E34FCC73818E}.Development|Default.ActiveCfg = Development
+		{76C93832-852B-43DB-8C0D-E34FCC73818E}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

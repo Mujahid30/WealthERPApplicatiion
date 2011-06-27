@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CustomerInvestmentDetailsDS" targetNamespace="http://tempuri.org/CustomerInvestmentDetailsDS.xsd" xmlns:mstns="http://tempuri.org/CustomerInvestmentDetailsDS.xsd" xmlns="http://tempuri.org/CustomerInvestmentDetailsDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="CustomerInvestmentDetailsDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="CustomerInvestmentDetailsDS" msprop:Generator_DataSetName="CustomerInvestmentDetailsDS" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="InvestmentSummary" msprop:Generator_UserTableName="InvestmentSummary" msprop:Generator_RowDeletedName="InvestmentSummaryRowDeleted" msprop:Generator_RowChangedName="InvestmentSummaryRowChanged" msprop:Generator_RowClassName="InvestmentSummaryRow" msprop:Generator_RowChangingName="InvestmentSummaryRowChanging" msprop:Generator_RowEvArgName="InvestmentSummaryRowChangeEvent" msprop:Generator_RowEvHandlerName="InvestmentSummaryRowChangeEventHandler" msprop:Generator_TableClassName="InvestmentSummaryDataTable" msprop:Generator_TableVarName="tableInvestmentSummary" msprop:Generator_RowDeletingName="InvestmentSummaryRowDeleting" msprop:Generator_TablePropName="InvestmentSummary">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CustomerId" msprop:Generator_UserColumnName="CustomerId" msprop:Generator_ColumnVarNameInTable="columnCustomerId" msprop:Generator_ColumnPropNameInRow="CustomerId" msprop:Generator_ColumnPropNameInTable="CustomerIdColumn" type="xs:long" minOccurs="0" />
+              <xs:element name="CustomerName" msprop:Generator_UserColumnName="CustomerName" msprop:Generator_ColumnVarNameInTable="columnCustomerName" msprop:Generator_ColumnPropNameInRow="CustomerName" msprop:Generator_ColumnPropNameInTable="CustomerNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="InitialValue" msprop:Generator_UserColumnName="InitialValue" msprop:Generator_ColumnVarNameInTable="columnInitialValue" msprop:Generator_ColumnPropNameInRow="InitialValue" msprop:Generator_ColumnPropNameInTable="InitialValueColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="CurentValue" msprop:Generator_UserColumnName="CurentValue" msprop:Generator_ColumnVarNameInTable="columnCurentValue" msprop:Generator_ColumnPropNameInRow="CurentValue" msprop:Generator_ColumnPropNameInTable="CurentValueColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="Change" msprop:Generator_UserColumnName="Change" msprop:Generator_ColumnVarNameInTable="columnChange" msprop:Generator_ColumnPropNameInRow="Change" msprop:Generator_ColumnPropNameInTable="ChangeColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="ChangePercentage" msprop:Generator_UserColumnName="ChangePercentage" msprop:Generator_ColumnVarNameInTable="columnChangePercentage" msprop:Generator_ColumnPropNameInRow="ChangePercentage" msprop:Generator_ColumnPropNameInTable="ChangePercentageColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="TotalAssetPercentage" msprop:Generator_UserColumnName="TotalAssetPercentage" msprop:Generator_ColumnVarNameInTable="columnTotalAssetPercentage" msprop:Generator_ColumnPropNameInRow="TotalAssetPercentage" msprop:Generator_ColumnPropNameInTable="TotalAssetPercentageColumn" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="InvestmentDetails" msprop:Generator_UserTableName="InvestmentDetails" msprop:Generator_RowDeletedName="InvestmentDetailsRowDeleted" msprop:Generator_RowChangedName="InvestmentDetailsRowChanged" msprop:Generator_RowClassName="InvestmentDetailsRow" msprop:Generator_RowChangingName="InvestmentDetailsRowChanging" msprop:Generator_RowEvArgName="InvestmentDetailsRowChangeEvent" msprop:Generator_RowEvHandlerName="InvestmentDetailsRowChangeEventHandler" msprop:Generator_TableClassName="InvestmentDetailsDataTable" msprop:Generator_TableVarName="tableInvestmentDetails" msprop:Generator_RowDeletingName="InvestmentDetailsRowDeleting" msprop:Generator_TablePropName="InvestmentDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CustomerId" msprop:Generator_UserColumnName="CustomerId" msprop:Generator_ColumnVarNameInTable="columnCustomerId" msprop:Generator_ColumnPropNameInRow="CustomerId" msprop:Generator_ColumnPropNameInTable="CustomerIdColumn" type="xs:long" minOccurs="0" />
+              <xs:element name="CustomerName" msprop:Generator_UserColumnName="CustomerName" msprop:Generator_ColumnVarNameInTable="columnCustomerName" msprop:Generator_ColumnPropNameInRow="CustomerName" msprop:Generator_ColumnPropNameInTable="CustomerNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AssetType" msprop:Generator_UserColumnName="AssetType" msprop:Generator_ColumnVarNameInTable="columnAssetType" msprop:Generator_ColumnPropNameInRow="AssetType" msprop:Generator_ColumnPropNameInTable="AssetTypeColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="InitialValue" msprop:Generator_UserColumnName="InitialValue" msprop:Generator_ColumnVarNameInTable="columnInitialValue" msprop:Generator_ColumnPropNameInRow="InitialValue" msprop:Generator_ColumnPropNameInTable="InitialValueColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="CurrentValue" msprop:Generator_UserColumnName="CurrentValue" msprop:Generator_ColumnVarNameInTable="columnCurrentValue" msprop:Generator_ColumnPropNameInRow="CurrentValue" msprop:Generator_ColumnPropNameInTable="CurrentValueColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="AsOnCurrentValue" msprop:Generator_UserColumnName="AsOnCurrentValue" msprop:Generator_ColumnPropNameInRow="AsOnCurrentValue" msprop:Generator_ColumnVarNameInTable="columnAsOnCurrentValue" msprop:Generator_ColumnPropNameInTable="AsOnCurrentValueColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Change" msprop:Generator_UserColumnName="Change" msprop:Generator_ColumnVarNameInTable="columnChange" msprop:Generator_ColumnPropNameInRow="Change" msprop:Generator_ColumnPropNameInTable="ChangeColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="ChangePercentage" msprop:Generator_UserColumnName="ChangePercentage" msprop:Generator_ColumnVarNameInTable="columnChangePercentage" msprop:Generator_ColumnPropNameInRow="ChangePercentage" msprop:Generator_ColumnPropNameInTable="ChangePercentageColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="CategoryWiseAssetPercentage" msprop:Generator_UserColumnName="CategoryWiseAssetPercentage" msprop:Generator_ColumnVarNameInTable="columnCategoryWiseAssetPercentage" msprop:Generator_ColumnPropNameInRow="CategoryWiseAssetPercentage" msprop:Generator_ColumnPropNameInTable="CategoryWiseAssetPercentageColumn" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

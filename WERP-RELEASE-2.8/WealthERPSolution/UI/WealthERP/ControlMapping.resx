@@ -1,0 +1,1136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdvisorDashBoard" xml:space="preserve">
+    <value>Advisor//AdvisorDashBoard.ascx</value>
+    <comment>Advisor//AdvisorDashBoard.ascx</comment>
+  </data>
+  <data name="AdvisorDashboardLeftMenu" xml:space="preserve">
+    <value>Advisor//AdvisorDashboardLeftMenu.ascx</value>
+    <comment>Advisor//AdvisorDashboardLeftMenu.ascx</comment>
+  </data>
+  <data name="AdvisorHeader" xml:space="preserve">
+    <value>Advisor//AdvisorHeader.ascx</value>
+    <comment>Advisor//AdvisorHeader.ascx</comment>
+  </data>
+  <data name="AdvisorProfile" xml:space="preserve">
+    <value>Advisor//AdvisorProfile.ascx</value>
+    <comment>Advisor//AdvisorProfile.ascx</comment>
+  </data>
+  <data name="AdvisorRegistration" xml:space="preserve">
+    <value>Advisor//AdvisorRegistration.ascx</value>
+    <comment>Advisor//AdvisorRegistration.ascx</comment>
+  </data>
+  <data name="AddBankDetails" xml:space="preserve">
+    <value>Customer//AddBankDetails.ascx</value>
+    <comment>Customer//AddBankDetails.ascx</comment>
+  </data>
+  <data name="CustomerIndividualAdd" xml:space="preserve">
+    <value>Customer//CustomerIndividualAdd.ascx</value>
+    <comment>Customer//CustomerIndividualAdd.ascx</comment>
+  </data>
+  <data name="CustomerNonIndividualAdd" xml:space="preserve">
+    <value>Customer//CustomerNonIndividualAdd.ascx</value>
+    <comment>Customer//CustomerNonIndividualAdd.ascx</comment>
+  </data>
+  <data name="BranchDetails" xml:space="preserve">
+    <value>Advisor//BranchDetails.ascx</value>
+    <comment>Advisor//BranchDetails.ascx</comment>
+  </data>
+  <data name="CustomerIndividualDashboard" xml:space="preserve">
+    <value>Customer//CustomerIndividualDashboard.ascx</value>
+    <comment>Customer//CustomerIndividualDashboard.ascx</comment>
+  </data>
+  <data name="CustomerIndividualLeftPane" xml:space="preserve">
+    <value>Customer//CustomerIndividualLeftPane.ascx</value>
+    <comment>Customer//CustomerIndividualLeftPane.ascx</comment>
+  </data>
+  <data name="CustomerType" xml:space="preserve">
+    <value>Customer//CustomerType.ascx</value>
+    <comment>Customer//CustomerType.ascx</comment>
+  </data>
+  <data name="FamilyDetails" xml:space="preserve">
+    <value>Customer//FamilyDetails.ascx</value>
+    <comment>Customer//FamilyDetails.ascx</comment>
+  </data>
+  <data name="FamilyDetailsChild" xml:space="preserve">
+    <value>Customer//FamilyDetailsChild.ascx</value>
+    <comment>Customer//FamilyDetailsChild.ascx</comment>
+  </data>
+  <data name="FamilyDetailsOther" xml:space="preserve">
+    <value>Customer//FamilyDetailsOther.ascx</value>
+    <comment>Customer//FamilyDetailsOther.ascx</comment>
+  </data>
+  <data name="FamilyDetailsSpouse" xml:space="preserve">
+    <value>Customer//FamilyDetailsSpouse.ascx</value>
+    <comment>Customer//FamilyDetailsSpouse.ascx</comment>
+  </data>
+  <data name="GeneralHome" xml:space="preserve">
+    <value>General//GeneralHome.ascx</value>
+    <comment>General//GeneralHome.ascx</comment>
+  </data>
+  <data name="LOBDetails" xml:space="preserve">
+    <value>Advisor//LOBDetails.ascx</value>
+    <comment>Advisor//LOBDetails.ascx</comment>
+  </data>
+  <data name="RMCustomer" xml:space="preserve">
+    <value>Advisor//RMCustomer.ascx</value>
+    <comment>Advisor//RMCustomer.ascx</comment>
+  </data>
+  <data name="RMDashBoard" xml:space="preserve">
+    <value>Advisor//RMDashBoard.ascx</value>
+    <comment>Advisor//RMDashBoard.ascx</comment>
+  </data>
+  <data name="RMDetails" xml:space="preserve">
+    <value>Advisor//RMDetails.ascx</value>
+    <comment>Advisor//RMDetails.ascx</comment>
+  </data>
+  <data name="RMLeftMenu" xml:space="preserve">
+    <value>Advisor//RMLeftMenu.ascx</value>
+    <comment>Advisor//RMLeftMenu.ascx</comment>
+  </data>
+  <data name="RMProfile" xml:space="preserve">
+    <value>Advisor//RMProfile.ascx</value>
+    <comment>Advisor//RMProfile.ascx</comment>
+  </data>
+  <data name="Userlogin" xml:space="preserve">
+    <value>General//UserLogin.ascx</value>
+    <comment>General//UserLogin.ascx</comment>
+  </data>
+  <data name="ViewAllBankDetails" xml:space="preserve">
+    <value>Customer//ViewAllBankDetails.ascx</value>
+    <comment>Customer//ViewAllBankDetails.ascx</comment>
+  </data>
+  <data name="ViewBankDetails" xml:space="preserve">
+    <value>Customer//ViewBankDetails.ascx</value>
+    <comment>Customer//ViewBankDetails.ascx</comment>
+  </data>
+  <data name="ViewCustomerFamily" xml:space="preserve">
+    <value>Customer//ViewCustomerFamily.ascx</value>
+    <comment>Customer//ViewCustomerFamily.ascx</comment>
+  </data>
+  <data name="ViewCustomerProfile" xml:space="preserve">
+    <value>Customer//ViewCustomerProfile.ascx</value>
+    <comment>Customer//ViewCustomerProfile.ascx</comment>
+  </data>
+  <data name="ViewNonIndividualProfile" xml:space="preserve">
+    <value>Customer//ViewNonIndividualProfile.ascx</value>
+    <comment>Customer//ViewNonIndividualProfile.ascx</comment>
+  </data>
+  <data name="AdvisorLeftPane" xml:space="preserve">
+    <value>Advisor//AdvisorLeftPane.ascx</value>
+    <comment>Advisor//AdvisorLeftPane.ascx</comment>
+  </data>
+  <data name="LeftPanel_Links" xml:space="preserve">
+    <value>General//LeftPanel_Links.ascx</value>
+    <comment>General//LeftPanel_Links.ascx</comment>
+  </data>
+  <data name="GeneralHeader" xml:space="preserve">
+    <value>General//Header.ascx</value>
+    <comment>General//Header.ascx</comment>
+  </data>
+  <data name="UserLoginMessage" xml:space="preserve">
+    <value>Advisor//UserLoginMessage.ascx</value>
+    <comment>Advisor//UserLoginMessage.ascx</comment>
+  </data>
+  <data name="EditAdvisorProfile" xml:space="preserve">
+    <value>Advisor//EditAdvisorProfile.ascx</value>
+    <comment>Advisor//EditAdvisorProfile.ascx</comment>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Advisor//ChangePassword.ascx</value>
+    <comment>Advisor//ChangePassword.ascx</comment>
+  </data>
+  <data name="EditUserDetails" xml:space="preserve">
+    <value>Advisor//EditUserDetails.ascx</value>
+    <comment>Advisor//EditUserDetails.ascx</comment>
+  </data>
+  <data name="AddBranch" xml:space="preserve">
+    <value>Advisor//AddBranch.ascx</value>
+    <comment>Advisor//AddBranch.ascx</comment>
+  </data>
+  <data name="EditBranchDetails" xml:space="preserve">
+    <value>Advisor//EditBranchDetails.ascx</value>
+    <comment>Advisor//EditBranchDetails.ascx</comment>
+  </data>
+  <data name="ViewBranches" xml:space="preserve">
+    <value>Advisor//ViewBranches.ascx</value>
+    <comment>Advisor//ViewBranches.ascx</comment>
+  </data>
+  <data name="ChangeLoginId" xml:space="preserve">
+    <value>Advisor//ChangeLoginId.ascx</value>
+    <comment>Advisor//ChangeLoginId.ascx</comment>
+  </data>
+  <data name="ViewBranchDetails" xml:space="preserve">
+    <value>Advisor//ViewBranchDetails.ascx</value>
+    <comment>Advisor//ViewBranchDetails.ascx</comment>
+  </data>
+  <data name="AddRM" xml:space="preserve">
+    <value>Advisor//AddRM.ascx</value>
+    <comment>Advisor//AddRM.ascx</comment>
+  </data>
+  <data name="EditRMDetails" xml:space="preserve">
+    <value>Advisor//EditRMDetails.ascx</value>
+    <comment>Advisor//EditRMDetails.ascx</comment>
+  </data>
+  <data name="ViewRM" xml:space="preserve">
+    <value>Advisor//ViewRM.ascx</value>
+    <comment>Advisor//ViewRM.ascx</comment>
+  </data>
+  <data name="ViewRMDetails" xml:space="preserve">
+    <value>Advisor//ViewRMDetails.ascx</value>
+    <comment>Advisor//ViewRMDetails.ascx</comment>
+  </data>
+  <data name="RMEditProfile" xml:space="preserve">
+    <value>Advisor//RMEditProfile.ascx</value>
+    <comment>Advisor//RmEditProfile.ascx</comment>
+  </data>
+  <data name="RMLeftPane" xml:space="preserve">
+    <value>Advisor//RMLeftPane.ascx</value>
+    <comment>Advisor//RMLeftPane.ascx</comment>
+  </data>
+  <data name="CustomerProofsAdd" xml:space="preserve">
+    <value>Customer//CustomerProofsAdd.ascx</value>
+    <comment>Customer//CustomerProofsAdd.ascx</comment>
+  </data>
+  <data name="RMCustomerIndividualDashboard" xml:space="preserve">
+    <value>Advisor//RMCustomerIndividualDashboard.ascx</value>
+    <comment>Advisor//RMCustomerIndividualDashboard.ascx</comment>
+  </data>
+  <data name="RMCustomerIndividualLeftPane" xml:space="preserve">
+    <value>Advisor//RMCustomerIndividualLeftPane.ascx</value>
+    <comment>Advisor//RMCustomerIndividualLeftPane.ascx</comment>
+  </data>
+  <data name="ViewCustomerProofs" xml:space="preserve">
+    <value>Customer//ViewCustomerProofs.ascx</value>
+    <comment>Customer//ViewCustomerProofs.ascx</comment>
+  </data>
+  <data name="ViewCustomerAllBankDetails" xml:space="preserve">
+    <value>Customer//ViewCustomerAllBankDetails.ascx</value>
+    <comment>Customer//ViewCustomerAllBankDetails.ascx</comment>
+  </data>
+  <data name="ViewCustomerIndividualProfile" xml:space="preserve">
+    <value>Customer//ViewCustomerIndividualProfile.ascx</value>
+    <comment>Customer//ViewCustomerIndividualProfile.ascx</comment>
+  </data>
+  <data name="AddLOB" xml:space="preserve">
+    <value>Advisor//AddLOB.ascx</value>
+    <comment>Advisor//AddLOB.ascx</comment>
+  </data>
+  <data name="EditLOB" xml:space="preserve">
+    <value>Advisor//EditLOB.ascx</value>
+    <comment>Advisor//EditLOB.ascx</comment>
+  </data>
+  <data name="LOB" xml:space="preserve">
+    <value>Advisor//LOB.ascx</value>
+    <comment>Advisor//LOB.ascx</comment>
+  </data>
+  <data name="RMBranchAssociation" xml:space="preserve">
+    <value>Advisor//RMBranchAssociation.ascx</value>
+    <comment>Advisor//RMBranchAssociation.ascx</comment>
+  </data>
+  <data name="ViewLOB" xml:space="preserve">
+    <value>Advisor//ViewLOB.ascx</value>
+    <comment>Advisor//ViewLOB.ascx</comment>
+  </data>
+  <data name="ViewLOBDetails" xml:space="preserve">
+    <value>Advisor//EditLOB.ascx</value>
+    <comment>Advisor//EditLOB.ascx</comment>
+  </data>
+  <data name="UserLogout" xml:space="preserve">
+    <value>General//UserLogout.ascx</value>
+    <comment>General//UserLogout.ascx</comment>
+  </data>
+  <data name="CustomerNonIndividualDashboard" xml:space="preserve">
+    <value>Customer//CustomerNonIndividualDashboard.ascx</value>
+    <comment>Customer//CustomerNonIndividualDashboard.ascx</comment>
+  </data>
+  <data name="CustomerNonIndividualLeftPane" xml:space="preserve">
+    <value>Customer//CustomerNonIndividualLeftPane.ascx</value>
+    <comment>Customer//CustomerNonIndividualLeftPane.ascx</comment>
+  </data>
+  <data name="EditCustomerIndividualProfile" xml:space="preserve">
+    <value>Customer//EditCustomerIndividualProfile.ascx</value>
+    <comment>Customer//EditCustomerIndividualProfile.ascx</comment>
+  </data>
+  <data name="EditCustomerNonIndividualProfile" xml:space="preserve">
+    <value>Customer//EditCustomerNonIndividualProfile.ascx</value>
+    <comment>Customer//EditCustomerNonIndividualProfile.ascx</comment>
+  </data>
+  <data name="RMCustomerNonIndividualDashboard" xml:space="preserve">
+    <value>Advisor//RMCustomerNonIndividualDashboard.ascx</value>
+    <comment>Advisor//RMCustomerNonIndividualDashboard.ascx</comment>
+  </data>
+  <data name="RMCustomerNonIndividualLeftPane" xml:space="preserve">
+    <value>Advisor//RMCustomerNonIndividualLeftPane.ascx</value>
+    <comment>Advisor//RMCustomerNonIndividualLeftPane.ascx</comment>
+  </data>
+  <data name="RMCustomerUserDetails" xml:space="preserve">
+    <value>Advisor//RMCustomerUserDetails.ascx</value>
+    <comment>Advisor//RMCustomerUserDetails.ascx</comment>
+  </data>
+  <data name="EquityManualMultipleTransaction" xml:space="preserve">
+    <value>CustomerPortfolio//EquityManualMultipleTransaction.ascx</value>
+    <comment>CustomerPortfolio//EquityManualMultipleTransaction.ascx</comment>
+  </data>
+  <data name="EquityManualSingleTransaction" xml:space="preserve">
+    <value>CustomerPortfolio//EquityManualSingleTransaction.ascx</value>
+    <comment>CustomerPortfolio//EquityManualSingleTransaction.ascx</comment>
+  </data>
+  <data name="PortfolioEquityEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioEquityEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioEquityEntry.ascx</comment>
+  </data>
+  <data name="NewDPAccountEntry" xml:space="preserve">
+    <value>CustomerPortfolio//NewDPAccountEntry.ascx</value>
+    <comment>CustomerPortfolio//NewDPAccountEntry.ascx</comment>
+  </data>
+  <data name="PortfolioMFEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioMFEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioMFEntry.ascx</comment>
+  </data>
+  <data name="MFManualSingleTran" xml:space="preserve">
+    <value>CustomerPortfolio//MFManualSingleTran.ascx</value>
+    <comment>CustomerPortfolio//MFManualSingleTran.ascx</comment>
+  </data>
+  <data name="MFManualMultipleTran" xml:space="preserve">
+    <value>CustomerPortfolio//MFManualMultipleTran.ascx</value>
+    <comment>CustomerPortfolio//MFManualMultipleTran.ascx</comment>
+  </data>
+  <data name="TransactionsView" xml:space="preserve">
+    <value>CustomerPortfolio//TransactionsView.ascx</value>
+    <comment>CustomerPortfolio//TransactionsView.ascx</comment>
+  </data>
+  <data name="EquityProrate" xml:space="preserve">
+    <value>CustomerPortfolio//EquityProrate.aspx</value>
+    <comment>CustomerPortfolio//EquityProrate.aspx</comment>
+  </data>
+  <data name="RMUserDetails" xml:space="preserve">
+    <value>Advisor//RMUserDetails.ascx</value>
+    <comment>Advisor//RMUserDetails.ascx</comment>
+  </data>
+  <data name="AdvisorBMDashBoard" xml:space="preserve">
+    <value>UserManagement//AdvisorBMDashBoard.ascx</value>
+    <comment>UserManagement//AdvisorBMDashBoard.ascx</comment>
+  </data>
+  <data name="AdvisorBMLeftpane" xml:space="preserve">
+    <value>UserManagement//AdvisorBMLeftpane.ascx</value>
+    <comment>UserManagement//AdvisorBMLeftpane.ascx</comment>
+  </data>
+  <data name="AdvisorRMBMLeftpane" xml:space="preserve">
+    <value>UserManagement//AdvisorRMBMLeftpane.ascx</value>
+    <comment>UserManagement//AdvisorRMBMLeftpane.ascx</comment>
+  </data>
+  <data name="AdvisorRMDashBoard" xml:space="preserve">
+    <value>UserManagement//AdvisorRMDashBoard.ascx</value>
+    <comment>UserManagement//AdvisorRMDashBoard.ascx</comment>
+  </data>
+  <data name="AdvisorRMLeftpane" xml:space="preserve">
+    <value>UserManagement//AdvisorRMLeftpane.ascx</value>
+    <comment>UserManagement//AdvisorRMLeftpane.ascx</comment>
+  </data>
+  <data name="BMDashBoard" xml:space="preserve">
+    <value>UserManagement//BMDashBoard.ascx</value>
+    <comment>UserManagement//BMDashBoard.ascx</comment>
+  </data>
+  <data name="BMLeftpane" xml:space="preserve">
+    <value>UserManagement//BMLeftpane.ascx</value>
+    <comment>UserManagement//BMLeftpane.ascx</comment>
+  </data>
+  <data name="AdvisorRMBMDashBoard" xml:space="preserve">
+    <value>UserManagement//AdvisorRMBMDashBoard.ascx</value>
+    <comment>UserManagement//AdvisorRMBMDashBoard.ascx</comment>
+  </data>
+  <data name="BMBranchAssociation" xml:space="preserve">
+    <value>Advisor//BMBranchAssociation.ascx</value>
+    <comment>Advisor//BMBranchAssociation.ascx</comment>
+  </data>
+  <data name="ViewBMProfile" xml:space="preserve">
+    <value>Advisor//ViewBMProfile.ascx</value>
+    <comment>Advisor//ViewBMProfile.ascx</comment>
+  </data>
+  <data name="BMRMDashBoard" xml:space="preserve">
+    <value>UserManagement//BMRMDashBoard.ascx</value>
+    <comment>UserManagement//BMRMDashBoard.ascx</comment>
+  </data>
+  <data name="BMRMLeftpane" xml:space="preserve">
+    <value>UserManagement//BMRMLeftpane.ascx</value>
+    <comment>UserManagement//BMRMLeftpane.ascx</comment>
+  </data>
+  <data name="PortfolioCollectiblesEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioCollectiblesEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioCollectiblesEntry.ascx</comment>
+  </data>
+  <data name="PortfolioDashboard" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioDashboard.ascx</value>
+    <comment>CustomerPortfolio//PortfolioDashboard.ascx</comment>
+  </data>
+  <data name="PortfolioGoldEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioGoldEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioGoldEntry.ascx</comment>
+  </data>
+  <data name="PortfolioLeftPane" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioLeftPane.ascx</value>
+    <comment>CustomerPortfolio//PortfolioLeftPane.ascx</comment>
+  </data>
+  <data name="PortfolioPersonalEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioPersonalEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioPersonalEntry.ascx</comment>
+  </data>
+  <data name="PortfolioPropertyEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioPropertyEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioPropertyEntry.ascx</comment>
+  </data>
+  <data name="PensionAndGratuities" xml:space="preserve">
+    <value>CustomerPortfolio//PensionAndGratuities.ascx</value>
+    <comment>CustomerPortfolio//PensionAndGratuities.ascx</comment>
+  </data>
+  <data name="PortfolioPersonal" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioPersonal.ascx</value>
+    <comment>CustomerPortfolio//PortfolioPersonal.ascx</comment>
+  </data>
+  <data name="PortfolioProperty" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioProperty.ascx</value>
+    <comment>CustomePortfolio//PortfolioProperty.ascx</comment>
+  </data>
+  <data name="ViewPensionDetails" xml:space="preserve">
+    <value>CustomerPortfolio//ViewPensionDetails.ascx</value>
+    <comment>CustomerPortfolio//ViewPensionDetails.ascx</comment>
+  </data>
+  <data name="PortfolioCashSavingsEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioCashSavingsEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioCashSavingsEdit.ascx</comment>
+  </data>
+  <data name="PortfolioCashSavingsEdit" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioCashSavingsEdit.ascx</value>
+    <comment>CustomerPortfolio//PortfolioCashSavingsEdit.ascx</comment>
+  </data>
+  <data name="PortfolioCashSavingsView" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioCashSavingsView.ascx</value>
+    <comment>CustomerPortfolio//PortfolioCashSavingsView.ascx</comment>
+  </data>
+  <data name="ViewGoldPortfolio" xml:space="preserve">
+    <value>CustomerPortfolio//ViewGoldPortfolio.ascx</value>
+    <comment>CustomerPortfolio//ViewGoldPortfolio.ascCustomerPortfolio//ViewGoldPortfolio.ascx</comment>
+  </data>
+  <data name="ViewCollectiblesPortfolio" xml:space="preserve">
+    <value>CustomerPortfolio//ViewCollectiblesPortfolio.ascx</value>
+    <comment>CustomerPortfolio//ViewCollectiblesPortfolio.ascx</comment>
+  </data>
+  <data name="PensionPortfolio" xml:space="preserve">
+    <value>CustomerPortfolio//PensionPortfolio.ascx</value>
+    <comment>CustomerPortfolio//PensionPortfolio.ascx</comment>
+  </data>
+  <data name="PortfolioInsuranceEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioInsuranceEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioInsuranceEntry.ascx</comment>
+  </data>
+  <data name="CustomerAccountAdd" xml:space="preserve">
+    <value>CustomerPortfolio//CustomerAccountAdd.ascx</value>
+    <comment>CustomerPorfolio//CustomerAccountAdd.ascx</comment>
+  </data>
+  <data name="PortfolioGovtSavingsEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioGovtSavingsEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioGovtSavingsEntry.ascx</comment>
+  </data>
+  <data name="PortfolioFixedIncomeEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioFixedIncomeEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioFixedIncomeEntry.ascx</comment>
+  </data>
+  <data name="PortfolioFixedIncomeView" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioFixedIncomeView.ascx</value>
+    <comment>CustomerPortfolio//PortfolioFixedIncomeView.ascx</comment>
+  </data>
+  <data name="CustomerDateAlertManage" xml:space="preserve">
+    <value>Alerts//CustomerDateAlertManagement.ascx</value>
+    <comment>Alerts//CustomerAlertManagement.ascx</comment>
+  </data>
+  <data name="RMAlertDashBoard" xml:space="preserve">
+    <value>Alerts//AlertDashboard.ascx</value>
+    <comment>Alerts//AlertDashboard.ascx</comment>
+  </data>
+  <data name="AlertsLeftPane" xml:space="preserve">
+    <value>Alerts//AlertsLeftPane.ascx</value>
+    <comment>Alerts//AlertsLeftPane.ascx</comment>
+  </data>
+  <data name="MoneyBackEpisodeAdd" xml:space="preserve">
+    <value>CustomerPortfolio//MoneyBackEpisodeAdd.aspx</value>
+    <comment>CustomerPortfolio//MoneyBackEpisodeAdd.aspx</comment>
+  </data>
+  <data name="ULIPPlanAdd" xml:space="preserve">
+    <value>CustomerPortfolio//ULIPPlanAdd.ascx</value>
+    <comment>CustomerPortfolio//ULIPPlanAdd.ascx</comment>
+  </data>
+  <data name="ViewInsuranceDetails" xml:space="preserve">
+    <value>CustomerPortfolio//ViewInsuranceDetails.ascx</value>
+    <comment>CustomerPortfolio//ViewInsuranceDetails.ascx</comment>
+  </data>
+  <data name="ViewGovtSavings" xml:space="preserve">
+    <value>CustomerPortfolio//ViewGovtSavings.ascx</value>
+    <comment>CustomerPortfolio//ViewGovtSavings.ascx</comment>
+  </data>
+  <data name="ViewEquityPortfolios" xml:space="preserve">
+    <value>CustomerPortfolio//ViewEquityPortfolios.ascx</value>
+    <comment>CustomerPortfolio//ViewEquityPortfolios.ascx</comment>
+  </data>
+  <data name="ViewEquityTransaction" xml:space="preserve">
+    <value>CustomerPortfolio//ViewEquityTransaction.ascx</value>
+    <comment>CustomerPortfolio//ViewEquityTransaction.ascx</comment>
+  </data>
+  <data name="RMAlertNotifications" xml:space="preserve">
+    <value>Alerts//NotificationDashboard.ascx</value>
+    <comment>Alerts//NotificationDashboard.ascx</comment>
+  </data>
+  <data name="CustomerConditionalAlertManage" xml:space="preserve">
+    <value>Alerts//CustomerDataAlertManagement.ascx</value>
+    <comment>Alerts//CustomerDataAlertManagement.ascx</comment>
+  </data>
+  <data name="CustomerTransactionalAlertManage" xml:space="preserve">
+    <value>Alerts//CustomerTransactionalAlertManagement.ascx</value>
+    <comment>Alerts//CustomerTransactionalAlertManagement.ascx</comment>
+  </data>
+  <data name="AlertServicesExecution" xml:space="preserve">
+    <value>Alerts//AlertServicesExecution.ascx</value>
+    <comment>Alerts//AlertServicesExecution.ascx</comment>
+  </data>
+  <data name="ViewMutualFundPortfolio" xml:space="preserve">
+    <value>CustomerPortfolio//ViewMutualFundPortfolio.ascx</value>
+    <comment>CustomerPortfolio//ViewMutualFundPortfolio.ascx</comment>
+  </data>
+  <data name="ViewMutualFundPortfolioTransactions" xml:space="preserve">
+    <value>CustomerPortfolio//ViewMutualFundPortfolioTransactions.ascx</value>
+    <comment>CustomerPortfolio//ViewMutualFundPortfolioTransactions.ascx</comment>
+  </data>
+  <data name="CustomerEQAccountAdd" xml:space="preserve">
+    <value>CustomerPortfolio//CustomerEQAccountAdd.ascx</value>
+    <comment>CustomerPortfolio//CustomerEQAccountAdd.ascx</comment>
+  </data>
+  <data name="CustomerMFAccountAdd" xml:space="preserve">
+    <value>CustomerPortfolio//CustomerMFAccountAdd.ascx</value>
+    <comment>CustomerPortfolio//CustomerMFAccountAdd.ascx</comment>
+  </data>
+  <data name="EquityTransactionsView" xml:space="preserve">
+    <value>CustomerPortfolio//EquityTransactionsView.ascx</value>
+    <comment>CustomerPortfolio//EquityTransactionsView.ascx</comment>
+  </data>
+  <data name="ViewEquityPortfolioTransactions" xml:space="preserve">
+    <value>CustomerPortfolio//ViewEquityPortfolioTransactions.ascx</value>
+    <comment>CustomerPortfolio//ViewEquityPortfolioTransactions.ascx</comment>
+  </data>
+  <data name="CustomerUpload" xml:space="preserve">
+    <value>Uploads//CustomerUpload.ascx</value>
+    <comment>Uploads//CustomerUpload.ascx</comment>
+  </data>
+  <data name="IFAAdminMainDashboard" xml:space="preserve">
+    <value>Advisor//IFAAdminMainDashboard.ascx</value>
+    <comment>Advisor//IFAAdminMainDashboard.ascx</comment>
+  </data>
+  <data name="AdvisorRMCustIndiDashboard" xml:space="preserve">
+    <value>Advisor//AdvisorRMCustIndiDashboard.ascx</value>
+    <comment>Advisor//AdvisorRMCustIndiDashboard.ascx</comment>
+  </data>
+  <data name="ViewMFTransaction" xml:space="preserve">
+    <value>CustomerPortfolio//ViewMFTransaction.ascx</value>
+    <comment>CustomerPortfolio//ViewMFTransaction.ascx</comment>
+  </data>
+  <data name="EquityBrokerage" xml:space="preserve">
+    <value>CustomerPortfolio//EquityBrokerage.ascx</value>
+    <comment>CustomerPortfolio//EquityBrokerage.ascx</comment>
+  </data>
+  <data name="ViewBranchAssociation" xml:space="preserve">
+    <value>Advisor//ViewBranchAssociation.ascx</value>
+    <comment>Advisor//ViewBranchAssociation.ascx</comment>
+  </data>
+  <data name="ViewAssociation" xml:space="preserve">
+    <value>Advisor//ViewAssociation.ascx</value>
+    <comment>Advisor//ViewAssociation.ascx</comment>
+  </data>
+  <data name="AdminDownload" xml:space="preserve">
+    <value>Admin//Download.ascx</value>
+    <comment>Admin//Download.ascx</comment>
+  </data>
+  <data name="AdminMaintenance" xml:space="preserve">
+    <value>Admin//Maintenance.ascx</value>
+    <comment>Admin//Maintenance.ascx</comment>
+  </data>
+  <data name="AdminMapping" xml:space="preserve">
+    <value>Admin//Mapping.ascx</value>
+    <comment>Admin//Mapping.ascx</comment>
+  </data>
+  <data name="AdminUpload" xml:space="preserve">
+    <value>Admin//Upload.ascx</value>
+    <comment>Admin//Upload.ascx</comment>
+  </data>
+  <data name="AdminPriceList" xml:space="preserve">
+    <value>Admin//PriceList.ascx</value>
+    <comment>Admin//PriceList.ascx</comment>
+  </data>
+  <data name="CustomerAssociatesAdd" xml:space="preserve">
+    <value>Customer//CustomerAssociatesAdd.ascx</value>
+    <comment>Customer//CustomerAssociatesAdd.ascx</comment>
+  </data>
+  <data name="DailyValuation" xml:space="preserve">
+    <value>Advisor//DailyValuation.ascx</value>
+    <comment>Advisor//DailyValuation.ascx</comment>
+  </data>
+  <data name="ViewUploadProcessLog" xml:space="preserve">
+    <value>Uploads//ViewUploadProcessLog.ascx</value>
+    <comment>Uploads//ViewUploadProcessLog.ascx</comment>
+  </data>
+  <data name="RejectedCAMSProfile" xml:space="preserve">
+    <value>Uploads//RejectedCAMSProfile.ascx</value>
+    <comment>Uploads//RejectedCAMSProfile.ascx</comment>
+  </data>
+  <data name="RejectedCAMSTransaction" xml:space="preserve">
+    <value>Uploads//RejectedCAMSTransaction.ascx</value>
+    <comment>Uploads//RejectedCAMSTransaction.ascx</comment>
+  </data>
+  <data name="RejectedKarvyProfile" xml:space="preserve">
+    <value>Uploads//RejectedKarvyProfle.ascx</value>
+    <comment>Uploads//RejectedKarvyProfle.ascx</comment>
+  </data>
+  <data name="RejectedKarvyTransaction" xml:space="preserve">
+    <value>Uploads//RejectedKarvyTransaction.ascx</value>
+    <comment>Uploads//RejectedKarvyTransaction.ascx</comment>
+  </data>
+  <data name="RejectedWERPProfile" xml:space="preserve">
+    <value>Uploads//RejectedWERPProfile.ascx</value>
+    <comment>Uploads//RejectedWERPProfile.ascx</comment>
+  </data>
+  <data name="RejectedWERPTransaction" xml:space="preserve">
+    <value>Uploads//RejectedWERPTransaction.ascx</value>
+    <comment>Uploads//RejectedWERPTransaction.ascx</comment>
+  </data>
+  <data name="SessionExpired" xml:space="preserve">
+    <value>General//SessionExpired.ascx</value>
+    <comment>General//SessionExpired.ascx</comment>
+  </data>
+  <data name="AdviserCustomer" xml:space="preserve">
+    <value>Advisor//AdviserCustomer.ascx</value>
+    <comment>Advisor//AdviserCustomer.ascx</comment>
+  </data>
+  <data name="AdviserRMCustNonIndiDashboard" xml:space="preserve">
+    <value>Advisor//AdviserRMCustNonIndiDashboard.ascx</value>
+    <comment>Advisor//AdviserRMCustNonIndiDashboard.ascx</comment>
+  </data>
+  <data name="UnderConstruction" xml:space="preserve">
+    <value>General//UnderConstruction.ascx</value>
+    <comment>General//UnderConstruction.ascx</comment>
+  </data>
+  <data name="CustomerPortfolio" xml:space="preserve">
+    <value>CustomerPortfolio//CustomerPortfolio.ascx</value>
+    <comment>CustomerPortfolio//CustomerPortfolio.ascx</comment>
+  </data>
+  <data name="DirectInvestorRegistration" xml:space="preserve">
+    <value>Advisor//DirectInvestorRegistration.ascx</value>
+    <comment>Advisor//DirectInvestorRegistration.ascx</comment>
+  </data>
+  <data name="RegistrationType" xml:space="preserve">
+    <value>Advisor//RegistrationType.ascx</value>
+    <comment>Advisor//RegistrationType.ascx</comment>
+  </data>
+  <data name="PortfolioSystematicEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioSystematicEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioSystematicEntry.ascx</comment>
+  </data>
+  <data name="PortfolioSystematicView" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioSystematicView.ascx</value>
+    <comment>CustomerPortfolio//PortfolioSystematicView.ascx</comment>
+  </data>
+  <data name="AdvisorCustomerAccounts" xml:space="preserve">
+    <value>Advisor//CustomerFolioMerge.ascx</value>
+    <comment>Advisor//CustomerFolioMerge.ascx</comment>
+  </data>
+  <data name="ChangeTempPassword" xml:space="preserve">
+    <value>General//ChangeTempPassword.ascx</value>
+    <comment>General//ChangeTempPassword.ascx</comment>
+  </data>
+  <data name="GenerateLoginPassword" xml:space="preserve">
+    <value>Advisor//GenerateLoginPassword.ascx</value>
+    <comment>Advisor//GenerateLoginPassword.ascx</comment>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>General//ForgotPassword.ascx</value>
+    <comment>General//ForgotPassword.ascx</comment>
+  </data>
+  <data name="RejectedMFFolio" xml:space="preserve">
+    <value>Uploads//RejectedMFFolio.ascx</value>
+    <comment>Uploads//RejectedMFFolio.ascx</comment>
+  </data>
+  <data name="RejectedEquityTransactionStaging" xml:space="preserve">
+    <value>Uploads//RejectedEquityTransactionStaging.ascx</value>
+    <comment>Uploads//RejectedEquityTransactionStaging.ascx</comment>
+  </data>
+  <data name="RejectedTradeAccountStaging" xml:space="preserve">
+    <value>Uploads//RejectedTradeAccountStaging.ascx</value>
+    <comment>Uploads//RejectedTradeAccountStaging.ascx</comment>
+  </data>
+  <data name="RejectedMFTransactionStaging" xml:space="preserve">
+    <value>Uploads//RejectedMFTransactionStaging.ascx</value>
+    <comment>Uploads//RejectedMFTransactionStaging.ascx</comment>
+  </data>
+  <data name="AdviserEQMIS" xml:space="preserve">
+    <value>Advisor//AdviserEQMIS.ascx</value>
+    <comment>Advisor//AdviserEQMIS.ascx</comment>
+  </data>
+  <data name="AdviserMFMIS" xml:space="preserve">
+    <value>Advisor//AdviserMFMIS.ascx</value>
+    <comment>Advisor//AdviserMFMIS.ascx</comment>
+  </data>
+  <data name="WERPAdminDownloadProcessLog" xml:space="preserve">
+    <value>Admin//WERPAdminDownloadProcessLog.ascx</value>
+    <comment>Admin//WERPAdminDownloadProcessLog.ascx</comment>
+  </data>
+  <data name="BMCustomer" xml:space="preserve">
+    <value>Advisor//BMCustomer.ascx</value>
+    <comment>Advisor//BMCustomer.ascx</comment>
+  </data>
+  <data name="AssociateCategory" xml:space="preserve">
+    <value>Advisor//AssociateCategory.ascx</value>
+    <comment>Advisor//AssociateCategory.ascx</comment>
+  </data>
+  <data name="AdminUploadReject" xml:space="preserve">
+    <value>Admin//UploadRejects.ascx</value>
+    <comment>Admin//UploadRejects.ascx</comment>
+  </data>
+  <data name="AdminUploadProcessLog" xml:space="preserve">
+    <value>Admin//UploadProcessLog.ascx</value>
+    <comment>Admin//UploadProcessLog.ascx</comment>
+  </data>
+  <data name="CustomerIncome" xml:space="preserve">
+    <value>Customer//CustomerIncome.ascx</value>
+    <comment>Customer//CustomerIncome.ascx</comment>
+  </data>
+  <data name="LiabilitiesMaintenanceForm" xml:space="preserve">
+    <value>CustomerPortfolio//LiabilitiesMaintenanceForm.ascx</value>
+    <comment>CustomerPortfolio//LiabilitiesMaintenanceForm.ascx</comment>
+  </data>
+  <data name="LoanProcessTracking" xml:space="preserve">
+    <value>CustomerPortfolio//LoanProcessTracking.ascx</value>
+    <comment>CustomerPortfolio//LoanProcessTracking.ascx</comment>
+  </data>
+  <data name="CustomerMFAlert" xml:space="preserve">
+    <value>Alerts//CustomerMFAlert.ascx</value>
+    <comment>Alerts//CustomerMFAlert.ascx</comment>
+  </data>
+  <data name="LiabilityView" xml:space="preserve">
+    <value>CustomerPortfolio//LiabilityView.ascx</value>
+    <comment>CustomerPortfolio//LiabilityView.ascx</comment>
+  </data>
+  <data name="AdviserAssociateCategorySetup" xml:space="preserve">
+    <value>Advisor//AdviserAssociateCategorySetup.ascx</value>
+    <comment>Advisor//AdviserAssociateCategorySetup.ascx</comment>
+  </data>
+  <data name="AdviserLoanCommsnStrucWithLoanPartner" xml:space="preserve">
+    <value>Advisor//AdviserLoanCommsnStrucWithLoanPartner.ascx</value>
+    <comment>Advisor//AdviserLoanCommsnStrucWithLoanPartner.ascx</comment>
+  </data>
+  <data name="AdviserStaffSMTP" xml:space="preserve">
+    <value>Advisor//AdviserStaffSMTP.ascx</value>
+    <comment>Advisor//AdviserStaffSMTP.ascx</comment>
+  </data>
+  <data name="LoanScheme" xml:space="preserve">
+    <value>CustomerPortfolio//AdviserLoanScheme.ascx</value>
+    <comment>CustomerPortfolio//AdviserLoanScheme.ascx</comment>
+  </data>
+  <data name="LoanSchemeView" xml:space="preserve">
+    <value>CustomerPortfolio//AdviserLoanSchemeView.ascx</value>
+    <comment>CustomerPortfolio//AdviserLoanSchemeView.ascx</comment>
+  </data>
+  <data name="CustomerEQAlerts" xml:space="preserve">
+    <value>Alerts//CustomerEQAlerts.ascx</value>
+    <comment>Alerts//CustomerEQAlerts.ascx</comment>
+  </data>
+  <data name="CustomerFIAlerts" xml:space="preserve">
+    <value>Alerts//CustomerFIAlerts.ascx</value>
+    <comment>Alerts//CustomerFIAlerts.ascx</comment>
+  </data>
+  <data name="CustomerInsuranceAlerts" xml:space="preserve">
+    <value>Alerts//CustomerInsuranceAlerts.ascx</value>
+    <comment>Alerts//CustomerInsuranceAlerts.ascx</comment>
+  </data>
+  <data name="LoanTrackingGrid" xml:space="preserve">
+    <value>Advisor//LoanTrackingGrid.ascx</value>
+    <comment>Advisor//LoanTrackingGrid.ascx</comment>
+  </data>
+  <data name="CustomerExpense" xml:space="preserve">
+    <value>Customer//CustomerExpense.ascx</value>
+    <comment>Customer//CustomerExpense.ascx</comment>
+  </data>
+  <data name="AdviserLoanMIS" xml:space="preserve">
+    <value>Advisor//AdviserLoanMIS.ascx</value>
+    <comment>Advisor//AdviserLoanMIS.ascx</comment>
+  </data>
+  <data name="SetTheme" xml:space="preserve">
+    <value>General//SetTheme.ascx</value>
+    <comment>General//SetTheme.ascx</comment>
+  </data>
+  <data name="UserSettings" xml:space="preserve">
+    <value>General//UserSettings.ascx</value>
+    <comment>General//UserSettings.ascx</comment>
+  </data>
+  <data name="UserSettingsLeftPane" xml:space="preserve">
+    <value>General//UserSettingsLeftPane.ascx</value>
+    <comment>General//UserSettingsLeftPane.ascx</comment>
+  </data>
+  <data name="CAMSProfileFolioInputRejects" xml:space="preserve">
+    <value>Uploads//CAMSProfileFolioInputRejects.ascx</value>
+    <comment>Uploads//CAMSProfileFolioInputRejects.ascx</comment>
+  </data>
+  <data name="CAMSTransInputRejects" xml:space="preserve">
+    <value>Uploads//CAMSTransInputRejects.ascx</value>
+    <comment>Uploads//CAMSTransInputRejects.ascx</comment>
+  </data>
+  <data name="DeutscheProfileFolioInputRejects" xml:space="preserve">
+    <value>Uploads//DeutscheProfileFolioInputRejects.ascx</value>
+    <comment>Uploads//DeutscheProfileFolioInputRejects.ascx</comment>
+  </data>
+  <data name="DeutscheTransInputRejects" xml:space="preserve">
+    <value>Uploads//DeutscheTransInputRejects.ascx</value>
+    <comment>Uploads//DeutscheTransInputRejects.ascx</comment>
+  </data>
+  <data name="EQTradeAccountInputRejects" xml:space="preserve">
+    <value>Uploads//EQTradeAccountInputRejects.ascx</value>
+    <comment>Uploads//EQTradeAccountInputRejects.ascx</comment>
+  </data>
+  <data name="EQTransInputRejects" xml:space="preserve">
+    <value>Uploads//EQTransInputRejects.ascx</value>
+    <comment>Uploads//EQTransInputRejects.ascx</comment>
+  </data>
+  <data name="KarvyProfileFolioInputRejects" xml:space="preserve">
+    <value>Uploads//KarvyProfileFolioInputRejects.ascx</value>
+    <comment>Uploads//KarvyProfileFolioInputRejects.ascx</comment>
+  </data>
+  <data name="KarvyTransInputRejects" xml:space="preserve">
+    <value>Uploads//KarvyTransInputRejects.ascx</value>
+    <comment>Uploads//KarvyTransInputRejects.ascx</comment>
+  </data>
+  <data name="StandardProfileInputRejects" xml:space="preserve">
+    <value>Uploads//StandardProfileInputRejects.ascx</value>
+    <comment>Uploads//StandardProfileInputRejects.ascx</comment>
+  </data>
+  <data name="TempletonProfileFolioInputRejects" xml:space="preserve">
+    <value>Uploads//TempletonProfileFolioInputRejects.ascx</value>
+    <comment>Uploads//TempletonProfileFolioInputRejects.ascx</comment>
+  </data>
+  <data name="TempletonTransInputRejects" xml:space="preserve">
+    <value>Uploads//TempletonTransInputRejects.ascx</value>
+    <comment>Uploads//TempletonTransInputRejects.ascx</comment>
+  </data>
+  <data name="RMEQMultipleTransactionsView" xml:space="preserve">
+    <value>CustomerPortfolio//RMMultipleEqTransactionsView.ascx</value>
+    <comment>CustomerPortfolio//RMMultipleEqTransactionsView.ascx</comment>
+  </data>
+  <data name="RMMultipleTransactionView" xml:space="preserve">
+    <value>CustomerPortfolio//RMMultipleTransactionView.ascx</value>
+    <comment>CustomerPortfolio//RMMultipleTransactionView.ascx</comment>
+  </data>
+  <data name="GroupAccountSetup" xml:space="preserve">
+    <value>Customer//GroupAccountSetup.ascx</value>
+    <comment>Customer//GroupAccountSetup.ascx</comment>
+  </data>
+  <data name="CustomerMFFolioView" xml:space="preserve">
+    <value>CustomerPortfolio//CustomerMFFolioView.ascx</value>
+    <comment>CustomerPortfolio//CustomerMFFolioView.ascx</comment>
+  </data>
+  <data name="RMAMCSchemewiseMIS" xml:space="preserve">
+    <value>Advisor//RMAMCSchemewiseMIS.ascx</value>
+    <comment>Advisor//RMAMCSchemewiseMIS.ascx</comment>
+  </data>
+  <data name="RMMultipleEqTransactionsEntry" xml:space="preserve">
+    <value>CustomerPortfolio//RMMultipleEqTransactionsEntry.ascx</value>
+    <comment>CustomerPortfolio//RMMultipleEqTransactionsEntry.ascx</comment>
+  </data>
+  <data name="CustomerPortfolioSetup" xml:space="preserve">
+    <value>CustomerPortfolio//CustomerPortfolioSetup.ascx</value>
+    <comment>CustomerPortfolio//CustomerPortfolioSetup.ascx</comment>
+  </data>
+  <data name="RMCustomerAMCSchemewiseMIS" xml:space="preserve">
+    <value>Advisor//RMCustomerAMCSchemewiseMIS.ascx</value>
+    <comment>Advisor//RMCustomerAMCSchemewiseMIS.ascx</comment>
+  </data>
+  <data name="LeadManagementAdd" xml:space="preserve">
+    <value>Advisor//LeadManagementAdd.ascx</value>
+    <comment>Advisor//LeadManagementAdd.ascx</comment>
+  </data>
+  <data name="PortfolioGeneralInsuranceEntry" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioGeneralInsuranceEntry.ascx</value>
+    <comment>CustomerPortfolio//PortfolioGeneralInsuranceEntry.ascx</comment>
+  </data>
+  <data name="ViewGeneralInsuranceDetails" xml:space="preserve">
+    <value>CustomerPortfolio//ViewGeneralInsuranceDetails.ascx</value>
+    <comment>CustomerPortfolio//ViewGeneralInsuranceDetails.ascx</comment>
+  </data>
+  <data name="LeadManagement" xml:space="preserve">
+    <value>Advisor//LeadManagement.ascx</value>
+    <comment>Advisor//LeadManagement.ascx</comment>
+  </data>
+  <data name="RejectedFoliosUploads" xml:space="preserve">
+    <value>Uploads//RejectedFoliosTransactionUpload.ascx</value>
+    <comment>Uploads//RejectedFoliosTransactionUpload.ascx</comment>
+  </data>
+  <data name="FinancialPlanning" xml:space="preserve">
+    <value>Advisor//FinancialPlanning.ascx</value>
+    <comment>Advisor//FinancialPlanning.ascx</comment>
+  </data>
+  <data name="MFReports" xml:space="preserve">
+    <value>Reports//MFReports.ascx</value>
+    <comment>Reports//MFReports.ascx</comment>
+  </data>
+  <data name="PortfolioGeneralInsuranceAccountAdd" xml:space="preserve">
+    <value>CustomerPortfolio//PortfolioGeneralInsuranceAccountAdd.ascx</value>
+    <comment>CustomerPortfolio//PortfolioGeneralInsuranceAccountAdd.ascx</comment>
+  </data>
+  <data name="AddDematAccountDetails" xml:space="preserve">
+    <value>Customer//AddDematAccountDetails.ascx</value>
+    <comment>Customer//AddDematAccountDetails.ascx</comment>
+  </data>
+  <data name="DematAccountDetails" xml:space="preserve">
+    <value>Customer//DematAccountDetails.ascx</value>
+    <comment>Customer//DematAccountDetails.ascx</comment>
+  </data>
+  <data name="CustomerEQAccountView" xml:space="preserve">
+    <value>CustomerPortfolio//CustomerEQAccountView.ascx</value>
+    <comment>CustomerPortfolio//CustomerEQAccountView.ascx</comment>
+  </data>
+  <data name="FinancialPlanningLeftPane" xml:space="preserve">
+    <value>Advisor//FinancialPlanningLeftPane.ascx</value>
+    <comment>Advisor//FinancialPlanningLeftPane.ascx</comment>
+  </data>
+  <data name="FPGoalProfiling" xml:space="preserve">
+    <value>Advisor//FPGoalProfiling.ascx</value>
+    <comment>Advisor//FPGoalProfiling.ascx</comment>
+  </data>
+  <data name="FPReports" xml:space="preserve">
+    <value>Advisor//FPReports.ascx</value>
+    <comment>Advisor//FPReports.ascx</comment>
+  </data>
+  <data name="AddCustomerFinancialPlanningGoalSetup" xml:space="preserve">
+    <value>Advisor//AddCustomerFinancialPlanningGoalSetup.ascx</value>
+    <comment>Advisor//AddCustomerFinancialPlanningGoalSetup.ascx</comment>
+  </data>
+  <data name="EditCustomerBankAccount" xml:space="preserve">
+    <value>Customer//EditCustomerBankAccount.ascx</value>
+    <comment>Customer//EditCustomerBankAccount.ascx</comment>
+  </data>
+  <data name="EquityReports" xml:space="preserve">
+    <value>Reports//EquityReports.ascx</value>
+    <comment>Reports//EquityReports.ascx</comment>
+  </data>
+  <data name="PortfolioReports" xml:space="preserve">
+    <value>Reports//PortfolioReports.ascx</value>
+    <comment>Reports//PortfolioReports.ascx</comment>
+  </data>
+  <data name="ReverseTransactionExceptionHandling" xml:space="preserve">
+    <value>CustomerPortfolio//ReverseTransactionExceptionHandling.ascx</value>
+    <comment>CustomerPortfolio//ReverseTransactionExceptionHandling.ascx</comment>
+  </data>
+  <data name="CustomerMFSystematicTransactionReport" xml:space="preserve">
+    <value>CustomerPortfolio//CustomerMFSystematicTransactionReport.ascx</value>
+    <comment>CustomerPortfolio//CustomerMFSystematicTransactionReport.ascx</comment>
+  </data>
+  <data name="AdviserCustomerSMSAlerts" xml:space="preserve">
+    <value>Advisor//AdviserCustomerSMSAlerts.ascx</value>
+    <comment>Advisor//AdviserCustomerSMSAlerts.ascx</comment>
+  </data>
+  <data name="AdviserCustomerManualSMS" xml:space="preserve">
+    <value>Advisor//AdviserCustomerManualSMS.ascx</value>
+    <comment>Advisor//AdviserCustomerManualSMS.ascx</comment>
+  </data>
+  <data name="RMAMCwiseMIS" xml:space="preserve">
+    <value>Advisor//RMAMCwiseMIS.ascx</value>
+    <comment>Advisor//RMAMCwiseMIS.ascx</comment>
+  </data>
+  <data name="FinancialPlanningReports" xml:space="preserve">
+    <value>Reports//FPReports.ascx</value>
+    <comment>Reports//FPReports.ascx</comment>
+  </data>
+  <data name="AdvisorRMCustGroupDashboard" xml:space="preserve">
+    <value>Advisor//AdvisorRMCustGroupDashboard.ascx</value>
+    <comment>Advisor//AdvisorRMCustGroupDashboard.ascx</comment>
+  </data>
+  <data name="AddProspectList" xml:space="preserve">
+    <value>FP//AddProspectList.ascx</value>
+    <comment>FP//AddProspectList.ascx</comment>
+  </data>
+  <data name="CustomerProspect" xml:space="preserve">
+    <value>FP//CustomerProspect.ascx</value>
+    <comment>FP//CustomerProspect.ascx</comment>
+  </data>
+  <data name="ProspectList" xml:space="preserve">
+    <value>FP//ProspectList.ascx</value>
+    <comment>FP//ProspectList.ascx</comment>
+  </data>
+  <data name="CustomerAdvisorsNote" xml:space="preserve">
+    <value>Customer//CustomerAdvisorsNote.ascx</value>
+    <comment>Customer//CustomerAdvisorsNote.ascx</comment>
+  </data>
+  <data name="CuCustomerAssociationSetup" xml:space="preserve">
+    <value>Advisor//CustomerAssociationSetup.ascx</value>
+    <comment>Advisor//CustomerAssociationSetup.ascx</comment>
+  </data>
+  <data name="AdvisorMISCommission" xml:space="preserve">
+    <value>Advisor//AdvisorMISCommission.ascx</value>
+    <comment>Advisor//AdvisorMISCommission.ascx</comment>
+  </data>
+  <data name="CustomerFPDashBoard" xml:space="preserve">
+    <value>FP//CustomerFPDashBoard.ascx</value>
+    <comment>FP//CustomerFPDashBoard.ascx</comment>
+  </data>
+  <data name="ViewMFPortfolioValuation" xml:space="preserve">
+    <value>CustomerPortfolio//ViewMFPortfolioValuation.ascx</value>
+    <comment>CustomerPortfolio//ViewMFPortfolioValuation.ascx</comment>
+  </data>
+  <data name="Calculators" xml:space="preserve">
+    <value>General//Calculators.ascx</value>
+    <comment>General//Calculators.ascx</comment>
+  </data>
+  <data name="AddAdviserSubscription" xml:space="preserve">
+    <value>SuperAdmin//AddAdviserSubscription.ascx</value>
+    <comment>SuperAdmin//AddAdviserSubscription.ascx</comment>
+  </data>
+  <data name="SuperAdminLeftPane" xml:space="preserve">
+    <value>SuperAdmin//SuperAdminLeftPane.ascx</value>
+    <comment>SuperAdmin//SuperAdminLeftPane.ascx</comment>
+  </data>
+  <data name="FPSectional" xml:space="preserve">
+    <value>Reports/FPSectional.ascx</value>
+    <comment>Reports/FPSectional.ascx</comment>
+  </data>
+  <data name="IFF" xml:space="preserve">
+    <value>SuperAdmin//IFF.ascx</value>
+    <comment>SuperAdmin//IFF.ascx</comment>
+  </data>
+  <data name="IFFAdd" xml:space="preserve">
+    <value>SuperAdmin//IFFAdd.ascx</value>
+    <comment>SuperAdmin//IFFAdd.ascx</comment>
+  </data>
+  <data name="SuperAdminMessageBroadcast" xml:space="preserve">
+    <value>SuperAdmin//SuperAdminMessageBroadcast.ascx</value>
+    <comment>SuperAdmin//SuperAdminMessageBroadcast.ascx</comment>
+  </data>
+  <data name="OfflineForm" xml:space="preserve">
+    <value>Reports//FPOfflineForm.ascx</value>
+    <comment>Reports//FPOfflineForm.ascx</comment>
+  </data>
+  <data name="SuperAdminConfiguration" xml:space="preserve">
+    <value>SuperAdmin//SuperAdminConfiguration.ascx</value>
+    <comment>SuperAdmin//SuperAdminConfiguration.ascx</comment>
+  </data>
+</root>

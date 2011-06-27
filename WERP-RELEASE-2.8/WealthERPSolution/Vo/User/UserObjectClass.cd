@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VoUser.AdvisorVo">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAwIIAIAAABAAAAAoEAAAIAEADAABAIIoAAAA=</HashCode>
+      <FileName>AdvisorVo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VoUser.CustomerVo">
+    <Position X="7.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GpBG6AlAtA4IMgbFUBKoAAB0iTB0DhoAIUsDTBFwCEg=</HashCode>
+      <FileName>CustomerVo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VoUser.RMVo" Collapsed="true">
+    <Position X="5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAgAAAIAQAICAAAAAAAAAAAACAAAAAAgAEAFA=</HashCode>
+      <FileName>RMVo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VoUser.UserVo">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAUAEACIAAAAAAAAQAYgAAAAACAACAAAAAAAAAAg=</HashCode>
+      <FileName>UserVo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
