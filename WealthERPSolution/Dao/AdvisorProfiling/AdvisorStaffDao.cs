@@ -810,6 +810,11 @@ namespace DaoAdvisorProfiling
                         rmVo.CTC = Double.Parse(dr["AR_CTC"].ToString());
                     else
                         rmVo.CTC = 0;
+
+                    if (dr["A_AdviserId"].ToString() != "")
+                        rmVo.AdviserId = int.Parse(dr["A_AdviserId"].ToString());
+                    else
+                        rmVo.AdviserId = 0;
                 }
             }
             catch (BaseApplicationException Ex)

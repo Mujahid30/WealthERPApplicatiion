@@ -192,9 +192,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoHostConfig", "Bo\BoHostCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoSuperAdmin", "Vo\VoSuperAdmin\VoSuperAdmin.csproj", "{1DBDE460-D9A9-462A-84DE-A5C73D3C7D05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WealthERP_Login_Widget", "WealthERP_Login_Widget\WealthERP_Login_Widget\WealthERP_Login_Widget\WealthERP_Login_Widget.csproj", "{F14C3949-A71A-4613-8C52-7E920AF491EC}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 75
+		SccNumberOfProjects = 76
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -483,6 +485,9 @@ Global
 		SccProjectTopLevelParentUniqueName74 = WealthERPSolution.sln
 		SccProjectName74 = Vo/VoSuperAdmin
 		SccLocalPath74 = Vo\\VoSuperAdmin
+		SccProjectUniqueName75 = WealthERP_Login_Widget\\WealthERP_Login_Widget\\WealthERP_Login_Widget\\WealthERP_Login_Widget.csproj
+		SccProjectName75 = WealthERP_Login_Widget/WealthERP_Login_Widget/WealthERP_Login_Widget
+		SccLocalPath75 = WealthERP_Login_Widget\\WealthERP_Login_Widget\\WealthERP_Login_Widget
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -789,6 +794,10 @@ Global
 		{1DBDE460-D9A9-462A-84DE-A5C73D3C7D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DBDE460-D9A9-462A-84DE-A5C73D3C7D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DBDE460-D9A9-462A-84DE-A5C73D3C7D05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F14C3949-A71A-4613-8C52-7E920AF491EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F14C3949-A71A-4613-8C52-7E920AF491EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F14C3949-A71A-4613-8C52-7E920AF491EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F14C3949-A71A-4613-8C52-7E920AF491EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
