@@ -573,6 +573,13 @@
     <Compile Include="Advisor\AdviserEQMIS.ascx.designer.cs">
       <DependentUpon>AdviserEQMIS.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\AdviserIPPool.ascx.cs">
+      <DependentUpon>AdviserIPPool.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserIPPool.ascx.designer.cs">
+      <DependentUpon>AdviserIPPool.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\AdviserLoanCommsnStrucWithLoanPartner.ascx.cs">
       <DependentUpon>AdviserLoanCommsnStrucWithLoanPartner.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3018,6 +3025,7 @@
     <Content Include="Advisor\AdviserCustomerManualSMS.ascx" />
     <Content Include="Advisor\AdviserCustomerSMSAlerts.ascx" />
     <Content Include="Advisor\AdviserEQMIS.ascx" />
+    <Content Include="Advisor\AdviserIPPool.ascx" />
     <Content Include="Advisor\AdviserLoanCommsnStrucWithLoanPartner.ascx" />
     <Content Include="Advisor\AdviserLoanMIS.ascx" />
     <Content Include="Advisor\AdviserMFMIS.ascx" />

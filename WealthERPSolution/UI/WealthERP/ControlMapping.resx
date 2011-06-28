@@ -1165,4 +1165,8 @@
     <value>Advisor//AdviserRMMFSystematicMIS.ascx</value>
     <comment>Advisor//AdviserRMMFSystematicMIS.ascx</comment>
   </data>
+  <data name="AdviserIPPool" xml:space="preserve">
+    <value>Advisor//AdviserIPPool.ascx</value>
+    <comment>Advisor//AdviserIPPool.ascx</comment>
+  </data>
 </root>
