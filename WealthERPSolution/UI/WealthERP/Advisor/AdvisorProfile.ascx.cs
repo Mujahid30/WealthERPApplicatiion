@@ -124,6 +124,14 @@ namespace WealthERP.Advisor
                     lblmtype.Text = "No";
                 }
                 else { lblmtype.Text = "Yes"; }
+
+                // Checking IP Security Enable or not..
+
+                if (advisorVo.IsIPEnable == 0)
+                    lblChkIPEnableAns.Text = "No";
+                else
+                    lblChkIPEnableAns.Text = "Yes";
+
             }
             catch (BaseApplicationException Ex)
             {
