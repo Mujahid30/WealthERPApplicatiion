@@ -2133,15 +2133,64 @@ namespace DaoAdvisorProfiling
              db.AddOutParameter(getCustomerListCmd, "@count", DbType.Int64, 1);
              getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
              count =int.Parse(db.GetParameterValue(getCustomerListCmd, "@count").ToString());            
-             return getCustomerDs;
-
-                  
+             return getCustomerDs;             
      }
 
 
+        /// <summary>
+        /// Filtering the folio no. from a textbox provided in the gridview.
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="folioNumberFilter"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+
+     public DataSet FilterFolioNumber(int adviserId, int currentPage, string folioNumberFilter, out int count)
+     {
+         Database db;
+         DbCommand getCustomerListCmd;
+         DataSet getCustomerDs;
+         count = 0;
+         try
+         {
+             db = DatabaseFactory.CreateDatabase("wealtherp");
+             getCustomerListCmd = db.GetStoredProcCommand("SP_FilterFolioNumber");
+             db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
+             db.AddInParameter(getCustomerListCmd, "@currentPage", DbType.Int32, currentPage);
+
+             if (folioNumberFilter != "")
+                 db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, folioNumberFilter);
+             else
+                 db.AddInParameter(getCustomerListCmd, "@Search", DbType.String, DBNull.Value);
+
+             db.AddOutParameter(getCustomerListCmd, "@count", DbType.Int64, 10);
+             getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
+             count = int.Parse(db.GetParameterValue(getCustomerListCmd, "@count").ToString());
+            
+         }
+         catch (Exception Ex)
+         {
+             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+             NameValueCollection FunctionInfo = new NameValueCollection();
+             FunctionInfo.Add("Method", "AdvisorBranchDao.cs:FilterFolioNumber()");
+             object[] objects = new object[4];
+             objects[0] = adviserId;
+             objects[1] = currentPage;
+             objects[2] = folioNumberFilter;
+             objects[3] = count;
+            
+             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+             exBase.AdditionalInformation = FunctionInfo;
+             ExceptionManager.Publish(exBase);
+             throw exBase;
+         }
+         return getCustomerDs;
+
+     }
+
      public DataSet GetCustomerFolioMergeList(int customerId, int amcCode,string fnumber)
      {
-
          Database db;
          DbCommand getCustomerListCmd;
          DataSet getCustomerDs;
@@ -2156,11 +2205,52 @@ namespace DaoAdvisorProfiling
 
 
      }
+    
+     /// <summary>
+     /// Moving a folio from one customer to another customer's Portfolio 
+     /// </summary>
+     /// <param name="amcCode"></param>
+     /// <param name="folioNumber"></param>
+     /// <param name="fromPortfolioId"></param>
+     /// <param name="toPortFolioId"></param>
+     /// <returns></returns>
+     public DataSet CustomerFolioMoveToCustomer(int amcCode,string folioNumber, int fromPortfolioId, int toPortFolioId)
+     {
+         Database CustomerFolioMoveDb;
+         DbCommand CustomerFolioMoveCmd;
+         DataSet CustomerFolioMoveDs = new DataSet();
 
+         try
+         {
+             CustomerFolioMoveDb = DatabaseFactory.CreateDatabase("wealtherp");
+             CustomerFolioMoveCmd = CustomerFolioMoveDb.GetStoredProcCommand("SP_CustomerFolioMoveToCustomer");
+             CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@amcCode", DbType.Int32, amcCode);
+             CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@folioNumber", DbType.String, folioNumber);
+             CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@fromPortfolioId", DbType.Int32, fromPortfolioId);
+             CustomerFolioMoveDb.AddInParameter(CustomerFolioMoveCmd, "@toPortFolioId", DbType.Int32, toPortFolioId);
+             CustomerFolioMoveDs = CustomerFolioMoveDb.ExecuteDataSet(CustomerFolioMoveCmd);
+         }
+         catch (Exception Ex)
+         {
+             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+             NameValueCollection FunctionInfo = new NameValueCollection();
+             FunctionInfo.Add("Method", "AdvisorBranchDao.cs:CustomerFolioMoveToCustomer()");
+             object[] objects = new object[4];
+             objects[0] = amcCode;
+             objects[1] = folioNumber;
+             objects[2] = fromPortfolioId;
+             objects[3] = toPortFolioId;
+
+             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+             exBase.AdditionalInformation = FunctionInfo;
+             ExceptionManager.Publish(exBase);
+             throw exBase;
+         }
+         return CustomerFolioMoveDs;
+     }
 
      public bool CustomerFolioMerged(string ffromfolio, string fnumber, int customerId)
      {
-
          Database db;
          DbCommand getCustomerListCmd;
          DataSet getCustomerDs;
@@ -2173,8 +2263,6 @@ namespace DaoAdvisorProfiling
          db.AddInParameter(getCustomerListCmd, "@CustomerID", DbType.Int32, customerId);
          getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
          return result ;
-
-
      }
 
         /* End For Branch RM dropdowns */
