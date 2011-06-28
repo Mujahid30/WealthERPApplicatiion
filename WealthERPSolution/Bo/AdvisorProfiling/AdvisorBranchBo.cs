@@ -1441,9 +1441,49 @@ namespace BoAdvisorProfiling
            
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
 
-            return advisorBranchDao.GetAdviserCustomerFolioMerge(adviserId, currentPage, custNameFilter, out count);
-            
-                              
+            return advisorBranchDao.GetAdviserCustomerFolioMerge(adviserId, currentPage, custNameFilter, out count); 
+        }
+
+        /// <summary>
+        /// Filtering folio no. from a textbox.
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="folioNumberFilter"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+
+        public DataSet FilterFolioNumber(int adviserId, int currentPage, string folioNumberFilter, out int count)
+        {
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            DataSet dsFilterFolio = new DataSet();
+            count = 0;
+            try
+            {
+                dsFilterFolio = advisorBranchDao.FilterFolioNumber(adviserId, currentPage, folioNumberFilter, out count);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:FilterFolioNumber(int adviserId, int currentPage, string folioNumberFilter, out int count)");
+
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = currentPage;
+                objects[2] = folioNumberFilter;
+                objects[3] = count;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsFilterFolio;
         }
 
         public DataSet GetCustomerFolioMergeList(int customerId, int amcCode, string fnumber)
@@ -1456,14 +1496,51 @@ namespace BoAdvisorProfiling
 
         }
 
+        /// <summary>
+        /// Moving a folio from one customer to another customer's Portfolio
+        /// </summary>
+        /// <param name="amcCode"></param>
+        /// <param name="folioNumber"></param>
+        /// <param name="fromPortfolioId"></param>
+        /// <param name="toPortFolioId"></param>
+        /// <returns></returns>
+        
+        public DataSet CustomerFolioMoveToCustomer(int amcCode, string folioNumber, int fromPortfolioId, int toPortFolioId)
+        {
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            DataSet dsCustomerFolioMoveToCustomer = new DataSet();
+
+            try
+            {
+                dsCustomerFolioMoveToCustomer = advisorBranchDao.CustomerFolioMoveToCustomer(amcCode, folioNumber, fromPortfolioId, toPortFolioId);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:CustomerFolioMoveToCustomer(int amcCode, string folioNumber, int fromPortfolioId, int toPortFolioId)");
+
+                object[] objects = new object[4];
+                objects[0] = amcCode;
+                objects[1] = folioNumber;
+                objects[2] = fromPortfolioId;
+                objects[3] = toPortFolioId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
+            return dsCustomerFolioMoveToCustomer;
+        }
+
         public bool CustomerFolioMerged(string ffromfolio, string fnumber ,int customerId)
         {
-
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
 
             return advisorBranchDao.CustomerFolioMerged(ffromfolio, fnumber,customerId);
-
-
         }
 
 
